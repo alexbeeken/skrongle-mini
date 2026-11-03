@@ -1,0 +1,646 @@
+{
+  "id": "a1-prepositions",
+  "slug": "prepositions-en-a-de-con-sin",
+  "title": "Prepositions: en, a, de, con, sin, para, por",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 42,
+  "summary": "The small words that glue sentences together, and where things are.",
+  "focus": "Core prepositions and prepositions of place with estar",
+  "prerequisites": [
+    "a1-ser-vs-estar",
+    "a1-hay-weather"
+  ],
+  "content": "## The core prepositions\n\n| | meaning | example |\n|---|---|---|\n| **en** | in, on, at | *Vivo en Madrid. El libro está en la mesa. Estoy en casa.* |\n| **a** | to; at (time); personal a | *Voy a Lima. A las dos. Veo a Juan.* |\n| **de** | of, from; 's | *Soy de Perú. El coche de Ana. Una taza de café.* |\n| **con** | with | *Vivo con mi hermana. Café con leche.* |\n| **sin** | without | *Un café sin azúcar.* |\n| **para** | for, in order to | *Un regalo para ti. Estudio para aprender.* |\n| **por** | through, by, because of; part of day | *Paseo por el parque. Por la mañana.* |\n| **sobre** | on (top of), about | *Sobre la mesa. Un libro sobre España.* |\n| **entre** | between, among | *Entre la casa y el banco.* |\n| **hacia** | towards | *Camino hacia la playa.* |\n\n**De** also describes: *una mesa de madera* (a wooden table), *la clase de español*.\n\n## With me, with you\n\n*Con* has two special forms: **conmigo** (with me) and **contigo** (with you): *¿Vienes conmigo?*\n\n## Where things are: estar + place\n\n| | |\n|---|---|\n| encima de / sobre | on top of |\n| debajo de | under |\n| delante de | in front of |\n| detrás de | behind |\n| al lado de | next to |\n| cerca de / lejos de | near / far from |\n| dentro de | inside |\n| a la derecha / izquierda de | to the right / left of |\n| enfrente de | opposite |\n\n- *El gato está debajo de la mesa.*: The cat is under the table.\n- *La farmacia está al lado del banco.*: The chemist's is next to the bank. (*de + el = del*)\n- *Las llaves están dentro de la mochila.*",
+  "vocabulary": [
+    {
+      "term": "en",
+      "meaning": "in, on, at",
+      "example": "Vivo en Madrid.",
+      "example_meaning": "I live in Madrid."
+    },
+    {
+      "term": "a",
+      "meaning": "to; at",
+      "example": "Voy a Lima a las dos.",
+      "example_meaning": "I'm going to Lima at two o'clock."
+    },
+    {
+      "term": "de",
+      "meaning": "of, from",
+      "example": "Soy de Perú.",
+      "example_meaning": "I'm from Peru."
+    },
+    {
+      "term": "con",
+      "meaning": "with",
+      "example": "Café con leche.",
+      "example_meaning": "Coffee with milk."
+    },
+    {
+      "term": "sin",
+      "meaning": "without",
+      "example": "Sin azúcar, por favor.",
+      "example_meaning": "Without sugar, please."
+    },
+    {
+      "term": "para",
+      "meaning": "for; in order to",
+      "example": "Un regalo para ti.",
+      "example_meaning": "A gift for you."
+    },
+    {
+      "term": "por",
+      "meaning": "through, by; in (part of day)",
+      "example": "Paseo por el parque.",
+      "example_meaning": "I walk through the park."
+    },
+    {
+      "term": "conmigo",
+      "meaning": "with me",
+      "example": "¿Vienes conmigo?",
+      "example_meaning": "Are you coming with me?"
+    },
+    {
+      "term": "debajo de",
+      "meaning": "under",
+      "example": "El gato está debajo de la mesa.",
+      "example_meaning": "The cat is under the table."
+    },
+    {
+      "term": "encima de",
+      "meaning": "on top of",
+      "example": "El libro está encima de la mesa.",
+      "example_meaning": "The book is on top of the table."
+    },
+    {
+      "term": "al lado de",
+      "meaning": "next to",
+      "example": "Está al lado del banco.",
+      "example_meaning": "It's next to the bank."
+    },
+    {
+      "term": "delante de",
+      "meaning": "in front of",
+      "example": "Delante de la puerta.",
+      "example_meaning": "In front of the door."
+    },
+    {
+      "term": "detrás de",
+      "meaning": "behind",
+      "example": "Detrás de la iglesia.",
+      "example_meaning": "Behind the church."
+    },
+    {
+      "term": "dentro de",
+      "meaning": "inside",
+      "example": "Dentro de la mochila.",
+      "example_meaning": "Inside the backpack."
+    },
+    {
+      "term": "la mochila",
+      "meaning": "backpack",
+      "example": "Mi mochila es azul.",
+      "example_meaning": "My backpack is blue."
+    },
+    {
+      "term": "la llave",
+      "meaning": "key",
+      "example": "¿Dónde está la llave?",
+      "example_meaning": "Where is the key?"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-prep-01",
+      "prompt": "Vivo ___ Madrid.",
+      "type": "multiple-choice",
+      "options": [
+        "en",
+        "a",
+        "de"
+      ],
+      "correct_answer": "en",
+      "explanation": "Location: en Madrid.",
+      "hints": [
+        "in = en"
+      ],
+      "teaches": [
+        "en"
+      ]
+    },
+    {
+      "question_id": "a1-prep-02",
+      "prompt": "Soy ___ Perú.",
+      "type": "multiple-choice",
+      "options": [
+        "de",
+        "en",
+        "a"
+      ],
+      "correct_answer": "de",
+      "explanation": "Origin: de.",
+      "hints": [
+        "from = de"
+      ],
+      "teaches": [
+        "de"
+      ]
+    },
+    {
+      "question_id": "a1-prep-03",
+      "prompt": "Un café ___ leche, ___ azúcar.",
+      "type": "multiple-choice",
+      "options": [
+        "con / sin",
+        "con / con",
+        "sin / con"
+      ],
+      "correct_answer": "con / sin",
+      "explanation": "With milk, without sugar: con leche, sin azúcar.",
+      "hints": [
+        "with / without"
+      ],
+      "teaches": [
+        "con",
+        "sin"
+      ]
+    },
+    {
+      "question_id": "a1-prep-04",
+      "prompt": "Translate: with me → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "conmigo",
+      "accepted_answers": [],
+      "explanation": "Con + mí becomes conmigo.",
+      "hints": [
+        "one word"
+      ],
+      "teaches": [
+        "conmigo"
+      ]
+    },
+    {
+      "question_id": "a1-prep-05",
+      "prompt": "El gato está ___ la mesa. (under)",
+      "type": "multiple-choice",
+      "options": [
+        "debajo de",
+        "encima de",
+        "detrás de"
+      ],
+      "correct_answer": "debajo de",
+      "explanation": "Under = debajo de.",
+      "hints": [
+        "debajo"
+      ],
+      "teaches": [
+        "debajo de"
+      ]
+    },
+    {
+      "question_id": "a1-prep-06",
+      "prompt": "Complete: La farmacia está al lado ___ banco.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "del",
+      "accepted_answers": [],
+      "explanation": "al lado de + el banco = al lado del banco.",
+      "hints": [
+        "de + el"
+      ],
+      "teaches": [
+        "al lado de"
+      ]
+    },
+    {
+      "question_id": "a1-prep-07",
+      "prompt": "Un regalo ___ ti.",
+      "type": "multiple-choice",
+      "options": [
+        "para",
+        "por",
+        "a"
+      ],
+      "correct_answer": "para",
+      "explanation": "Intended recipient: para.",
+      "hints": [
+        "for someone = para"
+      ],
+      "teaches": [
+        "para"
+      ]
+    },
+    {
+      "question_id": "a1-prep-08",
+      "prompt": "Paseo ___ el parque ___ la mañana.",
+      "type": "multiple-choice",
+      "options": [
+        "por / por",
+        "para / en",
+        "en / por"
+      ],
+      "correct_answer": "por / por",
+      "explanation": "Through a place and a part of the day both use por.",
+      "hints": [
+        "por"
+      ],
+      "teaches": [
+        "por"
+      ]
+    },
+    {
+      "question_id": "a1-prep-09",
+      "prompt": "Las llaves están ___ la mochila. (inside)",
+      "type": "multiple-choice",
+      "options": [
+        "dentro de",
+        "delante de",
+        "sobre"
+      ],
+      "correct_answer": "dentro de",
+      "explanation": "Inside = dentro de.",
+      "hints": [
+        "inside"
+      ],
+      "teaches": [
+        "dentro de",
+        "la llave",
+        "la mochila"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Un té sin azúcar, por favor.",
+      "meaning": "A tea without sugar, please."
+    },
+    {
+      "text": "¿Vienes conmigo a la playa?",
+      "meaning": "Are you coming to the beach with me?",
+      "note": "New word: la playa = the beach."
+    },
+    {
+      "text": "Este regalo es para mi madre.",
+      "meaning": "This present is for my mother.",
+      "note": "New word: el regalo = the present."
+    },
+    {
+      "text": "Las llaves están encima de la mesa.",
+      "meaning": "The keys are on top of the table.",
+      "note": "Location takes estar."
+    },
+    {
+      "text": "El gato está detrás de la puerta.",
+      "meaning": "The cat is behind the door."
+    },
+    {
+      "text": "Vivo en Sevilla con mi hermana y mi madre.",
+      "meaning": "I live in Seville with my sister and my mother."
+    },
+    {
+      "text": "Mi mochila está dentro del coche de mi padre.",
+      "meaning": "My backpack is inside my father's car.",
+      "note": "de + el = del."
+    },
+    {
+      "text": "Por la mañana paseo por el parque con mi abuela y mis primos.",
+      "meaning": "In the morning I walk through the park with my grandmother and my cousins."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The core prepositions"
+    },
+    {
+      "vocab": 7
+    },
+    {
+      "question": "a1-prep-01"
+    },
+    {
+      "question": "a1-prep-02"
+    },
+    {
+      "question": "a1-prep-03"
+    },
+    {
+      "question": "a1-prep-07"
+    },
+    {
+      "question": "a1-prep-08"
+    },
+    {
+      "section": "With me"
+    },
+    {
+      "vocab": 1
+    },
+    {
+      "question": "a1-prep-04"
+    },
+    {
+      "section": "Where things are"
+    },
+    {
+      "vocab": 8
+    },
+    {
+      "question": "a1-prep-05"
+    },
+    {
+      "question": "a1-prep-06"
+    },
+    {
+      "question": "a1-prep-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-prep-conv-keys",
+      "title": "Where are my keys?",
+      "scenario": "Mateo can't find his keys and his sister Lola helps.",
+      "role_a": "Mateo",
+      "role_b": "Lola",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿Dónde están mis llaves? No están en la mesa.",
+          "meaning": "Where are my keys? They're not on the table.",
+          "note": "en"
+        },
+        {
+          "speaker": "b",
+          "text": "¿Están dentro de tu mochila?",
+          "meaning": "Are they inside your backpack?",
+          "note": "dentro de"
+        },
+        {
+          "speaker": "a",
+          "text": "No. Tampoco están debajo de la cama.",
+          "meaning": "No. They're not under the bed either.",
+          "note": "debajo de"
+        },
+        {
+          "speaker": "b",
+          "text": "Mira detrás de la puerta, al lado del abrigo.",
+          "meaning": "Look behind the door, next to the coat.",
+          "note": "detrás de; al lado del"
+        },
+        {
+          "speaker": "a",
+          "text": "¡Aquí están, encima del abrigo! Gracias.",
+          "meaning": "Here they are, on top of the coat! Thanks.",
+          "note": "encima de"
+        },
+        {
+          "speaker": "b",
+          "text": "¿Vas a la ciudad? Voy contigo.",
+          "meaning": "Are you going to the city? I'll come with you.",
+          "note": "a; contigo"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, voy a la tienda para comprar pan.",
+          "meaning": "Yes, I'm going to the shop to buy bread.",
+          "note": "para + infinitive"
+        },
+        {
+          "speaker": "b",
+          "text": "Pasamos por el parque, ¿vale?",
+          "meaning": "Let's go through the park, ok?",
+          "note": "por"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🧭",
+    "bites": [
+      {
+        "title": "En = just being there",
+        "emoji": "📍",
+        "rule": "En covers in, on and at all at once: en Madrid, en la mesa, en casa. If you're simply somewhere, en is your default.",
+        "example": "Estoy en casa.",
+        "example_meaning": "I'm at home."
+      },
+      {
+        "title": "A goes, de comes",
+        "emoji": "➡️",
+        "rule": "A marks a destination or clock time (voy a Lima, a las dos); de marks origin or owner (soy de Perú, el coche de Ana).",
+        "example": "Voy a Lima, pero soy de Perú.",
+        "example_meaning": "I'm going to Lima, but I'm from Peru."
+      },
+      {
+        "title": "Conmigo, contigo",
+        "emoji": "🤝",
+        "rule": "Con = with, sin = without. With me and with you fuse into one word: conmigo, contigo. 'Con mí' doesn't exist.",
+        "example": "¿Vienes conmigo?",
+        "example_meaning": "Are you coming with me?"
+      },
+      {
+        "title": "Place phrases end in de",
+        "emoji": "🐈",
+        "rule": "Debajo de, encima de, al lado de, detrás de, dentro de: the de is part of the phrase, and de + el squeezes into del.",
+        "example": "La farmacia está al lado del banco.",
+        "example_meaning": "The chemist's is next to the bank."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "En, a or de?",
+        "buckets": [
+          "en",
+          "a",
+          "de"
+        ],
+        "items": [
+          {
+            "text": "Vivo ___ Madrid.",
+            "bucket": 0
+          },
+          {
+            "text": "Voy ___ Lima.",
+            "bucket": 1
+          },
+          {
+            "text": "Soy ___ Perú.",
+            "bucket": 2
+          },
+          {
+            "text": "Estoy ___ casa.",
+            "bucket": 0
+          },
+          {
+            "text": "La clase es ___ las dos.",
+            "bucket": 1
+          },
+          {
+            "text": "el coche ___ Ana",
+            "bucket": 2
+          },
+          {
+            "text": "una taza ___ café",
+            "bucket": 2
+          },
+          {
+            "text": "Veo ___ Juan.",
+            "bucket": 1
+          }
+        ],
+        "why": "Being somewhere takes en; going somewhere, clock times and people as objects take a; origin, owner and contents take de."
+      },
+      {
+        "title": "Por or para?",
+        "buckets": [
+          "por",
+          "para"
+        ],
+        "items": [
+          {
+            "text": "un regalo ___ ti",
+            "bucket": 1
+          },
+          {
+            "text": "Paseo ___ el parque.",
+            "bucket": 0
+          },
+          {
+            "text": "___ la mañana",
+            "bucket": 0
+          },
+          {
+            "text": "Estudio ___ aprender.",
+            "bucket": 1
+          },
+          {
+            "text": "Voy a la tienda ___ comprar pan.",
+            "bucket": 1
+          }
+        ],
+        "why": "Para points to a recipient or a purpose; por moves through a place or marks a part of the day."
+      },
+      {
+        "title": "Right or wrong?",
+        "buckets": [
+          "✓ correct",
+          "✗ wrong"
+        ],
+        "items": [
+          {
+            "text": "al lado del banco",
+            "bucket": 0
+          },
+          {
+            "text": "al lado de el banco",
+            "bucket": 1
+          },
+          {
+            "text": "conmigo",
+            "bucket": 0
+          },
+          {
+            "text": "con mí",
+            "bucket": 1
+          },
+          {
+            "text": "debajo de la mesa",
+            "bucket": 0
+          },
+          {
+            "text": "debajo la mesa",
+            "bucket": 1
+          },
+          {
+            "text": "contigo",
+            "bucket": 0
+          },
+          {
+            "text": "con ti",
+            "bucket": 1
+          }
+        ],
+        "why": "De + el always contracts to del, place phrases keep their de, and con + mí/ti become conmigo/contigo."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Vivo a Madrid con mi hermana.",
+        "wrong": "a",
+        "fix": "en",
+        "why": "Living somewhere is location: en Madrid."
+      },
+      {
+        "sentence": "¿De dónde son tus abuelos? Son en Perú.",
+        "wrong": "en",
+        "fix": "de",
+        "why": "Origin takes de: son de Perú."
+      },
+      {
+        "sentence": "El gato está debajo en la mesa.",
+        "wrong": "en",
+        "fix": "de",
+        "why": "The phrase is debajo de: debajo de la mesa."
+      },
+      {
+        "sentence": "Voy en la tienda para comprar pan.",
+        "wrong": "en",
+        "fix": "a",
+        "why": "Going to a place takes a: voy a la tienda."
+      },
+      {
+        "sentence": "Es un regalo por ti.",
+        "wrong": "por",
+        "fix": "para",
+        "why": "A gift intended for someone takes para."
+      },
+      {
+        "sentence": "Paseo para el parque por la mañana.",
+        "wrong": "para",
+        "fix": "por",
+        "why": "Moving through a place takes por: por el parque."
+      }
+    ],
+    "builds": [
+      {
+        "text": "El gato está debajo de la mesa.",
+        "meaning": "The cat is under the table.",
+        "distractors": [
+          "encima",
+          "en"
+        ]
+      },
+      {
+        "text": "¿Vienes conmigo al parque?",
+        "meaning": "Are you coming to the park with me?",
+        "distractors": [
+          "con",
+          "mí"
+        ]
+      },
+      {
+        "text": "Un café con leche, sin azúcar.",
+        "meaning": "A white coffee, without sugar.",
+        "distractors": [
+          "de"
+        ]
+      },
+      {
+        "text": "Las llaves están dentro de la mochila.",
+        "meaning": "The keys are inside the backpack.",
+        "distractors": [
+          "en"
+        ]
+      },
+      {
+        "text": "La farmacia está al lado del banco.",
+        "meaning": "The chemist's is next to the bank.",
+        "distractors": [
+          "de",
+          "el"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t2("guide.play.title", "n", number, "title", lesson.title.as_str()) }}{% endblock %}
+{% block modenav %}{% let active = "stages" %}{% include "nav_play.html" %}{% endblock %}
+{% block content %}
+<section class="stage-play" id="stage" data-testid="stage" data-lesson-id="{{ lesson.slug }}" data-lesson="{{ lesson.id }}" data-slug="{{ lesson.slug }}"
+         data-start="{{ start_step }}" data-total="{{ steps.len() }}" data-praise="{{ course.praise }}" data-lang="{{ course.term_lang }}">
+  <header class="quiz-head">
+    <div>
+      <p class="crumbs"><a href="{{ crate::base_path() }}/guide">{{ crate::t("guide.play.crumb_guide") }}</a> › {{ crate::t1("guide.play.stage_n", "n", number) }} · {{ unit }} ·
+        <a href="{{ crate::base_path() }}/lessons/{{ lesson.slug }}">{{ crate::t("guide.play.full_lesson") }}</a></p>
+      <h1>{{ lesson.title }}</h1>
+    </div>
+    <div class="stage-hud">
+      {% if best_stars > 0 %}<span class="stars" title="{{ crate::t("guide.play.best_result") }}">{% if best_stars >= 1 %}★{% else %}☆{% endif %}{% if best_stars >= 2 %}★{% else %}☆{% endif %}{% if best_stars >= 3 %}★{% else %}☆{% endif %}</span>{% endif %}
+      <span class="hud-step"><span id="hud-pos">{{ start_step + 1 }}</span> / {{ steps.len() }}</span>
+    </div>
+  </header>
+  <div class="bar slim"><div class="fill" id="stage-bar" style="width:0%"></div></div>
+
+  {% for s in steps %}
+  <article class="step step-{{ s.kind }}" data-testid="stage-step" data-index="{{ s.index }}" data-kind="{{ s.kind }}"
+           {% if s.kind == "question" %}data-qid="{{ s.question_id }}" data-qkind="{{ s.qkind }}"{% endif %} hidden>
+    {% if s.kind == "concept" %}
+      <p class="step-label">{{ crate::t("guide.play.concept") }}</p>
+      <h2>{{ s.title }}</h2>
+      <div class="prose" lang="{{ course.term_lang }}">{{ s.html|safe }}</div>
+      <div class="actions"><button type="button" class="btn big" data-testid="stage-continue" data-continue>{{ crate::t("guide.play.got_it") }}</button></div>
+
+    {% else if s.kind == "tip" %}
+      <p class="step-label">{{ crate::t("guide.play.tip") }}</p>
+      <p class="lead">{{ s.text }}</p>
+      <div class="actions"><button type="button" class="btn big" data-testid="stage-continue" data-continue>{{ crate::t("guide.play.next") }}</button></div>
+
+    {% else if s.kind == "vocab" %}
+      <p class="step-label">{{ crate::t("guide.play.terms") }}</p>
+      <h2>{{ s.title }}</h2>
+      <p class="muted">{{ crate::t("guide.play.tap_reveal") }} {% if !course.say_lang.is_empty() %}{{ crate::t("guide.play.tap_hear") }}{% else %}{{ crate::t("guide.play.say_aloud") }}{% endif %}</p>
+      <ul class="flashcards">
+      {% for v in s.vocab %}
+        <li class="flashcard" data-testid="stage-flashcard" tabindex="0">
+          <span class="front" lang="{{ course.term_lang }}">{{ v.term }}{% if !course.say_lang.is_empty() %} <button type="button" class="say" data-say="{{ v.term }}" aria-label="{{ crate::t("guide.play.hear_it") }}">🔊</button>{% endif %}</span>
+          <span class="back" lang="{{ course.meaning_lang }}">{{ v.meaning }}{% if let Some(ex) = v.example %}<em lang="{{ course.term_lang }}"{% if let Some(em) = v.example_meaning %} title="{{ em }}"{% endif %}>{{ ex }}</em>{% endif %}</span>
+        </li>
+      {% endfor %}
+      </ul>
+      <div class="actions"><button type="button" class="btn big" data-testid="stage-continue" data-continue>{{ crate::t("guide.play.next") }}</button></div>
+
+    {% else %}
+      <p class="step-label">{{ crate::t("guide.play.quick_check") }}</p>
+      <form class="question" data-testid="stage-question">
+        {% if !s.abc.is_empty() %}<pre class="abc-staff" data-testid="quiz-abc">{{ s.abc }}</pre>{% endif %}
+        {% if !s.play.is_empty() %}<div class="music-play" data-testid="quiz-play" data-play="{{ s.play }}"{% if s.abc.is_empty() %} data-staff-after="1"{% endif %}{% if !s.staves.is_empty() %} data-abc-options="1"{% endif %}></div>{% endif %}
+        <p class="prompt" lang="{{ course.term_lang }}">{{ s.prompt }}</p>
+        {% if let Some(m) = s.measure %}{% include "measure.html" %}{% endif %}
+        {% if let Some(tiles) = s.board %}{% include "algebra_tiles.html" %}{% endif %}
+        {% if !s.clock_hands.is_empty() %}<div class="clock-face" data-clock data-hands="{{ s.clock_hands }}" data-testid="clock"></div>{% endif %}
+        {% if s.choice %}
+          <div class="options">
+          {% for o in s.options %}
+            <label class="option"><input type="radio" data-testid="stage-option" name="answer" value="{{ o.text }}" required>{% if let Some(st) = crate::notation::nth(s.staves, loop.index0) %}<pre class="abc-staff abc-option" data-testid="quiz-option-abc">{{ st }}</pre>{% else %}<span lang="{{ course.term_lang }}">{{ o.text }}</span>{% endif %}</label>
+          {% endfor %}
+          </div>
+        {% else if s.qkind == "fill-bar" %}
+          <div class="fill-bar" data-testid="fill-bar" data-abc="{{ s.bar }}">{% for tile in s.tiles %}<button type="button" class="fill-bar-tile" data-tile="{{ tile }}">{{ tile }}</button>{% endfor %}</div>
+          <input type="radio" class="fill-bar-answer" name="answer" value="" hidden>
+        {% else if s.slots > 0 %}
+          <div class="chord-spell" data-testid="chord-spell" data-slots="{{ s.slots }}">{% for tile in s.chord %}<button type="button" class="chord-spell-tile" data-tile="{{ tile.abc }}">{{ tile.name }}</button>{% endfor %}</div>
+          <input type="radio" class="chord-spell-answer" name="answer" value="" hidden>
+        {% else if !s.clef.is_empty() %}
+          <div class="staff-note" data-testid="staff-note" data-clef="{{ s.clef }}" data-names="{{ s.note_names }}"></div>
+          <input type="radio" class="staff-note-answer" name="answer" value="" hidden>
+        {% else if s.qkind == "keyboard" %}
+          <div class="keyboard" data-testid="keyboard" data-octaves="{{ s.octaves }}"{% if s.octave %} data-exact="1"{% endif %}></div>
+          <input type="radio" class="keyboard-answer" name="answer" value="" hidden>
+        {% else if s.clock_step > 0 %}
+          <div class="clock-face" data-clock data-step="{{ s.clock_step }}" data-testid="clock"></div><input class="fill" type="hidden" name="answer" data-testid="clock-time">
+        {% else %}
+          <input class="fill" type="text" data-testid="stage-answer" maxlength="200" aria-label="{{ crate::t("guide.play.your_answer") }}" name="answer" lang="{{ course.term_lang }}" autocomplete="off" autocapitalize="off" spellcheck="false"
+                 placeholder="{{ s.placeholder }}"{% if s.math %} data-math="1"{% endif %} required>{% if !s.answer_unit.is_empty() %} <span class="unit">{{ s.answer_unit }}</span>{% endif %}
+          {% if !course.chars.is_empty() && !s.math %}
+          <div class="accents" aria-label="{{ crate::t("guide.play.insert_char") }}">
+            {% for ch in course.chars %}<button type="button" data-ch="{{ ch }}" aria-label="{{ crate::t1("guide.play.type_char", "ch", ch) }}">{{ ch }}</button>{% endfor %}
+          </div>
+          {% endif %}
+        {% endif %}
+        {% if !s.hints.is_empty() %}
+          <details class="hints"><summary>{{ crate::t("guide.play.hint") }}</summary><ul>{% for h in s.hints %}<li>{{ h }}</li>{% endfor %}</ul></details>
+        {% endif %}
+        <div class="actions"><button type="submit" class="btn" data-testid="stage-check">{{ crate::t("guide.play.check") }}</button></div>
+        <div class="feedback" role="status" data-testid="stage-feedback" hidden></div>
+      </form>
+    {% endif %}
+  </article>
+  {% endfor %}
+
+  <section class="summary" id="stage-done" data-testid="stage-done" hidden>
+    <h2>{{ crate::t1("guide.play.stage_complete", "n", number) }}</h2>
+    <p class="stars-big" id="done-stars">☆☆☆</p>
+    <p class="lead">{{ crate::t("guide.play.done_line_html")|safe }}</p>
+    <p id="done-pass"></p>
+    <div class="actions">
+      {% if let Some(ns) = next_slug %}
+        <a class="btn big" id="btn-next-stage" data-testid="stage-next" href="{{ crate::base_path() }}/guide/{{ ns }}">{% if let Some(nt) = next_title %}{{ crate::t1("guide.play.next_stage", "title", nt) }}{% else %}{{ crate::t1("guide.play.next_stage", "title", "") }}{% endif %}</a>
+      {% else %}
+        <a class="btn big" href="{{ crate::base_path() }}/guide" data-testid="stage-next">{{ crate::t("guide.play.finished_all") }}</a>
+      {% endif %}
+      <button type="button" class="btn ghost" id="btn-replay" data-testid="stage-replay">{{ crate::t("guide.play.play_again") }}</button>
+      <a class="btn ghost" href="{{ crate::base_path() }}/guide">{{ crate::t("guide.play.back_to_map") }}</a>
+    </div>
+  </section>
+</section>
+{% endblock %}
+{% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("guide.js")|safe }});</script>{% if lesson.has_clock() %}<script>Object.assign(I18N, {{ crate::i18n::js_json("clock.js")|safe }});</script><script src="{{ crate::routes::asset_url("clock.js") }}" defer></script>{% endif %}<script src="{{ crate::routes::asset_url("guide.js") }}" defer></script>{% if lesson.has_measure() %}<script src="{{ crate::routes::asset_url("measure.js") }}" defer></script>{% endif %}
+{% if lesson.has_notation() %}<script src="{{ crate::routes::asset_url("vendor/abcjs-basic-min.js") }}" defer></script><script src="{{ crate::routes::asset_url("notation.js") }}" defer></script>{% endif %}
+{% if lesson.has_sound() %}<script src="{{ crate::routes::asset_url("music-sound.js") }}" defer></script>{% endif %}
+{% if lesson.has_fill_bar() %}<script src="{{ crate::routes::asset_url("fill-bar.js") }}" defer></script>{% endif %}
+{% if lesson.has_chord_spell() %}<script src="{{ crate::routes::asset_url("chord-spell.js") }}" defer></script>{% endif %}
+{% if lesson.has_staff_note() %}<script src="{{ crate::routes::asset_url("staff-note.js") }}" defer></script>{% endif %}
+{% if lesson.has_keyboard() %}<script src="{{ crate::routes::asset_url("keyboard.js") }}" defer></script>{% endif %}
+{% if crate::algebra_tiles::in_lesson(lesson) %}{% include "algebra_tiles_assets.html" %}{% endif %}{% endblock %}

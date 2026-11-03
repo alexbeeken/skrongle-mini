@@ -1,0 +1,582 @@
+{
+  "id": "b1-real-conditions",
+  "slug": "real-conditions",
+  "title": "Real conditions: si llueve, nos quedamos",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 26,
+  "summary": "Talk about what happens if something real happens, using si + present and then a present, a future, an order or a plan.",
+  "focus": "Real conditions: si + present indicative with a present, future, imperative or ir a / poder / tener que result",
+  "prerequisites": [
+    "a2-future-simple",
+    "a2-imperative"
+  ],
+  "content": "## Si + present: real possibilities\n\n**Si** (if, no accent) introduces a condition that can really happen. In a real condition the **si**-half always takes the **present indicative**, even when it is about tomorrow.\n\nWhen the result is always true (a general rule, a habit), the other half is in the present too:\n\n- **Si llueve, me mojo.** If it rains, I get wet.\n- **Si mezclas rojo y blanco, sale rosa.** If you mix red and white, you get pink.\n- **Si llego tarde, mi jefe se enfada.** If I'm late, my boss gets cross.\n\nSpelling: **si** = if; **sí** with an accent = yes. **Sí, voy si puedo.** Yes, I'll go if I can.\n\n## The other half: future, order or plan\n\nThe **si**-half stays in the present, and the result can take several shapes:\n\n| result | example |\n|---|---|\n| present (near future) | **Si llueve mañana, nos quedamos en casa.** If it rains tomorrow, we'll stay at home. |\n| future | **Si estudias, aprobarás.** If you study, you'll pass. |\n| imperative | **Si tienes tiempo, llámame.** If you have time, call me. |\n| ir a + infinitive | **Si sale bien, vamos a celebrarlo.** If it goes well, we're going to celebrate. |\n| poder / tener que | **Si pierdes el tren, puedes coger el siguiente.** If you miss the train, you can catch the next one. |\n\n## Which half first? The comma\n\nEither half can go first. The meaning stays the same; the punctuation changes:\n\n- **si**-half first: a comma after it: **Si tienes frío, cierra la ventana.**\n- **si**-half second: no comma: **Cierra la ventana si tienes frío.**\n\nStarting with **si** sets the scene first (\"this is the situation\"); starting with the result puts the news first. Both orders are everyday Spanish.\n\n## Never the future or the subjunctive after si\n\nEnglish says *if it rains*, not *if it will rain*. Spanish is the same, and stricter:\n\n- Write **Si llueve**, no salimos, not ~~Si lloverá~~.\n- Write **Si tienes tiempo**, ven, not ~~Si tengas tiempo~~.\n\n(After **no sé si** = *whether*, the future is fine: **No sé si vendrá.** That **si** is not a condition.)\n\nThe subjunctive does turn up with **en caso de que** (in case), which always takes it: **Lleva el paraguas en caso de que llueva.** Take the umbrella in case it rains.\n\nUnlikely or impossible conditions (*if I were rich…*) are coming at B2.",
+  "vocabulary": [
+    {
+      "term": "si",
+      "meaning": "if",
+      "example": "Si quieres, te acompaño a casa.",
+      "example_meaning": "If you like, I'll walk you home."
+    },
+    {
+      "term": "en caso de que",
+      "meaning": "in case (+ subjunctive)",
+      "example": "Te dejo mi número en caso de que necesites algo.",
+      "example_meaning": "I'll leave you my number in case you need anything."
+    },
+    {
+      "term": "llover",
+      "meaning": "to rain",
+      "example": "Si llueve el domingo, vemos una película en casa.",
+      "example_meaning": "If it rains on Sunday, we'll watch a film at home."
+    },
+    {
+      "term": "mojarse",
+      "meaning": "to get wet",
+      "example": "Si sales sin abrigo, te vas a mojar.",
+      "example_meaning": "If you go out without a coat, you're going to get wet."
+    },
+    {
+      "term": "quedarse",
+      "meaning": "to stay",
+      "example": "Si estás cansada, quédate en el sofá.",
+      "example_meaning": "If you're tired, stay on the sofa."
+    },
+    {
+      "term": "aprobar",
+      "meaning": "to pass (an exam)",
+      "example": "Si practicas cada día, aprobarás el examen de conducir.",
+      "example_meaning": "If you practise every day, you'll pass the driving test."
+    },
+    {
+      "term": "perder",
+      "meaning": "to miss (a train, a bus); to lose",
+      "example": "Si pierdes el último metro, coge un taxi.",
+      "example_meaning": "If you miss the last underground train, take a taxi."
+    },
+    {
+      "term": "darse prisa",
+      "meaning": "to hurry",
+      "example": "Si nos damos prisa, llegamos al principio de la película.",
+      "example_meaning": "If we hurry, we'll get there for the start of the film."
+    },
+    {
+      "term": "llegar a tiempo",
+      "meaning": "to arrive on time",
+      "example": "Si salimos ahora, llegamos a tiempo.",
+      "example_meaning": "If we leave now, we'll arrive on time."
+    },
+    {
+      "term": "avisar",
+      "meaning": "to let (someone) know, to warn",
+      "example": "Si cambias de plan, avísame.",
+      "example_meaning": "If you change your plans, let me know."
+    },
+    {
+      "term": "el paraguas",
+      "meaning": "umbrella",
+      "example": "Si ves nubes negras, coge el paraguas.",
+      "example_meaning": "If you see black clouds, take the umbrella."
+    },
+    {
+      "term": "salir bien",
+      "meaning": "to go well, to turn out well",
+      "example": "Si todo sale bien, nos mudamos en marzo.",
+      "example_meaning": "If all goes well, we're moving in March."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-real-conditions-01",
+      "prompt": "Si llueve y no llevo paraguas, siempre me ___ (mojar).",
+      "type": "fill-in-blank",
+      "correct_answer": "mojo",
+      "accepted_answers": [
+        "me mojo"
+      ],
+      "explanation": "Siempre marks a general rule, so both halves are in the present: 'Si llueve…, siempre me mojo.'",
+      "hints": [
+        "A habit: present + present.",
+        "Yo form of mojarse: me ___."
+      ],
+      "teaches": [
+        "mojarse",
+        "el paraguas",
+        "llover"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-02",
+      "prompt": "Si ___ (estudiar, tú), aprobarás el examen.",
+      "type": "fill-in-blank",
+      "correct_answer": "estudias",
+      "accepted_answers": [
+        "tú estudias",
+        "tu estudias"
+      ],
+      "explanation": "The si-half of a real condition takes the present indicative: 'Si estudias, aprobarás.' The future goes in the other half.",
+      "hints": [
+        "Si + present, never si + future.",
+        "Tú form of estudiar."
+      ],
+      "teaches": [
+        "si",
+        "aprobar"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-03",
+      "prompt": "Si llegas tarde, ___, por favor.",
+      "type": "multiple-choice",
+      "options": [
+        "avísame",
+        "avisarme",
+        "avisándome"
+      ],
+      "correct_answer": "avísame",
+      "explanation": "An instruction as the result: si + present, then an imperative. With tú, the affirmative imperative of avisar is avisa, plus me attached: avísame.",
+      "hints": [
+        "The second half is an order.",
+        "Pronouns attach to an affirmative imperative."
+      ],
+      "teaches": [
+        "avisar",
+        "si"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-04",
+      "prompt": "Which real condition about tomorrow is correct?",
+      "type": "multiple-choice",
+      "options": [
+        "Si llueve mañana, nos quedamos en casa.",
+        "Si lloverá mañana, nos quedamos en casa.",
+        "Si llueva mañana, nos quedamos en casa."
+      ],
+      "correct_answer": "Si llueve mañana, nos quedamos en casa.",
+      "explanation": "Even when the condition is about tomorrow, si takes the present indicative. Never si + future (lloverá) or si + present subjunctive (llueva).",
+      "hints": [
+        "What tense goes right after a conditional si?"
+      ],
+      "teaches": [
+        "si",
+        "quedarse",
+        "llover"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-05",
+      "prompt": "Si no te das prisa, ___ el tren.",
+      "type": "multiple-choice",
+      "options": [
+        "perderás",
+        "pierdas",
+        "perder"
+      ],
+      "correct_answer": "perderás",
+      "explanation": "The si-half is in the present (te das), so the result can be in the future: 'perderás el tren' (you'll miss the train).",
+      "hints": [
+        "The result of a real condition can be in the future.",
+        "The subjunctive and the bare infinitive don't fit here."
+      ],
+      "teaches": [
+        "darse prisa",
+        "perder"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-06",
+      "prompt": "True or false: 'Te llamo si llego tarde' needs a comma before si.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "When the si-half comes second there is no comma: 'Te llamo si llego tarde.' The comma goes after the si-half only when it comes first: 'Si llego tarde, te llamo.'",
+      "hints": [
+        "Which half comes first here?"
+      ],
+      "teaches": [
+        "si"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-07",
+      "prompt": "—¿Vienes a la fiesta? —___, si salgo pronto del trabajo.",
+      "type": "multiple-choice",
+      "options": [
+        "Sí",
+        "Si"
+      ],
+      "correct_answer": "Sí",
+      "explanation": "The first word answers the question: yes = sí, with an accent. The si in 'si salgo pronto' means if and has no accent.",
+      "hints": [
+        "Is this word 'yes' or 'if'?"
+      ],
+      "teaches": [
+        "si"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-08",
+      "prompt": "Te dejo las llaves en caso de que ___ (llegar, tú) antes que yo.",
+      "type": "fill-in-blank",
+      "correct_answer": "llegues",
+      "accepted_answers": [
+        "tú llegues",
+        "tu llegues"
+      ],
+      "explanation": "En caso de que always takes the present subjunctive: llegar becomes llegues (g becomes gu before e).",
+      "hints": [
+        "En caso de que is not si, and it wants the subjunctive.",
+        "Watch the spelling: -gue-."
+      ],
+      "teaches": [
+        "en caso de que"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-09",
+      "prompt": "Si todo ___ (salir) bien, vamos a llegar a tiempo.",
+      "type": "fill-in-blank",
+      "correct_answer": "sale",
+      "explanation": "Si + present indicative (todo sale bien), then a plan with ir a + infinitive: 'vamos a llegar a tiempo'.",
+      "hints": [
+        "Todo is singular, so use the él/ella form.",
+        "Present indicative after si."
+      ],
+      "teaches": [
+        "salir bien",
+        "llegar a tiempo"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-real-conditions-conv-weekend-plans",
+      "title": "Plans for Saturday",
+      "scenario": "Lucía and Javier plan their Saturday, but the weather forecast isn't sure yet.",
+      "role_a": "Lucía",
+      "role_b": "Javier",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿Qué hacemos el sábado si hace bueno?",
+          "meaning": "What shall we do on Saturday if the weather's nice?"
+        },
+        {
+          "speaker": "b",
+          "text": "Si hace sol, podemos subir a la sierra.",
+          "meaning": "If it's sunny, we can go up into the mountains."
+        },
+        {
+          "speaker": "a",
+          "text": "Vale, pero el pronóstico dice que va a llover.",
+          "meaning": "OK, but the forecast says it's going to rain."
+        },
+        {
+          "speaker": "b",
+          "text": "Pues si llueve, nos quedamos en Madrid y vamos a un museo.",
+          "meaning": "Well, if it rains, we'll stay in Madrid and go to a museum."
+        },
+        {
+          "speaker": "a",
+          "text": "Buena idea. Si vamos al museo, invito yo a la comida.",
+          "meaning": "Good idea. If we go to the museum, lunch is on me."
+        },
+        {
+          "speaker": "b",
+          "text": "¡Trato hecho! Pero si vamos a la sierra, lleva botas.",
+          "meaning": "Deal! But if we go to the mountains, wear boots."
+        },
+        {
+          "speaker": "a",
+          "text": "Claro. Y si te levantas tarde, me voy sin ti, ¿eh?",
+          "meaning": "Of course. And if you get up late, I'm going without you, OK?"
+        },
+        {
+          "speaker": "b",
+          "text": "Tranquila. Si pongo dos alarmas, nunca llego tarde.",
+          "meaning": "Don't worry. If I set two alarms, I'm never late."
+        },
+        {
+          "speaker": "a",
+          "text": "Bueno, coge el paraguas en caso de que cambie el tiempo.",
+          "meaning": "Well, take the umbrella in case the weather changes."
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, y si pasa algo, te aviso por el móvil.",
+          "meaning": "Yes, and if anything happens, I'll let you know on my mobile."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Si nieva, cerramos la tienda.",
+      "meaning": "If it snows, we close the shop.",
+      "note": "A general rule: present + present."
+    },
+    {
+      "text": "Si tienes sueño, vete a la cama.",
+      "meaning": "If you're sleepy, go to bed.",
+      "note": "Si + present, then an imperative."
+    },
+    {
+      "text": "Mañana iremos al parque si hace buen tiempo.",
+      "meaning": "Tomorrow we'll go to the park if the weather's good.",
+      "note": "No comma when the si-half comes second."
+    },
+    {
+      "text": "Si Pablo no llega pronto, vamos a cenar solos.",
+      "meaning": "If Pablo doesn't arrive soon, we're going to have dinner on our own.",
+      "note": "The result can be ir a + infinitive."
+    },
+    {
+      "text": "Si comes tanto chocolate, te va a doler la tripa.",
+      "meaning": "If you eat so much chocolate, your tummy is going to hurt.",
+      "note": "New word: la tripa = the tummy."
+    },
+    {
+      "text": "Lleva una chaqueta en caso de que haga frío esta noche.",
+      "meaning": "Take a jacket in case it's cold tonight.",
+      "note": "En caso de que always takes the subjunctive."
+    },
+    {
+      "text": "Si terminas los deberes antes de cenar, puedes jugar un rato.",
+      "meaning": "If you finish your homework before dinner, you can play for a while.",
+      "note": "New word: los deberes = the homework."
+    },
+    {
+      "text": "Si pierdes las llaves otra vez, tendrás que llamar a un cerrajero.",
+      "meaning": "If you lose the keys again, you'll have to call a locksmith.",
+      "note": "New word: el cerrajero = the locksmith."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Si + present"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-real-conditions-01"
+    },
+    {
+      "question": "b1-real-conditions-04"
+    },
+    {
+      "question": "b1-real-conditions-07"
+    },
+    {
+      "section": "The other half"
+    },
+    {
+      "question": "b1-real-conditions-02"
+    },
+    {
+      "question": "b1-real-conditions-03"
+    },
+    {
+      "question": "b1-real-conditions-05"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Which half first"
+    },
+    {
+      "question": "b1-real-conditions-06"
+    },
+    {
+      "tip": "In English you say 'if it rains', never 'if it will rain'. Spanish si wants the plain present; put your future, order or plan in the other half."
+    },
+    {
+      "section": "Never the future"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-real-conditions-08"
+    },
+    {
+      "question": "b1-real-conditions-09"
+    }
+  ],
+  "sprint": {
+    "icon": "🌦️",
+    "bites": [
+      {
+        "title": "Si + present",
+        "emoji": "🌦️",
+        "rule": "A condition that can really happen: si + present indicative, even for tomorrow. Never si + future, never si + subjunctive.",
+        "example": "Si llueve mañana, no salimos.",
+        "example_meaning": "If it rains tomorrow, we won't go out."
+      },
+      {
+        "title": "Four kinds of result",
+        "emoji": "➡️",
+        "rule": "The other half can be a present (always true), a future, an imperative, or ir a / poder / tener que + infinitive.",
+        "example": "Si estudias, aprobarás.",
+        "example_meaning": "If you study, you'll pass."
+      },
+      {
+        "title": "Comma or not?",
+        "emoji": "✏️",
+        "rule": "Si-half first: a comma after it. Si-half second: no comma at all.",
+        "example": "Si puedo, te ayudo. Te ayudo si puedo.",
+        "example_meaning": "If I can, I'll help you. I'll help you if I can."
+      },
+      {
+        "title": "Si or sí?",
+        "emoji": "✅",
+        "rule": "si without an accent = if; sí with an accent = yes. En caso de que (in case) is the one that takes the subjunctive.",
+        "example": "Sí, voy si termino pronto.",
+        "example_meaning": "Yes, I'll go if I finish early."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Can it follow si?",
+        "buckets": [
+          "right after si",
+          "never after si"
+        ],
+        "items": [
+          {
+            "text": "llueve",
+            "bucket": 0
+          },
+          {
+            "text": "lloverá",
+            "bucket": 1
+          },
+          {
+            "text": "tienes",
+            "bucket": 0
+          },
+          {
+            "text": "tengas",
+            "bucket": 1
+          },
+          {
+            "text": "puedo",
+            "bucket": 0
+          },
+          {
+            "text": "pueda",
+            "bucket": 1
+          },
+          {
+            "text": "hace sol",
+            "bucket": 0
+          },
+          {
+            "text": "hará sol",
+            "bucket": 1
+          }
+        ],
+        "why": "After si, a real condition takes the present indicative, never the future or the subjunctive."
+      },
+      {
+        "title": "What kind of result?",
+        "buckets": [
+          "always true (present)",
+          "plan or prediction",
+          "an order"
+        ],
+        "items": [
+          {
+            "text": "Si calientas hielo, se derrite.",
+            "bucket": 0
+          },
+          {
+            "text": "Si estudias, aprobarás.",
+            "bucket": 1
+          },
+          {
+            "text": "Si tienes sed, bebe agua.",
+            "bucket": 2
+          },
+          {
+            "text": "Si salgo pronto, voy a ir al cine.",
+            "bucket": 1
+          },
+          {
+            "text": "Si mezclas azul y amarillo, sale verde.",
+            "bucket": 0
+          },
+          {
+            "text": "Si ves a Ana, salúdala.",
+            "bucket": 2
+          }
+        ],
+        "why": "General truths use the present in both halves; plans use the future or ir a; instructions use the imperative."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Si lloverá mañana, nos quedamos en casa.",
+        "wrong": "lloverá",
+        "fix": "llueve",
+        "why": "Never the future after a conditional si: si llueve."
+      },
+      {
+        "sentence": "Si tengas tiempo, llámame.",
+        "wrong": "tengas",
+        "fix": "tienes",
+        "why": "A real condition takes the present indicative, not the subjunctive."
+      },
+      {
+        "sentence": "Sí llegas tarde, avísame.",
+        "wrong": "Sí",
+        "fix": "Si",
+        "why": "If = si, without an accent; sí means yes."
+      },
+      {
+        "sentence": "Si estudias mucho, aprobar el examen.",
+        "wrong": "aprobar",
+        "fix": "aprobarás",
+        "why": "The result needs a conjugated verb: the future aprobarás."
+      },
+      {
+        "sentence": "En caso de que llueve, lleva el paraguas.",
+        "wrong": "llueve",
+        "fix": "llueva",
+        "why": "En caso de que always takes the present subjunctive."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Si tienes hambre, come algo.",
+        "meaning": "If you're hungry, eat something.",
+        "distractors": [
+          "tengas"
+        ]
+      },
+      {
+        "text": "Te llamo si llego tarde.",
+        "meaning": "I'll call you if I'm late.",
+        "distractors": [
+          "llegaré"
+        ]
+      },
+      {
+        "text": "Si hace frío, ponte el abrigo.",
+        "meaning": "If it's cold, put your coat on.",
+        "distractors": [
+          "hará"
+        ]
+      },
+      {
+        "text": "Si apruebas, te invito a cenar.",
+        "meaning": "If you pass, I'll take you out to dinner.",
+        "distractors": [
+          "apruebes"
+        ]
+      }
+    ]
+  }
+}

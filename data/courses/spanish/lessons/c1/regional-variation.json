@@ -1,0 +1,572 @@
+{
+  "id": "c1-regional-variation",
+  "slug": "regional-variation",
+  "title": "Vos tenés: regional variation",
+  "unit": "C1",
+  "group": "Vocabulary",
+  "order": 36,
+  "summary": "Recognise and understand voseo, ustedes for everyone, seseo and yeísmo, Latin American words and tense preferences.",
+  "focus": "Regional varieties of Spanish",
+  "prerequisites": [
+    "b2-register",
+    "c1-colloquial-and-idioms"
+  ],
+  "content": "## Vos: voseo\n\nIn Argentina, Uruguay, Paraguay and much of Central America, **vos** replaces **tú**. The present stresses the ending and has no stem change:\n\n| tú | vos |\n|---|---|\n| eres | **sos** |\n| hablas | **hablás** |\n| tienes | **tenés** |\n| quieres | **querés** |\n| puedes | **podés** |\n| ven, di (imperative) | **vení**, **decí** |\n\nThe pronoun **te** and the possessive **tu** stay: *¿Cómo **te** llamás **vos**?*\n\n## Ustedes for all of you\n\nIn Latin America and the Canary Islands, **ustedes** is the only plural 'you', friendly or formal, with the third-person plural verb: *Chicos, ¿**ustedes vienen** a la fiesta?* (Spain: *¿vosotros venís?*). Vosotros forms are understood but not used.\n\n## Sounds: seseo and yeísmo\n\n- **distinción** (most of Spain): *casa* (s) and *caza* (th) sound different.\n- **seseo** (Latin America, the Canaries, much of Andalusia): **ce, ci, z** sound like **s**, so *casa* and *caza* sound the same. **ceceo** (parts of Andalusia) does the opposite.\n- **yeísmo** (almost everywhere): **ll** and **y** sound the same: *pollo / poyo*. In the River Plate both sound like English 'sh' or 's' in 'measure'.\n\n## Words and tenses\n\n| Spain | much of Latin America |\n|---|---|\n| el coche | el carro, el auto |\n| el ordenador | la computadora |\n| el móvil | el celular |\n| el zumo | el jugo |\n| las gafas | los anteojos, los lentes |\n| el piso | el departamento, el apartamento |\n| conducir | manejar |\n\nFor today, Spain says *hoy **he comido***; most of Latin America *hoy **comí***. **Ahorita** (Mexico) means 'right now' or 'in a little while'. Every variety is standard in its own region.",
+  "vocabulary": [
+    {
+      "term": "vos",
+      "meaning": "you (informal singular, River Plate and Central America)",
+      "example": "¿Y vos qué pensás de todo esto?",
+      "example_meaning": "And what do you think about all this?"
+    },
+    {
+      "term": "vos sos",
+      "meaning": "you are (voseo form of eres)",
+      "example": "Vos sos la persona más paciente que conozco.",
+      "example_meaning": "You're the most patient person I know."
+    },
+    {
+      "term": "vos tenés",
+      "meaning": "you have (voseo form of tienes)",
+      "example": "¿Vos tenés hora? Se me murió el celular.",
+      "example_meaning": "Have you got the time? My phone died."
+    },
+    {
+      "term": "vení",
+      "meaning": "come! (voseo imperative of venir)",
+      "example": "Vení, que te presento a mis amigos.",
+      "example_meaning": "Come here, I'll introduce you to my friends."
+    },
+    {
+      "term": "ustedes",
+      "meaning": "you all (formal and informal in Latin America and the Canaries)",
+      "example": "¿Ustedes ya cenaron, chicos?",
+      "example_meaning": "Have you guys had dinner yet?"
+    },
+    {
+      "term": "el seseo",
+      "meaning": "pronouncing ce, ci and z as s",
+      "example": "El seseo es la norma en toda Latinoamérica.",
+      "example_meaning": "Seseo is the norm throughout Latin America."
+    },
+    {
+      "term": "la distinción",
+      "meaning": "pronouncing s and z/ce/ci differently (most of Spain)",
+      "example": "Con la distinción, casa y caza suenan distinto.",
+      "example_meaning": "With distinción, casa and caza sound different."
+    },
+    {
+      "term": "el yeísmo",
+      "meaning": "pronouncing ll and y the same",
+      "example": "Por el yeísmo, muchos niños escriben cabayo en vez de caballo.",
+      "example_meaning": "Because of yeísmo, many children write cabayo instead of caballo."
+    },
+    {
+      "term": "el carro",
+      "meaning": "the car (much of Latin America)",
+      "example": "Dejé el carro en el estacionamiento del centro comercial.",
+      "example_meaning": "I left the car in the shopping centre car park."
+    },
+    {
+      "term": "la computadora",
+      "meaning": "the computer (Latin America)",
+      "example": "Se me trabó la computadora en plena reunión.",
+      "example_meaning": "My computer froze in the middle of the meeting."
+    },
+    {
+      "term": "el celular",
+      "meaning": "the mobile phone (Latin America)",
+      "example": "Mandame un mensaje al celular cuando llegues.",
+      "example_meaning": "Send me a message on my phone when you get there."
+    },
+    {
+      "term": "el jugo",
+      "meaning": "the juice (Latin America)",
+      "example": "Para desayunar, un jugo de naranja y unas tostadas.",
+      "example_meaning": "For breakfast, an orange juice and some toast."
+    },
+    {
+      "term": "manejar",
+      "meaning": "to drive (Latin America)",
+      "example": "Aprendí a manejar a los dieciocho años.",
+      "example_meaning": "I learnt to drive at eighteen."
+    },
+    {
+      "term": "ahorita",
+      "meaning": "right now; in a little while (Mexico and elsewhere)",
+      "example": "Ahorita no puedo, pero en un rato te llamo.",
+      "example_meaning": "I can't right now, but I'll call you in a bit."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c1-regional-variation-01",
+      "prompt": "In Buenos Aires: «¿De dónde ___ vos?»",
+      "type": "multiple-choice",
+      "options": [
+        "sos",
+        "eres",
+        "es"
+      ],
+      "correct_answer": "sos",
+      "explanation": "The voseo form of ser is sos.",
+      "hints": [
+        "Vos has its own form of ser."
+      ],
+      "teaches": [
+        "vos sos"
+      ]
+    },
+    {
+      "question_id": "c1-regional-variation-02",
+      "prompt": "Vos ___ (tener) razón. (River Plate Spanish)",
+      "type": "fill-in-blank",
+      "correct_answer": "tenés",
+      "explanation": "In the voseo present the stress falls on the ending and the stem does not change: tenés.",
+      "hints": [
+        "No -ie-, accent on the last syllable."
+      ],
+      "teaches": [
+        "vos tenés"
+      ]
+    },
+    {
+      "question_id": "c1-regional-variation-03",
+      "prompt": "In Montevideo: «¡___ acá, Martín!» (come)",
+      "type": "multiple-choice",
+      "options": [
+        "Vení",
+        "Ven",
+        "Venís"
+      ],
+      "correct_answer": "Vení",
+      "explanation": "The voseo imperative drops the -r of the infinitive and stresses the end: venir → vení.",
+      "hints": [
+        "From venir: drop the -r."
+      ],
+      "teaches": [
+        "vení"
+      ]
+    },
+    {
+      "question_id": "c1-regional-variation-04",
+      "prompt": "A teacher in Mexico to her class: «¿___ ya terminaron el examen?»",
+      "type": "multiple-choice",
+      "options": [
+        "Ustedes",
+        "Vosotros"
+      ],
+      "correct_answer": "Ustedes",
+      "explanation": "In Latin America ustedes is the plural 'you' in every register; the verb (terminaron) is third-person plural.",
+      "hints": [
+        "Look at the verb ending."
+      ],
+      "teaches": [
+        "ustedes"
+      ]
+    },
+    {
+      "question_id": "c1-regional-variation-05",
+      "prompt": "In Madrid, to two friends: «¿Vosotros ___ (venir) a la fiesta?»",
+      "type": "fill-in-blank",
+      "correct_answer": "venís",
+      "explanation": "In Spain the informal plural is vosotros: venís.",
+      "hints": [
+        "Vosotros, present."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "c1-regional-variation-06",
+      "prompt": "A speaker who pronounces casa and caza exactly the same has…",
+      "type": "multiple-choice",
+      "options": [
+        "seseo",
+        "distinción",
+        "yeísmo"
+      ],
+      "correct_answer": "seseo",
+      "explanation": "Seseo: z, ce and ci sound like s.",
+      "hints": [
+        "Z sounds like s."
+      ],
+      "teaches": [
+        "el seseo",
+        "la distinción"
+      ]
+    },
+    {
+      "question_id": "c1-regional-variation-07",
+      "prompt": "In Mexico, what Spaniards call el móvil is usually…",
+      "type": "multiple-choice",
+      "options": [
+        "el celular",
+        "la computadora",
+        "el carro"
+      ],
+      "correct_answer": "el celular",
+      "explanation": "El celular is the mobile phone in most of Latin America.",
+      "hints": [
+        "Cellular."
+      ],
+      "teaches": [
+        "el celular"
+      ]
+    },
+    {
+      "question_id": "c1-regional-variation-08",
+      "prompt": "In much of Latin America: «Hoy ___ (comer, yo) temprano.» (simple past)",
+      "type": "fill-in-blank",
+      "correct_answer": "comí",
+      "accepted_answers": [
+        "yo comí"
+      ],
+      "explanation": "Most of Latin America uses the preterite even for today; Spain would say he comido.",
+      "hints": [
+        "Preterite, not perfect."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "c1-regional-variation-09",
+      "prompt": "True or false: voseo, seseo and ustedes for everyone are standard Spanish in the regions where they are used.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Voseo, seseo, ustedes for everyone and Spain's distinción are all standard Spanish in their regions.",
+      "hints": [
+        "Think of how many countries speak Spanish."
+      ],
+      "teaches": [
+        "vos"
+      ],
+      "options": []
+    }
+  ],
+  "listening": [
+    {
+      "text": "Vos sos de Rosario, ¿no?",
+      "meaning": "You're from Rosario, aren't you?"
+    },
+    {
+      "text": "¿Ustedes quieren tomar algo?",
+      "meaning": "Would you all like something to drink?"
+    },
+    {
+      "text": "Ahorita vengo, no te vayas.",
+      "meaning": "I'll be right back, don't go."
+    },
+    {
+      "text": "Me compré un celular nuevo.",
+      "meaning": "I bought myself a new mobile."
+    },
+    {
+      "text": "En Canarias se dice guagua en vez de autobús.",
+      "meaning": "In the Canaries they say guagua instead of autobús.",
+      "note": "New word: la guagua = the bus (Canaries and Caribbean)."
+    },
+    {
+      "text": "Alquilamos un departamento cerca del centro.",
+      "meaning": "We rented a flat near the centre.",
+      "note": "New word: el departamento = the flat (Latin America)."
+    },
+    {
+      "text": "Mañana te llamo desde la computadora de la oficina.",
+      "meaning": "Tomorrow I'll call you from the office computer."
+    },
+    {
+      "text": "Si querés, vení a cenar el sábado con tu hermana.",
+      "meaning": "If you like, come for dinner on Saturday with your sister.",
+      "note": "Voseo: querés, vení."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Vos"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "c1-regional-variation-01"
+    },
+    {
+      "question": "c1-regional-variation-02"
+    },
+    {
+      "question": "c1-regional-variation-03"
+    },
+    {
+      "section": "Ustedes"
+    },
+    {
+      "question": "c1-regional-variation-04"
+    },
+    {
+      "question": "c1-regional-variation-05"
+    },
+    {
+      "section": "Sounds"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "c1-regional-variation-06"
+    },
+    {
+      "section": "Words and tenses"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "c1-regional-variation-07"
+    },
+    {
+      "question": "c1-regional-variation-08"
+    },
+    {
+      "tip": "You don't have to speak every variety, but you should understand them all, because hundreds of millions of people speak them."
+    },
+    {
+      "question": "c1-regional-variation-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c1-regional-variation-conv-two-accents",
+      "title": "Two accents",
+      "scenario": "Martina, from Buenos Aires, and Pablo, from Madrid, meet at a language exchange in Valencia.",
+      "role_a": "Martina",
+      "role_b": "Pablo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿Vos sos de acá, de Valencia?",
+          "meaning": "Are you from here, from Valencia?"
+        },
+        {
+          "speaker": "b",
+          "text": "No, soy de Madrid. ¿Y tú? Por el acento, de Argentina.",
+          "meaning": "No, I'm from Madrid. And you? From the accent, Argentina."
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, de Buenos Aires. Ustedes hablan muy rápido, eh.",
+          "meaning": "Yes, from Buenos Aires. You lot talk really fast, you know."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Nosotros? Vosotros también. Bueno, ustedes.",
+          "meaning": "Us? You do too. Well, you all.",
+          "note": "Spain: vosotros; Latin America: ustedes."
+        },
+        {
+          "speaker": "a",
+          "text": "Ayer pedí un jugo y el camarero me miró raro.",
+          "meaning": "Yesterday I asked for a jugo and the waiter gave me a funny look."
+        },
+        {
+          "speaker": "b",
+          "text": "Aquí decimos zumo. Pero te entendió, seguro.",
+          "meaning": "Here we say zumo. But he understood you, for sure."
+        },
+        {
+          "speaker": "a",
+          "text": "Y cuando dije que iba a manejar, pensaron que iba a trabajar con las manos.",
+          "meaning": "And when I said I was going to drive, they thought I'd be working with my hands."
+        },
+        {
+          "speaker": "b",
+          "text": "Ja, ja. Aquí es conducir. ¿Vos tenés carro? Así se dice, ¿no?",
+          "meaning": "Ha ha. Here it's conducir. Have you got a car? That's how you say it, right?"
+        },
+        {
+          "speaker": "a",
+          "text": "En Argentina decimos auto. Carro dicen en México y Colombia.",
+          "meaning": "In Argentina we say auto. Carro is what they say in Mexico and Colombia."
+        },
+        {
+          "speaker": "b",
+          "text": "Pues ven conmigo, que te enseño el mejor bar de zumos de la ciudad.",
+          "meaning": "Well, come with me and I'll show you the best juice bar in the city."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🌎",
+    "bites": [
+      {
+        "title": "Vos sos, vos tenés",
+        "emoji": "🧉",
+        "rule": "Voseo: vos sos, tenés, querés, podés (stress on the end, no stem change). Imperative: vení, decí, hablá. Te and tu stay.",
+        "example": "Vos tenés razón.",
+        "example_meaning": "You're right."
+      },
+      {
+        "title": "Ustedes for everyone",
+        "emoji": "👥",
+        "rule": "In Latin America and the Canaries, ustedes is every plural 'you', with the ellos verb form: ustedes vienen.",
+        "example": "¿Ustedes vienen?",
+        "example_meaning": "Are you all coming?"
+      },
+      {
+        "title": "Seseo, yeísmo",
+        "emoji": "👂",
+        "rule": "Seseo: z, ce, ci sound like s (casa = caza). Yeísmo: ll = y (pollo = poyo). Spain's distinción keeps s and z apart.",
+        "example": "Cocinar suena como cosinar con seseo.",
+        "example_meaning": "Cocinar sounds like 'cosinar' with seseo."
+      },
+      {
+        "title": "Carro, celular, jugo",
+        "emoji": "🌎",
+        "rule": "Coche/carro, ordenador/computadora, móvil/celular, zumo/jugo, conducir/manejar. Spain: hoy he comido; Latin America: hoy comí.",
+        "example": "Manejo un carro rojo.",
+        "example_meaning": "I drive a red car."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Usual in Spain or in most of Latin America?",
+        "buckets": [
+          "Spain",
+          "Latin America"
+        ],
+        "items": [
+          {
+            "text": "el coche",
+            "bucket": 0
+          },
+          {
+            "text": "el carro",
+            "bucket": 1
+          },
+          {
+            "text": "el ordenador",
+            "bucket": 0
+          },
+          {
+            "text": "la computadora",
+            "bucket": 1
+          },
+          {
+            "text": "el móvil",
+            "bucket": 0
+          },
+          {
+            "text": "el celular",
+            "bucket": 1
+          },
+          {
+            "text": "el zumo",
+            "bucket": 0
+          },
+          {
+            "text": "el jugo",
+            "bucket": 1
+          }
+        ],
+        "why": "Same things, different everyday words; all are understood everywhere."
+      },
+      {
+        "title": "Tú or vos?",
+        "buckets": [
+          "tú",
+          "vos"
+        ],
+        "items": [
+          {
+            "text": "eres",
+            "bucket": 0
+          },
+          {
+            "text": "sos",
+            "bucket": 1
+          },
+          {
+            "text": "tienes",
+            "bucket": 0
+          },
+          {
+            "text": "tenés",
+            "bucket": 1
+          },
+          {
+            "text": "ven",
+            "bucket": 0
+          },
+          {
+            "text": "vení",
+            "bucket": 1
+          },
+          {
+            "text": "quieres",
+            "bucket": 0
+          },
+          {
+            "text": "querés",
+            "bucket": 1
+          }
+        ],
+        "why": "Vos forms stress the ending and keep the stem unchanged."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Vos eres muy simpático y tenés razón.",
+        "wrong": "eres",
+        "fix": "sos",
+        "why": "The voseo form of ser is sos, like tenés."
+      },
+      {
+        "sentence": "Vos tienes razón y sos muy listo.",
+        "wrong": "tienes",
+        "fix": "tenés",
+        "why": "Voseo: tenés, without the stem change."
+      },
+      {
+        "sentence": "En México, ustedes sois muy amables.",
+        "wrong": "sois",
+        "fix": "son",
+        "why": "Ustedes takes the third-person plural: son."
+      },
+      {
+        "sentence": "¿Cómo se llamás vos?",
+        "wrong": "se",
+        "fix": "te",
+        "why": "With vos the pronoun stays te."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Vos sos muy simpática.",
+        "meaning": "You're very nice.",
+        "distractors": [
+          "eres"
+        ]
+      },
+      {
+        "text": "¿Ustedes vienen a la fiesta?",
+        "meaning": "Are you all coming to the party?",
+        "distractors": [
+          "venís"
+        ]
+      },
+      {
+        "text": "Ahorita te llamo.",
+        "meaning": "I'll call you in a moment.",
+        "distractors": [
+          "llamás"
+        ]
+      },
+      {
+        "text": "Manejo un carro rojo.",
+        "meaning": "I drive a red car.",
+        "distractors": [
+          "carros"
+        ]
+      }
+    ]
+  }
+}

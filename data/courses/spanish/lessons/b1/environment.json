@@ -1,0 +1,661 @@
+{
+  "id": "b1-environment",
+  "slug": "environment",
+  "title": "The environment: es importante que reciclemos",
+  "unit": "B1",
+  "group": "Vocabulary",
+  "order": 40,
+  "summary": "Talk about pollution, climate change and recycling, and say what should be done with es importante / hace falta que + subjunctive and deberíamos.",
+  "focus": "Environment vocabulary with es importante / es necesario / hace falta que + subjunctive and deberíamos",
+  "prerequisites": [
+    "b1-feelings-and-judgements"
+  ],
+  "content": "## The planet's big words\n\nThe vocabulary of every news report and school project:\n\n- **el medio ambiente**: the environment (masculine, two words)\n- **el cambio climático**: climate change\n- **la contaminación** del aire / del agua: air / water pollution; **contaminar** = to pollute\n- **la sequía**: drought (Spain knows it well)\n- **la energía renovable**: renewable energy, such as **la energía solar** and **la energía eólica** (wind)\n- **los residuos**: waste (the formal word)\n- **la basura**: rubbish, the bag in your kitchen bin\n- **el plástico**: plastic\n\n**Los coches contaminan mucho.** Cars pollute a lot.\n\n## What we can do: reciclar, ahorrar, proteger\n\nThe verbs of good habits, and their opposites:\n\n- **reciclar**: to recycle. **Reciclamos el vidrio.** We recycle glass.\n- **ahorrar**: to save (water, energy, money). **Ahorro luz.** I save electricity.\n- **malgastar**: to waste. **Malgastamos mucha agua.** We waste a lot of water.\n- **proteger**: to protect. **Protegen el bosque.** They protect the forest.\n- **el transporte público**: public transport. **Voy en transporte público.**\n\nWatch one spelling in the subjunctive, which you need in a moment: **proteger → proteja** (g becomes j before a, to keep the sound), like **recoger → recoja**. **Reciclar → recicle**, **ahorrar → ahorre** and **malgastar → malgaste** are regular.\n\n## Es importante que reciclemos\n\nTo say what should be done, use a judgement + **que** + subjunctive when you name who should act, and the infinitive when you mean everyone:\n\n| in general | someone specific |\n|---|---|\n| **Es importante reciclar.** | **Es importante que reciclemos.** |\n| **Es necesario ahorrar agua.** | **Es necesario que ahorres agua.** |\n| **Hace falta proteger los parques.** | **Hace falta que la gente proteja los parques.** |\n\n**Hace falta que** (we need / someone needs to) is very common in Spain.\n\nFor friendly advice, use the conditional of **deber** + infinitive: **deberíamos coger menos el coche** (we should drive less), **deberías apagar la luz** (you should switch off the light). Never *deberíamos que*.\n\n## Culture note: Spain's coloured bins\n\nIn Spain you take your rubbish down to **los contenedores** in the street, each with its own colour:\n\n- **amarillo** (yellow): **envases**: plastic packaging, cans and drink cartons\n- **azul** (blue): **papel y cartón**, paper and cardboard\n- **verde** (green, the round **iglú**): **vidrio**, glass bottles and jars\n- **marrón** (brown, in many towns): **orgánico**, food scraps\n- **gris** (grey; dark green in some towns): **resto**, everything else\n\nBatteries, cooking oil and old electronics go to the **punto limpio**. **Es importante que separemos bien.** One wrong item makes the sorting harder.",
+  "vocabulary": [
+    {
+      "term": "el medio ambiente",
+      "meaning": "the environment",
+      "example": "Es importante que respetemos el medio ambiente.",
+      "example_meaning": "It's important that we respect the environment."
+    },
+    {
+      "term": "el cambio climático",
+      "meaning": "climate change",
+      "example": "El cambio climático trae veranos cada vez más calurosos.",
+      "example_meaning": "Climate change brings ever hotter summers."
+    },
+    {
+      "term": "la contaminación",
+      "meaning": "pollution",
+      "example": "En las grandes ciudades la contaminación es un problema serio.",
+      "example_meaning": "In big cities pollution is a serious problem."
+    },
+    {
+      "term": "la sequía",
+      "meaning": "drought",
+      "example": "La sequía es un problema grave en el sur de España.",
+      "example_meaning": "Drought is a serious problem in the south of Spain."
+    },
+    {
+      "term": "la energía renovable",
+      "meaning": "renewable energy",
+      "example": "La energía solar y la eólica son energías renovables.",
+      "example_meaning": "Solar and wind power are renewable energies."
+    },
+    {
+      "term": "reciclar",
+      "meaning": "to recycle",
+      "example": "En mi casa reciclamos el papel, el vidrio y los envases.",
+      "example_meaning": "At home we recycle paper, glass and packaging."
+    },
+    {
+      "term": "ahorrar",
+      "meaning": "to save (water, energy, money)",
+      "example": "Ahorramos agua cerrando el grifo.",
+      "example_meaning": "We save water by turning off the tap."
+    },
+    {
+      "term": "malgastar",
+      "meaning": "to waste",
+      "example": "No malgastes la luz: apágala al salir.",
+      "example_meaning": "Don't waste electricity: switch it off when you leave."
+    },
+    {
+      "term": "proteger",
+      "meaning": "to protect",
+      "example": "Hace falta que protejamos los bosques del fuego.",
+      "example_meaning": "We need to protect the forests from fire."
+    },
+    {
+      "term": "el transporte público",
+      "meaning": "public transport",
+      "example": "Es mejor que vayas al centro en transporte público.",
+      "example_meaning": "It's better if you go into town on public transport."
+    },
+    {
+      "term": "los residuos",
+      "meaning": "waste",
+      "example": "La fábrica tiraba sus residuos al río.",
+      "example_meaning": "The factory used to dump its waste into the river."
+    },
+    {
+      "term": "la basura",
+      "meaning": "rubbish, trash",
+      "example": "¿Puedes bajar la basura antes de cenar?",
+      "example_meaning": "Can you take the rubbish down before dinner?"
+    },
+    {
+      "term": "el plástico",
+      "meaning": "plastic",
+      "example": "Llevo mis propias bolsas para no usar tanto plástico.",
+      "example_meaning": "I take my own bags so as not to use so much plastic."
+    },
+    {
+      "term": "hace falta que",
+      "meaning": "it's necessary that, (someone) needs to (+ subjunctive)",
+      "example": "Hace falta que alguien arregle ese grifo.",
+      "example_meaning": "Someone needs to fix that tap."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-environment-01",
+      "prompt": "Es importante que todos ___ el plástico.",
+      "type": "multiple-choice",
+      "options": [
+        "reciclamos",
+        "reciclemos",
+        "reciclar"
+      ],
+      "correct_answer": "reciclemos",
+      "explanation": "Es importante que + a specific subject (todos = all of us) takes the present subjunctive: reciclar → reciclemos. The indicative reciclamos and the bare infinitive don't fit after que.",
+      "hints": [
+        "After es importante que comes the subjunctive.",
+        "-ar verbs switch to e: reciclemos."
+      ],
+      "teaches": [
+        "reciclar",
+        "el plástico"
+      ]
+    },
+    {
+      "question_id": "b1-environment-02",
+      "prompt": "Hace falta que tú ___ (ahorrar) agua en la ducha.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "ahorres",
+      "accepted_answers": [],
+      "explanation": "Hace falta que + subjunctive. Ahorrar is regular: ahorro → ahorre, tú form ahorres.",
+      "hints": [
+        "The tú form of the present subjunctive.",
+        "An -ar verb takes -es."
+      ],
+      "teaches": [
+        "ahorrar",
+        "hace falta que"
+      ]
+    },
+    {
+      "question_id": "b1-environment-03",
+      "prompt": "Es necesario ___ el medio ambiente: es tarea de todos.",
+      "type": "multiple-choice",
+      "options": [
+        "proteger",
+        "proteja",
+        "protege"
+      ],
+      "correct_answer": "proteger",
+      "explanation": "Nobody specific is named (es tarea de todos = it's everyone's job), and there is no que, so the infinitive follows: es necesario proteger.",
+      "hints": [
+        "Is there a que and a new subject?",
+        "In general takes the infinitive."
+      ],
+      "teaches": [
+        "proteger",
+        "el medio ambiente"
+      ]
+    },
+    {
+      "question_id": "b1-environment-04",
+      "prompt": "Es importante que el gobierno ___ (proteger) los bosques.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "proteja",
+      "accepted_answers": [],
+      "explanation": "A specific subject (el gobierno) after es importante que takes the subjunctive. Proteger keeps its sound by writing j before a: proteja.",
+      "hints": [
+        "Present subjunctive, él form.",
+        "g becomes j before a."
+      ],
+      "teaches": [
+        "proteger"
+      ]
+    },
+    {
+      "question_id": "b1-environment-05",
+      "prompt": "Hace meses que no llueve y los ríos llevan poca agua: hay una ___ terrible.",
+      "type": "multiple-choice",
+      "options": [
+        "sequía",
+        "contaminación",
+        "basura"
+      ],
+      "correct_answer": "sequía",
+      "explanation": "Months without rain and low rivers: that's a drought, la sequía.",
+      "hints": [
+        "No rain for months…"
+      ],
+      "teaches": [
+        "la sequía"
+      ]
+    },
+    {
+      "question_id": "b1-environment-06",
+      "prompt": "Nosotros ___ (deber, conditional) usar más el transporte público.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "deberíamos",
+      "accepted_answers": [],
+      "explanation": "The conditional of deber gives friendly advice: deberíamos + infinitive = we should. Don't forget the accent on í.",
+      "hints": [
+        "Conditional endings: -ía, -ías, -ía, -íamos…",
+        "Nosotros takes -íamos."
+      ],
+      "teaches": [
+        "el transporte público"
+      ]
+    },
+    {
+      "question_id": "b1-environment-07",
+      "prompt": "In Spain, which bin takes plastic packaging and cans?",
+      "type": "multiple-choice",
+      "options": [
+        "el contenedor amarillo",
+        "el contenedor azul",
+        "el contenedor verde"
+      ],
+      "correct_answer": "el contenedor amarillo",
+      "explanation": "Yellow is for envases: plastic packaging, cans and drink cartons. Blue takes paper and cardboard; the green igloo takes glass.",
+      "hints": [
+        "Blue is for paper, green for glass."
+      ],
+      "teaches": [
+        "el plástico",
+        "los residuos"
+      ]
+    },
+    {
+      "question_id": "b1-environment-08",
+      "prompt": "Which sentence uses hace falta que correctly?",
+      "type": "multiple-choice",
+      "options": [
+        "Hace falta que malgastemos menos agua.",
+        "Hace falta que malgastamos menos agua.",
+        "Hace falta malgastemos menos agua."
+      ],
+      "correct_answer": "Hace falta que malgastemos menos agua.",
+      "explanation": "Hace falta que + subjunctive (malgastemos). The indicative malgastamos is wrong after it, and the que can't be dropped.",
+      "hints": [
+        "You need both que and the subjunctive."
+      ],
+      "teaches": [
+        "malgastar",
+        "hace falta que"
+      ]
+    },
+    {
+      "question_id": "b1-environment-09",
+      "prompt": "Para frenar el cambio climático, es necesario que nosotros ___ (usar) más energía renovable.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "usemos",
+      "accepted_answers": [],
+      "explanation": "Es necesario que + subjunctive, nosotros form: usar → usemos.",
+      "hints": [
+        "Present subjunctive, nosotros form.",
+        "-ar verbs take -emos."
+      ],
+      "teaches": [
+        "el cambio climático",
+        "la energía renovable"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-environment-conv-recycling-at-home",
+      "title": "Who put the cans in the bin?",
+      "scenario": "Lucía finds cans in the general rubbish again and explains Spain's bins to her flatmate Javier.",
+      "role_a": "Lucía",
+      "role_b": "Javier",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Javier, ¿has tirado otra vez las latas a la basura normal?",
+          "meaning": "Javier, have you thrown the cans in the normal rubbish again?"
+        },
+        {
+          "speaker": "b",
+          "text": "Perdona, es que no sé qué va en cada contenedor.",
+          "meaning": "Sorry, it's just that I don't know what goes in each bin."
+        },
+        {
+          "speaker": "a",
+          "text": "Es fácil: las latas y los plásticos van al amarillo.",
+          "meaning": "It's easy: cans and plastics go in the yellow one."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Y el papel? ¿También al amarillo?",
+          "meaning": "And paper? In the yellow one too?"
+        },
+        {
+          "speaker": "a",
+          "text": "No, el papel y el cartón van al azul, y el vidrio al verde.",
+          "meaning": "No, paper and cardboard go in the blue one, and glass in the green one."
+        },
+        {
+          "speaker": "b",
+          "text": "Vale. Pero, sinceramente, ¿de verdad sirve para algo reciclar?",
+          "meaning": "OK. But honestly, is recycling really any use?"
+        },
+        {
+          "speaker": "a",
+          "text": "Claro que sí. Hace falta que todos separemos los residuos.",
+          "meaning": "Of course it is. We all need to separate our waste."
+        },
+        {
+          "speaker": "b",
+          "text": "Tienes razón. Y también deberíamos ahorrar energía, ¿no?",
+          "meaning": "You're right. And we should save energy too, shouldn't we?"
+        },
+        {
+          "speaker": "a",
+          "text": "Exacto. Es importante que apagues la calefacción cuando sales.",
+          "meaning": "Exactly. It's important that you turn off the heating when you go out."
+        },
+        {
+          "speaker": "b",
+          "text": "¡Pero en enero hace un frío horrible!",
+          "meaning": "But it's horribly cold in January!"
+        },
+        {
+          "speaker": "a",
+          "text": "Pues ponte un jersey, que es más barato y no contamina.",
+          "meaning": "Then put on a jumper: it's cheaper and it doesn't pollute."
+        },
+        {
+          "speaker": "b",
+          "text": "Vale, vale. El planeta y tú vais a estar orgullosos de mí.",
+          "meaning": "OK, OK. The planet and you are going to be proud of me."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Reciclar es muy fácil.",
+      "meaning": "Recycling is very easy.",
+      "note": "A general statement: the infinitive."
+    },
+    {
+      "text": "Hace falta que ahorremos agua.",
+      "meaning": "We need to save water.",
+      "note": "Hace falta que + subjunctive."
+    },
+    {
+      "text": "Deberíamos ir al trabajo en transporte público.",
+      "meaning": "We should go to work on public transport.",
+      "note": "Deberíamos + infinitive: friendly advice."
+    },
+    {
+      "text": "Ya no cabe más cartón en el contenedor azul.",
+      "meaning": "No more cardboard fits in the blue bin.",
+      "note": "New word: el cartón = cardboard."
+    },
+    {
+      "text": "Es importante que no malgastéis la energía en casa.",
+      "meaning": "It's important that you don't waste energy at home.",
+      "note": "Vosotros subjunctive: malgastéis."
+    },
+    {
+      "text": "Es necesario que los niños aprendan a cuidar el planeta.",
+      "meaning": "Children need to learn to look after the planet.",
+      "note": "New word: cuidar = to look after."
+    },
+    {
+      "text": "Con tanta sequía, hace falta que el ayuntamiento proteja los ríos.",
+      "meaning": "With so much drought, the town council needs to protect the rivers.",
+      "note": "New word: el ayuntamiento = the town council."
+    },
+    {
+      "text": "Es necesario que las empresas produzcan menos plástico y usen energía renovable.",
+      "meaning": "Companies need to produce less plastic and use renewable energy.",
+      "note": "Two subjunctives after one es necesario que."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The planet's big words"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-environment-05"
+    },
+    {
+      "section": "What we can do"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-environment-03"
+    },
+    {
+      "section": "Es importante que"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-environment-01"
+    },
+    {
+      "question": "b1-environment-02"
+    },
+    {
+      "question": "b1-environment-04"
+    },
+    {
+      "tip": "Ask whether you are naming who should act. If you are, use que + subjunctive (es importante que reciclemos). If you are not, use the infinitive (es importante reciclar)."
+    },
+    {
+      "question": "b1-environment-08"
+    },
+    {
+      "question": "b1-environment-09"
+    },
+    {
+      "question": "b1-environment-06"
+    },
+    {
+      "section": "Culture note"
+    },
+    {
+      "question": "b1-environment-07"
+    }
+  ],
+  "sprint": {
+    "icon": "♻️",
+    "bites": [
+      {
+        "title": "The planet's big words",
+        "emoji": "🌍",
+        "rule": "el medio ambiente, el cambio climático, la contaminación, la sequía. Los residuos is the formal word for waste; la basura is your everyday rubbish.",
+        "example": "La contaminación del aire es un problema serio.",
+        "example_meaning": "Air pollution is a serious problem."
+      },
+      {
+        "title": "Someone specific takes the subjunctive",
+        "emoji": "🗣️",
+        "rule": "Es importante / es necesario / hace falta que + subjunctive when you name who should act. Everyone in general? No que: es importante reciclar.",
+        "example": "Hace falta que reciclemos más.",
+        "example_meaning": "We need to recycle more."
+      },
+      {
+        "title": "Deberíamos: soft advice",
+        "emoji": "💡",
+        "rule": "The conditional of deber + infinitive gives friendly advice: deberías, deberíamos. Softer than tener que.",
+        "example": "Deberías apagar la luz.",
+        "example_meaning": "You should switch off the light."
+      },
+      {
+        "title": "Colour-coded bins",
+        "emoji": "🗑️",
+        "rule": "Spain: yellow = plastic packaging and cans, blue = paper and cardboard, green igloo = glass, brown = food waste (many towns), grey = the rest.",
+        "example": "El vidrio va al contenedor verde.",
+        "example_meaning": "Glass goes in the green bin."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Right or wrong?",
+        "buckets": [
+          "correct",
+          "wrong"
+        ],
+        "items": [
+          {
+            "text": "Es importante que reciclemos.",
+            "bucket": 0
+          },
+          {
+            "text": "Es importante que reciclamos.",
+            "bucket": 1
+          },
+          {
+            "text": "Hace falta ahorrar agua.",
+            "bucket": 0
+          },
+          {
+            "text": "Hace falta que ahorras agua.",
+            "bucket": 1
+          },
+          {
+            "text": "Deberíamos proteger los ríos.",
+            "bucket": 0
+          },
+          {
+            "text": "Deberíamos protegemos los ríos.",
+            "bucket": 1
+          },
+          {
+            "text": "Es necesario que uséis el autobús.",
+            "bucket": 0
+          },
+          {
+            "text": "Es necesario que usar el autobús.",
+            "bucket": 1
+          }
+        ],
+        "why": "After es importante / es necesario / hace falta que comes the subjunctive; without que, the infinitive. Deberíamos is always followed by an infinitive."
+      },
+      {
+        "title": "Which bin?",
+        "buckets": [
+          "amarillo",
+          "azul",
+          "verde (iglú)",
+          "marrón"
+        ],
+        "items": [
+          {
+            "text": "una lata de refresco",
+            "bucket": 0
+          },
+          {
+            "text": "una botella de plástico",
+            "bucket": 0
+          },
+          {
+            "text": "una caja de cartón",
+            "bucket": 1
+          },
+          {
+            "text": "el periódico de ayer",
+            "bucket": 1
+          },
+          {
+            "text": "una botella de vino",
+            "bucket": 2
+          },
+          {
+            "text": "un tarro de mermelada",
+            "bucket": 2
+          },
+          {
+            "text": "una piel de plátano",
+            "bucket": 3
+          },
+          {
+            "text": "restos de comida",
+            "bucket": 3
+          }
+        ],
+        "why": "Yellow: plastic packaging, cans and cartons; blue: paper and cardboard; green igloo: glass; brown: food scraps, in towns that have it."
+      },
+      {
+        "title": "Problem or solution?",
+        "buckets": [
+          "problem",
+          "solution"
+        ],
+        "items": [
+          {
+            "text": "la contaminación",
+            "bucket": 0
+          },
+          {
+            "text": "la sequía",
+            "bucket": 0
+          },
+          {
+            "text": "el cambio climático",
+            "bucket": 0
+          },
+          {
+            "text": "malgastar agua",
+            "bucket": 0
+          },
+          {
+            "text": "reciclar",
+            "bucket": 1
+          },
+          {
+            "text": "la energía renovable",
+            "bucket": 1
+          },
+          {
+            "text": "el transporte público",
+            "bucket": 1
+          },
+          {
+            "text": "ahorrar energía",
+            "bucket": 1
+          }
+        ],
+        "why": "The first four harm el medio ambiente; the others protect it."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Es importante que todos reciclamos más.",
+        "wrong": "reciclamos",
+        "fix": "reciclemos",
+        "why": "Es importante que + subjunctive: reciclemos."
+      },
+      {
+        "sentence": "Hace falta que el gobierno protege los bosques.",
+        "wrong": "protege",
+        "fix": "proteja",
+        "why": "Hace falta que + subjunctive; g becomes j: proteja."
+      },
+      {
+        "sentence": "Deberíamos malgastamos menos agua.",
+        "wrong": "malgastamos",
+        "fix": "malgastar",
+        "why": "Deberíamos is followed by an infinitive."
+      },
+      {
+        "sentence": "Es necesario que tú ahorrar energía.",
+        "wrong": "ahorrar",
+        "fix": "ahorres",
+        "why": "After que and a named subject, a conjugated subjunctive: ahorres."
+      },
+      {
+        "sentence": "El vidrio va al contenedor amarillo.",
+        "wrong": "amarillo",
+        "fix": "verde",
+        "why": "Glass goes in the green igloo; yellow is for plastic packaging and cans."
+      },
+      {
+        "sentence": "Es importante que protegamos los ríos.",
+        "wrong": "protegamos",
+        "fix": "protejamos",
+        "why": "Proteger writes j before a and o: protejamos."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Es importante que reciclemos el vidrio.",
+        "meaning": "It's important that we recycle glass.",
+        "distractors": [
+          "reciclamos"
+        ]
+      },
+      {
+        "text": "Hace falta que ahorres energía en casa.",
+        "meaning": "You need to save energy at home.",
+        "distractors": [
+          "ahorras"
+        ]
+      },
+      {
+        "text": "Deberíamos usar más el transporte público.",
+        "meaning": "We should use public transport more.",
+        "distractors": [
+          "usemos"
+        ]
+      },
+      {
+        "text": "Es necesario proteger el medio ambiente.",
+        "meaning": "It's necessary to protect the environment.",
+        "distractors": [
+          "proteja"
+        ]
+      }
+    ]
+  }
+}

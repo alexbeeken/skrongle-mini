@@ -1,0 +1,553 @@
+{
+  "id": "c1-gerund-and-participle-clauses",
+  "slug": "gerund-and-participle-clauses",
+  "title": "Llegando a casa, vi…: gerund and participle clauses",
+  "unit": "C1",
+  "group": "Grammar",
+  "order": 20,
+  "summary": "Use the gerund for how, by what means, why and on what condition; avoid its two classic misuses; write with absolute participles and al + infinitive.",
+  "focus": "Adverbial gerund, absolute participle and al + infinitive",
+  "prerequisites": [
+    "c1-verbal-periphrases",
+    "b2-passive-voice"
+  ],
+  "content": "## The adverbial gerund\n\nA gerund clause can say **how**, **by what means**, **why** or **on what condition** the main action happens. Its subject is normally that of the main verb.\n\n- manner: *Entró **corriendo**.*\n- means: *Aprendí inglés **viendo** series.*\n- cause: ***Sabiendo** que dormías, no te llamé.*\n- condition: ***Saliendo** ahora, llegamos a tiempo.* (If we leave now…)\n- concession, with **aun**: ***Aun sabiéndolo**, no dijo nada.* (Even though she knew…)\n\n## Two classic mistakes\n\n1. **The gerund never means 'and then'.** It is simultaneous with the main verb or just before it, never a later result. *Tuvo un accidente, muriendo horas después* is wrong: say ***y murió** horas después*.\n2. **The gerund is not an adjective.** *Una caja conteniendo libros* is a calque from English: say *una caja **que contiene** libros*; *se busca camarero **que hable** inglés*. Only **hirviendo** and **ardiendo** work like adjectives: *agua hirviendo*, *una casa ardiendo*.\n\n## Absolute participle clauses\n\nA participle with its own noun, set off by a comma, says what had happened before the main action. It agrees with that noun:\n\n- ***Terminada** la reunión, nos fuimos a comer.*\n- ***Terminadas** las clases, empiezan las vacaciones.*\n- ***Una vez firmado** el contrato, no hay vuelta atrás.*\n- ***Dicho** esto, pasemos al siguiente punto.*\n\nThey belong to writing, news and formal speech; in conversation say *cuando terminó la reunión*.\n\n## Al + infinitive\n\n**al + infinitive** = at the moment when: ***Al llegar** a casa, vi la puerta abierta.* It can take its own subject after the verb: *al salir el sol*. With **no** it often gives a cause: ***Al no tener** coche, fuimos en tren.*",
+  "vocabulary": [
+    {
+      "term": "aun sabiéndolo",
+      "meaning": "even though he/she knew it, even knowing it",
+      "example": "Aun sabiéndolo, prefirió no decir nada en la reunión.",
+      "example_meaning": "Even though she knew, she preferred to say nothing in the meeting."
+    },
+    {
+      "term": "dicho esto",
+      "meaning": "that said, having said that",
+      "example": "El plan tiene riesgos; dicho esto, creo que merece la pena.",
+      "example_meaning": "The plan has risks; that said, I think it's worth it."
+    },
+    {
+      "term": "una vez firmado",
+      "meaning": "once (it is) signed",
+      "example": "Una vez firmado el acuerdo, las obras empezarán en mayo.",
+      "example_meaning": "Once the agreement is signed, the work will start in May."
+    },
+    {
+      "term": "terminada la reunión",
+      "meaning": "once the meeting was over",
+      "example": "Terminada la reunión, la directora atendió a la prensa.",
+      "example_meaning": "Once the meeting was over, the director spoke to the press."
+    },
+    {
+      "term": "al llegar",
+      "meaning": "on arriving, when (I/he…) arrived",
+      "example": "Al llegar al hotel, nos dijeron que no había habitaciones.",
+      "example_meaning": "When we got to the hotel, they told us there were no rooms."
+    },
+    {
+      "term": "hirviendo",
+      "meaning": "boiling (works like an adjective)",
+      "example": "Echa la pasta cuando el agua esté hirviendo.",
+      "example_meaning": "Put the pasta in when the water is boiling."
+    },
+    {
+      "term": "ardiendo",
+      "meaning": "burning, on fire",
+      "example": "Los bomberos sacaron a dos vecinos del edificio ardiendo.",
+      "example_meaning": "The firefighters got two residents out of the burning building."
+    },
+    {
+      "term": "dando un portazo",
+      "meaning": "slamming the door",
+      "example": "Salió de la cocina dando un portazo.",
+      "example_meaning": "He stormed out of the kitchen, slamming the door."
+    },
+    {
+      "term": "visto lo visto",
+      "meaning": "given what we've seen, in view of what happened",
+      "example": "Visto lo visto, mejor reservamos con antelación.",
+      "example_meaning": "Given what happened, we'd better book in advance."
+    },
+    {
+      "term": "pensándolo bien",
+      "meaning": "on second thoughts",
+      "example": "Pensándolo bien, el viernes no me viene bien.",
+      "example_meaning": "On second thoughts, Friday isn't good for me."
+    },
+    {
+      "term": "hablando de",
+      "meaning": "speaking of",
+      "example": "Hablando de viajes, ¿qué tal por Lisboa?",
+      "example_meaning": "Speaking of trips, how was Lisbon?"
+    },
+    {
+      "term": "dicho y hecho",
+      "meaning": "no sooner said than done",
+      "example": "Le pedí que arreglara el grifo y, dicho y hecho, lo arregló en cinco minutos.",
+      "example_meaning": "I asked him to fix the tap and, no sooner said than done, he fixed it in five minutes."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c1-gerund-and-participle-clauses-01",
+      "prompt": "Aprendí inglés ___ series en versión original.",
+      "type": "multiple-choice",
+      "options": [
+        "viendo",
+        "ver",
+        "visto"
+      ],
+      "correct_answer": "viendo",
+      "explanation": "The gerund says by what means: aprendí inglés viendo series.",
+      "hints": [
+        "How did you learn? By doing what?"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "c1-gerund-and-participle-clauses-02",
+      "prompt": "Which sentence tells what happened after the accident correctly?",
+      "type": "multiple-choice",
+      "options": [
+        "Tuvo un accidente y murió dos días después.",
+        "Tuvo un accidente, muriendo dos días después."
+      ],
+      "correct_answer": "Tuvo un accidente y murió dos días después.",
+      "explanation": "A gerund cannot express a later event. Use y + a finite verb.",
+      "hints": [
+        "Can a gerund mean 'and then'?"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "c1-gerund-and-participle-clauses-03",
+      "prompt": "Se busca recepcionista que ___ (hablar) francés.",
+      "type": "fill-in-blank",
+      "correct_answer": "hable",
+      "explanation": "Instead of the adjectival gerund (*hablando francés), use a relative clause; an unknown person takes the subjunctive: que hable.",
+      "hints": [
+        "The person is not known yet: subjunctive."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "c1-gerund-and-participle-clauses-04",
+      "prompt": "___ la reunión, todos se fueron a comer.",
+      "type": "multiple-choice",
+      "options": [
+        "Terminada",
+        "Terminado",
+        "Terminando"
+      ],
+      "correct_answer": "Terminada",
+      "explanation": "In an absolute participle clause the participle agrees with its noun: la reunión, so terminada.",
+      "hints": [
+        "Reunión is feminine."
+      ],
+      "teaches": [
+        "terminada la reunión"
+      ]
+    },
+    {
+      "question_id": "c1-gerund-and-participle-clauses-05",
+      "prompt": "Una vez ___ (firmar) el contrato, ya no hay vuelta atrás.",
+      "type": "fill-in-blank",
+      "correct_answer": "firmado",
+      "explanation": "Una vez + participle (agreeing with el contrato): una vez firmado.",
+      "hints": [
+        "Masculine singular participle."
+      ],
+      "teaches": [
+        "una vez firmado"
+      ]
+    },
+    {
+      "question_id": "c1-gerund-and-participle-clauses-06",
+      "prompt": "What does 'Aun sabiéndolo, no dijo nada' mean?",
+      "type": "multiple-choice",
+      "options": [
+        "Even though she knew it, she said nothing.",
+        "Because she knew it, she said nothing.",
+        "As soon as she knew it, she said nothing."
+      ],
+      "correct_answer": "Even though she knew it, she said nothing.",
+      "explanation": "Aun + gerund is concessive: even knowing it.",
+      "hints": [
+        "Aun = even."
+      ],
+      "teaches": [
+        "aun sabiéndolo"
+      ]
+    },
+    {
+      "question_id": "c1-gerund-and-participle-clauses-07",
+      "prompt": "___ llegar a casa, vi que la puerta estaba abierta.",
+      "type": "fill-in-blank",
+      "correct_answer": "Al",
+      "explanation": "Al + infinitive = at the moment when: al llegar.",
+      "hints": [
+        "A contraction of a + el."
+      ],
+      "teaches": [
+        "al llegar"
+      ]
+    },
+    {
+      "question_id": "c1-gerund-and-participle-clauses-08",
+      "prompt": "In 'Saliendo ahora, llegamos a tiempo', what does the gerund express?",
+      "type": "multiple-choice",
+      "options": [
+        "a condition (if we leave now)",
+        "a later result",
+        "a description of a noun"
+      ],
+      "correct_answer": "a condition (if we leave now)",
+      "explanation": "A gerund at the start can mean 'if': saliendo ahora = si salimos ahora.",
+      "hints": [
+        "Paraphrase it with si."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "c1-gerund-and-participle-clauses-09",
+      "prompt": "Cuidado, el agua está ___ (hervir).",
+      "type": "fill-in-blank",
+      "correct_answer": "hirviendo",
+      "explanation": "Hervir is stem-changing (the e becomes i in the gerund): está hirviendo, a plain progressive. Next to a noun (agua hirviendo) it is one of the two gerunds that work like adjectives.",
+      "hints": [
+        "The e becomes i."
+      ],
+      "teaches": [
+        "hirviendo"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Entró corriendo y sin saludar.",
+      "meaning": "He ran in without saying hello.",
+      "note": "Gerund of manner."
+    },
+    {
+      "text": "Pensándolo bien, prefiero quedarme en casa.",
+      "meaning": "On second thoughts, I'd rather stay at home."
+    },
+    {
+      "text": "Al salir del cine, empezó a llover.",
+      "meaning": "As we came out of the cinema, it started to rain."
+    },
+    {
+      "text": "Se fue a su cuarto dando un portazo.",
+      "meaning": "She went to her room, slamming the door."
+    },
+    {
+      "text": "Estudiando un poco cada día, aprobarás sin problemas.",
+      "meaning": "If you study a little every day, you'll pass easily.",
+      "note": "Gerund of condition."
+    },
+    {
+      "text": "Concluidas las obras, el museo reabrirá en marzo.",
+      "meaning": "Once the work is finished, the museum will reopen in March.",
+      "note": "New word: concluir = to conclude, to finish."
+    },
+    {
+      "text": "Dicho esto, pasemos al siguiente punto del orden del día.",
+      "meaning": "That said, let's move on to the next item on the agenda.",
+      "note": "New word: el orden del día = the agenda."
+    },
+    {
+      "text": "Aun teniendo todas las pruebas, el jurado tardó tres días en decidir.",
+      "meaning": "Even with all the evidence, the jury took three days to decide.",
+      "note": "New word: el jurado = the jury."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The adverbial gerund"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "c1-gerund-and-participle-clauses-01"
+    },
+    {
+      "question": "c1-gerund-and-participle-clauses-08"
+    },
+    {
+      "question": "c1-gerund-and-participle-clauses-06"
+    },
+    {
+      "section": "Two classic mistakes"
+    },
+    {
+      "question": "c1-gerund-and-participle-clauses-02"
+    },
+    {
+      "question": "c1-gerund-and-participle-clauses-03"
+    },
+    {
+      "question": "c1-gerund-and-participle-clauses-09"
+    },
+    {
+      "tip": "Test a gerund by replacing it with 'and then' or 'which'. If either fits, the gerund is wrong."
+    },
+    {
+      "section": "Absolute participle"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "c1-gerund-and-participle-clauses-04"
+    },
+    {
+      "question": "c1-gerund-and-participle-clauses-05"
+    },
+    {
+      "section": "Al + infinitive"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "c1-gerund-and-participle-clauses-07"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c1-gerund-and-participle-clauses-conv-newsroom",
+      "title": "Editing the news",
+      "scenario": "Eva, an editor, goes through a news story with Tomás, a junior reporter.",
+      "role_a": "Eva",
+      "role_b": "Tomás",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Tomás, aquí pones: «El incendio empezó a las tres, siendo apagado a las seis».",
+          "meaning": "Tomás, here you write: 'The fire started at three, being put out at six.'"
+        },
+        {
+          "speaker": "b",
+          "text": "¿Está mal? Suena muy periodístico.",
+          "meaning": "Is that wrong? It sounds very journalistic."
+        },
+        {
+          "speaker": "a",
+          "text": "El gerundio no puede expresar algo posterior. Pon «y fue apagado a las seis».",
+          "meaning": "The gerund can't express something later. Write 'and was put out at six'."
+        },
+        {
+          "speaker": "b",
+          "text": "Vale. ¿Y lo de «un edificio teniendo diez plantas»?",
+          "meaning": "OK. And the bit about 'a building having ten floors'?"
+        },
+        {
+          "speaker": "a",
+          "text": "Tampoco: el gerundio no es un adjetivo. «Un edificio de diez plantas».",
+          "meaning": "No good either: the gerund isn't an adjective. 'A ten-storey building'."
+        },
+        {
+          "speaker": "b",
+          "text": "Pero «el edificio ardiendo» sí vale, ¿no?",
+          "meaning": "But 'the burning building' is fine, isn't it?"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, ardiendo e hirviendo son la excepción.",
+          "meaning": "Yes, ardiendo and hirviendo are the exception."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Y el primer párrafo? «Al llegar los bomberos, el fuego ya era enorme».",
+          "meaning": "And the first paragraph? 'When the firefighters arrived, the fire was already huge.'"
+        },
+        {
+          "speaker": "a",
+          "text": "Perfecto. Corregidos estos dos errores, la noticia está lista.",
+          "meaning": "Perfect. With these two mistakes corrected, the story is ready.",
+          "note": "Absolute participle: corregidos agrees with errores."
+        },
+        {
+          "speaker": "b",
+          "text": "Dicho y hecho. La mando ahora mismo.",
+          "meaning": "No sooner said than done. I'll send it right now."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🏃",
+    "bites": [
+      {
+        "title": "The gerund: how, by, why, if",
+        "emoji": "🏃",
+        "rule": "A gerund clause gives manner (entró corriendo), means (aprendí viendo series), cause (sabiendo que…) or condition (saliendo ya, llegamos).",
+        "example": "Aprendí inglés viendo series.",
+        "example_meaning": "I learnt English by watching series."
+      },
+      {
+        "title": "Never 'and then'",
+        "emoji": "⛔",
+        "rule": "The gerund is simultaneous or just before; it cannot report a later event. Use y + verb: …y murió días después.",
+        "example": "Se cayó y se rompió la pierna.",
+        "example_meaning": "She fell and broke her leg."
+      },
+      {
+        "title": "Not an adjective",
+        "emoji": "📦",
+        "rule": "Una caja que contiene libros, not *conteniendo. Only hirviendo and ardiendo describe nouns: agua hirviendo.",
+        "example": "Busco un piso que tenga terraza.",
+        "example_meaning": "I'm looking for a flat with a terrace."
+      },
+      {
+        "title": "Terminada la reunión… / al llegar",
+        "emoji": "✒️",
+        "rule": "Participle + noun (agreeing) = once that was done. Al + infinitive = at the moment when.",
+        "example": "Terminada la cena, salimos a pasear.",
+        "example_meaning": "Once dinner was over, we went for a walk."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Correct or not?",
+        "buckets": [
+          "correct",
+          "a classic mistake"
+        ],
+        "items": [
+          {
+            "text": "Entró en casa cantando.",
+            "bucket": 0
+          },
+          {
+            "text": "Cuidado con el agua hirviendo.",
+            "bucket": 0
+          },
+          {
+            "text": "Aun sabiéndolo, se calló.",
+            "bucket": 0
+          },
+          {
+            "text": "Recibí una caja conteniendo libros.",
+            "bucket": 1
+          },
+          {
+            "text": "Nació en Lima, mudándose a Madrid años después.",
+            "bucket": 1
+          },
+          {
+            "text": "Se busca cocinero sabiendo hacer paella.",
+            "bucket": 1
+          }
+        ],
+        "why": "The gerund says how or why; it cannot describe a noun (except hirviendo, ardiendo) or report a later event."
+      },
+      {
+        "title": "What does the gerund express?",
+        "buckets": [
+          "manner",
+          "means",
+          "cause",
+          "condition"
+        ],
+        "items": [
+          {
+            "text": "Entró corriendo.",
+            "bucket": 0
+          },
+          {
+            "text": "Habla gritando.",
+            "bucket": 0
+          },
+          {
+            "text": "Se pagó los estudios trabajando de camarero.",
+            "bucket": 1
+          },
+          {
+            "text": "Aprendí a cocinar mirando a mi abuela.",
+            "bucket": 1
+          },
+          {
+            "text": "Estando enfermo, no fue a trabajar.",
+            "bucket": 2
+          },
+          {
+            "text": "Sabiendo que dormías, no llamé.",
+            "bucket": 2
+          },
+          {
+            "text": "Saliendo ya, llegamos a tiempo.",
+            "bucket": 3
+          },
+          {
+            "text": "Pidiéndolo con educación, te lo dará.",
+            "bucket": 3
+          }
+        ],
+        "why": "The same form covers how, by what means, why and on what condition; context decides."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Se busca camarero hablando inglés.",
+        "wrong": "hablando",
+        "fix": "que hable",
+        "why": "The gerund cannot describe a noun; use a relative clause."
+      },
+      {
+        "sentence": "Terminado la clase, salimos al patio.",
+        "wrong": "Terminado",
+        "fix": "Terminada",
+        "why": "The participle agrees with its noun: la clase, so terminada."
+      },
+      {
+        "sentence": "Al llegando a casa, cené.",
+        "wrong": "llegando",
+        "fix": "llegar",
+        "why": "Al takes the infinitive."
+      },
+      {
+        "sentence": "Recibí una carta conteniendo malas noticias.",
+        "wrong": "conteniendo",
+        "fix": "que contenía",
+        "why": "The gerund is not an adjective."
+      },
+      {
+        "sentence": "Dicha esto, pasamos al siguiente punto.",
+        "wrong": "Dicha",
+        "fix": "Dicho",
+        "why": "Esto is neuter, so the participle is masculine singular: dicho esto."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Entró en clase corriendo.",
+        "meaning": "He ran into class.",
+        "distractors": [
+          "correr"
+        ]
+      },
+      {
+        "text": "Al llegar, llámame.",
+        "meaning": "When you arrive, call me.",
+        "distractors": [
+          "llegando"
+        ]
+      },
+      {
+        "text": "Terminada la cena, fuimos a pasear.",
+        "meaning": "Once dinner was over, we went for a walk.",
+        "distractors": [
+          "terminado"
+        ]
+      },
+      {
+        "text": "Aprendí alemán viendo películas.",
+        "meaning": "I learnt German by watching films.",
+        "distractors": [
+          "ver"
+        ]
+      }
+    ]
+  }
+}

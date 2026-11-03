@@ -1,0 +1,670 @@
+{
+  "id": "a1-reflexive-routine",
+  "slug": "reflexive-routine",
+  "title": "Reflexive verbs and the daily routine: je me lève à sept heures",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 48,
+  "summary": "Me, te, se, nous, vous: the pronoun that matches the subject, and the verbs of a day from se réveiller to se coucher.",
+  "focus": "Reflexive verbs in the present and the daily routine",
+  "prerequisites": [
+    "a1-stem-changing-er"
+  ],
+  "content": "## Reflexive verbs: me, te, se…\n\nA reflexive verb carries a pronoun that points back at the subject: **je me lave** = I wash (myself). The infinitive shows **se**: **se laver**, **se lever**. When you conjugate, **se** changes to match the subject:\n\n| subject | pronoun | se laver |\n|---|---|---|\n| je | me / m' | **je me lave** |\n| tu | te / t' | **tu te laves** |\n| il / elle / on | se / s' | **il se lave** |\n| nous | nous | **nous nous lavons** |\n| vous | vous | **vous vous lavez** |\n| ils / elles | se / s' | **ils se lavent** |\n\nBefore a vowel or a silent **h**, **me**, **te**, **se** become **m'**, **t'**, **s'**: **je m'habille**, **tu t'habilles**, **elle s'habille**. The verb keeps its usual -er endings.\n\n## The routine, from morning to night\n\n- **se réveiller**: to wake up. **Je me réveille à six heures.**\n- **se lever**: to get up. **Je me lève à sept heures.** (e → è, as in acheter: **je me lève**, **nous nous levons**)\n- **se doucher**: to shower. **Je me douche.**\n- **se brosser les dents**: to brush your teeth.\n- **s'habiller**: to get dressed. **Je m'habille.**\n- **prendre le petit-déjeuner**: to have breakfast. **Je prends le petit-déjeuner.** (not reflexive)\n- **rentrer**: to come home. **Je rentre à dix-huit heures.** (not reflexive)\n- **se coucher**: to go to bed. **Je me couche à onze heures.**\n\n**Se réveiller** is opening your eyes; **se lever** is getting out of bed. In the drill, the forms come with their reflexive pronoun: **me lève**, **te lèves**, **nous levons**.\n\n## Saying no, and the pronoun before an infinitive\n\nIn a negative sentence, the pronoun stays glued to its verb: **ne** goes before the pronoun, **pas** after the verb.\n\n- **Je ne me lève pas.** (I'm not getting up.)\n- **Il ne se couche pas tôt.** (He doesn't go to bed early.)\n- **Tu ne t'habilles pas ?** (Aren't you getting dressed?)\n\nAfter **aller**, **aimer** or another verb, the reflexive verb stays in the infinitive, but its pronoun still matches the subject:\n\n- **Je vais me coucher.** (not **se coucher**)\n- **Tu vas te doucher ?**\n- **Nous allons nous lever tôt.**\n- **J'aime me lever tard.**\n\n## Body parts and à quelle heure ?\n\nWith a body part, French says **le**, **la**, **les**, not **mon**, **ma**, **mes**: the pronoun already tells you whose hands they are.\n\n- **Je me lave les mains.** (I wash my hands.)\n- **Elle se brosse les dents.** (She brushes her teeth.)\n- **Tu te laves les cheveux ?** (Are you washing your hair?)\n\nTo ask when, use **à quelle heure ?**, at the start or, in speech, at the end:\n\n- **À quelle heure est-ce que tu te lèves ? — Je me lève à sept heures.**\n- **Vous vous couchez à quelle heure ? — À onze heures et demie.**",
+  "vocabulary": [
+    {
+      "term": "se réveiller",
+      "meaning": "to wake up",
+      "example": "Je me réveille à six heures.",
+      "example_meaning": "I wake up at six."
+    },
+    {
+      "term": "se lever",
+      "meaning": "to get up",
+      "example": "Nous nous levons tôt pour travailler.",
+      "example_meaning": "We get up early to work."
+    },
+    {
+      "term": "se doucher",
+      "meaning": "to shower",
+      "example": "Tu te douches le matin ou le soir ?",
+      "example_meaning": "Do you shower in the morning or in the evening?"
+    },
+    {
+      "term": "se laver",
+      "meaning": "to wash (yourself)",
+      "example": "Les enfants se lavent les mains avant le repas.",
+      "example_meaning": "The children wash their hands before the meal."
+    },
+    {
+      "term": "se brosser les dents",
+      "meaning": "to brush your teeth",
+      "example": "Il se brosse les dents après le petit-déjeuner.",
+      "example_meaning": "He brushes his teeth after breakfast."
+    },
+    {
+      "term": "s'habiller",
+      "meaning": "to get dressed",
+      "example": "Elle s'habille vite le matin.",
+      "example_meaning": "She gets dressed quickly in the morning."
+    },
+    {
+      "term": "prendre le petit-déjeuner",
+      "meaning": "to have breakfast",
+      "example": "Je prends le petit-déjeuner avec ma sœur.",
+      "example_meaning": "I have breakfast with my sister."
+    },
+    {
+      "term": "rentrer",
+      "meaning": "to come home, to go back",
+      "example": "Mon père rentre du travail à dix-huit heures.",
+      "example_meaning": "My father comes home from work at 6 p.m."
+    },
+    {
+      "term": "se coucher",
+      "meaning": "to go to bed",
+      "example": "Le boulanger se couche très tôt.",
+      "example_meaning": "The baker goes to bed very early."
+    },
+    {
+      "term": "à quelle heure",
+      "meaning": "at what time",
+      "example": "À quelle heure est-ce que tu te réveilles ?",
+      "example_meaning": "What time do you wake up?"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-reflexive-routine-01",
+      "prompt": "Tu ___ dans ta chambre. (You get dressed in your room.)",
+      "type": "multiple-choice",
+      "options": [
+        "t'habilles",
+        "te habilles",
+        "s'habilles"
+      ],
+      "correct_answer": "t'habilles",
+      "explanation": "S'habiller starts with a silent h, so te becomes t': tu t'habilles.",
+      "hints": [
+        "Te before a vowel or silent h?",
+        "The pronoun must match tu."
+      ],
+      "teaches": [
+        "s'habiller"
+      ]
+    },
+    {
+      "question_id": "a1-reflexive-routine-02",
+      "prompt": "Nous ___ à onze heures. (We go to bed at eleven: se coucher.)",
+      "type": "fill-in-blank",
+      "correct_answer": "nous couchons",
+      "accepted_answers": [
+        "nous nous couchons"
+      ],
+      "explanation": "With nous, the reflexive pronoun is nous too, so nous appears twice: nous nous couchons.",
+      "hints": [
+        "The pronoun for nous is nous.",
+        "The ending for nous is -ons."
+      ],
+      "teaches": [
+        "se coucher"
+      ]
+    },
+    {
+      "question_id": "a1-reflexive-routine-03",
+      "prompt": "Make 'Je me lève tôt' negative.",
+      "type": "multiple-choice",
+      "options": [
+        "Je ne me lève pas tôt.",
+        "Je me ne lève pas tôt.",
+        "Je ne lève me pas tôt."
+      ],
+      "correct_answer": "Je ne me lève pas tôt.",
+      "explanation": "Ne goes before the pronoun and pas after the verb; the pronoun and the verb stay together: je ne me lève pas tôt.",
+      "hints": [
+        "Do not split me from lève."
+      ],
+      "teaches": [
+        "se lever"
+      ]
+    },
+    {
+      "question_id": "a1-reflexive-routine-04",
+      "prompt": "Je vais ___ coucher ce soir. (I'm going to go to bed this evening.)",
+      "type": "fill-in-blank",
+      "correct_answer": "me",
+      "accepted_answers": [],
+      "explanation": "Before an infinitive, the reflexive pronoun still matches the subject: je vais me coucher, not se coucher.",
+      "hints": [
+        "The subject is je."
+      ],
+      "teaches": [
+        "se coucher"
+      ]
+    },
+    {
+      "question_id": "a1-reflexive-routine-05",
+      "prompt": "Translate 'She washes her hands.'",
+      "type": "multiple-choice",
+      "options": [
+        "Elle se lave les mains.",
+        "Elle se lave ses mains.",
+        "Elle lave se les mains."
+      ],
+      "correct_answer": "Elle se lave les mains.",
+      "explanation": "With a body part, French uses les, not ses: the pronoun se already says whose hands. Elle se lave les mains.",
+      "hints": [
+        "Mon, ma, mes are not used with a body part here."
+      ],
+      "teaches": [
+        "se laver"
+      ]
+    },
+    {
+      "question_id": "a1-reflexive-routine-06",
+      "prompt": "'Nous allons nous lever tôt' is correct: before the infinitive, the pronoun matches nous.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Right: the pronoun before an infinitive matches the subject, so nous allons nous lever.",
+      "hints": [
+        "Who is getting up?"
+      ],
+      "teaches": [
+        "se lever"
+      ]
+    },
+    {
+      "question_id": "a1-reflexive-routine-07",
+      "prompt": "___ tu te lèves ? — À sept heures et quart.",
+      "type": "fill-in-blank",
+      "correct_answer": "À quelle heure",
+      "accepted_answers": [
+        "a quelle heure"
+      ],
+      "explanation": "The answer is a clock time, so the question is à quelle heure (at what time).",
+      "hints": [
+        "Three words: at + which + hour."
+      ]
+    },
+    {
+      "question_id": "a1-reflexive-routine-08",
+      "prompt": "Which verb is the moment you open your eyes, before you get out of bed?",
+      "type": "multiple-choice",
+      "options": [
+        "se réveiller",
+        "se lever",
+        "se coucher"
+      ],
+      "correct_answer": "se réveiller",
+      "explanation": "Se réveiller is waking up; se lever is getting out of bed; se coucher is going to bed.",
+      "hints": [
+        "You can wake up and stay in bed."
+      ],
+      "teaches": [
+        "se réveiller"
+      ]
+    },
+    {
+      "question_id": "a1-reflexive-routine-09",
+      "prompt": "Prendre le petit-déjeuner is reflexive, so you say 'je me prends le petit-déjeuner'.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Prendre le petit-déjeuner is not reflexive: je prends le petit-déjeuner. Only verbs with se in the infinitive take the pronoun.",
+      "hints": [
+        "Is there a se in the infinitive?"
+      ],
+      "teaches": [
+        "prendre le petit-déjeuner"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "se lever",
+      "meaning": "to get up",
+      "set": "present",
+      "art": [
+        "    \\o/     ",
+        "     |      ",
+        "    / \\     ",
+        "  ________  ",
+        " |  UP!   | ",
+        " |________| "
+      ],
+      "forms": {
+        "je": "me lève",
+        "tu": "te lèves",
+        "il": "se lève",
+        "nous": "nous levons",
+        "vous": "vous levez",
+        "ils": "se lèvent"
+      }
+    },
+    {
+      "item": "se réveiller",
+      "meaning": "to wake up",
+      "set": "present",
+      "art": [
+        "   _______   ",
+        "  /  12   \\  ",
+        " | 9  |  3 | ",
+        "  \\   6   /  ",
+        "   -------   ",
+        "   RING!!    "
+      ],
+      "forms": {
+        "je": "me réveille",
+        "tu": "te réveilles",
+        "il": "se réveille",
+        "nous": "nous réveillons",
+        "vous": "vous réveillez",
+        "ils": "se réveillent"
+      }
+    },
+    {
+      "item": "se coucher",
+      "meaning": "to go to bed",
+      "set": "present",
+      "art": [
+        "        z Z z  ",
+        "  ___________  ",
+        " |o ~~~~~~~~~| ",
+        " |___________| ",
+        " |           | "
+      ],
+      "forms": {
+        "je": "me couche",
+        "tu": "te couches",
+        "il": "se couche",
+        "nous": "nous couchons",
+        "vous": "vous couchez",
+        "ils": "se couchent"
+      }
+    },
+    {
+      "item": "s'habiller",
+      "meaning": "to get dressed",
+      "set": "present",
+      "art": [
+        "   __/\\__   ",
+        "  |      |  ",
+        "  |_    _|  ",
+        "    |  |    ",
+        "    |__|    "
+      ],
+      "forms": {
+        "je": "m'habille",
+        "tu": "t'habilles",
+        "il": "s'habille",
+        "nous": "nous habillons",
+        "vous": "vous habillez",
+        "ils": "s'habillent"
+      }
+    }
+  ],
+  "listening": [
+    {
+      "text": "Je me lave le visage.",
+      "meaning": "I wash my face.",
+      "note": "New word: le visage = the face."
+    },
+    {
+      "text": "Tu te réveilles à quelle heure ?",
+      "meaning": "What time do you wake up?"
+    },
+    {
+      "text": "Elle se brosse les dents dans la salle de bains.",
+      "meaning": "She brushes her teeth in the bathroom.",
+      "note": "Les dents, not ses dents: the pronoun says whose."
+    },
+    {
+      "text": "Nous nous levons à sept heures et quart.",
+      "meaning": "We get up at a quarter past seven.",
+      "note": "Nous twice: the subject, then the reflexive pronoun."
+    },
+    {
+      "text": "Mes parents ne se couchent jamais avant minuit.",
+      "meaning": "My parents never go to bed before midnight."
+    },
+    {
+      "text": "Je vais m'habiller et prendre le petit-déjeuner.",
+      "meaning": "I'm going to get dressed and have breakfast.",
+      "note": "The pronoun matches je before the infinitive."
+    },
+    {
+      "text": "Les enfants se douchent le soir après le dîner.",
+      "meaning": "The children shower in the evening after dinner.",
+      "note": "New word: le dîner = dinner."
+    },
+    {
+      "text": "Le matin, je m'habille vite parce que le bus passe à huit heures.",
+      "meaning": "In the morning I get dressed quickly because the bus comes at eight.",
+      "note": "New word: vite = quickly."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Reflexive verbs"
+    },
+    {
+      "question": "a1-reflexive-routine-01"
+    },
+    {
+      "question": "a1-reflexive-routine-02"
+    },
+    {
+      "section": "The routine"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-reflexive-routine-08"
+    },
+    {
+      "question": "a1-reflexive-routine-09"
+    },
+    {
+      "concept": {
+        "title": "Se lever: the boot again",
+        "markdown": "**Se lever** follows the e → è pattern you met with **acheter**: the accent appears where the ending is silent. **Je me lève**, **tu te lèves**, **ils se lèvent**, but **nous nous levons**, **vous vous levez**. Listen: the è sounds open, the plain e is almost silent."
+      }
+    },
+    {
+      "section": "Saying no"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-reflexive-routine-03"
+    },
+    {
+      "question": "a1-reflexive-routine-04"
+    },
+    {
+      "question": "a1-reflexive-routine-06"
+    },
+    {
+      "tip": "Say the pronoun and the verb as one word: memelève, tetelèves. Then ne … pas wraps the whole block, and aller + infinitive keeps it whole too."
+    },
+    {
+      "section": "Body parts"
+    },
+    {
+      "question": "a1-reflexive-routine-05"
+    },
+    {
+      "question": "a1-reflexive-routine-07"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-reflexive-routine-conv-flatmates",
+      "title": "Who gets the bathroom?",
+      "scenario": "Inès and Hugo have just moved into a flat with one bathroom. They sort out their mornings.",
+      "role_a": "Inès",
+      "role_b": "Hugo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Hugo, à quelle heure est-ce que tu te lèves le matin ?",
+          "meaning": "Hugo, what time do you get up in the morning?"
+        },
+        {
+          "speaker": "b",
+          "text": "Je me réveille à six heures, mais je ne me lève pas tout de suite.",
+          "meaning": "I wake up at six, but I don't get up straight away.",
+          "note": "ne goes before the pronoun"
+        },
+        {
+          "speaker": "a",
+          "text": "Ah bon ? Et tu te douches à quelle heure ?",
+          "meaning": "Really? And what time do you shower?"
+        },
+        {
+          "speaker": "b",
+          "text": "Vers sept heures. Je me douche et je m'habille en dix minutes.",
+          "meaning": "Around seven. I shower and get dressed in ten minutes.",
+          "note": "m' before the silent h of habille"
+        },
+        {
+          "speaker": "a",
+          "text": "Moi aussi, je me douche à sept heures ! Il y a un problème.",
+          "meaning": "Me too, I shower at seven! There's a problem."
+        },
+        {
+          "speaker": "b",
+          "text": "Pas de problème : tu te laves d'abord, et moi, je prends le petit-déjeuner.",
+          "meaning": "No problem: you wash first, and I have breakfast.",
+          "note": "prendre le petit-déjeuner is not reflexive"
+        },
+        {
+          "speaker": "a",
+          "text": "Super. Et le soir, tu te couches tard ?",
+          "meaning": "Great. And in the evening, do you go to bed late?"
+        },
+        {
+          "speaker": "b",
+          "text": "Non, je me couche à dix heures et demie. Je suis toujours fatigué !",
+          "meaning": "No, I go to bed at half past ten. I'm always tired!"
+        },
+        {
+          "speaker": "a",
+          "text": "Moi, je rentre tard, alors je vais me coucher vers minuit.",
+          "meaning": "I get home late, so I'm going to go to bed around midnight.",
+          "note": "me matches je before the infinitive"
+        },
+        {
+          "speaker": "b",
+          "text": "D'accord. Alors bonne nuit, Inès, et à demain matin !",
+          "meaning": "OK. Good night then, Inès, and see you tomorrow morning!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "⏰",
+    "bites": [
+      {
+        "title": "The pronoun points back",
+        "emoji": "🪞",
+        "rule": "A reflexive verb carries a pronoun that matches the subject: je me, tu te, il se, nous nous, vous vous, ils se. Before a vowel: m', t', s'.",
+        "example": "Je m'habille et tu te laves.",
+        "example_meaning": "I get dressed and you wash."
+      },
+      {
+        "title": "Morning to night",
+        "emoji": "⏰",
+        "rule": "Se réveiller, se lever, se doucher, s'habiller, prendre le petit-déjeuner, rentrer, se coucher. Only the verbs with se take the pronoun.",
+        "example": "Je me réveille, puis je me lève.",
+        "example_meaning": "I wake up, then I get up."
+      },
+      {
+        "title": "Keep the block together",
+        "emoji": "🧱",
+        "rule": "Ne before the pronoun, pas after the verb: je ne me lève pas. Before an infinitive, the pronoun matches the subject: je vais me coucher.",
+        "example": "Il ne se couche pas tard.",
+        "example_meaning": "He doesn't go to bed late."
+      },
+      {
+        "title": "Les mains, not mes mains",
+        "emoji": "🖐️",
+        "rule": "With a body part, use le / la / les: the reflexive pronoun already says whose. Je me lave les mains.",
+        "example": "Tu te laves les cheveux ?",
+        "example_meaning": "Are you washing your hair?"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which pronoun?",
+        "buckets": [
+          "me / m'",
+          "te / t'",
+          "se / s'"
+        ],
+        "items": [
+          {
+            "text": "je ___ douche",
+            "bucket": 0
+          },
+          {
+            "text": "tu ___ réveilles",
+            "bucket": 1
+          },
+          {
+            "text": "elle ___ habille",
+            "bucket": 2
+          },
+          {
+            "text": "je ___ habille",
+            "bucket": 0
+          },
+          {
+            "text": "ils ___ couchent",
+            "bucket": 2
+          },
+          {
+            "text": "tu ___ laves",
+            "bucket": 1
+          }
+        ],
+        "why": "The pronoun follows the subject: je → me, tu → te, il / elle / ils → se, with m', t', s' before a vowel or silent h."
+      },
+      {
+        "title": "Reflexive or not?",
+        "buckets": [
+          "reflexive (se …)",
+          "not reflexive"
+        ],
+        "items": [
+          {
+            "text": "se lever",
+            "bucket": 0
+          },
+          {
+            "text": "s'habiller",
+            "bucket": 0
+          },
+          {
+            "text": "prendre le petit-déjeuner",
+            "bucket": 1
+          },
+          {
+            "text": "rentrer",
+            "bucket": 1
+          },
+          {
+            "text": "se coucher",
+            "bucket": 0
+          },
+          {
+            "text": "travailler",
+            "bucket": 1
+          },
+          {
+            "text": "se doucher",
+            "bucket": 0
+          }
+        ],
+        "why": "Only the verbs whose infinitive has se take a reflexive pronoun; rentrer and prendre le petit-déjeuner do not."
+      },
+      {
+        "title": "Morning or evening?",
+        "buckets": [
+          "le matin",
+          "le soir"
+        ],
+        "items": [
+          {
+            "text": "Je me réveille.",
+            "bucket": 0
+          },
+          {
+            "text": "Je me lève.",
+            "bucket": 0
+          },
+          {
+            "text": "Je prends le petit-déjeuner.",
+            "bucket": 0
+          },
+          {
+            "text": "Je rentre du travail.",
+            "bucket": 1
+          },
+          {
+            "text": "Je me couche.",
+            "bucket": 1
+          },
+          {
+            "text": "Je dîne en famille.",
+            "bucket": 1
+          }
+        ],
+        "why": "The day starts with se réveiller and se lever and ends with rentrer and se coucher."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Je me habille dans ma chambre.",
+        "wrong": "me",
+        "fix": "m'",
+        "why": "Me becomes m' before the silent h of habille: je m'habille."
+      },
+      {
+        "sentence": "Nous se levons à sept heures.",
+        "wrong": "se",
+        "fix": "nous",
+        "why": "With nous, the reflexive pronoun is nous: nous nous levons."
+      },
+      {
+        "sentence": "Je vais se coucher.",
+        "wrong": "se",
+        "fix": "me",
+        "why": "Before an infinitive the pronoun still matches the subject: je vais me coucher."
+      },
+      {
+        "sentence": "Elle se lave ses mains.",
+        "wrong": "ses",
+        "fix": "les",
+        "why": "With a body part, use les: elle se lave les mains."
+      },
+      {
+        "sentence": "Mes parents se couche à minuit.",
+        "wrong": "couche",
+        "fix": "couchent",
+        "why": "Mes parents = ils, which takes -ent: ils se couchent."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Je me lève à sept heures.",
+        "meaning": "I get up at seven.",
+        "distractors": [
+          "se"
+        ]
+      },
+      {
+        "text": "Tu te brosses les dents ?",
+        "meaning": "Are you brushing your teeth?",
+        "distractors": [
+          "ses"
+        ]
+      },
+      {
+        "text": "Je ne me couche pas tard.",
+        "meaning": "I don't go to bed late.",
+        "distractors": [
+          "se"
+        ]
+      },
+      {
+        "text": "Nous allons nous habiller.",
+        "meaning": "We're going to get dressed.",
+        "distractors": [
+          "se"
+        ]
+      }
+    ]
+  }
+}

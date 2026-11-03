@@ -1,0 +1,704 @@
+{
+  "id": "a2-imparfait",
+  "slug": "imparfait",
+  "title": "The imparfait: what used to be",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 26,
+  "summary": "Form the imparfait from the nous stem and use it for past habits, descriptions, weather, age and time.",
+  "focus": "Forming and using the imparfait for habits and descriptions in the past",
+  "prerequisites": [
+    "a2-passe-compose-etre"
+  ],
+  "content": "## Forming the imparfait\n\nTake the **nous** form of the present, drop **-ons**, and add the endings **-ais, -ais, -ait, -ions, -iez, -aient**.\n\n| | parler (nous parlons) | finir (nous finissons) | prendre (nous prenons) |\n|---|---|---|---|\n| je | parlais | finissais | prenais |\n| tu | parlais | finissais | prenais |\n| il / elle / on | parlait | finissait | prenait |\n| nous | parlions | finissions | prenions |\n| vous | parliez | finissiez | preniez |\n| ils / elles | parlaient | finissaient | prenaient |\n\nThe same works for irregular verbs: **nous faisons → je faisais**, **nous avons → j'avais**. Four of the six endings (-ais, -ais, -ait, -aient) sound exactly the same.\n\n## Être, the one irregular stem\n\n**Être** is the only verb whose stem does not come from the nous form. Its stem is **ét-**, with the usual endings:\n\n| je | tu | il / elle / on | nous | vous | ils / elles |\n|---|---|---|---|---|---|\n| étais | étais | était | étions | étiez | étaient |\n\nThe most useful form of all is **c'était** (it was): **C'était génial !** It was great! **C'était comment ?** What was it like?\n\n## Habits: what used to happen\n\nThe imparfait tells what happened again and again in the past, like English *used to* or *would*. Time words signal it: **avant** (before, in the past), **tous les jours**, **d'habitude** (usually), **souvent**, **le samedi** (on Saturdays), **quand j'étais petit / petite**.\n\n- **Avant, j'habitais à Marseille.** I used to live in Marseille.\n- **Tous les jours, nous prenions le bus.** Every day we took the bus.\n- **Quand j'étais petite, je finissais l'école à quatre heures.** When I was little, I finished school at four.\n\n## Descriptions, weather, age and time\n\nThe imparfait also sets the background of a past scene: what things were like, the weather, someone's age, the time.\n\n- **La maison était grande.** The house was big.\n- **Il faisait beau. / Il pleuvait.** The weather was nice. / It was raining.\n- **J'avais dix ans.** I was ten. (age takes **avoir**)\n- **Il était huit heures.** It was eight o'clock.\n- **Il y avait beaucoup de monde.** There were lots of people.",
+  "vocabulary": [
+    {
+      "term": "avant",
+      "meaning": "before; in the past",
+      "example": "Avant, mon père travaillait à Paris.",
+      "example_meaning": "My father used to work in Paris."
+    },
+    {
+      "term": "tous les jours",
+      "meaning": "every day",
+      "example": "Tous les jours, je parlais anglais avec ma voisine.",
+      "example_meaning": "Every day I spoke English with my neighbour."
+    },
+    {
+      "term": "quand j'étais petit / petite",
+      "meaning": "when I was little",
+      "example": "Quand j'étais petit, j'avais un chien.",
+      "example_meaning": "When I was little, I had a dog."
+    },
+    {
+      "term": "d'habitude",
+      "meaning": "usually",
+      "example": "D'habitude, nous dînions à sept heures.",
+      "example_meaning": "We usually had dinner at seven."
+    },
+    {
+      "term": "souvent",
+      "meaning": "often",
+      "example": "Ma mère faisait souvent des crêpes.",
+      "example_meaning": "My mother often made crêpes."
+    },
+    {
+      "term": "c'était",
+      "meaning": "it was",
+      "example": "C'était une belle journée.",
+      "example_meaning": "It was a beautiful day."
+    },
+    {
+      "term": "il faisait beau",
+      "meaning": "the weather was nice",
+      "example": "Il faisait beau, alors on mangeait dehors.",
+      "example_meaning": "The weather was nice, so we ate outside."
+    },
+    {
+      "term": "il pleuvait",
+      "meaning": "it was raining",
+      "example": "Il pleuvait et les enfants restaient à la maison.",
+      "example_meaning": "It was raining and the children stayed at home."
+    },
+    {
+      "term": "les grands-parents",
+      "meaning": "grandparents (m pl)",
+      "example": "Mes grands-parents avaient une maison à la mer.",
+      "example_meaning": "My grandparents had a house by the sea."
+    },
+    {
+      "term": "la campagne",
+      "meaning": "countryside (f)",
+      "example": "Nous passions l'été à la campagne.",
+      "example_meaning": "We used to spend the summer in the countryside."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "être",
+      "meaning": "to be",
+      "set": "imparfait",
+      "art": [
+        " ___________ ",
+        "|  ONCE     |",
+        "|  UPON A   |",
+        "|  TIME...  |",
+        "|___________|"
+      ],
+      "forms": {
+        "je": "étais",
+        "tu": "étais",
+        "il": "était",
+        "nous": "étions",
+        "vous": "étiez",
+        "ils": "étaient"
+      }
+    },
+    {
+      "item": "avoir",
+      "meaning": "to have",
+      "set": "imparfait",
+      "art": [
+        "   _______   ",
+        "  |  ___  |  ",
+        "  | |   | |  ",
+        "  | |___| |  ",
+        "  |_______|  ",
+        "  old photo  "
+      ],
+      "forms": {
+        "je": "avais",
+        "tu": "avais",
+        "il": "avait",
+        "nous": "avions",
+        "vous": "aviez",
+        "ils": "avaient"
+      }
+    },
+    {
+      "item": "faire",
+      "meaning": "to do, to make",
+      "set": "imparfait",
+      "art": [
+        "    \\ | /    ",
+        "  -- (_) --  ",
+        "    / | \\    ",
+        "  il faisait ",
+        "    beau     "
+      ],
+      "forms": {
+        "je": "faisais",
+        "tu": "faisais",
+        "il": "faisait",
+        "nous": "faisions",
+        "vous": "faisiez",
+        "ils": "faisaient"
+      }
+    },
+    {
+      "item": "parler",
+      "meaning": "to speak",
+      "set": "imparfait",
+      "art": [
+        "  .--------.  ",
+        " ( bla bla  ) ",
+        "  `--. .---'  ",
+        "     |/       ",
+        "  every day   "
+      ],
+      "forms": {
+        "je": "parlais",
+        "tu": "parlais",
+        "il": "parlait",
+        "nous": "parlions",
+        "vous": "parliez",
+        "ils": "parlaient"
+      }
+    },
+    {
+      "item": "finir",
+      "meaning": "to finish",
+      "set": "imparfait",
+      "art": [
+        "  ___________ ",
+        " |  4:00 pm  |",
+        " |  school   |",
+        " |  is out!  |",
+        " |___________|"
+      ],
+      "forms": {
+        "je": "finissais",
+        "tu": "finissais",
+        "il": "finissait",
+        "nous": "finissions",
+        "vous": "finissiez",
+        "ils": "finissaient"
+      }
+    },
+    {
+      "item": "prendre",
+      "meaning": "to take",
+      "set": "imparfait",
+      "art": [
+        "  ____________ ",
+        " |[] [] [] [] |",
+        " |    BUS     |",
+        " '-(o)----(o)-'",
+        "  every morning"
+      ],
+      "forms": {
+        "je": "prenais",
+        "tu": "prenais",
+        "il": "prenait",
+        "nous": "prenions",
+        "vous": "preniez",
+        "ils": "prenaient"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-imparfait-01",
+      "prompt": "Quand j'étais petit, je ___ au football tous les samedis. (jouer)",
+      "type": "fill-in-blank",
+      "correct_answer": "jouais",
+      "accepted_answers": [
+        "je jouais"
+      ],
+      "explanation": "A childhood habit takes the imparfait: nous jouons → jou- + -ais = je jouais.",
+      "hints": [
+        "Start from nous jouons.",
+        "The je ending is -ais."
+      ],
+      "teaches": [
+        "quand j'étais petit / petite"
+      ]
+    },
+    {
+      "question_id": "a2-imparfait-02",
+      "prompt": "Where does the imparfait stem of finir come from?",
+      "type": "multiple-choice",
+      "options": [
+        "nous finissons → finiss-",
+        "je finis → fin-",
+        "finir → finir-"
+      ],
+      "correct_answer": "nous finissons → finiss-",
+      "explanation": "The stem is the nous form of the present minus -ons: nous finissons → finiss- → je finissais.",
+      "hints": [
+        "Which person of the present gives the stem?"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-imparfait-03",
+      "prompt": "Avant, nous ___ en Bretagne. (habiter)",
+      "type": "fill-in-blank",
+      "correct_answer": "habitions",
+      "accepted_answers": [
+        "nous habitions"
+      ],
+      "explanation": "Avant points to the past; nous habitons → habit- + -ions = nous habitions.",
+      "hints": [
+        "The nous ending is -ions.",
+        "habit- + …"
+      ],
+      "teaches": [
+        "avant"
+      ]
+    },
+    {
+      "question_id": "a2-imparfait-04",
+      "prompt": "Il ___ huit heures et il pleuvait.",
+      "type": "multiple-choice",
+      "options": [
+        "était",
+        "étais",
+        "avait"
+      ],
+      "correct_answer": "était",
+      "explanation": "Telling the time in the past uses être: il était huit heures. Étais goes with je / tu.",
+      "hints": [
+        "Il est huit heures, in the past.",
+        "The subject is il."
+      ],
+      "teaches": [
+        "il pleuvait"
+      ]
+    },
+    {
+      "question_id": "a2-imparfait-05",
+      "prompt": "Être is the only verb whose imparfait stem does not come from the nous form: its stem is ét-.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "True: nous sommes would give nothing usable, so être takes ét-: j'étais, c'était, nous étions.",
+      "hints": [
+        "Think of c'était."
+      ],
+      "teaches": [
+        "c'était"
+      ]
+    },
+    {
+      "question_id": "a2-imparfait-06",
+      "prompt": "C'était l'été et il ___ très beau. (faire)",
+      "type": "fill-in-blank",
+      "correct_answer": "faisait",
+      "accepted_answers": [
+        "il faisait"
+      ],
+      "explanation": "Weather in the past takes the imparfait of faire: nous faisons → fais- + -ait = il faisait.",
+      "hints": [
+        "Weather uses faire: il fait beau.",
+        "nous faisons → fais-"
+      ],
+      "teaches": [
+        "il faisait beau",
+        "c'était"
+      ]
+    },
+    {
+      "question_id": "a2-imparfait-07",
+      "prompt": "Which sentence means 'I was ten years old'?",
+      "type": "multiple-choice",
+      "options": [
+        "J'avais dix ans.",
+        "J'étais dix ans.",
+        "J'ai eu dix ans."
+      ],
+      "correct_answer": "J'avais dix ans.",
+      "explanation": "Age takes avoir in French, and a past age is background: j'avais dix ans. J'ai eu dix ans means 'I turned ten'.",
+      "hints": [
+        "French says 'I had ten years'.",
+        "Background takes the imparfait."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-imparfait-08",
+      "prompt": "D'habitude, mes grands-parents ___ le train pour venir chez nous. (prendre)",
+      "type": "fill-in-blank",
+      "correct_answer": "prenaient",
+      "accepted_answers": [
+        "ils prenaient"
+      ],
+      "explanation": "A habit takes the imparfait: nous prenons → pren- + -aient = ils prenaient (one n only).",
+      "hints": [
+        "Mes grands-parents = ils.",
+        "nous prenons → pren-"
+      ],
+      "teaches": [
+        "d'habitude",
+        "les grands-parents"
+      ]
+    },
+    {
+      "question_id": "a2-imparfait-09",
+      "prompt": "To describe a childhood habit, 'Tous les jours, je suis allé à l'école à pied' is the best choice.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "False: a repeated habit takes the imparfait: tous les jours, j'allais à l'école à pied.",
+      "hints": [
+        "Tous les jours = a habit.",
+        "Habits use -ais, -ait…"
+      ],
+      "teaches": [
+        "tous les jours"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Il faisait très froid.",
+      "meaning": "It was very cold.",
+      "note": "Weather in the past: il faisait."
+    },
+    {
+      "text": "Avant, j'habitais à Lyon.",
+      "meaning": "I used to live in Lyon."
+    },
+    {
+      "text": "Mon grand-père avait une vieille voiture rouge.",
+      "meaning": "My grandfather had an old red car."
+    },
+    {
+      "text": "Le dimanche, nous allions au marché avec ma mère.",
+      "meaning": "On Sundays we used to go to the market with my mother.",
+      "note": "Le dimanche = every Sunday: a habit."
+    },
+    {
+      "text": "D'habitude, mes parents finissaient le travail à six heures.",
+      "meaning": "My parents usually finished work at six."
+    },
+    {
+      "text": "Quand elle était petite, ma sœur avait peur du noir.",
+      "meaning": "When she was little, my sister was afraid of the dark.",
+      "note": "New word: le noir = the dark."
+    },
+    {
+      "text": "Il était minuit et tout le monde dormait dans la maison.",
+      "meaning": "It was midnight and everyone in the house was asleep.",
+      "note": "New word: minuit = midnight."
+    },
+    {
+      "text": "Pendant les vacances, nous faisions du vélo tous les jours à la campagne.",
+      "meaning": "During the holidays we went cycling every day in the countryside.",
+      "note": "New word: le vélo = bike."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Forming the imparfait"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-imparfait-02"
+    },
+    {
+      "question": "a2-imparfait-01"
+    },
+    {
+      "question": "a2-imparfait-03"
+    },
+    {
+      "section": "Être"
+    },
+    {
+      "question": "a2-imparfait-05"
+    },
+    {
+      "question": "a2-imparfait-04"
+    },
+    {
+      "tip": "-ais, -ait and -aient all sound the same. Only nous -ions and vous -iez sound different."
+    },
+    {
+      "section": "Habits"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-imparfait-08"
+    },
+    {
+      "question": "a2-imparfait-09"
+    },
+    {
+      "section": "Descriptions"
+    },
+    {
+      "concept": {
+        "title": "Manger and commencer",
+        "markdown": "-ger and -cer verbs keep the extra **e** or **ç** of nous before **a**: **je mangeais**, **ils mangeaient**, **je commençais**. Before **i** they drop it: **nous mangions**, **vous commenciez**."
+      }
+    },
+    {
+      "question": "a2-imparfait-06"
+    },
+    {
+      "question": "a2-imparfait-07"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-imparfait-conv-grandma",
+      "title": "When Grandma was little",
+      "scenario": "Hugo asks his grandmother Jeanne what life was like when she was a child.",
+      "role_a": "Jeanne",
+      "role_b": "Hugo",
+      "lines": [
+        {
+          "speaker": "b",
+          "text": "Mamie, comment c'était quand tu étais petite ?",
+          "meaning": "Grandma, what was it like when you were little?",
+          "note": "c'était + quand j'étais petite"
+        },
+        {
+          "speaker": "a",
+          "text": "On habitait à la campagne, dans une petite ferme.",
+          "meaning": "We lived in the countryside, on a small farm.",
+          "note": "description: imparfait"
+        },
+        {
+          "speaker": "b",
+          "text": "Vous aviez des animaux ?",
+          "meaning": "Did you have animals?"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui, nous avions des vaches et des poules. Je donnais à manger aux poules tous les matins.",
+          "meaning": "Yes, we had cows and hens. I fed the hens every morning.",
+          "note": "habit: tous les matins"
+        },
+        {
+          "speaker": "b",
+          "text": "Et l'école, elle était loin ?",
+          "meaning": "And was school far away?"
+        },
+        {
+          "speaker": "a",
+          "text": "Assez loin. J'allais à l'école à pied, même quand il pleuvait.",
+          "meaning": "Quite far. I walked to school, even when it was raining."
+        },
+        {
+          "speaker": "b",
+          "text": "Il n'y avait pas de bus ?",
+          "meaning": "Wasn't there a bus?",
+          "note": "il y a → il y avait"
+        },
+        {
+          "speaker": "a",
+          "text": "Non ! Et en hiver, il faisait très froid dans la classe.",
+          "meaning": "No! And in winter, it was very cold in the classroom.",
+          "note": "weather: il faisait"
+        },
+        {
+          "speaker": "b",
+          "text": "Qu'est-ce que tu faisais le dimanche ?",
+          "meaning": "What did you do on Sundays?"
+        },
+        {
+          "speaker": "a",
+          "text": "D'habitude, on mangeait chez mes grands-parents. C'était long, mais c'était bien.",
+          "meaning": "We usually ate at my grandparents'. It was long, but it was nice."
+        },
+        {
+          "speaker": "b",
+          "text": "Tu étais heureuse ?",
+          "meaning": "Were you happy?"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui, très. On n'avait pas beaucoup d'argent, mais on riait tout le temps.",
+          "meaning": "Yes, very. We didn't have much money, but we laughed all the time."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🎞️",
+    "bites": [
+      {
+        "title": "Stem from nous",
+        "emoji": "🧱",
+        "rule": "Take the present nous form, drop -ons, add -ais, -ais, -ait, -ions, -iez, -aient.",
+        "example": "nous prenons → je prenais",
+        "example_meaning": "we take → I used to take"
+      },
+      {
+        "title": "Être: ét-",
+        "emoji": "⭐",
+        "rule": "Être is the only irregular stem: j'étais, il était, nous étions. Learn c'était (it was) as a set phrase.",
+        "example": "C'était génial !",
+        "example_meaning": "It was great!"
+      },
+      {
+        "title": "Used to: habits",
+        "emoji": "🔁",
+        "rule": "Repeated past actions take the imparfait. Look for avant, tous les jours, d'habitude, souvent, quand j'étais petit.",
+        "example": "Avant, je jouais au tennis.",
+        "example_meaning": "I used to play tennis."
+      },
+      {
+        "title": "The background",
+        "emoji": "🌦️",
+        "rule": "Descriptions, weather, age and time in the past take the imparfait too.",
+        "example": "Il pleuvait et j'avais froid.",
+        "example_meaning": "It was raining and I was cold."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which subject?",
+        "buckets": [
+          "je / tu",
+          "il / elle",
+          "nous",
+          "ils / elles"
+        ],
+        "items": [
+          {
+            "text": "parlais",
+            "bucket": 0
+          },
+          {
+            "text": "finissait",
+            "bucket": 1
+          },
+          {
+            "text": "prenions",
+            "bucket": 2
+          },
+          {
+            "text": "avaient",
+            "bucket": 3
+          },
+          {
+            "text": "faisais",
+            "bucket": 0
+          },
+          {
+            "text": "étaient",
+            "bucket": 3
+          },
+          {
+            "text": "était",
+            "bucket": 1
+          },
+          {
+            "text": "finissions",
+            "bucket": 2
+          }
+        ],
+        "why": "-ais goes with je / tu, -ait with il / elle, -ions with nous, -aient with ils / elles."
+      },
+      {
+        "title": "Habit or background?",
+        "buckets": [
+          "habit (used to)",
+          "description / background"
+        ],
+        "items": [
+          {
+            "text": "Je jouais au tennis le samedi.",
+            "bucket": 0
+          },
+          {
+            "text": "Il faisait beau.",
+            "bucket": 1
+          },
+          {
+            "text": "Tous les jours, on prenait le bus.",
+            "bucket": 0
+          },
+          {
+            "text": "La maison était petite.",
+            "bucket": 1
+          },
+          {
+            "text": "D'habitude, elle finissait tard.",
+            "bucket": 0
+          },
+          {
+            "text": "J'avais huit ans.",
+            "bucket": 1
+          },
+          {
+            "text": "Il était midi.",
+            "bucket": 1
+          },
+          {
+            "text": "Avant, nous parlions allemand à la maison.",
+            "bucket": 0
+          }
+        ],
+        "why": "Repeated actions are habits; weather, age, time and what things were like are the background. Both take the imparfait."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Quand j'étais petit, je jouait au foot.",
+        "wrong": "jouait",
+        "fix": "jouais",
+        "why": "With je the ending is -ais."
+      },
+      {
+        "sentence": "Avant, nous parlons italien à la maison.",
+        "wrong": "parlons",
+        "fix": "parlions",
+        "why": "Avant puts it in the past: the imparfait nous form ends in -ions."
+      },
+      {
+        "sentence": "Il faisais froid ce matin-là.",
+        "wrong": "faisais",
+        "fix": "faisait",
+        "why": "With il the ending is -ait."
+      },
+      {
+        "sentence": "Mes grands-parents avait une ferme.",
+        "wrong": "avait",
+        "fix": "avaient",
+        "why": "Mes grands-parents = ils: avaient."
+      },
+      {
+        "sentence": "Nous étions fatigués et nous prennions un taxi.",
+        "wrong": "prennions",
+        "fix": "prenions",
+        "why": "The stem comes from nous prenons: one n, pren-."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Avant, j'habitais à la campagne.",
+        "meaning": "I used to live in the countryside.",
+        "distractors": [
+          "habitait"
+        ]
+      },
+      {
+        "text": "Il faisait beau et chaud.",
+        "meaning": "The weather was nice and warm.",
+        "distractors": [
+          "fait"
+        ]
+      },
+      {
+        "text": "Quand j'étais petite, j'avais un chat.",
+        "meaning": "When I was little, I had a cat.",
+        "distractors": [
+          "était"
+        ]
+      },
+      {
+        "text": "Tous les jours, nous prenions le bus.",
+        "meaning": "Every day we took the bus.",
+        "distractors": [
+          "prenons"
+        ]
+      }
+    ]
+  }
+}

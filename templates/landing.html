@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("landing.title") }}{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ crate::routes::asset_url("landing.css") }}">{% endblock %}
+{% block content %}
+<div class="landing">
+
+<section class="land-hero">
+  <div class="land-hero-text">
+    <h1>{{ crate::t("landing.hero_h1") }}</h1>
+    <p class="land-lead">{{ crate::t1("landing.hero_lead", "app", crate::APP_NAME) }}</p>
+    <p class="land-cta">
+      <a class="btn big" href="{{ crate::base_path() }}/register" data-testid="landing-register">{{ crate::t("landing.create_account") }}</a>
+      <a class="btn big ghost" href="{{ crate::base_path() }}/docs/course-format">{{ crate::t("landing.read_format") }}</a>
+    </p>
+    <p class="small muted">{{ crate::t1("landing.have_account_html", "url", crate::url("/login"))|safe }}</p>
+  </div>
+  {# The file, and the quiz card its "quiz" lines become. Course data, so not translated. #}
+  <div class="land-demo" aria-hidden="true">
+    <figure class="land-code">
+      <figcaption>my-course/lessons/greetings.json</figcaption>
+<pre><code>{
+  <i>"id"</i>: <b>"a1-greetings"</b>,
+  <i>"title"</i>: <b>"Greetings and introductions"</b>,
+  <i>"unit"</i>: <b>"A1"</b>,
+  <i>"content"</i>: <b>"## Saying hello\n\n- **Hola** …"</b>,
+  <i>"vocabulary"</i>: [
+    { <i>"term"</i>: <b>"hola"</b>, <i>"meaning"</i>: <b>"hello"</b> }
+  ],
+<span class="hl">  <i>"quiz"</i>: [
+    { <i>"prompt"</i>: <b>"At 9 in the morning you say:"</b>,
+      <i>"type"</i>: <b>"multiple-choice"</b>,
+      <i>"options"</i>: [<b>"Buenos días"</b>, <b>"Buenas noches"</b>],
+      <i>"correct_answer"</i>: <b>"Buenos días"</b>,
+      <i>"explanation"</i>: <b>"Días = day; until lunch."</b> }
+  ],</span>
+  <i>"listening"</i>: [
+    { <i>"text"</i>: <b>"Buenos días, ¿qué tal?"</b> }
+  ]
+}</code></pre>
+    </figure>
+    <div class="land-quiz">
+      <p class="land-quiz-unit">A1 · Greetings and introductions</p>
+      <p class="land-quiz-q">At 9 in the morning you say:</p>
+      <p class="land-quiz-opt right"><span>Buenos días</span><svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
+      <p class="land-quiz-opt">Buenas noches</p>
+      <p class="land-quiz-why">Días = day; until lunch.</p>
+    </div>
+  </div>
+</section>
+
+<section class="land-section" data-testid="landing-try">
+  <div class="land-head">
+    <h2>{{ crate::t("landing.every_way_h2") }}</h2>
+    <p>{{ crate::t("landing.try_lead") }}</p>
+  </div>
+  {% include "landing_try.html" %}
+  <div class="land-features">
+    <div class="land-feature ai"><h3>{{ crate::t("landing.feat_ai_h") }}</h3><p>{{ crate::t("landing.feat_ai_p") }}</p></div>
+    <div class="land-feature"><h3>{{ crate::t("landing.feat_hear_h") }}</h3><p>{{ crate::t("landing.feat_hear_p") }}</p></div>
+    <div class="land-feature"><h3>{{ crate::t("landing.feat_mastery_h") }}</h3><p>{{ crate::t("landing.feat_mastery_p") }}</p></div>
+  </div>
+</section>
+
+<section class="land-section">
+  <div class="land-head">
+    <h2>{{ crate::t("landing.two_files_h2") }}</h2>
+    <p>{{ crate::t("landing.two_files_lead_html")|safe }}</p>
+  </div>
+  <dl class="land-fields">
+    <div><dt><code>content</code></dt><dd>{{ crate::t("landing.field_content_html")|safe }}</dd></div>
+    <div><dt><code>vocabulary</code></dt><dd>{{ crate::t("landing.field_vocabulary") }}</dd></div>
+    <div><dt><code>quiz</code></dt><dd>{{ crate::t("landing.field_quiz") }}</dd></div>
+    <div><dt><code>listening</code></dt><dd>{{ crate::t("landing.field_listening") }}</dd></div>
+    <div><dt><code>conjugations</code></dt><dd>{{ crate::t("landing.field_conjugations") }}</dd></div>
+    <div><dt><code>conversations</code></dt><dd>{{ crate::t("landing.field_conversations") }}</dd></div>
+    <div><dt><code>sprint</code> <code>guide</code></dt><dd>{{ crate::t("landing.field_sprint_guide") }}</dd></div>
+  </dl>
+  <p class="muted small">{{ crate::t1("landing.reference_html", "url", crate::url("/docs/course-format"))|safe }}</p>
+</section>
+
+<section class="land-section">
+  <div class="land-head"><h2>{{ crate::t("landing.three_ways_h2") }}</h2></div>
+  <div class="land-ways">
+    <article class="land-way">
+      <h3>{{ crate::t("landing.write_h3") }}</h3>
+      <p>{{ crate::t("landing.write_p_html")|safe }}</p>
+    </article>
+    <article class="land-way">
+      <h3>{{ crate::t("landing.llm_h3") }}</h3>
+      <p>{{ crate::t("landing.llm_p") }}</p>
+    </article>
+    <article class="land-way">
+      <h3>{{ crate::t("landing.ready_h3") }}</h3>
+      <p>{{ crate::t("landing.ready_p") }}</p>
+      <ul class="land-courses">
+      {% for c in courses %}
+        <li data-testid="landing-course"><span class="land-course-icon">{{ c.icon }}</span><div><strong>{{ c.title }}</strong> <span class="muted small">{{ crate::tn("landing.course_units", c.units) }}, {{ crate::tn("landing.course_lessons", c.lessons) }}</span>
+          <p class="small muted">{{ c.description }}</p></div></li>
+      {% endfor %}
+      </ul>
+    </article>
+  </div>
+</section>
+
+<section class="land-section" data-testid="landing-uses">
+  <div class="land-head"><h2>{{ crate::t("landing.uses_h2") }}</h2></div>
+  {% include "landing_uses.html" %}
+</section>
+
+{# The "Small enough for a Raspberry Pi" section (landing.small_h2, spec_*) is parked until its numbers are measured on a Pi; see the landing.small_h2 and spec_* strings. #}
+<section class="land-final">
+  <h2>{{ crate::t("landing.final_h2") }}</h2>
+  <p class="land-cta">
+    <a class="btn big" href="{{ crate::base_path() }}/register" data-testid="landing-register">{{ crate::t("landing.create_account") }}</a>
+    <a class="btn big ghost" href="{{ crate::base_path() }}/docs">{{ crate::t("landing.browse_docs") }}</a>
+  </p>
+</section>
+
+</div>
+{% endblock %}
+{% block scripts %}
+<script>Object.assign(I18N, {{ crate::i18n::js_json("landing.js")|safe }});</script>
+<script src="{{ crate::routes::asset_url("landing-kit.js") }}" defer></script>
+<script src="{{ crate::routes::asset_url("landing.js") }}" defer></script>
+{% endblock %}

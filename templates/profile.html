@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("profile.title") }}{% endblock %}
+{% block content %}
+<div class="profile-page">
+<header class="profile-head">
+  <div class="profile-title">
+    <h1 data-testid="profile-display-name">{{ display_name }}</h1>
+    {% if is_owner() %}<p class="muted small" data-testid="profile-role">{{ crate::t("profile.head.owner") }}</p>{% endif %}
+  </div>
+  <span class="save-status" data-testid="profile-save-status" data-state="saved" role="status" aria-label="{{ crate::t("profile.head.all_saved") }}" title="{{ crate::t("profile.head.all_saved") }}" hidden>
+    <svg class="when-saved" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 16.2 5.3 12l-1.4 1.4 5.6 5.6 11-11-1.4-1.4z"/></svg>
+    <svg class="when-saving" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/></svg>
+    <svg class="when-error" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5h2v9h-2zm0 11h2v2h-2z"/></svg>
+  </span>
+</header>
+<p class="alert error save-error" role="alert" data-testid="profile-save-error" hidden></p>
+
+<dialog class="modal" id="privacy-dialog" aria-labelledby="privacy-dialog-title" data-testid="profile-privacy-note">
+  <h2 id="privacy-dialog-title">{{ crate::t("profile.privacy.title") }}</h2>
+  <p>{{ crate::t("profile.privacy.appear_as_before") }}<strong data-testid="profile-public-name" data-no-name="{{ crate::profile::no_name() }}">{{ public_name }}</strong>{{ crate::t("profile.privacy.appear_as_after") }}</p>
+  <p>{{ crate::t("profile.privacy.email_private") }}</p>
+  <div class="modal-actions">
+    <button type="button" class="btn" data-closes data-testid="profile-privacy-close">{{ crate::t("profile.privacy.ok") }}</button>
+  </div>
+</dialog>
+
+<div class="profile-layout">
+<nav class="profile-nav" aria-label="{{ crate::t("profile.nav.label") }}" data-testid="profile-nav">
+  <ul>
+    <li><a href="#personal" data-testid="profile-nav-link" data-section="personal">{{ crate::t("profile.nav.personal") }}</a></li>
+    <li><a href="#account" data-testid="profile-nav-link" data-section="account">{{ crate::t("profile.nav.account") }}</a></li>
+    <li><a href="#two-factor" data-testid="profile-nav-link" data-section="two-factor">{{ crate::t("profile.nav.two_factor") }}</a></li>
+  </ul>
+</nav>
+<section class="profile">
+  {% if let Some(n) = notice %}<p class="alert ok-text" role="status" data-testid="profile-notice">✓ {{ n }}</p>{% endif %}
+
+  <section class="card profile-form" id="personal" data-testid="profile-form">
+    <h2 class="heading-with-info">{{ crate::t("profile.personal.title") }} <button type="button" class="info-btn" data-opens="privacy-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.privacy.info") }}" data-testid="profile-privacy-info">i</button></h2>
+    <div class="two-col">
+      <label>{{ crate::t("profile.personal.first_name") }}
+        <span class="field-wrap"><input type="text" name="first_name" data-testid="profile-first-name" value="{{ profile.first_name }}" maxlength="60" autocomplete="given-name" aria-describedby="first_name-error"></span>
+        <span class="field-error" id="first_name-error" data-testid="profile-first-name-error" hidden></span>
+      </label>
+      <label>{{ crate::t("profile.personal.last_name") }}
+        <span class="field-wrap"><input type="text" name="last_name" data-testid="profile-last-name" value="{{ profile.last_name }}" maxlength="60" autocomplete="family-name" aria-describedby="last_name-error"></span>
+        <span class="field-error" id="last_name-error" data-testid="profile-last-name-error" hidden></span>
+      </label>
+    </div>
+    <div class="field">
+      <label for="profile-email">{{ crate::t("profile.personal.email") }}</label>
+      <span class="field-with-icon">
+        <input type="email" id="profile-email" value="{% if let Some(e) = profile.email %}{{ e }}{% endif %}" placeholder="{{ crate::t("profile.personal.no_email") }}" data-testid="profile-email" readonly>
+        {% if profile.email.is_some() %}{% if let Some(u) = user %}{% if u.email_verified %}<span class="field-check" tabindex="0" role="img" aria-label="{{ crate::t("profile.personal.verified") }}" data-tip="{{ crate::t("profile.personal.verified") }}" data-testid="email-verified">✓</span>{% endif %}{% endif %}{% endif %}
+      </span>
+    </div>
+    {% let tf = profile.two_factor %}
+    <div class="field">
+      <label for="profile-lang" data-testid="profile-lang-label">{{ crate::t("profile.personal.language") }}</label>
+      <select id="profile-lang" name="lang" data-testid="profile-lang" aria-describedby="lang-error">
+        {% for l in crate::i18n::languages() %}
+        <option value="{{ l.code }}" lang="{{ l.code }}"{% if l.code == crate::i18n::lang() %} selected{% endif %}>{{ l.name }}</option>
+        {% endfor %}
+      </select>
+      <span class="field-error" id="lang-error" data-testid="profile-lang-error" hidden></span>
+    </div>
+  </section>
+
+  <section class="card" id="account">
+    <h2>{{ crate::t("profile.account.title") }}</h2>
+    <dl class="facts">
+      <dt>{{ crate::t("profile.account.sign_in") }}</dt>
+      <dd data-testid="profile-sign-in">
+        {% if profile.has_password %}{{ crate::t("profile.account.password") }}{% endif %}
+      </dd>
+    </dl>
+
+    <div class="profile-actions">
+    {% if profile.has_password %}
+    <button type="button" class="btn ghost" data-opens="password-dialog" data-testid="profile-password-open">{{ crate::t("profile.password.change") }}</button>
+    <dialog class="modal" id="password-dialog" aria-labelledby="password-dialog-title" data-testid="profile-password-dialog"{% if password_error.is_some() %} data-open-on-load{% endif %}>
+      <form method="post" action="{{ crate::base_path() }}/profile/password" class="profile-form" data-testid="profile-password-form">
+        <h2 id="password-dialog-title">{{ crate::t("profile.password.change") }}</h2>
+        {% if let Some(e) = password_error %}<p class="alert error" role="alert" data-testid="profile-password-error">{{ e }}</p>{% endif %}
+        <label>{{ crate::t("profile.password.current") }}
+          <input type="password" name="current" data-testid="profile-password-current" maxlength="{{ crate::auth::PASSWORD_MAX }}" required autocomplete="current-password">
+        </label>
+        <div class="two-col">
+          <label>{{ crate::t("profile.password.new") }}
+            <input type="password" name="new" data-testid="profile-password-new" required minlength="8" maxlength="128" autocomplete="new-password" aria-describedby="password-rule">
+          </label>
+          <label>{{ crate::t("profile.password.repeat") }}
+            <input type="password" name="confirm" data-testid="profile-password-confirm" required minlength="8" maxlength="128" autocomplete="new-password" aria-describedby="password-rule">
+          </label>
+        </div>
+        <p id="password-rule" class="muted small field-note" data-testid="profile-password-rule">{{ crate::t("profile.password.rule") }}</p>
+        <div class="modal-actions">
+          <button type="button" class="btn ghost" data-closes data-testid="profile-password-cancel">{{ crate::t("profile.password.cancel") }}</button>
+          <button type="submit" class="btn" data-testid="profile-password-submit">{{ crate::t("profile.password.save") }}</button>
+        </div>
+      </form>
+    </dialog>
+    {% else %}
+    {% if let Some(e) = password_error %}<p class="alert error" role="alert" data-testid="profile-password-error">{{ e }}</p>{% endif %}
+    <p class="muted small">{{ crate::t("profile.account.no_password") }}</p>
+    {% endif %}
+    <form method="post" action="{{ crate::url("/profile/sessions/end-others") }}" class="inline-actions" data-testid="profile-sign-out-others-form">
+      <button type="submit" class="btn ghost" data-testid="profile-sign-out-others">{{ crate::t("profile.sessions.sign_out_others") }}</button>
+      <button type="button" class="info-btn" data-opens="sign-out-others-info" aria-haspopup="dialog" aria-label="{{ crate::t("profile.sessions.info_label") }}" data-testid="profile-sign-out-others-info">i</button>
+    </form>
+    <dialog class="modal" id="sign-out-others-info" aria-labelledby="sign-out-others-title" data-testid="profile-sign-out-others-info-dialog">
+      <h2 id="sign-out-others-title">{{ crate::t("profile.sessions.sign_out_others") }}</h2>
+      <p>{{ crate::t("profile.sessions.text") }}</p>
+      <p>{{ crate::t("profile.sessions.text_same") }}</p>
+      <div class="modal-actions"><button type="button" class="btn" data-closes data-testid="profile-sign-out-others-info-close">{{ crate::t("profile.sessions.ok") }}</button></div>
+    </dialog>
+    </div>
+  </section>
+
+  <section class="card" id="two-factor" data-testid="profile-two-factor" data-on="{{ two_factor_on() }}">
+    <h2 class="heading-with-info">{{ crate::t("profile.two_factor.title") }} <button type="button" class="info-btn" data-opens="two-factor-info" aria-haspopup="dialog" aria-label="{{ crate::t("profile.two_factor.info") }}" data-testid="profile-two-factor-info">i</button></h2>
+    {% if let Some(e) = two_factor_error %}<p class="alert error" role="alert" data-testid="profile-two-factor-error">{{ e }}</p>{% endif %}
+    <form method="post" action="{{ crate::url("/profile/two-factor") }}" data-testid="profile-two-factor-form">
+      <div class="choice-chips" role="radiogroup" aria-label="{{ crate::t("profile.two_factor.second_step") }}">
+        <label class="chip" data-testid="profile-two-factor-choice" data-on="false"><input type="radio" name="two_factor" value="off" class="sr-only"{% if !two_factor_on() %} checked{% endif %}> {{ crate::t("profile.two_factor.off") }}</label>
+        <label class="chip" data-testid="profile-two-factor-choice" data-on="true"><input type="radio" name="two_factor" value="on" class="sr-only"{% if two_factor_on() %} checked{% endif %}> {{ crate::t("profile.two_factor.totp") }}</label>
+      </div>
+      <noscript><button type="submit" class="btn small">{{ crate::t("profile.two_factor.save") }}</button></noscript>
+    </form>
+    {# Turning it off or switching it asks who it is first (the chips and the app's Remove open this; without JS the server answers with it open). #}
+    <dialog class="modal" id="two-factor-confirm-dialog" aria-labelledby="two-factor-confirm-title" data-testid="two-factor-confirm-dialog"{% if confirm_open %} open data-open-on-load{% endif %}>
+      <h2 id="two-factor-confirm-title">{{ crate::t("profile.two_factor.confirm_title") }}</h2>
+      {% if let Some(e) = confirm_error %}<p class="alert error" role="alert" data-testid="two-factor-confirm-error">{{ e }}</p>{% endif %}
+      <p><strong data-testid="two-factor-confirm-what">{{ confirm_what() }}</strong></p>
+      {% if profile.has_password %}
+      <p>{{ crate::t("profile.two_factor.confirm_password_why") }}</p>
+      {% else if proof_kind() == "code" %}
+      <p>{{ crate::t("profile.two_factor.confirm_app_code") }}</p>
+      {% endif %}
+      <form method="post" action="{{ confirm_action() }}" id="two-factor-confirm-form" data-testid="two-factor-confirm-form" data-change-action="{{ crate::url("/profile/two-factor") }}" data-remove-action="{{ crate::url("/profile/two-factor/totp/remove") }}">
+        <input type="hidden" name="two_factor" value="{% if confirm_on %}on{% else %}off{% endif %}" data-testid="two-factor-confirm-choice">
+        {% if profile.has_password %}
+        <label>{{ crate::t("profile.two_factor.password") }}
+          <input type="password" name="password" required maxlength="{{ crate::auth::PASSWORD_MAX }}" autocomplete="current-password" data-testid="two-factor-confirm-password">
+        </label>
+        {% else if proof_kind() != "none" %}
+        <label>{{ crate::t("profile.two_factor.code") }}
+          <input type="text" name="code" inputmode="numeric" pattern="[0-9 ]*" maxlength="9" autocomplete="one-time-code" required data-testid="two-factor-confirm-code">
+        </label>
+        {% endif %}
+      </form>
+      <div class="modal-actions">
+        <button type="button" class="btn ghost" data-closes data-testid="two-factor-confirm-cancel">{{ crate::t("profile.two_factor.cancel") }}</button>
+        <button type="submit" form="two-factor-confirm-form" class="btn" data-testid="two-factor-confirm-submit">{{ crate::t("profile.two_factor.confirm") }}</button>
+      </div>
+    </dialog>
+    {% if let Some(since) = totp_since() %}
+    <form method="post" action="{{ crate::url("/profile/two-factor/totp/remove") }}" class="key-remove" data-testid="profile-two-factor-totp">
+      <span class="small">{{ crate::t1("profile.two_factor.totp_added", "date", since.as_str()) }} ·</span>
+      <button type="submit" class="link-btn small" data-testid="profile-two-factor-totp-remove"{% if two_factor_on() %} data-confirm-remove{% endif %}>{{ crate::t("profile.two_factor.remove") }}</button>
+    </form>
+    {% endif %}
+    <dialog class="modal" id="two-factor-info" aria-labelledby="two-factor-info-title" data-testid="profile-two-factor-info-dialog">
+      <h2 id="two-factor-info-title">{{ crate::t("profile.two_factor.info_title") }}</h2>
+      <p>{{ crate::t("profile.two_factor.info_text") }}</p>
+      <p class="small">{{ crate::t("profile.two_factor.info_small") }}</p>
+      <div class="modal-actions"><button type="button" class="btn" data-closes data-testid="profile-two-factor-info-close">{{ crate::t("profile.two_factor.ok") }}</button></div>
+    </dialog>
+    {% if totp_key.is_some() %}
+    <dialog class="modal" id="totp-dialog" aria-labelledby="totp-dialog-title" data-testid="two-factor-totp-dialog"{% if totp_open %} data-open-on-load{% endif %}>
+      <h2 id="totp-dialog-title" class="heading-with-info">{{ crate::t("profile.two_factor.totp_title") }} <button type="button" class="info-btn" data-opens="totp-qr-info-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.two_factor.totp_how") }}" data-testid="profile-2fa-totp-qr-info">i</button></h2>
+      {% if let Some(e) = totp_error %}<p class="alert error" role="alert" data-testid="two-factor-totp-error">{{ e }}</p>{% endif %}
+      <div class="totp-qr" data-uri="{{ totp_uri() }}" data-testid="two-factor-totp-qr">{{ totp_qr()|safe }}</div>
+      <p><code class="totp-secret" data-testid="two-factor-totp-secret">{{ totp_secret() }}</code></p>
+      {% if cfg!(feature = "dev") && dev %}<p class="small"><a href="{{ crate::url("/dev/authenticator") }}?uri={{ crate::urlenc::urlencode(totp_uri().as_str()) }}" target="_blank" data-testid="two-factor-totp-dev">{{ crate::t("profile.two_factor.totp_dev_link") }}</a></p>{% endif %}
+      <form method="post" action="{{ crate::url("/profile/two-factor/totp/confirm") }}" id="totp-confirm-form" data-testid="two-factor-totp-form">
+        <label>{{ crate::t("profile.two_factor.code") }}
+          <input type="text" name="code" inputmode="numeric" pattern="[0-9 ]*" maxlength="9" autocomplete="one-time-code" required data-testid="two-factor-totp-code">
+        </label>
+      </form>
+      <div class="modal-actions">
+        <button type="button" class="btn ghost" data-closes data-testid="two-factor-totp-cancel">{{ crate::t("profile.two_factor.cancel") }}</button>
+        <button type="submit" form="totp-confirm-form" class="btn" data-testid="two-factor-totp-confirm">{{ crate::t("profile.two_factor.turn_on") }}</button>
+      </div>
+    </dialog>
+    <dialog class="modal" id="totp-qr-info-dialog" aria-labelledby="totp-qr-info-title" data-testid="profile-2fa-totp-qr-info-dialog">
+      <h2 id="totp-qr-info-title">{{ crate::t("profile.two_factor.totp_info_title") }}</h2>
+      <p>{{ crate::t("profile.two_factor.totp_info_scan") }}</p>
+      <p>{{ crate::t("profile.two_factor.totp_info_key") }}</p>
+      <div class="modal-actions"><button type="button" class="btn" data-closes>{{ crate::t("profile.two_factor.close") }}</button></div>
+    </dialog>
+    {% endif %}
+  </section>
+</section>
+</div>
+</div>
+{% endblock %}
+{% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("profile.js")|safe }});</script>
+<script src="{{ crate::routes::asset_url("autosave.js") }}" defer></script>
+<script src="{{ crate::routes::asset_url("profile.js") }}" defer></script>{% endblock %}

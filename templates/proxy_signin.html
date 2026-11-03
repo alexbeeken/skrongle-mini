@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("auth.proxy.title") }}{% endblock %}
+{% block content %}
+<section class="narrow" data-testid="proxy-signin">
+  <h1>{{ crate::t("auth.proxy.title") }}</h1>
+  {% if signed_out %}
+  <p class="alert" role="status" data-testid="proxy-signin-signed-out">{{ crate::t("auth.proxy.signed_out") }}</p>
+  {% else %}
+  <p class="alert" role="status" data-testid="proxy-signin-note">{{ crate::t("auth.proxy.note") }}</p>
+  {% endif %}
+  <p><a class="btn ghost" href="{{ crate::url("/") }}" data-testid="proxy-signin-home">{{ crate::t("auth.proxy.open") }}</a></p>
+</section>
+{% endblock %}

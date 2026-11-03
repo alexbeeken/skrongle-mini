@@ -1,0 +1,613 @@
+{
+  "id": "a1-nouns-articles",
+  "slug": "nouns-gender-articles-plurals",
+  "title": "Nouns: gender, articles and plurals",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 8,
+  "summary": "Every noun is masculine or feminine; articles and plurals follow.",
+  "focus": "Noun gender, el/la/un/una, plural formation, al and del",
+  "content": "## Every noun has a gender\n\nSpanish nouns are **masculine** or **feminine**, even for objects. The ending is a strong clue.\n\n| usually masculine | usually feminine |\n|---|---|\n| **-o**: el libro, el chico | **-a**: la casa, la chica |\n| **-or**: el profesor | **-ción / -sión**: la canción, la televisión |\n| **-ma** (Greek origin): el problema, el idioma | **-dad / -tad**: la ciudad, la universidad |\n| days, months, numbers: el lunes, el tres | letters of the alphabet: la a, la be |\n\nCommon exceptions to learn as words: **la mano** (hand), **el día** (day), **la foto**, **la moto**.\n\n## The articles\n\n| | masculine | feminine |\n|---|---|---|\n| the (singular) | **el** | **la** |\n| the (plural) | **los** | **las** |\n| a / an | **un** | **una** |\n| some, a few | **unos** | **unas** |\n\n- *el coche, la mesa, un amigo, una amiga, unos libros, unas chicas*\n\n## Al and del\n\nWhen **a** or **de** meets **el**, they fuse: **a + el = al**, **de + el = del**.\n\n- *Voy **al** cine.*: I'm going to the cinema.\n- *El libro **del** profesor.*: The teacher's book.\n\nThis never happens with *la, los, las*: *a la playa, de los niños*.\n\n## Making plurals\n\n1. Ends in a **vowel** → add **-s**: casa → casas, coche → coches.\n2. Ends in a **consonant** → add **-es**: ciudad → ciudades, profesor → profesores.\n3. Ends in **-z** → change to **-ces**: lápiz → lápices, vez → veces.\n\nNouns ending in **-s** with an unstressed last syllable do not change: *el lunes → los lunes*.\n\nA masculine plural can cover a mixed group: *los padres* = the parents, *los hijos* = the children (sons and daughters).",
+  "vocabulary": [
+    {
+      "term": "el libro",
+      "meaning": "book",
+      "example": "El libro está en la mesa.",
+      "example_meaning": "The book is on the table."
+    },
+    {
+      "term": "la casa",
+      "meaning": "house",
+      "example": "Una casa grande.",
+      "example_meaning": "A big house."
+    },
+    {
+      "term": "el coche",
+      "meaning": "car",
+      "example": "El coche es rojo.",
+      "example_meaning": "The car is red."
+    },
+    {
+      "term": "la mesa",
+      "meaning": "table",
+      "example": "Las mesas son nuevas.",
+      "example_meaning": "The tables are new."
+    },
+    {
+      "term": "la ciudad",
+      "meaning": "city",
+      "example": "Madrid es una ciudad.",
+      "example_meaning": "Madrid is a city."
+    },
+    {
+      "term": "la canción",
+      "meaning": "song",
+      "example": "Una canción bonita.",
+      "example_meaning": "A pretty song."
+    },
+    {
+      "term": "el problema",
+      "meaning": "problem",
+      "example": "Es un problema.",
+      "example_meaning": "It's a problem."
+    },
+    {
+      "term": "la mano",
+      "meaning": "hand",
+      "example": "Tengo dos manos.",
+      "example_meaning": "I have two hands."
+    },
+    {
+      "term": "el día",
+      "meaning": "day",
+      "example": "Buenos días.",
+      "example_meaning": "Good morning."
+    },
+    {
+      "term": "el lápiz",
+      "meaning": "pencil",
+      "example": "Dos lápices, por favor.",
+      "example_meaning": "Two pencils, please."
+    },
+    {
+      "term": "el chico / la chica",
+      "meaning": "boy / girl",
+      "example": "Un chico y una chica.",
+      "example_meaning": "A boy and a girl."
+    },
+    {
+      "term": "unos / unas",
+      "meaning": "some, a few",
+      "example": "Unos amigos de clase.",
+      "example_meaning": "Some friends from class."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-noun-01",
+      "prompt": "___ canción",
+      "type": "multiple-choice",
+      "options": [
+        "la",
+        "el"
+      ],
+      "correct_answer": "la",
+      "explanation": "Nouns ending in -ción are feminine: la canción.",
+      "hints": [
+        "-ción → feminine"
+      ],
+      "teaches": [
+        "la canción"
+      ]
+    },
+    {
+      "question_id": "a1-noun-02",
+      "prompt": "___ problema",
+      "type": "multiple-choice",
+      "options": [
+        "el",
+        "la"
+      ],
+      "correct_answer": "el",
+      "explanation": "Nouns ending in -ma of Greek origin are masculine: el problema, el idioma.",
+      "hints": [
+        "A famous exception."
+      ],
+      "teaches": [
+        "el problema"
+      ]
+    },
+    {
+      "question_id": "a1-noun-03",
+      "prompt": "Plural of 'la ciudad': las ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "ciudades",
+      "accepted_answers": [],
+      "explanation": "Consonant ending → add -es: ciudades.",
+      "hints": [
+        "Consonant → -es"
+      ],
+      "teaches": [
+        "la ciudad"
+      ]
+    },
+    {
+      "question_id": "a1-noun-04",
+      "prompt": "Plural of 'el lápiz': los ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "lápices",
+      "accepted_answers": [],
+      "explanation": "-z becomes -ces in the plural: lápices.",
+      "hints": [
+        "z → c"
+      ],
+      "teaches": [
+        "el lápiz"
+      ]
+    },
+    {
+      "question_id": "a1-noun-05",
+      "prompt": "Los domingos vamos ___ parque.",
+      "type": "multiple-choice",
+      "options": [
+        "al",
+        "a el",
+        "del"
+      ],
+      "correct_answer": "al",
+      "explanation": "a + el fuses into al.",
+      "hints": [
+        "a + el"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a1-noun-06",
+      "prompt": "Complete: la mochila ___ profesor (the teacher's backpack)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "del",
+      "accepted_answers": [],
+      "explanation": "de + el = del.",
+      "hints": [
+        "de + el"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a1-noun-07",
+      "prompt": "___ mano",
+      "type": "multiple-choice",
+      "options": [
+        "la",
+        "el"
+      ],
+      "correct_answer": "la",
+      "explanation": "Mano is one of the exceptions: it ends in -o but is feminine.",
+      "hints": [
+        "Learn it as a word."
+      ],
+      "teaches": [
+        "la mano"
+      ]
+    },
+    {
+      "question_id": "a1-noun-08",
+      "prompt": "Which is correct for 'some houses'?",
+      "type": "multiple-choice",
+      "options": [
+        "unas casas",
+        "unos casas",
+        "unas casa"
+      ],
+      "correct_answer": "unas casas",
+      "explanation": "Casa is feminine, so 'some houses' is unas casas: article and noun both plural.",
+      "hints": [
+        "Feminine plural article."
+      ],
+      "teaches": [
+        "la casa",
+        "unos / unas"
+      ]
+    },
+    {
+      "question_id": "a1-noun-09",
+      "prompt": "Complete with the article: ___ día (masculine!)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "el",
+      "accepted_answers": [
+        "El"
+      ],
+      "explanation": "Día ends in -a but is masculine: el día, buenos días.",
+      "hints": [
+        "Another exception."
+      ],
+      "teaches": [
+        "el día"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Es un problema muy grande.",
+      "meaning": "It's a very big problem.",
+      "note": "Problema ends in -ma but is masculine."
+    },
+    {
+      "text": "Sevilla es una ciudad bonita.",
+      "meaning": "Seville is a pretty city."
+    },
+    {
+      "text": "La casa del profesor es pequeña.",
+      "meaning": "The teacher's house is small.",
+      "note": "De + el = del."
+    },
+    {
+      "text": "Los coches están en la calle.",
+      "meaning": "The cars are in the street.",
+      "note": "New word: la calle = the street."
+    },
+    {
+      "text": "Las chicas cantan una canción todos los días.",
+      "meaning": "The girls sing a song every day."
+    },
+    {
+      "text": "El chico tiene un lápiz en la mano.",
+      "meaning": "The boy has a pencil in his hand.",
+      "note": "La mano is feminine despite the -o."
+    },
+    {
+      "text": "Las ventanas de la casa son muy grandes.",
+      "meaning": "The windows of the house are very big.",
+      "note": "New word: la ventana = the window."
+    },
+    {
+      "text": "Los chicos de la clase tienen unos libros y unos lápices nuevos.",
+      "meaning": "The boys in the class have some new books and pencils.",
+      "note": "Lápiz ends in -z, so the plural is lápices."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Every noun has a gender"
+    },
+    {
+      "vocab": 6
+    },
+    {
+      "question": "a1-noun-01"
+    },
+    {
+      "question": "a1-noun-02"
+    },
+    {
+      "question": "a1-noun-07"
+    },
+    {
+      "question": "a1-noun-09"
+    },
+    {
+      "section": "The articles"
+    },
+    {
+      "vocab": 6
+    },
+    {
+      "question": "a1-noun-08"
+    },
+    {
+      "section": "Al and del"
+    },
+    {
+      "question": "a1-noun-05"
+    },
+    {
+      "question": "a1-noun-06"
+    },
+    {
+      "section": "Making plurals"
+    },
+    {
+      "question": "a1-noun-03"
+    },
+    {
+      "question": "a1-noun-04"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-noun-conv-shop",
+      "title": "At the stationery shop",
+      "scenario": "Pablo buys school things from the shop assistant.",
+      "role_a": "Pablo",
+      "role_b": "Dependienta",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Buenas tardes. Necesito unos lápices y un cuaderno.",
+          "meaning": "Good afternoon. I need some pencils and a notebook.",
+          "note": "unos + plural"
+        },
+        {
+          "speaker": "b",
+          "text": "Claro. ¿Los lápices del paquete grande o del pequeño?",
+          "meaning": "Of course. The pencils from the big pack or the small one?",
+          "note": "del = de + el"
+        },
+        {
+          "speaker": "a",
+          "text": "Del pequeño. Y una mochila para los libros.",
+          "meaning": "From the small one. And a backpack for the books."
+        },
+        {
+          "speaker": "b",
+          "text": "Tenemos unas mochilas muy bonitas. ¿La roja o la azul?",
+          "meaning": "We have some very nice backpacks. The red one or the blue one?"
+        },
+        {
+          "speaker": "a",
+          "text": "La azul, por favor. ¿Cuánto es?",
+          "meaning": "The blue one, please. How much is it?"
+        },
+        {
+          "speaker": "b",
+          "text": "Son veinte euros. ¿Algo más?",
+          "meaning": "That's twenty euros. Anything else?"
+        },
+        {
+          "speaker": "a",
+          "text": "No, gracias. Voy al colegio ahora.",
+          "meaning": "No, thanks. I'm going to the school now.",
+          "note": "al = a + el"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Buen día!",
+          "meaning": "Have a good day!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🏷️",
+    "bites": [
+      {
+        "title": "Endings give it away",
+        "emoji": "🔎",
+        "rule": "Words in -o, -or and Greek -ma are usually el; words in -a, -ción and -dad are usually la. Check the ending first.",
+        "example": "el libro, el problema, la canción, la ciudad",
+        "example_meaning": "the book, the problem, the song, the city"
+      },
+      {
+        "title": "The exceptions",
+        "emoji": "🚨",
+        "rule": "La mano and la foto end in -o but are feminine; el día ends in -a but is masculine. Learn each one together with its article.",
+        "example": "Buenos días. Tengo dos manos.",
+        "example_meaning": "Good morning. I have two hands."
+      },
+      {
+        "title": "Plurals: s, es, ces",
+        "emoji": "➕",
+        "rule": "Vowel? Add -s. Consonant? Add -es. Ends in -z? Change it to -ces.",
+        "example": "casa → casas, ciudad → ciudades, lápiz → lápices",
+        "example_meaning": "house(s), city/cities, pencil(s)"
+      },
+      {
+        "title": "a + el = al, de + el = del",
+        "emoji": "🧲",
+        "rule": "A and de fuse with el into al and del. They never fuse with la, los or las.",
+        "example": "Voy al cine. El libro del profesor.",
+        "example_meaning": "I'm going to the cinema. The teacher's book."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "El or la?",
+        "buckets": [
+          "el",
+          "la"
+        ],
+        "items": [
+          {
+            "text": "libro",
+            "bucket": 0
+          },
+          {
+            "text": "canción",
+            "bucket": 1
+          },
+          {
+            "text": "problema",
+            "bucket": 0
+          },
+          {
+            "text": "mano",
+            "bucket": 1
+          },
+          {
+            "text": "ciudad",
+            "bucket": 1
+          },
+          {
+            "text": "día",
+            "bucket": 0
+          },
+          {
+            "text": "profesor",
+            "bucket": 0
+          },
+          {
+            "text": "universidad",
+            "bucket": 1
+          },
+          {
+            "text": "idioma",
+            "bucket": 0
+          },
+          {
+            "text": "casa",
+            "bucket": 1
+          }
+        ],
+        "why": "-o, -or and -ma usually take el; -a, -ción and -dad usually take la, except for words like la mano and el día."
+      },
+      {
+        "title": "How does the plural end?",
+        "buckets": [
+          "+ s",
+          "+ es",
+          "z → ces"
+        ],
+        "items": [
+          {
+            "text": "casa",
+            "bucket": 0
+          },
+          {
+            "text": "coche",
+            "bucket": 0
+          },
+          {
+            "text": "libro",
+            "bucket": 0
+          },
+          {
+            "text": "ciudad",
+            "bucket": 1
+          },
+          {
+            "text": "profesor",
+            "bucket": 1
+          },
+          {
+            "text": "canción",
+            "bucket": 1
+          },
+          {
+            "text": "lápiz",
+            "bucket": 2
+          },
+          {
+            "text": "vez",
+            "bucket": 2
+          }
+        ],
+        "why": "Vowel endings add -s, consonants add -es, and -z changes to -ces."
+      },
+      {
+        "title": "Fuse or not?",
+        "buckets": [
+          "al / del",
+          "a la / de la / de los"
+        ],
+        "items": [
+          {
+            "text": "Voy ___ cine. (a + el)",
+            "bucket": 0
+          },
+          {
+            "text": "Voy ___ playa. (a + la)",
+            "bucket": 1
+          },
+          {
+            "text": "el libro ___ profesor (de + el)",
+            "bucket": 0
+          },
+          {
+            "text": "la casa ___ chicas (de + las)",
+            "bucket": 1
+          },
+          {
+            "text": "Voy ___ banco. (a + el)",
+            "bucket": 0
+          },
+          {
+            "text": "los juguetes ___ niños (de + los)",
+            "bucket": 1
+          }
+        ],
+        "why": "Only el fuses: a + el = al, de + el = del."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Es una problema.",
+        "wrong": "una",
+        "fix": "un",
+        "why": "Problema is a Greek -ma word, so it's masculine: un problema."
+      },
+      {
+        "sentence": "Tengo dos lápizes.",
+        "wrong": "lápizes",
+        "fix": "lápices",
+        "why": "Nouns ending in -z change to -ces in the plural."
+      },
+      {
+        "sentence": "El canción es bonita.",
+        "wrong": "El",
+        "fix": "La",
+        "why": "Nouns in -ción are feminine: la canción."
+      },
+      {
+        "sentence": "Hay unos mesas nuevas.",
+        "wrong": "unos",
+        "fix": "unas",
+        "why": "Mesa is feminine, so 'some' is unas."
+      },
+      {
+        "sentence": "Tengo un libro en el mano.",
+        "wrong": "el",
+        "fix": "la",
+        "why": "Mano ends in -o but is feminine: la mano."
+      },
+      {
+        "sentence": "Visito dos ciudads.",
+        "wrong": "ciudads",
+        "fix": "ciudades",
+        "why": "Ciudad ends in a consonant, so add -es."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Voy al cine.",
+        "meaning": "I'm going to the cinema.",
+        "distractors": [
+          "el",
+          "a"
+        ]
+      },
+      {
+        "text": "El libro del profesor.",
+        "meaning": "The teacher's book.",
+        "distractors": [
+          "de"
+        ]
+      },
+      {
+        "text": "Necesito unos lápices y un cuaderno.",
+        "meaning": "I need some pencils and a notebook.",
+        "distractors": [
+          "unas",
+          "lápizes"
+        ]
+      },
+      {
+        "text": "Las mesas son nuevas.",
+        "meaning": "The tables are new.",
+        "distractors": [
+          "Los"
+        ]
+      },
+      {
+        "text": "Es un problema.",
+        "meaning": "It's a problem.",
+        "distractors": [
+          "una"
+        ]
+      }
+    ]
+  }
+}

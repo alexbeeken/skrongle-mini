@@ -1,0 +1,902 @@
+{
+  "id": "a2-future-simple",
+  "slug": "future-simple",
+  "title": "The simple future: hablaré",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 22,
+  "summary": "Predict, promise and guess: hablaré, tendrás, hará, podremos, saldréis, vendrán.",
+  "focus": "Futuro simple: infinitive + é, ás, á, emos, éis, án, and the irregular stems",
+  "prerequisites": [
+    "a1-ir-near-future"
+  ],
+  "content": "## One set of endings on the infinitive\n\nThe **futuro simple** is the easiest tense to build. Keep the **whole infinitive** and add six endings. They are the same for **-ar**, **-er** and **-ir** verbs.\n\n| person | ending | hablar | comer | vivir |\n|---|---|---|---|---|\n| yo | **-é** | hablar**é** | comer**é** | vivir**é** |\n| tú | **-ás** | hablar**ás** | comer**ás** | vivir**ás** |\n| él / ella / usted | **-á** | hablar**á** | comer**á** | vivir**á** |\n| nosotros/as | **-emos** | hablar**emos** | comer**emos** | vivir**emos** |\n| vosotros/as | **-éis** | hablar**éis** | comer**éis** | vivir**éis** |\n| ellos / ellas / ustedes | **-án** | hablar**án** | comer**án** | vivir**án** |\n\nEvery form has a written accent except **nosotros**: *hablaremos*, not *hablarémos*.\n\n- *Mañana hablaré con el jefe.* (Tomorrow I will talk to the boss.)\n- *Algún día viviremos en Madrid.* (One day we will live in Madrid.)\n\n## Twelve irregular stems\n\nSome verbs shorten the infinitive before taking the **same endings**. There are three patterns.\n\n| pattern | verbs |\n|---|---|\n| drop the **e** | poder → **podr**é, saber → **sabr**é, querer → **querr**é, caber → **cabr**é, haber → **habr**á (there will be) |\n| swap the vowel for **d** | tener → **tendr**é, poner → **pondr**é, salir → **saldr**é, venir → **vendr**é, valer → **valdr**é |\n| shortened | hacer → **har**é, decir → **dir**é |\n\n- *No podré venir el sábado.* (I won't be able to come on Saturday.)\n- *¿Qué haremos esta noche?* (What will we do tonight?)\n- *Te diré la verdad.* (I will tell you the truth.)\n\nCompounds copy their parent: *mantener → mantendré*, *deshacer → desharé*.\n\n## What the future is for\n\n- **Predictions** about what will happen: *Mañana lloverá en el norte.* (Tomorrow it will rain in the north.) *Seguro que aprobarás el examen.* (I'm sure you'll pass the exam.)\n- **Promises** and firm commitments: *Te llamaré esta noche, lo prometo.* (I'll call you tonight, I promise.)\n- **Guessing about the present** (probability). This use has no English *will*: *¿Qué hora es?* (What time is it?) *Serán las tres.* (It must be about three.) *¿Dónde está Juan?* (Where is Juan?) *Estará en casa.* (He's probably at home.)\n\nTime markers: *mañana*, *pasado mañana*, *el año que viene*, *el mes que viene*, *dentro de dos días* (two days from now), *algún día*.\n\n## Ir a + infinitive or the future?\n\nYou already know **ir a + infinitive** (*voy a comer*). Both talk about later, but they sound different.\n\n| | ir a + infinitive | futuro simple |\n|---|---|---|\n| plans already decided | *Esta noche vamos a cenar fuera.* | |\n| the very near future | *Va a llover, mira el cielo.* | |\n| predictions, promises | | *El año que viene tendré un coche nuevo.* *Te llamaré.* |\n| guessing about now | | *Serán las tres.* |\n\nIn everyday speech **ir a** is much more common for plans. The simple future sounds more formal or more distant. Mixing them up is rarely a serious mistake, but the probability use (*serán las tres*) only works with the simple future.",
+  "vocabulary": [
+    {
+      "term": "venir",
+      "meaning": "to come",
+      "example": "Mis primos vendrán en agosto.",
+      "example_meaning": "My cousins will come in August."
+    },
+    {
+      "term": "decir",
+      "meaning": "to say, to tell",
+      "example": "Te diré la verdad.",
+      "example_meaning": "I'll tell you the truth."
+    },
+    {
+      "term": "la verdad",
+      "meaning": "the truth",
+      "example": "Mañana te diré la verdad.",
+      "example_meaning": "Tomorrow I'll tell you the truth."
+    },
+    {
+      "term": "el año que viene",
+      "meaning": "next year",
+      "example": "El año que viene viviré en Lisboa.",
+      "example_meaning": "Next year I'll live in Lisbon."
+    },
+    {
+      "term": "el mes que viene",
+      "meaning": "next month",
+      "example": "El mes que viene cambiaré de trabajo.",
+      "example_meaning": "Next month I'll change jobs."
+    },
+    {
+      "term": "pasado mañana",
+      "meaning": "the day after tomorrow",
+      "example": "Pasado mañana vamos a cenar fuera.",
+      "example_meaning": "The day after tomorrow we're going out for dinner."
+    },
+    {
+      "term": "dentro de",
+      "meaning": "in (an amount of time from now)",
+      "example": "Dentro de dos años tendré un coche nuevo.",
+      "example_meaning": "In two years I'll have a new car."
+    },
+    {
+      "term": "algún día",
+      "meaning": "one day, some day",
+      "example": "Algún día viviremos en Madrid.",
+      "example_meaning": "One day we'll live in Madrid."
+    },
+    {
+      "term": "llover",
+      "meaning": "to rain",
+      "example": "Mañana lloverá en el norte.",
+      "example_meaning": "Tomorrow it will rain in the north."
+    },
+    {
+      "term": "seguramente",
+      "meaning": "probably, most likely",
+      "example": "Seguramente serán las tres.",
+      "example_meaning": "It's probably three o'clock."
+    },
+    {
+      "term": "prometer",
+      "meaning": "to promise",
+      "example": "Te llamaré, lo prometo.",
+      "example_meaning": "I'll call you, I promise."
+    },
+    {
+      "term": "aprobar",
+      "meaning": "to pass (an exam)",
+      "example": "Seguro que aprobarás el examen.",
+      "example_meaning": "I'm sure you'll pass the exam."
+    },
+    {
+      "term": "el examen",
+      "meaning": "exam",
+      "example": "El examen será el lunes.",
+      "example_meaning": "The exam will be on Monday."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "hablar",
+      "meaning": "to speak, to talk",
+      "set": "future",
+      "art": [
+        " .---------. ",
+        "( manana... )",
+        " '---. ,---' ",
+        "      V      "
+      ],
+      "forms": {
+        "yo": "hablaré",
+        "tu": "hablarás",
+        "el": "hablará",
+        "nosotros": "hablaremos",
+        "vosotros": "hablaréis",
+        "ellos": "hablarán"
+      }
+    },
+    {
+      "item": "comer",
+      "meaning": "to eat",
+      "set": "future",
+      "art": [
+        "  |   ___   Y ",
+        "  |  /   \\  | ",
+        "  |  \\___/  | ",
+        "  |         | "
+      ],
+      "forms": {
+        "yo": "comeré",
+        "tu": "comerás",
+        "el": "comerá",
+        "nosotros": "comeremos",
+        "vosotros": "comeréis",
+        "ellos": "comerán"
+      }
+    },
+    {
+      "item": "vivir",
+      "meaning": "to live",
+      "set": "future",
+      "art": [
+        "     /\\     ",
+        "    /  \\    ",
+        "   /____\\   ",
+        "   | [] |   ",
+        "   |____|   "
+      ],
+      "forms": {
+        "yo": "viviré",
+        "tu": "vivirás",
+        "el": "vivirá",
+        "nosotros": "viviremos",
+        "vosotros": "viviréis",
+        "ellos": "vivirán"
+      }
+    },
+    {
+      "item": "tener",
+      "meaning": "to have",
+      "set": "future",
+      "art": [
+        "   _______   ",
+        "  /  ( )  \\  ",
+        " |  (   )  | ",
+        "  \\_______/  "
+      ],
+      "forms": {
+        "yo": "tendré",
+        "tu": "tendrás",
+        "el": "tendrá",
+        "nosotros": "tendremos",
+        "vosotros": "tendréis",
+        "ellos": "tendrán"
+      }
+    },
+    {
+      "item": "hacer",
+      "meaning": "to do, to make",
+      "set": "future",
+      "art": [
+        "   ________   ",
+        "  |________|  ",
+        "     |  |     ",
+        "     |  |     ",
+        "     |__|     "
+      ],
+      "forms": {
+        "yo": "haré",
+        "tu": "harás",
+        "el": "hará",
+        "nosotros": "haremos",
+        "vosotros": "haréis",
+        "ellos": "harán"
+      }
+    },
+    {
+      "item": "poder",
+      "meaning": "to be able to, can",
+      "set": "future",
+      "art": [
+        "      /    ",
+        "     /     ",
+        "    /___   ",
+        "       /   ",
+        "      /    "
+      ],
+      "forms": {
+        "yo": "podré",
+        "tu": "podrás",
+        "el": "podrá",
+        "nosotros": "podremos",
+        "vosotros": "podréis",
+        "ellos": "podrán"
+      }
+    },
+    {
+      "item": "salir",
+      "meaning": "to go out, to leave",
+      "set": "future",
+      "art": [
+        " ______      ",
+        "|  __  |     ",
+        "| |  | |---> ",
+        "| |__| |     ",
+        "|______|     "
+      ],
+      "forms": {
+        "yo": "saldré",
+        "tu": "saldrás",
+        "el": "saldrá",
+        "nosotros": "saldremos",
+        "vosotros": "saldréis",
+        "ellos": "saldrán"
+      }
+    },
+    {
+      "item": "venir",
+      "meaning": "to come",
+      "set": "future",
+      "art": [
+        "      ______ ",
+        "     |  __  |",
+        " --->| |  | |",
+        "     | |__| |",
+        "     |______|"
+      ],
+      "forms": {
+        "yo": "vendré",
+        "tu": "vendrás",
+        "el": "vendrá",
+        "nosotros": "vendremos",
+        "vosotros": "vendréis",
+        "ellos": "vendrán"
+      }
+    },
+    {
+      "item": "decir",
+      "meaning": "to say, to tell",
+      "set": "future",
+      "art": [
+        "        ___  ",
+        "    ___/   | ",
+        "   |___    | ",
+        "       \\___| "
+      ],
+      "forms": {
+        "yo": "diré",
+        "tu": "dirás",
+        "el": "dirá",
+        "nosotros": "diremos",
+        "vosotros": "diréis",
+        "ellos": "dirán"
+      }
+    },
+    {
+      "item": "saber",
+      "meaning": "to know (facts)",
+      "set": "future",
+      "art": [
+        "    .---.    ",
+        "   (  !  )   ",
+        "    '---'    ",
+        "     |_|     "
+      ],
+      "forms": {
+        "yo": "sabré",
+        "tu": "sabrás",
+        "el": "sabrá",
+        "nosotros": "sabremos",
+        "vosotros": "sabréis",
+        "ellos": "sabrán"
+      }
+    },
+    {
+      "item": "querer",
+      "meaning": "to want, to love",
+      "set": "future",
+      "art": [
+        "   .-. .-.   ",
+        "  (   V   )  ",
+        "   \\     /   ",
+        "    \\   /    ",
+        "     \\ /     ",
+        "      V      "
+      ],
+      "forms": {
+        "yo": "querré",
+        "tu": "querrás",
+        "el": "querrá",
+        "nosotros": "querremos",
+        "vosotros": "querréis",
+        "ellos": "querrán"
+      }
+    },
+    {
+      "item": "poner",
+      "meaning": "to put",
+      "set": "future",
+      "art": [
+        "      v      ",
+        "    .---.    ",
+        "   [     ]   ",
+        "   [_____]   "
+      ],
+      "forms": {
+        "yo": "pondré",
+        "tu": "pondrás",
+        "el": "pondrá",
+        "nosotros": "pondremos",
+        "vosotros": "pondréis",
+        "ellos": "pondrán"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-future-simple-01",
+      "prompt": "Complete with the future of vivir: Algún día (nosotros) ___ en Madrid.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "viviremos",
+      "accepted_answers": [
+        "nosotros viviremos"
+      ],
+      "explanation": "Keep the infinitive and add -emos: 'viviremos'. The nosotros form is the only one without an accent.",
+      "hints": [
+        "Infinitive plus ending.",
+        "Nosotros takes -emos, with no accent."
+      ],
+      "teaches": [
+        "algún día"
+      ]
+    },
+    {
+      "question_id": "a2-future-simple-02",
+      "prompt": "Mañana ___ en el norte.",
+      "type": "multiple-choice",
+      "options": [
+        "lloverá",
+        "llovará",
+        "lloverás"
+      ],
+      "correct_answer": "lloverá",
+      "explanation": "Weather verbs use the él/ella form: infinitive 'llover' + -á = 'lloverá'. The infinitive keeps its own vowel, so 'llovará' is wrong.",
+      "hints": [
+        "Infinitive llover plus -á.",
+        "'It' rains, which is third person singular."
+      ],
+      "teaches": [
+        "llover"
+      ]
+    },
+    {
+      "question_id": "a2-future-simple-03",
+      "prompt": "Complete with the future of tener: Dentro de dos años (yo) ___ un coche nuevo.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "tendré",
+      "accepted_answers": [
+        "yo tendré"
+      ],
+      "explanation": "Tener has the irregular stem tendr-: 'tendré'. The endings never change.",
+      "hints": [
+        "Tener swaps its vowel for a d.",
+        "Yo takes -é."
+      ],
+      "teaches": [
+        "dentro de"
+      ]
+    },
+    {
+      "question_id": "a2-future-simple-04",
+      "prompt": "Te lo prometo: te ___ esta noche.",
+      "type": "multiple-choice",
+      "options": [
+        "llamaré",
+        "llamará",
+        "llamaraé"
+      ],
+      "correct_answer": "llamaré",
+      "explanation": "A promise uses the simple future, and the speaker (yo) is promising: 'te llamaré'. 'Llamará' would mean someone else is calling.",
+      "hints": [
+        "Who is promising?",
+        "Yo takes -é."
+      ],
+      "teaches": [
+        "prometer"
+      ]
+    },
+    {
+      "question_id": "a2-future-simple-05",
+      "prompt": "Complete with the future of ser: ¿Qué hora es? — No sé, seguramente ___ las tres.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "serán",
+      "accepted_answers": [
+        "serán las tres"
+      ],
+      "explanation": "Guessing about the present uses the future: 'Serán las tres' means it must be about three. 'Las tres' is plural, so the verb takes the ellos form: serán.",
+      "hints": [
+        "The future expresses probability about now.",
+        "Las tres is plural."
+      ],
+      "teaches": [
+        "seguramente"
+      ]
+    },
+    {
+      "question_id": "a2-future-simple-06",
+      "prompt": "Mis primos ___ a la boda el año que viene.",
+      "type": "multiple-choice",
+      "options": [
+        "vendrán",
+        "venirán",
+        "vendran",
+        "venderán"
+      ],
+      "correct_answer": "vendrán",
+      "explanation": "Venir has the irregular stem vendr- and ellos takes -án with an accent: 'vendrán'. 'Venderán' is from vender (to sell).",
+      "hints": [
+        "Venir swaps its vowel for a d.",
+        "Ellos takes -án, with an accent."
+      ],
+      "teaches": [
+        "venir",
+        "el año que viene"
+      ]
+    },
+    {
+      "question_id": "a2-future-simple-07",
+      "prompt": "Complete with the future of decir: Mañana te ___ (yo) la verdad.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "diré",
+      "accepted_answers": [
+        "yo diré"
+      ],
+      "explanation": "Decir shortens to dir-: 'diré'.",
+      "hints": [
+        "Decir has a shortened stem, like hacer (har-).",
+        "Yo takes -é."
+      ],
+      "teaches": [
+        "decir",
+        "la verdad"
+      ]
+    },
+    {
+      "question_id": "a2-future-simple-08",
+      "prompt": "Seguro que (tú) ___ el examen.",
+      "type": "multiple-choice",
+      "options": [
+        "aprobarás",
+        "aprobaras",
+        "aprobás"
+      ],
+      "correct_answer": "aprobarás",
+      "explanation": "A prediction: infinitive 'aprobar' + -ás = 'aprobarás'. Without the accent ('aprobaras') it is a different tense.",
+      "hints": [
+        "Infinitive plus -ás.",
+        "Keep the accent."
+      ],
+      "teaches": [
+        "aprobar",
+        "el examen"
+      ]
+    },
+    {
+      "question_id": "a2-future-simple-09",
+      "prompt": "Choose the most natural way to say 'The day after tomorrow we're going to have dinner out' (a plan already decided).",
+      "type": "multiple-choice",
+      "options": [
+        "Pasado mañana vamos a cenar fuera.",
+        "Pasado mañana vamos cenar fuera.",
+        "Pasado mañana cenábamos fuera."
+      ],
+      "correct_answer": "Pasado mañana vamos a cenar fuera.",
+      "explanation": "A decided plan is most natural with ir a + infinitive, and the 'a' is required: 'vamos a cenar'. 'Cenábamos' is the past.",
+      "hints": [
+        "Plans take ir a + infinitive.",
+        "Never drop the a in ir a + infinitive."
+      ],
+      "teaches": [
+        "pasado mañana"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Esta tarde lloverá en Sevilla.",
+      "meaning": "This afternoon it will rain in Seville."
+    },
+    {
+      "text": "Pasado mañana iré al médico.",
+      "meaning": "The day after tomorrow I'll go to the doctor.",
+      "note": "New word: el médico = the doctor."
+    },
+    {
+      "text": "Mi hermana te dirá la verdad.",
+      "meaning": "My sister will tell you the truth.",
+      "note": "Decir shortens to dir- in the future."
+    },
+    {
+      "text": "Seguramente aprobaréis el examen de inglés sin problemas.",
+      "meaning": "You'll probably pass the English exam without any problems."
+    },
+    {
+      "text": "¿Vendrás a mi casa el sábado por la tarde?",
+      "meaning": "Will you come to my house on Saturday afternoon?"
+    },
+    {
+      "text": "Te prometo que haré los deberes después de cenar.",
+      "meaning": "I promise I'll do my homework after dinner.",
+      "note": "New word: los deberes = the homework."
+    },
+    {
+      "text": "Dentro de cinco años viviremos en una casa en la playa.",
+      "meaning": "In five years we'll live in a house on the beach.",
+      "note": "The nosotros form is the only one without an accent."
+    },
+    {
+      "text": "El mes que viene mis padres vendrán a visitarnos a Madrid.",
+      "meaning": "Next month my parents will come to visit us in Madrid."
+    }
+  ],
+  "guide": [
+    {
+      "section": "One set of endings"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-future-simple-01"
+    },
+    {
+      "question": "a2-future-simple-02"
+    },
+    {
+      "section": "Twelve irregular stems"
+    },
+    {
+      "question": "a2-future-simple-03"
+    },
+    {
+      "question": "a2-future-simple-06"
+    },
+    {
+      "question": "a2-future-simple-07"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "What the future is for"
+    },
+    {
+      "question": "a2-future-simple-04"
+    },
+    {
+      "question": "a2-future-simple-05"
+    },
+    {
+      "question": "a2-future-simple-08"
+    },
+    {
+      "tip": "The future endings are the present of haber with an r in front. He, has, ha, hemos, habéis and han become -ré, -rás, -rá, -remos, -réis and -rán."
+    },
+    {
+      "section": "Ir a + infinitive or the future"
+    },
+    {
+      "question": "a2-future-simple-09"
+    },
+    {
+      "vocab": 4
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-future-simple-conv-new-year",
+      "title": "New Year's resolutions",
+      "scenario": "It is just after midnight on New Year's Eve. Nuria and Pablo talk about the year ahead.",
+      "role_a": "Nuria",
+      "role_b": "Pablo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¡Feliz año, Pablo! ¿Qué harás este año?",
+          "meaning": "Happy New Year, Pablo! What will you do this year?",
+          "note": "hacer becomes har-"
+        },
+        {
+          "speaker": "b",
+          "text": "Seguramente cambiaré de trabajo. Y aprenderé a cocinar, te lo prometo.",
+          "meaning": "I'll probably change jobs. And I'll learn to cook, I promise.",
+          "note": "A prediction and a promise."
+        },
+        {
+          "speaker": "a",
+          "text": "¡Qué bien! Yo creo que viviré unos meses en Lisboa.",
+          "meaning": "Great! I think I'll live in Lisbon for a few months.",
+          "note": "vivir plus -é"
+        },
+        {
+          "speaker": "b",
+          "text": "¿En serio? ¿Y tu novio? ¿Vendrá contigo?",
+          "meaning": "Really? And your boyfriend? Will he come with you?",
+          "note": "venir becomes vendr-"
+        },
+        {
+          "speaker": "a",
+          "text": "No lo sé. Él dice que no podrá dejar su trabajo.",
+          "meaning": "I don't know. He says he won't be able to leave his job.",
+          "note": "poder becomes podr-"
+        },
+        {
+          "speaker": "b",
+          "text": "Bueno, Lisboa está cerca. Tendréis tiempo para veros.",
+          "meaning": "Well, Lisbon is close. You'll have time to see each other.",
+          "note": "tener becomes tendr-, here in the vosotros form"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí. Y tú, ¿saldrás más? Siempre estás en casa.",
+          "meaning": "Yes. And you, will you go out more? You're always at home.",
+          "note": "salir becomes saldr-"
+        },
+        {
+          "speaker": "b",
+          "text": "Este año saldré todos los sábados. Bueno, casi todos.",
+          "meaning": "This year I'll go out every Saturday. Well, almost every Saturday."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Qué hora es? ¿Y dónde están los demás?",
+          "meaning": "What time is it? And where are the others?"
+        },
+        {
+          "speaker": "b",
+          "text": "Serán las dos. Estarán bailando en el salón.",
+          "meaning": "It must be about two. They're probably dancing in the living room.",
+          "note": "The future of probability."
+        },
+        {
+          "speaker": "a",
+          "text": "Pues vamos a bailar nosotros también.",
+          "meaning": "Then let's go and dance too.",
+          "note": "ir a + infinitive for a plan right now."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🔮",
+    "bites": [
+      {
+        "title": "Endings on the whole infinitive",
+        "emoji": "📎",
+        "rule": "Keep the infinitive and add -é, -ás, -á, -emos, -éis or -án. The same six endings work for -ar, -er and -ir verbs. Every form has an accent except nosotros.",
+        "example": "Mañana hablaré con el jefe.",
+        "example_meaning": "Tomorrow I will talk to the boss."
+      },
+      {
+        "title": "Twelve irregular stems",
+        "emoji": "🔧",
+        "rule": "The endings never change, only the stem: podr-, sabr-, querr-, cabr-, habr-, tendr-, pondr-, saldr-, vendr-, valdr-, har-, dir-.",
+        "example": "Tendré tiempo y haré la cena.",
+        "example_meaning": "I'll have time and I'll make dinner."
+      },
+      {
+        "title": "Predict, promise, guess",
+        "emoji": "🔮",
+        "rule": "Use the future for predictions (lloverá), promises (te llamaré) and guesses about right now (serán las tres means it must be three).",
+        "example": "¿Dónde está Juan? — Estará en casa.",
+        "example_meaning": "Where is Juan? — He's probably at home."
+      },
+      {
+        "title": "Decided plan? Use ir a",
+        "emoji": "🗓️",
+        "rule": "A plan you have already made sounds more natural with ir a + infinitive, as in vamos a cenar fuera. Keep the future for what you predict or promise.",
+        "example": "Esta noche vamos a cenar fuera.",
+        "example_meaning": "Tonight we're going to have dinner out."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Regular or irregular stem?",
+        "buckets": [
+          "regular (whole infinitive)",
+          "irregular stem"
+        ],
+        "items": [
+          {
+            "text": "comer",
+            "bucket": 0
+          },
+          {
+            "text": "tener",
+            "bucket": 1
+          },
+          {
+            "text": "vivir",
+            "bucket": 0
+          },
+          {
+            "text": "hacer",
+            "bucket": 1
+          },
+          {
+            "text": "hablar",
+            "bucket": 0
+          },
+          {
+            "text": "salir",
+            "bucket": 1
+          },
+          {
+            "text": "saber",
+            "bucket": 1
+          },
+          {
+            "text": "estudiar",
+            "bucket": 0
+          }
+        ],
+        "why": "Tener becomes tendr-, hacer becomes har-, salir becomes saldr- and saber becomes sabr-. The rest keep the whole infinitive."
+      },
+      {
+        "title": "What is the speaker doing?",
+        "buckets": [
+          "predicting",
+          "promising",
+          "guessing about now"
+        ],
+        "items": [
+          {
+            "text": "Mañana lloverá.",
+            "bucket": 0
+          },
+          {
+            "text": "Te llamaré, lo prometo.",
+            "bucket": 1
+          },
+          {
+            "text": "Serán las tres.",
+            "bucket": 2
+          },
+          {
+            "text": "¿Dónde estará Juan?",
+            "bucket": 2
+          },
+          {
+            "text": "Nunca te olvidaré.",
+            "bucket": 1
+          },
+          {
+            "text": "En 2050 viviremos en Marte.",
+            "bucket": 0
+          }
+        ],
+        "why": "The same tense predicts the future, makes promises and guesses about the present (serán las tres means it must be three)."
+      },
+      {
+        "title": "Who will do it?",
+        "buckets": [
+          "yo",
+          "tú",
+          "él / ella",
+          "nosotros"
+        ],
+        "items": [
+          {
+            "text": "hablaré",
+            "bucket": 0
+          },
+          {
+            "text": "tendrás",
+            "bucket": 1
+          },
+          {
+            "text": "hará",
+            "bucket": 2
+          },
+          {
+            "text": "saldremos",
+            "bucket": 3
+          },
+          {
+            "text": "diré",
+            "bucket": 0
+          },
+          {
+            "text": "vendrá",
+            "bucket": 2
+          },
+          {
+            "text": "podrás",
+            "bucket": 1
+          },
+          {
+            "text": "sabremos",
+            "bucket": 3
+          }
+        ],
+        "why": "-é marks yo, -ás marks tú, -á marks él/ella and -emos marks nosotros."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Mañana yo hablaró con el jefe.",
+        "wrong": "hablaró",
+        "fix": "hablaré",
+        "why": "Yo takes -é on the infinitive: hablaré."
+      },
+      {
+        "sentence": "El año que viene teneré un coche.",
+        "wrong": "teneré",
+        "fix": "tendré",
+        "why": "Tener has the irregular stem tendr-."
+      },
+      {
+        "sentence": "¿Qué haceremos el sábado?",
+        "wrong": "haceremos",
+        "fix": "haremos",
+        "why": "Hacer shortens to har- in the future."
+      },
+      {
+        "sentence": "Nosotros comerémos a las dos.",
+        "wrong": "comerémos",
+        "fix": "comeremos",
+        "why": "The nosotros form is the only one without an accent."
+      },
+      {
+        "sentence": "Mis primos venirán en agosto.",
+        "wrong": "venirán",
+        "fix": "vendrán",
+        "why": "Venir swaps its vowel for a d: vendr-."
+      },
+      {
+        "sentence": "Te deciré la verdad.",
+        "wrong": "deciré",
+        "fix": "diré",
+        "why": "Decir shortens to dir- in the future."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Mañana lloverá en el norte.",
+        "meaning": "Tomorrow it will rain in the north.",
+        "distractors": [
+          "llovará"
+        ]
+      },
+      {
+        "text": "Te llamaré esta noche.",
+        "meaning": "I'll call you tonight.",
+        "distractors": [
+          "llamará"
+        ]
+      },
+      {
+        "text": "Serán las tres de la tarde.",
+        "meaning": "It must be three in the afternoon.",
+        "distractors": [
+          "Son"
+        ]
+      },
+      {
+        "text": "El año que viene tendré un coche nuevo.",
+        "meaning": "Next year I'll have a new car.",
+        "distractors": [
+          "teneré"
+        ]
+      },
+      {
+        "text": "Mis primos vendrán a la boda.",
+        "meaning": "My cousins will come to the wedding.",
+        "distractors": [
+          "venirán",
+          "vendrá"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,583 @@
+{
+  "id": "a1-negation",
+  "slug": "saying-no-negation",
+  "title": "Saying no: negation",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 28,
+  "summary": "No before the verb, and the double negative with nada, nadie, nunca.",
+  "focus": "Negative sentences with no; nada, nadie, nunca, tampoco, ni…ni",
+  "prerequisites": [
+    "a1-regular-ar-present"
+  ],
+  "content": "## No before the verb\n\nTo make a sentence negative, put **no** directly before the verb:\n\n- *No hablo francés.* (I don't speak French.)\n- *Ana no vive aquí.* (Ana doesn't live here.)\n- *No, no tengo hambre.* (No, I'm not hungry. The first *no* answers and the second negates.)\n\nSpanish needs nothing else: no *do* and no *not*.\n\n## The negative words\n\n| | | |\n|---|---|---|\n| **nada** | nothing | *No quiero nada.* |\n| **nadie** | nobody | *No hay nadie.* |\n| **nunca** | never | *No como nunca carne.* |\n| **tampoco** | neither, not either | *Yo tampoco.* |\n| **ningún / ninguna** | no, not any | *No tengo ningún problema.* |\n| **ni … ni** | neither … nor | *No bebo ni café ni té.* |\n\n## The double negative is correct\n\nWhen the negative word comes **after** the verb, *no* stays before the verb: *No veo nada.* (literally \"I don't see nothing\") is the correct Spanish.\n\nIf the negative word comes **before** the verb, drop *no*: *Nunca como carne. Nadie viene. Nada es fácil.*\n\n## Agreeing with a negative\n\n- *No me gusta el café.* *A mí tampoco.* (Me neither.)\n- *Me gusta el té.* *A mí también.* (Me too.)\n\n*Tampoco* answers a negative; *también* answers a positive.",
+  "vocabulary": [
+    {
+      "term": "no",
+      "meaning": "no; not",
+      "example": "No hablo francés.",
+      "example_meaning": "I don't speak French."
+    },
+    {
+      "term": "nada",
+      "meaning": "nothing",
+      "example": "No quiero nada.",
+      "example_meaning": "I don't want anything."
+    },
+    {
+      "term": "nadie",
+      "meaning": "nobody",
+      "example": "No hay nadie en casa.",
+      "example_meaning": "There's nobody at home."
+    },
+    {
+      "term": "nunca",
+      "meaning": "never",
+      "example": "Nunca como carne.",
+      "example_meaning": "I never eat meat."
+    },
+    {
+      "term": "tampoco",
+      "meaning": "neither, not either",
+      "example": "Yo tampoco.",
+      "example_meaning": "Me neither."
+    },
+    {
+      "term": "también",
+      "meaning": "also, too",
+      "example": "Yo también.",
+      "example_meaning": "Me too."
+    },
+    {
+      "term": "ningún / ninguna",
+      "meaning": "no, not any",
+      "example": "No tengo ningún problema.",
+      "example_meaning": "I don't have any problem."
+    },
+    {
+      "term": "ni … ni",
+      "meaning": "neither … nor",
+      "example": "Ni café ni té.",
+      "example_meaning": "Neither coffee nor tea."
+    },
+    {
+      "term": "siempre",
+      "meaning": "always",
+      "example": "Siempre llego tarde.",
+      "example_meaning": "I always arrive late."
+    },
+    {
+      "term": "algo",
+      "meaning": "something",
+      "example": "¿Quieres algo?",
+      "example_meaning": "Do you want something?"
+    },
+    {
+      "term": "alguien",
+      "meaning": "someone",
+      "example": "Hay alguien en la puerta.",
+      "example_meaning": "There's someone at the door."
+    },
+    {
+      "term": "la carne",
+      "meaning": "meat",
+      "example": "No como carne.",
+      "example_meaning": "I don't eat meat."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-neg-01",
+      "prompt": "Translate: I don't speak French.",
+      "type": "multiple-choice",
+      "options": [
+        "No hablo francés.",
+        "Hablo no francés.",
+        "No hablar francés."
+      ],
+      "correct_answer": "No hablo francés.",
+      "explanation": "No goes directly before the conjugated verb.",
+      "hints": [
+        "no + verb"
+      ],
+      "teaches": [
+        "no"
+      ]
+    },
+    {
+      "question_id": "a1-neg-02",
+      "prompt": "Complete: No quiero ___. (I don't want anything.)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "nada",
+      "accepted_answers": [],
+      "explanation": "After a negative verb, 'anything' is nada.",
+      "hints": [
+        "double negative"
+      ],
+      "teaches": [
+        "nada"
+      ]
+    },
+    {
+      "question_id": "a1-neg-03",
+      "prompt": "Which is correct Spanish?",
+      "type": "multiple-choice",
+      "options": [
+        "No veo a nadie.",
+        "Veo a nadie.",
+        "No veo a alguien."
+      ],
+      "correct_answer": "No veo a nadie.",
+      "explanation": "With nadie after the verb, no stays before it: the double negative is correct.",
+      "hints": [
+        "Keep no."
+      ],
+      "teaches": [
+        "nadie"
+      ]
+    },
+    {
+      "question_id": "a1-neg-04",
+      "prompt": "___ como carne. (I never eat meat.)",
+      "type": "multiple-choice",
+      "options": [
+        "Nunca",
+        "No nunca",
+        "Nunca no"
+      ],
+      "correct_answer": "Nunca",
+      "explanation": "When nunca comes first, drop no.",
+      "hints": [
+        "Negative word first, so no no."
+      ],
+      "teaches": [
+        "nunca",
+        "la carne"
+      ]
+    },
+    {
+      "question_id": "a1-neg-05",
+      "prompt": "— No me gusta el fútbol. — A mí ___.",
+      "type": "multiple-choice",
+      "options": [
+        "tampoco",
+        "también",
+        "nunca"
+      ],
+      "correct_answer": "tampoco",
+      "explanation": "To agree with a negative, use tampoco.",
+      "hints": [
+        "negative + negative"
+      ],
+      "teaches": [
+        "tampoco"
+      ]
+    },
+    {
+      "question_id": "a1-neg-06",
+      "prompt": "— Me gusta el cine. — A mí ___.",
+      "type": "multiple-choice",
+      "options": [
+        "también",
+        "tampoco",
+        "nada"
+      ],
+      "correct_answer": "también",
+      "explanation": "To agree with a positive, use también.",
+      "hints": [
+        "positive + positive"
+      ],
+      "teaches": [
+        "también"
+      ]
+    },
+    {
+      "question_id": "a1-neg-07",
+      "prompt": "Complete: No bebo ___ café ___ té. (neither… nor)",
+      "type": "multiple-choice",
+      "options": [
+        "ni … ni",
+        "o … o",
+        "no … no",
+        "nada … nada"
+      ],
+      "correct_answer": "ni … ni",
+      "explanation": "Neither… nor is ni… ni, with ni before each thing: no bebo ni café ni té. O… o means either… or.",
+      "hints": [
+        "Same word twice."
+      ],
+      "teaches": [
+        "ni … ni"
+      ]
+    },
+    {
+      "question_id": "a1-neg-08",
+      "prompt": "No tengo ___ problema.",
+      "type": "multiple-choice",
+      "options": [
+        "ningún",
+        "ninguno",
+        "nada"
+      ],
+      "correct_answer": "ningún",
+      "explanation": "Before a masculine singular noun, ninguno shortens to ningún.",
+      "hints": [
+        "Shortens before the noun."
+      ],
+      "teaches": [
+        "ningún / ninguna"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "No tengo ningún hermano.",
+      "meaning": "I don't have any brothers.",
+      "note": "Ningún before a masculine singular noun."
+    },
+    {
+      "text": "Nunca llego tarde a clase.",
+      "meaning": "I never arrive late to class.",
+      "note": "Nunca before the verb: no extra no."
+    },
+    {
+      "text": "¿Quieres algo de beber? No, gracias.",
+      "meaning": "Do you want something to drink? No, thanks."
+    },
+    {
+      "text": "No hablo ni francés ni alemán.",
+      "meaning": "I speak neither French nor German.",
+      "note": "New word: alemán = German."
+    },
+    {
+      "text": "No veo a nadie en el parque.",
+      "meaning": "I don't see anyone in the park."
+    },
+    {
+      "text": "Yo no bebo café y mi hermana tampoco.",
+      "meaning": "I don't drink coffee and neither does my sister."
+    },
+    {
+      "text": "Siempre desayuno en casa, pero hoy no tengo tiempo.",
+      "meaning": "I always have breakfast at home, but today I don't have time.",
+      "note": "New word: el tiempo = time."
+    },
+    {
+      "text": "Mi hermano siempre tiene hambre, pero yo no quiero comer nada ahora.",
+      "meaning": "My brother is always hungry, but I don't want to eat anything now."
+    }
+  ],
+  "guide": [
+    {
+      "section": "No before the verb"
+    },
+    {
+      "vocab": 1
+    },
+    {
+      "question": "a1-neg-01"
+    },
+    {
+      "section": "The negative words"
+    },
+    {
+      "vocab": 7
+    },
+    {
+      "question": "a1-neg-02"
+    },
+    {
+      "question": "a1-neg-08"
+    },
+    {
+      "question": "a1-neg-07"
+    },
+    {
+      "section": "The double negative"
+    },
+    {
+      "question": "a1-neg-03"
+    },
+    {
+      "question": "a1-neg-04"
+    },
+    {
+      "section": "Agreeing with a negative"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a1-neg-05"
+    },
+    {
+      "question": "a1-neg-06"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-neg-conv-fridge",
+      "title": "Nothing in the fridge",
+      "scenario": "Two flatmates discover there is nothing to eat.",
+      "role_a": "Óscar",
+      "role_b": "Vera",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "No hay nada en la nevera.",
+          "meaning": "There's nothing in the fridge.",
+          "note": "no … nada"
+        },
+        {
+          "speaker": "b",
+          "text": "¿Nada? ¿Ni leche ni pan?",
+          "meaning": "Nothing? No milk, no bread?",
+          "note": "ni … ni"
+        },
+        {
+          "speaker": "a",
+          "text": "No. Y no tengo dinero.",
+          "meaning": "No. And I don't have any money."
+        },
+        {
+          "speaker": "b",
+          "text": "Yo tampoco. Nunca tenemos dinero los domingos.",
+          "meaning": "Me neither. We never have money on Sundays.",
+          "note": "tampoco; nunca first"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Hay alguien en casa de Luis?",
+          "meaning": "Is there anyone at Luis's house?"
+        },
+        {
+          "speaker": "b",
+          "text": "No, no hay nadie. Está de viaje.",
+          "meaning": "No, there's nobody. He's away travelling.",
+          "note": "no … nadie"
+        },
+        {
+          "speaker": "a",
+          "text": "Entonces no comemos nada hoy.",
+          "meaning": "Then we don't eat anything today."
+        },
+        {
+          "speaker": "b",
+          "text": "¡No! Siempre hay una solución: mi madre.",
+          "meaning": "No! There's always a solution: my mum."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🚫",
+    "bites": [
+      {
+        "title": "No goes first",
+        "emoji": "👆",
+        "rule": "To say no, put no right before the verb. There is no 'do' and no 'not' to add.",
+        "example": "Ana no vive aquí.",
+        "example_meaning": "Ana doesn't live here."
+      },
+      {
+        "title": "Two negatives are fine",
+        "emoji": "✌️",
+        "rule": "Spanish uses the double negative. If nada, nadie or nunca comes after the verb, no still stays before it. 'I don't see nothing' is perfect Spanish.",
+        "example": "No veo nada.",
+        "example_meaning": "I don't see anything."
+      },
+      {
+        "title": "Negative first, drop the no",
+        "emoji": "🔁",
+        "rule": "Only one negative word may stand in front of the verb. Put nunca, nadie or nada first and drop no.",
+        "example": "Nunca como carne.",
+        "example_meaning": "I never eat meat."
+      },
+      {
+        "title": "Tampoco vs también",
+        "emoji": "🤝",
+        "rule": "Agree with a yes using también, and agree with a no using tampoco. A negative pairs with a negative: 'Me neither' is yo tampoco.",
+        "example": "— No tengo dinero. — Yo tampoco.",
+        "example_meaning": "— I don't have any money. — Me neither."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Does the blank need 'no'?",
+        "buckets": [
+          "yes: add no",
+          "no: leave it empty"
+        ],
+        "items": [
+          {
+            "text": "___ quiero nada.",
+            "bucket": 0
+          },
+          {
+            "text": "Nadie ___ viene.",
+            "bucket": 1
+          },
+          {
+            "text": "___ hay nadie en casa.",
+            "bucket": 0
+          },
+          {
+            "text": "Nunca ___ tenemos dinero.",
+            "bucket": 1
+          },
+          {
+            "text": "Yo ___ como nunca carne.",
+            "bucket": 0
+          },
+          {
+            "text": "Nada ___ es fácil.",
+            "bucket": 1
+          },
+          {
+            "text": "___ bebo ni café ni té.",
+            "bucket": 0
+          }
+        ],
+        "why": "If the negative word comes after the verb, no goes before the verb. If the negative word comes first, it already does the job."
+      },
+      {
+        "title": "Me too or me neither?",
+        "buckets": [
+          "también",
+          "tampoco"
+        ],
+        "items": [
+          {
+            "text": "Me gusta el té.",
+            "bucket": 0
+          },
+          {
+            "text": "No me gusta el café.",
+            "bucket": 1
+          },
+          {
+            "text": "Tengo hambre.",
+            "bucket": 0
+          },
+          {
+            "text": "No tengo dinero.",
+            "bucket": 1
+          },
+          {
+            "text": "Nunca como carne.",
+            "bucket": 1
+          },
+          {
+            "text": "Siempre llego tarde.",
+            "bucket": 0
+          }
+        ],
+        "why": "También agrees with a positive statement, and tampoco agrees with a negative one."
+      },
+      {
+        "title": "Positive or negative word?",
+        "buckets": [
+          "algo / alguien",
+          "nada / nadie"
+        ],
+        "items": [
+          {
+            "text": "¿Quieres ___?",
+            "bucket": 0
+          },
+          {
+            "text": "No quiero ___.",
+            "bucket": 1
+          },
+          {
+            "text": "Hay ___ en la puerta.",
+            "bucket": 0
+          },
+          {
+            "text": "No hay ___ en casa.",
+            "bucket": 1
+          },
+          {
+            "text": "No veo ___.",
+            "bucket": 1
+          },
+          {
+            "text": "¿Hay ___ en casa?",
+            "bucket": 0
+          }
+        ],
+        "why": "After a negative verb Spanish uses nada/nadie. Positive sentences and open questions use algo/alguien."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "No veo a alguien.",
+        "wrong": "alguien",
+        "fix": "nadie",
+        "why": "After a negative verb, 'anyone' is nadie: the double negative is correct."
+      },
+      {
+        "sentence": "— No me gusta el fútbol. — A mí también.",
+        "wrong": "también",
+        "fix": "tampoco",
+        "why": "To agree with a negative, use tampoco."
+      },
+      {
+        "sentence": "No tengo ninguno problema.",
+        "wrong": "ninguno",
+        "fix": "ningún",
+        "why": "Before a masculine singular noun, ninguno shortens to ningún."
+      },
+      {
+        "sentence": "No quiero algo, gracias.",
+        "wrong": "algo",
+        "fix": "nada",
+        "why": "After no + verb, 'anything' is nada."
+      },
+      {
+        "sentence": "No bebo o café ni té.",
+        "wrong": "o",
+        "fix": "ni",
+        "why": "Neither… nor is ni… ni, with the same word twice."
+      }
+    ],
+    "builds": [
+      {
+        "text": "No hablo francés.",
+        "meaning": "I don't speak French.",
+        "distractors": [
+          "hablar"
+        ]
+      },
+      {
+        "text": "No hay nadie en casa.",
+        "meaning": "There's nobody at home.",
+        "distractors": [
+          "alguien"
+        ]
+      },
+      {
+        "text": "Nunca como carne.",
+        "meaning": "I never eat meat.",
+        "distractors": [
+          "no"
+        ]
+      },
+      {
+        "text": "No bebo ni café ni té.",
+        "meaning": "I drink neither coffee nor tea.",
+        "distractors": [
+          "o"
+        ]
+      },
+      {
+        "text": "No quiero nada, gracias.",
+        "meaning": "I don't want anything, thanks.",
+        "distractors": [
+          "algo"
+        ]
+      }
+    ]
+  }
+}

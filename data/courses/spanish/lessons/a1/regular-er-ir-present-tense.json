@@ -1,0 +1,662 @@
+{
+  "id": "a1-regular-er-ir-present",
+  "slug": "regular-er-ir-present-tense",
+  "title": "Regular -ER and -IR verbs in the present tense",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 12,
+  "summary": "Comer, beber, aprender, vivir, escribir: two families with almost the same endings.",
+  "focus": "Present indicative of regular -er and -ir verbs",
+  "prerequisites": [
+    "a1-regular-ar-present"
+  ],
+  "content": "## The other two families\n\nAfter **-ar**, the remaining verbs end in **-er** (*comer*, *beber*, *aprender*, *leer*) or **-ir** (*vivir*, *escribir*, *abrir*). The pattern is the same as for -ar verbs: remove the ending, add the person ending.\n\n## The endings\n\n| person | -er: comer | -ir: vivir |\n|---|---|---|\n| yo | com**o** | viv**o** |\n| tú | com**es** | viv**es** |\n| él / ella / usted | com**e** | viv**e** |\n| nosotros/as | com**emos** | viv**imos** |\n| vosotros/as | com**éis** | viv**ís** |\n| ellos / ellas / ustedes | com**en** | viv**en** |\n\nThe two families differ only in the **nosotros** and **vosotros** forms: *comemos / vivimos*, *coméis / vivís*. Everywhere else, -er and -ir verbs are identical.\n\n## More examples\n\n- *Aprendo español.* (I'm learning Spanish.)\n- *¿Bebes café?* (Do you drink coffee?)\n- *Vivimos en Sevilla.* (We live in Seville.)\n- *Mis hermanos escriben mucho.* (My brothers write a lot.)\n- *¿Dónde vive usted?* (Where do you live?)\n\n*Leer* (to read) is regular in the present: *leo, lees, lee, leemos, leéis, leen*.\n\n## Spot the accent\n\nAs with *-áis*, the vosotros endings carry an accent: **-éis** and **-ís**. No other form does.",
+  "vocabulary": [
+    {
+      "term": "comer",
+      "meaning": "to eat",
+      "example": "Como a las dos.",
+      "example_meaning": "I eat at two."
+    },
+    {
+      "term": "beber",
+      "meaning": "to drink",
+      "example": "¿Bebes agua?",
+      "example_meaning": "Do you drink water?"
+    },
+    {
+      "term": "aprender",
+      "meaning": "to learn",
+      "example": "Aprendemos español.",
+      "example_meaning": "We learn Spanish."
+    },
+    {
+      "term": "leer",
+      "meaning": "to read",
+      "example": "Leo el periódico.",
+      "example_meaning": "I read the newspaper."
+    },
+    {
+      "term": "vivir",
+      "meaning": "to live",
+      "example": "Vivo en Madrid.",
+      "example_meaning": "I live in Madrid."
+    },
+    {
+      "term": "escribir",
+      "meaning": "to write",
+      "example": "Escribe una carta.",
+      "example_meaning": "She writes a letter."
+    },
+    {
+      "term": "abrir",
+      "meaning": "to open",
+      "example": "Abren la tienda a las nueve.",
+      "example_meaning": "They open the shop at nine."
+    },
+    {
+      "term": "el agua",
+      "meaning": "water (feminine, but el agua)",
+      "example": "Bebo mucha agua.",
+      "example_meaning": "I drink a lot of water."
+    },
+    {
+      "term": "la carta",
+      "meaning": "letter",
+      "example": "Escribo una carta.",
+      "example_meaning": "I write a letter."
+    },
+    {
+      "term": "el periódico",
+      "meaning": "newspaper",
+      "example": "Lee el periódico.",
+      "example_meaning": "He reads the newspaper."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "comer",
+      "meaning": "to eat",
+      "set": "present",
+      "art": [
+        "   _______   ",
+        "  /       \\  ",
+        " |  o   o  | ",
+        " |   ___   | ",
+        "  \\_______/  ",
+        "   |     |   "
+      ],
+      "forms": {
+        "yo": "como",
+        "tu": "comes",
+        "el": "come",
+        "nosotros": "comemos",
+        "vosotros": "coméis",
+        "ellos": "comen"
+      }
+    },
+    {
+      "item": "beber",
+      "meaning": "to drink",
+      "set": "present",
+      "art": [
+        "  |     |    ",
+        "  | ~~~ |    ",
+        "  | ~~~ |    ",
+        "  |_____|    ",
+        "    | |      ",
+        "   (___)     "
+      ],
+      "forms": {
+        "yo": "bebo",
+        "tu": "bebes",
+        "el": "bebe",
+        "nosotros": "bebemos",
+        "vosotros": "bebéis",
+        "ellos": "beben"
+      }
+    },
+    {
+      "item": "aprender",
+      "meaning": "to learn",
+      "set": "present",
+      "art": [
+        "   ______    ",
+        "  / o  o \\   ",
+        " |   ∆    |  ",
+        "  \\______/   ",
+        "  [=====]    ",
+        "  [=====]    "
+      ],
+      "forms": {
+        "yo": "aprendo",
+        "tu": "aprendes",
+        "el": "aprende",
+        "nosotros": "aprendemos",
+        "vosotros": "aprendéis",
+        "ellos": "aprenden"
+      }
+    },
+    {
+      "item": "vivir",
+      "meaning": "to live",
+      "set": "present",
+      "art": [
+        "     /\\      ",
+        "    /  \\     ",
+        "   /____\\    ",
+        "   | [] |    ",
+        "   |  _ |    ",
+        "   |_|_||    "
+      ],
+      "forms": {
+        "yo": "vivo",
+        "tu": "vives",
+        "el": "vive",
+        "nosotros": "vivimos",
+        "vosotros": "vivís",
+        "ellos": "viven"
+      }
+    },
+    {
+      "item": "escribir",
+      "meaning": "to write",
+      "set": "present",
+      "art": [
+        "        /\\   ",
+        "       /  \\  ",
+        "      / /\\ \\ ",
+        "     / /  \\/ ",
+        "    /_/      ",
+        " __________  "
+      ],
+      "forms": {
+        "yo": "escribo",
+        "tu": "escribes",
+        "el": "escribe",
+        "nosotros": "escribimos",
+        "vosotros": "escribís",
+        "ellos": "escriben"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-erir-01",
+      "prompt": "Conjugate: (yo) comer → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "como",
+      "accepted_answers": [
+        "yo como"
+      ],
+      "explanation": "Yo takes -o for every regular verb: como.",
+      "hints": [
+        "Yo → -o"
+      ],
+      "teaches": [
+        "comer"
+      ]
+    },
+    {
+      "question_id": "a1-erir-02",
+      "prompt": "Conjugate: (nosotros) vivir → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "vivimos",
+      "accepted_answers": [
+        "nosotros vivimos"
+      ],
+      "explanation": "-ir verbs take -imos for nosotros: vivimos.",
+      "hints": [
+        "-ir: -imos"
+      ],
+      "teaches": [
+        "vivir"
+      ]
+    },
+    {
+      "question_id": "a1-erir-03",
+      "prompt": "Conjugate: (nosotros) comer → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "comemos",
+      "accepted_answers": [
+        "nosotros comemos"
+      ],
+      "explanation": "-er verbs take -emos for nosotros: comemos.",
+      "hints": [
+        "-er: -emos"
+      ],
+      "teaches": [
+        "comer"
+      ]
+    },
+    {
+      "question_id": "a1-erir-04",
+      "prompt": "¿Tú ___ café?",
+      "type": "multiple-choice",
+      "options": [
+        "bebes",
+        "bebe",
+        "bebo",
+        "bebéis"
+      ],
+      "correct_answer": "bebes",
+      "explanation": "Tú takes -es: bebes.",
+      "hints": [
+        "Tú → -es"
+      ],
+      "teaches": [
+        "beber"
+      ]
+    },
+    {
+      "question_id": "a1-erir-05",
+      "prompt": "Mis padres ___ en Sevilla.",
+      "type": "multiple-choice",
+      "options": [
+        "viven",
+        "vive",
+        "vivimos",
+        "vivís"
+      ],
+      "correct_answer": "viven",
+      "explanation": "Mis padres = ellos → -en: viven.",
+      "hints": [
+        "Ellos → -en"
+      ],
+      "teaches": [
+        "vivir"
+      ]
+    },
+    {
+      "question_id": "a1-erir-06",
+      "prompt": "Conjugate: (vosotros) escribir → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "escribís",
+      "accepted_answers": [
+        "vosotros escribís"
+      ],
+      "explanation": "Vosotros takes -ís for -ir verbs, with an accent: escribís.",
+      "hints": [
+        "-ir: -ís"
+      ],
+      "teaches": [
+        "escribir"
+      ]
+    },
+    {
+      "question_id": "a1-erir-07",
+      "prompt": "Conjugate: (vosotros) aprender → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "aprendéis",
+      "accepted_answers": [
+        "vosotros aprendéis"
+      ],
+      "explanation": "Vosotros takes -éis for -er verbs: aprendéis.",
+      "hints": [
+        "-er: -éis"
+      ],
+      "teaches": [
+        "aprender"
+      ]
+    },
+    {
+      "question_id": "a1-erir-08",
+      "prompt": "¿Usted ___ el periódico?",
+      "type": "multiple-choice",
+      "options": [
+        "lee",
+        "lees",
+        "leo",
+        "leen"
+      ],
+      "correct_answer": "lee",
+      "explanation": "Usted uses the él/ella form: lee.",
+      "hints": [
+        "usted = él form"
+      ],
+      "teaches": [
+        "leer",
+        "el periódico"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "¿Dónde vive tu hermano?",
+      "meaning": "Where does your brother live?"
+    },
+    {
+      "text": "Bebo mucha agua por la mañana.",
+      "meaning": "I drink a lot of water in the morning."
+    },
+    {
+      "text": "¿Vosotros aprendéis inglés en la escuela?",
+      "meaning": "Do you all learn English at school?",
+      "note": "New word: la escuela = the school."
+    },
+    {
+      "text": "Mi padre lee el periódico en casa.",
+      "meaning": "My father reads the newspaper at home."
+    },
+    {
+      "text": "Comemos en casa a las dos y media.",
+      "meaning": "We eat at home at half past two."
+    },
+    {
+      "text": "Escribo una carta a mi abuela cada semana.",
+      "meaning": "I write a letter to my grandmother every week."
+    },
+    {
+      "text": "Las tiendas abren a las diez de la mañana.",
+      "meaning": "The shops open at ten in the morning.",
+      "note": "New word: la tienda = the shop."
+    },
+    {
+      "text": "Mis hermanos viven en Madrid y comen con mis padres los domingos.",
+      "meaning": "My brothers live in Madrid and eat with my parents on Sundays.",
+      "note": "Only nosotros and vosotros differ between -er and -ir: comemos, vivimos."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The other two families"
+    },
+    {
+      "section": "The endings"
+    },
+    {
+      "question": "a1-erir-01"
+    },
+    {
+      "question": "a1-erir-04"
+    },
+    {
+      "question": "a1-erir-02"
+    },
+    {
+      "question": "a1-erir-03"
+    },
+    {
+      "tip": "Only nosotros and vosotros tell -er and -ir verbs apart: -emos/-éis versus -imos/-ís."
+    },
+    {
+      "section": "More examples"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-erir-05"
+    },
+    {
+      "question": "a1-erir-08"
+    },
+    {
+      "section": "Spot the accent"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-erir-06"
+    },
+    {
+      "question": "a1-erir-07"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-erir-conv-flatmates",
+      "title": "New flatmates",
+      "scenario": "Lucía and Tomás are getting to know each other on the first evening in a shared flat.",
+      "role_a": "Lucía",
+      "role_b": "Tomás",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿Dónde vives normalmente, Tomás?",
+          "meaning": "Where do you normally live, Tomás?",
+          "note": "vivir, tú"
+        },
+        {
+          "speaker": "b",
+          "text": "Vivo en Granada, pero estudio aquí este año.",
+          "meaning": "I live in Granada, but I'm studying here this year.",
+          "note": "vivir, yo"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Qué aprendes en la universidad?",
+          "meaning": "What are you learning at university?",
+          "note": "aprender, tú"
+        },
+        {
+          "speaker": "b",
+          "text": "Aprendo historia. ¿Y tú?",
+          "meaning": "I'm learning history. And you?"
+        },
+        {
+          "speaker": "a",
+          "text": "Yo aprendo inglés. Leo mucho y escribo cada día.",
+          "meaning": "I'm learning English. I read a lot and write every day.",
+          "note": "leer, escribir, yo"
+        },
+        {
+          "speaker": "b",
+          "text": "¿Comes en casa o en la universidad?",
+          "meaning": "Do you eat at home or at the university?",
+          "note": "comer, tú"
+        },
+        {
+          "speaker": "a",
+          "text": "Como en casa. ¿Bebemos un café ahora?",
+          "meaning": "I eat at home. Shall we have a coffee now?",
+          "note": "beber, nosotros"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Sí! Abro la ventana y preparo el café.",
+          "meaning": "Yes! I'll open the window and make the coffee.",
+          "note": "abrir, yo"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🍽️",
+    "bites": [
+      {
+        "title": "Same pattern, new vowel",
+        "emoji": "🍳",
+        "rule": "Remove -er or -ir and add -o, -es, -e … -en. It's the -ar pattern with e in place of a.",
+        "example": "como, comes, come, comen",
+        "example_meaning": "I eat, you eat, he eats, they eat"
+      },
+      {
+        "title": "Identical until nosotros",
+        "emoji": "👯",
+        "rule": "-er and -ir verbs are identical except for nosotros and vosotros. Learn those two and you know both families.",
+        "example": "comemos / vivimos, coméis / vivís",
+        "example_meaning": "we eat / we live, you all eat / you all live"
+      },
+      {
+        "title": "Nosotros keeps the infinitive vowel",
+        "emoji": "🔁",
+        "rule": "Nosotros keeps the infinitive's vowel: comEr → comEmos, vivIr → vivImos.",
+        "example": "Comemos en casa. Vivimos en Sevilla.",
+        "example_meaning": "We eat at home. We live in Seville."
+      },
+      {
+        "title": "Vosotros takes the accent",
+        "emoji": "🎓",
+        "rule": "Only vosotros gets an accent: -éis for -er verbs, -ís for -ir verbs.",
+        "example": "¿Bebéis café? ¿Vivís aquí?",
+        "example_meaning": "Do you all drink coffee? Do you all live here?"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "-emos or -imos?",
+        "buckets": [
+          "-emos",
+          "-imos"
+        ],
+        "items": [
+          {
+            "text": "comer",
+            "bucket": 0
+          },
+          {
+            "text": "vivir",
+            "bucket": 1
+          },
+          {
+            "text": "aprender",
+            "bucket": 0
+          },
+          {
+            "text": "escribir",
+            "bucket": 1
+          },
+          {
+            "text": "beber",
+            "bucket": 0
+          },
+          {
+            "text": "abrir",
+            "bucket": 1
+          },
+          {
+            "text": "leer",
+            "bucket": 0
+          }
+        ],
+        "why": "Nosotros keeps the infinitive's vowel: -er verbs take -emos, -ir verbs take -imos."
+      },
+      {
+        "title": "Who is it?",
+        "buckets": [
+          "yo",
+          "tú",
+          "él / ella / usted",
+          "ellos / ellas / ustedes"
+        ],
+        "items": [
+          {
+            "text": "bebo",
+            "bucket": 0
+          },
+          {
+            "text": "leo",
+            "bucket": 0
+          },
+          {
+            "text": "vives",
+            "bucket": 1
+          },
+          {
+            "text": "aprendes",
+            "bucket": 1
+          },
+          {
+            "text": "escribe",
+            "bucket": 2
+          },
+          {
+            "text": "abre",
+            "bucket": 2
+          },
+          {
+            "text": "comen",
+            "bucket": 3
+          },
+          {
+            "text": "viven",
+            "bucket": 3
+          }
+        ],
+        "why": "-o is yo, -es is tú, -e is él/ella/usted, -en is ellos/ustedes, for both -er and -ir."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Nosotros vivemos en Sevilla.",
+        "wrong": "vivemos",
+        "fix": "vivimos",
+        "why": "Vivir is an -ir verb, so nosotros takes -imos."
+      },
+      {
+        "sentence": "Mis padres vive en Sevilla.",
+        "wrong": "vive",
+        "fix": "viven",
+        "why": "Mis padres = ellos, so the ending is -en."
+      },
+      {
+        "sentence": "¿Tu hijo beben café?",
+        "wrong": "beben",
+        "fix": "bebe",
+        "why": "Tu hijo = él, so the ending is -e: bebe."
+      },
+      {
+        "sentence": "Vosotros escribéis mucho.",
+        "wrong": "escribéis",
+        "fix": "escribís",
+        "why": "Escribir is an -ir verb, so vosotros takes -ís."
+      },
+      {
+        "sentence": "Mis alumnos aprende español.",
+        "wrong": "aprende",
+        "fix": "aprenden",
+        "why": "Mis alumnos = ellos, so the ending is -en: aprenden."
+      },
+      {
+        "sentence": "¿Tu padre lees el periódico?",
+        "wrong": "lees",
+        "fix": "lee",
+        "why": "Tu padre = él, so the ending is -e: lee."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Vivimos en Sevilla.",
+        "meaning": "We live in Seville.",
+        "distractors": [
+          "vivemos"
+        ]
+      },
+      {
+        "text": "¿Tú bebes café?",
+        "meaning": "Do you drink coffee?",
+        "distractors": [
+          "bebe"
+        ]
+      },
+      {
+        "text": "Mis padres viven en Granada.",
+        "meaning": "My parents live in Granada.",
+        "distractors": [
+          "vive"
+        ]
+      },
+      {
+        "text": "Aprendo español en la universidad.",
+        "meaning": "I'm learning Spanish at university.",
+        "distractors": [
+          "aprende"
+        ]
+      },
+      {
+        "text": "¿Usted lee el periódico?",
+        "meaning": "Do you read the newspaper? (formal)",
+        "distractors": [
+          "lees"
+        ]
+      }
+    ]
+  }
+}

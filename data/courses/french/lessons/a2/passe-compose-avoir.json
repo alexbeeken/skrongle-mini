@@ -1,0 +1,727 @@
+{
+  "id": "a2-passe-compose-avoir",
+  "slug": "passe-compose-avoir",
+  "title": "The passé composé with avoir",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 14,
+  "summary": "Say what happened: avoir + past participle, the irregular participles, negation and time words.",
+  "focus": "Forming the passé composé with avoir",
+  "prerequisites": [
+    "a2-ir-re-verbs-partitive"
+  ],
+  "content": "## Avoir + past participle\n\nThe **passé composé** tells what happened: the present of **avoir** + a **past participle**. **J'ai parlé** means both \"I spoke\" and \"I have spoken\".\n\n| | parler | finir | vendre |\n|---|---|---|---|\n| je | ai parlé | ai fini | ai vendu |\n| tu | as parlé | as fini | as vendu |\n| il / elle / on | a parlé | a fini | a vendu |\n| nous | avons parlé | avons fini | avons vendu |\n| vous | avez parlé | avez fini | avez vendu |\n| ils / elles | ont parlé | ont fini | ont vendu |\n\nRegular participles: **-er** verbs give **-é** (parlé), **-ir** verbs give **-i** (fini), **-re** verbs give **-u** (vendu). Remember the elision: **j'ai**.\n\n## Irregular participles\n\nThe most common verbs have participles you learn by heart:\n\n| verb | participle | example |\n|---|---|---|\n| avoir | **eu** | j'ai eu de la chance |\n| être | **été** | il a été malade |\n| faire | **fait** | tu as fait tes devoirs |\n| prendre | **pris** | nous avons pris le bus |\n| voir | **vu** | j'ai vu un film |\n| lire | **lu** | elle a lu le journal |\n| boire | **bu** | ils ont bu du café |\n| dire | **dit** | il a dit merci |\n| écrire | **écrit** | j'ai écrit une lettre |\n| mettre | **mis** | tu as mis ton manteau |\n\n## Negation and time words\n\n**Ne … pas** goes around **avoir**, never around the participle: **je n'ai pas mangé**, **nous n'avons pas vu le film**.\n\nTime markers set the scene:\n\n- **hier** (yesterday), **hier soir** (last night)\n- **la semaine dernière** (last week), **l'année dernière** (last year)\n- **il y a deux jours** (two days ago)\n\n**Déjà** (already) and **pas encore** (not yet) sit in the same spot, between avoir and the participle:\n\n- **Tu as déjà mangé ?** (Have you already eaten?)\n- **Non, je n'ai pas encore mangé.** (No, I haven't eaten yet.)",
+  "vocabulary": [
+    {
+      "term": "hier",
+      "meaning": "yesterday",
+      "example": "Hier, j'ai travaillé jusqu'à huit heures.",
+      "example_meaning": "Yesterday I worked until eight."
+    },
+    {
+      "term": "hier soir",
+      "meaning": "last night, yesterday evening",
+      "example": "Hier soir, nous avons regardé la télé.",
+      "example_meaning": "Last night we watched TV."
+    },
+    {
+      "term": "la semaine dernière",
+      "meaning": "last week",
+      "example": "La semaine dernière, elle a visité Lyon.",
+      "example_meaning": "Last week she visited Lyon."
+    },
+    {
+      "term": "il y a",
+      "meaning": "ago (before a length of time)",
+      "example": "J'ai commencé le français il y a un an.",
+      "example_meaning": "I started French a year ago."
+    },
+    {
+      "term": "déjà",
+      "meaning": "already; ever (in questions)",
+      "example": "Vous avez déjà mangé des escargots ?",
+      "example_meaning": "Have you ever eaten snails?"
+    },
+    {
+      "term": "pas encore",
+      "meaning": "not yet",
+      "example": "Je n'ai pas encore acheté le pain.",
+      "example_meaning": "I haven't bought the bread yet."
+    },
+    {
+      "term": "faire",
+      "meaning": "to do, to make (fait)",
+      "example": "Qu'est-ce que vous avez fait dimanche ?",
+      "example_meaning": "What did you do on Sunday?"
+    },
+    {
+      "term": "voir",
+      "meaning": "to see (vu)",
+      "example": "Nous avons vu la tour Eiffel.",
+      "example_meaning": "We saw the Eiffel Tower."
+    },
+    {
+      "term": "lire",
+      "meaning": "to read (lu)",
+      "example": "Mon père a lu le journal ce matin.",
+      "example_meaning": "My father read the newspaper this morning."
+    },
+    {
+      "term": "écrire",
+      "meaning": "to write (écrit)",
+      "example": "Tu as écrit à ta grand-mère ?",
+      "example_meaning": "Did you write to your grandmother?"
+    },
+    {
+      "term": "dire",
+      "meaning": "to say (dit)",
+      "example": "Le professeur a dit au revoir.",
+      "example_meaning": "The teacher said goodbye."
+    },
+    {
+      "term": "mettre",
+      "meaning": "to put; to put on (mis)",
+      "example": "J'ai mis les clés sur la table.",
+      "example_meaning": "I put the keys on the table."
+    },
+    {
+      "term": "le film",
+      "meaning": "film, movie",
+      "example": "C'est un film français.",
+      "example_meaning": "It's a French film."
+    },
+    {
+      "term": "le livre",
+      "meaning": "book",
+      "example": "Ce livre est très long.",
+      "example_meaning": "This book is very long."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-passe-compose-avoir-01",
+      "prompt": "Hier, nous ___ parlé avec le professeur.",
+      "type": "multiple-choice",
+      "options": [
+        "avons",
+        "sommes",
+        "avez"
+      ],
+      "correct_answer": "avons",
+      "explanation": "Parler takes avoir, and nous goes with avons: nous avons parlé.",
+      "hints": [
+        "Which form of avoir goes with nous?"
+      ],
+      "teaches": [
+        "hier"
+      ]
+    },
+    {
+      "question_id": "a2-passe-compose-avoir-02",
+      "prompt": "Complete in the passé composé (finir): Tu ___ tes devoirs ?",
+      "type": "fill-in-blank",
+      "correct_answer": "as fini",
+      "accepted_answers": [
+        "tu as fini"
+      ],
+      "explanation": "Avoir for tu is as, and finir's participle is fini: tu as fini.",
+      "hints": [
+        "Tu form of avoir + participle in -i."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-passe-compose-avoir-03",
+      "prompt": "La semaine dernière, j'ai ___ un très bon film.",
+      "type": "multiple-choice",
+      "options": [
+        "vu",
+        "voir",
+        "voyé"
+      ],
+      "correct_answer": "vu",
+      "explanation": "Voir has an irregular participle: vu. 'Voir' is the infinitive; 'voyé' does not exist.",
+      "hints": [
+        "The participle of voir is short: two letters."
+      ],
+      "teaches": [
+        "voir",
+        "le film",
+        "la semaine dernière"
+      ]
+    },
+    {
+      "question_id": "a2-passe-compose-avoir-04",
+      "prompt": "Complete with the participle of faire: Qu'est-ce que tu as ___ samedi ?",
+      "type": "fill-in-blank",
+      "correct_answer": "fait",
+      "accepted_answers": [],
+      "explanation": "Faire has an irregular participle: fait.",
+      "hints": [
+        "It ends in a silent t."
+      ],
+      "teaches": [
+        "faire"
+      ]
+    },
+    {
+      "question_id": "a2-passe-compose-avoir-05",
+      "prompt": "Complete in the passé composé (prendre): Elles ___ le train il y a deux jours.",
+      "type": "fill-in-blank",
+      "correct_answer": "ont pris",
+      "accepted_answers": [
+        "elles ont pris"
+      ],
+      "explanation": "Elles + ont, and prendre's participle is pris: elles ont pris.",
+      "hints": [
+        "Ils / elles form of avoir.",
+        "Participle of prendre: pris."
+      ],
+      "teaches": [
+        "il y a"
+      ]
+    },
+    {
+      "question_id": "a2-passe-compose-avoir-06",
+      "prompt": "Elle a ___ une lettre à sa grand-mère.",
+      "type": "multiple-choice",
+      "options": [
+        "écrit",
+        "écrivé",
+        "écri"
+      ],
+      "correct_answer": "écrit",
+      "explanation": "Écrire has the participle écrit, with a t.",
+      "hints": [
+        "It looks like the il form of the present: il écrit."
+      ],
+      "teaches": [
+        "écrire"
+      ]
+    },
+    {
+      "question_id": "a2-passe-compose-avoir-07",
+      "prompt": "Complete with déjà or pas encore: Il est huit heures et je n'ai ___ fini.",
+      "type": "fill-in-blank",
+      "correct_answer": "pas encore",
+      "accepted_answers": [],
+      "explanation": "After 'je n'ai' the only fit is pas encore (not yet): je n'ai pas encore fini.",
+      "hints": [
+        "The sentence is negative: ne is already there."
+      ],
+      "teaches": [
+        "pas encore"
+      ]
+    },
+    {
+      "question_id": "a2-passe-compose-avoir-08",
+      "prompt": "'Hier soir, j'ai lisé un livre.' is correct French.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Lire has an irregular participle: j'ai lu un livre.",
+      "hints": [
+        "What is the participle of lire?"
+      ],
+      "teaches": [
+        "lire",
+        "le livre",
+        "hier soir"
+      ]
+    },
+    {
+      "question_id": "a2-passe-compose-avoir-09",
+      "prompt": "'Nous n'avons pas vu le film.' is correct: ne … pas goes around avoir.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "In the passé composé the negation wraps the auxiliary: nous n'avons pas vu.",
+      "hints": [
+        "Where do ne and pas go in the passé composé?"
+      ],
+      "teaches": [
+        "voir",
+        "le film"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "parler",
+      "meaning": "to speak",
+      "set": "passe-compose",
+      "art": [
+        " .--------. ",
+        "( bla bla  )",
+        " `--. .---' ",
+        "     V      ",
+        "   (o_o)    "
+      ],
+      "forms": {
+        "je": "ai parlé",
+        "tu": "as parlé",
+        "il": "a parlé",
+        "nous": "avons parlé",
+        "vous": "avez parlé",
+        "ils": "ont parlé"
+      }
+    },
+    {
+      "item": "finir",
+      "meaning": "to finish",
+      "set": "passe-compose",
+      "art": [
+        "           / ",
+        "          /  ",
+        "  \\      /   ",
+        "   \\    /    ",
+        "    \\  /     ",
+        "     \\/ fini "
+      ],
+      "forms": {
+        "je": "ai fini",
+        "tu": "as fini",
+        "il": "a fini",
+        "nous": "avons fini",
+        "vous": "avez fini",
+        "ils": "ont fini"
+      }
+    },
+    {
+      "item": "vendre",
+      "meaning": "to sell",
+      "set": "passe-compose",
+      "art": [
+        " ___________ ",
+        "| CAISSE    |",
+        "| [ 10 EUR ]|",
+        "|___________|",
+        "   vendu !   "
+      ],
+      "forms": {
+        "je": "ai vendu",
+        "tu": "as vendu",
+        "il": "a vendu",
+        "nous": "avons vendu",
+        "vous": "avez vendu",
+        "ils": "ont vendu"
+      }
+    },
+    {
+      "item": "faire",
+      "meaning": "to do, to make",
+      "set": "passe-compose",
+      "art": [
+        "   ______   ",
+        "  |______|  ",
+        "     ||     ",
+        "     ||     ",
+        "     ||     ",
+        "   fait !   "
+      ],
+      "forms": {
+        "je": "ai fait",
+        "tu": "as fait",
+        "il": "a fait",
+        "nous": "avons fait",
+        "vous": "avez fait",
+        "ils": "ont fait"
+      }
+    },
+    {
+      "item": "prendre",
+      "meaning": "to take",
+      "set": "passe-compose",
+      "art": [
+        "  _________  ",
+        " | [ (o) ] | ",
+        " |_________| ",
+        "   click!    ",
+        " photo prise "
+      ],
+      "forms": {
+        "je": "ai pris",
+        "tu": "as pris",
+        "il": "a pris",
+        "nous": "avons pris",
+        "vous": "avez pris",
+        "ils": "ont pris"
+      }
+    },
+    {
+      "item": "voir",
+      "meaning": "to see",
+      "set": "passe-compose",
+      "art": [
+        "    _____    ",
+        "  /  ___  \\  ",
+        " |  ( o )  | ",
+        "  \\_______/  ",
+        "   j'ai vu   "
+      ],
+      "forms": {
+        "je": "ai vu",
+        "tu": "as vu",
+        "il": "a vu",
+        "nous": "avons vu",
+        "vous": "avez vu",
+        "ils": "ont vu"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-passe-compose-avoir-conv-weekend",
+      "title": "What did you do this weekend?",
+      "scenario": "Lucas and Inès catch up on Monday morning before class.",
+      "role_a": "Lucas",
+      "role_b": "Inès",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Salut Inès ! Tu as passé un bon week-end ?",
+          "meaning": "Hi Inès! Did you have a good weekend?",
+          "note": "passer: tu as passé"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, super ! Samedi, j'ai vu un film au cinéma.",
+          "meaning": "Yes, great! On Saturday I saw a film at the cinema.",
+          "note": "voir: j'ai vu"
+        },
+        {
+          "speaker": "a",
+          "text": "Ah bon ? Quel film tu as vu ?",
+          "meaning": "Really? Which film did you see?"
+        },
+        {
+          "speaker": "b",
+          "text": "Un film policier. Et toi, qu'est-ce que tu as fait ?",
+          "meaning": "A crime film. And you, what did you do?",
+          "note": "faire: tu as fait"
+        },
+        {
+          "speaker": "a",
+          "text": "J'ai fait du vélo avec mon frère et nous avons mangé au bord du lac.",
+          "meaning": "I went cycling with my brother and we ate by the lake."
+        },
+        {
+          "speaker": "b",
+          "text": "Génial. Et tu as fini ton livre ?",
+          "meaning": "Great. And did you finish your book?",
+          "note": "finir: tu as fini"
+        },
+        {
+          "speaker": "a",
+          "text": "Non, je n'ai pas encore fini. J'ai lu trois chapitres.",
+          "meaning": "No, I haven't finished yet. I've read three chapters.",
+          "note": "pas encore; lire: j'ai lu"
+        },
+        {
+          "speaker": "b",
+          "text": "Moi, j'ai déjà lu ce livre il y a deux ans.",
+          "meaning": "I already read that book two years ago.",
+          "note": "déjà; il y a"
+        },
+        {
+          "speaker": "a",
+          "text": "Et tu as aimé ?",
+          "meaning": "And did you like it?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, beaucoup. Hier soir, j'ai même écrit un message à l'auteur !",
+          "meaning": "Yes, a lot. Last night I even wrote a message to the author!",
+          "note": "écrire: j'ai écrit"
+        },
+        {
+          "speaker": "a",
+          "text": "Sérieux ? Il a répondu ?",
+          "meaning": "Seriously? Did he reply?"
+        },
+        {
+          "speaker": "b",
+          "text": "Pas encore !",
+          "meaning": "Not yet!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "J'ai parlé avec ma sœur.",
+      "meaning": "I spoke with my sister.",
+      "note": "-er verbs: parler gives parlé."
+    },
+    {
+      "text": "Nous avons fini le travail.",
+      "meaning": "We finished the work.",
+      "note": "-ir verbs: finir gives fini."
+    },
+    {
+      "text": "Il a vendu sa voiture la semaine dernière.",
+      "meaning": "He sold his car last week.",
+      "note": "-re verbs: vendre gives vendu."
+    },
+    {
+      "text": "Tu as bu tout le café ?",
+      "meaning": "Did you drink all the coffee?",
+      "note": "Boire gives bu."
+    },
+    {
+      "text": "Je n'ai pas encore vu ce film.",
+      "meaning": "I haven't seen this film yet."
+    },
+    {
+      "text": "Elles ont pris le métro il y a une heure.",
+      "meaning": "They took the underground an hour ago.",
+      "note": "New word: le métro = the underground."
+    },
+    {
+      "text": "Hier soir, nous avons mis la table et nous avons dîné.",
+      "meaning": "Last night we set the table and had dinner.",
+      "note": "New word: dîner = to have dinner."
+    },
+    {
+      "text": "Mon grand-père a écrit une longue lettre et il a dit merci.",
+      "meaning": "My grandfather wrote a long letter and he said thank you.",
+      "note": "New word: la lettre = the letter."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Avoir + past participle"
+    },
+    {
+      "question": "a2-passe-compose-avoir-01"
+    },
+    {
+      "question": "a2-passe-compose-avoir-02"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "concept": {
+        "title": "One tense, two English ones",
+        "markdown": "**J'ai mangé** is both \"I ate\" and \"I have eaten\". Spoken French uses the passé composé for both. The one-word past you meet in novels (**il mangea**) is the passé simple. It belongs in writing, never in talk about your weekend."
+      }
+    },
+    {
+      "section": "Irregular participles"
+    },
+    {
+      "question": "a2-passe-compose-avoir-03"
+    },
+    {
+      "question": "a2-passe-compose-avoir-04"
+    },
+    {
+      "question": "a2-passe-compose-avoir-06"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-passe-compose-avoir-08"
+    },
+    {
+      "section": "Negation and time words"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-passe-compose-avoir-05"
+    },
+    {
+      "tip": "Negative? Wrap ne … pas around avoir only: je n'ai pas vu. Déjà and pas encore sit in the same spot."
+    },
+    {
+      "question": "a2-passe-compose-avoir-07"
+    },
+    {
+      "question": "a2-passe-compose-avoir-09"
+    }
+  ],
+  "sprint": {
+    "icon": "📅",
+    "bites": [
+      {
+        "title": "Avoir + participle",
+        "emoji": "🧩",
+        "rule": "Present of avoir + past participle: j'ai parlé, tu as fini, il a vendu, nous avons parlé, vous avez fini, ils ont vendu.",
+        "example": "Hier, j'ai parlé avec Paul.",
+        "example_meaning": "Yesterday I spoke with Paul."
+      },
+      {
+        "title": "-é, -i, -u",
+        "emoji": "🔤",
+        "rule": "Regular participles: -er verbs give -é (parlé), -ir verbs give -i (fini), -re verbs give -u (vendu).",
+        "example": "Nous avons vendu la voiture.",
+        "example_meaning": "We sold the car."
+      },
+      {
+        "title": "Learn these by heart",
+        "emoji": "⭐",
+        "rule": "eu, été, fait, pris, vu, lu, bu, dit, écrit, mis: the irregular participles of avoir, être, faire, prendre, voir, lire, boire, dire, écrire, mettre.",
+        "example": "Tu as fait tes devoirs ?",
+        "example_meaning": "Did you do your homework?"
+      },
+      {
+        "title": "Ne … pas around avoir",
+        "emoji": "🚫",
+        "rule": "The negation wraps avoir, not the participle: je n'ai pas mangé. Déjà and pas encore sit in the same spot.",
+        "example": "Je n'ai pas encore fini.",
+        "example_meaning": "I haven't finished yet."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which participle ending?",
+        "buckets": [
+          "-é",
+          "-i",
+          "-u"
+        ],
+        "items": [
+          {
+            "text": "parler",
+            "bucket": 0
+          },
+          {
+            "text": "manger",
+            "bucket": 0
+          },
+          {
+            "text": "regarder",
+            "bucket": 0
+          },
+          {
+            "text": "finir",
+            "bucket": 1
+          },
+          {
+            "text": "choisir",
+            "bucket": 1
+          },
+          {
+            "text": "vendre",
+            "bucket": 2
+          },
+          {
+            "text": "attendre",
+            "bucket": 2
+          },
+          {
+            "text": "répondre",
+            "bucket": 2
+          }
+        ],
+        "why": "-er verbs give -é, regular -ir verbs give -i, regular -re verbs give -u."
+      },
+      {
+        "title": "Regular or irregular participle?",
+        "buckets": [
+          "regular",
+          "irregular"
+        ],
+        "items": [
+          {
+            "text": "parlé",
+            "bucket": 0
+          },
+          {
+            "text": "fini",
+            "bucket": 0
+          },
+          {
+            "text": "vendu",
+            "bucket": 0
+          },
+          {
+            "text": "attendu",
+            "bucket": 0
+          },
+          {
+            "text": "fait",
+            "bucket": 1
+          },
+          {
+            "text": "pris",
+            "bucket": 1
+          },
+          {
+            "text": "écrit",
+            "bucket": 1
+          },
+          {
+            "text": "mis",
+            "bucket": 1
+          }
+        ],
+        "why": "Parlé, fini, vendu and attendu follow the -é / -i / -u rule; fait, pris, écrit and mis must be learnt."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "J'ai fais mes devoirs hier.",
+        "wrong": "fais",
+        "fix": "fait",
+        "why": "The participle of faire is fait (fais is the present)."
+      },
+      {
+        "sentence": "Nous avons prendu le bus.",
+        "wrong": "prendu",
+        "fix": "pris",
+        "why": "Prendre has an irregular participle: pris."
+      },
+      {
+        "sentence": "Il a voyé un film hier soir.",
+        "wrong": "voyé",
+        "fix": "vu",
+        "why": "Voir has an irregular participle: vu."
+      },
+      {
+        "sentence": "Elles avons fini le repas.",
+        "wrong": "avons",
+        "fix": "ont",
+        "why": "Elles takes ont: elles ont fini."
+      },
+      {
+        "sentence": "Hier, j'ai vendé mon vélo.",
+        "wrong": "vendé",
+        "fix": "vendu",
+        "why": "-re verbs give a participle in -u: vendu."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Hier, j'ai vu un bon film.",
+        "meaning": "Yesterday I saw a good film.",
+        "distractors": [
+          "voir"
+        ]
+      },
+      {
+        "text": "Ils ont vendu leur maison.",
+        "meaning": "They sold their house.",
+        "distractors": [
+          "vendé"
+        ]
+      },
+      {
+        "text": "Je n'ai pas encore mangé.",
+        "meaning": "I haven't eaten yet.",
+        "distractors": [
+          "déjà"
+        ]
+      },
+      {
+        "text": "Tu as déjà lu ce livre ?",
+        "meaning": "Have you already read this book?",
+        "distractors": [
+          "lisé"
+        ]
+      }
+    ]
+  }
+}

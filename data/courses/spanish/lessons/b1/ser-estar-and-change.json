@@ -1,0 +1,600 @@
+{
+  "id": "b1-ser-estar-and-change",
+  "slug": "ser-estar-and-change",
+  "title": "Ser, estar and becoming: está listo, se puso nervioso",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 34,
+  "summary": "Adjectives that change meaning with ser and estar, estar + participle for results, and the verbs of change ponerse, quedarse, hacerse and volverse.",
+  "focus": "Meaning shifts with ser and estar, and how Spanish says 'to become'",
+  "prerequisites": [
+    "a1-ser-vs-estar",
+    "a1-reflexive-routine"
+  ],
+  "content": "## Same adjective, two meanings\n\nWith **ser** these say what someone is like; with **estar**, a state right now:\n\n| adjective | with ser | with estar |\n|---|---|---|\n| listo | **es listo** = he's clever | **está listo** = he's ready |\n| malo | **es malo** = he's bad, a bad sort | **está malo** = he's ill; (food) it's gone off |\n| rico | **es rico** = he's rich | **está rico** = it tastes good |\n| aburrido | **es aburrido** = he's boring | **está aburrido** = he's bored |\n| verde | **es verde** = it's green | **está verde** = it's unripe; (person) still green |\n\n- **Lucía es muy lista, pero hoy no está lista.** Lucía is very clever, but today she isn't ready.\n\n## Estar + participle: the result\n\nWhen an action has happened, **estar** + the participle describes the **result**: the state it left behind. The participle agrees like an adjective.\n\n- **Alguien ha abierto la ventana. Ahora la ventana está abierta.** Someone has opened the window. Now the window is open.\n- **Las tiendas están cerradas los domingos.** The shops are closed on Sundays.\n- **El contrato ya está firmado.** The contract is already signed.\n- **¿La cena está hecha?** Is dinner made?\n\nSay **está abierta**, never *es abierta*, for a door, a window or a shop.\n\n## Ponerse and quedarse: getting and ending up\n\nEnglish *to get* or *to become* has several Spanish partners. Two of them are everyday:\n\n- **ponerse** + adjective: a **sudden**, usually passing change of mood, colour or health. **Se puso rojo.** He went red. **Me pongo nerviosa en los exámenes.** I get nervous in exams. **Nos pusimos muy contentos.** We were really pleased.\n- **quedarse** + adjective or **sin** + noun: the **result**, how someone ends up. **Se quedó sorprendida.** She was taken aback. **Me quedé dormido.** I fell asleep. **Se quedaron sin trabajo.** They lost their jobs.\n\nBoth are reflexive: **me pongo, te pones, se pone…** (preterite **me puse, se puso**); **me quedo, te quedas, se queda…**\n\n## Hacerse and volverse: becoming over time\n\nTwo more verbs of change appear at B1, and you only need the basics:\n\n- **hacerse** + noun or adjective: a change reached **by effort or over time**, often a job, belief or wealth. **Se hizo médica.** She became a doctor. **Se hicieron ricos con la empresa.** They got rich with the company.\n- **volverse** + adjective: a deep change of **character**, often unexpected. **Se ha vuelto más serio.** He's become more serious. **Con la fama, se volvió muy desconfiada.** With fame, she became very distrustful.\n\nRule of thumb: a blush is **ponerse**, a result is **quedarse**, a career is **hacerse**, a new personality is **volverse**.",
+  "vocabulary": [
+    {
+      "term": "ser listo",
+      "meaning": "to be clever",
+      "example": "Mi sobrina es muy lista: ya sabe leer con cuatro años.",
+      "example_meaning": "My niece is very clever: she can already read at four."
+    },
+    {
+      "term": "estar listo",
+      "meaning": "to be ready",
+      "example": "¿Estáis listos? El taxi ya está abajo.",
+      "example_meaning": "Are you ready? The taxi is already downstairs."
+    },
+    {
+      "term": "ser malo",
+      "meaning": "to be bad (by nature or for you)",
+      "example": "Dormir poco es malo para la salud.",
+      "example_meaning": "Sleeping too little is bad for your health."
+    },
+    {
+      "term": "estar malo",
+      "meaning": "to be ill; (food) to have gone off",
+      "example": "Hoy no voy a clase porque estoy malo.",
+      "example_meaning": "I'm not going to class today because I'm ill."
+    },
+    {
+      "term": "ser rico",
+      "meaning": "to be rich",
+      "example": "Su familia es rica, pero viven en un piso pequeño.",
+      "example_meaning": "Their family is rich, but they live in a small flat."
+    },
+    {
+      "term": "estar rico",
+      "meaning": "to taste good, to be delicious",
+      "example": "¡Qué rica está esta tortilla!",
+      "example_meaning": "This omelette is delicious!"
+    },
+    {
+      "term": "ser aburrido",
+      "meaning": "to be boring",
+      "example": "Ese programa es tan aburrido que siempre me duermo.",
+      "example_meaning": "That programme is so boring that I always fall asleep."
+    },
+    {
+      "term": "estar aburrido",
+      "meaning": "to be bored",
+      "example": "Los niños están aburridos porque llueve toda la tarde.",
+      "example_meaning": "The children are bored because it's raining all afternoon."
+    },
+    {
+      "term": "estar verde",
+      "meaning": "to be unripe; (person) to be inexperienced",
+      "example": "Todavía estoy verde en alemán, pero aprendo rápido.",
+      "example_meaning": "I'm still a beginner in German, but I'm learning fast."
+    },
+    {
+      "term": "estar abierto",
+      "meaning": "to be open (the result of opening)",
+      "example": "La ventana está abierta: ¿quién la ha abierto?",
+      "example_meaning": "The window is open: who opened it?"
+    },
+    {
+      "term": "ponerse",
+      "meaning": "to get, to go (a sudden, passing change: ponerse rojo)",
+      "example": "Cuando vio a Carmen, Luis se puso rojo.",
+      "example_meaning": "When he saw Carmen, Luis went red."
+    },
+    {
+      "term": "quedarse",
+      "meaning": "to end up, to be left (a result: quedarse dormido)",
+      "example": "Al oír la noticia, me quedé sin palabras.",
+      "example_meaning": "When I heard the news, I was left speechless."
+    },
+    {
+      "term": "hacerse",
+      "meaning": "to become (by effort or over time: hacerse médica)",
+      "example": "Después de muchos años de estudio, se hizo abogada.",
+      "example_meaning": "After many years of study, she became a lawyer."
+    },
+    {
+      "term": "volverse",
+      "meaning": "to become (a change of character)",
+      "example": "Desde que tiene hijos, mi hermano se ha vuelto más tranquilo.",
+      "example_meaning": "Since he's had children, my brother has become calmer."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-ser-estar-and-change-01",
+      "prompt": "La cena ___ lista: ¡todos a la mesa!",
+      "type": "multiple-choice",
+      "options": [
+        "está",
+        "es"
+      ],
+      "correct_answer": "está",
+      "explanation": "Ready is a state, so it takes estar: la cena está lista. 'Es lista' would mean the dinner is clever.",
+      "hints": [
+        "Ready, or clever?"
+      ],
+      "teaches": [
+        "estar listo",
+        "ser listo"
+      ]
+    },
+    {
+      "question_id": "b1-ser-estar-and-change-02",
+      "prompt": "Hoy no voy a clase: ___ (estar) malo y tengo fiebre.",
+      "type": "fill-in-blank",
+      "correct_answer": "estoy",
+      "accepted_answers": [
+        "yo estoy"
+      ],
+      "explanation": "Estar malo = to be ill. 'Soy malo' would mean I'm a bad person.",
+      "hints": [
+        "Ill is a state: estar."
+      ],
+      "teaches": [
+        "estar malo",
+        "ser malo"
+      ]
+    },
+    {
+      "question_id": "b1-ser-estar-and-change-03",
+      "prompt": "Mi primo habla siempre de lo mismo: ___ muy aburrido.",
+      "type": "multiple-choice",
+      "options": [
+        "es",
+        "está"
+      ],
+      "correct_answer": "es",
+      "explanation": "Always talking about the same thing makes him a boring person: ser aburrido. 'Está aburrido' would mean he's bored.",
+      "hints": [
+        "Is he boring, or bored?"
+      ],
+      "teaches": [
+        "ser aburrido",
+        "estar aburrido"
+      ]
+    },
+    {
+      "question_id": "b1-ser-estar-and-change-04",
+      "prompt": "¡Qué rica ___ (estar) esta paella, Carmen!",
+      "type": "fill-in-blank",
+      "correct_answer": "está",
+      "explanation": "Food that tastes good takes estar: la paella está rica. 'Es rica' would make the paella wealthy.",
+      "hints": [
+        "Tasty is how it is right now."
+      ],
+      "teaches": [
+        "estar rico"
+      ]
+    },
+    {
+      "question_id": "b1-ser-estar-and-change-05",
+      "prompt": "Las ventanas del salón están ___.",
+      "type": "multiple-choice",
+      "options": [
+        "abiertas",
+        "abiertos",
+        "abierto"
+      ],
+      "correct_answer": "abiertas",
+      "explanation": "After estar the participle agrees like an adjective: las ventanas (feminine plural) están abiertas.",
+      "hints": [
+        "Ventana is feminine, and there are several."
+      ],
+      "teaches": [
+        "estar abierto"
+      ]
+    },
+    {
+      "question_id": "b1-ser-estar-and-change-06",
+      "prompt": "Cuando le preguntaron delante de todos, Pablo ___ muy nervioso.",
+      "type": "multiple-choice",
+      "options": [
+        "se puso",
+        "se hizo",
+        "se volvió"
+      ],
+      "correct_answer": "se puso",
+      "explanation": "A sudden, passing change of mood takes ponerse: se puso nervioso. Hacerse is for careers and wealth; volverse for a lasting change of character.",
+      "hints": [
+        "Sudden and short-lived?"
+      ],
+      "teaches": [
+        "ponerse"
+      ]
+    },
+    {
+      "question_id": "b1-ser-estar-and-change-07",
+      "prompt": "Al oír la noticia, nosotros nos ___ (quedar) sorprendidos.",
+      "type": "fill-in-blank",
+      "correct_answer": "quedamos",
+      "explanation": "Quedarse + adjective tells how someone ends up: nos quedamos sorprendidos. Quedamos is both the present and the preterite.",
+      "hints": [
+        "The nosotros form of quedar."
+      ],
+      "teaches": [
+        "quedarse"
+      ]
+    },
+    {
+      "question_id": "b1-ser-estar-and-change-08",
+      "prompt": "Mi prima estudió Medicina y se ___ (hacer, preterite) médica.",
+      "type": "fill-in-blank",
+      "correct_answer": "hizo",
+      "explanation": "A profession reached by effort takes hacerse: se hizo médica. Hacer has the strong preterite hice, hiciste, hizo.",
+      "hints": [
+        "The preterite of hacer for ella."
+      ],
+      "teaches": [
+        "hacerse"
+      ]
+    },
+    {
+      "question_id": "b1-ser-estar-and-change-09",
+      "prompt": "Con los años, mi abuelo se ha ___ (volver) más paciente.",
+      "type": "fill-in-blank",
+      "correct_answer": "vuelto",
+      "explanation": "A change of character takes volverse; its participle is irregular: vuelto.",
+      "hints": [
+        "Volver has an irregular participle."
+      ],
+      "teaches": [
+        "volverse"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-ser-estar-and-change-conv-the-interview",
+      "title": "After the interview",
+      "scenario": "Javier comes home from a job interview and tells his flatmate Elena how it went.",
+      "role_a": "Elena",
+      "role_b": "Javier",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿Qué tal la entrevista? ¡Cuéntamelo todo!",
+          "meaning": "How was the interview? Tell me everything!"
+        },
+        {
+          "speaker": "b",
+          "text": "Al principio me puse rojo como un tomate.",
+          "meaning": "At first I went as red as a tomato.",
+          "note": "Ponerse: a sudden change."
+        },
+        {
+          "speaker": "a",
+          "text": "Normal. Siempre te pones nervioso con la gente nueva.",
+          "meaning": "That's normal. You always get nervous with new people."
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, pero la jefa es muy simpática y muy lista.",
+          "meaning": "Yes, but the boss is very nice and very clever."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y qué te preguntó?",
+          "meaning": "And what did she ask you?"
+        },
+        {
+          "speaker": "b",
+          "text": "Por qué quiero el puesto. Me quedé en blanco un momento.",
+          "meaning": "Why I want the job. My mind went blank for a moment.",
+          "note": "Quedarse en blanco = to go blank."
+        },
+        {
+          "speaker": "a",
+          "text": "¡Qué horror! ¿Y después?",
+          "meaning": "How awful! And then?"
+        },
+        {
+          "speaker": "b",
+          "text": "Después hablé de mi experiencia y ella se quedó muy contenta.",
+          "meaning": "Then I talked about my experience and she was very pleased."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y te han dado el trabajo?",
+          "meaning": "And have they given you the job?"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Sí! Y el contrato ya está firmado.",
+          "meaning": "Yes! And the contract is already signed.",
+          "note": "Estar + participle: the result."
+        },
+        {
+          "speaker": "a",
+          "text": "¡Enhorabuena! Ya verás: con los años te harás rico.",
+          "meaning": "Congratulations! You'll see: over the years you'll get rich."
+        },
+        {
+          "speaker": "b",
+          "text": "Rico, no sé. Pero esta noche invito yo a cenar.",
+          "meaning": "Rich, I'm not sure. But tonight dinner's on me."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "La sopa está muy rica.",
+      "meaning": "The soup is really tasty.",
+      "note": "Estar rico = to taste good."
+    },
+    {
+      "text": "Estos plátanos todavía están verdes.",
+      "meaning": "These bananas are still unripe.",
+      "note": "New word: el plátano = the banana."
+    },
+    {
+      "text": "¿Estás listo? Salimos en diez minutos.",
+      "meaning": "Are you ready? We're leaving in ten minutes."
+    },
+    {
+      "text": "El banco está cerrado, pero la farmacia está abierta.",
+      "meaning": "The bank is closed, but the chemist's is open.",
+      "note": "Estar + participle: the result of closing and opening."
+    },
+    {
+      "text": "Mi abuela es muy lista y nunca se pone nerviosa.",
+      "meaning": "My grandmother is very clever and never gets nervous."
+    },
+    {
+      "text": "Mi vecino trabajó mucho, se hizo rico y se volvió bastante tacaño.",
+      "meaning": "My neighbour worked hard, got rich and became rather stingy.",
+      "note": "New word: tacaño = stingy."
+    },
+    {
+      "text": "Esta serie es tan aburrida que me quedé dormido en el sofá.",
+      "meaning": "This series is so boring that I fell asleep on the sofa.",
+      "note": "New word: la serie = the TV series."
+    },
+    {
+      "text": "Mi hermano está malo, así que se ha quedado en casa toda la semana.",
+      "meaning": "My brother is ill, so he has stayed at home all week.",
+      "note": "Estar malo = to be ill."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Same adjective, two meanings"
+    },
+    {
+      "question": "b1-ser-estar-and-change-01"
+    },
+    {
+      "question": "b1-ser-estar-and-change-03"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-ser-estar-and-change-02"
+    },
+    {
+      "question": "b1-ser-estar-and-change-04"
+    },
+    {
+      "section": "Estar + participle"
+    },
+    {
+      "question": "b1-ser-estar-and-change-05"
+    },
+    {
+      "tip": "Ask yourself whether you mean what the thing is like (ser) or the state it is in now or was left in (estar)."
+    },
+    {
+      "section": "Ponerse and quedarse"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-ser-estar-and-change-06"
+    },
+    {
+      "question": "b1-ser-estar-and-change-07"
+    },
+    {
+      "section": "Hacerse and volverse"
+    },
+    {
+      "question": "b1-ser-estar-and-change-08"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-ser-estar-and-change-09"
+    }
+  ],
+  "sprint": {
+    "icon": "🦋",
+    "bites": [
+      {
+        "title": "Same word, new meaning",
+        "emoji": "🔄",
+        "rule": "With ser: clever, bad, rich, boring, green. With estar: ready, ill, tasty, bored, unripe. listo, malo, rico, aburrido and verde change meaning with the verb.",
+        "example": "Es muy lista, pero hoy no está lista.",
+        "example_meaning": "She's very clever, but today she isn't ready."
+      },
+      {
+        "title": "The result: estar + participle",
+        "emoji": "🚪",
+        "rule": "When an action has left a state behind, use estar + the participle, agreeing like an adjective: la puerta está abierta, las tiendas están cerradas.",
+        "example": "El contrato ya está firmado.",
+        "example_meaning": "The contract is already signed."
+      },
+      {
+        "title": "Four ways to become",
+        "emoji": "🦋",
+        "rule": "Ponerse is for a sudden mood or colour. Quedarse is for how you end up. Hacerse is for a job or wealth reached by effort. Volverse is for a new character.",
+        "example": "Se puso rojo y se quedó sin palabras.",
+        "example_meaning": "He went red and was left speechless."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Ser or estar?",
+        "buckets": [
+          "ser",
+          "estar"
+        ],
+        "items": [
+          {
+            "text": "listo = clever",
+            "bucket": 0
+          },
+          {
+            "text": "listo = ready",
+            "bucket": 1
+          },
+          {
+            "text": "malo = ill",
+            "bucket": 1
+          },
+          {
+            "text": "malo = a bad sort",
+            "bucket": 0
+          },
+          {
+            "text": "rico = tasty",
+            "bucket": 1
+          },
+          {
+            "text": "rico = wealthy",
+            "bucket": 0
+          },
+          {
+            "text": "verde = unripe",
+            "bucket": 1
+          },
+          {
+            "text": "aburrido = boring",
+            "bucket": 0
+          }
+        ],
+        "why": "What someone or something is like takes ser; a state now (ready, ill, tasty, unripe, bored) takes estar."
+      },
+      {
+        "title": "Which verb of change?",
+        "buckets": [
+          "ponerse",
+          "quedarse",
+          "hacerse",
+          "volverse"
+        ],
+        "items": [
+          {
+            "text": "rojo de vergüenza",
+            "bucket": 0
+          },
+          {
+            "text": "nervioso antes del examen",
+            "bucket": 0
+          },
+          {
+            "text": "dormido en el sofá",
+            "bucket": 1
+          },
+          {
+            "text": "sin trabajo",
+            "bucket": 1
+          },
+          {
+            "text": "médica tras seis años de estudio",
+            "bucket": 2
+          },
+          {
+            "text": "rico con su empresa",
+            "bucket": 2
+          },
+          {
+            "text": "más serio con los años",
+            "bucket": 3
+          },
+          {
+            "text": "muy desconfiado con la fama",
+            "bucket": 3
+          }
+        ],
+        "why": "Sudden moods and colours take ponerse, results take quedarse, careers and wealth hacerse, changes of character volverse."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "La comida es lista, ¡a la mesa!",
+        "wrong": "es",
+        "fix": "está",
+        "why": "Ready is a state: estar listo."
+      },
+      {
+        "sentence": "No voy a trabajar porque soy malo.",
+        "wrong": "soy",
+        "fix": "estoy",
+        "why": "Ill is estar malo; ser malo means a bad person."
+      },
+      {
+        "sentence": "Cuando lo vio, Ana se hizo roja.",
+        "wrong": "hizo",
+        "fix": "puso",
+        "why": "A sudden blush takes ponerse: se puso roja."
+      },
+      {
+        "sentence": "Las puertas están abiertos.",
+        "wrong": "abiertos",
+        "fix": "abiertas",
+        "why": "The participle agrees with puertas: feminine plural."
+      },
+      {
+        "sentence": "Después de años de esfuerzo, Luis se puso abogado.",
+        "wrong": "puso",
+        "fix": "hizo",
+        "why": "A profession reached by effort takes hacerse."
+      },
+      {
+        "sentence": "Estas manzanas son verdes todavía; no las comas.",
+        "wrong": "son",
+        "fix": "están",
+        "why": "Unripe is estar verde."
+      }
+    ],
+    "builds": [
+      {
+        "text": "La cena ya está lista.",
+        "meaning": "Dinner is ready now.",
+        "distractors": [
+          "es"
+        ]
+      },
+      {
+        "text": "Mi hermana es muy lista.",
+        "meaning": "My sister is very clever.",
+        "distractors": [
+          "está"
+        ]
+      },
+      {
+        "text": "Se puso nerviosa delante del público.",
+        "meaning": "She got nervous in front of the audience.",
+        "distractors": [
+          "hizo"
+        ]
+      },
+      {
+        "text": "Me quedé dormido en el tren.",
+        "meaning": "I fell asleep on the train.",
+        "distractors": [
+          "puse"
+        ]
+      },
+      {
+        "text": "Con los años se ha vuelto más serio.",
+        "meaning": "Over the years he has become more serious.",
+        "distractors": [
+          "puesto"
+        ]
+      }
+    ]
+  }
+}

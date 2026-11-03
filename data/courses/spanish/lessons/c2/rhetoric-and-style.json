@@ -1,0 +1,644 @@
+{
+  "id": "c2-rhetoric-and-style",
+  "slug": "rhetoric-and-style",
+  "title": "Rhetoric and style",
+  "unit": "C2",
+  "group": "Vocabulary",
+  "order": 18,
+  "summary": "Metaphor, litote, chiasmus and other classic devices: name them in Spanish, spot them in a short passage, and judge which register each one helps or hurts.",
+  "focus": "Recognising and using rhetorical devices (metáfora, símil, hipérbole, lítote, eufemismo, antítesis, anáfora, quiasmo, hipérbaton, enumeración de tres, pregunta retórica) in the right register",
+  "prerequisites": [
+    "c1-argumentation",
+    "c1-word-order-and-emphasis"
+  ],
+  "content": "## Images: metáfora, símil, hipérbole\n\nA **metáfora** names one thing as another, with no comparison word: **Esa reunión fue un pantano** (that meeting was a swamp). A **símil** keeps the comparison in view with **como**, **igual que** or **parecer**: **Hablaba despacio, como quien cuenta monedas** (he spoke slowly, like someone counting coins). A **hipérbole** exaggerates on purpose: **Llevo un siglo esperando** (I've been waiting for ages).\n\n- Everyday Spanish is full of dead metaphors (**la pata de la mesa**, **el pie de página**) and stock hyperbole (**me muero de hambre**, **te lo he dicho mil veces**).\n- A fresh image persuades; a worn one (**un mar de dudas**) makes prose sound second-hand.\n\n## Saying less: lítote and eufemismo\n\nThe **lítote** (also **lítotes**) affirms by denying the opposite:\n\n- **No es poco** = it is a lot.\n- **No está nada mal** = it is very good.\n- **No es ningún tonto** = he is sharp.\n\nIt sounds modest, warm or drily ironic, so it suits a review as well as a chat.\n\nThe **eufemismo** softens a hard word: **fallecer** or **se nos fue** for **morir**, **persona mayor** for **viejo**, **reajuste de plantilla** for **despidos**. It helps courtesy (a condolence card, a doctor's letter). It hurts when it hides a fact the reader needs: forty dismissals are still forty dismissals.\n\n## Patterns: antítesis, quiasmo, anáfora and threes\n\n| Device | What it does | Example |\n|---|---|---|\n| **antítesis** | sets opposites side by side | **Mucho texto y poca idea.** (Lots of text, little idea.) |\n| **quiasmo** | repeats a pair in reverse order: A B, B A | **Comemos tarde porque dormimos poco, y dormimos poco porque comemos tarde.** (We eat late because we sleep little, and vice versa.) |\n| **anáfora** | repeats the opening word of each clause | **Sin luz, sin agua, sin respuesta.** (No light, no water, no answer.) |\n| **enumeración de tres** | three parallel items that close a thought | **Claro, breve y amable.** (Clear, brief and kind.) |\n\nThese patterns suit speeches, columns and adverts. In an e-mail, one is plenty.\n\n## Order and questions: hipérbaton and pregunta retórica\n\nThe **hipérbaton** breaks the usual word order for emphasis or rhythm:\n\n- Neutral: **Recuerdo poco de aquel verano.**\n- Hyperbaton: **De aquel verano, poco recuerdo.** (Of that summer, little do I remember.)\n\nIn prose a fronted complement sounds literary; pushed further, it sounds like parody.\n\nThe **pregunta retórica** asks what nobody needs to answer, to draw the reader in or to make a point:\n\n- **¿Quién no ha perdido nunca las llaves?** (Everyone has.)\n- **¿Hace falta decir más?** (No, it doesn't.)\n\nOne per page persuades; three in a row sound like a lecture.\n\n## Register: when a device helps or hurts\n\n| Register | Where | Devices at home there |\n|---|---|---|\n| **culto** | essays, speeches, literature | hipérbaton, quiasmo, antítesis, anáfora |\n| **estándar** | the press, reports, e-mail | lítote, eufemismo, one well-placed metáfora |\n| **coloquial** | talk, chats, messages | hipérbole, símil, pregunta retórica |\n\nThe test is fit. A hyperbole livens a conversation and undermines a report. A euphemism comforts in a condolence letter and misleads in a balance sheet. A word from the wrong register **chirría** (jars): **estirar la pata** (kick the bucket) has no place in an obituary, and **fallecer** sounds stiff in a chat with friends.",
+  "vocabulary": [
+    {
+      "term": "la metáfora",
+      "meaning": "metaphor: one thing named as another, with no comparison word",
+      "example": "Para la directora, el presupuesto es un cinturón que aprieta cada año.",
+      "example_meaning": "For the director, the budget is a belt that tightens every year."
+    },
+    {
+      "term": "el símil",
+      "meaning": "simile: a comparison made visible with como, igual que or parecer",
+      "example": "Las ideas le salían como agua de una fuente rota.",
+      "example_meaning": "Ideas came out of him like water from a broken fountain."
+    },
+    {
+      "term": "la hipérbole",
+      "meaning": "hyperbole: deliberate exaggeration",
+      "example": "Decir que llevas un siglo esperando es una hipérbole.",
+      "example_meaning": "Saying you've been waiting a century is hyperbole."
+    },
+    {
+      "term": "la lítote",
+      "meaning": "litotes: affirming by denying the opposite (no es poco, no está nada mal)",
+      "example": "Ganar tres premios en un año no es poco.",
+      "example_meaning": "Winning three prizes in a year is no small thing."
+    },
+    {
+      "term": "el eufemismo",
+      "meaning": "euphemism: a soft word for a hard thing",
+      "example": "Llamar reajuste de plantilla a cuarenta despidos es un eufemismo.",
+      "example_meaning": "Calling forty dismissals a staff adjustment is a euphemism."
+    },
+    {
+      "term": "la antítesis",
+      "meaning": "antithesis: opposites set side by side",
+      "example": "La novela vive de una antítesis: el pueblo calla y la ciudad grita.",
+      "example_meaning": "The novel lives on an antithesis: the village is silent and the city shouts."
+    },
+    {
+      "term": "el quiasmo",
+      "meaning": "chiasmus: a pair repeated in reverse order (A B, B A)",
+      "example": "Hay un quiasmo en su lema: ni trabajo sin descanso ni descanso sin trabajo.",
+      "example_meaning": "There is a chiasmus in her motto: neither work without rest nor rest without work."
+    },
+    {
+      "term": "la anáfora",
+      "meaning": "anaphora: the same word repeated at the start of each clause",
+      "example": "Cada párrafo empezaba con queremos: una anáfora que acabó cansando.",
+      "example_meaning": "Every paragraph began with 'we want': an anaphora that ended up wearing thin."
+    },
+    {
+      "term": "la enumeración de tres",
+      "meaning": "the rule of three: three parallel items that close a thought",
+      "example": "Cerró la reseña con una enumeración de tres: puntual, limpio y barato.",
+      "example_meaning": "She closed the review with a list of three: punctual, clean and cheap."
+    },
+    {
+      "term": "el hipérbaton",
+      "meaning": "hyperbaton: a change of the usual word order for emphasis or rhythm",
+      "example": "Con un hipérbaton abría el capítulo: de aquella casa, nada quedaba.",
+      "example_meaning": "He opened the chapter with a hyperbaton: of that house, nothing remained."
+    },
+    {
+      "term": "la pregunta retórica",
+      "meaning": "rhetorical question: one asked to make a point, not to get an answer",
+      "example": "¿Quién lee hoy las instrucciones? Era una pregunta retórica, claro.",
+      "example_meaning": "Who reads the instructions these days? It was a rhetorical question, of course."
+    },
+    {
+      "term": "el registro",
+      "meaning": "register: the level of a text (culto, estándar, coloquial)",
+      "example": "En un informe, el registro coloquial resta credibilidad.",
+      "example_meaning": "In a report, a colloquial register undermines credibility."
+    },
+    {
+      "term": "chirriar",
+      "meaning": "to grate, to jar (of a word or phrase that does not fit)",
+      "example": "En una carta de pésame, cualquier broma chirría.",
+      "example_meaning": "In a condolence letter, any joke jars."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c2-rhetoric-and-style-01",
+      "prompt": "Which device is this? «La sala se vació como una bañera sin tapón.»",
+      "type": "multiple-choice",
+      "options": [
+        "el símil",
+        "la metáfora",
+        "la hipérbole"
+      ],
+      "correct_answer": "el símil",
+      "explanation": "Como makes the comparison visible, so it is a simile. Without como (La sala era una bañera sin tapón) it would be a metaphor.",
+      "hints": [
+        "Look for a comparison word."
+      ],
+      "teaches": [
+        "el símil",
+        "la metáfora"
+      ]
+    },
+    {
+      "question_id": "c2-rhetoric-and-style-02",
+      "prompt": "Praising a colleague's report with a litote: Tu informe no está ___ mal.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "nada",
+      "accepted_answers": [],
+      "explanation": "No está nada mal denies the opposite to mean 'it is really quite good'. No está tan mal would only mean 'it isn't that bad'.",
+      "hints": [
+        "Deny 'bad' completely.",
+        "A four-letter word meaning 'not at all'."
+      ],
+      "teaches": [
+        "la lítote"
+      ]
+    },
+    {
+      "question_id": "c2-rhetoric-and-style-03",
+      "prompt": "«Lo que el jefe dice, no lo hace; lo que hace, no lo dice.» What shapes this sentence?",
+      "type": "multiple-choice",
+      "options": [
+        "el quiasmo",
+        "la anáfora",
+        "el hipérbaton"
+      ],
+      "correct_answer": "el quiasmo",
+      "explanation": "Dice … hace, then hace … dice. The pair comes back in reverse order (A B, B A), which is a chiasmus.",
+      "hints": [
+        "Compare the order of the two verbs in each half."
+      ],
+      "teaches": [
+        "el quiasmo"
+      ]
+    },
+    {
+      "question_id": "c2-rhetoric-and-style-04",
+      "prompt": "Calling a price rise «una actualización de tarifas» is a ___ (Spanish term).",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "eufemismo",
+      "accepted_answers": [
+        "un eufemismo",
+        "el eufemismo"
+      ],
+      "explanation": "A soft, technical phrase stands in for an unwelcome fact (prices go up). That is a euphemism.",
+      "hints": [
+        "It softens; it does not exaggerate."
+      ],
+      "teaches": [
+        "el eufemismo"
+      ]
+    },
+    {
+      "question_id": "c2-rhetoric-and-style-05",
+      "prompt": "«Sin prisa, sin ruido, sin miedo, la alcaldesa cruzó la plaza y abrió el mercado.» Which device opens this passage?",
+      "type": "multiple-choice",
+      "options": [
+        "la anáfora",
+        "el quiasmo",
+        "el eufemismo"
+      ],
+      "correct_answer": "la anáfora",
+      "explanation": "Sin is repeated at the start of each phrase, which is anaphora. The three phrases also make an enumeración de tres before the main clause.",
+      "hints": [
+        "Which word comes back at the start of each phrase?"
+      ],
+      "teaches": [
+        "la anáfora",
+        "la enumeración de tres"
+      ]
+    },
+    {
+      "question_id": "c2-rhetoric-and-style-06",
+      "prompt": "Neutral order: No sabíamos nada de su viaje. With hyperbaton: De su viaje, nada ___.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "sabíamos",
+      "accepted_answers": [],
+      "explanation": "The complement (de su viaje) and the object (nada) move in front of the verb for emphasis; the verb stays the same: sabíamos.",
+      "hints": [
+        "The verb moves to the end.",
+        "Imperfect, nosotros form."
+      ],
+      "teaches": [
+        "el hipérbaton"
+      ]
+    },
+    {
+      "question_id": "c2-rhetoric-and-style-07",
+      "prompt": "A question asked to make a point, not to get an answer, is a pregunta ___.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "retórica",
+      "accepted_answers": [
+        "una pregunta retórica"
+      ],
+      "explanation": "¿Hace falta decir más? expects no reply, so it is a rhetorical question.",
+      "hints": [
+        "It comes from the art of persuasion.",
+        "Rhetorical in Spanish, feminine."
+      ],
+      "teaches": [
+        "la pregunta retórica"
+      ]
+    },
+    {
+      "question_id": "c2-rhetoric-and-style-08",
+      "prompt": "Which sentence fits a formal letter of condolence?",
+      "type": "multiple-choice",
+      "options": [
+        "Lamentamos profundamente el fallecimiento de su padre.",
+        "Sentimos mucho que su padre haya estirado la pata.",
+        "¡Qué palo lo de su padre, de verdad!"
+      ],
+      "correct_answer": "Lamentamos profundamente el fallecimiento de su padre.",
+      "explanation": "Fallecimiento is the formal euphemism for death. Estirar la pata and qué palo are colloquial and would jar badly in a condolence letter.",
+      "hints": [
+        "Think of the register of the letter."
+      ],
+      "teaches": [
+        "el registro",
+        "chirriar",
+        "el eufemismo"
+      ]
+    },
+    {
+      "question_id": "c2-rhetoric-and-style-09",
+      "prompt": "«Te lo he dicho un millón de veces.» Which device is this?",
+      "type": "multiple-choice",
+      "options": [
+        "la hipérbole",
+        "la lítote",
+        "el quiasmo"
+      ],
+      "correct_answer": "la hipérbole",
+      "explanation": "Nobody has said anything a million times. A deliberate exaggeration is a hyperbole, and it is at home in conversation.",
+      "hints": [
+        "Is the number meant literally?"
+      ],
+      "teaches": [
+        "la hipérbole"
+      ]
+    },
+    {
+      "question_id": "c2-rhetoric-and-style-10",
+      "prompt": "Opposites set side by side, as in «rico en palabras, pobre en hechos», make an ___ (Spanish term).",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "antítesis",
+      "accepted_answers": [
+        "una antítesis",
+        "la antítesis"
+      ],
+      "explanation": "Rico against pobre, palabras against hechos. Setting opposites against each other is an antithesis.",
+      "hints": [
+        "anti- + tesis"
+      ],
+      "teaches": [
+        "la antítesis"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "No es poco, la verdad.",
+      "meaning": "It's no small thing, honestly.",
+      "note": "Litote: no es poco = it is a lot."
+    },
+    {
+      "text": "Tu hermano no es ningún tonto.",
+      "meaning": "Your brother is no fool."
+    },
+    {
+      "text": "Esta casa es un horno en agosto.",
+      "meaning": "This house is an oven in August.",
+      "note": "New word: el horno = the oven."
+    },
+    {
+      "text": "¿Hace falta recordar que el plazo terminó ayer?",
+      "meaning": "Do I need to remind you that the deadline was yesterday?",
+      "note": "A rhetorical question: nobody needs to answer."
+    },
+    {
+      "text": "El jefe habla como si dictara a un notario.",
+      "meaning": "The boss talks as if he were dictating to a notary.",
+      "note": "New word: el notario = the notary."
+    },
+    {
+      "text": "Sin coche, sin dinero y sin ganas, volvimos andando.",
+      "meaning": "With no car, no money and no will, we walked back."
+    },
+    {
+      "text": "En una carta de pésame, falleció suena mejor que murió.",
+      "meaning": "In a condolence letter, passed away sounds better than died.",
+      "note": "New word: el pésame = condolences."
+    },
+    {
+      "text": "Ganamos el partido por la mañana y perdimos el autobús por la tarde.",
+      "meaning": "We won the match in the morning and missed the bus in the afternoon.",
+      "note": "Antithesis: ganar against perder."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Images"
+    },
+    {
+      "vocab": 3
+    },
+    {
+      "question": "c2-rhetoric-and-style-01"
+    },
+    {
+      "question": "c2-rhetoric-and-style-09"
+    },
+    {
+      "section": "Saying less"
+    },
+    {
+      "question": "c2-rhetoric-and-style-02"
+    },
+    {
+      "question": "c2-rhetoric-and-style-04"
+    },
+    {
+      "section": "Patterns"
+    },
+    {
+      "question": "c2-rhetoric-and-style-03"
+    },
+    {
+      "question": "c2-rhetoric-and-style-10"
+    },
+    {
+      "question": "c2-rhetoric-and-style-05"
+    },
+    {
+      "section": "Order and questions"
+    },
+    {
+      "question": "c2-rhetoric-and-style-06"
+    },
+    {
+      "question": "c2-rhetoric-and-style-07"
+    },
+    {
+      "tip": "To tell a metaphor from a simile, look for como, igual que or parecer. If the comparison word is there, it is a simile."
+    },
+    {
+      "section": "Register"
+    },
+    {
+      "question": "c2-rhetoric-and-style-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c2-rhetoric-and-style-conv-speechwriter",
+      "title": "Cutting a speech down to size",
+      "scenario": "Carmen, a speechwriter, goes through the speech that Julián, a city councillor, will give at the opening of a neighbourhood library.",
+      "role_a": "Carmen",
+      "role_b": "Julián",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Julián, he leído tu discurso. No está nada mal, pero sobra la mitad.",
+          "meaning": "Julián, I've read your speech. It's not bad at all, but half of it can go.",
+          "note": "Litote first, then the bad news."
+        },
+        {
+          "speaker": "b",
+          "text": "¿La mitad? Me he pasado tres noches escribiéndolo.",
+          "meaning": "Half? I spent three nights writing it."
+        },
+        {
+          "speaker": "a",
+          "text": "Se nota. Empiezas cinco frases seguidas con queremos.",
+          "meaning": "It shows. You start five sentences in a row with 'we want'."
+        },
+        {
+          "speaker": "b",
+          "text": "Es una anáfora. La repetición da fuerza, ¿no?",
+          "meaning": "It's an anaphora. Repetition gives strength, doesn't it?"
+        },
+        {
+          "speaker": "a",
+          "text": "Tres veces, sí. Cinco suenan a mitin. Quédate con tres y cierra.",
+          "meaning": "Three times, yes. Five sound like a rally. Keep three and wrap up.",
+          "note": "The rule of three."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Y lo de la biblioteca como faro del barrio?",
+          "meaning": "And the bit about the library as the lighthouse of the neighbourhood?"
+        },
+        {
+          "speaker": "a",
+          "text": "La metáfora es bonita, pero ya la usaste el año pasado con la piscina.",
+          "meaning": "The metaphor is nice, but you already used it last year for the swimming pool."
+        },
+        {
+          "speaker": "b",
+          "text": "Nadie se acordará. ¿O sí?",
+          "meaning": "Nobody will remember. Or will they?"
+        },
+        {
+          "speaker": "a",
+          "text": "Yo me acuerdo, y la prensa también. Mejor di que abre de nueve a nueve.",
+          "meaning": "I remember, and so does the press. Better to say it opens from nine to nine."
+        },
+        {
+          "speaker": "b",
+          "text": "Y donde pongo recortes, ¿escribo ajuste presupuestario?",
+          "meaning": "And where I've got cuts, shall I write budget adjustment?"
+        },
+        {
+          "speaker": "a",
+          "text": "Ni hablar. Ese eufemismo lo huele cualquiera. Di lo que hay y explica por qué.",
+          "meaning": "No way. Anyone can smell that euphemism. Say what's happening and explain why."
+        },
+        {
+          "speaker": "b",
+          "text": "Entonces: menos adorno, más datos y una sola pregunta retórica al final.",
+          "meaning": "So: less ornament, more facts and a single rhetorical question at the end."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🎙️",
+    "bites": [
+      {
+        "title": "Image or comparison",
+        "emoji": "🖼️",
+        "rule": "A metáfora says A is B (la reunión fue un pantano); a símil keeps como or igual que (como un pantano); a hipérbole exaggerates on purpose.",
+        "example": "Esta maleta pesa una tonelada.",
+        "example_meaning": "This suitcase weighs a ton."
+      },
+      {
+        "title": "Say less, mean more",
+        "emoji": "🤏",
+        "rule": "The lítote denies the opposite: no es poco = it is a lot, no está nada mal = it is very good. The eufemismo softens a hard word: fallecer for morir.",
+        "example": "El resultado no está nada mal.",
+        "example_meaning": "The result is pretty good."
+      },
+      {
+        "title": "Patterns",
+        "emoji": "🔁",
+        "rule": "Anáfora repeats the opening word; quiasmo reverses a pair (A B, B A); antítesis sets opposites side by side; three parallel items close a thought.",
+        "example": "Sin prisa, sin ruido, sin miedo.",
+        "example_meaning": "No hurry, no noise, no fear."
+      },
+      {
+        "title": "Right register",
+        "emoji": "🎚️",
+        "rule": "The register is culto, estándar or coloquial, and a device must fit its text. Hyperbole livens a chat and undermines a report; a euphemism comforts the bereaved and misleads in accounts.",
+        "example": "Lamentamos el fallecimiento de su madre.",
+        "example_meaning": "We are sorry for the passing of your mother."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Metaphor, simile or hyperbole?",
+        "buckets": [
+          "metáfora",
+          "símil",
+          "hipérbole"
+        ],
+        "why": "Without a comparison word it is a metaphor. With como, igual que or parecer it is a simile. Deliberate exaggeration is hyperbole.",
+        "items": [
+          {
+            "text": "Tu despacho es una selva.",
+            "bucket": 0
+          },
+          {
+            "text": "Su voz era un cuchillo.",
+            "bucket": 0
+          },
+          {
+            "text": "Corre igual que un galgo.",
+            "bucket": 1
+          },
+          {
+            "text": "Duerme como un tronco.",
+            "bucket": 1
+          },
+          {
+            "text": "Tengo un millón de correos sin leer.",
+            "bucket": 2
+          },
+          {
+            "text": "Me muero de sueño.",
+            "bucket": 2
+          }
+        ]
+      },
+      {
+        "title": "Says more, or says it softer?",
+        "buckets": [
+          "lítote",
+          "eufemismo"
+        ],
+        "why": "A litote praises by denying the opposite; a euphemism softens an unwelcome fact.",
+        "items": [
+          {
+            "text": "No es poco.",
+            "bucket": 0
+          },
+          {
+            "text": "No está nada mal.",
+            "bucket": 0
+          },
+          {
+            "text": "No es ningún tonto.",
+            "bucket": 0
+          },
+          {
+            "text": "persona mayor, for viejo",
+            "bucket": 1
+          },
+          {
+            "text": "reajuste de plantilla, for despidos",
+            "bucket": 1
+          },
+          {
+            "text": "pasar a mejor vida, for morir",
+            "bucket": 1
+          }
+        ]
+      },
+      {
+        "title": "Anaphora, chiasmus or antithesis?",
+        "buckets": [
+          "anáfora",
+          "quiasmo",
+          "antítesis"
+        ],
+        "why": "Anaphora repeats the first word; chiasmus brings a pair back in reverse; antithesis sets opposites against each other.",
+        "items": [
+          {
+            "text": "Sin luz, sin agua, sin respuesta.",
+            "bucket": 0
+          },
+          {
+            "text": "Cada día, cada hora, cada minuto.",
+            "bucket": 0
+          },
+          {
+            "text": "Lo que dice, no lo hace; lo que hace, no lo dice.",
+            "bucket": 1
+          },
+          {
+            "text": "Comemos tarde porque dormimos poco, y dormimos poco porque comemos tarde.",
+            "bucket": 1
+          },
+          {
+            "text": "Mucho texto y poca idea.",
+            "bucket": 2
+          },
+          {
+            "text": "Rico en palabras, pobre en hechos.",
+            "bucket": 2
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Para elogiar el informe, dijo que no estaba nada bien.",
+        "wrong": "bien",
+        "fix": "mal",
+        "why": "The praising litote is no está nada mal; no está nada bien means it is bad."
+      },
+      {
+        "sentence": "Duerme como un tronco es un ejemplo de metáfora, porque compara con como.",
+        "wrong": "metáfora",
+        "fix": "símil",
+        "why": "A comparison with como is a simile."
+      },
+      {
+        "sentence": "Lamentamos profundamente que su abuelo palmara el martes.",
+        "wrong": "palmara",
+        "fix": "falleciera",
+        "why": "Palmar is colloquial for dying; a condolence message needs the formal fallecer."
+      },
+      {
+        "sentence": "La anáfora repite la última palabra de cada frase.",
+        "wrong": "última",
+        "fix": "primera",
+        "why": "Anaphora repeats the opening word of each clause or line."
+      },
+      {
+        "sentence": "En el quiasmo, los términos se repiten en orden idéntico.",
+        "wrong": "idéntico",
+        "fix": "inverso",
+        "why": "Chiasmus brings the pair back in reverse order: A B, B A."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Tu propuesta no está nada mal.",
+        "meaning": "Your proposal is pretty good.",
+        "distractors": [
+          "bien"
+        ]
+      },
+      {
+        "text": "Hablaba como quien cuenta monedas.",
+        "meaning": "He spoke like someone counting coins.",
+        "distractors": [
+          "cual"
+        ]
+      },
+      {
+        "text": "De aquel verano, poco recuerdo.",
+        "meaning": "Of that summer, little do I remember.",
+        "distractors": [
+          "lo"
+        ]
+      },
+      {
+        "text": "¿Quién no ha perdido nunca las llaves?",
+        "meaning": "Who has never lost their keys?",
+        "distractors": [
+          "nadie"
+        ]
+      }
+    ]
+  }
+}

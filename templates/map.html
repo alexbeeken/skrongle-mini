@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("study.map.title") }}{% endblock %}
+{% block modenav %}{% let active = "map" %}{% include "nav_study.html" %}{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <h1>{{ crate::t("study.map.title") }} <span class="muted">· {{ course.title }}</span></h1>
+    <p class="lead">{{ crate::t("study.map.lead") }} <strong>{{ current_unit }}</strong>.</p>
+  </div>
+</section>
+
+{% for t in tracks %}
+<section class="track" id="{{ t.id }}" data-testid="map-unit" data-achieved="{{ t.achieved }}">
+  <header class="track-head">
+    <div>
+      <h2>{{ t.unit }} <span class="muted">{{ t.description }}</span>
+        {% if t.achieved %}<span class="pill mastered">{{ crate::t("study.map.unit_mastered") }}</span>{% endif %}</h2>
+      <p class="small muted" data-testid="map-unit-counts" data-weak="{{ t.weak }}">
+        {{ crate::t2("study.map.mastered_of", "n", t.mastered, "total", t.total) }}
+        {% if !t.achieved %}· {{ crate::t2("study.map.to_go", "n", t.total - t.mastered, "unit", t.unit) }}{% endif %}
+        · {{ crate::tn("study.counts.n_in_progress", t.in_progress) }} · {{ crate::tn("study.counts.n_need_practice", t.weak) }} · {{ crate::tn("study.counts.n_not_started", t.untested) }}{% if t.skipped > 0 %} · {{ crate::tn("study.counts.n_skipped", t.skipped) }}{% endif %}
+      </p>
+    </div>
+    <div class="track-pct"><strong>{{ t.percent }}%</strong><span class="small muted">{{ crate::t("study.map.mastered") }}</span></div>
+  </header>
+  <div class="bar"><div class="fill" style="width:{{ t.percent }}%"></div></div>
+
+  <ol class="map-path">
+  {% for n in t.nodes %}
+    <li class="map-node {{ n.status_css }}{% if n.is_here %} here{% endif %}" data-testid="map-lesson" data-lesson-id="{{ n.slug }}" data-passed="{{ n.passed }}" data-status="{{ n.status_css }}" data-here="{{ n.is_here }}">
+      <a class="node-link" data-testid="map-lesson-link" href="{{ crate::base_path() }}/lessons/{{ n.slug }}" aria-label="{% if n.passed %}{{ crate::t1("study.map.lesson_aria_passed", "title", n.title) }}{% else %}{{ crate::t2("study.map.lesson_aria", "title", n.title, "status", n.status_label.to_lowercase()) }}{% endif %}" title="{{ n.title }} · {{ n.status_label }}{% if !n.pass.is_empty() %} · {{ n.pass }}{% endif %}">
+        <span class="node-circle">{% if n.status_css == "mastered" %}✓{% else %}{{ n.number }}{% endif %}</span>
+        <span class="node-title">{{ n.title }}</span>
+        <span class="node-meta">{{ n.group }} · {% if n.status_css == "untested" && n.passed %}{{ crate::t("study.map.passed_check") }}{% else %}{% if n.status_css == "untested" || n.status_css == "skipped" %}{{ n.status_label }}{% else %}{{ n.score }}%{% endif %}{% if n.passed %} · {{ crate::t("study.map.passed_check") }}{% endif %}{% endif %}</span>
+      </a>
+      {% if n.is_here %}<span class="you-are-here">{{ crate::t2("study.map.you_are_here", "n", n.number, "total", t.total) }}</span>{% endif %}
+    </li>
+  {% endfor %}
+  </ol>
+  {% if let Some(h) = t.here %}
+  <p class="small"><a class="btn small" href="{{ crate::base_path() }}/practice" data-testid="map-practice">{{ crate::t1("study.map.practise_towards", "unit", t.unit) }}</a>
+     <span class="muted">· {{ crate::t1("study.map.next_up_lesson", "n", h) }}</span></p>
+  {% endif %}
+</section>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,557 @@
+{
+  "id": "b1-indefinites",
+  "slug": "indefinites",
+  "title": "Indefinites: quelqu'un, chaque, tout, aucun",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 36,
+  "summary": "Talk about people and things you don't name: quelqu'un, quelque chose, n'importe qui, quelques, plusieurs, aucun, chaque and chacun, and every form of tout.",
+  "focus": "Using the indefinite words and pronouns: quelqu'un, quelques, chaque, chacun, tout, aucun, n'importe…",
+  "prerequisites": [
+    "a2-negation-more"
+  ],
+  "content": "## Quelqu'un, quelque chose, n'importe qui\n\n- **quelqu'un**: someone; **quelque chose**: something; **quelque part**: somewhere; **quelquefois**: sometimes. Their opposites are **personne**, **rien**, **nulle part** and **jamais**.\n- Add an adjective with **de** (**d'** before a vowel). The adjective stays masculine singular: **quelque chose d'intéressant**, **quelqu'un de sympa**, **rien de nouveau**.\n- **N'importe** + a question word means *any… at all, it doesn't matter which*: **n'importe qui** (anyone), **n'importe quoi** (anything; also *nonsense*), **n'importe où**, **n'importe quand**, **n'importe comment** (any old way).\n\n**Quelqu'un a téléphoné.** (one person, not named) — **N'importe qui peut le faire.** (anybody at all)\n\n## Quelques, plusieurs, certains, aucun\n\n- **quelques** + plural noun: a few, some. **J'ai quelques questions.**\n- **plusieurs**: several. One form for both genders, no article: **plusieurs fois**, **plusieurs idées**.\n- **certains / certaines**: some (but not all). **Certains étudiants travaillent le soir.** Alone: **Certains pensent que…**\n- **d'autres**: other(s). **J'ai d'autres projets.** In the singular: **un autre / une autre**. **Tu veux une autre tasse ?**\n- **aucun / aucune**: not one. Always singular, always with **ne**: **Je n'ai aucune idée.** As the subject: **Aucun train ne part ce soir.**\n\n## Chaque or chacun?\n\n- **chaque** goes before a singular noun and never changes: **chaque jour**, **chaque semaine**.\n- **chacun / chacune** stands alone (it is a pronoun) and takes a singular verb: **Chacun a son avis.** **Ces robes coûtent cinquante euros chacune.**\n- **chacun de / chacune de** + a plural group: **chacun de nous**, **chacune des chambres**.\n\n**Chaque** never stands alone: say **J'ai trois livres et chacun est différent**, not *chaque est différent*.\n\n## Tout, toute, tous, toutes\n\n| | masculine | feminine |\n|---|---|---|\n| singular | **tout** le livre | **toute** la nuit |\n| plural | **tous** les jours | **toutes** les semaines |\n\n- **tout** alone means everything: **Tout va bien. J'ai tout compris.**\n- As a pronoun, **tous / toutes** usually comes after the verb: **Ils sont tous là. Elles sont toutes venues.** The pronoun **tous** is said with its **s** (\"touss\"); before a noun (**tous les jours**) the s is silent.\n- **tout le monde** means everybody and takes a **singular** verb: **Tout le monde est là.**",
+  "vocabulary": [
+    {
+      "term": "quelqu'un",
+      "meaning": "someone, somebody",
+      "example": "Il y a quelqu'un dans le bureau ?",
+      "example_meaning": "Is there anyone in the office?"
+    },
+    {
+      "term": "quelque chose",
+      "meaning": "something",
+      "example": "J'ai quelque chose d'important à te dire.",
+      "example_meaning": "I have something important to tell you."
+    },
+    {
+      "term": "quelque part",
+      "meaning": "somewhere",
+      "example": "On part quelque part ce week-end ?",
+      "example_meaning": "Shall we go somewhere this weekend?"
+    },
+    {
+      "term": "n'importe qui",
+      "meaning": "anyone (at all)",
+      "example": "Ce n'est pas difficile : n'importe qui peut le faire.",
+      "example_meaning": "It isn't difficult: anyone can do it."
+    },
+    {
+      "term": "quelques",
+      "meaning": "a few, some",
+      "example": "J'ai invité quelques amis à dîner.",
+      "example_meaning": "I've invited a few friends to dinner."
+    },
+    {
+      "term": "plusieurs",
+      "meaning": "several",
+      "example": "Elle a lu ce roman plusieurs fois.",
+      "example_meaning": "She has read this novel several times."
+    },
+    {
+      "term": "aucun",
+      "meaning": "not one, no, none (f: aucune)",
+      "example": "Il n'y a aucun bus après minuit.",
+      "example_meaning": "There are no buses after midnight."
+    },
+    {
+      "term": "chaque",
+      "meaning": "each, every",
+      "example": "Chaque matin, je prends un café en terrasse.",
+      "example_meaning": "Every morning, I have a coffee on a café terrace."
+    },
+    {
+      "term": "chacun",
+      "meaning": "each one, everyone (f: chacune)",
+      "example": "Chacun paie sa part de l'addition.",
+      "example_meaning": "Everyone pays their share of the bill."
+    },
+    {
+      "term": "tout le monde",
+      "meaning": "everybody, everyone",
+      "example": "Tout le monde aime les vacances.",
+      "example_meaning": "Everybody loves holidays."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-indefinites-01",
+      "prompt": "___ élève de la classe a reçu un livre de poésie.",
+      "type": "multiple-choice",
+      "options": [
+        "Chaque",
+        "Chacun",
+        "Tous"
+      ],
+      "correct_answer": "Chaque",
+      "explanation": "Before a singular noun (élève) you need the adjective 'chaque'. 'Chacun' stands alone, and 'tous' needs les + a plural noun.",
+      "hints": [
+        "A noun follows the blank.",
+        "Which word goes right before a singular noun?"
+      ],
+      "teaches": [
+        "chaque"
+      ]
+    },
+    {
+      "question_id": "b1-indefinites-02",
+      "prompt": "Il s'est passé ___ d'étrange hier soir dans la rue. (something)",
+      "type": "fill-in-blank",
+      "correct_answer": "quelque chose",
+      "accepted_answers": [],
+      "explanation": "Something = 'quelque chose'; an adjective after it is joined with de/d': 'quelque chose d'étrange'.",
+      "hints": [
+        "Two words: quelque + …"
+      ],
+      "teaches": [
+        "quelque chose"
+      ]
+    },
+    {
+      "question_id": "b1-indefinites-03",
+      "prompt": "Dans notre immeuble, tout le monde ___ les voisins du troisième.",
+      "type": "multiple-choice",
+      "options": [
+        "connaît",
+        "connaissent"
+      ],
+      "correct_answer": "connaît",
+      "explanation": "'Tout le monde' means everybody but is grammatically singular: 'tout le monde connaît'.",
+      "hints": [
+        "Is 'le monde' singular or plural?"
+      ],
+      "teaches": [
+        "tout le monde"
+      ]
+    },
+    {
+      "question_id": "b1-indefinites-04",
+      "prompt": "Tes cousins viennent dîner ? — Oui, ils viennent ___, même le petit Lucas. (all of them)",
+      "type": "fill-in-blank",
+      "correct_answer": "tous",
+      "accepted_answers": [],
+      "explanation": "The pronoun 'tous' (all of them) follows the verb and agrees with ils: 'ils viennent tous'. Here its s is pronounced.",
+      "hints": [
+        "Masculine plural form of tout."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-indefinites-05",
+      "prompt": "Il reste encore ___ places pour le concert de samedi, dépêche-toi !",
+      "type": "multiple-choice",
+      "options": [
+        "quelques",
+        "quelque",
+        "chaque"
+      ],
+      "correct_answer": "quelques",
+      "explanation": "A few + a plural noun = 'quelques places', with an s. 'Chaque' only goes with a singular noun.",
+      "hints": [
+        "'places' is plural."
+      ],
+      "teaches": [
+        "quelques"
+      ]
+    },
+    {
+      "question_id": "b1-indefinites-06",
+      "prompt": "___ de mes amis n'a oublié mon anniversaire. (Not one)",
+      "type": "fill-in-blank",
+      "correct_answer": "aucun",
+      "accepted_answers": [],
+      "explanation": "'Aucun… ne' as a subject = not one: 'Aucun de mes amis n'a oublié'. The verb is singular.",
+      "hints": [
+        "It goes with the ne before the verb.",
+        "amis is masculine: no -e."
+      ],
+      "teaches": [
+        "aucun"
+      ]
+    },
+    {
+      "question_id": "b1-indefinites-07",
+      "prompt": "Ce jeu est très simple : ___ peut jouer, même un enfant de cinq ans.",
+      "type": "multiple-choice",
+      "options": [
+        "n'importe qui",
+        "n'importe quoi",
+        "aucun"
+      ],
+      "correct_answer": "n'importe qui",
+      "explanation": "Anyone at all = 'n'importe qui' (a person). 'N'importe quoi' is a thing, and 'aucun' would need a ne.",
+      "hints": [
+        "We are talking about people.",
+        "qui = who, quoi = what"
+      ],
+      "teaches": [
+        "n'importe qui"
+      ]
+    },
+    {
+      "question_id": "b1-indefinites-08",
+      "prompt": "Les deux sœurs ont ___ leur chambre. (each one, feminine)",
+      "type": "fill-in-blank",
+      "correct_answer": "chacune",
+      "accepted_answers": [],
+      "explanation": "The pronoun 'chacun' agrees with the people it stands for: two sisters, so 'chacune'.",
+      "hints": [
+        "Feminine form of chacun."
+      ],
+      "teaches": [
+        "chacun"
+      ]
+    },
+    {
+      "question_id": "b1-indefinites-09",
+      "prompt": "'Plusieurs' has a feminine form, 'plusieures', used before feminine nouns.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "'Plusieurs' never changes: 'plusieurs livres', 'plusieurs idées'. 'Plusieures' does not exist.",
+      "hints": [
+        "Think of 'plusieurs fois' (fois is feminine)."
+      ],
+      "teaches": [
+        "plusieurs"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-indefinites-conv-picnic",
+      "title": "Organising a picnic",
+      "scenario": "Inès and Hugo, two flatmates, are getting a picnic ready for their friends on Saturday.",
+      "role_a": "Inès",
+      "role_b": "Hugo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Tout le monde vient au pique-nique samedi ?",
+          "meaning": "Is everybody coming to the picnic on Saturday?",
+          "note": "tout le monde + singular verb"
+        },
+        {
+          "speaker": "b",
+          "text": "Presque. Plusieurs amis ont répondu, mais Paul n'a rien dit.",
+          "meaning": "Almost. Several friends have answered, but Paul hasn't said anything."
+        },
+        {
+          "speaker": "a",
+          "text": "Bon. Chacun apporte quelque chose à manger ?",
+          "meaning": "Right. Is everyone bringing something to eat?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, chacun apporte un plat. Moi, je fais une tarte.",
+          "meaning": "Yes, everyone's bringing a dish. I'm making a tart."
+        },
+        {
+          "speaker": "a",
+          "text": "Et on s'installe où ? Au parc ?",
+          "meaning": "And where shall we set up? In the park?"
+        },
+        {
+          "speaker": "b",
+          "text": "N'importe où, tant qu'il y a de l'ombre.",
+          "meaning": "Anywhere, as long as there's some shade."
+        },
+        {
+          "speaker": "a",
+          "text": "Il faut aussi quelques bouteilles d'eau.",
+          "meaning": "We also need a few bottles of water."
+        },
+        {
+          "speaker": "b",
+          "text": "J'en ai acheté plusieurs ce matin. Aucun problème !",
+          "meaning": "I bought several this morning. No problem at all!"
+        },
+        {
+          "speaker": "a",
+          "text": "Super. Tu as invité quelqu'un d'autre ?",
+          "meaning": "Great. Have you invited anyone else?",
+          "note": "quelqu'un d'autre = someone else"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, deux collègues. Ils sont tous très sympas, tu verras.",
+          "meaning": "Yes, two colleagues. They're all very nice, you'll see.",
+          "note": "pronoun tous: the s is pronounced"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Quelqu'un a appelé ce matin.",
+      "meaning": "Someone called this morning."
+    },
+    {
+      "text": "Chacun a apporté un dessert.",
+      "meaning": "Everyone brought a dessert.",
+      "note": "chacun + singular verb."
+    },
+    {
+      "text": "Tout le monde parle en même temps.",
+      "meaning": "Everybody is talking at the same time."
+    },
+    {
+      "text": "J'ai laissé mon parapluie quelque part.",
+      "meaning": "I've left my umbrella somewhere.",
+      "note": "New word: le parapluie = the umbrella."
+    },
+    {
+      "text": "Aucune réponse n'est vraiment fausse.",
+      "meaning": "No answer is really wrong."
+    },
+    {
+      "text": "Il y a quelques nuages, mais il fait beau.",
+      "meaning": "There are a few clouds, but the weather is nice."
+    },
+    {
+      "text": "Plusieurs voisins se plaignent du bruit toutes les nuits.",
+      "meaning": "Several neighbours complain about the noise every night.",
+      "note": "New word: se plaindre = to complain."
+    },
+    {
+      "text": "Tu peux venir n'importe quand, je suis toujours à la maison.",
+      "meaning": "You can come any time, I'm always at home."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Quelqu'un"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-indefinites-02"
+    },
+    {
+      "question": "b1-indefinites-07"
+    },
+    {
+      "tip": "Quelqu'un is one person you don't name; n'importe qui is anyone at all, it doesn't matter who."
+    },
+    {
+      "section": "Quelques"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-indefinites-05"
+    },
+    {
+      "question": "b1-indefinites-09"
+    },
+    {
+      "question": "b1-indefinites-06"
+    },
+    {
+      "section": "Chaque"
+    },
+    {
+      "question": "b1-indefinites-01"
+    },
+    {
+      "question": "b1-indefinites-08"
+    },
+    {
+      "section": "Tout"
+    },
+    {
+      "question": "b1-indefinites-03"
+    },
+    {
+      "question": "b1-indefinites-04"
+    },
+    {
+      "concept": {
+        "title": "Quelques-uns, quelques-unes",
+        "markdown": "Without a noun, **quelques** becomes **quelques-uns** or **quelques-unes** (a few of them), usually with **en**: **Tu as des photos ? — Oui, j'en ai quelques-unes.** **Plusieurs** stays as it is: **J'en ai plusieurs.**"
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "♾️",
+    "bites": [
+      {
+        "title": "Some-, any-",
+        "emoji": "❔",
+        "rule": "Quelqu'un, quelque chose, quelque part; add an adjective with de: quelque chose de bon. N'importe qui / quoi / où = any… at all.",
+        "example": "Il y a quelque chose de bon dans le frigo ?",
+        "example_meaning": "Is there something good in the fridge?"
+      },
+      {
+        "title": "A few, several, not one",
+        "emoji": "🔢",
+        "rule": "Quelques + plural (a few), plusieurs (several, same for both genders), aucun(e)… ne (not one, singular).",
+        "example": "Je n'ai aucune idée.",
+        "example_meaning": "I have no idea."
+      },
+      {
+        "title": "Chaque or chacun",
+        "emoji": "☝️",
+        "rule": "Chaque goes before a singular noun; chacun / chacune stands alone and takes a singular verb.",
+        "example": "Chaque enfant a un cadeau ; chacun est content.",
+        "example_meaning": "Each child has a present; every one of them is happy."
+      },
+      {
+        "title": "Tout, toute, tous, toutes",
+        "emoji": "♾️",
+        "rule": "Tout le, toute la, tous les, toutes les. Pronoun tous has a spoken s. Tout le monde takes a singular verb.",
+        "example": "Tout le monde danse.",
+        "example_meaning": "Everybody is dancing."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Chaque or chacun?",
+        "buckets": [
+          "chaque",
+          "chacun / chacune"
+        ],
+        "items": [
+          {
+            "text": "___ matin, je cours au parc.",
+            "bucket": 0
+          },
+          {
+            "text": "___ a son téléphone.",
+            "bucket": 1
+          },
+          {
+            "text": "___ des filles a gagné une médaille.",
+            "bucket": 1
+          },
+          {
+            "text": "Je l'appelle ___ semaine.",
+            "bucket": 0
+          },
+          {
+            "text": "Ces livres coûtent trois euros ___.",
+            "bucket": 1
+          },
+          {
+            "text": "___ fois, c'est la même chose.",
+            "bucket": 0
+          }
+        ],
+        "why": "Chaque comes before a singular noun; chacun or chacune replaces the noun and stands alone."
+      },
+      {
+        "title": "Tout, toute, tous or toutes?",
+        "buckets": [
+          "tout",
+          "toute",
+          "tous",
+          "toutes"
+        ],
+        "items": [
+          {
+            "text": "___ le temps",
+            "bucket": 0
+          },
+          {
+            "text": "___ la journée",
+            "bucket": 1
+          },
+          {
+            "text": "___ les jours",
+            "bucket": 2
+          },
+          {
+            "text": "___ les semaines",
+            "bucket": 3
+          },
+          {
+            "text": "___ le monde",
+            "bucket": 0
+          },
+          {
+            "text": "___ la classe",
+            "bucket": 1
+          },
+          {
+            "text": "___ les garçons",
+            "bucket": 2
+          },
+          {
+            "text": "___ les filles",
+            "bucket": 3
+          }
+        ],
+        "why": "Tout agrees with the noun after it: tout (m sg), toute (f sg), tous (m pl), toutes (f pl)."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Tout le monde sont là ce soir.",
+        "wrong": "sont",
+        "fix": "est",
+        "why": "Tout le monde takes a singular verb: tout le monde est là."
+      },
+      {
+        "sentence": "Chaque a reçu un cadeau.",
+        "wrong": "Chaque",
+        "fix": "Chacun",
+        "why": "Chaque needs a noun after it; alone, use the pronoun chacun."
+      },
+      {
+        "sentence": "J'ai vu quelque chose de intéressant.",
+        "wrong": "de",
+        "fix": "d'",
+        "why": "De elides before a vowel: quelque chose d'intéressant."
+      },
+      {
+        "sentence": "Il a invité plusieures amies.",
+        "wrong": "plusieures",
+        "fix": "plusieurs",
+        "why": "Plusieurs has one form for both genders."
+      },
+      {
+        "sentence": "Je vais au marché tout les samedis.",
+        "wrong": "tout",
+        "fix": "tous",
+        "why": "Before a masculine plural noun: tous les samedis."
+      },
+      {
+        "sentence": "Elle a acheté quelque pommes au marché.",
+        "wrong": "quelque",
+        "fix": "quelques",
+        "why": "A few + plural noun: quelques pommes, with an s."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Tout le monde est déjà arrivé.",
+        "meaning": "Everybody has already arrived.",
+        "distractors": [
+          "sont"
+        ]
+      },
+      {
+        "text": "Chacun a choisi un livre différent.",
+        "meaning": "Everyone chose a different book.",
+        "distractors": [
+          "Chaque"
+        ]
+      },
+      {
+        "text": "Nous n'avons aucune nouvelle de lui.",
+        "meaning": "We have no news of him.",
+        "distractors": [
+          "pas"
+        ]
+      },
+      {
+        "text": "Tu veux manger quelque chose de chaud ?",
+        "meaning": "Do you want to eat something hot?",
+        "distractors": [
+          "chaude"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,612 @@
+{
+  "id": "b2-reported-speech",
+  "slug": "reported-speech",
+  "title": "Reported speech and the sequence of tenses",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 22,
+  "summary": "Il dit que, il a dit que: the backshift of tenses, reported questions with si and ce que, time words that shift and the verbs that report.",
+  "focus": "Reporting statements, questions and orders after a past reporting verb",
+  "prerequisites": [
+    "b1-plus-que-parfait-narration"
+  ],
+  "content": "## Il dit que, il a dit que\n\nTo report what someone says, use **dire que**, **expliquer que**, **répondre que**… When the reporting verb is in the **present**, the tenses stay as they were; only pronouns and possessives change.\n\n- « Je suis fatigué. » → **Il dit qu'il est fatigué.** (He says he's tired.)\n- « J'ai perdu mes clés. » → **Elle dit qu'elle a perdu ses clés.** (She says she has lost her keys.)\n\nWhen the reporting verb is in the **past** (**il a dit**, **il disait**, **il avait dit**), the tenses shift one step back. The drill verbs of this lesson are the imparfait of **dire**, **savoir** and **vouloir**: **il disait**, **je savais**, **elle voulait**.\n\n## The backshift\n\n| what was said | after il a dit que… |\n|---|---|\n| présent: « Je **suis** prêt. » | imparfait: qu'il **était** prêt |\n| passé composé: « J'**ai fini**. » | plus-que-parfait: qu'il **avait fini** |\n| futur: « Je **viendrai**. » | conditionnel: qu'il **viendrait** |\n| futur proche: « Je **vais partir**. » | qu'il **allait partir** |\n| impératif: « **Attends** ! » | de + infinitive: de **m'attendre** |\n\nThe imparfait, the plus-que-parfait and the conditionnel do not change.\n\n- « Je ne sais pas. » → **Elle a dit qu'elle ne savait pas.**\n- « Fermez la porte. » → **Il nous a dit de fermer la porte.**\n\n## Reported questions\n\nA reported question has no question mark, no inversion and no **est-ce que**.\n\n- yes/no question → **si** (**s'il**, **s'ils**): « Tu viens ? » → **Il m'a demandé si je venais.**\n- **qu'est-ce que** / **que** → **ce que**: « Qu'est-ce que tu veux ? » → **Il m'a demandé ce que je voulais.**\n- **qu'est-ce qui** → **ce qui**: « Qu'est-ce qui se passe ? » → **Elle a demandé ce qui se passait.**\n- **où**, **quand**, **pourquoi**, **comment**, **combien** stay: **Il voulait savoir où j'habitais.**\n\n## Time, place and reporting verbs\n\nReported later, words that point at *now* and *here* shift too:\n\n| said | reported |\n|---|---|\n| aujourd'hui | **ce jour-là** |\n| demain | **le lendemain** |\n| hier | **la veille** |\n| maintenant | **à ce moment-là** |\n| ici | **là** |\n| la semaine prochaine | **la semaine suivante** |\n\nVary the reporting verb: **affirmer** (to state), **ajouter** (to add), **avouer** (to admit), **répondre** (to answer), **expliquer** (to explain), **prétendre** (to claim; a false friend, it does not mean *to pretend*).",
+  "vocabulary": [
+    {
+      "term": "affirmer",
+      "meaning": "to state, to assert",
+      "example": "Le ministre a affirmé que tout allait bien.",
+      "example_meaning": "The minister stated that everything was fine."
+    },
+    {
+      "term": "ajouter",
+      "meaning": "to add",
+      "example": "Il a ajouté qu'il était désolé.",
+      "example_meaning": "He added that he was sorry."
+    },
+    {
+      "term": "avouer",
+      "meaning": "to admit, to confess",
+      "example": "J'avoue que je n'ai pas lu le livre.",
+      "example_meaning": "I admit I haven't read the book."
+    },
+    {
+      "term": "prétendre",
+      "meaning": "to claim (not 'to pretend')",
+      "example": "Il prétend qu'il parle six langues.",
+      "example_meaning": "He claims he speaks six languages."
+    },
+    {
+      "term": "demander",
+      "meaning": "to ask",
+      "example": "Je lui ai demandé s'il voulait venir.",
+      "example_meaning": "I asked him whether he wanted to come."
+    },
+    {
+      "term": "le lendemain",
+      "meaning": "the next day",
+      "example": "Ils sont arrivés le lendemain de la fête.",
+      "example_meaning": "They arrived the day after the party."
+    },
+    {
+      "term": "la veille",
+      "meaning": "the day before",
+      "example": "La veille de l'examen, je n'ai pas dormi.",
+      "example_meaning": "The night before the exam, I didn't sleep."
+    },
+    {
+      "term": "ce jour-là",
+      "meaning": "that day",
+      "example": "Ce jour-là, il pleuvait sur Paris.",
+      "example_meaning": "That day it was raining in Paris."
+    },
+    {
+      "term": "répondre",
+      "meaning": "to answer, to reply",
+      "example": "Elle a répondu qu'elle ne savait pas.",
+      "example_meaning": "She replied that she didn't know."
+    },
+    {
+      "term": "expliquer",
+      "meaning": "to explain",
+      "example": "Le médecin m'a expliqué ce qui se passait.",
+      "example_meaning": "The doctor explained to me what was going on."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-reported-speech-01",
+      "prompt": "Hier, Paul m'a dit : « Je suis fatigué. » → Paul m'a dit qu'il ___ fatigué.",
+      "type": "multiple-choice",
+      "options": [
+        "était",
+        "serait",
+        "sera"
+      ],
+      "correct_answer": "était",
+      "explanation": "After a past reporting verb, the présent becomes the imparfait: il était fatigué.",
+      "hints": [
+        "présent becomes imparfait"
+      ]
+    },
+    {
+      "question_id": "b2-reported-speech-02",
+      "prompt": "Léa : « J'ai perdu mes clés. » → Léa a dit qu'elle ___ perdu ses clés.",
+      "type": "fill-in-blank",
+      "correct_answer": "avait",
+      "accepted_answers": [
+        "elle avait"
+      ],
+      "explanation": "The passé composé becomes the plus-que-parfait: elle avait perdu ses clés.",
+      "hints": [
+        "passé composé becomes plus-que-parfait",
+        "Avoir in the imparfait."
+      ]
+    },
+    {
+      "question_id": "b2-reported-speech-03",
+      "prompt": "Marc : « Je viendrai demain. » Reported a week later: Marc a dit qu'il viendrait ___.",
+      "type": "multiple-choice",
+      "options": [
+        "le lendemain",
+        "demain",
+        "la veille"
+      ],
+      "correct_answer": "le lendemain",
+      "explanation": "Reported later, demain becomes le lendemain (the next day). The futur viendrai has become the conditionnel viendrait.",
+      "hints": [
+        "What does demain become?"
+      ],
+      "teaches": [
+        "le lendemain"
+      ]
+    },
+    {
+      "question_id": "b2-reported-speech-04",
+      "prompt": "Le prof : « Fermez vos livres. » → Le prof nous a dit ___ fermer nos livres.",
+      "type": "fill-in-blank",
+      "correct_answer": "de",
+      "accepted_answers": [
+        "d'"
+      ],
+      "explanation": "An imperative becomes de + infinitive: il nous a dit de fermer nos livres.",
+      "hints": [
+        "An imperative becomes … + infinitive."
+      ]
+    },
+    {
+      "question_id": "b2-reported-speech-05",
+      "prompt": "« Est-ce que tu as faim ? » → Elle m'a demandé ___ j'avais faim.",
+      "type": "multiple-choice",
+      "options": [
+        "si",
+        "que",
+        "ce que"
+      ],
+      "correct_answer": "si",
+      "explanation": "A yes/no question is reported with si: elle m'a demandé si j'avais faim.",
+      "hints": [
+        "A yes/no question."
+      ],
+      "teaches": [
+        "demander"
+      ]
+    },
+    {
+      "question_id": "b2-reported-speech-06",
+      "prompt": "« Qu'est-ce que tu veux ? » → Il m'a demandé ___ je voulais.",
+      "type": "fill-in-blank",
+      "correct_answer": "ce que",
+      "accepted_answers": [
+        "ce qu'"
+      ],
+      "explanation": "Qu'est-ce que becomes ce que in a reported question: il m'a demandé ce que je voulais.",
+      "hints": [
+        "qu'est-ce que becomes c… q…"
+      ],
+      "teaches": [
+        "demander"
+      ]
+    },
+    {
+      "question_id": "b2-reported-speech-07",
+      "prompt": "Prétendre means 'to pretend'.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Prétendre is a false friend: it means to claim. 'To pretend' is faire semblant.",
+      "hints": [
+        "Think: il prétend qu'il parle six langues."
+      ],
+      "teaches": [
+        "prétendre"
+      ]
+    },
+    {
+      "question_id": "b2-reported-speech-08",
+      "prompt": "After 'il dit que' in the present, the tenses do not change: il dit qu'il est malade.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Only a past reporting verb triggers the backshift. With il dit que, the original tense stays.",
+      "hints": [
+        "Is the reporting verb past or present?"
+      ]
+    },
+    {
+      "question_id": "b2-reported-speech-09",
+      "prompt": "Elle a avoué qu'elle ne ___ pas la réponse.",
+      "type": "multiple-choice",
+      "options": [
+        "savait",
+        "sait",
+        "saura"
+      ],
+      "correct_answer": "savait",
+      "explanation": "After a past reporting verb, the présent becomes the imparfait: savoir gives elle savait.",
+      "hints": [
+        "Imparfait of savoir."
+      ],
+      "teaches": [
+        "avouer"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "dire",
+      "meaning": "to say, to tell",
+      "set": "imparfait",
+      "art": [
+        " .-------------. ",
+        "( il disait que )",
+        " '----. .------' ",
+        "      \\|        "
+      ],
+      "forms": {
+        "je": "disais",
+        "tu": "disais",
+        "il": "disait",
+        "nous": "disions",
+        "vous": "disiez",
+        "ils": "disaient"
+      }
+    },
+    {
+      "item": "savoir",
+      "meaning": "to know",
+      "set": "imparfait",
+      "art": [
+        "   _______   ",
+        "  /  ___  \\  ",
+        " |  |___|  | ",
+        "  \\_______/  ",
+        " je savais.. "
+      ],
+      "forms": {
+        "je": "savais",
+        "tu": "savais",
+        "il": "savait",
+        "nous": "savions",
+        "vous": "saviez",
+        "ils": "savaient"
+      }
+    },
+    {
+      "item": "vouloir",
+      "meaning": "to want",
+      "set": "imparfait",
+      "art": [
+        "  .--. .--.  ",
+        " (    V    ) ",
+        "  \\       /  ",
+        "   \\     /   ",
+        "    '._.'    "
+      ],
+      "forms": {
+        "je": "voulais",
+        "tu": "voulais",
+        "il": "voulait",
+        "nous": "voulions",
+        "vous": "vouliez",
+        "ils": "voulaient"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-reported-speech-conv-landlord",
+      "title": "What the landlord said",
+      "scenario": "Sophie tells her friend Malik about a phone call with her landlord.",
+      "role_a": "Malik",
+      "role_b": "Sophie",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Alors, qu'est-ce que ton propriétaire t'a dit hier ?",
+          "meaning": "So, what did your landlord tell you yesterday?"
+        },
+        {
+          "speaker": "b",
+          "text": "Il m'a dit qu'il voulait vendre l'appartement.",
+          "meaning": "He told me he wanted to sell the flat.",
+          "note": "présent becomes imparfait"
+        },
+        {
+          "speaker": "a",
+          "text": "Quoi ? Il t'a expliqué pourquoi ?",
+          "meaning": "What? Did he explain why?"
+        },
+        {
+          "speaker": "b",
+          "text": "Il a répondu qu'il avait besoin d'argent pour sa retraite.",
+          "meaning": "He replied that he needed money for his retirement."
+        },
+        {
+          "speaker": "a",
+          "text": "Et il a dit quand tu devrais partir ?",
+          "meaning": "And did he say when you'd have to leave?"
+        },
+        {
+          "speaker": "b",
+          "text": "Il a affirmé que je pourrais rester jusqu'en juin.",
+          "meaning": "He stated that I could stay until June.",
+          "note": "futur becomes conditionnel"
+        },
+        {
+          "speaker": "a",
+          "text": "C'est déjà ça. Il t'a demandé si tu voulais l'acheter ?",
+          "meaning": "That's something. Did he ask you whether you wanted to buy it?",
+          "note": "A yes/no question becomes si"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, il m'a demandé si j'avais des économies.",
+          "meaning": "Yes, he asked me whether I had any savings."
+        },
+        {
+          "speaker": "a",
+          "text": "Et qu'est-ce que tu lui as répondu ?",
+          "meaning": "And what did you answer?"
+        },
+        {
+          "speaker": "b",
+          "text": "Que je ne savais pas encore et que je l'appellerais la semaine suivante.",
+          "meaning": "That I didn't know yet and that I'd call him the following week.",
+          "note": "la semaine prochaine becomes la semaine suivante"
+        },
+        {
+          "speaker": "a",
+          "text": "Tu as bien fait. Il a ajouté autre chose ?",
+          "meaning": "You did the right thing. Did he add anything else?"
+        },
+        {
+          "speaker": "b",
+          "text": "Il a avoué qu'il regrettait, et il m'a dit de ne pas m'inquiéter.",
+          "meaning": "He admitted he was sorry, and he told me not to worry.",
+          "note": "impératif becomes de + infinitive"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Il dit qu'il arrive bientôt.",
+      "meaning": "He says he's arriving soon.",
+      "note": "Present reporting verb: no backshift."
+    },
+    {
+      "text": "Elle a dit qu'elle était en retard.",
+      "meaning": "She said she was late."
+    },
+    {
+      "text": "Ma mère a demandé si nous avions mangé.",
+      "meaning": "My mother asked whether we had eaten."
+    },
+    {
+      "text": "Ils voulaient savoir où se trouvait la gare.",
+      "meaning": "They wanted to know where the station was.",
+      "note": "Où stays the same; no inversion."
+    },
+    {
+      "text": "Mon frère a avoué qu'il avait cassé la lampe.",
+      "meaning": "My brother admitted he had broken the lamp.",
+      "note": "New word: casser = to break."
+    },
+    {
+      "text": "Le pilote a annoncé que nous atterririons dans vingt minutes.",
+      "meaning": "The pilot announced that we would land in twenty minutes.",
+      "note": "New word: atterrir = to land."
+    },
+    {
+      "text": "Le témoin a affirmé qu'il avait vu l'homme la veille.",
+      "meaning": "The witness stated that he had seen the man the day before.",
+      "note": "New word: le témoin = the witness."
+    },
+    {
+      "text": "Elle m'a dit de l'appeler et a ajouté qu'elle serait chez elle.",
+      "meaning": "She told me to call her and added that she would be at home."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Il dit que"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-reported-speech-08"
+    },
+    {
+      "question": "b2-reported-speech-01"
+    },
+    {
+      "section": "The backshift"
+    },
+    {
+      "question": "b2-reported-speech-02"
+    },
+    {
+      "question": "b2-reported-speech-09"
+    },
+    {
+      "question": "b2-reported-speech-04"
+    },
+    {
+      "tip": "Ask first: is the reporting verb in the present or the past? With a present verb, keep the tenses. With a past verb, shift each one a step back."
+    },
+    {
+      "section": "Reported questions"
+    },
+    {
+      "question": "b2-reported-speech-05"
+    },
+    {
+      "question": "b2-reported-speech-06"
+    },
+    {
+      "section": "Time, place"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-reported-speech-03"
+    },
+    {
+      "question": "b2-reported-speech-07"
+    },
+    {
+      "concept": {
+        "title": "Free indirect speech",
+        "markdown": "Novels often drop the reporting verb but keep the backshift: **Il hésitait. Partirait-il le lendemain ? Elle ne l'attendrait pas.** This *discours indirect libre* lets the narrator slip into a character's head without any **il pensait que**."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "🗨️",
+    "bites": [
+      {
+        "title": "Present: no change",
+        "emoji": "🎙️",
+        "rule": "After il dit que (present), keep the tense: il dit qu'il est malade. Only pronouns and possessives change.",
+        "example": "Elle dit qu'elle a faim.",
+        "example_meaning": "She says she's hungry."
+      },
+      {
+        "title": "The backshift",
+        "emoji": "⏮️",
+        "rule": "After il a dit que, présent becomes imparfait, passé composé becomes plus-que-parfait, futur becomes conditionnel and impératif becomes de + infinitive.",
+        "example": "Elle a dit qu'elle viendrait.",
+        "example_meaning": "She said she would come."
+      },
+      {
+        "title": "Reported questions",
+        "emoji": "❔",
+        "rule": "Yes/no questions take si (s'il). Qu'est-ce que becomes ce que and qu'est-ce qui becomes ce qui. Où, quand and pourquoi stay. No inversion, no question mark.",
+        "example": "Il m'a demandé où j'habitais.",
+        "example_meaning": "He asked me where I lived."
+      },
+      {
+        "title": "Then, not now",
+        "emoji": "📆",
+        "rule": "Reported later, aujourd'hui becomes ce jour-là, demain becomes le lendemain, hier becomes la veille and ici becomes là.",
+        "example": "Il a dit qu'il partirait le lendemain.",
+        "example_meaning": "He said he would leave the next day."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which tense after il a dit que?",
+        "buckets": [
+          "imparfait",
+          "plus-que-parfait",
+          "conditionnel"
+        ],
+        "items": [
+          {
+            "text": "« Je suis prêt. »",
+            "bucket": 0
+          },
+          {
+            "text": "« J'ai fini. »",
+            "bucket": 1
+          },
+          {
+            "text": "« Je partirai. »",
+            "bucket": 2
+          },
+          {
+            "text": "« Nous avons faim. »",
+            "bucket": 0
+          },
+          {
+            "text": "« Elle est partie. »",
+            "bucket": 1
+          },
+          {
+            "text": "« On verra. »",
+            "bucket": 2
+          }
+        ],
+        "why": "Présent becomes imparfait, passé composé becomes plus-que-parfait and futur becomes conditionnel."
+      },
+      {
+        "title": "Si, ce que or ce qui?",
+        "buckets": [
+          "si",
+          "ce que",
+          "ce qui"
+        ],
+        "items": [
+          {
+            "text": "« Tu viens ? »",
+            "bucket": 0
+          },
+          {
+            "text": "« Qu'est-ce que tu fais ? »",
+            "bucket": 1
+          },
+          {
+            "text": "« Qu'est-ce qui se passe ? »",
+            "bucket": 2
+          },
+          {
+            "text": "« Est-ce qu'il pleut ? »",
+            "bucket": 0
+          },
+          {
+            "text": "« Que veux-tu ? »",
+            "bucket": 1
+          },
+          {
+            "text": "« Qu'est-ce qui te plaît ? »",
+            "bucket": 2
+          }
+        ],
+        "why": "Yes/no questions take si; que and qu'est-ce que become ce que; qu'est-ce qui becomes ce qui."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Il a dit qu'il viendra le lendemain.",
+        "wrong": "viendra",
+        "fix": "viendrait",
+        "why": "After a past reporting verb, the futur becomes the conditionnel."
+      },
+      {
+        "sentence": "Elle m'a demandé que je voulais.",
+        "wrong": "que",
+        "fix": "ce que",
+        "why": "Qu'est-ce que becomes ce que: elle m'a demandé ce que je voulais."
+      },
+      {
+        "sentence": "Le prof nous a dit que fermer la porte.",
+        "wrong": "que",
+        "fix": "de",
+        "why": "An imperative becomes de + infinitive: il nous a dit de fermer la porte."
+      },
+      {
+        "sentence": "Il prétendait qu'il a tout compris.",
+        "wrong": "a",
+        "fix": "avait",
+        "why": "After a past reporting verb, the passé composé becomes the plus-que-parfait."
+      },
+      {
+        "sentence": "Il m'a demandé qu'est-ce que je faisais.",
+        "wrong": "qu'est-ce",
+        "fix": "ce",
+        "why": "In a reported question, qu'est-ce que becomes ce que."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Elle a dit qu'elle était fatiguée.",
+        "meaning": "She said she was tired.",
+        "distractors": [
+          "est"
+        ]
+      },
+      {
+        "text": "Il m'a demandé si j'avais faim.",
+        "meaning": "He asked me whether I was hungry.",
+        "distractors": [
+          "que"
+        ]
+      },
+      {
+        "text": "Ils ont dit qu'ils viendraient le lendemain.",
+        "meaning": "They said they would come the next day.",
+        "distractors": [
+          "demain"
+        ]
+      },
+      {
+        "text": "Le médecin m'a dit de me reposer.",
+        "meaning": "The doctor told me to rest.",
+        "distractors": [
+          "que"
+        ]
+      }
+    ]
+  }
+}

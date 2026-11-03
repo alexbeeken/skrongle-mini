@@ -1,0 +1,576 @@
+{
+  "id": "b1-uses-of-se",
+  "slug": "uses-of-se",
+  "title": "Uses of se: se habla, se venden, se me olvidó",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 30,
+  "summary": "Se for people in general (aquí se come bien), for signs and recipes with the verb agreeing with the thing (se venden pisos), and for accidents (se me olvidó).",
+  "focus": "Impersonal, passive and accidental se",
+  "prerequisites": [
+    "a2-indirect-object-pronouns"
+  ],
+  "content": "## Impersonal se: what people do\n\nTo say what *people*, *one* or *you* do in general, Spanish uses **se** + the **él / ella** form of the verb. Nobody in particular is the subject.\n\n- **Aquí se come muy bien.** (The food is very good here, or you eat well here.)\n- **¿Cómo se dice *spoon* en español?** (How do you say *spoon* in Spanish?)\n- **En verano se vive en la calle.** (In summer people live out in the street.)\n- **¿Se puede pagar con tarjeta?** (Can you pay by card?)\n\nWith no thing for the verb to agree with, it stays singular: **se vive**, **se trabaja**, **se duerme**.\n\n## Passive se: the verb agrees with the thing\n\nWhen there is a thing, it becomes the subject, so the verb is singular or plural to match it.\n\n| one thing | several things |\n|---|---|\n| **Se vende piso.** (Flat for sale.) | **Se venden pisos.** |\n| **Se alquila habitación.** (Room to let.) | **Se alquilan habitaciones.** |\n| **Se habla inglés.** | **Se hablan tres idiomas.** |\n\nSigns and ads often use this form: **Se busca camarero** (waiter wanted), **Se necesita ayuda**, **Se prohíbe fumar** (an infinitive counts as one thing). So do recipes: **se pelan las patatas, se mezclan con los huevos y se añade la sal**.\n\n## Accidental se: se me olvidó\n\nFor accidents (forgetting, dropping, breaking, losing, running out) Spanish makes the **thing** the subject and the person an indirect pronoun. The order is always **se** + **me / te / le / nos / os / les** + verb, and the verb agrees with the thing.\n\n- **Se me olvidó la cartera.** (I forgot my wallet.)\n- **Se me cayeron las llaves.** (I dropped my keys.)\n- **Se nos rompió la lavadora.** (Our washing machine broke.)\n- **A Pablo se le perdió el móvil.** (Pablo lost his phone.)\n- **Se nos acabó la leche.** (We ran out of milk.)\n\n**Olvidé la cartera** is correct too, but the **se me** version sounds less like your fault.\n\n## Keeping the other se apart\n\nNot every **se** is impersonal. Two you already know:\n\n- **Reflexive** (A1): someone does it to themselves. **Ana se levanta a las siete.** (Ana gets up at seven.) **Los niños se duchan.** (The children shower.)\n- **se for le / les** before **lo, la, los, las** (A2): **Se lo doy a Ana.** (I give it to Ana.)\n\nQuick test: if you can point at the person who does it to themselves, it is reflexive. If the answer to *who?* is \"people in general\" or \"nobody's fault\", it is the **se** of this lesson: **Aquí se cena tarde** (people have dinner late here), **se me cayó** (it fell).",
+  "vocabulary": [
+    {
+      "term": "se come",
+      "meaning": "one eats / the food is (good, bad…)",
+      "example": "En casa de mi abuela se come de maravilla.",
+      "example_meaning": "At my grandmother's the food is wonderful."
+    },
+    {
+      "term": "se dice",
+      "meaning": "one says / you say",
+      "example": "En España se dice «vale» todo el tiempo.",
+      "example_meaning": "In Spain people say \"vale\" all the time."
+    },
+    {
+      "term": "se vende",
+      "meaning": "for sale (is sold)",
+      "example": "Se vende coche en buen estado.",
+      "example_meaning": "Car for sale in good condition."
+    },
+    {
+      "term": "se alquila",
+      "meaning": "for rent / to let",
+      "example": "Se alquila apartamento cerca de la playa.",
+      "example_meaning": "Flat to let near the beach."
+    },
+    {
+      "term": "se busca",
+      "meaning": "wanted (is looked for)",
+      "example": "Se busca camarero con experiencia.",
+      "example_meaning": "Experienced waiter wanted."
+    },
+    {
+      "term": "se necesita",
+      "meaning": "needed (is needed)",
+      "example": "Se necesita ayuda en la cocina.",
+      "example_meaning": "Help needed in the kitchen."
+    },
+    {
+      "term": "se prohíbe",
+      "meaning": "it is forbidden to / no …ing",
+      "example": "Se prohíbe aparcar delante de la puerta.",
+      "example_meaning": "No parking in front of the door."
+    },
+    {
+      "term": "se mezcla",
+      "meaning": "(you) mix / is mixed",
+      "example": "Se mezcla la harina con la leche.",
+      "example_meaning": "You mix the flour with the milk."
+    },
+    {
+      "term": "se añade",
+      "meaning": "(you) add / is added",
+      "example": "Al final se añade un poco de sal.",
+      "example_meaning": "At the end you add a little salt."
+    },
+    {
+      "term": "se me olvidó",
+      "meaning": "I forgot (it slipped my mind)",
+      "example": "Se me olvidó llamar a mi madre.",
+      "example_meaning": "I forgot to call my mother."
+    },
+    {
+      "term": "se me cayó",
+      "meaning": "I dropped (it fell from me)",
+      "example": "Se me cayó el café en el teclado.",
+      "example_meaning": "I dropped my coffee on the keyboard."
+    },
+    {
+      "term": "se nos rompió",
+      "meaning": "(it) broke on us",
+      "example": "Se nos rompió el ascensor y subimos andando.",
+      "example_meaning": "Our lift broke down and we walked up."
+    },
+    {
+      "term": "se le perdió",
+      "meaning": "he / she lost (by accident)",
+      "example": "A mi abuelo se le perdieron las gafas otra vez.",
+      "example_meaning": "My grandfather lost his glasses again."
+    },
+    {
+      "term": "se nos acabó",
+      "meaning": "we ran out of",
+      "example": "Se nos acabó el agua en mitad de la excursión.",
+      "example_meaning": "We ran out of water halfway through the hike."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-uses-of-se-01",
+      "prompt": "En esta tienda ___ zapatos de segunda mano.",
+      "type": "multiple-choice",
+      "options": [
+        "se venden",
+        "se vende"
+      ],
+      "correct_answer": "se venden",
+      "explanation": "Passive se: the verb agrees with the thing sold. Zapatos is plural, so se venden.",
+      "hints": [
+        "What is being sold: one thing or several?"
+      ],
+      "teaches": [
+        "se vende"
+      ]
+    },
+    {
+      "question_id": "b1-uses-of-se-02",
+      "prompt": "En este restaurante ___ (comer) muy bien y no es caro.",
+      "type": "fill-in-blank",
+      "correct_answer": "se come",
+      "explanation": "Impersonal se + the él form: se come = you eat / the food is (good).",
+      "hints": [
+        "Nobody in particular eats, so use se + third person singular."
+      ],
+      "teaches": [
+        "se come"
+      ]
+    },
+    {
+      "question_id": "b1-uses-of-se-03",
+      "prompt": "¿Cómo ___ «spoon» en español?",
+      "type": "multiple-choice",
+      "options": [
+        "se dice",
+        "se dicen"
+      ],
+      "correct_answer": "se dice",
+      "explanation": "¿Cómo se dice…? is the fixed impersonal question: how do you say…? One word, so singular.",
+      "hints": [
+        "Who says it? People in general."
+      ],
+      "teaches": [
+        "se dice"
+      ]
+    },
+    {
+      "question_id": "b1-uses-of-se-04",
+      "prompt": "En mi edificio ___ (alquilar) dos pisos con terraza.",
+      "type": "fill-in-blank",
+      "correct_answer": "se alquilan",
+      "explanation": "Two flats, so the verb is plural: se alquilan. One flat would be se alquila.",
+      "hints": [
+        "The verb agrees with dos pisos."
+      ],
+      "teaches": [
+        "se alquila"
+      ]
+    },
+    {
+      "question_id": "b1-uses-of-se-05",
+      "prompt": "Para el bizcocho, primero se baten los huevos y después ___ (añadir) el azúcar.",
+      "type": "fill-in-blank",
+      "correct_answer": "se añade",
+      "explanation": "Recipes use passive se. El azúcar is one thing, so se añade (and se baten for los huevos).",
+      "hints": [
+        "A singular thing takes a singular verb."
+      ],
+      "teaches": [
+        "se añade"
+      ]
+    },
+    {
+      "question_id": "b1-uses-of-se-06",
+      "prompt": "Ayer a Marta ___ el móvil en el metro.",
+      "type": "multiple-choice",
+      "options": [
+        "se le perdió",
+        "se la perdió",
+        "se me perdió",
+        "le se perdió"
+      ],
+      "correct_answer": "se le perdió",
+      "explanation": "Accidental se: se + the indirect pronoun for Marta (le) + verb agreeing with el móvil. Se always comes first.",
+      "hints": [
+        "Marta is an indirect object: le, not la.",
+        "Se goes before the pronoun."
+      ],
+      "teaches": [
+        "se le perdió"
+      ]
+    },
+    {
+      "question_id": "b1-uses-of-se-07",
+      "prompt": "Anoche se me ___ (caer, pretérito) las gafas y se rompieron.",
+      "type": "fill-in-blank",
+      "correct_answer": "cayeron",
+      "explanation": "The verb agrees with the thing that fell, las gafas (plural): se me cayeron.",
+      "hints": [
+        "What fell: one thing or two?"
+      ],
+      "teaches": [
+        "se me cayó"
+      ]
+    },
+    {
+      "question_id": "b1-uses-of-se-08",
+      "prompt": "Perdona, a mí se ___ olvidó tu cumpleaños.",
+      "type": "fill-in-blank",
+      "correct_answer": "me",
+      "explanation": "A mí matches me, giving se me olvidó. The pronoun names who it happened to.",
+      "hints": [
+        "Which indirect pronoun matches a mí?"
+      ],
+      "teaches": [
+        "se me olvidó"
+      ]
+    },
+    {
+      "question_id": "b1-uses-of-se-09",
+      "prompt": "In which sentence is se reflexive (someone doing something to themselves)?",
+      "type": "multiple-choice",
+      "options": [
+        "Carlos se ducha después de correr.",
+        "Se venden bicicletas.",
+        "Se nos rompió la ventana."
+      ],
+      "correct_answer": "Carlos se ducha después de correr.",
+      "explanation": "Carlos showers himself, so it is reflexive. Se venden is passive (bikes are sold) and se nos rompió is accidental (it broke on us).",
+      "hints": [
+        "Can you point at a person doing it to themselves?"
+      ],
+      "teaches": [
+        "se nos rompió"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-uses-of-se-conv-dinner-at-home",
+      "title": "Dinner at home",
+      "scenario": "Pablo comes back from the shops; his flatmate Lucía is helping him cook for his parents.",
+      "role_a": "Lucía",
+      "role_b": "Pablo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Pablo, ¿qué te pasa? Tienes mala cara.",
+          "meaning": "Pablo, what's up? You look awful."
+        },
+        {
+          "speaker": "b",
+          "text": "Ay, Lucía, se me cayeron los huevos en la escalera.",
+          "meaning": "Oh, Lucía, I dropped the eggs on the stairs."
+        },
+        {
+          "speaker": "a",
+          "text": "¡Vaya! ¿Y el resto de la compra?",
+          "meaning": "Oh no! And the rest of the shopping?"
+        },
+        {
+          "speaker": "b",
+          "text": "Eso está bien, pero se me olvidó el pan.",
+          "meaning": "That's fine, but I forgot the bread."
+        },
+        {
+          "speaker": "a",
+          "text": "No pasa nada. En la panadería de abajo se vende pan hasta las nueve.",
+          "meaning": "Never mind. The bakery downstairs sells bread until nine."
+        },
+        {
+          "speaker": "b",
+          "text": "Perfecto. Oye, ¿cómo se hace tu tortilla? Mis padres vienen a cenar.",
+          "meaning": "Perfect. Hey, how do you make your omelette? My parents are coming for dinner."
+        },
+        {
+          "speaker": "a",
+          "text": "Es fácil. Primero se pelan las patatas y se cortan en láminas finas.",
+          "meaning": "It's easy. First you peel the potatoes and cut them into thin slices."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Y luego se fríen con la cebolla?",
+          "meaning": "And then you fry them with the onion?"
+        },
+        {
+          "speaker": "a",
+          "text": "Eso es. Después se mezcla todo con los huevos y se añade sal.",
+          "meaning": "That's it. Then you mix it all with the eggs and add salt."
+        },
+        {
+          "speaker": "b",
+          "text": "Muy bien… ¡pero se nos acabaron los huevos!",
+          "meaning": "Great… but we've run out of eggs!"
+        },
+        {
+          "speaker": "a",
+          "text": "Pues en la tienda de la esquina se venden huevos de granja.",
+          "meaning": "Well, the shop on the corner sells farm eggs."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Aquí se habla inglés.",
+      "meaning": "English is spoken here.",
+      "note": "Passive se: one language, singular verb."
+    },
+    {
+      "text": "Se alquila habitación con terraza.",
+      "meaning": "Room with a terrace to let.",
+      "note": "New word: la terraza = the terrace."
+    },
+    {
+      "text": "En este pueblo se duerme muy bien.",
+      "meaning": "You sleep very well in this village.",
+      "note": "Impersonal se: no thing, so the verb stays singular."
+    },
+    {
+      "text": "Se me olvidaron las gafas en casa.",
+      "meaning": "I left my glasses at home.",
+      "note": "Accidental se: the verb agrees with las gafas."
+    },
+    {
+      "text": "Primero se lavan los tomates y luego se cortan.",
+      "meaning": "First you wash the tomatoes and then you cut them.",
+      "note": "Recipe se: plural thing, plural verb."
+    },
+    {
+      "text": "A mi hermano se le rompió la pantalla del móvil.",
+      "meaning": "My brother's phone screen broke.",
+      "note": "New word: la pantalla = the screen."
+    },
+    {
+      "text": "Se nos acabó el café, así que vamos a la cafetería.",
+      "meaning": "We've run out of coffee, so let's go to the café."
+    },
+    {
+      "text": "Los domingos se venden frutas y verduras frescas en la plaza del pueblo.",
+      "meaning": "On Sundays fresh fruit and vegetables are sold in the village square.",
+      "note": "Passive se: plural things, se venden."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Impersonal se"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-uses-of-se-02"
+    },
+    {
+      "question": "b1-uses-of-se-03"
+    },
+    {
+      "section": "Passive se"
+    },
+    {
+      "question": "b1-uses-of-se-01"
+    },
+    {
+      "question": "b1-uses-of-se-04"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-uses-of-se-05"
+    },
+    {
+      "tip": "Ask what the verb agrees with. No thing takes a singular verb (se vive), one thing takes a singular verb (se vende piso), and several things take a plural verb (se venden pisos)."
+    },
+    {
+      "section": "Accidental se"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-uses-of-se-06"
+    },
+    {
+      "question": "b1-uses-of-se-07"
+    },
+    {
+      "question": "b1-uses-of-se-08"
+    },
+    {
+      "section": "Keeping the other se apart"
+    },
+    {
+      "question": "b1-uses-of-se-09"
+    }
+  ],
+  "sprint": {
+    "icon": "📢",
+    "bites": [
+      {
+        "title": "Se = people in general",
+        "emoji": "👥",
+        "rule": "Se + the él form says what people, one or you do in general: se come bien, ¿cómo se dice…?",
+        "example": "Aquí se come muy bien.",
+        "example_meaning": "The food is very good here."
+      },
+      {
+        "title": "Agree with the thing",
+        "emoji": "🏷️",
+        "rule": "When there is a thing, the verb matches it: se vende piso, se venden pisos.",
+        "example": "Se alquilan habitaciones.",
+        "example_meaning": "Rooms to let."
+      },
+      {
+        "title": "Signs and recipes",
+        "emoji": "🍳",
+        "rule": "Notices and recipes speak with se: se busca, se prohíbe fumar, se mezcla, se añade la sal.",
+        "example": "Se pelan las patatas y se añade la sal.",
+        "example_meaning": "You peel the potatoes and add the salt."
+      },
+      {
+        "title": "It slipped from me",
+        "emoji": "🙈",
+        "rule": "Accidents use se + me/te/le/nos/os/les + a verb agreeing with the thing. Se always comes first.",
+        "example": "Se me cayeron las llaves.",
+        "example_meaning": "I dropped my keys."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Se vende or se venden?",
+        "buckets": [
+          "se vende",
+          "se venden"
+        ],
+        "items": [
+          {
+            "text": "___ piso.",
+            "bucket": 0
+          },
+          {
+            "text": "___ bicicletas.",
+            "bucket": 1
+          },
+          {
+            "text": "___ coche usado.",
+            "bucket": 0
+          },
+          {
+            "text": "___ entradas para el concierto.",
+            "bucket": 1
+          },
+          {
+            "text": "___ pan del día.",
+            "bucket": 0
+          },
+          {
+            "text": "___ libros de segunda mano.",
+            "bucket": 1
+          }
+        ],
+        "why": "The verb agrees with what is sold: one thing singular, several things plural."
+      },
+      {
+        "title": "Which se is it?",
+        "buckets": [
+          "impersonal / passive",
+          "accidental",
+          "reflexive"
+        ],
+        "items": [
+          {
+            "text": "Aquí se come bien.",
+            "bucket": 0
+          },
+          {
+            "text": "Se me cayó el vaso.",
+            "bucket": 1
+          },
+          {
+            "text": "Marta se ducha.",
+            "bucket": 2
+          },
+          {
+            "text": "Se alquilan barcos.",
+            "bucket": 0
+          },
+          {
+            "text": "Se nos rompió la tele.",
+            "bucket": 1
+          },
+          {
+            "text": "Los niños se acuestan pronto.",
+            "bucket": 2
+          },
+          {
+            "text": "A Luis se le olvidó la cita.",
+            "bucket": 1
+          }
+        ],
+        "why": "People in general or a thing on sale is impersonal or passive. An indirect pronoun after se is accidental. Someone doing it to themselves is reflexive."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Se vende muchos pisos en esta calle.",
+        "wrong": "vende",
+        "fix": "venden",
+        "why": "Pisos is plural, so the verb is plural: se venden."
+      },
+      {
+        "sentence": "Se me olvidaron el paraguas rojo.",
+        "wrong": "olvidaron",
+        "fix": "olvidó",
+        "why": "The verb agrees with el paraguas rojo (one thing): se me olvidó."
+      },
+      {
+        "sentence": "A Luis se lo perdió la cartera.",
+        "wrong": "lo",
+        "fix": "le",
+        "why": "The person takes the indirect pronoun le: se le perdió."
+      },
+      {
+        "sentence": "Se nos acabaron el pan.",
+        "wrong": "acabaron",
+        "fix": "acabó",
+        "why": "El pan is singular: se nos acabó."
+      },
+      {
+        "sentence": "En esta tienda se hablan inglés.",
+        "wrong": "hablan",
+        "fix": "habla",
+        "why": "One language, singular verb: se habla inglés."
+      },
+      {
+        "sentence": "Primero se corta las cebollas.",
+        "wrong": "corta",
+        "fix": "cortan",
+        "why": "Las cebollas is plural: se cortan."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Se venden pisos en el centro.",
+        "meaning": "Flats for sale in the centre.",
+        "distractors": [
+          "vende"
+        ]
+      },
+      {
+        "text": "Se me olvidaron las llaves.",
+        "meaning": "I forgot my keys.",
+        "distractors": [
+          "olvidó"
+        ]
+      },
+      {
+        "text": "¿Cómo se dice esto en español?",
+        "meaning": "How do you say this in Spanish?",
+        "distractors": [
+          "dicen"
+        ]
+      },
+      {
+        "text": "A Pablo se le rompió el móvil.",
+        "meaning": "Pablo's phone broke.",
+        "distractors": [
+          "lo",
+          "me"
+        ]
+      }
+    ]
+  }
+}

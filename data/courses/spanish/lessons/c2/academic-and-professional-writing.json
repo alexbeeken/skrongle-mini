@@ -1,0 +1,589 @@
+{
+  "id": "c2-academic-and-professional-writing",
+  "slug": "academic-and-professional-writing",
+  "title": "Academic and professional writing",
+  "unit": "C2",
+  "group": "Vocabulary",
+  "order": 28,
+  "summary": "Writing like a researcher or a professional: impersonal se and the modest plural, hedging, the parts of a paper, formal connectors, reporting verbs, and formal letters and e-mails.",
+  "focus": "The conventions, connectors and stance of academic and professional Spanish",
+  "prerequisites": [
+    "c1-letters-and-articles",
+    "c2-long-sentences"
+  ],
+  "content": "## The impersonal voice\n\nAcademic Spanish keeps the writer in the background.\n\n- **Passive se** agrees with the thing: **Se analizaron cuarenta encuestas** (not *se analizó cuarenta encuestas*).\n- **Impersonal se** with people and **a** stays singular: **Se entrevistó a veinte docentes.**\n- **The modest plural** (**plural de modestia**): a single author writes **analizamos**, **consideramos**, **en este trabajo proponemos**. Keep it consistent from the first page to the last.\n\nThe **nominal style** strings nouns together: *la realización de un análisis de la evolución de los precios*. A little sounds formal; a lot sounds like a form. Turn nouns back into verbs: **analizamos cómo evolucionaron los precios**.\n\n## Hedging and stance\n\nA careful writer claims exactly what the data allow.\n\n| instead of | write |\n|---|---|\n| *Es obvio que…* | **Cabe pensar que…**, **Todo indica que…** |\n| *Los datos demuestran…* | **Los datos parecen indicar…**, **sugieren…** |\n| *Siempre, nunca* | **En la mayoría de los casos**, **rara vez** |\n\n**Cabe señalar / destacar que…** (it should be noted that) flags a point; **cabría pensar que…** (one might think that) raises an idea you may then reject; **en cierta medida** (to some extent) limits a claim.\n\n## Structure and connectors\n\nA paper usually runs **introducción**, **estado de la cuestión** (what others have said), **metodología**, **resultados**, **conclusiones**.\n\n| function | connectors |\n|---|---|\n| add | **asimismo**, **además**, **por otra parte** |\n| contrast | **no obstante**, **sin embargo**, **ahora bien** |\n| consequence | **por consiguiente**, **por lo tanto**, **de ahí que** + subjunctive |\n| topic | **en lo que respecta a**, **en cuanto a** |\n| basis | **a tenor de** (in the light of), **de acuerdo con** |\n| close | **en definitiva**, **en suma** |\n\n## Reporting other voices\n\nChoose the verb that says what the source does with its idea:\n\n- **sostiene** (maintains), **afirma** (states): the author defends it.\n- **señala** (points out), **advierte** (warns): the author draws attention to it.\n- **matiza** (qualifies): the author accepts it with limits.\n- **refuta** (refutes): the author shows it is wrong.\n- **plantea** (raises, proposes): the author puts it forward.\n\n*García sostiene que el modelo funciona; López lo matiza, y Ortega lo refuta con datos nuevos.*\n\n## Letters, e-mails and one gerund to avoid\n\n- Open with **Estimada señora Ruiz:** or **Estimado señor López:** (a colon, not a comma). **Le escribo para…** states the purpose.\n- Close with **Quedo a la espera de su respuesta.** and **Atentamente,** or **Un cordial saludo,**.\n- Avoid the gerund that describes a noun or a later event, common in official texts: *Se aprobó una ley regulando el alquiler* becomes **una ley que regula el alquiler**.",
+  "vocabulary": [
+    {
+      "term": "cabe señalar",
+      "meaning": "it should be noted",
+      "example": "Cabe señalar que la muestra es pequeña.",
+      "example_meaning": "It should be noted that the sample is small."
+    },
+    {
+      "term": "cabría pensar",
+      "meaning": "one might think",
+      "example": "Cabría pensar que el precio influye, pero los datos no lo confirman.",
+      "example_meaning": "One might think that price has an influence, but the data don't confirm it."
+    },
+    {
+      "term": "parece indicar",
+      "meaning": "seems to indicate (a hedged claim)",
+      "example": "El aumento de las ventas parece indicar un cambio de tendencia.",
+      "example_meaning": "The rise in sales seems to indicate a change in trend."
+    },
+    {
+      "term": "el estado de la cuestión",
+      "meaning": "literature review, state of the art",
+      "example": "El estado de la cuestión ocupa todo el segundo capítulo.",
+      "example_meaning": "The literature review takes up the whole second chapter."
+    },
+    {
+      "term": "la metodología",
+      "meaning": "methodology",
+      "example": "La metodología combina entrevistas y encuestas.",
+      "example_meaning": "The methodology combines interviews and surveys."
+    },
+    {
+      "term": "no obstante",
+      "meaning": "nevertheless, however",
+      "example": "El estudio es sólido; no obstante, la muestra es reducida.",
+      "example_meaning": "The study is sound; nevertheless, the sample is small."
+    },
+    {
+      "term": "asimismo",
+      "meaning": "likewise, also",
+      "example": "Asimismo, se revisaron los informes de los últimos cinco años.",
+      "example_meaning": "Likewise, the reports from the last five years were reviewed."
+    },
+    {
+      "term": "por consiguiente",
+      "meaning": "consequently, therefore",
+      "example": "Los costes subieron y, por consiguiente, la obra se retrasó.",
+      "example_meaning": "Costs rose and, consequently, the building work was delayed."
+    },
+    {
+      "term": "en lo que respecta a",
+      "meaning": "as regards, with respect to",
+      "example": "En lo que respecta a la financiación, no ha habido cambios.",
+      "example_meaning": "As regards funding, there have been no changes."
+    },
+    {
+      "term": "a tenor de",
+      "meaning": "in the light of, according to",
+      "example": "A tenor de los resultados, conviene revisar la hipótesis.",
+      "example_meaning": "In the light of the results, the hypothesis should be revised."
+    },
+    {
+      "term": "sostener",
+      "meaning": "to maintain, to argue",
+      "example": "La autora sostiene que el modelo ha quedado obsoleto.",
+      "example_meaning": "The author maintains that the model has become obsolete."
+    },
+    {
+      "term": "matizar",
+      "meaning": "to qualify, to add nuance to",
+      "example": "En la entrevista, el ministro matizó sus palabras del lunes.",
+      "example_meaning": "In the interview, the minister qualified what he had said on Monday."
+    },
+    {
+      "term": "refutar",
+      "meaning": "to refute, to disprove",
+      "example": "El segundo experimento refuta la hipótesis inicial.",
+      "example_meaning": "The second experiment disproves the initial hypothesis."
+    },
+    {
+      "term": "quedar a la espera de",
+      "meaning": "to look forward to, to await (formal letters)",
+      "example": "Quedamos a la espera de su confirmación.",
+      "example_meaning": "We look forward to your confirmation."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c2-academic-and-professional-writing-01",
+      "prompt": "___ cuarenta encuestas en tres ciudades.",
+      "type": "multiple-choice",
+      "options": [
+        "Se analizaron",
+        "Se analizó"
+      ],
+      "correct_answer": "Se analizaron",
+      "explanation": "Passive se agrees with the thing: cuarenta encuestas is plural, so se analizaron. With people and a, the verb would stay singular: se entrevistó a veinte docentes.",
+      "hints": [
+        "What is plural in the sentence?"
+      ],
+      "teaches": [
+        "la metodología"
+      ]
+    },
+    {
+      "question_id": "c2-academic-and-professional-writing-02",
+      "prompt": "___ señalar que la muestra es reducida. (It should be noted…)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "Cabe",
+      "accepted_answers": [],
+      "explanation": "Cabe + infinitive (cabe señalar, cabe destacar) is the formal way to flag a point: it should be noted that…",
+      "hints": [
+        "Present of caber, third person."
+      ],
+      "teaches": [
+        "cabe señalar"
+      ]
+    },
+    {
+      "question_id": "c2-academic-and-professional-writing-03",
+      "prompt": "Which connector introduces a contrast?",
+      "type": "multiple-choice",
+      "options": [
+        "no obstante",
+        "asimismo",
+        "por consiguiente"
+      ],
+      "correct_answer": "no obstante",
+      "explanation": "No obstante = nevertheless. Asimismo adds a point and por consiguiente introduces a consequence.",
+      "hints": [
+        "You want 'nevertheless'."
+      ],
+      "teaches": [
+        "no obstante",
+        "asimismo",
+        "por consiguiente"
+      ]
+    },
+    {
+      "question_id": "c2-academic-and-professional-writing-04",
+      "prompt": "Los costes se duplicaron y, por ___, el proyecto se canceló.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "consiguiente",
+      "accepted_answers": [],
+      "explanation": "Por consiguiente (consequently) introduces a result. Por consecuente is a common slip.",
+      "hints": [
+        "por consig…"
+      ],
+      "teaches": [
+        "por consiguiente"
+      ]
+    },
+    {
+      "question_id": "c2-academic-and-professional-writing-05",
+      "prompt": "La autora ___ que la hipótesis es correcta, aunque otros estudios la ponen en duda. (maintains)",
+      "type": "multiple-choice",
+      "options": [
+        "sostiene",
+        "refuta",
+        "matiza"
+      ],
+      "correct_answer": "sostiene",
+      "explanation": "Sostener means to maintain, so she defends the hypothesis. Refutar would mean she shows it is wrong; matizar, that she accepts it with limits.",
+      "hints": [
+        "She defends the idea."
+      ],
+      "teaches": [
+        "sostener"
+      ]
+    },
+    {
+      "question_id": "c2-academic-and-professional-writing-06",
+      "prompt": "En lo que ___ a la financiación, no ha habido cambios.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "respecta",
+      "accepted_answers": [],
+      "explanation": "The fixed connector is en lo que respecta a (as regards). En lo que respecto a is a frequent error.",
+      "hints": [
+        "The verb is respectar, third person."
+      ],
+      "teaches": [
+        "en lo que respecta a"
+      ]
+    },
+    {
+      "question_id": "c2-academic-and-professional-writing-07",
+      "prompt": "Which is the right opening for a formal e-mail to Dr Marta Ruiz?",
+      "type": "multiple-choice",
+      "options": [
+        "Estimada doctora Ruiz:",
+        "Querida doctora Ruiz,",
+        "Hola, doctora Ruiz:"
+      ],
+      "correct_answer": "Estimada doctora Ruiz:",
+      "explanation": "Formal letters open with Estimado / Estimada and a colon. Querida is for people you know well, and Spanish uses a colon, not a comma, after the greeting.",
+      "hints": [
+        "Formal adjective, and the punctuation Spanish uses after a greeting."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "c2-academic-and-professional-writing-08",
+      "prompt": "Choose the better version for an official text.",
+      "type": "multiple-choice",
+      "options": [
+        "Se aprobó una ley que regula el alquiler de temporada.",
+        "Se aprobó una ley regulando el alquiler de temporada."
+      ],
+      "correct_answer": "Se aprobó una ley que regula el alquiler de temporada.",
+      "explanation": "A gerund should not describe a noun like an adjective clause. Una ley que regula… is correct; una ley regulando… is a classic flaw of official prose.",
+      "hints": [
+        "Can a gerund work like 'which regulates'?"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "c2-academic-and-professional-writing-09",
+      "prompt": "A ___ de los resultados, conviene revisar la hipótesis. (In the light of…)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "tenor",
+      "accepted_answers": [],
+      "explanation": "A tenor de means in the light of or according to. It is a formal way to base a conclusion on something.",
+      "hints": [
+        "a te… de"
+      ],
+      "teaches": [
+        "a tenor de"
+      ]
+    },
+    {
+      "question_id": "c2-academic-and-professional-writing-10",
+      "prompt": "Quedamos ___ espera de que nos confirmen la fecha de entrega.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "a la",
+      "accepted_answers": [],
+      "explanation": "Quedar a la espera de takes a noun (de su respuesta) or de que + subjunctive: quedamos a la espera de que nos confirmen… (we look forward to your confirming…). The plural quedamos speaks for a company.",
+      "hints": [
+        "A preposition and an article, built on the noun espera.",
+        "It is the classic closing of a formal e-mail."
+      ],
+      "teaches": [
+        "quedar a la espera de"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Cabe destacar el papel de los voluntarios.",
+      "meaning": "The role of the volunteers deserves to be highlighted.",
+      "note": "Cabe + infinitive is a formal way to flag a point."
+    },
+    {
+      "text": "Asimismo, se entrevistó a veinte docentes.",
+      "meaning": "Twenty teachers were also interviewed.",
+      "note": "New word: los docentes = teachers."
+    },
+    {
+      "text": "No obstante, los resultados deben interpretarse con cautela.",
+      "meaning": "Nevertheless, the results must be interpreted with caution.",
+      "note": "New word: la cautela = caution."
+    },
+    {
+      "text": "En este trabajo analizamos tres modelos de gestión.",
+      "meaning": "In this paper we analyse three management models.",
+      "note": "This is the modest plural, one author using the nosotros form."
+    },
+    {
+      "text": "La autora matiza su conclusión en el último capítulo.",
+      "meaning": "The author qualifies her conclusion in the last chapter."
+    },
+    {
+      "text": "Los datos parecen indicar que el consumo ha bajado ligeramente.",
+      "meaning": "The data seem to indicate that consumption has fallen slightly."
+    },
+    {
+      "text": "Le escribo para solicitar información sobre la convocatoria de becas.",
+      "meaning": "I am writing to request information about the call for scholarship applications.",
+      "note": "New word: la convocatoria = the call for applications."
+    },
+    {
+      "text": "Sin otro particular, quedo a la espera de su respuesta y le saludo atentamente.",
+      "meaning": "With nothing further to add, I look forward to your reply. Yours faithfully."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The impersonal voice"
+    },
+    {
+      "question": "c2-academic-and-professional-writing-01"
+    },
+    {
+      "section": "Hedging and stance"
+    },
+    {
+      "vocab": 3
+    },
+    {
+      "question": "c2-academic-and-professional-writing-02"
+    },
+    {
+      "section": "Structure and connectors"
+    },
+    {
+      "question": "c2-academic-and-professional-writing-03"
+    },
+    {
+      "question": "c2-academic-and-professional-writing-04"
+    },
+    {
+      "question": "c2-academic-and-professional-writing-06"
+    },
+    {
+      "question": "c2-academic-and-professional-writing-09"
+    },
+    {
+      "section": "Reporting other voices"
+    },
+    {
+      "question": "c2-academic-and-professional-writing-05"
+    },
+    {
+      "tip": "Before you hand in a text, underline every es obvio, siempre and demuestra. Most of them want a hedge."
+    },
+    {
+      "section": "Letters, e-mails"
+    },
+    {
+      "question": "c2-academic-and-professional-writing-07"
+    },
+    {
+      "question": "c2-academic-and-professional-writing-08"
+    },
+    {
+      "question": "c2-academic-and-professional-writing-10"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c2-academic-and-professional-writing-conv-tutora",
+      "title": "Feedback on chapter two",
+      "scenario": "Irene, a thesis supervisor, gives Daniel, her PhD student, feedback on the second chapter of his thesis.",
+      "role_a": "Irene",
+      "role_b": "Daniel",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Daniel, he leído el segundo capítulo. El estado de la cuestión está muy completo.",
+          "meaning": "Daniel, I've read the second chapter. The literature review is very thorough."
+        },
+        {
+          "speaker": "b",
+          "text": "Gracias. Noto que viene un pero.",
+          "meaning": "Thanks. I can feel a 'but' coming."
+        },
+        {
+          "speaker": "a",
+          "text": "No obstante, abusas del estilo nominal: la realización de la medición de los datos.",
+          "meaning": "Nevertheless, you overuse the nominal style: la realización de la medición de los datos."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Sería mejor decir simplemente medimos los datos?",
+          "meaning": "Would it be better to say simply medimos los datos?"
+        },
+        {
+          "speaker": "a",
+          "text": "Exacto. Y mantén el plural de modestia en todo el capítulo, no solo a ratos.",
+          "meaning": "Exactly. And keep the modest plural throughout the chapter, not just now and then."
+        },
+        {
+          "speaker": "b",
+          "text": "De acuerdo. ¿Y las conclusiones? ¿Son demasiado tajantes?",
+          "meaning": "All right. And the conclusions? Are they too categorical?"
+        },
+        {
+          "speaker": "a",
+          "text": "Un poco. Escribes que los resultados demuestran la hipótesis. Yo lo matizaría: parecen indicar.",
+          "meaning": "A little. You write that the results prove the hypothesis. I would qualify it: they seem to indicate."
+        },
+        {
+          "speaker": "b",
+          "text": "Cabría pensar que así la tesis pierde fuerza.",
+          "meaning": "One might think the thesis loses strength that way."
+        },
+        {
+          "speaker": "a",
+          "text": "Al contrario: gana credibilidad. Un tribunal desconfía de las certezas absolutas.",
+          "meaning": "On the contrary: it gains credibility. An examining panel distrusts absolute certainties."
+        },
+        {
+          "speaker": "b",
+          "text": "Entendido. Lo reviso esta semana y te lo envío el viernes.",
+          "meaning": "Understood. I'll revise it this week and send it to you on Friday."
+        },
+        {
+          "speaker": "a",
+          "text": "Perfecto. Quedo a la espera.",
+          "meaning": "Perfect. I'll look out for it."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🎓",
+    "bites": [
+      {
+        "title": "Se: agree or not?",
+        "emoji": "⚙️",
+        "rule": "Passive se agrees with the thing: se analizaron cuarenta encuestas. With people introduced by a, the verb stays singular: se entrevistó a veinte docentes.",
+        "example": "Se revisaron todos los contratos.",
+        "example_meaning": "All the contracts were reviewed."
+      },
+      {
+        "title": "Hedge, don't shout",
+        "emoji": "🌫️",
+        "rule": "Claim what the data allow: cabe señalar, cabría pensar, parece indicar, en cierta medida. Es obvio que and demuestra rarely survive peer review.",
+        "example": "Los datos parecen indicar un cambio de tendencia.",
+        "example_meaning": "The data seem to indicate a change in trend."
+      },
+      {
+        "title": "The right reporting verb",
+        "emoji": "🗣️",
+        "rule": "Sostiene = maintains, señala = points out, matiza = qualifies, refuta = refutes, plantea = raises. The verb tells the reader what the source does with the idea.",
+        "example": "Pérez plantea una hipótesis que Ortega refuta.",
+        "example_meaning": "Pérez puts forward a hypothesis that Ortega refutes."
+      },
+      {
+        "title": "Formal letters",
+        "emoji": "✉️",
+        "rule": "Open with Estimada señora Ruiz: (a colon, not a comma), state the purpose with Le escribo para…, close with Quedo a la espera de su respuesta and Atentamente.",
+        "example": "Le escribo para solicitar una prórroga.",
+        "example_meaning": "I am writing to request an extension."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "What does the connector do?",
+        "buckets": [
+          "adds",
+          "contrasts",
+          "concludes or follows"
+        ],
+        "why": "Asimismo and además add; no obstante and sin embargo contrast; por consiguiente and en definitiva draw a consequence or a conclusion.",
+        "items": [
+          {
+            "text": "asimismo",
+            "bucket": 0
+          },
+          {
+            "text": "además",
+            "bucket": 0
+          },
+          {
+            "text": "no obstante",
+            "bucket": 1
+          },
+          {
+            "text": "sin embargo",
+            "bucket": 1
+          },
+          {
+            "text": "por consiguiente",
+            "bucket": 2
+          },
+          {
+            "text": "en definitiva",
+            "bucket": 2
+          }
+        ]
+      },
+      {
+        "title": "Academic, or too casual?",
+        "buckets": [
+          "academic",
+          "too casual"
+        ],
+        "why": "Academic prose hedges and names its topic formally; chatty openers and absolute claims belong in conversation.",
+        "items": [
+          {
+            "text": "Cabe señalar que…",
+            "bucket": 0
+          },
+          {
+            "text": "La verdad es que…",
+            "bucket": 1
+          },
+          {
+            "text": "Los datos sugieren que…",
+            "bucket": 0
+          },
+          {
+            "text": "Está clarísimo que…",
+            "bucket": 1
+          },
+          {
+            "text": "En lo que respecta a…",
+            "bucket": 0
+          },
+          {
+            "text": "Lo de la encuesta…",
+            "bucket": 1
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Se analizó cuarenta encuestas en tres ciudades.",
+        "wrong": "analizó",
+        "fix": "analizaron",
+        "why": "Passive se agrees with the plural thing: se analizaron cuarenta encuestas."
+      },
+      {
+        "sentence": "Se aprobó un decreto regulando los alquileres.",
+        "wrong": "regulando",
+        "fix": "que regula",
+        "why": "A gerund cannot describe a noun; use a relative clause."
+      },
+      {
+        "sentence": "Los costes subieron y, por consecuente, la obra se retrasó.",
+        "wrong": "consecuente",
+        "fix": "consiguiente",
+        "why": "The connector is por consiguiente."
+      },
+      {
+        "sentence": "En lo que respecto a la financiación, no hubo cambios.",
+        "wrong": "respecto",
+        "fix": "respecta",
+        "why": "The fixed connector is en lo que respecta a."
+      },
+      {
+        "sentence": "Quedo en la espera de su respuesta.",
+        "wrong": "en",
+        "fix": "a",
+        "why": "The formula is quedo a la espera de."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Cabe señalar que la muestra es pequeña.",
+        "meaning": "It should be noted that the sample is small.",
+        "distractors": [
+          "Caber"
+        ]
+      },
+      {
+        "text": "No obstante, los datos son limitados.",
+        "meaning": "Nevertheless, the data are limited.",
+        "distractors": [
+          "obstantes"
+        ]
+      },
+      {
+        "text": "Quedo a la espera de su respuesta.",
+        "meaning": "I look forward to your reply.",
+        "distractors": [
+          "en"
+        ]
+      },
+      {
+        "text": "La autora sostiene una tesis distinta.",
+        "meaning": "The author maintains a different thesis.",
+        "distractors": [
+          "sostena"
+        ]
+      }
+    ]
+  }
+}

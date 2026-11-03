@@ -1,0 +1,598 @@
+{
+  "id": "c2-word-formation",
+  "slug": "word-formation",
+  "title": "Word formation: prefixes, suffixes and compounds",
+  "unit": "C2",
+  "group": "Grammar",
+  "order": 22,
+  "summary": "How Spanish builds words: noun, adjective and verb suffixes, prefixes and how to write them, compounds like el sacacorchos and hombres rana, and parasynthetics like envejecer.",
+  "focus": "Building and understanding words with suffixes, prefixes, compounds and parasynthesis",
+  "prerequisites": [
+    "c1-formal-writing",
+    "c2-precision-in-lexis"
+  ],
+  "content": "## Suffixes that make nouns\n\n| suffix | meaning | examples |\n|---|---|---|\n| **-ción, -miento** | action or result | organizar → **organización**, conocer → **conocimiento** |\n| **-dad, -ez, -eza, -ura** | quality | feliz → **felicidad**, tímido → **timidez**, bello → **belleza**, fresco → **frescura** |\n| **-azo** | a blow with… | codo → **codazo**, puerta → **portazo**, mano → **manotazo** |\n| **-ería** | shop or place | pan → **panadería**, zapato → **zapatería** |\n| **-dor / -dora** | doer or device | trabajar → **trabajador**, lavar → **lavadora** |\n| **-ero / -era** | trade or container | pan → **panadero**, azúcar → **azucarero** |\n\nThe base may change shape: **puerta → portazo** (the old diphthong undone), **pobre → pobreza**.\n\n## Suffixes that make adjectives and verbs\n\n- **-ble**: can be done. **lavable** (washable), **comestible**, **inolvidable**.\n- **-oso**: full of. **peligroso**, **montañoso**, **herrumbroso** (rusty).\n- **-izo**: tending to, -ish. **olvidadizo** (forgetful), **enfermizo** (sickly), **rojizo** (reddish).\n- **-ense**: origin. **canadiense**, **costarricense**, **ateniense**.\n- **-izar**: make into. **modernizar**, **canalizar**.\n- **-ecer**: become. **oscurecer**, **palidecer**, **favorecer**.\n- **-ear**: do repeatedly or with. **golpear**, **pasear**, **agujerear**.\n\n## Prefixes and how to write them\n\n- **des-** (undo, not): **deshacer**, **desconfiar**. **re-** (again): **releer**, **rehacer**.\n- **in-** (not) becomes **im-** before *p, b* and **i-** before *l, r*: **inútil**, **imposible**, **ilegal**, **irreal**.\n- **pre-**, **contra-**, **sobre-**, **sub-**, **anti-**: **prehistoria**, **contraataque**, **sobrecargar**, **subdesarrollo**, **antiinflamatorio**.\n\nSince the 2010 spelling rules, a prefix is **written together** with a single word (**exmarido**, **antiinflamatorio**, **vicepresidenta**), **separately** before a group of words (**ex primer ministro**, **pro derechos humanos**), and with a **hyphen** before a capital or a figure (**anti-OTAN**, **sub-21**).\n\n## Compounds\n\n- **Verb + plural noun** gives tools and trades, all masculine, with the same form in the plural: **el sacacorchos → los sacacorchos**, **el paraguas**, **el abrelatas**, **el lavaplatos**, **el cumpleaños**.\n- **Noun + adjective**, linked with **-i-**: **pelo + rojo → pelirrojo**, **cabeza + bajo → cabizbajo**.\n- **Adjective + adjective**: **agridulce**, **sordomudo**.\n- **Noun + noun** written apart takes the plural on the first noun only: **un hombre rana → dos hombres rana**, **ciudades dormitorio**, **palabras clave**.\n\n## Parasynthetics: both ends at once\n\nSome words take a prefix **and** a suffix at the same time, and neither half exists alone:\n\n| base | word | not a word |\n|---|---|---|\n| viejo | **envejecer** (to age) | *vejecer*, *envejo* |\n| rojo | **enrojecer** (to turn red) | *rojecer* |\n| tierra | **aterrizar** (to land) | *terrizar* |\n| tarde | **atardecer** (to get dark; dusk) | *tardecer* |\n| noche | **anochecer** (nightfall) | *nochecer* |\n\nRecognising the pattern lets you decode words you have never seen: **empobrecer** (to make poor), **ensuciar** (to dirty), **amueblar** (to furnish).",
+  "vocabulary": [
+    {
+      "term": "el portazo",
+      "meaning": "slam of a door (-azo: a blow)",
+      "example": "Se fue de la reunión dando un portazo.",
+      "example_meaning": "He left the meeting slamming the door."
+    },
+    {
+      "term": "la timidez",
+      "meaning": "shyness",
+      "example": "Su timidez desaparece cuando habla de música.",
+      "example_meaning": "Her shyness disappears when she talks about music."
+    },
+    {
+      "term": "la frescura",
+      "meaning": "freshness; also cheek, nerve",
+      "example": "En este mercado se nota la frescura del pescado.",
+      "example_meaning": "In this market you can tell how fresh the fish is."
+    },
+    {
+      "term": "el conocimiento",
+      "meaning": "knowledge",
+      "example": "El puesto exige conocimientos de contabilidad.",
+      "example_meaning": "The job requires knowledge of accounting."
+    },
+    {
+      "term": "rojizo / rojiza",
+      "meaning": "reddish",
+      "example": "Al atardecer, la sierra toma un tono rojizo.",
+      "example_meaning": "At dusk the mountains take on a reddish tone."
+    },
+    {
+      "term": "olvidadizo / olvidadiza",
+      "meaning": "forgetful",
+      "example": "Mi abuelo se ha vuelto un poco olvidadizo.",
+      "example_meaning": "My grandfather has become a little forgetful."
+    },
+    {
+      "term": "inigualable",
+      "meaning": "unmatched, unbeatable",
+      "example": "La vista desde la torre es inigualable.",
+      "example_meaning": "The view from the tower is unbeatable."
+    },
+    {
+      "term": "desconfiar",
+      "meaning": "to distrust, to be wary of",
+      "example": "Desconfía de las ofertas demasiado buenas.",
+      "example_meaning": "Be wary of offers that are too good."
+    },
+    {
+      "term": "el exmarido",
+      "meaning": "ex-husband (prefix written together)",
+      "example": "Se lleva muy bien con su exmarido.",
+      "example_meaning": "She gets on very well with her ex-husband."
+    },
+    {
+      "term": "el sacacorchos",
+      "meaning": "corkscrew (plural: los sacacorchos)",
+      "example": "¿Alguien ha visto el sacacorchos?",
+      "example_meaning": "Has anyone seen the corkscrew?"
+    },
+    {
+      "term": "pelirrojo / pelirroja",
+      "meaning": "red-haired",
+      "example": "Su hija es pelirroja y tiene pecas.",
+      "example_meaning": "Her daughter is red-haired and has freckles."
+    },
+    {
+      "term": "agridulce",
+      "meaning": "bittersweet; sweet-and-sour",
+      "example": "La novela tiene un final agridulce.",
+      "example_meaning": "The novel has a bittersweet ending."
+    },
+    {
+      "term": "envejecer",
+      "meaning": "to age, to grow old",
+      "example": "Este vino envejece doce meses en barrica.",
+      "example_meaning": "This wine ages twelve months in the barrel."
+    },
+    {
+      "term": "aterrizar",
+      "meaning": "to land",
+      "example": "El avión aterrizó con media hora de retraso.",
+      "example_meaning": "The plane landed half an hour late."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c2-word-formation-01",
+      "prompt": "Which noun names a blow with the elbow (el codo)?",
+      "type": "multiple-choice",
+      "options": [
+        "codazo",
+        "codera",
+        "codería"
+      ],
+      "correct_answer": "codazo",
+      "explanation": "-azo turns a noun into a blow given with it: codo → codazo, puerta → portazo. A codera is an elbow patch.",
+      "hints": [
+        "Think of el portazo."
+      ],
+      "teaches": [
+        "el portazo"
+      ]
+    },
+    {
+      "question_id": "c2-word-formation-02",
+      "prompt": "Lo contrario de legal es ___.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "ilegal",
+      "accepted_answers": [],
+      "explanation": "The negative prefix in- becomes i- before l and r: ilegal, irreal (with rr).",
+      "hints": [
+        "in- changes before l."
+      ],
+      "teaches": [
+        "inigualable"
+      ]
+    },
+    {
+      "question_id": "c2-word-formation-03",
+      "prompt": "A sweater that can be washed is a jersey ___. (lavar + -ble)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "lavable",
+      "accepted_answers": [],
+      "explanation": "-ble added to an -ar verb gives -able: lavar → lavable (washable). For -er and -ir verbs it is -ible: comestible.",
+      "hints": [
+        "-ar verbs take -able."
+      ],
+      "teaches": [
+        "inigualable"
+      ]
+    },
+    {
+      "question_id": "c2-word-formation-04",
+      "prompt": "How do you write 'the former prime minister'?",
+      "type": "multiple-choice",
+      "options": [
+        "el ex primer ministro",
+        "el exprimer ministro",
+        "el ex-primer ministro"
+      ],
+      "correct_answer": "el ex primer ministro",
+      "explanation": "A prefix before a group of words is written apart: ex primer ministro. Before a single word it is written together: exministro, exmarido.",
+      "hints": [
+        "Does ex- apply to one word or to a group?"
+      ],
+      "teaches": [
+        "el exmarido"
+      ]
+    },
+    {
+      "question_id": "c2-word-formation-05",
+      "prompt": "Siempre los pierdo: este invierno ya he comprado tres ___. (paraguas, plural)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "paraguas",
+      "accepted_answers": [],
+      "explanation": "Verb + plural noun compounds keep the same form in the plural: el paraguas, los paraguas; el sacacorchos, los sacacorchos.",
+      "hints": [
+        "The plural looks exactly like the singular."
+      ],
+      "teaches": [
+        "el sacacorchos"
+      ]
+    },
+    {
+      "question_id": "c2-word-formation-06",
+      "prompt": "The plural of hombre rana (frogman) is…",
+      "type": "multiple-choice",
+      "options": [
+        "hombres rana",
+        "hombres ranas",
+        "hombre ranas"
+      ],
+      "correct_answer": "hombres rana",
+      "explanation": "In noun + noun compounds written apart, only the first noun takes the plural: hombres rana, ciudades dormitorio.",
+      "hints": [
+        "The second noun works like an adjective here."
+      ],
+      "teaches": [
+        "el sacacorchos"
+      ]
+    },
+    {
+      "question_id": "c2-word-formation-07",
+      "prompt": "Con los años, todos vamos a ___. (viejo, with en- and -ecer)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "envejecer",
+      "accepted_answers": [],
+      "explanation": "Envejecer is a parasynthetic: en- and -ecer are added to viejo at once (the ie becomes e). Neither vejecer nor envejo exists.",
+      "hints": [
+        "en + vej + ecer"
+      ],
+      "teaches": [
+        "envejecer"
+      ]
+    },
+    {
+      "question_id": "c2-word-formation-08",
+      "prompt": "Which word means 'reddish'?",
+      "type": "multiple-choice",
+      "options": [
+        "rojizo",
+        "rojoso",
+        "rojero"
+      ],
+      "correct_answer": "rojizo",
+      "explanation": "-izo can mean 'tending to, -ish' with colours: rojizo, cobrizo. Rojoso and rojero are not words.",
+      "hints": [
+        "The same suffix as olvidadizo."
+      ],
+      "teaches": [
+        "rojizo / rojiza"
+      ]
+    },
+    {
+      "question_id": "c2-word-formation-09",
+      "prompt": "Mi hermano es muy ___: siempre se deja las llaves en casa. (olvidar + -dizo)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "olvidadizo",
+      "accepted_answers": [],
+      "explanation": "-dizo on a verb stem names a tendency: olvidar → olvidadizo (forgetful), asustar → asustadizo (jumpy).",
+      "hints": [
+        "olvida + dizo"
+      ],
+      "teaches": [
+        "olvidadizo / olvidadiza"
+      ]
+    },
+    {
+      "question_id": "c2-word-formation-10",
+      "prompt": "Which verb is a parasynthetic, with a prefix and a suffix added at once?",
+      "type": "multiple-choice",
+      "options": [
+        "aterrizar",
+        "organizar",
+        "deshacer"
+      ],
+      "correct_answer": "aterrizar",
+      "explanation": "Aterrizar = a- + tierra + -izar, and neither terrizar nor an aterrar meaning 'to land' exists (aterrar means to terrify). Organizar only adds a suffix (órgano → organizar); deshacer only adds a prefix to hacer.",
+      "hints": [
+        "Remove one affix: does a real word remain?"
+      ],
+      "teaches": [
+        "aterrizar"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "La puerta se cerró de un portazo.",
+      "meaning": "The door slammed shut."
+    },
+    {
+      "text": "Este jersey no es lavable a máquina.",
+      "meaning": "This sweater is not machine-washable.",
+      "note": "New word: el jersey = the sweater."
+    },
+    {
+      "text": "Mi exjefa ahora vive en Valencia.",
+      "meaning": "My former boss now lives in Valencia.",
+      "note": "The prefix ex- joins a single word."
+    },
+    {
+      "text": "Los abrelatas están en el segundo cajón.",
+      "meaning": "The can openers are in the second drawer.",
+      "note": "New word: el abrelatas = the can opener."
+    },
+    {
+      "text": "Al anochecer, el cielo se volvió rojizo.",
+      "meaning": "At nightfall, the sky turned reddish.",
+      "note": "Anochecer = a + noche + ecer."
+    },
+    {
+      "text": "Después del apagón, las calles se oscurecieron por completo.",
+      "meaning": "After the power cut, the streets went completely dark.",
+      "note": "-ecer makes verbs from adjectives: oscuro → oscurecer."
+    },
+    {
+      "text": "La empresa quiere modernizar sus oficinas y reducir el papeleo.",
+      "meaning": "The company wants to modernise its offices and cut down the paperwork.",
+      "note": "New word: el papeleo = paperwork."
+    },
+    {
+      "text": "Su timidez era tan grande que nunca levantaba la mano en clase.",
+      "meaning": "His shyness was so great that he never put his hand up in class."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Suffixes that make nouns"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "c2-word-formation-01"
+    },
+    {
+      "section": "Suffixes that make adjectives"
+    },
+    {
+      "question": "c2-word-formation-03"
+    },
+    {
+      "question": "c2-word-formation-08"
+    },
+    {
+      "question": "c2-word-formation-09"
+    },
+    {
+      "section": "Prefixes"
+    },
+    {
+      "question": "c2-word-formation-02"
+    },
+    {
+      "question": "c2-word-formation-04"
+    },
+    {
+      "section": "Compounds"
+    },
+    {
+      "question": "c2-word-formation-05"
+    },
+    {
+      "question": "c2-word-formation-06"
+    },
+    {
+      "tip": "Stuck on a long word? Split it into prefix, root and suffix. Most C2 words are built from parts you know."
+    },
+    {
+      "section": "Parasynthetics"
+    },
+    {
+      "question": "c2-word-formation-07"
+    },
+    {
+      "question": "c2-word-formation-10"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c2-word-formation-conv-crucigrama",
+      "title": "The Sunday crossword",
+      "scenario": "Lucía and Nico do the crossword together over a late breakfast.",
+      "role_a": "Lucía",
+      "role_b": "Nico",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Seis letras: golpe que se da con el codo.",
+          "meaning": "Six letters: a blow given with the elbow."
+        },
+        {
+          "speaker": "b",
+          "text": "Codazo. Con -azo sale casi cualquier golpe: portazo, manotazo…",
+          "meaning": "Codazo. With -azo you can make almost any blow: portazo, manotazo…"
+        },
+        {
+          "speaker": "a",
+          "text": "Ahora: persona que olvida las cosas a menudo, diez letras.",
+          "meaning": "Now: a person who often forgets things, ten letters."
+        },
+        {
+          "speaker": "b",
+          "text": "Olvidadizo. Como yo, que me he dejado las gafas en el coche.",
+          "meaning": "Olvidadizo. Like me, I've left my glasses in the car."
+        },
+        {
+          "speaker": "a",
+          "text": "Siguiente: utensilio para abrir botellas de vino.",
+          "meaning": "Next: a utensil for opening bottles of wine."
+        },
+        {
+          "speaker": "b",
+          "text": "Sacacorchos. Verbo más nombre: saca y corchos.",
+          "meaning": "Sacacorchos. Verb plus noun: saca and corchos."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y el plural? ¿Dos sacacorchos?",
+          "meaning": "And the plural? Two sacacorchos?"
+        },
+        {
+          "speaker": "b",
+          "text": "Igual: los sacacorchos, como los paraguas o los cumpleaños.",
+          "meaning": "The same: los sacacorchos, like los paraguas or los cumpleaños."
+        },
+        {
+          "speaker": "a",
+          "text": "Última: hacerse viejo, nueve letras.",
+          "meaning": "Last one: to grow old, nine letters."
+        },
+        {
+          "speaker": "b",
+          "text": "Envejecer. Prefijo y sufijo a la vez, porque vejecer no existe.",
+          "meaning": "Envejecer. Prefix and suffix at the same time, because vejecer doesn't exist."
+        },
+        {
+          "speaker": "a",
+          "text": "Terminado. Como compañero de crucigramas eres inigualable.",
+          "meaning": "Done. As a crossword partner, you're unbeatable."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🧱",
+    "bites": [
+      {
+        "title": "-azo = a blow",
+        "emoji": "💥",
+        "rule": "Add -azo to a noun to name a blow given with it: codo → codazo, puerta → portazo, mano → manotazo.",
+        "example": "Cerró el armario de un portazo.",
+        "example_meaning": "She slammed the wardrobe door."
+      },
+      {
+        "title": "Write prefixes right",
+        "emoji": "✍️",
+        "rule": "A prefix joins a single word (exmarido, antiinflamatorio), stands apart before a group of words (ex primer ministro) and takes a hyphen before a capital or figure (anti-OTAN).",
+        "example": "Hoy entrevistan a la ex primera ministra y a su exasesor.",
+        "example_meaning": "Today they're interviewing the former prime minister and her former adviser."
+      },
+      {
+        "title": "Verb + noun compounds",
+        "emoji": "☂️",
+        "rule": "Verb + plural noun makes tools and trades: el sacacorchos, el paraguas, el abrelatas. They are masculine and the plural looks the same.",
+        "example": "Tenemos tres paraguas y ningún sacacorchos.",
+        "example_meaning": "We have three umbrellas and no corkscrew."
+      },
+      {
+        "title": "Both ends at once",
+        "emoji": "🔗",
+        "rule": "Parasynthetics add a prefix and a suffix together: en + rojo + ecer → enrojecer; a + tierra + izar → aterrizar. Neither half exists alone.",
+        "example": "Al oír su nombre, enrojeció.",
+        "example_meaning": "When she heard her name, she blushed."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which kind of suffix?",
+        "buckets": [
+          "a quality",
+          "an action",
+          "a trade or shop"
+        ],
+        "why": "-dad, -ez, -eza and -ura name qualities; -ción and -miento name actions; -ero and -ería name trades and shops.",
+        "items": [
+          {
+            "text": "felicidad",
+            "bucket": 0
+          },
+          {
+            "text": "timidez",
+            "bucket": 0
+          },
+          {
+            "text": "belleza",
+            "bucket": 0
+          },
+          {
+            "text": "organización",
+            "bucket": 1
+          },
+          {
+            "text": "conocimiento",
+            "bucket": 1
+          },
+          {
+            "text": "panadero",
+            "bucket": 2
+          },
+          {
+            "text": "zapatería",
+            "bucket": 2
+          }
+        ]
+      },
+      {
+        "title": "in-, im- or i-?",
+        "buckets": [
+          "in-",
+          "im-",
+          "i-"
+        ],
+        "why": "The negative prefix is im- before p and b, i- before l and r, and in- everywhere else.",
+        "items": [
+          {
+            "text": "útil",
+            "bucket": 0
+          },
+          {
+            "text": "esperado",
+            "bucket": 0
+          },
+          {
+            "text": "posible",
+            "bucket": 1
+          },
+          {
+            "text": "borrable",
+            "bucket": 1
+          },
+          {
+            "text": "legal",
+            "bucket": 2
+          },
+          {
+            "text": "real",
+            "bucket": 2
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Compré dos paraguases en la tienda.",
+        "wrong": "paraguases",
+        "fix": "paraguas",
+        "why": "Verb + noun compounds keep the same form in the plural."
+      },
+      {
+        "sentence": "Los hombres ranas bucearon toda la noche.",
+        "wrong": "ranas",
+        "fix": "rana",
+        "why": "In noun + noun compounds only the first noun takes the plural."
+      },
+      {
+        "sentence": "Vender sin factura es inlegal.",
+        "wrong": "inlegal",
+        "fix": "ilegal",
+        "why": "in- becomes i- before l."
+      },
+      {
+        "sentence": "Se fue de casa dando un puertazo.",
+        "wrong": "puertazo",
+        "fix": "portazo",
+        "why": "The base loses its diphthong: puerta → portazo."
+      },
+      {
+        "sentence": "Se volvió a casar con su ex-marido.",
+        "wrong": "ex-marido",
+        "fix": "exmarido",
+        "why": "Before a single word, ex- is written together, without a hyphen."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Cerró la puerta de un portazo.",
+        "meaning": "He slammed the door.",
+        "distractors": [
+          "puertazo"
+        ]
+      },
+      {
+        "text": "Los sacacorchos están en el cajón.",
+        "meaning": "The corkscrews are in the drawer.",
+        "distractors": [
+          "sacacorcho"
+        ]
+      },
+      {
+        "text": "El avión aterrizó con retraso.",
+        "meaning": "The plane landed late.",
+        "distractors": [
+          "terrizó"
+        ]
+      },
+      {
+        "text": "Mi abuelo es muy olvidadizo.",
+        "meaning": "My grandfather is very forgetful.",
+        "distractors": [
+          "olvidoso"
+        ]
+      }
+    ]
+  }
+}

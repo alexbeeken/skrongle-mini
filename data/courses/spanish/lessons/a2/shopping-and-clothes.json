@@ -1,0 +1,648 @@
+{
+  "id": "a2-shopping-and-clothes",
+  "slug": "shopping-and-clothes",
+  "title": "Shopping for clothes: ¿me lo puedo probar?",
+  "unit": "A2",
+  "group": "Vocabulary",
+  "order": 42,
+  "summary": "Name clothes and colours, ask for your size, try things on, say how they fit with quedar, and pay in the sales.",
+  "focus": "Clothes shopping: sizes, probarse, quedar and paying",
+  "prerequisites": [
+    "a2-direct-object-pronouns"
+  ],
+  "content": "## Twelve things to wear\n\n| Spanish | English | Spanish | English |\n|---|---|---|---|\n| la camiseta | T-shirt | la chaqueta | jacket |\n| la camisa | shirt | el jersey | jumper, sweater |\n| los pantalones | trousers | el abrigo | coat |\n| los vaqueros | jeans | los zapatos | shoes |\n| el vestido | dress | las botas | boots |\n| la falda | skirt | los calcetines | socks |\n\n**Pantalones** and **vaqueros** are plural even for one pair: *unos pantalones negros*. Colours are adjectives and agree with the garment: *una camisa **blanca***, *unos zapatos **negros***, *una falda **azul***, *unos vaqueros **azules***. **Rosa** and **naranja** do not change: *una camiseta rosa*.\n\n## Talla, número, probarse\n\nClothes come in a **talla** (pequeña, mediana, grande, or 38, 40, 42); shoes come in a **número** (un 42):\n\n- *¿Qué talla tiene?* (What size are you? usted form.)\n- *¿Qué número tienes?* (What shoe size are you? tú form.)\n- *¿Tiene una talla más / menos?* (Do you have a size bigger / smaller?)\n\nIf the assistant asks *¿Te puedo ayudar?*, say *Estoy buscando un abrigo* or *Solo estoy mirando, gracias*.\n\nTo try something on, use **probarse**. It is reflexive, and the garment becomes a direct object pronoun placed after **me**:\n\n- *¿Me lo puedo probar?* (Can I try it on? Said about el jersey.)\n- *¿Me la puedo probar?* (Said about la falda.)\n- *¿Me los puedo probar?* (Said about los zapatos.)\n\n*¿Dónde están los probadores?* (Where are the fitting rooms?)\n\n## ¿Cómo me queda? Quedar vs. quedarse\n\n**Quedar** tells you how something fits or suits. It works like **gustar**: the garment is the subject and the person is **me / te / le**:\n\n- *Esta camisa me queda bien / mal.* (This shirt fits me well / badly.)\n- *El abrigo te queda grande / pequeño.* (The coat is too big / too small on you.)\n- *Los pantalones le quedan estrechos.* (The trousers are too tight on him.)\n\nThe adjective agrees with the garment: *la falda me queda **corta***, *los zapatos me quedan **pequeños***.\n\n**Quedarse** (reflexive) is a different verb. It means to stay and, in a shop, to take something:\n\n- *Hoy me quedo en casa.* (Today I'm staying at home.)\n- *Me la quedo.* (I'll take it. Said about la camisa.)\n\n## Prices, sales and paying\n\n- *¿Cuánto cuesta el vestido?* / *¿Cuánto cuestan los zapatos?* (How much is / are…?)\n- *¿Cuánto es?* (How much is it altogether?)\n- *Es muy caro. / Es barato.* (It's very expensive. / It's cheap.)\n\n**Las rebajas** are the sales (January and July in Spain): *Está de rebajas, tiene un descuento del treinta por ciento.*\n\nAt the till (**la caja**): *¿Paga en efectivo o con tarjeta?* (Cash or card?) *¿Me da el tique?* (Can I have the receipt?)\n\nTo choose, use the demonstratives on their own as pronouns: *¿Cuál prefieres, este o ese? — Me llevo esta.* Since 2010 they are written without accents; older books still show *éste*, *ésa*.",
+  "vocabulary": [
+    {
+      "term": "la camiseta",
+      "meaning": "T-shirt",
+      "example": "Esta camiseta es de algodón.",
+      "example_meaning": "This T-shirt is made of cotton."
+    },
+    {
+      "term": "la camisa",
+      "meaning": "shirt",
+      "example": "Busco una camisa blanca para una boda.",
+      "example_meaning": "I'm looking for a white shirt for a wedding."
+    },
+    {
+      "term": "los pantalones",
+      "meaning": "trousers",
+      "example": "Estos pantalones me quedan grandes.",
+      "example_meaning": "These trousers are too big on me."
+    },
+    {
+      "term": "los vaqueros",
+      "meaning": "jeans",
+      "example": "Me encantan estos vaqueros.",
+      "example_meaning": "I love these jeans."
+    },
+    {
+      "term": "el vestido",
+      "meaning": "dress",
+      "example": "El vestido rojo está de rebajas.",
+      "example_meaning": "The red dress is on sale."
+    },
+    {
+      "term": "la falda",
+      "meaning": "skirt",
+      "example": "La falda es demasiado corta.",
+      "example_meaning": "The skirt is too short."
+    },
+    {
+      "term": "el abrigo",
+      "meaning": "coat",
+      "example": "En invierno necesito un abrigo.",
+      "example_meaning": "In winter I need a coat."
+    },
+    {
+      "term": "los zapatos",
+      "meaning": "shoes",
+      "example": "Estos zapatos son muy cómodos.",
+      "example_meaning": "These shoes are very comfortable."
+    },
+    {
+      "term": "la talla",
+      "meaning": "size (of clothes)",
+      "example": "¿Qué talla tiene? — La mediana.",
+      "example_meaning": "What size are you? Medium."
+    },
+    {
+      "term": "el número",
+      "meaning": "size (of shoes)",
+      "example": "¿Qué número tienes? — El cuarenta y dos.",
+      "example_meaning": "What shoe size are you? Forty-two."
+    },
+    {
+      "term": "probarse",
+      "meaning": "to try on",
+      "example": "¿Me lo puedo probar?",
+      "example_meaning": "Can I try it on?"
+    },
+    {
+      "term": "quedar bien / mal",
+      "meaning": "to fit / suit well / badly",
+      "example": "Ese vestido te queda muy bien.",
+      "example_meaning": "That dress suits you really well."
+    },
+    {
+      "term": "las rebajas",
+      "meaning": "the sales",
+      "example": "En enero empiezan las rebajas.",
+      "example_meaning": "The sales start in January."
+    },
+    {
+      "term": "pagar en efectivo",
+      "meaning": "to pay in cash ('con tarjeta' = by card)",
+      "example": "¿Paga en efectivo o con tarjeta?",
+      "example_meaning": "Are you paying in cash or by card?"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-shopping-and-clothes-01",
+      "prompt": "¿Qué ___ tiene? — La mediana.",
+      "type": "multiple-choice",
+      "options": [
+        "talla",
+        "número",
+        "precio"
+      ],
+      "correct_answer": "talla",
+      "explanation": "'La mediana' (medium) is a clothes size, and clothes sizes are 'tallas'. 'Número' is for shoes and 'precio' is the price.",
+      "hints": [
+        "Small, medium, large…",
+        "Shoes use a different word."
+      ],
+      "teaches": [
+        "la talla"
+      ]
+    },
+    {
+      "question_id": "a2-shopping-and-clothes-02",
+      "prompt": "For shoes you ask the size with a different word: ¿Qué ___ tienes? — El cuarenta y dos.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "número",
+      "accepted_answers": [
+        "numero"
+      ],
+      "explanation": "Shoe sizes are numbers, so Spanish asks '¿Qué número tienes?'; 'talla' is for clothes.",
+      "hints": [
+        "Shoe sizes are given as a number.",
+        "Accent on the ú."
+      ],
+      "teaches": [
+        "el número",
+        "los zapatos"
+      ]
+    },
+    {
+      "question_id": "a2-shopping-and-clothes-03",
+      "prompt": "You want to try on the dress (el vestido). You ask: '¿___ puedo probar?'",
+      "type": "multiple-choice",
+      "options": [
+        "Me lo",
+        "Me la",
+        "Lo me"
+      ],
+      "correct_answer": "Me lo",
+      "explanation": "'El vestido' is masculine, so the pronoun is 'lo', and the reflexive 'me' comes first: '¿Me lo puedo probar?'",
+      "hints": [
+        "Vestido is masculine.",
+        "The reflexive pronoun goes before the object pronoun."
+      ],
+      "teaches": [
+        "probarse",
+        "el vestido"
+      ]
+    },
+    {
+      "question_id": "a2-shopping-and-clothes-04",
+      "prompt": "Complete with the right form of quedar: Estos pantalones me ___ grandes.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "quedan",
+      "accepted_answers": [],
+      "explanation": "Quedar works like gustar: 'los pantalones' is plural, so 'me quedan grandes'.",
+      "hints": [
+        "The trousers are the subject.",
+        "Pantalones is always plural."
+      ],
+      "teaches": [
+        "quedar bien / mal",
+        "los pantalones"
+      ]
+    },
+    {
+      "question_id": "a2-shopping-and-clothes-05",
+      "prompt": "Which sentence means 'I'll take it' (the shirt, la camisa)?",
+      "type": "multiple-choice",
+      "options": [
+        "Me la quedo.",
+        "Me queda.",
+        "Me quedo."
+      ],
+      "correct_answer": "Me la quedo.",
+      "explanation": "'Quedarse' with an object means to take or keep: 'me la quedo' (la camisa). 'Me queda' is 'it fits me' and 'me quedo' is 'I'm staying'.",
+      "hints": [
+        "You need the pronoun for 'it'.",
+        "Quedarse, not quedar."
+      ],
+      "teaches": [
+        "la camisa"
+      ]
+    },
+    {
+      "question_id": "a2-shopping-and-clothes-06",
+      "prompt": "¿___ cuestan los vaqueros? — Treinta euros.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "cuánto",
+      "accepted_answers": [
+        "cuanto"
+      ],
+      "explanation": "To ask the price: '¿Cuánto cuesta?' for one item, '¿Cuánto cuestan?' for several.",
+      "hints": [
+        "How much…?",
+        "Question words carry an accent."
+      ],
+      "teaches": [
+        "los vaqueros"
+      ]
+    },
+    {
+      "question_id": "a2-shopping-and-clothes-07",
+      "prompt": "¿Paga ___ o con tarjeta?",
+      "type": "multiple-choice",
+      "options": [
+        "en efectivo",
+        "con efectivo",
+        "por efectivo"
+      ],
+      "correct_answer": "en efectivo",
+      "explanation": "Cash is 'en efectivo', card is 'con tarjeta': '¿Paga en efectivo o con tarjeta?'",
+      "hints": [
+        "A different preposition from 'con tarjeta'.",
+        "Think 'in cash'."
+      ],
+      "teaches": [
+        "pagar en efectivo"
+      ]
+    },
+    {
+      "question_id": "a2-shopping-and-clothes-08",
+      "prompt": "En enero hay ___ y el abrigo cuesta la mitad.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "rebajas",
+      "accepted_answers": [
+        "las rebajas"
+      ],
+      "explanation": "The sales are 'las rebajas'; in Spain they start in January and July.",
+      "hints": [
+        "When prices come down.",
+        "From 'rebajar', to lower."
+      ],
+      "teaches": [
+        "las rebajas",
+        "el abrigo"
+      ]
+    },
+    {
+      "question_id": "a2-shopping-and-clothes-09",
+      "prompt": "¿Cuál prefieres, la falda azul o la camiseta roja? — ___, la azul.",
+      "type": "multiple-choice",
+      "options": [
+        "Esa",
+        "Ese",
+        "Esos"
+      ],
+      "correct_answer": "Esa",
+      "explanation": "'La falda' is feminine singular, so the pronoun is 'esa'. Demonstrative pronouns no longer need an accent.",
+      "hints": [
+        "Which word is 'la azul' standing in for?",
+        "Falda is feminine."
+      ],
+      "teaches": [
+        "la falda",
+        "la camiseta"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Busco una falda azul.",
+      "meaning": "I'm looking for a blue skirt."
+    },
+    {
+      "text": "¿Cuánto cuesta esta camisa?",
+      "meaning": "How much is this shirt?"
+    },
+    {
+      "text": "¿Dónde están los probadores?",
+      "meaning": "Where are the fitting rooms?",
+      "note": "New word: el probador = the fitting room."
+    },
+    {
+      "text": "¿Puedo probarme el vestido verde?",
+      "meaning": "Can I try on the green dress?"
+    },
+    {
+      "text": "Pago en efectivo porque no tengo tarjeta.",
+      "meaning": "I'm paying in cash because I don't have a card."
+    },
+    {
+      "text": "En las rebajas compré unos vaqueros muy baratos.",
+      "meaning": "In the sales I bought some very cheap jeans.",
+      "note": "New word: barato = cheap."
+    },
+    {
+      "text": "Los pantalones grises me quedan un poco estrechos.",
+      "meaning": "The grey trousers are a bit tight on me.",
+      "note": "New word: estrecho = tight, narrow."
+    },
+    {
+      "text": "Esta camiseta te queda muy bien, pero la talla grande es mejor.",
+      "meaning": "This T-shirt looks very good on you, but the large size is better.",
+      "note": "Quedar works like gustar: the garment is the subject."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Twelve things to wear"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-shopping-and-clothes-09"
+    },
+    {
+      "section": "Talla, número, probarse"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-shopping-and-clothes-01"
+    },
+    {
+      "question": "a2-shopping-and-clothes-02"
+    },
+    {
+      "question": "a2-shopping-and-clothes-03"
+    },
+    {
+      "section": "¿Cómo me queda?"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-shopping-and-clothes-04"
+    },
+    {
+      "question": "a2-shopping-and-clothes-05"
+    },
+    {
+      "tip": "Three quedars: me queda bien (it suits me), me quedo en casa (I'm staying) and me lo quedo (I'll take it). Only the last two are reflexive."
+    },
+    {
+      "section": "Prices, sales and paying"
+    },
+    {
+      "question": "a2-shopping-and-clothes-06"
+    },
+    {
+      "question": "a2-shopping-and-clothes-07"
+    },
+    {
+      "question": "a2-shopping-and-clothes-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-shopping-and-clothes-conv-shirt",
+      "title": "A shirt for a wedding",
+      "scenario": "Diego needs a shirt for his cousin's wedding. Marta, the shop assistant, helps him find the right size.",
+      "role_a": "Marta (dependienta)",
+      "role_b": "Diego",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Hola, ¿te puedo ayudar en algo?",
+          "meaning": "Hi, can I help you with anything?"
+        },
+        {
+          "speaker": "b",
+          "text": "Hola. Estoy buscando una camisa para una boda. ¿Tienes esta en blanco?",
+          "meaning": "Hi. I'm looking for a shirt for a wedding. Do you have this one in white?",
+          "note": "esta = demonstrative pronoun (this one)"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí. ¿Qué talla tienes?",
+          "meaning": "Yes. What size are you?",
+          "note": "talla: clothes size"
+        },
+        {
+          "speaker": "b",
+          "text": "La mediana, creo. ¿Me la puedo probar?",
+          "meaning": "Medium, I think. Can I try it on?",
+          "note": "probarse + la (la camisa)"
+        },
+        {
+          "speaker": "a",
+          "text": "Claro, los probadores están al fondo, a la derecha.",
+          "meaning": "Of course, the fitting rooms are at the back, on the right."
+        },
+        {
+          "speaker": "b",
+          "text": "Me queda un poco grande. ¿Tienes una talla menos?",
+          "meaning": "It's a bit big on me. Do you have one size smaller?",
+          "note": "me queda grande"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, aquí tienes la pequeña. ¿Qué tal ahora?",
+          "meaning": "Yes, here's the small. How is it now?"
+        },
+        {
+          "speaker": "b",
+          "text": "Esta me queda perfecta. ¿Cuánto cuesta?",
+          "meaning": "This one fits me perfectly. How much is it?",
+          "note": "¿cuánto cuesta? for one item"
+        },
+        {
+          "speaker": "a",
+          "text": "Treinta y cinco euros, pero está de rebajas: con el veinte por ciento de descuento, veintiocho.",
+          "meaning": "Thirty-five euros, but it's in the sales: with the twenty percent discount, twenty-eight.",
+          "note": "estar de rebajas"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Genial! Me la quedo. ¿Puedo pagar con tarjeta?",
+          "meaning": "Great! I'll take it. Can I pay by card?",
+          "note": "me la quedo: quedarse = to take"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, sin problema. Pasa por caja, por favor.",
+          "meaning": "Yes, no problem. Go to the till, please."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🛍️",
+    "bites": [
+      {
+        "title": "Size has two words",
+        "emoji": "📏",
+        "rule": "Clothes have a talla (S, M, L or 38, 40); shoes have a número (42). ¿Qué talla tiene? ¿Qué número tiene?",
+        "example": "¿Qué talla tienes? — La mediana.",
+        "example_meaning": "What size are you? — Medium."
+      },
+      {
+        "title": "Try it on: probarse",
+        "emoji": "👔",
+        "rule": "Probarse is reflexive, and the garment is a direct object pronoun after me: ¿me lo puedo probar? (el jersey), ¿me la puedo probar? (la falda).",
+        "example": "¿Me la puedo probar?",
+        "example_meaning": "Can I try it on? (the skirt)"
+      },
+      {
+        "title": "Quedar works like gustar",
+        "emoji": "✅",
+        "rule": "Me queda bien / mal / grande / pequeño; plural me quedan. Quedarse is different: me quedo en casa (I stay), me lo quedo (I'll take it).",
+        "example": "Esta camisa me queda perfecta: me la quedo.",
+        "example_meaning": "This shirt fits me perfectly: I'll take it."
+      },
+      {
+        "title": "Paying",
+        "emoji": "💳",
+        "rule": "¿Cuánto cuesta? (one thing), ¿cuánto cuestan? (several). Pay en efectivo or con tarjeta. In the rebajas everything has a descuento.",
+        "example": "¿Cuánto cuestan los zapatos? — Cuarenta euros, están de rebajas.",
+        "example_meaning": "How much are the shoes? — Forty euros, they're in the sales."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Talla or número?",
+        "buckets": [
+          "talla",
+          "número"
+        ],
+        "items": [
+          {
+            "text": "una camiseta",
+            "bucket": 0
+          },
+          {
+            "text": "unos zapatos",
+            "bucket": 1
+          },
+          {
+            "text": "unas botas",
+            "bucket": 1
+          },
+          {
+            "text": "un vestido",
+            "bucket": 0
+          },
+          {
+            "text": "un abrigo",
+            "bucket": 0
+          },
+          {
+            "text": "unas zapatillas",
+            "bucket": 1
+          }
+        ],
+        "why": "Anything you wear on your feet has a número; everything else has a talla."
+      },
+      {
+        "title": "Queda or quedan?",
+        "buckets": [
+          "me queda",
+          "me quedan"
+        ],
+        "items": [
+          {
+            "text": "la falda",
+            "bucket": 0
+          },
+          {
+            "text": "los pantalones",
+            "bucket": 1
+          },
+          {
+            "text": "el abrigo",
+            "bucket": 0
+          },
+          {
+            "text": "los zapatos",
+            "bucket": 1
+          },
+          {
+            "text": "la camisa",
+            "bucket": 0
+          },
+          {
+            "text": "los vaqueros",
+            "bucket": 1
+          }
+        ],
+        "why": "The garment is the subject of quedar: a singular garment takes queda and a plural one, including pantalones and vaqueros, takes quedan."
+      },
+      {
+        "title": "Quedar or quedarse?",
+        "buckets": [
+          "quedar (fit, suit)",
+          "quedarse (stay, take)"
+        ],
+        "items": [
+          {
+            "text": "me queda grande",
+            "bucket": 0
+          },
+          {
+            "text": "me quedo en casa",
+            "bucket": 1
+          },
+          {
+            "text": "me la quedo",
+            "bucket": 1
+          },
+          {
+            "text": "te quedan bien",
+            "bucket": 0
+          },
+          {
+            "text": "nos quedamos aquí",
+            "bucket": 1
+          },
+          {
+            "text": "le queda pequeño",
+            "bucket": 0
+          }
+        ],
+        "why": "Quedar + bien/grande/pequeño describes fit; the reflexive quedarse means to stay or, with lo/la, to take something."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "¿Qué número de camisa tienes? — La mediana.",
+        "wrong": "número",
+        "fix": "talla",
+        "why": "Clothes have a talla; número is only for shoes."
+      },
+      {
+        "sentence": "Estos pantalones me queda grandes.",
+        "wrong": "queda",
+        "fix": "quedan",
+        "why": "Pantalones is plural and is the subject: me quedan."
+      },
+      {
+        "sentence": "Esta falda es bonita. ¿Me lo puedo probar?",
+        "wrong": "lo",
+        "fix": "la",
+        "why": "La falda is feminine, so the pronoun is la: ¿me la puedo probar?"
+      },
+      {
+        "sentence": "¿Cuánto cuesta estos zapatos?",
+        "wrong": "cuesta",
+        "fix": "cuestan",
+        "why": "Several items: ¿cuánto cuestan?"
+      },
+      {
+        "sentence": "¿Paga por efectivo o con tarjeta?",
+        "wrong": "por",
+        "fix": "en",
+        "why": "Cash is en efectivo."
+      },
+      {
+        "sentence": "Me gusta la camisa blanco.",
+        "wrong": "blanco",
+        "fix": "blanca",
+        "why": "Colours agree with the noun: la camisa blanca."
+      }
+    ],
+    "builds": [
+      {
+        "text": "¿Me la puedo probar?",
+        "meaning": "Can I try it on? (the shirt)",
+        "distractors": [
+          "lo"
+        ]
+      },
+      {
+        "text": "Estos pantalones me quedan grandes.",
+        "meaning": "These trousers are too big on me.",
+        "distractors": [
+          "queda"
+        ]
+      },
+      {
+        "text": "¿Cuánto cuestan los zapatos?",
+        "meaning": "How much are the shoes?",
+        "distractors": [
+          "cuesta"
+        ]
+      },
+      {
+        "text": "Me la quedo, pago con tarjeta.",
+        "meaning": "I'll take it, I'll pay by card.",
+        "distractors": [
+          "queda"
+        ]
+      },
+      {
+        "text": "¿Qué talla tiene usted?",
+        "meaning": "What size are you?",
+        "distractors": [
+          "número"
+        ]
+      }
+    ]
+  }
+}

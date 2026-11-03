@@ -1,0 +1,599 @@
+{
+  "id": "a2-housing-ordinals",
+  "slug": "housing-ordinals",
+  "title": "Renting a flat: le loyer, le troisième étage",
+  "unit": "A2",
+  "group": "Vocabulary",
+  "order": 28,
+  "summary": "Read a flat advert, ask about the rent and the bills, and say which floor with premier, deuxième, troisième.",
+  "focus": "Housing words, ordinal numbers and the questions you ask when renting",
+  "prerequisites": [
+    "a2-big-numbers"
+  ],
+  "content": "## Housing words\n\nA home is **une maison** (a house), **un appartement** (a flat) or **un studio** (a one-room flat). Sharing a flat is **la colocation**; your flatmate is **le / la colocataire**.\n\n- **Le / la propriétaire** owns the flat; **le / la locataire** rents it.\n- **Louer** = to rent, both ways: **Je loue un studio à Lyon.** **Elle loue son appartement à des étudiants.**\n- **Le loyer** is the monthly rent, **les charges** are the shared bills (water, heating, cleaning of the building) and **la caution** is the deposit you get back when you leave.\n- **Déménager** = to move house: **Nous déménageons en mai** (nous keeps the **e**, like **nous mangeons**).\n- **Meublé / meublée** = furnished: **un studio meublé**, **une chambre meublée**.\n\n## Ordinals and floors\n\nAdd **-ième** to the number: **deux → deuxième**, **trois → troisième**, **vingt → vingtième**. A final **-e** drops: **quatre → quatrième**, **onze → onzième**. Two spellings change: **cinq → cinquième**, **neuf → neuvième**. And **vingt et un → vingt et unième**.\n\n*First* is the exception: **premier** (m) / **première** (f): **le premier étage**, **la première rue**. Short forms: **1er**, **1re**, **2e**, **3e**. **Second / seconde** also means *second*, often when there are only two: **en seconde classe**.\n\nFloors: **le rez-de-chaussée** is the ground floor, so **le premier étage** is one floor up (an American *second floor*). On a floor = **au**: **J'habite au troisième étage**, or just **au troisième**.\n\n## Reading an ad and asking questions\n\nA typical **annonce**: *Loue deux-pièces meublé, 45 m², 3e étage avec ascenseur, 850 € charges comprises.*\n\n- **Un deux-pièces** has two main rooms (a living room + a bedroom); the kitchen and the bathroom don't count. **Un trois-pièces** has two bedrooms.\n- **45 m²** is read **quarante-cinq mètres carrés**.\n- **Charges comprises** = bills included in the rent.\n\nQuestions for the owner:\n\n- **Le loyer est de combien ?** How much is the rent? **Il est de sept cents euros par mois.**\n- **Les charges sont comprises ?** Are the bills included?\n- **Il y a une caution ?** Is there a deposit?\n- **C'est à quel étage ?** Which floor is it on?\n- **L'appartement est libre quand ?** When is the flat available?",
+  "vocabulary": [
+    {
+      "term": "l'appartement",
+      "meaning": "flat, apartment (m)",
+      "example": "Notre appartement a un grand balcon.",
+      "example_meaning": "Our flat has a big balcony."
+    },
+    {
+      "term": "le studio",
+      "meaning": "studio flat, one-room flat (m)",
+      "example": "Ma fille loue un petit studio près de la fac.",
+      "example_meaning": "My daughter rents a small studio flat near the university."
+    },
+    {
+      "term": "la colocation",
+      "meaning": "flatshare (f)",
+      "example": "Je vis en colocation avec deux amies.",
+      "example_meaning": "I live in a flatshare with two friends."
+    },
+    {
+      "term": "louer",
+      "meaning": "to rent; to rent out",
+      "example": "Nous louons une maison à la campagne cet été.",
+      "example_meaning": "We're renting a house in the countryside this summer."
+    },
+    {
+      "term": "déménager",
+      "meaning": "to move (house)",
+      "example": "Mes voisins déménagent à Toulouse la semaine prochaine.",
+      "example_meaning": "My neighbours are moving to Toulouse next week."
+    },
+    {
+      "term": "le loyer",
+      "meaning": "rent (m)",
+      "example": "Le loyer est de neuf cents euros par mois.",
+      "example_meaning": "The rent is nine hundred euros a month."
+    },
+    {
+      "term": "les charges",
+      "meaning": "service charges, shared bills (f pl)",
+      "example": "Ici, l'eau et le chauffage sont dans les charges.",
+      "example_meaning": "Here, water and heating are part of the service charges."
+    },
+    {
+      "term": "la caution",
+      "meaning": "deposit (f)",
+      "example": "J'ai récupéré ma caution quand je suis parti.",
+      "example_meaning": "I got my deposit back when I left."
+    },
+    {
+      "term": "le / la propriétaire",
+      "meaning": "owner, landlord / landlady",
+      "example": "La propriétaire habite au rez-de-chaussée.",
+      "example_meaning": "The landlady lives on the ground floor."
+    },
+    {
+      "term": "le / la locataire",
+      "meaning": "tenant",
+      "example": "Le locataire paie le loyer le premier du mois.",
+      "example_meaning": "The tenant pays the rent on the first of the month."
+    },
+    {
+      "term": "l'annonce",
+      "meaning": "advert, listing (f)",
+      "example": "J'ai vu une annonce intéressante sur Internet.",
+      "example_meaning": "I saw an interesting listing online."
+    },
+    {
+      "term": "meublé / meublée",
+      "meaning": "furnished",
+      "example": "Elle cherche une chambre meublée pour six mois.",
+      "example_meaning": "She's looking for a furnished room for six months."
+    },
+    {
+      "term": "le rez-de-chaussée",
+      "meaning": "ground floor (m)",
+      "example": "Il y a une boulangerie au rez-de-chaussée de l'immeuble.",
+      "example_meaning": "There's a bakery on the ground floor of the building."
+    },
+    {
+      "term": "l'étage",
+      "meaning": "floor, storey (m)",
+      "example": "Mon bureau est au huitième étage.",
+      "example_meaning": "My office is on the eighth floor."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-housing-ordinals-01",
+      "prompt": "In a French building, 'le premier étage' is…",
+      "type": "multiple-choice",
+      "options": [
+        "one floor above the ground floor",
+        "the ground floor",
+        "two floors above the ground floor"
+      ],
+      "correct_answer": "one floor above the ground floor",
+      "explanation": "The ground floor is le rez-de-chaussée; counting starts above it, so le premier étage is one floor up (a British first floor, an American second floor).",
+      "hints": [
+        "What is the ground floor called?"
+      ],
+      "teaches": [
+        "l'étage",
+        "le rez-de-chaussée"
+      ]
+    },
+    {
+      "question_id": "a2-housing-ordinals-02",
+      "prompt": "Le cabinet du dentiste est au ___ étage. (9th, in letters)",
+      "type": "fill-in-blank",
+      "correct_answer": "neuvième",
+      "accepted_answers": [
+        "9e",
+        "9ème"
+      ],
+      "explanation": "Neuf + -ième changes f to v: neuvième.",
+      "hints": [
+        "neuf + -ième…",
+        "The f becomes a v."
+      ],
+      "teaches": [
+        "l'étage"
+      ]
+    },
+    {
+      "question_id": "a2-housing-ordinals-03",
+      "prompt": "Nous avons trouvé un trois-pièces : nous ___ le mois prochain ! (to move house)",
+      "type": "fill-in-blank",
+      "correct_answer": "déménageons",
+      "accepted_answers": [
+        "nous déménageons"
+      ],
+      "explanation": "Déménager is an -ger verb, so the nous form keeps the e before -ons: nous déménageons.",
+      "hints": [
+        "Like nous mangeons.",
+        "déménag- + e + ons"
+      ],
+      "teaches": [
+        "déménager"
+      ]
+    },
+    {
+      "question_id": "a2-housing-ordinals-04",
+      "prompt": "« Le loyer est de six cent cinquante euros par mois, charges comprises. » How much does the tenant pay each month, in euros?",
+      "type": "numeric",
+      "correct_answer": "650",
+      "unit": "€",
+      "explanation": "Six cent cinquante = 650 (cent takes no -s because a number follows). Charges comprises: the bills are already in it.",
+      "hints": [
+        "six cents = 600",
+        "… + cinquante"
+      ],
+      "teaches": [
+        "le loyer"
+      ]
+    },
+    {
+      "question_id": "a2-housing-ordinals-05",
+      "prompt": "'Un deux-pièces' is a flat with two bedrooms.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "False: un deux-pièces has two main rooms, usually a living room and one bedroom. The kitchen and bathroom are not counted. Two bedrooms is un trois-pièces.",
+      "hints": [
+        "Count the living room too."
+      ],
+      "teaches": [
+        "l'appartement"
+      ]
+    },
+    {
+      "question_id": "a2-housing-ordinals-06",
+      "prompt": "Which question asks the owner whether the bills are included in the rent?",
+      "type": "multiple-choice",
+      "options": [
+        "Les charges sont comprises ?",
+        "La caution est de combien ?",
+        "L'appartement est libre quand ?"
+      ],
+      "correct_answer": "Les charges sont comprises ?",
+      "explanation": "Les charges are the shared bills; comprises (included) agrees with them: feminine plural.",
+      "hints": [
+        "Bills = les charges."
+      ],
+      "teaches": [
+        "les charges"
+      ]
+    },
+    {
+      "question_id": "a2-housing-ordinals-07",
+      "prompt": "La ___ est l'argent que le locataire donne au propriétaire au début et qu'il récupère à la fin.",
+      "type": "fill-in-blank",
+      "correct_answer": "caution",
+      "accepted_answers": [
+        "la caution"
+      ],
+      "explanation": "Money you pay at the start and get back when you leave is la caution, the deposit.",
+      "hints": [
+        "You get it back if the flat is in good condition.",
+        "c…"
+      ],
+      "teaches": [
+        "la caution",
+        "le / la locataire",
+        "le / la propriétaire"
+      ]
+    },
+    {
+      "question_id": "a2-housing-ordinals-08",
+      "prompt": "Which is the ordinal of vingt et un (21st)?",
+      "type": "multiple-choice",
+      "options": [
+        "vingt et unième",
+        "vingt et premier",
+        "vingtième et un"
+      ],
+      "correct_answer": "vingt et unième",
+      "explanation": "Only the number on its own uses premier. In compound numbers the last part takes -ième: vingt et unième, trente et unième.",
+      "hints": [
+        "Premier is only for 'first' alone."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-housing-ordinals-09",
+      "prompt": "In 'Ma sœur habite au premier', premier should be première because the sister is a woman.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "False: premier agrees with the word it describes, here l'étage (m), left out: au premier (étage). Première is for feminine nouns: la première rue.",
+      "hints": [
+        "Premier what? Which word is hidden?"
+      ],
+      "teaches": [
+        "l'étage"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Le studio est au rez-de-chaussée.",
+      "meaning": "The studio flat is on the ground floor."
+    },
+    {
+      "text": "Nous habitons au quatrième étage.",
+      "meaning": "We live on the fourth floor.",
+      "note": "Quatre drops its e: quatrième."
+    },
+    {
+      "text": "Le loyer est de sept cents euros par mois.",
+      "meaning": "The rent is seven hundred euros a month."
+    },
+    {
+      "text": "Est-ce que les charges sont comprises dans le loyer ?",
+      "meaning": "Are the service charges included in the rent?"
+    },
+    {
+      "text": "Mon frère cherche une colocation près de l'université.",
+      "meaning": "My brother is looking for a flatshare near the university.",
+      "note": "New word: l'université = university."
+    },
+    {
+      "text": "La propriétaire demande une caution de deux mois de loyer.",
+      "meaning": "The landlady asks for a deposit of two months' rent."
+    },
+    {
+      "text": "C'est un deux-pièces meublé de quarante mètres carrés avec un balcon.",
+      "meaning": "It's a furnished one-bedroom flat of forty square metres with a balcony.",
+      "note": "New word: le balcon = balcony."
+    },
+    {
+      "text": "Nous déménageons samedi dans un appartement au sixième sans ascenseur.",
+      "meaning": "We're moving on Saturday into a flat on the sixth floor with no lift.",
+      "note": "New word: l'ascenseur = lift."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Housing words"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-housing-ordinals-03"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-housing-ordinals-07"
+    },
+    {
+      "tip": "Locataire and loyer both start with lo-: the locataire pays the loyer. The propriétaire is the proprietor, the owner."
+    },
+    {
+      "section": "Ordinals and floors"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-housing-ordinals-01"
+    },
+    {
+      "question": "a2-housing-ordinals-02"
+    },
+    {
+      "question": "a2-housing-ordinals-08"
+    },
+    {
+      "question": "a2-housing-ordinals-09"
+    },
+    {
+      "section": "Reading an ad"
+    },
+    {
+      "concept": {
+        "title": "L'état des lieux",
+        "markdown": "When you move in, you walk through the flat with the owner and note everything: a broken tile, a stain on the wall. This is **l'état des lieux**. You do it again when you leave. If the flat is in the same state, you get **la caution** back."
+      }
+    },
+    {
+      "question": "a2-housing-ordinals-04"
+    },
+    {
+      "question": "a2-housing-ordinals-05"
+    },
+    {
+      "question": "a2-housing-ordinals-06"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-housing-ordinals-conv-calling-about-the-ad",
+      "title": "Calling about the ad",
+      "scenario": "Camille phones Monsieur Garnier about the flat in his advert.",
+      "role_a": "Camille",
+      "role_b": "M. Garnier",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Bonjour monsieur, j'appelle pour l'annonce du deux-pièces.",
+          "meaning": "Hello, I'm calling about the advert for the one-bedroom flat."
+        },
+        {
+          "speaker": "b",
+          "text": "Bonjour madame. Oui, il est encore libre.",
+          "meaning": "Hello. Yes, it's still available."
+        },
+        {
+          "speaker": "a",
+          "text": "Il est à quel étage ?",
+          "meaning": "Which floor is it on?"
+        },
+        {
+          "speaker": "b",
+          "text": "Au quatrième, avec ascenseur.",
+          "meaning": "On the fourth, with a lift.",
+          "note": "au quatrième (étage)"
+        },
+        {
+          "speaker": "a",
+          "text": "Très bien. Le loyer est de combien ?",
+          "meaning": "Very good. How much is the rent?"
+        },
+        {
+          "speaker": "b",
+          "text": "Huit cents euros par mois.",
+          "meaning": "Eight hundred euros a month."
+        },
+        {
+          "speaker": "a",
+          "text": "Les charges sont comprises ?",
+          "meaning": "Are the service charges included?"
+        },
+        {
+          "speaker": "b",
+          "text": "Non, il y a soixante euros de charges en plus.",
+          "meaning": "No, there are sixty euros of charges on top."
+        },
+        {
+          "speaker": "a",
+          "text": "Et l'appartement est meublé ?",
+          "meaning": "And is the flat furnished?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, il y a un lit, un canapé et une table. Je demande aussi une caution d'un mois de loyer.",
+          "meaning": "Yes, there's a bed, a sofa and a table. I also ask for a deposit of one month's rent."
+        },
+        {
+          "speaker": "a",
+          "text": "D'accord. Est-ce que je peux visiter samedi ?",
+          "meaning": "OK. Can I come and see it on Saturday?"
+        },
+        {
+          "speaker": "b",
+          "text": "Bien sûr. Rendez-vous à dix heures devant l'immeuble.",
+          "meaning": "Of course. Let's meet at ten in front of the building."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🏢",
+    "bites": [
+      {
+        "title": "-ième for the rest",
+        "emoji": "🔢",
+        "rule": "Add -ième: deuxième, troisième. Drop a final -e: quatrième. Two changes: cinq → cinquième, neuf → neuvième.",
+        "example": "Elle habite au neuvième étage.",
+        "example_meaning": "She lives on the ninth floor."
+      },
+      {
+        "title": "Premier, première",
+        "emoji": "🥇",
+        "rule": "First is the exception: premier (m), première (f). Second / seconde also means second.",
+        "example": "C'est la première rue à gauche.",
+        "example_meaning": "It's the first street on the left."
+      },
+      {
+        "title": "Counting floors",
+        "emoji": "🛗",
+        "rule": "Le rez-de-chaussée = ground floor; le premier étage is one floor up. On a floor: au troisième (étage).",
+        "example": "J'habite au premier, juste au-dessus du café.",
+        "example_meaning": "I live on the first floor, just above the café."
+      },
+      {
+        "title": "Ask the owner",
+        "emoji": "🔑",
+        "rule": "Le loyer est de combien ? Les charges sont comprises ? Il y a une caution ? C'est à quel étage ?",
+        "example": "Le loyer est de combien, charges comprises ?",
+        "example_meaning": "How much is the rent, bills included?"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Kind of home, money, or people?",
+        "buckets": [
+          "kind of home",
+          "money",
+          "people"
+        ],
+        "items": [
+          {
+            "text": "le studio",
+            "bucket": 0
+          },
+          {
+            "text": "la colocation",
+            "bucket": 0
+          },
+          {
+            "text": "un deux-pièces",
+            "bucket": 0
+          },
+          {
+            "text": "le loyer",
+            "bucket": 1
+          },
+          {
+            "text": "la caution",
+            "bucket": 1
+          },
+          {
+            "text": "les charges",
+            "bucket": 1
+          },
+          {
+            "text": "la propriétaire",
+            "bucket": 2
+          },
+          {
+            "text": "le locataire",
+            "bucket": 2
+          }
+        ],
+        "why": "Studio, colocation and deux-pièces are kinds of home; loyer, caution and charges are money; propriétaire and locataire are people."
+      },
+      {
+        "title": "How is the ordinal spelt?",
+        "buckets": [
+          "just add -ième",
+          "drop the final -e",
+          "spelling change"
+        ],
+        "items": [
+          {
+            "text": "deux → deuxième",
+            "bucket": 0
+          },
+          {
+            "text": "six → sixième",
+            "bucket": 0
+          },
+          {
+            "text": "vingt → vingtième",
+            "bucket": 0
+          },
+          {
+            "text": "quatre → quatrième",
+            "bucket": 1
+          },
+          {
+            "text": "onze → onzième",
+            "bucket": 1
+          },
+          {
+            "text": "douze → douzième",
+            "bucket": 1
+          },
+          {
+            "text": "cinq → cinquième",
+            "bucket": 2
+          },
+          {
+            "text": "neuf → neuvième",
+            "bucket": 2
+          }
+        ],
+        "why": "Most numbers just add -ième; those ending in -e drop it; cinq adds a u and neuf turns f into v."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Le studio est au cinqième étage.",
+        "wrong": "cinqième",
+        "fix": "cinquième",
+        "why": "Cinq takes a u before -ième: cinquième."
+      },
+      {
+        "sentence": "C'est la premier rue à droite.",
+        "wrong": "premier",
+        "fix": "première",
+        "why": "Rue is feminine: la première rue."
+      },
+      {
+        "sentence": "Nous avons déménagé au neufième étage.",
+        "wrong": "neufième",
+        "fix": "neuvième",
+        "why": "Neuf turns f into v: neuvième."
+      },
+      {
+        "sentence": "Le locataire est la personne qui possède l'appartement.",
+        "wrong": "locataire",
+        "fix": "propriétaire",
+        "why": "The one who owns the flat is le propriétaire; the locataire rents it."
+      },
+      {
+        "sentence": "Les charges sont compris dans le loyer.",
+        "wrong": "compris",
+        "fix": "comprises",
+        "why": "Les charges is feminine plural: comprises."
+      }
+    ],
+    "builds": [
+      {
+        "text": "J'habite au troisième étage.",
+        "meaning": "I live on the third floor.",
+        "distractors": [
+          "trois"
+        ]
+      },
+      {
+        "text": "Le loyer est de combien ?",
+        "meaning": "How much is the rent?",
+        "distractors": [
+          "locataire"
+        ]
+      },
+      {
+        "text": "Nous cherchons un deux-pièces meublé.",
+        "meaning": "We're looking for a furnished one-bedroom flat.",
+        "distractors": [
+          "meublée"
+        ]
+      },
+      {
+        "text": "La propriétaire demande une caution.",
+        "meaning": "The landlady is asking for a deposit.",
+        "distractors": [
+          "charges"
+        ]
+      }
+    ]
+  }
+}

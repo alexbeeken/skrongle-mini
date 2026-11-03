@@ -1,0 +1,587 @@
+{
+  "id": "b2-reported-speech",
+  "slug": "reported-speech-backshift",
+  "title": "Me dijo que vendría: reported speech",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 22,
+  "summary": "Pass on what people said, asked and asked you to do: tenses step back, questions take si or keep their question word, and here and now become there and then.",
+  "focus": "Reported speech: backshift of tenses, reported questions and requests, and shifting time and place words",
+  "prerequisites": [
+    "b1-reported-speech",
+    "b2-sequence-of-tenses",
+    "b2-pluperfect"
+  ],
+  "content": "## Reporting what someone said\n\nTo pass on someone's words you need a reporting verb and **que**: **decir** (to say, tell), **contar** (to tell, recount), **explicar** (to explain), **comentar** (to mention), **añadir** (to add), **prometer** (to promise). Questions take **preguntar**; requests take **pedir**.\n\nIf the reporting verb is in the present, nothing shifts:\n\n- «Estoy cansada.» → **Dice que está cansada.** (She says she's tired.)\n\nIf it is in the past (**dijo, contó, explicó…**), the reported verb usually steps one place back in time. This is the *backshift*:\n\n- «Estoy cansada.» → **Dijo que estaba cansada.** (She said she was tired.)\n\n## The backshift table\n\n| Direct speech | Reported after **dijo que…** |\n|---|---|\n| present: «**Voy** al médico.» | imperfect: **iba** al médico |\n| preterite: «**Fui** al médico.» | pluperfect: **había ido** (**fue** is also heard in speech) |\n| present perfect: «**He ido**.» | pluperfect: **había ido** |\n| future: «**Iré**.» | conditional: **iría** |\n| imperfect / conditional: «**Iba**.» «**Iría**.» | no change: **iba**, **iría** |\n| imperative: «**Ven**.» | **que** + imperfect subjunctive: **que viniera** |\n\n**Still true?** Then you may keep the present: **Me dijo que es de Sevilla** (she still is). **Era** is just as correct; it tells the story from the past.\n\n## Questions and requests\n\n- Yes/no questions are reported with **si** (*whether*, no accent): «¿Tienes coche?» → **Me preguntó si tenía coche.**\n- Questions with a question word keep it, accent and all: «¿Dónde vives?» → **Me preguntó dónde vivía.** «¿Qué quieres?» → **Me preguntó qué quería.**\n- Orders and requests become **pedir que** or **decir que** + subjunctive; after a past verb, the imperfect subjunctive:\n  - «Llámame.» → **Me pidió que la llamara.** (She asked me to call her.)\n  - «No toquéis nada.» → **Nos dijo que no tocáramos nada.** (He told us not to touch anything.)\n\n**Decir que** + indicative passes on information; **decir que** + subjunctive passes on an order.\n\n## Here becomes there: time and place words\n\nWords that point at the speaker's *here and now* shift when you report them somewhere else or later:\n\n| Direct | Reported |\n|---|---|\n| **aquí** | **allí** |\n| **hoy** | **aquel día** |\n| **ayer** | **el día anterior** |\n| **mañana** | **al día siguiente** |\n| **ahora** | **entonces** |\n| **este / esta** | **ese / esa** (or **aquel / aquella**) |\n\n- «Volveré aquí mañana.» → **Dijo que volvería allí al día siguiente.** (He said he would come back there the next day.)\n\nPersons shift too: «**mi** hermano» → **su hermano**.",
+  "vocabulary": [
+    {
+      "term": "contar",
+      "meaning": "to tell, to recount",
+      "example": "Mi abuela nos contó que de joven había vivido en Cuba.",
+      "example_meaning": "My grandmother told us that she had lived in Cuba as a young woman."
+    },
+    {
+      "term": "preguntar",
+      "meaning": "to ask (a question)",
+      "example": "El camarero nos preguntó si queríamos postre.",
+      "example_meaning": "The waiter asked us whether we wanted dessert."
+    },
+    {
+      "term": "pedir",
+      "meaning": "to ask for, to request",
+      "example": "El jefe me pidió que revisara el informe.",
+      "example_meaning": "The boss asked me to check the report."
+    },
+    {
+      "term": "explicar",
+      "meaning": "to explain",
+      "example": "La guía nos explicó que el museo cerraba los lunes.",
+      "example_meaning": "The guide explained to us that the museum closed on Mondays."
+    },
+    {
+      "term": "comentar",
+      "meaning": "to mention, to remark",
+      "example": "Pablo comentó que el piso nuevo era muy luminoso.",
+      "example_meaning": "Pablo mentioned that the new flat was very bright."
+    },
+    {
+      "term": "añadir",
+      "meaning": "to add (to what was said)",
+      "example": "Luego añadió que no hacía falta reservar.",
+      "example_meaning": "Then he added that there was no need to book."
+    },
+    {
+      "term": "prometer",
+      "meaning": "to promise",
+      "example": "Me prometió que me devolvería el libro.",
+      "example_meaning": "She promised me she would give the book back."
+    },
+    {
+      "term": "avisar",
+      "meaning": "to let someone know, to warn",
+      "example": "Nos avisó de que el tren saldría con retraso.",
+      "example_meaning": "He let us know that the train would leave late."
+    },
+    {
+      "term": "al día siguiente",
+      "meaning": "the next day, the following day",
+      "example": "Dijeron que vendrían al día siguiente.",
+      "example_meaning": "They said they would come the next day."
+    },
+    {
+      "term": "el día anterior",
+      "meaning": "the day before, the previous day",
+      "example": "Me contó que había llegado el día anterior.",
+      "example_meaning": "She told me she had arrived the day before."
+    },
+    {
+      "term": "aquel día",
+      "meaning": "that day",
+      "example": "Explicó que aquel día no tenía tiempo.",
+      "example_meaning": "He explained that he didn't have time that day."
+    },
+    {
+      "term": "el recado",
+      "meaning": "message (passed on for someone)",
+      "example": "Te dejo un recado: dice Carmen que la llames.",
+      "example_meaning": "Here's a message for you: Carmen says to call her."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-reported-speech-01",
+      "prompt": "Last Friday Ana said: «Hoy estoy agotada.» → Ana me dijo que aquel día ___ agotada.",
+      "type": "multiple-choice",
+      "options": [
+        "estaba",
+        "estoy",
+        "estaría"
+      ],
+      "correct_answer": "estaba",
+      "explanation": "After a past reporting verb the present steps back to the imperfect, and hoy becomes aquel día: 'Ana me dijo que aquel día estaba agotada.'",
+      "hints": [
+        "Present in direct speech becomes the imperfect after dijo."
+      ],
+      "teaches": [
+        "aquel día"
+      ]
+    },
+    {
+      "question_id": "b2-reported-speech-02",
+      "prompt": "Luis: «Iré a la reunión.» → Luis me prometió que ___ a la reunión. (ir)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "iría",
+      "accepted_answers": [],
+      "explanation": "The future in direct speech becomes the conditional after a past reporting verb: iré → iría.",
+      "hints": [
+        "The future becomes the conditional.",
+        "Ir in the conditional, él form."
+      ],
+      "teaches": [
+        "prometer"
+      ]
+    },
+    {
+      "question_id": "b2-reported-speech-03",
+      "prompt": "Marta: «Perdí las llaves ayer.» → Marta me contó que ___ las llaves el día anterior.",
+      "type": "multiple-choice",
+      "options": [
+        "había perdido",
+        "ha perdido",
+        "perdería"
+      ],
+      "correct_answer": "había perdido",
+      "explanation": "In careful reported speech a preterite becomes the pluperfect (había + participle): perdí → había perdido. In everyday speech the preterite (perdió, as at B1) is also heard. Ayer becomes el día anterior.",
+      "hints": [
+        "The past before the past is the pluperfect."
+      ],
+      "teaches": [
+        "contar",
+        "el día anterior"
+      ]
+    },
+    {
+      "question_id": "b2-reported-speech-04",
+      "prompt": "Mi madre: «Ven a las ocho.» → Mi madre me pidió que ___ a las ocho. (venir)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "viniera",
+      "accepted_answers": [
+        "viniese"
+      ],
+      "explanation": "A reported order takes que + subjunctive; after the past pidió it is the imperfect subjunctive: vinieron → viniera.",
+      "hints": [
+        "An order after a past verb takes the imperfect subjunctive.",
+        "Built from vinieron."
+      ],
+      "teaches": [
+        "pedir"
+      ]
+    },
+    {
+      "question_id": "b2-reported-speech-05",
+      "prompt": "«¿Tienes coche?» → Me preguntó ___ tenía coche.",
+      "type": "multiple-choice",
+      "options": [
+        "si",
+        "sí",
+        "que"
+      ],
+      "correct_answer": "si",
+      "explanation": "A yes/no question is reported with si (whether), without an accent: 'Me preguntó si tenía coche.'",
+      "hints": [
+        "A yes/no question is introduced by whether."
+      ],
+      "teaches": [
+        "preguntar"
+      ]
+    },
+    {
+      "question_id": "b2-reported-speech-06",
+      "prompt": "«¿Dónde vives?» → Me preguntó ___ vivía. (keep the question word)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "dónde",
+      "accepted_answers": [],
+      "explanation": "A question with a question word keeps it, accent included: 'Me preguntó dónde vivía.'",
+      "hints": [
+        "The question word stays, with its accent."
+      ],
+      "teaches": [
+        "preguntar"
+      ]
+    },
+    {
+      "question_id": "b2-reported-speech-07",
+      "prompt": "Last week Pedro said: «Volveré mañana.» → Pedro dijo que volvería ___.",
+      "type": "multiple-choice",
+      "options": [
+        "al día siguiente",
+        "mañana",
+        "el día anterior"
+      ],
+      "correct_answer": "al día siguiente",
+      "explanation": "Reported a week later, mañana no longer means tomorrow: it becomes al día siguiente.",
+      "hints": [
+        "Mañana from the speaker's point of view becomes the next day."
+      ],
+      "teaches": [
+        "al día siguiente"
+      ]
+    },
+    {
+      "question_id": "b2-reported-speech-08",
+      "prompt": "The teacher said: «El agua hierve a cien grados.» → La profesora nos explicó que el agua ___ a cien grados. (a fact that is still true)",
+      "type": "multiple-choice",
+      "options": [
+        "hierve",
+        "herviría",
+        "había hervido"
+      ],
+      "correct_answer": "hierve",
+      "explanation": "A fact that is still true can keep the present after a past reporting verb: 'nos explicó que el agua hierve a cien grados'. Hervía would also be correct, but not the conditional or the pluperfect.",
+      "hints": [
+        "Is it still true today?"
+      ],
+      "teaches": [
+        "explicar"
+      ]
+    },
+    {
+      "question_id": "b2-reported-speech-09",
+      "prompt": "Rocío, about her village: «Aquí se come muy bien.» → Rocío comentó que ___ se comía muy bien. (aquí → ?)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "allí",
+      "accepted_answers": [
+        "allá"
+      ],
+      "explanation": "Reported from somewhere else, aquí becomes allí: 'Rocío comentó que allí se comía muy bien.'",
+      "hints": [
+        "Here becomes there."
+      ],
+      "teaches": [
+        "comentar"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-reported-speech-conv-landlord",
+      "title": "The landlord's call",
+      "scenario": "Elena tells her flatmate Javier what their landlord said on the phone.",
+      "role_a": "Javier",
+      "role_b": "Elena",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Oye, ¿quién te ha llamado antes?",
+          "meaning": "Hey, who called you earlier?"
+        },
+        {
+          "speaker": "b",
+          "text": "El casero. Me dijo que pasaría el jueves a revisar la caldera.",
+          "meaning": "The landlord. He said he would come by on Thursday to check the boiler.",
+          "note": "«Pasaré» → pasaría"
+        },
+        {
+          "speaker": "a",
+          "text": "¿El jueves? ¿Le explicaste que trabajamos los dos?",
+          "meaning": "Thursday? Did you explain to him that we both work?",
+          "note": "Still true: no backshift"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, y me preguntó si alguno de nosotros podía quedarse en casa.",
+          "meaning": "Yes, and he asked me whether one of us could stay at home.",
+          "note": "«¿Puede…?» → si podía"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y qué le contestaste?",
+          "meaning": "And what did you answer?"
+        },
+        {
+          "speaker": "b",
+          "text": "Le dije que lo hablaría contigo. También me pidió que le enviáramos una foto de la caldera.",
+          "meaning": "I told him I'd talk it over with you. He also asked us to send him a photo of the boiler.",
+          "note": "A request takes que + imperfect subjunctive"
+        },
+        {
+          "speaker": "a",
+          "text": "Vale. ¿Te comentó algo del alquiler?",
+          "meaning": "OK. Did he mention anything about the rent?"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, añadió que el año que viene lo subiría un poco.",
+          "meaning": "Yes, he added that next year he would put it up a little.",
+          "note": "«Lo subiré» → lo subiría"
+        },
+        {
+          "speaker": "a",
+          "text": "¡Qué sorpresa! ¿Y te dijo cuánto?",
+          "meaning": "What a surprise! And did he tell you how much?"
+        },
+        {
+          "speaker": "b",
+          "text": "No. Me prometió que nos lo explicaría todo el jueves.",
+          "meaning": "No. He promised he would explain it all to us on Thursday.",
+          "note": "«Os lo explicaré» → nos lo explicaría"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Dice que está cansado.",
+      "meaning": "He says he's tired.",
+      "note": "Present reporting verb: no backshift."
+    },
+    {
+      "text": "Mi hermano dijo que tenía hambre.",
+      "meaning": "My brother said he was hungry.",
+      "note": "Tengo → tenía."
+    },
+    {
+      "text": "Nos preguntaron si queríamos más café.",
+      "meaning": "They asked us whether we wanted more coffee.",
+      "note": "A yes/no question takes si."
+    },
+    {
+      "text": "El médico me explicó que no era nada grave.",
+      "meaning": "The doctor explained to me that it was nothing serious.",
+      "note": "New word: grave = serious."
+    },
+    {
+      "text": "Mi vecina me pidió que le regara las plantas.",
+      "meaning": "My neighbour asked me to water her plants.",
+      "note": "New word: regar = to water."
+    },
+    {
+      "text": "Me contó que había vivido tres años en Lisboa.",
+      "meaning": "She told me she had lived in Lisbon for three years.",
+      "note": "Viví → había vivido."
+    },
+    {
+      "text": "La abogada añadió que al día siguiente firmarían el contrato.",
+      "meaning": "The lawyer added that they would sign the contract the next day.",
+      "note": "New word: la abogada = the lawyer."
+    },
+    {
+      "text": "El conductor nos avisó de que el autobús no pararía en aquella calle.",
+      "meaning": "The driver warned us that the bus would not stop in that street.",
+      "note": "Parará → pararía."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Reporting what someone said"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-reported-speech-01"
+    },
+    {
+      "question": "b2-reported-speech-08"
+    },
+    {
+      "section": "The backshift table"
+    },
+    {
+      "question": "b2-reported-speech-02"
+    },
+    {
+      "question": "b2-reported-speech-03"
+    },
+    {
+      "tip": "Ask when the words were said. If the reporting verb is in the past, step each verb one place back unless the fact is still true."
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Questions and requests"
+    },
+    {
+      "question": "b2-reported-speech-05"
+    },
+    {
+      "question": "b2-reported-speech-06"
+    },
+    {
+      "question": "b2-reported-speech-04"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Here becomes there"
+    },
+    {
+      "question": "b2-reported-speech-07"
+    },
+    {
+      "question": "b2-reported-speech-09"
+    }
+  ],
+  "sprint": {
+    "icon": "🗨️",
+    "bites": [
+      {
+        "title": "Past verb, step back",
+        "emoji": "⏪",
+        "rule": "After dijo, contó or explicó, the reported verb steps back: the present becomes the imperfect, the future becomes the conditional, and the preterite or perfect becomes the pluperfect.",
+        "example": "«Voy al cine.» → Dijo que iba al cine.",
+        "example_meaning": "'I'm going to the cinema.' → He said he was going to the cinema."
+      },
+      {
+        "title": "Orders become subjunctive",
+        "emoji": "🙏",
+        "rule": "A reported order or request takes que + subjunctive; after a past verb, the imperfect subjunctive: ven becomes me pidió que viniera.",
+        "example": "Me pidió que la esperara.",
+        "example_meaning": "She asked me to wait for her."
+      },
+      {
+        "title": "Si or the question word",
+        "emoji": "❓",
+        "rule": "Yes/no questions are reported with si (no accent); other questions keep their question word with its accent: qué, dónde, cuándo.",
+        "example": "Me preguntó si tenía hambre y qué quería comer.",
+        "example_meaning": "He asked me whether I was hungry and what I wanted to eat."
+      },
+      {
+        "title": "Here and now move",
+        "emoji": "🗓️",
+        "rule": "Hoy becomes aquel día, mañana becomes al día siguiente, ayer becomes el día anterior, aquí becomes allí and este becomes ese. A fact that is still true needs no backshift.",
+        "example": "Dijo que volvería allí al día siguiente.",
+        "example_meaning": "He said he would come back there the next day."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which tense after dijo que?",
+        "buckets": [
+          "imperfect",
+          "pluperfect",
+          "conditional",
+          "imperfect subjunctive"
+        ],
+        "items": [
+          {
+            "text": "«Vivo en Bilbao.»",
+            "bucket": 0
+          },
+          {
+            "text": "«He terminado.»",
+            "bucket": 1
+          },
+          {
+            "text": "«Llegaré tarde.»",
+            "bucket": 2
+          },
+          {
+            "text": "«Siéntate.»",
+            "bucket": 3
+          },
+          {
+            "text": "«Tengo frío.»",
+            "bucket": 0
+          },
+          {
+            "text": "«Lo vendí ayer.»",
+            "bucket": 1
+          },
+          {
+            "text": "«Te ayudaré.»",
+            "bucket": 2
+          },
+          {
+            "text": "«No grites.»",
+            "bucket": 3
+          }
+        ],
+        "why": "The present becomes the imperfect, the preterite or perfect becomes the pluperfect, the future becomes the conditional, and the imperative becomes que + imperfect subjunctive."
+      },
+      {
+        "title": "Si or the question word?",
+        "buckets": [
+          "si",
+          "question word kept"
+        ],
+        "items": [
+          {
+            "text": "«¿Vienes?»",
+            "bucket": 0
+          },
+          {
+            "text": "«¿Cuándo vienes?»",
+            "bucket": 1
+          },
+          {
+            "text": "«¿Te gusta?»",
+            "bucket": 0
+          },
+          {
+            "text": "«¿Qué te pasa?»",
+            "bucket": 1
+          },
+          {
+            "text": "«¿Has comido?»",
+            "bucket": 0
+          },
+          {
+            "text": "«¿Dónde está?»",
+            "bucket": 1
+          }
+        ],
+        "why": "Yes/no questions are reported with si; questions with qué, dónde, cuándo… keep that word."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Ana dijo que vendrá al día siguiente.",
+        "wrong": "vendrá",
+        "fix": "vendría",
+        "why": "After a past reporting verb, the future becomes the conditional."
+      },
+      {
+        "sentence": "Me preguntó sí quería un café.",
+        "wrong": "sí",
+        "fix": "si",
+        "why": "Reported yes/no questions use si (whether), no accent."
+      },
+      {
+        "sentence": "Me pidió que la llamaba por la tarde.",
+        "wrong": "llamaba",
+        "fix": "llamara",
+        "why": "A reported request takes the imperfect subjunctive after pidió."
+      },
+      {
+        "sentence": "Nos contó que aquel día ha perdido el tren.",
+        "wrong": "ha",
+        "fix": "había",
+        "why": "A perfect in direct speech becomes the pluperfect when reported in the past."
+      },
+      {
+        "sentence": "Me preguntó donde vivía.",
+        "wrong": "donde",
+        "fix": "dónde",
+        "why": "The question word keeps its accent in a reported question."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Me dijo que estaba muy ocupada.",
+        "meaning": "She told me she was very busy.",
+        "distractors": [
+          "estoy"
+        ]
+      },
+      {
+        "text": "Le preguntamos si quería venir.",
+        "meaning": "We asked him whether he wanted to come.",
+        "distractors": [
+          "sí"
+        ]
+      },
+      {
+        "text": "Nos pidió que habláramos más bajo.",
+        "meaning": "She asked us to speak more quietly.",
+        "distractors": [
+          "hablamos"
+        ]
+      },
+      {
+        "text": "Prometió que lo haría al día siguiente.",
+        "meaning": "He promised he would do it the next day.",
+        "distractors": [
+          "hará",
+          "mañana"
+        ]
+      }
+    ]
+  }
+}

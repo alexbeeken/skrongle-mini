@@ -1,0 +1,596 @@
+{
+  "id": "b2-discourse-markers",
+  "slug": "discourse-markers",
+  "title": "Sin embargo, por lo tanto, es decir: discourse markers",
+  "unit": "B2",
+  "group": "Vocabulary",
+  "order": 34,
+  "summary": "The words that steer an argument: ordering points, adding, contrasting, drawing conclusions, rephrasing and summing up, in formal and casual Spanish.",
+  "focus": "Choosing and punctuating discourse markers to structure what you say and write",
+  "prerequisites": [
+    "b1-arguing-a-point"
+  ],
+  "content": "## Ordering and adding your points\n\nNumber your points and flag each one you add.\n\n| marker | meaning | register |\n|---|---|---|\n| **en primer lugar**, **en segundo lugar** | firstly, secondly | neutral |\n| **por un lado… por otro (lado)** | on the one hand… on the other | neutral |\n| **por último** | lastly, finally | neutral |\n| **asimismo** | likewise, also | formal, written |\n| **encima** | on top of that | colloquial, often a complaint |\n\n- **Por un lado, el piso es barato; por otro, está lejos.** (On the one hand the flat is cheap; on the other, it's a long way out.)\n- **Llegamos tarde y, encima, llovía.** (We arrived late and, on top of that, it was raining.)\n\n**Primer** drops its *-o* before a masculine noun: **en primer lugar**, never *en primero lugar*.\n\n## Contrast and consequence\n\n| | everyday | formal |\n|---|---|---|\n| contrast | **sin embargo** (however) | **no obstante** (nevertheless) |\n| consequence | **así que** (so), **por lo tanto** (therefore) | **por consiguiente** (consequently) |\n\n- **El vuelo se retrasó; no obstante, llegamos a la boda.** (The flight was delayed; nevertheless, we made it to the wedding.)\n- **No hay presupuesto; por lo tanto, el proyecto se aplaza.** (There's no budget; therefore, the project is postponed.)\n\n**En cambio** sets two people or things side by side that differ (*whereas, on the other hand*):\n\n- **Yo madrugo; mi pareja, en cambio, duerme hasta las diez.** (I get up early; my partner, on the other hand, sleeps till ten.)\n\n## Rephrasing and emphasising\n\n- **es decir** (that is, in other words): neutral, fine in writing. **Vuelvo en julio, es decir, dentro de un mes.** (I'm back in July, that is, in a month.)\n- **o sea** (I mean, so): the spoken version. **O sea, que no vienes.** (So you're not coming, then.)\n- **mejor dicho** (or rather): you correct yourself. **Te espero en la plaza, mejor dicho, en el bar.** (I'll wait in the square, or rather, in the bar.)\n\nTo insist:\n\n- **de hecho** (in fact) brings evidence: **Es muy puntual; de hecho, siempre llega antes.**\n- **en realidad** (actually) corrects an impression: **Parece serio, pero en realidad es muy divertido.**\n- **desde luego** (certainly) agrees firmly: **—¿Vendrás? —Desde luego.**\n\n## Wrapping up, and where the commas go\n\nClose with **en resumen** (in short) or **en definitiva** (all in all): **En definitiva, la propuesta es cara pero necesaria.**\n\nMost markers are set off by commas:\n\n- opening a sentence, a comma after: **Sin embargo, nadie protestó.**\n- in the middle, a comma on each side: **El plan, no obstante, sigue adelante.**\n- linking two clauses, a semicolon (or a full stop) before and a comma after: **Llovía; por lo tanto, nos quedamos.**\n\nThe exception is **así que**, which takes no comma after it: **Estaba cansada, así que me acosté.**",
+  "vocabulary": [
+    {
+      "term": "en primer lugar",
+      "meaning": "firstly, first of all",
+      "example": "En primer lugar, quiero agradeceros vuestra paciencia.",
+      "example_meaning": "First of all, I want to thank you for your patience."
+    },
+    {
+      "term": "por un lado… por otro",
+      "meaning": "on the one hand… on the other",
+      "example": "Por un lado, vivir en el centro es cómodo; por otro, es muy ruidoso.",
+      "example_meaning": "On the one hand, living in the centre is convenient; on the other, it's very noisy."
+    },
+    {
+      "term": "por último",
+      "meaning": "lastly, finally",
+      "example": "Por último, revisad la ortografía antes de entregar el trabajo.",
+      "example_meaning": "Lastly, check the spelling before you hand in the essay."
+    },
+    {
+      "term": "asimismo",
+      "meaning": "likewise, also (formal)",
+      "example": "La empresa ofrece formación; asimismo, paga el transporte.",
+      "example_meaning": "The company offers training; it also pays for transport."
+    },
+    {
+      "term": "encima",
+      "meaning": "on top of that (colloquial)",
+      "example": "Me cobraron de más y, encima, el camarero fue antipático.",
+      "example_meaning": "They overcharged me and, on top of that, the waiter was rude."
+    },
+    {
+      "term": "no obstante",
+      "meaning": "nevertheless, however (formal)",
+      "example": "El tratamiento es caro; no obstante, funciona.",
+      "example_meaning": "The treatment is expensive; nevertheless, it works."
+    },
+    {
+      "term": "en cambio",
+      "meaning": "on the other hand, whereas",
+      "example": "Mi padre odia viajar; mi madre, en cambio, nunca para en casa.",
+      "example_meaning": "My father hates travelling; my mother, on the other hand, is never at home."
+    },
+    {
+      "term": "por lo tanto",
+      "meaning": "therefore",
+      "example": "No has entregado el formulario; por lo tanto, no puedes matricularte.",
+      "example_meaning": "You haven't handed in the form; therefore, you can't enrol."
+    },
+    {
+      "term": "por consiguiente",
+      "meaning": "consequently (formal)",
+      "example": "Las ventas han bajado; por consiguiente, la tienda cerrará en marzo.",
+      "example_meaning": "Sales have fallen; consequently, the shop will close in March."
+    },
+    {
+      "term": "es decir",
+      "meaning": "that is, in other words",
+      "example": "Es bilingüe, es decir, habla dos idiomas desde niño.",
+      "example_meaning": "He's bilingual, that is, he has spoken two languages since he was a child."
+    },
+    {
+      "term": "o sea",
+      "meaning": "I mean, so (spoken)",
+      "example": "—Hoy no puedo. —O sea, que me dejas plantado.",
+      "example_meaning": "'I can't today.' 'So you're standing me up.'"
+    },
+    {
+      "term": "mejor dicho",
+      "meaning": "or rather",
+      "example": "Somos cuatro, mejor dicho, cinco con el bebé.",
+      "example_meaning": "There are four of us, or rather, five with the baby."
+    },
+    {
+      "term": "de hecho",
+      "meaning": "in fact",
+      "example": "Habla muy bien alemán; de hecho, vivió diez años en Berlín.",
+      "example_meaning": "She speaks German very well; in fact, she lived in Berlin for ten years."
+    },
+    {
+      "term": "en resumen",
+      "meaning": "in short, to sum up",
+      "example": "En resumen, el viaje fue caro, pero valió la pena.",
+      "example_meaning": "In short, the trip was expensive, but it was worth it."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-discourse-markers-01",
+      "prompt": "Las ventas han caído un treinta por ciento; ___, la empresa cerrará dos tiendas. (formal report)",
+      "type": "multiple-choice",
+      "options": [
+        "por consiguiente",
+        "en cambio",
+        "es decir",
+        "encima"
+      ],
+      "correct_answer": "por consiguiente",
+      "explanation": "The store closures are a consequence of the fall in sales, and a formal report wants the formal marker: por consiguiente (consequently). En cambio contrasts, es decir rephrases and encima is colloquial addition.",
+      "hints": [
+        "Is the second part a contrast, a rephrasing or a result?",
+        "Formal register."
+      ],
+      "teaches": [
+        "por consiguiente"
+      ]
+    },
+    {
+      "question_id": "b2-discourse-markers-02",
+      "prompt": "Ha llovido toda la semana; ___, el partido se ha aplazado.",
+      "type": "multiple-choice",
+      "options": [
+        "por lo tanto",
+        "en cambio",
+        "en primer lugar"
+      ],
+      "correct_answer": "por lo tanto",
+      "explanation": "The postponement is a result of the rain: por lo tanto (therefore).",
+      "hints": [
+        "Cause, then…?"
+      ],
+      "teaches": [
+        "por lo tanto"
+      ]
+    },
+    {
+      "question_id": "b2-discourse-markers-03",
+      "prompt": "—No tengo dinero y mañana trabajo temprano. —___, que no vienes a la fiesta. (I mean, so: spoken)",
+      "type": "fill-in-blank",
+      "correct_answer": "O sea",
+      "accepted_answers": [
+        "o sea"
+      ],
+      "explanation": "O sea is the spoken way to sum up or rephrase what someone has just said: o sea, que no vienes = so you're not coming, then. In writing, es decir does the same job.",
+      "hints": [
+        "The spoken cousin of es decir.",
+        "Two short words."
+      ],
+      "teaches": [
+        "o sea"
+      ]
+    },
+    {
+      "question_id": "b2-discourse-markers-04",
+      "prompt": "El hotel era caro, la habitación estaba sucia y, ___, el wifi no funcionaba.",
+      "type": "multiple-choice",
+      "options": [
+        "encima",
+        "no obstante",
+        "por consiguiente"
+      ],
+      "correct_answer": "encima",
+      "explanation": "A third complaint piled on the others: encima (on top of that), the colloquial adding marker. No obstante would announce a contrast, por consiguiente a result.",
+      "hints": [
+        "One more complaint on the pile."
+      ],
+      "teaches": [
+        "encima"
+      ]
+    },
+    {
+      "question_id": "b2-discourse-markers-05",
+      "prompt": "Te llamo el lunes, ___ (or rather), el martes, que el lunes trabajo.",
+      "type": "fill-in-blank",
+      "correct_answer": "mejor dicho",
+      "explanation": "You correct what you have just said with mejor dicho (or rather).",
+      "hints": [
+        "Two words: mejor…"
+      ],
+      "teaches": [
+        "mejor dicho"
+      ]
+    },
+    {
+      "question_id": "b2-discourse-markers-06",
+      "prompt": "No es que el piso no me guste. ___, me encanta; el problema es que está lejos.",
+      "type": "multiple-choice",
+      "options": [
+        "De hecho",
+        "Por consiguiente",
+        "En cambio"
+      ],
+      "correct_answer": "De hecho",
+      "explanation": "De hecho (in fact) backs up and strengthens what you just said: you don't just like it, you love it.",
+      "hints": [
+        "You are insisting, with something stronger."
+      ],
+      "teaches": [
+        "de hecho"
+      ]
+    },
+    {
+      "question_id": "b2-discourse-markers-07",
+      "prompt": "Hemos hablado del precio, del tamaño y del barrio. ___ (in short), es el piso ideal para nosotros.",
+      "type": "fill-in-blank",
+      "correct_answer": "En resumen",
+      "accepted_answers": [
+        "en definitiva"
+      ],
+      "explanation": "En resumen (in short) closes an argument by summing up the points before it; en definitiva also works.",
+      "hints": [
+        "Two words: en…",
+        "You are wrapping up."
+      ],
+      "teaches": [
+        "en resumen"
+      ]
+    },
+    {
+      "question_id": "b2-discourse-markers-08",
+      "prompt": "El ayuntamiento ampliará el horario de la biblioteca. ___ (likewise, formal), abrirá una nueva sala de estudio.",
+      "type": "fill-in-blank",
+      "correct_answer": "Asimismo",
+      "accepted_answers": [
+        "asimismo"
+      ],
+      "explanation": "Asimismo (likewise, also) adds a point in formal or written Spanish, typical of official announcements. It is one word.",
+      "hints": [
+        "A formal way to add a point.",
+        "One word, from así + mismo."
+      ],
+      "teaches": [
+        "asimismo"
+      ]
+    },
+    {
+      "question_id": "b2-discourse-markers-09",
+      "prompt": "Where do the commas go around no obstante?",
+      "type": "multiple-choice",
+      "options": [
+        "El proyecto, no obstante, sigue adelante.",
+        "El proyecto no obstante, sigue adelante.",
+        "El proyecto, no obstante sigue adelante."
+      ],
+      "correct_answer": "El proyecto, no obstante, sigue adelante.",
+      "explanation": "A marker in the middle of a sentence takes a comma on each side.",
+      "hints": [
+        "Count the commas around the marker."
+      ],
+      "teaches": [
+        "no obstante"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-discourse-markers-conv-presentation",
+      "title": "A talk for the neighbours",
+      "scenario": "Lucía and Javier prepare a short talk for their residents' meeting. They want to turn the empty car park into a garden.",
+      "role_a": "Lucía",
+      "role_b": "Javier",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Bueno, ¿preparamos ya la presentación para la reunión de vecinos?",
+          "meaning": "Right, shall we get the presentation for the residents' meeting ready?"
+        },
+        {
+          "speaker": "b",
+          "text": "Vale. En primer lugar, hay que explicar qué queremos: un jardín en lugar del aparcamiento.",
+          "meaning": "OK. First of all, we need to explain what we want: a garden instead of the car park.",
+          "note": "en primer lugar: the first point"
+        },
+        {
+          "speaker": "a",
+          "text": "Exacto. Por un lado, el barrio no tiene zonas verdes; por otro, el aparcamiento está casi vacío.",
+          "meaning": "Exactly. On the one hand, the neighbourhood has no green spaces; on the other, the car park is almost empty.",
+          "note": "por un lado… por otro: two sides"
+        },
+        {
+          "speaker": "b",
+          "text": "De hecho, ayer solo conté seis coches. O sea, que casi nadie lo usa.",
+          "meaning": "In fact, yesterday I only counted six cars. So hardly anyone uses it.",
+          "note": "de hecho: evidence · o sea: a spoken conclusion"
+        },
+        {
+          "speaker": "a",
+          "text": "Delante de los vecinos, mejor usa «es decir»: «o sea» suena demasiado coloquial.",
+          "meaning": "In front of the neighbours, better use 'es decir': 'o sea' sounds too casual.",
+          "note": "register: es decir is neutral, o sea is spoken"
+        },
+        {
+          "speaker": "b",
+          "text": "Tienes razón. Además, el ayuntamiento tiene dinero para zonas verdes; por lo tanto, al barrio no le costaría nada.",
+          "meaning": "You're right. Besides, the council has money for green spaces; therefore, it wouldn't cost the neighbourhood anything.",
+          "note": "por lo tanto: consequence"
+        },
+        {
+          "speaker": "a",
+          "text": "Bueno, nada no; mejor dicho, casi nada: los bancos los pagaríamos nosotros.",
+          "meaning": "Well, not nothing; or rather, almost nothing: we'd pay for the benches ourselves.",
+          "note": "mejor dicho: correcting yourself"
+        },
+        {
+          "speaker": "b",
+          "text": "Algunos vecinos, en cambio, querrán conservar su plaza de garaje.",
+          "meaning": "Some neighbours, on the other hand, will want to keep their parking space.",
+          "note": "en cambio: a different group, a different view"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, y encima el del quinto se queja de todo.",
+          "meaning": "Yes, and on top of that the man on the fifth floor complains about everything.",
+          "note": "encima: colloquial, a complaint piled on"
+        },
+        {
+          "speaker": "b",
+          "text": "En resumen: más árboles, menos coches y un sitio para los niños. ¿Te parece bien?",
+          "meaning": "In short: more trees, fewer cars and a place for the children. Does that sound good?",
+          "note": "en resumen: wrapping up"
+        },
+        {
+          "speaker": "a",
+          "text": "Perfecto. No obstante, mañana lo ensayamos otra vez, que me pongo nerviosa.",
+          "meaning": "Perfect. Still, let's rehearse it again tomorrow, because I get nervous.",
+          "note": "no obstante: a formal 'however', here with a wink"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "O sea, que mañana no trabajas.",
+      "meaning": "So you're not working tomorrow, then.",
+      "note": "O sea que is spoken Spanish drawing a conclusion."
+    },
+    {
+      "text": "En cambio, mi hermano odia el fútbol.",
+      "meaning": "My brother, on the other hand, hates football."
+    },
+    {
+      "text": "De hecho, ya he terminado el informe.",
+      "meaning": "In fact, I've already finished the report.",
+      "note": "New word: el informe = the report."
+    },
+    {
+      "text": "Por lo tanto, tenemos que salir antes de las ocho.",
+      "meaning": "Therefore, we have to leave before eight.",
+      "note": "A comma after a marker that opens the sentence."
+    },
+    {
+      "text": "El tren llegó tarde y, encima, no funcionaba la calefacción.",
+      "meaning": "The train arrived late and, on top of that, the heating wasn't working.",
+      "note": "New word: la calefacción = the heating."
+    },
+    {
+      "text": "En primer lugar, quiero presentaros a la nueva directora del colegio.",
+      "meaning": "First of all, I'd like to introduce you to the new head teacher of the school."
+    },
+    {
+      "text": "Por un lado, me apetece mucho ir; por otro, estoy agotada.",
+      "meaning": "On the one hand, I really feel like going; on the other, I'm exhausted."
+    },
+    {
+      "text": "En resumen, el barrio necesita más árboles, menos coches y menos ruido.",
+      "meaning": "In short, the neighbourhood needs more trees, fewer cars and less noise.",
+      "note": "New word: el ruido = the noise."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Ordering and adding"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-discourse-markers-08"
+    },
+    {
+      "question": "b2-discourse-markers-04"
+    },
+    {
+      "section": "Contrast and consequence"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-discourse-markers-01"
+    },
+    {
+      "question": "b2-discourse-markers-02"
+    },
+    {
+      "tip": "Writing an email or an essay? Reach for no obstante, asimismo and por consiguiente. Chatting with friends? Encima and o sea sound natural."
+    },
+    {
+      "section": "Rephrasing and emphasising"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-discourse-markers-03"
+    },
+    {
+      "question": "b2-discourse-markers-05"
+    },
+    {
+      "question": "b2-discourse-markers-06"
+    },
+    {
+      "section": "Wrapping up"
+    },
+    {
+      "question": "b2-discourse-markers-07"
+    },
+    {
+      "question": "b2-discourse-markers-09"
+    }
+  ],
+  "sprint": {
+    "icon": "🧷",
+    "bites": [
+      {
+        "title": "Number your points",
+        "emoji": "🔢",
+        "rule": "Lay out an argument with en primer lugar, por un lado… por otro and por último. Primer, not primero, before lugar.",
+        "example": "En primer lugar, el precio; por último, el barrio.",
+        "example_meaning": "First, the price; lastly, the neighbourhood."
+      },
+      {
+        "title": "Formal or casual?",
+        "emoji": "🎩",
+        "rule": "Writing: no obstante (however), asimismo (also), por consiguiente (so). Speech: encima (on top of that), o sea (I mean).",
+        "example": "El plan es caro; no obstante, es necesario.",
+        "example_meaning": "The plan is expensive; nevertheless, it's necessary."
+      },
+      {
+        "title": "Say it again, louder",
+        "emoji": "📣",
+        "rule": "Es decir and o sea rephrase, mejor dicho corrects you, de hecho and en realidad insist, en resumen wraps up.",
+        "example": "Es puntual; de hecho, siempre llega antes.",
+        "example_meaning": "He's punctual; in fact, he always arrives early."
+      },
+      {
+        "title": "Commas around markers",
+        "emoji": "✏️",
+        "rule": "A marker takes a comma after it at the start, commas on both sides in the middle, and a semicolon before it between two clauses.",
+        "example": "Llovía; por lo tanto, nos quedamos.",
+        "example_meaning": "It was raining; therefore, we stayed."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "What does the marker do?",
+        "buckets": [
+          "contrast",
+          "consequence",
+          "rephrasing"
+        ],
+        "items": [
+          {
+            "text": "sin embargo",
+            "bucket": 0
+          },
+          {
+            "text": "no obstante",
+            "bucket": 0
+          },
+          {
+            "text": "en cambio",
+            "bucket": 0
+          },
+          {
+            "text": "por lo tanto",
+            "bucket": 1
+          },
+          {
+            "text": "por consiguiente",
+            "bucket": 1
+          },
+          {
+            "text": "es decir",
+            "bucket": 2
+          },
+          {
+            "text": "o sea",
+            "bucket": 2
+          },
+          {
+            "text": "mejor dicho",
+            "bucket": 2
+          }
+        ],
+        "why": "Contrast markers announce the opposite, consequence markers a result, and rephrasing markers the same idea in other words."
+      },
+      {
+        "title": "Formal writing or casual speech?",
+        "buckets": [
+          "formal writing",
+          "casual speech"
+        ],
+        "items": [
+          {
+            "text": "asimismo",
+            "bucket": 0
+          },
+          {
+            "text": "por consiguiente",
+            "bucket": 0
+          },
+          {
+            "text": "no obstante",
+            "bucket": 0
+          },
+          {
+            "text": "encima",
+            "bucket": 1
+          },
+          {
+            "text": "o sea",
+            "bucket": 1
+          }
+        ],
+        "why": "Asimismo, por consiguiente and no obstante belong in reports and emails; encima and o sea belong in conversation."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Mi hermano es tímido; mi hermana, encima, habla con todo el mundo.",
+        "wrong": "encima",
+        "fix": "en cambio",
+        "why": "Two people who differ: en cambio sets them side by side. Encima piles on one more complaint."
+      },
+      {
+        "sentence": "No quedaban entradas; asimismo, nos quedamos en casa.",
+        "wrong": "asimismo",
+        "fix": "por lo tanto",
+        "why": "Staying home is the result, not an extra point: por lo tanto."
+      },
+      {
+        "sentence": "Estimada señora: encima, le adjunto el contrato firmado.",
+        "wrong": "encima",
+        "fix": "asimismo",
+        "why": "Encima is colloquial and sounds like a grumble; a formal letter adds with asimismo."
+      },
+      {
+        "sentence": "Por un lado, el coche es barato; por último, gasta mucho.",
+        "wrong": "último",
+        "fix": "otro",
+        "why": "Por un lado is answered by por otro (lado)."
+      },
+      {
+        "sentence": "En primero lugar, gracias por venir.",
+        "wrong": "primero",
+        "fix": "primer",
+        "why": "Primero drops its -o before a masculine noun: en primer lugar."
+      }
+    ],
+    "builds": [
+      {
+        "text": "En primer lugar, quiero daros las gracias.",
+        "meaning": "First of all, I want to thank you.",
+        "distractors": [
+          "primero"
+        ]
+      },
+      {
+        "text": "Es caro; por lo tanto, no lo compro.",
+        "meaning": "It's expensive; therefore, I'm not buying it.",
+        "distractors": [
+          "encima"
+        ]
+      },
+      {
+        "text": "Mi hermana, en cambio, prefiere el mar.",
+        "meaning": "My sister, on the other hand, prefers the sea.",
+        "distractors": [
+          "cambia"
+        ]
+      },
+      {
+        "text": "Son las ocho, es decir, llegamos tarde.",
+        "meaning": "It's eight o'clock, in other words, we're late.",
+        "distractors": [
+          "dicho"
+        ]
+      }
+    ]
+  }
+}

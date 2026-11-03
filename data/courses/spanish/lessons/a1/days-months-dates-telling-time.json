@@ -1,0 +1,645 @@
+{
+  "id": "a1-time-days-dates",
+  "slug": "days-months-dates-telling-time",
+  "title": "Days, months, dates and telling the time",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 40,
+  "summary": "El lunes, en marzo, el tres de mayo, son las dos y media.",
+  "focus": "Days and months (masculine, no capital), dates, telling the time with ser",
+  "prerequisites": [
+    "a1-numbers",
+    "a1-ser-vs-estar"
+  ],
+  "content": "## Days of the week\n\n**lunes, martes, miércoles, jueves, viernes, sábado, domingo.** All masculine, no capital letter. The article says *on*:\n\n- *El lunes tengo clase.* (On Monday I have class.)\n- *Los lunes tengo clase.* (On Mondays I have class.)\n- *Hoy es martes.* (Today is Tuesday. Use no article when saying what day it is.)\n\nOnly *sábado* and *domingo* change in the plural: *los sábados, los domingos*.\n\n## Months and dates\n\n**enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre, noviembre, diciembre.** Masculine, no capital.\n\nDates use **el + number + de + month**: *el tres de mayo*, *el veinte de julio*. The first of the month is *el uno* (or *el primero* in Latin America). To ask the date, say *¿Qué día es hoy?* and answer *Hoy es jueves, quince de octubre.* The seasons are *la primavera, el verano, el otoño, el invierno*, and \"in summer\" is *en verano*.\n\n## Telling the time\n\nUse **ser**: *es* for one o'clock, *son* for all other hours.\n\n| | |\n|---|---|\n| Es la una. | It's one o'clock. |\n| Son las dos. | It's two. |\n| Son las tres y cuarto. | It's quarter past three. |\n| Son las cuatro y media. | It's half past four. |\n| Son las cinco menos cuarto. | It's quarter to five. |\n| Son las seis y diez. | It's ten past six. |\n| Es mediodía / medianoche. | It's midday / midnight. |\n\n*¿Qué hora es?* asks the time. **A + time** says when: *La clase es **a** las nueve.* (Class is at nine.)\n\nParts of the day: *de la mañana, de la tarde, de la noche* after a time (*las ocho de la mañana*); *por la mañana / tarde / noche* on their own (*por la tarde estudio*).",
+  "vocabulary": [
+    {
+      "term": "el lunes",
+      "meaning": "Monday",
+      "example": "El lunes tengo clase.",
+      "example_meaning": "On Monday I have class."
+    },
+    {
+      "term": "el martes",
+      "meaning": "Tuesday",
+      "example": "Hoy es martes.",
+      "example_meaning": "Today is Tuesday."
+    },
+    {
+      "term": "el miércoles",
+      "meaning": "Wednesday",
+      "example": "Los miércoles hay yoga.",
+      "example_meaning": "On Wednesdays there's yoga."
+    },
+    {
+      "term": "el jueves",
+      "meaning": "Thursday",
+      "example": "El jueves es la fiesta.",
+      "example_meaning": "The party is on Thursday."
+    },
+    {
+      "term": "el viernes",
+      "meaning": "Friday",
+      "example": "Salimos el viernes.",
+      "example_meaning": "We're going out on Friday."
+    },
+    {
+      "term": "el sábado",
+      "meaning": "Saturday",
+      "example": "Los sábados duermo.",
+      "example_meaning": "On Saturdays I sleep."
+    },
+    {
+      "term": "el domingo",
+      "meaning": "Sunday",
+      "example": "El domingo comemos en familia.",
+      "example_meaning": "On Sunday we eat as a family."
+    },
+    {
+      "term": "enero",
+      "meaning": "January",
+      "example": "En enero hace frío.",
+      "example_meaning": "In January it's cold."
+    },
+    {
+      "term": "mayo",
+      "meaning": "May",
+      "example": "Mi cumpleaños es el tres de mayo.",
+      "example_meaning": "My birthday is on the third of May."
+    },
+    {
+      "term": "agosto",
+      "meaning": "August",
+      "example": "En agosto vamos a la playa.",
+      "example_meaning": "In August we go to the beach."
+    },
+    {
+      "term": "diciembre",
+      "meaning": "December",
+      "example": "En diciembre nieva.",
+      "example_meaning": "In December it snows."
+    },
+    {
+      "term": "¿qué hora es?",
+      "meaning": "what time is it?",
+      "example": "¿Qué hora es? Son las dos.",
+      "example_meaning": "What time is it? It's two o'clock."
+    },
+    {
+      "term": "y media",
+      "meaning": "half past",
+      "example": "Son las cuatro y media.",
+      "example_meaning": "It's half past four."
+    },
+    {
+      "term": "y cuarto",
+      "meaning": "quarter past",
+      "example": "Son las tres y cuarto.",
+      "example_meaning": "It's quarter past three."
+    },
+    {
+      "term": "menos cuarto",
+      "meaning": "quarter to",
+      "example": "Son las cinco menos cuarto.",
+      "example_meaning": "It's quarter to five."
+    },
+    {
+      "term": "de la mañana",
+      "meaning": "in the morning (with a time)",
+      "example": "A las ocho de la mañana.",
+      "example_meaning": "At eight in the morning."
+    },
+    {
+      "term": "por la tarde",
+      "meaning": "in the afternoon",
+      "example": "Por la tarde estudio.",
+      "example_meaning": "In the afternoon I study."
+    },
+    {
+      "term": "el cumpleaños",
+      "meaning": "birthday",
+      "example": "Mi cumpleaños es en mayo.",
+      "example_meaning": "My birthday is in May."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-time-01",
+      "prompt": "___ lunes tengo clase. (On Monday…)",
+      "type": "multiple-choice",
+      "options": [
+        "El",
+        "En",
+        "Al"
+      ],
+      "correct_answer": "El",
+      "explanation": "Days take the definite article to mean 'on': el lunes.",
+      "hints": [
+        "article = on"
+      ],
+      "teaches": [
+        "el lunes"
+      ]
+    },
+    {
+      "question_id": "a1-time-02",
+      "prompt": "Hoy ___ martes.",
+      "type": "multiple-choice",
+      "options": [
+        "es",
+        "está",
+        "el"
+      ],
+      "correct_answer": "es",
+      "explanation": "Saying what day it is: es martes, no article.",
+      "hints": [
+        "ser, no article"
+      ],
+      "teaches": [
+        "el martes"
+      ]
+    },
+    {
+      "question_id": "a1-time-03",
+      "prompt": "Write the time: 1:00 → ___ la una.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "Es",
+      "accepted_answers": [],
+      "explanation": "One o'clock is singular: es la una.",
+      "hints": [
+        "one = singular"
+      ],
+      "teaches": [
+        "¿qué hora es?"
+      ]
+    },
+    {
+      "question_id": "a1-time-04",
+      "prompt": "Write the time: 4:30 → Son las cuatro ___.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "y media",
+      "accepted_answers": [],
+      "explanation": "Half past = y media.",
+      "hints": [
+        "half = media"
+      ],
+      "teaches": [
+        "y media"
+      ]
+    },
+    {
+      "question_id": "a1-time-05",
+      "prompt": "6:45 →",
+      "type": "multiple-choice",
+      "options": [
+        "Son las siete menos cuarto.",
+        "Son las seis y cuarto.",
+        "Son las seis menos cuarto."
+      ],
+      "correct_answer": "Son las siete menos cuarto.",
+      "explanation": "Quarter to seven: las siete menos cuarto.",
+      "hints": [
+        "count from the next hour"
+      ],
+      "teaches": [
+        "menos cuarto"
+      ]
+    },
+    {
+      "question_id": "a1-time-06",
+      "prompt": "Mi cumpleaños es ___ tres de mayo.",
+      "type": "multiple-choice",
+      "options": [
+        "el",
+        "en",
+        "a"
+      ],
+      "correct_answer": "el",
+      "explanation": "Dates: el + number + de + month.",
+      "hints": [
+        "el + number"
+      ],
+      "teaches": [
+        "mayo",
+        "el cumpleaños"
+      ]
+    },
+    {
+      "question_id": "a1-time-07",
+      "prompt": "La clase es ___ las nueve. (at nine)",
+      "type": "multiple-choice",
+      "options": [
+        "a",
+        "en",
+        "por"
+      ],
+      "correct_answer": "a",
+      "explanation": "At a time = a: a las nueve.",
+      "hints": [
+        "a + time"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a1-time-08",
+      "prompt": "Which is correct for 'on Saturdays'?",
+      "type": "multiple-choice",
+      "options": [
+        "los sábados",
+        "los sábado",
+        "los sabados"
+      ],
+      "correct_answer": "los sábados",
+      "explanation": "Sábado takes -s in the plural and keeps its accent.",
+      "hints": [
+        "accent + plural -s"
+      ],
+      "teaches": [
+        "el sábado"
+      ]
+    },
+    {
+      "question_id": "a1-time-09",
+      "prompt": "Estudio ___ la tarde.",
+      "type": "multiple-choice",
+      "options": [
+        "por",
+        "de",
+        "en"
+      ],
+      "correct_answer": "por",
+      "explanation": "A part of the day on its own uses por: por la tarde.",
+      "hints": [
+        "por + part of day"
+      ],
+      "teaches": [
+        "por la tarde"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Son las dos y media.",
+      "meaning": "It's half past two.",
+      "note": "Son for every hour except one o'clock."
+    },
+    {
+      "text": "Es la una y cuarto.",
+      "meaning": "It's quarter past one.",
+      "note": "One o'clock takes es la una."
+    },
+    {
+      "text": "Hoy es lunes y tengo clase.",
+      "meaning": "Today is Monday and I have class.",
+      "note": "No article when saying what day it is."
+    },
+    {
+      "text": "Mi cumpleaños es el veinte de agosto.",
+      "meaning": "My birthday is the twentieth of August."
+    },
+    {
+      "text": "Me levanto a las siete de la mañana.",
+      "meaning": "I get up at seven in the morning.",
+      "note": "New word: levantarse = to get up."
+    },
+    {
+      "text": "La clase es a las nueve menos cuarto.",
+      "meaning": "The class is at quarter to nine.",
+      "note": "A + time says when something happens."
+    },
+    {
+      "text": "El martes por la tarde voy al médico.",
+      "meaning": "On Tuesday afternoon I'm going to the doctor.",
+      "note": "New word: el médico = the doctor."
+    },
+    {
+      "text": "¿Qué hora es? Son las once y media de la mañana.",
+      "meaning": "What time is it? It's half past eleven in the morning."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Days of the week"
+    },
+    {
+      "vocab": 7
+    },
+    {
+      "question": "a1-time-01"
+    },
+    {
+      "question": "a1-time-02"
+    },
+    {
+      "question": "a1-time-08"
+    },
+    {
+      "section": "Months and dates"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a1-time-06"
+    },
+    {
+      "section": "Telling the time"
+    },
+    {
+      "vocab": 7
+    },
+    {
+      "question": "a1-time-03"
+    },
+    {
+      "question": "a1-time-04"
+    },
+    {
+      "question": "a1-time-05"
+    },
+    {
+      "question": "a1-time-07"
+    },
+    {
+      "question": "a1-time-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-time-conv-appointment",
+      "title": "Making an appointment",
+      "scenario": "Rosa calls the dentist's receptionist to book a visit.",
+      "role_a": "Rosa",
+      "role_b": "Recepcionista",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Buenos días. Quiero una cita con el dentista.",
+          "meaning": "Good morning. I'd like an appointment with the dentist."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Qué día le va bien? ¿El martes o el jueves?",
+          "meaning": "Which day suits you? Tuesday or Thursday?",
+          "note": "el + day = on"
+        },
+        {
+          "speaker": "a",
+          "text": "El jueves, por la mañana.",
+          "meaning": "Thursday, in the morning.",
+          "note": "por la mañana"
+        },
+        {
+          "speaker": "b",
+          "text": "Hay hora a las nueve y media o a las once menos cuarto.",
+          "meaning": "There's a slot at half past nine or at quarter to eleven.",
+          "note": "a las …"
+        },
+        {
+          "speaker": "a",
+          "text": "A las nueve y media, por favor. ¿Qué día es el jueves?",
+          "meaning": "Half past nine, please. What date is Thursday?"
+        },
+        {
+          "speaker": "b",
+          "text": "Es el doce de marzo. ¿Su fecha de nacimiento?",
+          "meaning": "It's the twelfth of March. Your date of birth?",
+          "note": "el + number + de + month"
+        },
+        {
+          "speaker": "a",
+          "text": "El veinte de agosto de mil novecientos noventa.",
+          "meaning": "The twentieth of August 1990."
+        },
+        {
+          "speaker": "b",
+          "text": "Perfecto. Hasta el jueves.",
+          "meaning": "Perfect. See you Thursday."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🕰️",
+    "bites": [
+      {
+        "title": "El means on",
+        "emoji": "📅",
+        "rule": "Do not use 'en' with days, because the article means 'on'. El lunes is on Monday and los lunes is on Mondays. When you say what day it is, drop the article: hoy es lunes.",
+        "example": "Los sábados duermo.",
+        "example_meaning": "On Saturdays I sleep."
+      },
+      {
+        "title": "Only one is singular",
+        "emoji": "🕐",
+        "rule": "Time uses ser. La una is the only singular hour, so you say es la una. Every other hour is plural: son las dos, son las diez.",
+        "example": "Es la una. Son las tres.",
+        "example_meaning": "It's one o'clock. It's three o'clock."
+      },
+      {
+        "title": "Add or subtract",
+        "emoji": "⏰",
+        "rule": "Past the hour, add with y (y cuarto, y media). In the last half hour, name the next hour and subtract with menos. For 6:45, say las siete menos cuarto.",
+        "example": "Son las siete menos cuarto.",
+        "example_meaning": "It's quarter to seven."
+      },
+      {
+        "title": "A for 'at', el for dates",
+        "emoji": "🎂",
+        "rule": "To say when something happens, use a: a las nueve. Dates go el + number + de + month, all lowercase: el tres de mayo.",
+        "example": "Mi cumpleaños es el tres de mayo.",
+        "example_meaning": "My birthday is on the third of May."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Es or son?",
+        "buckets": [
+          "Es…",
+          "Son…"
+        ],
+        "items": [
+          {
+            "text": "la una",
+            "bucket": 0
+          },
+          {
+            "text": "las dos",
+            "bucket": 1
+          },
+          {
+            "text": "la una y media",
+            "bucket": 0
+          },
+          {
+            "text": "las tres y cuarto",
+            "bucket": 1
+          },
+          {
+            "text": "mediodía",
+            "bucket": 0
+          },
+          {
+            "text": "las doce",
+            "bucket": 1
+          },
+          {
+            "text": "las siete menos cuarto",
+            "bucket": 1
+          },
+          {
+            "text": "la una menos diez",
+            "bucket": 0
+          }
+        ],
+        "why": "La una, midday and midnight are singular, so they take es. All other hours are plural, so they take son."
+      },
+      {
+        "title": "De la or por la?",
+        "buckets": [
+          "de la …",
+          "por la …"
+        ],
+        "items": [
+          {
+            "text": "a las ocho ___ mañana",
+            "bucket": 0
+          },
+          {
+            "text": "___ tarde estudio",
+            "bucket": 1
+          },
+          {
+            "text": "las diez ___ noche",
+            "bucket": 0
+          },
+          {
+            "text": "Trabajo ___ mañana.",
+            "bucket": 1
+          },
+          {
+            "text": "a las cinco ___ tarde",
+            "bucket": 0
+          },
+          {
+            "text": "___ noche veo la tele",
+            "bucket": 1
+          }
+        ],
+        "why": "After a clock time use de la; for a part of the day on its own use por la."
+      },
+      {
+        "title": "Article or not?",
+        "buckets": [
+          "el / los",
+          "no article"
+        ],
+        "items": [
+          {
+            "text": "___ lunes tengo clase.",
+            "bucket": 0
+          },
+          {
+            "text": "Hoy es ___ martes.",
+            "bucket": 1
+          },
+          {
+            "text": "___ sábados duermo.",
+            "bucket": 0
+          },
+          {
+            "text": "Mi cumpleaños es ___ tres de mayo.",
+            "bucket": 0
+          },
+          {
+            "text": "En ___ agosto vamos a la playa.",
+            "bucket": 1
+          },
+          {
+            "text": "Mañana es ___ viernes.",
+            "bucket": 1
+          }
+        ],
+        "why": "Days take el/los to mean 'on' and dates take el. Naming today's day or a month takes no article."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "En lunes tengo clase.",
+        "wrong": "En",
+        "fix": "El",
+        "why": "Days use the article to mean 'on': el lunes."
+      },
+      {
+        "sentence": "Son la una de la tarde.",
+        "wrong": "Son",
+        "fix": "Es",
+        "why": "La una is singular: es la una."
+      },
+      {
+        "sentence": "Es las cuatro y media.",
+        "wrong": "Es",
+        "fix": "Son",
+        "why": "Every hour except one is plural: son las cuatro."
+      },
+      {
+        "sentence": "La clase es en las nueve.",
+        "wrong": "en",
+        "fix": "a",
+        "why": "At a clock time is a: a las nueve."
+      },
+      {
+        "sentence": "Siempre estudio de la tarde.",
+        "wrong": "de",
+        "fix": "por",
+        "why": "A part of the day on its own uses por: por la tarde."
+      },
+      {
+        "sentence": "Mi cumpleaños es en tres de mayo.",
+        "wrong": "en",
+        "fix": "el",
+        "why": "Dates take el + number + de + month."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Hay hora a las nueve y media.",
+        "meaning": "There's a slot at half past nine.",
+        "distractors": [
+          "en"
+        ]
+      },
+      {
+        "text": "Hoy es jueves, doce de marzo.",
+        "meaning": "Today is Thursday, the twelfth of March.",
+        "distractors": [
+          "está"
+        ]
+      },
+      {
+        "text": "Son las cinco menos cuarto.",
+        "meaning": "It's quarter to five.",
+        "distractors": [
+          "Es",
+          "y"
+        ]
+      },
+      {
+        "text": "Mi cumpleaños es el tres de mayo.",
+        "meaning": "My birthday is on the third of May.",
+        "distractors": [
+          "en"
+        ]
+      },
+      {
+        "text": "Por la tarde estudio español.",
+        "meaning": "In the afternoon I study Spanish.",
+        "distractors": [
+          "de"
+        ]
+      }
+    ]
+  }
+}

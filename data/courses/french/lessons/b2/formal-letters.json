@@ -1,0 +1,585 @@
+{
+  "id": "b2-formal-letters",
+  "slug": "formal-letters",
+  "title": "Formal letters and complaints: je vous prie d'agréer…",
+  "unit": "B2",
+  "group": "Vocabulary",
+  "order": 36,
+  "summary": "Lay out a French formal letter, open it, make a request or a complaint in the conditionnel, attach documents and close with the right formula.",
+  "focus": "The set phrases of a French formal letter, from Objet : to salutations distinguées",
+  "prerequisites": [
+    "b2-registers-idioms"
+  ],
+  "content": "## The layout and the opening lines\n\nA French formal letter has a fixed shape: your name and address top left, the reader's below on the right, then the place and date (**Lyon, le 3 mars 2026**), then **Objet :** and the subject in a few words (**Objet : demande de remboursement**).\n\nThe salutation ends with a comma: **Madame, Monsieur,** for an unknown reader, or a title (**Madame la Directrice,**). **Cher Monsieur** is only for someone you know.\n\nThe first line says why you write:\n\n- **Je me permets de vous écrire** au sujet de… (I am writing to you about…)\n- **Je vous écris au sujet de** ma commande. (I am writing about my order.)\n- **Suite à** notre conversation du 3 mars, … (Following our conversation of 3 March, …)\n- **J'ai bien reçu** votre courrier du 2 juin. (I have received your letter of 2 June.)\n\n## Asking and complaining politely\n\nA formal request uses **vous** and the **conditionnel**, which softens it:\n\n- **Je souhaiterais** obtenir un rendez-vous. (I would like to get an appointment.)\n- **Je vous serais reconnaissant(e) de bien vouloir** me répondre. (I would be grateful if you would reply.)\n\nA complaint, **une réclamation**, states the facts, then what you want:\n\n- **Je demande le remboursement de** mon billet. (I request a refund of my ticket.)\n- **Je me vois dans l'obligation de** résilier mon contrat. (I find myself obliged to cancel my contract.)\n\nAttaching a document: **Vous trouverez ci-joint** la facture. **Ci-joint** before the noun stays invariable; after the noun it agrees: **la facture ci-jointe**, **les photos ci-jointes**.\n\n## Closing the letter (and the e-mail)\n\nA letter ends with two set pieces:\n\n1. **Dans l'attente de votre réponse,** (Looking forward to your reply,)\n2. **je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées.**\n\nThe second one is a fixed formula: **agréer** means to accept, and the salutation inside repeats the opening one exactly (**Madame la Directrice**, if you began with it). **Veuillez agréer, …** is a common shorter start.\n\nAn e-mail is lighter: **Cordialement,** or **Bien cordialement,** then your name. Never mix the two: no long formula in a quick e-mail, no **Bisous** anywhere near a complaint.",
+  "vocabulary": [
+    {
+      "term": "l'objet",
+      "meaning": "subject line of a letter (m)",
+      "example": "Objet : demande de remboursement.",
+      "example_meaning": "Re: request for a refund."
+    },
+    {
+      "term": "le courrier",
+      "meaning": "letter, mail",
+      "example": "J'ai bien reçu votre courrier du 12 mai.",
+      "example_meaning": "I have received your letter of 12 May."
+    },
+    {
+      "term": "se permettre de",
+      "meaning": "to take the liberty of",
+      "example": "Je me permets de vous écrire au sujet de votre annonce.",
+      "example_meaning": "I am writing to you regarding your advertisement."
+    },
+    {
+      "term": "au sujet de",
+      "meaning": "about, concerning",
+      "example": "Je vous écris au sujet de ma facture d'électricité.",
+      "example_meaning": "I am writing to you about my electricity bill."
+    },
+    {
+      "term": "suite à",
+      "meaning": "following (formal)",
+      "example": "Suite à notre entretien téléphonique, je vous envoie mon dossier.",
+      "example_meaning": "Following our phone conversation, I am sending you my file."
+    },
+    {
+      "term": "être reconnaissant de",
+      "meaning": "to be grateful for",
+      "example": "Je vous serais reconnaissante de bien vouloir me rappeler.",
+      "example_meaning": "I would be grateful if you would call me back."
+    },
+    {
+      "term": "souhaiter",
+      "meaning": "to wish, to want (polite)",
+      "example": "Je souhaiterais connaître vos tarifs.",
+      "example_meaning": "I would like to know your prices."
+    },
+    {
+      "term": "se voir dans l'obligation de",
+      "meaning": "to find oneself obliged to",
+      "example": "Je me vois dans l'obligation d'annuler ma commande.",
+      "example_meaning": "I find myself obliged to cancel my order."
+    },
+    {
+      "term": "le remboursement",
+      "meaning": "refund",
+      "example": "Le remboursement sera fait sous dix jours.",
+      "example_meaning": "The refund will be made within ten days."
+    },
+    {
+      "term": "la réclamation",
+      "meaning": "complaint (formal)",
+      "example": "J'ai envoyé une réclamation au service client.",
+      "example_meaning": "I sent a complaint to customer service."
+    },
+    {
+      "term": "ci-joint",
+      "meaning": "attached, enclosed",
+      "example": "Vous trouverez ci-joint une copie de mon contrat.",
+      "example_meaning": "Please find attached a copy of my contract."
+    },
+    {
+      "term": "dans l'attente de",
+      "meaning": "looking forward to, awaiting",
+      "example": "Dans l'attente de votre réponse, je reste à votre disposition.",
+      "example_meaning": "Looking forward to your reply, I remain at your disposal."
+    },
+    {
+      "term": "agréer",
+      "meaning": "to accept (formal, in closing formulas)",
+      "example": "Veuillez agréer, Monsieur, mes salutations distinguées.",
+      "example_meaning": "Yours faithfully. (literally: Please accept, Sir, my distinguished greetings.)"
+    },
+    {
+      "term": "les salutations distinguées",
+      "meaning": "formal regards (closing a letter)",
+      "example": "Je vous prie d'agréer, Madame, l'expression de mes salutations distinguées.",
+      "example_meaning": "Yours sincerely. (literally: I beg you to accept, Madam, the expression of my distinguished greetings.)"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-formal-letters-01",
+      "prompt": "You are writing a formal letter to Mme Roche, a school director you have never met. Which salutation opens it?",
+      "type": "multiple-choice",
+      "options": [
+        "Madame la Directrice,",
+        "Chère Madame Roche,",
+        "Salut Madame Roche,"
+      ],
+      "correct_answer": "Madame la Directrice,",
+      "explanation": "A title (Madame la Directrice,) or Madame, Monsieur, opens a letter to someone you don't know. Cher/Chère suggests you know the person; Salut is for friends.",
+      "hints": [
+        "Cher and chère imply a personal relationship."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b2-formal-letters-02",
+      "prompt": "Je vous serais ___ de bien vouloir me répondre avant vendredi. (a man writing)",
+      "type": "fill-in-blank",
+      "correct_answer": "reconnaissant",
+      "accepted_answers": [
+        "reconnaissante"
+      ],
+      "explanation": "Je vous serais reconnaissant(e) de bien vouloir + infinitive = I would be grateful if you would… The conditionnel serais makes it polite.",
+      "hints": [
+        "The adjective for 'grateful'.",
+        "It agrees with the writer: -ant for a man, -ante for a woman."
+      ],
+      "teaches": [
+        "être reconnaissant de"
+      ]
+    },
+    {
+      "question_id": "b2-formal-letters-03",
+      "prompt": "Your train was cancelled and you want your money back. In your letter you write: Je demande le ___ de mon billet.",
+      "type": "multiple-choice",
+      "options": [
+        "remboursement",
+        "courrier",
+        "objet"
+      ],
+      "correct_answer": "remboursement",
+      "explanation": "Le remboursement = the refund. Le courrier is the letter itself, l'objet its subject line.",
+      "hints": [
+        "You want the money back."
+      ],
+      "teaches": [
+        "le remboursement"
+      ]
+    },
+    {
+      "question_id": "b2-formal-letters-04",
+      "prompt": "Complete the classic closing formula: Je vous prie d'___, Madame, Monsieur, l'expression de mes salutations distinguées.",
+      "type": "fill-in-blank",
+      "correct_answer": "agréer",
+      "accepted_answers": [],
+      "explanation": "Je vous prie d'agréer… = I ask you to accept… It is a fixed formula: learn it whole.",
+      "hints": [
+        "A formal verb meaning 'to accept'.",
+        "It starts with agr-."
+      ],
+      "teaches": [
+        "agréer",
+        "les salutations distinguées"
+      ]
+    },
+    {
+      "question_id": "b2-formal-letters-05",
+      "prompt": "Which opening line refers back to a phone call you had with the reader?",
+      "type": "multiple-choice",
+      "options": [
+        "Suite à notre conversation téléphonique du 3 mars,",
+        "Dans l'attente de votre réponse,",
+        "Veuillez agréer, Monsieur,"
+      ],
+      "correct_answer": "Suite à notre conversation téléphonique du 3 mars,",
+      "explanation": "Suite à = following. The other two belong to the end of the letter.",
+      "hints": [
+        "Which one looks back at something that already happened?"
+      ],
+      "teaches": [
+        "suite à"
+      ]
+    },
+    {
+      "question_id": "b2-formal-letters-06",
+      "prompt": "Je me ___ de vous écrire au sujet de ma commande du 15 avril.",
+      "type": "fill-in-blank",
+      "correct_answer": "permets",
+      "accepted_answers": [
+        "me permets"
+      ],
+      "explanation": "Se permettre de + infinitive: je me permets de vous écrire = I am taking the liberty of writing to you, a polite first line.",
+      "hints": [
+        "se permettre, je form",
+        "Like mettre: je mets → je me permets."
+      ],
+      "teaches": [
+        "se permettre de",
+        "au sujet de"
+      ]
+    },
+    {
+      "question_id": "b2-formal-letters-07",
+      "prompt": "Sans réponse de votre part sous quinze jours, je me verrai dans l'___ de résilier mon contrat.",
+      "type": "fill-in-blank",
+      "correct_answer": "obligation",
+      "accepted_answers": [],
+      "explanation": "Se voir dans l'obligation de + infinitive = to find oneself obliged to: the firm but polite step before stronger action.",
+      "hints": [
+        "A noun meaning 'being obliged'.",
+        "It ends in -tion."
+      ],
+      "teaches": [
+        "se voir dans l'obligation de"
+      ]
+    },
+    {
+      "question_id": "b2-formal-letters-08",
+      "prompt": "True or false: in 'Veuillez trouver la facture ci-jointe', ci-jointe agrees with facture because it comes after the noun.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "After the noun, ci-joint agrees like an adjective: la facture ci-jointe, les documents ci-joints. Before the noun it usually stays invariable: ci-joint la facture.",
+      "hints": [
+        "Is ci-joint placed before or after the noun here?"
+      ],
+      "teaches": [
+        "ci-joint"
+      ]
+    },
+    {
+      "question_id": "b2-formal-letters-09",
+      "prompt": "True or false: in a French formal letter, the line beginning 'Objet :' goes at the bottom, under the signature.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "L'objet comes near the top, after the place and date and before the salutation Madame, Monsieur, so the reader knows at once what the letter is about.",
+      "hints": [
+        "The reader should see the subject first."
+      ],
+      "teaches": [
+        "l'objet"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-formal-letters-conv-complaint-draft",
+      "title": "Drafting a complaint",
+      "scenario": "Inès's new washing machine broke down after two weeks. Her neighbour M. Garnier, a retired notary, helps her write a letter of complaint to the shop.",
+      "role_a": "Inès",
+      "role_b": "M. Garnier",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Vous pouvez relire ma lettre de réclamation ?",
+          "meaning": "Could you read over my letter of complaint?"
+        },
+        {
+          "speaker": "b",
+          "text": "Bien sûr. Qu'est-ce qui s'est passé ?",
+          "meaning": "Of course. What happened?"
+        },
+        {
+          "speaker": "a",
+          "text": "Mon lave-linge est tombé en panne au bout de deux semaines.",
+          "meaning": "My washing machine broke down after two weeks."
+        },
+        {
+          "speaker": "b",
+          "text": "Alors commencez par l'objet : demande de remboursement.",
+          "meaning": "Then start with the subject line: request for a refund."
+        },
+        {
+          "speaker": "a",
+          "text": "D'accord. Et la première phrase ?",
+          "meaning": "OK. And the first sentence?"
+        },
+        {
+          "speaker": "b",
+          "text": "Écrivez : je me permets de vous écrire au sujet de ma commande.",
+          "meaning": "Write: I am writing to you about my order."
+        },
+        {
+          "speaker": "a",
+          "text": "Ensuite, j'écris que je veux être remboursée ?",
+          "meaning": "Then I write that I want a refund?"
+        },
+        {
+          "speaker": "b",
+          "text": "Plutôt : je vous serais reconnaissante de bien vouloir me rembourser.",
+          "meaning": "Rather: I would be grateful if you would refund me."
+        },
+        {
+          "speaker": "a",
+          "text": "Avec le conditionnel, c'est beaucoup plus poli.",
+          "meaning": "With the conditionnel, it's much more polite."
+        },
+        {
+          "speaker": "b",
+          "text": "Exactement. Et joignez une copie de la facture.",
+          "meaning": "Exactly. And enclose a copy of the invoice."
+        },
+        {
+          "speaker": "a",
+          "text": "Pour finir, je mets juste « Cordialement » ?",
+          "meaning": "To finish, do I just put 'Cordialement'?"
+        },
+        {
+          "speaker": "b",
+          "text": "Non, pour une lettre, la formule complète : je vous prie d'agréer…",
+          "meaning": "No, for a letter, the full formula: je vous prie d'agréer…"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "J'ai bien reçu votre lettre.",
+      "meaning": "I have received your letter."
+    },
+    {
+      "text": "Je vous écris au sujet de mon abonnement.",
+      "meaning": "I am writing to you about my subscription.",
+      "note": "New word: l'abonnement = the subscription."
+    },
+    {
+      "text": "Vous trouverez ci-joint la photo du colis abîmé.",
+      "meaning": "Please find attached the photo of the damaged parcel.",
+      "note": "New word: le colis = the parcel."
+    },
+    {
+      "text": "Je souhaiterais obtenir un rendez-vous la semaine prochaine.",
+      "meaning": "I would like to get an appointment next week.",
+      "note": "The conditionnel souhaiterais softens the request."
+    },
+    {
+      "text": "Suite à votre appel, je vous envoie les documents demandés.",
+      "meaning": "Following your call, I am sending you the documents requested."
+    },
+    {
+      "text": "Je demande le remboursement complet de mon billet de train.",
+      "meaning": "I request a full refund of my train ticket."
+    },
+    {
+      "text": "Je me vois dans l'obligation de résilier mon contrat de location.",
+      "meaning": "I find myself obliged to terminate my rental contract.",
+      "note": "New word: résilier = to terminate a contract."
+    },
+    {
+      "text": "Je vous prie d'agréer, Monsieur, l'expression de mes salutations distinguées.",
+      "meaning": "Yours faithfully, Sir."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The layout"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-formal-letters-01"
+    },
+    {
+      "question": "b2-formal-letters-09"
+    },
+    {
+      "question": "b2-formal-letters-05"
+    },
+    {
+      "question": "b2-formal-letters-06"
+    },
+    {
+      "section": "Asking and complaining"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-formal-letters-02"
+    },
+    {
+      "question": "b2-formal-letters-03"
+    },
+    {
+      "question": "b2-formal-letters-07"
+    },
+    {
+      "question": "b2-formal-letters-08"
+    },
+    {
+      "tip": "Write the request in the conditionnel: je souhaiterais, je vous serais reconnaissant(e). The futur (je vous serai reconnaissant) exists too, but sounds firmer."
+    },
+    {
+      "section": "Closing"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-formal-letters-04"
+    },
+    {
+      "concept": {
+        "title": "La lettre recommandée",
+        "markdown": "For a serious complaint or to end a contract, the French send **une lettre recommandée avec accusé de réception** (registered letter with proof of receipt). The post office records that it was sent and signed for: useful proof if the dispute goes further."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "✉️",
+    "bites": [
+      {
+        "title": "The shape of the letter",
+        "emoji": "📝",
+        "rule": "Place and date (Lyon, le 3 mars 2026), then Objet : …, then Madame, Monsieur, with a comma. Cher or chère only for someone you know.",
+        "example": "Objet : demande de remboursement",
+        "example_meaning": "Re: request for a refund"
+      },
+      {
+        "title": "Ask in the conditionnel",
+        "emoji": "🙏",
+        "rule": "Je souhaiterais…, je vous serais reconnaissant(e) de bien vouloir… Firmer: je me vois dans l'obligation de…",
+        "example": "Je souhaiterais être remboursé.",
+        "example_meaning": "I would like to be refunded."
+      },
+      {
+        "title": "Attach it: ci-joint",
+        "emoji": "📎",
+        "rule": "Vous trouverez ci-joint + the document. After the noun, ci-joint agrees: la facture ci-jointe.",
+        "example": "Vous trouverez ci-joint mon contrat.",
+        "example_meaning": "Please find my contract attached."
+      },
+      {
+        "title": "Close with the formula",
+        "emoji": "✒️",
+        "rule": "Dans l'attente de votre réponse, je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées. In an e-mail: Cordialement.",
+        "example": "Dans l'attente de votre réponse,",
+        "example_meaning": "Looking forward to your reply,"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Opening, request or closing?",
+        "buckets": [
+          "opening",
+          "request",
+          "closing"
+        ],
+        "items": [
+          {
+            "text": "Je me permets de vous écrire…",
+            "bucket": 0
+          },
+          {
+            "text": "Suite à notre entretien du 5 mai,",
+            "bucket": 0
+          },
+          {
+            "text": "J'ai bien reçu votre courrier du 2 juin.",
+            "bucket": 0
+          },
+          {
+            "text": "Je vous serais reconnaissant de bien vouloir…",
+            "bucket": 1
+          },
+          {
+            "text": "Je demande le remboursement de…",
+            "bucket": 1
+          },
+          {
+            "text": "Je souhaiterais savoir si…",
+            "bucket": 1
+          },
+          {
+            "text": "Dans l'attente de votre réponse,",
+            "bucket": 2
+          },
+          {
+            "text": "Je vous prie d'agréer…",
+            "bucket": 2
+          }
+        ],
+        "why": "Openers say why you write or what you answer; requests use the conditionnel or demander; the closing waits for a reply and offers the formula."
+      },
+      {
+        "title": "Formal letter or e-mail to a colleague?",
+        "buckets": [
+          "lettre formelle",
+          "e-mail à un collègue"
+        ],
+        "items": [
+          {
+            "text": "Madame la Directrice,",
+            "bucket": 0
+          },
+          {
+            "text": "Bonjour Julie,",
+            "bucket": 1
+          },
+          {
+            "text": "Veuillez agréer, Monsieur, mes salutations distinguées.",
+            "bucket": 0
+          },
+          {
+            "text": "Bien cordialement,",
+            "bucket": 1
+          },
+          {
+            "text": "Objet : résiliation du contrat",
+            "bucket": 0
+          },
+          {
+            "text": "Bonne journée !",
+            "bucket": 1
+          }
+        ],
+        "why": "Titles, an Objet line and the long formula belong to letters; a first name, Bien cordialement and Bonne journée suit an e-mail to a colleague."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Je me permets à vous écrire au sujet de ma commande.",
+        "wrong": "à",
+        "fix": "de",
+        "why": "Se permettre de + infinitive."
+      },
+      {
+        "sentence": "Veuillez trouver la facture ci-joint.",
+        "wrong": "ci-joint",
+        "fix": "ci-jointe",
+        "why": "After the noun, ci-joint agrees: la facture ci-jointe."
+      },
+      {
+        "sentence": "Je demande la remboursement de mon billet.",
+        "wrong": "la",
+        "fix": "le",
+        "why": "Le remboursement is masculine, like most nouns in -ment."
+      },
+      {
+        "sentence": "Je vous prie d'agréer, Madame, l'expression de mes salutations distingués.",
+        "wrong": "distingués",
+        "fix": "distinguées",
+        "why": "Les salutations is feminine plural: distinguées."
+      },
+      {
+        "sentence": "Suite de notre conversation, je vous envoie le dossier.",
+        "wrong": "de",
+        "fix": "à",
+        "why": "The formal 'following' is suite à."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Je vous écris au sujet de ma commande.",
+        "meaning": "I am writing to you about my order.",
+        "distractors": [
+          "à"
+        ]
+      },
+      {
+        "text": "Vous trouverez ci-joint mon contrat.",
+        "meaning": "Please find my contract attached.",
+        "distractors": [
+          "trouvez"
+        ]
+      },
+      {
+        "text": "Je souhaiterais obtenir un remboursement.",
+        "meaning": "I would like to get a refund.",
+        "distractors": [
+          "souhaiterait"
+        ]
+      },
+      {
+        "text": "Dans l'attente de votre réponse,",
+        "meaning": "Looking forward to your reply,",
+        "distractors": [
+          "attendre"
+        ]
+      }
+    ]
+  }
+}

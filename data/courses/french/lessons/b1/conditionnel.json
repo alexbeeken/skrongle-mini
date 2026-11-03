@@ -1,0 +1,747 @@
+{
+  "id": "b1-conditionnel",
+  "slug": "conditionnel",
+  "title": "The conditionnel: je voudrais, si j'avais…",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 18,
+  "summary": "Form the conditionnel présent and use it to ask politely, give advice, imagine with si + imparfait and report the future in the past.",
+  "focus": "Forming and using the conditionnel présent",
+  "prerequisites": [
+    "a2-futur-simple"
+  ],
+  "content": "## Forming the conditionnel\n\nTake the **futur simple stem** (usually the infinitive; **-re** verbs drop the final **-e**) and add the **imparfait endings**: **-ais, -ais, -ait, -ions, -iez, -aient**.\n\n| | parler | finir | prendre |\n|---|---|---|---|\n| je | parlerais | finirais | prendrais |\n| tu | parlerais | finirais | prendrais |\n| il / elle / on | parlerait | finirait | prendrait |\n| nous | parlerions | finirions | prendrions |\n| vous | parleriez | finiriez | prendriez |\n| ils / elles | parleraient | finiraient | prendraient |\n\nIrregular stems are the same as in the futur: **être → ser-**, **avoir → aur-**, **aller → ir-**, **faire → fer-**, **pouvoir → pourr-**, **devoir → devr-**, **vouloir → voudr-**, **venir → viendr-**.\n\n## Politeness and advice\n\nThe conditionnel softens a request or a wish.\n\n- **Je voudrais un café, s'il vous plaît.** (I'd like a coffee, please.)\n- **Pourriez-vous m'aider ?** (Could you help me?)\n- **J'aimerais voyager au Japon.** (I'd love to travel to Japan.)\n\nIt also gives advice:\n\n- **Tu devrais dormir plus.** (You should sleep more.)\n- **À ta place, je parlerais au professeur.** (If I were you, I'd talk to the teacher.)\n- **Vous pourriez essayer demain.** (You could try tomorrow.)\n\n## Si + imparfait and the conditionnel\n\nTo imagine something unreal or unlikely, put **si** + **imparfait** in one half and the **conditionnel** in the other:\n\n- **Si j'avais le temps, je voyagerais.** (If I had time, I would travel.)\n- **Si nous étions riches, nous achèterions une maison.** (If we were rich, we would buy a house.)\n- **Je serais content si tu venais.** (I'd be glad if you came.)\n\nThe halves can swap places, but the conditionnel **never** comes right after **si**: say **si j'avais**, never *si j'aurais*. For a real possibility, use si + présent with the futur: **Si j'ai le temps, je viendrai.**\n\n## The future in the past\n\nWhen you report what someone said or thought about the future, and the main verb is in the past, the futur becomes the conditionnel:\n\n- **Il dit qu'il viendra.** → **Il a dit qu'il viendrait.** (He said he would come.)\n- **Je pensais que tu serais là.** (I thought you would be there.)\n- **Elle a promis qu'elle ferait la vaisselle.** (She promised she would do the dishes.)\n\nEnglish uses *would* in the same place in reported speech.",
+  "vocabulary": [
+    {
+      "term": "je voudrais",
+      "meaning": "I would like",
+      "example": "Je voudrais une table pour deux, s'il vous plaît.",
+      "example_meaning": "I'd like a table for two, please."
+    },
+    {
+      "term": "pourriez-vous",
+      "meaning": "could you (polite)",
+      "example": "Pourriez-vous parler plus lentement ?",
+      "example_meaning": "Could you speak more slowly?"
+    },
+    {
+      "term": "j'aimerais",
+      "meaning": "I would like, I'd love",
+      "example": "J'aimerais apprendre à jouer du piano.",
+      "example_meaning": "I'd love to learn to play the piano."
+    },
+    {
+      "term": "tu devrais",
+      "meaning": "you should",
+      "example": "Tu devrais appeler ta grand-mère.",
+      "example_meaning": "You should call your grandmother."
+    },
+    {
+      "term": "à ta place",
+      "meaning": "if I were you (literally: in your place)",
+      "example": "À ta place, je prendrais le train.",
+      "example_meaning": "If I were you, I'd take the train."
+    },
+    {
+      "term": "si",
+      "meaning": "if",
+      "example": "Si tu venais, on serait contents.",
+      "example_meaning": "If you came, we'd be happy."
+    },
+    {
+      "term": "avoir le temps",
+      "meaning": "to have time",
+      "example": "Si j'avais le temps, je lirais plus.",
+      "example_meaning": "If I had time, I'd read more."
+    },
+    {
+      "term": "voyager",
+      "meaning": "to travel",
+      "example": "Nous voyagerions plus si les billets étaient moins chers.",
+      "example_meaning": "We'd travel more if tickets were cheaper."
+    },
+    {
+      "term": "riche",
+      "meaning": "rich",
+      "example": "Si j'étais riche, j'aiderais ma famille.",
+      "example_meaning": "If I were rich, I'd help my family."
+    },
+    {
+      "term": "promettre",
+      "meaning": "to promise",
+      "example": "Il a promis qu'il viendrait.",
+      "example_meaning": "He promised he would come."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-conditionnel-01",
+      "prompt": "___ un croissant, s'il vous plaît.",
+      "type": "multiple-choice",
+      "options": [
+        "Je voudrais",
+        "Je voudrai",
+        "Je voulais"
+      ],
+      "correct_answer": "Je voudrais",
+      "explanation": "Je voudrais (conditionnel) is the polite way to ask for something. Je voudrai is the futur, je voulais the imparfait.",
+      "hints": [
+        "A polite request takes the conditionnel, with an -ais ending."
+      ],
+      "teaches": [
+        "je voudrais"
+      ]
+    },
+    {
+      "question_id": "b1-conditionnel-02",
+      "prompt": "Si j'avais le temps, je ___ plus souvent. (voyager)",
+      "type": "fill-in-blank",
+      "correct_answer": "voyagerais",
+      "accepted_answers": [],
+      "explanation": "Si + imparfait in one half, conditionnel in the other: je voyagerais.",
+      "hints": [
+        "The result half takes the conditionnel: infinitive + -ais."
+      ],
+      "teaches": [
+        "si",
+        "avoir le temps",
+        "voyager"
+      ]
+    },
+    {
+      "question_id": "b1-conditionnel-03",
+      "prompt": "Si nous ___ riches, nous achèterions un bateau.",
+      "type": "multiple-choice",
+      "options": [
+        "serions",
+        "étions",
+        "sommes"
+      ],
+      "correct_answer": "étions",
+      "explanation": "After si comes the imparfait (nous étions); the conditionnel goes in the other half (nous achèterions).",
+      "hints": [
+        "Never the conditionnel right after si."
+      ],
+      "teaches": [
+        "si",
+        "riche"
+      ]
+    },
+    {
+      "question_id": "b1-conditionnel-04",
+      "prompt": "After si meaning 'if', you can use the conditionnel, as in 'si j'aurais le temps'.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "The conditionnel never follows si: si j'avais le temps, je viendrais.",
+      "hints": [
+        "Which tense goes after si in a hypothesis?"
+      ],
+      "teaches": [
+        "si"
+      ]
+    },
+    {
+      "question_id": "b1-conditionnel-05",
+      "prompt": "Tu ___ dormir plus, tu as l'air fatigué. (devoir)",
+      "type": "fill-in-blank",
+      "correct_answer": "devrais",
+      "accepted_answers": [],
+      "explanation": "For advice, use devoir in the conditionnel: tu devrais means you should.",
+      "hints": [
+        "Devoir's stem is devr-."
+      ],
+      "teaches": [
+        "tu devrais"
+      ]
+    },
+    {
+      "question_id": "b1-conditionnel-06",
+      "prompt": "Which is the most polite way to ask for help?",
+      "type": "multiple-choice",
+      "options": [
+        "Pourriez-vous m'aider ?",
+        "Aidez-moi !",
+        "Vous m'aidez ?"
+      ],
+      "correct_answer": "Pourriez-vous m'aider ?",
+      "explanation": "The conditionnel of pouvoir with vous and inversion is the politest request.",
+      "hints": [
+        "Look for the conditionnel."
+      ],
+      "teaches": [
+        "pourriez-vous"
+      ]
+    },
+    {
+      "question_id": "b1-conditionnel-07",
+      "prompt": "Il a dit qu'il ___ demain. (venir)",
+      "type": "fill-in-blank",
+      "correct_answer": "viendrait",
+      "accepted_answers": [],
+      "explanation": "After a past reporting verb, the futur becomes the conditionnel: il a dit qu'il viendrait.",
+      "hints": [
+        "Venir's stem is viendr-.",
+        "The future seen from the past."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-conditionnel-08",
+      "prompt": "À ta place, j'___ chez le médecin.",
+      "type": "multiple-choice",
+      "options": [
+        "irais",
+        "allais",
+        "irai"
+      ],
+      "correct_answer": "irais",
+      "explanation": "À ta place introduces advice in the conditionnel: j'irais (aller has the stem ir-).",
+      "hints": [
+        "Aller's futur stem is ir-."
+      ],
+      "teaches": [
+        "à ta place"
+      ]
+    },
+    {
+      "question_id": "b1-conditionnel-09",
+      "prompt": "The endings of the conditionnel are the same as the endings of the imparfait.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Yes: -ais, -ais, -ait, -ions, -iez, -aient, added to the futur stem.",
+      "hints": [
+        "Compare je parlerais and je parlais."
+      ],
+      "teaches": []
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "parler",
+      "meaning": "to speak",
+      "set": "conditionnel",
+      "art": [
+        " .----------.",
+        "( I'd say... )",
+        " '---. .----'",
+        "     V",
+        "   (o_o)"
+      ],
+      "forms": {
+        "je": "parlerais",
+        "tu": "parlerais",
+        "il": "parlerait",
+        "nous": "parlerions",
+        "vous": "parleriez",
+        "ils": "parleraient"
+      }
+    },
+    {
+      "item": "finir",
+      "meaning": "to finish",
+      "set": "conditionnel",
+      "art": [
+        "  _________",
+        " |  FIN ?  |",
+        " |_________|",
+        "  maybe..."
+      ],
+      "forms": {
+        "je": "finirais",
+        "tu": "finirais",
+        "il": "finirait",
+        "nous": "finirions",
+        "vous": "finiriez",
+        "ils": "finiraient"
+      }
+    },
+    {
+      "item": "être",
+      "meaning": "to be",
+      "set": "conditionnel",
+      "art": [
+        "   ___",
+        "  (o o)  ~",
+        "   \\_/  ~",
+        "  if only"
+      ],
+      "forms": {
+        "je": "serais",
+        "tu": "serais",
+        "il": "serait",
+        "nous": "serions",
+        "vous": "seriez",
+        "ils": "seraient"
+      }
+    },
+    {
+      "item": "avoir",
+      "meaning": "to have",
+      "set": "conditionnel",
+      "art": [
+        "  _____",
+        " | $ ? |",
+        " |_____|",
+        "  I'd have"
+      ],
+      "forms": {
+        "je": "aurais",
+        "tu": "aurais",
+        "il": "aurait",
+        "nous": "aurions",
+        "vous": "auriez",
+        "ils": "auraient"
+      }
+    },
+    {
+      "item": "aller",
+      "meaning": "to go",
+      "set": "conditionnel",
+      "art": [
+        "  o   ?-->",
+        " /|\\  ?-->",
+        " / \\",
+        "  I'd go"
+      ],
+      "forms": {
+        "je": "irais",
+        "tu": "irais",
+        "il": "irait",
+        "nous": "irions",
+        "vous": "iriez",
+        "ils": "iraient"
+      }
+    },
+    {
+      "item": "faire",
+      "meaning": "to do, to make",
+      "set": "conditionnel",
+      "art": [
+        "   _",
+        "  | |___ ?",
+        "  |_____|",
+        "  I'd make it"
+      ],
+      "forms": {
+        "je": "ferais",
+        "tu": "ferais",
+        "il": "ferait",
+        "nous": "ferions",
+        "vous": "feriez",
+        "ils": "feraient"
+      }
+    },
+    {
+      "item": "pouvoir",
+      "meaning": "to be able to",
+      "set": "conditionnel",
+      "art": [
+        "   O",
+        "  /|\\_ ?",
+        "  / \\ |",
+        "  I could"
+      ],
+      "forms": {
+        "je": "pourrais",
+        "tu": "pourrais",
+        "il": "pourrait",
+        "nous": "pourrions",
+        "vous": "pourriez",
+        "ils": "pourraient"
+      }
+    },
+    {
+      "item": "devoir",
+      "meaning": "to have to, must",
+      "set": "conditionnel",
+      "art": [
+        "  .------.",
+        " | TO DO  |",
+        " | [ ] go |",
+        "  '------'",
+        "  I should"
+      ],
+      "forms": {
+        "je": "devrais",
+        "tu": "devrais",
+        "il": "devrait",
+        "nous": "devrions",
+        "vous": "devriez",
+        "ils": "devraient"
+      }
+    },
+    {
+      "item": "vouloir",
+      "meaning": "to want",
+      "set": "conditionnel",
+      "art": [
+        "  .----.",
+        " ( <3 ? )",
+        "  '----'",
+        "  I'd like"
+      ],
+      "forms": {
+        "je": "voudrais",
+        "tu": "voudrais",
+        "il": "voudrait",
+        "nous": "voudrions",
+        "vous": "voudriez",
+        "ils": "voudraient"
+      }
+    },
+    {
+      "item": "venir",
+      "meaning": "to come",
+      "set": "conditionnel",
+      "art": [
+        "  o  ?   ___",
+        " /|\\ -> |   |",
+        " / \\    |___|",
+        "  I'd come"
+      ],
+      "forms": {
+        "je": "viendrais",
+        "tu": "viendrais",
+        "il": "viendrait",
+        "nous": "viendrions",
+        "vous": "viendriez",
+        "ils": "viendraient"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-conditionnel-conv-job-in-montreal",
+      "title": "A job in Montréal",
+      "scenario": "Julie has been offered a job in Montréal and asks her friend Thomas what he would do.",
+      "role_a": "Julie",
+      "role_b": "Thomas",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Thomas, je voudrais ton avis sur quelque chose.",
+          "meaning": "Thomas, I'd like your opinion on something."
+        },
+        {
+          "speaker": "b",
+          "text": "Bien sûr. Qu'est-ce qui se passe ?",
+          "meaning": "Of course. What's going on?"
+        },
+        {
+          "speaker": "a",
+          "text": "On m'a proposé un poste à Montréal.",
+          "meaning": "I've been offered a job in Montréal."
+        },
+        {
+          "speaker": "b",
+          "text": "Génial ! À ta place, j'accepterais tout de suite.",
+          "meaning": "Great! If I were you, I'd accept straight away."
+        },
+        {
+          "speaker": "a",
+          "text": "Tu crois ? Mes amis me manqueraient beaucoup.",
+          "meaning": "Do you think so? I'd miss my friends a lot."
+        },
+        {
+          "speaker": "b",
+          "text": "Si j'avais une offre comme ça, je partirais demain !",
+          "meaning": "If I had an offer like that, I'd leave tomorrow!"
+        },
+        {
+          "speaker": "a",
+          "text": "Et si je n'aimais pas l'hiver là-bas ?",
+          "meaning": "And what if I didn't like the winter there?"
+        },
+        {
+          "speaker": "b",
+          "text": "Tu devrais y aller une semaine pour voir.",
+          "meaning": "You should go there for a week to see."
+        },
+        {
+          "speaker": "a",
+          "text": "Bonne idée. Pourrais-tu m'aider à trouver un billet pas cher ?",
+          "meaning": "Good idea. Could you help me find a cheap ticket?"
+        },
+        {
+          "speaker": "b",
+          "text": "Avec plaisir. Mais tu as promis que tu m'inviterais au restaurant !",
+          "meaning": "With pleasure. But you promised you'd take me out to dinner!"
+        },
+        {
+          "speaker": "a",
+          "text": "D'accord, d'accord ! Ce soir, c'est moi qui invite.",
+          "meaning": "OK, OK! Tonight it's my treat."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Je voudrais un thé.",
+      "meaning": "I'd like a tea.",
+      "note": "Je voudrais is the polite way to ask."
+    },
+    {
+      "text": "Pourriez-vous m'appeler un taxi ?",
+      "meaning": "Could you call me a taxi?"
+    },
+    {
+      "text": "Tu devrais te reposer un peu.",
+      "meaning": "You should rest a little."
+    },
+    {
+      "text": "Si j'étais toi, je dirais la vérité.",
+      "meaning": "If I were you, I'd tell the truth.",
+      "note": "Si + imparfait, then the conditionnel."
+    },
+    {
+      "text": "Elle a dit qu'elle arriverait vers huit heures.",
+      "meaning": "She said she would arrive around eight.",
+      "note": "The future seen from the past."
+    },
+    {
+      "text": "À ta place, je demanderais une augmentation à mon patron.",
+      "meaning": "If I were you, I'd ask my boss for a pay rise.",
+      "note": "New word: une augmentation = a pay rise."
+    },
+    {
+      "text": "Si nous avions une voiture, nous irions à la montagne.",
+      "meaning": "If we had a car, we'd go to the mountains.",
+      "note": "New word: la montagne = the mountains."
+    },
+    {
+      "text": "J'aimerais vivre dans une petite maison au bord de la mer.",
+      "meaning": "I'd love to live in a little house by the sea.",
+      "note": "New word: au bord de la mer = by the sea."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Forming"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-conditionnel-09"
+    },
+    {
+      "section": "Politeness"
+    },
+    {
+      "question": "b1-conditionnel-01"
+    },
+    {
+      "question": "b1-conditionnel-06"
+    },
+    {
+      "question": "b1-conditionnel-05"
+    },
+    {
+      "question": "b1-conditionnel-08"
+    },
+    {
+      "tip": "Si takes the imparfait, the other half takes the conditionnel: si j'avais…, je ferais… Never -rais right after si."
+    },
+    {
+      "section": "Si + imparfait"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-conditionnel-02"
+    },
+    {
+      "question": "b1-conditionnel-03"
+    },
+    {
+      "question": "b1-conditionnel-04"
+    },
+    {
+      "concept": {
+        "title": "A polite reproach",
+        "markdown": "Said in the right tone, the conditionnel of **pouvoir** becomes a gentle complaint. **Tu pourrais dire merci !** (You could say thank you!) **Vous pourriez frapper avant d'entrer.** (You could knock before coming in.)"
+      }
+    },
+    {
+      "section": "The future in the past"
+    },
+    {
+      "question": "b1-conditionnel-07"
+    }
+  ],
+  "sprint": {
+    "icon": "💭",
+    "bites": [
+      {
+        "title": "Futur stem + imparfait endings",
+        "emoji": "🔧",
+        "rule": "Take the futur stem (parler-, ser-, aur-, ir-, fer-, pourr-, devr-, voudr-, viendr-) and add -ais, -ais, -ait, -ions, -iez, -aient.",
+        "example": "Je serais ravi de venir.",
+        "example_meaning": "I'd be delighted to come."
+      },
+      {
+        "title": "Soft and polite",
+        "emoji": "🎩",
+        "rule": "Je voudrais, j'aimerais and pourriez-vous use the conditionnel to turn a demand into a polite request. Tu devrais and à ta place give advice.",
+        "example": "Pourriez-vous m'aider, s'il vous plaît ?",
+        "example_meaning": "Could you help me, please?"
+      },
+      {
+        "title": "Si + imparfait",
+        "emoji": "🔀",
+        "rule": "To imagine something, put si + imparfait in one half and the conditionnel in the other. Never the conditionnel right after si.",
+        "example": "Si j'avais le temps, je voyagerais.",
+        "example_meaning": "If I had time, I'd travel."
+      },
+      {
+        "title": "Would, in the past",
+        "emoji": "🕰️",
+        "rule": "After a past reporting verb, the futur becomes the conditionnel: il dit qu'il viendra → il a dit qu'il viendrait.",
+        "example": "Elle a promis qu'elle ferait la vaisselle.",
+        "example_meaning": "She promised she would do the dishes."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which half of the si sentence?",
+        "buckets": [
+          "after si (imparfait)",
+          "the result (conditionnel)"
+        ],
+        "items": [
+          {
+            "text": "j'avais",
+            "bucket": 0
+          },
+          {
+            "text": "je ferais",
+            "bucket": 1
+          },
+          {
+            "text": "nous étions",
+            "bucket": 0
+          },
+          {
+            "text": "nous irions",
+            "bucket": 1
+          },
+          {
+            "text": "tu pouvais",
+            "bucket": 0
+          },
+          {
+            "text": "tu viendrais",
+            "bucket": 1
+          },
+          {
+            "text": "ils voulaient",
+            "bucket": 0
+          },
+          {
+            "text": "ils seraient",
+            "bucket": 1
+          }
+        ],
+        "why": "The si half takes the imparfait. The result half takes the conditionnel."
+      },
+      {
+        "title": "Futur or conditionnel?",
+        "buckets": [
+          "futur (will)",
+          "conditionnel (would)"
+        ],
+        "items": [
+          {
+            "text": "je parlerai",
+            "bucket": 0
+          },
+          {
+            "text": "je parlerais",
+            "bucket": 1
+          },
+          {
+            "text": "nous irons",
+            "bucket": 0
+          },
+          {
+            "text": "nous irions",
+            "bucket": 1
+          },
+          {
+            "text": "elle fera",
+            "bucket": 0
+          },
+          {
+            "text": "elle ferait",
+            "bucket": 1
+          }
+        ],
+        "why": "The stem is the same. The futur ends in -ai, -as, -a, -ons, -ez, -ont, and the conditionnel takes the imparfait endings."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Si j'aurais le temps, je viendrais.",
+        "wrong": "j'aurais",
+        "fix": "j'avais",
+        "why": "Never the conditionnel after si: si + imparfait."
+      },
+      {
+        "sentence": "Je voudrai un café, s'il vous plaît.",
+        "wrong": "voudrai",
+        "fix": "voudrais",
+        "why": "A polite request takes the conditionnel: je voudrais."
+      },
+      {
+        "sentence": "Si nous étions riches, nous achetons une maison.",
+        "wrong": "achetons",
+        "fix": "achèterions",
+        "why": "The result of si + imparfait takes the conditionnel."
+      },
+      {
+        "sentence": "Je pensais que tu seras là.",
+        "wrong": "seras",
+        "fix": "serais",
+        "why": "The future seen from the past takes the conditionnel."
+      },
+      {
+        "sentence": "Tu devrait parler à ton frère.",
+        "wrong": "devrait",
+        "fix": "devrais",
+        "why": "The tu form of the conditionnel ends in -ais."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Je voudrais un café, s'il vous plaît.",
+        "meaning": "I'd like a coffee, please.",
+        "distractors": [
+          "voudrai"
+        ]
+      },
+      {
+        "text": "Si j'avais le temps, je voyagerais.",
+        "meaning": "If I had time, I'd travel.",
+        "distractors": [
+          "aurais"
+        ]
+      },
+      {
+        "text": "Tu devrais appeler ta mère.",
+        "meaning": "You should call your mother.",
+        "distractors": [
+          "devras"
+        ]
+      },
+      {
+        "text": "Il a dit qu'il viendrait.",
+        "meaning": "He said he would come.",
+        "distractors": [
+          "viendra"
+        ]
+      }
+    ]
+  }
+}

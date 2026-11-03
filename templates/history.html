@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("study.history.title") }}{% endblock %}
+{% block modenav %}{% let active = "history" %}{% include "nav_study.html" %}{% endblock %}
+{% block content %}
+<h1>{{ crate::t("study.history.title") }} <span class="muted">· {{ course.title }}</span></h1>
+<h2>{{ crate::t("study.history.games") }}</h2>
+{% if games.is_empty() %}
+  <p class="muted">{{ crate::t1("study.history.no_games_html", "url", crate::url("/play"))|safe }}</p>
+{% else %}
+<div class="table-scroll" data-testid="history-games-scroll">
+<table class="history">
+  <thead><tr><th>{{ crate::t("study.history.when") }}</th><th>{{ crate::t("study.history.game") }}</th><th>{{ crate::t("study.history.board") }}</th><th>{{ crate::t("study.history.result") }}</th></tr></thead>
+  <tbody>
+  {% for g in games %}
+    <tr data-testid="history-game" data-game="{{ g.game }}" data-correct="{{ g.correct }}" data-total="{{ g.total }}"><td class="nowrap muted">{{ g.when }}</td><td><a href="{{ g.href }}">{{ g.game }}</a></td><td>{{ g.label }}</td><td class="nowrap"><strong>{{ g.result }}</strong></td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endif %}
+
+<h2>{{ crate::t("study.history.recent_answers") }}</h2>
+{% if rows.is_empty() %}
+  <p class="muted">{{ crate::t1("study.history.no_answers_html", "url", crate::url("/practice"))|safe }}</p>
+{% else %}
+<div class="table-scroll" data-testid="history-answers-scroll">
+<table class="history">
+  <thead><tr><th>{{ crate::t("study.history.when") }}</th><th>{{ crate::t("study.history.topic") }}</th><th>{{ crate::t("study.history.question") }}</th><th>{{ crate::t("study.history.your_answer") }}</th><th>{{ crate::t("study.history.result") }}</th></tr></thead>
+  <tbody>
+  {% for r in rows %}
+    <tr class="{% if r.was_correct %}ok{% else %}bad{% endif %}" data-testid="history-answer" data-lesson-id="{{ r.lesson_slug }}" data-correct="{{ r.was_correct }}">
+      <td class="nowrap muted">{{ r.when }}</td>
+      <td><a href="{{ crate::base_path() }}/lessons/{{ r.lesson_slug }}">{{ r.lesson_title }}</a></td>
+      <td lang="{{ course.term_lang }}">{{ r.prompt }}</td>
+      <td lang="{{ course.term_lang }}">{{ r.selected }}</td>
+      <td>{% if r.was_correct %}✓{% else %}✗{% if !r.correct_answer.is_empty() %} <span class="muted">({{ r.correct_answer }})</span>{% endif %}{% endif %}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,592 @@
+{
+  "id": "a2-celebrations-holidays",
+  "slug": "celebrations-holidays",
+  "title": "Celebrations and holidays: bon anniversaire !",
+  "unit": "A2",
+  "group": "Vocabulary",
+  "order": 44,
+  "summary": "Wish people well, find your way round the French calendar, give presents with offrir and plan the next celebration in the futur simple.",
+  "focus": "Wishes, French holidays, giving presents and celebration plans",
+  "prerequisites": [
+    "a2-futur-simple"
+  ],
+  "content": "## Wishes for every occasion\n\n| When | You say | Meaning |\n|---|---|---|\n| a birthday | **Bon anniversaire !** | Happy birthday! |\n| 25 December | **Joyeux Noël !** | Merry Christmas! |\n| 1 January | **Bonne année !** | Happy New Year! |\n| a saint's day, Mother's Day | **Bonne fête !** | Happy (name) day! |\n| good news: a wedding, a diploma | **Félicitations !** | Congratulations! |\n| on a card | **Meilleurs vœux !** | Best wishes! |\n| before a trip | **Bonnes vacances !** | Have a good holiday! |\n\n**Bon** agrees with the noun: **bon** anniversaire (m), **bonne** année (f), **bonnes** vacances (f pl).\n\n## The French calendar\n\n- **le jour de l'An** (1 January): New Year's Day.\n- **la Chandeleur** (2 February): everyone makes crêpes.\n- **Pâques** (March or April): chocolate eggs. **Joyeuses Pâques !**\n- **le premier mai**: Labour Day; people give each other **du muguet** (lily of the valley).\n- **le quatorze juillet**: the national holiday, with parades and **un feu d'artifice** (fireworks).\n- **la Toussaint** (1 November): families put flowers on their relatives' graves.\n- **Noël** (25 December), with **le réveillon**, the big dinner on the evening of the 24th. The réveillon of 31 December welcomes the new year.\n\n## Offrir, fêter, inviter\n\n**Offrir** (to give as a present) ends in -ir, but takes the **-er endings** in the present:\n\n| je | tu | il / elle / on | nous | vous | ils / elles |\n|---|---|---|---|---|---|\n| offre | offres | offre | offrons | offrez | offrent |\n\nIt is **offrir quelque chose à quelqu'un**, with elision for je: **J'offre un cadeau à mon père.** **Qu'est-ce que tu offres à Léa ?**\n\n**Fêter** (or, more formally, **célébrer**) = to celebrate: **On fête son anniversaire samedi.** To throw a party is **organiser une fête**, and you **inviter** your friends: **J'organise une fête et j'invite toute la classe.**\n\n## Holidays and plans\n\n**Les vacances** is always plural: **bonnes vacances**, **partir en vacances** (to go on holiday), **les vacances de Noël**, and **les grandes vacances**, the long summer holidays in July and August.\n\nPlans for the next celebration take the futur simple:\n\n- **L'année prochaine, je fêterai mes trente ans à Nice.** Next year I'll celebrate my thirtieth in Nice.\n- **Cet été, nous partirons en vacances en Corse.** This summer we'll go on holiday to Corsica.\n- **Pour Noël, on organisera le réveillon chez nous.** For Christmas we'll host the Christmas Eve dinner at our place.",
+  "vocabulary": [
+    {
+      "term": "bon anniversaire",
+      "meaning": "happy birthday",
+      "example": "Bon anniversaire, Lucie ! Voici ton gâteau.",
+      "example_meaning": "Happy birthday, Lucie! Here's your cake."
+    },
+    {
+      "term": "joyeux Noël",
+      "meaning": "merry Christmas",
+      "example": "Joyeux Noël à vous et à vos enfants !",
+      "example_meaning": "Merry Christmas to you and your children!"
+    },
+    {
+      "term": "bonne année",
+      "meaning": "happy New Year",
+      "example": "Bonne année et bonne santé !",
+      "example_meaning": "Happy New Year and good health!"
+    },
+    {
+      "term": "félicitations",
+      "meaning": "congratulations",
+      "example": "Félicitations pour ton nouveau travail !",
+      "example_meaning": "Congratulations on your new job!"
+    },
+    {
+      "term": "meilleurs vœux",
+      "meaning": "best wishes",
+      "example": "Je vous envoie mes meilleurs vœux pour la nouvelle année.",
+      "example_meaning": "I'm sending you my best wishes for the new year."
+    },
+    {
+      "term": "le réveillon",
+      "meaning": "Christmas Eve or New Year's Eve dinner (m)",
+      "example": "Le réveillon commence tard et finit après minuit.",
+      "example_meaning": "The Christmas Eve dinner starts late and ends after midnight."
+    },
+    {
+      "term": "le feu d'artifice",
+      "meaning": "fireworks, firework display (m)",
+      "example": "Le feu d'artifice du quatorze juillet est magnifique.",
+      "example_meaning": "The fourteenth of July fireworks are magnificent."
+    },
+    {
+      "term": "le cadeau",
+      "meaning": "present, gift (m)",
+      "example": "Ce cadeau est pour toi !",
+      "example_meaning": "This present is for you!"
+    },
+    {
+      "term": "fêter",
+      "meaning": "to celebrate",
+      "example": "Nous fêtons Noël en famille.",
+      "example_meaning": "We celebrate Christmas with the family."
+    },
+    {
+      "term": "les grandes vacances",
+      "meaning": "the summer holidays (f pl)",
+      "example": "Pendant les grandes vacances, nous allons en Bretagne.",
+      "example_meaning": "During the summer holidays we go to Brittany."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "offrir",
+      "meaning": "to give (as a present), to offer",
+      "set": "present",
+      "art": [
+        "     \\  /     ",
+        "  ____\\/____  ",
+        " |    ||    | ",
+        " |____||____| ",
+        " |    ||    | ",
+        " |____||____| "
+      ],
+      "forms": {
+        "je": "offre",
+        "tu": "offres",
+        "il": "offre",
+        "nous": "offrons",
+        "vous": "offrez",
+        "ils": "offrent"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-celebrations-holidays-01",
+      "prompt": "Your colleague tells you she has just passed her driving test. What do you say to her?",
+      "type": "multiple-choice",
+      "options": [
+        "Félicitations !",
+        "Bonne année !",
+        "Joyeux Noël !"
+      ],
+      "correct_answer": "Félicitations !",
+      "explanation": "Good news (an exam, a wedding, a new job) calls for félicitations. Bonne année and joyeux Noël belong to the calendar.",
+      "hints": [
+        "It's not a date, it's good news."
+      ],
+      "teaches": [
+        "félicitations"
+      ]
+    },
+    {
+      "question_id": "a2-celebrations-holidays-02",
+      "prompt": "Sur ma carte de janvier, sous « Meilleurs vœux », j'écris aussi : « Bonne ___ ! »",
+      "type": "fill-in-blank",
+      "correct_answer": "année",
+      "accepted_answers": [
+        "bonne année"
+      ],
+      "explanation": "In January you wish people bonne année (happy New Year). Année is feminine, so bonne.",
+      "hints": [
+        "A new… year.",
+        "Feminine noun: bonne …"
+      ],
+      "teaches": [
+        "bonne année",
+        "meilleurs vœux"
+      ]
+    },
+    {
+      "question_id": "a2-celebrations-holidays-03",
+      "prompt": "On which day do the French watch the big feu d'artifice of their national holiday?",
+      "type": "multiple-choice",
+      "options": [
+        "le quatorze juillet",
+        "le premier mai",
+        "la Toussaint"
+      ],
+      "correct_answer": "le quatorze juillet",
+      "explanation": "Le quatorze juillet is the fête nationale, with parades and fireworks. Le premier mai is Labour Day, la Toussaint (1 November) is for remembering the dead.",
+      "hints": [
+        "It's in summer."
+      ],
+      "teaches": [
+        "le feu d'artifice"
+      ]
+    },
+    {
+      "question_id": "a2-celebrations-holidays-04",
+      "prompt": "Pour la fête des mères, nous ___ un cadeau à maman : un bouquet de roses. (offrir)",
+      "type": "fill-in-blank",
+      "correct_answer": "offrons",
+      "accepted_answers": [
+        "nous offrons"
+      ],
+      "explanation": "Offrir takes -er endings in the present: nous offrons.",
+      "hints": [
+        "Like nous parlons.",
+        "offr- + -ons"
+      ],
+      "teaches": [
+        "le cadeau"
+      ]
+    },
+    {
+      "question_id": "a2-celebrations-holidays-05",
+      "prompt": "Offrir takes the endings of finir in the present, so you say 'nous offrissons'.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "False: although it ends in -ir, offrir takes the -er endings: j'offre, nous offrons, ils offrent.",
+      "hints": [
+        "Think of j'offre: it ends like je parle."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-celebrations-holidays-06",
+      "prompt": "Le vingt-quatre décembre au soir, toute la famille dîne ensemble jusqu'à minuit : c'est le ___ de Noël.",
+      "type": "fill-in-blank",
+      "correct_answer": "réveillon",
+      "accepted_answers": [
+        "le réveillon"
+      ],
+      "explanation": "Le réveillon is the long festive dinner on Christmas Eve (and on New Year's Eve).",
+      "hints": [
+        "It comes from réveiller: you stay awake late.",
+        "r…"
+      ],
+      "teaches": [
+        "le réveillon"
+      ]
+    },
+    {
+      "question_id": "a2-celebrations-holidays-07",
+      "prompt": "L'année prochaine, je ___ mes trente ans avec tous mes amis à la montagne.",
+      "type": "multiple-choice",
+      "options": [
+        "fêterai",
+        "fêtais",
+        "ai fêté"
+      ],
+      "correct_answer": "fêterai",
+      "explanation": "L'année prochaine points to the future: futur simple, fêter + -ai = je fêterai. Fêtais and ai fêté are past tenses.",
+      "hints": [
+        "L'année prochaine = next year.",
+        "The futur simple ends in -rai with je."
+      ],
+      "teaches": [
+        "fêter"
+      ]
+    },
+    {
+      "question_id": "a2-celebrations-holidays-08",
+      "prompt": "En juillet et en août, les écoles sont fermées : ce sont les grandes ___ .",
+      "type": "fill-in-blank",
+      "correct_answer": "vacances",
+      "accepted_answers": [
+        "les grandes vacances"
+      ],
+      "explanation": "Les grandes vacances are the long summer holidays. Vacances is always plural.",
+      "hints": [
+        "Always plural, ends in -s."
+      ],
+      "teaches": [
+        "les grandes vacances"
+      ]
+    },
+    {
+      "question_id": "a2-celebrations-holidays-09",
+      "prompt": "On the 25th of December you wish people 'Joyeux Noël !', and on their birthday 'Bon anniversaire !'.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "True: joyeux Noël for Christmas, bon anniversaire for a birthday. Both nouns are masculine, so joyeux and bon have no -e.",
+      "hints": [
+        "Match each wish to its day."
+      ],
+      "teaches": [
+        "joyeux Noël",
+        "bon anniversaire"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Joyeux Noël à toute la famille !",
+      "meaning": "Merry Christmas to the whole family!"
+    },
+    {
+      "text": "Nous partons en vacances demain matin.",
+      "meaning": "We're going on holiday tomorrow morning.",
+      "note": "Vacances is always plural."
+    },
+    {
+      "text": "J'offre souvent des livres à mes amis.",
+      "meaning": "I often give my friends books."
+    },
+    {
+      "text": "Le premier mai, on offre du muguet.",
+      "meaning": "On the first of May, people give lily of the valley.",
+      "note": "New word: le muguet = lily of the valley."
+    },
+    {
+      "text": "Pour la Chandeleur, ma grand-mère fait des crêpes.",
+      "meaning": "For Candlemas, my grandmother makes crêpes."
+    },
+    {
+      "text": "L'année prochaine, nous fêterons Noël chez mes parents.",
+      "meaning": "Next year we'll celebrate Christmas at my parents'.",
+      "note": "Futur simple for a plan: nous fêterons."
+    },
+    {
+      "text": "Le quatorze juillet, nous regardons le feu d'artifice sur la plage.",
+      "meaning": "On the fourteenth of July, we watch the fireworks on the beach."
+    },
+    {
+      "text": "Pour la Toussaint, ma mère met des fleurs sur la tombe de ses parents.",
+      "meaning": "For All Saints' Day, my mother puts flowers on her parents' grave.",
+      "note": "New word: la tombe = the grave."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Wishes"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-celebrations-holidays-01"
+    },
+    {
+      "question": "a2-celebrations-holidays-02"
+    },
+    {
+      "question": "a2-celebrations-holidays-09"
+    },
+    {
+      "section": "The French calendar"
+    },
+    {
+      "question": "a2-celebrations-holidays-03"
+    },
+    {
+      "question": "a2-celebrations-holidays-06"
+    },
+    {
+      "tip": "Vacances is always plural: bonnes vacances, partir en vacances, les grandes vacances."
+    },
+    {
+      "section": "Offrir"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-celebrations-holidays-04"
+    },
+    {
+      "question": "a2-celebrations-holidays-05"
+    },
+    {
+      "section": "Holidays and plans"
+    },
+    {
+      "concept": {
+        "title": "La galette des rois",
+        "markdown": "In January, for **l'Épiphanie**, families share **la galette des rois**, a flat almond pastry cake. A tiny figure, **la fève**, is hidden inside. Whoever finds it in their slice is king or queen for the day and wears a paper crown."
+      }
+    },
+    {
+      "question": "a2-celebrations-holidays-07"
+    },
+    {
+      "question": "a2-celebrations-holidays-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-celebrations-holidays-conv-surprise-party",
+      "title": "A surprise party",
+      "scenario": "Amira and Lucas plan a surprise birthday party for their friend Julie.",
+      "role_a": "Amira",
+      "role_b": "Lucas",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Samedi, c'est l'anniversaire de Julie. On organise une fête ?",
+          "meaning": "Saturday is Julie's birthday. Shall we throw a party?"
+        },
+        {
+          "speaker": "b",
+          "text": "Bonne idée ! On peut la faire chez moi.",
+          "meaning": "Good idea! We can have it at my place."
+        },
+        {
+          "speaker": "a",
+          "text": "Super. Qu'est-ce qu'on lui offre ?",
+          "meaning": "Great. What shall we give her?",
+          "note": "offrir quelque chose à quelqu'un → lui offrir"
+        },
+        {
+          "speaker": "b",
+          "text": "Elle adore la musique. On lui offre des places de concert ?",
+          "meaning": "She loves music. Shall we give her concert tickets?"
+        },
+        {
+          "speaker": "a",
+          "text": "Parfait. Moi, je ferai le gâteau au chocolat.",
+          "meaning": "Perfect. I'll make the chocolate cake.",
+          "note": "futur simple: faire → je ferai"
+        },
+        {
+          "speaker": "b",
+          "text": "Et j'inviterai ses amis du bureau.",
+          "meaning": "And I'll invite her friends from the office."
+        },
+        {
+          "speaker": "a",
+          "text": "Chut, pas un mot ! C'est une surprise.",
+          "meaning": "Shh, not a word! It's a surprise."
+        },
+        {
+          "speaker": "b",
+          "text": "Bien sûr. Elle arrivera vers huit heures.",
+          "meaning": "Of course. She'll arrive around eight."
+        },
+        {
+          "speaker": "a",
+          "text": "Et tout le monde criera « Bon anniversaire ! »",
+          "meaning": "And everybody will shout 'Happy birthday!'"
+        },
+        {
+          "speaker": "b",
+          "text": "Elle sera contente. Et toi, tu fêtes tes trente ans quand ?",
+          "meaning": "She'll be happy. And you, when are you celebrating your thirtieth?"
+        },
+        {
+          "speaker": "a",
+          "text": "L'année prochaine, le quatorze juillet. Je ferai une grande fête !",
+          "meaning": "Next year, on the fourteenth of July. I'll throw a big party!"
+        },
+        {
+          "speaker": "b",
+          "text": "Avec le feu d'artifice, alors !",
+          "meaning": "With fireworks, then!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🎉",
+    "bites": [
+      {
+        "title": "Les vœux",
+        "emoji": "🥂",
+        "rule": "Bon anniversaire, joyeux Noël, bonne année, bonne fête, bonnes vacances. Félicitations for good news, meilleurs vœux on a card.",
+        "example": "Bonne année et meilleurs vœux !",
+        "example_meaning": "Happy New Year and best wishes!"
+      },
+      {
+        "title": "Le calendrier",
+        "emoji": "📅",
+        "rule": "Le jour de l'An, la Chandeleur (crêpes), Pâques, le premier mai, le quatorze juillet, la Toussaint, Noël and its réveillon.",
+        "example": "Le quatorze juillet, c'est la fête nationale.",
+        "example_meaning": "The fourteenth of July is the national holiday."
+      },
+      {
+        "title": "Offrir",
+        "emoji": "🎁",
+        "rule": "Offrir un cadeau à quelqu'un. The present uses -er endings: j'offre, tu offres, il offre, nous offrons, vous offrez, ils offrent.",
+        "example": "J'offre des fleurs à ma voisine.",
+        "example_meaning": "I'm giving my neighbour flowers."
+      },
+      {
+        "title": "Next year",
+        "emoji": "🗓️",
+        "rule": "Plans for the next celebration take the futur simple: l'année prochaine, je fêterai…, nous partirons en vacances.",
+        "example": "L'année prochaine, nous fêterons Noël à la montagne.",
+        "example_meaning": "Next year we'll celebrate Christmas in the mountains."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which season?",
+        "buckets": [
+          "winter",
+          "spring",
+          "summer",
+          "autumn"
+        ],
+        "items": [
+          {
+            "text": "le jour de l'An",
+            "bucket": 0
+          },
+          {
+            "text": "la Chandeleur",
+            "bucket": 0
+          },
+          {
+            "text": "Pâques",
+            "bucket": 1
+          },
+          {
+            "text": "le premier mai",
+            "bucket": 1
+          },
+          {
+            "text": "le quatorze juillet",
+            "bucket": 2
+          },
+          {
+            "text": "les grandes vacances",
+            "bucket": 2
+          },
+          {
+            "text": "la Toussaint",
+            "bucket": 3
+          },
+          {
+            "text": "Noël",
+            "bucket": 0
+          }
+        ],
+        "why": "January, February and December are winter; Easter and May Day are spring; July and August are summer; 1 November is autumn."
+      },
+      {
+        "title": "What do you say?",
+        "buckets": [
+          "Bon anniversaire !",
+          "Félicitations !",
+          "Bonnes vacances !"
+        ],
+        "items": [
+          {
+            "text": "Paul a trente ans aujourd'hui.",
+            "bucket": 0
+          },
+          {
+            "text": "Sophie a réussi son bac.",
+            "bucket": 1
+          },
+          {
+            "text": "Ils partent à la mer demain.",
+            "bucket": 2
+          },
+          {
+            "text": "Ma sœur se marie samedi.",
+            "bucket": 1
+          },
+          {
+            "text": "Tu pars un mois en Espagne ?",
+            "bucket": 2
+          },
+          {
+            "text": "Mon fils a six ans aujourd'hui.",
+            "bucket": 0
+          }
+        ],
+        "why": "A birthday: bon anniversaire. Good news like an exam or a wedding: félicitations. Someone leaving on a trip: bonnes vacances."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Je offre des fleurs à ma mère.",
+        "wrong": "Je",
+        "fix": "J'",
+        "why": "Je becomes j' before a vowel: j'offre."
+      },
+      {
+        "sentence": "Nous offrez un cadeau à Paul.",
+        "wrong": "offrez",
+        "fix": "offrons",
+        "why": "With nous: nous offrons."
+      },
+      {
+        "sentence": "Bon année à tous !",
+        "wrong": "Bon",
+        "fix": "Bonne",
+        "why": "Année is feminine: bonne année."
+      },
+      {
+        "sentence": "Bonnes vacance, et à la rentrée !",
+        "wrong": "vacance",
+        "fix": "vacances",
+        "why": "In this sense vacances is always plural: bonnes vacances."
+      },
+      {
+        "sentence": "L'année prochaine, je fêtais mon anniversaire à Paris.",
+        "wrong": "fêtais",
+        "fix": "fêterai",
+        "why": "L'année prochaine is the future: je fêterai."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Joyeux Noël et bonne année !",
+        "meaning": "Merry Christmas and happy New Year!",
+        "distractors": [
+          "Bon"
+        ]
+      },
+      {
+        "text": "J'offre un cadeau à ma sœur.",
+        "meaning": "I'm giving my sister a present.",
+        "distractors": [
+          "Je"
+        ]
+      },
+      {
+        "text": "Nous partons en vacances en août.",
+        "meaning": "We're going on holiday in August.",
+        "distractors": [
+          "vacance"
+        ]
+      },
+      {
+        "text": "Nous fêterons ton anniversaire samedi.",
+        "meaning": "We'll celebrate your birthday on Saturday.",
+        "distractors": [
+          "fêtions"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("manage.title") }}{% endblock %}
+{% block content %}
+<section class="manage" data-testid="manage-page" data-page-url="{{ crate::url("/manage") }}">
+  <h1 class="heading-with-info">{{ crate::t("manage.title") }} <button type="button" class="info-btn" data-opens="manage-info" aria-haspopup="dialog" aria-label="{{ crate::t("manage.accounts_info") }}" data-testid="manage-info">i</button></h1>
+  <dialog class="modal" id="manage-info" aria-labelledby="manage-info-title" data-testid="manage-info-dialog">
+    <h2 id="manage-info-title">{{ crate::t("manage.title") }}</h2>
+    <p>{{ crate::t("manage.about") }}</p>
+    <p data-testid="manage-signup-mode" data-mode="{{ mode }}">{% if mode == "invite" %}{{ crate::t("manage.mode_invite") }}{% else if mode == "closed" %}{{ crate::t("manage.mode_closed") }}{% else %}{{ crate::t("manage.mode_open") }}{% endif %}</p>
+    {% if mode == "invite" %}<p>{{ crate::t("manage.invite_about") }}</p>{% endif %}
+    <p class="small" data-testid="manage-account-count">{{ crate::t2("manage.accounts_of", "total", total, "max", max_accounts) }}</p>
+    <div class="modal-actions"><button type="button" class="btn" data-closes>{{ crate::t("profile.ok") }}</button></div>
+  </dialog>
+  {% if let Some(n) = notice %}<p class="alert ok-text" role="status" data-testid="manage-notice">✓ {{ n }}</p>{% endif %}
+  {% if let Some(e) = error %}<p class="alert error" role="alert" data-testid="manage-error">{{ e }}</p>{% endif %}
+  {% if mode == "invite" %}
+  <section class="card" data-testid="manage-invites-card">
+    <h2>{{ crate::t("manage.invite_link") }}</h2>
+    {% if let Some(link) = new_link %}
+    <p class="invite-link" data-testid="manage-invite-new">
+      <input type="text" id="invite-link" readonly value="{{ link }}" aria-label="{{ crate::t("manage.invite_link") }}" data-testid="manage-invite-link">
+      <button type="button" class="btn ghost small" data-copy="invite-link" data-testid="manage-invite-copy">{{ crate::t("manage.copy") }}</button>
+    </p>
+    {% endif %}
+    {% if full %}
+    <p data-testid="manage-invite-full">{{ crate::t("auth.signup.full") }}</p>
+    {% else %}
+    <form method="post" action="{{ crate::url("/manage/invites") }}" data-testid="manage-invite-form">
+      <button type="submit" class="btn ghost" data-testid="manage-invite-make">{{ crate::t("manage.make_invite") }}</button>
+    </form>
+    {% endif %}
+    {% if !invites.is_empty() %}
+    <div class="table-scroll"><table class="small" data-testid="manage-invites">
+      <thead><tr><th>{{ crate::t("manage.invite_made") }}</th><th>{{ crate::t("manage.invite_expires") }}</th><th></th></tr></thead>
+      <tbody>{% for (id, made, expires) in invites %}
+        <tr data-testid="manage-invite-row"><td>{{ made }}</td><td>{{ expires }}</td><td>
+          <form method="post" action="{{ crate::url("/manage/invites/revoke") }}"><input type="hidden" name="id" value="{{ id }}"><button type="submit" class="link-btn small" data-testid="manage-invite-revoke">{{ crate::t("manage.revoke") }}</button></form>
+        </td></tr>{% endfor %}
+      </tbody>
+    </table></div>
+    {% endif %}
+  </section>
+  {% endif %}
+
+  <section class="card" data-testid="manage-accounts-card">
+    <h2>{{ crate::t("manage.accounts") }}</h2>
+    <div class="table-scroll"><table class="small" data-testid="manage-accounts">
+      <thead><tr><th>{{ crate::t("manage.email") }}</th><th>{{ crate::t("manage.created") }}</th><th>{{ crate::t("manage.last_sign_in") }}</th><th></th></tr></thead>
+      <tbody>{% for a in list %}
+        <tr data-testid="manage-account-row" data-owner="{{ a.owner }}"><td>{{ a.email }}</td><td>{{ a.created }}</td><td>{{ a.last_sign_in }}</td><td class="account-actions">{% if !a.email.is_empty() %}
+          <button type="button" class="link-btn small" data-opens="manage-password-dialog" data-account-email="{{ a.email }}" aria-haspopup="dialog" data-testid="manage-account-temp-password">{{ crate::t("manage.temp_password") }}</button>
+          <button type="button" class="link-btn small" data-opens="manage-two-factor-dialog" data-account-email="{{ a.email }}" aria-haspopup="dialog" data-testid="manage-account-two-factor-off">{{ crate::t("manage.two_factor_off") }}</button>
+          {% if !a.owner %}<button type="button" class="link-btn small" data-opens="manage-owner-dialog" data-account-email="{{ a.email }}" aria-haspopup="dialog" data-testid="manage-account-make-owner">{{ crate::t("manage.make_owner") }}</button>{% endif %}
+        {% endif %}</td></tr>{% endfor %}
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="card" id="ai" data-testid="manage-ai-card">
+    <h2 class="heading-with-info">{{ crate::t("manage.ai.title") }} <button type="button" class="info-btn" data-opens="manage-ai-info" aria-haspopup="dialog" aria-label="{{ crate::t("manage.ai.info") }}" data-testid="manage-ai-info"><span aria-hidden="true">i</span></button> <span class="save-status" data-testid="manage-keys-save-status" data-state="saved" role="status" aria-label="{{ crate::t("profile.head.all_saved") }}" title="{{ crate::t("profile.head.all_saved") }}" hidden><svg class="when-saved" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 16.2 5.3 12l-1.4 1.4 5.6 5.6 11-11-1.4-1.4z"/></svg><svg class="when-saving" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/></svg><svg class="when-error" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5h2v9h-2zm0 11h2v2h-2z"/></svg></span></h2>
+    <dialog class="modal" id="manage-ai-info" aria-labelledby="manage-ai-info-title" data-testid="manage-ai-info-dialog">
+      <h2 id="manage-ai-info-title">{{ crate::t("manage.ai.title") }}</h2>
+      <p>{{ crate::t("manage.ai.about") }}</p>
+      <p>{{ crate::t("manage.api_keys.info_text") }}</p>
+      <div class="modal-actions"><button type="button" class="btn" data-closes>{{ crate::t("profile.ok") }}</button></div>
+    </dialog>
+    <p class="alert error save-error" role="alert" data-testid="manage-keys-save-error" hidden></p>
+    <div class="switch-row" data-testid="manage-ai" data-ai-off="{{ ai_off }}">
+      <span id="manage-ai-label">{{ crate::t("manage.ai.hide") }}</span>
+      <form method="post" action="{{ crate::url("/manage/ai") }}" data-testid="manage-ai-form">
+        <input type="hidden" name="off" value="{% if ai_off %}0{% else %}1{% endif %}">
+        <button type="submit" class="switch" role="switch" aria-checked="{{ ai_off }}" aria-labelledby="manage-ai-label" data-testid="manage-ai-switch"><span class="switch-knob" aria-hidden="true"></span>{% if ai_off %}{{ crate::t("manage.ai.on") }}{% else %}{{ crate::t("manage.ai.off") }}{% endif %}</button>
+      </form>
+    </div>
+    <h3>{{ crate::t("manage.api_keys.title") }}</h3>
+    <div data-testid="manage-api-keys">
+    {% for k in api_keys %}
+    {# One folded row per provider (#24): its name and "Set" or "Not set"; the triangle opens the form. #}
+    <details class="key-row" data-testid="manage-api-key" data-provider="{{ k.provider.id() }}" data-key-set="{{ k.is_set() }}" data-unreadable="{{ k.unreadable }}">
+      <summary class="key-head" data-testid="manage-api-key-toggle">
+        <h3>{{ k.provider.label() }}</h3>
+        <span class="small" data-testid="manage-api-key-status">{% if k.unreadable %}<span class="warn-text">{{ crate::t("manage.api_keys.unreadable") }}</span>{% else if let Some(h) = k.hint %}{% if k.provider.takes_url() %}<span class="ok-text">{{ crate::t("manage.api_keys.on_file") }}</span> · <code>{{ h }}</code> · <code data-testid="manage-ollama-model-shown">{{ self.ollama_model_shown() }}</code>{% else %}<span class="ok-text">{{ crate::t("manage.api_keys.on_file") }}</span> · {{ crate::t("manage.api_keys.ends_in") }} <code>…{{ h }}</code>{% endif %}{% else %}<span class="muted">{{ crate::t("manage.api_keys.none") }}</span>{% endif %}</span>
+      </summary>
+      <div class="key-body">
+        {% if k.provider.takes_url() %}
+        <label for="key-{{ k.provider.id() }}"><span data-key-prompt>{{ crate::t("manage.api_keys.base_url") }}</span> <span class="muted small">(<a href="{{ k.provider.console_url() }}" target="_blank" rel="noopener">{{ crate::t("manage.api_keys.get_server") }}</a>)</span></label>
+        <span class="field-wrap"><input type="url" id="key-{{ k.provider.id() }}" name="key_{{ k.provider.id() }}" data-testid="manage-api-key-input" maxlength="{{ crate::secrets::KEY_MAX }}" autocomplete="off" spellcheck="false" placeholder="{{ k.provider.placeholder() }}" aria-describedby="key_{{ k.provider.id() }}-error"></span>
+        <span class="field-error" id="key_{{ k.provider.id() }}-error" data-testid="manage-api-key-error" hidden></span>
+        <label for="ollama-model">{{ crate::t("manage.api_keys.model") }}</label>
+        <span class="field-wrap"><input type="text" id="ollama-model" name="ollama_model" data-testid="manage-ollama-model" maxlength="100" autocomplete="off" spellcheck="false" value="{{ ollama_model }}" placeholder="{{ crate::ai::OLLAMA_DEFAULT_MODEL }}" aria-describedby="ollama_model-error"></span>
+        <span class="field-error" id="ollama_model-error" data-testid="manage-ollama-model-error" hidden></span>
+        {% else %}
+        <label for="key-{{ k.provider.id() }}"><span data-key-prompt>{% if k.is_set() %}{{ crate::t("manage.api_keys.replace") }}{% else %}{{ crate::t("manage.api_keys.paste") }}{% endif %}</span> <span class="muted small">(<a href="{{ k.provider.console_url() }}" target="_blank" rel="noopener">{{ crate::t("manage.api_keys.get_one") }}</a>)</span></label>
+        <span class="field-wrap"><input type="password" id="key-{{ k.provider.id() }}" name="key_{{ k.provider.id() }}" data-testid="manage-api-key-input" maxlength="{{ crate::secrets::KEY_MAX }}" autocomplete="off" spellcheck="false" placeholder="{{ k.provider.placeholder() }}" aria-describedby="key_{{ k.provider.id() }}-error"></span>
+        <span class="field-error" id="key_{{ k.provider.id() }}-error" data-testid="manage-api-key-error" hidden></span>
+        {% endif %}
+        {% if k.is_set() %}
+        <form method="post" action="{{ crate::url("/manage/api-keys/remove") }}" class="key-remove" data-testid="manage-api-key-remove-form">
+          <input type="hidden" name="provider" value="{{ k.provider.id() }}">
+          <button type="submit" class="link-btn small" data-testid="manage-api-key-remove">{{ crate::t("manage.api_keys.remove") }}</button>
+        </form>
+        {% endif %}
+      </div>
+    </details>
+    {% endfor %}
+    </div>
+  </section>
+
+  <dialog class="modal" id="manage-password-dialog" aria-labelledby="manage-password-title" data-testid="manage-password-dialog">
+    <form method="post" action="{{ crate::url("/manage/temp-password") }}" data-testid="manage-password-form">
+      <h2 id="manage-password-title">{{ crate::t("manage.temp_password") }}</h2>
+      <input type="hidden" name="email" value="" data-account-field>
+      <p><strong data-account-name></strong></p>
+      <p class="small">{{ crate::t("manage.temp_password_about") }}</p>
+      <div class="modal-actions">
+        <button type="button" class="btn ghost" data-closes>{{ crate::t("profile.password.cancel") }}</button>
+        <button type="submit" class="btn" data-testid="manage-password-confirm">{{ crate::t("manage.temp_password_confirm") }}</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog class="modal" id="manage-two-factor-dialog" aria-labelledby="manage-two-factor-title" data-testid="manage-two-factor-dialog">
+    <form method="post" action="{{ crate::url("/manage/two-factor-off") }}" data-testid="manage-two-factor-form">
+      <h2 id="manage-two-factor-title">{{ crate::t("manage.two_factor_off") }}</h2>
+      <input type="hidden" name="email" value="" data-account-field>
+      <p><strong data-account-name></strong></p>
+      <p class="small">{{ crate::t("manage.two_factor_off_about") }}</p>
+      <div class="modal-actions">
+        <button type="button" class="btn ghost" data-closes>{{ crate::t("profile.password.cancel") }}</button>
+        <button type="submit" class="btn danger" data-testid="manage-two-factor-confirm">{{ crate::t("manage.two_factor_off_confirm") }}</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog class="modal" id="manage-owner-dialog" aria-labelledby="manage-owner-title" data-testid="manage-owner-dialog">
+    <form method="post" action="{{ crate::url("/manage/make-owner") }}" data-testid="manage-owner-form">
+      <h2 id="manage-owner-title">{{ crate::t("manage.make_owner") }}</h2>
+      <input type="hidden" name="email" value="" data-account-field>
+      <p><strong data-account-name></strong></p>
+      <p class="small">{{ crate::t("manage.make_owner_about") }}</p>
+      <div class="modal-actions">
+        <button type="button" class="btn ghost" data-closes>{{ crate::t("profile.password.cancel") }}</button>
+        <button type="submit" class="btn" data-testid="manage-owner-confirm">{{ crate::t("manage.make_owner") }}</button>
+      </div>
+    </form>
+  </dialog>
+  {% if let Some((email, password)) = temp_password %}
+  <dialog class="modal" id="manage-temp-password-new" open data-open-on-load aria-labelledby="manage-temp-password-title" data-testid="manage-temp-password-dialog">
+    <h2 id="manage-temp-password-title">{{ crate::t("manage.temp_password") }}</h2>
+    <p>{{ crate::t1("manage.temp_password_for", "email", email) }}</p>
+    <p class="invite-link" data-testid="manage-temp-password-new">
+      <input type="text" id="temp-password" readonly value="{{ password }}" aria-label="{{ crate::t("manage.temp_password") }}" data-testid="manage-temp-password">
+      <button type="button" class="btn ghost small" data-copy="temp-password" data-testid="manage-temp-password-copy">{{ crate::t("manage.copy") }}</button>
+    </p>
+    <p class="small">{{ crate::t("manage.temp_password_once") }}</p>
+    <div class="modal-actions"><button type="button" class="btn" data-closes data-testid="manage-temp-password-close">{{ crate::t("profile.ok") }}</button></div>
+  </dialog>
+  {% endif %}
+</section>
+{% endblock %}
+{% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("manage.js")|safe }});</script>
+<script src="{{ crate::routes::asset_url("autosave.js") }}" defer></script>
+<script src="{{ crate::routes::asset_url("manage.js") }}" defer></script>{% endblock %}

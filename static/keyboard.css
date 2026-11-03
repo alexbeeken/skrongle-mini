@@ -1,0 +1,18 @@
+/* Piano keyboard (#1231): loaded by static/keyboard.js, only on pages with a keyboard question.
+   Every key is a tap target of at least 44px; one octave fits a 390px phone, two wrap onto two rows. */
+.keyboard { --kb-white: clamp(44px, calc((100vw - 3rem) / 7), 52px); --kb-black: 44px; display: flex; flex-wrap: wrap-reverse; justify-content: center; gap: .75rem; margin: .5rem 0 1rem; }
+.kb-octave { position: relative; display: flex; }
+.kb-key { padding: 0; font: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.kb-white { width: var(--kb-white); height: 9rem; border: 2px solid var(--line); border-left-width: 1px; border-right-width: 1px; border-radius: 0 0 8px 8px; background: #fdfdfb; }
+.kb-black { position: absolute; top: 0; z-index: 1; width: var(--kb-black); height: 5.5rem; border: 2px solid #111; border-radius: 0 0 6px 6px; background: #222; }
+.kb-key.kb-on { box-shadow: inset 0 -.6rem 0 var(--gold); }
+.kb-white:active, .kb-white.kb-on { background: #f1ead8; }
+.kb-black:active, .kb-black.kb-on { background: #4a4030; }
+.kb-key[data-state="right"] { box-shadow: inset 0 -.6rem 0 var(--ok, #1d7444); background: var(--ok-bg, #e7f5ec); }
+.kb-black[data-state="right"] { background: #1d5a37; }
+.kb-key[data-state="wrong"] { box-shadow: inset 0 -.6rem 0 var(--accent, #c0392b); }
+.kb-key:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+/* The lesson editor's preview phone (.le-phone, 290px) is narrower than a phone: smaller keys keep them inside it. */
+.le-phone .keyboard { --kb-white: 31px; --kb-black: 20px; }
+.le-phone .kb-white { height: 6.5rem; }
+.le-phone .kb-black { height: 4rem; }

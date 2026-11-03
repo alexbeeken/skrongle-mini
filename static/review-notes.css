@@ -1,0 +1,9 @@
+/* Review AI changes (#1238): what the AI says it fixed and why, above a
+   lesson's diff, and the "Looked at, left alone" list of a fact check. */
+.rv-why { list-style: none; margin: .4rem 0 .6rem 2.2rem; padding: .5rem .75rem; border-left: 3px solid var(--accent); background: var(--surface, transparent); font-size: .9rem; }
+.rv-why li + li { margin-top: .25rem; }
+.rv-check .rv-k { color: var(--muted); }
+.review-left-alone { margin: .8rem 0 0; }
+.review-left-alone h3 { font-size: .95rem; margin: 0 0 .3rem; }
+.review-left-alone > ul { list-style: none; margin: 0; padding: 0; }
+.review-left-alone .rv-why { margin-left: 0; margin-top: .2rem; border-left-color: var(--line); }

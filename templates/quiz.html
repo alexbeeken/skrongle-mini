@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block title %}{{ heading }}{% endblock %}
+{% block modenav %}{% let active = "practice" %}{% include "nav_study.html" %}{% endblock %}
+{% block content %}
+<section class="quiz" id="quiz" data-testid="quiz" data-total="{{ questions.len() }}" data-praise="{{ course.praise }}" data-lang="{{ course.term_lang }}">
+  <header class="quiz-head">
+    <div>
+      <h1>{{ heading }}</h1>
+      <p class="muted">{{ subheading }}</p>
+    </div>
+    {% if !questions.is_empty() %}
+    <div class="quiz-progress" data-testid="quiz-counter"><span id="q-pos">1</span> / {{ questions.len() }}</div>
+    {% endif %}
+  </header>
+  {% if !questions.is_empty() %}
+  <div class="bar slim"><div class="fill" id="q-bar" style="width:0%"></div></div>
+  {% endif %}
+
+  {% if questions.is_empty() %}
+    {% if let Some(n) = next_lesson %}
+    <section class="empty-practice">
+      <p class="alert" role="status" data-testid="quiz-empty">{{ crate::t("quiz.empty.nothing_yet") }}</p>
+      <p class="actions">
+        <a class="btn big" href="{{ crate::base_path() }}/lessons/{{ n.slug }}" data-testid="quiz-read-next" data-lesson-id="{{ n.slug }}">{{ crate::t1("quiz.empty.read_next", "title", n.title) }}</a>
+        <a class="btn ghost" href="{{ crate::base_path() }}/lessons">{{ crate::t("quiz.empty.all_lessons") }}</a>
+      </p>
+    </section>
+    {% else if let Some(slug) = lesson_slug %}
+    <section class="empty-practice">
+      <p class="alert" role="status" data-testid="quiz-empty">{{ crate::t("quiz.empty.lesson_has_none") }}</p>
+      <p class="actions">
+        <a class="btn big" href="{{ crate::base_path() }}/lessons/{{ slug }}" data-testid="quiz-back-to-lesson">{{ crate::t("quiz.empty.back_to_lesson") }}</a>
+        <a class="btn ghost" href="{{ crate::base_path() }}/sprint/play?lesson={{ slug }}" data-testid="quiz-sprint">{{ crate::t("study.lesson.sprint_session") }}</a>
+      </p>
+    </section>
+    {% else %}
+    <p class="alert" role="status" data-testid="quiz-empty">{{ crate::t1("quiz.empty.no_questions_html", "url", crate::url("/lessons"))|safe }}</p>
+    {% endif %}
+  {% endif %}
+
+  {% for q in questions %}
+  <form class="question" novalidate data-testid="quiz-question" data-lesson-id="{{ q.lesson_slug }}" data-qid="{{ q.question_id }}" data-kind="{{ q.kind }}" hidden>
+    <p class="crumbs">
+      <a href="{{ crate::base_path() }}/lessons/{{ q.lesson_slug }}" target="_blank" rel="noopener">{{ q.lesson_title }}</a> · {{ q.unit }}
+    </p>
+    {% if !q.abc.is_empty() %}<pre class="abc-staff" data-testid="quiz-abc">{{ q.abc }}</pre>{% endif %}
+    {% if !q.play.is_empty() %}<div class="music-play" data-testid="quiz-play" data-play="{{ q.play }}"{% if q.abc.is_empty() %} data-staff-after="1"{% endif %}{% if !q.staves.is_empty() %} data-abc-options="1"{% endif %}></div>{% endif %}
+    <p class="prompt" lang="{{ course.term_lang }}">{{ q.prompt }}</p>
+    {% if let Some(tiles) = q.board %}{% include "algebra_tiles.html" %}{% endif %}
+    {% if let Some(m) = q.measure %}{% include "measure.html" %}{% endif %}
+
+    {% if !q.clock_hands.is_empty() %}<div class="clock-face" data-clock data-hands="{{ q.clock_hands }}" data-testid="clock"></div>{% endif %}
+    {% if q.choice %}
+      <div class="options">
+      {% for opt in q.options %}
+        <label class="option"><input type="radio" data-testid="quiz-option" name="answer" value="{{ opt }}"{% if loop.index <= 9 %} aria-keyshortcuts="{{ loop.index }}"{% endif %} required>{% if let Some(st) = crate::notation::nth(q.staves, loop.index0) %}<pre class="abc-staff abc-option" data-testid="quiz-option-abc">{{ st }}</pre>{% else %}<span lang="{{ course.term_lang }}">{{ opt }}</span>{% endif %}</label>
+      {% endfor %}
+      </div>
+    {% else if q.kind == "fill-bar" %}
+      <div class="fill-bar" data-testid="fill-bar" data-abc="{{ q.bar }}">{% for tile in q.tiles %}<button type="button" class="fill-bar-tile" data-tile="{{ tile }}">{{ tile }}</button>{% endfor %}</div>
+      <input type="radio" class="fill-bar-answer" name="answer" value="" hidden>
+    {% else if q.slots > 0 %}
+      <div class="chord-spell" data-testid="chord-spell" data-slots="{{ q.slots }}">{% for tile in q.chord %}<button type="button" class="chord-spell-tile" data-tile="{{ tile.abc }}">{{ tile.name }}</button>{% endfor %}</div>
+      <input type="radio" class="chord-spell-answer" name="answer" value="" hidden>
+    {% else if !q.clef.is_empty() %}
+      <div class="staff-note" data-testid="staff-note" data-clef="{{ q.clef }}" data-names="{{ q.note_names }}"></div>
+      <input type="radio" class="staff-note-answer" name="answer" value="" hidden>
+    {% else if q.kind == "keyboard" %}
+      <div class="keyboard" data-testid="keyboard" data-octaves="{{ q.octaves }}"{% if q.octave %} data-exact="1"{% endif %}></div>
+      <input type="radio" class="keyboard-answer" name="answer" value="" hidden>
+    {% else if q.clock_step > 0 %}
+      <div class="clock-face" data-clock data-step="{{ q.clock_step }}" data-testid="clock"></div><input class="fill" type="hidden" name="answer" data-testid="clock-time">
+    {% else %}
+      <input class="fill" type="text" data-testid="quiz-answer" maxlength="200" aria-label="{{ crate::t("quiz.question.answer_label") }}" name="answer" lang="{{ course.term_lang }}" autocomplete="off" autocapitalize="off" spellcheck="false"
+             placeholder="{{ q.placeholder }}"{% if q.math %} data-math="1"{% endif %} required>{% if !q.answer_unit.is_empty() %} <span class="unit">{{ q.answer_unit }}</span>{% endif %}
+      {% if !course.chars.is_empty() && !q.math %}
+      <div class="accents" aria-label="{{ crate::t("quiz.question.insert_char") }}">
+        {% for ch in course.chars %}<button type="button" data-ch="{{ ch }}" aria-label="{{ crate::t1("quiz.question.type_char", "ch", ch) }}">{{ ch }}</button>{% endfor %}
+      </div>
+      {% endif %}
+    {% endif %}
+
+    {% if !q.hints.is_empty() %}
+      <details class="hints">
+        <summary>{{ crate::t("quiz.question.hint") }}</summary>
+        <ul>{% for h in q.hints %}<li>{{ h }}</li>{% endfor %}</ul>
+      </details>
+    {% endif %}
+
+    <div class="feedback" role="status" data-testid="quiz-feedback" hidden></div>
+    <div class="actions">
+      <button type="submit" class="btn" data-testid="quiz-check">{{ crate::t("quiz.question.check") }}</button>
+    </div>
+  </form>
+  {% endfor %}
+
+  <section class="summary" id="summary" data-testid="quiz-summary" hidden>
+    <h2>{{ crate::t("quiz.summary.title") }}</h2>
+    <p class="lead">{{ crate::t("quiz.summary.score_html")|safe }}</p>
+    <ul id="s-lessons" class="topics"></ul>
+    <div class="actions">
+      {% if let Some(slug) = lesson_slug %}
+        <a class="btn" href="{{ crate::base_path() }}/practice?lesson={{ slug }}" data-testid="quiz-again">{{ crate::t("quiz.summary.again_lesson") }}</a>
+        <a class="btn ghost" href="{{ crate::base_path() }}/practice">{{ crate::t("quiz.summary.recommended") }}</a>
+      {% else %}
+        <a class="btn" href="{{ crate::base_path() }}/practice" data-testid="quiz-again">{{ crate::t("quiz.summary.another_round") }}</a>
+      {% endif %}
+      <a class="btn ghost" href="{{ crate::base_path() }}/lessons">{{ crate::t("study.nav.lessons") }}</a>
+    </div>
+  </section>
+</section>
+{% endblock %}
+{% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("quiz.js")|safe }});</script>{% if has_clock() %}<script>Object.assign(I18N, {{ crate::i18n::js_json("clock.js")|safe }});</script><script src="{{ crate::routes::asset_url("clock.js") }}" defer></script>{% endif %}<script src="{{ crate::routes::asset_url("quiz.js") }}" defer></script>{% if has_measure() %}<script src="{{ crate::routes::asset_url("measure.js") }}" defer></script>{% endif %}
+{% if notation() %}<script src="{{ crate::routes::asset_url("vendor/abcjs-basic-min.js") }}" defer></script><script src="{{ crate::routes::asset_url("notation.js") }}" defer></script>{% endif %}
+{% if sound() %}<script src="{{ crate::routes::asset_url("music-sound.js") }}" defer></script>{% endif %}
+{% if fill_bar() %}<script src="{{ crate::routes::asset_url("fill-bar.js") }}" defer></script>{% endif %}
+{% if chord_spell() %}<script src="{{ crate::routes::asset_url("chord-spell.js") }}" defer></script>{% endif %}
+{% if staff_note() %}<script src="{{ crate::routes::asset_url("staff-note.js") }}" defer></script>{% endif %}
+{% if keyboard() %}<script src="{{ crate::routes::asset_url("keyboard.js") }}" defer></script>{% endif %}{% if has_tiles %}{% include "algebra_tiles_assets.html" %}{% endif %}{% endblock %}

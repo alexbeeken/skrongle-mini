@@ -1,0 +1,3053 @@
+# Der Text der App auf Deutsch. Übersetzt en.yaml Schlüssel für Schlüssel
+# (i18n/README.md erklärt das Format); Schlüssel und {Platzhalter} bleiben gleich.
+
+meta:
+  name: Deutsch
+
+nav:
+  skip_to_content: "Zum Inhalt springen"
+  courses: Kurse
+  switch_course: Kurs wechseln
+  switch_course_now: "Kurs wechseln (jetzt {course})"
+  account_menu_for: "Kontomenü für {name}"
+  profile: Profileinstellungen
+  manage: Benutzer verwalten
+  documentation: Dokumentation
+  docs: Doku
+  login: Anmelden
+  register: Registrieren
+  logout: Abmelden
+
+lang:
+  label: Sprache
+  change: Ändern
+  unknown: Diese Sprache gibt es nicht.
+
+error:
+  not_found: Seite nicht gefunden
+  form_only: "Diese Seite funktioniert nur über ihre Schaltfläche. Geh zurück und nutze die Schaltfläche auf der Seite."
+  database: Datenbankfehler
+  internal: Etwas ist schiefgelaufen
+  back_to_start: Zurück zum Anfang
+  cross_site: Anfrage von einer anderen Seite abgelehnt. Geh zurück, lade die Seite neu und versuch es noch einmal.
+  home: Startseite
+  lessons: Lektionen
+  courses: Alle Kurse
+  ai_off: "Die KI-Funktionen sind auf diesem Server ausgeschaltet."
+
+common:
+  pager:
+    label: "Seiten"
+    prev: "Zurück"
+    next: "Weiter"
+    page_of: "Seite {n} von {total}"
+  time_ago:
+    just_now: gerade eben
+    minutes:
+      one: "vor {n} Minute"
+      other: "vor {n} Minuten"
+    hours:
+      one: "vor {n} Stunde"
+      other: "vor {n} Stunden"
+    days:
+      one: "vor {n} Tag"
+      other: "vor {n} Tagen"
+    months:
+      one: "vor {n} Monat"
+      other: "vor {n} Monaten"
+    years:
+      one: "vor {n} Jahr"
+      other: "vor {n} Jahren"
+  js:
+    close: Schließen
+    notation_label: Notenschrift
+    music_play: "Abspielen"
+    music_no_sound: "Kein Ton? Ein Handy im Lautlos-Modus schaltet ihn stumm."
+    music_cant_listen: "Anhören gerade nicht möglich"
+    keyboard_label: "Klaviertastatur"
+    keyboard_white: "Weiße Taste {n}"
+    keyboard_black: "Schwarze Taste {n}"
+    music_sound_off: "Ton ist aus: tippen zum Einschalten"
+    fill_bar_undo: "Rückgängig"
+    fill_bar_full: "Der Takt ist voll."
+    fill_bar_left:
+      one: "Noch {n} Schlag"
+      other: "Noch {n} Schläge"
+    fill_bar_beats:
+      one: "{n} Schlag"
+      other: "{n} Schläge"
+    chord_spell_slot: "Ton {n} des Akkords"
+    staff_note_label: "Notenzeile zum Setzen einer Note. Pfeil hoch und runter bewegen die Note, Enter setzt sie."
+    staff_note_line: "Linie {n}"
+    staff_note_space: "Zwischenraum {n}"
+    staff_note_just_below: "Direkt unter der Notenzeile"
+    staff_note_just_above: "Direkt über der Notenzeile"
+    staff_note_ledger_below: "Hilfslinie {n} unten"
+    staff_note_ledger_above: "Hilfslinie {n} oben"
+    staff_note_under_ledger: "Unter Hilfslinie {n}"
+    staff_note_over_ledger: "Über Hilfslinie {n}"
+    staff_note_sharp: "Kreuz"
+    staff_note_flat: "Be"
+    all_saved: Alle Änderungen gespeichert
+    saving: Wird gespeichert…
+    not_saved: Änderungen nicht gespeichert
+    could_not_save_reload: Deine Änderungen konnten nicht gespeichert werden. Lade die Seite neu.
+    signed_out: Du bist abgemeldet. Melde dich in einem anderen Tab wieder an, dann bearbeite weiter.
+    server_error: "Deine Änderungen konnten nicht gespeichert werden (der Server meldete {status}). Es wird erneut versucht…"
+    unreachable: Der Server ist nicht erreichbar. Deine Änderungen sind noch nicht gespeichert; es wird erneut versucht…
+    leave_lose_these: "{why} Die Seite verlassen und diese Änderungen verlieren?"
+    leave_fields: Einige Felder brauchen deine Aufmerksamkeit und sind nicht gespeichert. Die Seite verlassen und diese Änderungen verlieren?
+    leave_latest: Deine letzten Änderungen sind noch nicht gespeichert. Die Seite verlassen und sie verlieren?
+    leave_title: Diese Seite verlassen?
+    leave_anyway: Trotzdem verlassen
+    stay: Bleiben
+    tap_to_hear: Tippen, um es zu hören
+    meaning: Bedeutung
+    no_voice: "(keine {language}-Stimme)"
+
+auth:
+  login:
+    title: Anmelden
+    email_label: E-Mail-Adresse
+    password_label: Passwort
+    submit: Anmelden
+    or: oder
+    no_account_html: "Noch kein Konto? <a href=\"{url}\" data-testid=\"login-register-link\">Registrieren</a>."
+    too_many_attempts: Zu viele Anmeldeversuche. Warte ein paar Minuten und versuch es erneut.
+    incorrect: E-Mail-Adresse oder Passwort sind falsch.
+  register:
+    age: "Ich bin mindestens {min_age} Jahre alt"
+    title: Registrieren
+    heading: Konto anlegen
+    email_label: E-Mail-Adresse
+    email_note: (kann später nicht geändert werden)
+    password_label: Passwort
+    password_note: (mindestens 8 Zeichen)
+    submit: Registrieren
+    or: oder
+    have_account_html: "Schon registriert? <a href=\"{url}\" data-testid=\"register-login-link\">Anmelden</a>."
+    too_many_signups: Zu viele Registrierungen aus deinem Netzwerk. Versuch es in einer Stunde noch einmal.
+    email_taken: Für diese E-Mail-Adresse gibt es bereits ein Konto.
+  signup:
+    closed_title: "Registrierung geschlossen"
+    closed: "Dieser Server nimmt keine neuen Konten an. Frag die Person, die ihn betreibt."
+    invite_used: "Dieser Einladungslink wurde schon benutzt. Bitte die Person, die diesen Server betreibt, um einen neuen."
+    invite_expired: "Dieser Einladungslink ist abgelaufen. Bitte die Person, die diesen Server betreibt, um einen neuen."
+    invite_unknown: "Dieser Einladungslink ist ungültig. Bitte die Person, die diesen Server betreibt, um einen neuen."
+    full: "Dieses Skrongle hat alle Konten, die es fassen kann."
+    sign_in: "Anmelden"
+    first_account: "Dieser Server hat noch keine Konten: Das Konto, das du jetzt anlegst, gehört seinem Betreiber."
+    no_owner: "Dieser Server hat noch keinen Betreiber. Wer ihn betreibt, legt das erste Konto mit dem Betreiber-Link aus dem Server-Log an."
+  proxy:
+    title: "Anmeldung über deinen Proxy"
+    note: "Dieser Server meldet dich über den vorgeschalteten Proxy an: Öffne ihn über diese Adresse, und du bist angemeldet."
+    signed_out: "Du bist abgemeldet. Die nächste Seite, die du über den Proxy öffnest, meldet dich wieder an."
+    open: "Weiter"
+  password:
+    too_short: Das Passwort muss mindestens 8 Zeichen lang sein.
+    too_long: "Das Passwort ist zu lang (maximal {max} Zeichen)."
+  password_change:
+    logout: Stattdessen abmelden
+    title: "Wähle ein neues Passwort"
+    info_label: "Warum ein neues Passwort"
+    about: "Du hast dich mit einem vorläufigen Passwort angemeldet, das die Person, die diesen Server betreibt, für dich gesetzt hat. Wähle zuerst dein eigenes; niemand sonst wird es kennen."
+    submit: "Speichern und weiter"
+  age_gate:
+    to_register: registrieren
+    to_continue: weitermachen
+    age: "Bestätige, dass du mindestens {min_age} bist, um zu {to}."
+  code:
+    title: Gib deinen Code ein
+    from_app: Aus deiner Authenticator-App.
+    code_label: Code
+    submit: Anmelden
+    cancel: Abbrechen
+    gone: Diese Anmeldung ist abgelaufen. Melde dich erneut an.
+    wrong:
+      one: "Dieser Code stimmt nicht. Noch {n} Versuch."
+      other: "Dieser Code stimmt nicht. Noch {n} Versuche."
+    too_many_wrong: Zu viele falsche Codes oder der Code ist abgelaufen. Melde dich erneut an.
+  two_factor:
+    app_already: Eine Authenticator-App ist schon eingerichtet. Entferne sie zuerst.
+
+
+
+profile:
+  title: Profil
+  ok: "OK"
+  close: "Schließen"
+  no_name: Lernende
+  head:
+    owner: Inhaber
+    all_saved: Alle Änderungen gespeichert
+  month:
+    january: Januar
+    february: Februar
+    march: März
+    april: April
+    may: Mai
+    june: Juni
+    july: Juli
+    august: August
+    september: September
+    october: Oktober
+    november: November
+    december: Dezember
+  date:
+    long: "{day} {month} {year}"
+  privacy:
+    title: Wer was sieht
+    info: Wer deinen Namen und deine Adresse sieht
+    appear_as_before: "Andere Nutzer sehen dich als: ("
+    appear_as_after: ")."
+    email_private: Deine E-Mail-Adresse ist nur für dich sichtbar.
+    ok: OK
+  nav:
+    label: Profilbereiche
+    personal: Persönliche Angaben
+    account: Konto
+    two_factor: Zwei-Faktor-Authentifizierung
+  personal:
+    title: Persönliche Angaben
+    first_name: Vorname
+    last_name: Nachname
+    email: E-Mail-Adresse
+    no_email: Keine E-Mail-Adresse hinterlegt
+    verified: Bestätigt
+    language: Sprache
+    language_unavailable: Diese Sprache ist nicht verfügbar.
+  account:
+    title: Konto
+    sign_in: Anmeldung
+    password: Passwort
+    and: und
+    no_password: Dieses Konto hat kein Passwort, das man ändern könnte.
+  sessions:
+    sign_out_others: "Überall sonst abmelden"
+    info_label: "Über das Abmelden überall sonst"
+    text: "Beendet jede andere Sitzung dieses Kontos: andere Browser, Handys und Computer sowie alle, die nicht angemeldet sein sollten. Dieser Browser bleibt angemeldet."
+    text_same: "Das Ändern deines Passworts oder der Zwei-Faktor-Anmeldung macht dasselbe."
+    ok: "OK"
+    signed_out_notice: "Überall sonst abgemeldet."
+  password:
+    change: Passwort ändern
+    current: Aktuelles Passwort
+    new: Neues Passwort
+    repeat: Neues Passwort wiederholen
+    rule: 8 bis 128 Zeichen.
+    cancel: Abbrechen
+    save: Speichern
+    changed: Passwort geändert.
+    mismatch: Die neuen Passwörter stimmen nicht überein.
+    none: Dieses Konto hat kein Passwort.
+    too_many: Zu viele Versuche. Warte ein paar Minuten und versuche es erneut.
+    current_wrong: Das aktuelle Passwort stimmt nicht.
+  two_factor:
+    title: Zwei-Faktor-Authentifizierung
+    info: Über die Zwei-Faktor-Authentifizierung
+    second_step: Zweiter Anmeldeschritt
+    off: "Aus"
+    totp: Authenticator-App
+    save: Speichern
+    confirm_title: Bestätige, dass du es bist
+    confirm_password_why: "Damit jemand, der diesen angemeldeten Browser benutzt, deinen zweiten Schritt nicht ändern kann, gib das Passwort deines Kontos ein."
+    confirm_app_code: Dieses Konto hat kein Passwort, deshalb gib jetzt den Code ein, den deine Authenticator-App anzeigt.
+    password: Passwort
+    code: Code
+    cancel: Abbrechen
+    confirm: Bestätigen
+    totp_added: "Authenticator-App hinzugefügt am {date}"
+    remove: Entfernen
+    info_title: Zwei-Faktor-Authentifizierung
+    info_text: "Nach deinem Passwort fragt die Anmeldung nach dem Code, den eine Authenticator-App wie Google Authenticator anzeigt."
+    info_small: Nach fünf falschen Codes endet die Anmeldung.
+    ok: OK
+    close: Schließen
+    totp_title: Authenticator-App hinzufügen
+    totp_how: So fügst du die App hinzu
+    totp_dev_link: "Dev: zur Dev-Authenticator-App hinzufügen"
+    turn_on: Einschalten
+    totp_info_title: Eine Authenticator-App hinzufügen
+    totp_info_scan: Öffne auf deinem Handy eine Authenticator-App (Google Authenticator, Authy, 1Password und ähnliche), wähle, ein Konto hinzuzufügen, und scanne den QR-Code mit ihrer Kamera.
+    totp_info_key: Scannen geht nicht? Wähle stattdessen, einen Einrichtungsschlüssel einzugeben, und tippe den Schlüssel unter dem Code ein; er ist zeitbasiert.
+    qr_title: QR-Code des Einrichtungslinks
+    turn_off: Zwei-Faktor-Anmeldung ausschalten
+    turn_on_what: "Zwei-Faktor-Anmeldung mit einer Authenticator-App einschalten"
+    is_off: Zwei-Faktor-Anmeldung ist aus.
+    is_on: "Zwei-Faktor-Anmeldung ist an."
+    totp_removed: Authenticator-App entfernt.
+    too_many_attempts: Zu viele Versuche. Warte ein paar Minuten und versuche es erneut.
+    type_password: Gib dein Passwort ein, um diese Änderung vorzunehmen.
+    password_wrong: Das Passwort stimmt nicht.
+    type_code: Gib den Code ein, um diese Änderung vorzunehmen.
+    code_wrong_tries:
+      one: "Der Code stimmt nicht. Noch {n} Versuch."
+      other: "Der Code stimmt nicht. Noch {n} Versuche."
+    code_wrong_newest: Der Code stimmt nicht. Gib den neuesten Code ein, den die App anzeigt.
+    code_gone: Kein Code wartet, oder er ist abgelaufen. Schick einen neuen.
+  save:
+    not_a_field: Dieses Feld gehört nicht zum Profil.
+    motivator_unavailable: "Dieser Motivator ist nicht verfügbar."
+  name:
+    too_long: "{label} ist zu lang (maximal {max} Zeichen)."
+    bad_chars: "{label} enthält nicht erlaubte Zeichen."
+  email:
+    empty: Bitte gib eine E-Mail-Adresse ein.
+    too_long: "Die E-Mail-Adresse ist zu lang (maximal {max} Zeichen)."
+    local_too_long: "Der Teil vor dem @ ist zu lang (maximal {max} Zeichen)."
+    spaces: Eine E-Mail-Adresse darf keine Leerzeichen enthalten.
+    no_at: Eine E-Mail-Adresse muss ein @ enthalten.
+    not_email: Das sieht nicht nach einer E-Mail-Adresse aus.
+    no_domain: Die E-Mail-Adresse braucht eine Domain wie example.org.
+  js:
+    account_menu_for: "Kontomenü für {name}"
+    first_name: Vorname
+    last_name: Nachname
+    name_too_long: "{label} ist zu lang (maximal {max} Zeichen)."
+    name_bad_chars: "{label} enthält nicht erlaubte Zeichen."
+    password_mismatch: Die neuen Passwörter stimmen nicht überein.
+    turn_off: Zwei-Faktor-Anmeldung ausschalten
+    turn_on: "Zwei-Faktor-Anmeldung mit einer Authenticator-App einschalten"
+manage:
+  title: Benutzer verwalten
+  about: "Aktionen für jedes Konto. Nur Eigentümer sehen diese Seite."
+  email: E-Mail-Adresse
+  unknown: "Kein Konto hat die Adresse {email}."
+  accounts: "Konten"
+  accounts_info: "Über Konten und Registrierung"
+  mode_open: "Jeder, der diesen Server erreicht, kann sich registrieren (SKRONGLE_SIGNUP=open)."
+  mode_invite: "Nur Personen mit einem Einladungslink können sich registrieren (SKRONGLE_SIGNUP=invite)."
+  mode_closed: "Niemand kann sich registrieren (SKRONGLE_SIGNUP=closed)."
+  invite_about: "Erstelle einen Einladungslink und schick ihn an eine Person. Er funktioniert einmal, 7 Tage lang. Der Link wird nur beim Erstellen angezeigt, kopiere ihn also gleich. Widerrufen macht einen noch nicht benutzten Link ungültig."
+  accounts_of: "{total} von {max} Konten"
+  invite_link: "Einladungslink"
+  copy: "Kopieren"
+  make_invite: "Einladungslink erstellen"
+  invite_made: "Erstellt"
+  invite_expires: "Läuft ab"
+  revoke: "Widerrufen"
+  invite_revoked: "Dieser Einladungslink funktioniert nicht mehr."
+  created: "Angelegt"
+  last_sign_in: "Letzte Anmeldung"
+  temp_password: "Vorläufiges Passwort"
+  temp_password_about: "Ein neues Passwort wird erzeugt und dir einmal angezeigt. Das Konto wird überall abgemeldet und muss bei der nächsten Anmeldung ein eigenes Passwort wählen. Es wird keine Nachricht verschickt: Gib es der Person selbst."
+  temp_password_confirm: "Vorläufiges Passwort setzen"
+  temp_password_for: "Vorläufiges Passwort für {email}:"
+  temp_password_once: "Es wird nur jetzt angezeigt. Kopiere es und gib es der Person; bei der nächsten Anmeldung wählt sie ein eigenes."
+  two_factor_off: "Zwei-Faktor ausschalten"
+  two_factor_off_about: "Das Konto meldet sich nur mit dem Passwort an, bis es die Zwei-Faktor-Anmeldung wieder einschaltet. Eine dafür eingerichtete Authenticator-App wird entfernt."
+  two_factor_off_confirm: "Ausschalten"
+  two_factor_off_done: "Die Zwei-Faktor-Anmeldung ist für {email} ausgeschaltet."
+  make_owner: "Zum Eigentümer machen"
+  make_owner_about: "Das Konto wird ebenfalls Eigentümer: Es sieht „Benutzer verwalten“ im Kontomenü und kann jede Aktion auf dieser Seite ausführen. Das lässt sich hier nicht rückgängig machen."
+  make_owner_done: "{email} ist jetzt Eigentümer."
+  api_keys:
+    title: KI-API-Schlüssel
+    info_text: "Die KI-Funktionen jedes Kontos verwenden diese Schlüssel, abgerechnet über das Konto, zu dem der Schlüssel gehört. Schlüssel werden vor dem Speichern verschlüsselt und nie wieder angezeigt; nur die letzten vier Zeichen bleiben sichtbar, damit du erkennst, welcher Schlüssel hinterlegt ist. Nur Eigentümer sehen sie."
+    unreadable: "Hinterlegt, aber nicht lesbar: das Geheimnis des Servers hat sich geändert. Füge ihn erneut ein."
+    on_file: "✓ Gesetzt"
+    ends_in: endet auf
+    none: "Nicht gesetzt"
+    replace: Füge einen neuen Schlüssel ein, um ihn zu ersetzen
+    paste: "Füge den Schlüssel ein"
+    get_one: einen holen
+    remove: Schlüssel entfernen
+    removed: "Schlüssel von {provider} entfernt."
+    empty: Füge zuerst den API-Schlüssel ein.
+    too_long: "Das ist zu lang für einen API-Schlüssel (maximal {max} Zeichen)."
+    bad_chars: Ein API-Schlüssel enthält nur Buchstaben, Ziffern und Satzzeichen, ohne Leerzeichen.
+    wrong_provider: "Das sieht nicht nach einem {provider}-Schlüssel aus: sie beginnen mit {prefix}."
+    empty_url: "Gib zuerst die Basis-URL des Servers ein."
+    bad_url: "Eine Basis-URL beginnt mit http:// oder https:// und einem Host, zum Beispiel http://localhost:11434."
+    bad_model: "Ein Modellname hat bis zu 100 Buchstaben, Ziffern und Satzzeichen, ohne Leerzeichen (zum Beispiel llama3.1)."
+    base_url: "Basis-URL des Servers"
+    get_server: "Ollama holen"
+    model: "Modell"
+  js:
+    copied: "Kopiert"
+    key_on_file: "✓ Gesetzt"
+    ends_in: "endet auf"
+    paste_new_key: "Füge einen neuen Schlüssel ein, um ihn zu ersetzen"
+  ai:
+    title: "KI-Funktionen"
+    info: "Über die KI-Funktionen"
+    about: "Der KI-Tutor, die Kurserstellung, „Mit KI bearbeiten“ und die Übersetzung schicken, was Lernende eingeben, mit den Schlüsseln unten an einen KI-Anbieter. Blendest du sie aus, sind sie für jedes Konto auf diesem Server verschwunden und nichts geht hinaus; die Schlüssel bleiben gespeichert, bis du sie wieder einblendest."
+    hide: "KI-Funktionen für alle ausblenden"
+    on: "An"
+    off: "Aus"
+    hidden_notice: "Die KI-Funktionen sind für jedes Konto ausgeblendet."
+    shown_notice: "Die KI-Funktionen sind für jedes Konto wieder eingeblendet."
+
+landing:
+  title: "Lerne alles aus einem Ordner mit JSON-Dateien"
+  hero_h1: "Lerne alles aus einem Ordner mit JSON-Dateien."
+  hero_lead: "{app} ist eine Lern-App nach dem Vorbild beliebter Lernplattformen. Schreib einen Kurs als einfaches JSON, füg ihn hinzu, und jede Lektion wird zu Lernseiten, adaptiven Quizzes, Karteikarten, fünfminütigen Sitzungen auf dem Handy, Hörübungen und Spielen. Kein Code, keine Content-Pipeline, kein zweites Format."
+  create_account: "Konto erstellen"
+  read_format: "Das Kursformat lesen"
+  have_account_html: "Du hast schon ein Konto? <a href=\"{url}\" data-testid=\"landing-login\">Anmelden</a>."
+  two_files_h2: "Ein Kurs besteht aus zwei Dateien. Alles andere ist optional."
+  two_files_lead_html: "Eine <code>course.json</code> benennt die Einheiten und die beiden Seiten jeder Karteikarte. Jede Lektion ist eine Datei. Füg ein Feld hinzu, und eine Funktion wird aktiv; lass es weg, und diese Funktion erscheint für diese Lektion einfach nicht. Nichts bricht, nichts nervt."
+  field_content_html: "Markdown. Jeder <code>##</code>-Abschnitt wird zu einer Lektionskarte, einem Leitfaden-Schritt und einem Happen im Sprint-Modus."
+  field_vocabulary: "Karteikarten, Antippen zum Anhören, Wortpaare und die Zuordnungsübungen auf dem Handy."
+  field_quiz: "Adaptives Üben mit einer Beherrschungswertung pro Lektion, die wächst, abnimmt und steuert, was als Nächstes kommt."
+  field_listening: "Hör einen Satz, tipp ihn ab und sieh Wort für Wort, ob er stimmt. Der Browser spricht, also gibt es keine Audiodateien zu hosten."
+  field_conjugations: "Paradigmen-Tabellen in jeder Form: Verbformen, Deklinationen, Skalen. Eine Paradigmen-Übung und eine Leiter-Übung kommen dazu."
+  field_conversations: "Ein vorgeschriebener Dialog mit seiner Übersetzung auf der Lektionsseite und eine Satzbau-Übung im Sprint-Modus."
+  field_sprint_guide: "Handgeschriebene Übungen und Schrittfolgen, wenn die abgeleiteten nicht reichen."
+  reference_html: "Die vollständige Referenz mit jedem Feld und jeder Regel, die der Validator prüft, steht unter <a href=\"{url}\">/docs/course-format</a>. Es gibt auch ein JSON-Schema."
+  three_ways_h2: "Drei Wege zu einem Kurs"
+  write_h3: "Selbst schreiben"
+  write_p_html: "Klick auf <em>Kurs erstellen</em>, schließ den KI-Dialog und bearbeite die Dateien im Browser. Jedes Speichern prüft den gesamten Kurs und nennt die genaue Datei und das Feld, das falsch ist, damit ein Tippfehler nie ausgeliefert wird."
+  llm_h3: "Ein LLM schreiben lassen"
+  llm_p: "Die Formatseite ist so geschrieben, dass man sie einem Modell geben kann. Füg sie in einen beliebigen Chat ein und bitte um Lektionen, dann füg die Antworten auf der Kursseite ein. Oder beschreib den Kurs in der App, bring deinen eigenen API-Schlüssel mit (Anthropic, OpenAI oder einen lokalen Ollama-Server) und sieh zu, wie er eine Lektion nach der anderen schreibt und prüft. Der Schlüssel wird nur für diese Aufgabe verwendet und nie gespeichert."
+  ready_h3: "Mit einem fertigen Kurs anfangen"
+  ready_p: "Kurse, die mit der App ausgeliefert werden, im selben Format geschrieben, damit du sie als Musterbeispiele lesen und übernehmen kannst, was dir gefällt."
+  course_units:
+    one: "{n} Einheit"
+    other: "{n} Einheiten"
+  course_lessons:
+    one: "{n} Lektion"
+    other: "{n} Lektionen"
+  every_way_h2: "Ein Kurs, jede Art zu lernen"
+  every_way_lead: "Jede Funktion liest dieselben Dateien. Du schreibst nichts zweimal."
+  feat_sprint_h: "Sprint"
+  feat_sprint_p: "Fünfminütige Sitzungen, für das Handy gemacht: Wortkacheln, Sortieren, Finden, Bauen, Leiter, Zuordnen, Hörübungen, ein Tagesziel und eine Serie."
+  feat_study_h: "Lernen"
+  feat_study_p: "Lies die Lektionen richtig durch und mach dann Quizze, die sich auf das konzentrieren, was du falsch machst. Eine Karte jeder Einheit zeigt deine Beherrschung."
+  feat_play_h: "Spielen"
+  feat_play_p: "Wortpaare mit einer gemeinsamen Bestenliste, eine Paradigmen-Übung, Zahlen nach Gehör, das Datums-Rennen, Karteikarten und der Leitfaden."
+  feat_ai_h: "KI-Nachhilfe"
+  feat_ai_p: "Ein Tutor im Chat, der dir einzeln hilft: Er erklärt die Lektion, prüft, ob du folgst, und stellt das Quiz, wenn du bereit bist. Läuft mit deinem eigenen Schlüssel."
+  feat_hear_h: "Antippen zum Anhören"
+  feat_hear_p: "In einem Sprachkurs kann jedes wichtige Wort angetippt und vom Browser mit seinen eigenen Stimmen vorgelesen werden."
+  feat_mastery_h: "Beherrschung, die nachlässt"
+  feat_mastery_p: "Richtige Antworten bauen eine Wertung mit abnehmendem Zuwachs auf, falsche nehmen einen Happen davon, und eine Pause von einem Monat lässt sie wieder in Richtung Übung sinken."
+  small_h2: "Klein genug für einen Raspberry Pi"
+  spec_binary_h: "Eine Binärdatei"
+  spec_binary_p: "Vorlagen, CSS, Skripte und Dokumentation sind eingebaut; die mitgelieferten Kurse sind einfache Dateien daneben. SQLite ist die ganze Datenbank."
+  spec_footprint_h: "Winziger Fußabdruck"
+  spec_footprint_p: "Für einen Pi Zero 2 W bemessen: ein paar Megabyte auf der Platte, Dutzende Megabyte im Speicher, zwei asynchrone Worker."
+  spec_data_h: "Deine Daten bleiben deine"
+  spec_data_p: "Läuft auf deinem eigenen Rechner oder im LAN. Optionaler TLS-Proxy, keine Skripte von Drittanbietern, kein Tracking."
+  spec_docs_h: "Dokumentation inklusive"
+  spec_docs_p: "Das Format, die Funktionen und die Architektur werden von der App selbst ausgeliefert, als Seiten oder als reines Markdown für ein LLM."
+  final_h2: "Registrier dich, dann beantworte eine Frage: Was möchtest du lernen?"
+  browse_docs: "Dokumentation durchstöbern"
+  feat_guide_h: "Guide"
+  feat_guide_p: "Jede Lektion als Etappe aus kleinen Schritten: Karten, kurze Checks, Karteikarten und Tipps, mit Sternen am Ende."
+  try_lead: "Zwanzig Sekunden von jedem Modus. Wähle einen und probier ihn aus."
+  try_noscript: "Schalte JavaScript ein, um jeden Modus hier auszuprobieren."
+  uses_h2: "Was kann ich damit machen?"
+  use_niche_h: "Ein Nischenthema lernen"
+  use_niche_p: "Niemand verkauft einen Kurs dazu? Schreib einen, oder lass eine KI ihn aus deinen Notizen schreiben."
+  use_work_h: "Berufliche Schulungen ergänzen"
+  use_work_p: "Mach aus dem Handbuch oder dem Prüfungsstoff Lektionen und Quizze."
+  use_goals_h: "Auf langfristige Ziele hinarbeiten"
+  use_goals_p: "Fünf Minuten am Tag auf dem Handy, mit Tagesziel und Serie, damit du dranbleibst."
+  use_fresh_h: "Wichtiges frisch halten"
+  use_fresh_p: "Wissen verblasst, wenn du wegbleibst, und das Üben holt zuerst zurück, was verblasst."
+  use_mood_h: "Lernen, wie es dir passt"
+  use_mood_p: "Sprint im Bus, Lesen am Schreibtisch, ein Spiel, wenn du müde bist. Der Fortschritt ist derselbe."
+  use_exam_h: "Für eine Prüfung lernen"
+  use_exam_p: "Die Quizze setzen auf das, was du falsch machst, damit die Lernzeit dorthin geht, wo sie nötig ist."
+  use_trip_h: "Sich auf eine Reise vorbereiten"
+  use_trip_p: "Die Sätze, die du brauchst, mit jedem Wort vorgelesen."
+  use_notes_h: "Aus Unterrichtsnotizen einen Kurs machen"
+  use_notes_p: "Füge Notizen oder Hausaufgaben ein und bekomm Lektionen, Quizze und Karteikarten zurück."
+  use_agent_h: "Mit deinem eigenen KI-Agenten lernen"
+  use_agent_p: "Ein Agent, der dich außerhalb der App unterrichtet, meldet ihr deinen Fortschritt."
+  subjects_label: "Fach"
+  subject_language: "Sprachen"
+  subject_maths: "Mathe"
+  subject_music: "Musik"
+  js:
+    type_answer: "Antwort eingeben"
+    sprint_order: "Bring sie in die richtige Reihenfolge"
+    sprint_note: "Wie heißt die Note?"
+    count: "{n} von {total}"
+    check: "Prüfen"
+    next: "Weiter"
+    again: "Noch mal"
+    wrong: "Die Antwort: {answer}"
+    sprint_pick: "Was bedeutet das?"
+    sprint_build: "Bring die Wörter in die richtige Reihenfolge"
+    sprint_done: "{right} von {total} richtig"
+    sprint_done_line: "Eine echte Sitzung dauert fünf Minuten und füllt das Tagesziel."
+    read_quiz: "Gelesen, frag mich ab"
+    study_passed: "Lektion bestanden: {right} von {total}"
+    study_passed_line: "Sie gilt in jedem Modus als bestanden."
+    study_not: "{right} von {total}: noch nicht bestanden"
+    study_not_line: "Das Üben bringt sie zurück, bis du sie bestehst."
+    play_hint: "Tippe eins an, dann das Passende"
+    play_done: "Alle Paare in {secs} s"
+    play_done_line: "Word Match hat eine gemeinsame Bestenliste."
+    guide_card: "Tipp"
+    guide_check: "Richtig oder falsch?"
+    answer_true: "Richtig"
+    answer_false: "Falsch"
+    guide_flip: "Tippe die Karte an, um sie umzudrehen"
+    got_it: "Verstanden"
+    guide_done: "Etappe geschafft"
+    sprint_listen: "Was hörst du?"
+    listen: "Anhören"
+    tap_to_hear: "Antippen zum Anhören"
+    type_it: "Tippe das fehlende Wort"
+    shade: "Färbe den Bruch"
+    number_line: "Setz es auf den Zahlenstrahl"
+    plot: "Setz den Punkt: tippe ins Raster"
+    type_formula: "Tippe den Term"
+    type_formula_hint: "z. B. x^2 + 3x"
+    match_graph: "Ordne den Graphen zu"
+    hear_interval: "Hör das Intervall"
+    find_key: "Finde sie auf der Tastatur"
+    place_note: "Setz die Note: tippe ins Notensystem"
+    which_heard: "Welches hast du gehört?"
+    major_minor: "Dur oder Moll?"
+    near_miss: "Richtig! Achte auf den Akzent: {answer}"
+
+home:
+  due:
+    title: "Fällige Wörter"
+    about: "Über fällige Wörter"
+    count_html:
+      one: "<strong>{n}</strong> Wort fällig"
+      other: "<strong>{n}</strong> Wörter fällig"
+    review_n:
+      one: "1 Wort wiederholen"
+      other: "{n} Wörter wiederholen"
+    info_ladder: "Ein gesammeltes Wort kommt am nächsten Tag wieder. Jedes Mal, wenn du es weißt, wird die Pause länger: 1, 3, 7, 16, 35, 75, dann 150 Tage."
+    info_miss: "Weißt du es nicht, kommt es morgen wieder. Eine Runde wiederholt höchstens 20 Wörter, die am längsten wartenden zuerst."
+  your_progress: "Dein Fortschritt"
+  lessons_passed: "Lektionen bestanden"
+  terms: "Begriffe"
+  day_streak: "Tage in Folge"
+  skipped: "übersprungen"
+  unit_of: "Einheit {n} von {total}"
+  unit_bar_label: "Lektionen von {unit} bestanden"
+  unit_passed_html: "<strong>{passed}</strong> von {total} Lektionen in dieser Einheit bestanden"
+  sprint: "Sprint"
+  open_sprint: "Sprint-Modus öffnen"
+  sprint_tag: "Interaktiv, für das Handy geeignet."
+  about_sprint: "Über den Sprint-Modus"
+  start_session: "Sitzung starten"
+  study: "Lernen"
+  open_study: "Lernmodus öffnen"
+  study_tag: "Kurze Lektionen mit Quizzen."
+  about_study: "Über den Lernmodus"
+  need_practice_html:
+    one: "<strong>{n}</strong> Lektion braucht Übung"
+    other: "<strong>{n}</strong> Lektionen brauchen Übung"
+  answers_week_html: "<strong>{n}</strong> Antworten diese Woche"
+  start_practice: "Empfohlene Übung starten"
+  play: "Spielen"
+  open_play: "Spielmodus öffnen"
+  play_tag: "Spiele und einmalige Übungen"
+  about_play: "Über den Spielmodus"
+  games_week_html:
+    one: "<strong>{n}</strong> Spiel diese Woche"
+    other: "<strong>{n}</strong> Spiele diese Woche"
+  terms_collected_html: "<strong>{n}</strong> Begriffe gesammelt"
+  browse_games: "Spiele durchstöbern"
+  guide: "Leitfaden"
+  open_guide: "Leitfaden öffnen"
+  guide_tag: "Geführte Lektionen, eine Stufe nach der anderen."
+  about_guide: "Über den Leitfaden"
+  guide_stat_html: "<strong>{done}</strong> / {total} Stufen abgeschlossen"
+  next_stage: "Als Nächstes: {title}"
+  continue_guide: "Leitfaden fortsetzen"
+  start_guide: "Leitfaden starten"
+  see_stages: "Deine Stufen ansehen"
+  ai: "KI-Nachhilfe"
+  open_ai: "KI-Nachhilfe öffnen"
+  ai_tag: "Im Chat mit einem Tutor"
+  about_ai: "Über die KI-Nachhilfe"
+  using_key_html: "Mit dem Schlüssel von <strong>{provider}</strong>"
+  needs_key_html: "Braucht einen API-Schlüssel · <a href=\"{url}\" data-testid=\"home-ai-add-key\">unter „Benutzer verwalten“ hinzufügen</a>"
+  start_conversation: "Ein Gespräch beginnen"
+  no_ai_keys: Keine KI-Schlüssel hinterlegt
+  info_sprint_p: "Kurze Sitzungen zum Antippen und Wischen: Wortkacheln, Sortieren, Zuordnen und schnelle Quizrunden. Eine Serie und das Tagesziel bringen dich zurück."
+  info_study_p: "Lies die Lektionen richtig durch und mach dann adaptive Quizze, die auf das zielen, was du falsch machst. Beobachte, wie die Beherrschung Einheit für Einheit auf der Lernkarte wächst."
+  info_study_listening_p: "Lies die Lektionen richtig durch und mach dann adaptive Quizze, die auf das zielen, was du falsch machst, und schule dein Ohr, indem du tippst, was du hörst. Beobachte, wie die Beherrschung Einheit für Einheit auf der Lernkarte wächst."
+  info_play_intro: "Wähl etwas aus und spiel es: ein zeitgesteuertes Wortpaar-Spiel, "
+  info_play_drill: "die {item}-Übung, "
+  info_play_numbers: "Zahlen nach Gehör, "
+  info_play_dates: "ein Datums-Rennen, "
+  info_play_end: "oder ein Stapel Karteikarten."
+  info_guide_p: "Die Lektionen der Reihe nach, ein kleiner Schritt nach dem anderen: eine Karte oder zwei, dann eine kurze Prüfung. Schließ eine Stufe ab, um die nächste freizuschalten, und verdiene auf jeder bis zu drei Sterne."
+  info_ai_p: "Eine Einzelstunde im Chat: Der Tutor erklärt, prüft, ob du folgen kannst, stellt eine Übung, wenn du so weit bist, und bespricht deine Antwort mit dir. Dieselben Fragen, derselbe Lernstand, nur als Gespräch. Läuft mit dem API-Schlüssel dieses Servers."
+  ok: "OK"
+  needs_key_ask: "Braucht einen API-Schlüssel, den der Eigentümer dieses Servers hinzufügt"
+
+goal:
+  ring_label: "Tagesziel: {n} von {goal} Punkten"
+  smashed: "Ziel geschafft {icon}"
+  smashed_sub: "{n} Punkte heute. Halte die Serie am Leuchten."
+  showed_up: "Super, du bist dabei"
+  points_today: "{n} Punkte heute. {more} weitere füllen den Ring."
+  keep_alive: "Halte {icon} am Leben"
+  day_away: "Tag {n} ist nur eine Sitzung entfernt."
+  five_minutes: "Hast du fünf Minuten?"
+  any_mode: "Was du auch lernst, in jedem Modus füllt es den Ring."
+  continue: "Weiter: {title}"
+  all_done: "Alle Lektionen bestanden: halte sie frisch"
+  info_label: "Was für das Tagesziel zählt"
+  info_title: "Das Tagesziel"
+  info_p: "Alles, was du in diesem Kurs tust, in jedem Modus, bringt Punkte für die {goal} des Tages. Was länger dauert, bringt mehr:"
+  col_activity: "Was du tust"
+  col_points: "Punkte"
+  kind:
+    answer: "Eine Quizfrage, in jedem Modus"
+    tutor: "Eine Frage des KI-Tutors"
+    exercise: "Eine Sprint-Übung (Kacheln, Sortieren, Bauen …)"
+    game: "Ein Teil eines Spiels (ein Paar, eine Zahl, ein Datum)"
+    listening: "Ein Satz einer Hörrunde"
+    flashcard: "Eine Karteikarte"
+    card: "Eine Karte einer Guide-Stufe"
+    reading: "Eine Lektion bis zum Ende lesen"
+
+study:
+  correct: "Richtig!"
+  never: "nie"
+  pill_passed: "✓ Bestanden"
+  pill_read: "✓ Gelesen"
+  pill_mastery_title: Beherrschung
+  practise: "Üben"
+  status:
+    not_started: "Noch nicht begonnen"
+    mastered: "Beherrscht"
+    in_progress: "In Arbeit"
+    needs_practice: "Braucht Übung"
+    skipped: "Übersprungen"
+  via:
+    study: "Lernmodus"
+    sprint: "Sprint-Modus"
+    play: "Spielmodus"
+    tutor: "KI-Nachhilfe"
+    agent: "einem KI-Agenten"
+    legacy: "einer früheren Sitzung"
+    other: "einem anderen Modus"
+  pass:
+    passed_in: "Bestanden in {via}"
+    passed_with: "Bestanden mit {via}"
+    seen_best: "Gelesen · bester Durchgang {best} %, {pass} % bestehen"
+    seen_now: "Gelesen · jetzt {pass} % bei den Übungen"
+    done_read: "Übungen erledigt · lies sie, um zu bestehen"
+    best_run: "Bester Durchgang {n} %"
+    not_started: "Noch nicht begonnen"
+  counts:
+    n_mastered: "{n} beherrscht"
+    n_in_progress:
+      one: "{n} in Arbeit"
+      other: "{n} in Arbeit"
+    n_weak: "{n} schwach"
+    n_need_practice:
+      one: "{n} braucht Übung"
+      other: "{n} brauchen Übung"
+    n_not_started:
+      one: "{n} noch nicht begonnen"
+      other: "{n} noch nicht begonnen"
+    n_of_m_passed: "{n} von {total} bestanden"
+    n_skipped:
+      one: "{n} übersprungen"
+      other: "{n} übersprungen"
+    n_questions: "{n} Fragen"
+    n_lessons:
+      one: "{n} Lektion"
+      other: "{n} Lektionen"
+  games:
+    word_match: "Wortpaare"
+    numbers: "Zahlen nach Gehör"
+    date_dash: "Datums-Rennen"
+    listening: "Hören"
+    sprint: "Sprint-Modus"
+    drill: "{item}-Übung"
+    drill_plain: "Übung"
+    result: "{correct} / {total} richtig · {time}"
+  nav:
+    study_mode: "Lernmodus"
+    study_mode_desc: "Lernmodus: kurze Lektionen mit Quizzen"
+    study: "Lernen"
+    practice: "Üben"
+    listening: "Hören"
+    lessons: "Lektionen"
+    map: "Karte"
+    vocabulary: "Wortschatz"
+    history: "Verlauf"
+    mistakes: Fehler
+    switch: "Wechseln:"
+    to_sprint: "Zum Sprint-Modus wechseln"
+    sprint_desc: "Sprint-Modus: interaktiv, für das Handy geeignet"
+    sprint: "Sprint"
+    to_play: "Zum Spielmodus wechseln"
+    play_desc: "Spielmodus: Spiele und einmalige Übungen"
+    play: "Spielen"
+    all_modes: "Alle Modi (Startseite)"
+    menu: "Menü"
+  lessons:
+    title: "Lektionen"
+    find: "Eine Lektion finden"
+    find_placeholder: "ein Thema oder ein Wort"
+    read_title: "Leseprüfung bestanden"
+    unread: "Ungelesen"
+    unread_title: "Bestehe die Prüfung unten in der Lektion, um sie zur empfohlenen Übung hinzuzufügen"
+    jump: "Zu einer Einheit springen"
+    jump_passed: "{n} von {total} bestanden"
+    to_top: "↑ Nach oben"
+  panel:
+    lessons: "Lektionen"
+    noscript: "Verschieben, Umbenennen und Hinzufügen von Lektionen braucht JavaScript; Bearbeiten öffnet die Datei einer Lektion."
+    editor_settings: "Editor-Einstellungen"
+    feature_usage: "Funktionsnutzung"
+    feature_usage_report: "Bericht zur Funktionsnutzung"
+    edit_settings: "Kurseinstellungen bearbeiten"
+    course_settings: "Kurseinstellungen"
+    edit: "Bearbeiten"
+    add_unit: "+ Einheit hinzufügen"
+    words_open: "Wortliste einfügen"
+    words_title: "Wortliste einfügen"
+    words_info: "Über das Einfügen einer Wortliste"
+    words_name: "Name der Lektion"
+    words_text: "Wörter, eines pro Zeile"
+    words_add: "Lektion hinzufügen"
+    words_how: "Schreibe jedes Wort in eine eigene Zeile, mit der Bedeutung dahinter, getrennt durch einen Bindestrich, ein Gleichheitszeichen, ein Komma oder einen Tab (eine Tabelle kopiert mit Tabs). Eine erste Zeile, die nur die zwei Spalten benennt, wird übersprungen."
+    words_after: "Die neue Lektion kommt ans Ende der letzten Einheit. Die Wörter werden ihr Wortschatz, und eine Tabelle davon wird ihr Text. Öffne sie in der Tabelle, um Fragen hinzuzufügen oder sie zu verschieben."
+    json_of_settings: "JSON der Kurseinstellungen"
+    format: "Formatieren"
+    fold: "{unit} einklappen"
+    add_to: "Eine Lektion zu {unit} hinzufügen"
+    delete_unit: "Die Einheit {unit} löschen"
+    delete_this_unit: "Diese Einheit löschen"
+    json: "JSON"
+    json_desc: "Bearbeite jede Datei als JSON statt über ein Formular."
+    line_numbers: "Zeilennummern"
+    line_numbers_desc: "Nummeriere die Zeilen im JSON-Feld."
+    language_features: "Sprachfunktionen"
+    language_features_desc: "Hören, Satzbau und Übersetzungsfelder."
+    language_features_info: "Über die Sprachfunktionen"
+    language_features_what: "Manche Teile einer Lektion haben nur Sinn, wenn der Kurs eine Sprache lehrt: Hörsätze, Gespräche, Satzbau und die Übersetzung neben einem Beispiel oder einer Dialogzeile."
+    language_features_off: "Ausgeschaltet blendet der Editor diese Teile aus, solange sie leer sind, damit ein Kurs, der Begriffe in deiner eigenen Sprache erklärt, nicht nach Übersetzungen fragt. Ein Teil mit Inhalt bleibt. Lernende verlieren die passenden Übungen: Hören, Zahlen nach Gehör, Antippen zum Anhören sowie die Hör- und Satzbau-Übungen in Sprint. JSON zeigt in jedem Fall alle Felder."
+    language_features_saved: "Wird in den Kurseinstellungen als language_features gespeichert, für alle, die den Kurs bearbeiten. Solange du es nicht festlegst, sind die Funktionen an, wenn die Begriffe in einer anderen Sprache stehen als die Bedeutungen."
+    levels: "Stufen"
+    levels_info: "Was Stufen sind"
+    levels_desc: "Man kann bei einer späteren Einheit anfangen"
+    levels_what: "Schalte es ein, wenn die Einheiten Stufen des Fachs sind (A1, A2…, Anfänger, Mittelstufe…) und keine Kapitel, die jeweils das vorige brauchen. Wer den Kurs zum ersten Mal öffnet, wählt die Stufe zum Anfangen, und die Lektionen darunter werden übersprungen."
+    levels_saved: "Wird in den Kurseinstellungen als levels gespeichert, für alle, die den Kurs bearbeiten."
+    placement: "Einstufungstest"
+    placement_info: "Was der Einstufungstest ist"
+    placement_desc: "Ein kurzer Test, der vorschlägt, wo man anfängt"
+    placement_what: "Man kann ihn am Ende des Start-Assistenten machen, statt eine Stufe zu wählen. Eine Stufe ganz ohne Fehler kann übersprungen werden; die erste Stufe mit einem Fehler ist die vorgeschlagene."
+    placement_how: "Schreibe Multiple-Choice-Fragen für eine Einheit in \"questions\", oder setze \"random_per_unit\", um so viele Multiple-Choice-Fragen jeder Einheit zufällig zu ziehen."
+    placement_saved: "Wird als placement.json gespeichert, einer pro Kurs."
+    edit_placement: "Einstufungstest bearbeiten"
+    json_of_placement: "JSON des Einstufungstests"
+    close: "Schließen"
+    delete_unit_q: "Diese Einheit löschen?"
+    delete_unit_warn: "Achtung: Damit werden alle Lektionen der Einheit gelöscht. Bist du sicher?"
+    progress_goes: "Dein Fortschritt darin geht auch verloren (Rückgängig holt ihn zurück)."
+    cancel: "Abbrechen"
+    confirm: "Bestätigen"
+    new_lesson: "Neue Lektion"
+    move: "{title} verschieben: ziehen oder mit den Pfeiltasten"
+    drag: "Zum Umordnen ziehen"
+    edit_title: "{title} bearbeiten"
+    rename: "Zum Umbenennen klicken"
+    delete_title: "{title} löschen"
+    duplicate_title: "{title} duplizieren"
+    ai_edit: "Mit KI bearbeiten"
+    ai_edit_title: "{title} mit KI bearbeiten"
+    ai_edit_ask: "Was soll sich an dieser Lektion ändern?"
+    ai_edit_placeholder: "Zum Beispiel: mehr Rechenbeispiele und einfachere Wörter."
+    ai_edit_limit: "Bis zu {n} Zeichen. Nur diese Lektion ändert sich."
+    duplicate: "Duplizieren"
+    delete: "Löschen"
+    json_of: "JSON von {title}"
+  lesson:
+    lessons: "Lektionen"
+    mastery_aria: "{n} % Beherrschung"
+    read_title: "Leseprüfung bestanden {when}"
+    mastery: "Beherrschung"
+    accuracy_over: " · {pct} % Trefferquote bei {n} Antworten"
+    streak: " · Serie {n}"
+    last_practised: " · zuletzt geübt {when}"
+    read_quiz_me: "Ich habe sie gelesen, frag mich ab"
+    practise_this: "Diese Lektion üben"
+    previous: Vorherige
+    next: Nächste
+    pager_aria: Vorherige und nächste Lektion
+    listen_type: "Hören und tippen"
+    tutor_me: "Vom Tutor dazu abfragen lassen"
+    before_this: "Davor:"
+    vocabulary: "Wortschatz"
+    say_hint: "🔊 Tippe auf dieser Seite auf ein {label}-Wort, um es zu hören."
+    conversations: Gespräche
+    example: "Beispiel"
+    set: "Festlegen"
+    drill_these: "Übe diese in der {item}-Übung"
+    drill_after: "wenn du diese Lektion abgeschlossen hast."
+    scales: "Tonleitern"
+    check_h2: "Prüfe dein Verständnis"
+    check_intro_one: "Fertig gelesen? Beantworte diese Frage, um die Lektion als gelesen zu markieren. Lesen, dann prüfen, dann üben ist der Kreislauf: Lies sorgfältig (Schlüsselwörter und Wendungen aufzuschreiben hilft beim Merken), bestehe diese Prüfung, und die Lektion gehört zu deiner empfohlenen Übung, bis du Beherrschung gezeigt hast."
+    check_intro_two: "Fertig gelesen? Beantworte diese zwei Fragen, um die Lektion als gelesen zu markieren. Lesen, dann prüfen, dann üben ist der Kreislauf: Lies sorgfältig (Schlüsselwörter und Wendungen aufzuschreiben hilft beim Merken), bestehe diese Prüfung, und die Lektion gehört zu deiner empfohlenen Übung, bis du Beherrschung gezeigt hast."
+    question_n_of: "Frage {n} von {total}"
+    answer_to: "Antwort auf Frage {n}"
+    insert_special: "Sonderzeichen einfügen"
+    type_ch: "{ch} eingeben"
+    hint: "Tipp"
+    check_answers: "Meine Antworten prüfen"
+    lesson_read: "✓ Lektion gelesen"
+    read_passed: "Du hast die Leseprüfung {when} bestanden. Die Lektion gehört jetzt zu deiner empfohlenen Übung; übe sie weiter, bis du Beherrschung gezeigt hast."
+    focus: "Schwerpunkt: {focus}"
+    quiz_questions: "{n} Quizfragen"
+    listening_sentences: "{n} Hörsätze"
+    play_guide: "Spiel sie im Leitfaden"
+    sprint_session: "Sitzung im Sprint-Modus"
+    counts_complete: "Sie zählt in jedem Modus als abgeschlossen."
+    pass_rule: "Erreiche {pct} % oder mehr in einem Durchgang, um die Lektion zu bestehen, hier oder in jedem Modus."
+    pass_rule_min: "Erreiche {pct} % oder mehr bei mindestens {n} Fragen in einem Durchgang, um die Lektion zu bestehen, hier oder in jedem Modus."
+    read_to_end: "Lies sie bis zum Ende, um sie als gelesen zu zählen."
+    sprint_same_guide: "Eine Sitzung im Sprint-Modus oder eine Stufe des Leitfadens zählt genauso."
+    sprint_same_ai: "Eine Sitzung im Sprint-Modus, eine Stufe des Leitfadens oder die KI-Nachhilfe zählen genauso."
+    read_it: "Ich habe sie gelesen"
+    to_pass_check: "Um die Lektion zu bestehen: Bestehe oben die Leseprüfung und erreiche dann {pct} % oder mehr in einem Durchgang."
+    to_pass_check_min: "Um die Lektion zu bestehen: Bestehe oben die Leseprüfung und erreiche dann {pct} % oder mehr bei mindestens {n} Fragen in einem Durchgang."
+    test_yourself: "Teste dich selbst"
+    more_ways: "Weitere Wege"
+    info_label: "Über deinen Fortschritt in dieser Lektion"
+    close: "Schließen"
+    note_h2: "Meine Notiz"
+    note_placeholder: "Alles, was dir hilft, dir diese Lektion zu merken"
+    note_info: "Über meine Notiz"
+    note_info_body: "Nur du siehst diese Notiz. Sie wird beim Tippen gespeichert, bis zu {max} Zeichen."
+    note_ok: "OK"
+    note_saved: "Notiz gespeichert"
+    note_too_long: "Eine Notiz darf höchstens {max} Zeichen lang sein."
+    note_bad_chars: "Eine Notiz darf keine Steuerzeichen enthalten."
+  start:
+    where_start: "Wo möchtest du anfangen?"
+    lead: "Wähl das Niveau, das zu dir passt. Die Lektionen darunter werden übersprungen: Du kannst sie noch lesen, aber niemand fragt sie ab, und sie zählen nicht als bestanden."
+    from_beginning: "Von vorn · "
+    change_lead: "Wähl das Niveau, an dem du arbeiten willst. Dein Fortschritt bleibt: Bestandenes, Beherrschung und Verlauf bleiben erhalten, und jeder Modus macht mit der ersten Lektion dieses Niveaus weiter. Lektionen darunter, die du nie gelernt hast, werden übersprungen."
+    no_such_level: "dieser Kurs hat kein Niveau '{unit}', bei dem man anfangen kann"
+  history:
+    title: "Verlauf"
+    games: "Spiele"
+    no_games_html: "Noch keine Spiele gespielt. <a href=\"{url}\">Spiel eins</a>."
+    when: "Wann"
+    game: "Spiel"
+    board: "Spielfeld"
+    result: "Ergebnis"
+    recent_answers: "Letzte Antworten"
+    no_answers_html: "Noch keine Antworten. <a href=\"{url}\">Fang an zu üben</a>."
+    topic: "Thema"
+    question: "Frage"
+    your_answer: "Deine Antwort"
+    agent_prompt: "{asked} (von einem KI-Agenten gestellt)"
+    removed_lesson: "(entfernte Lektion)"
+  mistakes:
+    title: Fehler
+    about: Über die Fehlerliste
+    none_html: "Keine Fehler offen. <a href=\"{url}\">Jetzt üben</a>."
+    when: Wann
+    lesson: Lektion
+    question: Frage
+    your_answer: Deine Antwort
+    right_answer: Richtige Antwort
+    info_p: "Quizfragen, bei denen deine letzte Antwort falsch war, die neuesten zuerst. Eine Frage verschwindet, sobald du sie richtig beantwortest. Zeigt bis zu {n}."
+    ok: OK
+  map:
+    title: "Lernkarte"
+    lead: "Jede Lektion jeder Einheit der Reihe nach. Eine Einheit gilt als beherrscht, wenn alle ihre Lektionen beherrscht sind (80 % oder mehr). Du arbeitest gerade an"
+    unit_mastered: "Einheit beherrscht"
+    mastered_of: "{n} von {total} Lektionen beherrscht"
+    to_go: "Noch {n} bis zur Beherrschung von {unit}"
+    mastered: "beherrscht"
+    lesson_aria_passed: "Lektion {title} · bestanden"
+    lesson_aria: "Lektion {title} · {status}"
+    passed_check: "bestanden ✓"
+    you_are_here: "Du bist hier · Lektion {n} von {total}"
+    practise_towards: "Üben auf die Beherrschung von {unit} hin"
+    next_up_lesson: "als Nächstes kommt Lektion {n}"
+  js:
+    correct: "Richtig!"
+    not_quite: "Nicht ganz."
+    correct_answer_html: "Richtige Antwort: <strong lang=\"{lang}\">{answer}</strong>"
+    new_terms_collected:
+      one: "✦ Neuer Begriff gesammelt: "
+      other: "✦ Neue Begriffe gesammelt: "
+    lesson_read: "✓ Lektion gelesen"
+    read_passed_html: "Die Beherrschung liegt jetzt bei <strong>{mastery} %</strong>. Die Lektion gehört von jetzt an zu deiner empfohlenen Übung; übe sie noch ein paar Mal, um Beherrschung zu zeigen."
+    recommended_practice: "Empfohlene Übung"
+    back_to_lessons: "Zurück zu den Lektionen"
+    not_read: "Noch nicht gelesen"
+    not_read_hint: "Beide Antworten müssen richtig sein. Sieh dir den Teil, auf den die Erklärung zeigt, noch einmal an, und versuche es dann mit zwei weiteren Fragen."
+    try_two_more: "Zwei weitere Fragen versuchen"
+    submit_failed: "Deine Antworten konnten nicht gesendet werden ({error}). Bitte versuch es noch einmal."
+    filter_matches: "{shown} von {total} Lektionen passen"
+    filter_none: "Keine Lektion passt zu „{query}“"
+    lookup_link: "„{query}“ in den Wörtern nachschlagen"
+
+docs:
+  title_suffix: Doku
+  documentation: Dokumentation
+  raw: "Roh:"
+  section_guides: Anleitungen
+  section_reference: Referenz
+  section_dev: Entwickler
+  js:
+    copied: Kopiert ✓
+    copy: Kopieren
+    selected: Ausgewählt
+  self_host:
+    title: Selbst hosten
+    kicker: "{app} mini · keine Vorkenntnisse nötig"
+    h1: "{app} zu Hause auf einem winzigen Computer betreiben"
+    lead: Stell ihn auf einen Raspberry Pi zu Hause, und alle in deinem WLAN können ihn nutzen. Du kopierst und fügst nur ein paar Befehle ein.
+    start_need: Fang mit dem an, was du brauchst
+    technical: Technische Version
+    hero_art_alt: Ein Raspberry Pi sendet WLAN an ein Handy und einen Laptop, auf denen beide eine Lektion zeigen
+    your_pi: dein Pi
+    steps: Schritte
+    toc_why: Warum
+    toc_need: Was du brauchst
+    toc_setup: Den Pi einrichten
+    toc_install: Installieren
+    toc_yours: Mach es zu deinem
+    toc_away: Unterwegs
+    toc_more: Was noch?
+    why_h2: Warum selbst hosten?
+    reason_data_h: 🔒 Deine Daten, auf deinem Gerät
+    reason_data_p: Lektionen, Fortschritt und Konten liegen auf einer Speicherkarte bei dir zu Hause, nicht auf dem Server von jemand anderem.
+    reason_cheap_h: 🔌 Günstig im Betrieb
+    reason_cheap_p: Außer dem Pi selbst kostet der Betrieb nur ein wenig Strom.
+    reason_everyone_h: 👪 Eine Box für alle
+    reason_everyone_p: Eine Familie oder eine Klasse teilt sich einen Pi. Jede Person hat ihr eigenes Konto und ihren eigenen Fortschritt.
+    reason_skill_h: 🛠️ Eine echte Fähigkeit
+    reason_skill_html: Wenn du das einmal gemacht hast, kannst du fast alles selbst hosten. Siehe die <a href="#more">Ideen am Ende</a>.
+    need_h2: Was du brauchst
+    need_pi: Einen Raspberry Pi Zero 2 W
+    need_pi_price: ~18 $
+    need_pi_p: Der Computer selbst, so groß wie ein Kaugummistreifen.
+    need_pi_buy: Beim offiziellen Händler kaufen →
+    need_sd: Eine microSD-Karte, 16 GB oder größer
+    need_sd_price: ~13 $
+    need_sd_p: Enthält das gesamte System des Pi.
+    need_sd_buy: Die offizielle Raspberry-Pi-Karte kaufen →
+    need_power: Ein Netzteil
+    need_power_price: ~9 $
+    need_power_html: Micro-USB, 5&nbsp;V 2,5&nbsp;A.
+    need_power_buy: Das offizielle Netzteil kaufen →
+    need_wifi: Name und Passwort deines WLANs zu Hause
+    need_wifi_p: Der Pi verbindet sich wie jedes andere Gerät.
+    need_computer: Einen Computer mit SD-Kartensteckplatz
+    need_computer_price: Lesegerät ~7 $
+    need_computer_p: Nur für die Einrichtung. Kein Steckplatz? Nimm ein USB-Kartenlesegerät.
+    need_computer_buy: Ein Kartenlesegerät kaufen →
+    total_html: "<strong>Geschätzte Kosten: ~40 $</strong>, oder ~47 $ mit Kartenlesegerät. US-Händlerpreise, vor Versand; sie schwanken. Kein Bildschirm, keine Tastatur und keine Maus nötig."
+    setup_h2: Den Pi einrichten
+    setup_imager_html: <strong>Installiere Raspberry Pi Imager</strong> auf deinem Computer von <a href="https://www.raspberrypi.com/software/" rel="noopener">raspberrypi.com/software</a>. Das ist das offizielle, kostenlose Werkzeug, das die Speicherkarte vorbereitet.
+    setup_card_html: <strong>Steck die microSD-Karte in deinen Computer</strong> und öffne Imager.
+    setup_device_html: <strong>Wähle dein Gerät:</strong> Raspberry Pi Zero 2 W.
+    setup_system_html: <strong>Wähle das System:</strong> <em>Raspberry Pi OS (other)</em> → <strong>Raspberry Pi OS Lite (64-bit)</strong>.
+    setup_memory_html: "<strong>Wähle deine Speicherkarte</strong>, dann fülle die Einstellungen aus, die Imager anbietet:"
+    setting_hostname: Hostname
+    setting_user: Benutzername & Passwort
+    setting_user_v: deine Wahl; schreib sie auf
+    setting_wifi: WLAN
+    setting_wifi_v: Name und Passwort deines Netzwerks
+    setting_location: Standort
+    setting_location_v: dein Land
+    setting_ssh: SSH
+    setting_ssh_v: an, mit Passwort-Anmeldung
+    setup_write_html: <strong>Schreib die Karte.</strong>
+    setup_plug_html: <strong>Steck die Karte in den Pi und schließ ihn an.</strong> Gib ihm ein paar Minuten zum Starten.
+    setup_tip_html: 💡 <strong>Später keine Verbindung?</strong> Meist ein Tippfehler beim WLAN. Schreib die Karte noch einmal.
+    install_h2: "{app} installieren"
+    connect_h3: Mit deinem Pi verbinden
+    connect_p_html: "Öffne <strong>Terminal</strong> (Mac) oder <strong>PowerShell</strong> (Windows) und tippe, mit deinem Benutzernamen:"
+    copy: Kopieren
+    connect_yes_html: Tippe <code>yes</code>, wenn du gefragt wirst, dann dein Passwort (es bleibt beim Tippen unsichtbar).
+    download_h3: Herunterladen
+    paste_lines: "Füge diese Zeilen ein:"
+    start_h3: Starten (und bei jedem Hochfahren)
+    open_h3: Öffnen
+    owner_link_p: "Lass dir zuerst den Link anzeigen, mit dem du dein eigenes Konto anlegst, das des Betreibers. Er funktioniert einmal:"
+    open_p: "Öffne diesen Link auf einem Handy oder Laptop im selben WLAN und lege dein Konto an. Danach lautet die Adresse:"
+    done_html: 🎉 <strong>Fertig.</strong> Setz ein Lesezeichen.
+    not_loading_html: 💡 <strong>Lädt nicht?</strong> Führe <code>hostname -I</code> auf dem Pi aus und nimm stattdessen diese Nummer, z. B. <code>http://192.168.1.42:8080</code>.
+    yours_h2: Mach es zu deinem
+    yours_account_html: "<strong>Lade alle anderen ein</strong>, mit einem Link unter <em>Benutzer verwalten</em> (im Kontomenü)."
+    yours_course_html: <strong>Wähle einen Kurs.</strong> Spanisch ist eingebaut, oder erstell deinen eigenen.
+    yours_ai_html: "<strong>Optional: KI-Tutor und Kursgenerator.</strong> Füge unter <em>Benutzer verwalten → KI-Funktionen</em> einen Schlüssel von Anthropic, OpenAI oder Google ein. Er dient allen auf dem Server und wird direkt dir berechnet."
+    yours_tip: "🔒 Nur Personen, die du einlädst, können ein Konto anlegen."
+    away_h2: Unterwegs nutzen
+    optional: optional
+    away_p_html: "Nutze <a href=\"https://tailscale.com\" rel=\"noopener\">Tailscale</a> (kostenlos): eine private Verbindung zwischen deinen eigenen Geräten. Öffne keine Ports an deinem Router."
+    away_art_alt: Ein privater, verschlossener Tunnel vom Pi zu Hause zu deinem Handy überall
+    home: zu Hause
+    anywhere: überall
+    away_account: Lege ein kostenloses Tailscale-Konto an.
+    away_run: Führe auf dem Pi diese Befehle aus, öffne dann den Link, den er ausgibt, und bestätige den Pi.
+    away_phone: Installiere Tailscale auf deinem Handy, mit demselben Konto.
+    away_open_html: Öffne <strong>http://skrongle:8080</strong> von überall.
+    more_h2: Was sonst kann dein Pi?
+    more_p: "Du hast den schweren Teil geschafft. Probier als Nächstes eins davon:"
+    idea_passwords_h: 🔑 Speicher deine Passwörter
+    idea_passwords_p: Vaultwarden, ein Passwortmanager, den du selbst hostest.
+    idea_music_h: 🎵 Stream deine eigene Musik
+    idea_music_p: Navidrome spielt deine Sammlung überall ab.
+    idea_files_h: 📁 Speicher Dateien und Notizen
+    idea_files_p: Syncthing hält sie auf allen Geräten synchron.
+    more_at_html: Mehr unter <a href="https://projects.raspberrypi.org/" rel="noopener">projects.raspberrypi.org</a>.
+    footnote_html: "Mehr Details: der <a href=\"{url}\" data-testid=\"selfhost-technical-footer\">technische Leitfaden</a>."
+    mini_h2: "{app} mini"
+    mini_p: "Was diese Seite installiert: dieselbe App, eingerichtet für eine Handvoll Leute, die dich kennen, ohne fremde Dienste."
+    mini_out_h3: "Wie sie eingerichtet ist"
+    mini_out_mail: "Keine E-Mails: Links erscheinen stattdessen auf der Seite."
+    mini_out_signup: "Registrierung nur mit Einladung: du erstellst für jede Person einen Link."
+    mini_out_jobs: "Hintergrundarbeit läuft in der App: keine weiteren Dienste nötig."
+    mini_out_db: "Eine Datenbankdatei (SQLite): kein Datenbankserver."
+    mini_safe_h3: "Für die Sicherheit sorgst du"
+    mini_safe_password: "Ein starkes Passwort für jedes Konto."
+    mini_safe_2fa_html: "Zwei-Faktor-Anmeldung mit einer Authenticator-App: <em>Profileinstellungen → Zwei-Faktor-Authentifizierung</em>."
+    mini_safe_vpn_html: "Nur über Tailscale oder ein VPN erreichbar (Schritt 6). <strong>Nie einen Port</strong> am Router freigeben."
+    mini_safe_tip_html: "🔒 Die App bremst das Raten von Passwörtern, ist aber nicht dafür gebaut, offen im Internet zu stehen. <a href=\"{url}\" data-testid=\"selfhost-mini-security\">Was sie abdeckt und was nicht</a>."
+
+quiz:
+  page:
+    recommended_title: Empfohlenes Üben
+    recommended_subtitle: Eine Mischung aus den Lektionen, die du gelesen hast, mit Gewicht auf den schwersten.
+  empty:
+    nothing_yet: "Noch nichts zum Üben. Das empfohlene Üben nimmt Lektionen auf, die du gelesen hast: öffne eine Lektion, lies sie aufmerksam und bestehe unten die Zwei-Fragen-Prüfung, um sie hinzuzufügen."
+    read_next: "Als Nächstes lesen: {title}"
+    all_lessons: Alle Lektionen
+    no_questions_html: "Es gibt noch keine Fragen. <a href=\"{url}\">Durchsuche die Lektionen</a>."
+    lesson_has_none: "Diese Lektion hat keine Quizfragen."
+    back_to_lesson: "Zurück zur Lektion"
+  question:
+    answer_label: Deine Antwort
+    placeholder_number: Tippe eine Zahl (3/4, 1.5, 2; -3 …)
+    placeholder_expression: Tippe einen Ausdruck, z. B. 2(x+1) oder x^2 - 1
+    placeholder_sides: "Tippe die zwei Seiten, z. B. (x + 1)(x + 4)"
+    placeholder_text: Tippe deine Antwort
+    insert_char: Sonderzeichen einfügen
+    type_char: "{ch} tippen"
+    hint: Tipp
+    check: Prüfen
+    protractor: "Winkelmesser: Zieh ihn auf den Winkel und dreh ihn am Griff. Pfeiltasten verschieben ihn, Umschalt mit Pfeil links oder rechts dreht ihn, Enter springt zum Antwortfeld."
+  summary:
+    title: Quiz abgeschlossen
+    score_html: <span id="s-correct">0</span> / <span id="s-total">0</span> richtig
+    again_lesson: Diese Lektion nochmal üben
+    recommended: Empfohlenes Üben
+    another_round: Noch eine Runde
+  tiles:
+    board: "Kacheln zum Legen"
+    keys: "Ziehe eine Kachel, oder wähle eine mit Tab und bewege sie mit den Pfeiltasten. R dreht einen Streifen, Enter prüft die Antwort."
+    turn: "Drehen"
+    reset: "Von vorn"
+  check:
+    no_answer: Du hast keine Antwort eingegeben.
+    accents: "Fast! Prüfe die Akzente: Die richtige Form ist „{answer}“."
+    fill_bar_beats: "Deine Schläge: {given}. Die Lücke hat: {gap}."
+    fill_bar_exact: "Diese Noten füllen die Lücke, aber die Frage will bestimmte Noten."
+    chord_spelling: "Fast! Richtiger Klang, falsche Schreibweise. Prüfe die Notennamen."
+    staff_octave: "Fast! Richtige Note, falsche Oktave."
+    keyboard_octave: "Richtiger Ton, falsche Oktave."
+    two_sides: "Schreibe es als Produkt der zwei Seiten, etwa (x + 1)(x + 4)."
+    other_scale: "Du hast die andere Skala abgelesen. Zähle von der 0 aus, die auf einem Schenkel des Winkels liegt."
+  api:
+    unknown_lesson: unbekannte Lektion
+    no_questions: diese Lektion hat keine Fragen
+    check_needs: "die Prüfung braucht {n} Antworten"
+    distinct_questions: die Antworten müssen zu verschiedenen Fragen dieser Lektion gehören
+    unknown_question: unbekannte Frage
+    answer_too_long: Antwort zu lang
+  js:
+    correct: Richtig!
+    lesson_result: "{right}/{asked} richtig · Beherrschung jetzt {mastery}%"
+    practise: Üben
+    lesson_passed_now: ✓ Lektion bestanden
+    passed: ✓ bestanden
+    read_to_pass: · lies die Lektion, um sie zu bestehen
+    seventy_passes: · 70 % bestehen
+    answers_needed: "· {n} Antworten nötig, um zu zählen"
+    not_quite: Nicht ganz.
+    correct_answer: "Richtige Antwort:"
+    new_terms:
+      one: "✦ Neuer Begriff gesammelt:"
+      other: "✦ Neue Begriffe gesammelt:"
+    mastery_html: "{lesson} Beherrschung: <strong>{mastery}%</strong>"
+    streak: " · Serie {n}"
+    see_results: Ergebnisse ansehen
+    next: Weiter
+    pick_first: Wähle zuerst eine Antwort.
+    type_first: Gib zuerst eine Antwort ein.
+    submit_failed: "Deine Antwort konnte nicht gesendet werden ({error}). Bitte versuch es noch einmal."
+
+vocab:
+  index:
+    title: Wortschatz
+    heading: Dein Wortschatz
+    lead: Jeder Begriff, den du durch richtig beantwortete Quizfragen gesammelt hast.
+    lead_count_html: "<strong>{learned}</strong> von {total} Begriffen bisher."
+    study_all: Alle lernen (zufällig)
+    empty_html: "Noch keine Begriffe. Beantworte Fragen im <a href=\"{practice_url}\">Üben</a> oder im <a href=\"{guide_url}\">Leitfaden</a>; jede richtige Antwort fügt die darin verwendeten Begriffe deiner Sammlung hinzu."
+    show_all_lessons: "Alle Lektionen anzeigen ({n})"
+    nothing_yet:
+      one: "{n} Lektion ohne gesammelte Begriffe"
+      other: "{n} Lektionen ohne gesammelte Begriffe"
+    study_n: "Lernen ({n})"
+    collected: "{learned} von {total} Begriffen gesammelt"
+    practise_more_html: "· <a href=\"{url}?lesson={slug}\">übe diese Lektion</a>, um mehr zu sammeln"
+    show_terms: Begriffe anzeigen
+    say_hint: 🔊 Tippe auf einen Begriff, um ihn zu hören.
+    th_example: Beispiel
+    th_collected: Gesammelt
+    th_known: Gewusst
+    not_reviewed: noch nicht wiederholt
+  study:
+    title: "Lernen: {heading}"
+    all_terms: Alle Begriffe
+    subtitle_lesson: "{n} Begriffe, die du aus dieser Lektion gesammelt hast"
+    subtitle_all: "{n} Begriffe, in zufälliger Reihenfolge"
+    crumb_vocabulary: Wortschatz
+    crumb_flashcards: Karteikarten
+    show_first: Zuerst zeigen
+    how_to: Tippe auf die Karte (oder drück die Leertaste), um sie umzudrehen. Dann sag, ob du sie gewusst hast.
+    hear_it: Anhören
+    tap_to_reveal: tippen zum Aufdecken
+    didnt_know: Nicht gewusst
+    knew_it: Gewusst
+    round_complete: Runde abgeschlossen
+    known_html: Du hast <span id="st-known">0</span> von <span id="st-count">0</span> gewusst.
+    review_missed: Die verpassten wiederholen
+    go_again: Nochmal
+    practise_lesson: Die Lektion üben
+    new_random: Neue zufällige Reihenfolge
+    back: Zurück zum Wortschatz
+    due_heading: "Fällige Wörter"
+    subtitle_due:
+      one: "{n} Wort heute fällig"
+      other: "{n} Wörter heute fällig, die am längsten wartenden zuerst"
+    due_tomorrow_html: "Morgen wieder: <span id=\"st-tomorrow\">0</span>"
+    next_tomorrow:
+      one: "Als Nächstes: {n} Wort morgen"
+      other: "Als Nächstes: {n} Wörter morgen"
+    next_on:
+      one: "Als Nächstes: {n} Wort am {day}"
+      other: "Als Nächstes: {n} Wörter am {day}"
+    due_home: "Zurück zum Kurs"
+  api:
+    word_too_long: Wort zu lang
+  lookup:
+    title: "„{query}“ nachschlagen"
+    heading: "Wörter für „{query}“"
+    back: Zurück zu den Lektionen
+    none: "Kein Wort in diesem Kurs passt zu „{query}“."
+    more: "Die ersten {shown} von {total}. Tippe mehr, um einzugrenzen."
+    form_of: "Eine Form von {what}"
+    taught_in: "Gelehrt in:"
+
+listening:
+  index:
+    title: Hören
+    heading: Hören
+    tagline: · hören, tippen
+    lead: "Dein Browser liest einen Satz auf {language} vor; du tippst, was du gehört hast, und siehst es Wort für Wort geprüft. Wiederhole so oft du willst, verlangsame es notfalls."
+    sentences_total: "{n} Sätze in den Lektionen"
+    rounds_played:
+      one: "{n} Runde gespielt"
+      other: "{n} Runden gespielt"
+    mixed_round: "Gemischte Runde ({n} Sätze)"
+    intro: "Eine gemischte Runde zieht aus allen Lektionen, mit Gewicht auf den schwersten. Oder wähl eine Lektion und hör alle ihre Sätze:"
+    sentence_count:
+      one: "{n} Satz"
+      other: "{n} Sätze"
+    read_lesson: Lektion lesen
+    listen: Hören
+  play:
+    title: "Hören: {heading}"
+    mixed_title: Gemischte Hörrunde
+    mixed_subtitle: Sätze aus allen Lektionen, mit Gewicht auf den schwersten.
+    crumb_listening: Hören
+    unsupported: Dieser Browser kann nicht sprechen (keine Sprachausgabe). Probier Chrome, Edge, Safari oder Firefox auf einem Desktop oder Handy.
+    no_voice: "In diesem Browser ist keine {language}-Stimme installiert, daher würden die Sätze in einer anderen Sprache gelesen. Installiere eine in den Spracheinstellungen deines Systems oder probier einen anderen Browser."
+    empty_html: "Es gibt keine Sätze zum Abspielen. <a href=\"{url}\">Wähle eine Lektion</a>."
+    voice: Stimme
+    loading_voices: Stimmen werden geladen…
+    speed: Tempo
+    speed_words: Wort für Wort
+    speed_phrases: langsam, in kurzen Phrasen
+    speed_unhurried: gemächlich
+    speed_normal: normal
+    speed_fast: schnell
+    start: Hören starten
+    sentence_count:
+      one: "{n} Satz · wiederhole so oft du willst"
+      other: "{n} Sätze · wiederhole so oft du willst"
+    listen_status: Hören…
+    placeholder: Tippe, was du gehört hast
+    answer_label: Der Satz, den du gehört hast
+    check: Prüfen
+    replay: Wiederholen
+    slower: Langsamer
+    reveal: Aufdecken
+    stop: Stopp
+    keys_html: <kbd>Enter</kbd> prüfen · <kbd>Alt</kbd>+<kbd>R</kbd> wiederholen · <kbd>Alt</kbd>+<kbd>S</kbd> langsamer · <kbd>Alt</kbd>+<kbd>Q</kbd> aufdecken
+    round_complete: Runde abgeschlossen
+    another_round: Noch eine Runde
+    pick_lesson: Wähle eine Lektion
+    quiz_lesson: Quiz zu dieser Lektion
+  api:
+    unknown_lesson: unbekannte Lektion
+    unknown_sentence: unbekannter Satz
+    answer_too_long: Antwort zu lang
+    no_listening: Dieser Kurs hat kein Hörtraining
+    implausible: unglaubwürdiges Ergebnis
+  js:
+    correct: Richtig!
+    audio_failed: "Die Audioausgabe konnte nicht abgespielt werden ({code}). Drück Wiederholen."
+    listen_status: Hören… (Wiederhole so oft du willst; Langsamer, wenn es zu schnell war.)
+    check: Prüfen
+    sentence_was: "Der Satz war:"
+    almost_accents: Fast! Prüf die Akzente.
+    not_quite: Nicht ganz.
+    you_wrote: "Du hast geschrieben:"
+    words_right: "{right} von {total} Wörtern richtig"
+    finish: Fertig
+    next: Weiter
+    press_r_s: Drück R, um es noch einmal zu hören, S, um es langsam zu hören.
+    type_or_reveal: Tippe, was du gehört hast, oder drück Q, um es aufzudecken.
+    check_failed: "Deine Antwort konnte nicht geprüft werden ({error}). Bitte versuch es noch einmal."
+    done_detail: "{pct} % der Sätze richtig in {secs} s"
+    revealed: " · aufgedeckt"
+    you_wrote_quote: " · du hast „{typed}“ geschrieben"
+
+play:
+  common:
+    games: Spiele
+    play: Spielen
+    start: Start
+    stop: Stopp
+    check: Prüfen
+    again: Nochmal
+    change_settings: Einstellungen ändern
+    round_complete: Runde abgeschlossen
+    first_round: Deine erste Runde.
+    points: Punkte
+    combo: Kombo
+    streak: Serie
+    insert_char: Sonderzeichen einfügen
+    type_char: "{ch} eintippen"
+    best_score: "Bestes Ergebnis {n}"
+    rounds_played:
+      one: "{n} Runde gespielt"
+      other: "{n} Runden gespielt"
+  nav:
+    aria: Spielmodus
+    mode_title: "Spielmodus: Spiele und einzelne Übungen"
+    play: Spielen
+    all: Alle
+    numbers: Zahlen
+    dates: Daten
+    flashcards: Karteikarten
+    stages: Stufen
+    switch: "Wechseln: "
+    to_sprint: Zum Sprint-Modus wechseln
+    sprint_title: "Sprint-Modus: interaktiv, handyfreundlich"
+    sprint: Sprint
+    to_study: Zum Lernmodus wechseln
+    study_title: "Lernmodus: kurze Lektionen mit Quizzen"
+    study: Lernen
+    menu_aria: Alle Modi (Startseite)
+    menu: Menü
+  hub:
+    title: Spiele
+    heading: Spielen
+    heading_sub: "· Spiele und einzelne Übungen"
+    lead: "Wähle etwas aus und spiel es. Hier gibt es keinen festen Weg: Jedes Spiel und jede Übung steht für sich, und alle nutzen die eigenen Lektionen des Kurses."
+    matching_desc: Fünf Begriffe links, fünf Bedeutungen rechts. Ordne sie so schnell wie möglich zu; falsche Zuordnungen kosten eine Sekunde. Spiele eine Lektion oder alle Begriffe in fünf Runden. Die Zeiten landen in einer gemeinsamen Bestenliste.
+    matching_stats: "{lessons} spielbare Lektionen · {terms} Begriffe im Spiel"
+    drill_desc: "Ein Bild für das {item} und ein Bild für den Platz: Tippe die richtige Form. Wähle die Gruppe und die {item}s, die du üben willst; verfügbar sind nur solche aus Lektionen, die du abgeschlossen hast."
+    numbers_desc: "Höre eine Zahl auf {lang} und tippe ihre Ziffern. Wähle den Bereich (0 bis 10 bis eine Million oder Jahreszahlen), die Stimme und das Tempo; wiederhole so oft du willst. Halte die Serie am Laufen."
+    best_streak: "Deine beste Serie: {n}"
+    dates_desc: "Wochentage und Monate gegen die Uhr: Siehst du einen Tag, tippe ihn auf {lang} an; siehst du eine Kalenderseite, baue das Datum. Schnelle Antworten bringen mehr Punkte, richtige Antworten in Folge multiplizieren sie, und Fehler kommen gleich wieder."
+    best_score: "Dein bestes Ergebnis: {n}"
+    flashcards: Karteikarten
+    flashcards_desc: "Ein Stapel der Begriffe, die du gesammelt hast, {term} auf der einen und {meaning} auf der anderen Seite. Markiere jede als gewusst oder nicht; die Statistik begleitet dich."
+    terms_collected: "{n} Begriffe bisher gesammelt"
+    study: Lernen
+    stages: Stufen
+    stages_desc: "Eine Lektion als Stufe aus kleinen Schritten: eine oder zwei Karten, eine kurze Prüfung, ein Karteikartenstapel, ein Tipp. Beende sie für Sterne; wer eine Stufe beendet, schaltet außerdem ihre {unlocks} frei."
+    stages_unlocks_drill: "{item}s für die Übung"
+    stages_unlocks_next: nächste Stufe
+    lessons_passed: "{done} von {total} Lektionen bestanden"
+    open: Öffnen
+  matching:
+    name: Wortpaare
+    page_title: "Wortpaare: {board}"
+    all_terms: Alle Begriffe
+    all_subtitle: "{n} zufällige Begriffe aus allen Lektionen"
+    pick_lead: Wähle, was du spielst. Deine Zeit ist die Wertung; die schnellsten Zeiten aller werden auf jeder Tafel gezeigt.
+    terms_count: "{n} Begriffe"
+    rounds:
+      one: "{n} Runde"
+      other: "{n} Runden"
+    in_rounds:
+      one: "in {n} Runde"
+      other: "in {n} Runden"
+    record: Rekord
+    by: "von {name}"
+    your_best: "deine beste Zeit {time}"
+    lesson: Lektion
+    round_of: "Runde – / {total}"
+    intro_html: "Ziehe jeden Begriff auf sein Gegenstück in der anderen Spalte (oder tippe erst den einen, dann den anderen an). Welche Seite welche ist, wechselt in jeder Runde. Jedes falsche Paar bringt <strong>{penalty} s</strong> Strafe. Die Uhr startet, wenn du auf Start drückst, und stoppt, wenn das letzte Paar der letzten Runde gefunden ist."
+    best_on_board_html: "Deine beste Zeit auf dieser Tafel: <strong>{time}</strong>"
+    finished: Fertig!
+    play_again: Nochmal spielen
+    other_boards: Andere Tafeln
+    leaderboard: Bestenliste
+    th_rank: "Nr."
+    th_player: Spieler
+    th_time: Zeit
+    th_wrong: Falsch
+    th_when: Wann
+    you: " (du)"
+    no_times: "Noch keine Zeiten. Schaff die erste Zeit!"
+  drill:
+    name: "{item}-Übung"
+    page_title: "{item}-Übung: {set}"
+    lead: "Du siehst ein Bild für das {item} und ein Bild für den Platz; tippe die richtige Form. Wähle eine Gruppe und die {item}s, die du üben willst."
+    no_lessons: "Noch keine Lektion behandelt {paradigm}."
+    locked_html: "Einträge werden freigeschaltet, wenn du ihre Lektion abschließt: beende deren <a href=\"{guide_url}\">Leitfaden</a>-Stufe oder erreiche „gemeistert“ bei <a href=\"{practice_url}\">Üben</a>. Noch ist nichts freigeschaltet."
+    unlocked_count: "{n} von {total} freigeschaltet"
+    choose_set: "Gruppe wählen"
+    locked_head: "Gesperrt, bis du die Lektion bestanden hast"
+    open_lesson: "Lektion öffnen"
+    select_all: alle auswählen
+    select_none: keine
+    prompts: Aufgaben
+    every_form_once: jede Form einmal
+    hard_mode: "Schwerer Modus: das {item} verbergen, nur das Bild"
+    start: Übung starten
+    slot_pictures: Die Platzbilder
+    slot_pictures_note: "Jede Aufgabe zeigt eines davon neben dem {item}."
+    item_plural: "{item}s"
+    items_list: "{n} {items}: "
+    dealing: Wird gemischt…
+    needs_js: "Die Übung braucht JavaScript. Schalte es im Browser ein, um zu spielen."
+    pick_one: "Wähle mindestens ein {item} aus, um die Übung zu starten."
+    which_slot: welcher Platz?
+    answer_aria: Die Form
+    answer_placeholder: Form eintippen
+    remind_slots: Erinnere mich an die Platzbilder
+    complete: Übung abgeschlossen
+    again_misses: Die verpassten noch einmal üben
+    new_round: Neue Runde
+    change_selection: Auswahl ändern
+    empty_answer: Du hast nichts eingegeben.
+    almost_accent: "Fast! Prüf den Akzent."
+  numbers:
+    name: Zahlen nach Gehör
+    lead: "Dein Browser sagt eine Zahl auf {lang}; du tippst sie in Ziffern. Wiederhole so oft du willst, halte die Serie am Laufen."
+    unsupported: Dieser Browser kann nicht sprechen (keine Sprachausgabe). Probier Chrome, Edge, Safari oder Firefox auf dem Desktop oder Handy.
+    novoice_html: "In diesem Browser ist keine <span id=\"n-novoice-lang\">{lang}</span>-Stimme installiert, daher würden die Zahlen in einer anderen Sprache gelesen. Installiere eine in den Spracheinstellungen deines Systems oder probiere einen anderen Browser."
+    range: Bereich
+    range_preset: "{min} bis {max}"
+    range_years: "Jahreszahlen: 1900 bis 2030"
+    custom: Eigene…
+    smallest: Kleinste Zahl
+    to: bis
+    largest: Größte Zahl
+    voice: Stimme
+    loading_voices: Stimmen werden geladen…
+    speed: Tempo
+    slow: langsam
+    unhurried: gemächlich
+    normal: normal
+    fast: schnell
+    count: Zahlen
+    endless: endlos
+    best_streak: "beste Serie {n}"
+    streak: Serie
+    best_streak_label: beste Serie
+    right: "richtig · "
+    heard: gehört
+    listen: Anhören…
+    answer_placeholder: Zahl eintippen
+    answer_aria: Die Zahl, die du gehört hast
+    answer: Antworten
+    replay: Nochmal hören
+    reveal: Aufdecken
+    keys_html: <kbd>Enter</kbd> antworten · <kbd>R</kbd> nochmal hören · <kbd>Q</kbd> aufdecken · tippe <kbd>k</kbd> für Tausend (12k = 12.000) und <kbd>m</kbd> für Million
+    another_round: Noch eine Runde
+  dates:
+    name: Datums-Rennen
+    tagline: "· ¿qué fecha es hoy?"
+    lead: Wochentage und Monate, ein Antippen nach dem anderen, gegen die Uhr. Schnelle Antworten bringen mehr Punkte, eine Folge richtiger Antworten multipliziert die Punkte, und was du verpasst, kommt sofort wieder.
+    today_is: Heute ist
+    hear_it: Anhören
+    what_to_drill: Was üben
+    days: Wochentage
+    months: Monate
+    both: Wochentage & Monate
+    full_dates: Ganze Daten
+    everything: Alles
+    how_long: Wie lange
+    len_30: 30 s
+    len_60: 60 s
+    len_120: 2 Min.
+    len_fixed: 20 Aufgaben
+    by_ear: "Auch zum Hören: manche Aufgaben werden auf {lang} gesprochen"
+    first_round: Deine erste Runde. Die Kacheln reagieren auch auf die Zifferntasten.
+    seconds: Sekunden
+    replay: "🔊 Nochmal hören (R)"
+  api:
+    unknown_board: unbekannte Tafel
+    not_enough_terms: nicht genug Begriffe
+    too_many_attempts: zu viele Versuche
+    no_session: kein solches Spiel läuft; drück Start, um erneut zu spielen
+    incomplete: die abgegebenen Paare ergeben kein vollständiges Spiel
+    too_fast: das war zu schnell für ein echtes Spiel, daher wurde es nicht gespeichert
+    other_course: dieses Spiel gehört zu einem anderen Kurs
+    choose_set: wähle eine Gruppe
+    no_paradigm: dieser Kurs hat kein Paradigma
+    unknown_set: unbekannte Gruppe
+    none_unlocked: keines davon ist für dich freigeschaltet
+    implausible: unplausibles Ergebnis
+    unknown_slot: unbekannter Platz
+    unknown_item: unbekanntes Element
+    answer_too_long: Antwort zu lang
+    no_listening: dieser Kurs hat keine Hörspiele
+    no_calendar: dieser Kurs hat keinen Kalender
+  js:
+    course_language: die Kurssprache
+    could_not_start: "Konnte nicht starten: {error}"
+    not_quite: Nicht ganz.
+    next: Weiter
+    finish: Fertig
+    check: Prüfen
+    new_best: Neue persönliche Bestleistung!
+    round_complete: Runde abgeschlossen
+    done_detail: "{correct} / {total} richtig · beste Kombo {combo}"
+    per_answer: " · {secs} s pro Antwort"
+    matching:
+      round: "Runde {n} / {total}"
+      wrong_so_far: "{n} falsch bisher (+{secs} s)"
+      hint: Zieh einen Begriff auf sein Gegenstück, oder tipp den einen und dann den anderen an.
+      on_clock: "{secs} s auf der Uhr"
+      wrong_penalty: " + {n} falsch × {secs} s"
+      rank: " · Platz Nr. {rank} auf dieser Tafel"
+      personal_best: " · neue persönliche Bestleistung!"
+      you: " (du)"
+      could_not_save: "Deine Zeit konnte nicht gespeichert werden: {error}"
+    drill:
+      which_slot: welcher Platz?
+      right_in: "{pct} % richtig in {secs} s"
+      you_wrote: "du hast „{answer}“ geschrieben"
+      correct_form_html: "Richtige Form: <strong lang=\"{lang}\">{form}</strong> ({item}, {slot})"
+      could_not_check: "Konnte nicht prüfen: {error}"
+      dealing: Wird gemischt…
+      nothing: Nichts zu üben.
+    numbers:
+      audio_error: "Audio konnte nicht abgespielt werden ({code}). Drück Nochmal hören."
+      of_count: " von {n}"
+      listen: "Anhören… (R zum Wiederholen)"
+      answer: Antworten
+      number_was: Die Zahl war
+      you_wrote_full: "Du hast „{typed}“ geschrieben."
+      press_r: Drück R, um es noch einmal zu hören.
+      digits_hint: "Tipp die Zahl in Ziffern ein (12k für 12.000)."
+      done_detail: "{pct} % richtig in {secs} s · beste Serie {best}"
+      revealed: aufgedeckt
+      you_wrote: "du hast „{typed}“ geschrieben"
+      of: "von {n}"
+      heard: gehört
+    dates:
+      no_voice: "(in diesem Browser ist keine {lang}-Stimme installiert)"
+      cannot_speak: (dieser Browser kann nicht sprechen)
+      day: Tag
+      month: Monat
+      tap_the: "Tipp den {what} auf {lang} an"
+      listen_tap: "Hör zu, dann tipp den {what} an"
+      spoken: gesprochen
+      what_is: "Welcher {what} ist das?"
+      in_order_day: Wochentage in der Reihenfolge
+      in_order_month: Monate in der Reihenfolge
+      after: "den {what} danach"
+      before: "den {what} davor"
+      build_date: "Bau das Datum: erst den Tag, dann den Monat"
+      now_month: "…und jetzt den Monat"
+      listen_tap_page: Hör zu, dann tipp die Kalenderseite an
+      it_was_html: "Es war <b lang=\"{lang}\">{date}</b>"
+      missed: verpasst
+      slow: "langsam ({secs} s)"
+      nothing_missed: "Nichts verpasst, nichts langsam. {praise}"
+      seconds: Sekunden
+      prompts: Aufgaben
+sprint:
+  mode_name: Sprint-Modus
+  sound_toggle: Soundeffekte ein/aus
+  home:
+    exit: Zurück zur ganzen Seite
+    streak: Serie
+    words_collected: "{n} Begriffe gesammelt"
+    continue: Weiter
+    all_done: Alle Lektionen erledigt
+    all_done_sub: Halte sie mit einer Wiederholung scharf
+    review: Wiederholungsmix
+    review_sub: deine Schwachstellen
+    review_sub_new: "ein Vorgeschmack auf das, was kommt"
+    lightning: Blitzrunde
+    lightning_sub: 60 Sekunden
+    legend_complete: "{done} von {total} Lektionen abgeschlossen"
+    legend_rest: "{icon} = Beherrschung · auf eine Station tippen für Optionen"
+    unit_skipped: übersprungen
+    start_here: HIER STARTEN
+    stop_meta: "Station {n} · {group}"
+    mastery_pct: "{pct} % Beherrschung"
+    skipped_level: "Übersprungen: unter deinem Startniveau"
+    locked_hint: Bestehe die Station davor (in einem beliebigen Modus), um diese freizuschalten.
+    peek: Einen Blick in die Lektion werfen
+    play_again: Nochmal spielen
+    start: Start · 5 Min.
+    read: Lektion lesen
+    foot_note: Dieselben Lektionen, derselbe Fortschritt wie auf der ganzen Seite.
+    guide: Leitfaden
+    map: Karte
+    switch_course: Kurs wechseln
+  tabs:
+    path: Pfad
+    review: Wiederholung
+    lightning: Blitz
+    terms: Begriffe
+    site: Ganze Seite
+  play:
+    quit: Sitzung beenden
+    audio_toggle: Ton ein/aus (Wörter und Hörübungen)
+    continue: Weiter
+    session_complete: Sitzung abgeschlossen
+    accuracy: Genauigkeit
+    time: Zeit
+    day_streak: Tage-Serie
+    play_again: Nochmal spielen
+    check: Prüfen
+  state:
+    locked: gesperrt
+    complete: abgeschlossen
+    in_progress: in Arbeit
+    skipped: übersprungen
+    not_started: nicht begonnen
+  node_label: "{title} — {state}"
+  node_label_current: "{title} — {state}, hier starten"
+  session:
+    your_words: Deine Wörter
+    review_title: Wiederholungsmix
+    review_subtitle: Gewichtet nach dem, was dir am schwersten fällt
+    review_subtitle_taste: "Gewichtet nach dem, was dir am schwersten fällt, dann ein Vorgeschmack auf das, was kommt"
+    review_subtitle_new: "Noch nichts gelesen: ein Vorgeschmack auf das, was kommt"
+    taste_tag: "Ein Vorgeschmack auf das, was kommt · {lesson}"
+    lightning_title: Blitzrunde
+    lightning_subtitle: "{secs} Sekunden. Wie viele schaffst du?"
+  check:
+    sorted_slips:
+      one: "Alles sortiert, aber mit {n} Fehlgriff."
+      other: "Alles sortiert, aber mit {n} Fehlgriffen."
+    accents: Fast! Achte auf die Akzente.
+    wrong_note: "Note {n} müsste {fix} sein"
+    note_found: "Die Note stimmt, die Korrektur nicht."
+    means: "= {meaning}"
+    ladder_explanation: "{item} = {meaning}, {set}."
+    words_right: "{n} von {total} Wörtern richtig."
+    term_means: "{term} = {meaning}"
+    pairs_first_time: Jedes Paar beim ersten Versuch gefunden.
+    pairs_retried:
+      one: "{n} Paar brauchte mehr als einen Versuch."
+      other: "{n} Paare brauchten mehr als einen Versuch."
+  history:
+    sorted: "{right} von {n} richtig sortiert"
+    sorted_wrongly: Einige in der falschen Gruppe
+    forms_right: "{right} von {n} Formen richtig"
+    notes_right: "{right} von {n} Tönen richtig"
+    wrong_taps:
+      one: "{n} falscher Tipp"
+      other: "{n} falsche Tipps"
+    taps_then_forms: "{taps}, dann alle {n} Formen richtig"
+    taps_then_sorted: "{taps}, dann alle {n} richtig sortiert"
+  describe:
+    scale: "Baue die Tonleiter: {title}"
+    sort: "Sortiere: {title}"
+    spot: "Finde den Fehler: {sentence}"
+    build: "Baue: {meaning}"
+    ladder: "Leiter: {item} ({set})"
+    hear_build: Tippe, was du hörst
+    hear_type: Tippe, was du hörst
+    hear_meaning: "Was bedeutet das: {text}"
+    hear_gap: "Fülle die Lücke aus dem, was du hörst: {text}"
+  js:
+    tap_tiles_in_order: Tippe die Kacheln der Reihe nach an
+    sound_on: Soundeffekte an
+    sound_off: Soundeffekte aus
+    no_speech: Dieser Browser kann nicht sprechen
+    audio_on: "Ton an: zum Ausschalten tippen"
+    audio_off: "Ton aus: zum Einschalten tippen"
+    praise_1: Richtig!
+    praise_2: Super!
+    praise_3: Genau!
+    almost_1: Fast
+    almost_2: Hmm, nein
+    hear_it: Anhören
+    answer_html: "Antwort: <strong lang=\"{lang}\">{answer}</strong>"
+    collected_html: "✦ Gesammelt: {words}"
+    mastery_of: "{title}: {pct} % Beherrschung"
+    mastery_now: "Beherrschung jetzt {pct} %"
+    finish: Fertig
+    continue: Weiter
+    check_failed: "Oh nein! Ein Fehler ist aufgetreten! Bitte versuch es noch einmal."
+    hint: Tipp
+    type_char: "{ch} tippen"
+    quick_bite: Kurzer Happen
+    got_it: Verstanden
+    check: Prüfen
+    pick_right: Wähle das Richtige
+    set_clock: "Stell die Uhr"
+    in_lang_this_is: "Auf {lang} heißt das…"
+    course_language: die Kurssprache
+    this_means: Das bedeutet…
+    work_it_out: Finde es heraus
+    write_answer: Schreibe die Antwort
+    fill_gap: Fülle die Lücke
+    spell_chord: "Schreib den Akkord"
+    place_note: "Setz die Note"
+    find_key: "Finde ihn auf den Tasten"
+    type_it: Tippe es
+    type_instead: ⌨️ Stattdessen tippen
+    type_instead_honest: ⌨️ Stattdessen tippen (schwerer, ehrlicher)
+    back_to_tiles: 🀄 Zurück zu den Kacheln
+    sort_it: Sortiere es
+    all_sorted: Alles sortiert
+    to_go: "{n} übrig · tippe auf ein Feld"
+    spot_mistake: Finde den Fehler
+    one_word_wrong: Ein Wort ist falsch. Tippe es an.
+    one_note_wrong: "Eine Note ist falsch. Tippe sie an und wähle dann die Korrektur."
+    build_sentence: Baue den Satz
+    ladder: Leiter
+    tap_rung: Tippe die Form an, die auf die leuchtende Sprosse gehört.
+    scale: "Baue die Tonleiter"
+    tap_note_rung: "Tippe den Ton an, der auf die leuchtende Sprosse gehört."
+    ladder_move: "{form} von der Sprosse nehmen"
+    match_pairs: Ordne die Paare zu
+    mixed_up: "Vertauscht: {list}."
+    tap_term_meaning: Tippe einen Begriff an, dann seine Bedeutung.
+    play: Abspielen
+    play_slowly: Langsam abspielen
+    slowly: Langsam
+    cant_listen: Anhören gerade nicht möglich
+    tap_what_you_hear: Tippe, was du hörst
+    fill_what_you_hear: Fülle aus, was du hörst
+    what_does_it_mean: Was bedeutet es?
+    what_do_you_hear: Was hörst du?
+    select_audio: Wähle die passende Aufnahme
+    tap_each_speaker: Tippe jeden Sprecher an; behalte den, der es sagt.
+    play_n: "{n} abspielen"
+    listen_match: Hören und zuordnen
+    tap_speaker_word: Tippe einen Sprecher an, dann das Wort, das er sagt.
+    n_in_seconds: "{n} in {secs} Sekunden"
+    flawless_title: Fehlerlos!
+    session_complete: Sitzung abgeschlossen
+    done_tomorrow: Geschafft. Morgen sitzt es fest.
+    best_streak: "Beste Serie in dieser Sitzung: {n} hintereinander."
+    goal_done: "Tagesziel erreicht: {n} / {goal} ✓"
+    daily_ring: "Tagesziel: {n} / {goal} Punkte"
+    lesson_passed: "Lektion bestanden: Diese Station ist im Pfad in jedem Modus abgeschlossen."
+    score_to_pass: "Erziele in einer Sitzung {pct} % oder mehr, um diese Lektion zu bestehen und die nächste Station freizuschalten."
+    save_failed: "Diese Sitzung konnte nicht gespeichert werden ({error})."
+    nothing_yet: Hier gibt es noch nichts zu üben.
+
+guide:
+  title: Leitfaden
+  heading: Der Leitfaden
+  lead: "Die Lektionen, ein kleiner Schritt nach dem anderen: eine Karte oder zwei, dann eine kurze Prüfung. Schließe eine Stufe ab, um die nächste freizuschalten. Für kurze Aufmerksamkeitsspannen."
+  continue: "Weiter: {title}"
+  stats:
+    complete: abgeschlossene Stufen
+    three_star: Stufen mit 3 Sternen
+  stars_label: "{n} von 3 Sternen"
+  locked_count:
+    one: "{n} gesperrte Stufe"
+    other: "{n} gesperrte Stufen"
+  stage:
+    steps_checks: "{steps} Schritte, {checks} kurze Prüfungen"
+    locked: Jede Stufe wird freigeschaltet, sobald du die Lektion davor bestehst, in einem beliebigen Modus.
+    continue_step: "Weiter (Schritt {step} von {steps})"
+    try_again: Nochmal versuchen
+    skipped: "Übersprungen: unter deinem Startniveau."
+    play_anyway: Trotzdem spielen
+    play_again: Nochmal spielen
+    start: Start
+  play:
+    title: "Stufe {n}: {title}"
+    crumb_guide: Leitfaden
+    stage_n: "Stufe {n}"
+    full_lesson: ganze Lektion
+    best_result: bestes Ergebnis
+    concept: Konzept
+    got_it: Verstanden, weiter
+    tip: Tipp
+    next: Weiter
+    terms: Begriffe
+    terms_to_know: Begriffe, die du kennen solltest
+    tap_reveal: Tippe eine Karte an, um die Bedeutung zu sehen.
+    tap_hear: Tippe 🔊, um es zu hören, und sprich es laut nach.
+    say_aloud: Sprich jedes einzelne laut aus.
+    hear_it: Anhören
+    quick_check: Kurze Prüfung
+    your_answer: Deine Antwort
+    insert_char: Sonderzeichen einfügen
+    type_char: "{ch} tippen"
+    hint: Tipp
+    check: Prüfen
+    stage_complete: "Stufe {n} abgeschlossen"
+    done_line_html: "<span id=\"done-correct\">0</span> / <span id=\"done-answered\">0</span> kurze Prüfungen richtig"
+    next_stage: "Nächste Stufe: {title}"
+    finished_all: Du hast den ganzen Leitfaden abgeschlossen!
+    play_again: Nochmal spielen
+    back_to_map: Zurück zur Karte
+  js:
+    correct: Richtig!
+    passed_now: Lektion bestanden! Sie zählt jetzt in jedem Modus als abgeschlossen.
+    already_passed: Du hattest diese Lektion schon bestanden.
+    not_passed: "Noch nicht bestanden: Beantworte mindestens 70 % der kurzen Prüfungen richtig, um die Lektion zu bestehen und die nächste Stufe freizuschalten."
+    not_quite: Nicht ganz.
+    correct_answer_html: "Richtige Antwort: <strong lang=\"{lang}\">{answer}</strong>"
+    new_terms:
+      one: "✦ Neuer Begriff gesammelt:"
+      other: "✦ Neue Begriffe gesammelt:"
+    finish_stage: Stufe abschließen
+    next: Weiter
+    check_failed: "Konnte deine Antwort nicht prüfen ({error}). Bitte versuche es erneut."
+
+tutor:
+  title: KI-Nachhilfe
+  exit: Zurück zur Startseite
+  model_label: Modell
+  no_key:
+    title: Dein Tutor braucht einen API-Schlüssel
+    p1: "Die KI-Nachhilfe läuft über dein eigenes Konto bei Claude, OpenAI oder Google, sodass {app} deine Gespräche über diesen Server hinaus weder bezahlt noch sieht."
+    p2: "Füge einmal unter „Benutzer verwalten“ einen Schlüssel hinzu; er wird verschlüsselt, dient jedem Konto und wird nur verwendet, wenn jemand den Tutor etwas fragt."
+    add_key: API-Schlüssel hinzufügen
+    back: Zurück zu den Modi
+    ask_owner: "Bitte den Eigentümer dieses Servers, unter „Benutzer verwalten“ einen API-Schlüssel hinzuzufügen."
+  chars_label: Sonderzeichen
+  disclosure: "Deine Nachrichten werden mit dem Schlüssel dieses Servers an {provider} gesendet."
+  placeholder: Sag deinem Tutor etwas…
+  input_label: Nachricht an den Tutor
+  send: Senden
+  api:
+    unknown_provider: unbekannter Anbieter
+    unknown_lesson: unbekannte Lektion
+    no_questions: dieser Kurs hat keine Quizfragen, mit denen der Tutor arbeiten kann
+    message_too_long: Nachricht zu lang
+    bad_turn: ungültiger Schritt
+    nothing_pending: Es wartet keine Übung auf eine Antwort
+    no_key: "kein Schlüssel für {provider} auf diesem Server; der Eigentümer fügt ihn unter „Benutzer verwalten“ hinzu"
+    all_busy: der Tutor ist gerade mit anderen Lernenden beschäftigt; versuche es gleich noch einmal
+    still_answering: der Tutor antwortet noch
+    thread_failed: "Der Tutor-Verlauf konnte nicht gestartet werden: {error}"
+    thread_stopped: der Tutor-Verlauf wurde unerwartet beendet
+    cancelled: "du hast die Antwort abgebrochen"
+    already_cancelled: "eine abgebrochene Antwort läuft noch; versuche es gleich noch einmal"
+  js:
+    cancel: "Abbrechen"
+    cancelled: "Antwort abgebrochen."
+    correct: Richtig!
+    ph_number: Gib die Zahl ein, oder frag nach Hilfe…
+    ph_expression: Gib den Ausdruck ein, oder frag nach Hilfe…
+    ph_answer: Gib deine Antwort ein, oder frag nach Hilfe…
+    ph_choice: Tippe eine Auswahl an, oder frag nach Hilfe…
+    type_char: "{ch} tippen"
+    exercise: "Übung · {title}"
+    hint: Tipp
+    skip: Überspringen
+    answer_is: "✗ Die Antwort ist {answer}"
+    mastery: "{title} {before} % → {after} %"
+    lesson_passed: "✓ Lektion bestanden: {title}"
+    could_not_reply: "Der Tutor konnte nicht antworten: {error}"
+    last_exercise: Das war vorerst die letzte Übung. Chatte weiter oder wähle eine andere Lektion.
+courses:
+  # What a new course from "Create a course" starts with, in the author's app language (#1255).
+  starter:
+    title: "Kurs ohne Titel"
+    description: "Beschreib den Kurs in ein oder zwei Sätzen."
+    unit: "Einheit 1"
+    lesson: "Deine erste Lektion"
+  translate:
+    button: "Kopieren und übersetzen in…"
+    title: "„{title}“ kopieren und übersetzen"
+    resume_title: "Übersetzung von „{title}“ fortsetzen"
+    info_label: "Was übersetzt wird"
+    info_text: "Die App kopiert den Kurs und lässt die KI die Kopie in die gewählte Sprache übersetzen: Erklärungen, Bedeutungen, Anleitungen, Quizfragen und Antworten. Die Sprache, die der Kurs lehrt, bleibt, wie sie ist; ein Kurs, der keine Sprache lehrt, wird ganz übersetzt. Das Original ändert sich nicht. Es braucht eine KI-Anfrage pro Lektion, mit deinem eigenen Schlüssel oder dem KI-Kontingent deines Tarifs."
+    language: "Übersetzen in"
+    provider: "KI"
+    start: "Starten"
+    resume: "Übersetzung fortsetzen"
+    close: "Abbrechen"
+    course_title: "{title} ({language})"
+    pick_language: "Wähle eine Sprache, in die der Kurs übersetzt werden soll."
+    same_language: "Der Kurs ist schon in dieser Sprache geschrieben."
+    no_plan: "Diese Übersetzung kann nicht fortgesetzt werden. Lösche den Kurs und übersetze das Original noch einmal."
+    heading_running: "{title} wird übersetzt…"
+    heading_done: "Dein übersetzter Kurs ist fertig"
+    heading_stopped: "Übersetzung angehalten"
+    phase_start: "Wird übersetzt"
+    phase_file: "{file} wird übersetzt ({n} von {total})"
+  picker:
+    title: Was möchtest du lernen?
+    lead_anon: Wähle einen fertigen Kurs. Jeder Kurs behält seinen eigenen Fortschritt, Wortschatz, Spiele und Verlauf.
+    lead_ai_off: Wähle einen fertigen Kurs oder schreibe deinen eigenen. Jeder Kurs behält seinen eigenen Fortschritt, Wortschatz, Spiele und Verlauf.
+    lead_ai: Wähle einen fertigen Kurs, schreibe deinen eigenen oder beschreibe, was du willst, und lass eine KI den Kurs für dich schreiben. Jeder Kurs behält seinen eigenen Fortschritt, Wortschatz, Spiele und Verlauf.
+    projects_heading: Deine Projekte
+    tag_current: aktuell
+    tag_revising: wird überarbeitet
+    revising_tip: Die KI ändert diesen Kurs; er lässt sich weiterhin öffnen, aber seine Dateien sind gesperrt, bis sie fertig ist
+    private_tip: Nur du kannst diesen Kurs sehen
+    tag_generating: wird erstellt
+    lessons_count:
+      one: "{n} Lektion"
+      other: "{n} Lektionen"
+    units_count:
+      one: "{n} Einheit"
+      other: "{n} Einheiten"
+    questions_count:
+      one: "{n} Frage"
+      other: "{n} Fragen"
+    terms_count:
+      one: "{n} Begriff"
+      other: "{n} Begriffe"
+    stat_passed: "Bestandene Lektionen"
+    stat_mastered: "Beherrschte Lektionen"
+    stat_of: "{n} von {total}"
+    stat_label: "{name}: {value}"
+    opened: "geöffnet {when}"
+    continue: Weiter
+    open: Öffnen
+    edit_files_tip: "Die Dateien dieses Kurses bearbeiten."
+    start_learning: Mit dem Lernen beginnen
+    generating: Wird erstellt…
+    watch: Ansehen
+    cancel: Abbrechen
+    resume: Fortsetzen
+    retry: Erneut versuchen
+    delete: Löschen
+    delete_confirm: Diesen Kurs löschen?
+    ok: OK
+    error_generation: Beim Erstellen ist ein Fehler aufgetreten.
+    error_not_load: Dieser Kurs lässt sich nicht laden.
+    mine_heading: Deine Kurse
+    mine_private: 🔒 nur für dich sichtbar
+    builtin_heading: Fertige Kurse
+    make_heading: Eigene Kurse erstellen
+    create_title: Einen Kurs erstellen
+    create_button: Einen Kurs erstellen
+    create_ai_off_html: "Schreibe die Lektionen selbst im Browser, nach <a href=\"{url}\">dem Kursformat</a>."
+    create_ai_html: "Lass eine KI sie aus deinen Unterrichtsnotizen oder einer Beschreibung schreiben, mit deinem eigenen API-Schlüssel (Claude, OpenAI oder Gemini), oder schreibe die Lektionen selbst im Browser, nach <a href=\"{url}\">dem Kursformat</a>."
+    create_private: Nur du kannst ihn sehen.
+    phase_progress: "{phase} · {done} von {total} Lektionen"
+    starting: Wird gestartet…
+    title_too_long: Gib dem Kurs einen Titel mit höchstens 80 Zeichen.
+    course_count: "Ein Konto darf höchstens {max} Kurse haben. Lösche einen Kurs, den du nicht mehr brauchst, um einen neuen anzulegen."
+    deleted_notice: Kurs gelöscht.
+    copy_tip: "Eine Kopie dieses Kurses erstellen."
+    copy_title: "Kopie von {title}"
+    copy_not_ready: "Ein Kurs kann kopiert werden, sobald er fertig geschrieben ist."
+    copy_too_big: "Dieser Kurs ist zu groß zum Kopieren: Ein Kurs darf höchstens {max} belegen."
+    copy_no_room: "Kein Platz für eine Kopie: Alle Kurse eines Kontos zusammen dürfen höchstens {max} belegen. Lösche einen Kurs, den du nicht mehr brauchst."
+    dev_reset: "Dev-Benutzer zurückgesetzt."
+  editor:
+    title: "Bearbeiten: {title}"
+    crumb_courses: Kurse
+    crumb_edit: Bearbeiten
+    rename_tip: Klicken zum Umbenennen
+    rename_label: Kurs umbenennen
+    saved_label: Alle Änderungen gespeichert
+    open_tip: Diesen Kurs öffnen (neuer Tab)
+    open_label: Diesen Kurs in einem neuen Tab öffnen
+    private_tip: Nur du kannst diesen Kurs sehen und öffnen
+    private_tag: 🔒 Privat
+    cancel_revision: Überarbeitung abbrechen
+    cancel_generation: Erstellung abbrechen
+    generating_html: ⏳ <strong>Dieser Kurs wird gerade erstellt.</strong> Die Lektionsdateien erscheinen unten, sobald sie geschrieben sind; du kannst sie bearbeiten, wenn er fertig ist.
+    revising_html: ⏳ <strong>Dieser Kurs wird gerade anhand deines Feedbacks überarbeitet.</strong> Er lässt sich weiterhin öffnen, wie er ist; die neue Fassung ersetzt ihn, wenn die KI fertig ist, und danach lassen sich seine Dateien bearbeiten.
+    not_loading_html: <strong>Der Kurs lässt sich noch nicht laden.</strong>
+    files_heading: Dateien
+    col_path: Pfad
+    col_size: Größe
+    col_updated: Aktualisiert
+    size_b: "{n} B"
+    size_kb: "{n} KB"
+    delete_file_confirm: "{path} löschen?"
+    delete_file: löschen
+    new_file: + Neue Lektionsdatei
+    manifest_link: Kurseinstellungen (course.json)
+    delete_course_confirm: Diesen Kurs löschen? Seine Lektionen und der Fortschritt aller darin werden endgültig entfernt; das lässt sich nicht rückgängig machen.
+    delete_course: Diesen Kurs löschen
+    download_all: Alle Dateien herunterladen
+    locked_generating: Der Kurs wird noch erstellt; seine Dateien können geändert werden, sobald er fertig (oder abgebrochen) ist.
+    locked_revising: Der Kurs wird gerade überarbeitet; seine Dateien können geändert werden, sobald das fertig (oder abgebrochen) ist.
+    too_many_writes: "Du hast Kurse {max}-mal in {minutes} Minuten geändert, mehr erlaubt ein Konto nicht. Warte ein paar Minuten und speichere dann erneut."
+    ai_finished_notice: Die KI ist fertig. Änderungen prüfen (unter KI verwenden) zeigt, was sie getan hat.
+    too_many_files: "ein Kurs darf höchstens {max} Dateien haben"
+    manifest_undeletable: course.json kann nicht gelöscht werden; bearbeite es stattdessen
+    loads_notice: Der Kurs lässt sich laden. Öffne ihn aus der Kursliste.
+    not_loading_notice: "Der Kurs lässt sich noch nicht laden: {error}"
+    gone: Dieser Kurs ist weg (gelöscht, vielleicht in einem anderen Tab), daher können diese Änderungen nicht gespeichert werden.
+    busy_generating: Der Kurs wird noch erstellt
+    busy_revising: Der Kurs wird gerade überarbeitet
+    busy_lessons: "{busy}; seine Lektionen können geändert werden, sobald das fertig (oder abgebrochen) ist."
+    busy_reload: "{error} Lade dann die Seite neu; die hier seit dem letzten Speichern gemachten Änderungen bleiben nicht erhalten."
+    lesson_name_too_long: "Halte Lektionsnamen auf {max} Zeichen (“{title}…”)."
+    words_too_long: "Füge höchstens {kb} KB Wörter auf einmal ein."
+    words_no_settings: "Die Kurseinstellungen laden nicht, daher können die Wörter nicht gelesen werden. Korrigiere zuerst die Kurseinstellungen."
+    json_too_big: "Das JSON einer Lektion darf höchstens {kb} KB groß sein."
+    renamed_course_to: Kurs umbenannt in
+    label_renamed_course: "{label}; Kurs umbenannt"
+    stale: Dieser Kurs wurde seit dem Öffnen dieser Seite anderswo geändert (in einem anderen Tab oder durch einen KI-Auftrag), daher werden die hier gemachten Änderungen nicht gespeichert. Lade die Seite neu, um die neueste Fassung zu bearbeiten.
+    saved_undo: "{label}. Rückgängig stellt es wieder her."
+    saved_broken: "{label}, aber der Kurs lässt sich nicht laden: {error}"
+  file:
+    crumb_new: neue Datei
+    new_heading: Neue Lektionsdatei
+    path_label: Pfad
+    content_label: Inhalt (JSON)
+    status_html: "Wird beim Speichern geprüft. Referenz: <a href=\"{url}\" target=\"_blank\" rel=\"noopener\">Kursformat</a>."
+    save: Speichern und prüfen
+    cancel: Abbrechen
+    bad_path: "„{path}“ ist kein erlaubter Pfad"
+    bad_path_hint: verwende course.json, lessons/<name>.json oder pictures/<name>.svg
+    too_large: "Die Datei ist größer als {kb} KB"
+    too_large_hint: teile die Lektion in zwei
+    not_svg: Das ist kein SVG-Bild
+    not_svg_hint: eine SVG-Datei beginnt mit <svg oder <?xml
+    saved_notice: "Datei gespeichert. Der Kurs wird geladen."
+    saved_broken_notice: "Datei gespeichert, aber der Kurs lädt noch nicht: {error}"
+    deleted_notice: "Datei gelöscht."
+    deleted_broken_notice: "Datei gelöscht, aber der Kurs lädt noch nicht: {error}"
+  lint:
+    title: Zu prüfen
+    info_label: Über diese Prüfungen
+    info_body: Schnelle Prüfungen der Kursdateien, nach jedem Speichern neu. Sie suchen Lektionen, die sich laden lassen, aber schlecht lehren könnten. Keine davon verhindert das Speichern.
+    close: Schließen
+    none: Nichts zu prüfen.
+    count:
+      one: "{n} Punkt zu prüfen"
+      other: "{n} Punkte zu prüfen"
+    prerequisite_later: "Ihre Voraussetzung “{lesson}” kommt erst danach. Zieh diese Lektion nach vorn oder streich die Voraussetzung."
+    prerequisite_self: Sie nennt sich selbst als Voraussetzung.
+    few_questions:
+      one: "Sie hat 1 Frage, also lässt eine falsche Antwort den Durchgang scheitern. Ab vier Fragen ist ein Fehler erlaubt."
+      other: "Sie hat {n} Fragen, also lässt eine falsche Antwort den Durchgang scheitern. Ab vier Fragen ist ein Fehler erlaubt."
+    answer_in_prompt: "Diese Frage verrät ihre Antwort schon im Text: {prompt}"
+    one_spelling: "Die Lücke “{answer}” hat mehrere Wörter und lässt nur eine Schreibweise zu. Trag weitere in accepted_answers ein."
+    sprint_reading_only: Ihre Sprint-Runde ist nur zum Lesen. Sie hat keine Fragen, Wörter oder Übungen.
+    repeated_term: "Sie lehrt “{term}” noch einmal, nach {lessons}."
+    quoted: "“{title}”"
+    other_language: "Ihr Text liest sich wie {found}, aber der Kurs erklärt auf {expected}."
+    lang:
+      en: Englisch
+      es: Spanisch
+      fr: Französisch
+      de: Deutsch
+      pt: Portugiesisch
+      it: Italienisch
+      zh: Chinesisch
+  report:
+    title: Funktionsnutzung
+    close: Schließen
+    lessons:
+      one: "{n} Lektion"
+      other: "{n} Lektionen"
+    features_of: "{used} von {total} Funktionen"
+    question_types_of: "{used} von {total} Fragetypen"
+    no_lessons: Noch keine Lektionen.
+    question_types: Fragetypen
+    lesson_features: Lektionsfunktionen
+    used_sr: ": verwendet"
+    not_used_sr: ": nicht verwendet"
+    question:
+      multiple_choice: Multiple Choice
+      fill_in_blank: Lückentext
+      true_false: Richtig oder falsch
+      numeric: Zahlenantwort
+      expression: Algebraischer Ausdruck
+      fill_bar: "Takt füllen"
+      chord_spell: "Schreib den Akkord"
+      staff_note: "Setz die Note"
+      keyboard: "Tastatur"
+      algebra_tiles: "Algebra-Kacheln"
+      clock: "Uhr stellen"
+      measure: "Winkel messen"
+    feature:
+      text: Lektionstext
+      cards: Text in Karten (## Überschriften)
+      tables: Tabellen im Text
+      summary: Zusammenfassung
+      focus: Schwerpunkt
+      prerequisites: Voraussetzungen
+      vocabulary: Wortschatz
+      examples: Beispielsätze
+      hints: Hinweise zu Fragen
+      explanations: Erklärungen zu Antworten
+      teaches: Wörter, die durch Fragen gelehrt werden
+      conjugations: Paradigmentabellen
+      conversations: Gespräche
+      listening: Hörsätze
+      guide: Von Hand geordnete Leitfaden-Schritte
+      sprint_icon: Sprint-Symbol
+      bites: Sprint-Happen
+      sorts: Sortieraufgaben
+      spots: Fehler finden
+      builds: Satzbau
+  review:
+    edit_line_tip: Diese Zeile bearbeiten
+    title: KI-Änderungen
+    close: Schließen
+    how_to: "Öffne eine Lektion, um ihre Änderungen zu sehen. Um etwas wegzulassen, klicke auf das − daneben (ziehen für mehrere Zeilen); klicke es erneut an, um es zurückzuholen. Um eine Zeile zu ändern, klicke sie an: sie öffnet sich als Text, wie in einem Editor."
+    open_all: Alle öffnen
+    close_all: Alle schließen
+    show_json: Dateien als JSON anzeigen
+    tag_new: Neu
+    tag_removed: Entfernt
+    tag_changed: Geändert
+    edited_file_tip: "Hat von dir bearbeitete Zeilen, die immer bleiben: Mache sie rückgängig, um diese Lektion wegzulassen"
+    keep_lesson: Diese Lektion behalten
+    leave_lesson_out: Diese Lektion weglassen
+    keep_named: "{title} behalten"
+    leave_named_out: "{title} weglassen"
+    col_before: Vorher
+    col_after: Nach der KI
+    col_leave_out: Weglassen
+    gap_lines:
+      one: "⋯ {n} unveränderte Zeile"
+      other: "⋯ {n} unveränderte Zeilen"
+    leave_change_out: Diese Änderung weglassen
+    leave_line_out: Diese Zeile weglassen
+    quiet: Beim nächsten Mal nicht automatisch anzeigen
+    undo: Rückgängig
+    redo: Wiederholen
+    undo_edit: Deine letzte Bearbeitung rückgängig machen
+    redo_edit: Deine Bearbeitung wiederherstellen
+    accept: Übernehmen
+    undone_tag: Rückgängig gemacht
+    check_label: "Prüfen:"
+    left_alone: Gelesen, nicht geändert
+    undone_about: Über einen rückgängig gemachten KI-Lauf
+    undone_text: Dieser KI-Lauf wurde rückgängig gemacht, also ist keine seiner Änderungen im Kurs. Wiederholen auf der Kursseite holt sie zurück; danach kannst du sie hier prüfen.
+    undone_refused: Dieser KI-Lauf wurde rückgängig gemacht, also kann die Prüfung den Kurs nicht ändern. Wiederholen auf der Kursseite holt ihn zurück.
+    labels:
+      prompt: Frage
+      question: Frage
+      content: Lesetext
+      correct_answer: Antwort
+      accepted_answers: Auch richtig
+      options: Auswahl
+      hints: Hinweise
+      teaches: Wörter, die sie lehrt
+      type: Art
+      tolerance: Erlaubter Fehler
+      question_id: Id
+      id: Id
+      slug: Webadresse
+      order: Platz in seiner Einheit
+      prerequisites: Kommt nach
+      vocabulary: Wörter
+      term: Wort
+      conjugations: Konjugationstabellen
+      guide: Guide-Schritte
+      vocab: Karteikarten
+      sprint: Sprint-Modus
+      role_a: Sprecher A
+      role_b: Sprecher B
+      markdown: Text
+      wrong: Falsches Wort
+      fix: Richtiges Wort
+      chars: Buchstaben zum Antippen
+    none_left: Es gibt keine KI-Änderung mehr zu prüfen.
+    with_parts_left_out: Mit weggelassenen Teilen
+    with_changes: Mit diesen Änderungen
+    not_loading: "{what} Der Kurs lässt sich nicht laden: {why}"
+    label_took_back: Alle Änderungen der KI zurückgenommen
+    label_left_out: Einen Teil der KI-Änderungen weggelassen
+    label_edited: Die KI-Änderungen bearbeitet
+    label_left_out_edited: Einen Teil der KI-Änderungen weggelassen und bearbeitet
+    done_in_again: Alle Änderungen der KI sind wieder drin
+    done_in: Die Änderungen der KI sind übernommen
+    done_in_without: Die Änderungen der KI sind übernommen, ohne die weggelassenen Teile
+    done_in_edited: Die Änderungen der KI sind übernommen, mit deinen Bearbeitungen
+    done_in_edited_without: Die Änderungen der KI sind übernommen, mit deinen Bearbeitungen und ohne die weggelassenen Teile
+    notice_done: "{done}."
+    notice_undo: "{done}. Rückgängig stellt es wieder her."
+    notice_broken: "{done}, aber der Kurs lässt sich nicht laden: {error}"
+    lessons:
+      one: "{n} Lektion"
+      other: "{n} Lektionen"
+    verb_added: "{what} hinzugefügt"
+    verb_changed: "{what} geändert"
+    verb_removed: "{what} entfernt"
+    changed_settings: die Kurseinstellungen geändert
+    nothing: Die KI hat nichts geändert, was du prüfen kannst.
+    overview: "Die KI {parts}."
+    and: "{a} und {b}"
+    sep: ", "
+    changes:
+      one: "{n} Änderung"
+      other: "{n} Änderungen"
+    left_out: "{parts} weggelassen"
+    lines_edited:
+      one: "{n} Zeile bearbeitet"
+      other: "{n} Zeilen bearbeitet"
+    course_settings: Kurseinstellungen
+    name_reading: der Lesetext
+    name_title: der Titel
+    name_focus: der Schwerpunkt
+    name_quiz:
+      one: Quizfrage
+      other: Quizfragen
+    name_word:
+      one: Wort
+      other: Wörter
+    name_conjugation:
+      one: Paradigmentabelle
+      other: Paradigmentabellen
+    name_conversation:
+      one: Gespräch
+      other: Gespräche
+    name_listening:
+      one: Hörsatz
+      other: Hörsätze
+    name_guide:
+      one: Leitfaden-Schritt
+      other: Leitfaden-Schritte
+    name_unit:
+      one: Einheit
+      other: Einheiten
+    name_sprint: das Sprint-Modus-Material
+    name_place: sein Platz im Kurs
+    count: "{n} {noun}"
+    the_list: "die {name}"
+    the_field: "das Feld {field}"
+    a_reading: ein Lesetext
+    written_by_ai: Von der KI geschrieben.
+    new_with: "Neu, mit {parts}."
+    taken_out: Aus dem Kurs entfernt.
+    added: "{what} hinzugefügt"
+    removed_all: "alle {what} entfernt"
+    removed: "{what} entfernt"
+    layout_only: Nur das Layout hat sich geändert.
+    redrew: Das Bild wurde neu gezeichnet.
+    edited: Bearbeitet.
+    sentence: "{text}."
+    sentence_sep: "; "
+    renamed_it: "umbenannt in „{title}“"
+    rewrote: "{what} umgeschrieben"
+    changed: "{what} geändert"
+    item_of:
+      one: "Eintrag des Feldes {field}"
+      other: "Einträge des Feldes {field}"
+    reordered: "die {name} neu geordnet"
+    none: (keine)
+    edits_unreadable: "Deine Bearbeitungen an „{title}“ machen es unlesbar ({error}). Prüfe die Zeilen, die du bearbeitet hast."
+    left_out_unreadable: "Das Weglassen dieser Zeilen von „{title}“ macht es unlesbar ({error}). Lass ein wenig mehr oder ein wenig weniger davon weg."
+  ai:
+    title: KI verwenden
+    mode_legend: "Was darf die KI tun?"
+    mode_add: "Hinzufügen"
+    mode_edit: "Bearbeiten"
+    mode_change: "Hinzufügen und bearbeiten"
+    mode_info: "Was machen Hinzufügen, Bearbeiten und Hinzufügen und bearbeiten?"
+    mode_add_info: "Schreibt eine neue Lektion. Nichts, was schon im Kurs steht, ändert sich."
+    mode_edit_info: "Schreibt die vorhandenen Lektionen um. Keine Lektion wird hinzugefügt, entfernt oder verschoben."
+    mode_change_info: "Darf auch Lektionen hinzufügen, neu ordnen oder entfernen. Änderungen prüfen zeigt jede Änderung, und Rückgängig stellt die alte Fassung wieder her."
+    mode_change_finished_only: "Hinzufügen und bearbeiten geht nur bei fertigen Kursen. Hinzufügen und Bearbeiten gehen bei jedem Kurs."
+    outline: "Nur Gliederung"
+    outline_info: "Was bewirkt „Nur Gliederung“?"
+    outline_info_text: "Ein: Die Lektionen, die die KI schreibt, sind Gliederungen: eine Stichpunktliste dessen, was jede Lektion lehren wird, und eine Beispielfrage statt der ganzen Lektion. Aus: Sie schreibt vollständige Lektionen."
+    generate: Kurs erstellen
+    generate_note: Lass eine KI den ganzen Kurs aus einer Beschreibung oder deinen Notizen schreiben. Verschwindet, sobald du den Inhalt einer Lektion bearbeitest.
+    ask_add: Was soll die KI hinzufügen?
+    ask_add_or_change: Was soll die KI hinzufügen oder ändern?
+    ask_edit: "Was soll die KI ändern?"
+    placeholder: "Zum Beispiel: eine Lektion über das Vergleichen von Brüchen mit verschiedenen Nennern."
+    placeholder_edit: "Zum Beispiel: Korrigiere den Tippfehler in Lektion 2 und füge jeder Lektion ein durchgerechnetes Beispiel hinzu."
+    placeholder_change: "Zum Beispiel: Teile die lange Lektion in zwei und füge am Ende eine Wiederholungslektion hinzu."
+    up_to_chars: "Bis zu {n} Zeichen."
+    sensitive_note: Füge keine sensiblen persönlichen Daten (Gesundheit, Überzeugungen, Ausweisnummern) oder Angaben zu anderen Personen ein.
+    submit: Absenden
+    review_changes: Änderungen prüfen
+    review_tip: "Was der letzte KI-Lauf ({when}) geändert hat"
+    sent_to_named_html: "Deine Notizen werden mit dem Schlüssel dieses Servers an <span data-testid=\"course-ai-provider\">{provider}</span> gesendet."
+    sent_to_generic: "Deine Notizen werden mit dem Schlüssel dieses Servers an den KI-Anbieter gesendet."
+    no_key_html: "Es ist kein Schlüssel für einen KI-Anbieter eingerichtet. <a href=\"{url}\" data-testid=\"course-ai-profile-link\">Füge unter „Benutzer verwalten“ einen API-Schlüssel hinzu</a>, um KI-Funktionen zu nutzen."
+    no_key: "Es ist kein Schlüssel für einen KI-Anbieter eingerichtet. Bitte den Eigentümer dieses Servers, unter „Benutzer verwalten“ einen hinzuzufügen."
+    modal_generating: Wird erstellt…
+    modal_count_rewritten: "{done} von {total} Lektionen umgeschrieben oder hinzugefügt"
+    modal_count_edited: "{done} von {total} Lektionen umgeschrieben"
+    modal_count_written: "{done} von {total} Lektionen geschrieben"
+    modal_cancel: Abbrechen
+    modal_refresh: Aktualisieren
+    modal_leave_revision: "Du kannst diese Seite verlassen: Der Auftrag läuft weiter, der Kurs funktioniert bis dahin wie bisher, und dieses Feld ist wieder da, wenn du zurückkommst."
+    modal_leave: "Du kannst diese Seite verlassen: Der Auftrag läuft weiter, und dieses Feld ist wieder da, wenn du zurückkommst."
+    modal_provider_said: Was der KI-Anbieter gesagt hat
+    modal_close: Schließen
+    modal_done: Die Lektionen stehen in der Lektionstabelle.
+    modal_continue: Weiter
+    say_change: Sag, was sich ändern soll
+    say_add: Sag, was die neue Lektion vermitteln soll
+    too_short: "{what}, mit mindestens {min} Zeichen."
+    too_long: "Halte es auf höchstens {max} Zeichen."
+    not_loading: Der Kurs lässt sich nicht laden; behebe das zuerst, dann ergänze ihn mit KI.
+    only_finished: "Nur bei einem fertigen Kurs lassen sich vorhandene Inhalte ändern. Schalte Änderungen an vorhandenen Inhalten erlauben aus, dann fügt die KI nur hinzu."
+    another_started: Eine andere Änderung an diesem Kurs hat gerade begonnen. Warte, bis sie fertig ist.
+    lesson_gone: "Diese Lektion ist nicht mehr im Kurs. Lade die Seite neu und versuche es noch einmal."
+    # The (i) by the box: example requests to click into it (#1236).
+    examples_info: Was kann die KI?
+    examples_title: Was kann die KI?
+    examples_intro_html: "Klicke auf ein Beispiel, um es ins Feld zu setzen, und passe es dann an deinen Kurs an. Die meisten brauchen <em>{switch}</em> eingeschaltet."
+    examples_check: Prüfen
+    examples_add: Hinzufügen
+    examples_change: Ändern
+    examples_remove: Entfernen
+    example_check_facts: Prüfe die Fakten in jeder Lektion und korrigiere, was falsch ist.
+    example_add_lesson: "Füge eine Lektion über ... hinzu"
+    example_add_questions: Füge Lektion 4 drei Multiple-Choice-Fragen hinzu.
+    example_add_sort: Füge jeder Lektion ohne eine solche eine Sprint-Sortierübung hinzu.
+    example_add_listening: Füge jeder Lektion mit Vokabeln, aber ohne Hörübung, Hörsätze hinzu.
+    example_add_conversation: Füge Lektion 2 ein Gespräch hinzu.
+    example_simpler: Verwende einfachere Wörter in den Erklärungen.
+    example_drop: Streiche die Geschichtslektion.
+    examples_translate_html: "Um den Kurs in einer anderen Sprache zu haben, nutze <em>{button}</em> in den Kurseinstellungen. Das erstellt eine übersetzte Kopie."
+  generate:
+    close: Schließen
+    resume_title: "Erstellung von „{title}“ fortsetzen"
+    resume_note: Die Gliederung und die schon geschriebenen Lektionen bleiben erhalten; nur die fehlenden Lektionen werden geschrieben.
+    retry_title: Den Kurs erneut erstellen lassen
+    title: Kurs mit KI erstellen
+    intro: "Beschreibe, was du lernen willst, oder füge deine Unterrichtsnotizen, Hausaufgaben oder einen Lehrplan ein. Ein Modell plant den Kurs und schreibt dann jede Lektion: Text, Schlüsselbegriffe, Quizfragen (Mathe-Antworten werden dem Wert nach geprüft) und die Übungen für die Sitzungen am Handy. Der Kurs bleibt nur für dich sichtbar."
+    named_keeps: "Die KI behält {what}."
+    named_title: "den Titel {title}"
+    named_and: "{a} und {b}"
+    named_lessons:
+      one: "deine Lektion {list}"
+      other: "deine Lektionen {list}"
+    list_sep: ", "
+    quoted: "„{text}“"
+    no_key_html: "Um einen Kurs zu erstellen, brauchst du einen Schlüssel für einen KI-Anbieter. <a href=\"{url}\" data-testid=\"generate-profile-link\">Füge unter „Benutzer verwalten“ einen API-Schlüssel hinzu</a> und komm dann hierher zurück."
+    asked_for: Was du angefragt hast
+    wish_label: Was möchtest du lernen?
+    wish_optional: "(optional: der Titel reicht zum Start)"
+    wish_placeholder: "z. B. Kapitel 4 meines Algebra-Kurses: quadratische Terme faktorisieren und die Mitternachtsformel. Test ist am Freitag."
+    wish_note: Nenne das Niveau, was der Test abdeckt und was dir schwerfällt. Ein oder zwei Sätze reichen.
+    notes_label: Dein Material
+    optional: (optional)
+    notes_placeholder: Füge Unterrichtsnotizen, Hausaufgaben, einen Lehrplan oder eine Leseliste ein. Der Kurs lehrt genau das, in derselben Notation.
+    files_label: Textdateien mit deinem Material
+    drop_html: "Textdateien hier ablegen oder <button type=\"button\" class=\"link\" id=\"gen-pick\">Dateien auswählen</button> (.txt, .md, .csv, .tex …). Bei einer PDF oder einem Foto kopiere den Text hinein."
+    kind_legend: Was für ein Kurs ist es?
+    kind_auto: Die KI entscheiden lassen
+    kind_math: Mathe oder Naturwissenschaft
+    kind_math_note: (Zahlen- und Formelantworten)
+    kind_language: Eine Sprache
+    kind_language_note: (Hören, Gespräche, antippen zum Anhören)
+    kind_general: Fakten und Konzepte
+    kind_general_note: (Geschichte, Biologie, Recht …)
+    depth_legend: "Wie viel geschrieben wird"
+    depth_info: "Was bewirken diese Optionen?"
+    depth_info_text: "Ganzer Kurs: Die KI plant den Kurs und schreibt jede Lektion vollständig. Sie entscheidet, wie viele Lektionen das Thema braucht, höchstens 15. Vorschau: eine Einheit mit einer vollständigen Lektion, damit du siehst, wie eine Lektion aussieht, bevor mehr geschrieben wird. Gliederung: alle Einheiten und Lektionen, aber jede Lektion ist eine Stichpunktliste dessen, was sie lehren wird, plus eine Beispielfrage. So lässt sich der Plan schnell und günstig prüfen."
+    depth_full: "Ganzer Kurs"
+    depth_preview: "Vorschau (1 Lektion)"
+    depth_outline: "Gliederung (jede Lektion in Kurzform)"
+    estimate_about: "Wie die Schätzung berechnet wird"
+    estimate_title: "Über die Schätzung"
+    estimate_how: "Das Modell bekommt eine Anfrage für die Gliederung und eine für jede Lektion. Jede Anfrage enthält die Referenz zum Kursformat und dein Material, mehr Material kostet also mehr. Mit deinem eigenen Schlüssel ist der Preis der Listenpreis des Anbieters für das Modell, das die App nutzt, zu einem festen Kurs von US- in kanadische Dollar umgerechnet."
+    estimate_rough: "Das ist ein grober Richtwert, kein Versprechen. Eine Lektion, die das Modell neu schreiben muss, kostet mehr und dauert länger. Kennt die App den Preis eines Modells nicht, zeigt sie nur die Zeit."
+    provider_legend: Dein KI-Anbieter
+    advanced: "Erweitert: die Anweisungen an die KI bearbeiten"
+    warn_html: |-
+      <strong>⚠️ Vorsicht: das kann deinen Kurs kaputt machen und Geld kosten.</strong>
+              Dies sind die Anweisungen, die mit jeder Anfrage gesendet werden. Die App prüft trotzdem jede Datei, und eine Lektion, die die Prüfung nicht besteht, wird bis zu zweimal an das Modell zurückgeschickt, danach bricht der Auftrag ab. Anweisungen, die dem Kursformat widersprechen, verschwenden API-Guthaben bei Wiederholungen und ergeben Kurse, die sich nicht laden lassen. Füge keine Anweisungen ein, die du nicht verstehst: Text von anderen kann das Modell dazu bringen, Dinge zu schreiben, die du nicht bestellt hast. Die Regeln für die Art des Kurses, die Referenz zum Kursformat und die Gliederung werden immer nach diesen Anweisungen angehängt.
+    instructions_label: Anweisungen
+    reset: Auf die Standardanweisungen zurücksetzen
+    edited: Bearbeitet
+    sent_to_html: "Deine Notizen werden an <span id=\"gen-disclosure-provider\">{provider}</span><span id=\"gen-disclosure-key\"> mit dem Schlüssel dieses Servers</span> gesendet."
+    sent_to_generic: "Deine Notizen werden mit dem Schlüssel dieses Servers an den KI-Anbieter gesendet."
+    submit_resume: Weiter schreiben
+    submit_retry: Erneut versuchen
+    effort:
+      button: "Aufwand: {level}"
+      title: "Wie gründlich soll die KI arbeiten?"
+      fast: "Schnell"
+      fast_note: "Am schnellsten und braucht am wenigsten KI. Gut für kurzes oder einfaches Material."
+      balanced: "Ausgewogen"
+      balanced_note: "Passt für die meisten Kurse."
+      thorough: "Gründlich"
+      thorough_note: "Denkt über jede Lektion länger nach. Langsamer und braucht etwa doppelt so viel KI."
+      same_model: "Jede Stufe nutzt dasselbe KI-Modell. Skrongle merkt sich deine Wahl für das nächste Mal."
+      done: "Fertig"
+    submit: Kurs erstellen
+    own_stopped_resume: "Oder schließe das: Der Kurs wartet in deiner Liste, bis du ihn fortsetzt oder löschst."
+    own_stopped_retry: "Oder schließe das: Der Kurs wartet in deiner Liste, bis du es erneut versuchst oder ihn löschst."
+    own_write: Oder schließe das und schreibe die Lektionen selbst; die Startlektion zeigt das Format. Du kannst von „KI verwenden“ aus hierher zurückkommen, bis du den Inhalt einer Lektion bearbeitest.
+    your_provider: dein Anbieter
+    choose_provider: Wähle einen Anbieter.
+    base_url: Die Basis-URL muss mit http:// oder https:// beginnen.
+    bad_key: Das sieht nicht nach einem API-Schlüssel aus.
+    paste_key: "Auf diesem Server ist kein Schlüssel für {provider} eingerichtet."
+    wish_too_long: "Halte das, was du lernen willst, auf höchstens {max} Zeichen; längeres Material gehört ins Notizfeld."
+    notes_too_long: "Halte dein Material auf höchstens {max} Zeichen; kürze es oder teile den Kurs in zwei."
+    new_course: Neuer Kurs
+    busy: Der Kurs ist bereits mit einem KI-Auftrag beschäftigt.
+    has_content: "Dieser Kurs hat inzwischen eigenen Inhalt, daher erstellt die KI ihn nicht neu. Sag im Bereich KI verwenden, was du möchtest."
+    instructions_too_long: "Die Anweisungen sind länger als {max} Zeichen."
+    cancelled: Abgebrochen.
+    busy_other: "Es wird gerade ein Kurs erstellt; versuche es noch einmal, wenn er fertig ist."
+    cancelling_revision: "Wird abgebrochen: Der Kurs bleibt, wie er war."
+    cancelling_generation: "Wird abgebrochen: Der Kurs hört nach der gerade geschriebenen Lektion auf."
+    no_key_ask: "Um einen Kurs zu erstellen, brauchst du einen Schlüssel für einen KI-Anbieter. Bitte den Eigentümer dieses Servers, unter „Benutzer verwalten“ einen hinzuzufügen."
+  undo:
+    undo: Rückgängig
+    redo: Wiederholen
+    undo_label: "Rückgängig: {label}"
+    undo_nothing: Rückgängig (nichts zum Rückgängigmachen)
+    redo_label: "Wiederholen: {label}"
+    redo_nothing: Wiederholen (nichts zum Wiederholen)
+    nothing_to_undo: Es gibt keine Änderung, die rückgängig gemacht werden kann.
+    nothing_to_redo: Es gibt keine Änderung zum Wiederholen.
+    undone: "Rückgängig gemacht ({label}): Der Kurs ist wieder so, wie er vorher war."
+    redone: "Wiederholt ({label})."
+    undone_broken: "Rückgängig gemacht ({label}), aber der Kurs lässt sich nicht laden: {error}"
+    redone_broken: "Wiederholt ({label}), aber der Kurs lässt sich nicht laden: {error}"
+  js:
+    stat_failed: "Konnte nicht geladen werden. Versuch es noch einmal."
+    link_copy: "Kopieren"
+    link_copied: "Kopiert ✓"
+    ai_edit_heading: "„{title}“ mit KI bearbeiten"
+    link_selected: "Markiert"
+    kind_json: Kein gültiges JSON
+    kind_rules: Gegen die Kursregeln
+    kind_refused: Nicht gespeichert
+    json_hint: "suche kurz vor dieser Stelle nach einem fehlenden Komma, Anführungszeichen oder einer fehlenden Klammer, oder nach einem Komma direkt vor } oder ]. Nichts davon wird gespeichert, bevor es gültiges JSON ist."
+    problem_field: "Feld „{field}“"
+    problem_line_col: "Zeile {line}, Spalte {column}"
+    problem_line: "Zeile {line}"
+    problem_in: " in {where}"
+    problem_sep: ", "
+    problem_fix: " Zum Beheben: {hint}"
+    problem_text: "{kind}{where}: {message}{fix}"
+    json_empty: "Das Feld ist leer; schreibe die ganze Datei als ein JSON-Objekt, { … }."
+    json_end: "Der Text endet, bevor alle { und [ geschlossen sind"
+    json_escape: Ein Backslash im Text beginnt eine Escape-Sequenz, die JSON nicht kennt; schreibe \\ für einen Backslash
+    json_control: Ein Zeilenumbruch oder Tabulator in einem Text in Anführungszeichen; schreibe stattdessen \n oder \t
+    json_number: Eine Zahl ist nicht so geschrieben, wie JSON Zahlen schreibt
+    json_single_quotes: Text muss in doppelten Anführungszeichen ("…") stehen, nicht in einfachen
+    json_value: "Erwartet wurde ein Wert: Text in doppelten Anführungszeichen, eine Zahl, true, false, null, { oder ["
+    json_key: Erwartet wurde ein Schlüssel in doppelten Anführungszeichen
+    json_colon: "Erwartet wurde ein : nach dem Schlüssel"
+    json_comma_brace: "Erwartet wurde ein Komma oder }"
+    json_trailing_comma: "Direkt vor } oder ] steht ein Komma, was JSON nicht erlaubt"
+    json_comma_bracket: Erwartet wurde ein Komma oder ]
+    json_more: Nach dem Ende des JSON steht noch mehr Text
+    settings_place: die Kurseinstellungen
+    placement_place: "der Einstufungstest"
+    quoted: "„{text}“"
+    valid_json_table: Gültiges JSON. Wird beim Tippen gespeichert; die Kursregeln werden dann geprüft.
+    not_saved_refused: "Nicht gespeichert: die Änderung wurde wegen {place} abgelehnt; dort steht, warum."
+    goto_line: "Zu Zeile {n} springen"
+    saved_broken: "Gespeichert, aber der Kurs lässt sich nicht laden: {warning}"
+    rename_lesson: Name der Lektion
+    rename_course: Titel des Kurses
+    new_lesson: Neue Lektion
+    edit_new_lesson: Die neue Lektion bearbeiten
+    move_new_lesson: "Die neue Lektion verschieben: ziehen oder mit den Pfeiltasten"
+    delete_new_lesson: Die neue Lektion löschen
+    duplicate_new_lesson: "Die neue Lektion duplizieren"
+    copy_of: "{title} (Kopie)"
+    duplicate_bad_json: "Korrigiere zuerst das JSON von {name} und dupliziere es dann."
+    settings_need_units: "Korrigiere zuerst das JSON der Kurseinstellungen: Es braucht eine Liste „units“."
+    load_settings_failed: die Kurseinstellungen konnten nicht geladen werden
+    new_unit: Neue Einheit
+    words_failed: "Die Wörter konnten nicht gelesen werden. Versuche es noch einmal."
+    words_skip_no_split: "Zeile {line} übersprungen, nichts trennt das Wort von seiner Bedeutung: {text}"
+    words_skip_duplicate: "Zeile {line} übersprungen, das Wort steht schon in der Liste: {text}"
+    words_skip_too_many: "Zeile {line} übersprungen, zu viele Wörter für eine Lektion: {text}"
+    words_read:
+      one: "{n} Wort gelesen"
+      other: "{n} Wörter gelesen"
+    words_added:
+      one: "Lektion mit {n} Wort hinzugefügt."
+      other: "Lektion mit {n} Wörtern hinzugefügt."
+    rename_unit: Name der Einheit
+    need_one_lesson: Ein Kurs braucht mindestens eine Lektion; lösche stattdessen den ganzen Kurs.
+    need_one_unit: Ein Kurs braucht mindestens eine Einheit.
+    whole_lesson_placeholder: Eine ganze Lektion als JSON.
+    loading: Wird geladen…
+    load_file_failed: die Datei konnte nicht geladen werden
+    forms_need_object: Der Formularmodus braucht ein JSON-Objekt.
+    loading_form: Formular wird geladen…
+    fold_unit: "{title} einklappen"
+    add_lesson_to: "Eine Lektion zu {title} hinzufügen"
+    delete_unit: "Die Einheit {title} löschen"
+    delete_lesson_confirm: "„{name}“ löschen? Dein Fortschritt darin geht mit (Rückgängig holt ihn zurück)."
+    undo_unsaved: Deine ungespeicherten Änderungen rückgängig machen
+    unsaved_undone: Deine ungespeicherten Änderungen wurden rückgängig gemacht.
+    valid_json_file: Gültiges JSON. Die Kursregeln werden beim Speichern geprüft.
+    at_most: "höchstens {max}"
+    at_least: "mindestens {min}"
+    char_count: "{n} / {max} Zeichen"
+    char_count_problem: "{count} · {problem}"
+    starting: Wird gestartet…
+    saving: Wird gespeichert…
+    modal_count_rewritten: "{done} von {total} Lektionen umgeschrieben oder hinzugefügt"
+    modal_count_edited: "{done} von {total} Lektionen umgeschrieben"
+    modal_count_written: "{done} von {total} Lektionen geschrieben"
+    review_leave_confirm: Ohne Übernehmen verlassen? Was du weggelassen oder bearbeitet hast, wird nicht gespeichert.
+    review_edited_file_tip: "Hat von dir bearbeitete Zeilen, die immer bleiben: Mache sie rückgängig, um diese Lektion wegzulassen"
+    review_edited_line_tip: Hält eine von dir bearbeitete Zeile, die bleibt
+    review_changes:
+      one: "{n} Änderung"
+      other: "{n} Änderungen"
+    review_lessons:
+      one: "{n} Lektion"
+      other: "{n} Lektionen"
+    review_and: "{a} und {b}"
+    review_left_out: "{parts} weggelassen"
+    review_sep: ", "
+    review_lines_edited:
+      one: "{n} Zeile bearbeitet"
+      other: "{n} Zeilen bearbeitet"
+    accept_rest: Den Rest übernehmen
+    accept: Übernehmen
+    none: (keine)
+    edit_line_label: Diese Zeile als JSON-Text
+    card_progress: "{phase} · {done} von {total} Lektionen"
+    your_provider: dein Anbieter
+    files_too_large: Diese Dateien sind zu groß oder kein Text; kopiere stattdessen ihren Text hinein.
+    not_text_file: Das sieht nicht nach einer Textdatei aus. Bei einer PDF oder einem Dokument kopiere den Text hinein.
+    form_load_failed: das Kursformat konnte nicht geladen werden
+    form_kept: "Unverändert gelassen (bearbeite sie als JSON): {keys}"
+    form_move_up: Nach oben
+    form_move_down: Nach unten
+    form_remove: Entfernen
+    form_right_answer: Die richtige Antwort
+    form_add: + Hinzufügen
+    form_add_to: "Zu {list} hinzufügen"
+    form_remove_key: "{key} entfernen"
+    form_key: Schlüssel
+    delete_item_confirm: "Diesen Eintrag löschen? Mit Rückgängig kommt er zurück."
+    guide_derive_confirm: "Die von Hand geordneten Schritte verwerfen und vom Guide neu ableiten lassen? Hier geschriebene Tipps und Konzeptkarten gehen verloren (Rückgängig bringt sie zurück)."
+    form_key_to_add: Hinzuzufügender Schlüssel
+    form_add_key: Schlüssel hinzufügen
+    form_kind: Art
+    form_option: "Option {n}"
+    estimate_lessons:
+      one: "{n} Lektion"
+      other: "{n} Lektionen"
+    estimate_minutes:
+      one: "etwa {n} Minute"
+      other: "etwa {n} Minuten"
+    estimate_cost: "etwa {cost} CA-$"
+    estimate_sep: " · "
+  stat:
+    next_lesson: "Nächste Lektion zum Bestehen"
+    all_passed: "Alle Lektionen sind bestanden."
+    last_passed: "Zuletzt bestanden: {title}, {when}"
+    practise_next: "Als Nächstes üben"
+    nothing_to_practise: "Noch nichts zu üben. Eine Lektion erscheint hier, sobald du ihre Fragen beantwortet hast und sie noch nicht beherrschst."
+    score: "{pct} %"
+    fading: "{pct} %, war beherrscht"
+    info_label_passed: "Was als bestanden zählt"
+    info_label_mastered: "Wie Beherrschung funktioniert"
+    info_passed: "Eine Lektion ist bestanden, wenn du sie gelesen und eine Runde ihrer Fragen mit mindestens {pct} % richtig beendet hast, in jedem Modus."
+    info_mastered: "Jede richtige Antwort hebt den Wert einer Lektion, jede falsche senkt ihn. Ab {pct} % gilt die Lektion als beherrscht. Nach 3 Tagen ohne Übung sinkt der Wert langsam, so kann eine beherrschte Lektion wieder zurückfallen."
+  settings:
+    title: "Kurseinstellungen"
+    level: "Niveau"
+    level_info: "Was ein Niveau ist"
+    open_label: "Einstellungen für {title}"
+    about: "Über diese Einstellungen"
+    about_p: "Jede Einstellung hier lässt sich jederzeit gegen eine andere tauschen. Eine Änderung setzt nie etwas zurück: Dein Fortschritt und alles, was ein Motivator gezählt hat, bleiben, wie sie sind."
+    wizard_title: "Willkommen bei {course}"
+    motivator: "Motivator"
+    motivator_ask: "Wähle einen Motivator"
+    motivator_info: "Was ein Motivator ist"
+    motivator_info_p: "Motivatoren belohnen dich für deine Arbeit: Jeder zeigt deinen Fortschritt auf seine Weise oben auf der Kursstartseite und am Ende jeder Lektion. Du kannst ihn nach dem Start jederzeit in den Einstellungen dieses Kurses ändern."
+    save: "Speichern"
+    ok: "OK"
+    get_started: "Los geht's!"
+    prev: "Vorheriger Schritt"
+    next: "Nächster Schritt"
+    close: "Schließen"
+  placement:
+    take: "Einstufungstest machen"
+    question_of: "Frage {n} von {total}"
+    suggest: "Dein Ergebnis: fang bei {unit} an"
+    show_card: "Zeugnis zeigen"
+    hide_card: "Zeugnis ausblenden"
+    retake: "Noch einmal"
+    col_level: "Stufe"
+    col_correct: "Richtig"
+    all_right: "alles richtig"
+    some_right: "teils richtig"
+    none_right: "nichts richtig"
+    failed: "Der Einstufungstest hat nicht geladen. Wähle stattdessen eine Stufe."
+  share:
+    dialog_lead: "Jede Adresse bekommt einen eigenen Link, den du weitergibst: Dieser Server sendet keine E-Mails. Sie lernen mit dem Kurs mit eigenem Fortschritt; nur du kannst ihn ändern."
+    make_links: "Einladungslinks erstellen"
+    made:
+      one: "{n} Einladungslink erstellt. Kopiere ihn und gib ihn weiter; er wird nur jetzt angezeigt."
+      other: "{n} Einladungslinks erstellt. Kopiere jeden und gib ihn weiter; sie werden nur jetzt angezeigt."
+    link_label: "Einladungslink für {email}"
+    copy: "Kopieren"
+    button: Teilen
+    button_count: "Teilen ({n})"
+    dialog_title: Diesen Kurs teilen
+    status_opened: geöffnet
+    status_invited: eingeladen
+    remove: Entfernen
+    remove_label: "Teilen mit {email} beenden"
+    emails_label: E-Mail-Adressen
+    emails_note: (eine pro Zeile oder durch Kommas getrennt)
+    close: Schließen
+    own_address: "Das ist deine eigene Adresse: Der Kurs gehört dir bereits."
+    too_many_course: "Ein Kurs kann mit höchstens {max} Adressen geteilt werden."
+    too_many_request: "Du kannst auf einmal mit höchstens {max} Adressen teilen."
+    at_least_one: Gib mindestens eine E-Mail-Adresse ein.
+    bad_address: "„{address}“: {error}"
+    bad_address_notice: "Eine dieser Adressen ist keine E-Mail-Adresse. Prüfe die Liste und schick sie noch einmal."
+    already_had: "{n} hatte bereits eine."
+    removed_notice: "Nicht mehr mit dieser Adresse geteilt."
+    not_on_list: Diese Adresse stand nicht auf der Liste.
+    link_taken: Ein anderes Konto hat diesen Link bereits benutzt. Bitte den Besitzer des Kurses, ihn mit deiner Adresse zu teilen.
+    link_gone: Dieser Link funktioniert nicht mehr. Bitte den Besitzer des Kurses, ihn noch einmal mit dir zu teilen.
+    not_ready: Dieser Kurs ist noch nicht bereit zum Öffnen. Bitte den Besitzer, und versuche den Link später erneut.
+    login_notice: "Es sieht so aus, als hättest du bei uns kein Konto! Bitte melde dich an oder registriere dich, um deinen Kurs {title} weiter anzusehen."
+    shared_heading: Mit dir geteilt
+    dot_label: "Von {owner} mit dir geteilt"
+    shared_title: Mit dir geteilt
+    shared_body: "Dieser Kurs gehört {owner}, der ihn mit dir geteilt hat. Du kannst mit deinem eigenen Fortschritt daraus lernen; nur {owner} kann die Lektionen ändern."
+    ok: OK
+motivator:
+  stats:
+    title: "Statistiken und Kennzahlen"
+    about: "Dein Tagesziel als Ring, deine Serie, bestandene Lektionen, gesammelte Begriffe und wie weit du in der Einheit bist."
+    reward:
+      passed: "✓ Bestanden"
+      unit: "🏁 Einheit abgeschlossen"
+      goal_met: "Tagesziel erreicht"
+      today: "{n} / {goal} heute"
+  xp:
+    title: "XP"
+    about: "Alles, was du im Kurs tust, bringt XP, und XP heben deine Stufe, wie bei einer Spielfigur."
+    lv: "Stufe"
+    level_label: "Stufe {n}"
+    to_next: "{n} / {need} XP"
+    bar_label: "XP bis Stufe {n}"
+    today: "heute: {n} / {goal} XP"
+    info_label: "Wie man XP verdient"
+    info_title: "Wie man XP verdient"
+    info_p: "Alles, was du in diesem Kurs tust, bringt XP, egal welchen Motivator du trägst. Dein Tagesziel bleibt dasselbe, gezählt in XP."
+    info_levels: "Stufe 2 kostet {step} XP, und jede weitere Stufe kostet {step} XP mehr als die davor."
+    col_xp: "XP"
+    bonus:
+      pass: "Eine Lektion bestehen"
+      goal: "Das Tagesziel erreichen"
+      unit: "Eine Einheit abschließen"
+    reward:
+      earned: "+{n} XP"
+      level_up: "Stufe aufgestiegen! Stufe {n}"
+  skc:
+    title: "Skrongle Cash"
+    short: "SKC"
+    about: "Spielgeld für deinen Fortschritt, wie Tickets in einer Spielhalle: Jeder Kurs hat sein eigenes Guthaben an Skrongle Cash (SKC)."
+    today: "heute: {n} / {goal} SKC"
+    reward:
+      amount: "+{n} SKC"
+      pass: "+{n} SKC Lektion bestanden"
+      goal: "+{n} SKC Tagesziel"
+      unit: "+{n} SKC Einheit abgeschlossen"
+    info:
+      label: "So verdienst du Skrongle Cash"
+      p: "Skrongle Cash (SKC) ist Spielgeld für diesen Kurs. Du verdienst es mit allem, was du hier tust, egal welchen Motivator du trägst:"
+      per_point: "Jeder Aufwandspunkt"
+      per_pass: "Lektion bestanden"
+      per_goal: "Tagesziel erreicht"
+      per_unit: "Einheit abgeschlossen"
+      points: "Aufwandspunkte, so wie das Tagesziel sie zählt:"
+      shop: "Gib SKC im Laden dieses Kurses für Abzeichen aus. Sie erscheinen auf dieser Karte und bleiben dir, egal welchen Motivator du trägst."
+    shop:
+      open: "Laden"
+      title: "Laden"
+      shelf: "Deine Abzeichen"
+      shelf_empty: "Noch keine Abzeichen."
+      badges: "Abzeichen"
+      buy: "Kaufen"
+      owned: "Gekauft"
+      back: "Zurück zum Kurs"
+      refused_title: "Nicht gekauft"
+      refused_owned: "Du hast {title} schon."
+      refused_short: "Dir fehlen {n} SKC für {title}."
+      refused_unknown: "Dieses Abzeichen gibt es im Laden nicht."
+    badge:
+      sprout: "Keimling"
+      lantern: "Laterne"
+      kite: "Drachen"
+      compass: "Kompass"
+      lighthouse: "Leuchtturm"
+      comet: "Komet"
+
+# Der Lektionseditor (#841): static/lesson-editor.js und static/lesson-preview.js.
+editor:
+  js:
+    outline: "Lektionsgliederung"
+    tab_outline: "Gliederung"
+    tab_edit: "Bearbeiten"
+    tab_preview: "Vorschau"
+    edit_as_json: "{ } Als JSON bearbeiten"
+    has_problem: "Die Kursregeln würden das ablehnen"
+    lint_title: "Zu prüfen"
+    lint_close: "Schließen"
+    field_checks_title: "Prüfungen für dieses Feld"
+    field_checks_close: "Schließen"
+    untitled: "(ohne Titel)"
+    pick_item: "Wähle etwas in der Gliederung aus oder füge etwas hinzu."
+    sec_lesson: "Lektion"
+    sec_content: "Text"
+    sec_vocabulary: "Vokabeln"
+    sec_quiz: "Quiz"
+    sec_listening: "Hören"
+    sec_sprint: "Sprint"
+    sec_conversations: "Gespräche"
+    sec_conjugations: "Konjugationen"
+    sec_guide: "Guide"
+    add_vocab: "+ Wort"
+    add_quiz: "+ Frage"
+    add_listening: "+ Satz"
+    add_conversation: "+ Gespräch"
+    add_conjugation: "+ Tabelle"
+    add_icon: "+ Pfad-Symbol"
+    add_bites: "+ Häppchen"
+    add_sorts: "+ Sortieren"
+    add_spots: "+ Fehlersuche"
+    add_builds: "+ Bauen"
+    add_scales: "+ Tonleiter"
+    add_to: "Zu {list} hinzufügen"
+    another: "+ noch eins"
+    another_option: "Noch eine Option …"
+    add_word: "+ Wort"
+    no_words: "Diese Lektion hat noch keine Vokabeln"
+    add_prereq: "+ eine Lektion, die man vorher lesen sollte"
+    add_line: "+ Zeile"
+    add_item: "+ Eintrag"
+    add_bucket: "+ Fach"
+    add_distractor: "+ Ablenker"
+    remove: "Entfernen"
+    remove_bucket: "Dieses Fach entfernen"
+    delete: "✕ Löschen"
+    duplicate: "⧉ Duplizieren"
+    previous: "↑ Vorherige"
+    next: "↓ Nächste"
+    move_up: "Nach oben"
+    move_down: "Nach unten"
+    move_prev_bucket: "In das Fach davor verschieben"
+    move_next_bucket: "In das nächste Fach verschieben"
+    right_answer: "Die richtige Antwort"
+    option_n: "Option {n}"
+    answer_true: "Wahr"
+    answer_false: "Falsch"
+    optional: "optional"
+    ids_note: "IDs, Slug, Einheit und Reihenfolge legt die Lektionstabelle fest; bearbeite sie als JSON."
+    lesson_head: "Die Lektion"
+    grp_about: "Über die Lektion"
+    f_title: "Titel"
+    f_summary: "Zusammenfassung"
+    h_summary: "Eine Zeile für Listen."
+    f_focus: "Schwerpunkt"
+    h_focus: "Das Eine, das die Lektion vermittelt, in einer Wendung."
+    f_group: "Gruppe"
+    h_group: "Eine Gruppen-ID aus den Kurseinstellungen; „general“, wenn leer."
+    grp_prereq: "Vorher lesen"
+    h_prereq: "Lektionen, die Lernende idealerweise vor dieser durcharbeiten sollten."
+    content_head: "Der Text"
+    content_sub: "Markdown; jede ##-Überschrift beginnt eine Karte"
+    f_content: "Text"
+    h_content: "Tabellen, Listen, Fettschrift, Codeblöcke und Zitate funktionieren. Text vor der ersten ##-Überschrift wird zur Einführungskarte."
+    cards_label: "Karten:"
+    cards_none: "Noch keine Karten. Schreibe Text mit einer ##-Überschrift pro Karte."
+    intro_card: "Einführung"
+    cards:
+      one: "{n} Karte"
+      other: "{n} Karten"
+    word_n_of: "Wort {n} von {total}"
+    grp_word: "Wort"
+    f_term: "Begriff"
+    f_meaning: "Bedeutung"
+    grp_example: "Beispiel"
+    grp_example_aside: "optional, mit Bedeutung"
+    f_example: "Beispiel"
+    f_example_meaning: "Bedeutung des Beispiels"
+    grp_used: "Verwendet von"
+    used_by_questions: "Die Fragen {list} vermitteln es (über den Namen oder die Antwort); Karteikarten, Wortpaare und Sprint nutzen jedes Wort."
+    used_by_none: "Noch keine Frage vermittelt es; Karteikarten, Wortpaare und Sprint nutzen jedes Wort."
+    question_n_of: "Frage {n} von {total}"
+    type_multiple-choice: "Multiple Choice"
+    type_fill-in-blank: "Lückentext"
+    type_true-false: "Wahr oder falsch"
+    type_numeric: "Eine Zahl"
+    type_expression: "Eine Formel"
+    type_fill-bar: "Takt füllen"
+    type_chord-spell: "Schreib den Akkord"
+    type_staff-note: "Setz die Note"
+    type_keyboard: "Finde ihn auf den Tasten"
+    type_algebra-tiles: "Algebra-Kacheln"
+    type_clock: "Uhr stellen"
+    set_clock: "Stell die Uhr"
+    h_clock: "Eine Uhrzeit H:MM mit einer Stunde von 1 bis 12, etwa 3:45. Der Lernende zieht den Minutenzeiger dorthin."
+    f_step: "Minutenschritt"
+    h_step: "Wie weit ein Schritt des Minutenzeigers geht: standardmäßig 5, 15 für Viertelstunden. Er teilt 60."
+    f_clock_options: "Uhrzeiten zur Wahl"
+    h_clock_options: "Füll sie aus, um die Frage umzudrehen: Die Uhr zeigt die Antwort, und der Lernende wählt sie unter diesen Uhrzeiten (H:MM)."
+    check_clock: "Schreib die Uhrzeit als H:MM mit einer Stunde von 1 bis 12, etwa 3:45"
+    type_unknown: "Unbekannter Typ"
+    grp_ask: "Fragen"
+    grp_answer: "Antwort"
+    grp_after: "Nach der Antwort"
+    f_prompt: "Aufgabe"
+    f_statement: "Aussage"
+    h_statement: "Die Lernenden sagen, ob sie wahr oder falsch ist."
+    h_prompt_blank: "Schreibe ___ dorthin, wo die Antwort hingehört. Sprint füllt sie aus Wortkacheln; Study lässt die Lernenden tippen."
+    h_prompt_math: "Schreibe Mathe als einfachen Text oder Unicode (x², √2, π), nicht als LaTeX."
+    f_options: "Optionen"
+    f_options_aside: "wähle die richtige"
+    f_which_right: "Welche ist richtig?"
+    f_correct: "Richtige Antwort"
+    f_accepted: "Auch akzeptieren"
+    h_accepted: "Weitere Antworten, die als richtig zählen."
+    h_fill: "Geprüft ohne Groß- und Kleinschreibung, Satzzeichen und überzählige Leerzeichen; ein fehlender Akzent ist ein knapper Fehler."
+    h_numeric: "Nach Wert bewertet: 3/4, 0.75, 40 %, 2^10 und sqrt(2) gelten alle als Zahlen. Mehrere trennst du mit ; für eine Liste in beliebiger Reihenfolge."
+    f_tolerance: "Toleranz"
+    h_tolerance: "Wie weit eine Antwort danebenliegen darf. 0.01 heißt „auf zwei Nachkommastellen“."
+    f_unit: "Einheit"
+    f_abc: "Musik"
+    h_abc: "ABC-Notation, als Notenzeile über der Frage gezeichnet. Eine Note: X:1, L:1/4, K:C und A, jeweils in einer eigenen Zeile."
+    f_play: "Klang"
+    h_play: "ABC-Notation, die ein Lautsprecher-Knopf abspielt. Zwei einzelne Noten erklingen nacheinander, dann zusammen; ohne Musik werden die Noten nach der Antwort als Notenzeile gezeigt."
+    f_option_kind: "Antworten sind"
+    option_kind_text: "Text"
+    option_kind_abc: "Notenzeilen"
+    h_abc_bar: "Der Takt in ABC-Notation. Eine unsichtbare Pause markiert die Lücke, die die Bausteine füllen: B B x2|"
+    f_tiles: "Bausteine"
+    h_tiles: "Notenwerte in ABC, eine Gruppe pro Baustein ohne Leerzeichen: B2, BB, B/B/B. Ein Baustein darf mehrmals vorkommen."
+    f_exact: "Was zählt"
+    exact_any: "Alle Bausteine, die die Lücke füllen"
+    exact_only: "Nur die richtige Antwort"
+    h_bar_answer: "Bausteine, die die Lücke füllen, durch Leerzeichen getrennt: B2 oder B B. Nötig, wenn nur die richtige Antwort zählt; sonst wird sie nach einer falschen Antwort gezeigt."
+    f_chord_tiles: "Bausteine"
+    h_chord_tiles: "Noten in ABC, durch Leerzeichen getrennt: D E F ^F _G A B. Alle Noten der Antwort und ein paar andere."
+    h_chord_answer: "Die 3 oder 4 Noten des Akkords in ABC, in beliebiger Reihenfolge: D ^F A. Die Schreibweise zählt: _G ist nicht ^F."
+    f_clef: "Schlüssel"
+    clef_treble: "Violinschlüssel"
+    clef_bass: "Bassschlüssel"
+    f_any_octave: "Jede Oktave zählt"
+    h_staff_answer: "Eine Note in ABC mit ihrer Oktave: C ist das eingestrichene C, c das C darüber, C, das C darunter. ^F ist Fis, _B ist B."
+    h_unit: "Wird nach dem Antwortfeld angezeigt; die Lernenden können sie eintippen oder nicht."
+    f_expression_aside: "ein algebraischer Ausdruck"
+    f_pile: "Kacheln"
+    h_pile: "Der Stapel als a x^2 + b x + c: a von 1 bis 3, b bis 12, c bis 20, ohne Minus. x^2 + 5x + 6 ergibt ein großes Quadrat, fünf Streifen und sechs kleine Quadrate."
+    f_sides_aside: "die zwei Seiten multipliziert"
+    h_sides: "Etwa (x + 2)(x + 3). Ausmultipliziert muss es die Kacheln ergeben. Die Antwort zählt in jeder Reihenfolge, aber nur als zwei Seiten."
+    h_expression: "Geschrieben mit + - * / ^, Klammern, 2x, sqrt, pi; Variablen sind einzelne Buchstaben. Jede gleichwertige Form wird akzeptiert, z. B. (x+1)(x+1)."
+    h_key: "Die Taste als eine ABC-Note: C ist das mittlere C, ^F ist Fis, _B ist B, c ist das C über dem mittleren C. Jede Schreibweise derselben Taste zählt."
+    f_octaves: "Tasten"
+    octaves_one: "Eine Oktave"
+    octaves_two: "Zwei Oktaven"
+    f_key_counts: "Was zählt"
+    key_any: "Dieser Ton auf jeder Taste"
+    key_exact: "Nur diese Taste"
+    h_key_accepted: "Weitere Töne, die auch zählen, in ABC: E, G."
+    h_expression_form: "Wenn die Frage eine bestimmte Form verlangt („vollständig faktorisieren“), stelle sie stattdessen als Multiple Choice: Gleichwertige Formen werden alle akzeptiert."
+    f_explanation: "Erklärung"
+    f_hints: "Hinweise"
+    f_teaches: "Vermittelt"
+    f_teaches_aside: "Vokabeln dieser Lektion"
+    h_teaches: "Wird bei einer richtigen Antwort gesammelt. Ein Wort, das der Antwort entspricht, wird ohnehin gesammelt."
+    listening_n_of: "Satz {n} von {total}"
+    grp_hear: "Anhören"
+    f_text_exact: "Text"
+    h_listening_text: "Genau so, wie er getippt werden soll, 1 bis 30 Wörter; schreibe Zahlen als Wörter. Innerhalb der Lektion einmalig."
+    hear_it: "Anhören"
+    f_note: "Notiz"
+    h_note: "Ein einzeiliger Hinweis oder das neue Wort: „Neues Wort: la oficina = das Büro.“"
+    conversation_head: "Gespräch"
+    grp_scene: "Szene"
+    f_scenario: "Situation"
+    h_scenario: "Ein oder zwei Sätze, die die Szene beschreiben."
+    f_role_a: "Rolle A"
+    f_role_b: "Rolle B"
+    grp_lines: "Zeilen"
+    grp_lines_aside: "Sprecher, Text, Bedeutung"
+    f_speaker: "Sprecher"
+    f_line_text: "Was gesagt wird"
+    f_line_meaning: "Bedeutung"
+    f_line_note: "Notiz (optional)"
+    conjugation_head: "Tabelle: {item}"
+    item: "Eintrag"
+    grp_item: "Eintrag"
+    f_item: "Eintrag"
+    f_set: "Satz"
+    grp_forms: "Formen"
+    grp_forms_aside: "eine pro Platz im Paradigma des Kurses"
+    grp_forms_free: "die Kurseinstellungen definieren kein Paradigma"
+    grp_art: "Bild"
+    grp_art_aside: "optionales ASCII-Bild, höchstens 8 Zeilen à 24 Zeichen"
+    f_art: "Bild"
+    icon_head: "Pfad-Symbol"
+    icon_sub: "der Halt der Lektion auf dem Sprint-Pfad"
+    grp_icon: "Symbol"
+    f_icon: "Emoji"
+    h_icon: "Ein Emoji, anders als bei jeder anderen Lektion."
+    bite_head: "Häppchen"
+    bite_sub: "die Idee in einem Atemzug · nicht bewertet"
+    grp_say: "Sag es"
+    f_emoji: "Emoji"
+    h_emoji: "Optional; sonst 💡."
+    f_rule: "Regel"
+    h_rule: "Eine Zeile, knackig."
+    grp_show: "Zeig es"
+    sort_head: "Sortieren"
+    sort_sub: "tippe jeden Eintrag in das richtige Fach"
+    grp_buckets: "Fächer und Einträge"
+    grp_buckets_aside: "2–4 Fächer, 3–10 Einträge; ziehe einen Eintrag in ein anderes Fach oder nutze ◂ ▸"
+    f_bucket: "Fach"
+    f_sort_item: "Eintrag"
+    f_sort_play: "Klang (ABC)"
+    f_why: "Warum"
+    spot_head: "Fehlersuche"
+    spot_sub: "tippe das eine falsche Wort an"
+    f_sentence: "Satz"
+    f_sentence_aside: "mit einem falschen Wort darin"
+    f_wrong: "Falsches Wort"
+    f_wrong_aside: "anklicken"
+    spot_type_first: "Tippe zuerst den Satz."
+    spot_word_twice: "Dieses Wort steht mehrmals im Satz und kann deshalb nicht das falsche Wort sein"
+    f_fix: "Korrektur"
+    h_fix: "Wird nach dem Antippen anstelle des falschen Worts angezeigt."
+    h_spot_abc: "ABC-Notation mit einer falschen Note, statt eines Satzes als Notenzeile gezeigt. Eine T:-Zeile wird als Überschrift gezeigt."
+    f_wrong_note: "Falsche Note"
+    f_wrong_note_aside: "ihre Nummer, ab 1 gezählt"
+    h_fix_note: "Die richtige Note in ABC: F, ^C für Cis, _B für B."
+    build_head: "Bauen"
+    scale_head: "Tonleiter"
+    scale_sub: "die Töne der Tonleiter auf die Leiter tippen"
+    f_notes: "Töne"
+    f_notes_aside: "8, von unten nach oben"
+    h_notes: "In ABC, mit Leerzeichen getrennt: D E ^F G A B ^c d. Der erste ist schon eingetragen."
+    f_decoys: "Köder"
+    h_decoys: "Töne, die nicht zur Tonleiter gehören, zwischen den Kacheln: F c"
+    build_sub: "setze den Text aus gemischten Kacheln zusammen"
+    f_text: "Text"
+    grp_tiles: "Kacheln"
+    f_from_text: "Aus dem Text"
+    f_distractors: "Ablenker"
+    h_distractors: "Falsche Kacheln, die unter den Vorrat gemischt werden."
+    guide_head: "Guide"
+    guide_sub: "die Reihenfolge, in der die Lektion abläuft"
+    guide_auto: "abgeleitet"
+    guide_derived: "Keine von Hand geordneten Schritte: Der Guide erstellt sie aus den Karten des Textes, Fünferpaketen von Wörtern und den Fragen ab der dritten Karte."
+    guide_order_by_hand: "Schritte von Hand ordnen"
+    guide_back_to_derived: "Zurück zu abgeleiteten Schritten"
+    steps:
+      one: "{n} Schritt"
+      other: "{n} Schritte"
+    grp_steps: "Schritte"
+    grp_steps_aside: "mit ↑ ↓ verschieben; ein Abschnitt oder eine Frage wird aus dieser Lektion gewählt"
+    guide_kind_section: "ABSCHNITT"
+    guide_kind_question: "FRAGE"
+    guide_kind_vocab: "KARTEIKARTEN"
+    guide_kind_tip: "TIPP"
+    guide_kind_concept: "KONZEPT"
+    guide_kind_unknown: "?"
+    guide_add_section: "+ Abschnitt"
+    guide_add_question: "+ Frage"
+    guide_add_vocab: "+ Karteikarten"
+    guide_add_tip: "+ Tipp"
+    guide_add_concept: "+ Konzeptkarte"
+    guide_vocab_n: "Die nächsten {n} Wörter als Karteikarten"
+    step_n_kind: "Schritt {n} · {kind}"
+    guide_step_unknown: "Diesen Schritt kennt der Guide nicht; bearbeite ihn als JSON."
+    f_section: "Abschnitt"
+    h_section: "Eine Überschrift des Textes, erkannt an ihrem Anfang."
+    f_question: "Frage"
+    f_vocab_n: "Wie viele Wörter"
+    h_vocab_n: "Die nächsten, die noch nicht verteilt sind; die Lektion hat {n}."
+    f_tip: "Tipp"
+    f_markdown: "Kartentext"
+    check_prompt_empty: "Die Aufgabe ist leer"
+    check_blank_ok: "Hat eine Lücke"
+    check_blank_missing: "Kein ___ in der Aufgabe: Die Lernenden tippen die ganze Antwort, und Sprint zeigt keinen Platz"
+    check_type: "Wähle einen Typ"
+    check_options_two: "Braucht mindestens 2 Optionen"
+    check_options_right: "Wähle, welche Option richtig ist"
+    check_options_same: "Zwei Optionen lauten gleich"
+    check_options_ok: "{n} Optionen, bei jedem Quiz gemischt"
+    check_answer_empty: "Die Antwort ist leer"
+    check_tiles_two: "Gib mindestens 2 Bausteine an"
+    check_chord_notes: "Gib 3 oder 4 Noten an"
+    check_chord_tiles: "Jede Note der Antwort muss ein Baustein sein"
+    check_staff_note: "Schreib eine Note in ABC, zum Beispiel G, ^F oder c"
+    check_key_note: "Schreib eine Note in ABC, etwa C, ^F oder _B"
+    check_true_false: "Wähle wahr oder falsch"
+    check_tolerance: "Die Toleranz muss eine Zahl ab 0 sein"
+    check_tolerance_ok: "Alles innerhalb von ±{n} zählt"
+    check_numeric_read: "Der Prüfer kann „{answer}“ nicht als Zahl lesen. Schreibe sie wie 12 oder 3/4, eine Einheit gehört ins Feld Einheit"
+    check_expression_read: "Der Prüfer kann „{answer}“ nicht als Ausdruck lesen. Schreibe ihn wie 2x + 1"
+    check_unit_numeric: "Toleranz und Einheit gibt es nur bei Zahlenfragen"
+    check_teaches: "„{term}“ steht nicht in den Vokabeln dieser Lektion"
+    check_explanation: "Noch keine Erklärung; die Lernenden sehen nach der Antwort keine"
+    check_vocab_both: "Ein Wort braucht einen Begriff und eine Bedeutung"
+    check_vocab_dup: "Ein anderes Wort hat diesen Begriff. Ändere eines davon"
+    check_vocab_unique: "In dieser Lektion einmalig"
+    check_example_meaning: "Gib auch dem Beispiel eine Bedeutung"
+    check_listening_words: "{n} Wörter; 1 bis 30"
+    check_listening_twice: "Ein anderer Satz hat diesen Text. Ändere einen davon"
+    check_listening_ok: "{n} Wörter"
+    check_note_empty: "Eine leere Notiz; lass sie lieber weg"
+    check_note_new_word: "Das neue Wort wird für die Lernenden hervorgehoben"
+    check_conv_two: "Braucht mindestens 2 Zeilen"
+    check_conv_both: "Beide Rollen müssen etwas sagen"
+    check_conv_empty: "Eine Zeile hat keinen Text"
+    check_conv_ok: "beide Rollen sprechen · {n} Zeilen mit 3–9 Wörtern und einer Bedeutung werden zu Sprint-Bauaufgaben"
+    check_conj_both: "Braucht einen Eintrag und eine Bedeutung"
+    check_conj_no_paradigm: "Die Kurseinstellungen definieren kein Paradigma, deshalb lässt sich diese Tabelle nicht anzeigen"
+    check_conj_set: "Wähle einen Satz des Paradigmas: {sets}"
+    check_conj_missing: "Fehlt: {slots}"
+    check_conj_ok: "Jeder Platz ist ausgefüllt"
+    check_conj_unknown: "„{slot}“ ist kein Platz des Paradigmas. Entferne ihn mit ✕"
+    check_conj_dup: "„{item}“ ist in diesem Satz schon konjugiert. Wähle einen anderen Satz oder ändere den Eintrag"
+    check_art: "Höchstens 8 Zeilen à 24 Zeichen"
+    check_icon: "Ein kurzes Zeichen, etwa ein Emoji"
+    check_bite: "Ein Häppchen braucht einen Titel und eine Regel"
+    check_sort_buckets: "2 bis 4 Fächer"
+    check_sort_items: "{n} Einträge; 3 bis 10"
+    check_sort_empty: "Ein Eintrag hat keinen Text"
+    check_sort_bucket: "Ein Eintrag zeigt auf ein Fach, das es nicht mehr gibt"
+    check_sort_ok: "{n} Einträge, jeder in einem Fach"
+    check_spot_once: "Das falsche Wort muss genau einmal im Satz vorkommen"
+    check_spot_ok: "„{word}“ kommt einmal vor"
+    check_spot_fix: "Gib die Korrektur an"
+    check_spot_note: "Gib die Nummer der falschen Note an, ab 1"
+    check_spot_fix_note: "Die Korrektur muss eine Note sein, etwa F, ^C oder _B"
+    check_build: "{n} Wörter; der Text braucht 2 bis 12 und eine Bedeutung"
+    check_build_ok: "{n} Wörter"
+    check_scale_notes: "Eine Tonleiter braucht 8 Töne, gefunden: {n}"
+    check_scale_note: "Jeder muss eine Note in ABC sein, etwa F, ^C oder _B: {note}"
+    check_scale_decoy: "Der Köder {note} ist ein Ton der Tonleiter"
+    check_scale_ok: "8 Töne"
+    check_guide_step: "Ein Schritt, den der Guide nicht kennt"
+    check_guide_section: "Keine Überschrift beginnt mit „{name}“. Wähle eine Überschrift oder entferne den Schritt"
+    check_guide_question: "Keine Frage „{id}“ in dieser Lektion. Wähle eine Frage oder entferne den Schritt"
+    check_guide_vocab: "Eine ganze Zahl von Wörtern, mindestens 1"
+    check_guide_tip: "Der Tipp ist leer"
+    check_guide_concept: "Eine Konzeptkarte braucht einen Titel und Text"
+    check_title: "Die Lektion braucht einen Titel"
+    check_content: "Die Lektion braucht etwas Text"
+    live_preview: "Live-Vorschau"
+    mode_study: "Study"
+    mode_sprint: "Sprint"
+    mode_guide: "Guide"
+    no_preview: "Hier gibt es nichts zur Vorschau."
+    preview_failed: "Die Vorschau konnte nicht erstellt werden: {error}"
+    check: "Prüfen"
+    try_again: "Nochmal versuchen"
+    hint: "Hinweis"
+    quick_check: "Kurzer Check"
+    answer_html: "Antwort: <strong>{answer}</strong>"
+    praise: "Richtig!"
+    almost: "Nicht ganz"
+    ph_number: "eine Zahl"
+    ph_expression: "eine Formel"
+    ph_text: "deine Antwort"
+    ph_heard: "was du gehört hast"
+    pick_right: "Wähle die richtige"
+    write_answer: "Schreibe die Antwort"
+    fill_gap: "Fülle die Lücke"
+    spell_chord: "Schreib den Akkord"
+    place_note: "Setz die Note"
+    find_key: "Finde ihn auf den Tasten"
+    type_it: "Tippe es …"
+    type_instead: "Stattdessen tippen"
+    crumb_lessons: "Lektionen"
+    pill_new: "Neu"
+    before_this: "Davor:"
+    focus_line: "Schwerpunkt: {focus}"
+    quiz_questions:
+      one: "{n} Quizfrage"
+      other: "{n} Quizfragen"
+    terms: "Begriffe"
+    flashcards_title: "Neue Wörter"
+    tap_reveal: "Tippe eine Karte an, um sie umzudrehen."
+    in_lang_this_is: "Auf {lang} heißt das …"
+    course_language: "die Sprache des Kurses"
+    listen_status: "Hör zu und tippe dann, was du gehört hast."
+    replay: "Nochmal abspielen"
+    conv_no_build: "Noch keine Zeile mit 3 bis 9 Wörtern und einer Bedeutung: Sprint baut aus diesem Gespräch nichts."
+    ladder: "Leiter"
+    wrong_rungs:
+      one: "{n} Sprosse falsch"
+      other: "{n} Sprossen falsch"
+    path_stop: "Der Pfad"
+    path_stop_note: "Das ist der Halt der Lektion auf dem Sprint-Pfad."
+    quick_bite: "Kleines Häppchen"
+    got_it: "Verstanden"
+    sort_it: "Sortiere es"
+    all_sorted: "Alles sortiert"
+    to_go: "noch {n}"
+    sort_slips:
+      one: "Alles sortiert, aber mit {n} Fehlgriff"
+      other: "Alles sortiert, aber mit {n} Fehlgriffen"
+    spot_mistake: "Finde den Fehler"
+    one_word_wrong: "Ein Wort ist falsch. Tippe es an."
+    one_note_wrong: "Eine Note ist falsch. Tippe sie an und wähle dann die Korrektur."
+    spot_note_preview: "Im Sprint-Modus tippt man Note {n} an und wählt {fix} aus drei Kacheln."
+    build_sentence: "Baue den Satz"
+    tap_tiles_in_order: "Tippe die Kacheln der Reihe nach an"
+    concept: "Konzept"
+    tip: "Tipp"
+    guide_derived_preview: "Der Guide leitet die Schritte dieser Lektion ab; ordne sie von Hand, um jeden einzeln anzusehen."
+    hand_empty: "Keine Wörter mehr für dieses Paket."
+    question_missing: "Keine Frage „{id}“ in dieser Lektion."
+    note_quiz: "Wie in Study und Practice. Prüfen bewertet mit dem Prüfer des Kurses; nichts wird gespeichert."
+    note_quiz_sprint: "Wie in einer Sprint-Runde. Die Kacheln sind die Antwort unter Wörtern der Lektion."
+    note_vocab: "Die Karteikarte des Guides; tippe, um sie umzudrehen."
+    note_vocab_sprint: "Eine Sprint-Auswahlaufgabe, bei der andere Wörter der Lektion die falschen Optionen sind."
+    note_listening: "Der Browser liest den Text in der Sprache des Kurses vor."
+    note_conversation: "Sprint baut Sätze aus Zeilen mit 3 bis 9 Wörtern und einer Bedeutung; das ist die erste."
+    note_conjugation: "Die Tabelle, wie die Lektionsseite sie zeigt."
+    note_ladder: "Die Sprint-Leiterübung für diese Tabelle."
+    note_sort: "Das Sortierspiel, wie Sprint es spielt."
+    note_spot: "Das Fehlersuche-Spiel, wie Sprint es spielt."
+    note_build: "Das Bauspiel, wie Sprint es spielt."
+    note_scale: "Die Tonleiter-Leiter, wie Sprint sie spielt."
+    scale_kicker: "Baue die Tonleiter"
+    scale_preview: "Im Sprint-Modus ist die erste Sprosse gefüllt; man tippt die anderen 7 Töne aus {n} Kacheln an."
+    note_bite: "Ein Häppchen eröffnet die Runde; nichts zu beantworten."
+    note_guide: "Der Guide bei diesem Schritt."
+    note_content: "Der Text der Lektionsseite."
+    advice_title: "Zu prüfen"
+    advice_count:
+      one: "{n} Punkt zu prüfen"
+      other: "{n} Punkte zu prüfen"
+    advice_none: "Nichts zu prüfen."
+    advice_close: "Schließen"
+
+clock:
+  js:
+    set_label: "Uhr. Zieh den Minutenzeiger oder nutze die Pfeiltasten; Bild auf und Bild ab verstellen eine Stunde."
+    read_label: "Die Uhr zum Ablesen"

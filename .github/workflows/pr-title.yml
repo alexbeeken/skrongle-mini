@@ -1,0 +1,25 @@
+# Every PR title carries the GitHub issue it works on, in square brackets:
+# "[123] Short summary". Re-runs when the title is edited. Not a required
+# check (see the ruleset note in CLAUDE.md, "Pull requests").
+name: pr-title
+
+on:
+  pull_request:
+    types: [opened, edited, reopened]
+
+jobs:
+  issue-number:
+    name: issue number in title
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Title contains [<issue number>]
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          if printf '%s' "$TITLE" | grep -Eq '\[[0-9]+\]'; then
+            echo "ok: $TITLE"
+          else
+            echo "::error title=PR title::PR title must contain the GitHub issue number in square brackets, e.g. \"[123] $TITLE\""
+            exit 1
+          fi

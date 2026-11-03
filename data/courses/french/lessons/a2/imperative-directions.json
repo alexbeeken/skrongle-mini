@@ -1,0 +1,628 @@
+{
+  "id": "a2-imperative-directions",
+  "slug": "imperative-directions",
+  "title": "Directions and the imperative: tournez à gauche",
+  "unit": "A2",
+  "group": "Vocabulary",
+  "order": 38,
+  "summary": "Ask the way, give directions with the imperative, and find your way round a station. You also learn devoir, savoir and connaître.",
+  "focus": "The imperative for directions, and asking the way",
+  "prerequisites": [
+    "a1-aller-faire-town"
+  ],
+  "content": "## The imperative: tourne, tournons, tournez\n\nThe **imperative** gives orders, advice and directions. Take the present of **tu**, **nous** or **vous** and drop the pronoun:\n\n| | tourner | prendre | aller |\n|---|---|---|---|\n| (tu) | tourne | prends | va |\n| (nous) | tournons | prenons | allons |\n| (vous) | tournez | prenez | allez |\n\n- **-er verbs** and **aller** drop the **-s** of tu: **tu parles → Parle !**\n- Irregular: **être → sois, soyons, soyez**; **avoir → aie, ayons, ayez**; **savoir → sache, sachons, sachez**.\n- Negative: **ne … pas** around the verb: **Ne tourne pas !**\n- The **nous** form means *let's*: **Allons-y !**\n\n## Asking the way and giving directions\n\nStart politely with **Pardon, madame…** or **Excusez-moi, monsieur…**, then ask:\n\n- **Où est la gare, s'il vous plaît ?** (Where is the station, please?)\n- **Pour aller au musée ?** (How do I get to the museum?)\n\nThe answer is mostly **vous** imperatives:\n\n- **Allez tout droit.** (Go straight on.)\n- **Tournez à gauche / à droite.** (Turn left / right.)\n- **Prenez la deuxième rue à droite.** (Take the second street on the right.)\n- **C'est au coin**, **en face de** la banque, **à côté de** la poste. (On the corner, opposite, next to.)\n- **Continuez jusqu'à** la place. (Carry on as far as the square.)\n- **C'est à cinq minutes à pied.** (It's a five-minute walk.)\n\n## At the station: devoir, savoir, connaître\n\nAt **la gare**: **le quai** (platform), **le train**, **le billet** (ticket), **le guichet** (ticket window), **l'horloge** (clock), **la carte** (map), **la valise**, **le sac à dos**, **l'avion**.\n\n| | devoir | savoir | connaître |\n|---|---|---|---|\n| je | dois | sais | connais |\n| tu | dois | sais | connais |\n| il / elle / on | doit | sait | connaît |\n| nous | devons | savons | connaissons |\n| vous | devez | savez | connaissez |\n| ils / elles | doivent | savent | connaissent |\n\n- **devoir** + infinitive means must: **Vous devez changer à Lyon.**\n- **savoir** = know a fact or how to: **Je sais où est le quai.**\n- **connaître** = know a person or place: **Je connais ce quartier.**",
+  "vocabulary": [
+    {
+      "term": "tourner",
+      "meaning": "to turn",
+      "example": "Tournez à gauche après la banque.",
+      "example_meaning": "Turn left after the bank."
+    },
+    {
+      "term": "tout droit",
+      "meaning": "straight on",
+      "example": "Continuez tout droit jusqu'au feu.",
+      "example_meaning": "Carry straight on as far as the traffic lights."
+    },
+    {
+      "term": "à gauche",
+      "meaning": "on the left, to the left",
+      "example": "La gare est à gauche.",
+      "example_meaning": "The station is on the left."
+    },
+    {
+      "term": "à droite",
+      "meaning": "on the right, to the right",
+      "example": "Prends la première rue à droite.",
+      "example_meaning": "Take the first street on the right."
+    },
+    {
+      "term": "au coin",
+      "meaning": "on the corner",
+      "example": "La pharmacie est au coin de la rue.",
+      "example_meaning": "The chemist's is on the corner of the street."
+    },
+    {
+      "term": "en face de",
+      "meaning": "opposite",
+      "example": "Le guichet est en face de l'entrée.",
+      "example_meaning": "The ticket window is opposite the entrance."
+    },
+    {
+      "term": "à côté de",
+      "meaning": "next to",
+      "example": "L'arrêt de bus est à côté de la gare.",
+      "example_meaning": "The bus stop is next to the station."
+    },
+    {
+      "term": "jusqu'à",
+      "meaning": "as far as, until",
+      "example": "Allez jusqu'à la place.",
+      "example_meaning": "Go as far as the square."
+    },
+    {
+      "term": "traverser",
+      "meaning": "to cross",
+      "example": "Ne traverse pas ici, c'est dangereux.",
+      "example_meaning": "Don't cross here, it's dangerous."
+    },
+    {
+      "term": "à pied",
+      "meaning": "on foot",
+      "example": "Le musée ? C'est à dix minutes à pied.",
+      "example_meaning": "The museum? It's a ten-minute walk."
+    },
+    {
+      "term": "la gare",
+      "meaning": "station (f)",
+      "example": "Pardon, où est la gare ?",
+      "example_meaning": "Excuse me, where is the station?"
+    },
+    {
+      "term": "le quai",
+      "meaning": "platform (m)",
+      "example": "Le train part du quai trois.",
+      "example_meaning": "The train leaves from platform three."
+    },
+    {
+      "term": "le billet",
+      "meaning": "ticket (m)",
+      "example": "N'oubliez pas votre billet !",
+      "example_meaning": "Don't forget your ticket!"
+    },
+    {
+      "term": "le guichet",
+      "meaning": "ticket window (m)",
+      "example": "Achetez votre billet au guichet.",
+      "example_meaning": "Buy your ticket at the ticket window."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-imperative-directions-01",
+      "prompt": "(to a friend, tu) ___ à gauche après le pont.",
+      "type": "multiple-choice",
+      "options": [
+        "Tourne",
+        "Tournes",
+        "Tournez"
+      ],
+      "correct_answer": "Tourne",
+      "explanation": "-er verbs drop the -s of the tu form in the imperative: tu tournes becomes Tourne !",
+      "hints": [
+        "Tu form, and -er verbs lose their -s."
+      ],
+      "teaches": [
+        "tourner",
+        "à gauche"
+      ]
+    },
+    {
+      "question_id": "a2-imperative-directions-02",
+      "prompt": "(to a stranger, vous) ___ la deuxième rue à droite. (prendre)",
+      "type": "fill-in-blank",
+      "correct_answer": "Prenez",
+      "accepted_answers": [],
+      "explanation": "The vous imperative is the present without the pronoun: vous prenez becomes Prenez.",
+      "hints": [
+        "Take vous prenez and drop vous."
+      ],
+      "teaches": [
+        "à droite"
+      ]
+    },
+    {
+      "question_id": "a2-imperative-directions-03",
+      "prompt": "Which is the correct negative imperative?",
+      "type": "multiple-choice",
+      "options": [
+        "Ne traverse pas !",
+        "Ne pas traverse !",
+        "Traverse ne pas !"
+      ],
+      "correct_answer": "Ne traverse pas !",
+      "explanation": "Ne and pas go around the verb, as in any negative: Ne traverse pas !",
+      "hints": [
+        "ne … pas wraps the verb."
+      ],
+      "teaches": [
+        "traverser"
+      ]
+    },
+    {
+      "question_id": "a2-imperative-directions-04",
+      "prompt": "Pardon, vous ___ où est la gare ? (savoir)",
+      "type": "fill-in-blank",
+      "correct_answer": "savez",
+      "accepted_answers": [
+        "vous savez"
+      ],
+      "explanation": "Knowing a fact (where something is) takes savoir: vous savez.",
+      "hints": [
+        "A fact, not a place you know well.",
+        "vous takes -ez"
+      ],
+      "teaches": [
+        "la gare"
+      ]
+    },
+    {
+      "question_id": "a2-imperative-directions-05",
+      "prompt": "True or false: in the imperative, -er verbs drop the -s of the tu form: tu écoutes → Écoute !",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Right: Écoute !, Tourne !, Regarde ! The -s stays in -ir and -re verbs: Prends !, Finis !",
+      "hints": [
+        "Think of Tourne à gauche !"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-imperative-directions-06",
+      "prompt": "Je ___ bien ce quartier, j'habite ici.",
+      "type": "multiple-choice",
+      "options": [
+        "connais",
+        "sais",
+        "dois"
+      ],
+      "correct_answer": "connais",
+      "explanation": "Knowing a place or a person takes connaître: je connais ce quartier.",
+      "hints": [
+        "A place you are familiar with."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-imperative-directions-07",
+      "prompt": "Pour aller à Lyon, vous ___ changer de train à Dijon. (devoir)",
+      "type": "fill-in-blank",
+      "correct_answer": "devez",
+      "accepted_answers": [
+        "vous devez"
+      ],
+      "explanation": "Devoir plus an infinitive means must: vous devez changer.",
+      "hints": [
+        "vous takes -ez, on the stem dev-."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-imperative-directions-08",
+      "prompt": "True or false: \"Vas tout droit !\" is the correct tu imperative of aller.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Aller drops the -s like an -er verb: Va tout droit ! It only comes back before y: Vas-y !",
+      "hints": [
+        "Aller behaves like an -er verb here."
+      ],
+      "teaches": [
+        "tout droit"
+      ]
+    },
+    {
+      "question_id": "a2-imperative-directions-09",
+      "prompt": "La gare ? C'est à quinze minutes à pied. How many minutes' walk is it?",
+      "type": "numeric",
+      "correct_answer": "15",
+      "unit": "minutes",
+      "explanation": "Quinze = 15: c'est à quinze minutes à pied.",
+      "hints": [
+        "Quinze comes after quatorze."
+      ],
+      "teaches": [
+        "à pied"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "devoir",
+      "meaning": "must, to have to",
+      "set": "present",
+      "art": [
+        "  ________  ",
+        " | TO DO  | ",
+        " | [x] .. | ",
+        " | [ ] .. | ",
+        " |________| "
+      ],
+      "forms": {
+        "je": "dois",
+        "tu": "dois",
+        "il": "doit",
+        "nous": "devons",
+        "vous": "devez",
+        "ils": "doivent"
+      }
+    },
+    {
+      "item": "savoir",
+      "meaning": "to know (a fact, how to)",
+      "set": "present",
+      "art": [
+        "    ____    ",
+        "   / ?? \\   ",
+        "  |  !!  |  ",
+        "   \\____/   ",
+        "  je sais   "
+      ],
+      "forms": {
+        "je": "sais",
+        "tu": "sais",
+        "il": "sait",
+        "nous": "savons",
+        "vous": "savez",
+        "ils": "savent"
+      }
+    },
+    {
+      "item": "connaître",
+      "meaning": "to know (a person, a place)",
+      "set": "present",
+      "art": [
+        "  o     o  ",
+        " /|\\ - /|\\ ",
+        " / \\   / \\ ",
+        " salut, toi ",
+        "  je connais "
+      ],
+      "forms": {
+        "je": "connais",
+        "tu": "connais",
+        "il": "connaît",
+        "nous": "connaissons",
+        "vous": "connaissez",
+        "ils": "connaissent"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-imperative-directions-conv-to-the-station",
+      "title": "The way to the station",
+      "scenario": "Emma, a visitor, asks Monsieur Lefèvre the way to the station.",
+      "role_a": "Emma",
+      "role_b": "M. Lefèvre",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Pardon, monsieur. Vous savez où est la gare ?",
+          "meaning": "Excuse me, sir. Do you know where the station is?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, bien sûr. Ce n'est pas loin.",
+          "meaning": "Yes, of course. It's not far."
+        },
+        {
+          "speaker": "a",
+          "text": "Je peux y aller à pied ?",
+          "meaning": "Can I walk there?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, c'est à dix minutes à pied.",
+          "meaning": "Yes, it's a ten-minute walk."
+        },
+        {
+          "speaker": "a",
+          "text": "Parfait. Je dois prendre le train de onze heures.",
+          "meaning": "Perfect. I have to catch the eleven o'clock train."
+        },
+        {
+          "speaker": "b",
+          "text": "Alors allez tout droit jusqu'à la place.",
+          "meaning": "Then go straight on as far as the square."
+        },
+        {
+          "speaker": "a",
+          "text": "Jusqu'à la place, d'accord. Et après ?",
+          "meaning": "As far as the square, OK. And then?"
+        },
+        {
+          "speaker": "b",
+          "text": "Tournez à gauche. La gare est en face de la poste.",
+          "meaning": "Turn left. The station is opposite the post office."
+        },
+        {
+          "speaker": "a",
+          "text": "Je connais la poste. Merci beaucoup !",
+          "meaning": "I know the post office. Thank you very much!"
+        },
+        {
+          "speaker": "b",
+          "text": "De rien. Et achetez votre billet au guichet, pas dans le train !",
+          "meaning": "You're welcome. And buy your ticket at the ticket window, not on the train!"
+        },
+        {
+          "speaker": "a",
+          "text": "Merci du conseil. Bonne journée !",
+          "meaning": "Thanks for the advice. Have a nice day!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Tournez à droite ici.",
+      "meaning": "Turn right here.",
+      "note": "Tournez is the vous imperative."
+    },
+    {
+      "text": "Allez tout droit jusqu'au pont.",
+      "meaning": "Go straight on as far as the bridge.",
+      "note": "New word: le pont = the bridge."
+    },
+    {
+      "text": "Ne traverse pas la rue maintenant.",
+      "meaning": "Don't cross the street now.",
+      "note": "Ne … pas goes around the verb."
+    },
+    {
+      "text": "N'oublie pas ta valise sur le quai.",
+      "meaning": "Don't forget your suitcase on the platform.",
+      "note": "New word: la valise = the suitcase."
+    },
+    {
+      "text": "Sachez que le guichet ferme à midi.",
+      "meaning": "Be aware that the ticket window closes at noon.",
+      "note": "Sachez is the imperative of savoir."
+    },
+    {
+      "text": "Prenons le métro, la gare est loin d'ici.",
+      "meaning": "Let's take the underground, the station is far from here.",
+      "note": "New word: le métro = the underground."
+    },
+    {
+      "text": "Je connais ce quartier, la poste est au coin de la rue.",
+      "meaning": "I know this neighbourhood, the post office is on the corner of the street."
+    },
+    {
+      "text": "Pardon, madame, savez-vous où je dois acheter mon billet pour Marseille ?",
+      "meaning": "Excuse me, madam, do you know where I have to buy my ticket for Marseille?"
+    }
+  ],
+  "guide": [
+    {
+      "section": "The imperative"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-imperative-directions-01"
+    },
+    {
+      "question": "a2-imperative-directions-05"
+    },
+    {
+      "question": "a2-imperative-directions-08"
+    },
+    {
+      "question": "a2-imperative-directions-03"
+    },
+    {
+      "tip": "Giving directions to a stranger? Use vous: Allez, Tournez, Prenez."
+    },
+    {
+      "section": "Asking the way"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-imperative-directions-02"
+    },
+    {
+      "question": "a2-imperative-directions-09"
+    },
+    {
+      "concept": {
+        "title": "Vas-y, allons-y",
+        "markdown": "Before **y**, the tu imperative of aller gets its **-s** back for the sound: **Vas-y !** (Go on!). The same pattern gives two everyday phrases: **Allons-y !** (Let's go!) and **Allez-y !** (Go ahead!, to vous)."
+      }
+    },
+    {
+      "section": "At the station"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-imperative-directions-04"
+    },
+    {
+      "question": "a2-imperative-directions-06"
+    },
+    {
+      "question": "a2-imperative-directions-07"
+    }
+  ],
+  "sprint": {
+    "icon": "🚦",
+    "bites": [
+      {
+        "title": "Drop the pronoun",
+        "emoji": "🚦",
+        "rule": "The imperative is the present of tu, nous or vous without the pronoun: vous tournez becomes Tournez ! and tu prends becomes Prends !",
+        "example": "Prenez la deuxième rue à gauche.",
+        "example_meaning": "Take the second street on the left."
+      },
+      {
+        "title": "No -s for -er",
+        "emoji": "✂️",
+        "rule": "-er verbs and aller drop the -s of the tu form: tu tournes becomes Tourne ! and tu vas becomes Va !",
+        "example": "Tourne à droite au coin.",
+        "example_meaning": "Turn right at the corner."
+      },
+      {
+        "title": "Three rebels",
+        "emoji": "👑",
+        "rule": "Être: sois, soyons, soyez. Avoir: aie, ayons, ayez. Savoir: sache, sachons, sachez.",
+        "example": "Sois patient, le train arrive.",
+        "example_meaning": "Be patient, the train is coming."
+      },
+      {
+        "title": "Savoir or connaître?",
+        "emoji": "🧠",
+        "rule": "Savoir is for a fact or a skill (savoir où, savoir nager). Connaître is for a person or a place (connaître Paris).",
+        "example": "Je ne connais pas la ville, mais je sais où est la gare.",
+        "example_meaning": "I don't know the town, but I know where the station is."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Tu, nous or vous?",
+        "buckets": [
+          "tu",
+          "nous",
+          "vous"
+        ],
+        "items": [
+          {
+            "text": "Tourne !",
+            "bucket": 0
+          },
+          {
+            "text": "Prenons le bus.",
+            "bucket": 1
+          },
+          {
+            "text": "Allez tout droit.",
+            "bucket": 2
+          },
+          {
+            "text": "Va à la gare.",
+            "bucket": 0
+          },
+          {
+            "text": "Traversons ici.",
+            "bucket": 1
+          },
+          {
+            "text": "Soyez à l'heure.",
+            "bucket": 2
+          }
+        ],
+        "why": "Tu forms end like the present, without the -s for -er verbs. Nous forms end in -ons. Vous forms end in -ez (soyez is irregular)."
+      },
+      {
+        "title": "Savoir or connaître?",
+        "buckets": [
+          "savoir",
+          "connaître"
+        ],
+        "items": [
+          {
+            "text": "où est la gare",
+            "bucket": 0
+          },
+          {
+            "text": "le quartier",
+            "bucket": 1
+          },
+          {
+            "text": "nager",
+            "bucket": 0
+          },
+          {
+            "text": "Marie",
+            "bucket": 1
+          },
+          {
+            "text": "l'heure du train",
+            "bucket": 0
+          },
+          {
+            "text": "Lyon",
+            "bucket": 1
+          }
+        ],
+        "why": "Facts, questions (où, quand) and skills take savoir. People and places take connaître."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Tournes à gauche après la banque.",
+        "wrong": "Tournes",
+        "fix": "Tourne",
+        "why": "-er verbs drop the -s in the tu imperative."
+      },
+      {
+        "sentence": "Pardon, vous connaissez où est le quai ?",
+        "wrong": "connaissez",
+        "fix": "savez",
+        "why": "Où est… is a fact: savoir."
+      },
+      {
+        "sentence": "C'est à cinq minutes à pieds.",
+        "wrong": "pieds",
+        "fix": "pied",
+        "why": "À pied is a fixed expression, always singular."
+      },
+      {
+        "sentence": "Vas tout droit jusqu'à la gare.",
+        "wrong": "Vas",
+        "fix": "Va",
+        "why": "Aller drops the -s in the tu imperative (except before y: Vas-y)."
+      },
+      {
+        "sentence": "Nous doivons changer à Lyon.",
+        "wrong": "doivons",
+        "fix": "devons",
+        "why": "Devoir: nous devons and vous devez. Only je, tu, il and ils have the oi."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Allez tout droit jusqu'à la place.",
+        "meaning": "Go straight on as far as the square.",
+        "distractors": [
+          "Vas"
+        ]
+      },
+      {
+        "text": "Ne tourne pas à gauche.",
+        "meaning": "Don't turn left.",
+        "distractors": [
+          "tournes"
+        ]
+      },
+      {
+        "text": "La gare est en face de la poste.",
+        "meaning": "The station is opposite the post office.",
+        "distractors": [
+          "du"
+        ]
+      },
+      {
+        "text": "Vous devez acheter un billet.",
+        "meaning": "You have to buy a ticket.",
+        "distractors": [
+          "devons"
+        ]
+      }
+    ]
+  }
+}

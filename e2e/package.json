@@ -1,0 +1,16 @@
+{
+  "name": "skurnonglifyable-e2e",
+  "private": true,
+  "type": "module",
+  "description": "Browser tests: Playwright drives the dev server. Dev-only, never shipped.",
+  "scripts": {
+    "test": "playwright test",
+    "typecheck": "tsc -p .",
+    "unit": "node --test lib/*.test.ts"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "@types/node": "26.6.5",
+    "typescript": "7.0.2"
+  }
+}

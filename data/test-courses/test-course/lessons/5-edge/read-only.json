@@ -1,0 +1,7 @@
+{
+  "id": "tc-read-only",
+  "slug": "read-only",
+  "title": "Just reading",
+  "unit": "edge",
+  "content": "## Nothing to answer\n\nThis lesson has no questions, no vocabulary, no group and no order. Reading it is enough to pass it.\n\n## Defaults\n\nIts group defaults to general and its order to 100."
+}

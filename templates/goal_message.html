@@ -1,0 +1,17 @@
+{# Today's goal in words, beside its ring (home page and Sprint mode). Needs
+   `today` (activity::Today), `practised_today`, `streak` and `course`. #}
+<div class="goal-message" data-testid="goal-message">
+{% if today.done() %}
+  <h2>{{ crate::t1("goal.smashed", "icon", course.icons.goal.as_str()) }}</h2>
+  <p>{{ crate::t1("goal.smashed_sub", "n", today.points) }}</p>
+{% else if practised_today %}
+  <h2>{{ crate::t("goal.showed_up") }}</h2>
+  <p>{{ crate::t2("goal.points_today", "n", today.points, "more", today.left()) }}</p>
+{% else if streak > 0 %}
+  <h2>{{ crate::t1("goal.keep_alive", "icon", course.icons.streak.as_str()) }}</h2>
+  <p>{{ crate::t1("goal.day_away", "n", streak + 1) }}</p>
+{% else %}
+  <h2>{{ crate::t("goal.five_minutes") }}</h2>
+  <p>{{ crate::t("goal.any_mode") }}</p>
+{% endif %}
+</div>

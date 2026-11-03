@@ -1,0 +1,634 @@
+{
+  "id": "b1-relative-clauses",
+  "slug": "relative-clauses",
+  "title": "Relative clauses: que, donde, lo que, el que",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 22,
+  "summary": "Link a noun to its description with que, donde, lo que, el que and quien, and pick the subjunctive when the thing is still wanted or doesn't exist.",
+  "focus": "Relative pronouns que, donde, lo que, el que / la que, quien; indicative vs subjunctive after a known or unknown antecedent",
+  "prerequisites": [
+    "b1-wishes-and-requests"
+  ],
+  "content": "## Que: one word for who, which and that\n\n**Que** links a noun to a clause that describes it, for people and things alike:\n\n- **El chico que trabaja conmigo es de Vigo.** The guy who works with me is from Vigo.\n- **El tren que cogemos sale a las ocho.** The train (that) we catch leaves at eight.\n- **Las fotos que me mandaste son preciosas.** The photos you sent me are lovely.\n\nEnglish often drops *that*: *the train we catch*. Spanish never drops **que**. A bare **quien** does not replace it here. Say **el chico que trabaja**, not *el chico quien trabaja*. The relative **que** has no accent; **qué** is the question word.\n\n## Lo que: what, the thing that\n\nWhen there is no noun to point back to, use **lo que**. It means *what* in the sense of *the thing that*:\n\n- **No entiendo lo que dices.** I don't understand what you're saying.\n- **Lo que más me gusta es la playa.** What I like most is the beach.\n- **Eso es lo que necesito.** That's what I need.\n\nCompare the question word: **¿Qué necesitas?** asks; **lo que necesito** points at the thing. With a noun, plain **que**: **el libro que necesito**.\n\n## Prepositions and places: en el que, con quien, donde\n\nAfter a preposition, use **el que** and let the article agree with the noun:\n\n| noun | relative clause |\n|---|---|\n| el pueblo | **en el que** nací (where I was born) |\n| la empresa | **para la que** trabajo (that I work for) |\n| los amigos | **con los que** viajé (I travelled with) |\n| las chicas | **de las que** te hablé (I told you about) |\n\nThe preposition comes first, never at the end. For people, **quien / quienes** also works: **el chico con quien hablé**. For places, **donde** means the same as **en el que / en la que**: **la casa donde vivo**.\n\n## Known or not: indicative or subjunctive?\n\nDoes the noun exist, and do you know it? Then **indicative**. Still looking for it, or it doesn't exist? **Subjunctive**.\n\n| known (indicative) | wanted or none (subjunctive) |\n|---|---|\n| **Tengo un piso que tiene terraza.** (I have a flat with a terrace.) | **Busco un piso que tenga terraza.** (I want one with a terrace.) |\n| **Conozco a alguien que sabe chino.** (I know someone who speaks Chinese.) | **¿Conoces a alguien que sepa chino?** (Do you know anyone?) |\n| **Hay una chica que habla ruso.** (There's a girl who speaks Russian.) | **No hay nadie que hable ruso.** (Nobody speaks Russian.) |\n\nWith an unknown person the personal **a** often drops: **busco un profesor que me ayude**.",
+  "vocabulary": [
+    {
+      "term": "que",
+      "meaning": "that, which, who (linking a noun to its clause)",
+      "example": "La chica que vive arriba es enfermera.",
+      "example_meaning": "The girl who lives upstairs is a nurse."
+    },
+    {
+      "term": "el anuncio",
+      "meaning": "advert, ad",
+      "example": "Vi un anuncio que buscaba camareros.",
+      "example_meaning": "I saw an ad that was looking for waiters."
+    },
+    {
+      "term": "lo que",
+      "meaning": "what, the thing that",
+      "example": "Lo que necesito ahora es un café.",
+      "example_meaning": "What I need now is a coffee."
+    },
+    {
+      "term": "el barrio",
+      "meaning": "neighbourhood, district",
+      "example": "Vivo en un barrio que tiene muchos parques.",
+      "example_meaning": "I live in a neighbourhood that has lots of parks."
+    },
+    {
+      "term": "donde",
+      "meaning": "where (the place where)",
+      "example": "Este es el bar donde nos conocimos.",
+      "example_meaning": "This is the bar where we met."
+    },
+    {
+      "term": "el pueblo",
+      "meaning": "village, small town",
+      "example": "Pasamos el verano en un pueblo donde no hay cobertura.",
+      "example_meaning": "We spend the summer in a village where there's no phone signal."
+    },
+    {
+      "term": "el que / la que",
+      "meaning": "which, whom (after a preposition); the one that",
+      "example": "Esta es la mesa en la que estudio.",
+      "example_meaning": "This is the table I study at."
+    },
+    {
+      "term": "los que / las que",
+      "meaning": "which, whom (plural, after a preposition); the ones that",
+      "example": "Las amigas con las que viajé son de Bilbao.",
+      "example_meaning": "The friends I travelled with are from Bilbao."
+    },
+    {
+      "term": "quien / quienes",
+      "meaning": "who, whom (for people, after a preposition)",
+      "example": "Marta es la persona con quien comparto piso.",
+      "example_meaning": "Marta is the person I share a flat with."
+    },
+    {
+      "term": "el piso",
+      "meaning": "flat, apartment",
+      "example": "Mi hermano vive en un piso que da a la plaza.",
+      "example_meaning": "My brother lives in a flat that looks onto the square."
+    },
+    {
+      "term": "la terraza",
+      "meaning": "terrace, balcony",
+      "example": "Queremos una casa que tenga una terraza grande.",
+      "example_meaning": "We want a house with a big terrace."
+    },
+    {
+      "term": "alguien",
+      "meaning": "someone, anyone",
+      "example": "¿Hay alguien que pueda ayudarme?",
+      "example_meaning": "Is there anyone who can help me?"
+    },
+    {
+      "term": "nadie",
+      "meaning": "nobody, not anyone",
+      "example": "No conozco a nadie que viva en Toledo.",
+      "example_meaning": "I don't know anyone who lives in Toledo."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-relative-clauses-01",
+      "prompt": "El anuncio ___ vi ayer era de un piso en el centro.",
+      "type": "multiple-choice",
+      "options": [
+        "que",
+        "quien",
+        "donde",
+        "lo que"
+      ],
+      "correct_answer": "que",
+      "explanation": "An ad is a thing and the clause describes it, so plain que: 'el anuncio que vi'. Spanish never drops que, even where English drops 'that'.",
+      "hints": [
+        "English can say 'the ad I saw'; Spanish needs the link word."
+      ],
+      "teaches": [
+        "que",
+        "el anuncio"
+      ]
+    },
+    {
+      "question_id": "b1-relative-clauses-02",
+      "prompt": "No entiendo ___ dices.",
+      "type": "multiple-choice",
+      "options": [
+        "lo que",
+        "el que",
+        "que"
+      ],
+      "correct_answer": "lo que",
+      "explanation": "There is no noun to point back to, so 'what' (the thing that) is lo que: 'No entiendo lo que dices.'",
+      "hints": [
+        "Is there a noun before the gap?"
+      ],
+      "teaches": [
+        "lo que"
+      ]
+    },
+    {
+      "question_id": "b1-relative-clauses-03",
+      "prompt": "Este es el barrio ___ crecí. (where)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "donde",
+      "accepted_answers": [
+        "en el que",
+        "en que"
+      ],
+      "explanation": "For a place, donde links the clause: 'el barrio donde crecí' (= el barrio en el que crecí).",
+      "hints": [
+        "The relative word for a place; no accent outside questions."
+      ],
+      "teaches": [
+        "donde",
+        "el barrio"
+      ]
+    },
+    {
+      "question_id": "b1-relative-clauses-04",
+      "prompt": "El pueblo en ___ nació mi abuela está en Galicia. (two words)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "el que",
+      "accepted_answers": [
+        "el cual"
+      ],
+      "explanation": "After a preposition use article + que, and 'pueblo' is masculine singular: 'el pueblo en el que nació' (or, more formal, 'en el cual').",
+      "hints": [
+        "Article + que.",
+        "El pueblo: masculine singular."
+      ],
+      "teaches": [
+        "el pueblo",
+        "el que / la que"
+      ]
+    },
+    {
+      "question_id": "b1-relative-clauses-05",
+      "prompt": "La empresa para ___ trabajo es alemana.",
+      "type": "multiple-choice",
+      "options": [
+        "la que",
+        "el que",
+        "que"
+      ],
+      "correct_answer": "la que",
+      "explanation": "After the preposition para, the article agrees with 'la empresa': 'para la que trabajo'. 'Para que' alone would mean 'so that'.",
+      "hints": [
+        "Empresa is feminine."
+      ],
+      "teaches": [
+        "el que / la que"
+      ]
+    },
+    {
+      "question_id": "b1-relative-clauses-06",
+      "prompt": "Los compañeros con ___ comí ayer son muy simpáticos. (article + que)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "los que",
+      "accepted_answers": [
+        "quienes"
+      ],
+      "explanation": "'Los compañeros' is masculine plural, so 'con los que'. For people, 'con quienes' is also right.",
+      "hints": [
+        "Masculine plural article.",
+        "The preposition 'con' stays in front."
+      ],
+      "teaches": [
+        "los que / las que"
+      ]
+    },
+    {
+      "question_id": "b1-relative-clauses-07",
+      "prompt": "Es el profesor con ___ estudio los martes.",
+      "type": "multiple-choice",
+      "options": [
+        "quien",
+        "quienes",
+        "lo que"
+      ],
+      "correct_answer": "quien",
+      "explanation": "For one person after a preposition, quien (or el que): 'el profesor con quien estudio'. Quienes is plural; lo que has no noun.",
+      "hints": [
+        "One person means singular."
+      ],
+      "teaches": [
+        "quien / quienes"
+      ]
+    },
+    {
+      "question_id": "b1-relative-clauses-08",
+      "prompt": "Tengo un piso que ___ terraza, pero busco uno que ___ jardín.",
+      "type": "multiple-choice",
+      "options": [
+        "tiene … tenga",
+        "tenga … tiene",
+        "tiene … tiene"
+      ],
+      "correct_answer": "tiene … tenga",
+      "explanation": "The flat you have exists: indicative 'tiene'. The one you're looking for isn't known yet: subjunctive 'tenga'.",
+      "hints": [
+        "Which flat is real, and which one is still a wish?"
+      ],
+      "teaches": [
+        "el piso",
+        "la terraza"
+      ]
+    },
+    {
+      "question_id": "b1-relative-clauses-09",
+      "prompt": "¿Conoces a alguien que ___ (saber) arreglar bicicletas? — No, no conozco a nadie.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "sepa",
+      "accepted_answers": [],
+      "explanation": "You don't know if such a person exists, so the clause takes the subjunctive: 'alguien que sepa'. Saber becomes sepa.",
+      "hints": [
+        "An unknown person takes the subjunctive.",
+        "Saber has an irregular subjunctive: sep-."
+      ],
+      "teaches": [
+        "alguien",
+        "nadie"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-relative-clauses-conv-flat-hunting",
+      "title": "Calling about a flat",
+      "scenario": "Lucía rings Javier, an estate agent, about a flat she saw advertised.",
+      "role_a": "Lucía",
+      "role_b": "Javier",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Hola, buenos días. Llamo por el anuncio que vi en internet.",
+          "meaning": "Hello, good morning. I'm calling about the ad I saw online."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Habla del piso que está al lado del mercado?",
+          "meaning": "Do you mean the flat that's next to the market?"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí. Busco un piso que tenga terraza y que sea tranquilo.",
+          "meaning": "Yes. I'm looking for a flat that has a terrace and is quiet."
+        },
+        {
+          "speaker": "b",
+          "text": "Este tiene una terraza donde cabe una mesa grande.",
+          "meaning": "This one has a terrace where a big table fits."
+        },
+        {
+          "speaker": "a",
+          "text": "¡Genial! Lo que más me importa es la luz.",
+          "meaning": "Great! What matters most to me is the light."
+        },
+        {
+          "speaker": "b",
+          "text": "Pues el dormitorio en el que dormiría usted da al sur.",
+          "meaning": "Well, the bedroom you'd sleep in faces south."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y los vecinos? ¿Hay alguien que toque la batería?",
+          "meaning": "And the neighbours? Is there anyone who plays the drums?"
+        },
+        {
+          "speaker": "b",
+          "text": "No, no hay nadie que haga ruido, se lo prometo.",
+          "meaning": "No, there's nobody who makes noise, I promise you."
+        },
+        {
+          "speaker": "a",
+          "text": "Perfecto. ¿Cuándo puedo ver el piso?",
+          "meaning": "Perfect. When can I see the flat?"
+        },
+        {
+          "speaker": "b",
+          "text": "Mañana a las diez. Pregunte por mí: soy el que tiene las llaves.",
+          "meaning": "Tomorrow at ten. Ask for me: I'm the one who has the keys."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Me gusta el pan que haces.",
+      "meaning": "I like the bread you make.",
+      "note": "Spanish never drops que: the bread (that) you make."
+    },
+    {
+      "text": "Busco un ordenador que sea ligero.",
+      "meaning": "I'm looking for a computer that is light.",
+      "note": "New word: ligero = light."
+    },
+    {
+      "text": "No me creo lo que me cuentas.",
+      "meaning": "I can't believe what you're telling me.",
+      "note": "Lo que means the thing that."
+    },
+    {
+      "text": "Vivo en la calle donde nació mi padre.",
+      "meaning": "I live on the street where my father was born.",
+      "note": "Donde links a place."
+    },
+    {
+      "text": "El cajón en el que guardo las llaves está roto.",
+      "meaning": "The drawer I keep the keys in is broken.",
+      "note": "New word: el cajón = the drawer."
+    },
+    {
+      "text": "Mis vecinos, con quienes ceno los viernes, son de Cádiz.",
+      "meaning": "My neighbours, who I have dinner with on Fridays, are from Cádiz.",
+      "note": "Con quienes: people after a preposition."
+    },
+    {
+      "text": "No conozco a nadie que cocine tan bien como mi abuela.",
+      "meaning": "I don't know anyone who cooks as well as my grandmother.",
+      "note": "Nobody like that exists: subjunctive."
+    },
+    {
+      "text": "Tenemos una profesora que explica muy bien, pero buscamos otra que tenga más paciencia.",
+      "meaning": "We have a teacher who explains very well, but we're looking for another who has more patience.",
+      "note": "New word: la paciencia = patience."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Que: one word"
+    },
+    {
+      "question": "b1-relative-clauses-01"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Lo que"
+    },
+    {
+      "question": "b1-relative-clauses-02"
+    },
+    {
+      "section": "Prepositions and places"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-relative-clauses-03"
+    },
+    {
+      "question": "b1-relative-clauses-04"
+    },
+    {
+      "question": "b1-relative-clauses-05"
+    },
+    {
+      "question": "b1-relative-clauses-06"
+    },
+    {
+      "question": "b1-relative-clauses-07"
+    },
+    {
+      "tip": "Before you pick indicative or subjunctive, ask: does this thing or person exist, and do I know it?"
+    },
+    {
+      "section": "Known or not"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-relative-clauses-08"
+    },
+    {
+      "question": "b1-relative-clauses-09"
+    }
+  ],
+  "sprint": {
+    "icon": "🔗",
+    "bites": [
+      {
+        "title": "Que never drops",
+        "emoji": "🧷",
+        "rule": "Que links a noun to what describes it, for people and things. English can drop 'that'; Spanish never drops que.",
+        "example": "El libro que me diste es genial.",
+        "example_meaning": "The book you gave me is great."
+      },
+      {
+        "title": "Lo que means the thing that",
+        "emoji": "📦",
+        "rule": "No noun to point back to? Use lo que for 'what': lo que dices, lo que necesito.",
+        "example": "Lo que dices es verdad.",
+        "example_meaning": "What you're saying is true."
+      },
+      {
+        "title": "Preposition first",
+        "emoji": "🧭",
+        "rule": "After a preposition use el/la/los/las que, agreeing with the noun, or quien(es) for people. The preposition goes in front.",
+        "example": "La mesa en la que trabajo es vieja.",
+        "example_meaning": "The table I work at is old."
+      },
+      {
+        "title": "Known or wanted?",
+        "emoji": "🔍",
+        "rule": "A thing you have or know takes the indicative (tiene). One you're looking for, or that doesn't exist, takes the subjunctive (tenga).",
+        "example": "Busco un piso que tenga terraza.",
+        "example_meaning": "I'm looking for a flat with a terrace."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Indicative or subjunctive?",
+        "buckets": [
+          "indicative (known)",
+          "subjunctive (wanted or none)"
+        ],
+        "items": [
+          {
+            "text": "Tengo un coche que gasta poco.",
+            "bucket": 0
+          },
+          {
+            "text": "Quiero un coche que gaste poco.",
+            "bucket": 1
+          },
+          {
+            "text": "No hay nadie que lo sepa.",
+            "bucket": 1
+          },
+          {
+            "text": "Conozco un bar que abre a las seis.",
+            "bucket": 0
+          },
+          {
+            "text": "¿Hay alguien que hable ruso?",
+            "bucket": 1
+          },
+          {
+            "text": "Vivo con una chica que habla ruso.",
+            "bucket": 0
+          }
+        ],
+        "why": "A thing or person that exists and is known takes the indicative; one still wanted, asked about or denied takes the subjunctive."
+      },
+      {
+        "title": "Which article?",
+        "buckets": [
+          "el que",
+          "la que",
+          "los que",
+          "las que"
+        ],
+        "items": [
+          {
+            "text": "el pueblo en ___ nací",
+            "bucket": 0
+          },
+          {
+            "text": "la mesa en ___ como",
+            "bucket": 1
+          },
+          {
+            "text": "los amigos con ___ salgo",
+            "bucket": 2
+          },
+          {
+            "text": "las tiendas en ___ compro",
+            "bucket": 3
+          },
+          {
+            "text": "el tren en ___ viajé",
+            "bucket": 0
+          },
+          {
+            "text": "la chica con ___ bailé",
+            "bucket": 1
+          },
+          {
+            "text": "los días en ___ trabajo",
+            "bucket": 2
+          },
+          {
+            "text": "las calles por ___ paseo",
+            "bucket": 3
+          }
+        ],
+        "why": "After a preposition the article copies the gender and number of the noun before it."
+      },
+      {
+        "title": "Que or lo que?",
+        "buckets": [
+          "que",
+          "lo que"
+        ],
+        "items": [
+          {
+            "text": "el bar ___ me gusta",
+            "bucket": 0
+          },
+          {
+            "text": "___ me gusta es el mar",
+            "bucket": 1
+          },
+          {
+            "text": "Haz ___ te digo.",
+            "bucket": 1
+          },
+          {
+            "text": "la chica ___ canta",
+            "bucket": 0
+          },
+          {
+            "text": "Esto es ___ necesito.",
+            "bucket": 1
+          },
+          {
+            "text": "los zapatos ___ compré",
+            "bucket": 0
+          }
+        ],
+        "why": "Que follows a noun; lo que stands on its own and means 'the thing that'."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "El chico quien vive arriba es médico.",
+        "wrong": "quien",
+        "fix": "que",
+        "why": "Without a preposition the link word is que, for people too."
+      },
+      {
+        "sentence": "No entiendo el que dices.",
+        "wrong": "el",
+        "fix": "lo",
+        "why": "There is no noun to agree with, so 'what' is lo que."
+      },
+      {
+        "sentence": "No hay nadie que sabe la respuesta.",
+        "wrong": "sabe",
+        "fix": "sepa",
+        "why": "Nobody like that exists, so the clause takes the subjunctive."
+      },
+      {
+        "sentence": "Los amigos con las que viajé son de Lugo.",
+        "wrong": "las",
+        "fix": "los",
+        "why": "The article agrees with 'los amigos': con los que."
+      },
+      {
+        "sentence": "Tengo una vecina que hable cinco idiomas.",
+        "wrong": "hable",
+        "fix": "habla",
+        "why": "The neighbour exists and you know her: indicative."
+      }
+    ],
+    "builds": [
+      {
+        "text": "El libro que me diste es genial.",
+        "meaning": "The book you gave me is great.",
+        "distractors": [
+          "quien"
+        ]
+      },
+      {
+        "text": "Lo que necesito es descansar.",
+        "meaning": "What I need is a rest.",
+        "distractors": [
+          "el"
+        ]
+      },
+      {
+        "text": "Es la ciudad en la que nací.",
+        "meaning": "It's the city where I was born.",
+        "distractors": [
+          "los"
+        ]
+      },
+      {
+        "text": "Busco a alguien que sepa cocinar.",
+        "meaning": "I'm looking for someone who can cook.",
+        "distractors": [
+          "sabe"
+        ]
+      },
+      {
+        "text": "No hay nadie que me entienda.",
+        "meaning": "There's nobody who understands me.",
+        "distractors": [
+          "entiende"
+        ]
+      }
+    ]
+  }
+}

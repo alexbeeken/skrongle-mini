@@ -1,0 +1,34 @@
+{#- One lesson on the Vocabulary page (`l`: a LessonVocab). -#}
+<section class="vocab-lesson" data-testid="vocabulary-lesson" data-lesson-id="{{ l.slug }}" data-learned="{{ l.learned }}" data-total="{{ l.total }}">
+  <div class="stage-head">
+    <h2><a href="{{ crate::base_path() }}/lessons/{{ l.slug }}">{{ l.title }}</a> <span class="pill untested">{{ l.unit }}</span></h2>
+    {% if l.learned > 0 %}
+      <a class="btn small" href="{{ crate::base_path() }}/vocabulary/study?lesson={{ l.slug }}" data-testid="vocabulary-study">{{ crate::t1("vocab.index.study_n", "n", l.learned) }}</a>
+    {% endif %}
+  </div>
+  <div class="bar slim"><div class="fill" style="width:{{ l.learned * 100 / l.total }}%"></div></div>
+  <p class="small muted">{{ crate::t2("vocab.index.collected", "learned", l.learned, "total", l.total) }}
+    {% if l.learned < l.total %} {{ crate::t2("vocab.index.practise_more_html", "url", crate::url("/practice"), "slug", l.slug)|safe }}{% endif %}</p>
+  {% if !l.words.is_empty() %}
+  <details class="word-list" {% if lessons.len() == 1 %}open{% endif %}>
+    <summary>{{ crate::t("vocab.index.show_terms") }}</summary>
+    {% if !course.say_lang.is_empty() %}<p class="muted small say-hint">{{ crate::t("vocab.index.say_hint") }}</p>{% endif %}
+    <div class="table-scroll" data-testid="vocabulary-terms-scroll">
+    <table class="vocab">
+      <thead><tr><th>{{ course.term_label }}</th><th>{{ course.meaning_label }}</th><th>{{ crate::t("vocab.index.th_example") }}</th><th class="nowrap">{{ crate::t("vocab.index.th_collected") }}</th><th class="nowrap">{{ crate::t("vocab.index.th_known") }}</th></tr></thead>
+      <tbody>
+      {% for w in l.words %}
+        <tr data-testid="vocabulary-term">
+          <td lang="{{ course.term_lang }}" title="{{ w.meaning }}"><strong>{{ w.term }}</strong></td>
+          <td lang="{{ course.meaning_lang }}">{{ w.meaning }}</td>
+          <td lang="{{ course.term_lang }}" class="muted"{% if let Some(em) = w.example_meaning %} title="{{ em }}"{% endif %}>{% if let Some(ex) = w.example %}{{ ex }}{% endif %}</td>
+          <td class="nowrap muted small">{{ w.learned }}</td>
+          <td class="nowrap small">{% if w.times_seen > 0 %}{{ w.times_known }}/{{ w.times_seen }}{% if let Some(r) = w.reviewed %} <span class="muted">· {{ r }}</span>{% endif %}{% else %}<span class="muted">{{ crate::t("vocab.index.not_reviewed") }}</span>{% endif %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </details>
+  {% endif %}
+</section>

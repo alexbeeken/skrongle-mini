@@ -1,0 +1,545 @@
+{
+  "id": "b1-pronoun-order",
+  "slug": "pronoun-order",
+  "title": "Two pronouns together: je te le donne, il y en a",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 16,
+  "summary": "Put two object pronouns in the right order before the verb, in the passé composé, before an infinitive, in the negative and in the imperative.",
+  "focus": "The fixed order of two object pronouns, and how the imperative changes it",
+  "prerequisites": [
+    "a2-object-pronouns"
+  ],
+  "content": "## The order of two pronouns\n\nWhen a verb has two object pronouns, they always come in this order, before the verb:\n\n| 1 | 2 | 3 | 4 | 5 |\n|---|---|---|---|---|\n| me, te, se, nous, vous | le, la, les | lui, leur | y | en |\n\n- **Je te le donne.** — I give it to you.\n- **Je le lui donne.** — I give it to him / her.\n- **Il y en a.** — There is some / there are some.\n- **Je leur en parle.** — I talk to them about it.\n\nBefore **y** and **en**, **me, te, se** become **m', t', s'**: **Il m'en reste deux.** — I have two left. **Je t'en prie.**\n\n## Passé composé and infinitives\n\nIn the **passé composé**, both pronouns go before **avoir** (or être). A direct object **le / la / les** placed before avoir makes the participle agree:\n\n- **La lettre ? Je la lui ai donnée.** — The letter? I gave it to him.\n- **Les photos ? Elle nous les a montrées.** — The photos? She showed them to us.\n- **Des pommes ? J'en ai acheté.** — Apples? I bought some. (no agreement with **en**)\n\nWith a verb + **infinitive**, they go before the infinitive:\n\n- **Je vais te l'envoyer.** — I'm going to send it to you.\n- **Tu peux me les prêter ?** — Can you lend them to me?\n\n## In the negative\n\n**Ne** comes before the two pronouns; **pas** comes after the conjugated verb, or after avoir in the passé composé. The pronoun pair is never split:\n\n- **Je ne te le donne pas.** — I'm not giving it to you.\n- **Je ne le lui ai pas dit.** — I didn't tell him / her.\n- **Il n'y en a plus.** — There isn't any left.\n- **Je ne vais pas te l'envoyer.** — I'm not going to send it to you. (here **ne… pas** wraps aller, the conjugated verb)\n\n## The imperative\n\nIn the **affirmative imperative**, the pronouns go **after** the verb, joined by hyphens, direct before indirect, and **me / te** become **moi / toi**:\n\n- **Donne-le-moi !** — Give it to me!\n- **Montrez-les-leur.** — Show them to them.\n- **Donnez-m'en.** — Give me some. (moi + en → **m'en**)\n- **Vas-y !** — Go on! (the -s comes back before y and en: **manges-en**)\n\nIn the **negative imperative**, everything goes back to the normal order before the verb:\n\n- **Ne me le dis pas !** — Don't tell me!\n- **Ne lui en donne pas.** — Don't give him any.",
+  "vocabulary": [
+    {
+      "term": "prêter",
+      "meaning": "to lend",
+      "example": "Ton dictionnaire ? Je te le prête jusqu'à lundi.",
+      "example_meaning": "Your dictionary? I'll lend it to you until Monday."
+    },
+    {
+      "term": "rendre",
+      "meaning": "to give back",
+      "example": "Mes livres ? Il me les a rendus hier.",
+      "example_meaning": "My books? He gave them back to me yesterday."
+    },
+    {
+      "term": "envoyer",
+      "meaning": "to send",
+      "example": "Le document ? Je vais vous l'envoyer par mail.",
+      "example_meaning": "The document? I'll send it to you by e-mail."
+    },
+    {
+      "term": "montrer",
+      "meaning": "to show",
+      "example": "Tes photos de vacances ? Montre-les-moi !",
+      "example_meaning": "Your holiday photos? Show them to me!"
+    },
+    {
+      "term": "expliquer",
+      "meaning": "to explain",
+      "example": "Cette règle ? Le professeur nous l'a expliquée deux fois.",
+      "example_meaning": "That rule? The teacher explained it to us twice."
+    },
+    {
+      "term": "raconter",
+      "meaning": "to tell (a story)",
+      "example": "Cette histoire ? Ma grand-mère me la racontait souvent.",
+      "example_meaning": "That story? My grandmother often told it to me."
+    },
+    {
+      "term": "apporter",
+      "meaning": "to bring",
+      "example": "Du vin ? Nos amis nous en apportent toujours.",
+      "example_meaning": "Wine? Our friends always bring us some."
+    },
+    {
+      "term": "il y en a",
+      "meaning": "there is some, there are some",
+      "example": "Des chaises ? Il y en a dans la cuisine.",
+      "example_meaning": "Chairs? There are some in the kitchen."
+    },
+    {
+      "term": "la clé",
+      "meaning": "key (f)",
+      "example": "La clé de la voiture ? Je ne te la donne pas.",
+      "example_meaning": "The car key? I'm not giving it to you."
+    },
+    {
+      "term": "le colis",
+      "meaning": "parcel (m)",
+      "example": "Le colis ? Le facteur le lui a laissé devant la porte.",
+      "example_meaning": "The parcel? The postman left it for him in front of the door."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-pronoun-order-01",
+      "prompt": "Tu me prêtes ton vélo ? — Oui, je ___ prête.",
+      "type": "multiple-choice",
+      "options": [
+        "te le",
+        "le te",
+        "le lui"
+      ],
+      "correct_answer": "te le",
+      "explanation": "Me / te / se / nous / vous come before le / la / les: je te le prête. Le lui would mean 'to him / her', not 'to you'.",
+      "hints": [
+        "Who gets the bike? You (te).",
+        "Te comes before le."
+      ],
+      "teaches": [
+        "prêter"
+      ]
+    },
+    {
+      "question_id": "b1-pronoun-order-02",
+      "prompt": "Tu me rends mes clés ? — Oui, je ___ rends tout de suite.",
+      "type": "fill-in-blank",
+      "correct_answer": "te les",
+      "accepted_answers": [],
+      "explanation": "To you = te, the keys = les; te comes first: je te les rends.",
+      "hints": [
+        "Two pronouns: 'to you' and 'them'.",
+        "Me / te come before le / la / les."
+      ],
+      "teaches": [
+        "rendre",
+        "la clé"
+      ]
+    },
+    {
+      "question_id": "b1-pronoun-order-03",
+      "prompt": "Il reste du pain ? — Oui, ___ a encore un peu.",
+      "type": "multiple-choice",
+      "options": [
+        "il y en",
+        "il en y",
+        "il y le"
+      ],
+      "correct_answer": "il y en",
+      "explanation": "Y always comes before en: il y en a. Le cannot replace du pain, which is a partitive: that is en's job.",
+      "hints": [
+        "Y before en.",
+        "Du pain → en."
+      ],
+      "teaches": [
+        "il y en a"
+      ]
+    },
+    {
+      "question_id": "b1-pronoun-order-04",
+      "prompt": "Tu as parlé du voyage à tes parents ? — Oui, je ___ ai parlé.",
+      "type": "fill-in-blank",
+      "correct_answer": "leur en",
+      "accepted_answers": [],
+      "explanation": "À tes parents = leur, du voyage = en. Leur comes before en, and both go before avoir: je leur en ai parlé.",
+      "hints": [
+        "Parler à quelqu'un de quelque chose.",
+        "Lui / leur come before y and en."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-pronoun-order-05",
+      "prompt": "In 'La lettre ? Je la lui ai donnée', donnée agrees because la stands for la lettre and comes before avoir.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "A direct object pronoun (le, la, les) placed before avoir makes the participle agree: la → donnée. Lui is indirect and changes nothing.",
+      "hints": [
+        "Which pronoun is the direct object?"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-pronoun-order-06",
+      "prompt": "Tu vas envoyer la photo à ta grand-mère ? — Oui, ___.",
+      "type": "multiple-choice",
+      "options": [
+        "je vais la lui envoyer",
+        "je la lui vais envoyer",
+        "je vais lui la envoyer"
+      ],
+      "correct_answer": "je vais la lui envoyer",
+      "explanation": "The pronouns belong to envoyer, so they go before the infinitive, la before lui: je vais la lui envoyer.",
+      "hints": [
+        "Which verb do the pronouns belong to?",
+        "Le / la / les come before lui / leur."
+      ],
+      "teaches": [
+        "envoyer"
+      ]
+    },
+    {
+      "question_id": "b1-pronoun-order-07",
+      "prompt": "Tu as montré les photos à Marc ? — Non, je ne ___ ai pas montrées.",
+      "type": "fill-in-blank",
+      "correct_answer": "les lui",
+      "accepted_answers": [],
+      "explanation": "The photos = les, to Marc = lui; les before lui, both between ne and avoir: je ne les lui ai pas montrées (agreement with les).",
+      "hints": [
+        "Ne goes before the two pronouns, pas after avoir."
+      ],
+      "teaches": [
+        "montrer"
+      ]
+    },
+    {
+      "question_id": "b1-pronoun-order-08",
+      "prompt": "Le sel est près de toi ? ___, s'il te plaît !",
+      "type": "multiple-choice",
+      "options": [
+        "Passe-le-moi",
+        "Passe-moi-le",
+        "Me le passe"
+      ],
+      "correct_answer": "Passe-le-moi",
+      "explanation": "In the affirmative imperative, the pronouns follow the verb with hyphens, direct (le) before indirect (moi): passe-le-moi.",
+      "hints": [
+        "Affirmative imperative: after the verb.",
+        "Direct before indirect."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-pronoun-order-09",
+      "prompt": "'Donnez-moi-en' is the standard way to say 'give me some'.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Before en, moi becomes m': donnez-m'en.",
+      "hints": [
+        "What happens to moi before a vowel?"
+      ],
+      "teaches": []
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-pronoun-order-conv-moving-day",
+      "title": "Moving day",
+      "scenario": "Camille is moving into a new flat; her friend Yanis has borrowed some of her things to help.",
+      "role_a": "Camille",
+      "role_b": "Yanis",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Yanis, tu as toujours ma perceuse ?",
+          "meaning": "Yanis, do you still have my drill?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, je te la rends demain, promis.",
+          "meaning": "Yes, I'll give it back to you tomorrow, I promise."
+        },
+        {
+          "speaker": "a",
+          "text": "Super. Et les cartons, tu les as donnés à Sophie ?",
+          "meaning": "Great. And the boxes, did you give them to Sophie?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, je les lui ai donnés hier soir.",
+          "meaning": "Yes, I gave them to her last night."
+        },
+        {
+          "speaker": "a",
+          "text": "Il reste du ruban adhésif ?",
+          "meaning": "Is there any tape left?"
+        },
+        {
+          "speaker": "b",
+          "text": "Non, il n'y en a plus. Je t'en achète ?",
+          "meaning": "No, there's none left. Shall I buy you some?"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui, achètes-en deux rouleaux, s'il te plaît.",
+          "meaning": "Yes, buy two rolls, please."
+        },
+        {
+          "speaker": "b",
+          "text": "D'accord. Et la clé du nouvel appartement ?",
+          "meaning": "OK. And the key to the new flat?"
+        },
+        {
+          "speaker": "a",
+          "text": "Le propriétaire va me l'envoyer lundi.",
+          "meaning": "The landlord is going to send it to me on Monday."
+        },
+        {
+          "speaker": "b",
+          "text": "Ne la perds pas, et montre-moi l'appartement vite !",
+          "meaning": "Don't lose it, and show me the flat soon!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Je te le promets.",
+      "meaning": "I promise you."
+    },
+    {
+      "text": "Il y en a trois dans le tiroir.",
+      "meaning": "There are three of them in the drawer.",
+      "note": "New word: le tiroir = the drawer."
+    },
+    {
+      "text": "Elle me l'a envoyé ce matin.",
+      "meaning": "She sent it to me this morning."
+    },
+    {
+      "text": "Ne me le dis pas maintenant.",
+      "meaning": "Don't tell me now.",
+      "note": "Negative imperative: the pronouns go before the verb."
+    },
+    {
+      "text": "Je vais vous les montrer tout de suite.",
+      "meaning": "I'm going to show them to you right away."
+    },
+    {
+      "text": "Mon voisin m'a prêté sa tondeuse et je la lui rends ce soir.",
+      "meaning": "My neighbour lent me his lawnmower and I'm giving it back to him tonight.",
+      "note": "New word: la tondeuse = the lawnmower."
+    },
+    {
+      "text": "Des cerises ? Prends-en autant que tu veux.",
+      "meaning": "Cherries? Take as many as you like.",
+      "note": "New word: la cerise = the cherry."
+    },
+    {
+      "text": "Nous ne leur en avons jamais parlé.",
+      "meaning": "We've never talked to them about it."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The order"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-pronoun-order-01"
+    },
+    {
+      "question": "b1-pronoun-order-02"
+    },
+    {
+      "question": "b1-pronoun-order-03"
+    },
+    {
+      "tip": "Say the chain out loud until it sticks: me-te-se-nous-vous, le-la-les, lui-leur, y, en."
+    },
+    {
+      "section": "Passé composé"
+    },
+    {
+      "question": "b1-pronoun-order-04"
+    },
+    {
+      "question": "b1-pronoun-order-05"
+    },
+    {
+      "question": "b1-pronoun-order-06"
+    },
+    {
+      "section": "In the negative"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-pronoun-order-07"
+    },
+    {
+      "section": "The imperative"
+    },
+    {
+      "concept": {
+        "title": "Me + lui? Never",
+        "markdown": "Two pronouns from the same column never stand together. With **me, te, nous, vous** as the direct object, the indirect person stays after **à**: **Il me présente à elle.** — He introduces me to her. Never *il me lui présente*."
+      }
+    },
+    {
+      "question": "b1-pronoun-order-08"
+    },
+    {
+      "question": "b1-pronoun-order-09"
+    }
+  ],
+  "sprint": {
+    "icon": "🧩",
+    "bites": [
+      {
+        "title": "The chain",
+        "emoji": "🔗",
+        "rule": "Two pronouns before the verb always line up: me/te/se/nous/vous → le/la/les → lui/leur → y → en.",
+        "example": "Je te le donne.",
+        "example_meaning": "I give it to you."
+      },
+      {
+        "title": "Before avoir, before the infinitive",
+        "emoji": "📍",
+        "rule": "Passé composé: both before avoir, and the participle agrees with le/la/les. Verb + infinitive: both before the infinitive.",
+        "example": "Je la lui ai donnée.",
+        "example_meaning": "I gave it to him."
+      },
+      {
+        "title": "Ne… pas around the pair",
+        "emoji": "🚧",
+        "rule": "Ne comes before the two pronouns, pas after the conjugated verb or avoir. Never split the pair.",
+        "example": "Je ne le lui ai pas dit.",
+        "example_meaning": "I didn't tell him."
+      },
+      {
+        "title": "The imperative flips it",
+        "emoji": "🔄",
+        "rule": "Affirmative imperative: after the verb, hyphens, direct first, moi/toi (m' before en). Negative imperative: the normal order.",
+        "example": "Donne-le-moi !",
+        "example_meaning": "Give it to me!"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Right order or wrong?",
+        "buckets": [
+          "correct",
+          "wrong"
+        ],
+        "items": [
+          {
+            "text": "je te le donne",
+            "bucket": 0
+          },
+          {
+            "text": "je le te donne",
+            "bucket": 1
+          },
+          {
+            "text": "je le lui donne",
+            "bucket": 0
+          },
+          {
+            "text": "je lui le donne",
+            "bucket": 1
+          },
+          {
+            "text": "il y en a",
+            "bucket": 0
+          },
+          {
+            "text": "il en y a",
+            "bucket": 1
+          },
+          {
+            "text": "je leur en parle",
+            "bucket": 0
+          },
+          {
+            "text": "je en leur parle",
+            "bucket": 1
+          }
+        ],
+        "why": "Me/te before le/la/les, le/la/les before lui/leur, and y before en: the chain never changes before a verb."
+      },
+      {
+        "title": "Before or after the verb?",
+        "buckets": [
+          "before the verb",
+          "after the verb"
+        ],
+        "items": [
+          {
+            "text": "Tu me le donnes.",
+            "bucket": 0
+          },
+          {
+            "text": "Donne-le-moi !",
+            "bucket": 1
+          },
+          {
+            "text": "Ne me le donne pas !",
+            "bucket": 0
+          },
+          {
+            "text": "Je vais te l'envoyer.",
+            "bucket": 0
+          },
+          {
+            "text": "Vas-y !",
+            "bucket": 1
+          },
+          {
+            "text": "Donnez-m'en !",
+            "bucket": 1
+          }
+        ],
+        "why": "Only the affirmative imperative puts the pronouns after the verb; everywhere else, including the negative imperative, they go before."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "La lettre ? Je la lui ai donné hier.",
+        "wrong": "donné",
+        "fix": "donnée",
+        "why": "La (the letter) comes before avoir, so the participle agrees: donnée."
+      },
+      {
+        "sentence": "Tu as du gâteau ? Donne-moi-en un peu.",
+        "wrong": "Donne-moi-en",
+        "fix": "Donne-m'en",
+        "why": "Before en, moi becomes m': donne-m'en."
+      },
+      {
+        "sentence": "Va-y, je t'attends !",
+        "wrong": "Va-y",
+        "fix": "Vas-y",
+        "why": "Before y, the tu imperative of aller takes back its -s: vas-y."
+      },
+      {
+        "sentence": "Les photos ? Je les leur ai montré.",
+        "wrong": "montré",
+        "fix": "montrées",
+        "why": "Les (the photos, feminine plural) comes before avoir: montrées."
+      },
+      {
+        "sentence": "Ne dis-le-moi pas !",
+        "wrong": "dis-le-moi",
+        "fix": "me le dis",
+        "why": "In the negative imperative, the pronouns go back before the verb: ne me le dis pas."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Je te le donne demain.",
+        "meaning": "I'll give it to you tomorrow.",
+        "distractors": [
+          "lui"
+        ]
+      },
+      {
+        "text": "Je ne le lui ai pas dit.",
+        "meaning": "I didn't tell him.",
+        "distractors": [
+          "leur"
+        ]
+      },
+      {
+        "text": "Il y en a beaucoup.",
+        "meaning": "There are a lot of them.",
+        "distractors": [
+          "le"
+        ]
+      },
+      {
+        "text": "Je vais te l'envoyer ce soir.",
+        "meaning": "I'll send it to you this evening.",
+        "distractors": [
+          "lui"
+        ]
+      }
+    ]
+  }
+}

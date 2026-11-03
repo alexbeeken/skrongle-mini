@@ -1,0 +1,615 @@
+{
+  "id": "c2-literary-subjunctive",
+  "slug": "literary-subjunctive",
+  "title": "The subjunctive in literary and formal prose: -ra and -se",
+  "unit": "C2",
+  "group": "Grammar",
+  "order": 10,
+  "summary": "Hablara or hablase? The two imperfect subjunctives, where only -ra will do, long conditionals, and the fixed frames of formal prose: digan lo que digan, ¡quién pudiera!, que yo sepa.",
+  "focus": "Using the -ra and -se subjunctive, the pluperfect subjunctive and fixed subjunctive frames in formal and literary Spanish",
+  "prerequisites": [
+    "c1-counterfactuals",
+    "b2-sequence-of-tenses"
+  ],
+  "content": "## Two forms of one tense: -ra and -se\n\nThe imperfect subjunctive has two sets of endings on the same stem. The stem is the third person plural of the preterite minus **-ron** (hablaron gives habla-, fueron gives fue-, tuvieron gives tuvie-).\n\n| | -ra | -se |\n|---|---|---|\n| yo | hablara | hablase |\n| tú | hablaras | hablases |\n| él / ella / usted | hablara | hablase |\n| nosotros/as | habláramos | hablásemos |\n| vosotros/as | hablarais | hablaseis |\n| ellos / ellas / ustedes | hablaran | hablasen |\n\nIn a subordinate clause they mean the same: **Me pidió que esperara** = **Me pidió que esperase**. The **-ra** form is the more frequent everywhere; **-se** is still used in Spain and in careful writing, and sounds bookish in much of Latin America. The pluperfect is **hubiera / hubiese + participle**.\n\n## Where only -ra will do\n\nThree uses belong to **-ra** alone:\n\n- **Courtesy**: **quisiera**, **debiera**, **pudiera** soften a request or advice. *Quisiera hablar con la directora* (I would like to speak to the director). *Quisiese* is wrong here.\n- **The press's past indicative**: **el que fuera ministro** = *el que había sido ministro* (the former minister). Common in journalism and literature, accepted in relative clauses, tiresome when overused. *-se* cannot do this.\n- **The main clause of a conditional**: **Si lo hubiese sabido, no hubiera venido**, where **hubiera = habría**. Keep **-se** for the *si* clause.\n\n## Long conditionals and the sequence of tenses\n\nFormal prose builds long hypotheses with the pluperfect subjunctive:\n\n- **Si la comisión hubiese aprobado el presupuesto, las obras habrían empezado en marzo.** (If the committee had approved the budget, the works would have begun in March.)\n- **Si hubiera estudiado Derecho, hoy sería jueza.** (Past condition, present result.)\n\nThe tense of the main verb sets the tense of the subjunctive:\n\n| main verb | subordinate |\n|---|---|\n| present, future, imperative: **pide, pedirá, pide** | present subjunctive: **que firme** |\n| past or conditional: **pidió, pedía, pediría** | imperfect subjunctive: **que firmara / firmase** |\n\n*El juez exigió que el testigo compareciera.* In much of Latin America the present survives after a past verb when the request is still pending (*pidió que firme mañana*); in formal Castilian prose, keep the sequence.\n\n## Fixed frames: whatever, if only, as far as I know\n\n- **Reduplication = \"whatever\"**: **digan lo que digan** (whatever they say), **sea como sea** (be that as it may), **pase lo que pase** (come what may), **vayas donde vayas**. In the past: **dijeran lo que dijeran**, **fuera como fuese**.\n- **Wishes with ojalá**: present = still possible (**ojalá llueva**), imperfect = unlikely or contrary to fact (**ojalá lloviera**), pluperfect = too late (**ojalá hubiera llovido**).\n- **¡Quién + subjunctive!** = if only I could: **¡Quién pudiera!**, **¡Quién lo hubiera dicho!** (Who would have thought it!)\n- **Que yo sepa** = as far as I know. **Que digamos** after a negative = not exactly: *No es muy puntual que digamos.*",
+  "vocabulary": [
+    {
+      "term": "hablara / hablase",
+      "meaning": "(that) I / he / she spoke: imperfect subjunctive, -ra and -se",
+      "example": "La presidenta rogó al ponente que hablase más despacio.",
+      "example_meaning": "The chair asked the speaker to talk more slowly."
+    },
+    {
+      "term": "fuera / fuese",
+      "meaning": "(that) I / he / she were or went: imperfect subjunctive of ser and ir",
+      "example": "Aunque fuese domingo, la biblioteca seguía abierta.",
+      "example_meaning": "Even though it was Sunday, the library was still open."
+    },
+    {
+      "term": "hubiera / hubiese",
+      "meaning": "had (auxiliary of the pluperfect subjunctive)",
+      "example": "Si hubiese llovido en abril, la cosecha se habría salvado.",
+      "example_meaning": "If it had rained in April, the harvest would have been saved."
+    },
+    {
+      "term": "quisiera",
+      "meaning": "I would like (courtesy; only the -ra form)",
+      "example": "Quisiera hacerle una pregunta sobre el contrato.",
+      "example_meaning": "I would like to ask you a question about the contract."
+    },
+    {
+      "term": "el que fuera",
+      "meaning": "the former…, who had been… (press style, -ra as a past indicative)",
+      "example": "La exposición homenajea a la que fuera directora del museo.",
+      "example_meaning": "The exhibition pays tribute to the woman who was once director of the museum."
+    },
+    {
+      "term": "digan lo que digan",
+      "meaning": "whatever they say",
+      "example": "Digan lo que digan las encuestas, el resultado está abierto.",
+      "example_meaning": "Whatever the polls say, the result is open."
+    },
+    {
+      "term": "sea como sea",
+      "meaning": "be that as it may; one way or another",
+      "example": "Sea como sea, el informe tiene que estar listo el lunes.",
+      "example_meaning": "One way or another, the report has to be ready on Monday."
+    },
+    {
+      "term": "pase lo que pase",
+      "meaning": "come what may; whatever happens",
+      "example": "Pase lo que pase, te llamo esta noche.",
+      "example_meaning": "Whatever happens, I'll call you tonight."
+    },
+    {
+      "term": "ojalá",
+      "meaning": "I hope; if only (+ subjunctive)",
+      "example": "Ojalá hubiéramos reservado mesa.",
+      "example_meaning": "If only we had booked a table."
+    },
+    {
+      "term": "¡quién pudiera!",
+      "meaning": "if only I could!",
+      "example": "¿Un año sabático en Lisboa? ¡Quién pudiera!",
+      "example_meaning": "A sabbatical year in Lisbon? If only I could!"
+    },
+    {
+      "term": "que yo sepa",
+      "meaning": "as far as I know",
+      "example": "Que yo sepa, nadie ha presentado una queja.",
+      "example_meaning": "As far as I know, nobody has filed a complaint."
+    },
+    {
+      "term": "que digamos",
+      "meaning": "not exactly, hardly (after a negative, ironic)",
+      "example": "El hotel no era barato que digamos.",
+      "example_meaning": "The hotel was not exactly cheap."
+    },
+    {
+      "term": "rogar",
+      "meaning": "to request formally, to beg",
+      "example": "Se ruega a los asistentes que apaguen el móvil.",
+      "example_meaning": "Attendees are kindly asked to switch off their phones."
+    },
+    {
+      "term": "aunque",
+      "meaning": "even if, even though (+ subjunctive for a hypothesis)",
+      "example": "Aunque me lo jurara, no lo creería.",
+      "example_meaning": "Even if he swore it to me, I wouldn't believe it."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c2-literary-subjunctive-01",
+      "prompt": "___ hablar con la directora, si es posible.",
+      "type": "multiple-choice",
+      "options": [
+        "Quisiera",
+        "Quisiese"
+      ],
+      "correct_answer": "Quisiera",
+      "explanation": "Courtesy uses only the -ra form: quisiera softens the request like 'I would like'. Quisiese is not used this way.",
+      "hints": [
+        "Polite requests belong to one of the two forms only."
+      ],
+      "teaches": [
+        "quisiera"
+      ]
+    },
+    {
+      "question_id": "c2-literary-subjunctive-02",
+      "prompt": "Si lo ___ sabido antes, te habría avisado. (haber)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "hubiera",
+      "accepted_answers": [
+        "hubiese",
+        "yo hubiera",
+        "yo hubiese"
+      ],
+      "explanation": "A past condition that did not happen takes the pluperfect subjunctive in the si clause: hubiera or hubiese sabido. Both forms are correct here.",
+      "hints": [
+        "If I had known…",
+        "Imperfect subjunctive of haber, yo form."
+      ],
+      "teaches": [
+        "hubiera / hubiese"
+      ]
+    },
+    {
+      "question_id": "c2-literary-subjunctive-03",
+      "prompt": "La presidenta le rogó que ___ más despacio. (hablar)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "hablara",
+      "accepted_answers": [
+        "hablase"
+      ],
+      "explanation": "Rogó is a past verb of request, so the subordinate takes the imperfect subjunctive: hablara or hablase.",
+      "hints": [
+        "A past main verb takes the imperfect subjunctive.",
+        "Third person singular."
+      ],
+      "teaches": [
+        "hablara / hablase",
+        "rogar"
+      ]
+    },
+    {
+      "question_id": "c2-literary-subjunctive-04",
+      "prompt": "Which sentence uses -ra as a past indicative, the press style that -se cannot copy?",
+      "type": "multiple-choice",
+      "options": [
+        "El que fuera alcalde de la ciudad inauguró la feria.",
+        "Si fuera alcalde, cambiaría las normas.",
+        "Aunque fuera alcalde, no lo votaría."
+      ],
+      "correct_answer": "El que fuera alcalde de la ciudad inauguró la feria.",
+      "explanation": "El que fuera alcalde means 'the man who had been mayor': -ra stands for había sido. The other two are ordinary subjunctives, where fuese would also work.",
+      "hints": [
+        "Which fuera could you replace with había sido?"
+      ],
+      "teaches": [
+        "el que fuera",
+        "fuera / fuese"
+      ]
+    },
+    {
+      "question_id": "c2-literary-subjunctive-05",
+      "prompt": "Digan lo que ___, no pienso cambiar de opinión.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "digan",
+      "accepted_answers": [],
+      "explanation": "The concessive frame repeats the same subjunctive: digan lo que digan = whatever they say.",
+      "hints": [
+        "Repeat the first verb exactly."
+      ],
+      "teaches": [
+        "digan lo que digan"
+      ]
+    },
+    {
+      "question_id": "c2-literary-subjunctive-06",
+      "prompt": "Sea como ___, el plazo termina el viernes.",
+      "type": "multiple-choice",
+      "options": [
+        "sea",
+        "es",
+        "será"
+      ],
+      "correct_answer": "sea",
+      "explanation": "Sea como sea (be that as it may) repeats the present subjunctive. The indicative breaks the frame.",
+      "hints": [
+        "The frame repeats the same form."
+      ],
+      "teaches": [
+        "sea como sea"
+      ]
+    },
+    {
+      "question_id": "c2-literary-subjunctive-07",
+      "prompt": "— Me voy a vivir un año a una isla. — ¡Qué envidia! ___",
+      "type": "multiple-choice",
+      "options": [
+        "¡Quién pudiera!",
+        "¡Quién puede!",
+        "¡Quién podrá!"
+      ],
+      "correct_answer": "¡Quién pudiera!",
+      "explanation": "¡Quién + imperfect subjunctive! expresses a wish you cannot fulfil: if only I could!",
+      "hints": [
+        "A wish that is out of reach takes the imperfect subjunctive."
+      ],
+      "teaches": [
+        "¡quién pudiera!"
+      ]
+    },
+    {
+      "question_id": "c2-literary-subjunctive-08",
+      "prompt": "Ojalá ___ salido antes; ahora hay un atasco enorme. (haber, nosotros)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "hubiéramos",
+      "accepted_answers": [
+        "hubiésemos"
+      ],
+      "explanation": "Regret about the past (too late now) takes ojalá + pluperfect subjunctive: ojalá hubiéramos / hubiésemos salido antes.",
+      "hints": [
+        "It is too late, so use the pluperfect subjunctive.",
+        "Nosotros form, with an accent."
+      ],
+      "teaches": [
+        "ojalá",
+        "hubiera / hubiese"
+      ]
+    },
+    {
+      "question_id": "c2-literary-subjunctive-09",
+      "prompt": "Aunque me lo ___, no te creería. (jurar, tú)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "juraras",
+      "accepted_answers": [
+        "jurases",
+        "tú juraras",
+        "tú jurases"
+      ],
+      "explanation": "A hypothesis with aunque and a conditional in the main clause takes the imperfect subjunctive: aunque me lo juraras / jurases.",
+      "hints": [
+        "The main clause is conditional (creería).",
+        "Tú form, -ra or -se."
+      ],
+      "teaches": [
+        "aunque"
+      ]
+    },
+    {
+      "question_id": "c2-literary-subjunctive-10",
+      "prompt": "El nuevo jefe no es muy simpático ___.",
+      "type": "multiple-choice",
+      "options": [
+        "que digamos",
+        "digamos que",
+        "pase lo que pase"
+      ],
+      "correct_answer": "que digamos",
+      "explanation": "After a negative, que digamos at the end means 'not exactly': he is not exactly friendly. Digamos que ('let's say that') introduces a clause, so it cannot close the sentence, and pase lo que pase ('whatever happens') makes no sense here.",
+      "hints": [
+        "You want the ironic 'not exactly'."
+      ],
+      "teaches": [
+        "que digamos"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Quisiera pedirle un favor.",
+      "meaning": "I would like to ask you a favour.",
+      "note": "Courtesy: quisiera, never quisiese."
+    },
+    {
+      "text": "Pase lo que pase, firmaremos mañana.",
+      "meaning": "Whatever happens, we will sign tomorrow."
+    },
+    {
+      "text": "Que yo sepa, el archivo abre los sábados.",
+      "meaning": "As far as I know, the archive opens on Saturdays.",
+      "note": "New word: el archivo = the archive."
+    },
+    {
+      "text": "Ojalá el tren no se retrasara tanto.",
+      "meaning": "If only the train weren't so late.",
+      "note": "Ojalá + imperfect subjunctive: contrary to fact."
+    },
+    {
+      "text": "La alcaldesa pidió que se respetase el silencio en la sala.",
+      "meaning": "The mayor asked for silence to be respected in the hall.",
+      "note": "Past main verb, imperfect subjunctive."
+    },
+    {
+      "text": "Si hubiésemos leído la letra pequeña, no estaríamos aquí.",
+      "meaning": "If we had read the small print, we wouldn't be here.",
+      "note": "New word: la letra pequeña = the small print."
+    },
+    {
+      "text": "El edificio, que fuera cárcel en otro siglo, hoy es una biblioteca.",
+      "meaning": "The building, which had been a prison in another century, is a library today.",
+      "note": "-ra as a past indicative: que fuera = que había sido."
+    },
+    {
+      "text": "Dijeran lo que dijeran los críticos, la novela se vendió muy bien.",
+      "meaning": "Whatever the critics said, the novel sold very well.",
+      "note": "New word: los críticos = the critics."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Two forms of one tense"
+    },
+    {
+      "vocab": 3
+    },
+    {
+      "question": "c2-literary-subjunctive-03"
+    },
+    {
+      "question": "c2-literary-subjunctive-09"
+    },
+    {
+      "section": "Where only -ra will do"
+    },
+    {
+      "vocab": 3
+    },
+    {
+      "question": "c2-literary-subjunctive-01"
+    },
+    {
+      "question": "c2-literary-subjunctive-04"
+    },
+    {
+      "tip": "Test for the press -ra: if you can swap it for había + participle, -se is not an option."
+    },
+    {
+      "section": "Long conditionals"
+    },
+    {
+      "question": "c2-literary-subjunctive-02"
+    },
+    {
+      "question": "c2-literary-subjunctive-08"
+    },
+    {
+      "section": "Fixed frames"
+    },
+    {
+      "question": "c2-literary-subjunctive-05"
+    },
+    {
+      "question": "c2-literary-subjunctive-06"
+    },
+    {
+      "question": "c2-literary-subjunctive-07"
+    },
+    {
+      "question": "c2-literary-subjunctive-10"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c2-literary-subjunctive-conv-editors",
+      "title": "The last read before printing",
+      "scenario": "Elena, an editor, and Tomás, a copy editor, go through a novel's proofs the day before it goes to the printer.",
+      "role_a": "Elena",
+      "role_b": "Tomás",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Tomás, quisiera comentarte algo del manuscrito antes de que lo mandes a imprenta.",
+          "meaning": "Tomás, I'd like to mention something about the manuscript before you send it to the printer.",
+          "note": "Courtesy -ra: quisiera."
+        },
+        {
+          "speaker": "b",
+          "text": "Dime. Que yo sepa, ya está todo corregido.",
+          "meaning": "Go on. As far as I know, everything has been corrected."
+        },
+        {
+          "speaker": "a",
+          "text": "Casi. La autora alterna hubiese y hubiera en la misma página.",
+          "meaning": "Almost. The author alternates hubiese and hubiera on the same page."
+        },
+        {
+          "speaker": "b",
+          "text": "Eso no es un error. En la oración con si valen las dos formas.",
+          "meaning": "That's not a mistake. In the si clause both forms are fine."
+        },
+        {
+          "speaker": "a",
+          "text": "Ya, pero aquí escribe: si lo hubiese sabido, no hubiese venido. Chirría.",
+          "meaning": "Sure, but here she writes: si lo hubiese sabido, no hubiese venido. It grates.",
+          "note": "In the main clause, hubiera or habría."
+        },
+        {
+          "speaker": "b",
+          "text": "Tienes razón. En la principal mejor hubiera, o mejor aún, habría.",
+          "meaning": "You're right. In the main clause, hubiera is better, or better still, habría."
+        },
+        {
+          "speaker": "a",
+          "text": "Y en la contracubierta habla del que fuera su editor. ¿Lo dejamos?",
+          "meaning": "And on the back cover she mentions the man who was once her editor. Do we leave it?",
+          "note": "-ra as a past indicative."
+        },
+        {
+          "speaker": "b",
+          "text": "Es estilo de prensa, pero es correcto. Digan lo que digan los puristas.",
+          "meaning": "It's press style, but it's correct. Whatever the purists say."
+        },
+        {
+          "speaker": "a",
+          "text": "De acuerdo. Ojalá todos los textos llegaran tan limpios.",
+          "meaning": "Fine. If only all texts arrived this clean."
+        },
+        {
+          "speaker": "b",
+          "text": "¡Quién pudiera! El próximo trae trescientas páginas y ni una coma.",
+          "meaning": "If only! The next one has three hundred pages and not a single comma."
+        },
+        {
+          "speaker": "a",
+          "text": "Sea como sea, lo leemos juntos el lunes.",
+          "meaning": "Be that as it may, we'll read it together on Monday."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🪶",
+    "bites": [
+      {
+        "title": "-ra or -se",
+        "emoji": "🪞",
+        "rule": "The imperfect subjunctive has two endings on one stem (hablaron gives habla-): hablara or hablase. In a subordinate clause they are interchangeable.",
+        "example": "Me pidió que esperase un momento.",
+        "example_meaning": "She asked me to wait a moment."
+      },
+      {
+        "title": "Only -ra",
+        "emoji": "🎩",
+        "rule": "Courtesy (quisiera), the press's past indicative (el que fuera ministro) and the main clause of a conditional (hubiera = habría) take -ra, never -se.",
+        "example": "Quisiera ver al director.",
+        "example_meaning": "I would like to see the director."
+      },
+      {
+        "title": "Whatever, come what may",
+        "emoji": "🔁",
+        "rule": "Repeat the subjunctive around lo que, como or donde to say 'whatever': digan lo que digan, sea como sea, vayas donde vayas.",
+        "example": "Vayas donde vayas, llévate un paraguas.",
+        "example_meaning": "Wherever you go, take an umbrella."
+      },
+      {
+        "title": "Three wishes",
+        "emoji": "🌠",
+        "rule": "Ojalá + present = still possible; + imperfect = unlikely or untrue now; + pluperfect = too late. ¡Quién pudiera! = if only I could.",
+        "example": "Ojalá hubiera aceptado aquel trabajo.",
+        "example_meaning": "If only I had accepted that job."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Both forms, or only -ra?",
+        "buckets": [
+          "-ra or -se",
+          "only -ra"
+        ],
+        "why": "In ordinary subordinate clauses both forms work; courtesy, the press's past indicative and the main clause of a conditional take -ra only.",
+        "items": [
+          {
+            "text": "Me pidió que lo ___ (firmar)",
+            "bucket": 0
+          },
+          {
+            "text": "___ un café, por favor (querer)",
+            "bucket": 1
+          },
+          {
+            "text": "el que ___ alcalde (= había sido)",
+            "bucket": 1
+          },
+          {
+            "text": "Aunque ___ tarde, vino (ser)",
+            "bucket": 0
+          },
+          {
+            "text": "Ojalá ___ más tiempo (tener)",
+            "bucket": 0
+          },
+          {
+            "text": "Si lo hubiese sabido, no ___ venido",
+            "bucket": 1
+          }
+        ]
+      },
+      {
+        "title": "Possible, unlikely or too late?",
+        "buckets": [
+          "still possible",
+          "unlikely or untrue now",
+          "too late"
+        ],
+        "why": "Ojalá + present looks ahead to something possible; + imperfect wishes for what is not so; + pluperfect regrets the past.",
+        "items": [
+          {
+            "text": "Ojalá llueva mañana.",
+            "bucket": 0
+          },
+          {
+            "text": "Ojalá lloviera ahora mismo.",
+            "bucket": 1
+          },
+          {
+            "text": "Ojalá hubiera llovido ayer.",
+            "bucket": 2
+          },
+          {
+            "text": "Ojalá aprueben todos.",
+            "bucket": 0
+          },
+          {
+            "text": "Ojalá fuera verano.",
+            "bucket": 1
+          },
+          {
+            "text": "Ojalá lo hubiésemos sabido.",
+            "bucket": 2
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Quisiese hablar con el director, por favor.",
+        "wrong": "Quisiese",
+        "fix": "Quisiera",
+        "why": "Courtesy takes only the -ra form."
+      },
+      {
+        "sentence": "El juez exigió ayer que el testigo comparezca.",
+        "wrong": "comparezca",
+        "fix": "compareciera",
+        "why": "A past main verb about a past event takes the imperfect subjunctive."
+      },
+      {
+        "sentence": "Digan lo que dicen, no cambiaré de opinión.",
+        "wrong": "dicen",
+        "fix": "digan",
+        "why": "The concessive frame repeats the same subjunctive."
+      },
+      {
+        "sentence": "Si lo hubiese sabido, te lo habré dicho.",
+        "wrong": "habré",
+        "fix": "habría",
+        "why": "The result of a past unreal condition is the conditional perfect: habría (or hubiera) dicho."
+      },
+      {
+        "sentence": "No es muy simpático que digo.",
+        "wrong": "digo",
+        "fix": "digamos",
+        "why": "The fixed ironic tag is que digamos."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Quisiera hablar con la directora.",
+        "meaning": "I would like to speak to the director.",
+        "distractors": [
+          "Quisiese"
+        ]
+      },
+      {
+        "text": "Pase lo que pase, te llamaré.",
+        "meaning": "Whatever happens, I will call you.",
+        "distractors": [
+          "pasa"
+        ]
+      },
+      {
+        "text": "Si hubiese llegado antes, lo habría visto.",
+        "meaning": "If I had arrived earlier, I would have seen him.",
+        "distractors": [
+          "hubo"
+        ]
+      },
+      {
+        "text": "Que yo sepa, la tienda está cerrada.",
+        "meaning": "As far as I know, the shop is closed.",
+        "distractors": [
+          "sé"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{% for r in rows %}
+<li class="devauth-row" data-testid="dev-authenticator-item" data-id="{{ r.id }}" data-issuer="{{ r.issuer }}" data-account="{{ r.account }}" data-code="{{ r.code }}" data-expires="{{ r.expires }}" data-period="{{ r.period }}">
+  <span class="devbox-avatar-lg" aria-hidden="true">{{ r.initial() }}</span>
+  <div class="devauth-main">
+    <div class="devauth-name"><strong data-testid="dev-authenticator-issuer">{% if r.issuer.is_empty() %}{{ r.account }}{% else %}{{ r.issuer }}{% endif %}</strong>{% if !r.issuer.is_empty() && !r.account.is_empty() %} <span class="muted" data-testid="dev-authenticator-account">{{ r.account }}</span>{% endif %}{% if !r.settings.is_empty() %} <span class="small muted">({{ r.settings }})</span>{% endif %}</div>
+    <div class="devauth-code" data-testid="dev-authenticator-code" aria-label="Code {{ r.code }}">{{ r.grouped() }}</div>
+  </div>
+  <span class="devauth-timer" data-testid="dev-authenticator-remaining" title="Seconds until the next code" style="--left: {{ r.remaining }}; --period: {{ r.period }}">{{ r.remaining }}</span>
+  <button type="button" class="devbox-icon" data-copy="{{ r.code }}" title="Copy the code" aria-label="Copy the code" data-testid="dev-authenticator-copy"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 7h9v9H7zM4 13V4h9"/></svg></button>
+  <form method="post" action="{{ crate::url(&format!("/dev/authenticator/{}", r.id)) }}" data-live><input type="hidden" name="do" value="delete"><button type="submit" class="devbox-icon danger" title="Remove this account" aria-label="Remove" data-testid="dev-authenticator-remove"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 6h12M8 6V4h4v2M6 6l1 10h6l1-10"/></svg></button></form>
+</li>
+{% endfor %}
+{% if rows.is_empty() %}<li class="devbox-empty devauth-empty" data-testid="dev-authenticator-empty">No accounts yet. Paste a setup link or key above.</li>{% endif %}

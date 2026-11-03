@@ -1,0 +1,609 @@
+{
+  "id": "a1-etre-avoir",
+  "slug": "etre-avoir",
+  "title": "Être and avoir: the two verbs you need first",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 18,
+  "summary": "Conjugate être (to be) and avoir (to have), say your job and nationality, your age, that you're hungry or cold, and what there is with il y a.",
+  "focus": "The present tense of être and avoir and their everyday uses",
+  "prerequisites": [
+    "a1-nouns-articles"
+  ],
+  "content": "## Être: to be\n\n| | être |\n|---|---|\n| je | **suis** |\n| tu | **es** |\n| il / elle / on | **est** |\n| nous | **sommes** |\n| vous | **êtes** |\n| ils / elles | **sont** |\n\n**Être** says who or what someone is, and where. **Je suis à Paris.** (I'm in Paris.) **C'est** is just **ce + est**.\n\nWith a job or a nationality on its own, French uses **no article**. **Je suis médecin.** (I'm a doctor.) **Elle est française.** Nationalities are lower-case adjectives, so they agree. **il est français**, **elle est française**. If you add an adjective, you need **c'est un / une**. **C'est un bon médecin.**\n\n## Avoir: to have\n\n| | avoir |\n|---|---|\n| je | **ai** (j'ai) |\n| tu | **as** |\n| il / elle / on | **a** |\n| nous | **avons** |\n| vous | **avez** |\n| ils / elles | **ont** |\n\n**Je** becomes **j'** before the vowel: **j'ai**, never *je ai*. Before **avons, avez, ont**, the s of the pronoun is heard as a z: **nous avons**, **vous avez**, **ils ont** (eel-zon). Compare **ils sont** (eel-son, *they are*) and **ils ont** (eel-zon, *they have*). **J'ai un chat.** (I have a cat.)\n\n## Avoir where English says be\n\nFrench uses **avoir** for your age and your body's needs.\n\n- Age: **J'ai vingt ans.** (I'm twenty, literally *I have twenty years*.) Never *je suis vingt*. Ask: **Quel âge as-tu ?**\n- **avoir faim** (to be hungry), **avoir soif** (to be thirsty)\n- **avoir froid** (to be cold), **avoir chaud** (to be hot)\n- **avoir peur** (to be afraid)\n\n**J'ai faim et j'ai froid.** (I'm hungry and cold.) Say **j'ai chaud** for the heat, never *je suis chaud*.\n\n## Il y a: there is, there are\n\n**Il y a** introduces something that exists somewhere. It never changes, whether it refers to one thing or many.\n\n- **Il y a un chat dans le jardin.** (There's a cat in the garden.)\n- **Il y a des livres sur la table.** (There are books on the table.)\n- **Qu'est-ce qu'il y a ?** (What's the matter? What is there?)\n\n**Il y a** states that something is there, and **voilà** points at it. **Voilà le chat !**",
+  "vocabulary": [
+    {
+      "term": "être",
+      "meaning": "to be",
+      "example": "Nous sommes à Lyon cette semaine.",
+      "example_meaning": "We're in Lyon this week."
+    },
+    {
+      "term": "le médecin",
+      "meaning": "doctor (m; also used for a woman)",
+      "example": "Ma sœur est médecin.",
+      "example_meaning": "My sister is a doctor."
+    },
+    {
+      "term": "français / française",
+      "meaning": "French (m / f)",
+      "example": "Paul est français, et Anna est française.",
+      "example_meaning": "Paul is French, and Anna is French."
+    },
+    {
+      "term": "avoir",
+      "meaning": "to have",
+      "example": "Ils ont deux enfants.",
+      "example_meaning": "They have two children."
+    },
+    {
+      "term": "avoir … ans",
+      "meaning": "to be … years old",
+      "example": "Mon grand-père a quatre-vingts ans.",
+      "example_meaning": "My grandfather is eighty."
+    },
+    {
+      "term": "avoir faim",
+      "meaning": "to be hungry",
+      "example": "J'ai faim ! On mange ?",
+      "example_meaning": "I'm hungry! Shall we eat?"
+    },
+    {
+      "term": "avoir soif",
+      "meaning": "to be thirsty",
+      "example": "Tu as soif ? Voici de l'eau.",
+      "example_meaning": "Are you thirsty? Here's some water."
+    },
+    {
+      "term": "avoir froid / avoir chaud",
+      "meaning": "to be cold / to be hot",
+      "example": "J'ai froid, et toi, tu as chaud ?",
+      "example_meaning": "I'm cold, and you, are you hot?"
+    },
+    {
+      "term": "avoir peur",
+      "meaning": "to be afraid",
+      "example": "Le chat a peur du chien.",
+      "example_meaning": "The cat is afraid of the dog."
+    },
+    {
+      "term": "il y a",
+      "meaning": "there is, there are",
+      "example": "Il y a trois chambres dans la maison.",
+      "example_meaning": "There are three bedrooms in the house."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-etre-avoir-01",
+      "prompt": "Nous ___ étudiants.",
+      "type": "multiple-choice",
+      "options": [
+        "sommes",
+        "avons",
+        "êtes"
+      ],
+      "correct_answer": "sommes",
+      "explanation": "What you are takes être, and nous goes with sommes. Nous sommes étudiants.",
+      "hints": [
+        "Being, not having.",
+        "The nous form."
+      ],
+      "teaches": [
+        "être"
+      ]
+    },
+    {
+      "question_id": "a1-etre-avoir-02",
+      "prompt": "How do you say I'm twenty?",
+      "type": "multiple-choice",
+      "options": [
+        "J'ai vingt ans.",
+        "Je suis vingt ans.",
+        "Je suis vingt."
+      ],
+      "correct_answer": "J'ai vingt ans.",
+      "explanation": "Age takes avoir and the word ans: J'ai vingt ans.",
+      "hints": [
+        "French 'has' its years."
+      ],
+      "teaches": [
+        "avoir … ans"
+      ]
+    },
+    {
+      "question_id": "a1-etre-avoir-03",
+      "prompt": "Ma mère est ___. (a doctor)",
+      "type": "multiple-choice",
+      "options": [
+        "médecin",
+        "un médecin",
+        "une médecin"
+      ],
+      "correct_answer": "médecin",
+      "explanation": "After être, a job on its own takes no article: Ma mère est médecin.",
+      "hints": [
+        "Job after être: article or not?"
+      ],
+      "teaches": [
+        "le médecin",
+        "être"
+      ]
+    },
+    {
+      "question_id": "a1-etre-avoir-04",
+      "prompt": "It's 35 °C in the shade. You say…",
+      "type": "multiple-choice",
+      "options": [
+        "J'ai chaud.",
+        "Je suis chaud.",
+        "J'ai froid."
+      ],
+      "correct_answer": "J'ai chaud.",
+      "explanation": "Feeling hot is avoir chaud: J'ai chaud. Je suis chaud is not how French talks about the heat.",
+      "hints": [
+        "Body feelings take avoir."
+      ],
+      "teaches": [
+        "avoir froid / avoir chaud"
+      ]
+    },
+    {
+      "question_id": "a1-etre-avoir-05",
+      "prompt": "Tu ___ peur du chien ? (avoir)",
+      "type": "fill-in-blank",
+      "correct_answer": "as",
+      "accepted_answers": [
+        "tu as"
+      ],
+      "explanation": "Avoir with tu is as: Tu as peur ?",
+      "hints": [
+        "The tu form of avoir.",
+        "Two letters."
+      ],
+      "teaches": [
+        "avoir peur",
+        "avoir"
+      ]
+    },
+    {
+      "question_id": "a1-etre-avoir-06",
+      "prompt": "Elles ___ françaises. (être)",
+      "type": "fill-in-blank",
+      "correct_answer": "sont",
+      "accepted_answers": [
+        "elles sont"
+      ],
+      "explanation": "Être with elles is sont: Elles sont françaises.",
+      "hints": [
+        "The ils / elles form of être."
+      ],
+      "teaches": [
+        "être",
+        "français / française"
+      ]
+    },
+    {
+      "question_id": "a1-etre-avoir-07",
+      "prompt": "___ des livres sur la table. (there are)",
+      "type": "fill-in-blank",
+      "correct_answer": "Il y a",
+      "accepted_answers": [],
+      "explanation": "There is and there are are both il y a, and it never changes.",
+      "hints": [
+        "Three short words.",
+        "It starts with il."
+      ],
+      "teaches": [
+        "il y a"
+      ]
+    },
+    {
+      "question_id": "a1-etre-avoir-08",
+      "prompt": "Je ai faim is correct French for I'm hungry.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "False. Je becomes j' before the vowel: J'ai faim.",
+      "hints": [
+        "What happens to je before a vowel?"
+      ],
+      "teaches": [
+        "avoir",
+        "avoir faim"
+      ]
+    },
+    {
+      "question_id": "a1-etre-avoir-09",
+      "prompt": "In ils ont (they have) you hear a z sound between ils and ont.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "True. The s of ils links to the vowel as a z: eel-zon. Ils sont (they are) has an s sound: eel-son.",
+      "hints": [
+        "Think of the liaison."
+      ],
+      "teaches": [
+        "avoir"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "être",
+      "meaning": "to be",
+      "set": "present",
+      "art": [
+        "    _____    ",
+        "   ( o o )   ",
+        "    \\ - /    ",
+        "   --| |--   ",
+        "     / \\     "
+      ],
+      "forms": {
+        "je": "suis",
+        "tu": "es",
+        "il": "est",
+        "nous": "sommes",
+        "vous": "êtes",
+        "ils": "sont"
+      }
+    },
+    {
+      "item": "avoir",
+      "meaning": "to have",
+      "set": "present",
+      "art": [
+        "     .--.     ",
+        "  .-'----'-.  ",
+        "  |        |  ",
+        "  |  [==]  |  ",
+        "  '--------'  "
+      ],
+      "forms": {
+        "je": "ai",
+        "tu": "as",
+        "il": "a",
+        "nous": "avons",
+        "vous": "avez",
+        "ils": "ont"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-etre-avoir-conv-new-classmate",
+      "title": "The new classmate",
+      "scenario": "On the first day of term, Léa talks to Marco, a new student in her class.",
+      "role_a": "Léa",
+      "role_b": "Marco",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Salut ! Je m'appelle Léa. Tu es nouveau ?",
+          "meaning": "Hi! My name is Léa. Are you new?",
+          "note": "Nouveau = new."
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, je suis italien. Je m'appelle Marco.",
+          "meaning": "Yes, I'm Italian. My name is Marco."
+        },
+        {
+          "speaker": "a",
+          "text": "Enchantée, Marco ! Tu as quel âge ?",
+          "meaning": "Nice to meet you, Marco! How old are you?"
+        },
+        {
+          "speaker": "b",
+          "text": "J'ai vingt-deux ans. Et toi ?",
+          "meaning": "I'm twenty-two. And you?"
+        },
+        {
+          "speaker": "a",
+          "text": "Moi, j'ai vingt ans. Je suis étudiante en médecine.",
+          "meaning": "I'm twenty. I'm a medical student."
+        },
+        {
+          "speaker": "b",
+          "text": "Super ! Moi, je suis cuisinier.",
+          "meaning": "Great! I'm a cook.",
+          "note": "There is no article before a job: je suis cuisinier."
+        },
+        {
+          "speaker": "a",
+          "text": "Cuisinier ? Oh, j'ai faim !",
+          "meaning": "A cook? Oh, I'm hungry!"
+        },
+        {
+          "speaker": "b",
+          "text": "Il y a un bon café à côté. Tu as le temps ?",
+          "meaning": "There's a good café next door. Do you have time?"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui, mais j'ai froid ! Il y a du chocolat chaud ?",
+          "meaning": "Yes, but I'm cold! Is there hot chocolate?"
+        },
+        {
+          "speaker": "b",
+          "text": "Bien sûr. On y va !",
+          "meaning": "Of course. Let's go!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Je suis médecin à Lyon.",
+      "meaning": "I'm a doctor in Lyon.",
+      "note": "No article before a job."
+    },
+    {
+      "text": "Vous avez faim ? Il est midi.",
+      "meaning": "Are you hungry? It's noon."
+    },
+    {
+      "text": "Elle a vingt ans aujourd'hui.",
+      "meaning": "She's twenty today.",
+      "note": "New word: aujourd'hui = today."
+    },
+    {
+      "text": "Vous êtes français ou belge ?",
+      "meaning": "Are you French or Belgian?",
+      "note": "New word: belge = Belgian."
+    },
+    {
+      "text": "Les enfants ont peur du chien.",
+      "meaning": "The children are afraid of the dog.",
+      "note": "Ils ont has a z sound."
+    },
+    {
+      "text": "Tu as froid ? La fenêtre est ouverte.",
+      "meaning": "Are you cold? The window is open.",
+      "note": "New word: ouverte = open."
+    },
+    {
+      "text": "Il y a deux chats sur le canapé.",
+      "meaning": "There are two cats on the sofa."
+    },
+    {
+      "text": "Mon frère est professeur, et il a trente ans.",
+      "meaning": "My brother is a teacher, and he's thirty."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Être"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-etre-avoir-01"
+    },
+    {
+      "question": "a1-etre-avoir-03"
+    },
+    {
+      "question": "a1-etre-avoir-06"
+    },
+    {
+      "section": "Avoir: to have"
+    },
+    {
+      "question": "a1-etre-avoir-08"
+    },
+    {
+      "question": "a1-etre-avoir-09"
+    },
+    {
+      "section": "Avoir where"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-etre-avoir-02"
+    },
+    {
+      "question": "a1-etre-avoir-04"
+    },
+    {
+      "question": "a1-etre-avoir-05"
+    },
+    {
+      "tip": "Ils sont (s sound) means they are, and ils ont (z sound) means they have. Listen for the hiss or the buzz."
+    },
+    {
+      "section": "Il y a"
+    },
+    {
+      "question": "a1-etre-avoir-07"
+    },
+    {
+      "concept": {
+        "title": "Il est or c'est?",
+        "markdown": "With a job or nationality on its own, use **il est / elle est**. **Il est médecin.** As soon as there is an article, switch to **c'est**. **C'est un médecin.** **C'est un bon médecin.** Never *il est un médecin*."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "🎭",
+    "bites": [
+      {
+        "title": "Être",
+        "emoji": "🎭",
+        "rule": "Je suis, tu es, il est, nous sommes, vous êtes, ils sont. A job or nationality after être takes no article.",
+        "example": "Je suis médecin. Elle est française.",
+        "example_meaning": "I'm a doctor. She's French."
+      },
+      {
+        "title": "Avoir",
+        "emoji": "👜",
+        "rule": "J'ai, tu as, il a, nous avons, vous avez, ils ont. Je becomes j' before ai.",
+        "example": "J'ai un chat et deux chiens.",
+        "example_meaning": "I have a cat and two dogs."
+      },
+      {
+        "title": "Avoir, not être",
+        "emoji": "🌡️",
+        "rule": "Age, hunger, thirst, cold, heat and fear take avoir: j'ai vingt ans, j'ai faim, j'ai soif, j'ai froid, j'ai chaud, j'ai peur.",
+        "example": "J'ai vingt ans et j'ai faim.",
+        "example_meaning": "I'm twenty and I'm hungry."
+      },
+      {
+        "title": "Il y a",
+        "emoji": "📍",
+        "rule": "Il y a means there is or there are, for one thing or many. It never changes.",
+        "example": "Il y a des livres sur la table.",
+        "example_meaning": "There are books on the table."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Être or avoir?",
+        "buckets": [
+          "être",
+          "avoir"
+        ],
+        "items": [
+          {
+            "text": "vingt ans",
+            "bucket": 1
+          },
+          {
+            "text": "français",
+            "bucket": 0
+          },
+          {
+            "text": "faim",
+            "bucket": 1
+          },
+          {
+            "text": "à Paris",
+            "bucket": 0
+          },
+          {
+            "text": "peur",
+            "bucket": 1
+          },
+          {
+            "text": "étudiant",
+            "bucket": 0
+          },
+          {
+            "text": "un chat",
+            "bucket": 1
+          },
+          {
+            "text": "fatigué",
+            "bucket": 0
+          }
+        ],
+        "why": "Who, what and where you are take être; age, hunger, fear and things you own take avoir."
+      },
+      {
+        "title": "Ils sont or ils ont?",
+        "buckets": [
+          "ils sont",
+          "ils ont"
+        ],
+        "items": [
+          {
+            "text": "… à Lyon",
+            "bucket": 0
+          },
+          {
+            "text": "… soif",
+            "bucket": 1
+          },
+          {
+            "text": "… italiens",
+            "bucket": 0
+          },
+          {
+            "text": "… deux enfants",
+            "bucket": 1
+          },
+          {
+            "text": "… chaud",
+            "bucket": 1
+          },
+          {
+            "text": "… professeurs",
+            "bucket": 0
+          }
+        ],
+        "why": "Use ils sont (s sound) for where and what they are, and ils ont (z sound) for what they have or feel."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Elle est vingt ans.",
+        "wrong": "est",
+        "fix": "a",
+        "why": "Age takes avoir: elle a vingt ans."
+      },
+      {
+        "sentence": "Nous avons étudiants.",
+        "wrong": "avons",
+        "fix": "sommes",
+        "why": "What you are takes être: nous sommes étudiants."
+      },
+      {
+        "sentence": "Tu es soif ?",
+        "wrong": "es",
+        "fix": "as",
+        "why": "Thirst takes avoir: tu as soif."
+      },
+      {
+        "sentence": "Vous avez français ?",
+        "wrong": "avez",
+        "fix": "êtes",
+        "why": "Nationality takes être: vous êtes français."
+      },
+      {
+        "sentence": "Elles sont peur du chien.",
+        "wrong": "sont",
+        "fix": "ont",
+        "why": "Fear takes avoir: elles ont peur."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Je suis médecin à Paris.",
+        "meaning": "I'm a doctor in Paris.",
+        "distractors": [
+          "un"
+        ]
+      },
+      {
+        "text": "J'ai vingt ans.",
+        "meaning": "I'm twenty.",
+        "distractors": [
+          "suis"
+        ]
+      },
+      {
+        "text": "Nous avons faim et soif.",
+        "meaning": "We're hungry and thirsty.",
+        "distractors": [
+          "sommes"
+        ]
+      },
+      {
+        "text": "Il y a des livres sur la table.",
+        "meaning": "There are books on the table.",
+        "distractors": [
+          "sont"
+        ]
+      },
+      {
+        "text": "Elles sont françaises.",
+        "meaning": "They're French.",
+        "distractors": [
+          "ont"
+        ]
+      }
+    ]
+  }
+}

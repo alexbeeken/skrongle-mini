@@ -1,0 +1,90 @@
+{
+  "id": "tc-ear",
+  "slug": "ear",
+  "title": "Ear training",
+  "unit": "edge",
+  "order": 210,
+  "summary": "Music to listen to: an interval, a melody and a rhythm among staves, chords to sort",
+  "content": "## Listen first\n\nA question with `play` has a speaker button. Tap it to hear the notes, as often as you like.\n\n## Then read it\n\nOnce you answer, the notes you heard appear on a staff.",
+  "quiz": [
+    {
+      "question_id": "tc-ear-q1",
+      "type": "multiple-choice",
+      "prompt": "Which interval did you hear?",
+      "play": "X:1\nL:1/2\nK:C\nC G",
+      "option_kind": "text",
+      "options": [
+        "perfect 4th",
+        "perfect 5th",
+        "major 6th"
+      ],
+      "correct_answer": "perfect 5th",
+      "explanation": "From C up to G is five letter names, C D E F G: a perfect 5th."
+    },
+    {
+      "question_id": "tc-ear-q2",
+      "type": "multiple-choice",
+      "prompt": "Which melody plays?",
+      "play": "X:1\nL:1/4\nK:C\nCDEC",
+      "option_kind": "abc",
+      "options": [
+        "CDEC",
+        "CEDC",
+        "CDCE"
+      ],
+      "correct_answer": "CDEC",
+      "explanation": "It steps up from C to D to E, then drops back to C."
+    },
+    {
+      "question_id": "tc-ear-q3",
+      "type": "multiple-choice",
+      "prompt": "Which bar did you hear?",
+      "play": "X:1\nM:4/4\nL:1/8\nK:C clef=perc\nB2 BB B2 B2|",
+      "option_kind": "abc",
+      "options": [
+        "B2 BB B2 B2|",
+        "BB B2 B2 B2|",
+        "B2 B2 BB B2|"
+      ],
+      "correct_answer": "B2 BB B2 B2|",
+      "explanation": "A quarter, two eighths, then two quarters: the quick pair comes second."
+    }
+  ],
+  "sprint": {
+    "sorts": [
+      {
+        "title": "Major or minor?",
+        "buckets": [
+          "major",
+          "minor"
+        ],
+        "items": [
+          {
+            "play": "[CEG]2",
+            "bucket": 0
+          },
+          {
+            "play": "[A,CE]2",
+            "bucket": 1
+          },
+          {
+            "play": "[GBd]2",
+            "bucket": 0
+          },
+          {
+            "play": "[DFA]2",
+            "bucket": 1
+          }
+        ],
+        "why": "A major chord has a major 3rd at the bottom, a minor chord a minor 3rd."
+      }
+    ],
+    "scales": [
+      {
+        "title": "D major",
+        "notes": "D E ^F G A B ^c d",
+        "decoys": "F c"
+      }
+    ]
+  }
+}

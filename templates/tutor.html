@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="{{ crate::i18n::lang() }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<meta name="theme-color" content="#6b4f9e">
+<title>{{ crate::t("tutor.title") }} · {{ course.title }}</title>
+<link rel="stylesheet" href="{{ crate::routes::asset_url("tutor.css") }}">
+<link rel="icon" href="{{ crate::routes::asset_url("favicon.svg") }}" type="image/svg+xml">
+<link rel="manifest" href="{{ crate::url("/manifest.webmanifest") }}">
+</head>
+<body class="tutor" data-base="{{ crate::base_path() }}" data-provider="{{ provider }}" data-lesson="{{ lesson_slug }}" data-course="{{ course.title }}" data-praise="{{ course.praise }}" data-chars="{{ chars_json }}">
+<div class="shell">
+  <header class="t-top">
+    <a class="t-exit" data-testid="tutor-exit" href="{{ crate::url("/") }}" aria-label="{{ crate::t("tutor.exit") }}">✕</a>
+    <div class="t-title">
+      <strong>{{ crate::t("tutor.title") }}</strong>
+      <span class="t-sub">{{ course.icon }} {{ course.title }}{% if !lesson_title.is_empty() %} · {{ lesson_title }}{% endif %}</span>
+    </div>
+    {% if providers.len() > 1 %}
+    <form method="get" action="{{ crate::base_path() }}/tutor" class="t-provider" data-testid="tutor-provider-form">
+      {% if !lesson_slug.is_empty() %}<input type="hidden" name="lesson" value="{{ lesson_slug }}">{% endif %}
+      <label class="sr-only" for="provider">{{ crate::t("tutor.model_label") }}</label>
+      <select id="provider" data-testid="tutor-provider" name="provider" onchange="this.form.submit()">
+        {% for p in providers %}<option value="{{ p.id }}"{% if p.selected %} selected{% endif %}>{{ p.label }}</option>{% endfor %}
+      </select>
+    </form>
+    {% else if providers.len() == 1 %}
+    <span class="t-model small">{{ providers[0].label }}</span>
+    {% endif %}
+    <span class="t-score" id="score" data-testid="tutor-score" hidden><b id="score-right">0</b>/<span id="score-total">0</span></span>
+  </header>
+
+  {% if providers.is_empty() %}
+  <main class="t-main t-empty" data-testid="tutor-no-key">
+    <p class="t-empty-icon">🤖</p>
+    <h1>{{ crate::t("tutor.no_key.title") }}</h1>
+    <p>{{ crate::t1("tutor.no_key.p1", "app", crate::APP_NAME) }}</p>
+    {% if owner %}<p>{{ crate::t("tutor.no_key.p2") }}</p>
+    <a class="t-btn" href="{{ crate::url("/manage#ai") }}" data-testid="tutor-add-key">{{ crate::t("tutor.no_key.add_key") }}</a>{% else %}<p>{{ crate::t("tutor.no_key.ask_owner") }}</p>{% endif %}
+    <a class="t-link" href="{{ crate::url("/") }}">{{ crate::t("tutor.no_key.back") }}</a>
+  </main>
+  {% else %}
+  <main class="t-main" id="chat" data-testid="tutor-chat" aria-live="polite">
+    <div class="t-thread" id="thread" data-testid="tutor-thread"></div>
+  </main>
+
+  <footer class="t-foot">
+    <div class="t-chars" id="chars" hidden aria-label="{{ crate::t("tutor.chars_label") }}"></div>
+    {% for p in providers %}{% if p.selected %}<p class="t-disclosure small" data-testid="ai-disclosure">{{ crate::t1("tutor.disclosure", "provider", p.label) }}</p>{% endif %}{% endfor %}
+    <form id="composer" data-testid="tutor-form" class="t-composer" autocomplete="off">
+      <textarea id="say" data-testid="tutor-input" rows="1" maxlength="1000" placeholder="{{ crate::t("tutor.placeholder") }}" aria-label="{{ crate::t("tutor.input_label") }}" autocapitalize="sentences"></textarea>
+      <button type="submit" class="t-send" id="send" data-testid="tutor-send" aria-label="{{ crate::t("tutor.send") }}">➤</button>
+    </form>
+  </footer>
+  {% endif %}
+</div>
+<script>
+// The app's text for tutor.js (this page does not extend base.html, so the
+// table and t()/tn() are defined here the same way; i18n/README.md).
+window.I18N = {{ crate::i18n::js_json("common.js")|safe }};
+Object.assign(I18N, {{ crate::i18n::js_json("tutor.js")|safe }});
+Object.assign(I18N, {{ crate::i18n::js_json("clock.js")|safe }});
+window.t = function (key, args) {
+  var s = I18N[key];
+  if (s == null) { console.warn('i18n: no text for ' + key); s = key; }
+  return args ? s.replace(/\{(\w+)\}/g, function (m, n) { return n in args ? args[n] : m; }) : s;
+};
+window.tn = function (key, n) { return t(key + (n === 1 ? '.one' : '.other'), { n: n }); };
+</script>
+<script src="{{ crate::routes::asset_url("clock.js") }}" defer></script>
+<script src="{{ crate::routes::asset_url("tutor.js") }}" defer></script>
+</body>
+</html>

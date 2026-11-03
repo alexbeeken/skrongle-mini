@@ -1,0 +1,690 @@
+{
+  "id": "a2-passe-compose-etre",
+  "slug": "passe-compose-etre",
+  "title": "The passé composé with être and reflexive verbs",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 18,
+  "summary": "Verbs of movement and reflexive verbs build the passé composé with être, and their participle agrees with the subject.",
+  "focus": "The passé composé with être: the être verbs, agreement and reflexive verbs",
+  "prerequisites": [
+    "a2-passe-compose-avoir"
+  ],
+  "content": "## The être verbs\n\nAbout fourteen verbs, most of them about moving or changing state, build the passé composé with **être** instead of avoir. Learn them in pairs:\n\n| verb | participle | verb | participle |\n|---|---|---|---|\n| aller | allé | venir | venu |\n| arriver | arrivé | partir | parti |\n| entrer | entré | sortir | sorti |\n| monter | monté | descendre | descendu |\n| naître | né | mourir | mort |\n| rester | resté | tomber | tombé |\n| retourner | retourné | passer | passé |\n\nVerbs built on them do the same: **revenir**, **devenir**, **rentrer**. **Je suis allé au cinéma.** **Il est passé chez moi.** When passer means to spend time, it takes avoir: **j'ai passé un bon week-end**.\n\n## Agreement with the subject\n\nWith **être**, the participle agrees with the subject like an adjective: add **-e** for a woman, **-s** for a group.\n\n| | aller |\n|---|---|\n| je | suis allé / allée |\n| tu | es allé / allée |\n| il / elle | est allé / est allée |\n| nous | sommes allés / allées |\n| vous | êtes allé(e)(s) |\n| ils / elles | sont allés / sont allées |\n\nThe drill gives the masculine forms (**suis allé**, **sommes allés**). The negation wraps **être**: **elle n'est pas venue**.\n\n## Reflexive verbs and the morning\n\nEvery reflexive verb takes **être**, with its pronoun in front: **je me suis levé(e)**, **tu t'es levé(e)**, **il s'est levé**, **elle s'est levée**, **nous nous sommes levé(e)s**, **vous vous êtes levé(e)(s)**, **ils se sont levés**.\n\nA morning, told in the past:\n\n- **Je me suis réveillé à sept heures.** (I woke up at seven.)\n- **Je me suis levé et je me suis lavé.** (I got up and washed.)\n- **Je suis parti à huit heures.** (I left at eight.)\n- **Le soir, je me suis couché à onze heures.** (In the evening I went to bed at eleven.)",
+  "vocabulary": [
+    {
+      "term": "aller",
+      "meaning": "to go (allé)",
+      "example": "Samedi, nous sommes allés à la plage.",
+      "example_meaning": "On Saturday we went to the beach."
+    },
+    {
+      "term": "venir",
+      "meaning": "to come (venu)",
+      "example": "Ma tante est venue de Lyon pour Noël.",
+      "example_meaning": "My aunt came from Lyon for Christmas."
+    },
+    {
+      "term": "partir",
+      "meaning": "to leave (parti)",
+      "example": "Le train est parti à l'heure.",
+      "example_meaning": "The train left on time."
+    },
+    {
+      "term": "arriver",
+      "meaning": "to arrive (arrivé)",
+      "example": "Vous êtes arrivés quand ?",
+      "example_meaning": "When did you arrive?"
+    },
+    {
+      "term": "sortir",
+      "meaning": "to go out (sorti)",
+      "example": "Hier soir, elles sont sorties avec des amis.",
+      "example_meaning": "Last night they went out with friends."
+    },
+    {
+      "term": "rester",
+      "meaning": "to stay (resté)",
+      "example": "Dimanche, je suis resté à la maison.",
+      "example_meaning": "On Sunday I stayed at home."
+    },
+    {
+      "term": "tomber",
+      "meaning": "to fall (tombé)",
+      "example": "Le verre est tombé de la table.",
+      "example_meaning": "The glass fell off the table."
+    },
+    {
+      "term": "naître",
+      "meaning": "to be born (né)",
+      "example": "Ma fille est née en mai.",
+      "example_meaning": "My daughter was born in May."
+    },
+    {
+      "term": "se lever",
+      "meaning": "to get up",
+      "example": "Ce matin, il s'est levé à six heures.",
+      "example_meaning": "This morning he got up at six."
+    },
+    {
+      "term": "se laver",
+      "meaning": "to wash (oneself)",
+      "example": "Les enfants se sont lavés avant le dîner.",
+      "example_meaning": "The children washed before dinner."
+    },
+    {
+      "term": "se coucher",
+      "meaning": "to go to bed",
+      "example": "Hier, je me suis couchée à minuit.",
+      "example_meaning": "Yesterday I went to bed at midnight."
+    },
+    {
+      "term": "le réveil",
+      "meaning": "alarm clock",
+      "example": "Mon réveil sonne à sept heures.",
+      "example_meaning": "My alarm clock goes off at seven."
+    },
+    {
+      "term": "la douche",
+      "meaning": "shower",
+      "example": "Je prends une douche le matin.",
+      "example_meaning": "I have a shower in the morning."
+    },
+    {
+      "term": "la brosse à dents",
+      "meaning": "toothbrush",
+      "example": "Ta brosse à dents est dans la salle de bains.",
+      "example_meaning": "Your toothbrush is in the bathroom."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-passe-compose-etre-01",
+      "prompt": "Hier, je ___ allé au cinéma.",
+      "type": "multiple-choice",
+      "options": [
+        "suis",
+        "ai",
+        "es"
+      ],
+      "correct_answer": "suis",
+      "explanation": "Aller builds its passé composé with être: je suis allé.",
+      "hints": [
+        "Aller is a verb of movement."
+      ],
+      "teaches": [
+        "aller"
+      ]
+    },
+    {
+      "question_id": "a2-passe-compose-etre-02",
+      "prompt": "Marie est ___ à huit heures.",
+      "type": "multiple-choice",
+      "options": [
+        "partie",
+        "parti",
+        "partis"
+      ],
+      "correct_answer": "partie",
+      "explanation": "With être the participle agrees with the subject: Marie is one woman, so partie.",
+      "hints": [
+        "Marie: feminine singular."
+      ],
+      "teaches": [
+        "partir"
+      ]
+    },
+    {
+      "question_id": "a2-passe-compose-etre-03",
+      "prompt": "Complete in the passé composé (venir): Nous ___ en bus.",
+      "type": "fill-in-blank",
+      "correct_answer": "sommes venus",
+      "accepted_answers": [
+        "nous sommes venus",
+        "sommes venues",
+        "nous sommes venues"
+      ],
+      "explanation": "Venir takes être: nous sommes venus (venues for a group of women).",
+      "hints": [
+        "Nous form of être + participle.",
+        "Add -s for nous."
+      ],
+      "teaches": [
+        "venir"
+      ]
+    },
+    {
+      "question_id": "a2-passe-compose-etre-04",
+      "prompt": "Complete with être or avoir in the present: Ils ___ restés à la maison.",
+      "type": "fill-in-blank",
+      "correct_answer": "sont",
+      "accepted_answers": [
+        "ils sont"
+      ],
+      "explanation": "Rester is an être verb: ils sont restés.",
+      "hints": [
+        "Rester belongs to the être list."
+      ],
+      "teaches": [
+        "rester"
+      ]
+    },
+    {
+      "question_id": "a2-passe-compose-etre-05",
+      "prompt": "Which verb takes avoir in the passé composé?",
+      "type": "multiple-choice",
+      "options": [
+        "manger",
+        "tomber",
+        "arriver"
+      ],
+      "correct_answer": "manger",
+      "explanation": "Tomber and arriver are être verbs; manger takes avoir: j'ai mangé.",
+      "hints": [
+        "Two of these are verbs of movement or change."
+      ],
+      "teaches": [
+        "tomber",
+        "arriver"
+      ]
+    },
+    {
+      "question_id": "a2-passe-compose-etre-06",
+      "prompt": "Complete in the passé composé (se lever): Ce matin, je ___ à sept heures.",
+      "type": "fill-in-blank",
+      "correct_answer": "me suis levé",
+      "accepted_answers": [
+        "me suis levée",
+        "je me suis levé",
+        "je me suis levée"
+      ],
+      "explanation": "Reflexive verbs take être, pronoun first: je me suis levé (levée for a woman).",
+      "hints": [
+        "Reflexive pronoun + être + participle.",
+        "Me, then suis."
+      ],
+      "teaches": [
+        "se lever"
+      ]
+    },
+    {
+      "question_id": "a2-passe-compose-etre-07",
+      "prompt": "Complete with the participle of coucher: Hier soir, elles se sont ___ à minuit.",
+      "type": "fill-in-blank",
+      "correct_answer": "couchées",
+      "accepted_answers": [],
+      "explanation": "Elles is feminine plural, so the participle takes -es: couchées.",
+      "hints": [
+        "Feminine plural: add -es."
+      ],
+      "teaches": [
+        "se coucher"
+      ]
+    },
+    {
+      "question_id": "a2-passe-compose-etre-08",
+      "prompt": "In 'Elle est née en 1990', the participle agrees with elle.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Naître takes être, so the participle agrees: né + e = née.",
+      "hints": [
+        "Naître is on the être list."
+      ],
+      "teaches": [
+        "naître"
+      ]
+    },
+    {
+      "question_id": "a2-passe-compose-etre-09",
+      "prompt": "'Nous avons partis à midi.' is correct French.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Partir takes être: nous sommes partis à midi.",
+      "hints": [
+        "Is partir an avoir verb?"
+      ],
+      "teaches": [
+        "partir"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "aller",
+      "meaning": "to go",
+      "set": "passe-compose",
+      "art": [
+        "  _____     ",
+        " | GO  |--> ",
+        " |_____|    ",
+        "    |       ",
+        "    |       ",
+        "  gone !    "
+      ],
+      "forms": {
+        "je": "suis allé",
+        "tu": "es allé",
+        "il": "est allé",
+        "nous": "sommes allés",
+        "vous": "êtes allés",
+        "ils": "sont allés"
+      }
+    },
+    {
+      "item": "venir",
+      "meaning": "to come",
+      "set": "passe-compose",
+      "art": [
+        "  <-- ici   ",
+        "   o        ",
+        "  /|\\       ",
+        "  / \\       ",
+        "  venu !    "
+      ],
+      "forms": {
+        "je": "suis venu",
+        "tu": "es venu",
+        "il": "est venu",
+        "nous": "sommes venus",
+        "vous": "êtes venus",
+        "ils": "sont venus"
+      }
+    },
+    {
+      "item": "partir",
+      "meaning": "to leave",
+      "set": "passe-compose",
+      "art": [
+        "     __|__   ",
+        " ---|_____|> ",
+        "    o    o   ",
+        "  bye bye !  ",
+        "  parti...   "
+      ],
+      "forms": {
+        "je": "suis parti",
+        "tu": "es parti",
+        "il": "est parti",
+        "nous": "sommes partis",
+        "vous": "êtes partis",
+        "ils": "sont partis"
+      }
+    },
+    {
+      "item": "se lever",
+      "meaning": "to get up",
+      "set": "passe-compose",
+      "art": [
+        "  \\ | /     ",
+        " -- O --    ",
+        "  / | \\     ",
+        "   _o_      ",
+        "  [___]     ",
+        "  up !      "
+      ],
+      "forms": {
+        "je": "me suis levé",
+        "tu": "t'es levé",
+        "il": "s'est levé",
+        "nous": "nous sommes levés",
+        "vous": "vous êtes levés",
+        "ils": "se sont levés"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-passe-compose-etre-conv-retard",
+      "title": "Late again",
+      "scenario": "Thomas arrives late at the office; his colleague Julie wants to know why.",
+      "role_a": "Julie",
+      "role_b": "Thomas",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Thomas, tu es arrivé en retard ce matin !",
+          "meaning": "Thomas, you arrived late this morning!",
+          "note": "arriver: être"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, je sais. Mon réveil n'a pas sonné.",
+          "meaning": "Yes, I know. My alarm clock didn't go off.",
+          "note": "sonner takes avoir"
+        },
+        {
+          "speaker": "a",
+          "text": "Tu t'es levé à quelle heure ?",
+          "meaning": "What time did you get up?",
+          "note": "reflexive: tu t'es levé"
+        },
+        {
+          "speaker": "b",
+          "text": "Je me suis levé à huit heures et demie !",
+          "meaning": "I got up at half past eight!"
+        },
+        {
+          "speaker": "a",
+          "text": "Et tu es parti tout de suite ?",
+          "meaning": "And did you leave straight away?"
+        },
+        {
+          "speaker": "b",
+          "text": "Non, je me suis douché et je me suis habillé très vite.",
+          "meaning": "No, I showered and got dressed very quickly."
+        },
+        {
+          "speaker": "a",
+          "text": "Tu es venu en bus ?",
+          "meaning": "Did you come by bus?",
+          "note": "venir: être"
+        },
+        {
+          "speaker": "b",
+          "text": "Non, le bus est parti sans moi. Je suis venu à pied.",
+          "meaning": "No, the bus left without me. I came on foot."
+        },
+        {
+          "speaker": "a",
+          "text": "Pauvre Thomas ! Tu es sorti hier soir ?",
+          "meaning": "Poor Thomas! Did you go out last night?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, ma sœur et moi, nous sommes allés au concert et nous sommes rentrés à une heure.",
+          "meaning": "Yes, my sister and I went to a concert and got home at one.",
+          "note": "nous sommes allés"
+        },
+        {
+          "speaker": "a",
+          "text": "Ah, voilà le problème ! Ce soir, tu te couches tôt.",
+          "meaning": "Ah, that's the problem! Tonight you're going to bed early."
+        },
+        {
+          "speaker": "b",
+          "text": "Promis !",
+          "meaning": "Promise!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Je suis allé au marché.",
+      "meaning": "I went to the market.",
+      "note": "Aller takes être."
+    },
+    {
+      "text": "Elle est arrivée hier soir.",
+      "meaning": "She arrived last night.",
+      "note": "Arrivée agrees with elle."
+    },
+    {
+      "text": "Nous sommes restés à la maison.",
+      "meaning": "We stayed at home."
+    },
+    {
+      "text": "Mes parents sont partis en vacances.",
+      "meaning": "My parents went on holiday.",
+      "note": "New word: les vacances = the holidays."
+    },
+    {
+      "text": "Le chat est tombé du canapé.",
+      "meaning": "The cat fell off the sofa.",
+      "note": "New word: le canapé = the sofa."
+    },
+    {
+      "text": "Ce matin, je me suis réveillé très tôt.",
+      "meaning": "This morning I woke up very early.",
+      "note": "New word: se réveiller = to wake up."
+    },
+    {
+      "text": "Ma grand-mère est née dans un petit village en Bretagne.",
+      "meaning": "My grandmother was born in a small village in Brittany."
+    },
+    {
+      "text": "Les filles se sont levées, elles se sont lavées et elles sont sorties.",
+      "meaning": "The girls got up, washed and went out.",
+      "note": "Feminine plural: -ées, -ies."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The être verbs"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-passe-compose-etre-01"
+    },
+    {
+      "question": "a2-passe-compose-etre-05"
+    },
+    {
+      "question": "a2-passe-compose-etre-04"
+    },
+    {
+      "concept": {
+        "title": "The house of être",
+        "markdown": "Picture a house. You **arrive**, **enter**, **go up** the stairs, **come down**, **go out**, **leave**, **fall** from the window, or **stay** inside. You are **born** in it and one day **die**. Almost every être verb describes a trip in, out, up or down, or a change of state."
+      }
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Agreement with the subject"
+    },
+    {
+      "question": "a2-passe-compose-etre-02"
+    },
+    {
+      "question": "a2-passe-compose-etre-03"
+    },
+    {
+      "question": "a2-passe-compose-etre-08"
+    },
+    {
+      "tip": "In the passé composé with être, treat the participle like an adjective: add -e for a woman, -s for a group."
+    },
+    {
+      "question": "a2-passe-compose-etre-09"
+    },
+    {
+      "section": "Reflexive verbs"
+    },
+    {
+      "vocab": 6
+    },
+    {
+      "question": "a2-passe-compose-etre-06"
+    },
+    {
+      "question": "a2-passe-compose-etre-07"
+    }
+  ],
+  "sprint": {
+    "icon": "🪥",
+    "bites": [
+      {
+        "title": "The être verbs",
+        "emoji": "🏠",
+        "rule": "Verbs of movement and change take être: aller, venir, arriver, partir, entrer, sortir, monter, descendre, rester, tomber, naître, mourir, retourner, passer.",
+        "example": "Je suis allé à Paris.",
+        "example_meaning": "I went to Paris."
+      },
+      {
+        "title": "Agree with the subject",
+        "emoji": "👯",
+        "rule": "With être the participle agrees like an adjective: il est allé, elle est allée, ils sont allés, elles sont allées.",
+        "example": "Elles sont parties à midi.",
+        "example_meaning": "They left at noon."
+      },
+      {
+        "title": "Reflexive = être",
+        "emoji": "🪞",
+        "rule": "Every reflexive verb takes être, pronoun first: je me suis levé, tu t'es levé, elle s'est levée.",
+        "example": "Ce matin, elle s'est levée tôt.",
+        "example_meaning": "This morning she got up early."
+      },
+      {
+        "title": "Never avoir here",
+        "emoji": "⚠️",
+        "rule": "Je suis parti, not j'ai parti. The negation wraps être: je ne suis pas sorti.",
+        "example": "Je ne suis pas sorti hier.",
+        "example_meaning": "I didn't go out yesterday."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Être or avoir?",
+        "buckets": [
+          "être",
+          "avoir"
+        ],
+        "items": [
+          {
+            "text": "aller",
+            "bucket": 0
+          },
+          {
+            "text": "partir",
+            "bucket": 0
+          },
+          {
+            "text": "tomber",
+            "bucket": 0
+          },
+          {
+            "text": "se lever",
+            "bucket": 0
+          },
+          {
+            "text": "manger",
+            "bucket": 1
+          },
+          {
+            "text": "voir",
+            "bucket": 1
+          },
+          {
+            "text": "faire",
+            "bucket": 1
+          },
+          {
+            "text": "finir",
+            "bucket": 1
+          }
+        ],
+        "why": "Movement, change of state and reflexive verbs take être; most other verbs take avoir."
+      },
+      {
+        "title": "Which participle fits?",
+        "buckets": [
+          "allé",
+          "allée",
+          "allés",
+          "allées"
+        ],
+        "items": [
+          {
+            "text": "Paul est ___",
+            "bucket": 0
+          },
+          {
+            "text": "Marc : je suis ___",
+            "bucket": 0
+          },
+          {
+            "text": "Marie est ___",
+            "bucket": 1
+          },
+          {
+            "text": "Léa : je suis ___",
+            "bucket": 1
+          },
+          {
+            "text": "Ils sont ___",
+            "bucket": 2
+          },
+          {
+            "text": "Luc et moi, nous sommes ___",
+            "bucket": 2
+          },
+          {
+            "text": "Elles sont ___",
+            "bucket": 3
+          },
+          {
+            "text": "Anne et Zoé sont ___",
+            "bucket": 3
+          }
+        ],
+        "why": "The participle agrees with whoever is speaking or acting: -e for a woman, -s for a group, -es for a group of women."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Hier, j'ai allé au cinéma.",
+        "wrong": "j'ai",
+        "fix": "je suis",
+        "why": "Aller takes être: je suis allé."
+      },
+      {
+        "sentence": "Marie est parti à huit heures.",
+        "wrong": "parti",
+        "fix": "partie",
+        "why": "With être the participle agrees: Marie est partie."
+      },
+      {
+        "sentence": "Nous sommes venu en train.",
+        "wrong": "venu",
+        "fix": "venus",
+        "why": "Nous is plural: venus."
+      },
+      {
+        "sentence": "Elle s'a levée à six heures.",
+        "wrong": "s'a",
+        "fix": "s'est",
+        "why": "Reflexive verbs take être: elle s'est levée."
+      },
+      {
+        "sentence": "Les filles sont sortis hier soir.",
+        "wrong": "sortis",
+        "fix": "sorties",
+        "why": "Les filles is feminine plural: sorties."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Je suis allé à la plage.",
+        "meaning": "I went to the beach.",
+        "distractors": [
+          "ai"
+        ]
+      },
+      {
+        "text": "Elle est arrivée à midi.",
+        "meaning": "She arrived at noon.",
+        "distractors": [
+          "a"
+        ]
+      },
+      {
+        "text": "Nous nous sommes levés tôt.",
+        "meaning": "We got up early.",
+        "distractors": [
+          "avons"
+        ]
+      },
+      {
+        "text": "Les enfants sont partis hier.",
+        "meaning": "The children left yesterday.",
+        "distractors": [
+          "ont"
+        ]
+      }
+    ]
+  }
+}

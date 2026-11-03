@@ -1,0 +1,611 @@
+{
+  "id": "b2-future-and-conditional-perfect",
+  "slug": "future-and-conditional-perfect",
+  "title": "Habré terminado, habría ido: the future and conditional perfect",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 16,
+  "summary": "Habré terminado for done-by-then and guesses, habría ido for what would have been.",
+  "focus": "The future perfect and the conditional perfect: haber in the future or conditional + participle",
+  "prerequisites": [
+    "b2-pluperfect",
+    "b1-conditional"
+  ],
+  "content": "## The future perfect: habré terminado\n\nThe **futuro perfecto** is the future of **haber** + a participle. It says something will be finished *before* a point in the future: **para el lunes**, **dentro de un mes**, **para entonces**, **cuando llegues**.\n\n| | haber | + participle |\n|---|---|---|\n| yo | **habré** | terminado |\n| tú | **habrás** | comido |\n| él / ella / usted | **habrá** | salido |\n| nosotros/as | **habremos** | vuelto |\n| vosotros/as | **habréis** | hecho |\n| ellos / ellas / ustedes | **habrán** | dicho |\n\n- *Para el lunes habré terminado.* (By Monday I'll have finished.)\n- *Cuando llegues, ya habré cenado.* (When you arrive, I'll already have had dinner.)\n\nIrregular participles stay irregular (**hecho, dicho, visto, puesto, vuelto, escrito**), and **no** and pronouns go before haber: *Ya lo habré hecho.*\n\n## Habrá salido: a guess about the recent past\n\nSpanish uses the future to guess: **estará en casa** = he's probably at home. For a guess about something that *has* happened, the future perfect replaces the present perfect:\n\n| sure | a guess |\n|---|---|\n| **Ha salido.** He has gone out. | **Habrá salido.** He must have gone out. |\n| **Se ha dormido.** He has fallen asleep. | **Se habrá dormido.** He must have fallen asleep. |\n\n- *Marcos no contesta. Se habrá quedado sin batería.* (Marcos isn't answering. His battery must have died.)\n- *¿Quién habrá llamado tan tarde?* (Who can have called so late?)\n\nEnglish says *must have*, *probably* or *I bet*; Spanish just shifts the tense.\n\n## The conditional perfect: habría ido\n\n| | haber | + participle |\n|---|---|---|\n| yo | **habría** | ido |\n| tú | **habrías** | visto |\n| él / ella / usted | **habría** | dicho |\n| nosotros/as | **habríamos** | ganado |\n| vosotros/as | **habríais** | puesto |\n| ellos / ellas / ustedes | **habrían** | llegado |\n\nThe **condicional compuesto** is what *would have* happened but didn't. Often a **pero** gives the reason:\n\n- *Habría ido, pero estaba enfermo.* (I would have gone, but I was ill.)\n- *Con un poco más de tiempo, lo habríamos terminado.* (With a bit more time, we'd have finished it.)\n\nFor advice about something already done, use **yo que tú** or **yo en tu lugar**: *Yo que tú, lo habría dicho.* (If I were you, I'd have said it.)\n\n## Habría salido ya: a guess about an earlier past\n\nThe same shift works one step further back. A guess about what *had* happened, told from the past, swaps the pluperfect for the conditional perfect:\n\n| sure | a guess |\n|---|---|\n| **Había salido.** He had gone out. | **Habría salido ya.** He must have gone out already. |\n\n- *Cuando llegué, la casa estaba vacía: habrían salido ya.* (When I arrived, the house was empty, so they must have left already.)\n- *No vino a la cena. Se le habría olvidado.* (He didn't come to dinner. He must have forgotten.)\n\nRule of thumb: **ha** becomes **habrá**, and **había** becomes **habría**. The context tells you whether **habría** means *would have* or *must have*.",
+  "vocabulary": [
+    {
+      "term": "haber",
+      "meaning": "to have (auxiliary verb)",
+      "example": "Para el viernes habré leído el libro entero.",
+      "example_meaning": "By Friday I'll have read the whole book."
+    },
+    {
+      "term": "para entonces",
+      "meaning": "by then",
+      "example": "Volvemos en junio; para entonces, habrán abierto el museo nuevo.",
+      "example_meaning": "We're back in June; by then they'll have opened the new museum."
+    },
+    {
+      "term": "dentro de",
+      "meaning": "in (… from now)",
+      "example": "Dentro de dos semanas habrás olvidado el disgusto.",
+      "example_meaning": "In two weeks you'll have forgotten the upset."
+    },
+    {
+      "term": "a estas alturas",
+      "meaning": "by now, at this stage",
+      "example": "A estas alturas, ya habrán anunciado los resultados.",
+      "example_meaning": "By now they'll have announced the results."
+    },
+    {
+      "term": "a estas horas",
+      "meaning": "at this time (of day)",
+      "example": "¿Quién llama a estas horas? Habrá pasado algo.",
+      "example_meaning": "Who's calling at this time? Something must have happened."
+    },
+    {
+      "term": "el plazo",
+      "meaning": "the deadline, the time allowed",
+      "example": "Cuando acabe el plazo, habremos recibido más de cien solicitudes.",
+      "example_meaning": "When the deadline closes, we'll have received over a hundred applications."
+    },
+    {
+      "term": "entregar",
+      "meaning": "to hand in, to deliver",
+      "example": "Los alumnos habrán entregado los exámenes antes de las doce.",
+      "example_meaning": "The students will have handed in their exams before twelve."
+    },
+    {
+      "term": "aterrizar",
+      "meaning": "to land",
+      "example": "Su avión habrá aterrizado hace un rato.",
+      "example_meaning": "Her plane must have landed a while ago."
+    },
+    {
+      "term": "arrepentirse",
+      "meaning": "to regret",
+      "example": "No me arrepiento de nada, aunque lo habría hecho de otra manera.",
+      "example_meaning": "I don't regret anything, though I'd have done it differently."
+    },
+    {
+      "term": "yo que tú",
+      "meaning": "if I were you",
+      "example": "Yo que tú, habría pedido otra opinión.",
+      "example_meaning": "If I were you, I'd have asked for a second opinion."
+    },
+    {
+      "term": "en tu lugar",
+      "meaning": "in your place",
+      "example": "Yo en tu lugar no habría vendido el coche.",
+      "example_meaning": "In your place, I wouldn't have sold the car."
+    },
+    {
+      "term": "de lo contrario",
+      "meaning": "otherwise",
+      "example": "Menos mal que reservamos; de lo contrario, nos habríamos quedado sin mesa.",
+      "example_meaning": "Good thing we booked; otherwise we'd have ended up without a table."
+    },
+    {
+      "term": "menos mal que",
+      "meaning": "thank goodness, it's a good thing that",
+      "example": "Menos mal que me llamaste: habría esperado allí toda la tarde.",
+      "example_meaning": "Thank goodness you rang me: I'd have waited there all afternoon."
+    },
+    {
+      "term": "enterarse",
+      "meaning": "to find out",
+      "example": "Sin tu mensaje, no me habría enterado.",
+      "example_meaning": "Without your message, I wouldn't have found out."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-future-and-conditional-perfect-01",
+      "prompt": "Tranquila: para el lunes (yo) ya ___ el proyecto.",
+      "type": "multiple-choice",
+      "options": [
+        "habré entregado",
+        "habría entregado",
+        "habrá entregado",
+        "habré entregar"
+      ],
+      "correct_answer": "habré entregado",
+      "explanation": "Done before a future point (para el lunes) takes the future perfect. Yo takes habré, and haber is always followed by the participle: habré entregado.",
+      "hints": [
+        "Para el lunes looks forward: future, not conditional.",
+        "Yo takes habré."
+      ],
+      "teaches": [
+        "entregar",
+        "haber"
+      ]
+    },
+    {
+      "question_id": "b2-future-and-conditional-perfect-02",
+      "prompt": "Dentro de dos años, mis padres ya ___. (jubilarse, future perfect: 'will have retired')",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "se habrán jubilado",
+      "accepted_answers": [],
+      "explanation": "Ellos takes habrán + jubilado, and the reflexive se goes before haber: se habrán jubilado.",
+      "hints": [
+        "Ellos takes habrán.",
+        "The pronoun goes before haber, never between haber and the participle."
+      ],
+      "teaches": [
+        "dentro de",
+        "haber"
+      ]
+    },
+    {
+      "question_id": "b2-future-and-conditional-perfect-03",
+      "prompt": "Ana no contesta al teléfono. ___ el móvil en casa. ('She must have left…')",
+      "type": "multiple-choice",
+      "options": [
+        "Habrá dejado",
+        "Habría dejado",
+        "Dejará"
+      ],
+      "correct_answer": "Habrá dejado",
+      "explanation": "A guess about something that has just happened swaps ha dejado for habrá dejado. Dejará is a plain future (she will leave).",
+      "hints": [
+        "Sure: ha dejado. A guess: ?",
+        "Guessing about the recent past takes the future perfect."
+      ],
+      "teaches": [
+        "haber"
+      ]
+    },
+    {
+      "question_id": "b2-future-and-conditional-perfect-04",
+      "prompt": "A estas alturas, Luis ya ___ a Lisboa. (llegar: 'he'll have arrived by now')",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "habrá llegado",
+      "accepted_answers": [],
+      "explanation": "A guess about what has probably happened by now: habrá + llegado.",
+      "hints": [
+        "Él takes habrá.",
+        "-ar verbs end in -ado."
+      ],
+      "teaches": [
+        "a estas alturas",
+        "haber"
+      ]
+    },
+    {
+      "question_id": "b2-future-and-conditional-perfect-05",
+      "prompt": "Yo ___ a la fiesta, pero tenía fiebre.",
+      "type": "multiple-choice",
+      "options": [
+        "habría ido",
+        "habré ido",
+        "he ido"
+      ],
+      "correct_answer": "habría ido",
+      "explanation": "Something that would have happened but didn't, with pero giving the reason, takes the conditional perfect: habría ido.",
+      "hints": [
+        "Did I go? No, so it is 'would have'.",
+        "Would have is habría + participle."
+      ],
+      "teaches": [
+        "haber"
+      ]
+    },
+    {
+      "question_id": "b2-future-and-conditional-perfect-06",
+      "prompt": "Yo que tú, no ___ ese contrato. (firmar: 'I wouldn't have signed')",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "habría firmado",
+      "accepted_answers": [],
+      "explanation": "Advice about something already done: yo que tú + conditional perfect. Yo takes habría firmado.",
+      "hints": [
+        "Would have is habría.",
+        "-ar verbs end in -ado."
+      ],
+      "teaches": [
+        "yo que tú",
+        "haber"
+      ]
+    },
+    {
+      "question_id": "b2-future-and-conditional-perfect-07",
+      "prompt": "Cuando llegamos a la estación, no había nadie: los demás ya ___. (salir: 'must have left')",
+      "type": "multiple-choice",
+      "options": [
+        "habrían salido",
+        "habrán salido",
+        "habrían salir"
+      ],
+      "correct_answer": "habrían salido",
+      "explanation": "A guess about an earlier past, told from the past (llegamos, había): the pluperfect habían salido becomes the conditional perfect habrían salido.",
+      "hints": [
+        "The story is in the past, so había becomes habría.",
+        "Haber needs the participle."
+      ],
+      "teaches": [
+        "haber"
+      ]
+    },
+    {
+      "question_id": "b2-future-and-conditional-perfect-08",
+      "prompt": "Menos mal que me avisaste; de lo contrario, ___ tarde. (llegar, nosotros: 'we would have arrived')",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "habríamos llegado",
+      "accepted_answers": [
+        "nosotros habríamos llegado"
+      ],
+      "explanation": "What would have happened but didn't: nosotros takes habríamos + llegado. Note the accent on habríamos.",
+      "hints": [
+        "Nosotros takes habríamos.",
+        "De lo contrario introduces what would have happened."
+      ],
+      "teaches": [
+        "menos mal que",
+        "de lo contrario"
+      ]
+    },
+    {
+      "question_id": "b2-future-and-conditional-perfect-09",
+      "prompt": "Which sentence says 'By Friday I'll have done it'?",
+      "type": "multiple-choice",
+      "options": [
+        "Para el viernes lo habré hecho.",
+        "Para el viernes habré lo hecho.",
+        "Para el viernes lo habré hacido."
+      ],
+      "correct_answer": "Para el viernes lo habré hecho.",
+      "explanation": "The pronoun lo goes before haber, nothing goes between haber and the participle, and hacer has the irregular participle hecho.",
+      "hints": [
+        "Where does lo go in a compound tense?",
+        "Hacer becomes hecho."
+      ],
+      "teaches": [
+        "haber"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "haber",
+      "meaning": "to have (auxiliary verb)",
+      "set": "future",
+      "forms": {
+        "yo": "habré",
+        "tu": "habrás",
+        "el": "habrá",
+        "nosotros": "habremos",
+        "vosotros": "habréis",
+        "ellos": "habrán"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-future-and-conditional-perfect-conv-friday-deadline",
+      "title": "The Friday deadline",
+      "scenario": "Elena and Tomás, two colleagues, are looking for a missing report on a Friday afternoon.",
+      "role_a": "Elena",
+      "role_b": "Tomás",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿Has visto a Marcos? No está en su mesa.",
+          "meaning": "Have you seen Marcos? He's not at his desk."
+        },
+        {
+          "speaker": "b",
+          "text": "Habrá salido a comer. Siempre se va a las dos.",
+          "meaning": "He must have gone out for lunch. He always leaves at two.",
+          "note": "a guess: habrá salido instead of ha salido"
+        },
+        {
+          "speaker": "a",
+          "text": "Necesito su informe. ¿Crees que ya lo habrá terminado?",
+          "meaning": "I need his report. Do you think he'll have finished it yet?"
+        },
+        {
+          "speaker": "b",
+          "text": "Para el lunes lo habrá terminado, pero hoy lo dudo.",
+          "meaning": "He'll have finished it by Monday, but today I doubt it.",
+          "note": "done by a future point"
+        },
+        {
+          "speaker": "a",
+          "text": "¡Qué pena! Yo lo habría hecho en una tarde.",
+          "meaning": "What a pity! I'd have done it in an afternoon.",
+          "note": "would have is habría"
+        },
+        {
+          "speaker": "b",
+          "text": "Ya, pero tú no tenías tres reuniones. Por cierto, ¿por qué no viniste a la de ayer?",
+          "meaning": "Sure, but you didn't have three meetings. By the way, why didn't you come to yesterday's?"
+        },
+        {
+          "speaker": "a",
+          "text": "Habría ido, pero mi hijo estaba enfermo. ¿Me perdí algo?",
+          "meaning": "I would have gone, but my son was ill. Did I miss anything?"
+        },
+        {
+          "speaker": "b",
+          "text": "El jefe cambió los plazos. Yo que tú, ya le habría escrito.",
+          "meaning": "The boss changed the deadlines. If I were you, I'd have written to him already.",
+          "note": "advice about the past"
+        },
+        {
+          "speaker": "a",
+          "text": "Menos mal que me lo cuentas; de lo contrario, no me habría enterado.",
+          "meaning": "Thank goodness you're telling me; otherwise I wouldn't have found out."
+        },
+        {
+          "speaker": "b",
+          "text": "Escríbele ahora. Para mañana ya habrá decidido todo.",
+          "meaning": "Write to him now. By tomorrow he'll have decided everything."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Ya habrán llegado a casa.",
+      "meaning": "They'll have got home by now.",
+      "note": "A guess about the recent past: habrán llegado."
+    },
+    {
+      "text": "Para entonces habré cambiado de trabajo.",
+      "meaning": "By then I'll have changed jobs."
+    },
+    {
+      "text": "Yo que tú, no habría dicho nada.",
+      "meaning": "If I were you, I wouldn't have said anything."
+    },
+    {
+      "text": "¿Dónde está la llave? La habrá cogido tu hermano.",
+      "meaning": "Where's the key? Your brother must have taken it.",
+      "note": "New word: la llave = the key."
+    },
+    {
+      "text": "Dentro de veinte años habremos pagado toda la hipoteca.",
+      "meaning": "In twenty years we'll have paid off the whole mortgage.",
+      "note": "New word: la hipoteca = the mortgage."
+    },
+    {
+      "text": "Cuando llegué, la cocina estaba limpia: alguien la habría fregado.",
+      "meaning": "When I arrived, the kitchen was clean: someone must have mopped it.",
+      "note": "New word: fregar = to mop, to wash up."
+    },
+    {
+      "text": "Habríamos ido a la playa, pero llovió todo el fin de semana.",
+      "meaning": "We would have gone to the beach, but it rained all weekend."
+    },
+    {
+      "text": "Menos mal que llevabas el mapa; de lo contrario, nos habríamos perdido.",
+      "meaning": "Good thing you had the map; otherwise we'd have got lost."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The future perfect"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-future-and-conditional-perfect-01"
+    },
+    {
+      "question": "b2-future-and-conditional-perfect-02"
+    },
+    {
+      "section": "Habrá salido"
+    },
+    {
+      "question": "b2-future-and-conditional-perfect-03"
+    },
+    {
+      "question": "b2-future-and-conditional-perfect-04"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "section": "The conditional perfect"
+    },
+    {
+      "question": "b2-future-and-conditional-perfect-05"
+    },
+    {
+      "question": "b2-future-and-conditional-perfect-06"
+    },
+    {
+      "question": "b2-future-and-conditional-perfect-08"
+    },
+    {
+      "tip": "Guessing? Step the tense forward. Ha salido becomes habrá salido, and había salido becomes habría salido."
+    },
+    {
+      "section": "Habría salido ya"
+    },
+    {
+      "question": "b2-future-and-conditional-perfect-07"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-future-and-conditional-perfect-09"
+    }
+  ],
+  "sprint": {
+    "icon": "🔭",
+    "bites": [
+      {
+        "title": "Done by then",
+        "emoji": "🏁",
+        "rule": "The future perfect is habré, habrás, habrá… + participle. It is for things finished before a point in the future (para el lunes, dentro de un mes, para entonces).",
+        "example": "Dentro de un mes habremos vuelto.",
+        "example_meaning": "In a month we'll have come back."
+      },
+      {
+        "title": "Habrá salido = must have left",
+        "emoji": "🤔",
+        "rule": "Guessing about something that has just happened? Swap the present perfect for the future perfect, so ha salido becomes habrá salido.",
+        "example": "No abre la puerta: habrá salido.",
+        "example_meaning": "He's not opening the door: he must have gone out."
+      },
+      {
+        "title": "Would have, but…",
+        "emoji": "🚪",
+        "rule": "The conditional perfect is habría, habrías… + participle. It says what would have happened but didn't. Add pero… for the reason, or yo que tú… for advice.",
+        "example": "Lo habría comprado, pero era carísimo.",
+        "example_meaning": "I'd have bought it, but it was really expensive."
+      },
+      {
+        "title": "Habría salido ya = must have left before",
+        "emoji": "⏪",
+        "rule": "Guessing about an earlier past in a story? Swap the pluperfect for the conditional perfect, so había salido becomes habría salido.",
+        "example": "Cuando llamé, ya se habría acostado.",
+        "example_meaning": "When I called, she must already have gone to bed."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Habrá or habría?",
+        "buckets": [
+          "habré, habrá… (future perfect)",
+          "habría… (conditional perfect)"
+        ],
+        "items": [
+          {
+            "text": "done by next Monday",
+            "bucket": 0
+          },
+          {
+            "text": "would have gone, but…",
+            "bucket": 1
+          },
+          {
+            "text": "must have left just now",
+            "bucket": 0
+          },
+          {
+            "text": "if I were you, I'd have said it",
+            "bucket": 1
+          },
+          {
+            "text": "will have come back in a year",
+            "bucket": 0
+          },
+          {
+            "text": "must have left before I got there yesterday",
+            "bucket": 1
+          }
+        ],
+        "why": "Habré/habrá looks from now to a future point or guesses about the recent past; habría says what would have been, or guesses further back in a story."
+      },
+      {
+        "title": "A fact or a guess?",
+        "buckets": [
+          "a fact",
+          "a guess about now-ish",
+          "a guess further back"
+        ],
+        "items": [
+          {
+            "text": "Ha salido.",
+            "bucket": 0
+          },
+          {
+            "text": "Habrá salido.",
+            "bucket": 1
+          },
+          {
+            "text": "Había salido.",
+            "bucket": 0
+          },
+          {
+            "text": "Habrán cenado ya.",
+            "bucket": 1
+          },
+          {
+            "text": "Cuando llamé, ya habrían cenado.",
+            "bucket": 2
+          },
+          {
+            "text": "Cuando llegué, se habría ido ya.",
+            "bucket": 2
+          },
+          {
+            "text": "Han cenado.",
+            "bucket": 0
+          }
+        ],
+        "why": "A guess about the recent past turns ha into habrá, and a guess about an earlier past turns había into habría."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Para el viernes habré terminar el informe.",
+        "wrong": "terminar",
+        "fix": "terminado",
+        "why": "Haber is always followed by the participle, never the infinitive."
+      },
+      {
+        "sentence": "Yo que tú, lo habré dicho antes.",
+        "wrong": "habré",
+        "fix": "habría",
+        "why": "Advice about the past (yo que tú) takes the conditional perfect."
+      },
+      {
+        "sentence": "Dentro de un mes habremos volvido de Chile.",
+        "wrong": "volvido",
+        "fix": "vuelto",
+        "why": "Volver has an irregular participle: vuelto."
+      },
+      {
+        "sentence": "Ya lo habré hacido para el lunes.",
+        "wrong": "hacido",
+        "fix": "hecho",
+        "why": "Hacer has an irregular participle: hecho."
+      },
+      {
+        "sentence": "Mis padres habríais ido, pero llovía.",
+        "wrong": "habríais",
+        "fix": "habrían",
+        "why": "Mis padres = ellos, so habrían; habríais is vosotros."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Para entonces habremos vendido la casa.",
+        "meaning": "By then we'll have sold the house.",
+        "distractors": [
+          "habríamos"
+        ]
+      },
+      {
+        "text": "Seguro que habrá perdido el autobús.",
+        "meaning": "He must have missed the bus.",
+        "distractors": [
+          "habría"
+        ]
+      },
+      {
+        "text": "Yo en tu lugar no habría aceptado.",
+        "meaning": "In your place I wouldn't have accepted.",
+        "distractors": [
+          "habré"
+        ]
+      },
+      {
+        "text": "Te habrías divertido mucho en la boda.",
+        "meaning": "You'd have had a great time at the wedding.",
+        "distractors": [
+          "habrás"
+        ]
+      }
+    ]
+  }
+}

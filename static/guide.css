@@ -1,0 +1,22 @@
+/* Guide list (#1213): one section per unit. Open and passed stages keep
+   their cards; locked ones fold into one quiet list under a single lock,
+   the way the Verb Drill setup lists locked lessons. */
+.guide-unit { margin: 1.4rem 0; }
+.guide-unit-title { font-size: 1.05rem; margin: 0 0 .5rem; }
+.guide-unit .path { margin: .5rem 0; }
+.locked-stages { border-top: 1px solid var(--line); padding-top: .4rem; }
+.locked-stages > summary { list-style: none; cursor: pointer; padding: .35rem .3rem; border-radius: 6px; }
+.locked-stages > summary::-webkit-details-marker { display: none; }
+.locked-stages > summary::after { content: "▸"; margin-left: auto; }
+.locked-stages[open] > summary::after { content: "▾"; }
+.locked-stages > summary:hover { background: var(--bg); }
+.locked-stages > summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
+.locked-stages > p { margin: .2rem .3rem .4rem; }
+.locked-rows { list-style: none; margin: 0 0 .4rem; padding: 0; color: var(--muted); }
+.locked-row { display: grid; grid-template-columns: 2.4rem minmax(0, 1fr) auto; align-items: baseline; column-gap: .5rem; padding: .3rem .3rem; border-bottom: 1px solid var(--line); }
+.locked-row:last-child { border-bottom: 0; }
+.locked-num { text-align: center; font-variant-numeric: tabular-nums; }
+@media (max-width: 520px) {
+  .locked-row { grid-template-columns: 2.4rem minmax(0, 1fr); }
+  .locked-row .locked-preview { grid-column: 2; }
+}

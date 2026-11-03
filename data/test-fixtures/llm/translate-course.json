@@ -1,0 +1,54 @@
+{
+  "_comment": "translate-course replies (Copy and translate to..., #630): one request per file, keyed by the file's path. The request numbers the file's texts ({\"1\": \"...\"}); the reply gives the same numbers their translations, and a number left out keeps its text. These translate the starter course of 'Create a course' (courses::starter_files) into Spanish; '*' answers any other file with no translations, so any course copies through unchanged. See docs/testing.md.",
+  "replies": {
+    "course.json": {
+      "reply": {
+        "1": "Describe el curso en una o dos frases.",
+        "2": "Lo básico",
+        "3": "Significado",
+        "4": "Curso sin título",
+        "5": "Término",
+        "7": "Lo esencial",
+        "8": "Unidad 1"
+      }
+    },
+    "lessons/first-lesson.json": {
+      "reply": {
+        "1": "## La idea\n\nExplica la idea en un párrafo corto. Cada encabezado `## ` se convierte en una tarjeta de la Guía y del modo Sprint.\n\n## Un ejemplo\n\n- **término**: lo que significa\n- Usa listas, **negrita**, tablas y bloques de código cuando quieras.",
+        "2": "La única idea que enseña esta lección",
+        "3": "significado",
+        "4": "Cada entrada del vocabulario tiene un término y su significado.",
+        "5": "Es la otra mitad de una tarjeta.",
+        "6": "ejemplo",
+        "7": "slug",
+        "8": "¿Qué campo guarda lo que significa un término?",
+        "9": "un ejemplo",
+        "10": "Los ejemplos son opcionales, pero mejoran mucho las tarjetas.",
+        "11": "Escribe la palabra para una frase que muestra un término en uso.",
+        "12": "Las respuestas numéricas se comprueban por su valor: 2, 2.0 y 4/2 cuentan. Usa \"expression\" para las fórmulas.",
+        "13": "¿Cuántas opciones ofrece una pregunta de verdadero o falso?",
+        "14": "Añade \"tolerance\": 0.01 para aceptar respuestas redondeadas a dos decimales.",
+        "15": "Una pregunta numérica puede aceptar respuestas dentro de un margen.",
+        "16": "término → significado",
+        "17": "una tarjeta",
+        "18": "Limita cada lección a una idea que el alumno pueda tener en la cabeza.",
+        "19": "Una idea por lección",
+        "20": "término",
+        "21": "una palabra que aprender",
+        "22": "lo que significa",
+        "23": "la cara de una tarjeta",
+        "24": "¿Cuál es cuál?",
+        "25": "Los términos van en la cara de la tarjeta; los significados, en el reverso.",
+        "26": "Un resumen de una línea que se muestra en las listas.",
+        "27": "Tu primera lección",
+        "28": "Una frase de ejemplo que usa el término.",
+        "29": "una palabra o expresión que vale la pena recordar",
+        "30": "lo que significa el término",
+        "31": "una frase que muestra el término en uso"
+      }
+    },
+    "*": {
+      "reply": {}
+    }
+  }
+}

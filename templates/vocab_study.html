@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t1("vocab.study.title", "heading", heading) }}{% endblock %}
+{% block modenav %}{% let active = "flashcards" %}{% include "nav_play.html" %}{% endblock %}
+{% block content %}
+<section class="study" id="study" data-testid="flashcards" data-total="{{ cards.len() }}"{% if due %} data-due="1"{% endif %}>
+  <header class="quiz-head">
+    <div>
+      <p class="crumbs"><a href="{{ crate::base_path() }}/vocabulary">{{ crate::t("vocab.study.crumb_vocabulary") }}</a> › {{ crate::t("vocab.study.crumb_flashcards") }}</p>
+      <h1>{{ heading }}</h1>
+      <p class="muted">{{ subheading }}</p>
+    </div>
+    <div class="quiz-progress"><span id="st-pos">1</span> / {{ cards.len() }}</div>
+  </header>
+  <div class="bar slim"><div class="fill" id="st-bar" style="width:0%"></div></div>
+
+  <div class="view-options">
+    <label class="opt">{{ crate::t("vocab.study.show_first") }}
+      <select id="st-side" data-testid="flashcards-side">
+        <option value="term">{{ course.term_label }}</option>
+        <option value="meaning">{{ course.meaning_label }}</option>
+      </select>
+    </label>
+    <span class="muted small">{{ crate::t("vocab.study.how_to") }}</span>
+  </div>
+
+  {% for c in cards %}
+  <div class="study-card" data-testid="flashcards-card" data-lesson="{{ c.lesson_id }}" data-word="{{ c.term }}" tabindex="0" hidden>
+    <p class="crumbs">{{ c.lesson_title }}</p>
+    <div class="face face-term" lang="{{ course.term_lang }}">
+      <span class="word">{{ c.term }}</span>
+      {% if !course.say_lang.is_empty() %}<button type="button" class="say" data-say="{{ c.term }}" aria-label="{{ crate::t("vocab.study.hear_it") }}">🔊</button>{% endif %}
+      <span class="hint muted small">{{ crate::t("vocab.study.tap_to_reveal") }}</span>
+    </div>
+    <div class="face face-meaning" lang="{{ course.meaning_lang }}" hidden>
+      <span class="word">{{ c.meaning }}</span>
+      {% if let Some(ex) = c.example %}<span class="example" lang="{{ course.term_lang }}"{% if let Some(em) = c.example_meaning %} title="{{ em }}"{% endif %}>{{ ex }}</span>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+
+  <div class="actions study-actions" id="st-actions" hidden>
+    <button type="button" class="btn ghost" id="st-no" data-testid="flashcards-no">{{ crate::t("vocab.study.didnt_know") }}</button>
+    <button type="button" class="btn" id="st-yes" data-testid="flashcards-yes">{{ crate::t("vocab.study.knew_it") }}</button>
+  </div>
+
+  <section class="summary" id="st-done" data-testid="flashcards-done" hidden>
+    <h2>{{ crate::t("vocab.study.round_complete") }}</h2>
+    <p class="lead">{{ crate::t("vocab.study.known_html")|safe }}</p>
+    {% if due %}
+    <p data-testid="flashcards-due-tomorrow">{{ crate::t("vocab.study.due_tomorrow_html")|safe }}</p>
+    <p data-testid="flashcards-due-next" id="st-next" hidden></p>
+    <div class="actions">
+      <a class="btn" href="{{ crate::base_path() }}/" data-testid="flashcards-due-home">{{ crate::t("vocab.study.due_home") }}</a>
+      <a class="btn ghost" href="{{ crate::base_path() }}/vocabulary">{{ crate::t("vocab.study.back") }}</a>
+    </div>
+    {% else %}
+    <div class="actions">
+      <button type="button" class="btn" id="st-missed" data-testid="flashcards-missed" hidden>{{ crate::t("vocab.study.review_missed") }}</button>
+      <button type="button" class="btn ghost" id="st-again" data-testid="flashcards-again">{{ crate::t("vocab.study.go_again") }}</button>
+      {% if let Some(slug) = quiz_slug %}
+        <a class="btn ghost" href="{{ crate::base_path() }}/practice?lesson={{ slug }}" data-testid="flashcards-practise-lesson">{{ crate::t("vocab.study.practise_lesson") }}</a>
+      {% else if lesson_slug.is_none() %}
+        <a class="btn ghost" href="{{ crate::base_path() }}/vocabulary/study">{{ crate::t("vocab.study.new_random") }}</a>
+      {% endif %}
+      <a class="btn ghost" href="{{ crate::base_path() }}/vocabulary">{{ crate::t("vocab.study.back") }}</a>
+    </div>
+    {% endif %}
+  </section>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ crate::routes::asset_url("vocab.js") }}" defer></script>{% endblock %}

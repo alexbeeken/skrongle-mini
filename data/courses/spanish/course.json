@@ -1,0 +1,58 @@
+{
+  "id": "spanish",
+  "title": "Spanish",
+  "subject": "Spanish",
+  "description": "CEFR-aligned Spanish from A1 up: greetings, the present tense, ser and estar, questions, time, the preterite… Grammar lessons with quizzes, vocabulary, verb drills and conversations.",
+  "icon": "🇪🇸",
+  "terms": { "label": "Español", "lang": "es" },
+  "meanings": { "label": "English", "lang": "en" },
+  "units": [
+    { "id": "A1", "title": "A1", "description": "Beginner" },
+    { "id": "A2", "title": "A2", "description": "Elementary" },
+    { "id": "B1", "title": "B1", "description": "Intermediate" },
+    { "id": "B2", "title": "B2", "description": "Upper intermediate" },
+    { "id": "C1", "title": "C1", "description": "Advanced" },
+    { "id": "C2", "title": "C2", "description": "Mastery" }
+  ],
+  "levels": true,
+  "groups": [
+    { "id": "Grammar", "title": "Grammar" },
+    { "id": "Vocabulary", "title": "Vocabulary" }
+  ],
+  "paradigm": {
+    "label": "Conjugations",
+    "item_label": "Verb",
+    "slots": [
+      { "key": "yo", "label": "yo", "hint": "I",
+        "art": ["   |   ", "   |   ", "   |   ", " \\ | / ", "  \\|/  ", "   v   "] },
+      { "key": "tu", "label": "tú", "hint": "you",
+        "art": ["   ^   ", "  /|\\  ", " / | \\ ", "   |   ", "   |   ", "   |   "] },
+      { "key": "el", "label": "él / ella / usted", "hint": "he / she / you (formal)",
+        "art": ["       ", "       ", "-------\\", "        >", "-------/", "       "] },
+      { "key": "nosotros", "label": "nosotros / nosotras", "hint": "we",
+        "art": [" |  |  | ", " |  |  | ", " |  |  | ", "\\|/\\|/\\|/", " v  v  v ", "         "] },
+      { "key": "vosotros", "label": "vosotros / vosotras", "hint": "you all",
+        "art": [" ^  ^  ^ ", "/|\\/|\\/|\\", " |  |  | ", " |  |  | ", " |  |  | ", "         "] },
+      { "key": "ellos", "label": "ellos / ellas / ustedes", "hint": "they / you all (formal)",
+        "art": ["-----\\   ", "      >  ", "-----/   ", "-----\\   ", "      >  ", "-----/   "] }
+    ],
+    "sets": [
+      { "key": "present", "label": "Present" },
+      { "key": "preterite", "label": "Preterite" },
+      { "key": "imperfect", "label": "Imperfect" },
+      { "key": "future", "label": "Future" },
+      { "key": "conditional", "label": "Conditional" },
+      { "key": "present-subjunctive", "label": "Present subjunctive" }
+    ]
+  },
+  "chars": ["á", "é", "í", "ó", "ú", "ñ", "ü", "¿", "¡"],
+  "calendar": {
+    "days": ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"],
+    "months": ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"],
+    "format": "{day}, {d} de {month} de {year}"
+  },
+  "strings": {
+    "praise": ["¡Correcto!", "¡Muy bien!", "¡Eso es!", "¡Perfecto!", "¡Genial!"],
+    "almost": ["Not quite", "Casi…", "Hmm, no"]
+  }
+}

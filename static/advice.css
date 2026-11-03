@@ -1,0 +1,14 @@
+/* The course editor's advice (#1235, static/advice.js): the yellow ! on a
+   lesson row, the red .field-check.bad in the app's gold with a dark glyph
+   (white on gold is too faint), and its "Things to check" modal. */
+.field-check.advice { display: inline-grid; place-items: center; width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--gold); color: #222; font-size: .8rem; cursor: pointer; }
+.lt-line > .lt-advice { flex: none; margin: 0 .15rem; }
+.lt-line > .lt-advice::after { left: auto; right: -.4rem; }
+.advice-list { margin-top: .4rem; }
+.advice-lesson + .advice-lesson { border-top: 1px solid var(--line); }
+.advice-lesson h3 { margin: .6rem 0 .3rem; font-size: .98rem; scroll-margin-top: .5rem; }
+.advice-lesson ul { list-style: none; margin: 0 0 .5rem; padding: 0; }
+.advice-item { display: flex; gap: .5rem; align-items: baseline; width: 100%; padding: .35rem .4rem; border: 0; border-radius: 6px; background: none; color: var(--text); font: inherit; font-size: .92rem; text-align: left; cursor: pointer; overflow-wrap: anywhere; }
+.advice-item:hover, .advice-item:focus-visible { background: var(--bg); }
+.advice-item .field-check.advice { position: static; transform: none; flex: none; width: 1.05rem; height: 1.05rem; font-size: .7rem; cursor: inherit; }
+.advice-item strong { flex: none; }

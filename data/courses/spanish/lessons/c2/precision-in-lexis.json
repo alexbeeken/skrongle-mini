@@ -1,0 +1,649 @@
+{
+  "id": "c2-precision-in-lexis",
+  "slug": "precision-in-lexis",
+  "title": "Precision: near-synonyms, collocations and false friends",
+  "unit": "C2",
+  "group": "Vocabulary",
+  "order": 20,
+  "summary": "Mirar, observar or contemplar? Near-synonyms with their own shade, the verbs nouns demand (cometer un error, desempeñar un cargo) and the false friends of English and of Spanish's Romance neighbours.",
+  "focus": "Choosing the precise word: near-synonyms, fixed collocations and false friends",
+  "prerequisites": [
+    "c1-formal-writing",
+    "c1-colloquial-and-idioms"
+  ],
+  "content": "## Near-synonyms: the same act, a different shade\n\nWhere English has one verb, Spanish often has three, and the choice is what sounds like mastery.\n\n| neutral | more precise | the shade |\n|---|---|---|\n| **mirar** | **observar** | watching closely, to learn or note something |\n| **mirar** | **contemplar** | gazing at length, with admiration or thought |\n| **oír** | **escuchar** | hearing happens; listening is chosen |\n| **pedir** | **rogar** | asking humbly, as in formal letters (**le ruego que…**) |\n| **pedir** | **exigir** | demanding, as a right or with force |\n| **hacer** | **realizar**, **llevar a cabo** | carrying out a planned task; formal |\n\n- **Oigo ruido, pero no escucho la radio.** I can hear noise, but I'm not listening to the radio.\n- **Realizar** is useful in reports and tiresome in conversation: **hacer la compra**, not *realizar la compra*.\n\n## Collocations: the verb the noun expects\n\nSome nouns choose their verb, and a word-for-word translation picks the wrong one (*hacer un error*).\n\n| collocation | meaning |\n|---|---|\n| **cometer un error** | to make a mistake (also **cometer un delito**) |\n| **entablar una conversación** | to strike up a conversation |\n| **desempeñar un cargo** | to hold a post (also **desempeñar un papel**) |\n| **formular una pregunta** | to put a question |\n| **contraer matrimonio** | to marry (legal, formal) |\n| **emitir un juicio** | to pass judgement, give a verdict |\n| **asumir una responsabilidad** | to take on a responsibility |\n\nMost belong to formal and written Spanish. In conversation you will often hear the plainer **hacer una pregunta** or **casarse**; in a report or a contract, the collocation is expected.\n\n## False friends with English\n\nThese look English and mean something else.\n\n| Spanish | means | for the English word, say |\n|---|---|---|\n| **actualmente** | currently, nowadays | actually: **en realidad** |\n| **eventualmente** | possibly, should it arise | eventually: **al final**, **finalmente** |\n| **sensible** | sensitive | sensible: **sensato** |\n| **asistir a** | to attend | to assist: **ayudar** |\n| **realizar** | to carry out | to realise: **darse cuenta de** |\n\n- **Actualmente trabaja en Lima.** She currently works in Lima.\n- **Asistimos a la boda de Clara.** We attended Clara's wedding.\n\n**Eventualmente** for \"in the end\" is a spreading anglicism that careful writers avoid. In **asistir a un herido** (to tend an injured person) the sense of helping does show through.\n\n## False friends among Romance languages\n\nPortuguese, Italian and French share most of their roots with Spanish, so their traps are sneakier. The word is almost the same and the meaning is not.\n\n| word | there it means | in Spanish |\n|---|---|---|\n| Portuguese **esquisito** | strange, odd | **exquisito** = delicious, refined |\n| Italian **burro** | butter | **burro** = donkey; butter is **la mantequilla** |\n| Italian **salire** | to go up | **salir** = to go out; to go up is **subir** |\n| French **constipé** | constipated | **constipado** = having a cold; constipated is **estreñido** |\n| Portuguese **polvo** | octopus | **polvo** = dust; octopus is **el pulpo** |\n\n- **Estoy constipado: no paro de estornudar.** I've got a cold: I can't stop sneezing.",
+  "vocabulary": [
+    {
+      "term": "mirar / observar / contemplar",
+      "meaning": "to look / to watch closely, to study / to gaze at, at length",
+      "example": "Desde el balcón, ella contemplaba el mar mientras su hijo observaba los barcos con prismáticos.",
+      "example_meaning": "From the balcony she gazed at the sea while her son watched the boats through binoculars."
+    },
+    {
+      "term": "oír / escuchar",
+      "meaning": "to hear (it happens) / to listen (by choice)",
+      "example": "Te oigo, pero ahora mismo no puedo escucharte con calma.",
+      "example_meaning": "I can hear you, but right now I can't listen to you properly."
+    },
+    {
+      "term": "pedir / rogar / exigir",
+      "meaning": "to ask / to beg, entreat (formal) / to demand",
+      "example": "Le ruego que me disculpe: no le exijo nada, solo le pido un minuto.",
+      "example_meaning": "Please forgive me: I'm not demanding anything, I'm only asking you for a minute."
+    },
+    {
+      "term": "hacer / realizar / llevar a cabo",
+      "meaning": "to do / to carry out (formal) / to carry through",
+      "example": "El equipo llevó a cabo el estudio en dos años.",
+      "example_meaning": "The team carried out the study in two years."
+    },
+    {
+      "term": "cometer un error",
+      "meaning": "to make a mistake",
+      "example": "Cometí el error de firmar sin leer la letra pequeña.",
+      "example_meaning": "I made the mistake of signing without reading the small print."
+    },
+    {
+      "term": "entablar una conversación",
+      "meaning": "to strike up a conversation",
+      "example": "En la sala de espera entablaron una conversación sobre jardinería.",
+      "example_meaning": "In the waiting room they struck up a conversation about gardening."
+    },
+    {
+      "term": "desempeñar un cargo",
+      "meaning": "to hold a post, an office",
+      "example": "Desempeñó el cargo de alcaldesa durante ocho años.",
+      "example_meaning": "She held the office of mayor for eight years."
+    },
+    {
+      "term": "formular una pregunta",
+      "meaning": "to put a question (formal)",
+      "example": "La periodista formuló una pregunta que nadie esperaba.",
+      "example_meaning": "The journalist put a question nobody expected."
+    },
+    {
+      "term": "emitir un juicio",
+      "meaning": "to pass judgement, give an opinion or verdict",
+      "example": "Prefiero no emitir un juicio hasta leer el informe completo.",
+      "example_meaning": "I'd rather not pass judgement until I've read the whole report."
+    },
+    {
+      "term": "asumir una responsabilidad",
+      "meaning": "to take on a responsibility",
+      "example": "La empresa asumió la responsabilidad del retraso.",
+      "example_meaning": "The company took responsibility for the delay."
+    },
+    {
+      "term": "contraer matrimonio",
+      "meaning": "to marry (legal, formal)",
+      "example": "Contrajeron matrimonio en el juzgado un martes por la mañana.",
+      "example_meaning": "They were married at the registry office on a Tuesday morning."
+    },
+    {
+      "term": "actualmente",
+      "meaning": "currently, nowadays (not 'actually')",
+      "example": "Actualmente vive en Valencia, aunque nació en Oviedo.",
+      "example_meaning": "She currently lives in Valencia, although she was born in Oviedo."
+    },
+    {
+      "term": "eventualmente",
+      "meaning": "possibly, should it arise (not 'eventually')",
+      "example": "Eventualmente podría hacer falta un intérprete.",
+      "example_meaning": "An interpreter might be needed, should it come to that."
+    },
+    {
+      "term": "el falso amigo",
+      "meaning": "false friend: a word that looks like one in another language and means something else",
+      "example": "Sensible es un falso amigo: significa sensitive, no sensible.",
+      "example_meaning": "Sensible is a false friend: it means 'sensitive', not 'sensible'."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c2-precision-in-lexis-01",
+      "prompt": "El médico ___ al paciente durante una semana antes de operarlo.",
+      "type": "multiple-choice",
+      "options": [
+        "observó",
+        "contempló",
+        "oyó"
+      ],
+      "correct_answer": "observó",
+      "explanation": "Observar is watching closely in order to learn something, exactly what a doctor does. Contemplar is gazing with admiration or thought; oír is hearing.",
+      "hints": [
+        "Which verb means watching in order to study?"
+      ],
+      "teaches": [
+        "mirar / observar / contemplar"
+      ]
+    },
+    {
+      "question_id": "c2-precision-in-lexis-02",
+      "prompt": "Me oyes, pero no me estás ___.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "escuchando",
+      "accepted_answers": [],
+      "explanation": "You hear me (oír, because the ear simply works) but you are not listening (escuchar, because you choose to pay attention).",
+      "hints": [
+        "Hearing happens; this verb is chosen.",
+        "Gerund after estar."
+      ],
+      "teaches": [
+        "oír / escuchar"
+      ]
+    },
+    {
+      "question_id": "c2-precision-in-lexis-03",
+      "prompt": "Estimado señor: le ___ que acepte mis disculpas por el retraso.",
+      "type": "multiple-choice",
+      "options": [
+        "ruego",
+        "exijo"
+      ],
+      "correct_answer": "ruego",
+      "explanation": "A formal apology asks humbly: le ruego que… Exigir is demanding, which makes no sense when you are the one apologising.",
+      "hints": [
+        "Who is apologising here?"
+      ],
+      "teaches": [
+        "pedir / rogar / exigir"
+      ]
+    },
+    {
+      "question_id": "c2-precision-in-lexis-04",
+      "prompt": "Anoche ___ un error grave: envié el informe sin revisarlo.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "cometí",
+      "accepted_answers": [
+        "yo cometí"
+      ],
+      "explanation": "Errors are 'committed' in Spanish: cometer un error. Hacer un error is a calque from English.",
+      "hints": [
+        "Not hacer.",
+        "The same verb as with un delito."
+      ],
+      "teaches": [
+        "cometer un error"
+      ]
+    },
+    {
+      "question_id": "c2-precision-in-lexis-05",
+      "prompt": "En el tren ___ conversación con una señora de Burgos.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "entablé",
+      "accepted_answers": [
+        "yo entablé",
+        "trabé",
+        "yo trabé"
+      ],
+      "explanation": "Entablar (or the more literary trabar) conversación means striking one up, often with a stranger.",
+      "hints": [
+        "To strike up a conversation.",
+        "Preterite, yo form."
+      ],
+      "teaches": [
+        "entablar una conversación"
+      ]
+    },
+    {
+      "question_id": "c2-precision-in-lexis-06",
+      "prompt": "Durante diez años ___ el cargo de directora del museo.",
+      "type": "multiple-choice",
+      "options": [
+        "desempeñó",
+        "realizó",
+        "cometió"
+      ],
+      "correct_answer": "desempeñó",
+      "explanation": "A post or office is held: desempeñar un cargo (ocupar un cargo also works). Realizar is for tasks and cometer for errors or crimes.",
+      "hints": [
+        "Which verb also goes with un papel?"
+      ],
+      "teaches": [
+        "desempeñar un cargo"
+      ]
+    },
+    {
+      "question_id": "c2-precision-in-lexis-07",
+      "prompt": "Actualmente trabaja en una editorial. What does it mean?",
+      "type": "multiple-choice",
+      "options": [
+        "She currently works at a publishing house.",
+        "She actually works at a publishing house.",
+        "She eventually worked at a publishing house."
+      ],
+      "correct_answer": "She currently works at a publishing house.",
+      "explanation": "Actualmente means currently, nowadays. 'Actually' is en realidad.",
+      "hints": [
+        "Think of la actualidad, the present day."
+      ],
+      "teaches": [
+        "actualmente"
+      ]
+    },
+    {
+      "question_id": "c2-precision-in-lexis-08",
+      "prompt": "A friend from Lisbon tastes your soup and says it is esquisita. What does she mean?",
+      "type": "multiple-choice",
+      "options": [
+        "That it tastes odd.",
+        "That it is delicious.",
+        "That it is too salty."
+      ],
+      "correct_answer": "That it tastes odd.",
+      "explanation": "Portuguese esquisito means strange, odd. Spanish exquisito, with x, means delicious or refined. It is a false friend between neighbours.",
+      "hints": [
+        "Portuguese and Spanish part ways on this one."
+      ],
+      "teaches": [
+        "el falso amigo"
+      ]
+    },
+    {
+      "question_id": "c2-precision-in-lexis-09",
+      "prompt": "Esperamos tres horas y ___ llegó el tren. (eventually, in the end)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "al final",
+      "accepted_answers": [
+        "finalmente",
+        "por fin",
+        "al fin"
+      ],
+      "explanation": "For 'in the end', Spanish says al final, finalmente or por fin. Eventualmente means 'possibly, should it arise'; using it for 'eventually' is an anglicism.",
+      "hints": [
+        "Not eventualmente.",
+        "Two words, the opposite of al principio."
+      ],
+      "teaches": [
+        "eventualmente"
+      ]
+    },
+    {
+      "question_id": "c2-precision-in-lexis-10",
+      "prompt": "Your Italian friend asks for burro for her toast. In Spanish she wants ___. (butter)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "mantequilla",
+      "accepted_answers": [
+        "la mantequilla"
+      ],
+      "explanation": "Italian burro is butter; Spanish burro is a donkey. Butter is la mantequilla (manteca in the River Plate).",
+      "hints": [
+        "Not the animal."
+      ],
+      "teaches": [
+        "el falso amigo"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Oigo pasos en la escalera.",
+      "meaning": "I can hear footsteps on the stairs.",
+      "note": "Oír is hearing that simply happens."
+    },
+    {
+      "text": "Escucha bien lo que te voy a decir.",
+      "meaning": "Listen carefully to what I'm going to tell you."
+    },
+    {
+      "text": "Actualmente no hay ningún vuelo directo a esa isla.",
+      "meaning": "There are currently no direct flights to that island.",
+      "note": "Actualmente = currently, not actually."
+    },
+    {
+      "text": "El testigo prefirió no emitir ningún juicio sobre el acusado.",
+      "meaning": "The witness preferred not to pass any judgement on the accused.",
+      "note": "New word: el testigo = the witness."
+    },
+    {
+      "text": "Mi abuela es muy sensible y llora con las películas tristes.",
+      "meaning": "My grandmother is very sensitive and cries at sad films.",
+      "note": "Sensible = sensitive."
+    },
+    {
+      "text": "Contemplamos el atardecer desde la muralla sin decir una sola palabra.",
+      "meaning": "We gazed at the sunset from the city wall without saying a single word.",
+      "note": "New word: la muralla = the city wall."
+    },
+    {
+      "text": "La alcaldesa asumió toda la responsabilidad por el retraso de las obras.",
+      "meaning": "The mayor took full responsibility for the delay in the building work.",
+      "note": "New word: las obras = the building work."
+    },
+    {
+      "text": "Los vecinos exigieron que el ayuntamiento llevara a cabo las reformas prometidas hace años.",
+      "meaning": "The residents demanded that the council carry out the improvements promised years ago."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Near-synonyms"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "c2-precision-in-lexis-01"
+    },
+    {
+      "question": "c2-precision-in-lexis-02"
+    },
+    {
+      "question": "c2-precision-in-lexis-03"
+    },
+    {
+      "section": "Collocations"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "c2-precision-in-lexis-04"
+    },
+    {
+      "question": "c2-precision-in-lexis-05"
+    },
+    {
+      "question": "c2-precision-in-lexis-06"
+    },
+    {
+      "tip": "When a noun feels formal (un cargo, un juicio, matrimonio), ask which verb it takes before reaching for hacer."
+    },
+    {
+      "section": "False friends with English"
+    },
+    {
+      "question": "c2-precision-in-lexis-07"
+    },
+    {
+      "question": "c2-precision-in-lexis-09"
+    },
+    {
+      "section": "False friends among Romance"
+    },
+    {
+      "question": "c2-precision-in-lexis-08"
+    },
+    {
+      "question": "c2-precision-in-lexis-10"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c2-precision-in-lexis-conv-translation",
+      "title": "Reviewing a translation",
+      "scenario": "Irene, a senior editor, goes through Marcos's Spanish translation of an English report with him before it goes to the client.",
+      "role_a": "Irene",
+      "role_b": "Marcos",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Marcos, he leído tu traducción del informe. Hay cosas muy buenas, pero quisiera comentarte unos detalles.",
+          "meaning": "Marcos, I've read your translation of the report. There's a lot that's good, but I'd like to go over a few details with you."
+        },
+        {
+          "speaker": "b",
+          "text": "Claro, dime. Supongo que habré cometido algún error de novato.",
+          "meaning": "Sure, go ahead. I suppose I'll have made some beginner's mistake.",
+          "note": "Cometer un error, never hacer un error."
+        },
+        {
+          "speaker": "a",
+          "text": "En la página dos pones que el director, eventualmente, dimitió. ¿Quieres decir que quizá dimitió?",
+          "meaning": "On page two you write that the director 'eventualmente' resigned. Do you mean he possibly resigned?"
+        },
+        {
+          "speaker": "b",
+          "text": "No, que al final dimitió. Vaya, es el eventually del original.",
+          "meaning": "No, that he resigned in the end. Oh dear, it's the 'eventually' from the original."
+        },
+        {
+          "speaker": "a",
+          "text": "Eso es. Y aquí: el comité realizó que el plan fallaba.",
+          "meaning": "Exactly. And here: the committee 'realizó' that the plan was failing."
+        },
+        {
+          "speaker": "b",
+          "text": "Se dio cuenta, claro. Realizar es llevar a cabo, no darse cuenta.",
+          "meaning": "Realised, of course. Realizar means to carry out, not to realise."
+        },
+        {
+          "speaker": "a",
+          "text": "Luego, la ministra hizo una pregunta en el pleno. Es correcto, pero en un informe queda mejor formuló.",
+          "meaning": "Then, the minister asked a question in the plenary. It's correct, but in a report formuló reads better.",
+          "note": "Formular una pregunta is the formal register."
+        },
+        {
+          "speaker": "b",
+          "text": "Anotado. ¿Y lo de que la directora es muy sensible a las críticas?",
+          "meaning": "Noted. And the bit about the director being very sensitive to criticism?"
+        },
+        {
+          "speaker": "a",
+          "text": "Eso está bien: sensible es sensitive. Si el original dijera sensible, habría que poner sensata.",
+          "meaning": "That's fine: sensible means sensitive. If the original said 'sensible', you'd have to put sensata."
+        },
+        {
+          "speaker": "b",
+          "text": "Me lo apunto. Actualmente tengo una lista de falsos amigos más larga que el informe.",
+          "meaning": "I'll note it down. At the moment my list of false friends is longer than the report."
+        },
+        {
+          "speaker": "a",
+          "text": "Mejor así. Mañana asisto a la reunión con el cliente: ¿vienes y desempeñas el papel de experto?",
+          "meaning": "All the better. Tomorrow I'm attending the meeting with the client: will you come and play the part of the expert?"
+        },
+        {
+          "speaker": "b",
+          "text": "Con mucho gusto. Y prometo no traducir actually por actualmente.",
+          "meaning": "Gladly. And I promise not to translate 'actually' as actualmente."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🔬",
+    "bites": [
+      {
+        "title": "Hear or listen",
+        "emoji": "👂",
+        "rule": "Oír is what the ear does; escuchar is paying attention. Likewise mirar is looking, observar studies, contemplar lingers with admiration.",
+        "example": "Oigo la lluvia, pero escucho la radio.",
+        "example_meaning": "I can hear the rain, but I'm listening to the radio."
+      },
+      {
+        "title": "Ask, beg, demand",
+        "emoji": "🙏",
+        "rule": "Pedir is neutral; rogar asks humbly and sounds formal (le ruego que…); exigir demands as a right. All three take que + subjunctive.",
+        "example": "Le ruego que me responda antes del viernes.",
+        "example_meaning": "I kindly ask you to reply before Friday."
+      },
+      {
+        "title": "The verb the noun expects",
+        "emoji": "🧲",
+        "rule": "Errors are committed (cometer), posts are held (desempeñar), conversations struck up (entablar), judgements issued (emitir).",
+        "example": "Desempeñó el cargo con discreción.",
+        "example_meaning": "She held the post discreetly."
+      },
+      {
+        "title": "False friends",
+        "emoji": "🎭",
+        "rule": "actualmente = currently, eventualmente = possibly, sensible = sensitive, asistir a = to attend, realizar = to carry out. Next door: Italian burro is butter.",
+        "example": "Asistí a la boda de mi prima.",
+        "example_meaning": "I attended my cousin's wedding."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which verb does the noun take?",
+        "buckets": [
+          "cometer",
+          "desempeñar",
+          "formular"
+        ],
+        "why": "Errors and crimes are committed; posts, roles and functions are held; questions and hypotheses are formulated.",
+        "items": [
+          {
+            "text": "___ un error",
+            "bucket": 0
+          },
+          {
+            "text": "___ un delito",
+            "bucket": 0
+          },
+          {
+            "text": "___ un cargo",
+            "bucket": 1
+          },
+          {
+            "text": "___ un papel",
+            "bucket": 1
+          },
+          {
+            "text": "___ una pregunta",
+            "bucket": 2
+          },
+          {
+            "text": "___ una hipótesis",
+            "bucket": 2
+          }
+        ]
+      },
+      {
+        "title": "Looks English: same meaning or false friend?",
+        "buckets": [
+          "false friend",
+          "means what it looks like"
+        ],
+        "why": "Actualmente, eventualmente, sensible and asistir a mislead English speakers; probable and importante mean just what they seem.",
+        "items": [
+          {
+            "text": "actualmente",
+            "bucket": 0
+          },
+          {
+            "text": "eventualmente",
+            "bucket": 0
+          },
+          {
+            "text": "sensible",
+            "bucket": 0
+          },
+          {
+            "text": "asistir a",
+            "bucket": 0
+          },
+          {
+            "text": "probable",
+            "bucket": 1
+          },
+          {
+            "text": "importante",
+            "bucket": 1
+          }
+        ]
+      },
+      {
+        "title": "In Spanish, or next door?",
+        "buckets": [
+          "in Spanish",
+          "in Italian or Portuguese"
+        ],
+        "why": "Italian burro is butter and salire is to go up; Portuguese polvo is octopus. In Spanish: donkey, to go out, dust.",
+        "items": [
+          {
+            "text": "burro = donkey",
+            "bucket": 0
+          },
+          {
+            "text": "burro = butter",
+            "bucket": 1
+          },
+          {
+            "text": "polvo = dust",
+            "bucket": 0
+          },
+          {
+            "text": "polvo = octopus",
+            "bucket": 1
+          },
+          {
+            "text": "salir = to go out",
+            "bucket": 0
+          },
+          {
+            "text": "salire = to go up",
+            "bucket": 1
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Ayer hice un error en el examen.",
+        "wrong": "hice",
+        "fix": "cometí",
+        "why": "Errors are committed: cometer un error."
+      },
+      {
+        "sentence": "Me realicé de que había perdido las llaves.",
+        "wrong": "realicé",
+        "fix": "di cuenta",
+        "why": "To realise is darse cuenta de; realizar means to carry out."
+      },
+      {
+        "sentence": "Eventualmente, después de tres horas, llegó el tren.",
+        "wrong": "Eventualmente",
+        "fix": "Al final",
+        "why": "For 'in the end' say al final; eventualmente means 'possibly'."
+      },
+      {
+        "sentence": "Mañana atiendo a la reunión de las nueve.",
+        "wrong": "atiendo",
+        "fix": "asisto",
+        "why": "To attend a meeting is asistir a; atender means to look after or pay attention."
+      },
+      {
+        "sentence": "Durante cuatro años realizó el cargo de tesorera.",
+        "wrong": "realizó",
+        "fix": "desempeñó",
+        "why": "A post is held: desempeñar un cargo."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Cometí el error de no leer el contrato.",
+        "meaning": "I made the mistake of not reading the contract.",
+        "distractors": [
+          "hice"
+        ]
+      },
+      {
+        "text": "Le ruego que acepte mis disculpas.",
+        "meaning": "I beg you to accept my apologies.",
+        "distractors": [
+          "acepta"
+        ]
+      },
+      {
+        "text": "Actualmente vivo en un pueblo de Cuenca.",
+        "meaning": "I currently live in a village in Cuenca.",
+        "distractors": [
+          "eventualmente"
+        ]
+      },
+      {
+        "text": "Asistimos a la reunión del jueves.",
+        "meaning": "We attended Thursday's meeting.",
+        "distractors": [
+          "atendimos"
+        ]
+      }
+    ]
+  }
+}

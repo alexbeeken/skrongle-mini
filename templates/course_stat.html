@@ -1,0 +1,31 @@
+{# The body of a course card's stat modal (#900), fetched when it opens: what is next. #}
+{% if metric == "passed" %}
+<div class="stat-next" data-testid="courses-stat-next">
+  {% if let Some(l) = next %}
+  <p class="stat-next-head">{{ crate::t("courses.stat.next_lesson") }}</p>
+  <form method="post" action="{{ crate::base_path() }}/courses/open/{{ course_id }}"><input type="hidden" name="lesson" value="{{ l.slug }}"><button type="submit" class="link-btn" data-testid="courses-stat-lesson" data-slug="{{ l.slug }}">{{ l.title }}</button></form>
+  {% else %}
+  <p data-testid="courses-stat-all-passed">{{ crate::t("courses.stat.all_passed") }}</p>
+  {% endif %}
+</div>
+{% if let Some((l, when)) = last %}<p class="small muted" data-testid="courses-stat-last">{{ crate::t2("courses.stat.last_passed", "title", l.title.as_str(), "when", when.as_str()) }}</p>{% endif %}
+<ul class="stat-units" data-testid="courses-stat-units">
+  {% for (title, n, total) in units %}
+  <li data-testid="courses-stat-unit"><span>{{ title }}</span><span class="stat-unit-bar" aria-hidden="true"><i style="width: {{ n * 100 / total }}%"></i></span><span class="stat-unit-n">{{ n }}/{{ total }}</span></li>
+  {% endfor %}
+</ul>
+{% else %}
+<div class="stat-next" data-testid="courses-stat-next">
+  {% if practise.is_empty() %}
+  <p data-testid="courses-stat-none">{{ crate::t("courses.stat.nothing_to_practise") }}</p>
+  {% else %}
+  <p class="stat-next-head">{{ crate::t("courses.stat.practise_next") }}</p>
+  <ul class="stat-lessons">
+    {% for l in practise %}
+    <li><form method="post" action="{{ crate::base_path() }}/courses/open/{{ course_id }}"><input type="hidden" name="lesson" value="{{ l.slug }}"><button type="submit" class="link-btn" data-testid="courses-stat-lesson" data-slug="{{ l.slug }}">{{ l.title }}</button></form>
+      <span class="small muted" data-testid="courses-stat-score">{% if l.fading %}{{ crate::t1("courses.stat.fading", "pct", l.score) }}{% else %}{{ crate::t1("courses.stat.score", "pct", l.score) }}{% endif %}</span></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+{% endif %}

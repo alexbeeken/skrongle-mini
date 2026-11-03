@@ -1,0 +1,761 @@
+{
+  "id": "a2-regular-preterite-ar",
+  "slug": "regular-preterite-ar-verbs",
+  "title": "Regular -AR verbs in the preterite",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 10,
+  "summary": "Talk about completed past actions: hablé, hablaste, habló, hablamos, hablasteis, hablaron.",
+  "focus": "Preterite (pretérito indefinido) of regular -ar verbs",
+  "prerequisites": [
+    "a1-regular-ar-present"
+  ],
+  "content": "## What the preterite is for\n\nThe **pretérito indefinido** describes actions that were **completed** at a specific point in the past:\n\n- *Ayer hablé con mi abuela.* (Yesterday I spoke with my grandmother.)\n- *El año pasado viajamos a Perú.* (Last year we travelled to Peru.)\n\nTypical time markers: *ayer*, *anoche*, *la semana pasada*, *el año pasado*, *en 2019*, *hace dos días*.\n\n## The endings\n\nRemove **-ar** and add:\n\n| person | ending | hablar |\n|---|---|---|\n| yo | **-é** | habl**é** |\n| tú | **-aste** | habl**aste** |\n| él / ella / usted | **-ó** | habl**ó** |\n| nosotros/as | **-amos** | habl**amos** |\n| vosotros/as | **-asteis** | habl**asteis** |\n| ellos / ellas / ustedes | **-aron** | habl**aron** |\n\n## Watch the accents\n\nThe **yo** and **él/ella/usted** forms carry a written accent on the last syllable: *hablé*, *habló*. Without it the meaning changes:\n\n- *hablo* = I speak (present) vs. *habló* = he/she spoke (past)\n- *canto* = I sing vs. *cantó* = he/she sang\n\n## Nosotros looks the same as the present\n\n*Hablamos* is both *we speak* and *we spoke*. Context or a time marker tells you which. *Ayer hablamos* = yesterday we spoke.\n\n## Spelling changes in the yo form\n\nVerbs ending in **-car**, **-gar** and **-zar** change spelling in the **yo** form to keep the sound:\n\n- buscar → bus**qué**\n- llegar → lle**gué**\n- empezar → empe**cé**",
+  "vocabulary": [
+    {
+      "term": "hablar",
+      "meaning": "to speak, to talk",
+      "example": "Ayer hablé con mi abuela.",
+      "example_meaning": "Yesterday I spoke with my grandmother."
+    },
+    {
+      "term": "trabajar",
+      "meaning": "to work",
+      "example": "Trabajaron todo el día.",
+      "example_meaning": "They worked all day."
+    },
+    {
+      "term": "viajar",
+      "meaning": "to travel",
+      "example": "Viajamos a Sevilla.",
+      "example_meaning": "We travelled to Seville."
+    },
+    {
+      "term": "mirar",
+      "meaning": "to watch, to look at",
+      "example": "¿Miraste la película?",
+      "example_meaning": "Did you watch the film?"
+    },
+    {
+      "term": "llegar",
+      "meaning": "to arrive",
+      "example": "Llegué tarde.",
+      "example_meaning": "I arrived late."
+    },
+    {
+      "term": "buscar",
+      "meaning": "to look for",
+      "example": "Busqué las llaves.",
+      "example_meaning": "I looked for the keys."
+    },
+    {
+      "term": "cantar",
+      "meaning": "to sing",
+      "example": "Cantasteis en la fiesta.",
+      "example_meaning": "You all sang at the party."
+    },
+    {
+      "term": "ayer",
+      "meaning": "yesterday",
+      "example": "Ayer María habló con su jefe.",
+      "example_meaning": "Yesterday María talked to her boss."
+    },
+    {
+      "term": "anoche",
+      "meaning": "last night",
+      "example": "Anoche miraste la película.",
+      "example_meaning": "Last night you watched the film."
+    },
+    {
+      "term": "la semana pasada",
+      "meaning": "last week",
+      "example": "La semana pasada viajamos a Sevilla.",
+      "example_meaning": "Last week we travelled to Seville."
+    },
+    {
+      "term": "el jefe / la jefa",
+      "meaning": "boss",
+      "example": "Habló con su jefe.",
+      "example_meaning": "She talked to her boss."
+    },
+    {
+      "term": "la película",
+      "meaning": "film, movie",
+      "example": "¿Miraste la película anoche?",
+      "example_meaning": "Did you watch the film last night?"
+    },
+    {
+      "term": "las llaves",
+      "meaning": "keys",
+      "example": "Busqué las llaves.",
+      "example_meaning": "I looked for the keys."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "hablar",
+      "meaning": "to speak, to talk",
+      "set": "preterite",
+      "forms": {
+        "yo": "hablé",
+        "tu": "hablaste",
+        "el": "habló",
+        "nosotros": "hablamos",
+        "vosotros": "hablasteis",
+        "ellos": "hablaron"
+      }
+    },
+    {
+      "item": "trabajar",
+      "meaning": "to work",
+      "set": "preterite",
+      "forms": {
+        "yo": "trabajé",
+        "tu": "trabajaste",
+        "el": "trabajó",
+        "nosotros": "trabajamos",
+        "vosotros": "trabajasteis",
+        "ellos": "trabajaron"
+      }
+    },
+    {
+      "item": "viajar",
+      "meaning": "to travel",
+      "set": "preterite",
+      "art": [
+        "        __|__    ",
+        " ---o--(_____)--o---",
+        "       /     \\   "
+      ],
+      "forms": {
+        "yo": "viajé",
+        "tu": "viajaste",
+        "el": "viajó",
+        "nosotros": "viajamos",
+        "vosotros": "viajasteis",
+        "ellos": "viajaron"
+      }
+    },
+    {
+      "item": "mirar",
+      "meaning": "to watch, to look at",
+      "set": "preterite",
+      "art": [
+        "   _______   ",
+        " .'  ___  '. ",
+        "(   ( o )   )",
+        " '.  `-'  .' ",
+        "   '-----'   "
+      ],
+      "forms": {
+        "yo": "miré",
+        "tu": "miraste",
+        "el": "miró",
+        "nosotros": "miramos",
+        "vosotros": "mirasteis",
+        "ellos": "miraron"
+      }
+    },
+    {
+      "item": "llegar",
+      "meaning": "to arrive",
+      "set": "preterite",
+      "art": [
+        "    _______ ",
+        "   |  ___  |",
+        "-->|  |o|  |",
+        "   |  |_|  |",
+        "   |_______|"
+      ],
+      "forms": {
+        "yo": "llegué",
+        "tu": "llegaste",
+        "el": "llegó",
+        "nosotros": "llegamos",
+        "vosotros": "llegasteis",
+        "ellos": "llegaron"
+      }
+    },
+    {
+      "item": "buscar",
+      "meaning": "to look for",
+      "set": "preterite",
+      "art": [
+        "   .---.    ",
+        "  /     \\   ",
+        " |   o   |  ",
+        "  \\     /\\  ",
+        "   '---'  \\ ",
+        "           \\"
+      ],
+      "forms": {
+        "yo": "busqué",
+        "tu": "buscaste",
+        "el": "buscó",
+        "nosotros": "buscamos",
+        "vosotros": "buscasteis",
+        "ellos": "buscaron"
+      }
+    },
+    {
+      "item": "cantar",
+      "meaning": "to sing",
+      "set": "preterite",
+      "forms": {
+        "yo": "canté",
+        "tu": "cantaste",
+        "el": "cantó",
+        "nosotros": "cantamos",
+        "vosotros": "cantasteis",
+        "ellos": "cantaron"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-pret-ar-01",
+      "prompt": "Conjugate in the preterite: (yo) hablar → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "hablé",
+      "accepted_answers": [
+        "yo hablé"
+      ],
+      "explanation": "The yo preterite ending is -é with an accent: 'hablé'.",
+      "hints": [
+        "Yo → -é.",
+        "Don't forget the accent."
+      ],
+      "teaches": [
+        "hablar"
+      ]
+    },
+    {
+      "question_id": "a2-pret-ar-02",
+      "prompt": "Ayer María ___ con su jefe.",
+      "type": "multiple-choice",
+      "options": [
+        "habló",
+        "hablo",
+        "hablaste",
+        "hablaron"
+      ],
+      "correct_answer": "habló",
+      "explanation": "María = ella, which takes -ó in the preterite. 'Hablo' without the accent is present tense 'I speak'.",
+      "hints": [
+        "Look for the accent.",
+        "'Ayer' means yesterday."
+      ],
+      "teaches": [
+        "hablar",
+        "ayer",
+        "el jefe / la jefa"
+      ]
+    },
+    {
+      "question_id": "a2-pret-ar-03",
+      "prompt": "Conjugate in the preterite: (ellos) trabajar → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "trabajaron",
+      "accepted_answers": [
+        "ellos trabajaron"
+      ],
+      "explanation": "Ellos takes -aron: 'trabajaron'.",
+      "hints": [
+        "Ellos → -aron."
+      ],
+      "teaches": [
+        "trabajar"
+      ]
+    },
+    {
+      "question_id": "a2-pret-ar-04",
+      "prompt": "¿Tú ___ la película anoche?",
+      "type": "multiple-choice",
+      "options": [
+        "miraste",
+        "miró",
+        "miras",
+        "mirasteis"
+      ],
+      "correct_answer": "miraste",
+      "explanation": "Tú takes -aste in the preterite: 'miraste'.",
+      "hints": [
+        "Tú → -aste."
+      ],
+      "teaches": [
+        "mirar",
+        "anoche",
+        "la película"
+      ]
+    },
+    {
+      "question_id": "a2-pret-ar-05",
+      "prompt": "Conjugate in the preterite: (yo) llegar → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "llegué",
+      "accepted_answers": [
+        "yo llegué"
+      ],
+      "explanation": "Verbs in -gar change g → gu before é in the yo form, to keep the hard g sound: 'llegué'.",
+      "hints": [
+        "-gar verbs need a spelling change.",
+        "Accent on the é."
+      ],
+      "teaches": [
+        "llegar"
+      ]
+    },
+    {
+      "question_id": "a2-pret-ar-06",
+      "prompt": "La semana pasada nosotros ___ a Sevilla.",
+      "type": "multiple-choice",
+      "options": [
+        "viajamos",
+        "viajaron",
+        "viajasteis",
+        "viajé"
+      ],
+      "correct_answer": "viajamos",
+      "explanation": "Nosotros takes -amos in both present and preterite; 'la semana pasada' makes it past: 'viajamos'.",
+      "hints": [
+        "Nosotros looks the same in present and preterite."
+      ],
+      "teaches": [
+        "viajar",
+        "la semana pasada"
+      ]
+    },
+    {
+      "question_id": "a2-pret-ar-07",
+      "prompt": "Conjugate in the preterite: (vosotros) cantar → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "cantasteis",
+      "accepted_answers": [
+        "vosotros cantasteis"
+      ],
+      "explanation": "Vosotros takes -asteis: 'cantasteis'.",
+      "hints": [
+        "Vosotros → -asteis."
+      ],
+      "teaches": [
+        "cantar"
+      ]
+    },
+    {
+      "question_id": "a2-pret-ar-08",
+      "prompt": "Which sentence means 'I looked for the keys'?",
+      "type": "multiple-choice",
+      "options": [
+        "Busqué las llaves.",
+        "Busco las llaves.",
+        "Buscó las llaves.",
+        "Buscaste las llaves."
+      ],
+      "correct_answer": "Busqué las llaves.",
+      "explanation": "-car verbs change c → qu in the yo preterite: 'busqué'. 'Busco' is present, 'buscó' is he/she.",
+      "hints": [
+        "-car verbs: c → qu in the yo form."
+      ],
+      "teaches": [
+        "buscar",
+        "las llaves"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "¿Hablaste con tu jefe?",
+      "meaning": "Did you talk to your boss?"
+    },
+    {
+      "text": "Ayer trabajé mucho en casa.",
+      "meaning": "Yesterday I worked a lot at home.",
+      "note": "Yo form: accent on the final é."
+    },
+    {
+      "text": "Anoche cantamos en el bar.",
+      "meaning": "Last night we sang in the bar.",
+      "note": "Cantamos is present or past; anoche makes it past."
+    },
+    {
+      "text": "¿Dónde buscasteis las llaves del coche?",
+      "meaning": "Where did you all look for the car keys?",
+      "note": "Vosotros ending: -asteis."
+    },
+    {
+      "text": "Mis padres llegaron temprano a la fiesta.",
+      "meaning": "My parents arrived early at the party.",
+      "note": "New word: temprano = early."
+    },
+    {
+      "text": "La semana pasada viajé a Madrid con mi hermana.",
+      "meaning": "Last week I travelled to Madrid with my sister."
+    },
+    {
+      "text": "Anoche Luis y yo miramos una película muy aburrida.",
+      "meaning": "Last night Luis and I watched a very boring film.",
+      "note": "New word: aburrido = boring."
+    },
+    {
+      "text": "Ayer llegué a la oficina a las nueve y hablé con la jefa.",
+      "meaning": "Yesterday I got to the office at nine and spoke to the boss.",
+      "note": "New word: la oficina = the office."
+    }
+  ],
+  "guide": [
+    {
+      "section": "What the preterite is for"
+    },
+    {
+      "section": "The endings"
+    },
+    {
+      "question": "a2-pret-ar-01"
+    },
+    {
+      "question": "a2-pret-ar-03"
+    },
+    {
+      "question": "a2-pret-ar-04"
+    },
+    {
+      "section": "Watch the accents"
+    },
+    {
+      "question": "a2-pret-ar-02"
+    },
+    {
+      "section": "Nosotros looks the same as the present"
+    },
+    {
+      "question": "a2-pret-ar-06"
+    },
+    {
+      "question": "a2-pret-ar-07"
+    },
+    {
+      "section": "Spelling changes in the yo form"
+    },
+    {
+      "question": "a2-pret-ar-05"
+    },
+    {
+      "question": "a2-pret-ar-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-preterite-conv-weekend",
+      "title": "Last weekend",
+      "scenario": "Lucía and Mateo catch up on Monday morning about what they did at the weekend.",
+      "role_a": "Lucía",
+      "role_b": "Mateo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Hola, Mateo. ¿Qué tal el fin de semana?",
+          "meaning": "Hi, Mateo. How was the weekend?"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Genial! El sábado viajé a Toledo con mi hermana.",
+          "meaning": "Great! On Saturday I travelled to Toledo with my sister.",
+          "note": "viajar, yo: -é"
+        },
+        {
+          "speaker": "a",
+          "text": "¡Qué bien! ¿Visitasteis la catedral?",
+          "meaning": "Nice! Did you (both) visit the cathedral?",
+          "note": "visitar, vosotros: -asteis"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, y después caminamos por el centro y cenamos en un restaurante pequeño.",
+          "meaning": "Yes, and afterwards we walked around the centre and had dinner in a small restaurant.",
+          "note": "caminar, cenar, nosotros: -amos"
+        },
+        {
+          "speaker": "a",
+          "text": "¿A qué hora llegasteis a casa?",
+          "meaning": "What time did you get home?",
+          "note": "llegar, vosotros"
+        },
+        {
+          "speaker": "b",
+          "text": "Llegamos muy tarde, a la una. ¿Y tú? ¿Qué pasó el domingo?",
+          "meaning": "We got home very late, at one. And you? What happened on Sunday?",
+          "note": "pasar, él/ella: -ó"
+        },
+        {
+          "speaker": "a",
+          "text": "Yo descansé. Por la mañana estudié español y por la tarde escuché música.",
+          "meaning": "I rested. In the morning I studied Spanish and in the afternoon I listened to music.",
+          "note": "descansar, estudiar, escuchar, yo: -é"
+        },
+        {
+          "speaker": "b",
+          "text": "¿Terminaste los ejercicios del pretérito?",
+          "meaning": "Did you finish the preterite exercises?",
+          "note": "terminar, tú: -aste"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, los terminé anoche. ¡Y busqué todas las palabras nuevas en el diccionario!",
+          "meaning": "Yes, I finished them last night. And I looked up all the new words in the dictionary!",
+          "note": "buscar, yo: c → qu"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Muy bien! Yo no estudié nada.",
+          "meaning": "Very good! I didn't study at all.",
+          "note": "estudiar, yo"
+        },
+        {
+          "speaker": "a",
+          "text": "Entonces mañana practicamos juntos.",
+          "meaning": "Then tomorrow we practise together."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "📅",
+    "bites": [
+      {
+        "title": "Finished actions",
+        "emoji": "✅",
+        "rule": "The preterite is for actions finished at a specific point in the past, usually flagged by ayer, anoche, la semana pasada or el año pasado.",
+        "example": "Ayer hablé con mi abuela.",
+        "example_meaning": "Yesterday I spoke with my grandmother."
+      },
+      {
+        "title": "The accent marks the past",
+        "emoji": "⏳",
+        "rule": "Hablo = I speak; habló = he spoke. One accent on the last syllable makes the verb past. Yo ends in -é, él/ella in -ó.",
+        "example": "María habló con su jefe.",
+        "example_meaning": "María spoke with her boss."
+      },
+      {
+        "title": "Learn the endings",
+        "emoji": "🎶",
+        "rule": "Drop -ar and add -é, -aste, -ó, -amos, -asteis, -aron. Tú never takes an extra -s: miraste, not mirastes.",
+        "example": "¿Miraste la película anoche?",
+        "example_meaning": "Did you watch the film last night?"
+      },
+      {
+        "title": "Yo fixes its spelling",
+        "emoji": "🔧",
+        "rule": "To keep the sound before -é, yo changes spelling: buscar → busqué, llegar → llegué, empezar → empecé. Only yo changes. Buscó and llegó are regular.",
+        "example": "Llegué tarde y busqué las llaves.",
+        "example_meaning": "I arrived late and looked for the keys."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Present or past?",
+        "buckets": [
+          "present",
+          "preterite"
+        ],
+        "items": [
+          {
+            "text": "hablo",
+            "bucket": 0
+          },
+          {
+            "text": "habló",
+            "bucket": 1
+          },
+          {
+            "text": "canto",
+            "bucket": 0
+          },
+          {
+            "text": "cantó",
+            "bucket": 1
+          },
+          {
+            "text": "trabajé",
+            "bucket": 1
+          },
+          {
+            "text": "trabajo",
+            "bucket": 0
+          },
+          {
+            "text": "miras",
+            "bucket": 0
+          },
+          {
+            "text": "miraste",
+            "bucket": 1
+          }
+        ],
+        "why": "The accent on -é/-ó and the -aste ending mark the preterite; -o without an accent and -as are present."
+      },
+      {
+        "title": "Who did it?",
+        "buckets": [
+          "yo",
+          "tú",
+          "él / ella",
+          "ellos"
+        ],
+        "items": [
+          {
+            "text": "viajé",
+            "bucket": 0
+          },
+          {
+            "text": "miraste",
+            "bucket": 1
+          },
+          {
+            "text": "llegó",
+            "bucket": 2
+          },
+          {
+            "text": "trabajaron",
+            "bucket": 3
+          },
+          {
+            "text": "busqué",
+            "bucket": 0
+          },
+          {
+            "text": "hablaste",
+            "bucket": 1
+          },
+          {
+            "text": "cantó",
+            "bucket": 2
+          },
+          {
+            "text": "llegaron",
+            "bucket": 3
+          }
+        ],
+        "why": "Yo -é, tú -aste, él/ella -ó, ellos -aron."
+      },
+      {
+        "title": "Spelling change in yo?",
+        "buckets": [
+          "changes",
+          "no change"
+        ],
+        "items": [
+          {
+            "text": "buscar",
+            "bucket": 0
+          },
+          {
+            "text": "llegar",
+            "bucket": 0
+          },
+          {
+            "text": "empezar",
+            "bucket": 0
+          },
+          {
+            "text": "hablar",
+            "bucket": 1
+          },
+          {
+            "text": "viajar",
+            "bucket": 1
+          },
+          {
+            "text": "mirar",
+            "bucket": 1
+          },
+          {
+            "text": "cantar",
+            "bucket": 1
+          }
+        ],
+        "why": "-car → -qué, -gar → -gué, -zar → -cé in the yo form; other -ar verbs just add -é."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Ayer María hablo con su jefe.",
+        "wrong": "hablo",
+        "fix": "habló",
+        "why": "Ella in the past needs the accented -ó; hablo is present 'I speak'."
+      },
+      {
+        "sentence": "Ayer yo hable con mi abuela.",
+        "wrong": "hable",
+        "fix": "hablé",
+        "why": "The yo preterite ends in an accented -é: hablé."
+      },
+      {
+        "sentence": "Anoche tú mirastes la película.",
+        "wrong": "mirastes",
+        "fix": "miraste",
+        "why": "The tú preterite ends in -aste, with no final s."
+      },
+      {
+        "sentence": "Ayer buscé las llaves.",
+        "wrong": "buscé",
+        "fix": "busqué",
+        "why": "-car verbs change c → qu before é: busqué."
+      },
+      {
+        "sentence": "Yo llegé tarde a clase.",
+        "wrong": "llegé",
+        "fix": "llegué",
+        "why": "-gar verbs add a u before é to keep the hard g: llegué."
+      },
+      {
+        "sentence": "La semana pasada mis primos trabajó mucho.",
+        "wrong": "trabajó",
+        "fix": "trabajaron",
+        "why": "Mis primos = ellos, so -aron: trabajaron."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Ayer hablé con mi abuela.",
+        "meaning": "Yesterday I spoke with my grandmother.",
+        "distractors": [
+          "hablo"
+        ]
+      },
+      {
+        "text": "¿Miraste la película anoche?",
+        "meaning": "Did you watch the film last night?",
+        "distractors": [
+          "Mirastes",
+          "Miras"
+        ]
+      },
+      {
+        "text": "La semana pasada viajamos a Sevilla.",
+        "meaning": "Last week we travelled to Seville.",
+        "distractors": [
+          "viajaron"
+        ]
+      },
+      {
+        "text": "Llegué tarde y busqué las llaves.",
+        "meaning": "I arrived late and looked for the keys.",
+        "distractors": [
+          "llegé",
+          "buscé"
+        ]
+      },
+      {
+        "text": "Trabajaron todo el día.",
+        "meaning": "They worked all day.",
+        "distractors": [
+          "Trabajamos"
+        ]
+      }
+    ]
+  }
+}

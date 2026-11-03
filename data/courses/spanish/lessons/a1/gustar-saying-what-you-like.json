@@ -1,0 +1,586 @@
+{
+  "id": "a1-gustar",
+  "slug": "gustar-saying-what-you-like",
+  "title": "Gustar: saying what you like",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 34,
+  "summary": "Me gusta el café, me gustan los gatos, me gusta bailar: the verb that works backwards.",
+  "focus": "Gustar and similar verbs (encantar, doler) with indirect object pronouns",
+  "prerequisites": [
+    "a1-subject-pronouns",
+    "a1-nouns-articles"
+  ],
+  "content": "## Gustar works backwards\n\n*Gustar* literally means *to be pleasing*. The thing you like is the **subject**, and you are the person it pleases:\n\n- *Me gusta el café.* I like coffee (coffee is pleasing to me).\n- *Me gustan los gatos.* I like cats (cats are pleasing to me).\n\nSo the verb agrees with the **thing**: singular **gusta**, plural **gustan**.\n\n## The person: me, te, le…\n\n| | | |\n|---|---|---|\n| me gusta | I like | *Me gusta la música.* |\n| te gusta | you like | *¿Te gusta el fútbol?* |\n| le gusta | he / she / you (formal) like | *Le gusta leer.* |\n| nos gusta | we like | *Nos gusta la playa.* |\n| os gusta | you all like | *¿Os gusta España?* |\n| les gusta | they / you all like | *Les gustan los perros.* |\n\nThe thing liked usually takes an article: *me gusta **el** chocolate*, not *me gusta chocolate*.\n\n## Liking an activity\n\nWith a verb, use the infinitive and singular *gusta*: *Me gusta bailar.* *Nos gusta viajar y comer bien.*\n\n## Making the person clear, or emphatic\n\n*Le gusta* could be he, she or you. Add **a + person**: *A Marta le gusta el cine. A usted le gusta el té.* For emphasis or contrast: *A mí me gusta, pero a ti no.*\n\n## Friends of gustar\n\n- **encantar** (to love): *Me encanta el chocolate. Me encantan las fiestas.*\n- **doler** (to hurt): *Me duele la cabeza. Me duelen los pies.*\n- **interesar**, **importar**, **molestar** work the same way.\n\nNegative: *No me gusta el frío.* Agreeing: *A mí también / A mí tampoco.*",
+  "vocabulary": [
+    {
+      "term": "gustar",
+      "meaning": "to like (to be pleasing)",
+      "example": "Me gusta el café.",
+      "example_meaning": "I like coffee."
+    },
+    {
+      "term": "me gusta",
+      "meaning": "I like",
+      "example": "Me gusta la música.",
+      "example_meaning": "I like music."
+    },
+    {
+      "term": "te gusta",
+      "meaning": "you like",
+      "example": "¿Te gusta el fútbol?",
+      "example_meaning": "Do you like football?"
+    },
+    {
+      "term": "le gusta",
+      "meaning": "he / she likes",
+      "example": "Le gusta leer.",
+      "example_meaning": "She likes to read."
+    },
+    {
+      "term": "nos gusta",
+      "meaning": "we like",
+      "example": "Nos gusta la playa.",
+      "example_meaning": "We like the beach."
+    },
+    {
+      "term": "encantar",
+      "meaning": "to love (something)",
+      "example": "Me encanta el chocolate.",
+      "example_meaning": "I love chocolate."
+    },
+    {
+      "term": "doler",
+      "meaning": "to hurt",
+      "example": "Me duele la cabeza.",
+      "example_meaning": "My head hurts."
+    },
+    {
+      "term": "la música",
+      "meaning": "music",
+      "example": "Me gusta la música.",
+      "example_meaning": "I like music."
+    },
+    {
+      "term": "el fútbol",
+      "meaning": "football",
+      "example": "Le gusta el fútbol.",
+      "example_meaning": "He likes football."
+    },
+    {
+      "term": "el chocolate",
+      "meaning": "chocolate",
+      "example": "Me encanta el chocolate.",
+      "example_meaning": "I love chocolate."
+    },
+    {
+      "term": "el gato",
+      "meaning": "cat",
+      "example": "Me gustan los gatos.",
+      "example_meaning": "I like cats."
+    },
+    {
+      "term": "el perro",
+      "meaning": "dog",
+      "example": "Les gustan los perros.",
+      "example_meaning": "They like dogs."
+    },
+    {
+      "term": "bailar",
+      "meaning": "to dance",
+      "example": "Me gusta bailar.",
+      "example_meaning": "I like to dance."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-gus-01",
+      "prompt": "Me ___ el café.",
+      "type": "multiple-choice",
+      "options": [
+        "gusta",
+        "gustan",
+        "gusto"
+      ],
+      "correct_answer": "gusta",
+      "explanation": "El café is singular, so gusta.",
+      "hints": [
+        "Agree with the thing."
+      ],
+      "teaches": [
+        "me gusta",
+        "gustar"
+      ]
+    },
+    {
+      "question_id": "a1-gus-02",
+      "prompt": "Me ___ los gatos.",
+      "type": "multiple-choice",
+      "options": [
+        "gustan",
+        "gusta",
+        "gusto"
+      ],
+      "correct_answer": "gustan",
+      "explanation": "Los gatos is plural, so gustan.",
+      "hints": [
+        "A plural thing takes gustan."
+      ],
+      "teaches": [
+        "el gato",
+        "gustar"
+      ]
+    },
+    {
+      "question_id": "a1-gus-03",
+      "prompt": "Translate: We like the beach.",
+      "type": "multiple-choice",
+      "options": [
+        "Nos gusta la playa.",
+        "Nosotros gustamos la playa.",
+        "Nos gustan la playa."
+      ],
+      "correct_answer": "Nos gusta la playa.",
+      "explanation": "The person is nos; la playa is singular, so gusta.",
+      "hints": [
+        "nos + gusta"
+      ],
+      "teaches": [
+        "nos gusta"
+      ]
+    },
+    {
+      "question_id": "a1-gus-04",
+      "prompt": "¿Te gusta ___?",
+      "type": "multiple-choice",
+      "options": [
+        "bailar",
+        "bailas",
+        "bailando"
+      ],
+      "correct_answer": "bailar",
+      "explanation": "An activity goes in the infinitive: te gusta bailar.",
+      "hints": [
+        "infinitive"
+      ],
+      "teaches": [
+        "te gusta",
+        "bailar"
+      ]
+    },
+    {
+      "question_id": "a1-gus-05",
+      "prompt": "Complete: A Marta ___ gusta el cine.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "le",
+      "accepted_answers": [],
+      "explanation": "Marta is 'she': le gusta.",
+      "hints": [
+        "third person singular"
+      ],
+      "teaches": [
+        "le gusta"
+      ]
+    },
+    {
+      "question_id": "a1-gus-06",
+      "prompt": "Me ___ la cabeza. (My head hurts.)",
+      "type": "multiple-choice",
+      "options": [
+        "duele",
+        "duelen",
+        "dolo"
+      ],
+      "correct_answer": "duele",
+      "explanation": "Doler works like gustar; la cabeza is singular: duele.",
+      "hints": [
+        "like gustar"
+      ],
+      "teaches": [
+        "doler"
+      ]
+    },
+    {
+      "question_id": "a1-gus-07",
+      "prompt": "— No me gusta el frío. — A mí ___.",
+      "type": "multiple-choice",
+      "options": [
+        "tampoco",
+        "también",
+        "gusta"
+      ],
+      "correct_answer": "tampoco",
+      "explanation": "Agreeing with a negative: a mí tampoco.",
+      "hints": [
+        "negative agreement"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a1-gus-08",
+      "prompt": "Translate: They love parties.",
+      "type": "multiple-choice",
+      "options": [
+        "Les encantan las fiestas.",
+        "Les encanta las fiestas.",
+        "Ellos encantan las fiestas."
+      ],
+      "correct_answer": "Les encantan las fiestas.",
+      "explanation": "Encantar agrees with las fiestas (plural), so encantan, and the people are les.",
+      "hints": [
+        "plural → encantan"
+      ],
+      "teaches": [
+        "encantar"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "¿Te gusta la música?",
+      "meaning": "Do you like music?",
+      "note": "The thing liked keeps its article."
+    },
+    {
+      "text": "Nos gustan los perros.",
+      "meaning": "We like dogs.",
+      "note": "Gustan agrees with the plural thing."
+    },
+    {
+      "text": "Me encantan los gatos pequeños.",
+      "meaning": "I love small cats."
+    },
+    {
+      "text": "Hoy me duelen los pies.",
+      "meaning": "My feet hurt today.",
+      "note": "New word: el pie = the foot."
+    },
+    {
+      "text": "A Luis no le gusta bailar.",
+      "meaning": "Luis doesn't like dancing.",
+      "note": "An activity takes the infinitive and singular gusta."
+    },
+    {
+      "text": "Me gusta mucho el helado de chocolate.",
+      "meaning": "I really like chocolate ice cream.",
+      "note": "New word: el helado = the ice cream."
+    },
+    {
+      "text": "Me gusta leer, pero no me gusta estudiar.",
+      "meaning": "I like reading, but I don't like studying."
+    },
+    {
+      "text": "A Ana le gusta la música, pero a mí me gusta más el fútbol.",
+      "meaning": "Ana likes music, but I like football more."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Gustar works backwards"
+    },
+    {
+      "vocab": 2
+    },
+    {
+      "question": "a1-gus-01"
+    },
+    {
+      "question": "a1-gus-02"
+    },
+    {
+      "section": "The person"
+    },
+    {
+      "vocab": 3
+    },
+    {
+      "question": "a1-gus-03"
+    },
+    {
+      "section": "Liking an activity"
+    },
+    {
+      "question": "a1-gus-04"
+    },
+    {
+      "section": "Making the person clear"
+    },
+    {
+      "question": "a1-gus-05"
+    },
+    {
+      "question": "a1-gus-07"
+    },
+    {
+      "section": "Friends of gustar"
+    },
+    {
+      "vocab": 8
+    },
+    {
+      "question": "a1-gus-06"
+    },
+    {
+      "question": "a1-gus-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-gus-conv-tastes",
+      "title": "Likes and dislikes",
+      "scenario": "Two new friends compare their tastes.",
+      "role_a": "Alba",
+      "role_b": "Nico",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿Te gusta la música latina?",
+          "meaning": "Do you like Latin music?",
+          "note": "te gusta + singular"
+        },
+        {
+          "speaker": "b",
+          "text": "Me encanta. Y me gusta mucho bailar.",
+          "meaning": "I love it. And I really like dancing.",
+          "note": "encantar; gusta + infinitive"
+        },
+        {
+          "speaker": "a",
+          "text": "A mí también. ¿Te gustan los perros?",
+          "meaning": "Me too. Do you like dogs?",
+          "note": "gustan + plural"
+        },
+        {
+          "speaker": "b",
+          "text": "No, no me gustan. Me gustan los gatos.",
+          "meaning": "No, I don't like them. I like cats."
+        },
+        {
+          "speaker": "a",
+          "text": "A mi hermana le encantan los gatos. Tiene tres.",
+          "meaning": "My sister loves cats. She has three.",
+          "note": "a + person + le"
+        },
+        {
+          "speaker": "b",
+          "text": "¿Y a ti qué te gusta hacer los domingos?",
+          "meaning": "And what do you like doing on Sundays?"
+        },
+        {
+          "speaker": "a",
+          "text": "Me gusta leer en la playa, pero hoy me duele la cabeza.",
+          "meaning": "I like reading on the beach, but today my head hurts.",
+          "note": "doler"
+        },
+        {
+          "speaker": "b",
+          "text": "Entonces nos quedamos en casa. ¿Te gusta el chocolate?",
+          "meaning": "Then we stay home. Do you like chocolate?"
+        },
+        {
+          "speaker": "a",
+          "text": "¡Me encanta!",
+          "meaning": "I love it!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "❤️",
+    "bites": [
+      {
+        "title": "The thing is the subject",
+        "emoji": "👑",
+        "rule": "Gustar works backwards: the thing you like is the subject, so the verb agrees with IT, not with you. One thing: gusta. Several things: gustan.",
+        "example": "Me gusta el café. Me gustan los gatos.",
+        "example_meaning": "I like coffee. I like cats."
+      },
+      {
+        "title": "Never 'yo gusto'",
+        "emoji": "🙋",
+        "rule": "The person who likes goes in front as a little pronoun: me, te, le, nos, os, les. Then gusta or gustan.",
+        "example": "Nos gusta la playa.",
+        "example_meaning": "We like the beach."
+      },
+      {
+        "title": "Activities count as one",
+        "emoji": "🕺",
+        "rule": "Liking doing something? Use the infinitive and keep gusta singular, even with two activities.",
+        "example": "Nos gusta viajar y comer bien.",
+        "example_meaning": "We like travelling and eating well."
+      },
+      {
+        "title": "A + person clears it up",
+        "emoji": "🔍",
+        "rule": "Le gusta could be he, she or you, so add a + person: a Marta le gusta. Encantar (to love) and doler (to hurt) work exactly the same way.",
+        "example": "A Marta le encanta el chocolate.",
+        "example_meaning": "Marta loves chocolate."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Gusta or gustan?",
+        "buckets": [
+          "gusta",
+          "gustan"
+        ],
+        "items": [
+          {
+            "text": "el café",
+            "bucket": 0
+          },
+          {
+            "text": "los gatos",
+            "bucket": 1
+          },
+          {
+            "text": "bailar",
+            "bucket": 0
+          },
+          {
+            "text": "la música",
+            "bucket": 0
+          },
+          {
+            "text": "los perros",
+            "bucket": 1
+          },
+          {
+            "text": "las fiestas",
+            "bucket": 1
+          },
+          {
+            "text": "leer y viajar",
+            "bucket": 0
+          },
+          {
+            "text": "el chocolate",
+            "bucket": 0
+          }
+        ],
+        "why": "Gusta for one thing or any activity (infinitive); gustan for plural things."
+      },
+      {
+        "title": "Which pronoun?",
+        "buckets": [
+          "me",
+          "te",
+          "le",
+          "les"
+        ],
+        "items": [
+          {
+            "text": "A mí ___ gusta el té.",
+            "bucket": 0
+          },
+          {
+            "text": "¿A ti ___ gusta el fútbol?",
+            "bucket": 1
+          },
+          {
+            "text": "A Marta ___ gusta el cine.",
+            "bucket": 2
+          },
+          {
+            "text": "A mis padres ___ gustan los perros.",
+            "bucket": 3
+          },
+          {
+            "text": "A usted ___ gusta leer.",
+            "bucket": 2
+          },
+          {
+            "text": "A ellos ___ encanta bailar.",
+            "bucket": 3
+          },
+          {
+            "text": "¿A ti ___ duele la cabeza?",
+            "bucket": 1
+          },
+          {
+            "text": "A mí ___ encantan los gatos.",
+            "bucket": 0
+          }
+        ],
+        "why": "The pronoun names who is pleased: me (I), te (you), le (he, she, usted), les (they, ustedes)."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Me gustan el café.",
+        "wrong": "gustan",
+        "fix": "gusta",
+        "why": "El café is singular, so gusta."
+      },
+      {
+        "sentence": "Me gusta los gatos.",
+        "wrong": "gusta",
+        "fix": "gustan",
+        "why": "Los gatos is plural, so gustan."
+      },
+      {
+        "sentence": "A Marta me gusta el cine.",
+        "wrong": "me",
+        "fix": "le",
+        "why": "Marta is 'she', so the pronoun is le."
+      },
+      {
+        "sentence": "Me gusta bailando los domingos.",
+        "wrong": "bailando",
+        "fix": "bailar",
+        "why": "An activity after gustar goes in the infinitive."
+      },
+      {
+        "sentence": "Me duelen la cabeza.",
+        "wrong": "duelen",
+        "fix": "duele",
+        "why": "Doler works like gustar: la cabeza is singular, so duele."
+      },
+      {
+        "sentence": "Les encanta las fiestas.",
+        "wrong": "encanta",
+        "fix": "encantan",
+        "why": "Encantar agrees with las fiestas (plural): encantan."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Me gustan los gatos.",
+        "meaning": "I like cats.",
+        "distractors": [
+          "gusta"
+        ]
+      },
+      {
+        "text": "Nos gusta la playa.",
+        "meaning": "We like the beach.",
+        "distractors": [
+          "gustamos",
+          "nosotros"
+        ]
+      },
+      {
+        "text": "¿Te gusta bailar?",
+        "meaning": "Do you like dancing?",
+        "distractors": [
+          "bailas"
+        ]
+      },
+      {
+        "text": "A Marta le gusta el cine.",
+        "meaning": "Marta likes the cinema.",
+        "distractors": [
+          "me"
+        ]
+      },
+      {
+        "text": "Les encantan las fiestas.",
+        "meaning": "They love parties.",
+        "distractors": [
+          "encanta"
+        ]
+      }
+    ]
+  }
+}

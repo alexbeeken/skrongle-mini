@@ -1,0 +1,647 @@
+{
+  "id": "a1-possessives-demonstratives",
+  "slug": "possessives-and-demonstratives",
+  "title": "My, your, this, that: possessives and demonstratives",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 30,
+  "summary": "Mi, tu, su, nuestro… and este, ese, aquel: the little words before a noun.",
+  "focus": "Possessive adjectives; de for possession; demonstratives este/ese/aquel",
+  "prerequisites": [
+    "a1-nouns-articles"
+  ],
+  "content": "## Possessive adjectives\n\n| owner | singular noun | plural noun |\n|---|---|---|\n| yo | **mi** | **mis** |\n| tú | **tu** | **tus** |\n| él / ella / usted | **su** | **sus** |\n| nosotros/as | **nuestro / nuestra** | **nuestros / nuestras** |\n| vosotros/as | **vuestro / vuestra** | **vuestros / vuestras** |\n| ellos / ellas / ustedes | **su** | **sus** |\n\nThey agree with the **thing owned**, not the owner: *mi libro, mis libros, nuestra casa, nuestros amigos*. Only *nuestro* and *vuestro* have feminine forms.\n\n**Su** is ambiguous (his, her, your, their). When it matters, use **de**: *el coche de Ana*, *la casa de mis padres*. Spanish has no apostrophe-s: *Ana's car* is *el coche de Ana*.\n\n## Family, the classic test\n\n*mi madre, mi padre, mis hermanos, tu abuela, su hijo, nuestros primos.*\n\n## Demonstratives: this, that, that over there\n\n| distance | masculine | feminine | plural |\n|---|---|---|---|\n| near me: this | **este** | **esta** | estos / estas |\n| near you: that | **ese** | **esa** | esos / esas |\n| far from both: that over there | **aquel** | **aquella** | aquellos / aquellas |\n\n- *Este libro es mío.* (This book is mine.)\n- *Esa chica es mi prima.* (That girl is my cousin.)\n- *Aquellas montañas son los Pirineos.* (Those mountains over there are the Pyrenees.)\n\nWithout a noun they stand alone: *¿Cuál quieres? — Este.* And *esto / eso / aquello* refer to something unknown or an idea: *¿Qué es esto?*\n\n## Every, each, all\n\n**cada** never changes: *cada día, cada semana*. **todo** agrees: *todos los días, toda la clase, todas las chicas*.",
+  "vocabulary": [
+    {
+      "term": "mi / mis",
+      "meaning": "my",
+      "example": "Mi casa, mis libros.",
+      "example_meaning": "My house, my books."
+    },
+    {
+      "term": "tu / tus",
+      "meaning": "your (informal)",
+      "example": "Tu hermano, tus padres.",
+      "example_meaning": "Your brother, your parents."
+    },
+    {
+      "term": "su / sus",
+      "meaning": "his, her, their, your (formal)",
+      "example": "Su coche.",
+      "example_meaning": "His car."
+    },
+    {
+      "term": "nuestro / nuestra",
+      "meaning": "our",
+      "example": "Nuestra ciudad.",
+      "example_meaning": "Our city."
+    },
+    {
+      "term": "vuestro / vuestra",
+      "meaning": "your (plural, Spain)",
+      "example": "Vuestro profesor.",
+      "example_meaning": "Your teacher."
+    },
+    {
+      "term": "este / esta",
+      "meaning": "this",
+      "example": "Este libro.",
+      "example_meaning": "This book."
+    },
+    {
+      "term": "ese / esa",
+      "meaning": "that",
+      "example": "Esa chica.",
+      "example_meaning": "That girl."
+    },
+    {
+      "term": "aquel / aquella",
+      "meaning": "that (over there)",
+      "example": "Aquella casa.",
+      "example_meaning": "That house over there."
+    },
+    {
+      "term": "la madre",
+      "meaning": "mother",
+      "example": "Mi madre es médica.",
+      "example_meaning": "My mother is a doctor."
+    },
+    {
+      "term": "el padre",
+      "meaning": "father",
+      "example": "Mi padre trabaja mucho.",
+      "example_meaning": "My father works a lot."
+    },
+    {
+      "term": "los padres",
+      "meaning": "parents",
+      "example": "Mis padres viven en Málaga.",
+      "example_meaning": "My parents live in Málaga."
+    },
+    {
+      "term": "el abuelo / la abuela",
+      "meaning": "grandfather / grandmother",
+      "example": "Mi abuela tiene ochenta años.",
+      "example_meaning": "My grandmother is eighty years old."
+    },
+    {
+      "term": "el primo / la prima",
+      "meaning": "cousin",
+      "example": "Mis primos son de Cádiz.",
+      "example_meaning": "My cousins are from Cadiz."
+    },
+    {
+      "term": "cada",
+      "meaning": "each, every",
+      "example": "Cada día.",
+      "example_meaning": "Every day."
+    },
+    {
+      "term": "todos / todas",
+      "meaning": "all, every",
+      "example": "Todos los días.",
+      "example_meaning": "Every day."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-pos-01",
+      "prompt": "___ libros (my books)",
+      "type": "multiple-choice",
+      "options": [
+        "mis",
+        "mi",
+        "míos"
+      ],
+      "correct_answer": "mis",
+      "explanation": "Possessives agree with the thing owned. Libros is plural, so mis.",
+      "hints": [
+        "A plural noun takes a plural possessive."
+      ],
+      "teaches": [
+        "mi / mis"
+      ]
+    },
+    {
+      "question_id": "a1-pos-02",
+      "prompt": "___ casa (our house)",
+      "type": "multiple-choice",
+      "options": [
+        "nuestra",
+        "nuestro",
+        "nuestras"
+      ],
+      "correct_answer": "nuestra",
+      "explanation": "Casa is feminine singular: nuestra.",
+      "hints": [
+        "nuestro has a feminine form."
+      ],
+      "teaches": [
+        "nuestro / nuestra"
+      ]
+    },
+    {
+      "question_id": "a1-pos-03",
+      "prompt": "Translate: Ana's car → el coche ___ Ana",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "de",
+      "accepted_answers": [],
+      "explanation": "Spanish uses de for possession: el coche de Ana.",
+      "hints": [
+        "No apostrophe."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a1-pos-04",
+      "prompt": "Ella vive con ___ padres.",
+      "type": "multiple-choice",
+      "options": [
+        "sus",
+        "su",
+        "suyos"
+      ],
+      "correct_answer": "sus",
+      "explanation": "Padres is plural: sus padres.",
+      "hints": [
+        "A plural noun takes sus."
+      ],
+      "teaches": [
+        "su / sus",
+        "los padres"
+      ]
+    },
+    {
+      "question_id": "a1-pos-05",
+      "prompt": "___ libro es mío. (this book, in my hand)",
+      "type": "multiple-choice",
+      "options": [
+        "Este",
+        "Ese",
+        "Aquel"
+      ],
+      "correct_answer": "Este",
+      "explanation": "Near the speaker takes este.",
+      "hints": [
+        "this = este"
+      ],
+      "teaches": [
+        "este / esta"
+      ]
+    },
+    {
+      "question_id": "a1-pos-06",
+      "prompt": "___ montañas son los Pirineos. (far away)",
+      "type": "multiple-choice",
+      "options": [
+        "Aquellas",
+        "Esas",
+        "Estas"
+      ],
+      "correct_answer": "Aquellas",
+      "explanation": "Far from both speakers takes aquel. The feminine plural is aquellas.",
+      "hints": [
+        "Far away takes aquel."
+      ],
+      "teaches": [
+        "aquel / aquella"
+      ]
+    },
+    {
+      "question_id": "a1-pos-07",
+      "prompt": "Complete: ___ chica es mi prima. (that girl, near you)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "Esa",
+      "accepted_answers": [
+        "esa"
+      ],
+      "explanation": "That near the listener is ese, and the feminine is esa.",
+      "hints": [
+        "'That' near the listener, feminine to match chica."
+      ],
+      "teaches": [
+        "ese / esa",
+        "el primo / la prima"
+      ]
+    },
+    {
+      "question_id": "a1-pos-08",
+      "prompt": "Estudio español ___ día.",
+      "type": "multiple-choice",
+      "options": [
+        "cada",
+        "todo",
+        "cadas"
+      ],
+      "correct_answer": "cada",
+      "explanation": "Cada never changes: cada día.",
+      "hints": [
+        "cada is invariable"
+      ],
+      "teaches": [
+        "cada"
+      ]
+    },
+    {
+      "question_id": "a1-pos-09",
+      "prompt": "___ los días",
+      "type": "multiple-choice",
+      "options": [
+        "todos",
+        "todo",
+        "cada"
+      ],
+      "correct_answer": "todos",
+      "explanation": "With los días, todo agrees: todos los días.",
+      "hints": [
+        "agrees with días"
+      ],
+      "teaches": [
+        "todos / todas"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Esta es mi madre.",
+      "meaning": "This is my mother."
+    },
+    {
+      "text": "Tu abuela es muy simpática.",
+      "meaning": "Your grandmother is very nice."
+    },
+    {
+      "text": "Ese coche es de mi padre.",
+      "meaning": "That car is my father's.",
+      "note": "Spanish has no apostrophe-s: el coche de mi padre."
+    },
+    {
+      "text": "Nuestro perro come mucho todos los días.",
+      "meaning": "Our dog eats a lot every day.",
+      "note": "New word: el perro = the dog."
+    },
+    {
+      "text": "Aquella casa blanca es de mis abuelos.",
+      "meaning": "That white house over there is my grandparents'.",
+      "note": "New word: blanca = white."
+    },
+    {
+      "text": "Mis primos viven en Sevilla con su madre.",
+      "meaning": "My cousins live in Seville with their mother."
+    },
+    {
+      "text": "¿Vuestros padres trabajan en Madrid todos los días?",
+      "meaning": "Do your parents work in Madrid every day?",
+      "note": "Vuestros agrees with padres, the thing owned."
+    },
+    {
+      "text": "Mi prima Marta vive con sus padres y su abuela en Madrid.",
+      "meaning": "My cousin Marta lives with her parents and her grandmother in Madrid."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Possessive adjectives"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-pos-01"
+    },
+    {
+      "question": "a1-pos-02"
+    },
+    {
+      "question": "a1-pos-04"
+    },
+    {
+      "question": "a1-pos-03"
+    },
+    {
+      "section": "Family"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "section": "Demonstratives"
+    },
+    {
+      "vocab": 3
+    },
+    {
+      "question": "a1-pos-05"
+    },
+    {
+      "question": "a1-pos-07"
+    },
+    {
+      "question": "a1-pos-06"
+    },
+    {
+      "section": "Every, each, all"
+    },
+    {
+      "vocab": 2
+    },
+    {
+      "question": "a1-pos-08"
+    },
+    {
+      "question": "a1-pos-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-pos-conv-family",
+      "title": "Whose is this?",
+      "scenario": "At a family lunch, Clara explains who everyone is to her friend Leo.",
+      "role_a": "Clara",
+      "role_b": "Leo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Esta es mi abuela y aquel señor es mi abuelo.",
+          "meaning": "This is my grandmother and that man over there is my grandfather.",
+          "note": "esta / aquel"
+        },
+        {
+          "speaker": "b",
+          "text": "¿Y esa chica? ¿Es tu hermana?",
+          "meaning": "And that girl? Is she your sister?",
+          "note": "esa, tu"
+        },
+        {
+          "speaker": "a",
+          "text": "No, es mi prima. Sus padres viven en Cádiz.",
+          "meaning": "No, she's my cousin. Her parents live in Cádiz.",
+          "note": "sus = her"
+        },
+        {
+          "speaker": "b",
+          "text": "¿Esta casa es de tus padres?",
+          "meaning": "Is this house your parents'?",
+          "note": "de for possession"
+        },
+        {
+          "speaker": "a",
+          "text": "Es de mi abuela. Nuestra casa está en el centro.",
+          "meaning": "It's my grandmother's. Our house is in the centre.",
+          "note": "nuestra"
+        },
+        {
+          "speaker": "b",
+          "text": "¿Coméis aquí todos los domingos?",
+          "meaning": "Do you all eat here every Sunday?",
+          "note": "todos los"
+        },
+        {
+          "speaker": "a",
+          "text": "Cada domingo. Es nuestra tradición.",
+          "meaning": "Every Sunday. It's our tradition.",
+          "note": "cada"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Qué bonita tradición!",
+          "meaning": "What a lovely tradition!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🔑",
+    "bites": [
+      {
+        "title": "Agree with the thing",
+        "emoji": "📦",
+        "rule": "Possessives match what is owned, not who owns it: I own many books, so mis libros; we own one house, so nuestra casa.",
+        "example": "Mis libros están en nuestra casa.",
+        "example_meaning": "My books are in our house."
+      },
+      {
+        "title": "Su has several meanings",
+        "emoji": "🎁",
+        "rule": "Su/sus can mean his, her, their or your (formal). When it matters, switch to de. Spanish has no apostrophe-s: Ana's car is el coche de Ana.",
+        "example": "Es el coche de Ana.",
+        "example_meaning": "It's Ana's car."
+      },
+      {
+        "title": "Here, there, way over there",
+        "emoji": "👉",
+        "rule": "Este is near me, ese is near you, aquel is far from both of us. Memory trick: este and estos have a T, like this and these.",
+        "example": "Este libro es mío y aquella casa es de mi abuela.",
+        "example_meaning": "This book is mine and that house over there is my grandmother's."
+      },
+      {
+        "title": "Cada never changes",
+        "emoji": "🧊",
+        "rule": "Cada never changes: cada día, cada semana. Todo changes to fit its noun: todos los días, toda la clase, todas las chicas.",
+        "example": "Comemos aquí todos los domingos.",
+        "example_meaning": "We eat here every Sunday."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Singular or plural possessive?",
+        "buckets": [
+          "mi / tu / su",
+          "mis / tus / sus"
+        ],
+        "items": [
+          {
+            "text": "___ madre",
+            "bucket": 0
+          },
+          {
+            "text": "___ padres",
+            "bucket": 1
+          },
+          {
+            "text": "___ hermanos",
+            "bucket": 1
+          },
+          {
+            "text": "___ casa",
+            "bucket": 0
+          },
+          {
+            "text": "___ primas",
+            "bucket": 1
+          },
+          {
+            "text": "___ coche",
+            "bucket": 0
+          },
+          {
+            "text": "___ libros",
+            "bucket": 1
+          },
+          {
+            "text": "___ abuela",
+            "bucket": 0
+          }
+        ],
+        "why": "The possessive copies the number of the thing owned: one thing takes mi/tu/su, several things take mis/tus/sus."
+      },
+      {
+        "title": "Which form of nuestro?",
+        "buckets": [
+          "nuestro",
+          "nuestra",
+          "nuestros",
+          "nuestras"
+        ],
+        "items": [
+          {
+            "text": "___ casa",
+            "bucket": 1
+          },
+          {
+            "text": "___ profesor",
+            "bucket": 0
+          },
+          {
+            "text": "___ amigos",
+            "bucket": 2
+          },
+          {
+            "text": "___ primas",
+            "bucket": 3
+          },
+          {
+            "text": "___ ciudad",
+            "bucket": 1
+          },
+          {
+            "text": "___ padres",
+            "bucket": 2
+          },
+          {
+            "text": "___ coche",
+            "bucket": 0
+          },
+          {
+            "text": "___ abuelas",
+            "bucket": 3
+          }
+        ],
+        "why": "Nuestro and vuestro match the gender and number of the thing owned, not of the owners."
+      },
+      {
+        "title": "Este, ese or aquel?",
+        "buckets": [
+          "este / esta (near me)",
+          "ese / esa (near you)",
+          "aquel / aquella (far from both)"
+        ],
+        "items": [
+          {
+            "text": "the book in my hand",
+            "bucket": 0
+          },
+          {
+            "text": "the bag you're holding",
+            "bucket": 1
+          },
+          {
+            "text": "the mountains on the horizon",
+            "bucket": 2
+          },
+          {
+            "text": "the phone on my desk",
+            "bucket": 0
+          },
+          {
+            "text": "the coffee next to you",
+            "bucket": 1
+          },
+          {
+            "text": "the house across the valley",
+            "bucket": 2
+          }
+        ],
+        "why": "Distance decides. Use este near the speaker, ese near the listener and aquel far from both."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Mi padres viven en Málaga.",
+        "wrong": "Mi",
+        "fix": "Mis",
+        "why": "Padres is plural, so the possessive is plural: mis."
+      },
+      {
+        "sentence": "Nuestro casa está en el centro.",
+        "wrong": "Nuestro",
+        "fix": "Nuestra",
+        "why": "Casa is feminine, and nuestro has a feminine form: nuestra."
+      },
+      {
+        "sentence": "Ella vive con su dos hermanos.",
+        "wrong": "su",
+        "fix": "sus",
+        "why": "Su agrees with hermanos (plural), not with ella: sus."
+      },
+      {
+        "sentence": "Esto libro es mío.",
+        "wrong": "Esto",
+        "fix": "Este",
+        "why": "Before a noun use este; esto stands alone for unknown things."
+      },
+      {
+        "sentence": "Estudio español cadas día.",
+        "wrong": "cadas",
+        "fix": "cada",
+        "why": "Cada never changes: cada día."
+      },
+      {
+        "sentence": "Aquellos montañas son los Pirineos.",
+        "wrong": "Aquellos",
+        "fix": "Aquellas",
+        "why": "Montañas is feminine plural: aquellas."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Mis padres viven en Málaga.",
+        "meaning": "My parents live in Málaga.",
+        "distractors": [
+          "mi"
+        ]
+      },
+      {
+        "text": "Esa chica es mi prima.",
+        "meaning": "That girl is my cousin.",
+        "distractors": [
+          "ese"
+        ]
+      },
+      {
+        "text": "Es el coche de Ana.",
+        "meaning": "It's Ana's car.",
+        "distractors": [
+          "su"
+        ]
+      },
+      {
+        "text": "Nuestra casa está en el centro.",
+        "meaning": "Our house is in the centre.",
+        "distractors": [
+          "nuestro"
+        ]
+      },
+      {
+        "text": "Comemos aquí todos los domingos.",
+        "meaning": "We eat here every Sunday.",
+        "distractors": [
+          "todo",
+          "cada"
+        ]
+      }
+    ]
+  }
+}

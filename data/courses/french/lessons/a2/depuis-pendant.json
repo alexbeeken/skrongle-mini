@@ -1,0 +1,564 @@
+{
+  "id": "a2-depuis-pendant",
+  "slug": "depuis-pendant",
+  "title": "Time: depuis, pendant, il y a, dans",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 24,
+  "summary": "Say since when, for how long, how long ago and how soon: depuis, pendant, il y a, dans, en and pour.",
+  "focus": "Choosing the right time word for a duration or a point in time",
+  "prerequisites": [
+    "a2-passe-compose-avoir"
+  ],
+  "content": "## Depuis: still going on\n\n**Depuis** is for something that started in the past and is **still going on**. French uses the **present** where English says *have been*.\n\n- **J'habite ici depuis deux ans.** I have lived here for two years (and still do).\n- **Elle apprend le français depuis septembre.** She has been learning French since September.\n\n**Depuis** + a length means *for*; + a starting point means *since*. Two questions go with it: **Depuis quand ?** (since when?) and **Depuis combien de temps ?** (for how long?).\n\nIn speech you also hear **ça fait… que** or **il y a… que** + present: **Ça fait une heure que j'attends.** I've been waiting for an hour.\n\n## Pendant: a finished stretch\n\n**Pendant** gives the length of a stretch of time that is **over**, so it usually goes with the **passé composé**.\n\n- **J'ai dormi pendant huit heures.** I slept for eight hours.\n- **Nous avons habité à Lyon pendant cinq ans.** We lived in Lyon for five years (we don't any more).\n\nCompare: **J'habite à Lyon depuis cinq ans** (I still live there) and **J'ai habité à Lyon pendant cinq ans** (that's over).\n\n**Pendant** + a noun also means *during*: **pendant les vacances**, **pendant le film**. With a length, you may drop it: **j'ai dormi huit heures**.\n\n## Il y a and dans: ago and in\n\n**Il y a** + a length + a past tense means *ago*. It comes after the verb, like English *ago*.\n\n- **Je suis arrivé il y a trois jours.** I arrived three days ago.\n- **Elle a téléphoné il y a une heure.** She phoned an hour ago.\n\n**Dans** + a length means *in* (that much time from now). It goes with the present, the **futur proche** or the future.\n\n- **Le train part dans dix minutes.** The train leaves in ten minutes.\n- **Je vais déménager dans une semaine.** I'm going to move in a week.\n\nDon't mix up **il y a… que** (*for*, still going on) and **il y a** alone after the verb (*ago*).\n\n## En, pour, à partir de, jusqu'à\n\n- **En** + a length = the time it **takes** to do something: **J'ai fait mes devoirs en deux heures.** I did my homework in two hours.\n- **Pour** + a length = a **planned** stay, often with **partir**, **aller** or **venir**: **Je pars à Rome pour une semaine.** I'm going to Rome for a week.\n- **À partir de** = *from*, *starting*: **à partir de lundi**, **à partir de huit heures**.\n- **Jusqu'à** = *until*, *up to*: **jusqu'à vendredi**; with **le** it becomes **jusqu'au** (**jusqu'au soir**), with **les** **jusqu'aux**.\n\n**Le magasin est ouvert à partir de neuf heures jusqu'à midi.** The shop is open from nine until noon.",
+  "vocabulary": [
+    {
+      "term": "depuis",
+      "meaning": "since; for (still going on)",
+      "example": "Mon frère travaille à Genève depuis mars.",
+      "example_meaning": "My brother has been working in Geneva since March."
+    },
+    {
+      "term": "depuis combien de temps ?",
+      "meaning": "for how long? (still going on)",
+      "example": "Depuis combien de temps est-ce que vous habitez ici ?",
+      "example_meaning": "How long have you been living here?"
+    },
+    {
+      "term": "ça fait… que",
+      "meaning": "it's been… (that)",
+      "example": "Ça fait dix minutes que le bus est en retard.",
+      "example_meaning": "The bus has been late for ten minutes."
+    },
+    {
+      "term": "pendant",
+      "meaning": "for (a finished stretch); during",
+      "example": "Nous avons marché pendant trois heures.",
+      "example_meaning": "We walked for three hours."
+    },
+    {
+      "term": "il y a",
+      "meaning": "ago (with a past tense)",
+      "example": "J'ai vu ce film il y a deux semaines.",
+      "example_meaning": "I saw this film two weeks ago."
+    },
+    {
+      "term": "dans",
+      "meaning": "in (that much time from now)",
+      "example": "On mange dans un quart d'heure.",
+      "example_meaning": "We're eating in a quarter of an hour."
+    },
+    {
+      "term": "en",
+      "meaning": "in, within (the time something takes)",
+      "example": "Elle a appris à nager en une semaine.",
+      "example_meaning": "She learnt to swim in a week."
+    },
+    {
+      "term": "pour",
+      "meaning": "for (a planned length of time)",
+      "example": "Mes parents viennent chez nous pour trois jours.",
+      "example_meaning": "My parents are coming to stay with us for three days."
+    },
+    {
+      "term": "à partir de",
+      "meaning": "from, starting from",
+      "example": "À partir de demain, je prends le vélo.",
+      "example_meaning": "From tomorrow on, I'm taking the bike."
+    },
+    {
+      "term": "jusqu'à",
+      "meaning": "until, up to",
+      "example": "Je travaille jusqu'à dix-huit heures.",
+      "example_meaning": "I work until 6 pm."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-depuis-pendant-01",
+      "prompt": "J'habite à Bordeaux ___ deux ans, et j'adore cette ville.",
+      "type": "fill-in-blank",
+      "correct_answer": "depuis",
+      "accepted_answers": [],
+      "explanation": "The speaker still lives in Bordeaux, so it is depuis + present: j'habite à Bordeaux depuis deux ans (I have lived here for two years).",
+      "hints": [
+        "Does the speaker still live there?",
+        "Still going on + present → ?"
+      ],
+      "teaches": [
+        "depuis"
+      ]
+    },
+    {
+      "question_id": "a2-depuis-pendant-02",
+      "prompt": "Hier soir, j'ai dormi ___ dix heures : ce matin, je suis en pleine forme !",
+      "type": "multiple-choice",
+      "options": [
+        "pendant",
+        "depuis",
+        "dans"
+      ],
+      "correct_answer": "pendant",
+      "explanation": "The night is over and the verb is in the passé composé (j'ai dormi), so the length takes pendant. Depuis would need something still going on; dans means 'in ten hours from now'.",
+      "hints": [
+        "Is the sleeping finished?",
+        "Finished stretch + passé composé → ?"
+      ],
+      "teaches": [
+        "pendant"
+      ]
+    },
+    {
+      "question_id": "a2-depuis-pendant-03",
+      "prompt": "Je suis arrivé à Marseille ___ trois jours, alors je ne connais pas encore la ville.",
+      "type": "fill-in-blank",
+      "correct_answer": "il y a",
+      "accepted_answers": [],
+      "explanation": "Ago is il y a + a length, after a past tense: je suis arrivé il y a trois jours (I arrived three days ago).",
+      "hints": [
+        "English says 'three days ago'.",
+        "Three little words: i… y a."
+      ],
+      "teaches": [
+        "il y a"
+      ]
+    },
+    {
+      "question_id": "a2-depuis-pendant-04",
+      "prompt": "How do you say 'The film starts in five minutes'?",
+      "type": "multiple-choice",
+      "options": [
+        "Le film commence dans cinq minutes.",
+        "Le film commence en cinq minutes.",
+        "Le film commence il y a cinq minutes."
+      ],
+      "correct_answer": "Le film commence dans cinq minutes.",
+      "explanation": "'In five minutes from now' is dans. En gives the time something takes, and il y a means ago.",
+      "hints": [
+        "Five minutes from now…",
+        "Not the time it takes, not ago."
+      ],
+      "teaches": [
+        "dans"
+      ]
+    },
+    {
+      "question_id": "a2-depuis-pendant-05",
+      "prompt": "In 'Je travaille ici depuis mars', French uses the present tense because the work is still going on.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "True: depuis + present describes something that started in the past and has not stopped. English uses 'have been working' here, French the present: je travaille.",
+      "hints": [
+        "Does the person still work here?"
+      ],
+      "teaches": [
+        "depuis"
+      ]
+    },
+    {
+      "question_id": "a2-depuis-pendant-06",
+      "prompt": "J'ai lu tout le roman ___ un week-end : il était passionnant.",
+      "type": "fill-in-blank",
+      "correct_answer": "en",
+      "accepted_answers": [],
+      "explanation": "The time it took to read the whole novel takes en: en un week-end (within one weekend).",
+      "hints": [
+        "How long did the reading take?",
+        "A two-letter word."
+      ],
+      "teaches": [
+        "en"
+      ]
+    },
+    {
+      "question_id": "a2-depuis-pendant-07",
+      "prompt": "Which question asks how long someone has been learning French (and still is)?",
+      "type": "multiple-choice",
+      "options": [
+        "Depuis combien de temps apprends-tu le français ?",
+        "Il y a combien de temps apprends-tu le français ?",
+        "Dans combien de temps apprends-tu le français ?"
+      ],
+      "correct_answer": "Depuis combien de temps apprends-tu le français ?",
+      "explanation": "Depuis combien de temps ? + present asks the length of something still going on. Dans combien de temps ? would ask when it will start.",
+      "hints": [
+        "Still learning → the depuis question."
+      ],
+      "teaches": [
+        "depuis combien de temps ?"
+      ]
+    },
+    {
+      "question_id": "a2-depuis-pendant-08",
+      "prompt": "Je pars en Italie ___ deux semaines : je rentre le quinze juin.",
+      "type": "multiple-choice",
+      "options": [
+        "pour",
+        "depuis",
+        "il y a"
+      ],
+      "correct_answer": "pour",
+      "explanation": "A planned length after partir takes pour: je pars pour deux semaines (I'm going away for two weeks).",
+      "hints": [
+        "The trip is planned, not over.",
+        "partir + ? + length"
+      ],
+      "teaches": [
+        "pour"
+      ]
+    },
+    {
+      "question_id": "a2-depuis-pendant-09",
+      "prompt": "'J'ai habité à Rome depuis cinq ans' is the right way to say 'I lived in Rome for five years' (and then I left).",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "False: the stay is over, so it takes pendant: j'ai habité à Rome pendant cinq ans. Depuis goes with something still going on: j'habite à Rome depuis cinq ans.",
+      "hints": [
+        "Is the stay in Rome over?"
+      ],
+      "teaches": [
+        "pendant"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Je suis ici depuis midi.",
+      "meaning": "I've been here since noon.",
+      "note": "Still here: depuis + present."
+    },
+    {
+      "text": "Le bus arrive dans dix minutes.",
+      "meaning": "The bus arrives in ten minutes."
+    },
+    {
+      "text": "Nous avons parlé pendant toute la soirée.",
+      "meaning": "We talked all evening.",
+      "note": "The evening is over: pendant."
+    },
+    {
+      "text": "Mes voisins sont partis en vacances il y a une semaine.",
+      "meaning": "My neighbours went on holiday a week ago."
+    },
+    {
+      "text": "Ça fait six mois que ma sœur travaille à Montréal.",
+      "meaning": "My sister has been working in Montreal for six months."
+    },
+    {
+      "text": "J'ai repeint toute la cuisine en un seul week-end.",
+      "meaning": "I repainted the whole kitchen in a single weekend.",
+      "note": "New word: repeindre = to repaint."
+    },
+    {
+      "text": "Nous partons à la montagne pour quinze jours au mois d'août.",
+      "meaning": "We're going to the mountains for a fortnight in August.",
+      "note": "New word: quinze jours = a fortnight."
+    },
+    {
+      "text": "À partir de lundi, la piscine est ouverte jusqu'à vingt-deux heures.",
+      "meaning": "From Monday, the swimming pool is open until 10 pm.",
+      "note": "New word: la piscine = the swimming pool."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Depuis"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-depuis-pendant-01"
+    },
+    {
+      "question": "a2-depuis-pendant-05"
+    },
+    {
+      "question": "a2-depuis-pendant-07"
+    },
+    {
+      "section": "Pendant"
+    },
+    {
+      "question": "a2-depuis-pendant-02"
+    },
+    {
+      "question": "a2-depuis-pendant-09"
+    },
+    {
+      "tip": "Ask yourself one question: is it still going on? Yes → depuis + present. No, it's over → pendant + passé composé."
+    },
+    {
+      "section": "Il y a and dans"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-depuis-pendant-03"
+    },
+    {
+      "question": "a2-depuis-pendant-04"
+    },
+    {
+      "section": "En, pour"
+    },
+    {
+      "concept": {
+        "title": "Depuis in the negative",
+        "markdown": "When something has **not** happened for a while, French uses **depuis** with a negative passé composé: **Je n'ai pas vu Marc depuis des semaines.** I haven't seen Marc for weeks. **Elle n'a pas mangé depuis ce matin.** She hasn't eaten since this morning."
+      }
+    },
+    {
+      "question": "a2-depuis-pendant-06"
+    },
+    {
+      "question": "a2-depuis-pendant-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-depuis-pendant-conv-new-in-town",
+      "title": "New in town",
+      "scenario": "At a friend's party, Inès chats with Karim, who has just moved to Lille.",
+      "role_a": "Inès",
+      "role_b": "Karim",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Tu habites à Lille depuis longtemps ?",
+          "meaning": "Have you lived in Lille long?",
+          "note": "Still living there: depuis + present."
+        },
+        {
+          "speaker": "b",
+          "text": "Non, depuis trois mois seulement.",
+          "meaning": "No, only for three months."
+        },
+        {
+          "speaker": "a",
+          "text": "Et avant Lille ?",
+          "meaning": "And before Lille?"
+        },
+        {
+          "speaker": "b",
+          "text": "J'ai habité à Nantes pendant six ans.",
+          "meaning": "I lived in Nantes for six years.",
+          "note": "Over: pendant + passé composé."
+        },
+        {
+          "speaker": "a",
+          "text": "Pourquoi tu es venu ici ?",
+          "meaning": "Why did you come here?"
+        },
+        {
+          "speaker": "b",
+          "text": "J'ai trouvé un travail il y a quatre mois.",
+          "meaning": "I found a job four months ago.",
+          "note": "Ago: il y a."
+        },
+        {
+          "speaker": "a",
+          "text": "Super ! Et tu as un appartement ?",
+          "meaning": "Great! And do you have a flat?"
+        },
+        {
+          "speaker": "b",
+          "text": "Non, je cherche depuis des semaines. Je dors chez un ami jusqu'à la fin du mois.",
+          "meaning": "No, I've been looking for weeks. I'm sleeping at a friend's until the end of the month."
+        },
+        {
+          "speaker": "a",
+          "text": "Moi, j'ai trouvé mon studio en deux jours !",
+          "meaning": "I found my studio flat in two days!",
+          "note": "Time taken: en."
+        },
+        {
+          "speaker": "b",
+          "text": "Tu as de la chance !",
+          "meaning": "You're lucky!"
+        },
+        {
+          "speaker": "a",
+          "text": "Écoute, je pars en vacances dans une semaine, pour dix jours. Tu veux mon studio pendant ce temps ?",
+          "meaning": "Listen, I'm going on holiday in a week, for ten days. Do you want my studio while I'm away?"
+        },
+        {
+          "speaker": "b",
+          "text": "C'est vrai ? Merci, c'est super gentil !",
+          "meaning": "Really? Thanks, that's so kind!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "⏳",
+    "bites": [
+      {
+        "title": "Depuis: still going on",
+        "emoji": "🔛",
+        "rule": "Depuis + present: it started in the past and is still happening. English says 'have been', French uses the present.",
+        "example": "J'apprends le français depuis un an.",
+        "example_meaning": "I've been learning French for a year."
+      },
+      {
+        "title": "Pendant: it's over",
+        "emoji": "🏁",
+        "rule": "Pendant + passé composé gives the length of a finished stretch of time.",
+        "example": "J'ai travaillé à Lille pendant dix ans.",
+        "example_meaning": "I worked in Lille for ten years."
+      },
+      {
+        "title": "Ago or in?",
+        "emoji": "↔️",
+        "rule": "Il y a + past tense = ago. Dans + present or future = in (from now).",
+        "example": "Il est parti il y a une heure ; il revient dans une heure.",
+        "example_meaning": "He left an hour ago; he's coming back in an hour."
+      },
+      {
+        "title": "En and pour",
+        "emoji": "🧳",
+        "rule": "En = the time it takes. Pour = a planned length, often after partir, aller or venir.",
+        "example": "J'ai fini en vingt minutes, et je pars pour une semaine.",
+        "example_meaning": "I finished in twenty minutes, and I'm going away for a week."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Depuis or pendant?",
+        "buckets": [
+          "depuis (still going on)",
+          "pendant (finished)"
+        ],
+        "items": [
+          {
+            "text": "Je t'attends ___ une heure.",
+            "bucket": 0
+          },
+          {
+            "text": "Il a plu ___ tout le week-end.",
+            "bucket": 1
+          },
+          {
+            "text": "Elle est malade ___ lundi.",
+            "bucket": 0
+          },
+          {
+            "text": "On a parlé ___ trois heures.",
+            "bucket": 1
+          },
+          {
+            "text": "Nous sommes mariés ___ dix ans.",
+            "bucket": 0
+          },
+          {
+            "text": "J'ai joué au tennis ___ deux heures.",
+            "bucket": 1
+          },
+          {
+            "text": "Tu apprends le piano ___ quand ?",
+            "bucket": 0
+          }
+        ],
+        "why": "A present tense and something still going on take depuis; a passé composé and a stretch that is over take pendant."
+      },
+      {
+        "title": "Ago, from now, or time taken?",
+        "buckets": [
+          "il y a (ago)",
+          "dans (from now)",
+          "en (time taken)"
+        ],
+        "items": [
+          {
+            "text": "Je suis arrivée ___ deux jours.",
+            "bucket": 0
+          },
+          {
+            "text": "Le train part ___ cinq minutes.",
+            "bucket": 1
+          },
+          {
+            "text": "J'ai lu ce livre ___ une nuit.",
+            "bucket": 2
+          },
+          {
+            "text": "Elle a téléphoné ___ une heure.",
+            "bucket": 0
+          },
+          {
+            "text": "Le bus arrive ___ dix minutes.",
+            "bucket": 1
+          },
+          {
+            "text": "Il a appris à conduire ___ un mois.",
+            "bucket": 2
+          }
+        ],
+        "why": "Il y a looks back from now (ago), dans looks forward from now (in), en measures how long a job takes."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "J'habite ici pendant deux ans et j'adore ce quartier.",
+        "wrong": "pendant",
+        "fix": "depuis",
+        "why": "The speaker still lives here: depuis + present."
+      },
+      {
+        "sentence": "Le train est parti dans une heure.",
+        "wrong": "dans",
+        "fix": "il y a",
+        "why": "The train has already left: ago = il y a."
+      },
+      {
+        "sentence": "Le cours commence en cinq minutes, dépêche-toi !",
+        "wrong": "en",
+        "fix": "dans",
+        "why": "Five minutes from now is dans; en gives the time something takes."
+      },
+      {
+        "sentence": "Hier soir, nous avons regardé la télé depuis deux heures.",
+        "wrong": "depuis",
+        "fix": "pendant",
+        "why": "Last night is over: pendant + passé composé."
+      },
+      {
+        "sentence": "Elle a écrit son rapport dans une heure seulement.",
+        "wrong": "dans",
+        "fix": "en",
+        "why": "The time the report took to write is en: en une heure."
+      }
+    ],
+    "builds": [
+      {
+        "text": "J'habite à Lyon depuis deux ans.",
+        "meaning": "I've lived in Lyon for two years.",
+        "distractors": [
+          "pendant"
+        ]
+      },
+      {
+        "text": "J'ai dormi pendant huit heures.",
+        "meaning": "I slept for eight hours.",
+        "distractors": [
+          "depuis"
+        ]
+      },
+      {
+        "text": "Elle est arrivée il y a trois jours.",
+        "meaning": "She arrived three days ago.",
+        "distractors": [
+          "dans"
+        ]
+      },
+      {
+        "text": "Le film commence dans dix minutes.",
+        "meaning": "The film starts in ten minutes.",
+        "distractors": [
+          "en"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{% for it in items %}
+<details class="devai-request" data-testid="dev-ai-request" data-stem="{{ it.stem }}" data-purpose="{{ it.purpose }}" data-pending="{{ it.pending }}">
+  <summary><code>{{ it.stem }}</code> <span class="devbox-state" data-state="{% if it.pending %}queued{% else %}sent{% endif %}" data-testid="dev-ai-request-state">{% if it.pending %}waiting{% else %}answered{% endif %}</span> <span class="small muted">{{ it.model }}{% if !it.key.is_empty() %} · key {{ it.key }}{% endif %}</span></summary>
+  <div class="devai-request-body">
+    <details><summary>System prompt ({{ it.system.len() }} characters)</summary><pre class="devai-body small">{{ it.system }}</pre></details>
+    {% for m in it.messages %}
+    <details{% if loop.last %} open{% endif %}><summary>{{ m.0 }} ({{ m.1.len() }} characters)</summary><pre class="devai-body small">{{ m.1 }}</pre></details>
+    {% endfor %}
+    {% if let Some(r) = it.response %}
+    <details><summary>Reply ({{ r.len() }} characters)</summary><pre class="devai-body small" data-testid="dev-ai-reply">{{ r }}</pre></details>
+    {% else %}
+    <details class="devai-answer" data-testid="dev-ai-answer"><summary>Reply</summary>
+      <form method="post" action="{{ it.action }}" data-live data-testid="dev-ai-answer-form">
+        <label class="sr-only" for="reply-{{ it.stem }}">Reply</label>
+        <textarea id="reply-{{ it.stem }}" name="reply" rows="8" class="mono" maxlength="200000" placeholder="The reply, exactly as the model would send it. Start with ERROR: to play a provider failure." data-testid="dev-ai-answer-input"></textarea>
+        <p class="bad-text small" data-error hidden data-testid="dev-ai-answer-error"></p>
+        <p><button type="submit" class="btn small" data-testid="dev-ai-answer-submit">Send reply</button></p>
+      </form>
+    </details>
+    {% endif %}
+  </div>
+</details>
+{% endfor %}
+{% if items.is_empty() %}<p class="devai-held-empty" data-testid="dev-ai-held-empty">No requests yet. Start a generation or a tutor session; each model call waits here.</p>{% endif %}

@@ -1,0 +1,568 @@
+{
+  "id": "c1-ser-estar-nuances",
+  "slug": "ser-estar-nuances",
+  "title": "Ser listo, estar listo: when ser and estar change the meaning",
+  "unit": "C1",
+  "group": "Grammar",
+  "order": 22,
+  "summary": "Adjectives that change meaning with ser and estar, estar for impressions, estar de, ser for events, passive vs state, and fixed expressions.",
+  "focus": "Advanced contrasts between ser and estar",
+  "prerequisites": [
+    "b1-ser-estar-and-change",
+    "b2-verbs-of-change"
+  ],
+  "content": "## Same adjective, two meanings\n\n| adjective | with ser | with estar |\n|---|---|---|\n| **listo** | clever | ready |\n| **rico** | rich, wealthy | tasty |\n| **malo** | bad (character, quality) | ill, poorly |\n| **bueno** | good (person, quality) | tasty; (colloquial) attractive |\n| **verde** | green (colour) | unripe; inexperienced |\n| **vivo** | lively, sharp | alive |\n| **despierto** | alert, quick-witted | awake |\n| **atento** | thoughtful, considerate | paying attention |\n| **orgulloso** | arrogant, proud (a flaw) | proud (of something): *estoy orgullosa de ti* |\n| **delicado** | delicate, sensitive | in poor health |\n\n## A trait, or an impression?\n\n**Ser** classifies what something is like by nature. **Estar** reports how it strikes you now, or a change:\n\n- *Mi hijo **es** alto.* (a trait). Compare *¡Qué alto **estás**!* (you've grown!)\n- *El agua del mar **es** salada.* (always). Compare *La sopa **está** salada.* (this soup, today)\n- ***Estás** muy guapa hoy.* The speaker notices it now.\n\n## Estar de, and ser for events\n\n- **estar de + noun** = a temporary role or situation: ***está de** camarero* este verano (but ***es** camarero* as a profession), *estar de vacaciones, de viaje, de buen humor, de pie, de acuerdo, de moda*.\n- **Events** take **ser** for where and when they happen: *La boda **es** en Sevilla.* *La reunión **es** a las diez.* Things and people take estar: *La catedral **está** en Sevilla.*\n\n## Action or result; fixed expressions\n\n- **ser + participle** = a passive action: *La puerta **fue cerrada** por el portero a las diez.*\n- **estar + participle** = the resulting state: *Cuando llegué, la puerta **estaba cerrada**.*\n\nFixed expressions keep their verb: **ser pan comido** (a piece of cake), **ser un cero a la izquierda** (a nobody), **estar en las nubes** (daydreaming), **estar hecho polvo** (worn out), **estar al tanto** (be in the know).",
+  "vocabulary": [
+    {
+      "term": "ser listo / estar listo",
+      "meaning": "to be clever / to be ready",
+      "example": "Es muy lista, pero nunca está lista a tiempo.",
+      "example_meaning": "She's very clever, but she's never ready on time."
+    },
+    {
+      "term": "ser rico / estar rico",
+      "meaning": "to be wealthy / to be tasty",
+      "example": "Su familia es rica, pero el cocido de su abuela está todavía más rico.",
+      "example_meaning": "His family is wealthy, but his grandmother's stew is even tastier."
+    },
+    {
+      "term": "ser malo / estar malo",
+      "meaning": "to be bad / to be ill",
+      "example": "No es mala persona; es que hoy está mala y de mal humor.",
+      "example_meaning": "She's not a bad person; she's ill today and in a bad mood."
+    },
+    {
+      "term": "ser verde / estar verde",
+      "meaning": "to be green / to be unripe, inexperienced",
+      "example": "El nuevo becario todavía está muy verde en contabilidad.",
+      "example_meaning": "The new intern is still very green at accounting."
+    },
+    {
+      "term": "ser vivo / estar vivo",
+      "meaning": "to be lively, sharp / to be alive",
+      "example": "Mi abuelo tiene noventa años, está vivo y es más vivo que nadie.",
+      "example_meaning": "My grandfather is ninety, he's alive and sharper than anyone."
+    },
+    {
+      "term": "ser despierto / estar despierto",
+      "meaning": "to be quick-witted / to be awake",
+      "example": "Es una niña muy despierta, pero a las siete no está despierta ni de broma.",
+      "example_meaning": "She's a very bright girl, but at seven she's nowhere near awake."
+    },
+    {
+      "term": "ser atento / estar atento",
+      "meaning": "to be considerate / to be paying attention",
+      "example": "El camarero fue muy atento con mi madre.",
+      "example_meaning": "The waiter was very considerate towards my mother."
+    },
+    {
+      "term": "ser orgulloso / estar orgulloso",
+      "meaning": "to be arrogant, too proud / to be proud (of)",
+      "example": "Es demasiado orgulloso para pedir perdón.",
+      "example_meaning": "He's too proud to apologise."
+    },
+    {
+      "term": "estar de",
+      "meaning": "to be working as, to be on/in (temporary situation)",
+      "example": "Este verano está de socorrista en la piscina municipal.",
+      "example_meaning": "This summer he's working as a lifeguard at the public pool."
+    },
+    {
+      "term": "ser pan comido",
+      "meaning": "to be a piece of cake",
+      "example": "Tranquila, el examen de conducir es pan comido.",
+      "example_meaning": "Don't worry, the driving test is a piece of cake."
+    },
+    {
+      "term": "estar en las nubes",
+      "meaning": "to have one's head in the clouds, to be daydreaming",
+      "example": "Perdona, ¿qué decías? Estaba en las nubes.",
+      "example_meaning": "Sorry, what were you saying? I was miles away."
+    },
+    {
+      "term": "estar hecho polvo",
+      "meaning": "to be worn out, shattered",
+      "example": "Después de la mudanza estamos hechos polvo.",
+      "example_meaning": "After the move we're shattered."
+    },
+    {
+      "term": "ser un cero a la izquierda",
+      "meaning": "to be a nobody, to count for nothing",
+      "example": "En esa empresa me sentía un cero a la izquierda.",
+      "example_meaning": "At that company I felt like a nobody."
+    },
+    {
+      "term": "estar al tanto",
+      "meaning": "to be in the know, to be up to date",
+      "example": "Mantenme al tanto de lo que diga el médico.",
+      "example_meaning": "Keep me posted on what the doctor says."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c1-ser-estar-nuances-01",
+      "prompt": "Tu hija ___ muy lista: con seis años ya lee novelas.",
+      "type": "multiple-choice",
+      "options": [
+        "es",
+        "está"
+      ],
+      "correct_answer": "es",
+      "explanation": "Ser listo means clever, which is a trait. Estar lista would mean she's ready.",
+      "hints": [
+        "Clever or ready?"
+      ],
+      "teaches": [
+        "ser listo / estar listo"
+      ]
+    },
+    {
+      "question_id": "c1-ser-estar-nuances-02",
+      "prompt": "¿___ listos? Nos vamos ya.",
+      "type": "multiple-choice",
+      "options": [
+        "Estáis",
+        "Sois"
+      ],
+      "correct_answer": "Estáis",
+      "explanation": "Estar listo = to be ready.",
+      "hints": [
+        "Ready, not clever."
+      ],
+      "teaches": [
+        "ser listo / estar listo"
+      ]
+    },
+    {
+      "question_id": "c1-ser-estar-nuances-03",
+      "prompt": "Este gazpacho ___ riquísimo. (estar, present)",
+      "type": "fill-in-blank",
+      "correct_answer": "está",
+      "explanation": "Food that tastes good takes estar: está rico.",
+      "hints": [
+        "Tasty, not wealthy."
+      ],
+      "teaches": [
+        "ser rico / estar rico"
+      ]
+    },
+    {
+      "question_id": "c1-ser-estar-nuances-04",
+      "prompt": "What does 'Mi abuelo está malo' mean?",
+      "type": "multiple-choice",
+      "options": [
+        "My grandfather is ill.",
+        "My grandfather is a bad person.",
+        "My grandfather is bad at things."
+      ],
+      "correct_answer": "My grandfather is ill.",
+      "explanation": "Estar malo means to be ill. Ser malo would be about character or quality.",
+      "hints": [
+        "Estar gives a state."
+      ],
+      "teaches": [
+        "ser malo / estar malo"
+      ]
+    },
+    {
+      "question_id": "c1-ser-estar-nuances-05",
+      "prompt": "Este verano mi hermano ___ de camarero en Ibiza.",
+      "type": "fill-in-blank",
+      "correct_answer": "está",
+      "explanation": "Estar de + job = working as, temporarily.",
+      "hints": [
+        "Estar de…"
+      ],
+      "teaches": [
+        "estar de"
+      ]
+    },
+    {
+      "question_id": "c1-ser-estar-nuances-06",
+      "prompt": "La boda ___ en una finca cerca de Toledo.",
+      "type": "multiple-choice",
+      "options": [
+        "es",
+        "está"
+      ],
+      "correct_answer": "es",
+      "explanation": "Where an event takes place: ser.",
+      "hints": [
+        "A wedding is an event."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "c1-ser-estar-nuances-07",
+      "prompt": "Cuando llegamos, la tienda ya ___ cerrada.",
+      "type": "multiple-choice",
+      "options": [
+        "estaba",
+        "era",
+        "fue"
+      ],
+      "correct_answer": "estaba",
+      "explanation": "Estar + participle gives the resulting state. Ser + participle would describe the act of closing it.",
+      "hints": [
+        "The state we found, not the action."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "c1-ser-estar-nuances-08",
+      "prompt": "No te preocupes, este ejercicio ___ pan comido. (present)",
+      "type": "fill-in-blank",
+      "correct_answer": "es",
+      "explanation": "The fixed expression is ser pan comido.",
+      "hints": [
+        "Fixed expressions keep their verb."
+      ],
+      "teaches": [
+        "ser pan comido"
+      ]
+    },
+    {
+      "question_id": "c1-ser-estar-nuances-09",
+      "prompt": "Después de la mudanza estoy hecho ___.",
+      "type": "multiple-choice",
+      "options": [
+        "polvo",
+        "nubes",
+        "tanto"
+      ],
+      "correct_answer": "polvo",
+      "explanation": "Estar hecho polvo = to be worn out.",
+      "hints": [
+        "Dust."
+      ],
+      "teaches": [
+        "estar hecho polvo"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "No compres esos tomates, todavía están verdes.",
+      "meaning": "Don't buy those tomatoes, they're still unripe."
+    },
+    {
+      "text": "Es muy atenta con todos sus clientes.",
+      "meaning": "She's very considerate with all her customers."
+    },
+    {
+      "text": "¡Qué mayor está tu hijo!",
+      "meaning": "How grown-up your son looks!",
+      "note": "Estar gives an impression or a change."
+    },
+    {
+      "text": "Estamos de acuerdo en casi todo.",
+      "meaning": "We agree on almost everything."
+    },
+    {
+      "text": "El concierto es en el auditorio nuevo.",
+      "meaning": "The concert is in the new concert hall.",
+      "note": "New word: el auditorio = the concert hall."
+    },
+    {
+      "text": "Mis padres están muy orgullosos de ti.",
+      "meaning": "My parents are very proud of you."
+    },
+    {
+      "text": "Ese chico es muy vivo, siempre encuentra una solución.",
+      "meaning": "That boy is very sharp, he always finds a solution."
+    },
+    {
+      "text": "Las notas fueron publicadas ayer y la lista ya está colgada en la web.",
+      "meaning": "The marks were published yesterday and the list is already up on the website.",
+      "note": "New word: colgar = to hang, to post online."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Same adjective"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "c1-ser-estar-nuances-01"
+    },
+    {
+      "question": "c1-ser-estar-nuances-02"
+    },
+    {
+      "question": "c1-ser-estar-nuances-03"
+    },
+    {
+      "question": "c1-ser-estar-nuances-04"
+    },
+    {
+      "section": "A trait"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Estar de"
+    },
+    {
+      "question": "c1-ser-estar-nuances-05"
+    },
+    {
+      "question": "c1-ser-estar-nuances-06"
+    },
+    {
+      "tip": "Ser tells you what kind of thing it is; estar tells you how it is right now, or how it strikes you."
+    },
+    {
+      "section": "Action or result"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "c1-ser-estar-nuances-07"
+    },
+    {
+      "question": "c1-ser-estar-nuances-08"
+    },
+    {
+      "question": "c1-ser-estar-nuances-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c1-ser-estar-nuances-conv-dinner",
+      "title": "Dinner at Nuria's",
+      "scenario": "Óscar arrives for dinner at his friend Nuria's flat.",
+      "role_a": "Nuria",
+      "role_b": "Óscar",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¡Pasa! La cena todavía no está lista.",
+          "meaning": "Come in! Dinner isn't ready yet."
+        },
+        {
+          "speaker": "b",
+          "text": "No pasa nada. ¡Qué guapa estás! ¿Te has cortado el pelo?",
+          "meaning": "No problem. You look great! Have you had your hair cut?",
+          "note": "Estar gives an impression right now."
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, ayer. Oye, ¿y tu hermano? ¿Sigue en Londres?",
+          "meaning": "Yes, yesterday. Hey, what about your brother? Is he still in London?"
+        },
+        {
+          "speaker": "b",
+          "text": "No, ahora está de profesor en un instituto de Cádiz.",
+          "meaning": "No, he's working as a teacher at a secondary school in Cádiz now."
+        },
+        {
+          "speaker": "a",
+          "text": "¡Qué bien! Siempre fue muy listo.",
+          "meaning": "Great! He was always very clever."
+        },
+        {
+          "speaker": "b",
+          "text": "Listo sí, pero está muy verde como profesor.",
+          "meaning": "Clever yes, but he's very green as a teacher."
+        },
+        {
+          "speaker": "a",
+          "text": "Prueba esta salsa, a ver si está buena.",
+          "meaning": "Try this sauce, see if it's good."
+        },
+        {
+          "speaker": "b",
+          "text": "Está riquísima. Aunque está un poco salada.",
+          "meaning": "It's delicious. Though it's a bit salty."
+        },
+        {
+          "speaker": "a",
+          "text": "Es que estaba en las nubes y le eché sal dos veces.",
+          "meaning": "I was miles away and put salt in twice."
+        },
+        {
+          "speaker": "b",
+          "text": "Tranquila, para mí cocinar no es pan comido tampoco.",
+          "meaning": "Don't worry, cooking's not a piece of cake for me either."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🪞",
+    "bites": [
+      {
+        "title": "Same word, two meanings",
+        "emoji": "🪞",
+        "rule": "Ser listo = clever, estar listo = ready. Ser rico = wealthy, estar rico = tasty. Ser malo = bad, estar malo = ill. Ser vivo = sharp, estar vivo = alive.",
+        "example": "Es lista, pero no está lista.",
+        "example_meaning": "She's clever, but she's not ready."
+      },
+      {
+        "title": "Trait or impression",
+        "emoji": "👀",
+        "rule": "Ser classifies. Estar reports how something looks or tastes now, or a change, as in ¡qué alto estás! (you've grown).",
+        "example": "La sopa está salada.",
+        "example_meaning": "The soup is (too) salty."
+      },
+      {
+        "title": "Estar de; events take ser",
+        "emoji": "📍",
+        "rule": "Estar de camarero = working as a waiter for now. An event's place and time take ser: la boda es en Sevilla.",
+        "example": "La reunión es en la sala dos.",
+        "example_meaning": "The meeting is in room two."
+      },
+      {
+        "title": "Action or result",
+        "emoji": "🚪",
+        "rule": "Ser + participle gives the action (fue cerrada por el portero). Estar + participle gives the state (estaba cerrada).",
+        "example": "La puerta estaba cerrada.",
+        "example_meaning": "The door was closed."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which verb gives this meaning?",
+        "buckets": [
+          "ser",
+          "estar"
+        ],
+        "items": [
+          {
+            "text": "listo = clever",
+            "bucket": 0
+          },
+          {
+            "text": "listo = ready",
+            "bucket": 1
+          },
+          {
+            "text": "rico = wealthy",
+            "bucket": 0
+          },
+          {
+            "text": "rico = tasty",
+            "bucket": 1
+          },
+          {
+            "text": "vivo = sharp",
+            "bucket": 0
+          },
+          {
+            "text": "vivo = alive",
+            "bucket": 1
+          },
+          {
+            "text": "malo = bad",
+            "bucket": 0
+          },
+          {
+            "text": "malo = ill",
+            "bucket": 1
+          }
+        ],
+        "why": "Ser gives the permanent quality. Estar gives the state or the experience."
+      },
+      {
+        "title": "Action or result?",
+        "buckets": [
+          "action (ser + participle)",
+          "result (estar + participle)"
+        ],
+        "items": [
+          {
+            "text": "El puente fue inaugurado en mayo.",
+            "bucket": 0
+          },
+          {
+            "text": "El puente está cerrado por obras.",
+            "bucket": 1
+          },
+          {
+            "text": "La carta fue escrita en la cárcel.",
+            "bucket": 0
+          },
+          {
+            "text": "La carta está escrita a mano.",
+            "bucket": 1
+          },
+          {
+            "text": "Los ladrones fueron detenidos ayer.",
+            "bucket": 0
+          },
+          {
+            "text": "La ventana está rota.",
+            "bucket": 1
+          }
+        ],
+        "why": "Ser + participle tells what was done. Estar + participle tells the state it left."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "La paella es muy rica hoy.",
+        "wrong": "es",
+        "fix": "está",
+        "why": "Food that tastes good takes estar: está rica."
+      },
+      {
+        "sentence": "Mi primo está camarero en un hotel.",
+        "wrong": "está",
+        "fix": "es",
+        "why": "A profession takes ser; with estar you need de: está de camarero."
+      },
+      {
+        "sentence": "El concierto está en el parque.",
+        "wrong": "está",
+        "fix": "es",
+        "why": "The place of an event takes ser."
+      },
+      {
+        "sentence": "¿Sois listos para salir?",
+        "wrong": "Sois",
+        "fix": "Estáis",
+        "why": "Ready = estar listo."
+      },
+      {
+        "sentence": "El enfermo es muy grave.",
+        "wrong": "es",
+        "fix": "está",
+        "why": "A patient's condition takes estar."
+      }
+    ],
+    "builds": [
+      {
+        "text": "La fruta todavía está verde.",
+        "meaning": "The fruit is still unripe.",
+        "distractors": [
+          "es"
+        ]
+      },
+      {
+        "text": "Ya estamos listos para salir.",
+        "meaning": "We're ready to go now.",
+        "distractors": [
+          "somos"
+        ]
+      },
+      {
+        "text": "La boda es en Sevilla.",
+        "meaning": "The wedding is in Seville.",
+        "distractors": [
+          "está"
+        ]
+      },
+      {
+        "text": "Estoy de vacaciones en Asturias.",
+        "meaning": "I'm on holiday in Asturias.",
+        "distractors": [
+          "soy"
+        ]
+      }
+    ]
+  }
+}

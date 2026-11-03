@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Self-hosting help
+    url: https://github.com/alexbeeken/skrongle-mini/discussions
+    about: Questions about running your own copy. Best-effort help from the community and the maintainer.
+  - name: Self-hosting FAQ
+    url: https://github.com/alexbeeken/skrongle-mini/blob/main/docs/self-hosting-faq.md
+    about: The first questions people ask, answered.

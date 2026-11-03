@@ -1,0 +1,25 @@
+{#- One lesson row of the lessons table. The caller sets row_id, row_path,
+    row_title, row_position and row_unit with `let`; the panel renders a
+    blank one inside <template id="lt-blank"> for the script to clone when
+    it adds a lesson, so a course with no lessons yet can still get one. -#}
+    <li class="lt-row" data-testid="course-lessons-row" data-lesson-id="{{ row_id }}" data-path="{{ row_path }}" data-unit="{{ row_unit }}">
+      <div class="lt-line">
+        <button type="button" class="lt-grip" aria-label="{{ crate::t1("study.panel.move", "title", row_title) }}" title="{{ crate::t("study.panel.drag") }}" data-testid="course-lessons-grip" hidden>⋮</button>
+        <span class="lt-num" data-testid="course-lessons-position">{{ row_position }}</span>
+        <button type="button" class="lt-expand" aria-expanded="false" aria-label="{{ crate::t1("study.panel.edit_title", "title", row_title) }}" data-testid="course-lessons-expand" hidden>▸</button>
+        <button type="button" class="lt-title" title="{{ crate::t("study.panel.rename") }}" data-testid="course-lessons-title">{{ row_title }}</button>
+        <button type="button" class="field-check advice inline lt-advice" aria-haspopup="dialog" data-testid="course-lessons-advice" hidden>!</button>
+        <noscript><a class="btn small ghost lt-edit" href="{{ crate::base_path() }}/courses/{{ lp.course_id }}/file?path={{ row_path }}" data-testid="course-lessons-edit">{{ crate::t("study.panel.edit") }}</a></noscript>
+        {% if lp.ai.is_some() %}<button type="button" class="lt-ai-edit" aria-label="{{ crate::t1("study.panel.ai_edit_title", "title", row_title) }}" title="{{ crate::t("study.panel.ai_edit") }}" aria-haspopup="dialog" data-testid="course-lessons-ai-edit" hidden>✦</button>{% endif %}
+        <button type="button" class="lt-duplicate" aria-label="{{ crate::t1("study.panel.duplicate_title", "title", row_title) }}" title="{{ crate::t("study.panel.duplicate") }}" data-testid="course-lessons-duplicate" hidden>⧉</button>
+        <button type="button" class="lt-delete" aria-label="{{ crate::t1("study.panel.delete_title", "title", row_title) }}" title="{{ crate::t("study.panel.delete") }}" data-testid="course-lessons-delete" hidden>✕</button>
+      </div>
+      <div class="lt-drawer" data-testid="course-lessons-drawer" data-mode="json" hidden>
+        {% include "lessons_modes.html" %}
+        <div class="lt-code">
+          <pre class="lt-lines" aria-hidden="true" data-testid="course-lessons-lines"></pre>
+          <div class="lt-code-box"><div class="lt-badline" aria-hidden="true" data-testid="course-lessons-json-highlight" hidden></div><textarea class="lt-json" rows="14" spellcheck="false" autocapitalize="off" aria-label="{{ crate::t1("study.panel.json_of", "title", row_title) }}" data-testid="course-lessons-json" maxlength="{{ crate::courses::MAX_FILE_BYTES }}"></textarea></div>
+        </div>
+        <p class="small"><span class="lt-json-status muted" role="status" data-testid="course-lessons-json-status"></span> <button type="button" class="link small lt-goto" data-testid="course-lessons-json-goto" hidden></button> <button type="button" class="link small lt-format" data-testid="course-lessons-format">{{ crate::t("study.panel.format") }}</button></p>
+      </div>
+    </li>

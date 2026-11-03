@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+{% block title %}{{ lesson.title }}{% endblock %}
+{% block modenav %}{% let active = "lessons" %}{% include "nav_study.html" %}{% endblock %}
+{% block content %}
+{% let quizzed = !lesson.quiz.is_empty() %}
+<article class="lesson" data-testid="lesson" data-lesson-id="{{ lesson.slug }}" data-passed="{{ topic.passed }}" data-read="{{ topic.read }}" data-seen="{{ seen }}" data-status="{{ topic.status_css }}">
+  <header>
+    <div class="lesson-topline">
+      <p class="crumbs"><a href="{{ crate::base_path() }}/lessons">{{ crate::t("study.lesson.lessons") }}</a> › {{ unit }} › {{ group }}</p>
+      <div class="lesson-status" data-testid="lesson-head">
+        {% if quizzed %}<svg class="mastery-ring" viewBox="0 0 36 36" role="img" aria-label="{{ crate::t1("study.lesson.mastery_aria", "n", topic.score) }}" data-testid="lesson-mastery">
+          <circle class="track" cx="18" cy="18" r="15.5" pathLength="100"></circle>
+          <circle class="fill" cx="18" cy="18" r="15.5" pathLength="100" stroke-dasharray="{{ topic.score }} 100"></circle>
+          <text x="18" y="18">{{ topic.score }}%</text>
+        </svg>{% endif %}
+        {% if quizzed || topic.status_css == "skipped" %}<span class="pill {{ topic.status_css }}">{{ topic.status_label }}</span>{% endif %}
+        {% if topic.read %}<span class="pill read" title="{{ crate::t1("study.lesson.read_title", "when", read_when) }}">{{ crate::t("study.pill_read") }}</span>{% endif %}
+        {% if topic.passed %}<span class="pill mastered" title="{{ topic.pass }}">{{ crate::t("study.pill_passed") }}</span>{% endif %}
+        <button type="button" class="info-btn" data-show-dialog="lesson-info" aria-haspopup="dialog" aria-label="{{ crate::t("study.lesson.info_label") }}" title="{{ crate::t("study.lesson.info_label") }}" data-testid="lesson-info"><span aria-hidden="true">i</span></button>
+      </div>
+    </div>
+    <h1>{{ lesson.title }}</h1>
+    {% if !lesson.summary.is_empty() %}<p class="lead">{{ lesson.summary }}</p>{% endif %}
+    <div class="lesson-actions" data-testid="lesson-actions">
+      {% if !seen %}
+      <form method="post" action="{{ crate::base_path() }}/lessons/{{ lesson.slug }}/read" data-testid="lesson-read-form"><button type="submit" class="btn" data-testid="lesson-read">{% if quizzed %}{{ crate::t("study.lesson.read_quiz_me") }}{% else %}{{ crate::t("study.lesson.read_it") }}{% endif %}</button></form>
+      {% else if quizzed %}
+      <a class="btn" href="{{ crate::base_path() }}/practice?lesson={{ lesson.slug }}" data-testid="lesson-practise">{{ crate::t("study.lesson.practise_this") }}</a>
+      {% endif %}
+      <details class="lesson-more" data-testid="lesson-more">
+        <summary class="btn ghost" data-testid="lesson-more-toggle">{{ crate::t("study.lesson.more_ways") }} <span aria-hidden="true">▾</span></summary>
+        <div class="menu">
+          {% if !seen && quizzed %}<a href="{{ crate::base_path() }}/practice?lesson={{ lesson.slug }}" data-testid="lesson-practise">{{ crate::t("study.lesson.practise_this") }}</a>{% endif %}
+          {% if course.has_listening && !lesson.listening.is_empty() %}<a href="{{ crate::base_path() }}/listening/play?lesson={{ lesson.slug }}" data-testid="lesson-listen">{{ crate::t("study.lesson.listen_type") }}</a>{% endif %}
+          {% if let Some(u) = user %}{% if !u.ai_off %}<a href="{{ crate::base_path() }}/tutor?lesson={{ lesson.slug }}" data-testid="lesson-tutor">{{ crate::t("study.lesson.tutor_me") }}</a>{% endif %}{% endif %}
+          <a href="{{ crate::base_path() }}/guide/{{ lesson.slug }}" data-testid="lesson-guide">{{ crate::t("study.lesson.play_guide") }}</a>
+          <a href="{{ crate::base_path() }}/sprint/play?lesson={{ lesson.slug }}" data-testid="lesson-sprint">{{ crate::t("study.lesson.sprint_session") }}</a>
+        </div>
+      </details>
+    </div>
+  </header>
+  {% if !prerequisites.is_empty() %}
+  <p class="small"><strong>{{ crate::t("study.lesson.before_this") }}</strong>
+    {% for p in prerequisites %}
+      <a href="{{ crate::base_path() }}/lessons/{{ p.slug }}" data-testid="lesson-prerequisite" data-lesson-id="{{ p.slug }}">{{ p.title }}</a> <span class="pill {{ p.status_css }}">{{ p.status_label }}</span>{% if !loop.last %}, {% endif %}
+    {% endfor %}
+  </p>
+  {% endif %}
+
+  <div class="prose" data-testid="lesson-content" lang="{{ course.term_lang }}">
+    {{ lesson.html_content|safe }}
+  </div>
+
+  {% if !lesson.vocabulary.is_empty() %}
+  <h2>{{ crate::t("study.lesson.vocabulary") }}</h2>
+  {% if !course.say_lang.is_empty() %}<p class="muted small say-hint">{{ crate::t1("study.lesson.say_hint", "label", course.term_label) }}</p>{% endif %}
+  <div class="table-scroll" data-testid="lesson-vocabulary-scroll">
+  <table class="vocab" data-testid="lesson-vocabulary">
+    <thead><tr><th>{{ course.term_label }}</th><th>{{ course.meaning_label }}</th><th>{{ crate::t("study.lesson.example") }}</th></tr></thead>
+    <tbody>
+    {% for v in lesson.vocabulary %}
+      <tr data-testid="lesson-vocab-item"><td lang="{{ course.term_lang }}" title="{{ v.meaning }}">{{ v.term }}</td><td lang="{{ course.meaning_lang }}">{{ v.meaning }}</td><td lang="{{ course.term_lang }}"{% if let Some(em) = v.example_meaning %} title="{{ em }}"{% endif %}>{% if let Some(ex) = v.example %}{{ ex }}{% endif %}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  {% endif %}
+
+  {% if !conjugations.is_empty() %}
+  <h2>{{ course.paradigm_label }}</h2>
+  <div class="table-scroll" data-testid="lesson-conjugations-scroll">
+  <table class="vocab conj" data-testid="lesson-conjugations">
+    <thead><tr><th>{{ course.item_label }}</th><th>{{ crate::t("study.lesson.set") }}</th>{% for s in slot_labels %}<th>{{ s }}</th>{% endfor %}</tr></thead>
+    <tbody>
+    {% for k in conjugations %}
+      <tr lang="{{ course.term_lang }}"><td><strong>{{ k.item }}</strong><br><span class="muted small" lang="{{ course.meaning_lang }}">{{ k.meaning }}</span></td><td>{{ k.set }}</td>
+        {% for f in k.forms %}<td>{{ f }}</td>{% endfor %}</tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  <p class="small"><a href="{{ crate::base_path() }}/play/conjugation">{{ crate::t1("study.lesson.drill_these", "item", course.item_label) }}</a> {{ crate::t("study.lesson.drill_after") }}</p>
+  {% endif %}
+
+  {% if !lesson.sprint.scales.is_empty() %}
+  <section class="lesson-scales" data-testid="lesson-scales">
+  <h2>{{ crate::t("study.lesson.scales") }}</h2>
+  {% for s in lesson.sprint.scales %}
+  <div class="lesson-scale" data-testid="lesson-scale">
+    <h3>{{ s.title }}</h3>
+    <pre class="abc-staff" data-testid="lesson-scale-staff">{{ s.abc() }}</pre>
+    <div class="music-play" data-testid="lesson-scale-play" data-play="{{ s.abc() }}"></div>
+  </div>
+  {% endfor %}
+  </section>
+  {% endif %}
+
+  {% if !conversations.is_empty() %}
+  <section class="lesson-conversations" data-testid="lesson-conversations">
+  <h2>{{ crate::t("study.lesson.conversations") }}</h2>
+  {% for c in conversations %}
+  <div class="conv" data-testid="lesson-conversation" data-conversation-id="{{ c.id }}">
+    <h3>{{ c.title }}</h3>
+    {% if !c.scenario.is_empty() %}<p class="muted small">{{ c.scenario }}</p>{% endif %}
+    <ol class="conv-lines">
+    {% for l in c.lines %}
+      {% let s = c.who(l) %}
+      <li class="conv-line{% if l.b %} b{% endif %}" data-testid="lesson-conversation-line" data-speaker="{% if l.b %}b{% else %}a{% endif %}">
+        <button type="button" class="conv-bubble" data-testid="lesson-conversation-bubble">
+          <span class="conv-name" data-testid="lesson-conversation-speaker">{{ s.name }}</span>
+          <span class="conv-text" lang="{{ course.term_lang }}" data-testid="lesson-conversation-text">{{ l.text }}</span>
+          {% if !l.meaning.is_empty() %}<span class="conv-meaning muted small" lang="{{ course.meaning_lang }}" data-testid="lesson-conversation-meaning">{{ l.meaning }}</span>{% endif %}
+        </button>
+      </li>
+    {% endfor %}
+    </ol>
+  </div>
+  {% endfor %}
+  </section>
+  {% endif %}
+  <section class="lesson-note" data-testid="lesson-note" data-url="{{ crate::base_path() }}/api/lessons/{{ lesson.slug }}/note">
+    <div class="lesson-note-head">
+      <h2 class="heading-with-info"><label for="lesson-note-text">{{ crate::t("study.lesson.note_h2") }}</label> <button type="button" class="info-btn" data-show-dialog="lesson-note-info-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("study.lesson.note_info") }}" data-testid="lesson-note-info">i</button></h2>
+      <span class="save-status" data-testid="lesson-note-status" data-state="saved" role="status" aria-label="{{ crate::t("study.lesson.note_saved") }}" title="{{ crate::t("study.lesson.note_saved") }}" hidden>
+        <svg class="when-saved" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 16.2 5.3 12l-1.4 1.4 5.6 5.6 11-11-1.4-1.4z"/></svg>
+        <svg class="when-saving" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/></svg>
+        <svg class="when-error" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5h2v9h-2zm0 11h2v2h-2z"/></svg>
+      </span>
+    </div>
+    <span class="field-wrap"><textarea id="lesson-note-text" name="note" rows="3" maxlength="{{ note_max }}" placeholder="{{ crate::t("study.lesson.note_placeholder") }}" aria-describedby="lesson-note-error" data-testid="lesson-note-text">{{ note }}</textarea></span>
+    <span class="field-error" id="lesson-note-error" data-testid="lesson-note-error" hidden></span>
+    <p class="alert error save-error" role="alert" data-testid="lesson-note-save-error" hidden></p>
+    <dialog class="modal" id="lesson-note-info-dialog" aria-labelledby="lesson-note-info-title" data-testid="lesson-note-info-dialog">
+      <h2 id="lesson-note-info-title">{{ crate::t("study.lesson.note_h2") }}</h2>
+      <p>{{ crate::t1("study.lesson.note_info_body", "max", note_max) }}</p>
+      <form method="dialog" class="modal-actions"><button type="submit" class="btn" data-testid="lesson-note-info-close">{{ crate::t("study.lesson.note_ok") }}</button></form>
+    </dialog>
+  </section>
+
+  {% if !check.is_empty() %}
+  <section class="lesson-check" id="lesson-check" data-testid="lesson-check" data-done="false" data-lesson="{{ lesson.slug }}" data-praise="{{ course.praise }}" data-lang="{{ course.term_lang }}">
+    <h2>{{ crate::t("study.lesson.check_h2") }}</h2>
+    <p class="muted">{% if check.len() == 1 %}{{ crate::t("study.lesson.check_intro_one") }}{% else %}{{ crate::t("study.lesson.check_intro_two") }}{% endif %}</p>
+    <form id="check-form" data-testid="lesson-check-form">
+      {% for q in check %}
+      {% let qn = loop.index %}
+      <div class="question" data-testid="lesson-check-question" data-qid="{{ q.question_id }}" data-kind="{{ q.kind }}">
+        <p class="crumbs">{{ crate::t2("study.lesson.question_n_of", "n", qn, "total", check.len()) }}</p>
+        {% if !q.abc.is_empty() %}<pre class="abc-staff" data-testid="quiz-abc">{{ q.abc }}</pre>{% endif %}
+        {% if !q.play.is_empty() %}<div class="music-play" data-testid="quiz-play" data-play="{{ q.play }}"{% if q.abc.is_empty() %} data-staff-after="1"{% endif %}{% if !q.staves.is_empty() %} data-abc-options="1"{% endif %}></div>{% endif %}
+        <p class="prompt" lang="{{ course.term_lang }}">{{ q.prompt }}</p>
+        {% if let Some(m) = q.measure %}{% include "measure.html" %}{% endif %}
+        {% if let Some(tiles) = q.board %}{% include "algebra_tiles.html" %}{% endif %}
+        {% if !q.clock_hands.is_empty() %}<div class="clock-face" data-clock data-hands="{{ q.clock_hands }}" data-testid="clock"></div>{% endif %}
+        {% if q.choice %}
+          <div class="options">
+          {% for opt in q.options %}
+            <label class="option"><input type="radio" data-testid="lesson-check-option" name="answer-{{ qn }}" value="{{ opt }}" required>{% if let Some(st) = crate::notation::nth(q.staves, loop.index0) %}<pre class="abc-staff abc-option" data-testid="quiz-option-abc">{{ st }}</pre>{% else %}<span lang="{{ course.term_lang }}">{{ opt }}</span>{% endif %}</label>
+          {% endfor %}
+          </div>
+        {% else if q.kind == "fill-bar" %}
+          <div class="fill-bar" data-testid="fill-bar" data-abc="{{ q.bar }}">{% for tile in q.tiles %}<button type="button" class="fill-bar-tile" data-tile="{{ tile }}">{{ tile }}</button>{% endfor %}</div>
+          <input type="radio" class="fill-bar-answer" name="answer-{{ qn }}" value="" hidden>
+        {% else if q.slots > 0 %}
+          <div class="chord-spell" data-testid="chord-spell" data-slots="{{ q.slots }}">{% for tile in q.chord %}<button type="button" class="chord-spell-tile" data-tile="{{ tile.abc }}">{{ tile.name }}</button>{% endfor %}</div>
+          <input type="radio" class="chord-spell-answer" name="answer-{{ qn }}" value="" hidden>
+        {% else if !q.clef.is_empty() %}
+          <div class="staff-note" data-testid="staff-note" data-clef="{{ q.clef }}" data-names="{{ q.note_names }}"></div>
+          <input type="radio" class="staff-note-answer" name="answer-{{ qn }}" value="" hidden>
+        {% else if q.kind == "keyboard" %}
+          <div class="keyboard" data-testid="keyboard" data-octaves="{{ q.octaves }}"{% if q.octave %} data-exact="1"{% endif %}></div>
+          <input type="radio" class="keyboard-answer" name="answer-{{ qn }}" value="" hidden>
+        {% else if q.clock_step > 0 %}
+          <div class="clock-face" data-clock data-step="{{ q.clock_step }}" data-testid="clock"></div><input class="fill" type="hidden" name="answer-{{ qn }}" data-testid="clock-time">
+        {% else %}
+          <input class="fill" type="text" data-testid="lesson-check-answer" maxlength="200" aria-label="{{ crate::t1("study.lesson.answer_to", "n", qn) }}" name="answer-{{ qn }}" lang="{{ course.term_lang }}" autocomplete="off" autocapitalize="off" spellcheck="false"
+                 placeholder="{{ q.placeholder }}"{% if q.math %} data-math="1"{% endif %} required>{% if !q.answer_unit.is_empty() %} <span class="unit">{{ q.answer_unit }}</span>{% endif %}
+          {% if !course.chars.is_empty() && !q.math %}
+          <div class="accents" aria-label="{{ crate::t("study.lesson.insert_special") }}">
+            {% for ch in course.chars %}<button type="button" data-ch="{{ ch }}" aria-label="{{ crate::t1("study.lesson.type_ch", "ch", ch) }}">{{ ch }}</button>{% endfor %}
+          </div>
+          {% endif %}
+        {% endif %}
+        {% if !q.hints.is_empty() %}
+          <details class="hints">
+            <summary>{{ crate::t("study.lesson.hint") }}</summary>
+            <ul>{% for h in q.hints %}<li>{{ h }}</li>{% endfor %}</ul>
+          </details>
+        {% endif %}
+        <div class="feedback" role="status" data-testid="lesson-check-feedback" hidden></div>
+      </div>
+      {% endfor %}
+      <div class="actions">
+        <button type="submit" class="btn big" data-testid="lesson-check-submit">{{ crate::t("study.lesson.check_answers") }}</button>
+      </div>
+    </form>
+    <div class="check-result" id="check-result" role="status" data-testid="lesson-check-result" hidden></div>
+  </section>
+  {% else if topic.read %}
+  <section class="lesson-check done" id="lesson-check" data-testid="lesson-check" data-done="true">
+    <h2>{{ crate::t("study.lesson.lesson_read") }}</h2>
+    <p class="muted">{{ crate::t1("study.lesson.read_passed", "when", read_when) }}</p>
+  </section>
+  {% endif %}
+
+  <footer class="lesson-footer">
+    <div class="pass-box" data-testid="lesson-pass" data-passed="{{ topic.passed }}">
+      {% if let Some(r) = reward %}{{ r|safe }}{% endif %}
+      {% if !seen && check.is_empty() %}
+        <form method="post" action="{{ crate::base_path() }}/lessons/{{ lesson.slug }}/read" data-testid="lesson-read-form"><button type="submit" class="btn big" data-testid="lesson-read">{{ crate::t("study.lesson.read_it") }}</button></form>
+      {% endif %}
+      {% if quizzed %}<a class="btn big{% if !seen %} ghost{% endif %}" data-testid="lesson-test" href="{{ crate::base_path() }}/practice?lesson={{ lesson.slug }}">{% if topic.read %}{{ crate::t("study.lesson.practise_this") }}{% else %}{{ crate::t("study.lesson.test_yourself") }}{% endif %}</a>{% endif %}
+      <button type="button" class="info-btn" data-show-dialog="lesson-info" aria-haspopup="dialog" aria-label="{{ crate::t("study.lesson.info_label") }}" title="{{ crate::t("study.lesson.info_label") }}" data-testid="lesson-pass-info"><span aria-hidden="true">i</span></button>
+    </div>
+  </footer>
+  {% let pos = "bottom" %}{% include "lesson_pager.html" %}
+  <dialog class="modal" id="lesson-info" aria-labelledby="lesson-info-title" data-testid="lesson-info-dialog">
+    <h2 id="lesson-info-title">{{ lesson.title }}</h2>
+    <p>{{ crate::t("study.lesson.mastery") }} {{ topic.score }}%{% if topic.times_tested > 0 %}{{ crate::t2("study.lesson.accuracy_over", "pct", topic.accuracy, "n", topic.times_tested) }}{{ crate::t1("study.lesson.streak", "n", streak) }}{{ crate::t1("study.lesson.last_practised", "when", topic.last_practiced) }}{% endif %}</p>
+    <p class="small muted">{% if !lesson.focus.is_empty() %}{{ crate::t1("study.lesson.focus", "focus", lesson.focus) }} · {% endif %}{{ crate::t1("study.lesson.quiz_questions", "n", lesson.quiz.len()) }}{% if course.has_listening && !lesson.listening.is_empty() %} · {{ crate::t1("study.lesson.listening_sentences", "n", lesson.listening.len()) }}{% endif %}</p>
+    <p data-testid="lesson-pass-rule">{% if topic.passed %}<span class="pill mastered">✓</span> {{ topic.pass }}. {{ crate::t("study.lesson.counts_complete") }}{% else if seen %}{{ topic.pass }}. {% if required_answers > 0 %}{{ crate::t2("study.lesson.pass_rule_min", "pct", pass_pct, "n", required_answers) }}{% else %}{{ crate::t1("study.lesson.pass_rule", "pct", pass_pct) }}{% endif %}{% else if check.is_empty() %}{{ crate::t("study.lesson.read_to_end") }} {% if let Some(u) = user %}{% if u.ai_off %}{{ crate::t("study.lesson.sprint_same_guide") }}{% else %}{{ crate::t("study.lesson.sprint_same_ai") }}{% endif %}{% else %}{{ crate::t("study.lesson.sprint_same_ai") }}{% endif %}{% else %}{% if required_answers > 0 %}{{ crate::t2("study.lesson.to_pass_check_min", "pct", pass_pct, "n", required_answers) }}{% else %}{{ crate::t1("study.lesson.to_pass_check", "pct", pass_pct) }}{% endif %} {% if let Some(u) = user %}{% if u.ai_off %}{{ crate::t("study.lesson.sprint_same_guide") }}{% else %}{{ crate::t("study.lesson.sprint_same_ai") }}{% endif %}{% else %}{{ crate::t("study.lesson.sprint_same_ai") }}{% endif %}{% endif %}</p>
+    <form method="dialog" class="modal-actions"><button class="btn" data-testid="lesson-info-close">{{ crate::t("study.lesson.close") }}</button></form>
+  </dialog>
+</article>
+{% endblock %}
+{% block scripts %}<script src="{{ crate::routes::asset_url("autosave.js") }}" defer></script>
+<script src="{{ crate::routes::asset_url("lesson-note.js") }}" defer></script>
+{% if !conversations.is_empty() %}<script src="{{ crate::routes::asset_url("conversation.js") }}" defer></script>{% endif %}
+        {% if !check.is_empty() %}<script>Object.assign(I18N, {{ crate::i18n::js_json("study.js")|safe }});</script>
+{% if lesson.has_clock() %}<script>Object.assign(I18N, {{ crate::i18n::js_json("clock.js")|safe }});</script><script src="{{ crate::routes::asset_url("clock.js") }}" defer></script>{% endif %}<script src="{{ crate::routes::asset_url("lesson-check.js") }}" defer></script>{% if lesson.has_measure() %}<script src="{{ crate::routes::asset_url("measure.js") }}" defer></script>{% endif %}{% endif %}
+{% if lesson.has_notation() %}<script src="{{ crate::routes::asset_url("vendor/abcjs-basic-min.js") }}" defer></script><script src="{{ crate::routes::asset_url("notation.js") }}" defer></script>{% endif %}
+{% if lesson.has_sound() %}<script src="{{ crate::routes::asset_url("music-sound.js") }}" defer></script>{% endif %}
+{% if lesson.has_fill_bar() %}<script src="{{ crate::routes::asset_url("fill-bar.js") }}" defer></script>{% endif %}
+{% if lesson.has_chord_spell() %}<script src="{{ crate::routes::asset_url("chord-spell.js") }}" defer></script>{% endif %}
+{% if lesson.has_staff_note() %}<script src="{{ crate::routes::asset_url("staff-note.js") }}" defer></script>{% endif %}
+{% if lesson.has_keyboard() %}<script src="{{ crate::routes::asset_url("keyboard.js") }}" defer></script>{% endif %}
+{% if crate::algebra_tiles::in_lesson(lesson) %}{% include "algebra_tiles_assets.html" %}{% endif %}{% endblock %}
+

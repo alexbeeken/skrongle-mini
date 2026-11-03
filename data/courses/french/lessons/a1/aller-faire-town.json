@@ -1,0 +1,615 @@
+{
+  "id": "a1-aller-faire-town",
+  "slug": "aller-faire-town",
+  "title": "Aller, faire and getting around town",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 38,
+  "summary": "Aller and faire are irregular and very common: je vais au cinéma, je fais les courses, je vais manger.",
+  "focus": "Aller and faire in the present, à/de + article, and the futur proche",
+  "prerequisites": [
+    "a1-er-verbs"
+  ],
+  "content": "## Aller and faire\n\nTwo irregular verbs you will use every day:\n\n| | aller (to go) | faire (to do, to make) |\n|---|---|---|\n| je | vais | fais |\n| tu | vas | fais |\n| il / elle / on | va | fait |\n| nous | allons | faisons |\n| vous | allez | faites |\n| ils / elles | vont | font |\n\n**Faisons** is said *fe-zon*. Watch **vous faites** (not *faisez*) and **ils font**.\n\nUseful set phrases:\n\n- **faire les courses** (to do the shopping)\n- **faire la cuisine** (to cook)\n- **On y va !** (Let's go! **y** = there)\n\n## Au, aux, du, des\n\n**À** (to, at) and **de** (from, of) merge with **le** and **les**:\n\n| | + le | + la | + l' | + les |\n|---|---|---|---|---|\n| à | **au** | à la | à l' | **aux** |\n| de | **du** | de la | de l' | **des** |\n\n- **Je vais au marché, à la poste, à l'école, aux magasins.**\n- **La pharmacie est près du parc, près de la gare.**\n\nThe same **du / de la / de l'** come with sports and activities after **faire**:\n\n- **Je fais du vélo.** (I go cycling.)\n- **Elle fait de la natation.** (She swims, as a sport.)\n- **Nous faisons de l'escalade.** (We go climbing.)\n\n## Going to do something: the futur proche\n\nTo talk about the near future, use **aller** + an infinitive, just like *going to* in English:\n\n- **Je vais manger.** (I'm going to eat.)\n- **Ce soir, nous allons regarder un film.** (Tonight we're going to watch a film.)\n- **Ils vont faire les courses.** (They're going to do the shopping.)\n\nOnly **aller** is conjugated; the second verb stays in the infinitive. In the negative, **ne … pas** wraps **aller**: **Je ne vais pas travailler demain.**",
+  "vocabulary": [
+    {
+      "term": "la banque",
+      "meaning": "bank",
+      "example": "La banque ouvre à neuf heures.",
+      "example_meaning": "The bank opens at nine."
+    },
+    {
+      "term": "la pharmacie",
+      "meaning": "pharmacy, chemist's",
+      "example": "La pharmacie est à côté de la poste.",
+      "example_meaning": "The pharmacy is next to the post office."
+    },
+    {
+      "term": "l'école",
+      "meaning": "school (f)",
+      "example": "Les enfants vont à l'école à huit heures.",
+      "example_meaning": "The children go to school at eight."
+    },
+    {
+      "term": "le cinéma",
+      "meaning": "cinema",
+      "example": "On va au cinéma ce soir ?",
+      "example_meaning": "Shall we go to the cinema tonight?"
+    },
+    {
+      "term": "la place",
+      "meaning": "square (in a town)",
+      "example": "Le marché est sur la place.",
+      "example_meaning": "The market is on the square."
+    },
+    {
+      "term": "la gare",
+      "meaning": "station",
+      "example": "Le bus part de la gare.",
+      "example_meaning": "The bus leaves from the station."
+    },
+    {
+      "term": "le marché",
+      "meaning": "market",
+      "example": "Je fais les courses au marché.",
+      "example_meaning": "I do the shopping at the market."
+    },
+    {
+      "term": "la poste",
+      "meaning": "post office",
+      "example": "Elle va à la poste.",
+      "example_meaning": "She's going to the post office."
+    },
+    {
+      "term": "le musée",
+      "meaning": "museum",
+      "example": "Nous allons au musée dimanche.",
+      "example_meaning": "We're going to the museum on Sunday."
+    },
+    {
+      "term": "la piscine",
+      "meaning": "swimming pool",
+      "example": "Tu fais de la natation à la piscine.",
+      "example_meaning": "You swim at the pool."
+    },
+    {
+      "term": "la boulangerie",
+      "meaning": "bakery",
+      "example": "La boulangerie est en face du cinéma.",
+      "example_meaning": "The bakery is opposite the cinema."
+    },
+    {
+      "term": "le parc",
+      "meaning": "park",
+      "example": "Ils font du vélo dans le parc.",
+      "example_meaning": "They cycle in the park."
+    },
+    {
+      "term": "faire les courses",
+      "meaning": "to do the shopping",
+      "example": "Le samedi, nous faisons les courses.",
+      "example_meaning": "On Saturdays we do the shopping."
+    },
+    {
+      "term": "on y va",
+      "meaning": "let's go",
+      "example": "Tout le monde est prêt ? On y va !",
+      "example_meaning": "Is everyone ready? Let's go!"
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "aller",
+      "meaning": "to go",
+      "set": "present",
+      "art": [
+        "  ___________  ",
+        " |  ALLEZ  > | ",
+        " |___________| ",
+        "       |       ",
+        "       |       ",
+        "  _____|_____  "
+      ],
+      "forms": {
+        "je": "vais",
+        "tu": "vas",
+        "il": "va",
+        "nous": "allons",
+        "vous": "allez",
+        "ils": "vont"
+      }
+    },
+    {
+      "item": "faire",
+      "meaning": "to do, to make",
+      "set": "present",
+      "art": [
+        "     ( ) ( )    ",
+        "   __________   ",
+        "  |          |  ",
+        "  |  ~~~~~~  |==",
+        "   \\________/   "
+      ],
+      "forms": {
+        "je": "fais",
+        "tu": "fais",
+        "il": "fait",
+        "nous": "faisons",
+        "vous": "faites",
+        "ils": "font"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-aller-faire-town-01",
+      "prompt": "Nous ___ au cinéma ce soir.",
+      "type": "multiple-choice",
+      "options": [
+        "allons",
+        "allez",
+        "vont"
+      ],
+      "correct_answer": "allons",
+      "explanation": "The nous form of aller is allons: nous allons au cinéma.",
+      "hints": [
+        "Aller is regular-looking for nous and vous only."
+      ],
+      "teaches": [
+        "le cinéma"
+      ]
+    },
+    {
+      "question_id": "a1-aller-faire-town-02",
+      "prompt": "Je vais ___ marché. (to the)",
+      "type": "fill-in-blank",
+      "correct_answer": "au",
+      "accepted_answers": [],
+      "explanation": "Marché is masculine: à + le becomes au. Je vais au marché.",
+      "hints": [
+        "À + le never stays as two words."
+      ],
+      "teaches": [
+        "le marché"
+      ]
+    },
+    {
+      "question_id": "a1-aller-faire-town-03",
+      "prompt": "Elle va ___ piscine.",
+      "type": "multiple-choice",
+      "options": [
+        "à la",
+        "au",
+        "aux"
+      ],
+      "correct_answer": "à la",
+      "explanation": "Piscine is feminine, and à + la does not change: elle va à la piscine.",
+      "hints": [
+        "Only le and les merge with à."
+      ],
+      "teaches": [
+        "la piscine"
+      ]
+    },
+    {
+      "question_id": "a1-aller-faire-town-04",
+      "prompt": "Vous ___ les courses le samedi. (faire)",
+      "type": "fill-in-blank",
+      "correct_answer": "faites",
+      "accepted_answers": [
+        "vous faites"
+      ],
+      "explanation": "The vous form of faire is irregular: vous faites, never 'faisez'.",
+      "hints": [
+        "It does not end in -ez."
+      ],
+      "teaches": [
+        "faire les courses"
+      ]
+    },
+    {
+      "question_id": "a1-aller-faire-town-05",
+      "prompt": "Which sentence means 'They are going to eat at the restaurant'?",
+      "type": "multiple-choice",
+      "options": [
+        "Ils vont manger au restaurant.",
+        "Ils vont mangent au restaurant.",
+        "Ils allons manger au restaurant."
+      ],
+      "correct_answer": "Ils vont manger au restaurant.",
+      "explanation": "Futur proche: conjugated aller (ils vont) + infinitive (manger).",
+      "hints": [
+        "Only aller is conjugated.",
+        "Which form of aller goes with ils?"
+      ]
+    },
+    {
+      "question_id": "a1-aller-faire-town-06",
+      "prompt": "'Je fais du vélo' means 'I go cycling'.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Faire du / de la + an activity means doing it: faire du vélo = to go cycling.",
+      "hints": [
+        "Faire + du + a sport."
+      ]
+    },
+    {
+      "question_id": "a1-aller-faire-town-07",
+      "prompt": "La pharmacie est près ___ parc. (of the)",
+      "type": "fill-in-blank",
+      "correct_answer": "du",
+      "accepted_answers": [],
+      "explanation": "Près de + le parc: de + le becomes du. La pharmacie est près du parc.",
+      "hints": [
+        "De + le merges too."
+      ],
+      "teaches": [
+        "la pharmacie",
+        "le parc"
+      ]
+    },
+    {
+      "question_id": "a1-aller-faire-town-08",
+      "prompt": "Mes amis ___ du sport le week-end.",
+      "type": "multiple-choice",
+      "options": [
+        "font",
+        "faisent",
+        "fait"
+      ],
+      "correct_answer": "font",
+      "explanation": "The ils form of faire is font: ils font du sport.",
+      "hints": [
+        "Like vont for aller."
+      ]
+    },
+    {
+      "question_id": "a1-aller-faire-town-09",
+      "prompt": "'Je vais à les magasins' is correct French.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "À + les always becomes aux: je vais aux magasins.",
+      "hints": [
+        "À + les merges into one word."
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Tu vas à la banque ?",
+      "meaning": "Are you going to the bank?"
+    },
+    {
+      "text": "Nous faisons les courses au marché.",
+      "meaning": "We do the shopping at the market.",
+      "note": "Faisons is said fe-zon."
+    },
+    {
+      "text": "Elles vont à l'école à pied.",
+      "meaning": "They walk to school.",
+      "note": "New word: à pied = on foot."
+    },
+    {
+      "text": "La boulangerie est en face de la gare.",
+      "meaning": "The bakery is opposite the station.",
+      "note": "New word: en face de = opposite."
+    },
+    {
+      "text": "Il est huit heures, les enfants, on y va !",
+      "meaning": "It's eight o'clock, children, let's go!"
+    },
+    {
+      "text": "Je vais faire de la natation à la piscine.",
+      "meaning": "I'm going to swim at the pool.",
+      "note": "Futur proche: vais + infinitive."
+    },
+    {
+      "text": "Ce soir, nous allons voir un film au cinéma.",
+      "meaning": "Tonight we're going to see a film at the cinema.",
+      "note": "New word: voir = to see."
+    },
+    {
+      "text": "Mes parents vont au musée et ma sœur fait du vélo.",
+      "meaning": "My parents are going to the museum and my sister is cycling.",
+      "note": "À + le = au; faire du + activity."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Aller and faire"
+    },
+    {
+      "question": "a1-aller-faire-town-01"
+    },
+    {
+      "question": "a1-aller-faire-town-08"
+    },
+    {
+      "question": "a1-aller-faire-town-04"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "section": "Au, aux"
+    },
+    {
+      "question": "a1-aller-faire-town-02"
+    },
+    {
+      "question": "a1-aller-faire-town-03"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-aller-faire-town-09"
+    },
+    {
+      "question": "a1-aller-faire-town-07"
+    },
+    {
+      "tip": "Au and aux only appear with le and les. With la and l', nothing merges: à la gare, à l'école."
+    },
+    {
+      "question": "a1-aller-faire-town-06"
+    },
+    {
+      "section": "Going to do"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a1-aller-faire-town-05"
+    },
+    {
+      "concept": {
+        "title": "Aller à or aller chez?",
+        "markdown": "For a **place**, use **à**: **je vais à la boulangerie**. For a **person** or their home or shop, use **chez**:\n\n- **Je vais chez Paul.** (I'm going to Paul's.)\n- **Je vais chez le médecin.** (I'm going to the doctor's.)"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-aller-faire-town-conv-saturday",
+      "title": "Plans for Saturday",
+      "scenario": "Emma and Lucas, two friends in Lyon, make plans for the weekend.",
+      "role_a": "Emma",
+      "role_b": "Lucas",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Salut Lucas ! Qu'est-ce que tu fais samedi ?",
+          "meaning": "Hi Lucas! What are you doing on Saturday?",
+          "note": "tu fais: faire"
+        },
+        {
+          "speaker": "b",
+          "text": "Le matin, je fais les courses au marché. Et toi ?",
+          "meaning": "In the morning, I do the shopping at the market. And you?",
+          "note": "à + le marché = au marché"
+        },
+        {
+          "speaker": "a",
+          "text": "Moi, je vais à la piscine. Je fais de la natation le samedi.",
+          "meaning": "I'm going to the pool. I swim on Saturdays.",
+          "note": "faire de la + activity"
+        },
+        {
+          "speaker": "b",
+          "text": "Et l'après-midi, tu vas faire quoi ?",
+          "meaning": "And in the afternoon, what are you going to do?",
+          "note": "futur proche: aller + infinitive"
+        },
+        {
+          "speaker": "a",
+          "text": "Je ne sais pas encore. Tu as une idée ?",
+          "meaning": "I don't know yet. Do you have an idea?"
+        },
+        {
+          "speaker": "b",
+          "text": "Il y a un nouveau film au cinéma, sur la place.",
+          "meaning": "There's a new film at the cinema, on the square."
+        },
+        {
+          "speaker": "a",
+          "text": "Super ! Nous allons au cinéma ensemble, alors ?",
+          "meaning": "Great! We'll go to the cinema together, then?",
+          "note": "nous allons"
+        },
+        {
+          "speaker": "b",
+          "text": "D'accord. Et après, on va manger une pizza ?",
+          "meaning": "OK. And afterwards, shall we go and eat a pizza?"
+        },
+        {
+          "speaker": "a",
+          "text": "Bonne idée ! Rendez-vous à trois heures devant la banque.",
+          "meaning": "Good idea! Let's meet at three in front of the bank."
+        },
+        {
+          "speaker": "b",
+          "text": "Parfait. Samedi, trois heures, et on y va !",
+          "meaning": "Perfect. Saturday, three o'clock, and off we go!",
+          "note": "on y va = let's go"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🧭",
+    "bites": [
+      {
+        "title": "Aller: vais, vas, va",
+        "emoji": "🧭",
+        "rule": "Aller: je vais, tu vas, il va, nous allons, vous allez, ils vont. Only nous and vous look like the infinitive.",
+        "example": "Ils vont à la gare.",
+        "example_meaning": "They're going to the station."
+      },
+      {
+        "title": "Faire: fais, fait, font",
+        "emoji": "🛠️",
+        "rule": "Faire: je fais, tu fais, il fait, nous faisons, vous faites, ils font. Never 'faisez'.",
+        "example": "Vous faites les courses ?",
+        "example_meaning": "Are you doing the shopping?"
+      },
+      {
+        "title": "Au, aux, du, des",
+        "emoji": "🔗",
+        "rule": "À + le = au, à + les = aux, de + le = du, de + les = des. La and l' never merge.",
+        "example": "Je vais au parc, près de la gare.",
+        "example_meaning": "I'm going to the park, near the station."
+      },
+      {
+        "title": "Going to + verb",
+        "emoji": "⏩",
+        "rule": "Aller + infinitive = the near future, like 'going to': je vais manger. Only aller changes.",
+        "example": "Nous allons faire du vélo.",
+        "example_meaning": "We're going to go cycling."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Au, à la, à l' or aux?",
+        "buckets": [
+          "au",
+          "à la",
+          "à l'",
+          "aux"
+        ],
+        "items": [
+          {
+            "text": "marché",
+            "bucket": 0
+          },
+          {
+            "text": "piscine",
+            "bucket": 1
+          },
+          {
+            "text": "école",
+            "bucket": 2
+          },
+          {
+            "text": "magasins",
+            "bucket": 3
+          },
+          {
+            "text": "cinéma",
+            "bucket": 0
+          },
+          {
+            "text": "banque",
+            "bucket": 1
+          },
+          {
+            "text": "hôpital",
+            "bucket": 2
+          },
+          {
+            "text": "toilettes",
+            "bucket": 3
+          }
+        ],
+        "why": "Masculine: au; feminine: à la; before a vowel or silent h: à l'; plural: aux."
+      },
+      {
+        "title": "Aller or faire?",
+        "buckets": [
+          "aller",
+          "faire"
+        ],
+        "items": [
+          {
+            "text": "nous allons",
+            "bucket": 0
+          },
+          {
+            "text": "ils font",
+            "bucket": 1
+          },
+          {
+            "text": "tu vas",
+            "bucket": 0
+          },
+          {
+            "text": "vous faites",
+            "bucket": 1
+          },
+          {
+            "text": "ils vont",
+            "bucket": 0
+          },
+          {
+            "text": "il fait",
+            "bucket": 1
+          }
+        ],
+        "why": "Vais, vas, va, allons, allez, vont are aller; fais, fait, faisons, faites, font are faire."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Je vais au piscine.",
+        "wrong": "au",
+        "fix": "à la",
+        "why": "Piscine is feminine: à la piscine. Au is only for masculine nouns (à + le)."
+      },
+      {
+        "sentence": "Vous faisez les courses ?",
+        "wrong": "faisez",
+        "fix": "faites",
+        "why": "The vous form of faire is faites."
+      },
+      {
+        "sentence": "Ils allent au parc.",
+        "wrong": "allent",
+        "fix": "vont",
+        "why": "The ils form of aller is vont."
+      },
+      {
+        "sentence": "Nous allons mangeons au restaurant.",
+        "wrong": "mangeons",
+        "fix": "manger",
+        "why": "In the futur proche, the second verb stays in the infinitive."
+      },
+      {
+        "sentence": "La poste est près du gare.",
+        "wrong": "du",
+        "fix": "de la",
+        "why": "Gare is feminine: près de la gare. Du is only de + le."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Nous allons au cinéma ce soir.",
+        "meaning": "We're going to the cinema tonight.",
+        "distractors": [
+          "aux"
+        ]
+      },
+      {
+        "text": "Je fais les courses au marché.",
+        "meaning": "I do the shopping at the market.",
+        "distractors": [
+          "fait"
+        ]
+      },
+      {
+        "text": "Elle va faire du vélo.",
+        "meaning": "She's going to go cycling.",
+        "distractors": [
+          "fait"
+        ]
+      },
+      {
+        "text": "La pharmacie est près du parc.",
+        "meaning": "The pharmacy is near the park.",
+        "distractors": [
+          "au"
+        ]
+      }
+    ]
+  }
+}

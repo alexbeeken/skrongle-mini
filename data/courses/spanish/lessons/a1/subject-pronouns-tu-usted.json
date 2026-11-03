@@ -1,0 +1,593 @@
+{
+  "id": "a1-subject-pronouns",
+  "slug": "subject-pronouns-tu-usted",
+  "title": "Subject pronouns: yo, tú, usted…",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 5,
+  "summary": "The words for I, you, he, she, we and they, and when to use tú or usted.",
+  "focus": "Subject pronouns; tú vs usted; tú/tu and él/el",
+  "content": "## The six persons\n\nEvery Spanish verb form belongs to one of six grammatical persons. These are the subject pronouns:\n\n| person | pronoun | English |\n|---|---|---|\n| 1st singular | **yo** | I |\n| 2nd singular | **tú** | you (one person, informal) |\n| 3rd singular | **él / ella / usted** | he / she / you (one person, formal) |\n| 1st plural | **nosotros / nosotras** | we |\n| 2nd plural | **vosotros / vosotras** | you (several people, informal, Spain) |\n| 3rd plural | **ellos / ellas / ustedes** | they / you (several people) |\n\nThe **-as** forms (*nosotras, vosotras, ellas*) are used for groups made up only of women. A mixed group is *nosotros*, *vosotros*, *ellos*.\n\n## Tú or usted?\n\nBoth mean *you* for one person. **Tú** is informal: friends, family, children, classmates, people your age. **Usted** is formal and respectful: strangers, older people, officials, customers, your boss on the first day.\n\n*Usted* takes the **same verb form as él/ella**:\n\n- *¿Tú eres de aquí?*: Are you from here? (informal)\n- *¿Usted es de aquí?*: Are you from here? (formal)\n\nIn Latin America **ustedes** is the only plural *you*, formal or not. In Spain, *vosotros* is the informal plural and *ustedes* the formal one.\n\n## Spanish usually drops the pronoun\n\nBecause the verb ending already shows the person, pronouns are mostly left out: *Soy médica* rather than *Yo soy médica*. Keep them for **emphasis** or **contrast** (*Yo soy de Madrid, ella es de Lima*) and with *usted*, where it makes the formality clear.\n\n## Watch the accents\n\nTwo pairs of words differ only by an accent.\n\n- **tú** (you) vs **tu** (your): *Tú tienes tu libro.*: You have your book.\n- **él** (he) vs **el** (the): *Él es el profesor.*: He is the teacher.\n\nThe pronouns are the ones with the accent.",
+  "vocabulary": [
+    {
+      "term": "yo",
+      "meaning": "I",
+      "example": "Yo soy Ana.",
+      "example_meaning": "I am Ana."
+    },
+    {
+      "term": "tú",
+      "meaning": "you (informal, singular)",
+      "example": "¿Tú eres estudiante?",
+      "example_meaning": "Are you a student?"
+    },
+    {
+      "term": "usted",
+      "meaning": "you (formal, singular)",
+      "example": "¿Usted es el director?",
+      "example_meaning": "Are you the director?"
+    },
+    {
+      "term": "él",
+      "meaning": "he",
+      "example": "Él es mi hermano.",
+      "example_meaning": "He is my brother."
+    },
+    {
+      "term": "ella",
+      "meaning": "she",
+      "example": "Ella es profesora.",
+      "example_meaning": "She is a teacher."
+    },
+    {
+      "term": "nosotros / nosotras",
+      "meaning": "we",
+      "example": "Nosotros somos de Chile.",
+      "example_meaning": "We are from Chile."
+    },
+    {
+      "term": "vosotros / vosotras",
+      "meaning": "you all (informal, Spain)",
+      "example": "¿Vosotros sois amigos?",
+      "example_meaning": "Are you all friends?"
+    },
+    {
+      "term": "ellos / ellas",
+      "meaning": "they",
+      "example": "Ellos son mis padres.",
+      "example_meaning": "They are my parents."
+    },
+    {
+      "term": "ustedes",
+      "meaning": "you all (formal, or any plural you in Latin America)",
+      "example": "¿Ustedes son turistas?",
+      "example_meaning": "Are you all tourists?"
+    },
+    {
+      "term": "tu",
+      "meaning": "your (informal)",
+      "example": "Tu libro está aquí.",
+      "example_meaning": "Your book is here."
+    },
+    {
+      "term": "el / la",
+      "meaning": "the",
+      "example": "El profesor y la profesora.",
+      "example_meaning": "The teacher and the (female) teacher."
+    },
+    {
+      "term": "señor / señora",
+      "meaning": "Mr / sir · Mrs / madam",
+      "example": "Buenos días, señora.",
+      "example_meaning": "Good morning, madam."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-pron-01",
+      "prompt": "You are talking to your friend's grandmother for the first time. Which 'you' do you use?",
+      "type": "multiple-choice",
+      "options": [
+        "usted",
+        "tú",
+        "vosotros"
+      ],
+      "correct_answer": "usted",
+      "explanation": "A stranger who is older than you gets the respectful form, usted.",
+      "hints": [
+        "Formal = respectful."
+      ],
+      "teaches": [
+        "usted"
+      ]
+    },
+    {
+      "question_id": "a1-pron-02",
+      "prompt": "Which pronoun replaces 'Marta y Lucía'?",
+      "type": "multiple-choice",
+      "options": [
+        "ellas",
+        "ellos",
+        "nosotras"
+      ],
+      "correct_answer": "ellas",
+      "explanation": "A group of only women is ellas.",
+      "hints": [
+        "All women → -as."
+      ],
+      "teaches": [
+        "ellos / ellas"
+      ]
+    },
+    {
+      "question_id": "a1-pron-03",
+      "prompt": "Complete with the pronoun for 'we' (a mixed group): ___ somos estudiantes.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "nosotros",
+      "accepted_answers": [
+        "Nosotros"
+      ],
+      "explanation": "A mixed or all-male group is nosotros.",
+      "hints": [
+        "Mixed group → -os."
+      ],
+      "teaches": [
+        "nosotros / nosotras"
+      ]
+    },
+    {
+      "question_id": "a1-pron-04",
+      "prompt": "¿___ eres de México? (asking a classmate)",
+      "type": "multiple-choice",
+      "options": [
+        "Tú",
+        "Usted",
+        "Tu"
+      ],
+      "correct_answer": "Tú",
+      "explanation": "A classmate is informal, and the pronoun 'you' carries an accent: tú.",
+      "hints": [
+        "Pronoun = accent."
+      ],
+      "teaches": [
+        "tú"
+      ]
+    },
+    {
+      "question_id": "a1-pron-05",
+      "prompt": "Usted takes the same verb form as…",
+      "type": "multiple-choice",
+      "options": [
+        "él / ella",
+        "tú",
+        "nosotros"
+      ],
+      "correct_answer": "él / ella",
+      "explanation": "Usted is grammatically third person: usted es, usted habla.",
+      "hints": [
+        "Think of usted as 'your honour'."
+      ],
+      "teaches": [
+        "usted"
+      ]
+    },
+    {
+      "question_id": "a1-pron-06",
+      "prompt": "Complete: ___ es el profesor. (He is the teacher.)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "Él",
+      "accepted_answers": [
+        "él"
+      ],
+      "explanation": "'He' is él with an accent; 'el' without accent means 'the'.",
+      "hints": [
+        "Accent on the pronoun."
+      ],
+      "teaches": [
+        "él",
+        "el / la"
+      ]
+    },
+    {
+      "question_id": "a1-pron-07",
+      "prompt": "In Mexico, how do you say 'you' to a group of friends?",
+      "type": "multiple-choice",
+      "options": [
+        "ustedes",
+        "vosotros",
+        "ellos"
+      ],
+      "correct_answer": "ustedes",
+      "explanation": "In Latin America ustedes is used for every plural 'you'; vosotros is mainly Spain.",
+      "hints": [
+        "Latin America has one plural you."
+      ],
+      "teaches": [
+        "ustedes"
+      ]
+    },
+    {
+      "question_id": "a1-pron-08",
+      "prompt": "Which sentence has the accents right?",
+      "type": "multiple-choice",
+      "options": [
+        "Tú tienes tu libro.",
+        "Tu tienes tú libro.",
+        "Tú tienes tú libro."
+      ],
+      "correct_answer": "Tú tienes tu libro.",
+      "explanation": "Tú (you) has the accent, tu (your) does not.",
+      "hints": [
+        "you = tú, your = tu"
+      ],
+      "teaches": [
+        "tú",
+        "tu"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Yo soy de Madrid.",
+      "meaning": "I am from Madrid."
+    },
+    {
+      "text": "¿Vosotros sois de Sevilla?",
+      "meaning": "Are you all from Seville?"
+    },
+    {
+      "text": "¿Tú eres la hermana de Ana?",
+      "meaning": "Are you Ana's sister?"
+    },
+    {
+      "text": "¿Usted es el profesor de español, señor?",
+      "meaning": "Are you the Spanish teacher, sir?",
+      "note": "Usted takes the él/ella verb form."
+    },
+    {
+      "text": "Él tiene tu libro en su mochila.",
+      "meaning": "He has your book in his backpack.",
+      "note": "Él (he) has an accent; tu (your) does not."
+    },
+    {
+      "text": "Nosotras somos amigas de Marta y de Ana.",
+      "meaning": "We are friends of Marta and Ana.",
+      "note": "Nosotras: a group made up only of women."
+    },
+    {
+      "text": "Ellos son mis abuelos y ella es mi tía.",
+      "meaning": "They are my grandparents and she is my aunt.",
+      "note": "New word: la tía = the aunt."
+    },
+    {
+      "text": "Tú trabajas en el banco y él trabaja en la oficina.",
+      "meaning": "You work at the bank and he works at the office.",
+      "note": "New word: la oficina = the office."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The six persons"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-pron-02"
+    },
+    {
+      "question": "a1-pron-03"
+    },
+    {
+      "section": "Tú or usted"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a1-pron-01"
+    },
+    {
+      "question": "a1-pron-05"
+    },
+    {
+      "question": "a1-pron-07"
+    },
+    {
+      "section": "Spanish usually drops"
+    },
+    {
+      "section": "Watch the accents"
+    },
+    {
+      "vocab": 3
+    },
+    {
+      "question": "a1-pron-04"
+    },
+    {
+      "question": "a1-pron-06"
+    },
+    {
+      "question": "a1-pron-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-pron-conv-office",
+      "title": "Formal and informal",
+      "scenario": "Sara meets her new manager, Señor Ruiz, and then her new colleague Diego.",
+      "role_a": "Sara",
+      "role_b": "Señor Ruiz / Diego",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Buenos días. ¿Usted es el señor Ruiz?",
+          "meaning": "Good morning. Are you Mr Ruiz?",
+          "note": "usted: formal"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, soy yo. ¿Y usted es Sara?",
+          "meaning": "Yes, that's me. And you are Sara?"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, señor. Encantada.",
+          "meaning": "Yes, sir. Pleased to meet you."
+        },
+        {
+          "speaker": "b",
+          "text": "Igualmente. Él es Diego, su compañero.",
+          "meaning": "Likewise. He is Diego, your colleague.",
+          "note": "él: he"
+        },
+        {
+          "speaker": "a",
+          "text": "Hola, Diego. ¿Tú eres de aquí?",
+          "meaning": "Hi, Diego. Are you from here?",
+          "note": "tú: a colleague, informal"
+        },
+        {
+          "speaker": "b",
+          "text": "No, yo soy de Santander. ¿Y tú?",
+          "meaning": "No, I'm from Santander. And you?"
+        },
+        {
+          "speaker": "a",
+          "text": "Yo soy de Bilbao. Nosotros somos del norte.",
+          "meaning": "I'm from Bilbao. We're from the north."
+        },
+        {
+          "speaker": "b",
+          "text": "¡Qué bien! Ellos también son del norte.",
+          "meaning": "Great! They're from the north too."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🫵",
+    "bites": [
+      {
+        "title": "Usted acts like él/ella",
+        "emoji": "🎩",
+        "rule": "Usted means you, but grammatically it is third person, so it takes the él/ella verb form. Think 'Your Honour is…'.",
+        "example": "¿Usted es de aquí?",
+        "example_meaning": "Are you from here? (formal)"
+      },
+      {
+        "title": "The pronoun takes the accent",
+        "emoji": "🧢",
+        "rule": "Tú (you) and él (he) carry an accent; tu (your) and el (the) don't. The pronoun gets the accent.",
+        "example": "Tú tienes tu libro.",
+        "example_meaning": "You have your book."
+      },
+      {
+        "title": "One man makes it -os",
+        "emoji": "👫",
+        "rule": "Nosotras, vosotras and ellas are only for all-women groups. Add a single man and it becomes nosotros, vosotros, ellos.",
+        "example": "Marta y Lucía → ellas. Marta y Pablo → ellos.",
+        "example_meaning": "Marta and Lucía → they (f). Marta and Pablo → they."
+      },
+      {
+        "title": "Drop it unless it matters",
+        "emoji": "✂️",
+        "rule": "The verb ending already says who, so Spanish usually skips yo, tú, él. Keep them for contrast or emphasis.",
+        "example": "Soy médica. Yo soy de Madrid, ella es de Lima.",
+        "example_meaning": "I'm a doctor. I'm from Madrid, she's from Lima."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Tú or usted?",
+        "buckets": [
+          "tú",
+          "usted"
+        ],
+        "items": [
+          {
+            "text": "your best friend",
+            "bucket": 0
+          },
+          {
+            "text": "your boss on day one",
+            "bucket": 1
+          },
+          {
+            "text": "a child",
+            "bucket": 0
+          },
+          {
+            "text": "a police officer",
+            "bucket": 1
+          },
+          {
+            "text": "a classmate",
+            "bucket": 0
+          },
+          {
+            "text": "your friend's grandmother",
+            "bucket": 1
+          },
+          {
+            "text": "your brother",
+            "bucket": 0
+          },
+          {
+            "text": "a customer in your shop",
+            "bucket": 1
+          }
+        ],
+        "why": "Tú is for friends, family, kids and peers; usted shows respect to strangers, elders and officials."
+      },
+      {
+        "title": "Which pronoun replaces them?",
+        "buckets": [
+          "ellos",
+          "ellas",
+          "nosotros",
+          "nosotras"
+        ],
+        "items": [
+          {
+            "text": "Marta y Lucía",
+            "bucket": 1
+          },
+          {
+            "text": "Pedro y Ana",
+            "bucket": 0
+          },
+          {
+            "text": "Juan y Diego",
+            "bucket": 0
+          },
+          {
+            "text": "las chicas",
+            "bucket": 1
+          },
+          {
+            "text": "Pablo y yo",
+            "bucket": 2
+          },
+          {
+            "text": "Ana y yo (both women)",
+            "bucket": 3
+          },
+          {
+            "text": "Diego, Sara y yo",
+            "bucket": 2
+          }
+        ],
+        "why": "The -as forms are only for groups of women; any mixed group takes -os."
+      },
+      {
+        "title": "Accent or no accent?",
+        "buckets": [
+          "tú / él (you, he)",
+          "tu / el (your, the)"
+        ],
+        "items": [
+          {
+            "text": "¿___ eres estudiante? (you)",
+            "bucket": 0
+          },
+          {
+            "text": "___ libro está aquí. (your)",
+            "bucket": 1
+          },
+          {
+            "text": "___ es mi hermano. (he)",
+            "bucket": 0
+          },
+          {
+            "text": "___ coche es rojo. (the)",
+            "bucket": 1
+          },
+          {
+            "text": "___ eres de México. (you)",
+            "bucket": 0
+          }
+        ],
+        "why": "Pronouns carry the accent: tú = you, él = he; tu = your, el = the."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Tu eres mi amigo.",
+        "wrong": "Tu",
+        "fix": "Tú",
+        "why": "'You' as a pronoun needs the accent: tú."
+      },
+      {
+        "sentence": "El es mi hermano.",
+        "wrong": "El",
+        "fix": "Él",
+        "why": "'He' is él with an accent; el without one means 'the'."
+      },
+      {
+        "sentence": "¿Su madre eres de aquí, señora?",
+        "wrong": "eres",
+        "fix": "es",
+        "why": "Su madre is a third person, like usted: es."
+      },
+      {
+        "sentence": "Marta y Lucía son amigas. Ellos son de Lima.",
+        "wrong": "Ellos",
+        "fix": "Ellas",
+        "why": "Two women are ellas."
+      },
+      {
+        "sentence": "Ana tiene tú libro.",
+        "wrong": "tú",
+        "fix": "tu",
+        "why": "'Your' is tu without an accent."
+      },
+      {
+        "sentence": "Pablo y yo somos amigos. Nosotras somos de Chile.",
+        "wrong": "Nosotras",
+        "fix": "Nosotros",
+        "why": "Pablo makes it a mixed group, so it's nosotros."
+      }
+    ],
+    "builds": [
+      {
+        "text": "¿Usted es de aquí?",
+        "meaning": "Are you from here? (formal)",
+        "distractors": [
+          "eres"
+        ]
+      },
+      {
+        "text": "Él es mi hermano.",
+        "meaning": "He is my brother.",
+        "distractors": [
+          "El"
+        ]
+      },
+      {
+        "text": "Nosotros somos de Chile.",
+        "meaning": "We are from Chile.",
+        "distractors": [
+          "son"
+        ]
+      },
+      {
+        "text": "Tú tienes tu libro.",
+        "meaning": "You have your book.",
+        "distractors": [
+          "tiene"
+        ]
+      },
+      {
+        "text": "Ellas son profesoras.",
+        "meaning": "They (women) are teachers.",
+        "distractors": [
+          "Ellos"
+        ]
+      }
+    ]
+  }
+}

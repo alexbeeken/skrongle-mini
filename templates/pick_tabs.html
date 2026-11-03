@@ -1,0 +1,10 @@
+{#- A row of tabs, one per unit or set (#837): the caller sets `tabs`,
+    `tabs_label` and `tabs_id` with `let`. Each tab is a link, so it works
+    without script; its bar fills with the passed (or unlocked) share. -#}
+<nav class="pick-tabs" aria-label="{{ tabs_label }}" data-testid="{{ tabs_id }}">
+  {% for t in tabs %}<a class="pick-tab" href="{{ t.href }}"{% if t.current %} aria-current="page"{% endif %} data-testid="{{ tabs_id }}-tab" data-key="{{ t.key }}" data-current="{{ t.current }}" title="{{ t.hint }}" style="--pct: {{ t.pct() }}%">
+    <span class="pick-tab-title">{{ t.title }}</span>
+    <span class="pick-tab-count">{{ t.done }}/{{ t.total }}</span>
+    <span class="pick-tab-bar" aria-hidden="true"></span>
+  </a>{% endfor %}
+</nav>

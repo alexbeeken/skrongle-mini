@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ code }}{% endblock %}
+{% block content %}
+<section class="error-page" data-testid="error-page" data-status="{{ code }}">
+  <h1>{{ code }}</h1>
+  <p data-testid="error-message">{{ msg }}</p>
+  <ul class="error-links">
+    <li><a class="btn" href="{{ crate::url("/") }}" data-testid="error-home">{{ crate::t("error.home") }}</a></li>
+    {% if let Some(u) = user %}
+    {% if u.course_title.is_some() %}<li><a class="btn ghost" href="{{ crate::url("/lessons") }}" data-testid="error-lessons">{{ crate::t("error.lessons") }}</a></li>{% endif %}
+    <li><a class="btn ghost" href="{{ crate::url("/courses") }}" data-testid="error-courses">{{ crate::t("error.courses") }}</a></li>
+    {% endif %}
+  </ul>
+</section>
+{% endblock %}

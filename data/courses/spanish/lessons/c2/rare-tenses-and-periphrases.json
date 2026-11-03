@@ -1,0 +1,603 @@
+{
+  "id": "c2-rare-tenses-and-periphrases",
+  "slug": "rare-tenses-and-periphrases",
+  "title": "Rare tenses and literary periphrases",
+  "unit": "C2",
+  "group": "Grammar",
+  "order": 14,
+  "summary": "Recognise the tenses and verb phrases of literary and press Spanish: hubo terminado, la que fuera ministra, habría confesado, habrá llegado, and periphrases such as romper a llorar or llevo leídas cien páginas.",
+  "focus": "The pretérito anterior, -ra as a pluperfect, the conditional of rumour, the future perfect of conjecture and literary periphrases",
+  "prerequisites": [
+    "c1-conjecture",
+    "c1-verbal-periphrases",
+    "b2-pluperfect"
+  ],
+  "content": "## The pretérito anterior: hubo terminado\n\nThe **pretérito anterior** is **hube, hubiste, hubo, hubimos, hubisteis, hubieron** + participle. It marks an action completed *immediately* before another past action, and it appears almost only after time conjunctions: **apenas, en cuanto, tan pronto como, una vez que, no bien, luego que**.\n\n- **Apenas hubo terminado el discurso, abandonó la sala.** (No sooner had he finished the speech than he left the room.)\n- **Una vez que hubo salido el tren, la estación quedó en silencio.** (Once the train had left, the station fell silent.)\n\nToday it is literary or deliberately solemn. Speech and most writing use the preterite (**apenas terminó**), the pluperfect (**cuando había terminado**) or a participle clause (**terminado el discurso**).\n\n## -ra as a pluperfect: el que fuera ministro\n\nThe **-ra** form began life as a pluperfect indicative (Latin *amaveram* gave **amara**), and the press and literary prose keep that use, mostly in relative clauses: **fuera** = **había sido**.\n\n- **Elena Prado, la que fuera alcaldesa de la ciudad, publica sus memorias.** (Elena Prado, the former mayor of the city, is publishing her memoirs.)\n- **El edificio que albergara la vieja fábrica es hoy un museo.** (The building that had housed the old factory is now a museum.)\n\nIt sounds elevated, so style guides ask for restraint. **había sido** or **la exalcaldesa** is always correct. Do not confuse it with the subjunctive **-ra** of **si fuera alcaldesa…** (if she were mayor…).\n\n## Rumour and conjecture: habría confesado, habrá llegado\n\nNews Spanish often uses the conditional for unconfirmed reports, the **condicional de rumor**:\n\n- **Según fuentes policiales, el detenido habría confesado el robo.** (According to police sources, the detainee has reportedly confessed to the robbery.)\n\nThe RAE's *Diccionario panhispánico de dudas* advises against it, and many newsroom style books ban it. People often call it a Gallicism, and it hides who vouches for the fact. Attribute instead: **según la policía, el detenido ha confesado**.\n\nThe **future perfect** makes a guess, from the present, about something already done:\n\n- **No contesta; habrá llegado ya al teatro.** (He isn't answering; he must have reached the theatre by now.)\n- **¿Quién habrá dejado esto aquí?** (Who can have left this here?)\n\n## Periphrases of onset and approximation\n\n| Periphrasis | Shade | Example |\n|---|---|---|\n| **venir a** + inf. | roughly, amounts to | **La obra viene a costar un millón.** (The work comes to about a million.) |\n| **dar en** + inf. | to take to (an odd or stubborn habit) | **Dio en pensar que el reloj lo vigilaba.** (He took to thinking the clock was watching him.) |\n| **romper a** + inf. | to burst out | **El bebé rompió a llorar.** / **Rompió a llover.** |\n| **echarse a** + inf. | to start suddenly | **Se echó a reír.** (She burst out laughing.) |\n| **no alcanzar a** + inf. | not to manage to, can't quite | **No alcanzo a entender su decisión.** (I can't quite understand her decision.) |\n\n**Romper a** and **echarse a** take only a few verbs: llorar, reír, correr, andar, temblar, and **romper a llover**.\n\n## Periphrases of progress and result\n\n- **ir + gerundio**: gradual progress, step by step. **La plaza se iba llenando de gente.** (The square was gradually filling with people.)\n- **llevar + participio**: the amount done so far. **Llevo corregidas cuarenta páginas.** (I've corrected forty pages so far.)\n- **tener + participio**: a result in hand, or insistence. **Tengo escritas tres cartas.** (I've got three letters written.) **Te tengo dicho que no toques eso.** (I've told you time and again not to touch that.) Also **tengo entendido que…** (I understand that…, from hearsay).\n\nUnlike **haber**, these participles agree with the object: **he escrito tres cartas**, but **tengo escritas tres cartas**.",
+  "vocabulary": [
+    {
+      "term": "apenas",
+      "meaning": "no sooner, as soon as (before a past action); also: hardly",
+      "example": "Apenas hubo cerrado la carta, llamaron a la puerta.",
+      "example_meaning": "No sooner had she sealed the letter than someone knocked at the door."
+    },
+    {
+      "term": "una vez que",
+      "meaning": "once (after a completed action)",
+      "example": "Una vez que hubimos firmado, el notario guardó los papeles.",
+      "example_meaning": "Once we had signed, the notary put the papers away."
+    },
+    {
+      "term": "hubo salido",
+      "meaning": "had gone out, had left (pretérito anterior, literary)",
+      "example": "Cuando el último actor hubo salido, cayó el telón.",
+      "example_meaning": "When the last actor had gone off, the curtain fell."
+    },
+    {
+      "term": "el que fuera / la que fuera",
+      "meaning": "the former…, who had been (-ra as a pluperfect)",
+      "example": "Visitamos la casa del que fuera director del museo.",
+      "example_meaning": "We visited the house of the former director of the museum."
+    },
+    {
+      "term": "habría confesado",
+      "meaning": "has reportedly confessed (conditional of rumour)",
+      "example": "Según un diario, el acusado habría confesado ante el juez.",
+      "example_meaning": "According to one newspaper, the accused has reportedly confessed before the judge."
+    },
+    {
+      "term": "habrá llegado",
+      "meaning": "has probably arrived, must have arrived (future perfect of conjecture)",
+      "example": "Son las diez: el paquete habrá llegado a la oficina.",
+      "example_meaning": "It's ten o'clock: the parcel must have reached the office."
+    },
+    {
+      "term": "venir a + infinitivo",
+      "meaning": "to come to, to amount roughly to",
+      "example": "Su respuesta viene a ser un no.",
+      "example_meaning": "Her answer amounts to a no."
+    },
+    {
+      "term": "dar en + infinitivo",
+      "meaning": "to take to (doing something odd or stubborn)",
+      "example": "Mi vecino ha dado en tocar la trompeta a medianoche.",
+      "example_meaning": "My neighbour has taken to playing the trumpet at midnight."
+    },
+    {
+      "term": "romper a + infinitivo",
+      "meaning": "to burst out (crying, laughing, raining)",
+      "example": "Al salir del cine rompió a llover.",
+      "example_meaning": "As we came out of the cinema it began to pour."
+    },
+    {
+      "term": "echarse a + infinitivo",
+      "meaning": "to start suddenly (laughing, crying, running)",
+      "example": "Los niños se echaron a correr hacia la playa.",
+      "example_meaning": "The children broke into a run towards the beach."
+    },
+    {
+      "term": "no alcanzar a + infinitivo",
+      "meaning": "not to manage to, can't quite",
+      "example": "No alcanzo a ver la diferencia entre las dos versiones.",
+      "example_meaning": "I can't quite see the difference between the two versions."
+    },
+    {
+      "term": "ir + gerundio",
+      "meaning": "to be gradually (doing)",
+      "example": "Con los años fue aprendiendo a callar.",
+      "example_meaning": "Over the years he gradually learnt to hold his tongue."
+    },
+    {
+      "term": "llevar + participio",
+      "meaning": "to have (so far) done; the participle agrees",
+      "example": "Llevamos vendidas doscientas entradas.",
+      "example_meaning": "We've sold two hundred tickets so far."
+    },
+    {
+      "term": "tener + participio",
+      "meaning": "to have (something) done; also insistence",
+      "example": "Te tengo dicho que no dejes la puerta abierta.",
+      "example_meaning": "I've told you over and over not to leave the door open."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c2-rare-tenses-and-periphrases-01",
+      "prompt": "Apenas ___ terminado la sesión, el juez se levantó.",
+      "type": "multiple-choice",
+      "options": [
+        "hubo",
+        "ha",
+        "habrá"
+      ],
+      "correct_answer": "hubo",
+      "explanation": "Apenas takes the pretérito anterior (hubo + participle), an action completed just before another past action (se levantó).",
+      "hints": [
+        "The main verb is a preterite; you need the past of haber that pairs with it."
+      ],
+      "teaches": [
+        "apenas"
+      ]
+    },
+    {
+      "question_id": "c2-rare-tenses-and-periphrases-02",
+      "prompt": "Una vez que los invitados ___ salido, cerraron las puertas. (pretérito anterior of haber)",
+      "type": "fill-in-blank",
+      "correct_answer": "hubieron",
+      "explanation": "Third person plural of the pretérito anterior: hubieron salido. Everyday Spanish would say habían salido or simply salieron.",
+      "hints": [
+        "hube, hubiste, hubo, hubimos, hubisteis, …"
+      ],
+      "teaches": [
+        "una vez que",
+        "hubo salido"
+      ]
+    },
+    {
+      "question_id": "c2-rare-tenses-and-periphrases-03",
+      "prompt": "Which is the everyday way to say: Apenas hubo llegado, pidió un café?",
+      "type": "multiple-choice",
+      "options": [
+        "Apenas llegó, pidió un café.",
+        "Apenas ha llegado, pidió un café.",
+        "Apenas llegará, pidió un café."
+      ],
+      "correct_answer": "Apenas llegó, pidió un café.",
+      "explanation": "The simple preterite has replaced the pretérito anterior in speech and most prose: apenas llegó.",
+      "hints": [
+        "The modern replacement keeps the narrative in the preterite."
+      ],
+      "teaches": [
+        "apenas"
+      ]
+    },
+    {
+      "question_id": "c2-rare-tenses-and-periphrases-04",
+      "prompt": "Ana Ruiz, la que fuera ministra de Cultura, presenta hoy su libro. Here fuera means…",
+      "type": "multiple-choice",
+      "options": [
+        "had been (she is the former minister)",
+        "were (if she were minister)",
+        "will be (she is about to become minister)"
+      ],
+      "correct_answer": "had been (she is the former minister)",
+      "explanation": "In journalistic and literary prose, -ra in a relative clause can be a pluperfect indicative: la que fuera ministra = la que había sido ministra.",
+      "hints": [
+        "There is no condition and no wish here. It is a fact about her past."
+      ],
+      "teaches": [
+        "el que fuera / la que fuera"
+      ]
+    },
+    {
+      "question_id": "c2-rare-tenses-and-periphrases-05",
+      "prompt": "True or false: the RAE's Diccionario panhispánico de dudas recommends the conditional of rumour (El detenido habría confesado) for news writing.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "It advises against it, as do many newsroom style books. State the source instead (según la policía, el detenido ha confesado).",
+      "hints": [
+        "Think about who vouches for an unconfirmed report."
+      ],
+      "teaches": [
+        "habría confesado"
+      ]
+    },
+    {
+      "question_id": "c2-rare-tenses-and-periphrases-06",
+      "prompt": "No contesta al teléfono; ya ___ salido de casa. (a guess: he has probably left)",
+      "type": "fill-in-blank",
+      "correct_answer": "habrá",
+      "explanation": "The future perfect expresses a conjecture about something already done: habrá salido = he has probably left.",
+      "hints": [
+        "Future of haber + participle."
+      ],
+      "teaches": [
+        "habrá llegado"
+      ]
+    },
+    {
+      "question_id": "c2-rare-tenses-and-periphrases-07",
+      "prompt": "El informe viene a decir que no hay dinero. Viene a decir means…",
+      "type": "multiple-choice",
+      "options": [
+        "more or less says, amounts to saying",
+        "is coming in order to say",
+        "has just said"
+      ],
+      "correct_answer": "more or less says, amounts to saying",
+      "explanation": "Venir a + infinitive marks approximation: the report's message comes down to that.",
+      "hints": [
+        "It does not describe movement, and it does not mean acabar de."
+      ],
+      "teaches": [
+        "venir a + infinitivo"
+      ]
+    },
+    {
+      "question_id": "c2-rare-tenses-and-periphrases-08",
+      "prompt": "Al leer la carta, la abuela rompió ___ llorar.",
+      "type": "fill-in-blank",
+      "correct_answer": "a",
+      "explanation": "Romper a + infinitive marks a sudden, unstoppable start (rompió a llorar = she burst into tears).",
+      "hints": [
+        "The same preposition as in echarse ___ reír."
+      ],
+      "teaches": [
+        "romper a + infinitivo"
+      ]
+    },
+    {
+      "question_id": "c2-rare-tenses-and-periphrases-09",
+      "prompt": "En su vejez, el pintor dio en creer que sus cuadros hablaban. Dio en creer means…",
+      "type": "multiple-choice",
+      "options": [
+        "took to believing",
+        "gave up believing",
+        "refused to believe"
+      ],
+      "correct_answer": "took to believing",
+      "explanation": "Dar en + infinitive means to take to doing something, usually odd or obstinate.",
+      "hints": [
+        "It describes a new habit of mind, often a strange one."
+      ],
+      "teaches": [
+        "dar en + infinitivo"
+      ]
+    },
+    {
+      "question_id": "c2-rare-tenses-and-periphrases-10",
+      "prompt": "Llevo ___ ochenta páginas de la novela. (leer, agreeing with páginas)",
+      "type": "fill-in-blank",
+      "correct_answer": "leídas",
+      "explanation": "With llevar + participle, the participle agrees with the object: llevo leídas ochenta páginas.",
+      "hints": [
+        "Feminine plural, like páginas."
+      ],
+      "teaches": [
+        "llevar + participio"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Rompió a llover de repente.",
+      "meaning": "It suddenly began to pour.",
+      "note": "Romper a + infinitive: a sudden start."
+    },
+    {
+      "text": "Ya habrá llegado a casa.",
+      "meaning": "She must have got home by now.",
+      "note": "Future perfect: a guess about something already done."
+    },
+    {
+      "text": "Los actores se echaron a reír en el ensayo.",
+      "meaning": "The actors burst out laughing at the rehearsal.",
+      "note": "New word: el ensayo = the rehearsal."
+    },
+    {
+      "text": "No alcanzo a leer la letra del médico.",
+      "meaning": "I can't quite read the doctor's handwriting.",
+      "note": "New word: la letra = the handwriting."
+    },
+    {
+      "text": "Llevo escritas veinte cartas desde el lunes.",
+      "meaning": "I've written twenty letters since Monday.",
+      "note": "The participle agrees with cartas."
+    },
+    {
+      "text": "El pueblo se iba vaciando con cada invierno que pasaba.",
+      "meaning": "The village was slowly emptying with every winter that went by.",
+      "note": "Ir + gerund: gradual change."
+    },
+    {
+      "text": "La que fuera directora del colegio vive ahora en el campo.",
+      "meaning": "The former head of the school now lives in the countryside.",
+      "note": "-ra as a pluperfect: fuera = había sido."
+    },
+    {
+      "text": "Apenas hubo cerrado la tienda, el dueño se marchó sin despedirse de nadie.",
+      "meaning": "No sooner had he closed the shop than the owner left without saying goodbye to anyone.",
+      "note": "New word: despedirse = to say goodbye."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The pretérito anterior"
+    },
+    {
+      "question": "c2-rare-tenses-and-periphrases-01"
+    },
+    {
+      "question": "c2-rare-tenses-and-periphrases-02"
+    },
+    {
+      "question": "c2-rare-tenses-and-periphrases-03"
+    },
+    {
+      "section": "-ra as a pluperfect"
+    },
+    {
+      "question": "c2-rare-tenses-and-periphrases-04"
+    },
+    {
+      "section": "Rumour and conjecture"
+    },
+    {
+      "question": "c2-rare-tenses-and-periphrases-05"
+    },
+    {
+      "question": "c2-rare-tenses-and-periphrases-06"
+    },
+    {
+      "tip": "Ask who vouches for the fact. If it is a source, name it. If it is you guessing, use habrá + participle."
+    },
+    {
+      "section": "Periphrases of onset"
+    },
+    {
+      "question": "c2-rare-tenses-and-periphrases-07"
+    },
+    {
+      "question": "c2-rare-tenses-and-periphrases-08"
+    },
+    {
+      "question": "c2-rare-tenses-and-periphrases-09"
+    },
+    {
+      "section": "Periphrases of progress"
+    },
+    {
+      "question": "c2-rare-tenses-and-periphrases-10"
+    },
+    {
+      "vocab": 5
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c2-rare-tenses-and-periphrases-conv-newsroom",
+      "title": "Editing the crime report",
+      "scenario": "Lucía, the night editor of a daily paper, goes through Andrés's crime report with him before it goes to print.",
+      "role_a": "Lucía",
+      "role_b": "Andrés",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Andrés, he leído tu crónica. Tenemos que hablar del titular.",
+          "meaning": "Andrés, I've read your report. We need to talk about the headline."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Qué le pasa? Decir que el detenido habría confesado me parece prudente.",
+          "meaning": "What's wrong with it? Saying the detainee has reportedly confessed seems prudent to me."
+        },
+        {
+          "speaker": "a",
+          "text": "Prudente no, ambiguo. Si la fuente es la policía, dilo: según la policía, ha confesado.",
+          "meaning": "Not prudent, vague. If the source is the police, say so: according to the police, he has confessed.",
+          "note": "Style guides discourage the conditional of rumour."
+        },
+        {
+          "speaker": "b",
+          "text": "De acuerdo. ¿Y lo de la que fuera ministra de Hacienda? ¿También lo cambio?",
+          "meaning": "All right. And the bit about the former finance minister? Do I change that too?"
+        },
+        {
+          "speaker": "a",
+          "text": "Eso puede quedarse, aunque exministra viene a decir lo mismo con menos solemnidad.",
+          "meaning": "That can stay, although former minister says roughly the same with less pomp."
+        },
+        {
+          "speaker": "b",
+          "text": "Lo dejo, entonces. ¿Y el segundo párrafo?",
+          "meaning": "I'll leave it, then. And the second paragraph?"
+        },
+        {
+          "speaker": "a",
+          "text": "El de apenas hubo terminado la declaración suena a novela decimonónica.",
+          "meaning": "The one with no sooner had the statement ended sounds like a nineteenth-century novel."
+        },
+        {
+          "speaker": "b",
+          "text": "Tienes razón. Pondré que el juez se retiró en cuanto terminó la declaración.",
+          "meaning": "You're right. I'll put that the judge withdrew as soon as the statement ended.",
+          "note": "The modern replacement: en cuanto + preterite."
+        },
+        {
+          "speaker": "a",
+          "text": "Mucho mejor. ¿Cuántas piezas llevas escritas hoy?",
+          "meaning": "Much better. How many pieces have you written so far today?"
+        },
+        {
+          "speaker": "b",
+          "text": "Llevo escritas tres, y la cuarta se va alargando sin remedio.",
+          "meaning": "I've written three, and the fourth keeps getting longer and longer."
+        },
+        {
+          "speaker": "a",
+          "text": "El director habrá leído ya el borrador. Mándame la versión final antes de las ocho.",
+          "meaning": "The editor-in-chief will have read the draft by now. Send me the final version before eight."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🦕",
+    "bites": [
+      {
+        "title": "Hubo terminado",
+        "emoji": "⌛",
+        "rule": "Pretérito anterior = hube, hubo… + participle, right after apenas, en cuanto, una vez que. Literary today: say apenas terminó or cuando había terminado.",
+        "example": "Apenas hubo terminado, se marchó.",
+        "example_meaning": "No sooner had he finished than he left."
+      },
+      {
+        "title": "Fuera = había sido",
+        "emoji": "📰",
+        "rule": "In the press, -ra can be a pluperfect: la que fuera ministra means the former minister. Había sido or exministra is always safe.",
+        "example": "El que fuera alcalde abre una librería.",
+        "example_meaning": "The former mayor is opening a bookshop."
+      },
+      {
+        "title": "Rumour and guesswork",
+        "emoji": "🕵️",
+        "rule": "Habría confesado means reportedly confessed. The RAE's DPD discourages it, so name the source. Habrá llegado means has probably arrived, and it is your own guess.",
+        "example": "No responde: habrá salido ya.",
+        "example_meaning": "She isn't answering: she must have left already."
+      },
+      {
+        "title": "Periphrases with a shade",
+        "emoji": "🧩",
+        "rule": "venir a = roughly; dar en = take to; romper a / echarse a = burst out; no alcanzar a = can't quite; ir + gerund = gradually; llevar / tener + agreeing participle.",
+        "example": "Llevo corregidas diez páginas.",
+        "example_meaning": "I've corrected ten pages so far."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which rare tense?",
+        "buckets": [
+          "pretérito anterior",
+          "-ra as pluperfect",
+          "conditional of rumour",
+          "future perfect guess"
+        ],
+        "items": [
+          {
+            "text": "apenas hubo salido",
+            "bucket": 0
+          },
+          {
+            "text": "una vez que hubimos firmado",
+            "bucket": 0
+          },
+          {
+            "text": "la que fuera ministra",
+            "bucket": 1
+          },
+          {
+            "text": "el edificio que albergara la fábrica",
+            "bucket": 1
+          },
+          {
+            "text": "el detenido habría confesado",
+            "bucket": 2
+          },
+          {
+            "text": "según un diario, habría dimitido",
+            "bucket": 2
+          },
+          {
+            "text": "ya habrá llegado",
+            "bucket": 3
+          },
+          {
+            "text": "¿quién habrá llamado?",
+            "bucket": 3
+          }
+        ],
+        "why": "Hubo + participle follows apenas; -ra in a relative clause looks back; habría reports a rumour; habrá guesses from now."
+      },
+      {
+        "title": "Which shade?",
+        "buckets": [
+          "sudden start",
+          "gradual or accumulated",
+          "approximation or failure"
+        ],
+        "items": [
+          {
+            "text": "rompió a llover",
+            "bucket": 0
+          },
+          {
+            "text": "se echó a reír",
+            "bucket": 0
+          },
+          {
+            "text": "la sala se iba vaciando",
+            "bucket": 1
+          },
+          {
+            "text": "llevo corregidas diez páginas",
+            "bucket": 1
+          },
+          {
+            "text": "tengo escritas tres cartas",
+            "bucket": 1
+          },
+          {
+            "text": "viene a costar mil euros",
+            "bucket": 2
+          },
+          {
+            "text": "no alcanzo a entenderlo",
+            "bucket": 2
+          }
+        ],
+        "why": "Romper a and echarse a start suddenly; ir + gerund and llevar / tener + participle build up; venir a approximates and no alcanzar a falls short."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Apenas ha terminado el discurso, abandonó la sala.",
+        "wrong": "ha",
+        "fix": "hubo",
+        "why": "In a past narrative after apenas: hubo terminado (literary) or simply terminó."
+      },
+      {
+        "sentence": "Llevo corregido cuarenta páginas.",
+        "wrong": "corregido",
+        "fix": "corregidas",
+        "why": "With llevar + participle, the participle agrees with the object: páginas."
+      },
+      {
+        "sentence": "Al oír el chiste, se echó en reír.",
+        "wrong": "en",
+        "fix": "a",
+        "why": "Echarse a + infinitive: se echó a reír."
+      },
+      {
+        "sentence": "No contesta; habría llegado ya al teatro.",
+        "wrong": "habría",
+        "fix": "habrá",
+        "why": "A guess about now uses the future perfect: habrá llegado."
+      },
+      {
+        "sentence": "Mi tío dio a pensar que los vecinos lo espiaban.",
+        "wrong": "a",
+        "fix": "en",
+        "why": "Dar en + infinitive = to take to doing something odd."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Apenas hubo salido, empezó a llover.",
+        "meaning": "No sooner had she gone out than it started to rain.",
+        "distractors": [
+          "ha"
+        ]
+      },
+      {
+        "text": "La que fuera ministra publica sus memorias.",
+        "meaning": "The former minister is publishing her memoirs.",
+        "distractors": [
+          "sería"
+        ]
+      },
+      {
+        "text": "Se echó a reír sin motivo.",
+        "meaning": "He burst out laughing for no reason.",
+        "distractors": [
+          "en"
+        ]
+      },
+      {
+        "text": "La sala se iba llenando poco a poco.",
+        "meaning": "The hall was filling up little by little.",
+        "distractors": [
+          "llenado"
+        ]
+      }
+    ]
+  }
+}

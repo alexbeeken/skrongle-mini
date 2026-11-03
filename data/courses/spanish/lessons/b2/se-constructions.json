@@ -1,0 +1,557 @@
+{
+  "id": "b2-se-constructions",
+  "slug": "se-constructions",
+  "title": "Se me olvidó: impersonal and accidental se",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 26,
+  "summary": "Impersonal se talks about what people in general do; accidental se turns a mishap into something that happened to you.",
+  "focus": "Impersonal se (se vive bien) and accidental se with an indirect pronoun (se me olvidó)",
+  "prerequisites": [
+    "b2-passive-voice",
+    "b1-uses-of-se"
+  ],
+  "content": "## The many faces of se\n\n**Se** has more uses than any other word in Spanish. Six jobs share one form:\n\n| use | example | meaning |\n|---|---|---|\n| reflexive | **Marta se lava el pelo.** | Marta washes her hair. |\n| reciprocal | **Se quieren mucho.** | They love each other. |\n| se for le/les | **Se lo di ayer.** | I gave it to him yesterday. |\n| passive (last lesson) | **Se venden pisos.** | Flats for sale. |\n| impersonal | **Aquí se vive bien.** | People live well here. |\n| accidental | **Se me olvidó.** | It slipped my mind. |\n\nThis lesson covers the last two uses, **se** for people in general and **se** for things that happen to you without anyone meaning them to.\n\n## Impersonal se: people in general\n\n**Se** + a third-person **singular** verb, with no subject, says what people in general do (English *you*, *one*, *people*):\n\n- **En este barrio se vive muy bien.** (Life is good in this neighbourhood.)\n- **En mi empresa se trabaja mucho.** (People work hard at my company.)\n- **¿Cómo se dice *mug* en español?** (How do you say *mug* in Spanish?)\n\nWith people after the personal **a**, the verb stays **singular**:\n\n- **Se busca a los culpables.** (They are looking for the culprits.)\n- Compare the passive, which agrees: **se buscan camareros.**\n\nA reflexive verb cannot take a second **se**; use **uno**: **uno se acostumbra** (you get used to it).\n\n## Accidental se: it happened to me\n\nTo say something went wrong **sin querer** (by accident), Spanish makes the thing the subject and names the unlucky person with an indirect pronoun:\n\n| se + | who it happened to | verb |\n|---|---|---|\n| se | me / te / le / nos / os / les | olvidó, cayó, rompió… |\n\n- **Se me olvidó tu cumpleaños.** (I forgot your birthday; it slipped my mind.)\n- **Se le cayeron las llaves.** (He dropped his keys.)\n- **Se nos rompió la lavadora.** (Our washing machine broke.)\n- **¿Se te ha perdido algo?** (Have you lost something?)\n\nCommon verbs: **olvidarse, caerse, romperse, perderse, acabarse, estropearse, escaparse, ocurrirse**.\n\n## Agreement and blame\n\nThe verb agrees with **the thing**, not the person:\n\n- **Se me olvidó la cita. / Se me olvidaron las entradas.**\n\n**Se** always comes first: **se me**, never *me se*. To name the person, add **a** + noun: **A Juan se le cayó el móvil.**\n\nThe choice tells the listener who is to blame:\n\n- **Rompí el jarrón.** (I broke the vase, maybe **a propósito**, on purpose.)\n- **Se me rompió el jarrón.** (The vase broke on me by accident.)\n\nIt works in every tense: **se nos acabó**, **se te ha perdido**, **se le había olvidado**, **que no se te olvide**.",
+  "vocabulary": [
+    {
+      "term": "se dice que",
+      "meaning": "they say that, it is said that",
+      "example": "Se dice que el nuevo jefe es muy exigente.",
+      "example_meaning": "They say the new boss is very demanding."
+    },
+    {
+      "term": "el culpable",
+      "meaning": "the culprit, the one to blame",
+      "example": "Todavía no se sabe quién es el culpable del incendio.",
+      "example_meaning": "It isn't known yet who is to blame for the fire."
+    },
+    {
+      "term": "sin querer",
+      "meaning": "by accident, without meaning to",
+      "example": "Perdona, te he pisado sin querer.",
+      "example_meaning": "Sorry, I stepped on you by accident."
+    },
+    {
+      "term": "a propósito",
+      "meaning": "on purpose",
+      "example": "No lo hizo a propósito; fue un despiste.",
+      "example_meaning": "He didn't do it on purpose; it was a slip."
+    },
+    {
+      "term": "olvidarse",
+      "meaning": "to slip one's mind (se me olvida)",
+      "example": "Se me olvidan siempre las contraseñas.",
+      "example_meaning": "I always forget passwords."
+    },
+    {
+      "term": "caerse",
+      "meaning": "to fall; to be dropped (se me cae)",
+      "example": "Se le cayó la bandeja delante de todos.",
+      "example_meaning": "She dropped the tray in front of everyone."
+    },
+    {
+      "term": "romperse",
+      "meaning": "to break (by accident)",
+      "example": "Se nos rompió la cafetera el lunes.",
+      "example_meaning": "Our coffee maker broke on Monday."
+    },
+    {
+      "term": "perderse",
+      "meaning": "to get lost; to go missing",
+      "example": "Se me perdió el pasaporte en el aeropuerto.",
+      "example_meaning": "I lost my passport at the airport."
+    },
+    {
+      "term": "acabarse",
+      "meaning": "to run out",
+      "example": "Se nos acabó el café a media mañana.",
+      "example_meaning": "We ran out of coffee by mid-morning."
+    },
+    {
+      "term": "estropearse",
+      "meaning": "to break down (a machine)",
+      "example": "Se les estropeó el coche en plena montaña.",
+      "example_meaning": "Their car broke down right in the mountains."
+    },
+    {
+      "term": "escaparse",
+      "meaning": "to get away; to slip out",
+      "example": "Se me escapó una carcajada en la reunión.",
+      "example_meaning": "A laugh slipped out of me in the meeting."
+    },
+    {
+      "term": "ocurrirse",
+      "meaning": "to occur to, to come to mind",
+      "example": "¿Se te ocurre algún regalo para Ana?",
+      "example_meaning": "Can you think of a present for Ana?"
+    },
+    {
+      "term": "derramarse",
+      "meaning": "to spill",
+      "example": "Se me derramó el vino sobre el mantel.",
+      "example_meaning": "I spilled the wine on the tablecloth."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-se-constructions-01",
+      "prompt": "In «Se lo di a Marta ayer», what is se doing?",
+      "type": "multiple-choice",
+      "options": [
+        "it replaces le before lo",
+        "it makes the sentence impersonal",
+        "it marks an accident",
+        "it is reflexive"
+      ],
+      "correct_answer": "it replaces le before lo",
+      "explanation": "Before lo, la, los or las, the indirect pronoun le/les becomes se: le di el libro becomes se lo di.",
+      "hints": [
+        "Who received it? Marta, so it is an indirect object."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b2-se-constructions-02",
+      "prompt": "En este pueblo ___ muy tranquilo: no hay tráfico ni ruido.",
+      "type": "multiple-choice",
+      "options": [
+        "se vive",
+        "se viven",
+        "vive se"
+      ],
+      "correct_answer": "se vive",
+      "explanation": "Impersonal se takes a third-person singular verb and no subject: se vive (people live).",
+      "hints": [
+        "Nobody in particular lives here. It means people in general."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b2-se-constructions-03",
+      "prompt": "La policía ha dicho que ___ a los culpables del robo.",
+      "type": "multiple-choice",
+      "options": [
+        "se busca",
+        "se buscan"
+      ],
+      "correct_answer": "se busca",
+      "explanation": "With people introduced by the personal a, impersonal se keeps the verb singular: se busca a los culpables.",
+      "hints": [
+        "Look at the little word a before los culpables."
+      ],
+      "teaches": [
+        "el culpable"
+      ]
+    },
+    {
+      "question_id": "b2-se-constructions-04",
+      "prompt": "Lo siento muchísimo, ___ tu cumpleaños. (olvidar, preterite: it slipped my mind)",
+      "type": "fill-in-blank",
+      "correct_answer": "se me olvidó",
+      "explanation": "Accidental se: se + me (the person affected) + olvidó, agreeing with tu cumpleaños.",
+      "hints": [
+        "se first, then the pronoun of the person it happened to."
+      ],
+      "teaches": [
+        "olvidarse"
+      ]
+    },
+    {
+      "question_id": "b2-se-constructions-05",
+      "prompt": "A Pablo ___ las llaves en el metro.",
+      "type": "multiple-choice",
+      "options": [
+        "se le cayeron",
+        "se le cayó",
+        "le se cayeron"
+      ],
+      "correct_answer": "se le cayeron",
+      "explanation": "Se comes first, le names Pablo, and the verb is plural because las llaves fell.",
+      "hints": [
+        "The verb agrees with the keys, not with Pablo."
+      ],
+      "teaches": [
+        "caerse"
+      ]
+    },
+    {
+      "question_id": "b2-se-constructions-06",
+      "prompt": "___ la leche, así que bajé a comprar más. (acabar, preterite: we ran out of milk)",
+      "type": "fill-in-blank",
+      "correct_answer": "se nos acabó",
+      "explanation": "Running out is accidental se: se + nos + acabó, singular because la leche is singular.",
+      "hints": [
+        "Who ran out? We did: nos."
+      ],
+      "teaches": [
+        "acabarse"
+      ]
+    },
+    {
+      "question_id": "b2-se-constructions-07",
+      "prompt": "¿Qué buscas? ¿___ algo? (perder, present perfect, tú: Have you lost something?)",
+      "type": "fill-in-blank",
+      "correct_answer": "se te ha perdido",
+      "explanation": "Accidental se in the present perfect: se + te + ha perdido.",
+      "hints": [
+        "Use se, te, a form of haber and a participle."
+      ],
+      "teaches": [
+        "perderse"
+      ]
+    },
+    {
+      "question_id": "b2-se-constructions-08",
+      "prompt": "Which sentence says the vase broke by accident?",
+      "type": "multiple-choice",
+      "options": [
+        "Se me rompió el jarrón.",
+        "Rompí el jarrón a propósito.",
+        "Me rompí el jarrón."
+      ],
+      "correct_answer": "Se me rompió el jarrón.",
+      "explanation": "Se me rompió presents the breaking as something that happened to me. Rompí el jarrón a propósito says I did it deliberately; me rompí is not how you say it about a vase.",
+      "hints": [
+        "The accident makes the vase the subject."
+      ],
+      "teaches": [
+        "romperse",
+        "a propósito"
+      ]
+    },
+    {
+      "question_id": "b2-se-constructions-09",
+      "prompt": "Estaba en la ducha cuando de repente ___ una idea genial. (ocurrir, preterite: an idea came to me)",
+      "type": "fill-in-blank",
+      "correct_answer": "se me ocurrió",
+      "explanation": "Ideas occur to you: se + me + ocurrió, singular to agree with una idea.",
+      "hints": [
+        "The idea is the subject; you are the indirect pronoun."
+      ],
+      "teaches": [
+        "ocurrirse"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-se-constructions-conv-bad-morning",
+      "title": "One of those mornings",
+      "scenario": "Diego arrives at the office an hour late and soaked; his colleague Clara wants to know what happened.",
+      "role_a": "Clara",
+      "role_b": "Diego",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¡Diego, por fin! Aquí se empieza a las nueve, ¿recuerdas?",
+          "meaning": "Diego, at last! Here we start at nine, remember?"
+        },
+        {
+          "speaker": "b",
+          "text": "Lo sé, lo sé. Hoy se me ha torcido el día.",
+          "meaning": "I know, I know. Today has gone wrong for me."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Qué ha pasado? Estás empapado.",
+          "meaning": "What happened? You're soaking wet."
+        },
+        {
+          "speaker": "b",
+          "text": "Para empezar, se me olvidó poner el despertador.",
+          "meaning": "To start with, I forgot to set the alarm."
+        },
+        {
+          "speaker": "a",
+          "text": "Bueno, eso le pasa a cualquiera.",
+          "meaning": "Well, that happens to anyone."
+        },
+        {
+          "speaker": "b",
+          "text": "Luego, con las prisas, se me cayó el café encima.",
+          "meaning": "Then, in the rush, I spilled coffee all over myself."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y por eso estás mojado?",
+          "meaning": "And that's why you're wet?"
+        },
+        {
+          "speaker": "b",
+          "text": "No, eso fue el paraguas: se me rompió en la parada del autobús.",
+          "meaning": "No, that was the umbrella: it broke on me at the bus stop."
+        },
+        {
+          "speaker": "a",
+          "text": "Pues anímate: aquí se trabaja mejor con un café. ¿Te traigo uno?",
+          "meaning": "Well, cheer up: people work better here with a coffee. Shall I bring you one?"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, por favor. Pero llévalo tú, por si se me cae.",
+          "meaning": "Yes, please. But you carry it, in case I drop it."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Se me olvidó el paraguas.",
+      "meaning": "I forgot my umbrella."
+    },
+    {
+      "text": "Aquí se come de maravilla.",
+      "meaning": "You eat wonderfully well here.",
+      "note": "Impersonal se takes a singular verb and has no subject."
+    },
+    {
+      "text": "¿Se te ha perdido algo, Lucía?",
+      "meaning": "Have you lost something, Lucía?"
+    },
+    {
+      "text": "En verano se duerme fatal en esta habitación.",
+      "meaning": "You sleep terribly in this room in summer."
+    },
+    {
+      "text": "A mi abuela se le cayeron las gafas al suelo.",
+      "meaning": "My grandmother dropped her glasses on the floor.",
+      "note": "New word: las gafas = the glasses."
+    },
+    {
+      "text": "Se nos acabó la gasolina en mitad de la autopista.",
+      "meaning": "We ran out of petrol in the middle of the motorway.",
+      "note": "New word: la autopista = the motorway."
+    },
+    {
+      "text": "Al llegar al cine, vimos que se nos habían olvidado las entradas.",
+      "meaning": "When we got to the cinema, we saw we had forgotten the tickets.",
+      "note": "The verb agrees with las entradas: habían olvidado."
+    },
+    {
+      "text": "Sin querer, se me rompió la taza favorita de mi compañero de piso.",
+      "meaning": "By accident, I broke my flatmate's favourite mug.",
+      "note": "New word: la taza = the mug."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The many faces of se"
+    },
+    {
+      "question": "b2-se-constructions-01"
+    },
+    {
+      "section": "Impersonal se"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-se-constructions-02"
+    },
+    {
+      "question": "b2-se-constructions-03"
+    },
+    {
+      "tip": "¿Cómo se dice…? and ¿Se puede…? are impersonal se you already use every day, with no subject and a singular verb."
+    },
+    {
+      "section": "Accidental se"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-se-constructions-04"
+    },
+    {
+      "question": "b2-se-constructions-05"
+    },
+    {
+      "question": "b2-se-constructions-06"
+    },
+    {
+      "section": "Agreement and blame"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-se-constructions-07"
+    },
+    {
+      "question": "b2-se-constructions-08"
+    },
+    {
+      "question": "b2-se-constructions-09"
+    }
+  ],
+  "sprint": {
+    "icon": "🫳",
+    "bites": [
+      {
+        "title": "Impersonal se",
+        "emoji": "👥",
+        "rule": "Se + a third-person singular verb, with no subject, says what people in general do: se vive bien, se trabaja mucho, ¿cómo se dice…?",
+        "example": "En esta ciudad se sale mucho por la noche.",
+        "example_meaning": "People go out a lot at night in this city."
+      },
+      {
+        "title": "Se + personal a",
+        "emoji": "🔎",
+        "rule": "With people after the personal a, impersonal se keeps the verb singular, even before a plural.",
+        "example": "Se entrevistó a todos los testigos.",
+        "example_meaning": "All the witnesses were interviewed."
+      },
+      {
+        "title": "Accidental se",
+        "emoji": "🫳",
+        "rule": "se + me/te/le/nos/os/les + verb. The thing is the subject and the pronoun names who it happened to.",
+        "example": "Se le cayeron los papeles.",
+        "example_meaning": "He dropped the papers."
+      },
+      {
+        "title": "Se goes first",
+        "emoji": "☝️",
+        "rule": "Always se me, se te, se le… never me se. The verb agrees with the thing: se me olvidó la cita, se me olvidaron las entradas.",
+        "example": "Se nos estropeó la nevera.",
+        "example_meaning": "Our fridge broke down."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which se is it?",
+        "buckets": [
+          "impersonal",
+          "passive",
+          "accidental"
+        ],
+        "items": [
+          {
+            "text": "Aquí se vive bien.",
+            "bucket": 0
+          },
+          {
+            "text": "Se venden bicicletas.",
+            "bucket": 1
+          },
+          {
+            "text": "Se me olvidó la cartera.",
+            "bucket": 2
+          },
+          {
+            "text": "Se trabaja mucho en esta oficina.",
+            "bucket": 0
+          },
+          {
+            "text": "Se alquilan habitaciones.",
+            "bucket": 1
+          },
+          {
+            "text": "Se le rompieron las gafas.",
+            "bucket": 2
+          }
+        ],
+        "why": "Impersonal: no subject, singular verb. Passive: the verb agrees with what is sold or rented. Accidental: a pronoun (me, le…) names who it happened to."
+      },
+      {
+        "title": "Reflexive, reciprocal or se for le?",
+        "buckets": [
+          "reflexive",
+          "reciprocal",
+          "se for le"
+        ],
+        "items": [
+          {
+            "text": "Marta se peina.",
+            "bucket": 0
+          },
+          {
+            "text": "Se escriben cada semana.",
+            "bucket": 1
+          },
+          {
+            "text": "Se lo expliqué ayer.",
+            "bucket": 2
+          },
+          {
+            "text": "Pablo se afeita cada mañana.",
+            "bucket": 0
+          },
+          {
+            "text": "Se abrazaron en la estación.",
+            "bucket": 1
+          },
+          {
+            "text": "Se la devolví a Pedro.",
+            "bucket": 2
+          }
+        ],
+        "why": "Reflexive: to oneself. Reciprocal: to each other. Se for le: le/les become se before lo, la, los, las."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "A Luis se le cayó las llaves.",
+        "wrong": "cayó",
+        "fix": "cayeron",
+        "why": "The verb agrees with the thing that fell, so las llaves takes cayeron."
+      },
+      {
+        "sentence": "Se buscan a los culpables del robo.",
+        "wrong": "buscan",
+        "fix": "busca",
+        "why": "With the personal a, impersonal se keeps the verb singular."
+      },
+      {
+        "sentence": "En este pueblo se viven muy bien.",
+        "wrong": "viven",
+        "fix": "vive",
+        "why": "Impersonal se has no subject, so the verb is singular."
+      },
+      {
+        "sentence": "A nosotros se nos acabaron el pan.",
+        "wrong": "acabaron",
+        "fix": "acabó",
+        "why": "The verb agrees with what ran out, el pan: se nos acabó."
+      },
+      {
+        "sentence": "Se me rompí el plato sin querer.",
+        "wrong": "rompí",
+        "fix": "rompió",
+        "why": "The plate is the subject: se me rompió, third person."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Se me olvidó la cartera en casa.",
+        "meaning": "I left my wallet at home.",
+        "distractors": [
+          "olvidaron"
+        ]
+      },
+      {
+        "text": "En este barrio se vive muy bien.",
+        "meaning": "Life is very good in this neighbourhood.",
+        "distractors": [
+          "viven"
+        ]
+      },
+      {
+        "text": "A Pedro se le cayeron los papeles.",
+        "meaning": "Pedro dropped the papers.",
+        "distractors": [
+          "cayó",
+          "les"
+        ]
+      },
+      {
+        "text": "Se busca a los testigos del accidente.",
+        "meaning": "They are looking for the witnesses of the accident.",
+        "distractors": [
+          "buscan"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,681 @@
+{
+  "id": "a2-irregular-present-verbs",
+  "slug": "irregular-present-verbs",
+  "title": "More irregular verbs: dire, lire, écrire, voir, ouvrir",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 16,
+  "summary": "Conjugate dire, lire, écrire, voir and ouvrir in the present, plus the verbs built like them.",
+  "focus": "The present tense of dire, lire, écrire, voir and ouvrir",
+  "prerequisites": [
+    "a2-ir-re-verbs-partitive"
+  ],
+  "content": "## Dire and lire\n\nTwo short verbs with the same shape: the singular ends in **-s, -s, -t**, and the plural brings back an **s** sound.\n\n| | dire (to say, to tell) | lire (to read) |\n|---|---|---|\n| je | dis | lis |\n| tu | dis | lis |\n| il / elle / on | dit | lit |\n| nous | disons | lisons |\n| vous | **dites** | lisez |\n| ils / elles | disent | lisent |\n\nWatch **vous dites**: it is irregular, like **vous faites** and **vous êtes**. **Relire** (to read again) works like lire.\n\n- **dire que** + a sentence: **Elle dit que le film est bon.**\n- **dire à quelqu'un**: **Je dis bonjour à mon voisin.**\n- **lire le journal**, **lire un roman**\n\n## Écrire: a v in the plural\n\n| je | tu | il / elle / on | nous | vous | ils / elles |\n|---|---|---|---|---|---|\n| écris | écris | écrit | **écrivons** | **écrivez** | **écrivent** |\n\nThe singular sounds the same for all three persons (**j'écris, tu écris, il écrit**); the plural adds a **v**. **Décrire** (to describe) works the same way: **nous décrivons**.\n\nYou write *to* someone with **à**: **J'écris un message à Paul.** **Elle écrit à sa grand-mère.**\n\n## Voir: a y for nous and vous\n\n| je | tu | il / elle / on | nous | vous | ils / elles |\n|---|---|---|---|---|---|\n| vois | vois | voit | **voyons** | **voyez** | voient |\n\nThe **i** turns into **y** only in **nous** and **vous**; **ils voient** keeps the **i**. **Revoir** (to see again) follows it.\n\n- **voir un film**: **Ce soir, nous voyons un film.**\n- **Tu vois ?** (You see?) is a common filler in speech.\n\n## Ouvrir: -er endings on an -ir verb\n\n**Ouvrir** (to open) ends in -ir but takes the endings of **parler**: **-e, -es, -e, -ons, -ez, -ent**.\n\n| je | tu | il / elle / on | nous | vous | ils / elles |\n|---|---|---|---|---|---|\n| ouvre | ouvres | ouvre | ouvrons | ouvrez | ouvrent |\n\nBefore the vowel, **je** becomes **j'**: **j'ouvre la fenêtre**. Three more verbs are built the same way: **couvrir** (to cover), **offrir** (to give as a present: **j'offre des fleurs**) and **découvrir** (to discover: **nous découvrons Paris**).",
+  "vocabulary": [
+    {
+      "term": "dire",
+      "meaning": "to say, to tell",
+      "example": "Mon fils dit toujours merci.",
+      "example_meaning": "My son always says thank you."
+    },
+    {
+      "term": "lire",
+      "meaning": "to read",
+      "example": "Nous lisons une histoire aux enfants le soir.",
+      "example_meaning": "We read the children a story in the evening."
+    },
+    {
+      "term": "écrire",
+      "meaning": "to write",
+      "example": "Vous écrivez votre nom ici, s'il vous plaît.",
+      "example_meaning": "You write your name here, please."
+    },
+    {
+      "term": "voir",
+      "meaning": "to see",
+      "example": "D'ici, on voit les montagnes.",
+      "example_meaning": "From here you can see the mountains."
+    },
+    {
+      "term": "ouvrir",
+      "meaning": "to open",
+      "example": "La boulangerie ouvre à sept heures.",
+      "example_meaning": "The bakery opens at seven."
+    },
+    {
+      "term": "le journal",
+      "meaning": "newspaper (m)",
+      "example": "Mon grand-père achète le journal tous les jours.",
+      "example_meaning": "My grandfather buys the newspaper every day."
+    },
+    {
+      "term": "le message",
+      "meaning": "message, text (m)",
+      "example": "Je reçois un message de ma sœur.",
+      "example_meaning": "I get a text from my sister."
+    },
+    {
+      "term": "la fenêtre",
+      "meaning": "window (f)",
+      "example": "La fenêtre de ma chambre donne sur la rue.",
+      "example_meaning": "My bedroom window looks onto the street."
+    },
+    {
+      "term": "le roman",
+      "meaning": "novel (m)",
+      "example": "Ce roman est trop long pour moi.",
+      "example_meaning": "This novel is too long for me."
+    },
+    {
+      "term": "découvrir",
+      "meaning": "to discover",
+      "example": "Les étudiants découvrent la cuisine française.",
+      "example_meaning": "The students are discovering French cooking."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "dire",
+      "meaning": "to say, to tell",
+      "set": "present",
+      "art": [
+        "  .-----------.  ",
+        " ( vous dites ? ) ",
+        "  `--. .------'  ",
+        "      V           ",
+        "    (o o)         "
+      ],
+      "forms": {
+        "je": "dis",
+        "tu": "dis",
+        "il": "dit",
+        "nous": "disons",
+        "vous": "dites",
+        "ils": "disent"
+      }
+    },
+    {
+      "item": "lire",
+      "meaning": "to read",
+      "set": "present",
+      "art": [
+        "   _______ _______  ",
+        "  |  ~~~  |  ~~~  | ",
+        "  |  ~~~  |  ~~~  | ",
+        "  |  ~~~  |  ~~~  | ",
+        "  |_______|_______| "
+      ],
+      "forms": {
+        "je": "lis",
+        "tu": "lis",
+        "il": "lit",
+        "nous": "lisons",
+        "vous": "lisez",
+        "ils": "lisent"
+      }
+    },
+    {
+      "item": "écrire",
+      "meaning": "to write",
+      "set": "present",
+      "art": [
+        "            /|  ",
+        "           / /  ",
+        "  ~~~~~~  / /   ",
+        "  ~~~~   /_/    ",
+        "  ~~~~~  '      "
+      ],
+      "forms": {
+        "je": "écris",
+        "tu": "écris",
+        "il": "écrit",
+        "nous": "écrivons",
+        "vous": "écrivez",
+        "ils": "écrivent"
+      }
+    },
+    {
+      "item": "voir",
+      "meaning": "to see",
+      "set": "present",
+      "art": [
+        "   .----.  .----.  ",
+        "  ( (o)  )( (o)  ) ",
+        "   `----'  `----'  ",
+        "        \\__/       ",
+        "     I see you!    "
+      ],
+      "forms": {
+        "je": "vois",
+        "tu": "vois",
+        "il": "voit",
+        "nous": "voyons",
+        "vous": "voyez",
+        "ils": "voient"
+      }
+    },
+    {
+      "item": "ouvrir",
+      "meaning": "to open",
+      "set": "present",
+      "art": [
+        "   ________      ",
+        "  |        |\\    ",
+        "  |  OPEN  | \\   ",
+        "  |      o |  |  ",
+        "  |________| /   ",
+        "            /    "
+      ],
+      "forms": {
+        "je": "ouvre",
+        "tu": "ouvres",
+        "il": "ouvre",
+        "nous": "ouvrons",
+        "vous": "ouvrez",
+        "ils": "ouvrent"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-irregular-present-verbs-01",
+      "prompt": "Pardon ? Qu'est-ce que vous ___ ? Je n'entends pas. (dire)",
+      "type": "fill-in-blank",
+      "correct_answer": "dites",
+      "accepted_answers": [
+        "vous dites"
+      ],
+      "explanation": "Vous dites is irregular, like vous faites and vous êtes. Vous disez does not exist.",
+      "hints": [
+        "Think of vous faites.",
+        "It ends in -tes."
+      ],
+      "teaches": [
+        "dire"
+      ]
+    },
+    {
+      "question_id": "a2-irregular-present-verbs-02",
+      "prompt": "Ce soir, nous ___ une carte à notre grand-mère. (écrire)",
+      "type": "multiple-choice",
+      "options": [
+        "écrivons",
+        "écrisons",
+        "écrions"
+      ],
+      "correct_answer": "écrivons",
+      "explanation": "Écrire adds a v in the plural: nous écrivons, vous écrivez, ils écrivent.",
+      "hints": [
+        "The plural of écrire has an extra consonant."
+      ],
+      "teaches": [
+        "écrire"
+      ]
+    },
+    {
+      "question_id": "a2-irregular-present-verbs-03",
+      "prompt": "Le matin, mon père ___ le journal au café. (lire)",
+      "type": "fill-in-blank",
+      "correct_answer": "lit",
+      "accepted_answers": [
+        "il lit"
+      ],
+      "explanation": "Lire with il ends in -t: il lit. The s of lisons only comes back in the plural.",
+      "hints": [
+        "Mon père = il.",
+        "Singular endings: -s, -s, -t."
+      ],
+      "teaches": [
+        "lire",
+        "le journal"
+      ]
+    },
+    {
+      "question_id": "a2-irregular-present-verbs-04",
+      "prompt": "Ouvrir takes the endings of -er verbs in the present: j'ouvre, tu ouvres, il ouvre.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "True: ouvrir, couvrir, offrir and découvrir end in -ir but conjugate like parler: -e, -es, -e, -ons, -ez, -ent.",
+      "hints": [
+        "Compare with je parle."
+      ],
+      "teaches": [
+        "ouvrir"
+      ]
+    },
+    {
+      "question_id": "a2-irregular-present-verbs-05",
+      "prompt": "Vous ___ la mer depuis votre balcon ? (voir)",
+      "type": "multiple-choice",
+      "options": [
+        "voyez",
+        "voiez",
+        "voyiez"
+      ],
+      "correct_answer": "voyez",
+      "explanation": "Voir has a y in the nous and vous forms: vous voyez, nous voyons.",
+      "hints": [
+        "nous and vous: i becomes y."
+      ],
+      "teaches": [
+        "voir"
+      ]
+    },
+    {
+      "question_id": "a2-irregular-present-verbs-06",
+      "prompt": "Il fait trop chaud dans la classe : j'___ la fenêtre. (ouvrir)",
+      "type": "fill-in-blank",
+      "correct_answer": "ouvre",
+      "accepted_answers": [
+        "j'ouvre"
+      ],
+      "explanation": "Ouvrir takes -er endings: j'ouvre, with elision of je before the vowel.",
+      "hints": [
+        "Like j'aime.",
+        "The je ending is -e."
+      ],
+      "teaches": [
+        "ouvrir",
+        "la fenêtre"
+      ]
+    },
+    {
+      "question_id": "a2-irregular-present-verbs-07",
+      "prompt": "How do you say 'I'm writing a message to Paul'?",
+      "type": "multiple-choice",
+      "options": [
+        "J'écris un message à Paul.",
+        "J'écris Paul un message.",
+        "J'écris un message de Paul."
+      ],
+      "correct_answer": "J'écris un message à Paul.",
+      "explanation": "You write something à someone: écrire un message à Paul. French needs the à.",
+      "hints": [
+        "Where does the person go, and with which little word?"
+      ],
+      "teaches": [
+        "le message",
+        "écrire"
+      ]
+    },
+    {
+      "question_id": "a2-irregular-present-verbs-08",
+      "prompt": "'Ils voient' and 'ils voyent' are both correct spellings of voir in the present.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "False: only ils voient. The y appears in nous voyons and vous voyez, never with ils.",
+      "hints": [
+        "Which two persons have the y?"
+      ],
+      "teaches": [
+        "voir"
+      ]
+    },
+    {
+      "question_id": "a2-irregular-present-verbs-09",
+      "prompt": "En été, les touristes ___ la vieille ville avec un guide. (découvrir)",
+      "type": "fill-in-blank",
+      "correct_answer": "découvrent",
+      "accepted_answers": [
+        "ils découvrent"
+      ],
+      "explanation": "Découvrir is built like ouvrir: ils découvrent, with the -ent of parler.",
+      "hints": [
+        "Built like ils ouvrent."
+      ],
+      "teaches": [
+        "découvrir"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Je lis un roman policier.",
+      "meaning": "I'm reading a crime novel.",
+      "note": "New word: policier = crime, detective (novel)."
+    },
+    {
+      "text": "Tu dis toujours la vérité.",
+      "meaning": "You always tell the truth.",
+      "note": "New word: la vérité = the truth."
+    },
+    {
+      "text": "Nous écrivons des cartes postales.",
+      "meaning": "We're writing postcards.",
+      "note": "Nous écrivons: the v comes back in the plural."
+    },
+    {
+      "text": "Vous voyez la tour Eiffel d'ici ?",
+      "meaning": "Can you see the Eiffel Tower from here?"
+    },
+    {
+      "text": "Le soir, elle lit le journal sur son téléphone.",
+      "meaning": "In the evening she reads the paper on her phone."
+    },
+    {
+      "text": "Mes parents disent que le film est très bon.",
+      "meaning": "My parents say that the film is very good.",
+      "note": "dire que + a sentence."
+    },
+    {
+      "text": "Le magasin ouvre à neuf heures le samedi.",
+      "meaning": "The shop opens at nine on Saturdays.",
+      "note": "New word: le magasin = the shop."
+    },
+    {
+      "text": "Quand il fait beau, nous ouvrons les fenêtres et nous lisons dehors.",
+      "meaning": "When the weather is nice, we open the windows and read outside."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Dire and lire"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-irregular-present-verbs-01"
+    },
+    {
+      "question": "a2-irregular-present-verbs-03"
+    },
+    {
+      "tip": "Lis, lit, dis, dit sound the same: the subject tells you who. Only the plural sounds different (lisons, disons)."
+    },
+    {
+      "section": "Écrire"
+    },
+    {
+      "question": "a2-irregular-present-verbs-02"
+    },
+    {
+      "question": "a2-irregular-present-verbs-07"
+    },
+    {
+      "section": "Voir"
+    },
+    {
+      "question": "a2-irregular-present-verbs-05"
+    },
+    {
+      "question": "a2-irregular-present-verbs-08"
+    },
+    {
+      "section": "Ouvrir"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-irregular-present-verbs-04"
+    },
+    {
+      "question": "a2-irregular-present-verbs-06"
+    },
+    {
+      "question": "a2-irregular-present-verbs-09"
+    },
+    {
+      "concept": {
+        "title": "Say, tell, read: one verb each",
+        "markdown": "English has *say* and *tell*; French uses **dire** for both: **dire bonjour** (say hello), **dire la vérité** (tell the truth), **dire à Marie de venir** (tell Marie to come). *Tell a story* is the exception: **raconter une histoire**."
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-irregular-present-verbs-conv-morning-news",
+      "title": "Breakfast and the morning news",
+      "scenario": "Inès and Tom share a flat. Over breakfast, Tom reads the paper and Inès plans her afternoon.",
+      "role_a": "Inès",
+      "role_b": "Tom",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Tu lis quoi ?",
+          "meaning": "What are you reading?"
+        },
+        {
+          "speaker": "b",
+          "text": "Le journal. Ils disent qu'il va pleuvoir cet après-midi.",
+          "meaning": "The paper. They say it's going to rain this afternoon.",
+          "note": "ils disent que…"
+        },
+        {
+          "speaker": "a",
+          "text": "Ah non ! Je vois mes amis au parc à trois heures.",
+          "meaning": "Oh no! I'm seeing my friends in the park at three."
+        },
+        {
+          "speaker": "b",
+          "text": "Tu peux écrire un message à tes amis.",
+          "meaning": "You can write a message to your friends.",
+          "note": "écrire un message à quelqu'un"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui, j'écris à Léa tout de suite. Elle lit ses messages toutes les cinq minutes !",
+          "meaning": "Yes, I'll write to Léa right away. She reads her messages every five minutes!"
+        },
+        {
+          "speaker": "b",
+          "text": "Et qu'est-ce que vous faites à la place ?",
+          "meaning": "And what are you doing instead?"
+        },
+        {
+          "speaker": "a",
+          "text": "On va au cinéma. Nous voyons un film coréen à quatre heures.",
+          "meaning": "We're going to the cinema. We're seeing a Korean film at four.",
+          "note": "nous voyons: y"
+        },
+        {
+          "speaker": "b",
+          "text": "Moi, je reste ici. J'ai un rapport à écrire pour lundi.",
+          "meaning": "I'm staying here. I have a report to write for Monday."
+        },
+        {
+          "speaker": "a",
+          "text": "Tu écris beaucoup en ce moment !",
+          "meaning": "You're writing a lot at the moment!"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, et mon chef dit que c'est urgent.",
+          "meaning": "Yes, and my boss says it's urgent."
+        },
+        {
+          "speaker": "a",
+          "text": "Bon courage ! J'ouvre la fenêtre ? Il fait chaud ici.",
+          "meaning": "Good luck! Shall I open the window? It's hot in here.",
+          "note": "j'ouvre: -er ending"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, merci. Et tu dis bonjour à Léa pour moi ?",
+          "meaning": "Yes, thanks. And will you say hello to Léa for me?",
+          "note": "dire bonjour à quelqu'un"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "✍️",
+    "bites": [
+      {
+        "title": "Vous dites",
+        "emoji": "🗣️",
+        "rule": "Dire looks regular except vous dites, like vous faites and vous êtes. The rest: dis, dis, dit, disons, disent.",
+        "example": "Qu'est-ce que vous dites ?",
+        "example_meaning": "What are you saying?"
+      },
+      {
+        "title": "Lire and écrire",
+        "emoji": "📖",
+        "rule": "Singular -s, -s, -t; the plural brings back a consonant: je lis / nous lisons, j'écris / nous écrivons.",
+        "example": "Nous écrivons au professeur.",
+        "example_meaning": "We're writing to the teacher."
+      },
+      {
+        "title": "Voir: i becomes y",
+        "emoji": "👀",
+        "rule": "Voir has a y in nous and vous only: nous voyons, vous voyez. Ils voient keeps the i.",
+        "example": "Vous voyez la mer ?",
+        "example_meaning": "Can you see the sea?"
+      },
+      {
+        "title": "Ouvrir looks like -er",
+        "emoji": "🚪",
+        "rule": "Ouvrir, couvrir, offrir and découvrir take -e, -es, -e, -ons, -ez, -ent: j'ouvre, tu offres.",
+        "example": "J'ouvre la fenêtre.",
+        "example_meaning": "I'm opening the window."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which verb?",
+        "buckets": [
+          "dire",
+          "lire",
+          "écrire",
+          "voir"
+        ],
+        "items": [
+          {
+            "text": "disons",
+            "bucket": 0
+          },
+          {
+            "text": "lisent",
+            "bucket": 1
+          },
+          {
+            "text": "écrivez",
+            "bucket": 2
+          },
+          {
+            "text": "voyons",
+            "bucket": 3
+          },
+          {
+            "text": "dites",
+            "bucket": 0
+          },
+          {
+            "text": "lit",
+            "bucket": 1
+          },
+          {
+            "text": "écris",
+            "bucket": 2
+          },
+          {
+            "text": "voient",
+            "bucket": 3
+          }
+        ],
+        "why": "dis-/dit- is dire, lis-/lit- is lire, écri(v)- is écrire, voi-/voy- is voir."
+      },
+      {
+        "title": "Ending in -s or -e?",
+        "buckets": [
+          "je … -s",
+          "je … -e"
+        ],
+        "items": [
+          {
+            "text": "je lis",
+            "bucket": 0
+          },
+          {
+            "text": "j'ouvre",
+            "bucket": 1
+          },
+          {
+            "text": "je dis",
+            "bucket": 0
+          },
+          {
+            "text": "j'offre",
+            "bucket": 1
+          },
+          {
+            "text": "j'écris",
+            "bucket": 0
+          },
+          {
+            "text": "je découvre",
+            "bucket": 1
+          },
+          {
+            "text": "je vois",
+            "bucket": 0
+          }
+        ],
+        "why": "Dire, lire, écrire and voir take -s with je; ouvrir and its family take the -e of -er verbs."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Vous disez toujours non !",
+        "wrong": "disez",
+        "fix": "dites",
+        "why": "Vous dites is irregular, like vous faites."
+      },
+      {
+        "sentence": "Nous écrisons un mail au directeur.",
+        "wrong": "écrisons",
+        "fix": "écrivons",
+        "why": "Écrire adds a v in the plural: nous écrivons."
+      },
+      {
+        "sentence": "Ils voyent leurs amis le samedi.",
+        "wrong": "voyent",
+        "fix": "voient",
+        "why": "Only nous and vous have the y: ils voient."
+      },
+      {
+        "sentence": "Tu ouvre la fenêtre ?",
+        "wrong": "ouvre",
+        "fix": "ouvres",
+        "why": "Ouvrir takes -er endings: tu ouvres, with -s."
+      },
+      {
+        "sentence": "Elle lis le journal tous les matins.",
+        "wrong": "lis",
+        "fix": "lit",
+        "why": "With il / elle, lire ends in -t: elle lit."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Nous écrivons une lettre à Marie.",
+        "meaning": "We're writing a letter to Marie.",
+        "distractors": [
+          "écrisons"
+        ]
+      },
+      {
+        "text": "Qu'est-ce que vous dites ?",
+        "meaning": "What are you saying?",
+        "distractors": [
+          "disez"
+        ]
+      },
+      {
+        "text": "Je lis le journal le matin.",
+        "meaning": "I read the paper in the morning.",
+        "distractors": [
+          "lit"
+        ]
+      },
+      {
+        "text": "Ils voient un film ce soir.",
+        "meaning": "They're seeing a film tonight.",
+        "distractors": [
+          "voyent"
+        ]
+      }
+    ]
+  }
+}

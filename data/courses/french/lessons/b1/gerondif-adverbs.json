@@ -1,0 +1,595 @@
+{
+  "id": "b1-gerondif-adverbs",
+  "slug": "gerondif-adverbs",
+  "title": "The gérondif and adverbs in -ment",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 34,
+  "summary": "Say how and while with en + -ant (en mangeant, en faisant), and how something is done with adverbs in -ment (lentement, évidemment).",
+  "focus": "The gérondif and forming and placing adverbs in -ment",
+  "prerequisites": [
+    "b1-conditionnel"
+  ],
+  "content": "## The gérondif: en + -ant\n\nTake the **nous** form of the present, drop **-ons**, add **-ant**, and put **en** in front:\n\n| nous form | gérondif |\n|---|---|\n| nous mangeons | **en mangeant** |\n| nous faisons | **en faisant** |\n| nous finissons | **en finissant** |\n| nous courons | **en courant** |\n\nThree verbs are irregular: **être → en étant**, **avoir → en ayant**, **savoir → en sachant**.\n\nThe gérondif never changes its ending, and it always refers to the **subject** of the main verb: **J'ai vu Paul en sortant** = I saw Paul as *I* was leaving.\n\n## When, how, while: using it\n\n- **Two actions at the same time**: **Il chante en se douchant.** (He sings in the shower.)\n- **The means, how**: **Elle a appris le français en regardant des séries.** (She learnt French by watching series.)\n- **A condition**: **En partant maintenant, tu arriveras à l'heure.** (If you leave now, you'll be on time.)\n- **Tout en** stresses that two things go together, often in contrast: **Tout en étant fatiguée, elle a fini son travail.** (Even though she was tired, she finished her work.)\n\n## Adverbs in -ment\n\n- Feminine adjective + **-ment**: lente → **lentement**, heureuse → **heureusement**, douce → **doucement**.\n- Adjective ending in a vowel: masculine + **-ment**: vrai → **vraiment**, poli → **poliment**.\n- **-ent → -emment**, **-ant → -amment**, both said *-amment*: évident → **évidemment**, courant → **couramment**.\n- Irregular: gentil → **gentiment**, bon → **bien**.\n\n**Placement**: after the conjugated verb (**Il parle lentement**). In the passé composé, short adverbs go between the auxiliary and the participle (**J'ai bien dormi**, **Il a vite compris**); long -ment adverbs usually go after the participle (**Il a répondu poliment**).",
+  "vocabulary": [
+    {
+      "term": "courir",
+      "meaning": "to run",
+      "example": "Je cours tous les matins dans le parc.",
+      "example_meaning": "I run every morning in the park."
+    },
+    {
+      "term": "en faisant",
+      "meaning": "(while / by) doing",
+      "example": "J'ai rencontré Lucie en faisant les courses.",
+      "example_meaning": "I met Lucie while doing the shopping."
+    },
+    {
+      "term": "en étant",
+      "meaning": "(while / by) being",
+      "example": "En étant patient, on obtient beaucoup.",
+      "example_meaning": "By being patient, you get a lot."
+    },
+    {
+      "term": "en sachant",
+      "meaning": "knowing",
+      "example": "Il est parti en sachant qu'il allait pleuvoir.",
+      "example_meaning": "He left knowing it was going to rain."
+    },
+    {
+      "term": "tout en",
+      "meaning": "while, even though (+ gérondif)",
+      "example": "Tout en étant fatiguée, elle a fini son travail.",
+      "example_meaning": "Even though she was tired, she finished her work."
+    },
+    {
+      "term": "lentement",
+      "meaning": "slowly",
+      "example": "Parlez lentement, s'il vous plaît.",
+      "example_meaning": "Speak slowly, please."
+    },
+    {
+      "term": "heureusement",
+      "meaning": "fortunately, luckily",
+      "example": "Heureusement, le train était à l'heure.",
+      "example_meaning": "Luckily, the train was on time."
+    },
+    {
+      "term": "malheureusement",
+      "meaning": "unfortunately",
+      "example": "Malheureusement, le magasin est fermé.",
+      "example_meaning": "Unfortunately, the shop is closed."
+    },
+    {
+      "term": "évidemment",
+      "meaning": "obviously, of course",
+      "example": "Évidemment, il a oublié son parapluie.",
+      "example_meaning": "Of course, he forgot his umbrella."
+    },
+    {
+      "term": "couramment",
+      "meaning": "fluently",
+      "example": "Elle parle couramment trois langues.",
+      "example_meaning": "She speaks three languages fluently."
+    },
+    {
+      "term": "vraiment",
+      "meaning": "really, truly",
+      "example": "J'ai vraiment aimé ce film.",
+      "example_meaning": "I really liked this film."
+    },
+    {
+      "term": "gentiment",
+      "meaning": "kindly",
+      "example": "Le voisin m'a gentiment aidé.",
+      "example_meaning": "The neighbour kindly helped me."
+    },
+    {
+      "term": "rapidement",
+      "meaning": "quickly",
+      "example": "Il a répondu rapidement à mon message.",
+      "example_meaning": "He answered my message quickly."
+    },
+    {
+      "term": "doucement",
+      "meaning": "gently, softly, slowly",
+      "example": "Parle doucement, le bébé dort.",
+      "example_meaning": "Speak softly, the baby is asleep."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-gerondif-adverbs-01",
+      "prompt": "J'ai appris l'anglais ___ des films.",
+      "type": "multiple-choice",
+      "options": [
+        "en regardant",
+        "en regarder",
+        "regardant en"
+      ],
+      "correct_answer": "en regardant",
+      "explanation": "The means (how I learnt) is a gérondif: en + nous stem + -ant, 'en regardant'.",
+      "hints": [
+        "en + a form ending in -ant",
+        "Start from nous regardons: the stem is regard-."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-gerondif-adverbs-02",
+      "prompt": "Il siffle en ___ (faire) la vaisselle.",
+      "type": "fill-in-blank",
+      "correct_answer": "faisant",
+      "accepted_answers": [],
+      "explanation": "Nous faisons gives the stem fais-, plus -ant: 'en faisant'.",
+      "hints": [
+        "Start from nous faisons.",
+        "Drop -ons, add -ant."
+      ],
+      "teaches": [
+        "en faisant"
+      ]
+    },
+    {
+      "question_id": "b1-gerondif-adverbs-03",
+      "prompt": "Which is the gérondif of avoir?",
+      "type": "multiple-choice",
+      "options": [
+        "en ayant",
+        "en avant",
+        "en avoir"
+      ],
+      "correct_answer": "en ayant",
+      "explanation": "Avoir is one of the three irregulars: en ayant (with être → en étant, savoir → en sachant).",
+      "hints": [
+        "It is irregular, with a y."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-gerondif-adverbs-04",
+      "prompt": "Le dimanche, nous ___ (courir) lentement au bord du lac.",
+      "type": "fill-in-blank",
+      "correct_answer": "courons",
+      "accepted_answers": [
+        "nous courons"
+      ],
+      "explanation": "Courir in the present: je cours, tu cours, il court, nous courons, vous courez, ils courent. One r in the present.",
+      "hints": [
+        "nous form of courir",
+        "Only one r in the present."
+      ],
+      "teaches": [
+        "courir",
+        "lentement"
+      ]
+    },
+    {
+      "question_id": "b1-gerondif-adverbs-05",
+      "prompt": "Elle parle ___ l'espagnol.",
+      "type": "multiple-choice",
+      "options": [
+        "couramment",
+        "courante",
+        "courant"
+      ],
+      "correct_answer": "couramment",
+      "explanation": "An adverb is needed to say how she speaks: courant gives couramment (-ant becomes -amment).",
+      "hints": [
+        "How does she speak?",
+        "-ant becomes -amment."
+      ],
+      "teaches": [
+        "couramment"
+      ]
+    },
+    {
+      "question_id": "b1-gerondif-adverbs-06",
+      "prompt": "___ (évident), il a oublié son passeport !",
+      "type": "fill-in-blank",
+      "correct_answer": "Évidemment",
+      "accepted_answers": [
+        "evidemment"
+      ],
+      "explanation": "Évident ends in -ent, so the adverb is évidemment (-ent becomes -emment).",
+      "hints": [
+        "-ent becomes -emment."
+      ],
+      "teaches": [
+        "évidemment"
+      ]
+    },
+    {
+      "question_id": "b1-gerondif-adverbs-07",
+      "prompt": "In 'J'ai bien dormi', the adverb bien goes between the auxiliary and the participle.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Yes: short adverbs like bien, mal, vite, déjà sit between avoir/être and the participle.",
+      "hints": [
+        "Where is bien in the sentence?"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-gerondif-adverbs-08",
+      "prompt": "Tout ___ fatigué, il a continué à travailler.",
+      "type": "multiple-choice",
+      "options": [
+        "en étant",
+        "en ayant",
+        "étant en"
+      ],
+      "correct_answer": "en étant",
+      "explanation": "Tout en + gérondif of être (en étant): even though he was tired.",
+      "hints": [
+        "Fatigué goes with être.",
+        "The gérondif of être is irregular."
+      ],
+      "teaches": [
+        "tout en",
+        "en étant"
+      ]
+    },
+    {
+      "question_id": "b1-gerondif-adverbs-09",
+      "prompt": "In 'J'ai vu Paul en sortant', it is Paul who is leaving.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "The gérondif refers to the subject of the main verb: I saw Paul as I was leaving.",
+      "hints": [
+        "Who is the subject of ai vu?"
+      ],
+      "teaches": []
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "courir",
+      "meaning": "to run",
+      "set": "present",
+      "art": [
+        "    O     ",
+        "  _/|\\_   ",
+        "    |     ",
+        "   / \\    ",
+        "  /   \\_  ",
+        " ~~~~~~~~ "
+      ],
+      "forms": {
+        "je": "cours",
+        "tu": "cours",
+        "il": "court",
+        "nous": "courons",
+        "vous": "courez",
+        "ils": "courent"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-gerondif-adverbs-conv-running-partners",
+      "title": "Running partners",
+      "scenario": "Julie and Karim, two colleagues, meet at the coffee machine and talk about running.",
+      "role_a": "Karim",
+      "role_b": "Julie",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Salut Julie ! Tu cours toujours le matin ?",
+          "meaning": "Hi Julie! Do you still run in the mornings?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, je cours trois fois par semaine, en écoutant des podcasts.",
+          "meaning": "Yes, I run three times a week, listening to podcasts.",
+          "note": "en écoutant: at the same time"
+        },
+        {
+          "speaker": "a",
+          "text": "Moi, je cours plutôt le soir, en rentrant du travail.",
+          "meaning": "I tend to run in the evening, on my way home from work."
+        },
+        {
+          "speaker": "b",
+          "text": "C'est vrai ? Tu cours vite ?",
+          "meaning": "Really? Do you run fast?"
+        },
+        {
+          "speaker": "a",
+          "text": "Pas vraiment. Je cours lentement, mais longtemps.",
+          "meaning": "Not really. I run slowly, but for a long time."
+        },
+        {
+          "speaker": "b",
+          "text": "C'est en courant régulièrement qu'on progresse.",
+          "meaning": "It's by running regularly that you improve.",
+          "note": "en courant: the means"
+        },
+        {
+          "speaker": "a",
+          "text": "Évidemment ! Et tu prépares le semi-marathon ?",
+          "meaning": "Of course! And are you training for the half marathon?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui. Heureusement, mon genou va mieux.",
+          "meaning": "Yes. Luckily, my knee is better."
+        },
+        {
+          "speaker": "a",
+          "text": "Tu veux courir avec moi dimanche ?",
+          "meaning": "Do you want to run with me on Sunday?"
+        },
+        {
+          "speaker": "b",
+          "text": "Avec plaisir ! On pourra discuter tout en courant.",
+          "meaning": "With pleasure! We'll be able to chat while we run.",
+          "note": "tout en: two things together"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Elle chante en cuisinant.",
+      "meaning": "She sings while cooking.",
+      "note": "en + -ant: at the same time."
+    },
+    {
+      "text": "Nous courons lentement le dimanche.",
+      "meaning": "We run slowly on Sundays."
+    },
+    {
+      "text": "Heureusement, le bus est arrivé rapidement.",
+      "meaning": "Luckily, the bus came quickly."
+    },
+    {
+      "text": "Il a appris l'italien en écoutant la radio.",
+      "meaning": "He learnt Italian by listening to the radio.",
+      "note": "en écoutant: the means."
+    },
+    {
+      "text": "Malheureusement, mon frère ne parle pas couramment l'anglais.",
+      "meaning": "Unfortunately, my brother doesn't speak English fluently."
+    },
+    {
+      "text": "En partant maintenant, vous arriverez à l'heure à la gare.",
+      "meaning": "If you leave now, you'll get to the station on time.",
+      "note": "New word: à l'heure = on time."
+    },
+    {
+      "text": "Mon grand-père s'est cassé la jambe en tombant dans l'escalier.",
+      "meaning": "My grandfather broke his leg falling down the stairs.",
+      "note": "New word: l'escalier = the stairs."
+    },
+    {
+      "text": "Tout en étant très occupée, elle répond gentiment à tout le monde.",
+      "meaning": "Even though she's very busy, she answers everyone kindly."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The gérondif"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-gerondif-adverbs-01"
+    },
+    {
+      "question": "b1-gerondif-adverbs-03"
+    },
+    {
+      "question": "b1-gerondif-adverbs-02"
+    },
+    {
+      "section": "When, how"
+    },
+    {
+      "question": "b1-gerondif-adverbs-08"
+    },
+    {
+      "question": "b1-gerondif-adverbs-09"
+    },
+    {
+      "tip": "To build the gérondif, say the nous form out loud and swap -ons for -ant, so nous prenons becomes en prenant."
+    },
+    {
+      "section": "Adverbs"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-gerondif-adverbs-04"
+    },
+    {
+      "question": "b1-gerondif-adverbs-06"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-gerondif-adverbs-05"
+    },
+    {
+      "question": "b1-gerondif-adverbs-07"
+    },
+    {
+      "concept": {
+        "title": "The -ant form without en",
+        "markdown": "In written French the -ant form also appears without **en**, as the participe présent: **Ayant fini, il est parti.** (Having finished, he left.) **Une femme parlant trois langues.** (A woman speaking three languages.) You will read it more than you say it."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "🏃",
+    "bites": [
+      {
+        "title": "en + -ant",
+        "emoji": "🏃",
+        "rule": "Take the nous form, drop -ons, add -ant, put en in front, so nous faisons gives en faisant. Irregular: en étant, en ayant, en sachant.",
+        "example": "Il travaille en écoutant de la musique.",
+        "example_meaning": "He works while listening to music."
+      },
+      {
+        "title": "While, by, if",
+        "emoji": "⏱️",
+        "rule": "The gérondif says two things happen together, how something is done, or on what condition. Tout en stresses the contrast.",
+        "example": "C'est en forgeant qu'on devient forgeron.",
+        "example_meaning": "Practice makes perfect. (Literally: it's by forging that you become a blacksmith.)"
+      },
+      {
+        "title": "Adjective plus -ment",
+        "emoji": "✍️",
+        "rule": "Feminine adjective + -ment (lente gives lentement); vowel ending + -ment (vrai gives vraiment); -ent becomes -emment, -ant becomes -amment.",
+        "example": "Évidemment, elle parle couramment.",
+        "example_meaning": "Of course, she speaks fluently."
+      },
+      {
+        "title": "Where it goes",
+        "emoji": "📍",
+        "rule": "After the conjugated verb. In the passé composé, short adverbs go before the participle: j'ai bien dormi, il a vite compris.",
+        "example": "Nous avons bien mangé.",
+        "example_meaning": "We ate well."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "-emment or -amment?",
+        "buckets": [
+          "-emment",
+          "-amment"
+        ],
+        "items": [
+          {
+            "text": "évident",
+            "bucket": 0
+          },
+          {
+            "text": "courant",
+            "bucket": 1
+          },
+          {
+            "text": "prudent",
+            "bucket": 0
+          },
+          {
+            "text": "patient",
+            "bucket": 0
+          },
+          {
+            "text": "constant",
+            "bucket": 1
+          },
+          {
+            "text": "suffisant",
+            "bucket": 1
+          },
+          {
+            "text": "récent",
+            "bucket": 0
+          }
+        ],
+        "why": "Adjectives in -ent give -emment (évidemment), adjectives in -ant give -amment (couramment). Both sound the same."
+      },
+      {
+        "title": "What does the gérondif express?",
+        "buckets": [
+          "at the same time",
+          "the means (how)"
+        ],
+        "items": [
+          {
+            "text": "Il chante en se douchant.",
+            "bucket": 0
+          },
+          {
+            "text": "Elle a maigri en faisant du sport.",
+            "bucket": 1
+          },
+          {
+            "text": "Je lis en mangeant.",
+            "bucket": 0
+          },
+          {
+            "text": "Il a réussi en travaillant dur.",
+            "bucket": 1
+          },
+          {
+            "text": "On s'est rencontrés en attendant le bus.",
+            "bucket": 0
+          },
+          {
+            "text": "Tu apprendras en pratiquant.",
+            "bucket": 1
+          }
+        ],
+        "why": "If the -ant action happens alongside the other, it's simultaneity; if it explains how the result came about, it's the means."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Il travaille en écoutent de la musique.",
+        "wrong": "écoutent",
+        "fix": "écoutant",
+        "why": "The gérondif ends in -ant: en écoutant."
+      },
+      {
+        "sentence": "Elle marche très lentment.",
+        "wrong": "lentment",
+        "fix": "lentement",
+        "why": "Build it on the feminine adjective: lente + -ment."
+      },
+      {
+        "sentence": "Évidament, il a raté le bus.",
+        "wrong": "Évidament",
+        "fix": "Évidemment",
+        "why": "Évident ends in -ent, so -emment."
+      },
+      {
+        "sentence": "Il a répondu très gentilment.",
+        "wrong": "gentilment",
+        "fix": "gentiment",
+        "why": "Gentil gives the irregular gentiment."
+      },
+      {
+        "sentence": "Nous courrons tous les matins dans le parc.",
+        "wrong": "courrons",
+        "fix": "courons",
+        "why": "Present tense: nous courons, one r. Courrons with two r's is the futur."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Elle chante en faisant la cuisine.",
+        "meaning": "She sings while cooking.",
+        "distractors": [
+          "fait"
+        ]
+      },
+      {
+        "text": "J'ai très bien dormi.",
+        "meaning": "I slept very well.",
+        "distractors": [
+          "bon"
+        ]
+      },
+      {
+        "text": "Il parle couramment trois langues.",
+        "meaning": "He speaks three languages fluently.",
+        "distractors": [
+          "courant"
+        ]
+      },
+      {
+        "text": "Heureusement, nous sommes arrivés à l'heure.",
+        "meaning": "Luckily, we arrived on time.",
+        "distractors": [
+          "heureux"
+        ]
+      }
+    ]
+  }
+}

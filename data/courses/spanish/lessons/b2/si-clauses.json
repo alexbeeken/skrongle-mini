@@ -1,0 +1,580 @@
+{
+  "id": "b2-si-clauses",
+  "slug": "si-clauses",
+  "title": "Si tuviera tiempo…: conditional sentences",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 20,
+  "summary": "Real, hypothetical and impossible-past conditions: si tengo… iré, si tuviera… iría, si hubiera sabido… habría venido.",
+  "focus": "Choosing the right tense in each half of a conditional sentence",
+  "prerequisites": [
+    "b2-sequence-of-tenses",
+    "b2-future-and-conditional-perfect",
+    "b1-real-conditions"
+  ],
+  "content": "## Real conditions: si + present\n\nWhen the condition is possible or likely, use **si** + present indicative. The result goes in the present, the future or the imperative.\n\n- **Si hace buen tiempo, comemos en la terraza.** (If the weather's good, we eat on the terrace.)\n- **Si sales ahora, llegarás a tiempo.** (If you leave now, you'll get there on time.)\n- **Si ves a Pablo, dile que me llame.** (If you see Pablo, tell him to call me.)\n\nThe si-clause can come first or second: **Te llamo si tengo noticias.** Put a comma only when **si** comes first.\n\n## Hypothetical: si + imperfect subjunctive\n\nFor something unlikely, or untrue right now, use **si** + imperfect subjunctive, then the conditional.\n\n- **Si tuviera tiempo, leería más.** (If I had time, I'd read more.)\n- **Si fuera tú, no lo haría.** (If I were you, I wouldn't do it.)\n- **Si vivierais más cerca, os veríamos más a menudo.** (If you lived closer, we'd see you more often.)\n\nThe **-se** form works the same after si: **si tuviese, si fuese**. English uses a past (*if I had*); Spanish needs the subjunctive. **Si fuera tú…** and **yo en tu lugar…** are the classic ways to give advice.\n\n## The impossible past: si hubiera hecho\n\nFor a past that can no longer change, use **si** + pluperfect subjunctive: **hubiera** (or **hubiese**) + participle.\n\n| | -ra form | -se form |\n|---|---|---|\n| yo | hubiera hecho | hubiese hecho |\n| tú | hubieras hecho | hubieses hecho |\n| él / ella / usted | hubiera hecho | hubiese hecho |\n| nosotros/as | hubiéramos hecho | hubiésemos hecho |\n| vosotros/as | hubierais hecho | hubieseis hecho |\n| ellos / ellas / ustedes | hubieran hecho | hubiesen hecho |\n\nThe result takes **habría** + participle, or **hubiera** + participle with the same meaning:\n\n- **Si hubieras venido, te habrías divertido.** (If you had come, you'd have had fun.)\n- **Si lo hubiera visto, lo hubiera comprado.** (If I'd seen it, I'd have bought it.)\n\n## Mixed conditions and de + infinitive\n\nA past condition can have its result **now**. Use si + **hubiera** + participle, then the simple conditional.\n\n- **Si hubiera estudiado medicina, ahora sería médica.** (If I had studied medicine, I'd be a doctor now.)\n- **Si no hubiéramos perdido el mapa, no estaríamos aquí.** (If we hadn't lost the map, we wouldn't be here.)\n\nIn careful speech and writing, **de** + infinitive can replace the si-clause, with **de haber** + participle for the past:\n\n- **De haberlo sabido, habría venido.** (Had I known, I'd have come.)\n- **De tener dinero, me compraría una casa.** (If I had money, I'd buy a house.)\n\n## Two things never follow si\n\nAfter **si** meaning *if*, Spanish never uses:\n\n- the **present subjunctive**: not *si tenga*, but **si tengo** or **si tuviera**;\n- the **conditional**: not *si tendría*, but **si tuviera**; not *si habría sabido*, but **si hubiera sabido**.\n\nThe conditional belongs in the other half of the sentence. As a quick test, a **-ría** form never comes straight after **si**.\n\nNote that **si** meaning *whether*, in an indirect question, is a different use. **No sé si vendría** (I don't know whether he'd come) is correct.",
+  "vocabulary": [
+    {
+      "term": "arrepentirse",
+      "meaning": "to regret, to be sorry",
+      "example": "Si no vas a la fiesta, te arrepentirás.",
+      "example_meaning": "If you don't go to the party, you'll regret it."
+    },
+    {
+      "term": "aprovechar",
+      "meaning": "to make the most of, to make good use of",
+      "example": "Si aprovecharas mejor las mañanas, tendrías la tarde libre.",
+      "example_meaning": "If you made better use of your mornings, you'd have the afternoon free."
+    },
+    {
+      "term": "atreverse a",
+      "meaning": "to dare to",
+      "example": "Si me atreviera a hablar en público, presentaría yo el proyecto.",
+      "example_meaning": "If I dared to speak in public, I'd present the project myself."
+    },
+    {
+      "term": "correr un riesgo",
+      "meaning": "to take a risk",
+      "example": "Si no corres ningún riesgo, nunca sabrás si funciona.",
+      "example_meaning": "If you don't take any risks, you'll never know whether it works."
+    },
+    {
+      "term": "hacer caso a",
+      "meaning": "to listen to, to take notice of (advice)",
+      "example": "Si le hubieras hecho caso al médico, ya estarías curado.",
+      "example_meaning": "If you had listened to the doctor, you'd be better by now."
+    },
+    {
+      "term": "tocar la lotería",
+      "meaning": "to win the lottery (la lotería le toca a alguien)",
+      "example": "¿Qué harías si te tocara la lotería?",
+      "example_meaning": "What would you do if you won the lottery?"
+    },
+    {
+      "term": "suspender",
+      "meaning": "to fail (an exam)",
+      "example": "Si hubiera estudiado un poco más, no habría suspendido física.",
+      "example_meaning": "If I had studied a bit more, I wouldn't have failed physics."
+    },
+    {
+      "term": "la beca",
+      "meaning": "the scholarship, the grant",
+      "example": "Si consigues la beca, podrás estudiar en Roma.",
+      "example_meaning": "If you get the scholarship, you'll be able to study in Rome."
+    },
+    {
+      "term": "en tu lugar",
+      "meaning": "in your place, if I were you",
+      "example": "Yo, en tu lugar, aceptaría la oferta.",
+      "example_meaning": "If I were you, I'd accept the offer."
+    },
+    {
+      "term": "de lo contrario",
+      "meaning": "otherwise",
+      "example": "Llévate el abrigo; de lo contrario, pasarás frío.",
+      "example_meaning": "Take your coat; otherwise you'll be cold."
+    },
+    {
+      "term": "a estas alturas",
+      "meaning": "by now, at this stage",
+      "example": "Si hubiéramos salido a las seis, a estas alturas ya estaríamos en Valencia.",
+      "example_meaning": "If we had left at six, we'd already be in Valencia by now."
+    },
+    {
+      "term": "de haberlo sabido",
+      "meaning": "had I known, if I had known",
+      "example": "De haberlo sabido, habría reservado mesa.",
+      "example_meaning": "Had I known, I'd have booked a table."
+    },
+    {
+      "term": "equivocarse",
+      "meaning": "to make a mistake, to be wrong",
+      "example": "Si me equivoco, corrígeme, por favor.",
+      "example_meaning": "If I get it wrong, correct me, please."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-si-clauses-01",
+      "prompt": "Si me ___ la lotería, dejaría de trabajar y daría la vuelta al mundo.",
+      "type": "multiple-choice",
+      "options": [
+        "tocara",
+        "toque",
+        "tocaría"
+      ],
+      "correct_answer": "tocara",
+      "explanation": "An unlikely condition with a conditional result (dejaría) takes si + imperfect subjunctive: si me tocara.",
+      "hints": [
+        "The result is dejaría: which tense goes after si with it?"
+      ],
+      "teaches": [
+        "tocar la lotería"
+      ]
+    },
+    {
+      "question_id": "b2-si-clauses-02",
+      "prompt": "Si ___ (aprovechar, tú) bien esta semana, aprobarás el examen sin problemas. (If you make good use of this week, you'll pass the exam easily.)",
+      "type": "fill-in-blank",
+      "correct_answer": "aprovechas",
+      "accepted_answers": [
+        "tú aprovechas"
+      ],
+      "explanation": "A real, likely condition with a future result takes si + present indicative: si aprovechas.",
+      "hints": [
+        "Real condition: si + present."
+      ],
+      "teaches": [
+        "aprovechar"
+      ]
+    },
+    {
+      "question_id": "b2-si-clauses-03",
+      "prompt": "Si ves a Lucía, ___ que la beca ya ha llegado.",
+      "type": "multiple-choice",
+      "options": [
+        "dile",
+        "le dirías",
+        "le dijeras"
+      ],
+      "correct_answer": "dile",
+      "explanation": "A real condition (si ves) can lead to an imperative: dile que… = tell her that…",
+      "hints": [
+        "Si + present can be followed by a command."
+      ],
+      "teaches": [
+        "la beca"
+      ]
+    },
+    {
+      "question_id": "b2-si-clauses-04",
+      "prompt": "Si ___ (saber, yo) que ibas a suspender, te habría ayudado a estudiar. (If I had known you were going to fail, I'd have helped you study.)",
+      "type": "fill-in-blank",
+      "correct_answer": "hubiera sabido",
+      "accepted_answers": [
+        "hubiese sabido",
+        "yo hubiera sabido",
+        "yo hubiese sabido"
+      ],
+      "explanation": "An impossible past condition takes si + pluperfect subjunctive: hubiera sabido (or hubiese sabido).",
+      "hints": [
+        "The result is habría ayudado: the past can't change.",
+        "hubiera / hubiese + participle"
+      ],
+      "teaches": [
+        "suspender"
+      ]
+    },
+    {
+      "question_id": "b2-si-clauses-05",
+      "prompt": "Si me hubieras hecho caso, no te ___ (equivocarse). (If you had listened to me, you wouldn't have got it wrong.)",
+      "type": "fill-in-blank",
+      "correct_answer": "habrías equivocado",
+      "accepted_answers": [
+        "hubieras equivocado"
+      ],
+      "explanation": "The result of an impossible past condition takes habría + participle; hubiera + participle (hubieras equivocado) means the same.",
+      "hints": [
+        "Result of a past that can't change: habría + participle."
+      ],
+      "teaches": [
+        "hacer caso a",
+        "equivocarse"
+      ]
+    },
+    {
+      "question_id": "b2-si-clauses-06",
+      "prompt": "Si hubiera aceptado aquel trabajo, a estas alturas ya ___ en Berlín.",
+      "type": "multiple-choice",
+      "options": [
+        "viviría",
+        "viviera",
+        "viviré"
+      ],
+      "correct_answer": "viviría",
+      "explanation": "A mixed condition: the cause is in the past (hubiera aceptado), the result is now (a estas alturas), so the result takes the simple conditional: viviría.",
+      "hints": [
+        "A estas alturas points to the present."
+      ],
+      "teaches": [
+        "a estas alturas"
+      ]
+    },
+    {
+      "question_id": "b2-si-clauses-07",
+      "prompt": "Which hypothetical si-sentence is correct?",
+      "type": "multiple-choice",
+      "options": [
+        "Si tendría dinero, compraría un barco.",
+        "Si tenga dinero, compraría un barco.",
+        "Si tuviera dinero, compraría un barco."
+      ],
+      "correct_answer": "Si tuviera dinero, compraría un barco.",
+      "explanation": "After si meaning if, never the conditional (si tendría) or the present subjunctive (si tenga): si tuviera, then compraría.",
+      "hints": [
+        "A -ría form never comes straight after si."
+      ]
+    },
+    {
+      "question_id": "b2-si-clauses-08",
+      "prompt": "___ haberlo sabido, habría venido antes. (Had I known, I would have come earlier.)",
+      "type": "fill-in-blank",
+      "correct_answer": "De",
+      "explanation": "De + infinitive can replace a si-clause: de haberlo sabido = si lo hubiera sabido.",
+      "hints": [
+        "A short preposition replaces si + hubiera."
+      ],
+      "teaches": [
+        "de haberlo sabido"
+      ]
+    },
+    {
+      "question_id": "b2-si-clauses-09",
+      "prompt": "Si ___ (atreverse, yo), le diría lo que pienso de su plan. (If I dared, I'd tell him what I think of his plan.)",
+      "type": "fill-in-blank",
+      "correct_answer": "me atreviera",
+      "accepted_answers": [
+        "me atreviese",
+        "yo me atreviera",
+        "yo me atreviese"
+      ],
+      "explanation": "A hypothetical condition takes si + imperfect subjunctive; from atrevieron you get me atreviera (or me atreviese).",
+      "hints": [
+        "Diría is conditional: which form goes after si?",
+        "Don't forget the reflexive pronoun."
+      ],
+      "teaches": [
+        "atreverse a"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-si-clauses-conv-lottery",
+      "title": "If I won the lottery",
+      "scenario": "Lucía and Javier have a coffee and dream about a big lottery jackpot, until the talk turns to a scholarship Lucía once turned down.",
+      "role_a": "Lucía",
+      "role_b": "Javier",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿Has visto el anuncio? Este sábado hay un bote enorme en la lotería.",
+          "meaning": "Have you seen the ad? There's a huge jackpot in the lottery this Saturday."
+        },
+        {
+          "speaker": "b",
+          "text": "Si me tocara, dejaría el trabajo mañana mismo.",
+          "meaning": "If I won it, I'd quit my job first thing tomorrow."
+        },
+        {
+          "speaker": "a",
+          "text": "¿En serio? Yo en tu lugar no lo dejaría tan rápido.",
+          "meaning": "Really? If I were you, I wouldn't quit so fast."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Y qué harías tú si fueras millonaria?",
+          "meaning": "And what would you do if you were a millionaire?"
+        },
+        {
+          "speaker": "a",
+          "text": "Volvería a estudiar. Si hubiera aceptado aquella beca, ahora sería arquitecta.",
+          "meaning": "I'd go back to studying. If I had accepted that scholarship, I'd be an architect now."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Y por qué no la aceptaste?",
+          "meaning": "So why didn't you accept it?"
+        },
+        {
+          "speaker": "a",
+          "text": "No me atreví. Si hubiera sabido lo que sé ahora, me habría ido.",
+          "meaning": "I didn't dare. If I had known then what I know now, I'd have gone."
+        },
+        {
+          "speaker": "b",
+          "text": "Pues aún estás a tiempo. Si la pides este año, te ayudo con los papeles.",
+          "meaning": "Well, there's still time. If you apply for it this year, I'll help you with the paperwork."
+        },
+        {
+          "speaker": "a",
+          "text": "¿De verdad? Si me la dan, te invito a cenar.",
+          "meaning": "Really? If they give it to me, dinner's on me."
+        },
+        {
+          "speaker": "b",
+          "text": "Trato hecho. Y si me toca la lotería, invito yo.",
+          "meaning": "Deal. And if I win the lottery, it's on me."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Si llueve, no salgo.",
+      "meaning": "If it rains, I'm not going out.",
+      "note": "Real condition: present in both halves."
+    },
+    {
+      "text": "Si fuera más joven, aprendería a surfear.",
+      "meaning": "If I were younger, I'd learn to surf.",
+      "note": "Hypothetical: imperfect subjunctive, then conditional."
+    },
+    {
+      "text": "Si me llamas, te recojo en la estación.",
+      "meaning": "If you call me, I'll pick you up at the station."
+    },
+    {
+      "text": "Si tuviéramos un huerto, plantaríamos tomates y lechugas.",
+      "meaning": "If we had a vegetable garden, we'd plant tomatoes and lettuces.",
+      "note": "New word: el huerto = the vegetable garden."
+    },
+    {
+      "text": "Si hubiera cogido el paraguas, no me habría mojado.",
+      "meaning": "If I had taken the umbrella, I wouldn't have got wet.",
+      "note": "New word: mojarse = to get wet."
+    },
+    {
+      "text": "Si hubiéramos salido antes, habríamos llegado a tiempo a la boda.",
+      "meaning": "If we had left earlier, we would have got to the wedding on time."
+    },
+    {
+      "text": "Si os hubierais quedado un día más, habríais visto los fuegos artificiales.",
+      "meaning": "If you had stayed one more day, you would have seen the fireworks.",
+      "note": "New word: los fuegos artificiales = the fireworks."
+    },
+    {
+      "text": "Si mi abuela no hubiera emigrado a Argentina, yo no estaría aquí hoy.",
+      "meaning": "If my grandmother hadn't emigrated to Argentina, I wouldn't be here today.",
+      "note": "Mixed: a past cause, a present result."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Real conditions"
+    },
+    {
+      "question": "b2-si-clauses-02"
+    },
+    {
+      "question": "b2-si-clauses-03"
+    },
+    {
+      "section": "Hypothetical"
+    },
+    {
+      "question": "b2-si-clauses-01"
+    },
+    {
+      "question": "b2-si-clauses-09"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "section": "The impossible past"
+    },
+    {
+      "question": "b2-si-clauses-04"
+    },
+    {
+      "question": "b2-si-clauses-05"
+    },
+    {
+      "tip": "Ask three questions. Is it likely (si + present)? Is it unlikely or untrue now (si + -ra)? Is it already too late (si + hubiera)?"
+    },
+    {
+      "section": "Mixed conditions"
+    },
+    {
+      "question": "b2-si-clauses-06"
+    },
+    {
+      "question": "b2-si-clauses-08"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Two things never follow si"
+    },
+    {
+      "question": "b2-si-clauses-07"
+    }
+  ],
+  "sprint": {
+    "icon": "🚦",
+    "bites": [
+      {
+        "title": "Real: si + present",
+        "emoji": "🌧️",
+        "rule": "A likely condition takes si + present indicative; the result is in the present, the future or the imperative.",
+        "example": "Si tienes hambre, come algo.",
+        "example_meaning": "If you're hungry, eat something."
+      },
+      {
+        "title": "Hypothetical: -ra, then -ría",
+        "emoji": "💭",
+        "rule": "Unlikely or untrue right now: si + imperfect subjunctive (tuviera or tuviese), then the conditional (iría, haría).",
+        "example": "Si tuviera coche, iría a la sierra los domingos.",
+        "example_meaning": "If I had a car, I'd go to the mountains on Sundays."
+      },
+      {
+        "title": "Too late: hubiera hecho",
+        "emoji": "⏪",
+        "rule": "An impossible past: si + hubiera (or hubiese) + participle, then habría + participle; hubiera + participle also works in the result.",
+        "example": "Si hubieras venido, te habrías reído mucho.",
+        "example_meaning": "If you had come, you'd have laughed a lot."
+      },
+      {
+        "title": "Never after si",
+        "emoji": "🚫",
+        "rule": "Conditional si never takes the present subjunctive or the conditional: not si tenga, not si tendría. Use si tengo or si tuviera.",
+        "example": "Si tuviera dinero, lo compraría.",
+        "example_meaning": "If I had money, I'd buy it."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which kind of condition?",
+        "buckets": [
+          "real (si + present)",
+          "hypothetical (si + -ra)",
+          "impossible past (si + hubiera)"
+        ],
+        "items": [
+          {
+            "text": "Si llegas tarde, avísame.",
+            "bucket": 0
+          },
+          {
+            "text": "Si vivieras aquí, nos veríamos más.",
+            "bucket": 1
+          },
+          {
+            "text": "Si hubieran llamado, habría contestado.",
+            "bucket": 2
+          },
+          {
+            "text": "Si hace sol, iremos a la playa.",
+            "bucket": 0
+          },
+          {
+            "text": "Si pudiera, cambiaría de trabajo.",
+            "bucket": 1
+          },
+          {
+            "text": "Si me lo hubieras dicho, te habría ayudado.",
+            "bucket": 2
+          }
+        ],
+        "why": "Likely: si + present. Unlikely or untrue now: si + imperfect subjunctive and the conditional. Too late: si + hubiera + participle and habría + participle."
+      },
+      {
+        "title": "After si or in the result?",
+        "buckets": [
+          "after si",
+          "in the result"
+        ],
+        "items": [
+          {
+            "text": "tuviera",
+            "bucket": 0
+          },
+          {
+            "text": "tendría",
+            "bucket": 1
+          },
+          {
+            "text": "hubiésemos visto",
+            "bucket": 0
+          },
+          {
+            "text": "habríamos visto",
+            "bucket": 1
+          },
+          {
+            "text": "fuese",
+            "bucket": 0
+          },
+          {
+            "text": "sería",
+            "bucket": 1
+          },
+          {
+            "text": "pudieras",
+            "bucket": 0
+          },
+          {
+            "text": "podrías",
+            "bucket": 1
+          }
+        ],
+        "why": "The imperfect and pluperfect subjunctive go after si; the conditional (-ría) goes in the result and never straight after si."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Si tendría tiempo, te ayudaría.",
+        "wrong": "tendría",
+        "fix": "tuviera",
+        "why": "Never the conditional after si: si tuviera, then ayudaría."
+      },
+      {
+        "sentence": "Si tengas frío, cierra la ventana.",
+        "wrong": "tengas",
+        "fix": "tienes",
+        "why": "Never the present subjunctive after si: a real condition takes the present indicative."
+      },
+      {
+        "sentence": "Si lo hubiera sabido, te habré avisado.",
+        "wrong": "habré",
+        "fix": "habría",
+        "why": "The result of an impossible past takes habría + participle, not the future perfect."
+      },
+      {
+        "sentence": "Si habías salido antes, no habrías perdido el tren.",
+        "wrong": "habías",
+        "fix": "hubieras",
+        "why": "An impossible past condition takes the pluperfect subjunctive: si hubieras salido."
+      },
+      {
+        "sentence": "Si fuera tú, no lo haga.",
+        "wrong": "haga",
+        "fix": "haría",
+        "why": "After si + imperfect subjunctive, the result goes in the conditional: no lo haría."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Si tuviera más tiempo, aprendería japonés.",
+        "meaning": "If I had more time, I'd learn Japanese.",
+        "distractors": [
+          "tendría",
+          "tenga"
+        ]
+      },
+      {
+        "text": "Si me hubieras escuchado, no estaríamos aquí.",
+        "meaning": "If you had listened to me, we wouldn't be here.",
+        "distractors": [
+          "habías"
+        ]
+      },
+      {
+        "text": "Si vienes mañana, te enseñaré el piso.",
+        "meaning": "If you come tomorrow, I'll show you the flat.",
+        "distractors": [
+          "vinieras"
+        ]
+      },
+      {
+        "text": "Yo en tu lugar no lo haría.",
+        "meaning": "If I were you, I wouldn't do it.",
+        "distractors": [
+          "hiciera"
+        ]
+      }
+    ]
+  }
+}

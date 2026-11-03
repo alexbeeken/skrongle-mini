@@ -1,0 +1,20 @@
+/* Place the note (#1226): loaded by static/staff-note.js, only on pages with such a question. */
+.staff-note { margin: .5rem 0 1rem; }
+/* The whole staff is one tap target (well over 44px tall); the note snaps to the nearest line or space. */
+.staff-note-staff { display: block; width: 100%; max-width: 20rem; min-height: 44px; margin: 0 auto; color: var(--text); touch-action: none; cursor: pointer; user-select: none; -webkit-user-select: none; }
+.staff-note-staff:focus { outline: none; }
+.staff-note-staff:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 6px; }
+.staff-note-line, .staff-note-ledger { stroke: currentColor; stroke-width: 1; }
+.staff-note-clef { fill: currentColor; }
+.staff-note-acc { fill: currentColor; }
+.staff-note-head { fill: currentColor; }
+.staff-note-ghost { fill: none; stroke: currentColor; stroke-dasharray: 2 2; opacity: .6; }
+.staff-note-staff:not(:focus) .staff-note-ghost-g { display: none; }
+.staff-note[data-state="right"] .staff-note-head { fill: var(--ok); }
+.staff-note[data-state="wrong"] .staff-note-head { fill: var(--bad); }
+.staff-note-right, .staff-note-right-g .staff-note-acc { fill: var(--ok); }
+.staff-note-right-g .staff-note-ledger { stroke: var(--ok); }
+.staff-note-accs { display: flex; justify-content: center; gap: .5rem; margin-top: .5rem; }
+.staff-note-accbtn { min-width: 44px; min-height: 44px; border: 2px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--text); font: inherit; font-size: 1.25rem; cursor: pointer; }
+.staff-note-accbtn[aria-pressed="true"] { border-color: var(--gold); background: var(--warn-bg); }
+.staff-note-accbtn:disabled { opacity: .45; cursor: default; }

@@ -1,0 +1,591 @@
+{
+  "id": "c2-literary-reading",
+  "slug": "literary-reading",
+  "title": "Reading literary prose",
+  "unit": "C2",
+  "group": "Grammar",
+  "order": 30,
+  "summary": "Reading fiction the way a writer builds it: imperfect for the scene and preterite for the event, the historic present and the narrative imperfect, free indirect style, epithets, hyperbaton and literary words.",
+  "focus": "Reading the tense choices, voice and style of literary Spanish prose",
+  "prerequisites": [
+    "c2-literary-subjunctive",
+    "c2-rare-tenses-and-periphrases",
+    "c2-long-sentences"
+  ],
+  "content": "## Scene and event: imperfect, preterite, historic present\n\n> Llovía sobre Valdelosa desde el amanecer. Las persianas de la calle Mayor estaban bajadas, el bar olía a café quemado y nadie hablaba. A las once en punto se abrió la puerta y entró una mujer con un abrigo verde. Pidió un vaso de agua, dejó una llave sobre la barra y se fue sin mirar atrás.\n\nThe **imperfect** paints the backdrop: **llovía**, **estaban**, **olía**, **hablaba**. The **preterite** moves the plot, one event after another: **se abrió**, **entró**, **pidió**, **dejó**, **se fue**.\n\nRetold in the **presente histórico**, the scene comes closer, as if it were happening now: **A las once en punto se abre la puerta y entra una mujer.**\n\n## The narrative imperfect\n\n> El tren de Valdelosa salía a las seis. Aquella mañana, Tomás llegó a la estación con diez minutos de margen. Un año después, la línea cerraba para siempre.\n\nThe first **salía** is an ordinary imperfect: the timetable, a habit. The last **cerraba** is different: one finished event, told as if in slow motion. This **imperfecto narrativo** (also called **imperfecto de ruptura**) is common in novels and the press, as in **Dos días después, el alcalde dimitía.** It gives an ending weight and solemnity, while the preterite **cerró** would only report it.\n\n## Free indirect style\n\n> Elvira guardó la carta en el cajón. ¿Y si su hermano tenía razón? No, imposible. Mañana iría al notario, firmaría los papeles y aquella casa dejaría de ser un problema. Cerró el cajón con llave.\n\nNo **pensó que** introduces it, yet the middle sentences are Elvira's thoughts. In **estilo indirecto libre** the narrator keeps the third person and moves the tenses back (**tenía**, **iría**, **firmaría**), but the questions, exclamations and words (**No, imposible**) are the character's own. Ask who would say each sentence. If the answer is the character, you are inside her head.\n\n## Epithets, hyperbaton and literary words\n\n- An **epíteto** is an adjective placed before the noun to stress a quality it already has: **la blanca nieve**, **el frío mármol**, **las oscuras aguas del pozo**. It adds tone, not information. Some adjectives change meaning: **un viejo amigo** (a long-standing friend) vs **un amigo viejo** (an elderly friend).\n- **Hyperbaton** in prose fronts a complement for rhythm: **De la casa de su infancia, nada quedaba en pie.**\n- Literary vocabulary: **el umbral** (threshold), **la penumbra** (half-light), **el crepúsculo** (twilight), **el anhelo** (longing), **efímero** (fleeting), **inefable** (beyond words), **susurrar** (to whisper), **yacer** (to lie, often of the dead), **vislumbrar** (to glimpse).",
+  "vocabulary": [
+    {
+      "term": "el umbral",
+      "meaning": "threshold, doorway",
+      "example": "Se quedó un momento en el umbral, sin decidirse a entrar.",
+      "example_meaning": "She stood for a moment in the doorway, unable to decide whether to go in."
+    },
+    {
+      "term": "la penumbra",
+      "meaning": "half-light, semi-darkness",
+      "example": "La biblioteca estaba en penumbra cuando sonó el teléfono.",
+      "example_meaning": "The library was in half-light when the phone rang."
+    },
+    {
+      "term": "el crepúsculo",
+      "meaning": "twilight, dusk",
+      "example": "Volvieron al pueblo con el último crepúsculo de agosto.",
+      "example_meaning": "They returned to the village in the last twilight of August."
+    },
+    {
+      "term": "el anhelo",
+      "meaning": "longing, yearning",
+      "example": "Su único anhelo era ver otra vez el mar.",
+      "example_meaning": "His only longing was to see the sea once more."
+    },
+    {
+      "term": "efímero / efímera",
+      "meaning": "fleeting, short-lived",
+      "example": "La fama del pintor fue tan efímera como su juventud.",
+      "example_meaning": "The painter's fame was as fleeting as his youth."
+    },
+    {
+      "term": "inefable",
+      "meaning": "ineffable, beyond words",
+      "example": "Sintió una calma inefable al llegar a la cima.",
+      "example_meaning": "She felt a calm beyond words when she reached the summit."
+    },
+    {
+      "term": "susurrar",
+      "meaning": "to whisper",
+      "example": "Le susurró el nombre al oído y se marchó.",
+      "example_meaning": "She whispered the name in his ear and left."
+    },
+    {
+      "term": "yacer",
+      "meaning": "to lie (literary; often of the dead)",
+      "example": "En aquella colina yacen los fundadores del pueblo.",
+      "example_meaning": "The founders of the village lie on that hill."
+    },
+    {
+      "term": "vislumbrar",
+      "meaning": "to glimpse, to make out",
+      "example": "Tras la curva vislumbraron por fin las luces del valle.",
+      "example_meaning": "Beyond the bend they at last made out the lights of the valley."
+    },
+    {
+      "term": "el epíteto",
+      "meaning": "epithet: an adjective before the noun that stresses a known quality",
+      "example": "En la blanca nieve, blanca es un epíteto.",
+      "example_meaning": "In la blanca nieve, blanca is an epithet."
+    },
+    {
+      "term": "el estilo indirecto libre",
+      "meaning": "free indirect style: a character's thoughts in the narrator's voice",
+      "example": "El estilo indirecto libre nos deja oír lo que piensa el personaje.",
+      "example_meaning": "Free indirect style lets us hear what the character is thinking."
+    },
+    {
+      "term": "el presente histórico",
+      "meaning": "historic present: the present tense used to tell past events",
+      "example": "El presente histórico acerca la escena al lector.",
+      "example_meaning": "The historic present brings the scene closer to the reader."
+    },
+    {
+      "term": "el imperfecto narrativo",
+      "meaning": "narrative imperfect: one finished event told in the imperfect",
+      "example": "La novela termina con un imperfecto narrativo: al día siguiente, el barco zarpaba.",
+      "example_meaning": "The novel ends with a narrative imperfect: the next day, the ship set sail."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c2-literary-reading-01",
+      "prompt": "In the Valdelosa passage, what do llovía, estaban and olía do?",
+      "type": "multiple-choice",
+      "options": [
+        "They paint the background of the scene.",
+        "They move the story on, one event after another.",
+        "They report what a character is thinking."
+      ],
+      "correct_answer": "They paint the background of the scene.",
+      "explanation": "The imperfect describes the setting: the rain, the blinds, the smell. Nothing happens until the preterite se abrió.",
+      "hints": [
+        "Does anything happen in those verbs, or is it all setting?"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "c2-literary-reading-02",
+      "prompt": "Which verb from the Valdelosa passage moves the story forward?",
+      "type": "multiple-choice",
+      "options": [
+        "entró",
+        "olía",
+        "hablaba"
+      ],
+      "correct_answer": "entró",
+      "explanation": "Entró is a preterite: a completed event in the sequence of the plot. Olía and hablaba belong to the scene.",
+      "hints": [
+        "Look for the preterite."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "c2-literary-reading-03",
+      "prompt": "Retell in the historic present: A las once se abrió la puerta → A las once se ___ la puerta.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "abre",
+      "accepted_answers": [],
+      "explanation": "The historic present tells a past event in the present to bring it closer: se abre la puerta y entra una mujer.",
+      "hints": [
+        "Present tense of abrir, third person."
+      ],
+      "teaches": [
+        "el presente histórico"
+      ]
+    },
+    {
+      "question_id": "c2-literary-reading-04",
+      "prompt": "Un año después, la línea cerraba para siempre. This cerraba is…",
+      "type": "multiple-choice",
+      "options": [
+        "a narrative imperfect: one finished event, told slowly and solemnly",
+        "a habit: the line closed every day",
+        "a description of the background"
+      ],
+      "correct_answer": "a narrative imperfect: one finished event, told slowly and solemnly",
+      "explanation": "The line closed once, for good. Using the imperfect for a single finished event slows it down and gives it weight: the narrative imperfect.",
+      "hints": [
+        "How many times did the line close for good?"
+      ],
+      "teaches": [
+        "el imperfecto narrativo"
+      ]
+    },
+    {
+      "question_id": "c2-literary-reading-05",
+      "prompt": "In the Elvira passage, whose voice is ¿Y si su hermano tenía razón?",
+      "type": "multiple-choice",
+      "options": [
+        "Elvira's thoughts, told in the narrator's third person",
+        "The narrator's own opinion",
+        "Her brother, speaking aloud"
+      ],
+      "correct_answer": "Elvira's thoughts, told in the narrator's third person",
+      "explanation": "No verb of thinking introduces it, but the doubt is Elvira's: that is free indirect style.",
+      "hints": [
+        "Who would ask herself this question?"
+      ],
+      "teaches": [
+        "el estilo indirecto libre"
+      ]
+    },
+    {
+      "question_id": "c2-literary-reading-06",
+      "prompt": "Elvira thinks: Mañana iré al notario. In free indirect style the text says: Mañana ___ al notario.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "iría",
+      "accepted_answers": [],
+      "explanation": "Free indirect style moves the tenses back like reported speech: iré becomes iría, but mañana, her own word, stays.",
+      "hints": [
+        "The future moves back to the conditional."
+      ],
+      "teaches": [
+        "el estilo indirecto libre"
+      ]
+    },
+    {
+      "question_id": "c2-literary-reading-07",
+      "prompt": "La blanca nieve cubría el valle. What does blanca add before the noun?",
+      "type": "multiple-choice",
+      "options": [
+        "Tone: it stresses a quality snow already has (an epithet).",
+        "Information: it tells this snow apart from snow of other colours.",
+        "Nothing: the word order is a mistake."
+      ],
+      "correct_answer": "Tone: it stresses a quality snow already has (an epithet).",
+      "explanation": "Snow is white anyway, so blanca before the noun is an epithet: it adds atmosphere, not information.",
+      "hints": [
+        "Is there any other kind of snow in the scene?"
+      ],
+      "teaches": [
+        "el epíteto"
+      ]
+    },
+    {
+      "question_id": "c2-literary-reading-08",
+      "prompt": "The light in a room at dusk, neither bright nor dark: la ___.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "penumbra",
+      "accepted_answers": [
+        "la penumbra"
+      ],
+      "explanation": "La penumbra is half-light, a favourite word of literary description.",
+      "hints": [
+        "pen- + umbra (shadow)"
+      ],
+      "teaches": [
+        "la penumbra"
+      ]
+    },
+    {
+      "question_id": "c2-literary-reading-09",
+      "prompt": "A lo lejos, entre la niebla, ___ las luces del puerto.",
+      "type": "multiple-choice",
+      "options": [
+        "se vislumbraban",
+        "se susurraban",
+        "yacían"
+      ],
+      "correct_answer": "se vislumbraban",
+      "explanation": "Vislumbrar is to glimpse something faint or far away: the lights could just be made out through the fog.",
+      "hints": [
+        "Something seen dimly, far away."
+      ],
+      "teaches": [
+        "vislumbrar"
+      ]
+    },
+    {
+      "question_id": "c2-literary-reading-10",
+      "prompt": "Se detuvo en el ___ de la puerta, sin atreverse a entrar. (threshold)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "umbral",
+      "accepted_answers": [
+        "el umbral"
+      ],
+      "explanation": "El umbral is the threshold: the place between outside and in, often a symbol of hesitation in fiction.",
+      "hints": [
+        "um…"
+      ],
+      "teaches": [
+        "el umbral"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "El crepúsculo teñía de rojo el río.",
+      "meaning": "The twilight tinged the river red.",
+      "note": "New word: teñir = to dye, to tinge."
+    },
+    {
+      "text": "Alguien susurraba en la penumbra.",
+      "meaning": "Someone was whispering in the half-light."
+    },
+    {
+      "text": "La felicidad de aquel verano fue efímera.",
+      "meaning": "The happiness of that summer was short-lived."
+    },
+    {
+      "text": "Sintió un anhelo inefable de volver a casa.",
+      "meaning": "He felt an indescribable longing to go home."
+    },
+    {
+      "text": "En el viejo cementerio yacen sus abuelos.",
+      "meaning": "His grandparents lie in the old cemetery.",
+      "note": "Yacer: literary, often of the dead."
+    },
+    {
+      "text": "Aquella noche, el último barco abandonaba el puerto para siempre.",
+      "meaning": "That night, the last boat left the harbour for ever.",
+      "note": "A narrative imperfect: one event, told slowly."
+    },
+    {
+      "text": "Desde la ventana se vislumbraban las torres de la catedral entre la niebla.",
+      "meaning": "From the window you could make out the cathedral towers through the fog.",
+      "note": "New word: la niebla = the fog."
+    },
+    {
+      "text": "Nadie la esperaba ya; aun así, se quedó un momento en el umbral.",
+      "meaning": "Nobody was waiting for her any more; even so, she stood a moment in the doorway."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Scene and event"
+    },
+    {
+      "question": "c2-literary-reading-01"
+    },
+    {
+      "question": "c2-literary-reading-02"
+    },
+    {
+      "question": "c2-literary-reading-03"
+    },
+    {
+      "section": "The narrative imperfect"
+    },
+    {
+      "question": "c2-literary-reading-04"
+    },
+    {
+      "section": "Free indirect style"
+    },
+    {
+      "question": "c2-literary-reading-05"
+    },
+    {
+      "question": "c2-literary-reading-06"
+    },
+    {
+      "tip": "Reading a novel, mark each verb as scene (imperfect) or event (preterite): you will see how every page is built."
+    },
+    {
+      "section": "Epithets, hyperbaton"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "c2-literary-reading-07"
+    },
+    {
+      "question": "c2-literary-reading-08"
+    },
+    {
+      "question": "c2-literary-reading-09"
+    },
+    {
+      "question": "c2-literary-reading-10"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c2-literary-reading-conv-taller",
+      "title": "At the writing workshop",
+      "scenario": "Inés, who runs a creative writing workshop, comments on the opening of Rodrigo's short story.",
+      "role_a": "Inés",
+      "role_b": "Rodrigo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Rodrigo, tu relato empieza bien: llovía, el bar olía a café, nadie hablaba.",
+          "meaning": "Rodrigo, your story starts well: it was raining, the bar smelt of coffee, nobody was talking."
+        },
+        {
+          "speaker": "b",
+          "text": "Quería que el lector entrara en la escena antes de que pasara nada.",
+          "meaning": "I wanted the reader to step into the scene before anything happened."
+        },
+        {
+          "speaker": "a",
+          "text": "Lo consigues. Pero luego todo sigue en imperfecto y la historia no avanza.",
+          "meaning": "You manage it. But then everything stays in the imperfect and the story doesn't move."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Pongo en pretérito la llegada de la mujer?",
+          "meaning": "Shall I put the woman's arrival in the preterite?"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí: entró, pidió, se fue. El imperfecto pinta; el pretérito cuenta.",
+          "meaning": "Yes: she came in, ordered, left. The imperfect paints; the preterite tells."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Y el final? Escribí: un año después, el bar cerraba para siempre.",
+          "meaning": "And the ending? I wrote: a year later, the bar closed for good."
+        },
+        {
+          "speaker": "a",
+          "text": "Ese imperfecto narrativo funciona: le da un aire solemne, casi de crónica.",
+          "meaning": "That narrative imperfect works: it gives it a solemn air, almost like a chronicle."
+        },
+        {
+          "speaker": "b",
+          "text": "En la página dos el camarero se pregunta si ella volverá. ¿Se entiende sin poner pensó?",
+          "meaning": "On page two the waiter wonders whether she'll come back. Is it clear without writing he thought?"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, es estilo indirecto libre. Oímos su voz sin que el narrador nos avise.",
+          "meaning": "Yes, it's free indirect style. We hear his voice without the narrator telling us."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Algo que quitar?",
+          "meaning": "Anything to cut?"
+        },
+        {
+          "speaker": "a",
+          "text": "Tres epítetos seguidos: la fría lluvia, el oscuro bar, la triste barra. Con uno basta.",
+          "meaning": "Three epithets in a row: the cold rain, the dark bar, the sad counter. One is enough."
+        },
+        {
+          "speaker": "b",
+          "text": "Me quedo con la fría lluvia. Los otros dos eran puro adorno.",
+          "meaning": "I'll keep the cold rain. The other two were pure decoration."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🕯️",
+    "bites": [
+      {
+        "title": "Paint, then tell",
+        "emoji": "🎨",
+        "rule": "The imperfect paints the scene (llovía, olía, nadie hablaba); the preterite moves the plot (entró, pidió, se fue). A page of fiction needs both.",
+        "example": "Llovía cuando entró el desconocido.",
+        "example_meaning": "It was raining when the stranger came in."
+      },
+      {
+        "title": "Narrative imperfect",
+        "emoji": "🎞️",
+        "rule": "In novels and the press, an imperfect can tell one finished event in slow motion, often at the end: Dos días después, el alcalde dimitía.",
+        "example": "Al año siguiente, la fábrica cerraba sus puertas.",
+        "example_meaning": "The following year, the factory closed its doors."
+      },
+      {
+        "title": "Inside a character's head",
+        "emoji": "💭",
+        "rule": "Free indirect style: third person and past tenses, but the questions and words are the character's: ¿Y si tenía razón? No, imposible.",
+        "example": "Miró el reloj. ¿Dónde se había metido Julia?",
+        "example_meaning": "He looked at his watch. Where on earth had Julia got to?"
+      },
+      {
+        "title": "Epithets",
+        "emoji": "❄️",
+        "rule": "An adjective before the noun can stress a quality it already has: la blanca nieve, el frío mármol. It adds tone, not information.",
+        "example": "Apoyó la mano en el frío mármol.",
+        "example_meaning": "She rested her hand on the cold marble."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Scene or event?",
+        "buckets": [
+          "scene (imperfect)",
+          "event (preterite)"
+        ],
+        "why": "The imperfect describes the setting of the story; the preterite marks the things that happen in it.",
+        "items": [
+          {
+            "text": "llovía",
+            "bucket": 0
+          },
+          {
+            "text": "el bar olía a café",
+            "bucket": 0
+          },
+          {
+            "text": "nadie hablaba",
+            "bucket": 0
+          },
+          {
+            "text": "entró una mujer",
+            "bucket": 1
+          },
+          {
+            "text": "pidió un vaso de agua",
+            "bucket": 1
+          },
+          {
+            "text": "se fue sin mirar atrás",
+            "bucket": 1
+          }
+        ]
+      },
+      {
+        "title": "Which kind of literary word?",
+        "buckets": [
+          "light and time",
+          "feeling",
+          "action"
+        ],
+        "why": "Penumbra and crepúsculo set the light; anhelo and inefable name feelings; susurrar and vislumbrar are things characters do.",
+        "items": [
+          {
+            "text": "la penumbra",
+            "bucket": 0
+          },
+          {
+            "text": "el crepúsculo",
+            "bucket": 0
+          },
+          {
+            "text": "el anhelo",
+            "bucket": 1
+          },
+          {
+            "text": "inefable",
+            "bucket": 1
+          },
+          {
+            "text": "susurrar",
+            "bucket": 2
+          },
+          {
+            "text": "vislumbrar",
+            "bucket": 2
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Cuando entró, el bar olió a café quemado.",
+        "wrong": "olió",
+        "fix": "olía",
+        "why": "The smell is part of the scene, not an event: imperfect."
+      },
+      {
+        "sentence": "Se detuvo en el umbrío de la puerta.",
+        "wrong": "umbrío",
+        "fix": "umbral",
+        "why": "El umbral is the threshold; umbrío means shady."
+      },
+      {
+        "sentence": "En la penumbra se vislumbraba dos sombras.",
+        "wrong": "vislumbraba",
+        "fix": "vislumbraban",
+        "why": "With se, the verb agrees with dos sombras: se vislumbraban."
+      },
+      {
+        "sentence": "Aquella alegría fue efímero.",
+        "wrong": "efímero",
+        "fix": "efímera",
+        "why": "The adjective agrees with alegría, which is feminine."
+      },
+      {
+        "sentence": "En el cementerio yace sus abuelos.",
+        "wrong": "yace",
+        "fix": "yacen",
+        "why": "The subject is sus abuelos, plural: yacen."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Llovía sobre el pueblo desde el amanecer.",
+        "meaning": "It had been raining on the village since dawn.",
+        "distractors": [
+          "lloviendo"
+        ]
+      },
+      {
+        "text": "Alguien susurraba en la penumbra del pasillo.",
+        "meaning": "Someone was whispering in the half-light of the corridor.",
+        "distractors": [
+          "umbral"
+        ]
+      },
+      {
+        "text": "Se detuvo en el umbral sin entrar.",
+        "meaning": "He stopped in the doorway without going in.",
+        "distractors": [
+          "umbrío"
+        ]
+      },
+      {
+        "text": "Fue una alegría efímera.",
+        "meaning": "It was a fleeting joy.",
+        "distractors": [
+          "efímero"
+        ]
+      }
+    ]
+  }
+}

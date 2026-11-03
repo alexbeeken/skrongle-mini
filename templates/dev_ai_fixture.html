@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Dev: fixture {{ name }}{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ crate::routes::asset_url("devbox.css") }}">
+<section class="narrow wide" data-testid="dev-ai-fixture-detail" data-name="{{ name }}" data-edited="{{ edited }}">
+  <div class="devbox-bar"><a href="{{ crate::url("/dev/ai") }}" data-testid="dev-ai-back">← AI</a></div>
+  <h1>{{ name }}.json{% if edited %} <span class="devbox-state" data-testid="dev-ai-fixture-edited">edited</span>{% endif %}</h1>
+  {% if !notice.is_empty() %}<p class="alert ok-text" role="status" data-testid="dev-ai-notice">{{ notice }}</p>{% endif %}
+  <p class="small muted"><code>{{ path }}</code>{% if !on_disk %} (not saved yet){% endif %} · replies: {% for k in keys %}<code data-testid="dev-ai-fixture-key">{{ k }}</code>{% if !loop.last %}, {% endif %}{% endfor %}{% if !error.is_empty() %} <span class="bad-text">{{ error }}</span>{% endif %}</p>
+  <form method="post" action="{{ action }}" data-testid="dev-ai-fixture-form">
+    <label class="sr-only" for="devai-fixture-text">The fixture file</label>
+    <textarea id="devai-fixture-text" name="text" rows="24" class="mono devai-editor" spellcheck="false" data-testid="dev-ai-fixture-text">{{ text }}</textarea>
+    <p class="devai-line">
+      <button type="submit" name="do" value="apply" class="btn small" data-testid="dev-ai-fixture-apply">Use for this run</button>
+      <button type="submit" name="do" value="save" class="btn ghost small" data-testid="dev-ai-fixture-save">Save to file</button>
+      <button type="submit" name="do" value="reset" class="btn ghost small" formnovalidate data-testid="dev-ai-fixture-reset">Reset</button>
+    </p>
+  </form>
+</section>
+{% endblock %}

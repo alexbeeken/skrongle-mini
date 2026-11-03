@@ -1,0 +1,628 @@
+{
+  "id": "a1-adjectives",
+  "slug": "adjectives-agreement-position",
+  "title": "Adjectives: agreement and position",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 15,
+  "summary": "Adjectives change to match the noun and usually come after it. It also covers muy vs mucho and colours.",
+  "focus": "Adjective agreement in gender and number, position, muy vs mucho",
+  "prerequisites": [
+    "a1-nouns-articles"
+  ],
+  "content": "## Adjectives agree with the noun\n\nAn adjective takes the **gender** and **number** of the noun it describes.\n\n| ends in | masculine | feminine | plurals |\n|---|---|---|---|\n| **-o** | alto | alt**a** | altos / altas |\n| **-e** | grande | grande | grandes |\n| consonant | azul | azul | azul**es** |\n| **-or** (people) | trabajador | trabajador**a** | trabajadores / trabajadoras |\n\n- *un chico alto, una chica alta, unos chicos altos, unas chicas altas*\n- *un coche grande, una casa grande, unos coches grandes*\n- *un libro azul, una mesa azul, unos libros azules*\n\nNationalities ending in a consonant add **-a** in the feminine: *español → española*, *inglés → inglesa* (the accent disappears).\n\n## Position: after the noun\n\nMost adjectives come **after** the noun, the opposite of English. For example:\n\n- *una ciudad bonita* (a pretty city)\n- *el coche rojo* (the red car)\n\nQuantity words come before: *muchos libros*, *pocas personas*, *otro día*. *Bueno* and *malo* can come before and shorten in the masculine singular: *un buen amigo*, *un mal día*.\n\n## Muy vs mucho\n\n- **muy** goes before an adjective or adverb and never changes: *muy alto, muy bien, muy rápido*.\n- **mucho** before a noun agrees like an adjective: *mucho tiempo, mucha gente, muchos amigos, muchas cosas*.\n- **mucho** after a verb never changes: *Trabajo mucho.* (I work a lot.)\n\nSo: *Es muy simpático y tiene muchos amigos.*\n\n## Colours\n\n| | | |\n|---|---|---|\n| rojo / roja: red | azul: blue | verde: green |\n| amarillo / amarilla: yellow | negro / negra: black | blanco / blanca: white |\n| gris: grey | marrón: brown | naranja: orange (same for both) |\n\n*Rosa* and *naranja* are the same for masculine and feminine: *una camisa naranja*, *un coche naranja*. In the plural they usually stay the same too: *unas flores rosa* (*flores rosas* is also accepted).",
+  "vocabulary": [
+    {
+      "term": "alto / alta",
+      "meaning": "tall",
+      "example": "Mi hermano es muy alto.",
+      "example_meaning": "My brother is very tall."
+    },
+    {
+      "term": "bajo / baja",
+      "meaning": "short (height)",
+      "example": "Una mesa baja.",
+      "example_meaning": "A low table."
+    },
+    {
+      "term": "grande",
+      "meaning": "big",
+      "example": "Una casa grande.",
+      "example_meaning": "A big house."
+    },
+    {
+      "term": "pequeño / pequeña",
+      "meaning": "small",
+      "example": "Un coche pequeño.",
+      "example_meaning": "A small car."
+    },
+    {
+      "term": "bonito / bonita",
+      "meaning": "pretty, nice",
+      "example": "Una ciudad bonita.",
+      "example_meaning": "A pretty city."
+    },
+    {
+      "term": "nuevo / nueva",
+      "meaning": "new",
+      "example": "Un libro nuevo.",
+      "example_meaning": "A new book."
+    },
+    {
+      "term": "rojo / roja",
+      "meaning": "red",
+      "example": "El coche rojo.",
+      "example_meaning": "The red car."
+    },
+    {
+      "term": "azul",
+      "meaning": "blue",
+      "example": "Los ojos azules.",
+      "example_meaning": "Blue eyes."
+    },
+    {
+      "term": "verde",
+      "meaning": "green",
+      "example": "La mesa verde.",
+      "example_meaning": "The green table."
+    },
+    {
+      "term": "blanco / blanca",
+      "meaning": "white",
+      "example": "Una camisa blanca.",
+      "example_meaning": "A white shirt."
+    },
+    {
+      "term": "muy",
+      "meaning": "very",
+      "example": "Es muy simpático.",
+      "example_meaning": "He's very nice."
+    },
+    {
+      "term": "mucho / mucha",
+      "meaning": "a lot of, much",
+      "example": "Hay mucha gente.",
+      "example_meaning": "There are a lot of people."
+    },
+    {
+      "term": "trabajador / trabajadora",
+      "meaning": "hard-working",
+      "example": "Es muy trabajadora.",
+      "example_meaning": "She's very hard-working."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-adj-01",
+      "prompt": "una casa ___",
+      "type": "multiple-choice",
+      "options": [
+        "pequeña",
+        "pequeño",
+        "pequeñas"
+      ],
+      "correct_answer": "pequeña",
+      "explanation": "Casa is feminine singular, so the adjective ends in -a: pequeña.",
+      "hints": [
+        "Match gender and number."
+      ],
+      "teaches": [
+        "pequeño / pequeña"
+      ]
+    },
+    {
+      "question_id": "a1-adj-02",
+      "prompt": "unos coches ___",
+      "type": "multiple-choice",
+      "options": [
+        "azules",
+        "azul",
+        "azulos"
+      ],
+      "correct_answer": "azules",
+      "explanation": "Azul ends in a consonant: add -es for the plural, same for both genders.",
+      "hints": [
+        "Consonant → -es"
+      ],
+      "teaches": [
+        "azul"
+      ]
+    },
+    {
+      "question_id": "a1-adj-03",
+      "prompt": "Complete: Las chicas son muy ___ (alto).",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "altas",
+      "accepted_answers": [],
+      "explanation": "Feminine plural: altas.",
+      "hints": [
+        "chicas = feminine plural"
+      ],
+      "teaches": [
+        "alto / alta"
+      ]
+    },
+    {
+      "question_id": "a1-adj-04",
+      "prompt": "Which word order is Spanish?",
+      "type": "multiple-choice",
+      "options": [
+        "un coche rojo",
+        "un rojo coche"
+      ],
+      "correct_answer": "un coche rojo",
+      "explanation": "Descriptive adjectives come after the noun.",
+      "hints": [
+        "Noun first."
+      ],
+      "teaches": [
+        "rojo / roja"
+      ]
+    },
+    {
+      "question_id": "a1-adj-05",
+      "prompt": "Tengo ___ amigos.",
+      "type": "multiple-choice",
+      "options": [
+        "muchos",
+        "muy",
+        "mucho"
+      ],
+      "correct_answer": "muchos",
+      "explanation": "Before a noun use mucho, agreeing with it: muchos amigos.",
+      "hints": [
+        "mucho + noun agrees."
+      ],
+      "teaches": [
+        "mucho / mucha"
+      ]
+    },
+    {
+      "question_id": "a1-adj-06",
+      "prompt": "Mi profesora es ___ simpática.",
+      "type": "multiple-choice",
+      "options": [
+        "muy",
+        "mucha",
+        "mucho"
+      ],
+      "correct_answer": "muy",
+      "explanation": "Before an adjective use muy, which never changes.",
+      "hints": [
+        "muy + adjective"
+      ],
+      "teaches": [
+        "muy"
+      ]
+    },
+    {
+      "question_id": "a1-adj-07",
+      "prompt": "Complete: María es ___ (español).",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "española",
+      "accepted_answers": [],
+      "explanation": "Nationalities ending in a consonant add -a in the feminine: española.",
+      "hints": [
+        "Add -a."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a1-adj-08",
+      "prompt": "una camisa ___ (orange)",
+      "type": "multiple-choice",
+      "options": [
+        "naranja",
+        "naranjo",
+        "naranjas"
+      ],
+      "correct_answer": "naranja",
+      "explanation": "Naranja is the same for masculine and feminine: una camisa naranja, un coche naranja. Naranjo is the orange tree, and naranjas is plural. In the plural, camisas naranja and camisas naranjas are both accepted.",
+      "hints": [
+        "Some colours are the same for masculine and feminine."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a1-adj-09",
+      "prompt": "una mesa ___",
+      "type": "multiple-choice",
+      "options": [
+        "grande",
+        "granda",
+        "grandes"
+      ],
+      "correct_answer": "grande",
+      "explanation": "Adjectives in -e have one singular form for both genders: grande.",
+      "hints": [
+        "-e has no feminine."
+      ],
+      "teaches": [
+        "grande"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Tengo un coche azul.",
+      "meaning": "I have a blue car.",
+      "note": "Colours go after the noun."
+    },
+    {
+      "text": "Mi hermana es muy alta.",
+      "meaning": "My sister is very tall.",
+      "note": "Muy never changes; alta agrees with hermana."
+    },
+    {
+      "text": "Mis amigos son muy trabajadores.",
+      "meaning": "My friends are very hard-working."
+    },
+    {
+      "text": "La casa es grande y bonita.",
+      "meaning": "The house is big and pretty."
+    },
+    {
+      "text": "Las mesas verdes son muy baratas.",
+      "meaning": "The green tables are very cheap.",
+      "note": "New word: barato / barata = cheap."
+    },
+    {
+      "text": "Mi abuela tiene un perro pequeño y blanco.",
+      "meaning": "My grandmother has a small white dog.",
+      "note": "New word: el perro = the dog."
+    },
+    {
+      "text": "Vivimos en una ciudad pequeña pero muy bonita.",
+      "meaning": "We live in a small but very pretty city."
+    },
+    {
+      "text": "Mi hermano es alto, tiene los ojos verdes y un coche rojo muy grande.",
+      "meaning": "My brother is tall, has green eyes and a very big red car."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Adjectives agree"
+    },
+    {
+      "vocab": 6
+    },
+    {
+      "question": "a1-adj-01"
+    },
+    {
+      "question": "a1-adj-02"
+    },
+    {
+      "question": "a1-adj-03"
+    },
+    {
+      "question": "a1-adj-09"
+    },
+    {
+      "question": "a1-adj-07"
+    },
+    {
+      "section": "Position"
+    },
+    {
+      "question": "a1-adj-04"
+    },
+    {
+      "section": "Muy vs mucho"
+    },
+    {
+      "vocab": 3
+    },
+    {
+      "question": "a1-adj-05"
+    },
+    {
+      "question": "a1-adj-06"
+    },
+    {
+      "section": "Colours"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a1-adj-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-adj-conv-photo",
+      "title": "Describing a photo",
+      "scenario": "Elena shows her friend Marcos a photo of her family.",
+      "role_a": "Elena",
+      "role_b": "Marcos",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Mira, esta es mi familia. Mi padre es el hombre alto.",
+          "meaning": "Look, this is my family. My dad is the tall man.",
+          "note": "alto after the noun"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Es muy alto! ¿Y la mujer de la camisa blanca?",
+          "meaning": "He's very tall! And the woman in the white shirt?",
+          "note": "muy + adjective"
+        },
+        {
+          "speaker": "a",
+          "text": "Es mi madre. Es pequeña pero muy fuerte.",
+          "meaning": "That's my mum. She's small but very strong."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Quién es la chica del coche rojo?",
+          "meaning": "Who is the girl with the red car?"
+        },
+        {
+          "speaker": "a",
+          "text": "Mi hermana. Tiene muchos amigos y un coche nuevo.",
+          "meaning": "My sister. She has lots of friends and a new car.",
+          "note": "muchos + noun"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Qué bonita es la casa! ¿Es grande?",
+          "meaning": "What a pretty house! Is it big?"
+        },
+        {
+          "speaker": "a",
+          "text": "No, es pequeña, pero el jardín es grande y verde.",
+          "meaning": "No, it's small, but the garden is big and green."
+        },
+        {
+          "speaker": "b",
+          "text": "Es una foto muy bonita.",
+          "meaning": "It's a very nice photo."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🎨",
+    "bites": [
+      {
+        "title": "Adjectives match the noun",
+        "emoji": "🪞",
+        "rule": "An adjective takes its noun's gender and number: four tall girls are chicas altas, not altos.",
+        "example": "un chico alto, unas chicas altas",
+        "example_meaning": "a tall boy, some tall girls"
+      },
+      {
+        "title": "-e and consonants skip gender",
+        "emoji": "⚖️",
+        "rule": "Grande, verde, azul have the same form for men and women. They change only in the plural: grandes, azules.",
+        "example": "una casa grande, unos libros azules",
+        "example_meaning": "a big house, some blue books"
+      },
+      {
+        "title": "Noun first, then the adjective",
+        "emoji": "🎨",
+        "rule": "Most adjectives come after the noun, the reverse of English: a red car is un coche rojo. Quantity words like muchos go before.",
+        "example": "Tiene un coche nuevo.",
+        "example_meaning": "She has a new car."
+      },
+      {
+        "title": "Muy never changes, mucho does",
+        "emoji": "🧊",
+        "rule": "Muy goes with adjectives and never changes; mucho goes with nouns and agrees: mucha gente, muchos amigos.",
+        "example": "Es muy simpático y tiene muchos amigos.",
+        "example_meaning": "He's very nice and has lots of friends."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which noun does it fit?",
+        "buckets": [
+          "un coche",
+          "una casa",
+          "unos coches",
+          "unas casas"
+        ],
+        "items": [
+          {
+            "text": "rojo",
+            "bucket": 0
+          },
+          {
+            "text": "nuevo",
+            "bucket": 0
+          },
+          {
+            "text": "roja",
+            "bucket": 1
+          },
+          {
+            "text": "blanca",
+            "bucket": 1
+          },
+          {
+            "text": "rojos",
+            "bucket": 2
+          },
+          {
+            "text": "nuevos",
+            "bucket": 2
+          },
+          {
+            "text": "pequeñas",
+            "bucket": 3
+          },
+          {
+            "text": "bonitas",
+            "bucket": 3
+          }
+        ],
+        "why": "The adjective's ending must match the noun's gender and number."
+      },
+      {
+        "title": "Muy or mucho?",
+        "buckets": [
+          "muy",
+          "mucho / mucha / muchos / muchas"
+        ],
+        "items": [
+          {
+            "text": "___ alto",
+            "bucket": 0
+          },
+          {
+            "text": "___ amigos",
+            "bucket": 1
+          },
+          {
+            "text": "___ bien",
+            "bucket": 0
+          },
+          {
+            "text": "___ gente",
+            "bucket": 1
+          },
+          {
+            "text": "___ bonita",
+            "bucket": 0
+          },
+          {
+            "text": "___ tiempo",
+            "bucket": 1
+          },
+          {
+            "text": "___ simpática",
+            "bucket": 0
+          },
+          {
+            "text": "___ cosas",
+            "bucket": 1
+          }
+        ],
+        "why": "Muy goes before adjectives and adverbs; mucho goes before nouns and agrees with them."
+      },
+      {
+        "title": "Does it change for a woman?",
+        "buckets": [
+          "changes (alto → alta)",
+          "same for both"
+        ],
+        "items": [
+          {
+            "text": "alto",
+            "bucket": 0
+          },
+          {
+            "text": "pequeño",
+            "bucket": 0
+          },
+          {
+            "text": "trabajador",
+            "bucket": 0
+          },
+          {
+            "text": "español",
+            "bucket": 0
+          },
+          {
+            "text": "grande",
+            "bucket": 1
+          },
+          {
+            "text": "azul",
+            "bucket": 1
+          },
+          {
+            "text": "verde",
+            "bucket": 1
+          },
+          {
+            "text": "naranja",
+            "bucket": 1
+          }
+        ],
+        "why": "-o adjectives, -or words and nationalities add -a; -e, most consonant endings and naranja stay the same."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Mi hermana es muy alto.",
+        "wrong": "alto",
+        "fix": "alta",
+        "why": "Hermana is feminine, so the adjective is alta."
+      },
+      {
+        "sentence": "Tengo unos libros azul.",
+        "wrong": "azul",
+        "fix": "azules",
+        "why": "Plural noun, plural adjective: azul + es."
+      },
+      {
+        "sentence": "Tengo muy amigos.",
+        "wrong": "muy",
+        "fix": "muchos",
+        "why": "Before a noun you need mucho, agreeing: muchos amigos."
+      },
+      {
+        "sentence": "María es español.",
+        "wrong": "español",
+        "fix": "española",
+        "why": "Nationalities add -a for a woman: española."
+      },
+      {
+        "sentence": "Las casas son pequeños.",
+        "wrong": "pequeños",
+        "fix": "pequeñas",
+        "why": "Casas is feminine plural, so pequeñas."
+      },
+      {
+        "sentence": "Es una profesora muy trabajador.",
+        "wrong": "trabajador",
+        "fix": "trabajadora",
+        "why": "-or adjectives add -a in the feminine."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Mi padre es muy alto.",
+        "meaning": "My father is very tall.",
+        "distractors": [
+          "alta",
+          "mucho"
+        ]
+      },
+      {
+        "text": "Tiene un coche nuevo.",
+        "meaning": "She has a new car.",
+        "distractors": [
+          "nueva"
+        ]
+      },
+      {
+        "text": "Las casas son pequeñas.",
+        "meaning": "The houses are small.",
+        "distractors": [
+          "pequeños"
+        ]
+      },
+      {
+        "text": "Tengo muchos amigos.",
+        "meaning": "I have lots of friends.",
+        "distractors": [
+          "muy"
+        ]
+      },
+      {
+        "text": "Es una casa blanca.",
+        "meaning": "It's a white house.",
+        "distractors": [
+          "blanco"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,624 @@
+{
+  "id": "a1-ir-near-future",
+  "slug": "ir-and-the-near-future",
+  "title": "Ir: going places and the near future",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 32,
+  "summary": "Voy, vas, va… to say where you go, and ir a + infinitive for what you're going to do.",
+  "focus": "Conjugation of ir; ir a + place; ir a + infinitive (near future)",
+  "prerequisites": [
+    "a1-regular-ar-present",
+    "a1-nouns-articles"
+  ],
+  "content": "## Ir is completely irregular\n\n| | ir (to go) |\n|---|---|\n| yo | **voy** |\n| tú | **vas** |\n| él / ella / usted | **va** |\n| nosotros/as | **vamos** |\n| vosotros/as | **vais** |\n| ellos / ellas / ustedes | **van** |\n\nIt looks like an *-ar* verb with the stem *v-*. *Vamos* also means *let's go*.\n\n## Going somewhere: ir a\n\n**ir a + place**. Remember **a + el = al**:\n\n- *Voy al cine.* (I'm going to the cinema.)\n- *Vamos a la playa.* (We're going to the beach.)\n- *¿Vas a casa?* Are you going home? (*casa* takes no article here)\n- *Van a Madrid en tren.* (They go to Madrid by train.)\n\nTransport: *en coche, en tren, en autobús, en bici, a pie* (on foot).\n\n## The near future: ir a + infinitive\n\nLike English *going to*:\n\n- *Voy a estudiar esta noche.* (I'm going to study tonight.)\n- *¿Qué vas a hacer mañana?* (What are you going to do tomorrow?)\n- *Vamos a comer a las dos.* (We're going to eat at two.)\n- *No van a venir.* (They aren't going to come.)\n\nTime words that go with it: *mañana, esta tarde, esta noche, el lunes, la semana que viene, el año que viene*.\n\n## Three uses of a\n\n- direction: *Voy **a** Sevilla.*\n- near future: *Voy **a** comer.*\n- time: *A las ocho.* (At eight.)",
+  "vocabulary": [
+    {
+      "term": "ir",
+      "meaning": "to go",
+      "example": "Voy al cine.",
+      "example_meaning": "I'm going to the cinema."
+    },
+    {
+      "term": "el cine",
+      "meaning": "cinema",
+      "example": "Vamos al cine.",
+      "example_meaning": "We're going to the cinema."
+    },
+    {
+      "term": "la playa",
+      "meaning": "beach",
+      "example": "Van a la playa.",
+      "example_meaning": "They're going to the beach."
+    },
+    {
+      "term": "el supermercado",
+      "meaning": "supermarket",
+      "example": "Voy al supermercado.",
+      "example_meaning": "I'm going to the supermarket."
+    },
+    {
+      "term": "la escuela",
+      "meaning": "school",
+      "example": "Los niños van a la escuela.",
+      "example_meaning": "The children go to school."
+    },
+    {
+      "term": "el trabajo",
+      "meaning": "work",
+      "example": "Voy al trabajo en coche.",
+      "example_meaning": "I go to work by car."
+    },
+    {
+      "term": "en coche",
+      "meaning": "by car",
+      "example": "Vamos en coche.",
+      "example_meaning": "We're going by car."
+    },
+    {
+      "term": "en tren",
+      "meaning": "by train",
+      "example": "Van a Madrid en tren.",
+      "example_meaning": "They're going to Madrid by train."
+    },
+    {
+      "term": "a pie",
+      "meaning": "on foot",
+      "example": "Voy a pie.",
+      "example_meaning": "I'm going on foot."
+    },
+    {
+      "term": "mañana",
+      "meaning": "tomorrow; morning",
+      "example": "Mañana voy a estudiar.",
+      "example_meaning": "Tomorrow I'm going to study."
+    },
+    {
+      "term": "esta noche",
+      "meaning": "tonight",
+      "example": "Esta noche vamos a cenar fuera.",
+      "example_meaning": "Tonight we're going out for dinner."
+    },
+    {
+      "term": "la semana que viene",
+      "meaning": "next week",
+      "example": "La semana que viene voy a viajar.",
+      "example_meaning": "Next week I'm going to travel."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "ir",
+      "meaning": "to go",
+      "set": "present",
+      "art": [
+        "   _____     ",
+        "  /     \\    ",
+        " | () () |   ",
+        "  \\_____/    ",
+        "   |   |     ",
+        "  _|   |_--> "
+      ],
+      "forms": {
+        "yo": "voy",
+        "tu": "vas",
+        "el": "va",
+        "nosotros": "vamos",
+        "vosotros": "vais",
+        "ellos": "van"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-ir-01",
+      "prompt": "Conjugate: (yo) ir → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "voy",
+      "accepted_answers": [
+        "yo voy"
+      ],
+      "explanation": "Ir is irregular: voy.",
+      "hints": [
+        "Starts with v."
+      ],
+      "teaches": [
+        "ir"
+      ]
+    },
+    {
+      "question_id": "a1-ir-02",
+      "prompt": "Conjugate: (nosotros) ir → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "vamos",
+      "accepted_answers": [
+        "nosotros vamos"
+      ],
+      "explanation": "Nosotros: vamos (also 'let's go').",
+      "hints": [
+        "v + -amos"
+      ],
+      "teaches": [
+        "ir"
+      ]
+    },
+    {
+      "question_id": "a1-ir-03",
+      "prompt": "Voy ___ cine.",
+      "type": "multiple-choice",
+      "options": [
+        "al",
+        "a el",
+        "a la"
+      ],
+      "correct_answer": "al",
+      "explanation": "a + el = al: voy al cine.",
+      "hints": [
+        "a + el"
+      ],
+      "teaches": [
+        "ir",
+        "el cine"
+      ]
+    },
+    {
+      "question_id": "a1-ir-04",
+      "prompt": "¿Qué ___ a hacer mañana?",
+      "type": "multiple-choice",
+      "options": [
+        "vas",
+        "va",
+        "vais"
+      ],
+      "correct_answer": "vas",
+      "explanation": "Tú: vas a + infinitive.",
+      "hints": [
+        "tú takes vas"
+      ],
+      "teaches": [
+        "ir",
+        "mañana"
+      ]
+    },
+    {
+      "question_id": "a1-ir-05",
+      "prompt": "Translate: We are going to eat at two. → ___ a comer a las dos.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "Vamos",
+      "accepted_answers": [
+        "vamos"
+      ],
+      "explanation": "Near future: vamos a + infinitive.",
+      "hints": [
+        "ir a + infinitive"
+      ],
+      "teaches": [
+        "ir"
+      ]
+    },
+    {
+      "question_id": "a1-ir-06",
+      "prompt": "Mis amigos ___ a la playa en coche.",
+      "type": "multiple-choice",
+      "options": [
+        "van",
+        "vamos",
+        "vais"
+      ],
+      "correct_answer": "van",
+      "explanation": "Mis amigos means ellos, so van.",
+      "hints": [
+        "ellos takes van"
+      ],
+      "teaches": [
+        "ir",
+        "la playa",
+        "en coche"
+      ]
+    },
+    {
+      "question_id": "a1-ir-07",
+      "prompt": "Which sentence means 'I'm going to study tonight'?",
+      "type": "multiple-choice",
+      "options": [
+        "Voy a estudiar esta noche.",
+        "Voy estudiar esta noche.",
+        "Voy a estudio esta noche."
+      ],
+      "correct_answer": "Voy a estudiar esta noche.",
+      "explanation": "ir a is followed by the infinitive.",
+      "hints": [
+        "a + infinitive"
+      ],
+      "teaches": [
+        "ir",
+        "esta noche"
+      ]
+    },
+    {
+      "question_id": "a1-ir-08",
+      "prompt": "Conjugate: (vosotros) ir → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "vais",
+      "accepted_answers": [
+        "vosotros vais"
+      ],
+      "explanation": "Vosotros: vais, no accent.",
+      "hints": [
+        "No accent here."
+      ],
+      "teaches": [
+        "ir"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Voy al supermercado ahora.",
+      "meaning": "I'm going to the supermarket now.",
+      "note": "A + el = al."
+    },
+    {
+      "text": "¿Vas a la playa mañana?",
+      "meaning": "Are you going to the beach tomorrow?"
+    },
+    {
+      "text": "Vamos al trabajo en tren.",
+      "meaning": "We go to work by train."
+    },
+    {
+      "text": "¿Vais al cine esta noche o mañana?",
+      "meaning": "Are you all going to the cinema tonight or tomorrow?",
+      "note": "Vais is the vosotros form."
+    },
+    {
+      "text": "Esta noche voy a ver una película.",
+      "meaning": "Tonight I'm going to watch a film.",
+      "note": "New word: la película = the film."
+    },
+    {
+      "text": "Mis hijos van a la escuela a pie.",
+      "meaning": "My children walk to school."
+    },
+    {
+      "text": "El sábado vamos a visitar a mis abuelos.",
+      "meaning": "On Saturday we're going to visit my grandparents.",
+      "note": "New word: visitar = to visit."
+    },
+    {
+      "text": "La semana que viene voy a ir a Sevilla en coche.",
+      "meaning": "Next week I'm going to go to Seville by car."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Ir is completely irregular"
+    },
+    {
+      "question": "a1-ir-01"
+    },
+    {
+      "question": "a1-ir-02"
+    },
+    {
+      "question": "a1-ir-08"
+    },
+    {
+      "section": "Going somewhere"
+    },
+    {
+      "vocab": 9
+    },
+    {
+      "question": "a1-ir-03"
+    },
+    {
+      "question": "a1-ir-06"
+    },
+    {
+      "section": "The near future"
+    },
+    {
+      "vocab": 3
+    },
+    {
+      "question": "a1-ir-04"
+    },
+    {
+      "question": "a1-ir-05"
+    },
+    {
+      "question": "a1-ir-07"
+    },
+    {
+      "section": "Three uses of a"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-ir-conv-weekend",
+      "title": "Weekend plans",
+      "scenario": "Hugo and Paula make plans for Saturday.",
+      "role_a": "Hugo",
+      "role_b": "Paula",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿Qué vas a hacer el sábado?",
+          "meaning": "What are you going to do on Saturday?",
+          "note": "ir a + infinitive"
+        },
+        {
+          "speaker": "b",
+          "text": "Por la mañana voy al mercado y después voy a estudiar.",
+          "meaning": "In the morning I'm going to the market and then I'm going to study.",
+          "note": "al = a + el"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y por la tarde? Nosotros vamos a la playa.",
+          "meaning": "And in the afternoon? We're going to the beach."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Vais en coche o en tren?",
+          "meaning": "Are you going by car or by train?",
+          "note": "vais"
+        },
+        {
+          "speaker": "a",
+          "text": "En tren. Vamos a comer allí.",
+          "meaning": "By train. We're going to eat there."
+        },
+        {
+          "speaker": "b",
+          "text": "¡Qué bien! Voy con vosotros.",
+          "meaning": "Great! I'll come with you."
+        },
+        {
+          "speaker": "a",
+          "text": "Mis primos también van. Van a traer la comida.",
+          "meaning": "My cousins are going too. They're going to bring the food.",
+          "note": "van"
+        },
+        {
+          "speaker": "b",
+          "text": "Entonces, ¡hasta el sábado!",
+          "meaning": "Then, see you Saturday!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🚶",
+    "bites": [
+      {
+        "title": "V is for vamos",
+        "emoji": "🚀",
+        "rule": "Ir doesn't look like ir at all: voy, vas, va, vamos, vais, van. Think of it as a v- verb with -ar endings, plus that odd voy.",
+        "example": "Voy al cine. ¿Vas tú también?",
+        "example_meaning": "I'm going to the cinema. Are you going too?"
+      },
+      {
+        "title": "A + el = al",
+        "emoji": "🔗",
+        "rule": "Spanish won't say 'a el': the two glue together into al. A la stays apart, and casa needs no article at all.",
+        "example": "Voy al cine y después a la playa.",
+        "example_meaning": "I'm going to the cinema and then to the beach."
+      },
+      {
+        "title": "Going to = ir a",
+        "emoji": "🔮",
+        "rule": "The near future is ir + a + infinitive, exactly like English 'going to'. Don't drop the a, and keep the second verb in the infinitive.",
+        "example": "Voy a estudiar esta noche.",
+        "example_meaning": "I'm going to study tonight."
+      },
+      {
+        "title": "One a, three jobs",
+        "emoji": "🎯",
+        "rule": "Direction (voy a Sevilla), future plans (voy a comer), clock time (a las ocho): one tiny a does all three jobs.",
+        "example": "Mañana voy a Sevilla a las ocho.",
+        "example_meaning": "Tomorrow I'm going to Seville at eight."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which form of ir?",
+        "buckets": [
+          "voy",
+          "vas",
+          "vamos",
+          "van"
+        ],
+        "items": [
+          {
+            "text": "Yo ___ al trabajo en coche.",
+            "bucket": 0
+          },
+          {
+            "text": "¿Qué ___ a hacer mañana, Paula?",
+            "bucket": 1
+          },
+          {
+            "text": "Nosotros ___ a la playa.",
+            "bucket": 2
+          },
+          {
+            "text": "Mis amigos ___ a la playa.",
+            "bucket": 3
+          },
+          {
+            "text": "Los niños ___ a la escuela.",
+            "bucket": 3
+          },
+          {
+            "text": "¿Tú ___ a casa?",
+            "bucket": 1
+          },
+          {
+            "text": "Yo ___ a pie.",
+            "bucket": 0
+          },
+          {
+            "text": "Paula y yo ___ al cine.",
+            "bucket": 2
+          }
+        ],
+        "why": "Match the subject: yo voy, tú vas, nosotros vamos, ellos van."
+      },
+      {
+        "title": "Al, a la or just a?",
+        "buckets": [
+          "al",
+          "a la",
+          "a"
+        ],
+        "items": [
+          {
+            "text": "cine",
+            "bucket": 0
+          },
+          {
+            "text": "playa",
+            "bucket": 1
+          },
+          {
+            "text": "supermercado",
+            "bucket": 0
+          },
+          {
+            "text": "escuela",
+            "bucket": 1
+          },
+          {
+            "text": "trabajo",
+            "bucket": 0
+          },
+          {
+            "text": "casa",
+            "bucket": 2
+          },
+          {
+            "text": "Madrid",
+            "bucket": 2
+          }
+        ],
+        "why": "Masculine el fuses with a into al; la stays separate; casa and city names take a bare a."
+      },
+      {
+        "title": "A place or a plan?",
+        "buckets": [
+          "place (ir a + place)",
+          "plan (ir a + infinitive)"
+        ],
+        "items": [
+          {
+            "text": "Voy a la playa.",
+            "bucket": 0
+          },
+          {
+            "text": "Voy a estudiar.",
+            "bucket": 1
+          },
+          {
+            "text": "Vamos al cine.",
+            "bucket": 0
+          },
+          {
+            "text": "Van a comer a las dos.",
+            "bucket": 1
+          },
+          {
+            "text": "Vas a Madrid.",
+            "bucket": 0
+          },
+          {
+            "text": "No van a venir.",
+            "bucket": 1
+          }
+        ],
+        "why": "After ir a, a place means direction; an infinitive means a future plan."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Voy a estudio esta noche.",
+        "wrong": "estudio",
+        "fix": "estudiar",
+        "why": "Ir a is followed by the infinitive."
+      },
+      {
+        "sentence": "Mis amigos vamos a la playa.",
+        "wrong": "vamos",
+        "fix": "van",
+        "why": "Mis amigos = ellos, so van."
+      },
+      {
+        "sentence": "¿Mis padres va a la playa mañana?",
+        "wrong": "va",
+        "fix": "van",
+        "why": "Mis padres = ellos, so van."
+      },
+      {
+        "sentence": "Nosotros imos en tren.",
+        "wrong": "imos",
+        "fix": "vamos",
+        "why": "Ir is irregular: nosotros vamos, never imos."
+      },
+      {
+        "sentence": "¿Vosotros váis en coche o en tren?",
+        "wrong": "váis",
+        "fix": "vais",
+        "why": "Vais is one syllable, so it has no accent."
+      },
+      {
+        "sentence": "Mi madre van al trabajo a pie.",
+        "wrong": "van",
+        "fix": "va",
+        "why": "Mi madre is one person: va."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Voy al cine esta noche.",
+        "meaning": "I'm going to the cinema tonight.",
+        "distractors": [
+          "el",
+          "va"
+        ]
+      },
+      {
+        "text": "¿Qué vas a hacer mañana?",
+        "meaning": "What are you going to do tomorrow?",
+        "distractors": [
+          "va"
+        ]
+      },
+      {
+        "text": "Vamos a comer a las dos.",
+        "meaning": "We're going to eat at two.",
+        "distractors": [
+          "comemos"
+        ]
+      },
+      {
+        "text": "Los niños van a la escuela.",
+        "meaning": "The children go to school.",
+        "distractors": [
+          "al"
+        ]
+      },
+      {
+        "text": "Mis primos van a traer la comida.",
+        "meaning": "My cousins are going to bring the food.",
+        "distractors": [
+          "vamos"
+        ]
+      }
+    ]
+  }
+}

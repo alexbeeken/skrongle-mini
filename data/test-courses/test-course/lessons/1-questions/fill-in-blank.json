@@ -1,0 +1,83 @@
+{
+  "id": "tc-fill-in-blank",
+  "slug": "fill-in-blank",
+  "title": "Fill in the blank",
+  "unit": "questions",
+  "group": "quiz",
+  "order": 30,
+  "summary": "Type the missing word, or pick it from tiles in Sprint mode.",
+  "focus": "fill-in-blank questions",
+  "content": "## Typing an answer\n\nType the missing word. Case, surrounding punctuation and extra spaces do not matter; a missing accent is a near miss.\n\n## Word tiles\n\nD mode offers the answer among word tiles, with the accent-less spelling as a trap.",
+  "vocabulary": [
+    {
+      "term": "estar",
+      "meaning": "to be (a state or a place)",
+      "example": "Estoy en casa.",
+      "example_meaning": "I'm at home."
+    },
+    {
+      "term": "casa",
+      "meaning": "house",
+      "example": "Mi casa es grande.",
+      "example_meaning": "My house is big."
+    },
+    {
+      "term": "el café",
+      "meaning": "coffee",
+      "example": "Un café, por favor.",
+      "example_meaning": "A coffee, please."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "tc-fill-in-blank-01",
+      "prompt": "Ana ___ en casa.",
+      "type": "fill-in-blank",
+      "correct_answer": "está",
+      "explanation": "A location takes estar: está.",
+      "hints": [
+        "Where is she?"
+      ],
+      "teaches": [
+        "estar"
+      ]
+    },
+    {
+      "question_id": "tc-fill-in-blank-02",
+      "prompt": "Yo ___ de Madrid.",
+      "type": "fill-in-blank",
+      "correct_answer": "soy",
+      "accepted_answers": [
+        "yo soy"
+      ],
+      "explanation": "Origin takes ser: soy.",
+      "hints": [
+        "Ser, first person."
+      ]
+    },
+    {
+      "question_id": "tc-fill-in-blank-03",
+      "prompt": "Un ___, por favor.",
+      "type": "fill-in-blank",
+      "correct_answer": "café",
+      "explanation": "Un café, a coffee.",
+      "teaches": [
+        "el café"
+      ]
+    },
+    {
+      "question_id": "tc-fill-in-blank-04",
+      "prompt": "Vivo en una ___ grande.",
+      "type": "fill-in-blank",
+      "correct_answer": "casa",
+      "explanation": "Una casa, a house; the term is collected automatically."
+    },
+    {
+      "question_id": "tc-fill-in-blank-05",
+      "prompt": "¿___? Muy bien, gracias.",
+      "type": "fill-in-blank",
+      "correct_answer": "Qué tal",
+      "explanation": "¿Qué tal? asks how it is going: a two-word answer."
+    }
+  ]
+}

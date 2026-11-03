@@ -1,0 +1,409 @@
+{
+  "_comment": "revise-plan replies, for the course the generate-outline 'default' fixture makes (lessons u1-what, u1-simplify, u2-add). The key is a [fixture:NAME] token in the learner's feedback (default: 'default'). See docs/testing.md. Lessons are listed in the course's own order (the fixture lessons have no `order`, so they sort by title within a unit). 'slow' is the default plan after 4 s, to catch a revision while it runs. 'replace-all' fits any course: a new course.json and three new lessons in two new units, so every lesson the course had is removed (Undo brings it back); each lesson is written from revise-lesson.json's '*'. 'check' checks every lesson (each from check-lesson.json: one fix in \"What a fraction is\", a Check line on \"Simplifying\"); 'check-clean' checks only \"Adding fractions\", which comes back unchanged ('The check found nothing to fix').",
+  "replies": {
+    "default": {
+      "reply": {
+        "course": null,
+        "lessons": [
+          {
+            "id": "u1-simplify",
+            "slug": "simplifying",
+            "title": "Simplifying",
+            "unit": "1",
+            "group": "core",
+            "summary": "Simplifying",
+            "focus": "simplifying",
+            "prerequisites": [
+              "u1-what"
+            ],
+            "change": "rewrite",
+            "instructions": "More worked examples, simpler words."
+          },
+          {
+            "id": "u1-what",
+            "slug": "what-is-a-fraction",
+            "title": "What a fraction is",
+            "unit": "1",
+            "group": "core",
+            "summary": "What a fraction is",
+            "focus": "what a fraction is",
+            "prerequisites": [],
+            "change": "keep"
+          },
+          {
+            "id": "u2-add",
+            "slug": "adding",
+            "title": "Adding fractions",
+            "unit": "2",
+            "group": "core",
+            "summary": "Adding fractions",
+            "focus": "adding fractions",
+            "prerequisites": [
+              "u1-simplify"
+            ],
+            "change": "keep"
+          },
+          {
+            "id": "u2-word",
+            "slug": "word-problems",
+            "title": "Word problems",
+            "unit": "2",
+            "group": "core",
+            "summary": "Word problems",
+            "focus": "word problems",
+            "prerequisites": [
+              "u2-add"
+            ],
+            "change": "new",
+            "instructions": "Fractions in everyday word problems."
+          }
+        ]
+      }
+    },
+    "slow": {
+      "reply": {
+        "course": null,
+        "lessons": [
+          {
+            "id": "u1-simplify",
+            "slug": "simplifying",
+            "title": "Simplifying",
+            "unit": "1",
+            "group": "core",
+            "summary": "Simplifying",
+            "focus": "simplifying",
+            "prerequisites": [
+              "u1-what"
+            ],
+            "change": "rewrite",
+            "instructions": "More worked examples, simpler words."
+          },
+          {
+            "id": "u1-what",
+            "slug": "what-is-a-fraction",
+            "title": "What a fraction is",
+            "unit": "1",
+            "group": "core",
+            "summary": "What a fraction is",
+            "focus": "what a fraction is",
+            "prerequisites": [],
+            "change": "keep"
+          },
+          {
+            "id": "u2-add",
+            "slug": "adding",
+            "title": "Adding fractions",
+            "unit": "2",
+            "group": "core",
+            "summary": "Adding fractions",
+            "focus": "adding fractions",
+            "prerequisites": [
+              "u1-simplify"
+            ],
+            "change": "keep"
+          },
+          {
+            "id": "u2-word",
+            "slug": "word-problems",
+            "title": "Word problems",
+            "unit": "2",
+            "group": "core",
+            "summary": "Word problems",
+            "focus": "word problems",
+            "prerequisites": [
+              "u2-add"
+            ],
+            "change": "new",
+            "instructions": "Fractions in everyday word problems."
+          }
+        ]
+      },
+      "delay_ms": 4000
+    },
+    "remove": {
+      "reply": {
+        "course": null,
+        "lessons": [
+          {
+            "id": "u1-simplify",
+            "slug": "simplifying",
+            "title": "Simplifying",
+            "unit": "1",
+            "group": "core",
+            "summary": "Simplifying",
+            "focus": "simplifying",
+            "prerequisites": [
+              "u1-what"
+            ],
+            "change": "keep"
+          },
+          {
+            "id": "u1-what",
+            "slug": "what-is-a-fraction",
+            "title": "What a fraction is",
+            "unit": "1",
+            "group": "core",
+            "summary": "What a fraction is",
+            "focus": "what a fraction is",
+            "prerequisites": [],
+            "change": "keep"
+          }
+        ]
+      }
+    },
+    "nothing": {
+      "reply": {
+        "course": null,
+        "lessons": [
+          {
+            "id": "u1-simplify",
+            "slug": "simplifying",
+            "title": "Simplifying",
+            "unit": "1",
+            "group": "core",
+            "summary": "Simplifying",
+            "focus": "simplifying",
+            "prerequisites": [
+              "u1-what"
+            ],
+            "change": "keep"
+          },
+          {
+            "id": "u1-what",
+            "slug": "what-is-a-fraction",
+            "title": "What a fraction is",
+            "unit": "1",
+            "group": "core",
+            "summary": "What a fraction is",
+            "focus": "what a fraction is",
+            "prerequisites": [],
+            "change": "keep"
+          },
+          {
+            "id": "u2-add",
+            "slug": "adding",
+            "title": "Adding fractions",
+            "unit": "2",
+            "group": "core",
+            "summary": "Adding fractions",
+            "focus": "adding fractions",
+            "prerequisites": [
+              "u1-simplify"
+            ],
+            "change": "keep"
+          }
+        ]
+      }
+    },
+    "invalid-json": {
+      "reply": "I would rather not plan anything today."
+    },
+    "replace-all": {
+      "reply": {
+        "course": {
+          "id": "placeholder",
+          "title": "Your course, rewritten overall",
+          "subject": "Replaced",
+          "description": "Allow overall changes replaced every lesson and unit with these.",
+          "icon": "🔁",
+          "terms": {
+            "label": "Term",
+            "lang": ""
+          },
+          "meanings": {
+            "label": "Meaning",
+            "lang": ""
+          },
+          "units": [
+            {
+              "id": "replaced-a",
+              "title": "Unit A (everything replaced)"
+            },
+            {
+              "id": "replaced-b",
+              "title": "Unit B (everything replaced)"
+            }
+          ],
+          "groups": [
+            {
+              "id": "core",
+              "title": "Core"
+            }
+          ]
+        },
+        "lessons": [
+          {
+            "id": "replaced-one",
+            "slug": "replaced-one",
+            "title": "New lesson 1: the course was replaced",
+            "unit": "replaced-a",
+            "group": "core",
+            "summary": "The first of three replacement lessons",
+            "focus": "showing the course changed",
+            "prerequisites": [],
+            "change": "new",
+            "instructions": "Say the course was replaced."
+          },
+          {
+            "id": "replaced-two",
+            "slug": "replaced-two",
+            "title": "New lesson 2: new units too",
+            "unit": "replaced-a",
+            "group": "core",
+            "summary": "The second replacement lesson",
+            "focus": "showing the course changed",
+            "prerequisites": [
+              "replaced-one"
+            ],
+            "change": "new",
+            "instructions": "Say the units were replaced."
+          },
+          {
+            "id": "replaced-three",
+            "slug": "replaced-three",
+            "title": "New lesson 3: undo puts it back",
+            "unit": "replaced-b",
+            "group": "core",
+            "summary": "The third replacement lesson",
+            "focus": "showing the course changed",
+            "prerequisites": [],
+            "change": "new",
+            "instructions": "Say Undo puts the old course back."
+          }
+        ]
+      }
+    },
+    "*": {
+      "reply": {
+        "course": null,
+        "lessons": [
+          {
+            "id": "u1-simplify",
+            "slug": "simplifying",
+            "title": "Simplifying",
+            "unit": "1",
+            "group": "core",
+            "summary": "Simplifying",
+            "focus": "simplifying",
+            "prerequisites": [
+              "u1-what"
+            ],
+            "change": "keep"
+          },
+          {
+            "id": "u1-what",
+            "slug": "what-is-a-fraction",
+            "title": "What a fraction is",
+            "unit": "1",
+            "group": "core",
+            "summary": "What a fraction is",
+            "focus": "what a fraction is",
+            "prerequisites": [],
+            "change": "keep"
+          },
+          {
+            "id": "u2-add",
+            "slug": "adding",
+            "title": "Adding fractions",
+            "unit": "2",
+            "group": "core",
+            "summary": "Adding fractions",
+            "focus": "adding fractions",
+            "prerequisites": [
+              "u1-simplify"
+            ],
+            "change": "keep"
+          }
+        ]
+      }
+    },
+    "check": {
+      "reply": {
+        "course": null,
+        "lessons": [
+          {
+            "id": "u1-simplify",
+            "slug": "simplifying",
+            "title": "Simplifying",
+            "unit": "1",
+            "group": "core",
+            "summary": "Simplifying",
+            "focus": "simplifying",
+            "prerequisites": [
+              "u1-what"
+            ],
+            "change": "check"
+          },
+          {
+            "id": "u1-what",
+            "slug": "what-is-a-fraction",
+            "title": "What a fraction is",
+            "unit": "1",
+            "group": "core",
+            "summary": "What a fraction is",
+            "focus": "what a fraction is",
+            "prerequisites": [],
+            "change": "check"
+          },
+          {
+            "id": "u2-add",
+            "slug": "adding",
+            "title": "Adding fractions",
+            "unit": "2",
+            "group": "core",
+            "summary": "Adding fractions",
+            "focus": "adding fractions",
+            "prerequisites": [
+              "u1-simplify"
+            ],
+            "change": "check"
+          }
+        ]
+      }
+    },
+    "check-clean": {
+      "reply": {
+        "course": null,
+        "lessons": [
+          {
+            "id": "u1-simplify",
+            "slug": "simplifying",
+            "title": "Simplifying",
+            "unit": "1",
+            "group": "core",
+            "summary": "Simplifying",
+            "focus": "simplifying",
+            "prerequisites": [
+              "u1-what"
+            ],
+            "change": "keep"
+          },
+          {
+            "id": "u1-what",
+            "slug": "what-is-a-fraction",
+            "title": "What a fraction is",
+            "unit": "1",
+            "group": "core",
+            "summary": "What a fraction is",
+            "focus": "what a fraction is",
+            "prerequisites": [],
+            "change": "keep"
+          },
+          {
+            "id": "u2-add",
+            "slug": "adding",
+            "title": "Adding fractions",
+            "unit": "2",
+            "group": "core",
+            "summary": "Adding fractions",
+            "focus": "adding fractions",
+            "prerequisites": [
+              "u1-simplify"
+            ],
+            "change": "check"
+          }
+        ]
+      }
+    }
+  }
+}

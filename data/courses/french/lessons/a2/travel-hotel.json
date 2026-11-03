@@ -1,0 +1,587 @@
+{
+  "id": "a2-travel-hotel",
+  "slug": "travel-hotel",
+  "title": "Travelling and the hotel: une chambre pour deux nuits",
+  "unit": "A2",
+  "group": "Vocabulary",
+  "order": 36,
+  "summary": "Say how you travel (en train, à pied), buy tickets, book a hotel room, use conduire and tell a trip in the passé composé.",
+  "focus": "Getting around, booking tickets and checking into a hotel",
+  "prerequisites": [
+    "a2-passe-compose-etre"
+  ],
+  "content": "## Getting there: en train, à pied\n\nTo say how you travel, French uses two prepositions.\n\n- **en** when you sit *inside* a vehicle: **en train**, **en voiture**, **en avion**, **en bus**, **en bateau**, **en taxi**.\n- **à** when you sit *on* it, or go on your own feet: **à pied** (on foot), **à vélo** (by bike), **à moto**, **à cheval**.\n\nExamples:\n\n- **Je vais à Lyon en train.** I'm going to Lyon by train.\n- **Elle va au travail à vélo.** She cycles to work.\n\nWith **prendre**, use the article instead: **je prends le train**, **on prend l'avion**.\n\n## Tickets, flights and luggage\n\nAt the station or online you **réserver** (book) **un billet** (a ticket):\n\n- **un aller simple** = a one-way ticket; **un aller-retour** = a return ticket.\n- **Un aller-retour pour Nantes, s'il vous plaît.**\n\nFor a flight: **l'aéroport** (airport), **le vol** (flight), **le passeport**, **la valise** (suitcase). **La réservation** is the booking itself: **J'ai une réservation au nom de Martin.**\n\nTimes and prices are read aloud with the 24-hour clock and euros:\n\n- **Le train part à 18 h 40.** (dix-huit heures quarante)\n- **Le billet coûte 35 €.** (trente-cinq euros)\n\n## At the hotel\n\nAt **la réception** (the front desk):\n\n- **Je voudrais une chambre simple / double pour deux nuits.** I'd like a single / double room for two nights.\n- **Vous avez une chambre de libre ?** Do you have a room free?\n- **Le petit-déjeuner est compris ?** Is breakfast included?\n- **Voici votre clé.** Here is your key.\n\nWhen no room is left, the hotel is **complet** (full, fully booked): **Désolé, nous sommes complets.** A **chambre double** usually has one big bed; ask for **une chambre à deux lits** if you want two beds.\n\n## Conduire, and telling the trip\n\n**Conduire** (to drive) is irregular: an **s** appears in the plural.\n\n| je | tu | il / elle / on | nous | vous | ils / elles |\n|---|---|---|---|---|---|\n| conduis | conduis | conduit | conduisons | conduisez | conduisent |\n\n**Ma mère conduit, et moi, je lis la carte.** My mother drives and I read the map.\n\nTo tell the trip afterwards, use the passé composé: **avoir** for most verbs (**j'ai conduit**, **j'ai réservé**), **être** for the movement verbs, with agreement:\n\n- **Nous sommes partis à huit heures.** We left at eight.\n- **Elle est arrivée en avion.** She arrived by plane.\n- **Nous sommes restés trois nuits.** We stayed three nights.",
+  "vocabulary": [
+    {
+      "term": "en train",
+      "meaning": "by train",
+      "example": "Je vais à Bordeaux en train.",
+      "example_meaning": "I'm going to Bordeaux by train."
+    },
+    {
+      "term": "à pied",
+      "meaning": "on foot",
+      "example": "L'hôtel est tout près, nous y allons à pied.",
+      "example_meaning": "The hotel is very close, we're walking there."
+    },
+    {
+      "term": "l'aller-retour",
+      "meaning": "return ticket, round trip (m)",
+      "example": "Un aller-retour pour Lille coûte cinquante euros.",
+      "example_meaning": "A return ticket to Lille costs fifty euros."
+    },
+    {
+      "term": "réserver",
+      "meaning": "to book, to reserve",
+      "example": "J'ai réservé deux billets sur Internet.",
+      "example_meaning": "I booked two tickets online."
+    },
+    {
+      "term": "le passeport",
+      "meaning": "passport (m)",
+      "example": "Mon passeport est dans mon sac.",
+      "example_meaning": "My passport is in my bag."
+    },
+    {
+      "term": "la valise",
+      "meaning": "suitcase (f)",
+      "example": "Ta valise est trop lourde pour l'avion !",
+      "example_meaning": "Your suitcase is too heavy for the plane!"
+    },
+    {
+      "term": "le vol",
+      "meaning": "flight (m)",
+      "example": "Le vol pour Montréal est en retard.",
+      "example_meaning": "The flight to Montreal is late."
+    },
+    {
+      "term": "la chambre double",
+      "meaning": "double room (f)",
+      "example": "Nous voudrions une chambre double avec vue sur la mer.",
+      "example_meaning": "We'd like a double room with a sea view."
+    },
+    {
+      "term": "la clé",
+      "meaning": "key (f)",
+      "example": "Je laisse la clé à la réception.",
+      "example_meaning": "I leave the key at the front desk."
+    },
+    {
+      "term": "complet",
+      "meaning": "full, fully booked",
+      "example": "Désolé, l'hôtel est complet ce week-end.",
+      "example_meaning": "Sorry, the hotel is fully booked this weekend."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "conduire",
+      "meaning": "to drive",
+      "set": "present",
+      "art": [
+        "     ______      ",
+        "  __/  |   \\__   ",
+        " |  _      _  |  ",
+        " '-(_)----(_)-'  ",
+        "   vroum vroum   "
+      ],
+      "forms": {
+        "je": "conduis",
+        "tu": "conduis",
+        "il": "conduit",
+        "nous": "conduisons",
+        "vous": "conduisez",
+        "ils": "conduisent"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-travel-hotel-01",
+      "prompt": "Pour aller voir ma sœur à Rennes, je ne prends pas la voiture : je voyage ___ train.",
+      "type": "fill-in-blank",
+      "correct_answer": "en",
+      "accepted_answers": [],
+      "explanation": "You sit inside a train, so French uses en: en train, like en voiture and en avion.",
+      "hints": [
+        "Inside a vehicle → en or à?"
+      ],
+      "teaches": [
+        "en train"
+      ]
+    },
+    {
+      "question_id": "a2-travel-hotel-02",
+      "prompt": "Le bureau est à dix minutes de chez moi, alors j'y vais ___ pied.",
+      "type": "multiple-choice",
+      "options": [
+        "à",
+        "en",
+        "par"
+      ],
+      "correct_answer": "à",
+      "explanation": "Going on your own feet takes à: à pied, like à vélo and à moto.",
+      "hints": [
+        "You are not inside anything.",
+        "Same preposition as vélo."
+      ],
+      "teaches": [
+        "à pied"
+      ]
+    },
+    {
+      "question_id": "a2-travel-hotel-03",
+      "prompt": "At the ticket office you want to go to Bordeaux on Friday and come back on Sunday. What do you ask for?",
+      "type": "multiple-choice",
+      "options": [
+        "Un aller-retour pour Bordeaux, s'il vous plaît.",
+        "Un aller simple pour Bordeaux, s'il vous plaît.",
+        "Une chambre double pour Bordeaux, s'il vous plaît."
+      ],
+      "correct_answer": "Un aller-retour pour Bordeaux, s'il vous plaît.",
+      "explanation": "There and back is un aller-retour. Un aller simple only takes you there.",
+      "hints": [
+        "Aller = going, retour = coming back."
+      ],
+      "teaches": [
+        "l'aller-retour"
+      ]
+    },
+    {
+      "question_id": "a2-travel-hotel-04",
+      "prompt": "Tu ___ ou je prends le volant ? Je ne suis pas fatigué. (conduire)",
+      "type": "fill-in-blank",
+      "correct_answer": "conduis",
+      "accepted_answers": [
+        "tu conduis"
+      ],
+      "explanation": "Conduire with tu: tu conduis. The s of the stem (conduis-) only shows up in the plural: nous conduisons.",
+      "hints": [
+        "Same form as je.",
+        "It ends in -s."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-travel-hotel-05",
+      "prompt": "À la réception : « Voici votre clé. La chambre double est à quatre-vingt-dix-huit euros la nuit, petit-déjeuner compris. » How much is one night, in euros?",
+      "type": "numeric",
+      "correct_answer": "98",
+      "unit": "€",
+      "explanation": "Quatre-vingt-dix-huit = 4 × 20 + 18 = 98 euros a night, breakfast included.",
+      "hints": [
+        "Quatre-vingts = 80.",
+        "80 + dix-huit"
+      ],
+      "teaches": [
+        "la chambre double",
+        "la clé"
+      ]
+    },
+    {
+      "question_id": "a2-travel-hotel-06",
+      "prompt": "You try to réserver a room by phone and hear « Désolé, l'hôtel est complet ce soir ». This means there are no rooms left tonight.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "True: complet means full, fully booked. Nous sommes complets says the same.",
+      "hints": [
+        "Complet looks like 'complete': every room is taken."
+      ],
+      "teaches": [
+        "complet",
+        "réserver"
+      ]
+    },
+    {
+      "question_id": "a2-travel-hotel-07",
+      "prompt": "À l'aéroport, j'ouvre la valise pour chercher mon ___ : le policier veut voir mes papiers.",
+      "type": "fill-in-blank",
+      "correct_answer": "passeport",
+      "accepted_answers": [
+        "le passeport",
+        "mon passeport"
+      ],
+      "explanation": "The document you show at a border or for an international flight is le passeport (masculine: mon passeport).",
+      "hints": [
+        "It looks almost like the English word.",
+        "pass…"
+      ],
+      "teaches": [
+        "le passeport",
+        "la valise"
+      ]
+    },
+    {
+      "question_id": "a2-travel-hotel-08",
+      "prompt": "Hier soir, nous ___ de Paris par le vol de vingt heures.",
+      "type": "multiple-choice",
+      "options": [
+        "sommes partis",
+        "avons partis",
+        "sommes parti"
+      ],
+      "correct_answer": "sommes partis",
+      "explanation": "Partir is a movement verb: it takes être, and the participle agrees with nous (partis).",
+      "hints": [
+        "Partir is one of the être verbs.",
+        "Nous → plural participle."
+      ],
+      "teaches": [
+        "le vol"
+      ]
+    },
+    {
+      "question_id": "a2-travel-hotel-09",
+      "prompt": "'Nous allons à Rome à avion' is correct French.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "False: you sit inside a plane, so it is en avion: nous allons à Rome en avion.",
+      "hints": [
+        "Inside a vehicle → en."
+      ],
+      "teaches": []
+    }
+  ],
+  "listening": [
+    {
+      "text": "Je vais à la gare à pied.",
+      "meaning": "I'm walking to the station."
+    },
+    {
+      "text": "Nous avons réservé une chambre simple.",
+      "meaning": "We booked a single room."
+    },
+    {
+      "text": "Un aller simple pour Toulouse, s'il vous plaît.",
+      "meaning": "A one-way ticket to Toulouse, please.",
+      "note": "Aller simple = one way."
+    },
+    {
+      "text": "Mon vol part à neuf heures et quart.",
+      "meaning": "My flight leaves at a quarter past nine."
+    },
+    {
+      "text": "Où est l'ascenseur, s'il vous plaît ?",
+      "meaning": "Where is the lift, please?",
+      "note": "New word: l'ascenseur = the lift."
+    },
+    {
+      "text": "Ma sœur conduit très bien, mais elle préfère le train.",
+      "meaning": "My sister drives very well, but she prefers the train."
+    },
+    {
+      "text": "Nous avons mis les valises dans le coffre de la voiture.",
+      "meaning": "We put the suitcases in the boot of the car.",
+      "note": "New word: le coffre = the boot."
+    },
+    {
+      "text": "Nous sommes partis en voiture et nous sommes arrivés à minuit.",
+      "meaning": "We left by car and we arrived at midnight.",
+      "note": "Movement verbs take être in the passé composé."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Getting there"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-travel-hotel-01"
+    },
+    {
+      "question": "a2-travel-hotel-02"
+    },
+    {
+      "question": "a2-travel-hotel-09"
+    },
+    {
+      "section": "Tickets"
+    },
+    {
+      "question": "a2-travel-hotel-03"
+    },
+    {
+      "question": "a2-travel-hotel-07"
+    },
+    {
+      "question": "a2-travel-hotel-08"
+    },
+    {
+      "tip": "En if you sit inside it, à if you sit on it or walk: en voiture, à vélo, à pied."
+    },
+    {
+      "section": "At the hotel"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-travel-hotel-05"
+    },
+    {
+      "question": "a2-travel-hotel-06"
+    },
+    {
+      "section": "Conduire"
+    },
+    {
+      "concept": {
+        "title": "Conduire's family",
+        "markdown": "**Traduire** (to translate), **construire** (to build) and **produire** (to produce) work like conduire: **je traduis**, **nous construisons**, **ils produisent**. And the card that lets you drive is **le permis de conduire**."
+      }
+    },
+    {
+      "question": "a2-travel-hotel-04"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-travel-hotel-conv-check-in",
+      "title": "Checking in",
+      "scenario": "Claire arrives at a small hotel by the harbour in the evening and checks in with the receptionist, Marc.",
+      "role_a": "Claire",
+      "role_b": "Marc",
+      "lines": [
+        {
+          "speaker": "b",
+          "text": "Bonsoir madame, bienvenue à l'hôtel du Port.",
+          "meaning": "Good evening, madam, welcome to the Hôtel du Port."
+        },
+        {
+          "speaker": "a",
+          "text": "Bonsoir. J'ai une réservation au nom de Claire Martin.",
+          "meaning": "Good evening. I have a booking under the name Claire Martin."
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, une chambre double pour deux nuits. C'est bien ça ?",
+          "meaning": "Yes, a double room for two nights. Is that right?"
+        },
+        {
+          "speaker": "a",
+          "text": "C'est ça. Le petit-déjeuner est compris ?",
+          "meaning": "That's right. Is breakfast included?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, il est servi de sept heures à dix heures.",
+          "meaning": "Yes, it's served from seven to ten."
+        },
+        {
+          "speaker": "a",
+          "text": "Parfait. Il y a un parking ? Je suis venue en voiture.",
+          "meaning": "Perfect. Is there a car park? I came by car.",
+          "note": "venir takes être: je suis venue (a woman speaking)"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, derrière l'hôtel. Voici votre clé, chambre trente-deux.",
+          "meaning": "Yes, behind the hotel. Here is your key, room thirty-two."
+        },
+        {
+          "speaker": "a",
+          "text": "Merci. Mon mari arrive demain en train.",
+          "meaning": "Thank you. My husband is arriving tomorrow by train."
+        },
+        {
+          "speaker": "b",
+          "text": "Très bien. La gare est à dix minutes à pied.",
+          "meaning": "Very good. The station is a ten-minute walk away."
+        },
+        {
+          "speaker": "a",
+          "text": "Super. Bonne soirée !",
+          "meaning": "Great. Have a good evening!"
+        },
+        {
+          "speaker": "b",
+          "text": "Bonne soirée, madame, et bon séjour !",
+          "meaning": "Good evening, madam, and enjoy your stay!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🧳",
+    "bites": [
+      {
+        "title": "En or à?",
+        "emoji": "🚆",
+        "rule": "Inside a vehicle: en (en train, en voiture, en avion, en bus). On it or on foot: à (à pied, à vélo, à moto).",
+        "example": "Je vais à Lille en train.",
+        "example_meaning": "I'm going to Lille by train."
+      },
+      {
+        "title": "Le billet",
+        "emoji": "🎫",
+        "rule": "Un aller simple goes one way, un aller-retour there and back. Réserver = to book; la réservation = the booking.",
+        "example": "Un aller-retour pour Nantes, s'il vous plaît.",
+        "example_meaning": "A return ticket to Nantes, please."
+      },
+      {
+        "title": "À l'hôtel",
+        "emoji": "🛎️",
+        "rule": "Ask for une chambre simple or double pour deux nuits; check le petit-déjeuner est compris ? Complet = no rooms left.",
+        "example": "Je voudrais une chambre double pour deux nuits.",
+        "example_meaning": "I'd like a double room for two nights."
+      },
+      {
+        "title": "Conduire",
+        "emoji": "🚗",
+        "rule": "je conduis, tu conduis, il conduit, nous conduisons, vous conduisez, ils conduisent: an s appears in the plural.",
+        "example": "Tu conduis trop vite !",
+        "example_meaning": "You drive too fast!"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "En or à?",
+        "buckets": [
+          "en",
+          "à"
+        ],
+        "items": [
+          {
+            "text": "… train",
+            "bucket": 0
+          },
+          {
+            "text": "… pied",
+            "bucket": 1
+          },
+          {
+            "text": "… voiture",
+            "bucket": 0
+          },
+          {
+            "text": "… vélo",
+            "bucket": 1
+          },
+          {
+            "text": "… avion",
+            "bucket": 0
+          },
+          {
+            "text": "… moto",
+            "bucket": 1
+          },
+          {
+            "text": "… bus",
+            "bucket": 0
+          },
+          {
+            "text": "… bateau",
+            "bucket": 0
+          }
+        ],
+        "why": "You sit inside a train, a car, a plane, a bus or a boat: en. You sit on a bike or a motorbike, or walk: à."
+      },
+      {
+        "title": "The journey or the hotel?",
+        "buckets": [
+          "the journey",
+          "the hotel"
+        ],
+        "items": [
+          {
+            "text": "le vol",
+            "bucket": 0
+          },
+          {
+            "text": "la réception",
+            "bucket": 1
+          },
+          {
+            "text": "l'aller-retour",
+            "bucket": 0
+          },
+          {
+            "text": "la clé",
+            "bucket": 1
+          },
+          {
+            "text": "le passeport",
+            "bucket": 0
+          },
+          {
+            "text": "la chambre double",
+            "bucket": 1
+          },
+          {
+            "text": "l'aéroport",
+            "bucket": 0
+          },
+          {
+            "text": "le petit-déjeuner compris",
+            "bucket": 1
+          }
+        ],
+        "why": "Flights, tickets, passports and airports get you there; the front desk, the key, the room and breakfast are at the hotel."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Nous partons en Italie à voiture.",
+        "wrong": "à",
+        "fix": "en",
+        "why": "You sit inside a car: en voiture."
+      },
+      {
+        "sentence": "Je vais au bureau en pied.",
+        "wrong": "en",
+        "fix": "à",
+        "why": "On your own feet: à pied."
+      },
+      {
+        "sentence": "Mes parents conduit une vieille voiture rouge.",
+        "wrong": "conduit",
+        "fix": "conduisent",
+        "why": "Mes parents = ils: ils conduisent."
+      },
+      {
+        "sentence": "Je voudrais une chambre double pour deux nuit.",
+        "wrong": "nuit",
+        "fix": "nuits",
+        "why": "Deux nuits is plural: add -s."
+      },
+      {
+        "sentence": "Hier, nous avons partis de l'aéroport à midi.",
+        "wrong": "avons",
+        "fix": "sommes",
+        "why": "Partir is a movement verb: it takes être. Nous sommes partis."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Je voyage souvent en train.",
+        "meaning": "I often travel by train.",
+        "distractors": [
+          "à"
+        ]
+      },
+      {
+        "text": "Un aller-retour pour Lyon, s'il vous plaît.",
+        "meaning": "A return ticket to Lyon, please.",
+        "distractors": [
+          "simple"
+        ]
+      },
+      {
+        "text": "Le petit-déjeuner est compris ?",
+        "meaning": "Is breakfast included?",
+        "distractors": [
+          "complet"
+        ]
+      },
+      {
+        "text": "Mon père conduit la voiture.",
+        "meaning": "My father drives the car.",
+        "distractors": [
+          "conduis"
+        ]
+      }
+    ]
+  }
+}

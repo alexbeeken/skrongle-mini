@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("auth.code.title") }}{% endblock %}
+{% block content %}
+<section class="narrow" data-testid="login-code">
+  <h1>{{ crate::t("auth.code.title") }}</h1>
+  {% if let Some(e) = error %}<p class="alert error" role="alert" data-testid="login-code-error">{{ e }}</p>{% endif %}
+  <p class="muted" data-testid="login-code-sent-to">{{ crate::t("auth.code.from_app") }}</p>
+  <form method="post" action="{{ crate::url("/login/code") }}" data-testid="login-code-form">
+    <label>{{ crate::t("auth.code.code_label") }}
+      <input type="text" name="code" data-testid="login-code-input" required autofocus inputmode="numeric" pattern="[0-9 ]*" maxlength="9" autocomplete="one-time-code">
+    </label>
+    <button type="submit" class="btn" data-testid="login-code-submit">{{ crate::t("auth.code.submit") }}</button>
+  </form>
+  <div class="login-code-actions">
+    <form method="post" action="{{ crate::url("/login/code/cancel") }}" class="inline"><button type="submit" class="link-btn small" data-testid="login-code-cancel">{{ crate::t("auth.code.cancel") }}</button></form>
+  </div>
+</section>
+{% if cfg!(feature = "dev") && dev %}
+<details class="dev-device" open data-testid="login-code-dev">
+  <summary><span class="dev-device-badge">Dev</span> Your authenticator <span class="muted small">(the dev authenticator, this sign-in only)</span></summary>
+  <iframe src="{{ crate::url("/login/code/device") }}" title="The dev device this sign-in's code went to" data-testid="login-code-dev-frame"></iframe>
+</details>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,92 @@
+{
+  "id": "tc-sort",
+  "slug": "sort",
+  "title": "Sort into buckets",
+  "unit": "exercises",
+  "group": "sprint",
+  "order": 20,
+  "summary": "Sorts with two, three and four buckets; bites derived from the sections.",
+  "focus": "Sprint mode sorts",
+  "content": "## Sorting\n\nTap each item into the right bucket.\n\n## Buckets\n\nA sort has two to four buckets and three to ten items.\n\n## Quick check\n\nD mode never turns a section with this heading into a bite.",
+  "sprint": {
+    "sorts": [
+      {
+        "title": "El or la?",
+        "buckets": [
+          "el",
+          "la"
+        ],
+        "items": [
+          {
+            "text": "libro",
+            "bucket": 0
+          },
+          {
+            "text": "mesa",
+            "bucket": 1
+          },
+          {
+            "text": "perro",
+            "bucket": 0
+          },
+          {
+            "text": "casa",
+            "bucket": 1
+          }
+        ],
+        "why": "Most nouns ending in -o take el, most ending in -a take la."
+      },
+      {
+        "title": "Which greeting?",
+        "buckets": [
+          "buenos días",
+          "buenas tardes",
+          "buenas noches"
+        ],
+        "items": [
+          {
+            "text": "8:00",
+            "bucket": 0
+          },
+          {
+            "text": "16:00",
+            "bucket": 1
+          },
+          {
+            "text": "23:00",
+            "bucket": 2
+          }
+        ],
+        "why": "Morning, afternoon, night."
+      },
+      {
+        "title": "Which question word?",
+        "buckets": [
+          "¿qué?",
+          "¿dónde?",
+          "¿cuándo?",
+          "¿quién?"
+        ],
+        "items": [
+          {
+            "text": "what",
+            "bucket": 0
+          },
+          {
+            "text": "where",
+            "bucket": 1
+          },
+          {
+            "text": "when",
+            "bucket": 2
+          },
+          {
+            "text": "who",
+            "bucket": 3
+          }
+        ],
+        "why": "Qué, dónde, cuándo, quién."
+      }
+    ]
+  }
+}

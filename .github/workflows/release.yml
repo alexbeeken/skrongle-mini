@@ -1,0 +1,127 @@
+# Release binaries for self-hosters. Pushing a tag v<version> (v0.2.0)
+# builds the server for 64-bit ARM (Raspberry Pi Zero 2 W and newer on 64-bit
+# Raspberry Pi OS) and x86_64 Linux, packs each with scripts/package-release.sh
+# and attaches them to the GitHub release of that tag:
+#
+#   skrongle-<version>-aarch64.tar.gz (+ .sha256)
+#   skrongle-<version>-x86_64.tar.gz  (+ .sha256)
+#
+# Both link glibc 2.31 (cargo-zigbuild), so they run on Debian 11+,
+# Ubuntu 20.04+ and Raspberry Pi OS Bullseye or later. "Run workflow" by hand
+# builds the same tarballs as workflow artifacts without making a release.
+# How to cut a release: docs/self-hosting.md, "Releases".
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version to stamp into the test build (no release is made)
+        required: true
+        default: 0.0.0-test
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: build ${{ matrix.arch }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    strategy:
+      fail-fast: true
+      matrix:
+        arch: [aarch64, x86_64]
+    env:
+      VERSION: ${{ github.event_name == 'push' && github.ref_name || inputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Version
+        id: version
+        run: |
+          v="${VERSION#v}"
+          case "$v" in
+            [0-9]*) ;;
+            *) echo "a release tag looks like v1.2.3, got $VERSION"; exit 1 ;;
+          esac
+          # A tag must match Cargo.toml: the server's /self-host page links
+          # the tarball of the version it was built from.
+          cargo_version=$(sed -n 's/^version = "\(.*\)"$/\1/p' Cargo.toml | head -1)
+          if [ "${{ github.event_name }}" = push ] && [ "$v" != "$cargo_version" ]; then
+            echo "tag $VERSION does not match Cargo.toml version $cargo_version: bump Cargo.toml first"
+            exit 1
+          fi
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.arch }}-unknown-linux-gnu
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: release-${{ matrix.arch }}
+      - uses: mlugg/setup-zig@v2
+        with:
+          version: 0.13.0
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-zigbuild
+
+      - name: Build
+        env:
+          SKRONGLE_VERSION: ${{ steps.version.outputs.version }}
+        run: scripts/build-pi.sh ${{ matrix.arch }}
+
+      - name: Check the binary
+        run: |
+          bin=dist/${{ matrix.arch }}-unknown-linux-gnu/spanish-learning
+          file "$bin"
+          if [ "${{ matrix.arch }}" = x86_64 ]; then
+            "$bin" --version | grep -qx "skrongle ${{ steps.version.outputs.version }}"
+            SKRONGLE_DB="$RUNNER_TEMP/doctor.db" "$bin" doctor
+          fi
+
+      - name: Package
+        run: scripts/package-release.sh "${{ steps.version.outputs.version }}" ${{ matrix.arch }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: skrongle-${{ matrix.arch }}
+          path: |
+            dist/skrongle-*.tar.gz
+            dist/skrongle-*.tar.gz.sha256
+          if-no-files-found: error
+          retention-days: 14
+
+  release:
+    name: attach to the release
+    if: github.event_name == 'push'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: skrongle-*
+          path: dist
+          merge-multiple: true
+      - name: Create the release, or add to it
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          ls -l dist
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" dist/* --clobber
+          else
+            gh release create "$TAG" dist/* --title "Skrongle ${TAG#v}" --generate-notes --verify-tag
+          fi

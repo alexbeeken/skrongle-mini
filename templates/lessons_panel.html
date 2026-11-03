@@ -1,0 +1,190 @@
+<section class="lessons-panel" id="lessons" data-testid="course-lessons" data-course-id="{{ lp.course_id }}" data-started="{{ lp.started }}" data-folders="{{ lp.folders }}" data-version="{{ lp.version }}">
+  <div class="lt-bar">
+    <h2>{{ crate::t("study.panel.lessons") }}</h2>
+    {# Paste a word list (#453): language courses only; word-list.js shows it and follows the gear's Language features switch. #}
+    <button type="button" class="btn small ghost" id="lt-paste-words" data-language="{{ lp.language }}" data-testid="course-words-open" hidden>{{ crate::t("study.panel.words_open") }}</button>
+    <span class="small muted lt-status" id="lt-status" role="status" data-testid="course-lessons-status"></span>
+  </div>
+  <noscript><p class="small muted">{{ crate::t("study.panel.noscript") }}</p></noscript>
+  <ul class="ltable{% if lp.folders %} folders{% endif %}" id="lt-list" data-testid="course-lessons-list">
+    <li class="lt-settings" data-testid="course-lessons-settings" data-path="course.json">
+      <div class="lt-line">
+        <button type="button" class="icon-btn lt-gear" data-tip="{{ crate::t("study.panel.editor_settings") }}" aria-label="{{ crate::t("study.panel.editor_settings") }}" data-open-dialog="lt-prefs-dialog" data-testid="course-lessons-gear" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+        <a class="icon-btn lt-gear lt-report" href="#course-report" data-tip="{{ crate::t("study.panel.feature_usage") }}" aria-label="{{ crate::t("study.panel.feature_usage_report") }}" data-open-dialog="course-report" data-testid="course-report-open"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16"/><path d="M7 16v-5"/><path d="M12 16V7"/><path d="M17 16v-8"/></svg>{% if !lp.lints.is_empty() %}<span class="lt-report-count" data-testid="course-report-lint-count" aria-hidden="true">{{ lp.lints.len() }}</span><span class="sr-only">{{ crate::tn("courses.lint.count", lp.lints.len()) }}</span>{% endif %}</a>
+        <span class="lt-head">
+          <span class="lt-num"></span>
+          <button type="button" class="lt-expand" aria-expanded="false" aria-label="{{ crate::t("study.panel.edit_settings") }}" data-testid="course-lessons-expand" hidden>▸</button>
+          <span class="lt-name">{{ crate::t("study.panel.course_settings") }}</span>
+        </span>
+        <noscript><a class="btn small ghost lt-edit" href="{{ crate::base_path() }}/courses/{{ lp.course_id }}/file?path=course.json" data-testid="course-edit-manifest">{{ crate::t("study.panel.edit") }}</a></noscript>
+        <button type="button" class="btn small ghost" id="lt-add-unit" data-testid="course-lessons-add-unit" hidden>{{ crate::t("study.panel.add_unit") }}</button>
+      </div>
+      <div class="lt-drawer" data-testid="course-lessons-drawer" data-mode="json" hidden>
+        {% include "lessons_modes.html" %}
+        <div class="lt-code">
+          <pre class="lt-lines" aria-hidden="true" data-testid="course-lessons-lines"></pre>
+          <div class="lt-code-box"><div class="lt-badline" aria-hidden="true" data-testid="course-lessons-json-highlight" hidden></div><textarea class="lt-json" rows="14" spellcheck="false" autocapitalize="off" aria-label="{{ crate::t("study.panel.json_of_settings") }}" data-testid="course-lessons-json" maxlength="{{ crate::courses::MAX_FILE_BYTES }}"></textarea></div>
+        </div>
+        <p class="small"><span class="lt-json-status muted" role="status" data-testid="course-lessons-json-status"></span> <button type="button" class="link small lt-goto" data-testid="course-lessons-json-goto" hidden></button> <button type="button" class="link small lt-format" data-testid="course-lessons-format">{{ crate::t("study.panel.format") }}</button></p>
+      </div>
+    </li>
+    {# The placement test (placement.json, #1106): right under the course settings, while the gear's Placement test switch is on. JSON only. #}
+    <li class="lt-settings lt-placement" data-testid="course-lessons-placement" data-path="placement.json"{% if lp.placement %} data-saved="1"{% else %} hidden{% endif %}>
+      <div class="lt-line">
+        <span class="lt-head">
+          <span class="lt-num"></span>
+          <button type="button" class="lt-expand" aria-expanded="false" aria-label="{{ crate::t("study.panel.edit_placement") }}" data-testid="course-lessons-placement-expand" hidden>▸</button>
+          <span class="lt-name">{{ crate::t("study.panel.placement") }}</span>
+          <button type="button" class="info-btn" data-open-dialog="lt-placement-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("study.panel.placement_info") }}" data-testid="course-lessons-placement-info">i</button>
+        </span>
+      </div>
+      <div class="lt-drawer" data-testid="course-lessons-placement-drawer" data-mode="json" hidden>
+        <div class="lt-form" hidden></div>
+        <div class="lt-code">
+          <pre class="lt-lines" aria-hidden="true"></pre>
+          <div class="lt-code-box"><div class="lt-badline" aria-hidden="true" hidden></div><textarea class="lt-json" rows="14" spellcheck="false" autocapitalize="off" aria-label="{{ crate::t("study.panel.json_of_placement") }}" data-testid="course-lessons-placement-json" maxlength="{{ crate::courses::MAX_FILE_BYTES }}"></textarea></div>
+        </div>
+        <p class="small"><span class="lt-json-status muted" role="status" data-testid="course-lessons-placement-status"></span> <button type="button" class="link small lt-goto" hidden></button> <button type="button" class="link small lt-format">{{ crate::t("study.panel.format") }}</button></p>
+      </div>
+    </li>
+  {% for u in lp.units %}
+    <li class="lt-unit" data-unit="{{ u.id }}" data-testid="course-lessons-unit">
+      <button type="button" class="lt-fold" aria-expanded="true" aria-label="{{ crate::t1("study.panel.fold", "unit", u.title) }}" data-testid="course-lessons-fold">▾</button>
+      <span class="lt-unit-title" data-testid="course-lessons-unit-title">{{ u.title }}</span>
+      <span class="lt-count small muted" data-testid="course-lessons-count">{{ u.lessons.len() }}</span>
+      <button type="button" class="btn small ghost lt-add-here" aria-label="{{ crate::t1("study.panel.add_to", "unit", u.title) }}" data-testid="course-lessons-add-here" hidden>+</button>
+      <button type="button" class="lt-delete lt-unit-delete" aria-label="{{ crate::t1("study.panel.delete_unit", "unit", u.title) }}" title="{{ crate::t("study.panel.delete_this_unit") }}" data-testid="course-lessons-unit-delete" hidden>✕</button>
+    </li>
+    {% for l in u.lessons %}
+    {% let row_id = l.id.as_str() %}{% let row_path = l.path.as_str() %}{% let row_title = l.title.as_str() %}{% let row_position = l.position %}{% let row_unit = u.id.as_str() %}
+    {% include "lessons_row.html" %}
+    {% endfor %}
+  {% endfor %}
+  </ul>
+  {# The gear on the Course settings row: how the editor shows files (courses.js keeps both in the browser). #}
+  <dialog class="modal" id="lt-prefs-dialog" aria-labelledby="lt-prefs-title" data-testid="course-lessons-prefs">
+    <form method="dialog">
+      <h2 id="lt-prefs-title">{{ crate::t("study.panel.editor_settings") }}</h2>
+      {# How the editor shows files (JSON, line numbers: kept in the browser) and the language features, one box; Levels last, in its own. #}
+      <div class="lt-pref-group" data-testid="course-lessons-pref-general-group">
+        <div class="lt-pref" data-testid="course-lessons-pref-json" hidden>
+          <span class="lt-pref-text"><span class="lt-pref-name">{{ crate::t("study.panel.json") }}</span><span class="small muted">{{ crate::t("study.panel.json_desc") }}</span></span>
+          <button type="button" class="lt-switch" role="switch" aria-checked="true" aria-label="{{ crate::t("study.panel.json") }}" data-pref="mode" data-testid="course-lessons-json-switch"><span class="lt-switch-knob" aria-hidden="true"></span></button>
+        </div>
+        <div class="lt-pref" data-testid="course-lessons-pref-lines">
+          <span class="lt-pref-text"><span class="lt-pref-name">{{ crate::t("study.panel.line_numbers") }}</span><span class="small muted">{{ crate::t("study.panel.line_numbers_desc") }}</span></span>
+          <button type="button" class="lt-switch" role="switch" aria-checked="false" aria-label="{{ crate::t("study.panel.line_numbers") }}" data-pref="lines" data-testid="course-lessons-lines-switch"><span class="lt-switch-knob" aria-hidden="true"></span></button>
+        </div>
+        {# Only with JSON off: a fact about the course (course.json "language_features"), saved with the table, not a browser setting. #}
+        <div class="lt-pref" data-testid="course-lessons-pref-language" hidden>
+          <span class="lt-pref-text"><span class="lt-pref-name">{{ crate::t("study.panel.language_features") }} <button type="button" class="info-btn" data-open-dialog="lt-language-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("study.panel.language_features_info") }}" data-testid="course-lessons-language-info">i</button></span><span class="small muted">{{ crate::t("study.panel.language_features_desc") }}</span></span>
+          <button type="button" class="lt-switch" role="switch" aria-checked="{{ lp.language }}" aria-label="{{ crate::t("study.panel.language_features") }}" data-pref="language" data-testid="course-lessons-language-switch"><span class="lt-switch-knob" aria-hidden="true"></span></button>
+        </div>
+      </div>
+      {# Facts about the course, saved with the table: Levels (course.json "levels") and, inside it, the placement test (placement.json, #1106). #}
+      <div class="lt-pref-group" data-testid="course-lessons-pref-levels-group">
+        <div class="lt-pref" data-testid="course-lessons-pref-levels">
+          <span class="lt-pref-text"><span class="lt-pref-name">{{ crate::t("study.panel.levels") }} <button type="button" class="info-btn" data-open-dialog="lt-levels-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("study.panel.levels_info") }}" data-testid="course-lessons-levels-info">i</button></span><span class="small muted">{{ crate::t("study.panel.levels_desc") }}</span></span>
+          <button type="button" class="lt-switch" role="switch" aria-checked="{{ lp.levels }}" aria-label="{{ crate::t("study.panel.levels") }}" data-pref="levels" data-testid="course-lessons-levels-switch"><span class="lt-switch-knob" aria-hidden="true"></span></button>
+        </div>
+        <div class="lt-pref" data-testid="course-lessons-pref-placement"{% if !lp.levels %} hidden{% endif %}>
+          <span class="lt-pref-text"><span class="lt-pref-name">{{ crate::t("study.panel.placement") }} <button type="button" class="info-btn" data-open-dialog="lt-placement-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("study.panel.placement_info") }}" data-testid="course-lessons-placement-pref-info">i</button></span><span class="small muted">{{ crate::t("study.panel.placement_desc") }}</span></span>
+          <button type="button" class="lt-switch" role="switch" aria-checked="{{ lp.placement }}" aria-label="{{ crate::t("study.panel.placement") }}" data-pref="placement" data-testid="course-lessons-placement-switch"><span class="lt-switch-knob" aria-hidden="true"></span></button>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="submit" class="btn ghost" data-testid="course-lessons-prefs-close">{{ crate::t("study.panel.close") }}</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog class="modal" id="lt-language-dialog" aria-labelledby="lt-language-title" data-testid="course-lessons-language-dialog">
+    <form method="dialog">
+      <h2 id="lt-language-title">{{ crate::t("study.panel.language_features") }}</h2>
+      <p>{{ crate::t("study.panel.language_features_what") }}</p>
+      <p>{{ crate::t("study.panel.language_features_off") }}</p>
+      <p class="small muted">{{ crate::t("study.panel.language_features_saved") }}</p>
+      <div class="modal-actions">
+        <button type="submit" class="btn ghost" data-testid="course-lessons-language-close">{{ crate::t("study.panel.close") }}</button>
+      </div>
+    </form>
+  </dialog>
+  {# Paste a word list: word-list.js reads each pair (POST /api/courses/{id}/words) and adds the lesson to the table, which saves it. #}
+  <dialog class="modal" id="lt-words-dialog" aria-labelledby="lt-words-title" data-testid="course-words-dialog">
+    <form method="dialog">
+      <h2 id="lt-words-title">{{ crate::t("study.panel.words_title") }} <button type="button" class="info-btn" data-open-dialog="lt-words-info" aria-haspopup="dialog" aria-label="{{ crate::t("study.panel.words_info") }}" data-testid="course-words-info">i</button></h2>
+      <label>{{ crate::t("study.panel.words_name") }}
+        <input type="text" name="title" maxlength="200" autocomplete="off" data-testid="course-words-name">
+      </label>
+      <label>{{ crate::t("study.panel.words_text") }}
+        <textarea name="text" rows="8" spellcheck="false" maxlength="65536" placeholder="{{ lp.terms_label }} — {{ lp.meanings_label }}&#10;{{ lp.terms_label }}, {{ lp.meanings_label }}" data-testid="course-words-text"></textarea>
+      </label>
+      <p class="small muted" role="status" data-testid="course-words-count"></p>
+      <div class="table-scroll" data-testid="course-words-preview-wrap" hidden>
+        <table class="history" data-testid="course-words-preview">
+          <thead><tr><th>{{ lp.terms_label }}</th><th>{{ lp.meanings_label }}</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <ul class="small bad-text" data-testid="course-words-skipped" hidden></ul>
+      <div class="modal-actions">
+        <button type="submit" value="cancel" class="btn ghost" data-testid="course-words-cancel">{{ crate::t("study.panel.cancel") }}</button>
+        <button type="button" class="btn" data-testid="course-words-add" disabled>{{ crate::t("study.panel.words_add") }}</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog class="modal" id="lt-words-info" aria-labelledby="lt-words-info-title" data-testid="course-words-info-dialog">
+    <form method="dialog">
+      <h2 id="lt-words-info-title">{{ crate::t("study.panel.words_title") }}</h2>
+      <p>{{ crate::t("study.panel.words_how") }}</p>
+      <p>{{ crate::t("study.panel.words_after") }}</p>
+      <div class="modal-actions">
+        <button type="submit" class="btn ghost">{{ crate::t("study.panel.close") }}</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog class="modal" id="lt-levels-dialog" aria-labelledby="lt-levels-title" data-testid="course-lessons-levels-dialog">
+    <form method="dialog">
+      <h2 id="lt-levels-title">{{ crate::t("study.panel.levels") }}</h2>
+      <p>{{ crate::t("study.panel.levels_what") }}</p>
+      <p class="small muted">{{ crate::t("study.panel.levels_saved") }}</p>
+      <div class="modal-actions"><button type="submit" class="btn ghost" data-testid="course-lessons-levels-close">{{ crate::t("study.panel.close") }}</button></div>
+    </form>
+  </dialog>
+  <dialog class="modal" id="lt-placement-dialog" aria-labelledby="lt-placement-title" data-testid="course-lessons-placement-dialog">
+    <form method="dialog">
+      <h2 id="lt-placement-title">{{ crate::t("study.panel.placement") }}</h2>
+      <p>{{ crate::t("study.panel.placement_what") }}</p>
+      <p>{{ crate::t("study.panel.placement_how") }}</p>
+      <p class="small muted">{{ crate::t("study.panel.placement_saved") }}</p>
+      <div class="modal-actions"><button type="submit" class="btn ghost" data-testid="course-lessons-placement-close">{{ crate::t("study.panel.close") }}</button></div>
+    </form>
+  </dialog>
+  {# The yellow ! on a lesson row opens this (static/advice.js, #1235): the advice of every lesson, grouped by lesson; a row opens that item's field. #}
+  <dialog class="modal" id="lt-advice-dialog" aria-labelledby="lt-advice-title" data-testid="course-advice-dialog">
+    <form method="dialog">
+      <h2 id="lt-advice-title">{{ crate::t("editor.js.advice_title") }}</h2>
+      <div class="advice-list" data-testid="course-advice-list"></div>
+      <div class="modal-actions"><button type="submit" class="btn ghost" data-testid="course-advice-close">{{ crate::t("editor.js.advice_close") }}</button></div>
+    </form>
+  </dialog>
+  {% include "course_report.html" %}
+  {% if let Some(la) = lp.ai %}{% include "lessons_ai_dialog.html" %}{% endif %}
+  {# A unit's ✕ asks first when the unit holds lessons; courses.js reads the form's value. #}
+  <dialog class="modal" id="lt-unit-dialog" aria-labelledby="lt-unit-dialog-title" data-testid="course-lessons-unit-dialog">
+    <form method="dialog">
+      <h2 id="lt-unit-dialog-title">{{ crate::t("study.panel.delete_unit_q") }}</h2>
+      <p>{{ crate::t("study.panel.delete_unit_warn") }}</p>
+      {% if lp.started %}<p class="small muted">{{ crate::t("study.panel.progress_goes") }}</p>{% endif %}
+      <div class="modal-actions">
+        <button type="submit" value="cancel" class="btn ghost" data-testid="course-lessons-unit-cancel">{{ crate::t("study.panel.cancel") }}</button>
+        <button type="submit" value="confirm" class="btn danger" data-testid="course-lessons-unit-confirm">{{ crate::t("study.panel.confirm") }}</button>
+      </div>
+    </form>
+  </dialog>
+  {#- A blank row for the script to clone when it adds a lesson. Inert: nothing in it counts as a lesson. -#}
+  <template id="lt-blank">
+    {% let blank_title = crate::t("study.panel.new_lesson") %}
+    {% let row_id = "" %}{% let row_path = "" %}{% let row_title = blank_title.as_str() %}{% let row_position = "" %}{% let row_unit = "" %}
+    {% include "lessons_row.html" %}
+  </template>
+</section>

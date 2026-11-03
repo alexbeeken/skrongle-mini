@@ -1,0 +1,636 @@
+{
+  "id": "b1-work-and-job-hunting",
+  "slug": "work-and-job-hunting",
+  "title": "Work and job hunting: el currículum, la entrevista",
+  "unit": "B1",
+  "group": "Vocabulary",
+  "order": 36,
+  "summary": "Find a job ad, send your CV and get through a formal interview: the words of the job hunt, job ads with que + subjunctive, and usted.",
+  "focus": "Job-hunting vocabulary, job ads with que + subjunctive, and the usted register at an interview",
+  "prerequisites": [
+    "b1-conditional",
+    "b1-relative-clauses"
+  ],
+  "content": "## Looking for a job\n\nJob hunting starts with **buscar trabajo** (looking for work). Someone with no job at the moment **está en paro** (is unemployed; in Spain, **el paro** is also the dole).\n\n- **la oferta de empleo**: the job ad, the vacancy\n- **el puesto**: the position: **un puesto de recepcionista**\n- **la empresa**: the company\n- **el currículum**: the CV (plural **los currículums**)\n- **la carta de presentación**: the cover letter\n- **la entrevista**: the interview\n\nTo apply, you **envías el currículum** with a **carta de presentación**; if it goes well, **te llaman para una entrevista** (they call you for an interview).\n\n## The conditions: el sueldo, el contrato, el horario\n\n| Spanish | English |\n|---|---|\n| **el sueldo** | salary, pay |\n| **el contrato** (indefinido / temporal) | (permanent / temporary) contract |\n| **la jornada completa** | full-time |\n| **media jornada** | part-time |\n| **el horario** | working hours |\n| **las vacaciones** | holidays |\n\nWorking time takes **a**: **trabajo a jornada completa**, **busco algo a media jornada**.\n\n- **El horario es de nueve a cinco.** The hours are nine to five.\n- **¿Cuál sería el sueldo?** What would the salary be? (the conditional sounds more polite than **¿cuál es…?**)\n\n## Job ads: se busca persona que…\n\nAds use **se busca** / **se necesita** (wanted / needed) and a relative clause. The company has not met this person yet, so (as in the relative-clauses lesson) the verb after **que** is **subjunctive**:\n\n- **Se busca camarero que hable inglés.** Waiter wanted who speaks English.\n- **Se necesita persona que tenga carné de conducir.** Person with a driving licence needed.\n- **Buscamos a alguien que sepa trabajar en equipo.** We're looking for someone who can work in a team.\n\nA person who already exists takes the **indicative**:\n\n- **Tenemos una cocinera que habla tres idiomas.** We have a cook who speaks three languages.\n\n## At the interview: usted\n\nAn interview is formal: both sides use **usted**, with the él / ella form.\n\n| with a friend (tú) | at the interview (usted) |\n|---|---|\n| ¿Por qué quieres este puesto? | **¿Por qué quiere este puesto?** |\n| ¿Tienes experiencia? | **¿Tiene experiencia?** |\n| ¿Podrías empezar el lunes? | **¿Podría empezar el lunes?** |\n\nTo sell yourself:\n\n- **Me gustaría trabajar en** una empresa como esta. (I'd like to work in a company like this one.)\n- **Tengo experiencia en** ventas. (I have experience in sales.)\n- **Se me da bien** hablar con clientes. (I'm good at talking to customers.)\n- **Se me dan bien** los idiomas. (I'm good at languages. The verb is plural, like **me gustan**.)",
+  "vocabulary": [
+    {
+      "term": "la oferta de empleo",
+      "meaning": "job ad, job offer",
+      "example": "He visto una oferta de empleo para una librería del centro.",
+      "example_meaning": "I've seen a job ad for a bookshop in the centre."
+    },
+    {
+      "term": "el puesto",
+      "meaning": "position, post (job)",
+      "example": "El puesto es para la recepción de un hotel.",
+      "example_meaning": "The position is for the reception of a hotel."
+    },
+    {
+      "term": "el currículum",
+      "meaning": "CV, résumé",
+      "example": "Le adjunto mi currículum en este correo.",
+      "example_meaning": "I'm attaching my CV to this email."
+    },
+    {
+      "term": "la carta de presentación",
+      "meaning": "cover letter",
+      "example": "Escribe una carta de presentación corta y clara.",
+      "example_meaning": "Write a short, clear cover letter."
+    },
+    {
+      "term": "estar en paro",
+      "meaning": "to be unemployed",
+      "example": "Mi vecino está en paro desde el verano.",
+      "example_meaning": "My neighbour has been unemployed since the summer."
+    },
+    {
+      "term": "la empresa",
+      "meaning": "company, firm",
+      "example": "Trabajo en una empresa pequeña de Valencia.",
+      "example_meaning": "I work for a small company in Valencia."
+    },
+    {
+      "term": "el sueldo",
+      "meaning": "salary, pay",
+      "example": "El sueldo no es muy alto, pero el ambiente es bueno.",
+      "example_meaning": "The pay isn't very high, but the atmosphere is good."
+    },
+    {
+      "term": "el contrato",
+      "meaning": "contract",
+      "example": "Mañana firmo el contrato con la empresa.",
+      "example_meaning": "Tomorrow I sign the contract with the company."
+    },
+    {
+      "term": "la jornada completa / media jornada",
+      "meaning": "full-time / part-time",
+      "example": "Ahora trabajo a media jornada, pero busco algo a jornada completa.",
+      "example_meaning": "Now I work part-time, but I'm looking for something full-time."
+    },
+    {
+      "term": "el horario",
+      "meaning": "working hours, schedule",
+      "example": "¿Qué horario tiene la tienda los sábados?",
+      "example_meaning": "What hours does the shop keep on Saturdays?"
+    },
+    {
+      "term": "la entrevista",
+      "meaning": "interview",
+      "example": "La entrevista es el jueves a las diez.",
+      "example_meaning": "The interview is on Thursday at ten."
+    },
+    {
+      "term": "tener experiencia en",
+      "meaning": "to have experience in",
+      "example": "¿Tiene usted experiencia en ventas?",
+      "example_meaning": "Do you have experience in sales?"
+    },
+    {
+      "term": "se me da bien",
+      "meaning": "I'm good at (se me dan bien + plural)",
+      "example": "Se me dan bien los números.",
+      "example_meaning": "I'm good with numbers."
+    },
+    {
+      "term": "me gustaría trabajar en",
+      "meaning": "I'd like to work in / at",
+      "example": "Me gustaría trabajar en el sector del turismo.",
+      "example_meaning": "I'd like to work in the tourism sector."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-work-and-job-hunting-01",
+      "prompt": "Mi primo perdió su trabajo en enero y ahora ___ en paro.",
+      "type": "multiple-choice",
+      "options": [
+        "está",
+        "es",
+        "tiene"
+      ],
+      "correct_answer": "está",
+      "explanation": "Being unemployed is a situation, not an identity: estar en paro. 'Ahora está en paro.'",
+      "hints": [
+        "The expression is fixed: ___ en paro, like estar en casa."
+      ],
+      "teaches": [
+        "estar en paro"
+      ]
+    },
+    {
+      "question_id": "b1-work-and-job-hunting-02",
+      "prompt": "Para solicitar el puesto, envíe su ___ y una carta de presentación.",
+      "type": "multiple-choice",
+      "options": [
+        "currículum",
+        "sueldo",
+        "contrato"
+      ],
+      "correct_answer": "currículum",
+      "explanation": "You send your CV (el currículum) with a cover letter. The salary and the contract come later, once you have the job.",
+      "hints": [
+        "What document lists your studies and your jobs?"
+      ],
+      "teaches": [
+        "el currículum",
+        "la carta de presentación",
+        "el puesto"
+      ]
+    },
+    {
+      "question_id": "b1-work-and-job-hunting-03",
+      "prompt": "Trabajo cuarenta horas a la semana, de nueve a cinco: tengo un trabajo a ___.",
+      "type": "multiple-choice",
+      "options": [
+        "jornada completa",
+        "media jornada"
+      ],
+      "correct_answer": "jornada completa",
+      "explanation": "Forty hours a week is a full working day: a jornada completa. Media jornada is part-time, about half of that.",
+      "hints": [
+        "Is forty hours a week full-time or part-time?"
+      ],
+      "teaches": [
+        "la jornada completa / media jornada",
+        "el horario"
+      ]
+    },
+    {
+      "question_id": "b1-work-and-job-hunting-04",
+      "prompt": "Oferta de empleo: se busca dependiente que ___ (hablar) inglés y francés.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "hable",
+      "accepted_answers": [],
+      "explanation": "The shop hasn't found this person yet: it is describing someone imagined, so que + present subjunctive: hable.",
+      "hints": [
+        "Does this shop assistant exist yet?",
+        "-ar verbs swap to the opposite vowel in the subjunctive."
+      ],
+      "teaches": [
+        "la oferta de empleo"
+      ]
+    },
+    {
+      "question_id": "b1-work-and-job-hunting-05",
+      "prompt": "En nuestra empresa hay un abogado que ___ todos los contratos.",
+      "type": "multiple-choice",
+      "options": [
+        "revisa",
+        "revise"
+      ],
+      "correct_answer": "revisa",
+      "explanation": "This lawyer already exists ('hay un abogado'), so the relative clause takes the indicative: revisa.",
+      "hints": [
+        "Is the lawyer real or imagined?"
+      ],
+      "teaches": [
+        "la empresa",
+        "el contrato"
+      ]
+    },
+    {
+      "question_id": "b1-work-and-job-hunting-06",
+      "prompt": "At the interview, the interviewer speaks to you formally (usted). Which question does she ask?",
+      "type": "multiple-choice",
+      "options": [
+        "¿Por qué quiere este puesto?",
+        "¿Por qué quieres este puesto?",
+        "¿Por qué queréis este puesto?"
+      ],
+      "correct_answer": "¿Por qué quiere este puesto?",
+      "explanation": "Usted takes the él / ella form of the verb: quiere. Quieres is tú; queréis is vosotros.",
+      "hints": [
+        "Usted uses the same form as él and ella."
+      ],
+      "teaches": [
+        "el puesto",
+        "la entrevista"
+      ]
+    },
+    {
+      "question_id": "b1-work-and-job-hunting-07",
+      "prompt": "Say politely what you would like: Me ___ (gustar, conditional) trabajar en una empresa con un buen sueldo.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "gustaría",
+      "accepted_answers": [],
+      "explanation": "The conditional of gustar softens a wish: me gustaría trabajar en… = I'd like to work in…",
+      "hints": [
+        "Conditional: gustar + -ía.",
+        "Like 'I would like'."
+      ],
+      "teaches": [
+        "me gustaría trabajar en",
+        "la empresa",
+        "el sueldo"
+      ]
+    },
+    {
+      "question_id": "b1-work-and-job-hunting-08",
+      "prompt": "Tengo ___ (experience) en atención al cliente: trabajé tres años en una tienda.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "experiencia",
+      "accepted_answers": [
+        "mucha experiencia"
+      ],
+      "explanation": "Tener experiencia en + area: tengo experiencia en atención al cliente (customer service).",
+      "hints": [
+        "The Spanish word looks very like the English one.",
+        "It ends in -ia."
+      ],
+      "teaches": [
+        "tener experiencia en"
+      ]
+    },
+    {
+      "question_id": "b1-work-and-job-hunting-09",
+      "prompt": "Se me ___ (dar) muy bien los idiomas.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "dan",
+      "accepted_answers": [],
+      "explanation": "Dar bien works like gustar: the verb agrees with the thing you're good at. Los idiomas is plural, so se me dan bien.",
+      "hints": [
+        "Like me gustan: what is the subject?",
+        "Los idiomas is plural."
+      ],
+      "teaches": [
+        "se me da bien"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-work-and-job-hunting-conv-interview",
+      "title": "The interview",
+      "scenario": "Daniel Ríos has a job interview for a receptionist post with Señora Ortega, head of staff at a big hotel in Málaga.",
+      "role_a": "Señora Ortega",
+      "role_b": "Daniel",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Buenos días, señor Ríos. Siéntese, por favor.",
+          "meaning": "Good morning, Mr Ríos. Please sit down."
+        },
+        {
+          "speaker": "b",
+          "text": "Buenos días. Muchas gracias por llamarme.",
+          "meaning": "Good morning. Thank you very much for calling me."
+        },
+        {
+          "speaker": "a",
+          "text": "He leído su currículum. ¿Por qué quiere este puesto?",
+          "meaning": "I've read your CV. Why do you want this position?"
+        },
+        {
+          "speaker": "b",
+          "text": "Me gustaría trabajar en un hotel grande, y su empresa tiene muy buena fama.",
+          "meaning": "I'd like to work in a big hotel, and your company has a very good reputation."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Qué experiencia tiene en atención al cliente?",
+          "meaning": "What experience do you have in customer service?"
+        },
+        {
+          "speaker": "b",
+          "text": "Tengo experiencia en recepción: trabajé tres años en un hostal.",
+          "meaning": "I have experience in reception: I worked for three years in a guesthouse."
+        },
+        {
+          "speaker": "a",
+          "text": "Buscamos a alguien que hable inglés y francés. ¿Habla usted idiomas?",
+          "meaning": "We're looking for someone who speaks English and French. Do you speak languages?"
+        },
+        {
+          "speaker": "b",
+          "text": "Hablo inglés muy bien y un poco de francés. Se me dan bien los idiomas.",
+          "meaning": "I speak English very well and a little French. I'm good at languages."
+        },
+        {
+          "speaker": "a",
+          "text": "Perfecto. El puesto es a jornada completa, con un contrato de un año.",
+          "meaning": "Perfect. The position is full-time, with a one-year contract."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Y cuál sería el sueldo, si me permite la pregunta?",
+          "meaning": "And what would the salary be, if you don't mind my asking?"
+        },
+        {
+          "speaker": "a",
+          "text": "Mil seiscientos euros al mes. El horario es de ocho a cuatro. ¿Podría empezar en junio?",
+          "meaning": "One thousand six hundred euros a month. The hours are eight to four. Could you start in June?"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, claro. Podría empezar cuando ustedes quieran.",
+          "meaning": "Yes, of course. I could start whenever you like."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Mi hermana está en paro.",
+      "meaning": "My sister is unemployed.",
+      "note": "Estar en paro: a situation, so estar."
+    },
+    {
+      "text": "Busco un trabajo a media jornada.",
+      "meaning": "I'm looking for a part-time job.",
+      "note": "Working time takes a: a media jornada."
+    },
+    {
+      "text": "La empresa ofrece un contrato de un año.",
+      "meaning": "The company is offering a one-year contract."
+    },
+    {
+      "text": "Se busca cocinero que tenga experiencia en hoteles.",
+      "meaning": "Cook wanted with experience in hotels.",
+      "note": "Nobody has the job yet, so que + subjunctive: tenga."
+    },
+    {
+      "text": "Mañana tengo una entrevista en una empresa de diseño.",
+      "meaning": "Tomorrow I have an interview at a design company.",
+      "note": "New word: el diseño = design."
+    },
+    {
+      "text": "Me gustaría trabajar en un hotel cerca de la playa.",
+      "meaning": "I'd like to work in a hotel near the beach.",
+      "note": "Me gustaría: the polite conditional."
+    },
+    {
+      "text": "El sueldo está bien, pero el turno de noche es muy duro.",
+      "meaning": "The pay is fine, but the night shift is very hard.",
+      "note": "New word: el turno = the shift."
+    },
+    {
+      "text": "Necesitamos a alguien que sepa idiomas y que pueda viajar a menudo.",
+      "meaning": "We need someone who knows languages and can travel often.",
+      "note": "An imagined person: sepa and pueda are subjunctive."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Looking for a job"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-work-and-job-hunting-02"
+    },
+    {
+      "question": "b1-work-and-job-hunting-01"
+    },
+    {
+      "section": "The conditions"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-work-and-job-hunting-03"
+    },
+    {
+      "tip": "Spanish ads describe a person nobody has met yet, so treat 'se busca… que' as a cue for the subjunctive."
+    },
+    {
+      "section": "Job ads"
+    },
+    {
+      "question": "b1-work-and-job-hunting-04"
+    },
+    {
+      "question": "b1-work-and-job-hunting-05"
+    },
+    {
+      "section": "At the interview"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-work-and-job-hunting-06"
+    },
+    {
+      "question": "b1-work-and-job-hunting-07"
+    },
+    {
+      "question": "b1-work-and-job-hunting-08"
+    },
+    {
+      "question": "b1-work-and-job-hunting-09"
+    }
+  ],
+  "sprint": {
+    "icon": "💼",
+    "bites": [
+      {
+        "title": "The job hunt",
+        "emoji": "🔎",
+        "rule": "The steps run from la oferta de empleo to el currículum + la carta de presentación, then la entrevista, then el contrato. No job right now? Estoy en paro.",
+        "example": "Estoy en paro y busco trabajo.",
+        "example_meaning": "I'm unemployed and looking for work."
+      },
+      {
+        "title": "Ads: que + subjunctive",
+        "emoji": "📌",
+        "rule": "An ad imagines a person it hasn't met yet, so que + subjunctive: se busca persona que hable inglés. A person you already have takes the indicative.",
+        "example": "Se necesita persona que sepa cocinar.",
+        "example_meaning": "Person needed who can cook."
+      },
+      {
+        "title": "Interviews take usted",
+        "emoji": "🤝",
+        "rule": "Interviews are formal: usted + the él / ella form. ¿Por qué quiere este puesto? ¿Tiene experiencia? ¿Podría empezar el lunes?",
+        "example": "¿Qué experiencia tiene usted?",
+        "example_meaning": "What experience do you have?"
+      },
+      {
+        "title": "Selling yourself",
+        "emoji": "⭐",
+        "rule": "Me gustaría trabajar en… · Tengo experiencia en… · Se me da bien + infinitive or a singular; se me dan bien + a plural, like gustar.",
+        "example": "Se me da bien organizar eventos.",
+        "example_meaning": "I'm good at organising events."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Subjunctive or indicative after que?",
+        "buckets": [
+          "subjunctive (not met yet)",
+          "indicative (already exists)"
+        ],
+        "items": [
+          {
+            "text": "Se busca camarero que hable inglés.",
+            "bucket": 0
+          },
+          {
+            "text": "Tenemos un camarero que habla inglés.",
+            "bucket": 1
+          },
+          {
+            "text": "Buscamos a alguien que sepa francés.",
+            "bucket": 0
+          },
+          {
+            "text": "Conozco a una chica que sabe francés.",
+            "bucket": 1
+          },
+          {
+            "text": "Se necesita persona que tenga coche.",
+            "bucket": 0
+          },
+          {
+            "text": "En la oficina hay una mujer que tiene coche.",
+            "bucket": 1
+          }
+        ],
+        "why": "A person the ad is still looking for takes the subjunctive; a person who already exists takes the indicative."
+      },
+      {
+        "title": "Tú or usted?",
+        "buckets": [
+          "tú (a friend)",
+          "usted (an interview)"
+        ],
+        "items": [
+          {
+            "text": "¿Por qué quieres este puesto?",
+            "bucket": 0
+          },
+          {
+            "text": "¿Por qué quiere este puesto?",
+            "bucket": 1
+          },
+          {
+            "text": "¿Tienes experiencia?",
+            "bucket": 0
+          },
+          {
+            "text": "¿Tiene experiencia en ventas?",
+            "bucket": 1
+          },
+          {
+            "text": "¿Podrías empezar mañana?",
+            "bucket": 0
+          },
+          {
+            "text": "¿Podría empezar el lunes?",
+            "bucket": 1
+          }
+        ],
+        "why": "Usted uses the él / ella form (quiere, tiene, podría); tú ends in -s (quieres, tienes, podrías)."
+      },
+      {
+        "title": "Applying or the conditions?",
+        "buckets": [
+          "applying for the job",
+          "the conditions of the job"
+        ],
+        "items": [
+          {
+            "text": "el currículum",
+            "bucket": 0
+          },
+          {
+            "text": "la carta de presentación",
+            "bucket": 0
+          },
+          {
+            "text": "la oferta de empleo",
+            "bucket": 0
+          },
+          {
+            "text": "la entrevista",
+            "bucket": 0
+          },
+          {
+            "text": "el sueldo",
+            "bucket": 1
+          },
+          {
+            "text": "el horario",
+            "bucket": 1
+          },
+          {
+            "text": "el contrato",
+            "bucket": 1
+          },
+          {
+            "text": "la jornada completa",
+            "bucket": 1
+          }
+        ],
+        "why": "You find the ad, send your CV and cover letter and go to the interview; pay, hours, contract and full-time are what the job offers."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Se busca camarero que habla inglés.",
+        "wrong": "habla",
+        "fix": "hable",
+        "why": "The waiter is not hired yet: an imagined person takes the subjunctive."
+      },
+      {
+        "sentence": "Se me da bien los idiomas.",
+        "wrong": "da",
+        "fix": "dan",
+        "why": "Los idiomas is plural, so the verb is plural: se me dan bien."
+      },
+      {
+        "sentence": "Mi hermano es en paro desde marzo.",
+        "wrong": "es",
+        "fix": "está",
+        "why": "The expression is estar en paro."
+      },
+      {
+        "sentence": "Señora Ortega, ¿por qué quieres este puesto?",
+        "wrong": "quieres",
+        "fix": "quiere",
+        "why": "Señora Ortega is usted, which takes the él / ella form."
+      },
+      {
+        "sentence": "Me gustaría trabajo en una empresa grande.",
+        "wrong": "trabajo",
+        "fix": "trabajar",
+        "why": "After me gustaría comes the infinitive."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Se busca persona que sepa cocinar.",
+        "meaning": "Person wanted who can cook.",
+        "distractors": [
+          "sabe"
+        ]
+      },
+      {
+        "text": "¿Por qué quiere este puesto?",
+        "meaning": "Why do you want this position?",
+        "distractors": [
+          "quieres"
+        ]
+      },
+      {
+        "text": "Tengo dos años de experiencia en ventas.",
+        "meaning": "I have two years' experience in sales.",
+        "distractors": [
+          "con"
+        ]
+      },
+      {
+        "text": "Me gustaría trabajar a media jornada.",
+        "meaning": "I'd like to work part-time.",
+        "distractors": [
+          "gustaba"
+        ]
+      }
+    ]
+  }
+}

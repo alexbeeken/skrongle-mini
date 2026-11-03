@@ -1,0 +1,646 @@
+{
+  "id": "a2-comparatives-superlatives",
+  "slug": "comparatives-superlatives",
+  "title": "Comparing: más que, tan como, el mejor",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 30,
+  "summary": "Compare and rank: más caro que, tan alto como, mejor, el más grande de, riquísimo.",
+  "focus": "Comparatives of inequality and equality, irregular comparatives, and superlatives",
+  "prerequisites": [
+    "a1-adjectives"
+  ],
+  "content": "## More and less: más / menos … que\n\nTo compare two things, wrap the adjective (or adverb, or noun) in **más … que** (more … than) or **menos … que** (less … than). The adjective still agrees with the first noun.\n\n- **Madrid es más grande que Toledo.** (Madrid is bigger than Toledo.)\n- **Este piso es menos caro que el otro.** (This flat is less expensive than the other one.)\n- **Ana corre más rápido que yo.** (Ana runs faster than me.)\n- **Tengo más trabajo que tú.** (I have more work than you.)\n\nBefore a **number**, *than* is **de**, not *que*:\n\n- **Cuesta más de cien euros.** (It costs more than a hundred euros.)\n- **Tiene menos de veinte años.** (She is under twenty.)\n\n## As … as: tan … como, tanto … como\n\nEquality uses **como**. The first word depends on what you compare.\n\n| before | use | example |\n|---|---|---|\n| an adjective or adverb | **tan … como** | **Soy tan alta como mi madre.** (I'm as tall as my mother.) |\n| a noun | **tanto / tanta / tantos / tantas … como** | **Tengo tantos libros como tú.** (I have as many books as you.) |\n| a verb (after it) | **tanto como** | **Trabaja tanto como yo.** (He works as much as I do.) |\n\n**Tanto** agrees with the noun: **tanta paciencia**, **tantas amigas**. **Tan** never changes.\n\nNegatives work too: **No es tan difícil como parece.** (It's not as hard as it seems.)\n\n## Four irregulars: mejor, peor, mayor, menor\n\nFour adjectives have a one-word comparative. Never say *más bueno* or *más grande* for these meanings.\n\n| adjective | comparative | meaning |\n|---|---|---|\n| bueno | **mejor** | better |\n| malo | **peor** | worse |\n| grande (age) | **mayor** | older |\n| pequeño (age) | **menor** | younger |\n\n- **Este restaurante es mejor que ese.** (This restaurant is better than that one.)\n- **Mi hermano es mayor que yo.** (My brother is older than me.)\n\nThe plurals are **mejores**, **peores**, **mayores**, **menores**. For physical size, **más grande / más pequeño** is normal, as in **Mi coche es más grande que el tuyo.** The adverbs are the same words, as in **cocinas mejor que yo** (you cook better than me).\n\n## The best of all: superlatives and -ísimo\n\nThe superlative is the comparative with the article in front. The group it applies to is introduced by **de**:\n\n- **Es el hotel más caro de la ciudad.** (It's the most expensive hotel in the city.)\n- **Son las playas más bonitas de España.** (They're the prettiest beaches in Spain.)\n- **Lucía es la mejor de la clase.** (Lucía is the best in the class.)\n\nThe noun can stay or go: **el hotel más caro** or **el más caro**.\n\nFor \"extremely\", drop the final vowel and add **-ísimo / -a / -os / -as**: **grandísimo**, **facilísimo**, **La paella está riquísima.** Watch the spelling. The letter **c** becomes **qu** (rico gives **riquísimo**), **g** becomes **gu** (largo gives **larguísimo**), and the word loses its old accent (difícil gives **dificilísimo**).",
+  "vocabulary": [
+    {
+      "term": "más … que",
+      "meaning": "more … than",
+      "example": "Madrid es más grande que Toledo.",
+      "example_meaning": "Madrid is bigger than Toledo."
+    },
+    {
+      "term": "menos … que",
+      "meaning": "less … than",
+      "example": "Este piso es menos caro que el otro.",
+      "example_meaning": "This flat is less expensive than the other one."
+    },
+    {
+      "term": "tan … como",
+      "meaning": "as … as",
+      "example": "No es tan difícil como parece.",
+      "example_meaning": "It's not as difficult as it seems."
+    },
+    {
+      "term": "tanto … como",
+      "meaning": "as much / as many … as",
+      "example": "Tengo tantos libros como tú.",
+      "example_meaning": "I have as many books as you."
+    },
+    {
+      "term": "mejor",
+      "meaning": "better, best",
+      "example": "Este restaurante es mejor que ese.",
+      "example_meaning": "This restaurant is better than that one."
+    },
+    {
+      "term": "peor",
+      "meaning": "worse, worst",
+      "example": "Este examen es peor que el anterior.",
+      "example_meaning": "This exam is worse than the last one."
+    },
+    {
+      "term": "mayor",
+      "meaning": "older, oldest; bigger",
+      "example": "Mi hermano es mayor que yo.",
+      "example_meaning": "My brother is older than me."
+    },
+    {
+      "term": "menor",
+      "meaning": "younger, youngest; smaller",
+      "example": "Soy la menor de la familia.",
+      "example_meaning": "I'm the youngest in the family."
+    },
+    {
+      "term": "caro / cara",
+      "meaning": "expensive",
+      "example": "Es el hotel más caro de la ciudad.",
+      "example_meaning": "It's the most expensive hotel in the city."
+    },
+    {
+      "term": "barato / barata",
+      "meaning": "cheap",
+      "example": "Este móvil es más barato que ese.",
+      "example_meaning": "This phone is cheaper than that one."
+    },
+    {
+      "term": "rápido / rápida",
+      "meaning": "fast, quick",
+      "example": "Ana corre más rápido que yo.",
+      "example_meaning": "Ana runs faster than me."
+    },
+    {
+      "term": "difícil",
+      "meaning": "difficult",
+      "example": "El examen fue dificilísimo.",
+      "example_meaning": "The exam was extremely difficult."
+    },
+    {
+      "term": "-ísimo / -ísima",
+      "meaning": "extremely (adjective ending)",
+      "example": "La paella está riquísima.",
+      "example_meaning": "The paella is delicious."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-comparatives-superlatives-01",
+      "prompt": "Madrid es ___ grande ___ Toledo.",
+      "type": "multiple-choice",
+      "options": [
+        "más … que",
+        "más … de",
+        "tan … que",
+        "más … como"
+      ],
+      "correct_answer": "más … que",
+      "explanation": "A comparison of inequality is más + adjective + que: 'más grande que'. 'De' only appears before numbers or in superlatives.",
+      "hints": [
+        "More … than.",
+        "Que, unless a number follows."
+      ],
+      "teaches": [
+        "más … que"
+      ]
+    },
+    {
+      "question_id": "a2-comparatives-superlatives-02",
+      "prompt": "Mi hermano es ___ (older) que yo.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "mayor",
+      "accepted_answers": [],
+      "explanation": "For age, 'older' is the irregular comparative mayor, not más grande.",
+      "hints": [
+        "One of the four irregular comparatives: the one for age."
+      ],
+      "teaches": [
+        "mayor"
+      ]
+    },
+    {
+      "question_id": "a2-comparatives-superlatives-03",
+      "prompt": "Este coche es tan rápido ___ el tuyo.",
+      "type": "multiple-choice",
+      "options": [
+        "como",
+        "que",
+        "de",
+        "cómo"
+      ],
+      "correct_answer": "como",
+      "explanation": "Equality uses tan … como: 'tan rápido como'. 'Que' goes with más/menos.",
+      "hints": [
+        "As … as.",
+        "Tan pairs with como, never que."
+      ],
+      "teaches": [
+        "tan … como",
+        "rápido / rápida"
+      ]
+    },
+    {
+      "question_id": "a2-comparatives-superlatives-04",
+      "prompt": "Tengo ___ (as many) libros como tú.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "tantos",
+      "accepted_answers": [],
+      "explanation": "Before a noun, use tanto agreeing with it. Libros is masculine plural, so it is 'tantos libros como'.",
+      "hints": [
+        "Tanto/a/os/as before a noun; tan before an adjective.",
+        "Libros is masculine plural."
+      ],
+      "teaches": [
+        "tanto … como"
+      ]
+    },
+    {
+      "question_id": "a2-comparatives-superlatives-05",
+      "prompt": "Which sentence compares the two restaurants correctly?",
+      "type": "multiple-choice",
+      "options": [
+        "Este restaurante es mejor que ese.",
+        "Este restaurante es más bueno que ese.",
+        "Este restaurante es más mejor que ese."
+      ],
+      "correct_answer": "Este restaurante es mejor que ese.",
+      "explanation": "Bueno has the one-word comparative mejor, and you never add más to it.",
+      "hints": [
+        "Bueno becomes mejor.",
+        "Mejor already means 'more good'."
+      ],
+      "teaches": [
+        "mejor"
+      ]
+    },
+    {
+      "question_id": "a2-comparatives-superlatives-06",
+      "prompt": "Es el hotel más caro ___ la ciudad.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "de",
+      "accepted_answers": [],
+      "explanation": "A superlative names its group with de: 'el más caro de la ciudad'. Que would turn it into a comparison with 'the city'.",
+      "hints": [
+        "A superlative names its group with a small preposition.",
+        "Not que."
+      ],
+      "teaches": [
+        "caro / cara"
+      ]
+    },
+    {
+      "question_id": "a2-comparatives-superlatives-07",
+      "prompt": "Este móvil es barato: cuesta menos ___ cien euros.",
+      "type": "multiple-choice",
+      "options": [
+        "de",
+        "que",
+        "como",
+        "del"
+      ],
+      "correct_answer": "de",
+      "explanation": "Before a number, más/menos take de: 'menos de cien euros'.",
+      "hints": [
+        "A number follows.",
+        "Más/menos de plus a number."
+      ],
+      "teaches": [
+        "barato / barata"
+      ]
+    },
+    {
+      "question_id": "a2-comparatives-superlatives-08",
+      "prompt": "Make it extreme: La paella está ___ (rico + -ísimo).",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "riquísima",
+      "accepted_answers": [
+        "riquisima"
+      ],
+      "explanation": "Drop the final -o, add -ísima to agree with paella, and spell c as qu before i: 'riquísima'.",
+      "hints": [
+        "Paella is feminine.",
+        "The c becomes qu before the i.",
+        "Accent on the í."
+      ],
+      "teaches": [
+        "-ísimo / -ísima"
+      ]
+    },
+    {
+      "question_id": "a2-comparatives-superlatives-09",
+      "prompt": "Este examen es ___ que el anterior. (worse)",
+      "type": "multiple-choice",
+      "options": [
+        "peor",
+        "más malo",
+        "más peor",
+        "peores"
+      ],
+      "correct_answer": "peor",
+      "explanation": "Malo has the irregular comparative peor. Examen is singular, so it is not peores.",
+      "hints": [
+        "Malo becomes peor.",
+        "Singular subject."
+      ],
+      "teaches": [
+        "peor",
+        "difícil"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Cuesta menos de diez euros.",
+      "meaning": "It costs less than ten euros.",
+      "note": "Before a number, than is de, not que."
+    },
+    {
+      "text": "Mi hermana es menor que yo.",
+      "meaning": "My sister is younger than me."
+    },
+    {
+      "text": "Hoy hace más frío que ayer.",
+      "meaning": "It is colder today than yesterday."
+    },
+    {
+      "text": "Carlos tiene tantos amigos como su hermano.",
+      "meaning": "Carlos has as many friends as his brother.",
+      "note": "Before a noun, tanto agrees: tantos amigos."
+    },
+    {
+      "text": "Mi perro es tan rápido como el tuyo.",
+      "meaning": "My dog is as fast as yours.",
+      "note": "New word: el perro = the dog."
+    },
+    {
+      "text": "Mi abuelo es el mayor de la familia.",
+      "meaning": "My grandfather is the oldest in the family.",
+      "note": "A superlative introduces its group with de."
+    },
+    {
+      "text": "Esta tienda es más barata que la del centro.",
+      "meaning": "This shop is cheaper than the one in the centre.",
+      "note": "New word: la tienda = the shop."
+    },
+    {
+      "text": "La sopa de mi abuela está riquísima, mejor que la del restaurante.",
+      "meaning": "My grandmother's soup is delicious, better than the restaurant's."
+    }
+  ],
+  "guide": [
+    {
+      "section": "More and less"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-comparatives-superlatives-01"
+    },
+    {
+      "question": "a2-comparatives-superlatives-07"
+    },
+    {
+      "section": "As … as"
+    },
+    {
+      "question": "a2-comparatives-superlatives-03"
+    },
+    {
+      "question": "a2-comparatives-superlatives-04"
+    },
+    {
+      "section": "Four irregulars"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-comparatives-superlatives-02"
+    },
+    {
+      "question": "a2-comparatives-superlatives-05"
+    },
+    {
+      "question": "a2-comparatives-superlatives-09"
+    },
+    {
+      "tip": "Three small words do most of the work: que after más/menos, como after tan/tanto, and de before a number or after a superlative."
+    },
+    {
+      "section": "The best of all"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-comparatives-superlatives-06"
+    },
+    {
+      "question": "a2-comparatives-superlatives-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-comparatives-superlatives-conv-pisos",
+      "title": "Which flat?",
+      "scenario": "Sara and Pablo have seen two flats and are deciding which one to rent.",
+      "role_a": "Sara",
+      "role_b": "Pablo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Bueno, ¿qué piso te gusta más?",
+          "meaning": "So, which flat do you like more?"
+        },
+        {
+          "speaker": "b",
+          "text": "El de la calle Mayor es más grande que el otro, pero también es más caro.",
+          "meaning": "The one on Calle Mayor is bigger than the other one, but it's also more expensive.",
+          "note": "más … que"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, cuesta más de novecientos euros al mes. Es carísimo.",
+          "meaning": "Yes, it costs more than nine hundred euros a month. It's really expensive.",
+          "note": "más de plus a number; -ísimo"
+        },
+        {
+          "speaker": "b",
+          "text": "El pequeño es más barato, y está tan cerca del metro como el grande.",
+          "meaning": "The small one is cheaper, and it's as close to the metro as the big one.",
+          "note": "tan … como"
+        },
+        {
+          "speaker": "a",
+          "text": "Pero tiene menos luz que el otro. La cocina es peor.",
+          "meaning": "But it has less light than the other one. The kitchen is worse.",
+          "note": "menos … que; peor"
+        },
+        {
+          "speaker": "b",
+          "text": "Es verdad. Aunque el barrio es mejor: es el más tranquilo de la ciudad.",
+          "meaning": "True. Although the neighbourhood is better: it's the quietest in the city.",
+          "note": "superlative with de"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y los vecinos? En el grande viven tantos estudiantes como en una residencia.",
+          "meaning": "And the neighbours? In the big one there are as many students as in a hall of residence.",
+          "note": "tantos … como"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Ja! Entonces el pequeño. Es menos bonito, pero mucho más tranquilo.",
+          "meaning": "Ha! The small one, then. It's less pretty, but much quieter."
+        },
+        {
+          "speaker": "a",
+          "text": "Vale. Es la decisión más fácil del mundo.",
+          "meaning": "OK. It's the easiest decision in the world.",
+          "note": "la más … del mundo"
+        },
+        {
+          "speaker": "b",
+          "text": "Facilísima. Llamo al dueño ahora mismo.",
+          "meaning": "Extremely easy. I'll call the owner right now.",
+          "note": "fácil becomes facilísima"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "📏",
+    "bites": [
+      {
+        "title": "más … que",
+        "emoji": "➕",
+        "rule": "For more or less than, use más/menos + adjective + que. Before a number, use de instead of que: más de cien euros.",
+        "example": "Madrid es más grande que Toledo.",
+        "example_meaning": "Madrid is bigger than Toledo."
+      },
+      {
+        "title": "tan … como",
+        "emoji": "🟰",
+        "rule": "For as … as, use tan + adjective + como. Before a noun, use tanto/a/os/as, agreeing with it: tantos libros como tú.",
+        "example": "Soy tan alta como mi madre.",
+        "example_meaning": "I'm as tall as my mother."
+      },
+      {
+        "title": "Four one-word comparatives",
+        "emoji": "🏅",
+        "rule": "Bueno becomes mejor and malo becomes peor. For age, grande becomes mayor and pequeño becomes menor. Never say más bueno or más mejor.",
+        "example": "Mi hermano es mayor que yo.",
+        "example_meaning": "My brother is older than me."
+      },
+      {
+        "title": "The most … of",
+        "emoji": "🏆",
+        "rule": "A superlative is el/la/los/las + más/menos + adjective + de (the group). For 'extremely', add -ísimo: riquísimo, facilísimo.",
+        "example": "Es el hotel más caro de la ciudad.",
+        "example_meaning": "It's the most expensive hotel in the city."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "que, como or de?",
+        "buckets": [
+          "que",
+          "como",
+          "de"
+        ],
+        "why": "Use que after más/menos, como after tan/tanto, and de before a number or after a superlative.",
+        "items": [
+          {
+            "text": "más alto ___ yo",
+            "bucket": 0
+          },
+          {
+            "text": "tan guapo ___ tú",
+            "bucket": 1
+          },
+          {
+            "text": "el más caro ___ la ciudad",
+            "bucket": 2
+          },
+          {
+            "text": "menos ___ veinte euros",
+            "bucket": 2
+          },
+          {
+            "text": "tantos amigos ___ tú",
+            "bucket": 1
+          },
+          {
+            "text": "mejor ___ el otro",
+            "bucket": 0
+          }
+        ]
+      },
+      {
+        "title": "How do you say 'more …'?",
+        "buckets": [
+          "más + adjective",
+          "one irregular word"
+        ],
+        "why": "Only bueno, malo and grande/pequeño (for age) have one-word comparatives. Every other adjective takes más.",
+        "items": [
+          {
+            "text": "bueno",
+            "bucket": 1
+          },
+          {
+            "text": "caro",
+            "bucket": 0
+          },
+          {
+            "text": "malo",
+            "bucket": 1
+          },
+          {
+            "text": "grande (age)",
+            "bucket": 1
+          },
+          {
+            "text": "rápido",
+            "bucket": 0
+          },
+          {
+            "text": "pequeño (age)",
+            "bucket": 1
+          },
+          {
+            "text": "difícil",
+            "bucket": 0
+          },
+          {
+            "text": "barato",
+            "bucket": 0
+          }
+        ]
+      },
+      {
+        "title": "tan or tanto?",
+        "buckets": [
+          "tan",
+          "tanto / tanta / tantos / tantas"
+        ],
+        "why": "Tan goes before an adjective or adverb and never changes. Tanto goes before a noun and agrees with it.",
+        "items": [
+          {
+            "text": "___ alta como",
+            "bucket": 0
+          },
+          {
+            "text": "___ dinero como",
+            "bucket": 1
+          },
+          {
+            "text": "___ rápido como",
+            "bucket": 0
+          },
+          {
+            "text": "___ amigas como",
+            "bucket": 1
+          },
+          {
+            "text": "___ difícil como",
+            "bucket": 0
+          },
+          {
+            "text": "___ tiempo como",
+            "bucket": 1
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Madrid es más grande de Toledo.",
+        "wrong": "de",
+        "fix": "que",
+        "why": "Más + adjective takes que. De is only for numbers and superlatives."
+      },
+      {
+        "sentence": "Es el hotel más caro que la ciudad.",
+        "wrong": "que",
+        "fix": "de",
+        "why": "A superlative introduces its group with de: el más caro de la ciudad."
+      },
+      {
+        "sentence": "Soy tan alto que mi padre.",
+        "wrong": "que",
+        "fix": "como",
+        "why": "Tan always pairs with como."
+      },
+      {
+        "sentence": "Tengo tanto amigas como tú.",
+        "wrong": "tanto",
+        "fix": "tantas",
+        "why": "Before a noun, tanto agrees: amigas is feminine plural."
+      },
+      {
+        "sentence": "Tiene más que cien euros.",
+        "wrong": "que",
+        "fix": "de",
+        "why": "Before a number, more than is más de."
+      },
+      {
+        "sentence": "La paella está ricísima.",
+        "wrong": "ricísima",
+        "fix": "riquísima",
+        "why": "Rico keeps its hard c sound before i by changing c to qu, giving riquísima."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Madrid es más grande que Toledo.",
+        "meaning": "Madrid is bigger than Toledo.",
+        "distractors": [
+          "de"
+        ]
+      },
+      {
+        "text": "Es el hotel más caro de la ciudad.",
+        "meaning": "It's the most expensive hotel in the city.",
+        "distractors": [
+          "que"
+        ]
+      },
+      {
+        "text": "Mi hermano es mayor que yo.",
+        "meaning": "My brother is older than me.",
+        "distractors": [
+          "grande"
+        ]
+      },
+      {
+        "text": "Soy tan alta como mi madre.",
+        "meaning": "I'm as tall as my mother.",
+        "distractors": [
+          "que",
+          "tanta"
+        ]
+      },
+      {
+        "text": "La paella está riquísima.",
+        "meaning": "The paella is delicious.",
+        "distractors": [
+          "ricísima"
+        ]
+      }
+    ]
+  }
+}

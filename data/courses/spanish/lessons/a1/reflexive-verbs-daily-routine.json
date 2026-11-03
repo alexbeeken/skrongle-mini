@@ -1,0 +1,661 @@
+{
+  "id": "a1-reflexive-routine",
+  "slug": "reflexive-verbs-daily-routine",
+  "title": "Reflexive verbs and the daily routine",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 46,
+  "summary": "Me levanto, te duchas, se acuesta: verbs you do to yourself.",
+  "focus": "Reflexive pronouns and verbs in the present tense; llamarse",
+  "prerequisites": [
+    "a1-regular-ar-present",
+    "a1-stem-changing"
+  ],
+  "content": "## What a reflexive verb is\n\nA reflexive verb has **-se** on the infinitive (*levantarse*, *ducharse*, *llamarse*) and takes a **reflexive pronoun** that matches the subject. The action falls back on the person doing it: *me levanto* = I get (myself) up.\n\n| | pronoun | levantarse (to get up) |\n|---|---|---|\n| yo | **me** | me levanto |\n| tú | **te** | te levantas |\n| él / ella / usted | **se** | se levanta |\n| nosotros/as | **nos** | nos levantamos |\n| vosotros/as | **os** | os levantáis |\n| ellos / ellas / ustedes | **se** | se levantan |\n\nThe pronoun goes **before** the conjugated verb: *No me levanto temprano.*\n\n## Llamarse\n\nYou already know *me llamo* (my name is, literally *I call myself*): *me llamo, te llamas, se llama, nos llamamos, os llamáis, se llaman*. *¿Cómo se llama tu hermano?*: What's your brother's name?\n\n## The daily routine\n\n| | |\n|---|---|\n| despertarse (e→ie) | to wake up: *me despierto* |\n| levantarse | to get up |\n| ducharse | to have a shower |\n| lavarse (los dientes) | to wash (one's teeth) |\n| vestirse (e→i) | to get dressed: *me visto* |\n| desayunar | to have breakfast (not reflexive) |\n| acostarse (o→ue) | to go to bed: *me acuesto* |\n| dormirse (o→ue) | to fall asleep: *me duermo* |\n\n*Me levanto a las siete, me ducho, desayuno y salgo a las ocho. Por la noche me acuesto a las once.*\n\nBody parts take the article, not a possessive: *me lavo **las** manos*, not *mis manos*.\n\n## With an infinitive\n\nThe pronoun can go before the first verb or attach to the infinitive: *Me voy a levantar* = *Voy a levantar**me***. Both are correct.",
+  "vocabulary": [
+    {
+      "term": "levantarse",
+      "meaning": "to get up",
+      "example": "Me levanto a las siete.",
+      "example_meaning": "I get up at seven."
+    },
+    {
+      "term": "despertarse",
+      "meaning": "to wake up",
+      "example": "Me despierto temprano.",
+      "example_meaning": "I wake up early."
+    },
+    {
+      "term": "ducharse",
+      "meaning": "to have a shower",
+      "example": "Se ducha por la mañana.",
+      "example_meaning": "He has a shower in the morning."
+    },
+    {
+      "term": "lavarse",
+      "meaning": "to wash (oneself)",
+      "example": "Me lavo las manos.",
+      "example_meaning": "I wash my hands."
+    },
+    {
+      "term": "vestirse",
+      "meaning": "to get dressed",
+      "example": "Me visto rápido.",
+      "example_meaning": "I get dressed quickly."
+    },
+    {
+      "term": "acostarse",
+      "meaning": "to go to bed",
+      "example": "Nos acostamos tarde.",
+      "example_meaning": "We go to bed late."
+    },
+    {
+      "term": "dormirse",
+      "meaning": "to fall asleep",
+      "example": "Se duerme en el sofá.",
+      "example_meaning": "He falls asleep on the sofa."
+    },
+    {
+      "term": "llamarse",
+      "meaning": "to be called",
+      "example": "Me llamo Ana.",
+      "example_meaning": "My name is Ana."
+    },
+    {
+      "term": "desayunar",
+      "meaning": "to have breakfast",
+      "example": "Desayuno a las ocho.",
+      "example_meaning": "I have breakfast at eight."
+    },
+    {
+      "term": "temprano",
+      "meaning": "early",
+      "example": "Me levanto temprano.",
+      "example_meaning": "I get up early."
+    },
+    {
+      "term": "tarde",
+      "meaning": "late",
+      "example": "Me acuesto tarde.",
+      "example_meaning": "I go to bed late."
+    },
+    {
+      "term": "los dientes",
+      "meaning": "teeth",
+      "example": "Me lavo los dientes.",
+      "example_meaning": "I brush my teeth."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "levantarse",
+      "meaning": "to get up",
+      "set": "present",
+      "art": [
+        "      O      ",
+        "     /|\\     ",
+        "     / \\     ",
+        " ____________",
+        "|  zzz  ---- |",
+        "|____________|"
+      ],
+      "forms": {
+        "yo": "me levanto",
+        "tu": "te levantas",
+        "el": "se levanta",
+        "nosotros": "nos levantamos",
+        "vosotros": "os levantáis",
+        "ellos": "se levantan"
+      }
+    },
+    {
+      "item": "llamarse",
+      "meaning": "to be called",
+      "set": "present",
+      "art": [
+        "  _________  ",
+        " | HOLA    | ",
+        " | me llamo| ",
+        " |  _____  | ",
+        " |_________| ",
+        "     (o)     "
+      ],
+      "forms": {
+        "yo": "me llamo",
+        "tu": "te llamas",
+        "el": "se llama",
+        "nosotros": "nos llamamos",
+        "vosotros": "os llamáis",
+        "ellos": "se llaman"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-refl-01",
+      "prompt": "Complete: (yo) ___ levanto a las siete.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "me",
+      "accepted_answers": [],
+      "explanation": "Yo takes the reflexive pronoun me.",
+      "hints": [
+        "The reflexive pronoun that goes with yo."
+      ],
+      "teaches": [
+        "levantarse"
+      ]
+    },
+    {
+      "question_id": "a1-refl-02",
+      "prompt": "Mi hermano ___ ducha por la noche.",
+      "type": "multiple-choice",
+      "options": [
+        "se",
+        "me",
+        "te"
+      ],
+      "correct_answer": "se",
+      "explanation": "Él takes se: se ducha.",
+      "hints": [
+        "él → se"
+      ],
+      "teaches": [
+        "ducharse"
+      ]
+    },
+    {
+      "question_id": "a1-refl-03",
+      "prompt": "Conjugate: (nosotros) acostarse → nos ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "acostamos",
+      "accepted_answers": [
+        "nos acostamos"
+      ],
+      "explanation": "Nosotros has no stem change: nos acostamos.",
+      "hints": [
+        "no o → ue in nosotros"
+      ],
+      "teaches": [
+        "acostarse"
+      ]
+    },
+    {
+      "question_id": "a1-refl-04",
+      "prompt": "¿Cómo ___ llama tu profesora?",
+      "type": "multiple-choice",
+      "options": [
+        "se",
+        "te",
+        "le"
+      ],
+      "correct_answer": "se",
+      "explanation": "Tu profesora is 'she': se llama.",
+      "hints": [
+        "ella → se"
+      ],
+      "teaches": [
+        "llamarse"
+      ]
+    },
+    {
+      "question_id": "a1-refl-05",
+      "prompt": "Me lavo ___ manos.",
+      "type": "multiple-choice",
+      "options": [
+        "las",
+        "mis",
+        "los"
+      ],
+      "correct_answer": "las",
+      "explanation": "Body parts take the article with reflexive verbs: las manos.",
+      "hints": [
+        "article, not possessive"
+      ],
+      "teaches": [
+        "lavarse"
+      ]
+    },
+    {
+      "question_id": "a1-refl-06",
+      "prompt": "Conjugate: (yo) vestirse → me ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "visto",
+      "accepted_answers": [
+        "me visto"
+      ],
+      "explanation": "Vestirse is e → i: me visto.",
+      "hints": [
+        "e → i"
+      ],
+      "teaches": [
+        "vestirse"
+      ]
+    },
+    {
+      "question_id": "a1-refl-07",
+      "prompt": "Which is NOT correct?",
+      "type": "multiple-choice",
+      "options": [
+        "Voy a me levantar.",
+        "Me voy a levantar.",
+        "Voy a levantarme."
+      ],
+      "correct_answer": "Voy a me levantar.",
+      "explanation": "The pronoun goes before the first verb or attached to the infinitive, never in between.",
+      "hints": [
+        "before or attached"
+      ],
+      "teaches": [
+        "levantarse"
+      ]
+    },
+    {
+      "question_id": "a1-refl-08",
+      "prompt": "Los niños ___ acuestan a las nueve.",
+      "type": "multiple-choice",
+      "options": [
+        "se",
+        "nos",
+        "os"
+      ],
+      "correct_answer": "se",
+      "explanation": "Ellos: se acuestan.",
+      "hints": [
+        "ellos → se"
+      ],
+      "teaches": [
+        "acostarse"
+      ]
+    },
+    {
+      "question_id": "a1-refl-09",
+      "prompt": "___ a las ocho. (I have breakfast at eight.)",
+      "type": "multiple-choice",
+      "options": [
+        "Desayuno",
+        "Me desayuno",
+        "Desayunarme"
+      ],
+      "correct_answer": "Desayuno",
+      "explanation": "Desayunar is not reflexive.",
+      "hints": [
+        "no pronoun"
+      ],
+      "teaches": [
+        "desayunar"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Me despierto a las seis.",
+      "meaning": "I wake up at six."
+    },
+    {
+      "text": "Mi hermana se llama Marta.",
+      "meaning": "My sister's name is Marta."
+    },
+    {
+      "text": "Nos levantamos muy tarde los domingos.",
+      "meaning": "We get up very late on Sundays."
+    },
+    {
+      "text": "Mi padre se ducha por la noche.",
+      "meaning": "My father has a shower at night."
+    },
+    {
+      "text": "Me lavo la cara con agua fría.",
+      "meaning": "I wash my face with cold water.",
+      "note": "New word: la cara = the face."
+    },
+    {
+      "text": "Os acostáis muy tarde todos los días.",
+      "meaning": "You all go to bed very late every day."
+    },
+    {
+      "text": "Me duermo en el sofá después de cenar.",
+      "meaning": "I fall asleep on the sofa after dinner.",
+      "note": "New word: cenar = to have dinner."
+    },
+    {
+      "text": "Mi hermano se viste rápido y sale de casa a las ocho.",
+      "meaning": "My brother gets dressed quickly and leaves the house at eight.",
+      "note": "The pronoun goes before the conjugated verb: se viste."
+    }
+  ],
+  "guide": [
+    {
+      "section": "What a reflexive verb is"
+    },
+    {
+      "vocab": 1
+    },
+    {
+      "question": "a1-refl-01"
+    },
+    {
+      "question": "a1-refl-02"
+    },
+    {
+      "question": "a1-refl-08"
+    },
+    {
+      "section": "Llamarse"
+    },
+    {
+      "vocab": 1
+    },
+    {
+      "question": "a1-refl-04"
+    },
+    {
+      "section": "The daily routine"
+    },
+    {
+      "vocab": 10
+    },
+    {
+      "question": "a1-refl-03"
+    },
+    {
+      "question": "a1-refl-06"
+    },
+    {
+      "question": "a1-refl-05"
+    },
+    {
+      "question": "a1-refl-09"
+    },
+    {
+      "section": "With an infinitive"
+    },
+    {
+      "question": "a1-refl-07"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-refl-conv-routine",
+      "title": "Morning people",
+      "scenario": "Julia and Andrés compare their mornings.",
+      "role_a": "Julia",
+      "role_b": "Andrés",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿A qué hora te levantas?",
+          "meaning": "What time do you get up?",
+          "note": "te levantas"
+        },
+        {
+          "speaker": "b",
+          "text": "Me despierto a las seis, pero me levanto a las siete.",
+          "meaning": "I wake up at six, but I get up at seven.",
+          "note": "me despierto; me levanto"
+        },
+        {
+          "speaker": "a",
+          "text": "¡Qué temprano! Yo me levanto a las ocho y media.",
+          "meaning": "So early! I get up at half past eight."
+        },
+        {
+          "speaker": "b",
+          "text": "Me ducho, me visto y desayuno en cinco minutos.",
+          "meaning": "I shower, get dressed and have breakfast in five minutes.",
+          "note": "me visto (e → i)"
+        },
+        {
+          "speaker": "a",
+          "text": "Yo me lavo los dientes y salgo sin desayunar.",
+          "meaning": "I brush my teeth and leave without breakfast.",
+          "note": "los dientes, not mis"
+        },
+        {
+          "speaker": "b",
+          "text": "¿Y por la noche? Yo me acuesto a las once.",
+          "meaning": "And at night? I go to bed at eleven.",
+          "note": "me acuesto (o → ue)"
+        },
+        {
+          "speaker": "a",
+          "text": "Me acuesto tarde y me duermo en el sofá.",
+          "meaning": "I go to bed late and fall asleep on the sofa.",
+          "note": "me duermo"
+        },
+        {
+          "speaker": "b",
+          "text": "Entonces, ¿cómo se llama tu sofá? ¡Es tu cama!",
+          "meaning": "So, what's your sofa's name? It's your bed!",
+          "note": "se llama"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🪥",
+    "bites": [
+      {
+        "title": "Mirror verbs",
+        "emoji": "🪞",
+        "rule": "A -se verb turns the action back on you: levantarse = to get yourself up. Drop the -se and put the matching pronoun in front of the verb.",
+        "example": "Me levanto a las siete.",
+        "example_meaning": "I get up at seven."
+      },
+      {
+        "title": "Me, te, se, nos, os, se",
+        "emoji": "🎵",
+        "rule": "Say it aloud: me te se, nos os se. Yo takes me, tú te, nosotros nos, and both él and ellos share se.",
+        "example": "¿Cómo se llama tu hermano?",
+        "example_meaning": "What's your brother's name?"
+      },
+      {
+        "title": "Los dientes, not mis",
+        "emoji": "🪥",
+        "rule": "The pronoun already says whose body it is, so body parts take the article: me lavo los dientes, never mis dientes.",
+        "example": "Me lavo las manos.",
+        "example_meaning": "I wash my hands."
+      },
+      {
+        "title": "Before or attached",
+        "emoji": "🧲",
+        "rule": "With an infinitive, the pronoun goes before the first verb or attaches to the end: me voy a levantar = voy a levantarme. Never in the middle.",
+        "example": "Voy a acostarme tarde.",
+        "example_meaning": "I'm going to go to bed late."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which pronoun?",
+        "buckets": [
+          "me",
+          "te",
+          "se",
+          "nos"
+        ],
+        "items": [
+          {
+            "text": "yo ___ levanto",
+            "bucket": 0
+          },
+          {
+            "text": "tú ___ duchas",
+            "bucket": 1
+          },
+          {
+            "text": "ella ___ viste",
+            "bucket": 2
+          },
+          {
+            "text": "nosotros ___ acostamos",
+            "bucket": 3
+          },
+          {
+            "text": "los niños ___ duermen",
+            "bucket": 2
+          },
+          {
+            "text": "¿Cómo ___ llamas?",
+            "bucket": 1
+          },
+          {
+            "text": "yo ___ despierto",
+            "bucket": 0
+          },
+          {
+            "text": "Ana y yo ___ levantamos",
+            "bucket": 3
+          }
+        ],
+        "why": "The pronoun matches the subject: yo me, tú te, nosotros nos, and él/ella/ellos all use se."
+      },
+      {
+        "title": "Pronoun or not?",
+        "buckets": [
+          "takes a pronoun",
+          "no pronoun"
+        ],
+        "items": [
+          {
+            "text": "I get up",
+            "bucket": 0
+          },
+          {
+            "text": "I have breakfast",
+            "bucket": 1
+          },
+          {
+            "text": "I go to bed",
+            "bucket": 0
+          },
+          {
+            "text": "I get dressed",
+            "bucket": 0
+          },
+          {
+            "text": "I leave home",
+            "bucket": 1
+          },
+          {
+            "text": "I wake up",
+            "bucket": 0
+          },
+          {
+            "text": "I study",
+            "bucket": 1
+          },
+          {
+            "text": "My name is…",
+            "bucket": 0
+          }
+        ],
+        "why": "Routine verbs you do to yourself (levantarse, vestirse, acostarse, llamarse) take a pronoun; desayunar, salir and estudiar don't."
+      },
+      {
+        "title": "Which stem change?",
+        "buckets": [
+          "e → ie",
+          "e → i",
+          "o → ue"
+        ],
+        "items": [
+          {
+            "text": "despertarse → me ___",
+            "bucket": 0
+          },
+          {
+            "text": "vestirse → me ___",
+            "bucket": 1
+          },
+          {
+            "text": "acostarse → me ___",
+            "bucket": 2
+          },
+          {
+            "text": "dormirse → me ___",
+            "bucket": 2
+          }
+        ],
+        "why": "Me despierto (e → ie), me visto (e → i), me acuesto and me duermo (o → ue)."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Yo se levanto a las siete.",
+        "wrong": "se",
+        "fix": "me",
+        "why": "Yo takes the pronoun me."
+      },
+      {
+        "sentence": "Nosotros se acostamos a las once.",
+        "wrong": "se",
+        "fix": "nos",
+        "why": "Nosotros takes nos: nos acostamos."
+      },
+      {
+        "sentence": "¿A qué hora se levantas?",
+        "wrong": "se",
+        "fix": "te",
+        "why": "Tú takes te: te levantas."
+      },
+      {
+        "sentence": "Siempre me lavo mis dientes.",
+        "wrong": "mis",
+        "fix": "los",
+        "why": "Body parts take the article with reflexive verbs: los dientes."
+      },
+      {
+        "sentence": "Me acosto a las once.",
+        "wrong": "acosto",
+        "fix": "acuesto",
+        "why": "Acostarse is o → ue in yo: me acuesto."
+      },
+      {
+        "sentence": "Me vesto rápido por la mañana.",
+        "wrong": "vesto",
+        "fix": "visto",
+        "why": "Vestirse is e → i: me visto."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Me levanto a las siete.",
+        "meaning": "I get up at seven.",
+        "distractors": [
+          "Se"
+        ]
+      },
+      {
+        "text": "Me lavo los dientes.",
+        "meaning": "I brush my teeth.",
+        "distractors": [
+          "mis"
+        ]
+      },
+      {
+        "text": "¿Cómo se llama tu hermano?",
+        "meaning": "What's your brother's name?",
+        "distractors": [
+          "te"
+        ]
+      },
+      {
+        "text": "Nos acostamos tarde.",
+        "meaning": "We go to bed late.",
+        "distractors": [
+          "se",
+          "acuestamos"
+        ]
+      },
+      {
+        "text": "Voy a levantarme temprano.",
+        "meaning": "I'm going to get up early.",
+        "distractors": [
+          "me"
+        ]
+      }
+    ]
+  }
+}

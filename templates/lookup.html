@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t1("vocab.lookup.title", "query", q) }}{% endblock %}
+{% block modenav %}{% let active = "lessons" %}{% include "nav_study.html" %}{% endblock %}
+{% block content %}
+<p class="crumbs"><a href="{{ crate::base_path() }}/lessons?q={{ crate::urlenc::urlencode(q) }}" data-testid="lookup-back">{{ crate::t("vocab.lookup.back") }}</a></p>
+<h1>{{ crate::t1("vocab.lookup.heading", "query", q) }} <span class="muted">· {{ course.title }}</span></h1>
+{% if rows.is_empty() %}
+<p class="muted" role="status" data-testid="lookup-none">{{ crate::t1("vocab.lookup.none", "query", q) }}</p>
+{% else %}
+{% if total > rows.len() %}<p class="small muted" role="status" data-testid="lookup-more">{{ crate::t2("vocab.lookup.more", "shown", rows.len(), "total", total) }}</p>{% endif %}
+<ul class="lookup-hits" data-testid="lookup-hits">
+{% for r in rows %}
+  <li data-testid="lookup-hit" data-term="{{ r.hit.term }}" data-collected="{{ r.collected }}">
+    <div class="lookup-word">
+      <strong lang="{{ course.term_lang }}" data-testid="lookup-term">{{ r.hit.term }}</strong>
+      {% if !course.say_lang.is_empty() %}<button type="button" class="say" data-say="{{ r.hit.term }}" aria-label="{{ crate::t("vocab.study.hear_it") }}" data-testid="lookup-say">🔊</button>{% endif %}
+      <span lang="{{ course.meaning_lang }}">{{ r.hit.meaning }}</span>
+      {% if r.collected %}<span class="pill mastered" data-testid="lookup-collected">{{ crate::t("vocab.index.th_collected") }}{% if r.times_seen > 0 %} · {{ crate::t("vocab.index.th_known") }} {{ r.times_known }}/{{ r.times_seen }}{% endif %}</span>{% endif %}
+    </div>
+    {% if !r.hit.form_of.is_empty() %}<p class="small muted" data-testid="lookup-form-of">{{ crate::t1("vocab.lookup.form_of", "what", r.hit.form_of) }}</p>{% endif %}
+    <p class="small">{{ crate::t("vocab.lookup.taught_in") }}
+      {% for l in r.hit.lessons %}{% if !loop.first %}, {% endif %}<a href="{{ crate::base_path() }}/lessons/{{ l.slug }}" data-testid="lookup-lesson" data-lesson-id="{{ l.slug }}">{{ l.title }}</a>{% endfor %}</p>
+  </li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

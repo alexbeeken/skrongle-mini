@@ -1,0 +1,79 @@
+{
+  "id": "tc-conjugations",
+  "slug": "conjugations",
+  "title": "Verb forms",
+  "unit": "exercises",
+  "group": "sprint",
+  "order": 50,
+  "summary": "Paradigm tables: the lesson table, the drill and the Sprint mode ladder.",
+  "focus": "conjugations",
+  "content": "## Verb forms\n\nThe shape of the table comes from the manifest's paradigm: seven persons here.\n\n## Present tense\n\n**hablo**, **hablas**, **habla**; **como**, **comes**, **come**.",
+  "vocabulary": [
+    {
+      "term": "hablar",
+      "meaning": "to speak",
+      "example": "Hablo español.",
+      "example_meaning": "I speak Spanish."
+    },
+    {
+      "term": "comer",
+      "meaning": "to eat",
+      "example": "Como pan.",
+      "example_meaning": "I eat bread."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "tc-conjugations-01",
+      "prompt": "Yo ___ español. (hablar)",
+      "type": "fill-in-blank",
+      "correct_answer": "hablo",
+      "explanation": "Present of hablar, yo: hablo.",
+      "teaches": [
+        "hablar"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "hablar",
+      "meaning": "to speak",
+      "set": "present",
+      "art": [
+        " .--------. ",
+        "( ¡hola!   )",
+        " `---. ,--' ",
+        "      V     "
+      ],
+      "forms": {
+        "yo": "hablo",
+        "tu": "hablas",
+        "el": "habla",
+        "nosotros": "hablamos",
+        "vosotros": "habláis",
+        "ellos": "hablan",
+        "gerundio": "hablando"
+      }
+    },
+    {
+      "item": "comer",
+      "meaning": "to eat",
+      "set": "present",
+      "art": [
+        "  _____  ",
+        " /     \\ ",
+        "|  ~~~  |",
+        " \\_____/ "
+      ],
+      "forms": {
+        "yo": "como",
+        "tu": "comes",
+        "el": "come",
+        "nosotros": "comemos",
+        "vosotros": "coméis",
+        "ellos": "comen",
+        "gerundio": "comiendo"
+      }
+    }
+  ]
+}

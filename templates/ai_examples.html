@@ -1,0 +1,19 @@
+{# Use AI's (i) "What can the AI do?" (#1236): example requests; a click puts one in the box (static/ai-examples.js). The listening and conversation ones need a language course. #}
+<dialog class="modal ai-examples" id="ai-examples" aria-labelledby="ai-examples-title" data-testid="course-ai-examples">
+  <h2 id="ai-examples-title">{{ crate::t("courses.ai.examples_title") }}</h2>
+  <p class="small" data-testid="course-ai-examples-intro">{{ crate::t1("courses.ai.examples_intro_html", "switch", crate::t("courses.ai.mode_change"))|safe }}</p>
+  <h3>{{ crate::t("courses.ai.examples_check") }}</h3>
+  <button type="button" class="ai-example" data-ai-example data-testid="course-ai-example-check-facts">{{ crate::t("courses.ai.example_check_facts") }}</button>
+  <h3>{{ crate::t("courses.ai.examples_add") }}</h3>
+  <button type="button" class="ai-example" data-ai-example data-testid="course-ai-example-add-lesson">{{ crate::t("courses.ai.example_add_lesson") }}</button>
+  <button type="button" class="ai-example" data-ai-example data-testid="course-ai-example-add-questions">{{ crate::t("courses.ai.example_add_questions") }}</button>
+  <button type="button" class="ai-example" data-ai-example data-testid="course-ai-example-add-sort">{{ crate::t("courses.ai.example_add_sort") }}</button>
+  {% if af.language %}<button type="button" class="ai-example" data-ai-example data-testid="course-ai-example-add-listening">{{ crate::t("courses.ai.example_add_listening") }}</button>
+  <button type="button" class="ai-example" data-ai-example data-testid="course-ai-example-add-conversation">{{ crate::t("courses.ai.example_add_conversation") }}</button>{% endif %}
+  <h3>{{ crate::t("courses.ai.examples_change") }}</h3>
+  <button type="button" class="ai-example" data-ai-example data-testid="course-ai-example-simpler">{{ crate::t("courses.ai.example_simpler") }}</button>
+  <h3>{{ crate::t("courses.ai.examples_remove") }}</h3>
+  <button type="button" class="ai-example" data-ai-example data-testid="course-ai-example-drop">{{ crate::t("courses.ai.example_drop") }}</button>
+  <p class="small muted" data-testid="course-ai-examples-translate">{{ crate::t1("courses.ai.examples_translate_html", "button", crate::t("courses.translate.button"))|safe }}</p>
+  <div class="modal-actions"><button type="button" class="btn ghost" data-dialog-close data-testid="course-ai-examples-close">{{ crate::t("courses.ai.modal_close") }}</button></div>
+</dialog>

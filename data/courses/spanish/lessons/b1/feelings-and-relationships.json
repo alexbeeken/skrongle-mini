@@ -1,0 +1,590 @@
+{
+  "id": "b1-feelings-and-relationships",
+  "slug": "feelings-and-relationships",
+  "title": "Feelings and relationships: llevarse bien, echar de menos",
+  "unit": "B1",
+  "group": "Vocabulary",
+  "order": 42,
+  "summary": "Talk about the people in your life: who you get on with, who you like, falling in love, arguing and making up, missing someone, and how to react to good and bad news.",
+  "focus": "Relationship verbs (llevarse bien, caer bien, echar de menos) and reacting to news",
+  "prerequisites": [
+    "b1-ser-estar-and-change",
+    "b1-feelings-and-judgements"
+  ],
+  "content": "## Getting on: llevarse bien, caer bien\n\n**Llevarse bien / mal con** describes a relationship that goes both ways. It is reflexive, so the pronoun follows the person: **me llevo bien con mi hermana**, **¿te llevas bien con tus padres?**, **Ana y Luis se llevan fatal**.\n\n**Caer bien / mal** is your impression of someone, and it works like **gustar**: the person you like is the subject, you are the pronoun.\n\n- **Tu primo me cae muy bien.** I really like your cousin.\n- **Me caen mal los vecinos de arriba.** I don't like the upstairs neighbours.\n- **¿Le caigo bien a tu madre?** Does your mother like me?\n\nTrust takes **en**: **confío en mi compañera de piso** (I trust my flatmate).\n\n## Love, quarrels and making up\n\n- **enamorarse de** (not *con*): **Se enamoró de su profesora de baile.** He fell in love with his dance teacher.\n- **la pareja**: partner or couple, always feminine: **Mi pareja se llama Pablo.** My partner is called Pablo.\n- **tener celos (de)**: **Tiene celos de mi mejor amigo.** He's jealous of my best friend.\n- **enfadarse con**: **Me enfadé con mi hermano.** I got angry with my brother.\n- **discutir**: usually *to argue*: **Discuten mucho por el dinero.** They argue a lot about money.\n- **hacer las paces**: **Al final hicimos las paces.** In the end we made up.\n\n## Missing someone: echar de menos\n\n**Echar de menos** means *to miss* a person, a place or a thing. Before a person, add the personal **a**; object pronouns go in front of **echar**:\n\n- **Echo de menos a mis abuelos.** I miss my grandparents.\n- **Te echo mucho de menos.** I miss you a lot.\n- **¿Echas de menos tu pueblo?** Do you miss your home town?\n- **Nos echan de menos.** They miss us.\n\nIn Latin America you will also hear **extrañar**: **te extraño**.\n\n## How you feel: sentirse, ponerse, me pone nervioso que\n\n- **sentirse** + adjective (e changes to ie): **me siento**, **te sientes**, **nos sentimos**. **Me siento sola en la ciudad nueva.** I feel lonely in the new city.\n- **ponerse** + adjective for a sudden change: **Se pone celoso cuando bailo con otros.** He gets jealous when I dance with others.\n- **me pone nervioso / triste / de mal humor que** + subjunctive when someone else causes the feeling, like **me molesta que**: **Me pone nerviosa que conduzcas tan rápido.** It makes me nervous that you drive so fast.\n- Same person, no **que**: **Me pone nervioso hablar en público.** Speaking in public makes me nervous.\n\nThe adjective agrees with the person who feels: **nervioso**, **nerviosa**, **nerviosos**.\n\n## Reacting: ¡Qué pena!, ¡Cuánto lo siento!, ¡Enhorabuena!\n\nBad news:\n\n- **¡Qué pena!** What a shame! With a clause: **¡Qué pena que no puedas venir!**\n- **¡Cuánto lo siento!** / **Lo siento mucho.** I'm so sorry.\n- **¡Ánimo!** Chin up!\n\nGood news:\n\n- **¡Enhorabuena!** Congratulations, for an achievement: a new job, an exam, a wedding, a baby.\n- **¡Felicidades!** also works, and it is the word for birthdays.\n- **¡Me alegro mucho por ti!** I'm really happy for you!",
+  "vocabulary": [
+    {
+      "term": "llevarse bien / mal con",
+      "meaning": "to get on well / badly with",
+      "example": "Me llevo muy bien con mi suegra.",
+      "example_meaning": "I get on really well with my mother-in-law."
+    },
+    {
+      "term": "caer bien / mal",
+      "meaning": "to like / dislike (a person); lit. to come across well / badly",
+      "example": "Tu novia me cae fenomenal.",
+      "example_meaning": "I really like your girlfriend."
+    },
+    {
+      "term": "confiar en",
+      "meaning": "to trust",
+      "example": "Confío en ti completamente.",
+      "example_meaning": "I trust you completely."
+    },
+    {
+      "term": "el compañero / la compañera de piso",
+      "meaning": "flatmate",
+      "example": "Mi compañera de piso nunca friega los platos.",
+      "example_meaning": "My flatmate never washes the dishes."
+    },
+    {
+      "term": "enamorarse de",
+      "meaning": "to fall in love with",
+      "example": "Me enamoré de Carlos en una boda.",
+      "example_meaning": "I fell in love with Carlos at a wedding."
+    },
+    {
+      "term": "la pareja",
+      "meaning": "partner; couple (always feminine)",
+      "example": "Mi pareja es de Valencia.",
+      "example_meaning": "My partner is from Valencia."
+    },
+    {
+      "term": "tener celos",
+      "meaning": "to be jealous (de = of)",
+      "example": "Mi hermano pequeño tiene celos del bebé.",
+      "example_meaning": "My little brother is jealous of the baby."
+    },
+    {
+      "term": "enfadarse con",
+      "meaning": "to get angry with",
+      "example": "No te enfades conmigo, por favor.",
+      "example_meaning": "Please don't get angry with me."
+    },
+    {
+      "term": "hacer las paces",
+      "meaning": "to make up (after a quarrel)",
+      "example": "Discutieron ayer, pero ya han hecho las paces.",
+      "example_meaning": "They argued yesterday, but they've already made up."
+    },
+    {
+      "term": "echar de menos",
+      "meaning": "to miss (someone or something)",
+      "example": "Echo de menos el mar.",
+      "example_meaning": "I miss the sea."
+    },
+    {
+      "term": "sentirse",
+      "meaning": "to feel (e → ie: me siento)",
+      "example": "Me siento mucho mejor desde que hablamos.",
+      "example_meaning": "I feel much better since we talked."
+    },
+    {
+      "term": "me pone nervioso que",
+      "meaning": "it makes me nervous that (+ subjunctive)",
+      "example": "Me pone nervioso que mis vecinos hagan ruido por la noche.",
+      "example_meaning": "It makes me nervous that my neighbours make noise at night."
+    },
+    {
+      "term": "¡Cuánto lo siento!",
+      "meaning": "I'm so sorry! (sympathy)",
+      "example": "¿Tu abuela está en el hospital? ¡Cuánto lo siento!",
+      "example_meaning": "Your grandmother is in hospital? I'm so sorry!"
+    },
+    {
+      "term": "¡Enhorabuena!",
+      "meaning": "Congratulations! (on an achievement)",
+      "example": "¡Enhorabuena por la boda!",
+      "example_meaning": "Congratulations on the wedding!"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-feelings-and-relationships-01",
+      "prompt": "Tu hermano me ___ muy bien.",
+      "type": "multiple-choice",
+      "options": [
+        "cae",
+        "caen",
+        "caigo"
+      ],
+      "correct_answer": "cae",
+      "explanation": "Caer bien works like gustar: the person you like (tu hermano, singular) is the subject, so cae.",
+      "hints": [
+        "Who is the subject: you or your brother?"
+      ],
+      "teaches": [
+        "caer bien / mal"
+      ]
+    },
+    {
+      "question_id": "b1-feelings-and-relationships-02",
+      "prompt": "Mi compañera de piso y yo nos ___ muy bien. (llevarse)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "llevamos",
+      "accepted_answers": [],
+      "explanation": "Llevarse is reflexive and the subject is 'mi compañera y yo' = nosotras: nos llevamos.",
+      "hints": [
+        "Mi compañera y yo = nosotras.",
+        "Nosotros form of llevar."
+      ],
+      "teaches": [
+        "llevarse bien / mal con",
+        "el compañero / la compañera de piso"
+      ]
+    },
+    {
+      "question_id": "b1-feelings-and-relationships-03",
+      "prompt": "Choose the sentence that means 'I miss my parents'.",
+      "type": "multiple-choice",
+      "options": [
+        "Echo de menos a mis padres.",
+        "Echo de más a mis padres.",
+        "Echo a menos mis padres."
+      ],
+      "correct_answer": "Echo de menos a mis padres.",
+      "explanation": "The expression is echar de menos, and people take the personal a: echo de menos a mis padres.",
+      "hints": [
+        "The fixed phrase is 'de menos'.",
+        "People after the verb need 'a'."
+      ],
+      "teaches": [
+        "echar de menos"
+      ]
+    },
+    {
+      "question_id": "b1-feelings-and-relationships-04",
+      "prompt": "Lucía se ___ con su novio porque llegó tarde otra vez. (enfadarse, preterite)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "enfadó",
+      "accepted_answers": [],
+      "explanation": "Preterite of enfadarse for ella: se enfadó. Angry with someone = enfadarse con.",
+      "hints": [
+        "Third person singular, preterite.",
+        "-ar preterite ending: -ó."
+      ],
+      "teaches": [
+        "enfadarse con"
+      ]
+    },
+    {
+      "question_id": "b1-feelings-and-relationships-05",
+      "prompt": "Mi amigo se enamoró ___ una chica de Cádiz.",
+      "type": "multiple-choice",
+      "options": [
+        "de",
+        "con",
+        "en"
+      ],
+      "correct_answer": "de",
+      "explanation": "Spanish falls in love 'of' someone: enamorarse de. English 'with' tempts you to say con.",
+      "hints": [
+        "Not the English preposition."
+      ],
+      "teaches": [
+        "enamorarse de"
+      ]
+    },
+    {
+      "question_id": "b1-feelings-and-relationships-06",
+      "prompt": "Me pone nervioso que mi hermano ___ tan rápido. (conducir)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "conduzca",
+      "accepted_answers": [],
+      "explanation": "Someone else (mi hermano) causes the feeling, so the verb after que is in the present subjunctive: conduzca, from the yo form conduzco.",
+      "hints": [
+        "Me pone nervioso que + subjunctive.",
+        "Start from yo conduzco."
+      ],
+      "teaches": [
+        "me pone nervioso que"
+      ]
+    },
+    {
+      "question_id": "b1-feelings-and-relationships-07",
+      "prompt": "Your friend tells you she has passed her driving test. You say:",
+      "type": "multiple-choice",
+      "options": [
+        "¡Enhorabuena!",
+        "¡Cuánto lo siento!",
+        "¡Qué pena!"
+      ],
+      "correct_answer": "¡Enhorabuena!",
+      "explanation": "Good news, an achievement: ¡Enhorabuena! ¡Cuánto lo siento! and ¡Qué pena! are for bad news.",
+      "hints": [
+        "Is this good news or bad news?"
+      ],
+      "teaches": [
+        "¡Enhorabuena!",
+        "¡Cuánto lo siento!"
+      ]
+    },
+    {
+      "question_id": "b1-feelings-and-relationships-08",
+      "prompt": "Últimamente me ___ muy sola en la ciudad. (sentirse)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "siento",
+      "accepted_answers": [],
+      "explanation": "Sentirse changes e to ie in the yo form: me siento.",
+      "hints": [
+        "The stem changes from e to ie.",
+        "Yo form; the 'me' is already there."
+      ],
+      "teaches": [
+        "sentirse"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-feelings-and-relationships-conv-flatmates",
+      "title": "A bad night, a good surprise",
+      "scenario": "Irene comes home upset after arguing with her boyfriend Javi. Her flatmate Dani listens.",
+      "role_a": "Irene",
+      "role_b": "Dani",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Dani, ¿tienes un momento? Me siento fatal.",
+          "meaning": "Dani, have you got a moment? I feel awful.",
+          "note": "sentirse: me siento"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Claro! ¿Qué te pasa? ¿Has discutido con Javi?",
+          "meaning": "Of course! What's wrong? Have you argued with Javi?"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí. Se pone celoso cada vez que salgo con mis compañeros de trabajo.",
+          "meaning": "Yes. He gets jealous every time I go out with my workmates.",
+          "note": "ponerse + adjective: a sudden change"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Cuánto lo siento! A mí Javi me cae bien, pero eso no está bien.",
+          "meaning": "I'm so sorry! I like Javi, but that's not OK.",
+          "note": "caer bien works like gustar"
+        },
+        {
+          "speaker": "a",
+          "text": "Ya. Me pone triste que no confíe en mí.",
+          "meaning": "I know. It makes me sad that he doesn't trust me.",
+          "note": "me pone triste que + subjunctive"
+        },
+        {
+          "speaker": "b",
+          "text": "Es normal que te enfades. ¿Vais a hablar esta noche?",
+          "meaning": "It's normal for you to get angry. Are you going to talk tonight?"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, quiero que hagamos las paces, pero también quiero que cambie.",
+          "meaning": "Yes, I want us to make up, but I also want him to change."
+        },
+        {
+          "speaker": "b",
+          "text": "Me parece bien. Oye, ¿y tu familia? ¿Los echas de menos?",
+          "meaning": "Sounds good. Hey, and your family? Do you miss them?",
+          "note": "the pronoun goes in front: los echas de menos"
+        },
+        {
+          "speaker": "a",
+          "text": "Mucho. Pero tengo una buena noticia: ¡mi hermana va a tener un bebé!",
+          "meaning": "A lot. But I have some good news: my sister is going to have a baby!"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Enhorabuena! ¡Vas a ser tía!",
+          "meaning": "Congratulations! You're going to be an aunt!"
+        },
+        {
+          "speaker": "a",
+          "text": "Gracias, Dani. Me llevo muy bien contigo, ¿sabes?",
+          "meaning": "Thanks, Dani. I get on really well with you, you know?",
+          "note": "llevarse bien con: conmigo, contigo"
+        },
+        {
+          "speaker": "b",
+          "text": "Y yo contigo. Eres la mejor compañera de piso del mundo.",
+          "meaning": "And I with you. You're the best flatmate in the world."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Me caen bien tus amigos.",
+      "meaning": "I like your friends.",
+      "note": "Like gustar: plural friends, so caen."
+    },
+    {
+      "text": "Mi hermana y yo nos llevamos fatal.",
+      "meaning": "My sister and I get on terribly.",
+      "note": "New word: fatal = terribly."
+    },
+    {
+      "text": "Echo mucho de menos a mi abuela.",
+      "meaning": "I miss my grandmother a lot.",
+      "note": "A person after echar de menos takes the personal a."
+    },
+    {
+      "text": "¿Por qué estás enfadado con tu compañero de piso?",
+      "meaning": "Why are you angry with your flatmate?",
+      "note": "Estar enfadado con is the state; enfadarse con is getting angry."
+    },
+    {
+      "text": "Me enamoré de mi pareja en un viaje a Granada.",
+      "meaning": "I fell in love with my partner on a trip to Granada.",
+      "note": "Enamorarse de, never con."
+    },
+    {
+      "text": "Después de discutir toda la tarde, por fin hicimos las paces.",
+      "meaning": "After arguing all afternoon, we finally made up.",
+      "note": "New word: por fin = at last."
+    },
+    {
+      "text": "Me pone muy nerviosa que mi pareja no conteste el teléfono.",
+      "meaning": "It makes me really nervous when my partner doesn't answer the phone.",
+      "note": "Someone else's action after que: subjunctive conteste."
+    },
+    {
+      "text": "No confío en mi vecino porque siempre cuenta mis secretos a todo el mundo.",
+      "meaning": "I don't trust my neighbour because he always tells everyone my secrets.",
+      "note": "New word: el secreto = the secret."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Getting on"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-feelings-and-relationships-01"
+    },
+    {
+      "question": "b1-feelings-and-relationships-02"
+    },
+    {
+      "section": "Love, quarrels"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-feelings-and-relationships-04"
+    },
+    {
+      "question": "b1-feelings-and-relationships-05"
+    },
+    {
+      "section": "Missing someone"
+    },
+    {
+      "question": "b1-feelings-and-relationships-03"
+    },
+    {
+      "tip": "Watch the little words: enamorarse DE, enfadarse CON, confiar EN, and the personal a in echo de menos A mi madre."
+    },
+    {
+      "section": "How you feel"
+    },
+    {
+      "question": "b1-feelings-and-relationships-06"
+    },
+    {
+      "question": "b1-feelings-and-relationships-08"
+    },
+    {
+      "section": "Reacting"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-feelings-and-relationships-07"
+    }
+  ],
+  "sprint": {
+    "icon": "💞",
+    "bites": [
+      {
+        "title": "Caer bien works like gustar",
+        "emoji": "👍",
+        "rule": "With caer bien / mal, the person you like is the subject and you are the pronoun: me cae bien Ana, me caen bien tus primos.",
+        "example": "Tus padres me caen muy bien.",
+        "example_meaning": "I really like your parents."
+      },
+      {
+        "title": "Llevarse goes both ways",
+        "emoji": "🤝",
+        "rule": "Llevarse bien / mal con is mutual and reflexive: me llevo, te llevas, se lleva, nos llevamos, os lleváis, se llevan.",
+        "example": "Nos llevamos genial desde el colegio.",
+        "example_meaning": "We've got on brilliantly since school."
+      },
+      {
+        "title": "Echar de menos + a",
+        "emoji": "💌",
+        "rule": "Echar de menos = to miss. Add the personal a before people (echo de menos a mi madre); pronouns go first (te echo de menos).",
+        "example": "¿Me echas de menos?",
+        "example_meaning": "Do you miss me?"
+      },
+      {
+        "title": "Someone else upsets you",
+        "emoji": "😬",
+        "rule": "Me pone nervioso / triste que + subjunctive when someone else does it; the same person takes the infinitive: me pone nervioso conducir.",
+        "example": "Me pone triste que discutáis tanto.",
+        "example_meaning": "It makes me sad that you argue so much."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which little word?",
+        "buckets": [
+          "de",
+          "con",
+          "en"
+        ],
+        "why": "Enamorarse, tener celos and echar ___ menos take de; enfadarse, llevarse bien and discutir take con; confiar takes en.",
+        "items": [
+          {
+            "text": "enamorarse ___ alguien",
+            "bucket": 0
+          },
+          {
+            "text": "enfadarse ___ alguien",
+            "bucket": 1
+          },
+          {
+            "text": "confiar ___ alguien",
+            "bucket": 2
+          },
+          {
+            "text": "llevarse bien ___ alguien",
+            "bucket": 1
+          },
+          {
+            "text": "tener celos ___ alguien",
+            "bucket": 0
+          },
+          {
+            "text": "echar ___ menos",
+            "bucket": 0
+          },
+          {
+            "text": "discutir ___ tu pareja",
+            "bucket": 1
+          }
+        ]
+      },
+      {
+        "title": "Good news or bad news?",
+        "buckets": [
+          "¡Enhorabuena!",
+          "¡Cuánto lo siento!"
+        ],
+        "why": "Congratulate an achievement or happy event with ¡Enhorabuena!; show sympathy for bad news with ¡Cuánto lo siento!",
+        "items": [
+          {
+            "text": "Me han dado el trabajo.",
+            "bucket": 0
+          },
+          {
+            "text": "Mi abuelo está en el hospital.",
+            "bucket": 1
+          },
+          {
+            "text": "¡Vamos a tener un bebé!",
+            "bucket": 0
+          },
+          {
+            "text": "Mi pareja y yo lo hemos dejado.",
+            "bucket": 1
+          },
+          {
+            "text": "He aprobado el examen de conducir.",
+            "bucket": 0
+          },
+          {
+            "text": "Mi perro se ha perdido.",
+            "bucket": 1
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Tu hermano me caigo muy bien.",
+        "wrong": "caigo",
+        "fix": "cae",
+        "why": "Like gustar: the brother is the subject, so cae."
+      },
+      {
+        "sentence": "Echo de más a mi madre.",
+        "wrong": "más",
+        "fix": "menos",
+        "why": "To miss is echar de menos."
+      },
+      {
+        "sentence": "Lucía se enamoró con su vecino.",
+        "wrong": "con",
+        "fix": "de",
+        "why": "Spanish says enamorarse de."
+      },
+      {
+        "sentence": "No confío a mi compañero de piso.",
+        "wrong": "a",
+        "fix": "en",
+        "why": "Confiar takes en: confío en alguien."
+      },
+      {
+        "sentence": "Me pone nerviosa que mi pareja conduce tan rápido.",
+        "wrong": "conduce",
+        "fix": "conduzca",
+        "why": "Someone else causes the feeling: que + subjunctive."
+      },
+      {
+        "sentence": "Mi novio tiene celoso de mi mejor amigo.",
+        "wrong": "celoso",
+        "fix": "celos",
+        "why": "The expression is tener celos de (or estar celoso de)."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Me llevo muy bien con mi hermana.",
+        "meaning": "I get on really well with my sister.",
+        "distractors": [
+          "llevas"
+        ]
+      },
+      {
+        "text": "Tus amigos me caen genial.",
+        "meaning": "I really like your friends.",
+        "distractors": [
+          "cae"
+        ]
+      },
+      {
+        "text": "Al final hicimos las paces.",
+        "meaning": "In the end we made up.",
+        "distractors": [
+          "paz"
+        ]
+      },
+      {
+        "text": "Te echo de menos.",
+        "meaning": "I miss you.",
+        "distractors": [
+          "más"
+        ]
+      }
+    ]
+  }
+}
