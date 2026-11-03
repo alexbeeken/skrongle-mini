@@ -49,10 +49,7 @@ In a language course, every word that matters can be tapped to hear it (see
 - **AI tutoring** (`/tutor`): a one-to-one lesson over chat with a tutor that
   runs on the learner's own API key. Same exercises and progress as Practice,
   but the tutor teaches first and sets them when you are ready. Its prompt
-  says the learner may be as young as the Terms' minimum age
-  (`SKRONGLE_MIN_AGE`): it stays on the course, declines sexual, self-harm,
-  violent, hateful or illegal turns and goes back to the lesson, and never
-  asks for personal details (`tutor::safety_rules`, #919).
+  carries the lesson, the exercise and the pass rule, and no topic rules.
 
 The modes' old paths (`/d`, `/d/…`, `/k`, `/g`, `/games`, `/games/…`) redirect
 to the new ones with their query strings, so old bookmarks still work.
