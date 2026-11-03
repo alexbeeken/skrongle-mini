@@ -571,8 +571,8 @@ fn rebuild(state: &crate::AppState, db: &Db, p: &Payload) -> Result<Request, Str
     }
     let notes = db.with(|c| crate::courses::notes_of(c, &p.course)).map_err(|e| e.to_string())?;
     let kind = ProviderKind::parse(&p.provider).ok_or(INTERRUPTED)?;
-    let key = db.with(|c| crate::secrets::get(c, &state.vault, kind.secret())).map_err(|e| e.to_string())?.ok_or(INTERRUPTED)?;
-    let mut provider = Provider { kind, base_url: kind.default_base_url(), api_key: key, model: p.model.clone(), effort: None };
+    let mut provider = db.with(|c| super::server_provider(c, &state.vault, kind, false)).map_err(|e| e.to_string())?.ok_or(INTERRUPTED)?;
+    provider.model = p.model.clone();
     provider.effort = super::Effort::parse(&p.effort);
     Ok(Request {
         user_id: p.user,

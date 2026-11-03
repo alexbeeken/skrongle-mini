@@ -20,7 +20,10 @@ pub struct Price {
 /// Anthropic's list prices, checked 2026-10-19 (dollars per million tokens:
 /// input, output, cache read). `*` prices any model not
 /// listed at the dearest rate (Claude Fable 5.1), so an unknown model is
-/// never cheap. `SKRONGLE_AI_PRICES` adds or overrides entries.
+/// never cheap. The other providers' models (OpenAI's, Google's, and those
+/// #24 added: DeepSeek, Mistral, xAI, OpenRouter, an Ollama server) are not
+/// listed: their price is unknown, and the Generate dialog shows no cost
+/// for them (`listed`). `SKRONGLE_AI_PRICES` adds or overrides entries.
 pub const DEFAULT_PRICES: &str = "claude-haiku-5-5=0.10/0.50/0.01,claude-sonnet-5-5=2/10/0.10,claude-opus-5-5=4/20/0.20,*=10/50/1";
 
 #[derive(Clone, Debug)]

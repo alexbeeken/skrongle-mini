@@ -67,12 +67,20 @@
       message: document.querySelector("[data-testid=manage-keys-save-error]"),
       onSaved: function (data) {
         if (data && data.keys) Object.keys(data.keys).forEach(function (p) { keySaved(p, data.keys[p]); });
+        if (data && data.ollama_model) {
+          var shown = document.querySelector("[data-testid=manage-ollama-model-shown]");
+          if (shown) shown.textContent = data.ollama_model;
+        }
       },
     });
     inputs.forEach(function (input) {
       saver.watch(input, { field: input.name, delay: 3000, burst: 6, ignoreEmpty: true });
     });
+    var model = document.querySelector("[data-testid=manage-ollama-model]");
+    if (model) saver.watch(model, { field: "ollama_model", delay: 1500, ignoreEmpty: true });
   }
+  // A saved key: the row says "Set" with its last four characters (an
+  // Ollama row its host and model) and the box empties: a key is never shown again.
   function keySaved(provider, hint) {
     var row = document.querySelector('[data-testid=manage-api-key][data-provider="' + provider + '"]');
     if (!row) return;
@@ -85,6 +93,15 @@
     ok.className = "ok-text";
     ok.textContent = t("manage.js.key_on_file");
     var code = document.createElement("code");
+    var model = row.querySelector("[data-testid=manage-ollama-model]");
+    if (model) {
+      code.textContent = hint;
+      var name = document.createElement("code");
+      name.dataset.testid = "manage-ollama-model-shown";
+      name.textContent = model.value.trim() || model.placeholder;
+      status.append(ok, " · ", code, " · ", name);
+      return;
+    }
     code.textContent = "\u2026" + hint;
     status.append(ok, " · " + t("manage.js.ends_in") + " ", code);
     row.querySelector("[data-key-prompt]").textContent = t("manage.js.paste_new_key");

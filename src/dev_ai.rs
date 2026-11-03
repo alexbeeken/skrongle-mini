@@ -74,16 +74,25 @@ impl Who {
     }
 }
 
-/// The provider a dev key is for, from its prefix (`sk-ant-`: Anthropic,
-/// `AIza`: Google, any other `sk-`: OpenAI).
+/// The provider a dev key is for, from the longest prefix it starts with
+/// (`sk-ant-`: Anthropic, `sk-or-`: OpenRouter, `xai-`: xAI, `AIza`:
+/// Google, any other `sk-`: OpenAI).
 pub fn key_provider(key: &str) -> Provider {
-    Provider::ALL.into_iter().find(|p| key.starts_with(p.prefix())).unwrap_or(Provider::OpenAi)
+    Provider::ALL
+        .into_iter()
+        .filter(|p| !p.prefix().is_empty() && key.starts_with(p.prefix()))
+        .max_by_key(|p| (p.prefix().len(), std::cmp::Reverse(p.id())))
+        .unwrap_or(Provider::OpenAi)
 }
+
+/// What a dev key starts with: the simulator answers any key that does
+/// (#24 added xAI's and OpenRouter's; DeepSeek and Mistral take `sk-dev-…`).
+pub const DEV_KEY_PREFIXES: [&str; 5] = ["sk-ant-dev-", "sk-dev-", "AIza-dev-", "xai-dev-", "sk-or-dev-"];
 
 /// The profile a key belongs to; `None`: a key the simulator refuses (401).
 pub fn who(key: &str) -> Option<Who> {
     let key = key.trim();
-    let dev_key = ["sk-ant-dev-", "sk-dev-", "AIza-dev-"].iter().any(|p| key.len() > p.len() && key.starts_with(p));
+    let dev_key = DEV_KEY_PREFIXES.iter().any(|p| key.len() > p.len() && key.starts_with(p));
     dev_key.then_some(Who::Learner)
 }
 

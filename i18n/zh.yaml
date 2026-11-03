@@ -680,9 +680,9 @@ manage:
     title: AI API 密钥
     info_text: "每个账户的 AI 功能都使用这些密钥，费用记在密钥所属的账户上。密钥在保存前会加密，之后不会再显示；只显示最后四个字符，方便你分辨保存的是哪个密钥。只有所有者能看到。"
     unreadable: "已保存但无法读取：服务器的密钥已更改。请重新粘贴。"
-    on_file: ✓ 已保存密钥
+    on_file: "✓ 已设置"
     ends_in: 结尾为
-    none: 尚无密钥
+    none: "未设置"
     replace: 粘贴新密钥以替换
     paste: "粘贴密钥"
     get_one: 获取一个
@@ -692,9 +692,15 @@ manage:
     too_long: "该内容对 API 密钥来说太长了（最多 {max} 个字符）。"
     bad_chars: API 密钥只能包含字母、数字和标点符号，不能有空格。
     wrong_provider: "这看起来不像是 {provider} 的密钥：它们以 {prefix} 开头。"
+    empty_url: "请先输入服务器的基础 URL。"
+    bad_url: "基础 URL 以 http:// 或 https:// 加主机名开头，例如 http://localhost:11434。"
+    bad_model: "模型名称最多 100 个字母、数字和标点，不含空格（例如 llama3.1）。"
+    base_url: "服务器的基础 URL"
+    get_server: "获取 Ollama"
+    model: "模型"
   js:
     copied: "已复制"
-    key_on_file: "✓ 已保存密钥"
+    key_on_file: "✓ 已设置"
     ends_in: "结尾为"
     paste_new_key: "粘贴新密钥以替换"
   ai:

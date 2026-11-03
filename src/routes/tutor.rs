@@ -318,14 +318,13 @@ async fn turn_inner(state: &AppState, p: &Project, session: &mut Session, kind: 
     Ok((added, None))
 }
 
-/// The server's key for `kind`, as a provider.
+/// The server's provider for `kind` (its key, or Ollama's URL), with the tutor model.
 async fn own_provider(state: &AppState, kind: ai::ProviderKind) -> Result<ai::Provider, AppError> {
-    let provider = kind.secret();
     let vault = state.vault.clone();
-    let Some(key) = state.db.call(move |c| secrets::get(c, &vault, provider)).await? else {
-        return Err(AppError::ApiBadRequest(crate::t1("tutor.api.no_key", "provider", provider.label())));
+    let Some(p) = state.db.call(move |c| ai::server_provider(c, &vault, kind, true)).await? else {
+        return Err(AppError::ApiBadRequest(crate::t1("tutor.api.no_key", "provider", kind.secret().label())));
     };
-    Ok(kind.provider(key))
+    Ok(p)
 }
 
 /// One model call over the transcript plus `added`; the words go into

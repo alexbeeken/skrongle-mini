@@ -680,9 +680,9 @@ manage:
     title: Clés d'API IA
     info_text: "Les fonctions d’IA de tous les comptes utilisent ces clés, facturées au compte auquel chaque clé appartient. Les clés sont chiffrées avant d’être enregistrées et ne sont plus jamais affichées ; seuls les quatre derniers caractères restent visibles pour savoir quelle clé est enregistrée. Seuls les propriétaires les voient."
     unreadable: "Enregistrée mais illisible : le secret du serveur a changé. Collez-la à nouveau."
-    on_file: ✓ Clé enregistrée
+    on_file: "✓ Définie"
     ends_in: se termine par
-    none: Aucune clé pour l'instant
+    none: "Non définie"
     replace: Collez une nouvelle clé pour la remplacer
     paste: "Collez la clé"
     get_one: en obtenir une
@@ -692,9 +692,15 @@ manage:
     too_long: "Cette clé est trop longue pour une clé d'API (max. {max} caractères)."
     bad_chars: Une clé d'API ne contient que des lettres, des chiffres et de la ponctuation, sans espaces.
     wrong_provider: "Cela ne ressemble pas à une clé {provider} : elles commencent par {prefix}."
+    empty_url: "Tapez d’abord l’URL de base du serveur."
+    bad_url: "Une URL de base commence par http:// ou https:// et un hôte, par exemple http://localhost:11434."
+    bad_model: "Un nom de modèle compte jusqu’à 100 lettres, chiffres et signes, sans espace (par exemple llama3.1)."
+    base_url: "URL de base du serveur"
+    get_server: "obtenir Ollama"
+    model: "Modèle"
   js:
     copied: "Copié"
-    key_on_file: "✓ Clé enregistrée"
+    key_on_file: "✓ Définie"
     ends_in: "se termine par"
     paste_new_key: "Collez une nouvelle clé pour la remplacer"
   ai:

@@ -353,9 +353,12 @@ reset-password …`); a release names it `skrongle`.
 
 Keep the server on your own network or behind Tailscale (below) anyway.
 The AI features (tutor, course generator) use the server's keys, which
-you, the owner, save under *Manage Users → AI features* (Anthropic, OpenAI
-or Google); every account uses them, billed to you, and nobody else sees
-them. The same section has *Hide AI features for everyone*, which takes
+you, the owner, save under *Manage Users → AI features* (Anthropic, OpenAI,
+Google, DeepSeek, Mistral, xAI or OpenRouter); every account uses them,
+billed to you, and nobody else sees them. To use a model you run yourself,
+give the *Ollama* row your server's base URL (`http://192.168.1.20:11434`,
+any OpenAI-compatible server) and the model it runs (`llama3.1`); it needs
+no key, and a Pi Zero 2 W is far too small to run one itself. The same section has *Hide AI features for everyone*, which takes
 the AI features away from every account. The secret key encrypts saved
 keys, so a database without its `.key` file can't use them.
 

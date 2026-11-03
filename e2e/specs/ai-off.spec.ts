@@ -103,12 +103,12 @@ test("only the owner sees the keys and the switch; nobody has them on the profil
   await expect(page.locator('[data-testid^="profile-api-key"], [data-testid^="consent-ai"]')).toHaveCount(0);
   await page.goto("/manage#ai");
   await expect(page.getByTestId("manage-ai-card")).toBeVisible();
-  // One folded row per provider, each saying it is set.
+  // One folded row per provider (#24); keys=fake sets the first three.
   const rows = page.getByTestId("manage-api-key");
-  await expect(rows).toHaveCount(3);
+  await expect(rows).toHaveCount(8);
+  await expect(page.locator('[data-testid="manage-api-key"][data-key-set="true"]')).toHaveCount(3);
   for (const row of await rows.all()) {
     await expect(row).not.toHaveAttribute("open", "");
-    await expect(row).toHaveAttribute("data-key-set", "true");
     await expect(row.getByTestId("manage-api-key-input")).toBeHidden();
   }
 });

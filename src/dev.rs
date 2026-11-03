@@ -204,6 +204,14 @@ pub fn simulator_base_url(root: &str, kind: crate::ai::ProviderKind) -> String {
         ProviderKind::OpenAi => format!("{root}/openai/v1"),
         // Google's base URL ends in /openai and takes no /v1 (`ai::openai_url`).
         ProviderKind::Google => format!("{root}/google/v1beta/openai"),
+        // The others speak OpenAI's format under a path of their own (#24),
+        // so the call log tells them apart: `{base}/v1/chat/completions`,
+        // OpenRouter's base ending in /v1 as its real one does.
+        ProviderKind::DeepSeek => format!("{root}/deepseek"),
+        ProviderKind::Mistral => format!("{root}/mistral"),
+        ProviderKind::Xai => format!("{root}/xai"),
+        ProviderKind::OpenRouter => format!("{root}/openrouter/api/v1"),
+        ProviderKind::Ollama => format!("{root}/ollama"),
     }
 }
 

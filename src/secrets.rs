@@ -1,4 +1,5 @@
-//! The server's AI API keys (Anthropic, OpenAI, Google), encrypted at rest,
+//! The server's AI API keys (Anthropic, OpenAI, Google, DeepSeek, Mistral,
+//! xAI, OpenRouter; and an Ollama-compatible server's base URL, #24), encrypted at rest,
 //! and the vault that seals them, which also seals authenticator apps'
 //! TOTP secrets (#292, [`seal_totp`]).
 //!
@@ -27,16 +28,34 @@ use std::path::{Path, PathBuf};
 
 // ---------- providers ----------
 
+/// The AI providers the server can hold a key for (#24). Every one but
+/// Anthropic speaks the OpenAI chat-completions format (`ai::Wire`);
+/// `Ollama` stands for any OpenAI-compatible server the owner runs, and
+/// takes its base URL where the others take a key.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Provider {
     Anthropic,
     OpenAi,
     Google,
+    DeepSeek,
+    Mistral,
+    Xai,
+    OpenRouter,
+    Ollama,
 }
 
 impl Provider {
-    /// In the order the Manage Users page lists them.
-    pub const ALL: [Provider; 3] = [Provider::Anthropic, Provider::OpenAi, Provider::Google];
+    /// In the order the Manage Users page lists them (and the AI forms offer them).
+    pub const ALL: [Provider; 8] = [
+        Provider::Anthropic,
+        Provider::OpenAi,
+        Provider::Google,
+        Provider::DeepSeek,
+        Provider::Mistral,
+        Provider::Xai,
+        Provider::OpenRouter,
+        Provider::Ollama,
+    ];
 
     /// What `server_api_keys.provider` stores and the forms post.
     pub fn id(self) -> &'static str {
@@ -44,6 +63,11 @@ impl Provider {
             Provider::Anthropic => "anthropic",
             Provider::OpenAi => "openai",
             Provider::Google => "google",
+            Provider::DeepSeek => "deepseek",
+            Provider::Mistral => "mistral",
+            Provider::Xai => "xai",
+            Provider::OpenRouter => "openrouter",
+            Provider::Ollama => "ollama",
         }
     }
 
@@ -56,34 +80,58 @@ impl Provider {
             Provider::Anthropic => "Claude (Anthropic)",
             Provider::OpenAi => "OpenAI",
             Provider::Google => "Google (Gemini)",
+            Provider::DeepSeek => "DeepSeek",
+            Provider::Mistral => "Mistral",
+            Provider::Xai => "xAI (Grok)",
+            Provider::OpenRouter => "OpenRouter",
+            Provider::Ollama => "Ollama (OpenAI-compatible server)",
         }
     }
 
-    /// Where to create a key.
+    /// Where to create a key (for Ollama: where to get the server).
     pub fn console_url(self) -> &'static str {
         match self {
             Provider::Anthropic => "https://console.anthropic.com/settings/keys",
             Provider::OpenAi => "https://platform.openai.com/api-keys",
             Provider::Google => "https://aistudio.google.com/apikey",
+            Provider::DeepSeek => "https://platform.deepseek.com/api_keys",
+            Provider::Mistral => "https://console.mistral.ai/api-keys",
+            Provider::Xai => "https://console.x.ai",
+            Provider::OpenRouter => "https://openrouter.ai/keys",
+            Provider::Ollama => "https://ollama.com/download",
         }
     }
 
     /// How every key from this provider starts; used to catch a key pasted
-    /// into the wrong box.
+    /// into the wrong box. `""`: its keys have no fixed start (Mistral's),
+    /// or it takes no key (Ollama).
     pub fn prefix(self) -> &'static str {
         match self {
             Provider::Anthropic => "sk-ant-",
-            Provider::OpenAi => "sk-",
+            Provider::OpenAi | Provider::DeepSeek => "sk-",
             Provider::Google => "AIza",
+            Provider::Xai => "xai-",
+            Provider::OpenRouter => "sk-or-",
+            Provider::Mistral | Provider::Ollama => "",
         }
     }
 
+    /// The key format hint in the empty box.
     pub fn placeholder(self) -> &'static str {
         match self {
             Provider::Anthropic => "sk-ant-…",
-            Provider::OpenAi => "sk-…",
+            Provider::OpenAi | Provider::DeepSeek => "sk-…",
             Provider::Google => "AIza…",
+            Provider::Mistral => "…",
+            Provider::Xai => "xai-…",
+            Provider::OpenRouter => "sk-or-…",
+            Provider::Ollama => "http://localhost:11434",
         }
+    }
+
+    /// Ollama takes a base URL (and a model name) instead of a key.
+    pub fn takes_url(self) -> bool {
+        self == Provider::Ollama
     }
 }
 
@@ -96,11 +144,13 @@ impl fmt::Display for Provider {
 pub const KEY_MAX: usize = 400;
 
 /// A pasted key: trimmed, printable ASCII without spaces, at most `KEY_MAX`
-/// characters, and starting the way this provider's keys do.
+/// characters, and starting the way this provider's keys do. For Ollama,
+/// an `http://` or `https://` base URL: the owner's own server, so a
+/// private address and any port are fine (only an owner sets it).
 pub fn validate_key(provider: Provider, raw: &str) -> Result<String, String> {
     let v = raw.trim();
     if v.is_empty() {
-        return Err(crate::t("manage.api_keys.empty"));
+        return Err(crate::t(if provider.takes_url() { "manage.api_keys.empty_url" } else { "manage.api_keys.empty" }));
     }
     if v.len() > KEY_MAX {
         return Err(crate::t1("manage.api_keys.too_long", "max", KEY_MAX));
@@ -108,12 +158,30 @@ pub fn validate_key(provider: Provider, raw: &str) -> Result<String, String> {
     if !v.bytes().all(|b| b.is_ascii_graphic()) {
         return Err(crate::t("manage.api_keys.bad_chars"));
     }
+    if provider.takes_url() {
+        let rest = v.strip_prefix("http://").or_else(|| v.strip_prefix("https://"));
+        return match rest {
+            Some(r) if !r.is_empty() && !r.starts_with('/') => Ok(v.trim_end_matches('/').to_string()),
+            _ => Err(crate::t("manage.api_keys.bad_url")),
+        };
+    }
     let wrong_box = match provider {
-        Provider::OpenAi => v.starts_with(Provider::Anthropic.prefix()),
+        Provider::OpenAi | Provider::DeepSeek => v.starts_with(Provider::Anthropic.prefix()) || v.starts_with(Provider::OpenRouter.prefix()),
         _ => false,
     };
     if wrong_box || !v.starts_with(provider.prefix()) {
         return Err(crate::t2("manage.api_keys.wrong_provider", "provider", provider.label(), "prefix", provider.prefix()));
+    }
+    Ok(v.to_string())
+}
+
+/// The model Ollama runs (`settings` row `ollama_model`): a name as
+/// `ollama pull` takes it (`llama3.1`, `qwen2.5:7b`), at most 100
+/// printable characters without spaces.
+pub fn validate_model(raw: &str) -> Result<String, String> {
+    let v = raw.trim();
+    if v.is_empty() || v.len() > 100 || !v.bytes().all(|b| b.is_ascii_graphic()) {
+        return Err(crate::t("manage.api_keys.bad_model"));
     }
     Ok(v.to_string())
 }
@@ -333,7 +401,7 @@ pub fn statuses(conn: &Connection, vault: &Vault) -> rusqlite::Result<Vec<KeySta
         .map(|p| match rows.iter().find(|(id, ..)| id == p.id()) {
             None => KeyStatus { provider: p, hint: None, unreadable: false, updated_at: 0 },
             Some((_, blob, at, sealed_for)) => match vault.open(&row_aad(*sealed_for, p), blob).and_then(|b| String::from_utf8(b).ok()) {
-                Some(key) => KeyStatus { provider: p, hint: Some(hint(&key)), unreadable: false, updated_at: *at },
+                Some(key) => KeyStatus { provider: p, hint: Some(hint(p, &key)), unreadable: false, updated_at: *at },
                 None => KeyStatus { provider: p, hint: None, unreadable: true, updated_at: *at },
             },
         })
@@ -464,7 +532,15 @@ pub fn master_status(env_value: Option<&str>, db_path: &Path) -> MasterStatus {
     }
 }
 
-fn hint(key: &str) -> String {
+/// What the page shows of a stored value: a key's last four characters,
+/// or for a base URL (Ollama) its host and port, without any user name or
+/// password it carries.
+fn hint(provider: Provider, key: &str) -> String {
+    if provider.takes_url() {
+        let rest = key.split_once("://").map_or(key, |(_, r)| r);
+        let host = rest.split('/').next().unwrap_or(rest);
+        return host.rsplit_once('@').map_or(host, |(_, h)| h).to_string();
+    }
     let n = key.chars().count();
     key.chars().skip(n.saturating_sub(4)).collect()
 }
@@ -500,6 +576,31 @@ mod tests {
         assert!(validate_key(Provider::Anthropic, "sk-proj-abc").is_err());
         assert!(validate_key(Provider::OpenAi, "sk-ant-api03-abc").is_err());
         assert!(validate_key(Provider::Google, "sk-abc").is_err());
+    }
+
+    /// The providers #24 added: each key format, a key for another box
+    /// refused, and Ollama's base URL instead of a key, shown by its host.
+    #[test]
+    fn validates_the_newer_providers() {
+        assert_eq!(validate_key(Provider::DeepSeek, "sk-abc123").unwrap(), "sk-abc123");
+        assert!(validate_key(Provider::DeepSeek, "sk-ant-api03-abc").is_err(), "an Anthropic key");
+        assert!(validate_key(Provider::DeepSeek, "sk-or-v1-abc").is_err(), "an OpenRouter key");
+        assert!(validate_key(Provider::OpenAi, "sk-or-v1-abc").is_err(), "an OpenRouter key");
+        assert_eq!(validate_key(Provider::Mistral, &"x".repeat(32)).unwrap().len(), 32);
+        assert_eq!(validate_key(Provider::Xai, "xai-abc").unwrap(), "xai-abc");
+        assert!(validate_key(Provider::Xai, "sk-abc").is_err());
+        assert_eq!(validate_key(Provider::OpenRouter, "sk-or-v1-abc").unwrap(), "sk-or-v1-abc");
+        assert!(validate_key(Provider::OpenRouter, "sk-abc").is_err());
+        assert_eq!(validate_key(Provider::Ollama, " http://192.168.1.20:11434/ ").unwrap(), "http://192.168.1.20:11434");
+        assert_eq!(validate_key(Provider::Ollama, "https://ollama.example.org").unwrap(), "https://ollama.example.org");
+        for bad in ["localhost:11434", "ftp://x", "http://", "http:///x", "http://a b"] {
+            assert!(validate_key(Provider::Ollama, bad).is_err(), "{bad}");
+        }
+        assert_eq!(hint(Provider::Ollama, "http://me:pw@192.168.1.20:11434/v1"), "192.168.1.20:11434");
+        assert_eq!(hint(Provider::Xai, "xai-abcdWXYZ"), "WXYZ");
+        assert_eq!(validate_model(" qwen2.5:7b ").unwrap(), "qwen2.5:7b");
+        assert!(validate_model("").is_err() && validate_model("two words").is_err() && validate_model(&"m".repeat(101)).is_err());
+        assert!(Provider::ALL.iter().all(|p| p.takes_url() == (*p == Provider::Ollama)));
     }
 
     #[test]

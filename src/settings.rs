@@ -1,7 +1,7 @@
 //! Server-wide settings the owner changes on the Manage Users page (table
-//! `settings`, one row per name, #25). Today one: [`AI_OFF`], the switch
-//! that hides every AI feature for every account. A name with no row has
-//! its default.
+//! `settings`, one row per name, #25): [`AI_OFF`], the switch that hides
+//! every AI feature for every account, and [`OLLAMA_MODEL`]. A name with no
+//! row has its default.
 
 use rusqlite::{params, Connection, OptionalExtension};
 
@@ -9,6 +9,10 @@ use rusqlite::{params, Connection, OptionalExtension};
 /// and translation for everyone, and their routes refuse
 /// (`CurrentUser::require_ai`). No row, or `0`: shown.
 pub const AI_OFF: &str = "ai_off";
+
+/// The model the Ollama-compatible server runs (#24), set with its base URL
+/// on Manage Users (`secrets::validate_model`). No row: `ai::OLLAMA_DEFAULT_MODEL`.
+pub const OLLAMA_MODEL: &str = "ollama_model";
 
 /// The stored value of a setting; `None` when it was never set.
 pub fn get(conn: &Connection, name: &str) -> rusqlite::Result<Option<String>> {
