@@ -260,7 +260,7 @@ other values of the setting:
 
 | `SKRONGLE_SIGNUP` | Who may register |
 |---|---|
-| `open` (unset) | Anyone who can reach the server. |
+| `open` (unset) | Anyone who can reach the server. The first account made is the owner's. |
 | `invite` | The first account (the owner's, through the owner link in the log), then only through an invitation link. |
 | `closed` | The first account (the owner's, through the owner link in the log), then nobody. |
 

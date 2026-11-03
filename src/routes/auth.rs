@@ -230,7 +230,7 @@ pub async fn register_form(State(state): State<Arc<AppState>>, MaybeUser(user): 
         age: false,
         share,
         invite: if matches!(admitted, Admit::Invited(_) | Admit::Owner(_)) { invite } else { String::new() },
-        owner_note: matches!(admitted, Admit::Owner(_)),
+        owner_note: matches!(admitted, Admit::Owner(_) | Admit::FirstOpen),
     })
     .into_response())
 }
@@ -341,7 +341,7 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
         None
     };
     // A form error on an empty server still says whose account this is (#665).
-    let owner_note = matches!(admitted, Some(Admit::Owner(_)));
+    let owner_note = matches!(admitted, Some(Admit::Owner(_) | Admit::FirstOpen));
     let fail = |msg: String| {
         Page(RegisterTemplate {
             user: None,

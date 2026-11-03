@@ -652,21 +652,26 @@ fn closed_signup_lets_only_the_owner_in() {
     assert_eq!(r.status().as_u16(), 404);
 }
 
-/// With the setting unset (`open`), nothing changes: anyone registers,
-/// and the first account is an ordinary one.
+/// With the setting unset (`open`), anyone registers, and the first
+/// account made is the owner's: the page says so while the server is empty.
 #[test]
-fn open_signup_is_unchanged() {
+fn open_signup_makes_the_first_account_the_owner() {
     let (_rt, state, base) = signup_server(crate::signup::Mode::Open);
     let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
     let page = agent.get(&format!("{base}/register")).call().unwrap().body_mut().read_to_string().unwrap();
-    assert!(page.contains("register-form") && !page.contains("register-owner-note"));
+    assert!(page.contains("register-form") && page.contains("register-owner-note"));
     for email in ["a@example.org", "b@example.org"] {
         let form = [("email", email), ("password", "long-enough-pw"), ("age", "on")];
         // 303: signed in, on to home.
         assert_eq!(agent.post(&format!("{base}/register")).send_form(form).unwrap().status().as_u16(), 303);
     }
-    let su: i64 = state.db.with(|c| c.query_row("SELECT COUNT(*) FROM users WHERE owner = 1", [], |r| r.get(0))).unwrap();
-    assert_eq!(su, 0);
+    let page = agent.get(&format!("{base}/register")).call().unwrap().body_mut().read_to_string().unwrap();
+    assert!(!page.contains("register-owner-note"), "the note goes once an account exists");
+    let owners: Vec<String> = state
+        .db
+        .with(|c| c.prepare("SELECT email FROM users WHERE owner = 1")?.query_map([], |r| r.get(0))?.collect())
+        .unwrap();
+    assert_eq!(owners, ["a@example.org"]);
 }
 
 /// A server whose proxy sign-in (#642) trusts `from` (`None`: off),
