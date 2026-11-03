@@ -5,8 +5,6 @@
 # secret that encrypts stored API keys (created next to the database)
 *.db.key
 .env
-# deployment secrets (template: deploy/deploy.env.example)
-deploy/deploy.env
 .DS_Store
 /dist
 # local testing (./.dev-start): captured LLM requests, background server state

@@ -145,10 +145,6 @@ scripts/package-release.sh 0.2.0 aarch64    # the release tarball
 ```
 
 Release tarballs are built by CI on a `v*` tag (`.github/workflows/release.yml`).
-`scripts/release.sh` deploys a checkout to a Pi over ssh (settings in
-`deploy/deploy.env`, template in `deploy/deploy.env.example`): it
-cross-compiles, copies the binary and `data/`, installs the unit and the
-nginx snippets, restarts and checks `/healthz`.
 
 ## Configuration
 

@@ -4,8 +4,7 @@
 # and the three SKRONGLE_ lines below are the mini's defaults. The release
 # tarball unpacked into /opt/skrongle, the database in /var/lib/skrongle, the
 # app on port 8080 of every network interface. Change a setting in
-# /etc/skrongle/env, not here. spanish-learning.service is the maintainer's
-# own Pi behind nginx.
+# /etc/skrongle/env, not here.
 #
 #   sudo mkdir -p /etc/skrongle
 #   sudo cp /opt/skrongle/skrongle.service /etc/systemd/system/

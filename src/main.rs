@@ -663,12 +663,11 @@ mod tests {
     }
 
     /// The old prefix appears only where it is still read (#584): the
-    /// fallback here, the deploy scripts that rename it (deploy.env
-    /// leftovers), and the docs that
+    /// fallback here, the update script that renames it, and the docs that
     /// tell people to rename theirs. Remove this list with the fallback.
     #[test]
     fn the_old_prefix_does_not_come_back() {
-        let allowed = ["src/main.rs", "docs/self-hosting.md", "docs/architecture.md", "scripts/deploy-env.sh", "scripts/deploy.sh", "deploy/update.sh"];
+        let allowed = ["src/main.rs", "docs/self-hosting.md", "docs/architecture.md", "deploy/update.sh"];
         let needle = concat!("LEA", "RN_");
         let root = env!("CARGO_MANIFEST_DIR");
         let Ok(out) = std::process::Command::new("git").args(["-C", root, "ls-files", "-z"]).output() else {

@@ -324,7 +324,6 @@ on the server (`curl -fsSL https://tailscale.com/install.sh | sh`, then
 
 For a public site, put a TLS proxy (nginx, Caddy) in front, set
 `SKRONGLE_BIND=127.0.0.1:8080`, `SKRONGLE_SECURE_COOKIES=1` and `SKRONGLE_PUBLIC_URL`.
-`deploy/nginx-spanish.conf` is a working nginx example.
 
 Anything that faces the internet should sit behind such a proxy, even
 without HTTPS. The app has only coarse protection. It closes a connection

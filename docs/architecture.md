@@ -57,7 +57,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 
 ### Elsewhere
 
-- `data/courses/` built-in courses, `docs/` these pages, `i18n/` app text, `e2e/` browser tests, `scripts/` tooling, `deploy/` systemd and nginx.
+- `data/courses/` built-in courses, `docs/` these pages, `i18n/` app text, `e2e/` browser tests, `scripts/` tooling, `deploy/` the systemd unit and update script.
 
 ## Modules
 
@@ -164,8 +164,8 @@ docs/            this documentation (compiled in, served at /docs)
 data/courses/    built-in courses: <id>/course.json + lessons/**.json + pictures/**.svg
 data/test-courses/  courses for automated tests, loaded only with TEST_COURSE=1 (see testing.md, "The test course")
 data/test-fixtures/llm/  canned model replies the dev AI provider answers from, one <purpose>.json per call site
-deploy/          systemd unit + nginx snippets
-scripts/         release.sh (one-shot), build-pi.sh (cross-compile), deploy.sh, dev-progress.sh, smoke.sh (local smoke test)
+deploy/          the systemd unit and update.sh of the release tarball
+scripts/         build-pi.sh (cross-compile), package-release.sh, dev-progress.sh, smoke.sh (local smoke test)
 ```
 
 ## Request flow
@@ -606,14 +606,9 @@ client (`ai::chat`) serves the AI tutor with a multi-turn transcript.
 
 ## Deploying
 
-`deploy/deploy.env` (gitignored; template `deploy/deploy.env.example`
-documents every variable) holds the settings for the deploy; a variable
-exported from the shell overrides the file (`scripts/deploy-env.sh`).
-`scripts/deploy-all.sh` runs the tests, cross-compiles once for aarch64 and
-calls the per-target script:
-
-- **Pi / DietPi:** `scripts/release.sh` → `scripts/deploy.sh`: rsync + systemd
-  unit + nginx snippets, `/etc/spanish-learning/env` for the public URL. Read-only install, database in `/var/lib/spanish-learning`.
+A release is a tarball built by CI on a `v*` tag (`scripts/package-release.sh`,
+`.github/workflows/release.yml`); a self-hoster unpacks it and runs
+`deploy/skrongle.service` (`docs/self-hosting.md`). Read-only install, database in `/var/lib/skrongle`.
 
 User-made courses live in the database, so the install needs no other
 writable path, and a release never touches the database.
