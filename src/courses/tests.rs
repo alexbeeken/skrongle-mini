@@ -454,28 +454,54 @@ fn a_copy_has_every_file_under_its_own_id() {
     .unwrap();
 }
 
-/// #366: the cache of user-made courses keeps the most recently used ones
-/// within its byte budget; the course just added always stays.
+/// #33: the course cache keeps at most `MAX_STORES` built courses, least
+/// recently used out first; the course just added always stays.
 #[test]
 fn the_course_cache_drops_the_least_recently_used() {
     let store = |id: &str| Arc::new(ContentStore::from_files(&starter_files(id, "C")).unwrap());
-    let mut cache = Cache::default();
-    cache.insert("a", store("a"), 40, 100);
-    cache.insert("b", store("b"), 40, 100);
+    let mut cache = Cache { max_entries: 2, ..Cache::default() };
+    cache.insert("a", store("a"));
+    cache.insert("b", store("b"));
     assert!(cache.get("a").is_some(), "a is now the most recently used");
-    cache.insert("c", store("c"), 40, 100);
+    cache.insert("c", store("c"));
     assert!(cache.get("b").is_none(), "b was the least recently used");
     assert!(cache.get("a").is_some() && cache.get("c").is_some());
-    assert_eq!(cache.bytes, 80);
     // Replacing an entry does not count it twice.
-    cache.insert("c", store("c"), 50, 100);
-    assert_eq!(cache.bytes, 90);
-    // A course over the whole budget stays alone.
-    cache.insert("big", store("big"), 500, 100);
-    assert_eq!((cache.entries.len(), cache.bytes), (1, 500));
-    assert!(cache.get("big").is_some());
-    cache.remove("big");
-    assert_eq!((cache.entries.len(), cache.bytes), (0, 0));
+    cache.insert("c", store("c"));
+    assert_eq!(cache.entries.len(), 2);
+    // The store just put in stays, whatever the bound.
+    let mut tiny = Cache { max_entries: 0, ..Cache::default() };
+    tiny.insert("x", store("x"));
+    assert!(tiny.get("x").is_some());
+}
+
+/// #33: with 9 courses opened in turn, 8 stay built and the oldest is built
+/// again on its next use.
+#[test]
+fn nine_courses_keep_eight_built() {
+    assert_eq!(MAX_STORES, 8);
+    let rt = tokio::runtime::Builder::new_current_thread().enable_all().build().unwrap();
+    let db = crate::db::Db::open_in_memory().unwrap();
+    let registry = Courses::empty();
+    let ids: Vec<String> = (0..9).map(|i| format!("c{i}-abc123")).collect();
+    db.with(|c| {
+        let uid = crate::auth::create_user(c, "ann@example.org", "h")?;
+        for id in &ids {
+            create_course(c, uid, id, "C", &starter_files(id, "C"))?;
+        }
+        Ok(())
+    })
+    .unwrap();
+    let first = rt.block_on(registry.get(&db, &ids[0])).unwrap().unwrap();
+    for id in &ids[1..] {
+        rt.block_on(registry.get(&db, id)).unwrap().unwrap();
+        assert!(registry.lock().entries.len() <= MAX_STORES);
+    }
+    assert_eq!(registry.lock().entries.len(), MAX_STORES);
+    assert!(registry.lock().get(&ids[0]).is_none(), "the oldest was dropped");
+    let again = rt.block_on(registry.get(&db, &ids[0])).unwrap().unwrap();
+    assert!(!Arc::ptr_eq(&first, &again), "and is built again on its next use");
+    assert!(registry.lock().get(&ids[1]).is_none(), "which pushed out the next oldest");
 }
 
 /// #380: a course whose manifest names another course's id does not
@@ -522,7 +548,7 @@ fn builtin_courses_are_built_on_first_use() {
     let second = &built.units()[levels[1].0].id;
     assert_eq!(summary.start_index(second), built.start_index(second));
     assert_eq!(summary.placement_offered(), crate::placement::offered(&built));
-    assert_eq!(registry.lock().entries.keys().collect::<Vec<_>>(), ["spanish"], "only the course asked for");
+    assert_eq!(registry.lock().entries.keys().collect::<Vec<_>>(), [&"spanish".to_string()], "only the course asked for");
     let again = rt.block_on(registry.get(&db, "spanish")).unwrap().unwrap();
     assert!(Arc::ptr_eq(&built, &again), "the second request is served from the cache");
 

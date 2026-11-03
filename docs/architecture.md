@@ -849,8 +849,9 @@ writable path, and a release never touches the database.
   per account (`courses::Limits`, checked by `courses::room_for` in the same
   `Db::call` that writes). One account may write course files 120 times in
   5 minutes (`security::COURSE_WRITES_PER_USER`). The cache of built
-  user-made courses keeps at most 24 MiB of their files, least recently
-  used out first. Lesson Markdown is rendered by pulldown-cmark; raw HTML in
+  courses (built-in and user-made) keeps at most 8
+  of them (`courses::MAX_STORES`, one active course per account), least
+  recently used out first. Lesson Markdown is rendered by pulldown-cmark; raw HTML in
   Markdown is escaped (shown as text) and links or images with a scheme
   other than http(s) or mailto point to `#` (`content::render_markdown`),
   so a hostile upload or an AI misled by pasted material cannot put script
