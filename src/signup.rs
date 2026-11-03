@@ -61,7 +61,7 @@ impl Mode {
     /// The startup log line.
     pub fn describe(self) -> &'static str {
         match self {
-            Mode::Open => "sign-up: open, anyone who reaches the server may register (SKRONGLE_SIGNUP)",
+            Mode::Open => "sign-up: open, anyone who reaches the server may register; the first account is the owner's (SKRONGLE_SIGNUP)",
             Mode::Invite => "sign-up: by invitation; the first account is the owner's, made through the owner link, and makes the links (SKRONGLE_SIGNUP)",
             Mode::Closed => "sign-up: closed; only the first account, the owner's, may be made, through the owner link (SKRONGLE_SIGNUP)",
         }
@@ -83,8 +83,11 @@ pub enum Invite {
 /// Why a new account may be made.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Admit {
-    /// `open` mode.
+    /// `open` mode, with accounts already on the server.
     Open,
+    /// `open` mode and no account yet: this one is the owner's, no link
+    /// needed, so a server that starts open always has an owner.
+    FirstOpen,
     /// No account yet, in `invite` or `closed` mode, through the owner's
     /// link (its id): this one is the owner.
     Owner(i64),
@@ -163,7 +166,7 @@ pub fn admit(conn: &Connection, mode: Mode, invite: &str, _email: Option<&str>, 
         return Ok(Err(Refusal::Full));
     }
     if mode == Mode::Open {
-        return Ok(Ok(Admit::Open));
+        return Ok(Ok(if no_accounts(conn)? { Admit::FirstOpen } else { Admit::Open }));
     }
     if no_accounts(conn)? {
         // Only the owner's link; an old or wrong one says where to find it.
@@ -199,6 +202,7 @@ pub fn finish(conn: &Connection, admitted: Admit, user_id: i64, now: i64) -> rus
     };
     let ok = match admitted {
         Admit::Open => true,
+        Admit::FirstOpen => conn.execute("UPDATE users SET owner = 1 WHERE id = ?1 AND (SELECT COUNT(*) FROM users) = 1", [user_id])? == 1,
         Admit::Owner(id) => use_up(id)? && conn.execute("UPDATE users SET owner = 1 WHERE id = ?1 AND (SELECT COUNT(*) FROM users) = 1", [user_id])? == 1,
         Admit::Invited(id) => use_up(id)?,
     };
@@ -424,6 +428,12 @@ mod tests {
         .unwrap();
         let db = Db::open_in_memory().unwrap();
         db.with(|c| {
+            // The first account on an open server is the owner's; the next is not.
+            assert_eq!(admit(c, Mode::Open, "", None, 1, false)?, Ok(Admit::FirstOpen));
+            let first = crate::auth::create_user(c, "first@example.org", "h")?;
+            assert!(finish(c, Admit::FirstOpen, first, 1)?);
+            let owner: bool = c.query_row("SELECT owner FROM users WHERE id = ?1", [first], |r| r.get(0))?;
+            assert!(owner, "the first account on an open server is the owner's");
             assert_eq!(admit(c, Mode::Open, "", None, 1, false)?, Ok(Admit::Open));
             let id = crate::auth::create_user(c, "a@example.org", "h")?;
             finish(c, Admit::Open, id, 1)?;
