@@ -33,10 +33,7 @@ paths:
   evidence (usually the fix); a CHECK is a doubt to verify. A finding that
   is right after all goes in `data/courses/<id>/fact-check-ok.txt`. After
   changing the questions or `JEV_MODEL`, rerun `--calibrate`.
-- `docs/testing.md` "Plagiarism check" — `scripts/plagiarism-check.sh`: briefs may
-  not tell an agent to imitate a product; run it after changing course content.
 
 ```sh
 scripts/fact-check.sh [course…]    # after content changes: Jev judges every lesson item, prints what is likely wrong
-scripts/plagiarism-check.sh [course…]   # after content changes: briefs lint, shingle overlap, Jev recognises published text (--prefilter-only needs no key)
 ```

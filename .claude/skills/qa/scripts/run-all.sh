@@ -68,11 +68,10 @@ fi
 run_queue
 if has content; then
   run fact-check scripts/fact-check.sh
-  run plagiarism scripts/plagiarism-check.sh
 fi
 
 echo
 echo "running: ${PIDS[*]:-nothing (dry run)}"
-echo "wait for them with: while pgrep -qf 'e2e-explore|jev-playthrough|e2e-jev|fact-check|plagiarism-check'; do sleep 30; done"
+echo "wait for them with: while pgrep -qf 'e2e-explore|jev-playthrough|e2e-jev|fact-check'; do sleep 30; done"
 echo "reports: e2e/results/explore/<profile>-<timestamp>/report.md, e2e/results/playthrough/<timestamp>-{all,test-course}/summary.md,"
 echo "         $LOG/playwright-chain.log (explore summaries and the journeys' step logs)"

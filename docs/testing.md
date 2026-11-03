@@ -1360,7 +1360,7 @@ scripts/ci-runners.sh reset    # also delete the work volumes (a clean build nex
   wants a PR, up to date with main, with `cargo test`, `server smoke test
   (scripts/smoke.sh)`, `e2e exact specs` and `e2e smoke specs` green; a
   repository admin can bypass it. The other workflows (`pr-title`,
-  `terms-lint`, `plagiarism`, `release`) are not required.
+  `terms-lint`, `release`) are not required.
 - **Builds stay on the runner**: each runner's work volume holds its Rust
   build at `CARGO_TARGET_DIR=/_work/cargo-target` (set in `compose.yml`),
   outside the checkout, so `actions/checkout`'s `git clean -ffdx` leaves it
@@ -1645,67 +1645,3 @@ run's answers stable.
 To try it on content you have altered, copy a course to a folder and point
 `FACT_CHECK_COURSES` at the folder that holds it; `FACT_CHECK_SEED` changes
 the calibration sample.
-
-## Plagiarism check
-
-`scripts/plagiarism-check.sh` asks whether the built-in courses (and, with
-`--test-course`, the test course) are original. Fact checking asks whether
-content is right; this asks where it came from. It reports **similarity
-risk**, not infringement: grammar rules, conjugation tables and textbook-
-standard examples are free to use, and what can be copied is wording, and the
-selection and order of items.
-
-```sh
-scripts/plagiarism-check.sh                       # lint + pre-filter + Jev, every course
-scripts/plagiarism-check.sh spanish --lesson a2/  # one course, some lessons
-scripts/plagiarism-check.sh --prefilter-only      # free, no key (what CI always runs)
-scripts/plagiarism-check.sh --sources refs/       # also match against reference texts
-scripts/plagiarism-check.sh --why --json out.json # ok-list lines, JSON report
-scripts/plagiarism-check.sh --calibrate           # how well it works, today
-```
-
-Three layers, cheapest first:
-
-1. **Brief lint** (free). No README, doc, `AUTHORING.md`, script or prompt in
-   `src/` may name a course product (the list is `e2e/plagiarism/products.ts`,
-   base64 so the repo names none in plain text) next to an imitation word
-   or "X-style". Describe the mechanic instead ("short
-   exercises"). A reviewed line goes in `scripts/provenance-lint-ok.txt` as
-   `path: the line`.
-2. **Shingle overlap** (free). 6-word shingles of every passage against the
-   `--sources` texts (a file or folder of `.txt`, `.md` or `.json` lists of
-   `{name, text}`), and between lessons of the same course (`REPEAT`, only
-   runs of 10+ words; self-overlap, not provenance). It finds verbatim and
-   near-verbatim reuse, never a paraphrase. Only use texts we may use:
-   public domain, openly licensed (Tatoeba is CC-BY, so a match also means
-   attribution), or excerpts the maintainer holds legitimately and keeps in a
-   gitignored folder. Never scrape a competitor's product.
-3. **Jev** (cents, cached by content). For each passage (a content section, a
-   conversation, a whole exercise list; passages under 12
-   words are generic and skipped) Jev says whether it recognises the text
-   from a published source, whether the wording is distinctive, whether the
-   selection mirrors one source, and which kind of source. Jev has no web
-   access, so it cannot cite anything.
-
-**CHECK**: Jev recognises it (copied ≥ 0.8, distinctive ≥ 0.7, a source kind
-other than none), or a 12+ word run is shared with a reference. A person
-looks, searches the web for the distinctive sentences, and either rewrites
-the passage or lists it. **ERROR**: a shared run *and* Jev finds the wording
-distinctive. A passage reviewed and found original goes in
-`data/courses/<id>/plagiarism-ok.txt` (`--why` prints the line; add
-`# who, when, why`); it is skipped until its text changes. Thresholds are in
-`e2e/plagiarism/probe.ts` (`T`); bump `PROMPT_VERSION` when the questions
-change.
-
-`--calibrate` measures the pre-filter (our own passages, verbatim and
-lightly edited) and Jev (ten public-domain Spanish passages as known-
-published text, against the course's own passages as presumed original). The
-recall it prints overstates recall on a modern app's exercises, which Jev has
-seen far less of, and a clean run is weak evidence: in-app and paywalled
-content is not indexed anywhere. It catches lazy copying. It does not
-prove originality.
-
-CI (`.github/workflows/plagiarism.yml`) runs the free layers on every PR that
-touches course content or docs, and Jev too when the
-`TYPESAFE_API_KEY` secret exists. Run the full check and `--calibrate` before
-a release.

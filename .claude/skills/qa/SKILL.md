@@ -78,7 +78,7 @@ scripts share `./playthrough-<mode>.db`, so they are a second chain
 | `playthrough` | `scripts/jev-playthrough-all.sh` | the whole Spanish course in Sprint, Study and Play as a new account: broken pages, progress pages that disagree, lessons a learner can't pass, phases that get stuck |
 | `test-course` | `scripts/jev-playthrough-test-course.sh` | the same for the test course, so every quiz type, exercise and Guide step is met once |
 | `journeys` | `scripts/e2e-jev.sh` | the essential flows in `e2e/journeys.ts` and the judged specs; a failing journey is a regression |
-| `content` | `scripts/fact-check.sh`, `scripts/plagiarism-check.sh` | wrong facts in course content (ERROR with a fix, CHECK to verify), copied text |
+| `content` | `scripts/fact-check.sh` | wrong facts in course content (ERROR with a fix, CHECK to verify), copied text |
 
 `ONLY="explore journeys"` picks groups; `LESSONS=5` caps the playthroughs
 for a quick pass; `PROFILES="impatient"` picks personas. When the user asks

@@ -22,7 +22,7 @@ Read `docs/` before changing anything substantial:
 
 Rules for one area live in `.claude/rules/` and load when you open a
 matching file: `content.md` (course files, the format contract, the test
-course, fact and plagiarism checks), `i18n.md` (app text), `ui.md`
+course, fact check), `i18n.md` (app text), `ui.md`
 (information behind icons), `e2e.md` (testids, journeys, model
 call fixtures, Jev scripts). They don't load on their own in a worktree
 other than the one the session started in, so read the ones for your area.
@@ -86,7 +86,7 @@ other than the one the session started in, so read the ones for your area.
 locally before pushing just to see them pass: push, then read the PR's
 checks (`gh pr checks`) and fix what fails. Locally, `cargo build` (it
 compiles) and the one test or spec you are debugging are enough. Checks
-CI does not run (Jev journeys, fact check, plagiarism check, playthroughs)
+CI does not run (Jev journeys, fact check, playthroughs)
 are still yours to run when the change calls for them.
 
 CI is for finding failures, not debugging them: its jobs keep output
