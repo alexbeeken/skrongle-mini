@@ -38,8 +38,7 @@ it; the app has no other release channel yet.
 
 ## Scope notes
 
-`docs/security-review.md` lists what has been reviewed, what was fixed and the
-risks we knowingly accept (for example: dev mode `SKRONGLE_DEV=1` is for a
-laptop only, and anyone with root on a server can read its saved API keys).
-Reports about an accepted risk are still welcome when you see a way to make it
-worse than described there.
+Some risks are accepted knowingly (for example: dev mode `SKRONGLE_DEV=1` is
+for a laptop only, and anyone with root on a server can read its saved API
+keys). Reports about an accepted risk are still welcome when you see a way to
+make it worse than described.

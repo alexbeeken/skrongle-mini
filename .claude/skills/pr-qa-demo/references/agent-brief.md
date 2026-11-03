@@ -49,10 +49,7 @@ step, so a page you didn't need costs you all run.
   `.claude/rules/*.md` files for the areas the PR touches, not all of them (`e2e.md`
   when you write a persona or spec, `i18n.md` when the PR adds text, `content.md` for
   course files, `ui.md` for icons and modals).
-- `docs/qa.md` sections 1 (claims), 3 (Jev) and 5 (fix, file or note), and its "Summary
-  template" (`sed -n '/^## Summary template/,/^## Efficiency/p' docs/qa.md`). Skip
-  section 4, the spec-writing pass: write a spec only to guard a bug you fix. This brief
-  replaces the rest.
+- Write a spec only to guard a bug you fix. This brief covers the rest.
 - The PR: `gh api repos/{owner}/{repo}/pulls/<N> --jq '{title, body, base: .base.ref, head: .head.ref}'`
   and its files, `gh api --paginate repos/{owner}/{repo}/pulls/<N>/files --jq '.[].filename'`.
 - The diff: `git diff origin/main...origin/<head>`. Read it, because the body never says
@@ -124,7 +121,7 @@ cd $WT/e2e && E2E_BASE_URL=<url> JEV_EXPLORE_FILE=$WT/e2e/personas/_qa-pr<N>.ts 
   zsh -ic 'npx playwright test --grep @explore --reporter list'
 ```
 
-Beyond the checklist, spend a little time on what docs/qa.md lists: the states the body
+Beyond the checklist, spend a little time on the states the body
 doesn't mention (owner-only, no JavaScript, phone width, doing it twice) and every consumer
 of a new state. Run the PR's own specs or tests (`scripts/e2e.sh specs/<file>`,
 `cargo test <name>`), so the verdict rests on more than the happy path. Also check the
@@ -265,7 +262,7 @@ commits, give the commit you did check, and say so.
 
 Post the report with
 `gh api repos/{owner}/{repo}/issues/<N>/comments -F body=@$S/report-pr<N>.md --jq .html_url`
-and keep the URL it prints. Use docs/qa.md's summary template, starting with the title
+and keep the URL it prints. Start with the title
 line `## QA: PR #<N> <title>` (the coordinator finds reports by it). Right under the
 verdict, add the line
 

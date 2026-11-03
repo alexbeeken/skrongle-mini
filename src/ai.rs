@@ -1366,7 +1366,7 @@ pub fn is_internal_ip(ip: std::net::IpAddr) -> bool {
 ///
 /// Known gap: the host is resolved again when the request is made, so a DNS
 /// server that answers differently the second time (rebinding) can still
-/// reach an internal address; see docs/security-review.md.
+/// reach an internal address.
 pub async fn check_base_url(url: &str, allow_private: bool) -> Result<(), String> {
     let Some((host, port)) = url_host_port(url) else {
         return Err("The base URL must be an http:// or https:// address, without a user name or password.".into());

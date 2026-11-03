@@ -741,10 +741,6 @@ scripts/e2e.sh --grep "reading check"   # any Playwright option works with e2e.s
 npx --prefix e2e playwright show-report e2e/results/report   # after a failure: steps, trace, screenshot
 ```
 
-What the specs cover and miss, and which files CI runs: the
-[E2E coverage audit](e2e-audit) (`python3 scripts/e2e-audit.py --write`
-refreshes its numbers).
-
 [Playwright](https://playwright.dev) drives headless Chromium against a fresh
 server, started the way `scripts/smoke.sh` starts one: its own `./e2e.db`, a
 free port, the seeded dev user (with the simulator's keys) and model calls
