@@ -1,8 +1,7 @@
 # Working on Skrongle
 
 A self-hosted learning app (Rust, axum, SQLite, askama) driven by JSON
-courses, built for one small box such as a Raspberry Pi Zero 2 W. Session habits that keep
-the context small are in `docs/dev.md` "Working with Claude".
+courses, built for one small box such as a Raspberry Pi Zero 2 W.
 When compacting, keep the issue number, the list of files changed and the
 test or spec commands used.
 

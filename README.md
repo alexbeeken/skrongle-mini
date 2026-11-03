@@ -61,7 +61,7 @@ The documentation lives in `docs/` and is served by the app at `/docs`, so a
 page can be handed to a person or an LLM. `/docs` opens on the user guides
 (getting started, how a course is built, building and generating courses,
 FAQ); developer pages are in their own section
-([docs/dev.md](docs/dev.md)); `/llms.txt` lists what an LLM needs to write a
+([docs/architecture.md](docs/architecture.md)); `/llms.txt` lists what an LLM needs to write a
 course.
 
 - **[docs/course-format.md](docs/course-format.md)** — the complete course
@@ -99,8 +99,7 @@ scripts/dev-progress.sh complete all   # fake "completed" lessons in ./dev.db (u
 cargo test               # unit tests (content loading, mastery maths, grading, migrations, courses)
 scripts/smoke.sh         # fresh server + fixtures: main pages and one AI generation over HTTP
 scripts/e2e.sh           # headless browser tests (Playwright, Node 22+); see docs/testing.md
-scripts/e2e-jev.sh       # just the Jev-driven browser tests (needs a Jev key, below)
-scripts/fact-check.sh    # Jev reads every built-in lesson and reports what is likely wrong (needs the key)
+scripts/e2e-jev.sh       # just the optional model-judged browser tests (needs a Jev key, below)
 cargo build --release    # hardened release profile (fat LTO, 1 codegen unit, stripped, panic=abort)
 ```
 
@@ -122,8 +121,8 @@ in a deploy. Keep it in a git-ignored `.env` at the repo root (or
 TYPESAFE_API_KEY=...        # from https://console.typesafe.ai/keys
 ```
 
-Only `scripts/e2e.sh`, `scripts/e2e-jev.sh`, `scripts/e2e-explore.sh` and
-`scripts/fact-check.sh` read it, and they pass it to
+Only `scripts/e2e.sh`, `scripts/e2e-jev.sh` and
+`scripts/e2e-explore.sh` read it, and they pass it to
 the test runner, not to the server. `./.dev-start` and the app ignore `.env`.
 Without the key, `scripts/e2e.sh` skips the Jev tests and `scripts/e2e-jev.sh`
 stops and says where to put it. `e2e/.env.example` lists the optional Jev

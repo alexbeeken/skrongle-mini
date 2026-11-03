@@ -43,4 +43,4 @@ invitation link or proxy sign-in, until an account is deleted. See
 Yes, through `/api/progress`. Give the agent [Progress across modes](progress).
 
 **I'm a developer. Where are the code docs?**
-[Developer documentation](dev).
+[Architecture](architecture).

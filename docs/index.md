@@ -38,5 +38,5 @@ Every page here is also raw Markdown. Add `.md` to its address.
 
 ## For developers
 
-Working on the code? See [Developer documentation](dev): architecture,
-testing, QA and the security review.
+Working on the code? See [Architecture](architecture) and
+[Testing locally](testing).
