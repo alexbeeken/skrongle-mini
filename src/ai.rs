@@ -1629,7 +1629,6 @@ enum Failure {
     TurnedDown,
     ProviderError,
     Unreachable,
-    Declined,
 }
 
 /// What the providers say when an account's money or quota is used up:
@@ -1653,7 +1652,6 @@ fn failure_kind(raw: &str) -> Option<Failure> {
         Some(400 | 404) => Failure::TurnedDown,
         Some(_) => Failure::ProviderError,
         None if raw.starts_with("request failed") => Failure::Unreachable,
-        None if raw.contains("declined") => Failure::Declined,
         None if ["JSON", "no text", "did not validate", "does not load", "no lessons", "slug '", "reply"].iter().any(|w| raw.contains(w)) => Failure::Unusable,
         None => return None,
     })
@@ -1672,7 +1670,6 @@ pub fn plain_failure(raw: &str) -> Option<&'static str> {
         Failure::TurnedDown => "Writing your course stopped. The AI provider turned the request down. Try again; if it stops again, check the key on your profile page.",
         Failure::ProviderError => "Writing your course stopped. The AI provider answered with an error. Try again.",
         Failure::Unreachable => "Writing your course stopped. The AI provider didn't answer in time or couldn't be reached. Try again in a minute.",
-        Failure::Declined => "Writing your course stopped. The AI declined to write this course. Try rewording your wish.",
     })
 }
 
@@ -1687,7 +1684,6 @@ pub fn plain_revision_failure(raw: &str) -> Option<&'static str> {
         Failure::TurnedDown => "The AI provider turned the request down. Check the model on your profile page. The course is unchanged.",
         Failure::ProviderError => "The AI provider answered with an error. Try again. The course is unchanged.",
         Failure::Unreachable => "The AI provider didn't answer in time or couldn't be reached. Try again in a minute. The course is unchanged.",
-        Failure::Declined => "The AI declined. Try saying it differently. The course is unchanged.",
     })
 }
 
