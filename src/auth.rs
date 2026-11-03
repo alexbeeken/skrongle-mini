@@ -10,7 +10,7 @@ use axum::http::{HeaderMap, HeaderValue};
 use rusqlite::{params, Connection, OptionalExtension};
 use std::sync::Arc;
 
-use crate::db::now;
+use crate::db::{now, CachedSql};
 use crate::error::AppError;
 use crate::AppState;
 
@@ -335,7 +335,7 @@ fn session_sql() -> String {
 /// The user of the session whose token hashes to `hash`, at time `now`,
 /// and when that session expires.
 fn read_session(conn: &Connection, hash: &str, now: i64) -> rusqlite::Result<Option<(CurrentUser, i64)>> {
-    conn.query_row(
+    conn.query_row_cached(
         &session_sql(),
         params![hash, now],
         |r| {

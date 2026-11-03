@@ -11,7 +11,7 @@ use rusqlite::{params, Connection};
 use std::collections::HashMap;
 use std::sync::Arc;
 
-use crate::db::now;
+use crate::db::{now, CachedSql};
 
 pub mod cache;
 
@@ -217,7 +217,7 @@ pub fn load_one(conn: &Connection, user_id: i64, course_id: &str, lesson_id: &st
     if let Some(held) = cache::current().and_then(|c| c.get_one(user_id, course_id, lesson_id)) {
         return Ok(held);
     }
-    conn.query_row(
+    conn.query_row_cached(
         &format!("SELECT {COLS} FROM user_progress WHERE user_id = ?1 AND course_id = ?2 AND lesson_id = ?3"),
         params![user_id, course_id, lesson_id],
         row,
@@ -228,7 +228,7 @@ pub fn load_one(conn: &Connection, user_id: i64, course_id: &str, lesson_id: &st
 /// Write a lesson's progress row and update the [`cache`]: the one place
 /// a `user_progress` row is written (see `cache` for the others).
 pub fn save(conn: &Connection, user_id: i64, course_id: &str, p: &Progress) -> rusqlite::Result<()> {
-    conn.execute(
+    conn.execute_cached(
         "INSERT INTO user_progress
             (user_id, course_id, lesson_id, mastery_score, times_tested, times_correct, streak, last_practiced_at, read_at)
          VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9)
@@ -413,7 +413,7 @@ pub fn recent_mistakes(conn: &Connection, user_id: i64, course_id: &str, limit: 
 
 /// (answered, correct) counts since `since`.
 pub fn stats_since(conn: &Connection, user_id: i64, course_id: &str, since: i64) -> rusqlite::Result<(i64, i64)> {
-    conn.query_row(
+    conn.query_row_cached(
         "SELECT COUNT(*), COALESCE(SUM(was_correct), 0) FROM quiz_history
          WHERE user_id = ?1 AND course_id = ?2 AND answered_at >= ?3",
         params![user_id, course_id, since],

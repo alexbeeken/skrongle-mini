@@ -70,6 +70,36 @@ pub fn check_not_newer(path: &Path) -> Result<(), String> {
 mod migrations;
 use migrations::{MIGRATIONS, REBUILDS};
 
+/// Statements kept prepared on the connection (#3); rusqlite's default is 16,
+/// which the hot pages' statements evict from each other.
+const STATEMENT_CACHE: usize = 128;
+
+/// `execute` and `query_row` over a cached prepared statement: same
+/// arguments, but the SQL is compiled once and reused (#3).
+pub trait CachedSql {
+    fn execute_cached<P: rusqlite::Params>(&self, sql: &str, params: P) -> rusqlite::Result<usize>;
+    fn query_row_cached<T, P: rusqlite::Params, F: FnOnce(&rusqlite::Row<'_>) -> rusqlite::Result<T>>(
+        &self,
+        sql: &str,
+        params: P,
+        f: F,
+    ) -> rusqlite::Result<T>;
+}
+
+impl CachedSql for Connection {
+    fn execute_cached<P: rusqlite::Params>(&self, sql: &str, params: P) -> rusqlite::Result<usize> {
+        self.prepare_cached(sql)?.execute(params)
+    }
+    fn query_row_cached<T, P: rusqlite::Params, F: FnOnce(&rusqlite::Row<'_>) -> rusqlite::Result<T>>(
+        &self,
+        sql: &str,
+        params: P,
+        f: F,
+    ) -> rusqlite::Result<T> {
+        self.prepare_cached(sql)?.query_row(params, f)
+    }
+}
+
 impl Db {
     pub fn open(path: &Path) -> rusqlite::Result<Db> {
         let conn = Connection::open(path)?;
@@ -89,6 +119,7 @@ impl Db {
             Ok(0)
         })?;
         conn.execute_batch(&crate::auth::SessionCache::triggers_sql())?;
+        conn.set_prepared_statement_cache_capacity(STATEMENT_CACHE);
         Ok(Db { conn: Arc::new(Mutex::new(conn)), sessions, progress: Arc::default() })
     }
 

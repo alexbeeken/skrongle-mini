@@ -18,7 +18,7 @@ use serde::Serialize;
 use std::collections::HashMap;
 
 use crate::content::Lesson;
-use crate::db::now;
+use crate::db::{now, CachedSql};
 
 /// A run must score at least this percentage to pass the lesson.
 pub const PASS_PCT: i64 = 70;
@@ -213,7 +213,7 @@ pub fn passed_by_course(conn: &Connection, user_id: i64) -> rusqlite::Result<Has
 }
 
 pub fn load_one(conn: &Connection, user_id: i64, course_id: &str, lesson_id: &str) -> rusqlite::Result<Option<LessonPass>> {
-    conn.query_row(
+    conn.query_row_cached(
         &format!("SELECT {COLS} FROM lesson_passes WHERE user_id = ?1 AND course_id = ?2 AND lesson_id = ?3"),
         params![user_id, course_id, lesson_id],
         row,
@@ -231,7 +231,7 @@ pub fn passed_ids(conn: &Connection, user_id: i64, course_id: &str) -> rusqlite:
 }
 
 fn save(conn: &Connection, user_id: i64, course_id: &str, p: &LessonPass, at: i64) -> rusqlite::Result<()> {
-    conn.execute(
+    conn.execute_cached(
         "INSERT INTO lesson_passes
             (user_id, course_id, lesson_id, seen_at, seen_via, best_pct, best_via, passed_at, passed_via, runs, evidence, updated_at)
          VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12)

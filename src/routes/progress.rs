@@ -19,7 +19,7 @@ use std::sync::Arc;
 
 use crate::auth::Project;
 use crate::content::{ContentStore, Lesson};
-use crate::db::now;
+use crate::db::{now, CachedSql};
 use crate::error::AppError;
 use crate::mastery::{self, Status};
 use crate::progress::{self, LessonPass, Outcome};
@@ -368,7 +368,7 @@ pub const AGENT_ANSWERS_PER_DAY: i64 = 1000;
 
 /// Agent-graded answers this user recorded in the 24 hours before `now`.
 fn agent_answers_today(c: &rusqlite::Connection, user_id: i64, now: i64) -> rusqlite::Result<i64> {
-    c.query_row(
+    c.query_row_cached(
         "SELECT COUNT(*) FROM quiz_history WHERE user_id = ?1 AND answered_at > ?2 AND question_id LIKE 'agent:%'",
         rusqlite::params![user_id, now - 86_400],
         |r| r.get(0),
