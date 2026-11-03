@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # Cross-compile a release binary for the Raspberry Pi from macOS (Apple Silicon),
-# or for any 64-bit Linux (the release workflow runs it on Linux too).
+# or for any 64-bit Linux (the release workflow runs it on Linux too), with
+# cargo-zigbuild.
 #
 #   scripts/build-pi.sh                 # aarch64 (64-bit Raspberry Pi OS), via cargo-zigbuild
 #   scripts/build-pi.sh armv7           # 32-bit Raspberry Pi OS
 #   scripts/build-pi.sh x86_64          # 64-bit PC / server Linux
-#   BUILDER=cross scripts/build-pi.sh   # use `cross` (Docker/OrbStack) instead of zig
 #   PROFILE=release-small scripts/build-pi.sh   # opt-level="z" variant
 #
 # Output: dist/<target>/spanish-learning
@@ -13,7 +13,6 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 ARCH="${1:-aarch64}"
-BUILDER="${BUILDER:-zigbuild}"
 PROFILE="${PROFILE:-release}"
 # Raspberry Pi OS Bookworm ships glibc 2.36, Bullseye 2.31. Targeting 2.31 keeps
 # the binary working on both; the dynamic glibc is the only non-static dependency.
@@ -28,17 +27,8 @@ esac
 
 rustup target add "$TARGET" >/dev/null
 
-case "$BUILDER" in
-  zigbuild)
-    command -v cargo-zigbuild >/dev/null || { echo "install with: brew install zig && cargo install cargo-zigbuild"; exit 1; }
-    cargo zigbuild --profile "$PROFILE" --target "$TARGET.$GLIBC"
-    ;;
-  cross)
-    command -v cross >/dev/null || { echo "install with: cargo install cross --git https://github.com/cross-rs/cross"; exit 1; }
-    cross build --profile "$PROFILE" --target "$TARGET"
-    ;;
-  *) echo "BUILDER must be zigbuild or cross"; exit 1 ;;
-esac
+command -v cargo-zigbuild >/dev/null || { echo "install with: brew install zig && cargo install cargo-zigbuild"; exit 1; }
+cargo zigbuild --profile "$PROFILE" --target "$TARGET.$GLIBC"
 
 OUT_DIR="target/$TARGET/$PROFILE"
 mkdir -p "dist/$TARGET"

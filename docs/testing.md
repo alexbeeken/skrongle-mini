@@ -789,10 +789,7 @@ CI runs on GitHub-hosted `ubuntu-latest` runners. A PR's `checks` workflow
   required.
 - **One build per job**: every job that needs the server gets it from
   `scripts/ci-build.sh` (`SERVER_BIN` makes `e2e.sh` and `smoke.sh` skip
-  their build). Where the runners share a `/_shared` volume, it builds once
-  per run: the first job builds the commit and copies the binary there, the
-  others wait on its lock and reuse it. GitHub-hosted runners have no
-  `/_shared`, so each job builds once.
+  their build). Each job builds once.
 - **Caches**: the Rust build uses `Swatinem/rust-cache` and the npm
   install uses `setup-node`'s npm cache; both are GitHub's caches.
 - **No run on pushes to main**: `checks` runs only on PRs. A PR's run tests
