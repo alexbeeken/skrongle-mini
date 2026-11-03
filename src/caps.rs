@@ -30,3 +30,8 @@ pub fn accounts_full(count: i64, dev: bool) -> bool {
 /// Signing in a fifth time ends the oldest, so the `sessions` table never
 /// holds more than `MAX_ACCOUNTS * MAX_SESSIONS_PER_ACCOUNT` (32) rows.
 pub const MAX_SESSIONS_PER_ACCOUNT: usize = 4;
+
+/// Tutor model calls in flight at once, for all learners (#47). Each holds an
+/// OS thread and a TLS connection for up to two minutes on a 512 MB Pi; a
+/// third call is refused with the busy message (`tutor::ALL_BUSY`).
+pub const MAX_TUTOR_CALLS: usize = 2;
