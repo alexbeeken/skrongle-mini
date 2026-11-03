@@ -18,7 +18,7 @@ const visible = (page: Page, id: string) => page.getByTestId(id).first().isVisib
 
 export default {
   id: "qa-pr644",
-  who: "A person running Skrongle on a small home server with nothing set up: no e-mail, no text messages, no payments. They sign up and start learning Spanish.",
+  who: "A person running Skrongle on a small home server with nothing set up: no e-mail, no outside services. They sign up and start learning Spanish.",
   prefers: "Go straight to the page the goal names; use the main navigation.",
   patience: 14,
   viewports: [process.env.QA_VP === "phone" ? "phone" : "desktop"],
@@ -70,7 +70,7 @@ export default {
       },
     },
   ],
-  concerns: ["The page asks for an e-mail confirmation that can never arrive.", "The page mentions payments or a subscription that cannot work."],
-  frustrations: ["The page says an e-mail or a text was sent."],
+  concerns: ["The page asks for an e-mail confirmation that can never arrive.", "The page mentions a service that cannot exist here."],
+  frustrations: ["The page says an e-mail was sent."],
   checks: ["labels", "error-role"],
 } satisfies Persona;

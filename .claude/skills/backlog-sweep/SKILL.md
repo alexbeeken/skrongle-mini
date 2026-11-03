@@ -86,7 +86,7 @@ is a question for stage 2, not a silent skip:
   as an artifact?". If it is a design ticket, the output is an artifact.
 - Parent or umbrella issues that other issues implement.
 - Issues that need hardware or an account you don't have (a real Pi, a
-  DietPi submission, the AWS root user).
+  DietPi submission).
 - Anything whose title is a whole product area ("overhaul", "redesign the
   editor") with no concrete steps in the body. An agent given that opens a
   PR nobody can review.

@@ -1,7 +1,7 @@
 # Working on Skrongle
 
-A learning app (Rust, axum, SQLite, askama) driven by JSON courses, run as
-the hosted site or self-hosted as Skrongle mini. Session habits that keep
+A self-hosted learning app (Rust, axum, SQLite, askama) driven by JSON
+courses, built for one small box such as a Raspberry Pi Zero 2 W. Session habits that keep
 the context small are in `docs/dev.md` "Working with Claude".
 When compacting, keep the issue number, the list of files changed and the
 test or spec commands used.
@@ -40,21 +40,17 @@ other than the one the session started in, so read the ones for your area.
   `docs/progress.md`): seen + one run of >= 70 %. A new lesson-based
   feature reports through `progress::mark_seen` / `record_run` /
   `record_taught_run`; show completion from passes, not from mode tables.
-- Two shapes, no third. Skrongle runs as **the hosted site** (we run it,
-  with every provider set: e-mail, SMS, Google, payments) or as **Skrongle
-  mini** (self-hosted, a handful of users, SQLite, no e-mail, SMS, Google or
-  payments; #632). Self-hosting the full build is not supported. Don't write
-  code, docs, tests or issues for it: no "a self-hoster who skipped SMTP", no
-  half-configured servers, no fallbacks that only that case needs. A feature
-  that needs a provider is a hosted feature, and mini leaves it out; say it
-  that way in docs and issues ("not in Skrongle mini"). Self-hosting docs
-  (`docs/self-hosting*.md`, `/self-host`) describe mini only. The dev server
-  is for development, not a third shape. The server enforces it: outside
-  mini and dev mode it refuses to start until every provider is set
-  (`require_providers` in `src/main.rs`); `SKRONGLE_MINI=1` is what makes a
-  server a mini (`src/shape.rs`, read once at startup; code asks
-  `shape::current()` or `crate::is_mini()`), so a script that starts a plain
-  server sets `SKRONGLE_MINI=1`.
+- One shape. Skrongle mini is a handful of accounts on one box: SQLite, no
+  e-mail, text messages, third-party sign-in or payments, and no outside
+  service it has to reach except the AI providers a learner's own key points
+  at. Don't write code, docs, tests or issues that assume such a service:
+  no "if an e-mail provider is configured", no half-configured servers, no
+  fallbacks for a setting nobody has. A feature that would need one is not a
+  feature of this app; say so in the issue and leave it out. The dev server
+  is for development, not a second shape. The server still reads
+  `SKRONGLE_MINI=1` at startup (`src/shape.rs`; code asks `crate::is_mini()`)
+  and the deploy unit sets it; a script that starts a server sets it too.
+  Retiring that switch is its own issue.
 - Memory matters: the target is a Pi Zero 2 W (Skrongle mini). No new heavy dependencies;
   SQLite work goes through `Db::call`; long blocking work (LLM calls) gets
   its own OS thread, not the Tokio blocking pool.
