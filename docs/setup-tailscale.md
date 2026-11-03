@@ -49,7 +49,7 @@ tailscale status
 
 Your Pi is listed, with a name like `skrongle` and an address starting with
 `100.`. In the admin console, under **Machines**, click the Pi's `…` menu
-and choose **Disable key expiry**, so it never silently drops off the
+and choose **Disable Key Expiry**, so it never silently drops off the
 network.
 
 ## Step 3: Serve Skrongle over HTTPS inside Tailscale

@@ -75,10 +75,10 @@ From now on `ssh skrongle` reaches the Pi.
 
 DietPi is a small, fast Linux for the Pi.
 
-1. Download the DietPi image for the Raspberry Pi Zero 2 W from
-   [dietpi.com/#download](https://dietpi.com/#download): choose
-   **Raspberry Pi**, then the **ARMv8 64-bit** image. It is a `.img.xz`
-   file.
+1. Download the DietPi image from
+   [dietpi.com/#download](https://dietpi.com/#download): the entry
+   **Raspberry Pi 2/3/4/Zero 2**, **ARMv8** (one image covers the Zero 2 W).
+   It is a `.img.xz` file; leave it compressed.
 2. Install [Raspberry Pi Imager](https://www.raspberrypi.com/software/) on
    your computer and open it. Put the microSD card in.
 3. **Choose device:** Raspberry Pi Zero 2 W. **Choose OS:** *Use custom*,
@@ -101,8 +101,10 @@ Notepad, VS Code) and fill in the first entry:
 ```
 aWIFI_SSID[0]='Your Wi-Fi name'
 aWIFI_KEY[0]='your Wi-Fi password'
-aWIFI_KEYMGR[0]='WPA-PSK'
 ```
+
+Leave the other lines of that entry as they are (they already say the
+usual home Wi-Fi security, WPA).
 
 Open `dietpi.txt` and change these lines (search for each name; keep
 everything else as it is). Paste your public key, the `ssh-ed25519 …` line
