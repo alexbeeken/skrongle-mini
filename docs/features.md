@@ -1804,8 +1804,8 @@ keep their explicit buttons. The page needs JavaScript.
   `/account/deletion` (`account-deletion`, date `account-deletion-date`,
   *Cancel deletion* `account-deletion-cancel`, *Log out*
   `account-deletion-logout`; API routes answer 403), and the account's
-  shared courses are hidden from their recipients meanwhile. The hourly job
-  `housekeeping.deletions` then removes the account and everything it
+  shared courses are hidden from their recipients meanwhile. The hourly
+  `housekeeping` job then removes the account and everything it
   owns. What is kept and for how long:
   [data inventory](data-inventory); the privacy notice is at `/privacy`
   ([privacy](privacy), public, with a "Last updated" line at the top).

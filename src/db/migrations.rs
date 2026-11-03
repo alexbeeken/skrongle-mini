@@ -1473,6 +1473,9 @@ pub(crate) const MIGRATIONS: &[&str] = &[
         WHERE due_at < CAST(strftime('%s', 'now') AS INTEGER) / 86400 * 86400;
     CREATE INDEX idx_user_vocab_due ON user_vocab(user_id, course_id, due_at);
     ",
+    // v96 (#45): the twelve `housekeeping.*` job kinds became one
+    // `housekeeping`; drop the old rows so they don't sit in /dev/jobs.
+    "DELETE FROM jobs WHERE kind LIKE 'housekeeping.%';",
 ];
 
 /// Migrations (1-based versions) that rebuild a table other tables point at:

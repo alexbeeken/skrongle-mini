@@ -9,7 +9,7 @@
 //!   `/account/deletion` (`routes/account_deletion.rs`), whose one action is
 //!   *Cancel deletion*; the other is signing out. Its courses are not shared
 //!   out meanwhile (`share.rs`).
-//! - The hourly job [`crate::jobs::DELETIONS`] deletes every account whose
+//! - The hourly job [`crate::jobs::HOUSEKEEPING`] deletes every account whose
 //!   time has come, with the same full deletion as before
 //!   (`privacy::delete_account`, plus what the server holds in memory and on
 //!   disk). A superuser's delete (#967) stays immediate.
