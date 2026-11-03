@@ -210,7 +210,7 @@ print(f"| Tests | {n_tests}: {n_ci} run in CI, {n_local} keyless but local only,
 n_reached = sum(r["reached"] for r in routes)
 print(f"| Production routes (`src/routes/mod.rs`, no `/dev`) | {len(routes)}: {n_named} named by an e2e file, {n_reached - n_named} more reached through a page, {len(routes) - n_reached} not reached |")
 print(f"| `data-testid` hooks (templates, static JS) | {len(ids)}, {n_ref} referenced ({100 * n_ref // max(len(ids), 1)} %) |")
-print(f"| Jev journeys / personas | {len(journeys)} / {len(personas)} |")
+print(f"| Model-driven journeys / personas | {len(journeys)} / {len(personas)} |")
 
 print("\n### Spec files\n\n| File | Tests | CI | Needs a key |\n|---|---|---|---|")
 for s in specs:

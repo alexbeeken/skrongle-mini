@@ -30,7 +30,7 @@ The numbers below the line are generated: `python3 scripts/e2e-audit.py
   mode, question type, Sprint exercise kind and game on the test course,
   right and wrong, as a fresh account, and check `/api/progress` after;
   Spanish lesson 1 and French get the same in each mode.
-- **Nothing with a model in the loop runs unattended.** The 14 Jev journeys,
+- **Nothing with a model in the loop runs unattended.** The 14 model-driven journeys,
   2 judged specs, 4 personas (`scripts/e2e-explore.sh`) and the course
   playthroughs need `TYPESAFE_API_KEY` and no workflow has a `schedule`.
 - **Routes.** Of 137 production routes, 3 are reached by no flow:
@@ -105,7 +105,7 @@ teenager on a phone in Sprint, 6), `testing-bot` (sees only markup, 12).
 | Tests | 428: 341 run in CI, 76 keyless but local only, 11 need a Jev key |
 | Production routes (`src/routes/mod.rs`, no `/dev`) | 144: 94 named by an e2e file, 41 more reached through a page, 9 not reached |
 | `data-testid` hooks (templates, static JS) | 1326, 1072 referenced (80 %) |
-| Jev journeys / personas | 14 / 4 |
+| Model-driven journeys / personas | 14 / 4 |
 
 ### Spec files
 
