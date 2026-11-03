@@ -214,114 +214,6 @@ terms:
     dismiss: Continue
     disagree_html: "If you do not agree, log out, or close your account from your <a href=\"{url}\" data-testid=\"terms-notice-profile\">profile</a>."
 
-mail:
-  waitlist_confirm:
-    subject: "Confirm your place on the {app} waitlist"
-    text: |
-      Hello,
-
-      Please confirm that you want to join the {app} waitlist by opening this link:
-
-      {link}
-
-      We'll e-mail you an invitation when it's your turn. If you didn't ask to join, ignore this message: the address isn't added unless the link is opened.
-    html: |
-      <p>Hello,</p>
-      <p>Please confirm that you want to join the {app} waitlist:</p>
-      <p><a href="{link}">Confirm my place</a></p>
-      <p>Or paste this link into your browser: {link}</p>
-      <p>We'll e-mail you an invitation when it's your turn. If you didn't ask to join, ignore this message: the address isn't added unless the link is opened.</p>
-  waitlist_invite:
-    subject: "Your invitation to {app}"
-    text: |
-      Hello,
-
-      It's your turn: you're invited to make your {app} account. Open this link and sign up with this e-mail address ({email}):
-
-      {link}
-
-      The invitation works for {days} days.
-    html: |
-      <p>Hello,</p>
-      <p>It's your turn: you're invited to make your {app} account. Sign up with this e-mail address ({email}).</p>
-      <p><a href="{link}">Make my account</a></p>
-      <p>Or paste this link into your browser: {link}</p>
-      <p>The invitation works for {days} days.</p>
-  terms_change:
-    subject: "The {app} terms change on {date}"
-    text: |
-      Hello,
-
-      We are changing the {app} terms. The new terms take effect on {date}.
-
-      What changes:
-      {summary}
-
-      Read the new terms: {link}
-
-      From {date} you will be asked to accept them when you sign in. If you do not agree, you can close your account from your profile.
-    html: |
-      <p>Hello,</p>
-      <p>We are changing the {app} terms. The new terms take effect on {date}.</p>
-      <p>What changes:</p>
-      {summary}
-      <p><a href="{link}">Read the new terms</a></p>
-      <p>From {date} you will be asked to accept them when you sign in. If you do not agree, you can close your account from your profile.</p>
-  account_deletion:
-    subject: "Your {app} account will be deleted on {date}"
-    text: |
-      Hello,
-
-      You asked to delete your {app} account. It will be deleted for good on {date}, with your progress, courses and saved keys.
-
-      To keep it, sign in to {app} before then and choose Cancel deletion.
-
-      If you did not ask for this, sign in, cancel the deletion and change your password.
-  data_export:
-    subject: "Your {app} data is ready to download"
-    text: |
-      Hello,
-
-      The copy of your {app} data you asked for is ready. Sign in to {app}, then open this link to download it:
-
-      {link}
-
-      The link works once, for 24 hours, and only while you are signed in to this account. If you did not ask for it, change your password: someone else is signed in to your account.
-    html: |
-      <p>Hello,</p>
-      <p>The copy of your {app} data you asked for is ready. Sign in to {app}, then open this link to download it:</p>
-      <p><a href="{link}">Download my data</a></p>
-      <p>The link works once, for 24 hours, and only while you are signed in to this account. If you did not ask for it, change your password: someone else is signed in to your account.</p>
-  two_factor_changed:
-    subject: "Two-factor sign-in on {app} changed"
-    now_off: is now off
-    now_totp: now asks for a code from an authenticator app
-    text: |
-      Hello,
-
-      Two-factor sign-in on {app} {now}.
-
-      Every other device was signed out. If you did not make this change, someone else was signed in to your account: sign in, use “Sign out everywhere else” on your profile, and set two-factor sign-in back.
-    html: |
-      <p>Hello,</p>
-      <p>Two-factor sign-in on {app} <strong>{now}</strong>.</p>
-      <p>Every other device was signed out. If you did not make this change, someone else was signed in to your account: sign in, use “Sign out everywhere else” on your profile, and set two-factor sign-in back.</p>
-  course_share:
-    subject: "{owner} shared a course with you on {app}: {title}"
-    text: |
-      Hello,
-
-      {owner} shared the course “{title}” with you on {app}. Open this link to add it to your courses:
-
-      {link}
-
-      You can learn from the course with your own progress; only {owner} can change it. If you do not have a {app} account yet, the link lets you create one. If you were not expecting this, ignore this message.
-    html: |
-      <p>Hello,</p>
-      <p>{owner} shared the course <strong>{title}</strong> with you on {app}.</p>
-      <p><a href="{link}">Open the course</a></p>
-      <p>Or paste this link into your browser: {link}</p>
-      <p>You can learn from the course with your own progress; only {owner} can change it. If you do not have a {app} account yet, the link lets you create one. If you were not expecting this, ignore this message.</p>
 
 profile:
   title: Profile
@@ -389,7 +281,6 @@ profile:
     title: "Privacy and consent"
     info: "About your consents"
     info_age: "You confirmed your age when you signed up. To take that back, delete your account under Your data."
-    info_email: "Service e-mails always go out: confirming your address, your data download, and changes to the terms. Optional e-mails will show up here with their own switch, off until you turn them on."
     info_ai: "AI features send what you type to an AI company. Hide them and nothing goes out, the features are gone from the app, and your saved API keys are deleted."
     info_record: "Each change is kept with its date and comes with Download my data."
     close: "Close"
@@ -397,8 +288,6 @@ profile:
     age: "Age"
     age_confirmed: "Confirmed {date}"
     age_not_confirmed: "Not confirmed"
-    email: "E-mail"
-    email_service: "Service messages only"
     ai: "Do Not Show Me AI Features"
     ai_on_since: "Shown since {date}"
     ai_on: "Shown"
@@ -504,26 +393,21 @@ profile:
     wrong_provider: "That does not look like a {provider} key: they start with {prefix}."
   data:
     export_download: "Download my data"
-    export_building_no_mail: "Your data is being prepared. When it is ready, a Download button appears here."
-    export_ready_no_mail: "Your data is ready: download it with the button, once, until {date}."
-    export_about_no_mail: "A JSON file of everything stored for your account, prepared in the background. When it is ready, download it here; it works once, for 24 hours. One copy a day."
+    export_building: "Your data is being prepared. When it is ready, a Download button appears here."
+    export_ready: "Your data is ready: download it with the button, once, until {date}."
+    export_about: "A JSON file of everything stored for your account, prepared in the background. When it is ready, download it here; it works once, for 24 hours. One copy a day."
     title: Your data
     stored_html: "What is stored and why: <a href=\"{url}\" data-testid=\"profile-privacy-link\">privacy policy</a>."
     export: Prepare my data (JSON)
     export_heading: Download my data
     export_info_label: About downloading your data
     export_preparing: Preparing…
-    export_about: A JSON file of everything stored for your account, prepared in the background. We e-mail you a link; it works once, for 24 hours, while you are signed in. One copy a day.
     export_ok: OK
-    export_your_address: your address
     export_none: You have not asked for a copy yet.
-    export_building: "Being prepared. A link will be e-mailed to {email} when it is ready."
-    export_ready: "Ready. The link was e-mailed to {email}; it works once, until {date}."
     export_downloaded: "Downloaded on {date}."
     export_expired: The last link expired unused.
     export_failed: The last copy could not be prepared. Try again.
     export_next: "One copy a day: you can ask for the next from {date}."
-    export_queued: Preparing your data. You will get an e-mail with the link.
     export_busy: Your data is already being prepared.
     export_soon: One copy a day. See (i) for when you can ask again.
     export_gone: That download link has been used, has expired, or is for another account.
@@ -604,15 +488,6 @@ superuser:
   two_factor_off_about: "The account signs in with its password alone until it turns two-factor on again. An authenticator app set up for it is removed."
   two_factor_off_confirm: "Turn it off"
   two_factor_off_done: "Two-factor sign-in is off for {email}."
-  terms_changed: "The terms have changed."
-  terms_title: "Coming change to the terms"
-  terms_send: "Send the announcement"
-  terms_send_about:
-    one: "The summary of the coming change goes to {n} account that has not had it."
-    other: "The summary of the coming change goes to {n} accounts that have not had it."
-  terms_sent:
-    one: "Announcement queued for {n} account."
-    other: "Announcement queued for {n} accounts."
   js:
     copied: "Copied"
 
@@ -2741,7 +2616,7 @@ courses:
     none_right: "none right"
     failed: "The placement test did not load. Pick a level instead."
   share:
-    dialog_lead_no_mail: "Each address gets its own link for you to pass on: this server does not send e-mail. They learn from the course with their own progress; only you can change it."
+    dialog_lead: "Each address gets its own link for you to pass on: this server does not send e-mail. They learn from the course with their own progress; only you can change it."
     make_links: "Make invitation links"
     made:
       one: "{n} invitation link made. Copy it and pass it on; it is shown only now."
@@ -2751,14 +2626,12 @@ courses:
     button: Share
     button_count: "Share ({n})"
     dialog_title: Share this course
-    dialog_lead: Everyone you share it with gets an e-mail with a link. They learn from the course with their own progress; only you can change it.
     status_opened: opened
     status_invited: invited
     remove: Remove
     remove_label: "Stop sharing with {email}"
     emails_label: E-mail addresses
     emails_note: (one per line, or separated by commas)
-    send: Send invitations
     close: Close
     own_address: "That is your own address: the course is yours already."
     too_many_course: "A course can be shared with up to {max} addresses."
@@ -2766,9 +2639,6 @@ courses:
     at_least_one: Type at least one e-mail address.
     bad_address: "“{address}”: {error}"
     bad_address_notice: One of those is not an e-mail address. Check the list and send it again.
-    sent:
-      one: "Invitation sent to {n} address."
-      other: "Invitations sent to {n} addresses."
     already_had: "{n} already had one."
     removed_notice: No longer shared with that address.
     not_on_list: That address was not on the list.

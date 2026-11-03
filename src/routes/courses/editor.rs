@@ -39,15 +39,12 @@ pub struct EditorTemplate {
     pub shares: Vec<crate::share::Share>,
     /// `?share=1`: open the Share dialog straight away (after sending or removing).
     pub share_open: bool,
-    /// The server can send mail; without it the Share dialog makes links
-    /// for the owner to pass on (#633).
-    pub mail: bool,
-    /// Without mail, the links just made, one per new address, each with a
-    /// Copy button (they are stored only hashed: shown this once).
+    /// The links just made, one per new address, each with a Copy button
+    /// (they are stored only hashed: shown this once).
     pub share_links: Vec<ShareLink>,
 }
 
-/// An invitation link made on a server without mail (#633).
+/// An invitation link, for the owner to pass on.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct ShareLink {
     pub email: String,
@@ -548,7 +545,7 @@ pub(super) async fn editor_page_with(
     Ok(Page(editor_template(state, user, row, notice, refill, modal, generate, review, share_open).await?).into_response())
 }
 
-/// The Share dialog open after inviting on a server without mail (#633):
+/// The Share dialog open after inviting:
 /// the course page with `notice` (a `share-made-…` key) and the links made.
 pub(in crate::routes) async fn share_links_page(state: &AppState, user: CurrentUser, id: &str, notice: &str, links: Vec<ShareLink>) -> Result<Response, AppError> {
     let row = owned(state, &user, id).await?;
@@ -613,7 +610,6 @@ async fn editor_template(
         review,
         shares,
         share_open,
-        mail: state.caps().mail,
         share_links: Vec::new(),
     })
 }

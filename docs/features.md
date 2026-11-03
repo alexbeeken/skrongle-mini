@@ -785,16 +785,13 @@ the AI tutor ask in text, so they leave these questions out
 
 **Share** on the course page (`src/share.rs`, `src/routes/share.rs`) opens a
 dialog: type e-mail addresses (one per line or separated by commas, up to
-20 at a time and 50 per course) and *Send invitations*. Every new address
-gets a message, "*Owner* shared a course with you on Skrongle: *title*",
-with a link (`/courses/shared/<token>`); the dialog lists every address with
+20 at a time and 50 per course) and *Make invitation links*. Nothing is
+mailed (#10): the page that comes back shows each new address's link
+(`/courses/shared/<token>`, `course-share-link`) with *Copy*
+(`course-share-link-copy`), once, since only the token's hash is stored,
+and the owner passes the links on. The dialog lists every address with
 *invited* or *opened* and a *Remove* button. The owner's own address is
-refused, and an address already on the list gets no second message.
-On a server without mail (#633, no `SKRONGLE_MAIL_PROVIDERS`) the dialog says
-so, its button reads *Make invitation links*, and nothing is mailed: the
-page that comes back shows each new address's link (`course-share-link`)
-with *Copy* (`course-share-link-copy`), once, since only the token's hash is
-stored. The share rows are made the same way; the owner passes the links on.
+refused, and an address already on the list gets no second link.
 
 Who may open a shared course: the account that opened its link (the first
 account to open a link keeps it, so a forwarded link lets nobody else in;
@@ -1718,9 +1715,7 @@ keep their explicit buttons. The page needs JavaScript.
   when, with links to the Terms and the privacy policy (see
   [Terms of Service](#terms-of-service)); the age confirmation (the date of
   the first Terms acceptance, read-only: taking it back means deleting the
-  account); e-mail, service messages only (hosted only;
-  an optional e-mail such as reminders gets a switch here, off by default);
-  and *Do Not Show Me AI Features*, "Shown since …" or "Hidden since …"
+  account); and *Do Not Show Me AI Features*, "Shown since …" or "Hidden since …"
   with the profile's only AI switch (below; on hides them, `POST /profile/ai`
   returns here) and a line when an own API key is on file. Optional consents are
   rows in `consents` (`src/consent.rs`): given at `granted_at`, taken back
@@ -1762,25 +1757,20 @@ keep their explicit buttons. The page needs JavaScript.
 - **Your data**: *Download my data* (#430): *Prepare my data*
   (`POST /profile/export`) queues an export; the `export` job on the
   background runner (`src/exports.rs`, `src/jobs.rs`) writes every row stored for the account, by table, with
-  the course files, to a file a page at a time, and e-mails a one-time link
-  (`GET /profile/export/download?token=…`, 24 hours, signed in as that
-  account only; the file is deleted once sent). Once it is ready the Data
-  section also shows *Download my data* (`profile-export-download`,
-  `POST /profile/export/download`: the same file, once, for the account
-  signed in). The finished file stays on the server's disk, next to the
-  database, and the download streams it. On a server without mail (#633) that button is the only way:
-  no link is mailed and the (i) says so. One export in flight and one
+  the course files, to a file a page at a time. Once it is ready the Data
+  section shows *Download my data* (`profile-export-download`,
+  `POST /profile/export/download`: the file, once, for 24 hours, for the
+  account signed in; it is deleted once sent). Nothing is mailed. The
+  finished file stays on the server's disk, next to the database, and the
+  download streams it. One export in flight and one
   a day per account; the (i) next to the heading says where it stands. The
   file has the columns `privacy::EXPORTED` lists: never the password hash,
-  session tokens, keys (only which providers have one), codes, links or the
-  text of mails. And
+  session tokens, keys (only which providers have one), codes or links. And
   *Delete account* (`POST /profile/delete`): the password, or for an
   account without one its e-mail address typed out and, with a second
-  step, a code from it (`profile-delete-code`, *Send code*
-  `profile-delete-send` for an e-mailed one; #376). It does not delete at once (#970,
-  `src/account_deletion.rs`): it sets `users.delete_at` 14 days out, ends every session
-  of the account and, where the server sends mail, mails the date
-  (`account-deletion`). The login page says the date (`login-notice`).
+  step, the authenticator's code (`profile-delete-code`; #376). It does not delete at once (#970,
+  `src/account_deletion.rs`): it sets `users.delete_at` 14 days out and ends every session
+  of the account. The login page says the date (`login-notice`).
   Signing in again works as usual, but every page then leads to
   `/account/deletion` (`account-deletion`, date `account-deletion-date`,
   *Cancel deletion* `account-deletion-cancel`, *Log out*
@@ -1854,14 +1844,6 @@ keep their explicit buttons. The page needs JavaScript.
     which carries the token. Existing accounts always sign
     in. Under `closed` an invitation never works. Rate limits are as for
     any registration.
-  - **Coming change to the terms** (#966, hosted only): while a material
-    entry of `docs/terms-changes.json` has a later `effective` date and
-    some account with an address has not had its e-mail, the page shows
-    "The terms have changed." and a card with **Send the announcement**.
-    Its confirm dialog says how many accounts it goes to;
-    `POST /superuser/terms-announce` queues them (`terms::announce_upcoming`)
-    and the notice says how many were queued. Once everyone has it, the
-    notice and the card go away.
 
 Each AI form says where the learner's words go (`data-testid="ai-disclosure"`):
 "Your notes are sent to your AI provider using your key." on *Generate* and
@@ -1877,8 +1859,7 @@ Termly export). `/docs/terms` redirects there; the docs nav leaves it out.
 The text names no address itself. `[SUPPORT EMAIL]` (help, plans, SMS)
 becomes `SKRONGLE_SUPPORT_EMAIL` and `[CONTACT EMAIL]` (permissions,
 copyright, harmful content) becomes `SKRONGLE_LEGAL_EMAIL`, each as a
-`mailto:` link. Every e-mail the server sends has `Reply-To:` the support
-address (#1328).
+`mailto:` link.
 
 - **Accepting.** Registration has two required boxes, "I am at least
   [age] years old" (`age`; `SKRONGLE_MIN_AGE`, default 14)
@@ -1900,12 +1881,10 @@ address (#1328).
   material change, the "Last updated" line). A material change to the
   privacy notice (`docs/privacy.md`, `/privacy`) is logged the same way
   (#978): one entry whose summary starts "The privacy policy changed: …",
-  so learners get the same notice and, for a material one, the same
-  30-day e-mail. The lint watches `docs/privacy.md` too, and the newest
+  so learners get the same notice. The lint watches `docs/privacy.md` too, and the newest
   privacy entry dates that page's "Last updated" line. A minor privacy
   change (a correction, a new provider of the same kind) only moves that
-  line. In Skrongle mini the sign-in notice is the whole notification (no
-  mail).
+  line. The sign-in notice is the whole notification (nothing is mailed).
 - **New versions.** An account that accepted an earlier version sees a
   notice over the first page it opens (`templates/terms_notice.html`,
   `data-testid="terms-gate"`, `data-tier`): the summaries of every change
@@ -1918,13 +1897,10 @@ address (#1328).
     log out or close the account from the profile. It is on every page but
     the profile; `/api/*` gets `403` and any other form (except deleting the
     account) is sent to `/terms/accept` until it is accepted.
-  - *30 days ahead*: a material entry with a later `effective` date is
-    e-mailed once to every account with an address (purpose `terms-change`:
-    the date, the summary, a link to `/terms`) when a superuser presses
-    **Send the announcement** on `/superuser`; nothing sends it on its own.
-    `terms_announcements` records who got it, so pressing again only mails
-    accounts made since (or held back by the hourly mail ceiling). It only takes effect, and the notice only appears,
-    on its date. Not in Skrongle mini (no e-mail).
+  - *Ahead of its date*: a material entry with a later `effective` date
+    only takes effect, and the notice only appears, on its date. Nothing
+    is mailed about it (#10; `terms_announcements` stays in the schema,
+    no longer written).
 
   An account that never accepted any version (one from before the terms)
   is sent to `/terms/accept`, and back to the page it asked for afterwards;
@@ -1934,8 +1910,7 @@ address (#1328).
   one version behind, for the browser tests.
 - **Your own text.** A server with its own text (`SKRONGLE_TERMS=<file>`,
   Skrongle mini) has no changelog: it uses the file's SHA-256 as the
-  version, so any edit sends every account to `/terms/accept` (no summary,
-  no e-mail).
+  version, so any edit sends every account to `/terms/accept` (no summary).
 - **Links.** The footer on every page, the landing page, login and register
   link Terms and Privacy (`/privacy`, its own page); the profile shows the
   version accepted and when, and its "read" link opens the terms in a
@@ -1979,9 +1954,8 @@ wrong ones count against the sign-in limit). A missing or wrong password is
 refused (403) with the dialog open again and `two-factor-confirm-error`.
 An account without a password (signed in through a proxy) types the
 authenticator's code instead (`two-factor-confirm-code`). One with it off has nothing to type:
-*Confirm* makes the change. Once made, every other session of the account ends and the
-account's address is e-mailed (purpose `two-factor-changed`), so an
-owner whose session someone else used hears of it. Recovery codes are not
+*Confirm* makes the change. Once made, every other session of the account ends.
+Recovery codes are not
 offered yet. Without JavaScript the chips post with *Save* and the page
 comes back with the dialog shown as a form.
 

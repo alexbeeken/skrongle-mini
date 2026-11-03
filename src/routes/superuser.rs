@@ -3,9 +3,7 @@
 //! server holds at most `caps::MAX_ACCOUNTS`), with
 //! the actions on one: a temporary password and two-factor off (#635,
 //! `owner.rs`); and with
-//! `SKRONGLE_SIGNUP=invite`, the invitation links (#634, `signup.rs`); and
-//! while a material change of the terms is coming, a notice and the button
-//! that e-mails it to every account (#966, `terms.rs`).
+//! `SKRONGLE_SIGNUP=invite`, the invitation links (#634, `signup.rs`).
 //! Anyone else gets a 404, as if the page did not exist; the account menu
 //! links here only for superusers.
 
@@ -47,9 +45,6 @@ pub struct SuperuserTemplate {
     pub max_accounts: usize,
     /// The server holds them all: no invitation form.
     pub full: bool,
-    /// Accounts still to e-mail about a coming change of the terms: above 0,
-    /// the page says the terms have changed and offers Send.
-    pub terms_owed: i64,
 }
 
 pub struct AccountRow {
@@ -64,7 +59,6 @@ pub struct AccountRow {
 async fn load(state: &AppState, user: CurrentUser) -> Result<SuperuserTemplate, AppError> {
     let now = crate::db::now();
     let (invites, accounts) = state.db.call(move |c| Ok((crate::signup::open_invites(c, now)?, crate::signup::accounts(c)?))).await?;
-    let terms_owed = crate::terms::unannounced(state).await?;
     let total = accounts.len() as i64;
     Ok(SuperuserTemplate {
         user: Some(user),
@@ -86,17 +80,15 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<SuperuserTemplate, 
         total,
         max_accounts: crate::caps::MAX_ACCOUNTS,
         full: crate::caps::accounts_full(total, state.dev),
-        terms_owed,
     })
 }
 
 #[derive(Deserialize)]
 pub struct ShowQuery {
     /// Back from an action: `unknown`, `revoked` or
-    /// `two-factor-off`, about `email`; or `terms-sent`, `n` e-mails.
+    /// `two-factor-off`, about `email`.
     pub did: Option<String>,
     pub email: Option<String>,
-    pub n: Option<i64>,
 }
 
 /// GET /superuser
@@ -110,7 +102,6 @@ pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, Query(q
         Some("unknown") => t.error = Some(crate::t1("superuser.unknown", "email", format!("{email:?}"))),
         Some("revoked") => t.notice = Some(crate::t("superuser.invite_revoked")),
         Some("two-factor-off") => t.notice = Some(crate::t1("superuser.two_factor_off_done", "email", email)),
-        Some("terms-sent") => t.notice = Some(crate::tn("superuser.terms_sent", q.n.unwrap_or(0))),
         _ => {}
     }
     Ok(Page(t).into_response())
@@ -218,16 +209,4 @@ pub async fn turn_off_two_factor(State(state): State<Arc<AppState>>, user: Curre
     state.db.call(move |c| crate::owner::disable_two_factor(c, target)).await?;
     tracing::info!("superuser {} turned off two-factor sign-in for user {target}", user.id);
     Ok(done("two-factor-off", &email))
-}
-
-/// POST /superuser/terms-announce: e-mail the coming material change of the
-/// terms to every account that has not had it (`terms::announce_upcoming`).
-/// Superusers only, on a server that can send mail: a 404 otherwise.
-pub async fn announce_terms(State(state): State<Arc<AppState>>, user: CurrentUser) -> Result<Response, AppError> {
-    if !user.superuser || !state.caps().mail {
-        return Err(AppError::NotFound);
-    }
-    let n = crate::terms::announce_upcoming(&state).await?;
-    tracing::info!("superuser {} sent the terms change e-mail to {n} account(s)", user.id);
-    Ok(Redirect::to(&crate::url(&format!("/superuser?did=terms-sent&n={n}"))).into_response())
 }

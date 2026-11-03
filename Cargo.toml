@@ -56,11 +56,6 @@ chacha20poly1305 = { version = "0.11", default-features = false, features = ["al
 # --- Two-factor sign-in (src/totp.rs): the QR code an authenticator app scans, drawn as SVG by hand; no image crate ---
 qrcode = { version = "0.14", default-features = false }
 
-# --- E-mail (src/mail.rs): SMTP only, blocking, on the rustls/ring/webpki-roots ureq already brings ---
-lettre = { version = "0.11.23", default-features = false, features = ["smtp-transport", "builder", "rustls", "ring", "webpki-roots"] }
-# Decoding what the dev mailbox (src/mail/sink.rs) receives; both already come with lettre.
-base64 = "0.23"
-quoted_printable = "0.5"
 # --- Diagnostics (`skrongle doctor`, startup checks): statvfs, access, geteuid.
 # Already in the tree through tokio and getrandom; no new code is pulled in.
 [target.'cfg(unix)'.dependencies]

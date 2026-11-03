@@ -32,14 +32,13 @@ Once the server answers, `./.dev-start` prints only this:
 
 ```
 site:  http://127.0.0.1:8214
-inbox: http://127.0.0.1:8214/dev/inbox
 login: dev@example.com / dev-password   (or http://127.0.0.1:8214/dev/login)
 pr:    https://github.com/alexbeeken/skrongle-mini/pull/264   ([263] Profile picture: no own-colour swatch)
 ```
 
 `pr` is the branch's open pull request, so a reviewer can start on its QA steps; `gh` looks it up
 during the build, and the line is left out without `gh`, a login, the network or an open PR.
-`inbox` is the dev mailbox page, e-mail and the [dev authenticator](#two-factor-codes-the-dev-authenticator); it is left out when [the dev mailbox](#e-mail-the-dev-mailbox) is off, `login` when dev mode is
+`login` is left out when dev mode is
 (`--lan`, which prints `phone:` with the LAN address instead). The build's output shows only if it
 fails, and the server log goes to `dev-server.log`, in the foreground too (Ctrl-C stops it); a server
 that exits at boot prints the log's last lines. `DEV_VERBOSE=1 ./.dev-start …` shows everything: the
@@ -53,7 +52,7 @@ build, the settings, and in the foreground or with `--watch` the server log in t
 | `--port N` | Listen on a fixed port. Without it (or with `--port auto`) the server takes a random free port in 8100-8999, so two worktrees can run at once |
 | `--llm capture` / `--llm live` | Model calls go to [the dev AI provider](#the-dev-ai-provider) (below) without `--llm`; `capture` starts it with Manual replies on (each request waits for your answer at the bottom of `/dev/ai`); `live` sends them to the real providers instead |
 | `--test-course` | Also offer the [test course](#the-test-course) (`TEST_COURSE=1`) |
-| `--mini` | The [mini shape](#the-mini-lane), what a self-hoster runs: no dev mailbox (`SKRONGLE_MINI=1`, which turns the stand-ins off). Mail is only logged, in `dev-server.log`; learners' own AI keys still reach the dev AI provider |
+| `--mini` | The [mini shape](#the-mini-lane), what a self-hoster runs (`SKRONGLE_MINI=1`, which turns the stand-ins off); learners' own AI keys still reach the dev AI provider |
 | `--background` | Build, start detached, wait for `/healthz`, print the links. Pid in `.dev-server.pid`, URL in `.dev-server.url`, log in `dev-server.log` |
 | `--watch` | Rebuild and restart on every change, keeping the port and `dev.db`; open pages reload themselves ([below](#live-reload---watch)). With `--background` the watcher runs detached and `--stop` ends it |
 | `--stop` | Stop the background server (or watcher) |
@@ -160,34 +159,23 @@ install step.
 
 ## Dev routes
 
-The dev mailbox (`/dev/inbox`, `/dev/mail`,
-`/dev/authenticator`, `/dev/ai` and every route under them, JSON and
-actions too) needs no sign-in: it is for whoever is testing and holds
-every account's mail and authenticator entries. Like every dev
-route it exists in dev mode only, for requests made on this machine
-(`dev::local_only`). `e2e/lib/mail.ts` reads it with a request context of
-its own, so the learner a spec drives is not touched.
+The dev pages (`/dev/jobs`, `/dev/authenticator`, `/dev/ai` and every
+route under them, JSON and actions too) need no sign-in: they are for
+whoever is testing and hold every account's authenticator entries. Like
+every dev route they exist in dev mode only, for requests made on this
+machine (`dev::local_only`). `e2e/lib/totp.ts` reads the authenticator with
+a request context of its own, so the learner a spec drives is not touched.
+There is no dev mailbox: the app sends no e-mail (#10).
 
 | Route | Does |
 |---|---|
 | `GET /dev/login` | Log in as `dev` (`dev@example.com`, password `dev-password`), a superuser (the Superuser page, `/superuser`) and a developer (`users.developer`). Every dev-mode boot creates the account if it is missing, so the login form takes those credentials too, and `/login` and `/register` show a **Log in as dev** button. `?open=spanish` opens a course (`?open` alone: Spanish) and counts it as set up, so its first-visit settings wizard does not open (add `&wizard=1` to see the wizard on the course home again), `?keys=dev` (or the older `?keys=fake`) stores [the dev AI provider's](#the-dev-ai-provider) learner keys for Anthropic, OpenAI and Google, so the AI forms are unlocked and offer each provider, `?next=/courses` says where to land, `?terms=old` leaves the dev user with only an older Terms version accepted so the "terms updated" gate shows (the next login without it accepts the current version again; the dev user always has). It skips [two-factor sign-in](features#two-factor-sign-in); `/login` does not |
 | `GET /login/code/device` | Dev mode only: the dev device the pending sign-in's code went to, for the frame at the bottom of `/login/code` (see [the dev device](#two-factor-sign-in-the-dev-device)); needs the `twofa` cookie, not a session. `?format=json` for the rows |
 | `GET /dev/reset` | Wipe the dev user's progress, projects, own courses (drafts and generated) and saved app language, keeping the account and keys. `?next=` as above |
-| `GET /dev/mail` | The configured mail providers and the newest 50 outbox rows (`to`, `subject`, `text`, `html`, `purpose`, `state`, `provider`, …). Without `SKRONGLE_MAIL_PROVIDERS` they go to [the dev mailbox](#e-mail-the-dev-mailbox) (provider `dev-smtp`); in dev mode bodies are kept, so a test can read a link out of a message. JSON, except for a browser (`Accept: text/html`, or `?format=html`): the dev mailbox page with its **Outbox** tab showing (see `GET /dev/inbox`): a row per message (`dev-mail-message[data-purpose][data-to][data-state]`) with its state, **Open the copy in the inbox** (`dev-mail-open`) once the mailbox has it, and a "Send a test message" form (`dev-mail-to`, `dev-mail-send`). `?format=json` forces JSON |
-| `POST /dev/mail/send` | Form `to` (default: the signed-in user's address): queue a test message (purpose `dev-test`) through the configured providers, then back to `/dev/mail` (204 for the page's own `X-Dev-Box: 1` posts). For trying a provider: the form on the Outbox tab, or `curl -X POST <url>/dev/mail/send -d to=you@example.org` |
-| `GET /dev/mail/{id}` | One outbox row: state, provider, attempts, last error (`dev-mail-error`), its links (`dev-mail-link`), the HTML part framed (`dev-mail-html`), the text (`dev-mail-text`), **Open in the dev inbox** (`dev-mail-open`). Opening it marks it read. `?format=json`: the row. 404 once deleted |
-| `POST /dev/mail/{id}` | Form `do=archive`, `unarchive` or `delete`, as on the inbox; Delete removes the outbox row (a queued message is then never sent) |
-| `GET /dev/jobs` | The newest 100 rows of the background `jobs` table (`src/jobs.rs`), newest first: `{"jobs": [{id, kind, payload, state, priority, run_at, attempts, max_attempts, locked_by, locked_until, last_error, created_at, finished_at}]}`. For a browser (`Accept: text/html`, or `?format=html`) a page (`dev-jobs`) with a row per job (`dev-jobs-row[data-id][data-kind][data-state][data-run-at][data-attempts]`, `dev-jobs-state`, `dev-jobs-attempts`, `dev-jobs-error`), **Run now** (`dev-jobs-run-now`) on queued and running rows, **Queue a failing job** (`dev-jobs-queue-fail`) and an (i) (`dev-jobs-info`). No sign-in, like the dev mailbox. `?format=json` forces JSON |
-| `POST /dev/jobs/fail` | Queue a `dev.fail` job due now (it always fails, so its attempts climb through `mail::RETRY_DELAYS` to `failed`), then back to `/dev/jobs` |
+| `GET /dev/jobs` | The newest 100 rows of the background `jobs` table (`src/jobs.rs`), newest first: `{"jobs": [{id, kind, payload, state, priority, run_at, attempts, max_attempts, locked_by, locked_until, last_error, created_at, finished_at}]}`. For a browser (`Accept: text/html`, or `?format=html`) a page (`dev-jobs`) with a row per job (`dev-jobs-row[data-id][data-kind][data-state][data-run-at][data-attempts]`, `dev-jobs-state`, `dev-jobs-attempts`, `dev-jobs-error`), **Run now** (`dev-jobs-run-now`) on queued and running rows, **Queue a failing job** (`dev-jobs-queue-fail`) and an (i) (`dev-jobs-info`). No sign-in, like the other dev pages. `?format=json` forces JSON |
+| `POST /dev/jobs/fail` | Queue a `dev.fail` job due now (it always fails, so its attempts climb through `jobs::RETRY_DELAYS` to `failed`), then back to `/dev/jobs` |
 | `POST /dev/jobs/{id}` | Form `do=run_now`: a queued row is due now; a running row's lease ends now, as if its server had stopped. The runner takes it within a moment. 404 for a row that is done, failed or gone |
-| `GET /dev/inbox` | What [the dev mailbox](#e-mail-the-dev-mailbox) received, newest first; `?to=` for one address (any case, or part of one). JSON `{"smtp": "127.0.0.1:<port>", "messages": [{id, outbox_id, envelope_from, envelope_to, from, to, subject, date, message_id, text, html, links}]}` (`smtp` is `null` when the mailbox is off), or for a browser the dev mailbox page: **Inbox** and **Outbox** tabs (`dev-box-tab-in`, `dev-box-tab-out`, each with its unread count) over one table each, like a simple mail client's. A row (`dev-inbox-item[data-id][data-to][data-read][data-archived]`, subject link `dev-inbox-open`) is bold until opened, and has **Archive** (`dev-inbox-archive`: struck out and moved to the bottom; `dev-inbox-unarchive` moves it back) and **Delete** (`dev-inbox-delete`, for good). Also an address filter (`dev-inbox-to`), **Empty the inbox** (`dev-inbox-clear`), and an (i) (`dev-box-info`) with the SMTP address (`dev-inbox-smtp[data-addr]`), or a red ! (`dev-box-off`) when the mailbox is off. The page polls `GET /dev/inbox/rows` every 3 s and its buttons post in place, so nothing needs a reload. Opened and archived are kept in memory |
-| `GET /dev/inbox/rows` | `?to=` as above: the two lists as HTML plus the unread counts, `{"in": {"html", "unread"}, "out": {…}}`, for the page's poll (`static/devbox.js`) |
-| `GET /dev/inbox/latest` | The newest message to `?to=` (default: the signed-in user's address); the list for that address when there is none. |
-| `GET /dev/inbox/{id}` | One message: headers (`dev-inbox-subject`, `dev-inbox-to-header`), its links (`dev-inbox-link`), the HTML part in a sandboxed frame (`dev-inbox-html`) whose links open in the tab, the text (`dev-inbox-text`), the source, and Archive / Delete. Opening it in a browser marks it read. `?format=json` for the message alone (does not mark it). 404 for a message it no longer has |
-| `POST /dev/inbox/{id}` | Form `do=archive`, `unarchive` or `delete`: 204 for the page's own posts (`X-Dev-Box: 1`), else back to `/dev/inbox`. 404 for a message it no longer has |
-| `GET /dev/inbox/{id}/raw` | The message as received (`text/plain`), to save as `.eml` |
-| `POST /dev/inbox/clear` | Empty the mailbox, then back to `/dev/inbox` |
-| `GET /dev/ai` | [The dev AI provider](#the-dev-ai-provider)'s page, the dev mailbox's **AI** section (`dev-box-kind-ai`): each key profile's card (`dev-ai-profile[data-who=platform\|learner][data-over]`: its keys as copy buttons in the provider's colours `dev-ai-key[data-provider][data-copy-key]`, usage `dev-ai-usage`, limit `dev-ai-limit` + `dev-ai-measure` + `dev-ai-limit-save`, `dev-ai-reset`, **Hit the limit now** `dev-ai-exhaust` / `dev-ai-lift`, failure `dev-ai-fault` + `dev-ai-hang` + `dev-ai-once`/`dev-ai-sticky` + `dev-ai-inject`, `dev-ai-injected`, `dev-ai-clear-inject`), the call log (`dev-ai-call[data-id][data-who][data-format][data-purpose][data-status][data-fixture]`, `dev-ai-call-open`, `dev-ai-call-status`, `dev-ai-call-outcome`; polls `GET /dev/ai/rows` every 2 s), the fixture files (`dev-ai-fixture[data-name][data-edited]`) and **Add a scenario** (`dev-ai-scenario-*`). `?format=json`: `{mode, simulating, holding, base_urls, client_timeout_secs, profiles, calls, fixtures, held}` (`held`: the held requests, newest first, each `{stem, pending, request, response}`) |
+| `GET /dev/ai` | [The dev AI provider](#the-dev-ai-provider)'s page, the dev pages' **AI** section (`dev-box-kind-ai`): each key profile's card (`dev-ai-profile[data-who=platform\|learner][data-over]`: its keys as copy buttons in the provider's colours `dev-ai-key[data-provider][data-copy-key]`, usage `dev-ai-usage`, limit `dev-ai-limit` + `dev-ai-measure` + `dev-ai-limit-save`, `dev-ai-reset`, **Hit the limit now** `dev-ai-exhaust` / `dev-ai-lift`, failure `dev-ai-fault` + `dev-ai-hang` + `dev-ai-once`/`dev-ai-sticky` + `dev-ai-inject`, `dev-ai-injected`, `dev-ai-clear-inject`), the call log (`dev-ai-call[data-id][data-who][data-format][data-purpose][data-status][data-fixture]`, `dev-ai-call-open`, `dev-ai-call-status`, `dev-ai-call-outcome`; polls `GET /dev/ai/rows` every 2 s), the fixture files (`dev-ai-fixture[data-name][data-edited]`) and **Add a scenario** (`dev-ai-scenario-*`). `?format=json`: `{mode, simulating, holding, base_urls, client_timeout_secs, profiles, calls, fixtures, held}` (`held`: the held requests, newest first, each `{stem, pending, request, response}`) |
 | `GET /dev/ai/rows` | The log as HTML, each profile's usage, and whether Manual replies is on with the held requests as HTML, for the page's poll |
 | `POST /dev/ai/hold` | Form `do=on\|off`: Manual replies (the pill, `dev-ai-hold-toggle`, `role=switch`; `dev-ai-hold-form[data-holding]`, `dev-ai-hold-state`). On, the **Manual replies** section at the bottom of the page (`dev-ai-held`; `dev-ai-held-link` says how many wait) lists each held request, newest first, as a folded row in a scrolling box (`dev-ai-request[data-stem][data-purpose][data-pending]`, `dev-ai-request-state`; empty: `dev-ai-held-empty`): the system prompt and messages, and either the reply (`dev-ai-reply`) or a folded Reply box (`dev-ai-answer`: `dev-ai-answer-form`, `dev-ai-answer-input`, `dev-ai-answer-submit`, `dev-ai-answer-error`) |
 | `POST /dev/ai/held/{stem}` | Answer a held request (`reply=` form field); the page's Reply boxes post it in place |
@@ -200,48 +188,15 @@ its own, so the learner a spec drives is not touched.
 | `POST /dev/ai/anthropic/v1/messages`, `GET …/v1/models` | The Anthropic Messages API, played by the dev AI provider (no cookie; the `x-api-key` decides) |
 | `POST /dev/ai/openai/v1/chat/completions`, `GET …/v1/models` | OpenAI chat completions (`Authorization: Bearer …`) |
 | `POST /dev/ai/google/v1beta/openai/chat/completions`, `GET …/models` | Gemini's OpenAI-compatible endpoint, OpenAI's format |
-| `GET /dev/authenticator` | [The dev authenticator](#two-factor-codes-the-dev-authenticator)'s accounts with their current codes. JSON `{"now", "accounts": [{id, issuer, account, code, remaining, period, digits, algorithm, secret}]}`, or for a browser the dev mailbox page's **Authenticator** section (`dev-box-kind-auth`): an add form (`dev-authenticator-uri`, `dev-authenticator-add`, `dev-authenticator-error`) and a row per account (`dev-authenticator-item[data-id][data-issuer][data-account][data-code][data-expires]`) with the code (`dev-authenticator-code`, `123 456`), the seconds left (`dev-authenticator-remaining`), **Copy** (`dev-authenticator-copy`) and **Remove** (`dev-authenticator-remove`). `?uri=otpauth://totp/…` is the "scan": the form opens filled in with it; without it the form holds an example account. The page counts down and polls `GET /dev/authenticator/rows` (`{"html", "now"}`) |
+| `GET /dev/authenticator` | [The dev authenticator](#two-factor-codes-the-dev-authenticator)'s accounts with their current codes. JSON `{"now", "accounts": [{id, issuer, account, code, remaining, period, digits, algorithm, secret}]}`, or for a browser the dev pages' **Authenticator** section (`dev-box-kind-auth`): an add form (`dev-authenticator-uri`, `dev-authenticator-add`, `dev-authenticator-error`) and a row per account (`dev-authenticator-item[data-id][data-issuer][data-account][data-code][data-expires]`) with the code (`dev-authenticator-code`, `123 456`), the seconds left (`dev-authenticator-remaining`), **Copy** (`dev-authenticator-copy`) and **Remove** (`dev-authenticator-remove`). `?uri=otpauth://totp/…` is the "scan": the form opens filled in with it; without it the form holds an example account. The page counts down and polls `GET /dev/authenticator/rows` (`{"html", "now"}`) |
 | `POST /dev/authenticator` | Form `uri`: an `otpauth://totp/…` link or a base32 setup key; adds the account (the same secret and name again replaces it), back to `/dev/authenticator` (204 for the page's own posts, `{"id"}` with `Accept: application/json`), 400 with why |
 | `POST /dev/authenticator/{id}` | Form `do=delete`: remove that account; 404 if it has none |
 | `POST /dev/vocab` | JSON `{"lesson": "<slug>", "days_ago": n}`: collect that lesson's words for the signed-in learner as if `n` days ago, so they are due today (#1360). Answers `{"collected": n}`, the words that were new |
 | `GET /dev/boot` | This process's boot id, which changes on every restart; the `--watch` reload script polls it ([Live reload](#live-reload---watch)) |
 
-## E-mail: the dev mailbox
-
-In dev mode the app sends its e-mail to a small SMTP server of its own
-(`src/mail/sink.rs`), so a sign-up or a password flow can be clicked
-through to the end without a real provider. The outbox, the job runner
-that sends it and lettre run as in production; only the server at the other end
-is the app's. It is on by default; `./.dev-start` prints its link (`inbox:`).
-
-- **Open the mail:** `<url>/dev/inbox` (the Outbox tab is `/dev/mail`),
-  or `<url>/dev/inbox/latest?to=<address>` for the newest message to one
-  address; no sign-in needed. Rows are bold until opened; Archive strikes one out and
-  moves it down, Delete removes it; the page updates by itself. A message shows its
-  HTML as a mail client would; click a link in it and it opens in the tab.
-- **Where it listens:** `127.0.0.1` on a free port (in the log line
-  `dev: e-mail goes to the dev mailbox (SMTP on …)` and in `/dev/inbox`'s
-  JSON as `smtp`). Other tools on the machine may send to it too, e.g.
-  `swaks --server 127.0.0.1:<port> --to ann@example.org`.
-- **`SKRONGLE_DEV_SMTP`:** unset or `1`, a free port; a number, that port;
-  `0`, off (mail is only logged, as outside dev mode). With
-  `SKRONGLE_MAIL_PROVIDERS` set, dev mode sends through those providers
-  instead, and `/dev/inbox` says it is off.
-- **What it keeps:** the newest 200 messages, in memory; a restart empties
-  it. It takes EHLO/HELO, MAIL, RCPT, DATA, RSET, NOOP and QUIT: no TLS,
-  no AUTH, at most 2 MB a message.
-- **In browser tests:** `e2e/lib/mail.ts` has `waitForMail(to, subject?)`
-  (it waits for the job runner to send it), `inbox(to?)` and `mailLink(mail,
-  /pattern/)`, which read the mailbox as the dev user (`devRequest()`), and
-  `devPage(browser, path)`, a browser of its own signed in as the dev user,
-  for clicking through a message while the learner stays signed in as
-  themselves. Give each test its own address (`newAccount`), since the
-  mailbox is shared. `e2e/specs/mail.spec.ts` registers, opens the
-  confirmation in the inbox and clicks its link.
-
 ## Two-factor codes: the dev authenticator
 
-The dev mailbox page's third section, **Authenticator** (`<url>/dev/authenticator`),
+The dev pages' **Authenticator** section (`<url>/dev/authenticator`),
 is an authenticator app like Google Authenticator, so a flow that asks
 for a TOTP code can be clicked through with the real protocol and no
 special case in the app. It speaks RFC 6238 (`src/totp.rs`): HMAC-SHA1 by
@@ -261,7 +216,7 @@ default, SHA-256 and SHA-512 when the link asks, 6 to 8 digits, any period.
   phone without a backup would), so enrol again after one.
 - **In browser tests:** `e2e/lib/totp.ts` works codes out with Node's
   crypto (`totp(secret)`, `totpForStep`) and reads the dev authenticator
-  (`authenticator()`, `authenticatorCode(account)`, read as the dev user like the mail helpers).
+  (`authenticator()`, `authenticatorCode(account)`, with a request context of its own).
   `e2e/specs/authenticator.spec.ts` covers add, scan, codes, rollover and remove.
 - **Two-factor sign-in** ([features](features#two-factor-sign-in)): the
   profile's set-up dialog has *Dev: add it to the dev authenticator*, the
@@ -594,7 +549,7 @@ line of a file that shrank. `scripts/pi-budget.sh` (the
 `pi budget` job, #638; off in CI for now, #1387) builds `--release` (or measures `--bin <path>`) and
 checks three numbers against `scripts/pi-budget.txt`: the stripped binary's
 size (at most its platform's baseline + 5 %), and, for a server started with
-no optional settings (no mail or AI key, no
+no optional settings (no AI key, no
 `SKRONGLE_DEV`) on a temp database after twenty requests each to `/`, `/login`
 and `/healthz`, its resident memory (≤ 32 MiB) and thread count (≤ 12). On
 Linux the numbers come from `/proc/<pid>/status`; on a Mac from `ps`, so it
@@ -763,7 +718,6 @@ offline. `npm --prefix e2e run typecheck` checks the TypeScript.
 | `e2e/specs/lesson-editor-rules.spec.ts` | The lesson editor's forms against the course rules (#1200), each path ending on a save the server accepts: a type switch to numeric or expression with an answer the checker cannot read (`/api/courses/{id}/answer-key`), the option that was the answer deleted, a word a question names deleted, a question the Guide names deleted, a duplicated word, question and conjugation, a sort's bucket and item limits and a deleted bucket's items, a spot's word that appears twice and a word in brackets, a conversation's empty line and its two-line least, a Guide word count that is no whole number, an optional box of spaces. Runs in CI with the exact specs |
 | `e2e/specs/words-due.spec.ts` | Words due (#1360), seeded through `POST /dev/vocab`: no card until words are due; the card's count, three words, (i) and button; the due round (a miss comes back once at the end, the summary's "Back tomorrow" and "Next" lines); the card gone after; the card stacked on a phone. Runs in CI with the exact specs |
 | `e2e/specs/dev-ai.spec.ts` | [The dev AI provider](#the-dev-ai-provider): a course generated from the dialog with the seeded key shows in `/dev/ai`'s log; an edited fixture, a used-up limit, a request limit and an injected timeout reach the learner; the wire API refuses unknown keys; Manual replies holds a request, folded at the bottom of `/dev/ai`, for an answer typed there |
-| `e2e/specs/mail.spec.ts` | The dev mailbox: the outbox's test message arrives over SMTP and opens from `/dev/mail`; the table (#223): new mail appears without a reload, bold until opened, Archive strikes out and sinks, Delete removes, the tabs switch in place; Runs in CI with the exact specs |
 | `e2e/specs/terms.spec.ts` | Terms of Service: `/terms` is public, registration is refused without the checkbox (`register-terms`, which `register()` in `e2e/lib/learner.ts` ticks) and records the version, the gate holds an account with an older version (`/dev/login?terms=old`) until it accepts. Runs in CI with the exact specs |
 | `e2e/specs/docs.spec.ts` | The docs (#97): `/docs` logged out, its two sidebar sections (`docs-section[data-section=using|working]`), every user guide as HTML and raw Markdown, `/llms.txt` naming the course format and schema (every link it lists answers 200), no page wider than a phone, every in-app link and `#heading` on every page resolves. Runs in CI with the exact specs |
 | `e2e/specs/i18n.spec.ts` | [Languages](i18n): the picker on `/register` sets the `lang` cookie and the page comes back in Spanish, the account keeps the choice (it wins over a cleared cookie at the next sign-in), the profile's picker (`profile-lang`) saves at once and reloads in English; a browser asking for `es-MX` gets Spanish before any pick, `fr` gets English, `POST /lang` refuses an unknown code. Runs in CI with the exact specs |
@@ -782,7 +736,6 @@ offline. `npm --prefix e2e run typecheck` checks the TypeScript.
 | `e2e/lib/key.ts` | `AnswerKey`: the right answer to a question id or a Sprint mode exercise id, read from the course files |
 | `e2e/lib/answer.ts` | `answerQuestion` (Study and Play, by `data-qid`), `passReadingCheck`, `playPractice`, `playStage` |
 | `e2e/lib/sprint-play.ts` | `playSprintRight`: a Sprint mode session played with the right answers; reports the exercise kinds it met |
-| `e2e/lib/mail.ts` | The dev mailbox: `waitForMail`, `inbox`, `mailLink` ([E-mail: the dev mailbox](#e-mail-the-dev-mailbox)) |
 | `e2e/lib/learner.ts` | A fresh account (`newAccount`; `signUp` fills `/register` and waits for the signed-in page; `register` signs up and opens a course; `login`, `logout`), `/api/progress`, and the check that every page agrees with it |
 | `e2e/lib/fixtures.ts` | The smoke specs' `test`: seeded `Math.random` and a fake voice in every page; prints the seed on failure |
 | `e2e/lib/jev.ts` | `judge(state, statement)`, `choose(state, instructions, options)`, `judgeAndChoose`, usage and cost totals |
@@ -1255,8 +1208,7 @@ from the testids is cheaper.
 
 ### The mini lane
 
-Every other browser run has the dev stand-ins on: the dev mailbox and the dev
-phone. A self-hoster
+Every other browser run has the dev stand-ins on: the dev phone. A self-hoster
 has none of them. The mini lane (#639, part of #632) runs a few smoke specs
 in that shape:
 
@@ -1267,12 +1219,12 @@ E2E_MINI=1 scripts/e2e.sh specs/smoke/happy-paths.spec.ts specs/smoke/mini.spec.
 
 `E2E_MINI=1` starts the server with `SKRONGLE_MINI=1` (learners' own keys
 still reach [the dev AI provider](#the-dev-ai-provider)) and passes
-`E2E_MINI=1` to the specs. `SKRONGLE_MINI=1` makes it a Skrongle mini (#578, #641: no
-dev mailbox, and `/healthz` says `ok skrongle mini <version>`). Sign-up stays open, since the specs register. A spec that needs a
+`E2E_MINI=1` to the specs. `SKRONGLE_MINI=1` makes it a Skrongle mini (#578, #641:
+`/healthz` says `ok skrongle mini <version>`). Sign-up stays open, since the specs register. A spec that needs a
 stand-in skips there: `test.skip(process.env.E2E_MINI === "1", "why")`
-(`export.spec.ts`). `mini.spec.ts` checks what is
+(none does now). `mini.spec.ts` checks what is
 true in the mini shape (a learner registers, signs in and passes a lesson;
-no dev mailbox; `/healthz` names the mini; the profile asks nobody to
+there is no `/dev/inbox`; `/healthz` names the mini; the profile asks nobody to
 confirm their e-mail); each #632 issue adds its browser check there.
 CI runs it as the `e2e-mini` job in `.github/workflows/smoke.yml`, one
 shard; it is not a required check yet.

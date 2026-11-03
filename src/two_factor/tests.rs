@@ -112,13 +112,6 @@ fn a_new_sign_in_replaces_the_challenge_and_five_wrong_codes_end_it() {
 }
 
 #[test]
-fn the_mail_says_how_to_sign_out_everywhere_else() {
-    let off = changed_mail("ana@example.org", None, 1).unwrap();
-    assert_eq!((off.purpose, off.user_id), (PURPOSE_CHANGED, Some(1)));
-    assert!(off.text.contains("is now off") && off.text.contains("Sign out everywhere else"));
-}
-
-#[test]
 fn every_change_of_method_needs_proof() {
     use Method::*;
     assert!(needs_proof(None, Some(Totp)), "turning it on too (#374)");

@@ -153,38 +153,6 @@ fn dev_run_now_makes_rows_due() {
     assert!(db.with(|c| claim(c, &["dev.fail"], "b", T + 1)).unwrap().is_some(), "its lease was ended");
 }
 
-/// #873: each pass sends a batch from every outbox before one job, so mail
-/// never waits behind housekeeping and a big backlog still lets jobs in.
-#[test]
-fn outboxes_go_first_a_batch_per_pass() {
-    let db = db();
-    let left = Arc::new(AtomicUsize::new(OUTBOX_BATCH * 2 + 3));
-    let l = Arc::clone(&left);
-    let drain = Drain::new(
-        "test",
-        move |_, worker, _| {
-            assert!(worker.starts_with("pid"));
-            let more = l.load(Ordering::SeqCst) > 0;
-            if more {
-                l.fetch_sub(1, Ordering::SeqCst);
-            }
-            Ok(more)
-        },
-        |_| Ok(Some(T + 5)),
-    );
-    let runner = Runner::new().drain(drain).handle(HOUSEKEEPING, |_, _| Ok(String::new()));
-    let job = db.with(|c| enqueue(c, HOUSEKEEPING.name, &serde_json::json!({}), T, T)).unwrap().unwrap();
-    assert!(runner.pass(&db, T));
-    assert_eq!(left.load(Ordering::SeqCst), OUTBOX_BATCH + 3, "one batch");
-    assert_eq!(state(&db, job).0, "done", "then the job");
-    assert!(runner.pass(&db, T));
-    assert!(runner.pass(&db, T));
-    assert_eq!(left.load(Ordering::SeqCst), 0);
-    assert!(!runner.pass(&db, T), "nothing left");
-    // The runner's wait counts the outboxes too.
-    assert_eq!(runner.next_due(&db, &runner.kinds()), Some(T + 5));
-}
-
 /// A gated kind (AI jobs, #874) is taken only while its gate is open, and a
 /// handler that hands the row on leaves it running for its own thread.
 #[test]

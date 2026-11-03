@@ -249,7 +249,6 @@
     <dialog class="modal" id="consent-info" aria-labelledby="consent-info-title" data-testid="profile-consent-info-dialog">
       <h2 id="consent-info-title">{{ crate::t("profile.consent.title") }}</h2>
       <p>{{ crate::t("profile.consent.info_age") }}</p>
-      {% if caps.mail %}<p>{{ crate::t("profile.consent.info_email") }}</p>{% endif %}
       <p>{{ crate::t("profile.consent.info_ai") }}</p>
       <p>{{ crate::t("profile.consent.info_record") }}</p>
       <div class="modal-actions"><button type="button" class="btn" data-closes data-testid="profile-consent-info-close">{{ crate::t("profile.consent.close") }}</button></div>
@@ -263,10 +262,6 @@
       {% endif %}
       <dt>{{ crate::t("profile.consent.age") }}</dt>
       <dd data-testid="consent-age">{{ profile.age_text() }}</dd>
-      {% if caps.mail && profile.email.is_some() %}
-      <dt>{{ crate::t("profile.consent.email") }}</dt>
-      <dd data-testid="consent-email">{{ crate::t("profile.consent.email_service") }}</dd>
-      {% endif %}
       <dt id="consent-ai-label">{{ crate::t("profile.consent.ai") }}</dt>
       <dd data-testid="consent-ai" data-ai-off="{{ profile.ai_off }}">
         <div class="switch-row">
@@ -314,7 +309,7 @@
     <dialog class="modal" id="export-info" aria-labelledby="export-info-title" data-testid="profile-export-dialog">
       <h2 id="export-info-title">{{ crate::t("profile.data.export_heading") }}</h2>
       <p data-testid="profile-export-state" data-state="{{ export_state() }}">{{ export_text() }}</p>
-      <p class="small">{% if caps.mail %}{{ crate::t("profile.data.export_about") }}{% else %}{{ crate::t("profile.data.export_about_no_mail") }}{% endif %}</p>
+      <p class="small">{{ crate::t("profile.data.export_about") }}</p>
       <div class="modal-actions"><button type="button" class="btn" data-closes data-testid="profile-export-close">{{ crate::t("profile.data.export_ok") }}</button></div>
     </dialog>
     <div class="profile-delete">

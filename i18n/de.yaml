@@ -212,111 +212,6 @@ terms:
     dismiss: Weiter
     disagree_html: "Wenn du nicht einverstanden bist, melde dich ab oder schließe dein Konto in deinem <a href=\"{url}\" data-testid=\"terms-notice-profile\">Profil</a>."
 
-mail:
-  waitlist_confirm:
-    subject: "Bestätige deinen Platz auf der Warteliste von {app}"
-    text: |
-      Hallo,
-
-      bitte bestätige, dass du auf die Warteliste von {app} möchtest, indem du diesen Link öffnest:
-
-      {link}
-
-      Wir schicken dir eine Einladung per E-Mail, wenn du an der Reihe bist. Wenn du das nicht angefragt hast, ignoriere diese Nachricht: Die Adresse wird nur eingetragen, wenn der Link geöffnet wird.
-    html: |
-      <p>Hallo,</p>
-      <p>bitte bestätige, dass du auf die Warteliste von {app} möchtest:</p>
-      <p><a href="{link}">Meinen Platz bestätigen</a></p>
-      <p>Oder füge diesen Link in deinen Browser ein: {link}</p>
-      <p>Wir schicken dir eine Einladung per E-Mail, wenn du an der Reihe bist. Wenn du das nicht angefragt hast, ignoriere diese Nachricht: Die Adresse wird nur eingetragen, wenn der Link geöffnet wird.</p>
-  waitlist_invite:
-    subject: "Deine Einladung zu {app}"
-    text: |
-      Hallo,
-
-      du bist an der Reihe: Du bist eingeladen, dein {app}-Konto anzulegen. Öffne diesen Link und registriere dich mit dieser E-Mail-Adresse ({email}):
-
-      {link}
-
-      Die Einladung gilt {days} Tage.
-    html: |
-      <p>Hallo,</p>
-      <p>du bist an der Reihe: Du bist eingeladen, dein {app}-Konto anzulegen. Registriere dich mit dieser E-Mail-Adresse ({email}).</p>
-      <p><a href="{link}">Mein Konto anlegen</a></p>
-      <p>Oder füge diesen Link in deinen Browser ein: {link}</p>
-      <p>Die Einladung gilt {days} Tage.</p>
-  terms_change:
-    subject: "Die Nutzungsbedingungen von {app} ändern sich am {date}"
-    text: |
-      Hallo,
-
-      Wir ändern die Nutzungsbedingungen von {app}. Die neuen Bedingungen gelten ab {date}.
-
-      Was sich ändert:
-      {summary}
-
-      Die neuen Bedingungen lesen: {link}
-
-      Ab {date} wirst du bei der Anmeldung gebeten, sie zu akzeptieren. Wenn du nicht einverstanden bist, kannst du dein Konto in deinem Profil schließen.
-    html: |
-      <p>Hallo,</p>
-      <p>Wir ändern die Nutzungsbedingungen von {app}. Die neuen Bedingungen gelten ab {date}.</p>
-      <p>Was sich ändert:</p>
-      {summary}
-      <p><a href="{link}">Die neuen Bedingungen lesen</a></p>
-      <p>Ab {date} wirst du bei der Anmeldung gebeten, sie zu akzeptieren. Wenn du nicht einverstanden bist, kannst du dein Konto in deinem Profil schließen.</p>
-  account_deletion:
-    subject: "Dein {app}-Konto wird am {date} gelöscht"
-    text: |
-      Hallo,
-
-      du hast die Löschung deines {app}-Kontos angefordert. Es wird am {date} endgültig gelöscht, mit deinem Fortschritt, deinen Kursen und gespeicherten Schlüsseln.
-
-      Wenn du es behalten willst, melde dich vorher bei {app} an und wähle Löschung abbrechen.
-
-      Wenn du das nicht angefordert hast, melde dich an, brich die Löschung ab und ändere dein Passwort.
-  data_export:
-    subject: "Deine {app}-Daten sind zum Herunterladen bereit"
-    text: |
-      Hallo,
-
-      die Kopie deiner {app}-Daten, die du angefordert hast, ist fertig. Melde dich bei {app} an und öffne dann diesen Link, um sie herunterzuladen:
-
-      {link}
-
-      Der Link funktioniert einmal, 24 Stunden lang, und nur, solange du in diesem Konto angemeldet bist. Wenn du das nicht angefordert hast, ändere dein Passwort: Dann ist jemand anderes in deinem Konto angemeldet.
-    html: |
-      <p>Hallo,</p>
-      <p>die Kopie deiner {app}-Daten, die du angefordert hast, ist fertig. Melde dich bei {app} an und öffne dann diesen Link, um sie herunterzuladen:</p>
-      <p><a href="{link}">Meine Daten herunterladen</a></p>
-      <p>Der Link funktioniert einmal, 24 Stunden lang, und nur, solange du in diesem Konto angemeldet bist. Wenn du das nicht angefordert hast, ändere dein Passwort: Dann ist jemand anderes in deinem Konto angemeldet.</p>
-  two_factor_changed:
-    subject: "Zwei-Faktor-Anmeldung bei {app} geändert"
-    now_off: "ist jetzt aus"
-    now_totp: "fragt dich jetzt nach einem Code aus einer Authenticator-App"
-    text: |
-      Hallo,
-
-      die Zwei-Faktor-Anmeldung bei {app} {now}.
-
-      Alle anderen Geräte wurden abgemeldet. Wenn du diese Änderung nicht vorgenommen hast, war jemand anderes in deinem Konto angemeldet: Melde dich an, nutze auf deinem Profil „Überall sonst abmelden“ und stelle die Zwei-Faktor-Anmeldung wieder zurück.
-    html: |
-      <p>Hallo,</p>
-      <p>die Zwei-Faktor-Anmeldung bei {app} <strong>{now}</strong>.</p>
-      <p>Alle anderen Geräte wurden abgemeldet. Wenn du diese Änderung nicht vorgenommen hast, war jemand anderes in deinem Konto angemeldet: Melde dich an, nutze auf deinem Profil „Überall sonst abmelden“ und stelle die Zwei-Faktor-Anmeldung wieder zurück.</p>
-  course_share:
-    subject: "{owner} hat dir auf {app} einen Kurs geteilt: {title}"
-    text: |
-      Hallo,
-      {owner} hat dir den Kurs „{title}“ auf {app} geteilt. Öffne diesen Link, um ihn zu deinen Kursen hinzuzufügen:
-      {link}
-      Du kannst aus dem Kurs mit deinem eigenen Fortschritt lernen; nur {owner} kann ihn ändern. Falls du noch kein {app}-Konto hast, kannst du über den Link eines erstellen. Wenn du damit nicht gerechnet hast, ignoriere diese Nachricht einfach.
-    html: |
-      <p>Hallo,</p>
-      <p>{owner} hat dir den Kurs <strong>{title}</strong> auf {app} geteilt.</p>
-      <p><a href="{link}">Kurs öffnen</a></p>
-      <p>Oder füge diesen Link in deinen Browser ein: {link}</p>
-      <p>Du kannst aus dem Kurs mit deinem eigenen Fortschritt lernen; nur {owner} kann ihn ändern. Falls du noch kein {app}-Konto hast, kannst du über den Link eines erstellen. Wenn du damit nicht gerechnet hast, ignoriere diese Nachricht einfach.</p>
 
 profile:
   title: Profil
@@ -384,7 +279,6 @@ profile:
     title: "Datenschutz und Einwilligung"
     info: "Über deine Einwilligungen"
     info_age: "Du hast dein Alter bei der Registrierung bestätigt. Um das zurückzunehmen, lösche dein Konto unter Deine Daten."
-    info_email: "Service-E-Mails werden immer verschickt: Bestätigung deiner Adresse, dein Datendownload und Änderungen der Bedingungen. Optionale E-Mails erscheinen hier mit eigenem Schalter, aus, bis du sie einschaltest."
     info_ai: "KI-Funktionen schicken, was du schreibst, an ein KI-Unternehmen. Blendest du sie aus, geht nichts mehr hinaus, die Funktionen verschwinden aus der App und deine gespeicherten API-Schlüssel werden gelöscht."
     info_record: "Jede Änderung wird mit Datum gespeichert und ist in Meine Daten herunterladen enthalten."
     close: "Schließen"
@@ -392,8 +286,6 @@ profile:
     age: "Alter"
     age_confirmed: "Bestätigt am {date}"
     age_not_confirmed: "Nicht bestätigt"
-    email: "E-Mail"
-    email_service: "Nur Service-Nachrichten"
     ai: "KI-Funktionen nicht anzeigen"
     ai_on_since: "Angezeigt seit {date}"
     ai_on: "Angezeigt"
@@ -499,26 +391,21 @@ profile:
     wrong_provider: "Das sieht nicht nach einem {provider}-Schlüssel aus: sie beginnen mit {prefix}."
   data:
     export_download: "Meine Daten herunterladen"
-    export_building_no_mail: "Deine Daten werden vorbereitet. Sobald sie fertig sind, erscheint hier ein Herunterladen-Knopf."
-    export_ready_no_mail: "Deine Daten sind fertig: Lade sie mit dem Knopf herunter, einmal, bis {date}."
-    export_about_no_mail: "Eine JSON-Datei mit allem, was zu deinem Konto gespeichert ist, im Hintergrund vorbereitet. Wenn sie fertig ist, lade sie hier herunter; das geht einmal, 24 Stunden lang. Eine Kopie pro Tag."
+    export_building: "Deine Daten werden vorbereitet. Sobald sie fertig sind, erscheint hier ein Herunterladen-Knopf."
+    export_ready: "Deine Daten sind fertig: Lade sie mit dem Knopf herunter, einmal, bis {date}."
+    export_about: "Eine JSON-Datei mit allem, was zu deinem Konto gespeichert ist, im Hintergrund vorbereitet. Wenn sie fertig ist, lade sie hier herunter; das geht einmal, 24 Stunden lang. Eine Kopie pro Tag."
     title: Deine Daten
     stored_html: "Was gespeichert wird und warum: <a href=\"{url}\" data-testid=\"profile-privacy-link\">Datenschutzerklärung</a>."
     export: "Meine Daten vorbereiten (JSON)"
     export_heading: "Meine Daten herunterladen"
     export_info_label: "Über das Herunterladen deiner Daten"
     export_preparing: "Wird vorbereitet…"
-    export_about: "Eine JSON-Datei mit allem, was für dein Konto gespeichert ist; sie wird im Hintergrund vorbereitet. Wir schicken dir einen Link per E-Mail; er funktioniert einmal, 24 Stunden lang, solange du angemeldet bist. Eine Kopie pro Tag."
     export_ok: "OK"
-    export_your_address: "deine Adresse"
     export_none: "Du hast noch keine Kopie angefordert."
-    export_building: "Wird vorbereitet. Ein Link wird an {email} geschickt, sobald er fertig ist."
-    export_ready: "Fertig. Der Link wurde an {email} geschickt; er funktioniert einmal, bis {date}."
     export_downloaded: "Am {date} heruntergeladen."
     export_expired: "Der letzte Link ist abgelaufen, ohne benutzt worden zu sein."
     export_failed: "Die letzte Kopie konnte nicht vorbereitet werden. Versuch es noch einmal."
     export_next: "Eine Kopie pro Tag: die nächste kannst du ab {date} anfordern."
-    export_queued: "Deine Daten werden vorbereitet. Du bekommst eine E-Mail mit dem Link."
     export_busy: "Deine Daten werden bereits vorbereitet."
     export_soon: "Eine Kopie pro Tag. Unter (i) steht, wann du wieder anfordern kannst."
     export_gone: "Dieser Download-Link wurde schon benutzt, ist abgelaufen oder gehört zu einem anderen Konto."
@@ -599,15 +486,6 @@ superuser:
   two_factor_off_about: "Das Konto meldet sich nur mit dem Passwort an, bis es die Zwei-Faktor-Anmeldung wieder einschaltet. Eine dafür eingerichtete Authenticator-App wird entfernt."
   two_factor_off_confirm: "Ausschalten"
   two_factor_off_done: "Die Zwei-Faktor-Anmeldung ist für {email} ausgeschaltet."
-  terms_changed: "Die Bedingungen haben sich geändert."
-  terms_title: "Kommende Änderung der Bedingungen"
-  terms_send: "Ankündigung senden"
-  terms_send_about:
-    one: "Die Zusammenfassung der kommenden Änderung geht an {n} Konto, das sie noch nicht bekommen hat."
-    other: "Die Zusammenfassung der kommenden Änderung geht an {n} Konten, die sie noch nicht bekommen haben."
-  terms_sent:
-    one: "Ankündigung für {n} Konto in der Warteschlange."
-    other: "Ankündigung für {n} Konten in der Warteschlange."
   js:
     copied: "Kopiert"
 
@@ -2735,7 +2613,7 @@ courses:
     none_right: "nichts richtig"
     failed: "Der Einstufungstest hat nicht geladen. Wähle stattdessen eine Stufe."
   share:
-    dialog_lead_no_mail: "Jede Adresse bekommt einen eigenen Link, den du weitergibst: Dieser Server sendet keine E-Mails. Sie lernen mit dem Kurs mit eigenem Fortschritt; nur du kannst ihn ändern."
+    dialog_lead: "Jede Adresse bekommt einen eigenen Link, den du weitergibst: Dieser Server sendet keine E-Mails. Sie lernen mit dem Kurs mit eigenem Fortschritt; nur du kannst ihn ändern."
     make_links: "Einladungslinks erstellen"
     made:
       one: "{n} Einladungslink erstellt. Kopiere ihn und gib ihn weiter; er wird nur jetzt angezeigt."
@@ -2745,14 +2623,12 @@ courses:
     button: Teilen
     button_count: "Teilen ({n})"
     dialog_title: Diesen Kurs teilen
-    dialog_lead: Alle, mit denen du ihn teilst, bekommen eine E-Mail mit einem Link. Sie lernen aus dem Kurs mit ihrem eigenen Fortschritt; nur du kannst ihn ändern.
     status_opened: geöffnet
     status_invited: eingeladen
     remove: Entfernen
     remove_label: "Teilen mit {email} beenden"
     emails_label: E-Mail-Adressen
     emails_note: (eine pro Zeile oder durch Kommas getrennt)
-    send: Einladungen senden
     close: Schließen
     own_address: "Das ist deine eigene Adresse: Der Kurs gehört dir bereits."
     too_many_course: "Ein Kurs kann mit höchstens {max} Adressen geteilt werden."
@@ -2760,9 +2636,6 @@ courses:
     at_least_one: Gib mindestens eine E-Mail-Adresse ein.
     bad_address: "„{address}“: {error}"
     bad_address_notice: "Eine dieser Adressen ist keine E-Mail-Adresse. Prüfe die Liste und schick sie noch einmal."
-    sent:
-      one: "Einladung an {n} Adresse gesendet."
-      other: "Einladungen an {n} Adressen gesendet."
     already_had: "{n} hatte bereits eine."
     removed_notice: "Nicht mehr mit dieser Adresse geteilt."
     not_on_list: Diese Adresse stand nicht auf der Liste.

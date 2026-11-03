@@ -32,8 +32,6 @@ pub const CODE_TTL_SECS: i64 = 10 * 60;
 pub const MAX_ATTEMPTS: i64 = 5;
 /// The sign-in challenge's cookie.
 pub const COOKIE: &str = "twofa";
-/// The account is told when its second step changes (#374).
-pub const PURPOSE_CHANGED: &str = "two-factor-changed";
 
 /// The second step's method: only the authenticator app is left (#10).
 /// Kept as a type so `users.two_factor`, the profile form and the pages
@@ -315,22 +313,6 @@ pub fn purge(conn: &Connection, now: i64) -> rusqlite::Result<usize> {
     let a = conn.execute("DELETE FROM two_factor_challenges WHERE expires_at < ?1", [now])?;
     let c = conn.execute(PURGE_ENROLMENTS, [now - 86_400])?;
     Ok(a + c)
-}
-
-// ---------- the messages ----------
-
-/// Tells the account that its second sign-in step changed (#374), so an
-/// owner whose session someone else used hears of it.
-pub fn changed_mail(email: &str, method: Option<Method>, user_id: i64) -> Result<crate::mail::Mail, String> {
-    let app = crate::APP_NAME;
-    let now = crate::t(match method {
-        None => "mail.two_factor_changed.now_off",
-        Some(Method::Totp) => "mail.two_factor_changed.now_totp",
-    });
-    let subject = crate::t1("mail.two_factor_changed.subject", "app", app);
-    let text = crate::t2("mail.two_factor_changed.text", "app", app, "now", &now);
-    let html = crate::t2("mail.two_factor_changed.html", "app", app, "now", &now);
-    Ok(crate::mail::Mail::new(email, &subject, &text, PURPOSE_CHANGED)?.html(&html).for_user(user_id))
 }
 
 #[cfg(test)]

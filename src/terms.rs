@@ -9,9 +9,8 @@
 //! that accepted an earlier one gets a notice on its pages ([`notice`],
 //! `templates/terms_notice.html`): a minor change can be dismissed (that is
 //! acceptance), a material one blocks until accepted. A material change
-//! with a later effective date is e-mailed to every account once, when a
-//! superuser presses Send on `/superuser` ([`announce_upcoming`], table
-//! `terms_announcements`), and only takes effect on its date. An account that never accepted any version gets the
+//! with a later effective date only takes effect on its date. An account
+//! that never accepted any version gets the
 //! full-page gate, `/terms/accept`.
 //!
 //! With `SKRONGLE_TERMS=<path>` (Skrongle mini) the text is the
@@ -25,7 +24,6 @@ use std::path::{Path, PathBuf};
 use std::sync::OnceLock;
 
 use crate::db::now;
-use crate::AppState;
 
 /// One version of the built-in text, from `docs/terms-changes.json`
 /// (oldest first). Editing `docs/terms.md` means adding one; the
@@ -33,12 +31,12 @@ use crate::AppState;
 #[derive(Clone, Debug, Deserialize, PartialEq, Eq)]
 pub struct Change {
     pub version: String,
-    /// `YYYY-MM-DD`: the day the change was published (and, if material, e-mailed).
+    /// `YYYY-MM-DD`: the day the change was published.
     pub announced: String,
     /// `YYYY-MM-DD` (UTC): from this day it is the current version. A
     /// material change takes effect at least [`NOTICE_DAYS`] after it is announced.
     pub effective: String,
-    /// Affects learners' rights or a paid plan: e-mailed ahead, and the
+    /// Affects learners' rights or a paid plan: announced ahead, and the
     /// notice blocks until accepted. A minor change's notice can be dismissed.
     pub material: bool,
     /// What changed, a few plain sentences (legal text: English, like the terms).
@@ -309,110 +307,6 @@ fn accepted_sql_for(user: &str, version: &str) -> String {
     format!("EXISTS(SELECT 1 FROM terms_acceptances WHERE user_id = {user} AND version = '{v}')")
 }
 
-/// The `mail_outbox` purpose of the e-mail announcing a material change.
-pub const PURPOSE: &str = "terms-change";
-
-/// The message announcing `change` to `email`, linking to `link`.
-fn announcement(email: &str, change: &Change, link: &str, user_id: i64) -> Result<crate::mail::Mail, String> {
-    let app = crate::APP_NAME;
-    let date = change.effective.as_str();
-    let subject = crate::i18n::fill(&crate::t("mail.terms_change.subject"), &[("app", &app), ("date", &date)]);
-    let summary = change.summary.iter().map(|s| format!("- {s}")).collect::<Vec<_>>().join("\n");
-    let text = crate::i18n::fill(&crate::t("mail.terms_change.text"), &[("app", &app), ("date", &date), ("summary", &summary), ("link", &link)]);
-    let esc = crate::error::html_escape;
-    let items: String = change.summary.iter().map(|s| format!("<li>{}</li>", esc(s))).collect();
-    let html = crate::i18n::fill(
-        &crate::t("mail.terms_change.html"),
-        &[("app", &app), ("date", &date), ("summary", &format!("<ul>{items}</ul>")), ("link", &esc(link))],
-    );
-    Ok(crate::mail::Mail::new(email, &subject, &text, PURPOSE)?.html(&html).for_user(user_id))
-}
-
-/// Queue the announcement of `change` for every account with an e-mail
-/// address that has not had it, recording each in `terms_announcements` in
-/// the same transaction, so a restart never mails anyone twice. Stops when
-/// the hourly ceiling is full; the next press carries on. Returns how many
-/// were queued.
-fn announce(conn: &Connection, change: &Change, link: &str, now: i64, ceiling: Option<crate::mail::Ceiling>) -> rusqlite::Result<usize> {
-    let tx = conn.unchecked_transaction()?;
-    let todo: Vec<(i64, String)> = tx
-        .prepare(
-            "SELECT id, email FROM users WHERE COALESCE(email, '') <> ''
-             AND id NOT IN (SELECT user_id FROM terms_announcements WHERE version = ?1) ORDER BY id",
-        )?
-        .query_map([&change.version], |r| Ok((r.get(0)?, r.get(1)?)))?
-        .collect::<rusqlite::Result<_>>()?;
-    let mut queued = 0;
-    for (uid, email) in todo {
-        match announcement(&email, change, link, uid) {
-            Ok(mail) => match crate::mail::enqueue(&tx, &mail, now, ceiling)? {
-                Ok(_) => queued += 1,
-                Err(crate::mail::Capped::Hourly) => break,
-                // No per-address cap applies to this purpose; skip the address.
-                Err(crate::mail::Capped::Address) => continue,
-            },
-            // An address the mailer refuses: recorded, so it is not retried every hour.
-            Err(e) => tracing::warn!("terms change {}: no e-mail for user {uid}: {e}", change.version),
-        }
-        tx.execute(
-            "INSERT OR IGNORE INTO terms_announcements (user_id, version, mailed_at) VALUES (?1, ?2, ?3)",
-            params![uid, change.version, now],
-        )?;
-    }
-    tx.commit()?;
-    Ok(queued)
-}
-
-/// Accounts with an address that have not had the e-mail of `version`.
-fn owed(conn: &Connection, version: &str) -> rusqlite::Result<i64> {
-    conn.query_row(
-        "SELECT COUNT(*) FROM users WHERE COALESCE(email, '') <> ''
-         AND id NOT IN (SELECT user_id FROM terms_announcements WHERE version = ?1)",
-        [version],
-        |r| r.get(0),
-    )
-}
-
-/// The material changes not yet in effect: the ones to e-mail ahead. None
-/// on a server that cannot send mail or has its own terms file (Skrongle mini).
-fn upcoming(state: &AppState) -> Vec<&'static Change> {
-    if !state.mail.can_send() || !matches!(SETTINGS.get().map(|s| &s.source), None | Some(Source::Builtin)) {
-        return Vec::new();
-    }
-    let today = today();
-    changes().iter().filter(|c| c.material && day_of(&c.effective).is_some_and(|d| d > today)).collect()
-}
-
-/// How many e-mails about upcoming changes are still to send: the
-/// Superuser page shows its notice and Send button while this is above 0.
-pub async fn unannounced(state: &AppState) -> Result<i64, crate::error::AppError> {
-    let versions: Vec<String> = upcoming(state).into_iter().map(|c| c.version.clone()).collect();
-    if versions.is_empty() {
-        return Ok(0);
-    }
-    state.db.call(move |c| versions.iter().try_fold(0, |n, v| owed(c, v).map(|o| n + o))).await
-}
-
-/// E-mail every upcoming material change to the accounts that have not had
-/// it: the Superuser page's Send button, nothing else. Returns how many
-/// were queued; past the hourly ceiling the rest wait for the next press.
-pub async fn announce_upcoming(state: &AppState) -> Result<usize, crate::error::AppError> {
-    // Hosted servers set SKRONGLE_PUBLIC_URL (payments need it); without it the link is a bare path.
-    let link = format!("{}{}", state.public_url.as_deref().unwrap_or(""), if state.public_url.is_some() { "/terms".to_string() } else { crate::url("/terms") });
-    let ceiling = state.mail.ceiling();
-    let mut total = 0;
-    for change in upcoming(state) {
-        let link = link.clone();
-        let n = state.db.call(move |c| announce(c, change, &link, now(), ceiling)).await?;
-        tracing::info!("terms change {} (effective {}): e-mailed {n} account(s)", change.version, change.effective);
-        total += n;
-    }
-    if total > 0 {
-        state.mail.notify();
-    }
-    Ok(total)
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -544,37 +438,6 @@ mod tests {
         for bad in ["2026-13-01", "2026-1-01", "26-10-25", "2026-10", "soon", ""] {
             assert_eq!(day_of(bad), None, "{bad}");
         }
-    }
-
-    /// The 30-day e-mail goes to each account with an address once, however
-    /// often Send is pressed, and new accounts get it on the next press.
-    #[test]
-    fn a_material_change_is_mailed_once_per_account() {
-        let db = crate::db::Db::open_in_memory().unwrap();
-        let mut c = change("next", "2099-01-01", true);
-        c.summary = vec!["Prices <change>.".into()];
-        db.with(|conn| {
-            crate::auth::create_user(conn, "ann@example.org", "h")?;
-            crate::auth::create_user(conn, "bea@example.org", "h")?;
-            assert_eq!(owed(conn, "next")?, 2);
-            assert_eq!(announce(conn, &c, "https://skrongle.test/terms", 100, None)?, 2);
-            assert_eq!(owed(conn, "next")?, 0);
-            assert_eq!(announce(conn, &c, "https://skrongle.test/terms", 200, None)?, 0);
-            crate::auth::create_user(conn, "cat@example.org", "h")?;
-            assert_eq!(owed(conn, "next")?, 1);
-            assert_eq!(announce(conn, &c, "https://skrongle.test/terms", 300, None)?, 1);
-            let n: i64 = conn.query_row("SELECT COUNT(*) FROM mail_outbox WHERE purpose = ?1", [PURPOSE], |r| r.get(0))?;
-            assert_eq!(n, 3);
-            let rows: i64 = conn.query_row("SELECT COUNT(*) FROM terms_announcements WHERE version = 'next'", [], |r| r.get(0))?;
-            assert_eq!(rows, 3);
-            let (subject, text, html): (String, String, String) =
-                conn.query_row("SELECT subject, body_text, body_html FROM mail_outbox WHERE to_addr = 'ann@example.org'", [], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?)))?;
-            assert!(subject.contains("2099-01-01"), "{subject}");
-            assert!(text.contains("- Prices <change>.") && text.contains("https://skrongle.test/terms"), "{text}");
-            assert!(html.contains("<li>Prices &lt;change&gt;.</li>"), "{html}");
-            Ok(())
-        })
-        .unwrap();
     }
 
     fn temp_file(name: &str, text: &str) -> PathBuf {

@@ -72,7 +72,7 @@ impl Shape {
             return None;
         }
         Some(match self {
-            Shape::Mini => format!("Skrongle mini ignores {}: e-mail, text messages, Google sign-in, payments and S3 are the hosted site's; unset them", set.join(", ")),
+            Shape::Mini => format!("Skrongle mini ignores {}: text messages, Google sign-in, payments and S3 are the hosted site's; unset them", set.join(", ")),
             Shape::Hosted => format!("{} is gone: plans are on for the hosted site and off with {VAR}=1; unset it", set.join(", ")),
         })
     }
@@ -80,7 +80,7 @@ impl Shape {
 
 /// The settings (`SKRONGLE_<name>`) that turn on a hosted-only feature.
 /// In a mini they read as unset, so the feature is off wherever it is read.
-pub const HOSTED_ONLY: &[&str] = &["MAIL_PROVIDERS", "SMS_PROVIDERS", "GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET", "S3_BUCKET"];
+pub const HOSTED_ONLY: &[&str] = &["SMS_PROVIDERS", "GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET", "S3_BUCKET"];
 
 static SHAPE: OnceLock<Shape> = OnceLock::new();
 
@@ -123,11 +123,11 @@ mod tests {
         let none = |_: &str| None;
         assert_eq!(Shape::Mini.ignored(&none), None);
         assert_eq!(Shape::Hosted.ignored(&none), None);
-        let mail = |n: &str| (n == "MAIL_PROVIDERS" || n == "PLANS").then(|| "x".to_string());
-        let w = Shape::Mini.ignored(&mail).unwrap();
-        assert!(w.contains("SKRONGLE_MAIL_PROVIDERS") && w.contains("SKRONGLE_PLANS"), "{w}");
-        let w = Shape::Hosted.ignored(&mail).unwrap();
-        assert!(w.contains("SKRONGLE_PLANS is gone") && !w.contains("MAIL"), "{w}");
+        let set = |n: &str| (n == "SMS_PROVIDERS" || n == "PLANS").then(|| "x".to_string());
+        let w = Shape::Mini.ignored(&set).unwrap();
+        assert!(w.contains("SKRONGLE_SMS_PROVIDERS") && w.contains("SKRONGLE_PLANS"), "{w}");
+        let w = Shape::Hosted.ignored(&set).unwrap();
+        assert!(w.contains("SKRONGLE_PLANS is gone") && !w.contains("SMS"), "{w}");
     }
 
     /// Only this module reads `SKRONGLE_MINI`; everything else asks

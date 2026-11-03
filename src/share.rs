@@ -1,5 +1,6 @@
 //! Sharing a course with other learners (#451). The owner types e-mail
-//! addresses on the course's page; every address gets a message with a link.
+//! addresses on the course's page; every address gets a link, which the
+//! Share dialog shows the owner once to pass on (nothing is mailed).
 //! A learner who opens the link signed in has the course on their course
 //! list from then on, read only: they learn from it with their own progress,
 //! and only the owner can change its files. Signed out, the link leads to
@@ -13,14 +14,10 @@
 //! anyone can register with someone else's address.
 //!
 //! Table `course_shares`: one row per (course, address). The link's token
-//! is stored as its SHA-256 only, like the e-mail confirmation links.
+//! is stored as its SHA-256 only.
 
 use rusqlite::{params, Connection, OptionalExtension};
 
-use crate::mail::Mail;
-
-/// The outbox names the invitation by this.
-pub const PURPOSE: &str = "course-share";
 /// Addresses one course can be shared with.
 pub const MAX_PER_COURSE: usize = 50;
 /// Addresses one share form may list.
@@ -117,7 +114,7 @@ pub enum Claim {
     Ok,
     /// Another account opened this link first; it works for that account only.
     Taken,
-    /// The course's owner opened their own link (a preview, the dev inbox):
+    /// The course's owner opened their own link (a preview):
     /// it is not claimed, so the invited learner can still use it.
     Owner,
 }
@@ -200,16 +197,6 @@ pub fn owner_label(first: String, last: String, email: String) -> String {
     }
 }
 
-/// The owner as the invitation names them.
-pub fn owner_of(conn: &Connection, course_id: &str) -> rusqlite::Result<Option<String>> {
-    conn.query_row(
-        "SELECT o.first_name, o.last_name, COALESCE(o.email, '') FROM courses c JOIN users o ON o.id = c.owner_id WHERE c.id = ?1",
-        [course_id],
-        |r| Ok(owner_label(r.get(0)?, r.get(1)?, r.get(2)?)),
-    )
-    .optional()
-}
-
 /// The addresses typed into the share form: separated by commas, semicolons,
 /// spaces or new lines; each one validated and lower-cased, duplicates
 /// dropped. The first bad one stops the whole list, so nothing is half sent.
@@ -228,18 +215,6 @@ pub fn parse_addresses(text: &str) -> Result<Vec<String>, String> {
         return Err(crate::t1("courses.share.too_many_request", "max", MAX_PER_REQUEST));
     }
     Ok(out)
-}
-
-/// The invitation: who shared what, and the link.
-pub fn message(email: &str, owner: &str, title: &str, link: &str, owner_id: i64) -> Result<Mail, String> {
-    // `mail.course_share.*` in the owner's language (the request's): the
-    // recipient's is unknown until they have an account.
-    let app = crate::APP_NAME;
-    let subject = crate::i18n::fill(&crate::t("mail.course_share.subject"), &[("owner", &owner), ("app", &app), ("title", &title)]);
-    let text = crate::i18n::fill(&crate::t("mail.course_share.text"), &[("owner", &owner), ("app", &app), ("title", &title), ("link", &link)]);
-    let (href, owner_h, title_h) = (crate::error::html_escape(link), crate::error::html_escape(owner), crate::error::html_escape(title));
-    let html = crate::i18n::fill(&crate::t("mail.course_share.html"), &[("owner", &owner_h), ("app", &app), ("title", &title_h), ("link", &href)]);
-    Ok(Mail::new(email, &subject, &text, PURPOSE)?.html(&html).for_user(owner_id))
 }
 
 /// The message on the login and register pages when a share link brought
@@ -378,12 +353,7 @@ mod tests {
     }
 
     #[test]
-    fn the_message_names_the_owner_the_course_and_the_link() {
-        let m = message("bob@example.org", "Ann <Lee>", "Fractions & more", "http://x/courses/shared/abc", 7).unwrap();
-        assert_eq!(m.subject, "Ann <Lee> shared a course with you on Skrongle: Fractions & more");
-        assert!(m.text.contains("http://x/courses/shared/abc"));
-        assert!(m.html.as_deref().unwrap().contains("Ann &lt;Lee&gt;") && m.html.as_deref().unwrap().contains("Fractions &amp; more"));
-        assert_eq!((m.purpose, m.user_id), (PURPOSE, Some(7)));
+    fn the_login_notice_names_the_course() {
         assert!(login_notice("Fractions").starts_with("It looks like you don't have an account with us!"));
     }
 }

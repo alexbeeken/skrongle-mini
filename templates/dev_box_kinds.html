@@ -1,5 +1,4 @@
-<nav class="devbox-kinds" aria-label="Dev mailbox sections">
-  <a href="{{ crate::url("/dev/inbox") }}"{% if self.section() == "mail" %} aria-current="page"{% endif %} data-testid="dev-box-kind-mail">E-mail</a>
+<nav class="devbox-kinds" aria-label="Dev sections">
   <a href="{{ crate::url("/dev/authenticator") }}"{% if self.section() == "auth" %} aria-current="page"{% endif %} data-testid="dev-box-kind-auth">Authenticator</a>
   <a href="{{ crate::url("/dev/ai") }}"{% if self.section() == "ai" %} aria-current="page"{% endif %} data-testid="dev-box-kind-ai">AI</a>
 </nav>

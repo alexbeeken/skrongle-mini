@@ -17,22 +17,6 @@ fn the_dev_authenticator_adds_replaces_and_removes() {
     assert_eq!(a.list().len(), 1);
 }
 
-#[test]
-fn marks_are_per_box_and_row() {
-    let m = Marks::default();
-    assert_eq!(m.get("mail-in", 1), Mark::default());
-    m.set_read("mail-in", 1, true);
-    m.set_archived("mail-in", 2, true);
-    m.set_read("mail-out", 1, true);
-    assert_eq!(m.get("mail-in", 1), Mark { read: true, archived: false });
-    assert_eq!(m.get("mail-in", 2), Mark { read: false, archived: true });
-    m.forget("mail-in", 1);
-    assert_eq!(m.get("mail-in", 1), Mark::default());
-    m.clear("mail-in");
-    assert_eq!(m.get("mail-in", 2), Mark::default());
-    assert!(m.get("mail-out", 1).read);
-}
-
 /// `--watch`: HTML pages get the reload poller; other responses do not.
 #[test]
 fn reload_poller_goes_into_html_only() {
@@ -151,12 +135,12 @@ fn dev_mode_answers_only_local_hosts_on_every_route() {
     assert_eq!(status(&prod, "/healthz", Some("learn.example.org")), 200);
 }
 
-/// The dev mailbox pages need no sign-in (they are for whoever is
+/// The dev pages need no sign-in (they are for whoever is
 /// testing); the simulated provider's wire API needs one of its keys,
 /// and answers the app's own client in both formats, quota error
 /// included (#297).
 #[test]
-fn the_dev_mailbox_needs_no_sign_in_and_the_simulator_speaks_the_wire_protocols() {
+fn the_dev_pages_need_no_sign_in_and_the_simulator_speaks_the_wire_protocols() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let state = crate::routes::test_state(true);
     let (learner, dev) = state
@@ -186,7 +170,7 @@ fn the_dev_mailbox_needs_no_sign_in_and_the_simulator_speaks_the_wire_protocols(
         }
         req.call().unwrap().status().as_u16()
     };
-    for path in ["/dev/inbox", "/dev/mail", "/dev/inbox/rows", "/dev/authenticator", "/dev/ai", "/dev/ai/rows"] {
+    for path in ["/dev/authenticator", "/dev/ai", "/dev/ai/rows"] {
         assert!(matches!(get(path, None, "text/html"), 200 | 404), "{path}: signed out, a browser");
         assert!(matches!(get(path, None, "application/json"), 200 | 404), "{path}: signed out");
         assert!(matches!(get(path, Some(&learner), "application/json"), 200 | 404), "{path}: a learner");

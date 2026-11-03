@@ -1,5 +1,5 @@
-/* The dev mailbox pages (/dev/inbox, /dev/mail and their messages): a
-   table like a simple mail client's. Dev mode only. */
+/* The dev pages (/dev/jobs, /dev/authenticator, /dev/ai and the sign-in's
+   dev device): tables and lists like a simple client's. Dev mode only. */
 .devbox-head { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; margin-bottom: .8rem; }
 .devbox-head h1 { margin: 0; }
 .devbox-filter { margin-left: auto; }

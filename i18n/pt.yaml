@@ -212,111 +212,6 @@ terms:
     dismiss: Continuar
     disagree_html: "Se não concordar, saia ou encerre a sua conta no seu <a href=\"{url}\" data-testid=\"terms-notice-profile\">perfil</a>."
 
-mail:
-  waitlist_confirm:
-    subject: "Confirme seu lugar na lista de espera do {app}"
-    text: |
-      Olá,
-
-      Confirme que você quer entrar na lista de espera do {app} abrindo este link:
-
-      {link}
-
-      Vamos enviar um convite por e-mail quando chegar a sua vez. Se você não pediu para entrar, ignore esta mensagem: o endereço só é adicionado se o link for aberto.
-    html: |
-      <p>Olá,</p>
-      <p>Confirme que você quer entrar na lista de espera do {app}:</p>
-      <p><a href="{link}">Confirmar meu lugar</a></p>
-      <p>Ou cole este link no seu navegador: {link}</p>
-      <p>Vamos enviar um convite por e-mail quando chegar a sua vez. Se você não pediu para entrar, ignore esta mensagem: o endereço só é adicionado se o link for aberto.</p>
-  waitlist_invite:
-    subject: "Seu convite para o {app}"
-    text: |
-      Olá,
-
-      Chegou a sua vez: você está convidado a criar sua conta no {app}. Abra este link e cadastre-se com este endereço de e-mail ({email}):
-
-      {link}
-
-      O convite vale por {days} dias.
-    html: |
-      <p>Olá,</p>
-      <p>Chegou a sua vez: você está convidado a criar sua conta no {app}. Cadastre-se com este endereço de e-mail ({email}).</p>
-      <p><a href="{link}">Criar minha conta</a></p>
-      <p>Ou cole este link no seu navegador: {link}</p>
-      <p>O convite vale por {days} dias.</p>
-  terms_change:
-    subject: "Os termos do {app} mudam em {date}"
-    text: |
-      Olá,
-
-      Vamos mudar os termos do {app}. Os novos termos entram em vigor em {date}.
-
-      O que muda:
-      {summary}
-
-      Leia os novos termos: {link}
-
-      A partir de {date}, vamos pedir-lhe que os aceite ao entrar. Se não concordar, pode encerrar a sua conta no seu perfil.
-    html: |
-      <p>Olá,</p>
-      <p>Vamos mudar os termos do {app}. Os novos termos entram em vigor em {date}.</p>
-      <p>O que muda:</p>
-      {summary}
-      <p><a href="{link}">Ler os novos termos</a></p>
-      <p>A partir de {date}, vamos pedir-lhe que os aceite ao entrar. Se não concordar, pode encerrar a sua conta no seu perfil.</p>
-  account_deletion:
-    subject: "Sua conta do {app} será excluída em {date}"
-    text: |
-      Olá,
-
-      Você pediu para excluir sua conta do {app}. Ela será excluída de vez em {date}, com seu progresso, seus cursos e chaves salvas.
-
-      Para mantê-la, entre no {app} antes dessa data e escolha Cancelar exclusão.
-
-      Se não foi você que pediu, entre, cancele a exclusão e mude sua senha.
-  data_export:
-    subject: "Seus dados do {app} estão prontos para baixar"
-    text: |
-      Olá,
-
-      A cópia dos seus dados do {app} que você pediu está pronta. Entre no {app} e abra este link para baixá-la:
-
-      {link}
-
-      O link funciona uma vez, por 24 horas, e só enquanto você estiver conectado a esta conta. Se você não pediu, troque sua senha: outra pessoa está conectada à sua conta.
-    html: |
-      <p>Olá,</p>
-      <p>A cópia dos seus dados do {app} que você pediu está pronta. Entre no {app} e abra este link para baixá-la:</p>
-      <p><a href="{link}">Baixar meus dados</a></p>
-      <p>O link funciona uma vez, por 24 horas, e só enquanto você estiver conectado a esta conta. Se você não pediu, troque sua senha: outra pessoa está conectada à sua conta.</p>
-  two_factor_changed:
-    subject: "Verificação em duas etapas no {app} foi alterada"
-    now_off: "está desativada"
-    now_totp: "agora pede um código de um aplicativo autenticador"
-    text: |
-      Olá,
-
-      Verificação em duas etapas no {app} {now}.
-
-      Todos os outros dispositivos foram desconectados. Se você não fez esta alteração, outra pessoa estava conectada à sua conta: entre, use “Sair de todos os outros lugares” no seu perfil e configure a verificação em duas etapas de volta.
-    html: |
-      <p>Olá,</p>
-      <p>Verificação em duas etapas no {app} <strong>{now}</strong>.</p>
-      <p>Todos os outros dispositivos foram desconectados. Se você não fez esta alteração, outra pessoa estava conectada à sua conta: entre, use “Sair de todos os outros lugares” no seu perfil e configure a verificação em duas etapas de volta.</p>
-  course_share:
-    subject: "{owner} compartilhou um curso com você no {app}: {title}"
-    text: |
-      Olá,
-      {owner} compartilhou o curso “{title}” com você no {app}. Abra este link para adicioná-lo aos seus cursos:
-      {link}
-      Você pode estudar o curso com o seu próprio progresso; só {owner} pode alterá-lo. Se você ainda não tem uma conta no {app}, o link permite criar uma. Se você não esperava este convite, ignore esta mensagem.
-    html: |
-      <p>Olá,</p>
-      <p>{owner} compartilhou o curso <strong>{title}</strong> com você no {app}.</p>
-      <p><a href="{link}">Abrir o curso</a></p>
-      <p>Ou cole este link no seu navegador: {link}</p>
-      <p>Você pode estudar o curso com o seu próprio progresso; só {owner} pode alterá-lo. Se você ainda não tem uma conta no {app}, o link permite criar uma. Se você não esperava este convite, ignore esta mensagem.</p>
 
 profile:
   title: Perfil
@@ -384,7 +279,6 @@ profile:
     title: "Privacidade e consentimento"
     info: "Sobre seus consentimentos"
     info_age: "Você confirmou sua idade ao se cadastrar. Para retirar isso, exclua sua conta em Seus dados."
-    info_email: "E-mails de serviço sempre são enviados: confirmação do seu endereço, download dos seus dados e mudanças nos termos. E-mails opcionais vão aparecer aqui com seu próprio botão, desligados até você ligá-los."
     info_ai: "Os recursos de IA enviam o que você digita para uma empresa de IA. Oculte-os e nada sai, os recursos somem do app e suas chaves de API salvas são excluídas."
     info_record: "Cada mudança fica registrada com a data e vem em Baixar meus dados."
     close: "Fechar"
@@ -392,8 +286,6 @@ profile:
     age: "Idade"
     age_confirmed: "Confirmada em {date}"
     age_not_confirmed: "Não confirmada"
-    email: "E-mail"
-    email_service: "Só mensagens de serviço"
     ai: "Não me mostrar recursos de IA"
     ai_on_since: "Visíveis desde {date}"
     ai_on: "Visíveis"
@@ -499,26 +391,21 @@ profile:
     wrong_provider: "Isso não parece uma chave de {provider}: elas começam com {prefix}."
   data:
     export_download: "Baixar meus dados"
-    export_building_no_mail: "Seus dados estão sendo preparados. Quando estiverem prontos, um botão Baixar aparece aqui."
-    export_ready_no_mail: "Seus dados estão prontos: baixe-os com o botão, uma única vez, até {date}."
-    export_about_no_mail: "Um arquivo JSON com tudo o que está guardado da sua conta, preparado em segundo plano. Quando estiver pronto, baixe-o aqui; funciona uma vez, por 24 horas. Uma cópia por dia."
+    export_building: "Seus dados estão sendo preparados. Quando estiverem prontos, um botão Baixar aparece aqui."
+    export_ready: "Seus dados estão prontos: baixe-os com o botão, uma única vez, até {date}."
+    export_about: "Um arquivo JSON com tudo o que está guardado da sua conta, preparado em segundo plano. Quando estiver pronto, baixe-o aqui; funciona uma vez, por 24 horas. Uma cópia por dia."
     title: Seus dados
     stored_html: "O que é guardado e por quê: <a href=\"{url}\" data-testid=\"profile-privacy-link\">política de privacidade</a>."
     export: "Preparar meus dados (JSON)"
     export_heading: "Baixar meus dados"
     export_info_label: "Sobre baixar seus dados"
     export_preparing: "Preparando…"
-    export_about: "Um arquivo JSON com tudo o que está guardado para a sua conta, preparado em segundo plano. Enviamos um link por e-mail; ele funciona uma vez, por 24 horas, enquanto você estiver conectado. Uma cópia por dia."
     export_ok: "OK"
-    export_your_address: "seu endereço"
     export_none: "Você ainda não pediu uma cópia."
-    export_building: "Sendo preparado. Um link será enviado por e-mail para {email} quando estiver pronto."
-    export_ready: "Pronto. O link foi enviado por e-mail para {email}; ele funciona uma vez, até {date}."
     export_downloaded: "Baixado em {date}."
     export_expired: "O último link expirou sem uso."
     export_failed: "Não foi possível preparar a última cópia. Tente de novo."
     export_next: "Uma cópia por dia: você pode pedir a próxima a partir de {date}."
-    export_queued: "Preparando seus dados. Você receberá um e-mail com o link."
     export_busy: "Seus dados já estão sendo preparados."
     export_soon: "Uma cópia por dia. Veja (i) para saber quando você pode pedir de novo."
     export_gone: "Esse link de download já foi usado, expirou ou é de outra conta."
@@ -599,15 +486,6 @@ superuser:
   two_factor_off_about: "A conta entra só com a senha até ativar de novo a verificação em duas etapas. O app autenticador configurado é removido."
   two_factor_off_confirm: "Desativar"
   two_factor_off_done: "A verificação em duas etapas está desativada para {email}."
-  terms_changed: "Os termos mudaram."
-  terms_title: "Próxima alteração dos termos"
-  terms_send: "Enviar o aviso"
-  terms_send_about:
-    one: "O resumo da próxima alteração vai para {n} conta que ainda não o recebeu."
-    other: "O resumo da próxima alteração vai para {n} contas que ainda não o receberam."
-  terms_sent:
-    one: "Aviso na fila para {n} conta."
-    other: "Aviso na fila para {n} contas."
   js:
     copied: "Copiado"
 
@@ -2735,7 +2613,7 @@ courses:
     none_right: "nenhuma certa"
     failed: "O teste de nivelamento não carregou. Escolha um nível."
   share:
-    dialog_lead_no_mail: "Cada endereço recebe seu próprio link para você repassar: este servidor não envia e-mails. As pessoas estudam o curso com o próprio progresso; só você pode alterá-lo."
+    dialog_lead: "Cada endereço recebe seu próprio link para você repassar: este servidor não envia e-mails. As pessoas estudam o curso com o próprio progresso; só você pode alterá-lo."
     make_links: "Criar links de convite"
     made:
       one: "{n} link de convite criado. Copie e repasse; ele só aparece agora."
@@ -2745,14 +2623,12 @@ courses:
     button: Compartilhar
     button_count: "Compartilhar ({n})"
     dialog_title: Compartilhar este curso
-    dialog_lead: Cada pessoa com quem você compartilhar recebe um e-mail com um link. Ela estuda o curso com o próprio progresso; só você pode alterá-lo.
     status_opened: aberto
     status_invited: convidado
     remove: Remover
     remove_label: "Parar de compartilhar com {email}"
     emails_label: Endereços de e-mail
     emails_note: (um por linha, ou separados por vírgulas)
-    send: Enviar convites
     close: Fechar
     own_address: "Este é o seu próprio endereço: o curso já é seu."
     too_many_course: "Um curso pode ser compartilhado com até {max} endereços."
@@ -2760,9 +2636,6 @@ courses:
     at_least_one: Digite pelo menos um endereço de e-mail.
     bad_address: "“{address}”: {error}"
     bad_address_notice: "Um dos endereços não é de e-mail. Confira a lista e envie de novo."
-    sent:
-      one: "Convite enviado para {n} endereço."
-      other: "Convites enviados para {n} endereços."
     already_had: "{n} já tinha um."
     removed_notice: "Não está mais compartilhado com esse endereço."
     not_on_list: Esse endereço não estava na lista.

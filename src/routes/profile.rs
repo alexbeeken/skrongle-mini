@@ -59,8 +59,6 @@ pub struct ProfileTemplate {
     /// "Download my data": the newest export (exports.rs), and why a link did not work.
     pub export: Option<crate::exports::Status>,
     pub export_error: Option<String>,
-    /// What this server can send (#633).
-    pub caps: crate::Caps,
 }
 
 impl ProfileTemplate {
@@ -87,13 +85,10 @@ impl ProfileTemplate {
 
     /// What the (i) dialog says about the newest export.
     pub fn export_text(&self) -> String {
-        let to = self.profile.email.clone().unwrap_or_else(|| crate::t("profile.data.export_your_address"));
         let Some(e) = &self.export else { return crate::t("profile.data.export_none") };
         let mut s = match e.state.as_str() {
-            "queued" | "building" if !self.caps.mail => crate::t("profile.data.export_building_no_mail"),
-            "queued" | "building" => crate::t1("profile.data.export_building", "email", &to),
-            "ready" if !self.caps.mail => crate::t1("profile.data.export_ready_no_mail", "date", e.expires_at.map(profile::long_date).unwrap_or_default()),
-            "ready" => crate::t2("profile.data.export_ready", "email", &to, "date", e.expires_at.map(profile::long_date).unwrap_or_default()),
+            "queued" | "building" => crate::t("profile.data.export_building"),
+            "ready" => crate::t1("profile.data.export_ready", "date", e.expires_at.map(profile::long_date).unwrap_or_default()),
             "downloaded" => crate::t1("profile.data.export_downloaded", "date", e.downloaded_at.map(profile::long_date).unwrap_or_default()),
             "expired" => crate::t("profile.data.export_expired"),
             _ => crate::t("profile.data.export_failed"),
@@ -224,7 +219,6 @@ fn page(state: &AppState, user: CurrentUser, (p, api_keys): Loaded) -> ProfileTe
         confirm_error: None,
         export: None,
         export_error: None,
-        caps: state.caps(),
         api_keys,
         dev: state.dev,
         delete_error: None,
@@ -261,9 +255,8 @@ pub async fn show(
             Some(m) => crate::t1("profile.two_factor.is_method", "method", method_label(m)),
         }),
         (Some("totp-removed"), _) => Some(crate::t("profile.two_factor.totp_removed")),
-        // No mail on this server: no link is coming; the Download button is (#633).
-        (Some("export-queued"), _) if !t.caps.mail => Some(crate::t("profile.data.export_building_no_mail")),
-        (Some("export-queued"), _) => Some(crate::t("profile.data.export_queued")),
+        // No link is mailed: the Download button appears when it is ready.
+        (Some("export-queued"), _) => Some(crate::t("profile.data.export_building")),
         (Some("signed-out"), _) => Some(crate::t("profile.sessions.signed_out_notice")),
         _ if q.ai.as_deref() == Some("off") => Some(crate::t("profile.ai.feature_hidden")),
         _ => None,
@@ -482,29 +475,18 @@ async fn confirm_again(state: &AppState, user: CurrentUser, status: StatusCode, 
     .await
 }
 
-/// After two-factor sign-in changed (#374, #375): every other session
-/// ends, and the account's address is told (a failed mail is logged, not
-/// shown: the change is made).
-async fn two_factor_changed(state: &AppState, user: &CurrentUser, keep: Option<String>, method: Option<crate::two_factor::Method>) -> Result<(), AppError> {
+/// After two-factor sign-in changed (#374, #375): every other session ends.
+async fn two_factor_changed(state: &AppState, user: &CurrentUser, keep: Option<String>) -> Result<(), AppError> {
     let (uid, keep) = (user.id, keep.unwrap_or_default());
     let ended = state.db.call(move |c| auth::delete_other_sessions(c, uid, &keep)).await?;
     tracing::info!("user {uid}: two-factor sign-in changed, {ended} other sessions signed out");
-    if !user.email.is_empty() {
-        let queued = match crate::two_factor::changed_mail(&user.email, method, uid) {
-            Ok(mail) => state.mail.queue(&state.db, mail).await.map(|_| ()).map_err(|e| format!("{e:?}")),
-            Err(e) => Err(e),
-        };
-        if let Err(e) = queued {
-            tracing::warn!("could not tell user {uid} that two-factor sign-in changed: {e}");
-        }
-    }
     Ok(())
 }
 
 /// POST /profile/two-factor (method, password | code): the second sign-in
 /// step, one at a time. Every change, turning it on too, needs proof that
-/// it is the owner (`prove_owner`, #374), then signs out the other devices
-/// and e-mails the account. The authenticator app, until one is set up,
+/// it is the owner (`prove_owner`, #374), then signs out the other devices.
+/// The authenticator app, until one is set up,
 /// starts its enrolment instead (the dialog with its key opens).
 pub async fn set_two_factor(
     State(state): State<Arc<AppState>>,
@@ -531,7 +513,7 @@ pub async fn set_two_factor(
     match state.db.call(move |c| two_factor::set_method(c, uid, method)).await? {
         Ok(()) => {
             tracing::info!("user {uid} set two-factor sign-in to {}", method.map(Method::as_str).unwrap_or("off"));
-            two_factor_changed(&state, &user, token, method).await?;
+            two_factor_changed(&state, &user, token).await?;
             Ok(Redirect::to(&crate::url("/profile?saved=two-factor#two-factor")).into_response())
         }
         Err(why) => profile_with(&state, user, StatusCode::UNPROCESSABLE_ENTITY, |t| t.two_factor_error = Some(why.into())).await,
@@ -560,7 +542,7 @@ pub async fn confirm_totp(
     let (code, vault) = (f.code, state.vault.clone());
     if state.db.call(move |c| crate::two_factor::totp_confirm(c, &vault, uid, &code, crate::db::now())).await? {
         tracing::info!("user {uid} set up an authenticator app");
-        two_factor_changed(&state, &user, token, Some(crate::two_factor::Method::Totp)).await?;
+        two_factor_changed(&state, &user, token).await?;
         return Ok(Redirect::to(&crate::url("/profile?saved=two-factor#two-factor")).into_response());
     }
     let key = pending_totp_key(&state, uid).await?;
@@ -598,7 +580,7 @@ pub async fn remove_totp(
     state.db.call(move |c| crate::two_factor::totp_remove(c, uid)).await?;
     tracing::info!("user {uid} removed their authenticator app");
     if in_use {
-        two_factor_changed(&state, &user, token, None).await?;
+        two_factor_changed(&state, &user, token).await?;
     }
     Ok(Redirect::to(&crate::url("/profile?saved=totp-removed#two-factor")).into_response())
 }
@@ -715,8 +697,8 @@ pub async fn remove_api_key(
 }
 
 /// POST /profile/export: queue "Download my data" (exports.rs). The file
-/// is built in the background and a one-time link is e-mailed; one export
-/// in flight per account, one a day.
+/// is built in the background, then the Data section's Download button gets
+/// it; one export in flight per account, one a day.
 pub async fn export(State(state): State<Arc<AppState>>, user: CurrentUser, headers: HeaderMap) -> Result<Response, AppError> {
     let uid = user.id;
     let base = crate::routes::public_base(&state, &headers);
@@ -762,8 +744,7 @@ pub async fn export_download(State(state): State<Arc<AppState>>, user: CurrentUs
 }
 
 /// POST /profile/export/download: the Data section's Download button, shown
-/// once the export is ready (#633: the way to it on a server without mail).
-/// Like the mailed link: once, while it is fresh, for the account signed in.
+/// once the export is ready: once, while it is fresh, for the account signed in.
 pub async fn export_download_now(State(state): State<Arc<AppState>>, user: CurrentUser) -> Result<Response, AppError> {
     let uid = user.id;
     let file = state.db.call(move |c| crate::exports::take_ready(c, uid, crate::db::now())).await?;
@@ -862,9 +843,7 @@ pub async fn delete_account(
         let page = fail(&state, user, loaded, &why);
         return Ok((status, page).into_response());
     }
-    let mail = state.caps().mail;
-    let at = state.db.call(move |c| crate::account_deletion::schedule(c, uid, crate::db::now(), mail)).await?.ok_or(AppError::RedirectToLogin)?;
-    state.mail.notify();
+    let at = state.db.call(move |c| crate::account_deletion::schedule(c, uid, crate::db::now())).await?.ok_or(AppError::RedirectToLogin)?;
     tracing::info!("user {uid} asked to delete their account: deleted at {at} unless they cancel");
     Ok(([auth::clear_session_cookie()], Redirect::to(&crate::url(&format!("/login?deletion={at}")))).into_response())
 }

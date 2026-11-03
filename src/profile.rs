@@ -15,7 +15,7 @@ use rusqlite::{params, Connection, OptionalExtension};
 
 pub const NAME_MAX: usize = 60;
 pub const EMAIL_MAX: usize = 254;
-/// The most the part before the `@` may have (RFC 5321); `lettre` refuses more.
+/// The most the part before the `@` may have (RFC 5321).
 pub const EMAIL_LOCAL_MAX: usize = 64;
 
 /// A first or last name: optional, up to `NAME_MAX` characters, no control
@@ -55,10 +55,6 @@ pub fn validate_email(raw: &str) -> Result<String, String> {
     }
     if !domain.contains('.') || domain.starts_with('.') || domain.ends_with('.') || domain.contains("..") {
         return Err(crate::t("profile.email.no_domain"));
-    }
-    // What we accept must be an address mail can be sent to (#1003).
-    if v.parse::<lettre::Address>().is_err() {
-        return Err(crate::t("profile.email.not_email"));
     }
     Ok(v)
 }
@@ -351,23 +347,6 @@ mod tests {
         assert_eq!(validate_email(&ok).unwrap(), ok);
         assert!(validate_email(&format!("{}@example.org", "a".repeat(65))).is_err());
         assert!(validate_email("a-rather-long-owner-address-for-the-phone-tip-check-1027015107-11@example.com").is_err());
-    }
-
-    /// Whatever `validate_email` accepts, the mailer can address (#1003).
-    #[test]
-    fn accepted_emails_can_be_mailed() {
-        let long = format!("{}@example.org", "x".repeat(64));
-        let tries = [
-            "ana@example.org", "Ana.Lopez+tag@Example.ORG", "o'brien@example.co.uk", "a_b-c@sub.example.org", long.as_str(),
-            "a(b)@example.org", "a<b@example.org", "a\\b@example.org", "a\"b@example.org", "a,b@example.org", "é@example.org",
-        ];
-        for raw in tries {
-            if let Ok(v) = validate_email(raw) {
-                assert!(crate::mail::Mail::new(&v, "Hi", "text", "test").is_ok(), "{v:?} passed validation but cannot be mailed");
-            }
-        }
-        assert!(validate_email("ana@example.org").is_ok());
-        assert!(validate_email(&long).is_ok());
     }
 
     #[test]

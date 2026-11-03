@@ -45,7 +45,6 @@ under `static/`, `templates/` or `data/` is missing from this list.
 ### Accounts
 
 - Sign-in: `auth.rs` (sessions, CurrentUser, Project), `auth/cache.rs` (the signed-in users kept in memory by session, #37), `routes/auth.rs`, `routes/auth/code.rs` (the two-factor step), `proxy_auth.rs` (proxy header), `signup.rs` (who may register), `urlenc.rs` (percent-encoding for the redirects they build).
-- Mail: `mail.rs` (`mail/resend.rs`, `mail/postmark.rs`, `mail/brevo.rs`, `mail/sink.rs`).
 - Two-factor: `two_factor.rs`, `totp.rs`.
 - Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`; keys in `secrets.rs`.
 - Data rights: `privacy.rs` (export columns, deletion), `exports.rs` (Download my data), `consent.rs` (optional consents for the Privacy and consent card), `account_deletion.rs` and `routes/account_deletion.rs` (deleting an account after 14 days, #970).
@@ -54,7 +53,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 
 ### Dev mode only
 
-- `dev.rs` + `routes/dev.rs` (`/dev/login`, mailbox; `routes/dev/jobs_page.rs` is `/dev/jobs`), `dev_ai.rs` + `routes/dev_ai.rs` (`/dev/ai`, fixtures in `data/test-fixtures/`), `dev_crowd.rs` (made-up learners), `static/devbox.js`.
+- `dev.rs` + `routes/dev.rs` (`/dev/login`, the dev authenticator; `routes/dev/jobs_page.rs` is `/dev/jobs`), `dev_ai.rs` + `routes/dev_ai.rs` (`/dev/ai`, fixtures in `data/test-fixtures/`), `dev_crowd.rs` (made-up learners), `static/devbox.js`.
 
 ### Elsewhere
 
@@ -83,17 +82,12 @@ src/
   db.rs          rusqlite connection, pragmas, migrations, spawn_blocking wrapper
   auth.rs        argon2id hashing, sessions, CurrentUser (route guard) and Project (user + active course) extractors
   auth/cache.rs  the signed-in users by session in memory (#37): forgotten by temporary triggers (db.rs) on any write to a table the session query reads, and after 60 s
-  mail.rs        e-mail: the outbox (table mail_outbox), the provider chain with fallback and cooldown, the sender the job runner drains (`mail::Outbox`), SMTP and log providers, SKRONGLE_MAIL_* config
-  mail/resend.rs the `resend` kind: Resend's HTTP API (POST /emails, idempotency key per outbox row)
-  mail/postmark.rs the `postmark` kind: Postmark's HTTP API (POST /email, Server API token, message stream, outbox id as metadata)
-  mail/sink.rs   the dev mailbox: an SMTP server on 127.0.0.1 that keeps what it receives in memory, decoded (/dev/inbox)
-  mail/brevo.rs  the `brevo` kind: Brevo's transactional HTTP API, response → Rejected/Unavailable, idempotency key per outbox row
   proxy_auth.rs  sign-in through a reverse proxy's identity header (SKRONGLE_PROXY_AUTH_HEADER / _FROM, #642): a middleware before every handler
   signup.rs      who may make an account (SKRONGLE_SIGNUP: open / invite / closed, #634): the first account is the owner, through the owner link written to the log at startup, invitation links (table signup_invites, the token hashed), the Superuser page's Accounts part and invitation links (routes/superuser.rs)
 
-  account_deletion.rs  the learner's own account deletion after 14 days of grace (#970): users.delete_at, signing out, the dated mail, the housekeeping step that deletes due accounts
-  shape.rs       the two shapes (#578): SKRONGLE_MINI=1 is Skrongle mini, unset is the hosted site; read once at startup (shape::current, crate::is_mini); in a mini crate::env reads the hosted-only settings (HOSTED_ONLY: mail, SMS, Google, S3) as unset
-  share.rs       sharing a course with other learners by e-mail address (#451): invitations (table course_shares, the link's token hashed), who may open a shared course, the message
+  account_deletion.rs  the learner's own account deletion after 14 days of grace (#970): users.delete_at, signing out, the housekeeping step that deletes due accounts
+  shape.rs       the two shapes (#578): SKRONGLE_MINI=1 is Skrongle mini, unset is the hosted site; read once at startup (shape::current, crate::is_mini); in a mini crate::env reads the hosted-only settings (HOSTED_ONLY: SMS, Google, S3) as unset
+  share.rs       sharing a course with other learners by e-mail address (#451): invitation links the owner passes on (table course_shares, the link's token hashed), who may open a shared course
   totp.rs        time-based one-time passwords: RFC 6238 TOTP over RFC 4226 HOTP (SHA-1 written out, SHA-256/512 via sha2), base32, the otpauth://totp/ Key Uri Format and its QR code as inline SVG (the qrcode crate, no image feature); the dev authenticator (/dev/authenticator) reads its keys with it
   two_factor.rs  two-factor sign-in: the method in use, the authenticator app's enrolment, sign-in challenges, the proof for turning it off (tables totp_keys, two_factor_challenges)
   terms.rs       Terms of Service: the source (built-in text or SKRONGLE_TERMS file), the built-in changelog (docs/terms-changes.json) and the version in effect, the notice of a newer version (minor or material), acceptances, the 30-day e-mail of a material change, sent from /superuser (table terms_announcements)
@@ -115,7 +109,7 @@ src/
   owner.rs       what the owner does to an account with no message sent (#635): a temporary password (users.must_change_password), two-factor off, make a superuser; the binary's commands (reset-password, disable-2fa, make-owner, help)
   privacy.rs     a learner's data as a whole: USER_TABLES, the exported columns (EXPORTED/WITHHELD), account deletion, retention rules, the age confirmation (docs/data-inventory.md)
   jobs.rs        background jobs (table jobs, #872): enqueue, the one-statement claim with a lease, retries with per-kind delays, periodic kinds that queue their next run; the `jobs` runner thread, which also drains the mail and text outboxes with a lease (#873); the hourly housekeeping as one job with a step per purge
-  exports.rs     "Download my data" in the background (table data_exports): the `export` job (jobs.rs runner, #875) writes the file page by page to <db>.exports/, in one run, mails a one-time link, retention
+  exports.rs     "Download my data" in the background (table data_exports): the `export` job (jobs.rs runner, #875) writes the file page by page to <db>.exports/, in one run, for the profile's Download button; retention
   mathcheck.rs   numeric and expression answers: a small parser/evaluator, numbers in every spelling, equivalence by sampling
   algebra_tiles.rs  algebra-tiles questions: the pile from `tiles`, an answer must be two sides whose product is the tiles
   clock.rs       clock answers: H:MM on the 12-hour face, the hands' angles, what a clock question may say
@@ -156,7 +150,7 @@ src/
     account_deletion.rs  /account/deletion (the only page of an account scheduled for deletion: its date, Cancel deletion, Log out)
     password.rs  /password/change (the gate after signing in with a temporary password: the new one twice, no old one)
     superuser.rs /superuser (superusers only, 404 otherwise: every account on one page with Temporary password and Turn off two-factor per row; invitation links under SKRONGLE_SIGNUP=invite; while a material terms change is coming, a notice and Send the announcement), POST /superuser/invites|invites/revoke|temp-password|two-factor-off|terms-announce
-    profile.rs   /profile (personal information, account, AI API keys), POST /api/profile (autosave), POST /profile/password|api-keys…, POST /profile/export (queue "Download my data"), GET /profile/export/download?token=… (the mailed link), POST /profile/delete
+    profile.rs   /profile (personal information, account, AI API keys), POST /api/profile (autosave), POST /profile/password|api-keys…, POST /profile/export (queue "Download my data"), POST /profile/export/download (the Download button), POST /profile/delete
     pages.rs     / (landing for visitors, home: the three modes) /lessons /lessons/{slug} /history /mistakes, POST /api/lessons/{slug}/note (the lesson note, autosave)
     map.rs       /map
     quiz.rs      /practice, POST /api/answer (grade_and_record: the one grading path for every mode), POST /api/lesson-check (the reading check)
@@ -167,8 +161,8 @@ src/
     vocab.rs     /vocabulary, /vocabulary/study, /lookup, POST /api/vocabulary/review
     games.rs     /play (Play mode hub; /g and /games redirect here), /play/matching…, /play/conjugation…, /play/numbers, /play/dates, their APIs
     sprint.rs     /sprint, /sprint/play, POST /api/sprint/check|finish
-    dev.rs       /dev/login, /dev/reset, /dev/mail, /dev/jobs, /dev/inbox, /dev/authenticator, /dev/boot (the --watch reload poll); all mounted only in dev mode and for local clients, see testing.md; the dev mailbox needs no sign-in
-    dev_ai.rs    /dev/ai: the dev AI provider's wire API (Anthropic Messages, OpenAI chat completions, Gemini's OpenAI endpoint; checked by API key; a held request waits for its reply file) and its page in the dev mailbox (log, limits, failures, Manual replies with the held requests and their reply forms, fixture editor)
+    dev.rs       /dev/login, /dev/reset, /dev/jobs, /dev/authenticator, /dev/boot (the --watch reload poll); all mounted only in dev mode and for local clients, see testing.md; the dev pages need no sign-in
+    dev_ai.rs    /dev/ai: the dev AI provider's wire API (Anthropic Messages, OpenAI chat completions, Gemini's OpenAI endpoint; checked by API key; a held request waits for its reply file) and its page among the dev pages (log, limits, failures, Manual replies with the held requests and their reply forms, fixture editor)
 templates/       askama templates (compiled in)
 static/          CSS + dependency-free JS (compiled in); vendor/ holds the one third-party script, abcjs
 docs/            this documentation (compiled in, served at /docs)
@@ -191,15 +185,15 @@ thread (`jobs`, not the Tokio blocking pool) that runs due rows. Taking a
 row is one `UPDATE … RETURNING` that sets `state = 'running'` and a lease
 (`locked_by`, `locked_until`, 10 minutes); a running row whose lease ran
 out is taken again, so a job its server stopped in the middle of is not
-lost. A failure goes back to `queued` after its kind's delay (the mail
-outbox's `RETRY_DELAYS` unless the kind says otherwise) until
+lost. A failure goes back to `queued` after its kind's delay
+(`jobs::RETRY_DELAYS` unless the kind says otherwise) until
 `max_attempts`, then `failed` with `last_error`; each failure is a log
 line, and so is a job of an unknown kind, which is refused. A periodic kind
 queues its next run when a run ends. The thread wakes on `AppState::queue`
 or when the next row is due, at least once a minute, and reaches SQLite
 through `Db::with`. The first user is the hourly housekeeping, one kind
 (`housekeeping`, #45) that runs every purge as a step in turn (sessions, the
-game, AI job and tutor maps, rate limits, account deletions, retention, outbox,
+game, AI job and tutor maps, rate limits, account deletions, retention,
 links, exports, old job rows, then the WAL checkpoint); each step logs its
 count, a failing step is logged and the next still runs. At
 boot it gets a row due now if it has none, so a server restarted more
@@ -207,16 +201,9 @@ often than hourly still cleans up. Data exports
 (kind `export`, #875, `max_attempts` 1) write the whole file in one run (a
 family's data is a few MB): a failure deletes the part file and the
 learner asks again, and a server that stopped mid-run starts over after
-its lease runs out. The same thread sends the mail
-outbox (#873): it keeps its own table (`mail_outbox`)
-but takes a row with the same kind of lease (`jobs::lease_outbox` sets
-`locked_by` and `locked_until`; the row stays `queued`), so a row being sent
-is never handed out twice and one whose server stopped mid-send is sent
-again once its lease is over. Each pass sends up to 10 rows from the outbox
-before the next job, the outbox first, so a sign-in code never waits behind
-housekeeping. AI generation still has its own thread.
-`/dev/jobs` lists the job rows in dev mode; `/dev/mail` shows
-a leased row as `sending`.
+its lease runs out. There is no mail outbox to drain (#10; the
+`mail_outbox` table stays in the schema, no longer written). AI generation
+still has its own thread. `/dev/jobs` lists the job rows in dev mode.
 
 **Proxy sign-in.** With `SKRONGLE_PROXY_AUTH_HEADER` and `_FROM` set,
 `proxy_auth::middleware` runs before every handler (not on `/dev/*`,
@@ -276,13 +263,11 @@ visible to its owner, and read only to whoever the owner shared it with
 (`share::can_open`; [features](features#sharing-a-course)): `POST
 /courses/open/{id}` checks both, the editor and file routes the owner only.
 
-**What the server can send.** `AppState::caps()` is a `Caps { mail }`
-(`Mailer::can_send`, fixed at boot): false when the
-chain is the `log` provider alone; dev mode's mailbox
-counts as a provider. Features ask it, not the mode, and hide what would send
-a message (#633); templates that need it carry a copy (`caps`, or a `mail`
-flag). `docs/self-hosting.md`, "Without e-mail", lists
-what changes.
+**No e-mail.** The server sends no mail (#633, #10): no transport, no
+outbox drain, no dev mailbox. Sharing shows the links to the owner, the
+data export is a Download button, and a forgotten password gets the owner's
+temporary password. `docs/self-hosting.md`, "No e-mail", lists what that
+means for each feature.
 
 
 **Templates** are server-rendered. The small scripts (`quiz.js`, `guide.js`,
@@ -317,7 +302,7 @@ users          (id AUTOINCREMENT, password_hash, created_at, google_sub UNIQUE, 
                 -- google_sub is no longer read (the Google sign-in is gone; the column waits for the schema squash);
                 -- password_hash is '' for accounts without one (proxy sign-in); email is what a password account
                 -- signs in with (no usernames since v26), set once and never changed;
-                -- email_verified_at: when the address was confirmed (link), NULL = not yet;
+                -- email_verified_at: when the address was confirmed (a proxy-made account, the dev user; no link since #10), NULL = not;
                 -- avatar, avatar_color: the profile picture and its background, no longer read (the pictures are gone; the columns wait for the schema squash);
                 -- lang the language the app speaks to this account in (i18n/<code>.yaml, v42), '' = the browser's;
                 -- developer 1 marks a developer account (set by hand or the dev seed); nothing reads it since #298
@@ -326,7 +311,7 @@ users          (id AUTOINCREMENT, password_hash, created_at, google_sub UNIQUE, 
                 -- phone: E.164 or ''; phone_verified_at: when a texted code confirmed it (v39);
                 -- phone_opted_out_at: a provider refused a text to it as opted out (STOP, v69, #969);
                 -- cleared when a text to it goes through or the number changes; codes go by e-mail meanwhile
-                -- two_factor: the second sign-in step, '' (off) | 'email' | 'totp' (src/two_factor.rs)
+                -- two_factor: the second sign-in step, '' (off) | 'totp' (src/two_factor.rs); an older 'email' reads as off (#10)
                 -- must_change_password 1: signed in with a temporary password the owner set (src/owner.rs, v62);
                 -- CurrentUser sends the account to /password/change until it picks its own
                 -- suspended_at: unused (moderation is gone, #9)
@@ -410,17 +395,14 @@ plan_grants    (user_id PRIMARY KEY, granted_at, expires_at, note)   -- Plus wit
 plan_cancellations (id, user_id, plan, reason, feedback, created_at)   -- why a learner cancelled (billing::CANCEL_REASONS)
 terms_acceptances (user_id, version, accepted_at)  UNIQUE (user_id, version)
 terms_announcements (user_id, version, mailed_at)  PRIMARY KEY (user_id, version)
-                -- who was e-mailed about a material change of the built-in terms (v67, #966)
+                -- who was e-mailed about a material change of the built-in terms (v67, #966); no longer written (#10)
                 -- one row per Terms of Service version a learner accepted; no IP address
 consents       (id, user_id, purpose, granted_at, withdrawn_at)
                 -- an optional consent (src/consent.rs, v82, #974): 'ai' = AI features; one row per time it was
                 -- given, withdrawn_at set when it is taken back. Shown on the profile's Privacy and consent card
 mail_outbox    (id, user_id, to_addr, subject, body_text, body_html, purpose, state, attempts, next_attempt_at,
                 scheduled_at, created_at, sent_at, provider, last_error, locked_by, locked_until)
-                -- e-mail to send (src/mail.rs); state 'queued' | 'sent' | 'failed'; provider = the one that took it;
-                -- locked_by/locked_until (v84, #873): the job runner's lease while it sends a queued row
-                -- user_id NULL: about no account. Sent bodies emptied (not in dev mode); finished rows kept 30 days.
-                -- scheduled_at (v58, #579): when it was first due, i.e. the hour whose SKRONGLE_MAIL_PER_HOUR budget it uses
+                -- e-mail to send: no longer written (#10), the table stays
 sms_outbox     (id, user_id, to_number, body_text, purpose, state, attempts, next_attempt_at, created_at, sent_at,
                 provider, last_error, locked_by, locked_until)
                 -- text messages to send (src/sms.rs); to_number is E.164; otherwise as mail_outbox
@@ -475,8 +457,8 @@ users.ai_credits                                 -- the prepaid credit balance, 
 users.signup_credit_at                           -- when a new account got its one-time Skrongle AI credit (v87, #931); 0 for accounts made before
 users.ai_effort                                  -- the effort Generate the course last ran at: low | medium | high (Fast, Balanced, Thorough; v92, #918)
 data_exports    (id, user_id, state, token_hash, file, link_base, bytes, error, created_at, ready_at, expires_at, downloaded_at)
-                -- "Download my data" (v44, #430): queued → building → ready (link mailed) → downloaded / expired, or failed;
-                -- token_hash is the SHA-256 of the mailed link's token; file is its name in <db>.exports/
+                -- "Download my data" (v44, #430): queued → building → ready → downloaded / expired, or failed;
+                -- token_hash is the SHA-256 of a link token that is no longer shown (#10); file is its name in <db>.exports/
 ```
 
 Migrations live in `src/db/migrations.rs` (`MIGRATIONS`), tracked with `PRAGMA
@@ -601,23 +583,19 @@ startup logs one warning naming each old variable and its new name.
 binary with `SKRONGLE_MINI=1`, the one setting that makes a server a mini,
 plus the defaults `deploy/skrongle.service` sets, marked *mini* in the table
 below: `SKRONGLE_SIGNUP=invite`, `SKRONGLE_TERMS=/etc/skrongle/terms.md`,
-and no mail provider (#633). `shape.rs` reads `SKRONGLE_MINI` once
+(#633). `shape.rs` reads `SKRONGLE_MINI` once
 at startup (`Shape::Mini` or `Shape::Hosted`, `shape::current()`,
 `crate::is_mini()`); nothing else reads the variable (a test checks).
 A mini has none of the hosted site's production features and no second
-switch for any of them: `crate::env` reads the settings in `shape::HOSTED_ONLY` (the mail
-provider) as unset, so those
+switch for any of them: `crate::env` reads the settings in `shape::HOSTED_ONLY` as unset, so those
 features are off wherever they are read; the startup log names any that
-are set and ignored. Dev mode's stand-in for it (the dev mailbox) is off
-in a mini too. `SKRONGLE_PLANS` is
+are set and ignored. `SKRONGLE_PLANS` is
 gone; a server that still sets it logs a warning. The startup
 line and `/healthz` (`ok skrongle mini <version>`) say which shape runs.
 Self-hosting the full build is not supported: outside mini and dev mode the
-server refuses to start until e-mail (`SKRONGLE_MAIL_PROVIDERS`) is set
-(`require_providers` in `main.rs`).
-It also refuses to start without `SKRONGLE_SECURE_COOKIES=1` (the hosted site
+server refuses to start without `SKRONGLE_SECURE_COOKIES=1` (the hosted site
 is served over HTTPS) and with `SKRONGLE_PROXY_AUTH_*` set (proxy sign-in is
-a mini feature; #980). The dev server's mailbox stands in for it. The
+a mini feature; #980; `require_providers` in `main.rs`). The
 release tarballs are `skrongle-<version>-<arch>.tar.gz`
 (`routes::docs::RELEASE_TARBALL`, `scripts/package-release.sh`); each
 carries `terms.example.md` for `SKRONGLE_TERMS`. The pitch and the security
@@ -640,19 +618,12 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_LOG` | `info` | `error`/`warn`/`info`/`debug`/`trace` |
 | `SKRONGLE_SECURE_COOKIES` | `0` | Set `1` behind a TLS proxy to add `Secure` to cookies. Required outside mini and dev mode: the hosted server refuses to start without it |
 | `SKRONGLE_BASE_PATH` | *(empty)* | URL prefix when mounted behind a reverse proxy, e.g. `/spanish` |
-| `SKRONGLE_PUBLIC_URL` | — | Public URL, for the links in e-mail (unset: links use the request's host, `X-Forwarded-Host` behind a proxy) |
+| `SKRONGLE_PUBLIC_URL` | — | Public URL, for the links the app hands out: the owner link, invitations, share links (unset: links use the request's host, `X-Forwarded-Host` behind a proxy) |
 | `SKRONGLE_MINI` | unset (*mini:* `1`) | `1`: the server is a Skrongle mini (`shape.rs`); unset: the hosted site. Anything but `1`, `true`, `0`, `false` or unset refuses to start. Read once at startup, directly (no older spelling) |
 | `SKRONGLE_AI_PRICES` | see `prices::DEFAULT_PRICES` | `model=in/out[/cached],…` in dollars per million tokens, added to (or replacing) the built-in table of Anthropic's list prices; `*` prices unknown models (default: the dearest rate) |
 | `SKRONGLE_LEGAL_EMAIL` | — | Copyright / legal contact shown on `/terms` in place of `[CONTACT EMAIL]` (built-in text only); self-hosters set their own. Unset: the placeholder shows. |
-| `SKRONGLE_SUPPORT_EMAIL` | — | The help address, shown on `/terms` in place of `[SUPPORT EMAIL]` and the `Reply-To` of every e-mail, so a reply to the no-reply sender reaches support. Unset: `/terms` shows `SKRONGLE_LEGAL_EMAIL` there and mail has no `Reply-To` |
+| `SKRONGLE_SUPPORT_EMAIL` | — | The help address, shown on `/terms` in place of `[SUPPORT EMAIL]`. Unset: `/terms` shows `SKRONGLE_LEGAL_EMAIL` there and mail has no `Reply-To` |
 | `SKRONGLE_TERMS` | `builtin` (*mini:* `/etc/skrongle/terms.md`) | The Terms of Service text: `builtin` (`docs/terms.md`, versioned by `docs/terms-changes.json`; see [features](features#terms-of-service)) or the path of the self-hoster's own Markdown file, served as it is at `/terms` with the first 16 hex characters of its SHA-256 as the version, so editing it asks every account to accept again. A missing, unreadable or empty file refuses to start, naming the variable and the path. No older spelling (read directly). `deploy/skrongle.service` sets `/etc/skrongle/terms.md` |
-| `SKRONGLE_MAIL_FROM` | — | Sender of e-mail, e.g. `Skrongle <noreply@example.org>`; needed with `SKRONGLE_MAIL_PROVIDERS` |
-| `SKRONGLE_MAIL_PER_HOUR` | `3000` (none in dev mode) | E-mails of one purpose (`email-verify`, `login-code`, `course-share`, …) due per window; each purpose has its own budget. Past it a message is queued for the next window with room (`mail_outbox.scheduled_at`), at most `mail::MAX_WAIT_WINDOWS` (12) ahead; `mail::NO_WAIT` purposes (sign-in codes) are not queued. `0`: no ceiling. |
-| `SKRONGLE_MAIL_WINDOW` | `3600` | The ceiling's window in seconds; windows start at multiples of it (clock hours). A short one (`60`) lets a test watch a capped message wait and leave |
-| `SKRONGLE_MAIL_PROVIDERS` | — | Provider names in fallback order, e.g. `ses,backup`; each is configured by `SKRONGLE_MAIL_<NAME>_*` (`_KIND`, and for SMTP `_HOST`, `_PORT`, `_TLS`, `_USER`, `_PASS`). Unset: e-mail is logged, not sent (in dev mode it goes to the dev mailbox), and the features that would send it switch off (`AppState::caps`, #633); Skrongle mini ignores it (`docs/self-hosting.md`, "Without e-mail or text messages") |
-| `SKRONGLE_MAIL_<NAME>_API_KEY` / `_API_URL` | — / `https://api.resend.com` | For `_KIND=resend` (Resend's HTTP API): the API key (required) and where calls go (a mock in tests) |
-| `SKRONGLE_MAIL_<NAME>_API_KEY` / `_API_URL` / `_STREAM` | — / `https://api.postmarkapp.com` / `outbound` | For `_KIND=postmark` (Postmark's HTTP API): the Server API token (required), where calls go (a mock in tests) and the message stream |
-| `SKRONGLE_MAIL_<NAME>_API_KEY` / `_API_URL` | — / `https://api.brevo.com/v3/smtp/email` | For `_KIND=brevo` (Brevo's HTTP API): the API key (required) and the endpoint (tests point it at a fake server) |
 | `SKRONGLE_OPENAI_BASE_URL` | `https://api.openai.com` | Where the OpenAI provider sends requests: any OpenAI-compatible server (Ollama, LM Studio) |
 | `SKRONGLE_ANTHROPIC_BASE_URL` | `https://api.anthropic.com` | Where the Anthropic provider sends requests (a proxy, the dev AI provider) |
 | `SKRONGLE_GOOGLE_BASE_URL` | `https://generativelanguage.googleapis.com/v1beta/openai` | Where the Google provider sends requests |
@@ -662,8 +633,7 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_ALLOW_PRIVATE_AI_URLS` | `0` | `1`: a base URL typed into an AI form may point at loopback, private or link-local addresses (a self-hosted Ollama on the LAN), on any port. Off, such URLs are refused, and only ports 443 and 80 are allowed, so learners cannot make the server call its own network (dev mode always allows them). `SKRONGLE_OPENAI_BASE_URL` is never checked |
 | `SKRONGLE_SECRET_KEY` | *(generated)* | 64 hex characters; encrypts stored API keys. Unset: read from or created at `<SKRONGLE_DB>.key` (mode 0600) |
 | `SKRONGLE_NEW_SECRET_KEY` | `0` | `1`: the secret key is lost for good; create a new one, delete the saved API keys it cannot read, and turn off the authenticator apps it cannot read (two-factor off for those accounts, #1068). Without it the server refuses to start when the database has saved keys but neither `SKRONGLE_SECRET_KEY` nor `<SKRONGLE_DB>.key` is there, or the key there opens none of them |
-| `SKRONGLE_DEV_SMTP` | `1` | Dev mode without `SKRONGLE_MAIL_PROVIDERS`: `1` sends e-mail to the dev mailbox on a free port, a number pins the port, `0` only logs it ([testing](testing#e-mail-the-dev-mailbox)) |
-| `SKRONGLE_DEV` | `0` | `1`: dev mode (`/dev/login`, `/dev/reset`, `/dev/mail`, `/dev/mail/send`, `/dev/jobs`, `/dev/inbox` and its SMTP mailbox, `/dev/ai` (the dev AI provider, which the default base URLs point at); sent e-mail keeps its body; the dev mailbox needs no sign-in). Refused unless `SKRONGLE_BIND` is loopback, `SKRONGLE_SECURE_COOKIES` is not `1` and `SKRONGLE_PUBLIC_URL` is unset or local; the `/dev/*` routes also refuse proxied or non-loopback-`Host` requests. Set by `./.dev-start`, never by `deploy/` |
+| `SKRONGLE_DEV` | `0` | `1`: dev mode (`/dev/login`, `/dev/reset`, `/dev/jobs`, `/dev/authenticator`, `/dev/ai` (the dev AI provider, which the default base URLs point at); the dev pages need no sign-in). Refused unless `SKRONGLE_BIND` is loopback, `SKRONGLE_SECURE_COOKIES` is not `1` and `SKRONGLE_PUBLIC_URL` is unset or local; the `/dev/*` routes also refuse proxied or non-loopback-`Host` requests. Set by `./.dev-start`, never by `deploy/` |
 | `SKRONGLE_DEV_RELOAD` | `0` | Dev mode only: `1` (set by `./.dev-start --watch`) appends a script to every HTML page that reloads it after the server restarts; see [testing](testing#live-reload---watch) |
 | `TEST_COURSE` | `0` | `1`: also offer the courses under `data/test-courses/` (the test course, for automated tests). `SKRONGLE_TEST_COURSE` works too. Never set in production |
 | `SKRONGLE_DEV_SEED` | `0` | Dev mode only: at boot, create the dev user with a course open and some progress |
@@ -800,10 +770,7 @@ writable path, and a release never touches the database.
   account per 15 minutes, 20 registrations per address per hour, 10
   password checks per account per 15 minutes (every profile proof of
   ownership, `prove_owner`, shares the allowance; its wrong passwords and
-  codes count against sign-in, and a blocked sign-in blocks it); password reset: 10 link requests per
-  address per hour, 3 links (and 3 "you already have an account"
-  messages) per e-mail address per hour, past which nothing is sent and the
-  page says the same, and 10 new passwords per address per 10 minutes. The address is the peer, or
+  codes count against sign-in, and a blocked sign-in blocks it). The address is the peer, or
   the last `X-Forwarded-For` entry when the peer is a proxy on loopback;
   an IPv6 address counts by its /64. Each limit keeps its own table of at
   most 64 keys (`caps::MAX_RATE_LIMIT_KEYS`); a full table drops ended
@@ -817,15 +784,9 @@ writable path, and a release never touches the database.
   with a method on, the password only leaves a challenge named
   by a 256-bit token in the `twofa` cookie (HttpOnly, SameSite=Lax, 10
   minutes; the table keeps its SHA-256); the session is made after the
-  code. E-mailed codes are 6 random digits, 10 minutes, 5 tries
-  per sign-in, kept across *Send a new code* (in the database, so on in
-  dev mode too), stored as
-  SHA-256(salt:token:code): a 6-digit code can't be protected by hashing
-  alone, but without the cookie's token a copy of the database can't be
-  searched for it. Wrong codes (the last one too) also count as wrong
-  passwords for the account's limit, and while that limit is reached
-  `/login/code` and its resend refuse too; *Send a new code* is limited to
-  5 per account per 15 minutes. Authenticator codes: RFC 6238, ±1 step, a step accepted once
+  code, 5 tries per sign-in. Wrong codes (the last one too) also count as
+  wrong passwords for the account's limit, and while that limit is reached
+  `/login/code` refuses too. Authenticator codes: RFC 6238, ±1 step, a step accepted once
   (`totp_keys.last_step`), compared in constant time. The TOTP secret
   can't be hashed (codes are worked out from it), so it is sealed with the
   AI API keys' vault (`secrets::seal_totp`: same master secret, its own
@@ -863,8 +824,8 @@ writable path, and a release never touches the database.
   never echoes a key back: only its last four characters. Back up the
   `.key` file with the database if you want saved keys to survive a restore.
 - Account data: *Profile → Your data* prepares everything stored for the
-  account in the background and e-mails a one-time link
-  (`POST /profile/export`, then `GET /profile/export/download?token=…`;
+  account in the background for its Download button
+  (`POST /profile/export`, then `POST /profile/export/download`;
   the `export` job in `exports.rs`, on the `jobs` runner, reads every table in
   `privacy::USER_TABLES` a page at a time, the columns in
   `privacy::EXPORTED`, into `<db>.exports/`) and deletes the account (`POST /profile/delete`: the password,

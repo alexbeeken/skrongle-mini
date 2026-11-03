@@ -62,7 +62,7 @@ fn privacy_page_export_and_account_deletion_over_http() {
     assert!(html.contains("Cookie notice") && html.contains("footer-cookies"));
 
     // Export (#430): the button queues it, the export job (run here by
-    // hand) builds it and mails a link, which works once, for ann only.
+    // hand) builds it, and the Download button gets it once, for ann only.
     let (ann_c, gil_c) = (format!("sid={ann_t}"), format!("sid={gil_t}"));
     assert_eq!(get("/profile/export.json", &ann_c).0, 404, "the synchronous export is gone");
     assert_eq!(post("/profile/export", "", &[]).0, 303);
@@ -72,19 +72,14 @@ fn privacy_page_export_and_account_deletion_over_http() {
     assert_eq!(state.db.with(|c| c.query_row("SELECT COUNT(*) FROM data_exports", [], |r| r.get::<_, i64>(0))).unwrap(), 1, "one in flight");
     assert!(get("/profile?saved=export-busy", &ann_c).1.contains("already being prepared"));
     assert!(get("/profile", &ann_c).1.contains(r#"data-testid="profile-export-state" data-state="queued""#));
-    assert_eq!(crate::exports::run_queued(&state.db, &state.exports.dir, Some(Box::new(|| {}))), 1);
-    let mail: String = state
-        .db
-        .with(|c| c.query_row("SELECT body_text FROM mail_outbox WHERE user_id = ?1 AND purpose = 'data-export'", [ann], |r| r.get(0)))
-        .unwrap();
-    let link = mail.split_whitespace().find(|w| w.contains("/profile/export/download?token=")).unwrap().to_string();
-    let path = link.strip_prefix(&base).unwrap_or_else(|| panic!("{link} is not on {base}")).to_string();
-    assert_eq!(get(&path, "").0, 303, "signed out");
-    assert_eq!(get(&path, &gil_c).0, 303, "another account");
+    assert_eq!(crate::exports::run_queued(&state.db, &state.exports.dir), 1);
+    let download = "/profile/export/download";
+    assert_eq!(post(download, "", &[]).0, 303, "signed out");
+    assert_eq!(post(download, &gil_c, &[]).0, 303, "another account");
     assert!(get("/profile", &ann_c).1.contains(r#"data-state="ready""#));
-    let (status, body) = get(&path, &ann_c);
+    let (status, _, body) = post(download, &ann_c, &[]);
     assert_eq!(status, 200);
-    assert_eq!(get(&path, &ann_c).0, 303, "the link works once");
+    assert_eq!(post(download, &ann_c, &[]).0, 303, "it works once");
     assert_eq!(std::fs::read_dir(&state.exports.dir).unwrap().filter_map(Result::ok).filter(|e| e.file_name().to_string_lossy().starts_with(&format!("{}-", ann))).count(), 0, "the file is deleted");
     assert!(get("/profile?saved=export-soon", &ann_c).1.contains("One copy a day"));
     let v: serde_json::Value = serde_json::from_str(&body).unwrap();
@@ -150,8 +145,8 @@ fn privacy_page_export_and_account_deletion_over_http() {
 }
 
 /// Account changes a stolen session must not make (#374, #375, #376):
-/// turning two-factor on needs proof, signs out the other devices and
-/// e-mails the account; "Sign out everywhere else" ends every other
+/// turning two-factor on needs proof and signs out the other devices;
+/// "Sign out everywhere else" ends every other
 /// session; an account without a password but with a second step deletes
 /// with its code.
 #[test]
@@ -197,7 +192,7 @@ fn account_changes_need_proof_and_sign_out_other_devices() {
     assert!(alive(&ann_t) && !alive(&ann_other));
 
     // Turning two-factor on needs the password (#374); done, it signs
-    // out the other devices and e-mails the account.
+    // out the other devices.
     let ann_other = session(ann);
     let method = || state.db.with(|c| crate::two_factor::settings(c, ann)).unwrap().method;
     let key_of = |u| state.db.with(|c| crate::two_factor::pending_key(c, &state.vault, u)).unwrap().unwrap();
@@ -211,8 +206,6 @@ fn account_changes_need_proof_and_sign_out_other_devices() {
     assert_eq!(post("/profile/two-factor/totp/confirm", &ann_c, &[("code", &key.code_at(now()))]).0, 303);
     assert_eq!(method(), Some(crate::two_factor::Method::Totp));
     assert!(alive(&ann_t) && !alive(&ann_other));
-    let told: i64 = state.db.with(|c| c.query_row("SELECT COUNT(*) FROM mail_outbox WHERE user_id = ?1 AND purpose = 'two-factor-changed'", [ann], |r| r.get(0))).unwrap();
-    assert_eq!(told, 1);
     assert_eq!(post("/profile/two-factor", &ann_c, &[("method", "email"), ("password", "right-password")]).0, 400, "no e-mailed second step (#10)");
 
     // An account without a password and without a second step has nothing

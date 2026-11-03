@@ -212,111 +212,6 @@ terms:
     dismiss: 继续
     disagree_html: "如果你不同意，可以退出登录，或在你的<a href=\"{url}\" data-testid=\"terms-notice-profile\">个人资料</a>中注销账户。"
 
-mail:
-  waitlist_confirm:
-    subject: "确认你在 {app} 候补名单上的位置"
-    text: |
-      你好，
-
-      请打开这个链接，确认你想加入 {app} 的候补名单：
-
-      {link}
-
-      轮到你时，我们会用电子邮件发送邀请。如果你没有申请加入，请忽略这封邮件：不打开链接，这个地址就不会被加入。
-    html: |
-      <p>你好，</p>
-      <p>请确认你想加入 {app} 的候补名单：</p>
-      <p><a href="{link}">确认我的位置</a></p>
-      <p>或者把这个链接粘贴到浏览器：{link}</p>
-      <p>轮到你时，我们会用电子邮件发送邀请。如果你没有申请加入，请忽略这封邮件：不打开链接，这个地址就不会被加入。</p>
-  waitlist_invite:
-    subject: "你的 {app} 邀请"
-    text: |
-      你好，
-
-      轮到你了：我们邀请你创建 {app} 账户。打开这个链接，用这个电子邮件地址（{email}）注册：
-
-      {link}
-
-      邀请有效期为 {days} 天。
-    html: |
-      <p>你好，</p>
-      <p>轮到你了：我们邀请你创建 {app} 账户。请用这个电子邮件地址（{email}）注册。</p>
-      <p><a href="{link}">创建我的账户</a></p>
-      <p>或者把这个链接粘贴到浏览器：{link}</p>
-      <p>邀请有效期为 {days} 天。</p>
-  terms_change:
-    subject: "{app} 的条款将于 {date} 更改"
-    text: |
-      你好：
-
-      我们正在更改 {app} 的条款。新条款自 {date} 起生效。
-
-      更改内容：
-      {summary}
-
-      阅读新条款：{link}
-
-      自 {date} 起，你登录时需要接受新条款。如果你不同意，可以在个人资料中注销账户。
-    html: |
-      <p>你好：</p>
-      <p>我们正在更改 {app} 的条款。新条款自 {date} 起生效。</p>
-      <p>更改内容：</p>
-      {summary}
-      <p><a href="{link}">阅读新条款</a></p>
-      <p>自 {date} 起，你登录时需要接受新条款。如果你不同意，可以在个人资料中注销账户。</p>
-  account_deletion:
-    subject: "你的 {app} 账户将于 {date} 被删除"
-    text: |
-      你好，
-
-      你请求删除你的 {app} 账户。它将于 {date} 被永久删除，连同你的学习进度、课程和已保存的密钥。
-
-      如要保留，请在此之前登录 {app} 并选择“取消删除”。
-
-      如果这不是你本人的请求，请登录、取消删除并修改密码。
-  data_export:
-    subject: "你的 {app} 数据已可下载"
-    text: |
-      你好，
-
-      你所请求的 {app} 数据副本已准备好。请登录 {app}，然后打开此链接下载：
-
-      {link}
-
-      此链接只能使用一次，有效期为 24 小时，且仅在你登录此账户期间有效。如果这不是你请求的，请修改密码：说明有其他人已登录你的账户。
-    html: |
-      <p>你好，</p>
-      <p>你所请求的 {app} 数据副本已准备好。请登录 {app}，然后打开此链接下载：</p>
-      <p><a href="{link}">下载我的数据</a></p>
-      <p>此链接只能使用一次，有效期为 24 小时，且仅在你登录此账户期间有效。如果这不是你请求的，请修改密码：说明有其他人已登录你的账户。</p>
-  two_factor_changed:
-    subject: "{app} 上的两步验证已更改"
-    now_off: 已关闭
-    now_totp: 现在要求输入验证器应用中的验证码
-    text: |
-      你好，
-
-      {app} 上的两步验证{now}。
-
-      其他所有设备均已退出登录。如果这不是你的操作，说明有其他人已登录你的账户：请登录，使用个人设置中的“退出其他所有设备”，并重新设置两步验证。
-    html: |
-      <p>你好，</p>
-      <p>{app} 上的两步验证<strong>{now}</strong>。</p>
-      <p>其他所有设备均已退出登录。如果这不是你的操作，说明有其他人已登录你的账户：请登录，使用个人设置中的“退出其他所有设备”，并重新设置两步验证。</p>
-  course_share:
-    subject: "{owner} 在 {app} 上与你分享了一门课程：{title}"
-    text: |
-      你好，
-      {owner} 在 {app} 上与你分享了课程“{title}”。打开此链接即可将它添加到你的课程中：
-      {link}
-      你可以用自己的学习进度学习这门课程；只有 {owner} 可以修改它。如果你还没有 {app} 账户，可以通过此链接注册。如果你并未期待这封邮件，请忽略。
-    html: |
-      <p>你好，</p>
-      <p>{owner} 在 {app} 上与你分享了课程 <strong>{title}</strong>。</p>
-      <p><a href="{link}">打开课程</a></p>
-      <p>或将此链接粘贴到浏览器中：{link}</p>
-      <p>你可以用自己的学习进度学习这门课程；只有 {owner} 可以修改它。如果你还没有 {app} 账户，可以通过此链接注册。如果你并未期待这封邮件，请忽略。</p>
 
 profile:
   title: 个人资料
@@ -384,7 +279,6 @@ profile:
     title: "隐私与同意"
     info: "关于你的同意"
     info_age: "你在注册时确认了年龄。要撤回，请在“你的数据”中删除账户。"
-    info_email: "服务邮件总是会发送：确认你的邮箱、你的数据下载以及条款变更。可选邮件会出现在这里，各有开关，在你打开之前保持关闭。"
     info_ai: "AI 功能会把你输入的内容发送给 AI 公司。隐藏后不会发送任何内容，这些功能会从应用中消失，已保存的 API 密钥也会被删除。"
     info_record: "每次更改都会连同日期记录下来，并包含在“下载我的数据”中。"
     close: "关闭"
@@ -392,8 +286,6 @@ profile:
     age: "年龄"
     age_confirmed: "已于 {date} 确认"
     age_not_confirmed: "未确认"
-    email: "邮件"
-    email_service: "仅服务消息"
     ai: "不显示 AI 功能"
     ai_on_since: "自 {date} 起显示"
     ai_on: "显示"
@@ -499,26 +391,21 @@ profile:
     wrong_provider: "这看起来不像是 {provider} 的密钥：它们以 {prefix} 开头。"
   data:
     export_download: "下载我的数据"
-    export_building_no_mail: "正在准备你的数据。准备好后，这里会出现“下载”按钮。"
-    export_ready_no_mail: "你的数据已准备好：在 {date} 之前用按钮下载，仅限一次。"
-    export_about_no_mail: "一个 JSON 文件，包含你账户存储的所有内容，在后台准备。准备好后在这里下载；仅可下载一次，有效期 24 小时。每天一份。"
+    export_building: "正在准备你的数据。准备好后，这里会出现“下载”按钮。"
+    export_ready: "你的数据已准备好：在 {date} 之前用按钮下载，仅限一次。"
+    export_about: "一个 JSON 文件，包含你账户存储的所有内容，在后台准备。准备好后在这里下载；仅可下载一次，有效期 24 小时。每天一份。"
     title: 你的数据
     stored_html: "存储的内容及原因：<a href=\"{url}\" data-testid=\"profile-privacy-link\">隐私政策</a>。"
     export: 准备我的数据（JSON）
     export_heading: 下载我的数据
     export_info_label: 关于下载你的数据
     export_preparing: 准备中…
-    export_about: 你账户中存储的所有内容的 JSON 文件，将在后台准备。我们会通过电子邮件发送下载链接；该链接只能使用一次，有效期为 24 小时，且仅在你登录期间有效。每天只能获取一份副本。
     export_ok: 好
-    export_your_address: 你的电子邮箱地址
     export_none: 你还没有请求过副本。
-    export_building: "正在准备中。准备好后，链接将发送至 {email}。"
-    export_ready: "已准备好。链接已发送至 {email}；只能使用一次，有效期至 {date}。"
     export_downloaded: "已于 {date} 下载。"
     export_expired: 上一个链接未使用即已过期。
     export_failed: 上一份副本无法准备。请重试。
     export_next: "每天一份副本：可从 {date} 起再次请求下一份。"
-    export_queued: 正在准备你的数据。你将收到一封包含下载链接的电子邮件。
     export_busy: 你的数据正在准备中。
     export_soon: 每天一份副本。查看 (i) 了解何时可以再次请求。
     export_gone: 该下载链接已被使用、已过期，或属于另一个账户。
@@ -599,15 +486,6 @@ superuser:
   two_factor_off_about: "在重新开启两步验证之前，该账户只凭密码登录。为其设置的身份验证器应用会被移除。"
   two_factor_off_confirm: "关闭"
   two_factor_off_done: "{email} 的两步验证已关闭。"
-  terms_changed: "条款已更改。"
-  terms_title: "即将生效的条款变更"
-  terms_send: "发送通知"
-  terms_send_about:
-    one: "即将生效的变更摘要将发送给 {n} 个尚未收到的账户。"
-    other: "即将生效的变更摘要将发送给 {n} 个尚未收到的账户。"
-  terms_sent:
-    one: "已为 {n} 个账户排队发送通知。"
-    other: "已为 {n} 个账户排队发送通知。"
   js:
     copied: "已复制"
 
@@ -2735,7 +2613,7 @@ courses:
     none_right: "全部答错"
     failed: "分级测试没有加载出来。请直接选择一个级别。"
   share:
-    dialog_lead_no_mail: "每个地址都会得到一个专属链接，由你转发：此服务器不发送电子邮件。他们以自己的进度学习这门课程；只有你可以修改它。"
+    dialog_lead: "每个地址都会得到一个专属链接，由你转发：此服务器不发送电子邮件。他们以自己的进度学习这门课程；只有你可以修改它。"
     make_links: "生成邀请链接"
     made:
       one: "已生成 {n} 个邀请链接。请复制并转发；它只在此时显示。"
@@ -2745,14 +2623,12 @@ courses:
     button: 分享
     button_count: "分享（{n}）"
     dialog_title: 分享此课程
-    dialog_lead: 你分享给的每个人都会收到一封含链接的邮件。他们用自己的学习进度学习这门课程；只有你可以修改它。
     status_opened: 已打开
     status_invited: 已邀请
     remove: 移除
     remove_label: "停止与 {email} 分享"
     emails_label: 电子邮件地址
     emails_note: （每行一个，或用逗号分隔）
-    send: 发送邀请
     close: 关闭
     own_address: "这是你自己的地址：该课程已经属于你。"
     too_many_course: "一门课程最多可与 {max} 个地址分享。"
@@ -2760,9 +2636,6 @@ courses:
     at_least_one: 请至少输入一个电子邮件地址。
     bad_address: "“{address}”：{error}"
     bad_address_notice: 其中有一个不是电子邮箱地址。请检查列表后重新发送。
-    sent:
-      one: "已向 {n} 个地址发送邀请。"
-      other: "已向 {n} 个地址发送邀请。"
     already_had: "{n} 个地址已经收到过邀请。"
     removed_notice: 已停止与该地址共享。
     not_on_list: 该地址不在列表中。

@@ -31,9 +31,8 @@ test("a learner registers, signs in again and passes a lesson with nothing confi
   await expectProgressAgrees(page);
 });
 
-test("there is no dev mailbox", async ({ request }) => {
-  const mail = await (await request.get("/dev/inbox?format=json")).json();
-  expect(mail.smtp, "/dev/inbox: no SMTP mailbox").toBeNull();
+test("there is no /dev/inbox", async ({ request }) => {
+  expect((await request.get("/dev/inbox?format=json")).status(), "/dev/inbox is gone (#10)").toBe(404);
   expect((await request.get("/dev/phone?format=json")).status(), "/dev/phone is gone").toBe(404);
 });
 

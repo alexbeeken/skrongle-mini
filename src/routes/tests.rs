@@ -348,7 +348,6 @@ fn superusers_see_every_account() {
     assert!(!get("/profile", &bob).contains("nav-superuser"));
     assert_eq!(status("/superuser", &bob), 404);
     assert_eq!(post("/superuser/temp-password", &bob, &[("email", "bob@example.org")]).0, 404);
-    assert_eq!(post("/superuser/terms-announce", &bob, &[]).0, 404);
 
     // A superuser: the link, and the page with every account and its actions.
     assert!(get("/profile", &root).contains(r#"href="/superuser" data-testid="nav-superuser""#));
@@ -356,8 +355,6 @@ fn superusers_see_every_account() {
     assert!(page.contains(r#"data-testid="superuser-accounts""#) && page.contains(r#"data-account-email="bob@example.org""#) && page.contains("superuser-password-dialog"), "{page}");
     assert!(!page.contains("superuser-verify-dialog") && !page.contains("reset-email-verification"), "no verification reset (#10)");
     assert!(!page.contains("superuser-pager"), "two accounts: one page");
-    // No coming change of the terms in the changelog: no notice, no Send.
-    assert!(!page.contains("superuser-terms-changed") && !page.contains("superuser-terms-send"), "{page}");
 
     // An address nobody has.
     let (_, _, loc) = post("/superuser/two-factor-off", &root, &[("email", "nobody@example.org")]);
@@ -1235,17 +1232,12 @@ fn a_shared_course_is_on_the_recipients_list_read_only() {
     };
     // Registering signs in and carries the share link on.
     let register = |email: &str, share: &str| post("/register", "", &[("email", email), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on"), ("share", share)]);
-    let invitations = |to: &str| {
-        let to = to.to_string();
-        state
-            .db
-            .with(move |c| {
-                let mut stmt = c.prepare("SELECT body_text FROM mail_outbox WHERE to_addr = ?1 AND purpose = 'course-share' ORDER BY id")?;
-                let v = stmt.query_map([to], |r| r.get(0))?.collect::<Result<Vec<String>, _>>();
-                v
-            })
-            .unwrap()
+    // The Share form answers with the dialog and the links just made: (status, page).
+    let share_post = |path: &str, cookie: &str, emails: &str| {
+        let mut r = agent.post(&format!("{base}{path}")).header("cookie", cookie).send_form([("emails", emails)]).unwrap();
+        (r.status().as_u16(), r.body_mut().read_to_string().unwrap())
     };
+    let shares = || state.db.with(|c| c.query_row("SELECT COUNT(*) FROM course_shares", [], |r| r.get::<_, i64>(0))).unwrap();
 
     let (_, ann, _) = register("ann@example.org", "");
     let (status, _, loc) = post("/courses/new", &ann, &[("title", "Fractions")]);
@@ -1253,22 +1245,26 @@ fn a_shared_course_is_on_the_recipients_list_read_only() {
     let id = loc.strip_prefix("/courses/").and_then(|l| l.strip_suffix("?generate=1")).expect("the editor").to_string();
     assert!(get(&format!("/courses/{id}"), &ann).2.contains(r#"data-testid="course-edit-share""#));
 
-    // Inviting: the owner's own address refuses the list; otherwise one message per new address.
+    // Inviting: the owner's own address refuses the list; otherwise one link per new address.
     let (status, _, loc) = post(&format!("/courses/{id}/share"), &ann, &[("emails", "bob@example.org, ann@example.org")]);
     assert!(status == 303 && loc.contains("share=1&notice=share-own"), "{loc}");
     // The POST target opened as a page goes back to the dialog, not a 405 (#667).
     let (status, loc, _) = get(&format!("/courses/{id}/share"), &ann);
     assert!(status == 303 && loc.ends_with(&format!("/courses/{id}?share=1")), "{status} {loc}");
-    assert!(invitations("bob@example.org").is_empty());
-    let (_, _, loc) = post(&format!("/courses/{id}/share"), &ann, &[("emails", "Bob@Example.org\ncarol@example.org")]);
-    assert!(loc.contains("notice=share-sent-2-0"), "{loc}");
-    let (_, _, loc) = post(&format!("/courses/{id}/share"), &ann, &[("emails", "bob@example.org")]);
-    assert!(loc.contains("notice=share-sent-0-1"), "{loc}");
-    let sent = invitations("bob@example.org");
-    assert_eq!(sent.len(), 1, "one invitation per address");
-    let link = sent[0].split_whitespace().find(|w| w.starts_with(&format!("{base}/courses/shared/"))).expect("the link").to_string();
-    let token = link.rsplit('/').next().unwrap().to_string();
+    assert_eq!(shares(), 0);
+    let (status, page) = share_post(&format!("/courses/{id}/share"), &ann, "Bob@Example.org\ncarol@example.org");
+    assert!(status == 200 && page.contains("2 invitation links made"), "{page}");
+    let token = page
+        .split(r#"data-email="bob@example.org""#)
+        .nth(1)
+        .and_then(|r| r.split(&format!(r#"value="{base}/courses/shared/"#)).nth(1))
+        .and_then(|r| r.split('"').next())
+        .expect("bob's link")
+        .to_string();
     assert_eq!(token.len(), 64);
+    let (status, page) = share_post(&format!("/courses/{id}/share"), &ann, "bob@example.org");
+    assert!(status == 200 && page.contains("already had one") && !page.contains(r#"data-testid="course-share-link""#), "{page}");
+    assert_eq!(shares(), 2, "one invitation per address");
     let editor = get(&format!("/courses/{id}"), &ann).2;
     assert!(editor.contains(r#"data-testid="course-share-row" data-email="bob@example.org" data-opened="false""#), "{editor}");
     assert!(editor.contains(r#"data-testid="course-edit-share">Share (2)"#), "{editor}");
@@ -1342,24 +1338,12 @@ fn a_shared_course_is_on_the_recipients_list_read_only() {
     assert!(get("/courses", &carol).2.contains(&format!(r#"data-course-id="{id}""#)), "carol's stays");
 }
 
-/// #633: a channel reaches someone with a provider, or dev mode's
-/// mailbox standing in; the `log` provider alone does not.
+/// Nothing offers to send a message (#633, #10): share links are shown to
+/// the owner, and the data export is a Download button on the profile.
 #[test]
-fn caps_follow_the_providers() {
-    assert!(crate::Caps::reaches(false, false), "a provider");
-    assert!(crate::Caps::reaches(true, true), "dev mode's mailbox");
-    assert!(!crate::Caps::reaches(true, false), "log alone");
-    assert_eq!(super::test_state(false).caps(), crate::Caps { mail: true });
-    assert_eq!(super::test_state_without(false).caps(), crate::Caps { mail: false });
-}
-
-/// #633: on a server with no mail provider nothing offers to send a
-/// message: share links are shown to the owner, and the data export is a
-/// Download button on the profile.
-#[test]
-fn without_mail_nothing_offers_to_send() {
+fn nothing_offers_to_send_mail() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = super::test_state_without(false);
+    let state = super::test_state(false);
     let app = super::router(state.clone());
     let base = rt.block_on(async {
         let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
@@ -1383,7 +1367,6 @@ fn without_mail_nothing_offers_to_send() {
 
     let (status, ann, _, _) = post("/register", "", &[("email", "ann@example.org"), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]);
     assert_eq!(status, 303);
-    assert_eq!(count("SELECT COUNT(*) FROM mail_outbox"), 0);
 
     // Sharing: the dialog makes links, shows them, and mails nothing; a link works.
     let (_, _, loc, _) = post("/courses/new", &ann, &[("title", "Fractions")]);
@@ -1395,21 +1378,19 @@ fn without_mail_nothing_offers_to_send() {
     let link = page.split(&format!(r#"value="{base}/courses/shared/"#)).nth(1).and_then(|r| r.split('"').next()).expect("the link").to_string();
     assert_eq!(link.len(), 64);
     assert_eq!(count("SELECT COUNT(*) FROM course_shares"), 1);
-    assert_eq!(count("SELECT COUNT(*) FROM mail_outbox"), 0);
     let (status, bob, _, _) = post("/register", "", &[("email", "bob@example.org"), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]);
     assert_eq!(status, 303);
     assert_eq!(get(&format!("/courses/shared/{link}"), &bob).1, "/", "the link opens the course");
     let (status, _, _, page) = post(&format!("/courses/{id}/share"), &ann, &[("emails", "bob@example.org")]);
     assert!(status == 200 && !page.contains(r#"data-testid="course-share-link""#) && page.contains("already had one"), "{page}");
 
-    // Download my data: built without a mail, downloaded from the profile once.
+    // Download my data: downloaded from the profile once.
     let (status, _, loc, _) = post("/profile/export", &ann, &[]);
     assert_eq!(status, 303);
     let queued = get(loc.split('#').next().unwrap_or_default(), &ann).2;
     assert!(!queued.contains("You will get an e-mail"), "the notice promises no mail: {queued}");
     assert!(get("/profile", &ann).2.contains("a Download button appears here"));
-    assert_eq!(crate::exports::run_queued(&state.db, &state.exports.dir, None), 1);
-    assert_eq!(count("SELECT COUNT(*) FROM mail_outbox"), 0);
+    assert_eq!(crate::exports::run_queued(&state.db, &state.exports.dir), 1);
     let profile = get("/profile", &ann).2;
     assert!(profile.contains(r#"data-testid="profile-export-download""#), "{profile}");
     assert_eq!(post("/profile/export/download", &bob, &[]).2, "/profile?saved=export-gone#data", "bob has none");
@@ -1419,7 +1400,7 @@ fn without_mail_nothing_offers_to_send() {
     let (status, _, loc, _) = post("/profile/export/download", &ann, &[]);
     assert_eq!((status, loc.as_str()), (303, "/profile?saved=export-gone#data"), "once");
     assert!(!get("/profile", &ann).2.contains(r#"data-testid="profile-export-download""#));
-
+    assert_eq!(count("SELECT COUNT(*) FROM mail_outbox"), 0, "nothing was queued to send");
 }
 
 /// #10: registering signs the account in and sends nothing; the address
@@ -1456,9 +1437,9 @@ fn registration_signs_in_and_nothing_is_mailed() {
     for gone in ["/reset", "/verify-email?token=abc"] {
         assert_eq!(agent.get(&format!("{base}{gone}")).call().unwrap().status().as_u16(), 404, "{gone}");
     }
-    let (users, mails): (i64, i64) = state.db.with(|c| c.query_row("SELECT (SELECT COUNT(*) FROM users), (SELECT COUNT(*) FROM mail_outbox)", [], |r| Ok((r.get(0)?, r.get(1)?)))).unwrap();
-    assert_eq!((users, mails), (1, 0));
-    // An account left on the e-mailed second step signs in with its password alone.
+    let users: i64 = state.db.with(|c| c.query_row("SELECT COUNT(*) FROM users", [], |r| r.get(0))).unwrap();
+    assert_eq!(users, 1);
+    // An account left on the old e-mailed second step (#10) signs in with its password alone.
     state.db.with(|c| c.execute("UPDATE users SET two_factor = 'email'", [])).unwrap();
     let r = agent.post(&format!("{base}/login")).send_form([("email", "ann@example.org"), ("password", "long-enough-pw")]).unwrap();
     assert_eq!(r.status().as_u16(), 303);
