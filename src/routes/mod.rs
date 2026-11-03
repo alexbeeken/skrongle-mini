@@ -1,6 +1,7 @@
 //! Axum router, shared response helpers, static assets.
 
 use askama::Template;
+use axum::body::Body;
 use axum::extract::{Path, Query, RawQuery};
 use axum::http::{header, HeaderMap, HeaderValue, StatusCode};
 use axum::response::{Html, IntoResponse, Redirect, Response};
@@ -41,6 +42,13 @@ pub mod vocab;
 #[derive(RustEmbed)]
 #[folder = "static/"]
 struct Assets;
+
+/// The gzip form of the files in `static/` that shrink when compressed,
+/// written by `build.rs` at the same relative paths. Release builds only
+/// serve it; debug builds read `static/` live from disk, so it would go stale.
+#[derive(RustEmbed)]
+#[folder = "$OUT_DIR/static_gz/"]
+struct AssetsGz;
 
 /// The Markdown documentation under `docs/`, served at `/docs`.
 #[derive(RustEmbed)]
@@ -541,12 +549,48 @@ async fn web_manifest() -> Response {
         .into_response()
 }
 
+/// Per-file ETags, computed once: the identity form `"{fnv1a:016x}"` and the
+/// gzip form with a `-gz` suffix (a different body, so a different validator).
+type AssetEtags = HashMap<String, (String, Option<String>)>;
+static ASSET_ETAGS: OnceLock<AssetEtags> = OnceLock::new();
+
+fn asset_etags() -> &'static AssetEtags {
+    ASSET_ETAGS.get_or_init(|| {
+        Assets::iter()
+            .filter_map(|name| {
+                let file = Assets::get(&name)?;
+                let etag = format!("\"{:016x}\"", fnv1a(file.data.iter().copied()));
+                let gz = (cfg!(any(not(debug_assertions), test)) && AssetsGz::get(&name).is_some())
+                    .then(|| format!("{}-gz\"", etag.trim_end_matches('"')));
+                Some((name.to_string(), (etag, gz)))
+            })
+            .collect()
+    })
+}
+
+/// Whether an `Accept-Encoding` value allows gzip (and does not say `gzip;q=0`).
+fn accepts_gzip(headers: &HeaderMap) -> bool {
+    headers
+        .get(header::ACCEPT_ENCODING)
+        .and_then(|v| v.to_str().ok())
+        .is_some_and(|v| {
+            v.split(',').any(|part| {
+                let mut it = part.split(';');
+                it.next().is_some_and(|c| c.trim().eq_ignore_ascii_case("gzip"))
+                    && !it.any(|p| {
+                        let p = p.replace(' ', "");
+                        p.strip_prefix("q=").is_some_and(|q| q.parse::<f32>() == Ok(0.0))
+                    })
+            })
+        })
+}
+
 async fn static_asset(
     Path(path): Path<String>,
     Query(query): Query<HashMap<String, String>>,
     headers: HeaderMap,
 ) -> Response {
-    let Some(file) = Assets::get(&path) else {
+    let Some((identity_etag, gz_etag)) = asset_etags().get(&path) else {
         return StatusCode::NOT_FOUND.into_response();
     };
     let mime = match path.rsplit('.').next() {
@@ -558,12 +602,29 @@ async fn static_asset(
         Some("woff2") => "font/woff2",
         _ => "application/octet-stream",
     };
-    // ETag from the content itself, so a changed file always revalidates.
-    let etag = format!("\"{:016x}\"", fnv1a(file.data.iter().copied()));
-    let etag_value = HeaderValue::from_str(&etag).expect("etag header");
+    // Pre-gzipped at build time; used only when the client accepts it.
+    let gz_file = match gz_etag {
+        Some(_) if accepts_gzip(&headers) => AssetsGz::get(&path),
+        _ => None,
+    };
+    let etag = match (&gz_file, gz_etag) {
+        (Some(_), Some(gz)) => gz,
+        _ => identity_etag,
+    };
+    let etag_value = HeaderValue::from_str(etag).expect("etag header");
+    let vary = gz_etag.is_some();
+    // The ETag is checked before any body is read.
     if headers.get(header::IF_NONE_MATCH).and_then(|v| v.to_str().ok()) == Some(etag.as_str()) {
-        return (StatusCode::NOT_MODIFIED, [(header::ETAG, etag_value)]).into_response();
+        let mut res = (StatusCode::NOT_MODIFIED, [(header::ETAG, etag_value)]).into_response();
+        if vary {
+            res.headers_mut().insert(header::VARY, HeaderValue::from_static("Accept-Encoding"));
+        }
+        return res;
     }
+    let gzipped = gz_file.is_some();
+    let Some(file) = gz_file.or_else(|| Assets::get(&path)) else {
+        return StatusCode::NOT_FOUND.into_response();
+    };
     // Long-lived caching only for URLs carrying the current version (they change
     // with every build); everything else revalidates. Debug builds serve files
     // straight from disk, so they always revalidate too.
@@ -573,15 +634,23 @@ async fn static_asset(
     } else {
         "no-cache"
     };
-    (
-        [
-            (header::CONTENT_TYPE, HeaderValue::from_static(mime)),
-            (header::CACHE_CONTROL, HeaderValue::from_static(cache)),
-            (header::ETAG, etag_value),
-        ],
-        file.data.into_owned(),
-    )
-        .into_response()
+    // Release builds hand out `&'static [u8]`: no copy. Debug reads from disk.
+    let body = match file.data {
+        std::borrow::Cow::Borrowed(b) => Body::from(b),
+        std::borrow::Cow::Owned(v) => Body::from(v),
+    };
+    let mut res = Response::new(body);
+    let h = res.headers_mut();
+    h.insert(header::CONTENT_TYPE, HeaderValue::from_static(mime));
+    h.insert(header::CACHE_CONTROL, HeaderValue::from_static(cache));
+    h.insert(header::ETAG, etag_value);
+    if vary {
+        h.insert(header::VARY, HeaderValue::from_static("Accept-Encoding"));
+    }
+    if gzipped {
+        h.insert(header::CONTENT_ENCODING, HeaderValue::from_static("gzip"));
+    }
+    res
 }
 
 /// Human-friendly relative time ("3 hours ago").
