@@ -1716,8 +1716,7 @@ keep their explicit buttons. The page needs JavaScript.
   when, with links to the Terms and the privacy policy (see
   [Terms of Service](#terms-of-service)); the age confirmation (the date of
   the first Terms acceptance, read-only: taking it back means deleting the
-  account); e-mail, service messages only (hosted only;
-  an optional e-mail such as reminders gets a switch here, off by default);
+  account);
   and *Do Not Show Me AI Features*, "Shown since …" or "Hidden since …"
   with the profile's only AI switch (below; on hides them, `POST /profile/ai`
   returns here) and a line when an own API key is on file. Optional consents are
@@ -1800,8 +1799,7 @@ keep their explicit buttons. The page needs JavaScript.
   dev user (`dev@example.com`) always is one. For anyone else the menu has
   no link, and the page and its forms answer 404 (`src/routes/superuser.rs`).
   - **Accounts** (#634, `src/signup.rs`): the (i) says which sign-up mode
-    the server is in (`SKRONGLE_SIGNUP`: `open`, the default and the hosted
-    site's; `invite`; `closed`), how invitations work and how many accounts
+    the server is in (`SKRONGLE_SIGNUP`: `open`, the default; `invite`; `closed`), how invitations work and how many accounts
     there are. In `invite` mode,
     **Make an invitation link** (`POST /superuser/invites`, 404
     in other modes) shows `<SKRONGLE_PUBLIC_URL or the request's host>/register?invite=<token>`
@@ -1859,7 +1857,7 @@ keep their explicit buttons. The page needs JavaScript.
     none does) and, with the dev mailbox, links to the new message.
     The log records which superuser reset which account. Signing in through
     `/dev/login` confirms the dev user again.
-  - **Coming change to the terms** (#966, hosted only): while a material
+  - **Coming change to the terms** (#966): while a material
     entry of `docs/terms-changes.json` has a later `effective` date and
     some account with an address has not had its e-mail, the page shows
     "The terms have changed." and a card with **Send the announcement**.
@@ -1877,9 +1875,9 @@ two or more keys are saved, and "Your messages are sent to Claude
 ## Terms of Service
 
 `/terms` (public; `/terms.md` for the Markdown) shows `docs/terms.md`, the
-Terms and Conditions of the hosted site (first published 2026-10-25, from a
+Terms and Conditions of the app (first published 2026-10-25, from a
 Termly export). `/docs/terms` redirects there; the docs nav leaves it out.
-The text names no address itself. `[SUPPORT EMAIL]` (help, plans, SMS)
+The text names no address itself. `[SUPPORT EMAIL]` (help)
 becomes `SKRONGLE_SUPPORT_EMAIL` and `[CONTACT EMAIL]` (permissions,
 copyright, harmful content) becomes `SKRONGLE_LEGAL_EMAIL`, each as a
 `mailto:` link. Every e-mail the server sends has `Reply-To:` the support
@@ -1894,8 +1892,7 @@ address (#1328).
   (user, version, time; no IP address), so the history is kept.
 - **The changelog.** Every version of the built-in text is an entry in
   `docs/terms-changes.json` (#966): `version`, `announced` and `effective`
-  dates (`YYYY-MM-DD`, UTC), `material` (it affects learners' rights or a
-  paid plan) and a `summary` of a few plain sentences, in English like the
+  dates (`YYYY-MM-DD`, UTC), `material` (it affects learners' rights) and a `summary` of a few plain sentences, in English like the
   terms. `terms::version()` is the newest entry in effect today, and the
   "Last updated" line at the top of `docs/terms.md` is the newest entry's
   date. Changing the text means adding an entry in the same PR: the
@@ -1929,7 +1926,7 @@ address (#1328).
     **Send the announcement** on `/superuser`; nothing sends it on its own.
     `terms_announcements` records who got it, so pressing again only mails
     accounts made since (or held back by the hourly mail ceiling). It only takes effect, and the notice only appears,
-    on its date. Not in Skrongle mini (no e-mail).
+    on its date. Needs e-mail, so a server without one never shows it.
 
   An account that never accepted any version (one from before the terms)
   is sent to `/terms/accept`, and back to the page it asked for afterwards;
@@ -1972,7 +1969,7 @@ an account (#379, `src/reset.rs`):
   address up: registering it again deletes that account and everything in
   it (`privacy::delete_account`, as *Delete account* does) and makes the new
   one. Nobody can hold an address they cannot read.
-- **Not in Skrongle mini.** All of this hides behind a mail, so without a
+- **Without e-mail.** All of this hides behind a mail, so without a
   mail provider (`caps().mail`, #633) `/register` works as before: it says
   when an address has an account, signs the new account in at once and
   replaces no account. `/reset` is a 404 there and the login page has no
@@ -2126,8 +2123,7 @@ app" in Chrome, "Add to Home Screen" in Safari). It then opens full-screen
 at the home page, with the Skrongle icon. Every page links
 `/manifest.webmanifest` (`web_manifest` in `src/routes/mod.rs`), which
 carries the base path in `start_url`, `scope` and the icon paths
-(`static/icon-192.png`, `static/icon-512.png`). The same in the hosted site
-and Skrongle mini; a browser only offers it on an HTTPS page or localhost.
+(`static/icon-192.png`, `static/icon-512.png`). A browser only offers it on an HTTPS page or localhost.
 
 There is no service worker and nothing is cached for offline use. Sprint
 grades each answer on the server, so studying offline is a separate piece

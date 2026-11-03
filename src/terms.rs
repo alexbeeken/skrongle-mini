@@ -397,7 +397,7 @@ pub async fn unannounced(state: &AppState) -> Result<i64, crate::error::AppError
 /// it: the Superuser page's Send button, nothing else. Returns how many
 /// were queued; past the hourly ceiling the rest wait for the next press.
 pub async fn announce_upcoming(state: &AppState) -> Result<usize, crate::error::AppError> {
-    // Hosted servers set SKRONGLE_PUBLIC_URL (payments need it); without it the link is a bare path.
+    // A server with SKRONGLE_PUBLIC_URL set links to it; without it the link is a bare path.
     let link = format!("{}{}", state.public_url.as_deref().unwrap_or(""), if state.public_url.is_some() { "/terms".to_string() } else { crate::url("/terms") });
     let ceiling = state.mail.ceiling();
     let mut total = 0;

@@ -252,7 +252,7 @@ terms:
   notice:
     heading: Our terms have changed
     minor: Here is what changed. Continuing to use the site means you accept the new terms.
-    material: These changes affect your rights or a paid plan. Accept the new terms to keep using your account.
+    material: These changes affect your rights. Accept the new terms to keep using your account.
     effective: "In effect from {date}"
     read: Read the full terms
     dismiss: Continue
@@ -681,7 +681,7 @@ profile:
     export_soon: One copy a day. See (i) for when you can ask again.
     export_gone: That download link has been used, has expired, or is for another account.
     delete_title: Delete account
-    delete_about: "We delete your account 14 days after you ask, or when a cancelled plan's paid time ends if that is later. That deletes your progress, courses and saved keys. Until then you are signed out, and you can sign in again to cancel."
+    delete_about: "We delete your account 14 days after you ask. That deletes your progress, courses and saved keys. Until then you are signed out, and you can sign in again to cancel."
     your_password: Your password
     confirm_before: Type your e-mail address (
     confirm_after: ) to confirm
@@ -1402,11 +1402,10 @@ docs:
     footnote_html: "More detail: the <a href=\"{url}\" data-testid=\"selfhost-technical-footer\">technical guide</a>."
     mini_h2: "{app} mini"
     mini_p: "What this page installs: the same app, set up for a handful of people who know you, with no outside services."
-    mini_out_h3: "What it leaves out"
+    mini_out_h3: "How it is set up"
     mini_out_mail: "No e-mail or text messages: links show up in the page instead."
-    mini_out_plans: "No plans or payments: everyone has everything."
     mini_out_signup: "Sign-up by invitation: you make a link for each person."
-    mini_out_terms: "Your own Terms of Service, not ours."
+    mini_out_terms: "Your own Terms of Service."
     mini_out_jobs: "Background work runs inside the app: no extra services to run."
     mini_out_db: "One database file (SQLite): no database server."
     mini_safe_h3: "Keeping it safe is your job"

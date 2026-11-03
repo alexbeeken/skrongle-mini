@@ -6,7 +6,7 @@
 
 We are Alexander Beeken d/b/a Skrongle, doing business as Skrongle ("**Company**," "**we**," "**us**," "**our**").
 
-We operate the website [https://www.skrongle.com](https://www.skrongle.com) (the "**Site**"), as well as any other related products and services that refer or link to these legal terms (the "**Legal Terms**") (collectively, the "**Services**").
+We operate this website (the "**Site**"), as well as any other related products and services that refer or link to these legal terms (the "**Legal Terms**") (collectively, the "**Services**").
 
 Skrongle is an educational content management system. It is an AI optimized platform for creating, editing and participating in custom and officially supported online courses.
 
@@ -334,7 +334,7 @@ Material you submit for generation may be processed by a third-party model provi
 
 ## 28. SKRONGLE MINI
 
-Self-hosted use. These terms cover the Skrongle website and the accounts we host. Skrongle mini, the self-hosted edition, is provided under its own software licence. We do not operate, support or hold data for self-hosted installations.
+The software is provided under its own licence.
 
 ## 29. REWARDS HAVE NO CASH VALUE
 

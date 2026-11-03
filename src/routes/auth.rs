@@ -36,7 +36,7 @@ pub struct LoginTemplate {
     /// on to the link.
     pub share: Option<ShareNotice>,
     /// "Forgot your password?" (`/reset`, #379): only where the server
-    /// can mail the link (not in Skrongle mini).
+    /// can mail the link (needs e-mail).
     pub reset: bool,
 }
 

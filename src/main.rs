@@ -93,11 +93,10 @@ pub const DEFAULT_BIND: &str = "0.0.0.0:8080";
 pub const DEFAULT_DATA_DIR: &str = "data";
 pub const DEFAULT_DB: &str = "learn.db";
 
-/// Skrongle mini (#641, #578): the same binary as the self-hosted version,
-/// with the small-box defaults `deploy/skrongle.service` sets (invite-only
-/// sign-up, no plans, the owner's own Terms). The server is a mini when
-/// `SKRONGLE_MINI=1` (`shape.rs`, read once at startup); otherwise it is
-/// the hosted site.
+/// Skrongle mini (#641, #578): the small-box defaults
+/// `deploy/skrongle.service` sets (invite-only sign-up, the owner's own
+/// Terms). The server is a mini when `SKRONGLE_MINI=1` (`shape.rs`, read
+/// once at startup).
 pub fn is_mini() -> bool {
     shape::current().is_mini()
 }
@@ -209,12 +208,11 @@ impl Caps {
     }
 }
 
-/// The hosted site needs every provider; only Skrongle mini (`SKRONGLE_MINI=1`;
-/// and the dev server, whose mailbox stands in)
-/// runs without them. Self-hosting the full build is not supported (CLAUDE.md, "Two
-/// shapes"). `missing` names the settings that are not set. The hosted site
-/// is served over HTTPS, so it also needs `Secure` cookies, and proxy
-/// sign-in (`proxy_auth.rs`) is a mini feature it refuses (audit M3, #980).
+/// Outside Skrongle mini (`SKRONGLE_MINI=1`) and the dev server (whose
+/// mailbox stands in) the server needs every provider. `missing` names the
+/// settings that are not set. Such a server is served over HTTPS, so it
+/// also needs `Secure` cookies, and proxy sign-in (`proxy_auth.rs`) is a
+/// mini feature it refuses (audit M3, #980).
 /// `Err` stops the server at startup.
 pub fn require_providers(mini: bool, dev: bool, missing: &[&str], secure_cookies: bool, proxy_auth: bool) -> Result<(), String> {
     if mini || dev {
@@ -222,7 +220,7 @@ pub fn require_providers(mini: bool, dev: bool, missing: &[&str], secure_cookies
     }
     if proxy_auth {
         return Err(format!(
-            "the hosted server signs people in itself; unset {} and {}, or run Skrongle mini (SKRONGLE_MINI=1) on a small box",
+            "this server signs people in itself; unset {} and {}, or run Skrongle mini (SKRONGLE_MINI=1) on a small box",
             proxy_auth::HEADER_VAR,
             proxy_auth::FROM_VAR
         ));
@@ -235,7 +233,7 @@ pub fn require_providers(mini: bool, dev: bool, missing: &[&str], secure_cookies
         return Ok(());
     }
     Err(format!(
-        "the hosted server needs {}; set them, or run Skrongle mini (SKRONGLE_MINI=1) on a small box",
+        "this server needs {}; set them, or run Skrongle mini (SKRONGLE_MINI=1) on a small box",
         missing.join(", ")
     ))
 }
@@ -285,7 +283,7 @@ const ENV_PREFIXES: [&str; 3] = ["SKRONGLE_", "LEARN_", "SPANISH_"];
 /// `SKRONGLE_<name>`, falling back for one release to the old
 /// `LEARN_<name>` and `SPANISH_<name>` spellings. Empty counts as unset.
 ///
-/// In Skrongle mini the hosted-only settings (`shape::HOSTED_ONLY`) read as
+/// In Skrongle mini the provider settings (`shape::HOSTED_ONLY`) read as
 /// unset, so e-mail, texts, Google and S3 are off wherever they
 /// are read.
 pub fn env(name: &str) -> Option<String> {
@@ -422,7 +420,7 @@ fn main() {
             std::process::exit(2);
         }
     }
-    // The shape first (`shape.rs`): in a mini `env` hides the hosted-only
+    // The shape first (`shape.rs`): in a mini `env` hides the provider
     // settings `Config::from_env` would read.
     let ignored = match shape::Shape::from_env() {
         Ok(s) => {
@@ -842,7 +840,7 @@ mod tests {
     }
 
     #[test]
-    fn only_the_hosted_server_requires_providers() {
+    fn only_a_server_outside_mini_requires_providers() {
         let none = ["SKRONGLE_MAIL_PROVIDERS"];
         let why = require_providers(false, false, &none, true, false).unwrap_err();
         assert!(none.iter().all(|n| why.contains(n)), "{why}");
@@ -854,7 +852,7 @@ mod tests {
     }
 
     #[test]
-    fn the_hosted_server_requires_secure_cookies() {
+    fn a_server_outside_mini_requires_secure_cookies() {
         let why = require_providers(false, false, &[], false, false).unwrap_err();
         assert!(why.contains("SKRONGLE_SECURE_COOKIES=1") && why.contains("SKRONGLE_MINI=1"), "{why}");
         let why = require_providers(false, false, &["SKRONGLE_MAIL_PROVIDERS"], false, false).unwrap_err();
@@ -865,7 +863,7 @@ mod tests {
     }
 
     #[test]
-    fn the_hosted_server_refuses_proxy_sign_in() {
+    fn a_server_outside_mini_refuses_proxy_sign_in() {
         let why = require_providers(false, false, &[], true, true).unwrap_err();
         assert!(why.contains(crate::proxy_auth::HEADER_VAR) && why.contains(crate::proxy_auth::FROM_VAR), "{why}");
         assert!(why.contains("SKRONGLE_MINI=1"), "{why}");

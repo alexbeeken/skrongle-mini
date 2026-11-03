@@ -250,7 +250,7 @@ terms:
   notice:
     heading: Nuestros términos han cambiado
     minor: Esto es lo que ha cambiado. Si sigues usando el sitio, aceptas los nuevos términos.
-    material: Estos cambios afectan a tus derechos o a un plan de pago. Acepta los nuevos términos para seguir usando tu cuenta.
+    material: Estos cambios afectan a tus derechos. Acepta los nuevos términos para seguir usando tu cuenta.
     effective: "En vigor desde el {date}"
     read: Leer los términos completos
     dismiss: Continuar
@@ -777,11 +777,10 @@ docs:
     footnote_html: "Más detalle: la <a href=\"{url}\" data-testid=\"selfhost-technical-footer\">guía técnica</a>."
     mini_h2: "{app} mini"
     mini_p: "Lo que instala esta página: la misma app, preparada para unas pocas personas que te conocen y sin servicios externos."
-    mini_out_h3: "Lo que deja fuera"
+    mini_out_h3: "Cómo está preparada"
     mini_out_mail: "Sin correo ni mensajes de texto: los enlaces aparecen en la página."
-    mini_out_plans: "Sin planes ni pagos: todo el mundo lo tiene todo."
     mini_out_signup: "Registro por invitación: creas un enlace para cada persona."
-    mini_out_terms: "Tus propias Condiciones de servicio, no las nuestras."
+    mini_out_terms: "Tus propias Condiciones de servicio."
     mini_out_jobs: "El trabajo en segundo plano se hace dentro de la app: no hay otros servicios que mantener."
     mini_out_db: "Un solo archivo de base de datos (SQLite): sin servidor de base de datos."
     mini_safe_h3: "Mantenerlo seguro es cosa tuya"
@@ -1148,7 +1147,7 @@ profile:
     export_soon: Una copia al día. Mira la (i) para saber cuándo puedes volver a pedirla.
     export_gone: Ese enlace de descarga ya se usó, caducó o es de otra cuenta.
     delete_title: Eliminar cuenta
-    delete_about: "Eliminamos tu cuenta 14 días después de que lo pidas, o cuando termine el tiempo pagado de un plan cancelado, si es más tarde. Se eliminan tu progreso, tus cursos y tus claves guardadas. Hasta entonces tu sesión queda cerrada, y puedes volver a iniciar sesión para cancelarlo."
+    delete_about: "Eliminamos tu cuenta 14 días después de que lo pidas. Se eliminan tu progreso, tus cursos y tus claves guardadas. Hasta entonces tu sesión queda cerrada, y puedes volver a iniciar sesión para cancelarlo."
     your_password: Tu contraseña
     confirm_before: Escribe tu dirección de correo electrónico (
     confirm_after: ) para confirmar

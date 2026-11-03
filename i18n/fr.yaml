@@ -250,7 +250,7 @@ terms:
   notice:
     heading: Nos conditions ont changé
     minor: Voici ce qui a changé. En continuant à utiliser le site, vous acceptez les nouvelles conditions.
-    material: Ces changements touchent vos droits ou un forfait payant. Acceptez les nouvelles conditions pour continuer à utiliser votre compte.
+    material: Ces changements touchent vos droits. Acceptez les nouvelles conditions pour continuer à utiliser votre compte.
     effective: "En vigueur depuis le {date}"
     read: Lire les conditions complètes
     dismiss: Continuer
@@ -676,7 +676,7 @@ profile:
     export_soon: Une copie par jour. Voir (i) pour savoir quand vous pourrez en demander une autre.
     export_gone: Ce lien de téléchargement a déjà été utilisé, a expiré, ou concerne un autre compte.
     delete_title: Supprimer le compte
-    delete_about: "Nous supprimons votre compte 14 jours après votre demande, ou à la fin de la période payée d'un abonnement résilié, si elle est plus tardive. Cela supprime votre progression, vos cours et clés enregistrées. D'ici là vous êtes déconnecté, et vous pouvez vous reconnecter pour annuler."
+    delete_about: "Nous supprimons votre compte 14 jours après votre demande. Cela supprime votre progression, vos cours et clés enregistrées. D'ici là vous êtes déconnecté, et vous pouvez vous reconnecter pour annuler."
     your_password: Votre mot de passe
     confirm_before: "Saisissez votre adresse e-mail ("
     confirm_after: ") pour confirmer"
@@ -1396,11 +1396,10 @@ docs:
     footnote_html: "Plus de détails : le <a href=\"{url}\" data-testid=\"selfhost-technical-footer\">guide technique</a>."
     mini_h2: "{app} mini"
     mini_p: "Ce que cette page installe : la même app, réglée pour quelques personnes qui vous connaissent, sans service extérieur."
-    mini_out_h3: "Ce qu'elle laisse de côté"
+    mini_out_h3: "Comment elle est réglée"
     mini_out_mail: "Ni e-mail ni SMS : les liens s'affichent dans la page."
-    mini_out_plans: "Ni formules ni paiements : tout le monde a tout."
     mini_out_signup: "Inscription sur invitation : vous créez un lien pour chaque personne."
-    mini_out_terms: "Vos propres conditions d'utilisation, pas les nôtres."
+    mini_out_terms: "Vos propres conditions d'utilisation."
     mini_out_jobs: "Les tâches de fond tournent dans l'app : aucun autre service à faire tourner."
     mini_out_db: "Un seul fichier de base de données (SQLite) : pas de serveur de base de données."
     mini_safe_h3: "La sécurité, c'est votre affaire"

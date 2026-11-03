@@ -250,7 +250,7 @@ terms:
   notice:
     heading: Unsere Nutzungsbedingungen haben sich geändert
     minor: Das hat sich geändert. Wenn du die Seite weiter nutzt, akzeptierst du die neuen Bedingungen.
-    material: Diese Änderungen betreffen deine Rechte oder einen bezahlten Tarif. Akzeptiere die neuen Bedingungen, um dein Konto weiter zu nutzen.
+    material: Diese Änderungen betreffen deine Rechte. Akzeptiere die neuen Bedingungen, um dein Konto weiter zu nutzen.
     effective: "Gültig ab {date}"
     read: Die vollständigen Bedingungen lesen
     dismiss: Weiter
@@ -676,7 +676,7 @@ profile:
     export_soon: "Eine Kopie pro Tag. Unter (i) steht, wann du wieder anfordern kannst."
     export_gone: "Dieser Download-Link wurde schon benutzt, ist abgelaufen oder gehört zu einem anderen Konto."
     delete_title: Konto löschen
-    delete_about: "Wir löschen dein Konto 14 Tage nach deiner Anfrage, oder wenn die bezahlte Zeit eines gekündigten Abos endet, falls das später ist. Dabei werden dein Fortschritt, deine Kurse und gespeicherten Schlüssel gelöscht. Bis dahin bist du abgemeldet und kannst dich wieder anmelden, um abzubrechen."
+    delete_about: "Wir löschen dein Konto 14 Tage nach deiner Anfrage. Dabei werden dein Fortschritt, deine Kurse und gespeicherten Schlüssel gelöscht. Bis dahin bist du abgemeldet und kannst dich wieder anmelden, um abzubrechen."
     your_password: Dein Passwort
     confirm_before: "Gib deine E-Mail-Adresse ("
     confirm_after: ") ein, um zu bestätigen"
@@ -1396,11 +1396,10 @@ docs:
     footnote_html: "Mehr Details: der <a href=\"{url}\" data-testid=\"selfhost-technical-footer\">technische Leitfaden</a>."
     mini_h2: "{app} mini"
     mini_p: "Was diese Seite installiert: dieselbe App, eingerichtet für eine Handvoll Leute, die dich kennen, ohne fremde Dienste."
-    mini_out_h3: "Was sie weglässt"
+    mini_out_h3: "Wie sie eingerichtet ist"
     mini_out_mail: "Keine E-Mails oder SMS: Links erscheinen stattdessen auf der Seite."
-    mini_out_plans: "Keine Tarife oder Zahlungen: alle haben alles."
     mini_out_signup: "Registrierung nur mit Einladung: du erstellst für jede Person einen Link."
-    mini_out_terms: "Deine eigenen Nutzungsbedingungen, nicht unsere."
+    mini_out_terms: "Deine eigenen Nutzungsbedingungen."
     mini_out_jobs: "Hintergrundarbeit läuft in der App: keine weiteren Dienste nötig."
     mini_out_db: "Eine Datenbankdatei (SQLite): kein Datenbankserver."
     mini_safe_h3: "Für die Sicherheit sorgst du"

@@ -250,7 +250,7 @@ terms:
   notice:
     heading: 我们的条款已更改
     minor: 以下是更改内容。继续使用本网站即表示你接受新条款。
-    material: 这些更改会影响你的权利或付费套餐。请接受新条款以继续使用你的账户。
+    material: 这些更改会影响你的权利。请接受新条款以继续使用你的账户。
     effective: "自 {date} 起生效"
     read: 阅读完整条款
     dismiss: 继续
@@ -676,7 +676,7 @@ profile:
     export_soon: 每天一份副本。查看 (i) 了解何时可以再次请求。
     export_gone: 该下载链接已被使用、已过期，或属于另一个账户。
     delete_title: 删除账户
-    delete_about: "我们会在你提出请求 14 天后删除你的账户；如果已取消的订阅付费期结束得更晚，则在那时删除。届时你的学习进度、课程和已保存的密钥都会被删除。在此之前你会被登出，重新登录即可取消。"
+    delete_about: "我们会在你提出请求 14 天后删除你的账户。届时你的学习进度、课程和已保存的密钥都会被删除。在此之前你会被登出，重新登录即可取消。"
     your_password: 你的密码
     confirm_before: 请输入你的电子邮箱地址（
     confirm_after: "）以确认"
@@ -1396,11 +1396,10 @@ docs:
     footnote_html: "更多详情：请看<a href=\"{url}\" data-testid=\"selfhost-technical-footer\">技术指南</a>。"
     mini_h2: "{app} mini"
     mini_p: "本页安装的是：同一个应用，为几个认识你的人设置好，不依赖任何外部服务。"
-    mini_out_h3: "它省掉了什么"
+    mini_out_h3: "它是这样设置的"
     mini_out_mail: "没有电子邮件或短信：链接直接显示在页面上。"
-    mini_out_plans: "没有套餐或付款：每个人都能用全部功能。"
     mini_out_signup: "凭邀请注册：你为每个人生成一个链接。"
-    mini_out_terms: "使用你自己的服务条款，而不是我们的。"
+    mini_out_terms: "使用你自己的服务条款。"
     mini_out_jobs: "后台任务在应用内部运行：不需要额外的服务。"
     mini_out_db: "一个数据库文件（SQLite）：不需要数据库服务器。"
     mini_safe_h3: "安全由你负责"

@@ -191,8 +191,8 @@ Still open from this review:
   code into `static/` would allow `script-src 'self'`.
 - **`Secure` cookies and HSTS are opt-in in Skrongle mini**
   (`SKRONGLE_SECURE_COOKIES=1`), because a Pi on a home network is usually
-  reached over plain HTTP. The startup warning says when to turn it on. The
-  hosted site refuses to start without it (#980).
+  reached over plain HTTP. The startup warning says when to turn it on. A server
+  without `SKRONGLE_MINI=1` refuses to start without it (#980).
 - **Rate limits live in memory**: they reset on restart and are per process.
   Behind a proxy that does not set `X-Forwarded-For` every client shares one
   address bucket (the per-account limit still applies).
@@ -208,7 +208,7 @@ Still open from this review:
   the client choose. Self-hosting says to bind to loopback and have the
   proxy overwrite the header; a range wider than /8 is warned about at
   startup. `/dev/*` is never signed in this way. It is a Skrongle mini
-  feature: the hosted server refuses to start with either setting (#980).
+  feature: a server without `SKRONGLE_MINI=1` refuses to start with either setting (#980).
 - **Root on the server can read saved API keys** (the database and the key
   file are on the same box), as `src/secrets.rs` says.
 - **Dev mode** (`SKRONGLE_DEV=1`) creates a `dev@example.com` / `dev-password` account and

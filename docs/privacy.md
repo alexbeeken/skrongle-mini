@@ -4,11 +4,11 @@
 
 This Privacy Notice for Alexander Beeken (doing business as Skrongle) ("**we**," "**us**," or "**our**"), describes how and why we might access, collect, store, use, and/or share ("**process**") your personal information when you use our services ("**Services**"), including when you:
 
-- Visit our website at [https://www.skrongle.com](https://www.skrongle.com) or any website of ours that links to this Privacy Notice
+- Visit our website at this website or any website of ours that links to this Privacy Notice
 - Use Skrongle. Skrongle is a web application that is optimized for AI course generation. You can generate a course, manually or with AI features, edit it, participate in the course and share it with others.
 - Engage with us in other related ways, including any marketing or events
 
-**Questions or concerns?** Reading this Privacy Notice will help you understand your privacy rights and choices. We are responsible for making decisions about how your personal information is processed. If you do not agree with our policies and practices, please do not use our Services. If you still have any questions or concerns, please contact us at [privacy@skrongle.com](mailto:privacy@skrongle.com).
+**Questions or concerns?** Reading this Privacy Notice will help you understand your privacy rights and choices. We are responsible for making decisions about how your personal information is processed. If you do not agree with our policies and practices, please do not use our Services. If you still have any questions or concerns, please contact us at the privacy contact address of this server.
 
 ## SUMMARY OF KEY POINTS
 
@@ -21,7 +21,7 @@ This Privacy Notice for Alexander Beeken (doing business as Skrongle) ("**we**,"
 - **In what situations and with which parties do we share personal information?** We may share information in specific situations and with specific third parties. Learn more about [when and with whom we share your personal information](#4-when-and-with-whom-do-we-share-your-personal-information).
 - **How do we keep your information safe?** We have adequate organizational and technical processes and procedures in place to protect your personal information. However, no electronic transmission over the internet or information storage technology can be guaranteed to be 100% secure, so we cannot promise or guarantee that hackers, cybercriminals, or other unauthorized third parties will not be able to defeat our security and improperly collect, access, steal, or modify your information. Learn more about [how we keep your information safe](#10-how-do-we-keep-your-information-safe).
 - **What are your rights?** Depending on where you are located geographically, the applicable privacy law may mean you have certain rights regarding your personal information. Learn more about [your privacy rights](#12-what-are-your-privacy-rights).
-- **How do you exercise your rights?** The easiest way to exercise your rights is by visiting [https://www.skrongle.com/profile#data](https://www.skrongle.com/profile#data), or by contacting us. We will consider and act upon any request in accordance with applicable data protection laws.
+- **How do you exercise your rights?** The easiest way to exercise your rights is by visiting [your profile](/profile#data), or by contacting us. We will consider and act upon any request in accordance with applicable data protection laws.
 
 Want to learn more about what we do with any information we collect? Review the Privacy Notice in full.
 
@@ -222,7 +222,7 @@ We have implemented appropriate and reasonable technical and organizational secu
 
 ***In Short:** We do not knowingly collect data from or market to children under 14 years of age or the equivalent age as specified by law in your jurisdiction.*
 
-We do not knowingly collect, solicit data from, or market to children under 14 years of age or the equivalent age as specified by law in your jurisdiction, nor do we knowingly sell such personal information. By using the Services, you represent that you are at least 14 or the equivalent age as specified by law in your jurisdiction or that you are the parent or guardian of such a minor and consent to such minor dependent's use of the Services. If we learn that personal information from users less than 14 years of age or the equivalent age as specified by law in your jurisdiction has been collected, we will deactivate the account and take reasonable measures to promptly delete such data from our records. If you become aware of any data we may have collected from children under age 14 or the equivalent age as specified by law in your jurisdiction, please contact us at [privacy@skrongle.com](mailto:privacy@skrongle.com).
+We do not knowingly collect, solicit data from, or market to children under 14 years of age or the equivalent age as specified by law in your jurisdiction, nor do we knowingly sell such personal information. By using the Services, you represent that you are at least 14 or the equivalent age as specified by law in your jurisdiction or that you are the parent or guardian of such a minor and consent to such minor dependent's use of the Services. If we learn that personal information from users less than 14 years of age or the equivalent age as specified by law in your jurisdiction has been collected, we will deactivate the account and take reasonable measures to promptly delete such data from our records. If you become aware of any data we may have collected from children under age 14 or the equivalent age as specified by law in your jurisdiction, please contact us at the privacy contact address of this server.
 
 ## 12. WHAT ARE YOUR PRIVACY RIGHTS?
 
@@ -236,7 +236,7 @@ If you are located in the UK and are unhappy with how we have handled your perso
 
 **How to contact us:**
 
-- Email: [privacy@skrongle.com](mailto:privacy@skrongle.com)
+- Email: the privacy contact address of this server
 - Post: See ["HOW CAN YOU CONTACT US ABOUT THIS NOTICE?"](#22-how-can-you-contact-us-about-this-notice)
 
 **What happens after you complain**
@@ -268,7 +268,7 @@ Upon your request to terminate your account, we will deactivate or delete your a
 
 **Cookies and similar technologies:** Most Web browsers are set to accept cookies by default. If you prefer, you can usually choose to set your browser to remove cookies and to reject cookies. If you choose to remove cookies or reject cookies, this could affect certain features or services of our Services.
 
-If you have questions or comments about your privacy rights, you may email us at [privacy@skrongle.com](mailto:privacy@skrongle.com).
+If you have questions or comments about your privacy rights, you may email us at the privacy contact address of this server.
 
 ## 13. CONTROLS FOR DO-NOT-TRACK FEATURES
 
@@ -351,7 +351,7 @@ Depending upon the state where you live, you may also have the following rights:
 
 **How to Exercise Your Rights**
 
-To exercise these rights, you can contact us by visiting [https://www.skrongle.com/profile#data](https://www.skrongle.com/profile#data), or by referring to the contact details at the bottom of this document.
+To exercise these rights, you can contact us by visiting [your profile](/profile#data), or by referring to the contact details at the bottom of this document.
 
 Under certain US state data protection laws, you can designate an authorized agent to make a request on your behalf. We may deny a request from an authorized agent that does not submit proof that they have been validly authorized to act on your behalf in accordance with applicable laws.
 
@@ -363,7 +363,7 @@ If you submit the request through an authorized agent, we may need to collect ad
 
 **Appeals**
 
-Under certain US state data protection laws, if we decline to take action regarding your request, you may appeal our decision by emailing us at [privacy@skrongle.com](mailto:privacy@skrongle.com). We will inform you in writing of any action taken or not taken in response to the appeal, including a written explanation of the reasons for the decisions. If your appeal is denied, you may submit a complaint to your state attorney general.
+Under certain US state data protection laws, if we decline to take action regarding your request, you may appeal our decision by emailing us at the privacy contact address of this server. We will inform you in writing of any action taken or not taken in response to the appeal, including a written explanation of the reasons for the decisions. If your appeal is denied, you may submit a complaint to your state attorney general.
 
 **California "Shine The Light" Law**
 
@@ -391,7 +391,7 @@ When you ask to delete your account, you are signed out everywhere and the accou
 
 ## 20. SELF-HOSTED COPIES (SKRONGLE MINI)
 
-Skrongle is also available as software you can run on your own device (Skrongle mini). This policy covers only the service we operate at [https://www.skrongle.com](https://www.skrongle.com). A self-hosted copy is operated by whoever runs it, and that person is responsible for the data on it.
+This policy covers this copy of Skrongle. It is operated by whoever runs it, and that person is responsible for the data on it.
 
 ## 21. DO WE MAKE UPDATES TO THIS NOTICE?
 
@@ -401,7 +401,7 @@ We may update this Privacy Notice from time to time. The updated version will be
 
 ## 22. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?
 
-If you have questions or comments about this notice, you may email us at [privacy@skrongle.com](mailto:privacy@skrongle.com) or contact us by post at:
+If you have questions or comments about this notice, you may email us at the privacy contact address of this server or contact us by post at:
 
 Alexander Beeken\
 #234-329 Howe St\
@@ -410,4 +410,4 @@ Canada
 
 ## 23. HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?
 
-Based on the applicable laws of your country or state of residence in the US, you may have the right to request access to the personal information we collect from you, details about how we have processed it, correct inaccuracies, or delete your personal information. You may also have the right to withdraw your consent to our processing of your personal information. These rights may be limited in some circumstances by applicable law. To request to review, update, or delete your personal information, please visit: [https://www.skrongle.com/profile#data](https://www.skrongle.com/profile#data).
+Based on the applicable laws of your country or state of residence in the US, you may have the right to request access to the personal information we collect from you, details about how we have processed it, correct inaccuracies, or delete your personal information. You may also have the right to withdraw your consent to our processing of your personal information. These rights may be limited in some circumstances by applicable law. To request to review, update, or delete your personal information, please visit: [your profile](/profile#data).

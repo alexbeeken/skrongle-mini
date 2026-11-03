@@ -151,7 +151,7 @@ pub fn report(cfg: &Config, env: &dyn Fn(&str) -> Option<String>) -> Vec<Line> {
         None => "default",
     }));
     out.push(Line::new("public URL set", yes_no(env("PUBLIC_URL").is_some())));
-    // The breach notice and the terms name it as the contact (#1068): hosted needs it.
+    // The breach notice and the terms name it as the contact (#1068).
     out.push(Line::new("legal e-mail set", yes_no(env("LEGAL_EMAIL").is_some_and(|v| !v.trim().is_empty()))));
     out.push(Line::new("secure cookies", yes_no(cfg.secure_cookies)));
     if !cfg.base_path.is_empty() {
