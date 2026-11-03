@@ -497,8 +497,7 @@ async fn prove_owner(state: &AppState, user: &CurrentUser, password: &str, code:
             return Ok(Some((StatusCode::FORBIDDEN, crate::t("profile.two_factor.type_password"))));
         }
         let ok = !auth::password_too_long(password) && {
-            let password = password.to_string();
-            tokio::task::spawn_blocking(move || auth::verify_password(&password, &hash)).await.map_err(|e| AppError::Internal(e.to_string()))?
+            auth::verify_password_async(password.to_string(), hash).await?
         };
         if !ok {
             let _ = state.limits.hit(LOGIN_FAILURES_PER_USER, &user.email, now);
@@ -763,9 +762,7 @@ pub async fn change_password(
 
     let uid = user.id;
     let new = form.new;
-    let new_hash = tokio::task::spawn_blocking(move || auth::hash_password(&new))
-        .await
-        .map_err(|e| AppError::Internal(e.to_string()))??;
+    let new_hash = auth::hash_password_async(new).await?;
     // Every other session (another device, or whoever had the old password) ends.
     let ended = state
         .db

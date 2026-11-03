@@ -225,8 +225,7 @@ pub async fn set_temp_password(
         return Ok(done("unknown", &email));
     };
     let password = crate::owner::temp_password();
-    let p = password.clone();
-    let hash = tokio::task::spawn_blocking(move || auth::hash_password(&p)).await.map_err(|e| AppError::Internal(e.to_string()))??;
+    let hash = auth::hash_password_async(password.clone()).await?;
     let keep = if target == user.id { token } else { None };
     let ended = state.db.call(move |c| crate::owner::set_temporary_password(c, target, &hash, keep.as_deref())).await?;
     tracing::info!("superuser {} set a temporary password for user {target} ({ended} sessions signed out)", user.id);

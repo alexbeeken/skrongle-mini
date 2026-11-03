@@ -145,9 +145,7 @@ async fn set_password(state: &AppState, user: Option<CurrentUser>, ip: &str, tok
     if let Err(e) = auth::validate_password(&password) {
         return Ok(page(StatusCode::OK, step(user, "choose", token, email, Some(e))));
     }
-    let hash = tokio::task::spawn_blocking(move || auth::hash_password(&password))
-        .await
-        .map_err(|e| AppError::Internal(e.to_string()))??;
+    let hash = auth::hash_password_async(password).await?;
     let done = state.db.call(move |c| crate::reset::use_link(c, &token, &hash, now())).await?;
     let Some(user_id) = done else {
         return Ok(page(StatusCode::OK, step(user, "invalid", String::new(), String::new(), None)));

@@ -322,9 +322,7 @@ pub async fn login(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
         Some((id, hash)) => (Some(id), hash),
         None => (None, state.dummy_hash.clone()),
     };
-    let ok = tokio::task::spawn_blocking(move || auth::verify_password(&password, &hash))
-        .await
-        .map_err(|e| AppError::Internal(e.to_string()))?;
+    let ok = auth::verify_password_async(password, hash).await?;
 
     let Some(user_id) = user_id.filter(|_| ok) else {
         let _ = state.limits.hit(security::LOGIN_FAILURES_PER_USER, &email, t);
@@ -420,9 +418,7 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
     // The language picked on the register page becomes the account's; with
     // no pick the account follows the browser's language until the profile says.
     let lang = crate::i18n::chosen(&headers).unwrap_or_default();
-    let hash = tokio::task::spawn_blocking(move || auth::hash_password(&password))
-        .await
-        .map_err(|e| AppError::Internal(e.to_string()))??;
+    let hash = auth::hash_password_async(password).await?;
 
     // An unconfirmed account old enough gives the address up (only where a
     // confirmation mail could have been read). What lives in memory for it
