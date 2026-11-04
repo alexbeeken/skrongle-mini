@@ -1,7 +1,4 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="static/logo-dark.svg">
-  <img src="static/logo.svg" alt="Skrongle" width="176" height="40">
-</picture>
+<img src="static/icon-192.png" alt="" width="72" height="72">
 
 # Skrongle
 
