@@ -1,13 +1,14 @@
 // Sharing a course (#451) past the happy path (#513). share.spec.ts is the
 // happy path, share-sign-in.spec.ts the sign-in routes; this file is what
-// happens around them: a used link (the invited address included), unknown
-// and odd tokens, an old link after the owner removes and invites again,
+// happens around them: a used link (the person it was named for included),
+// unknown and odd tokens, an old link after the owner removes it and makes
+// a new one,
 // every mode on a shared course, the share removed mid-session, the owner
 // deleting the course or the account, and the invitation's language. The
 // server-only cases (limits, a course being written) are Rust tests in
 // src/routes/share/tests.rs.
 import { expect, test, type Browser, type Page } from "@playwright/test";
-import { createCourse, devLogin, devReset, shareLink } from "../lib/app";
+import { createCourse, devLogin, devReset, makeShareLink, shareRow } from "../lib/app";
 import { login, newAccount, openCourse, progressOf, signUp, type Account } from "../lib/learner";
 
 const LESSON = "first-lesson";
@@ -33,29 +34,22 @@ async function newCourse(page: Page): Promise<string> {
   return id;
 }
 
-/** As the owner: share course `id` with `email` from the Share dialog; the link it shows. */
-async function invite(page: Page, id: string, email: string): Promise<string> {
+/** As the owner: make an invitation link for course `id` named `name` from the Share dialog; the link it shows. */
+async function invite(page: Page, id: string, name: string): Promise<string> {
   await page.goto(`/courses/${id}?share=1`);
-  const dialog = page.getByTestId("course-share");
-  await expect(dialog).toBeVisible();
-  await dialog.getByTestId("course-share-emails").fill(email);
-  await dialog.getByTestId("course-share-send").click();
-  await expect(shareRow(page, email)).toBeVisible();
-  return shareLink(page, email);
+  const link = await makeShareLink(page, name);
+  await expect(shareRow(page, name).first()).toBeVisible();
+  return link;
 }
 
-/** The Share dialog's row for `email`. */
-function shareRow(page: Page, email: string) {
-  return page.locator(`[data-testid="course-share-row"][data-email="${email.toLowerCase()}"]`);
-}
-
-/** As the owner: stop sharing course `id` with `email`. */
-async function unshare(page: Page, id: string, email: string): Promise<void> {
+/** As the owner: remove course `id`'s link named `name` (the first, when there are several). */
+async function unshare(page: Page, id: string, name: string): Promise<void> {
   await page.goto(`/courses/${id}?share=1`);
   await expect(page.getByTestId("course-share")).toBeVisible();
-  await shareRow(page, email).getByTestId("course-share-remove").click();
-  await expect(page.getByTestId("course-share-notice")).toContainText("No longer shared with");
-  await expect(shareRow(page, email)).toHaveCount(0);
+  const before = await shareRow(page, name).count();
+  await shareRow(page, name).first().getByTestId("course-share-remove").click();
+  await expect(page.getByTestId("course-share-notice")).toContainText("Link removed");
+  await expect(shareRow(page, name)).toHaveCount(before - 1);
 }
 
 /** The course's card on the learner's list (count 0 when it is not there). */
@@ -77,11 +71,11 @@ async function backAtThePicker(page: Page): Promise<void> {
   await expect(page).toHaveURL(/\/courses$/);
 }
 
-test("a used link turns every other account away, the invited address included", async ({ page, browser }) => {
+test("a used link turns every other account away, the person it was named for included", async ({ page, browser }) => {
   await devLogin(page, "next=/courses");
   const id = await newCourse(page);
   const invited = newAccount("share-edge-invited");
-  const link = await invite(page, id, invited.email);
+  const link = await invite(page, id, "Invited friend");
 
   // Someone the link was forwarded to opens it first: it is theirs.
   const first = await learner(browser, "share-edge-first");
@@ -92,12 +86,12 @@ test("a used link turns every other account away, the invited address included",
   await third.page.goto(link);
   await expect(third.page).toHaveURL(/\/courses\?notice=share-taken$/);
   await expect(third.page.getByTestId("courses-notice")).toHaveText(
-    "Another account has already used this link. Ask the course's owner to share it with your address.",
+    "Another account has already used this link. Ask the course's owner for a link of your own.",
   );
   await expect(await card(third.page, id)).toHaveCount(0);
 
-  // The invited address registers afterwards: an address is only a label
-  // (#10), so the course is not on its list, and the used link turns it away too.
+  // The person the link was named for registers afterwards: a name is only a label
+  // (#10), so the course is not on their list, and the used link turns them away too.
   const own = await (await browser.newContext()).newPage();
   await signUp(own, invited);
   await expect(await card(own, id)).toHaveCount(0);
@@ -108,19 +102,19 @@ test("a used link turns every other account away, the invited address included",
   // The first account keeps the course.
   await expect(await card(first.page, id)).toHaveCount(1);
 
-  // The owner sees the address's row opened (by the first account).
+  // The owner sees the link's row opened, by the first account.
   await page.goto(`/courses/${id}?share=1`);
-  await expect(shareRow(page, invited.email)).toHaveAttribute("data-opened", "true");
+  await expect(shareRow(page, "Invited friend")).toHaveAttribute("data-opened", "true");
+  await expect(shareRow(page, "Invited friend")).toContainText(`opened by ${first.account.email.toLowerCase()}`);
   for (const p of [first.page, third.page, own]) await p.context().close();
 });
 
-const GONE = "This link no longer works. Ask the course's owner to share the course with you again.";
+const GONE = "This link no longer works. Ask the course's owner for a new one.";
 
 test("unknown, odd and padded tokens: the link says it no longer works (#1082), the sign-in pages carry it", async ({ page, browser }) => {
   await devLogin(page, "next=/courses");
   const id = await newCourse(page);
-  const invited = newAccount("share-edge-token");
-  const link = await invite(page, id, invited.email);
+  const link = await invite(page, id, "Token check");
   const token = link.split("/").pop()!;
 
   const guest = await (await browser.newContext()).newPage();
@@ -163,22 +157,22 @@ test("unknown, odd and padded tokens: the link says it no longer works (#1082), 
   await guest.context().close();
 });
 
-test("removed and invited again: a new link, the old one dead, the learner's progress back", async ({ page, browser }) => {
+test("removed and made again: a new link, the old one dead, the learner's progress back", async ({ page, browser }) => {
   await devLogin(page, "next=/courses");
   const id = await newCourse(page);
   const r = await learner(browser, "share-edge-again");
-  const oldLink = await invite(page, id, r.account.email);
+  const oldLink = await invite(page, id, "Again");
   await opens(r.page, oldLink, id);
   expect((await r.page.request.post(`/lessons/${LESSON}/read`, { maxRedirects: 0 })).status()).toBe(303);
   expect((await progressOf(r.page, LESSON)).seen).toBe(true);
 
-  await unshare(page, id, r.account.email);
+  await unshare(page, id, "Again");
   await expect(await card(r.page, id)).toHaveCount(0);
   await r.page.goto(oldLink);
   await expect(r.page, "the link went with the share").toHaveURL(/\/courses\?notice=share-gone$/);
 
-  // Invited again: a different link.
-  const newLink = await invite(page, id, r.account.email);
+  // Made again: a different link.
+  const newLink = await invite(page, id, "Again");
   expect(newLink).not.toBe(oldLink);
   await r.page.goto(oldLink);
   await expect(r.page, "the old link stays dead").toHaveURL(/\/courses\?notice=share-gone$/);
@@ -191,9 +185,9 @@ test("an old link after the share was removed says it no longer works (#1082)", 
   await devLogin(page, "next=/courses");
   const id = await newCourse(page);
   const r = await learner(browser, "share-edge-gone");
-  const link = await invite(page, id, r.account.email);
+  const link = await invite(page, id, "Gone");
   await opens(r.page, link, id);
-  await unshare(page, id, r.account.email);
+  await unshare(page, id, "Gone");
   await r.page.goto(link);
   await expect(r.page).toHaveURL(/\/courses\?notice=share-gone$/);
   await expect(r.page.getByTestId("courses-notice")).toHaveText(GONE);
@@ -204,7 +198,7 @@ test("every mode opens on a shared course with the learner's own progress, kept 
   await devLogin(page, "next=/courses");
   const id = await newCourse(page);
   const r = await learner(browser, "share-edge-modes");
-  await opens(r.page, await invite(page, id, r.account.email), id);
+  await opens(r.page, await invite(page, id, "Modes"), id);
 
   for (const path of ["/", "/lessons", `/lessons/${LESSON}`, "/map", "/guide", "/sprint", `/sprint/play?lesson=${LESSON}`, "/play", "/history"]) {
     const res = await r.page.goto(path);
@@ -234,11 +228,11 @@ test("the share removed mid-session: the next page goes to the course list, the 
   await devLogin(page, "next=/courses");
   const id = await newCourse(page);
   const r = await learner(browser, "share-edge-midway");
-  await opens(r.page, await invite(page, id, r.account.email), id);
+  await opens(r.page, await invite(page, id, "Midway"), id);
   await r.page.goto(`/sprint/play?lesson=${LESSON}`);
   await expect(r.page.getByTestId("sprint-play-stage")).toBeVisible();
 
-  await unshare(page, id, r.account.email);
+  await unshare(page, id, "Midway");
   expect((await r.page.request.get("/api/progress")).status()).toBe(410);
   await backAtThePicker(r.page);
   await expect(await card(r.page, id)).toHaveCount(0);
@@ -252,7 +246,7 @@ test("the owner deletes the course: the course leaves the learner's list and ses
   await devLogin(page, "next=/courses");
   const id = await newCourse(page);
   const r = await learner(browser, "share-edge-deleted");
-  const link = await invite(page, id, r.account.email);
+  const link = await invite(page, id, "Deleted");
   await opens(r.page, link, id);
   expect((await page.request.post(`/courses/${id}/delete`, { maxRedirects: 0 })).status()).toBe(303);
   await expect(await card(r.page, id)).toHaveCount(0);
@@ -268,8 +262,12 @@ test("the Share dialog is in the owner's language; the learner's pages stay in t
   await expect(owner.page.locator("html")).toHaveAttribute("lang", "es");
   const id = await newCourse(owner.page);
   const r = await learner(browser, "share-edge-en");
-  const link = await invite(owner.page, id, r.account.email);
-  await expect(owner.page.getByTestId("course-share-notice")).toContainText("1 enlace de invitación creado");
+  // In Spanish, the dialog's notice is Spanish: make the link by hand.
+  await owner.page.goto(`/courses/${id}?share=1`);
+  await owner.page.getByTestId("course-share-label").fill("Amiga");
+  await owner.page.getByTestId("course-share-send").click();
+  await expect(owner.page.getByTestId("course-share-notice")).toContainText("Enlace de invitación creado");
+  const link = await owner.page.locator('[data-testid="course-share-link-row"] [data-testid="course-share-link"]').first().inputValue();
   await opens(r.page, link, id);
   await r.page.goto("/lessons");
   await expect(r.page.locator("html")).toHaveAttribute("lang", "en");

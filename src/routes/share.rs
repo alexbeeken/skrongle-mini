@@ -1,6 +1,6 @@
-//! Sharing a course with other learners (#451, `src/share.rs`): the Share
-//! dialog on the owner's course page (a link per e-mail address, for the
-//! owner to pass on; stop sharing), and that link.
+//! Sharing a course with other learners (#451, #16, `src/share.rs`): the
+//! Share dialog on the owner's course page (make an invitation link, named
+//! or not, for the owner to pass on; take one away), and that link.
 
 use axum::extract::{Path, State};
 use axum::http::HeaderMap;
@@ -18,14 +18,15 @@ use crate::AppState;
 
 #[derive(Deserialize)]
 pub struct InviteForm {
-    /// Addresses, separated by commas, spaces or new lines.
+    /// A name for the link (who it is for), or nothing.
     #[serde(default)]
-    pub emails: String,
+    pub label: String,
 }
 
 #[derive(Deserialize)]
 pub struct RemoveForm {
-    pub email: String,
+    /// The link's row (`course-share-row`'s `data-id`).
+    pub id: i64,
 }
 
 /// Back to the course page with the Share dialog open and a word in it: a
@@ -40,7 +41,7 @@ pub async fn to_course(Path(id): Path<String>) -> Response {
     Redirect::to(&crate::url(&format!("/courses/{id}?share=1"))).into_response()
 }
 
-/// POST /courses/{id}/share (emails): one invitation per new address.
+/// POST /courses/{id}/share (label): one new invitation link, shown once.
 pub async fn invite(
     State(state): State<Arc<AppState>>,
     user: CurrentUser,
@@ -49,47 +50,30 @@ pub async fn invite(
     Form(form): Form<InviteForm>,
 ) -> Result<Response, AppError> {
     super::courses::owned(&state, &user, &id).await?;
-    let emails = match share::parse_addresses(&form.emails) {
-        Ok(e) => e,
-        // The notice names the problem; the typed address stays out of the URL.
-        Err(e) if e == crate::t("courses.share.at_least_one") => return Ok(back(&id, "share-none")),
-        Err(e) if e == crate::t1("courses.share.too_many_request", "max", share::MAX_PER_REQUEST) => return Ok(back(&id, "share-many")),
-        Err(_) => return Ok(back(&id, "share-bad")),
-    };
-    if !user.email.is_empty() && emails.iter().any(|e| e.eq_ignore_ascii_case(&user.email)) {
-        return Ok(back(&id, "share-own"));
-    }
+    let label = share::clean_label(&form.label);
     let cid = id.clone();
     let existing = state.db.call(move |c| share::shares_of(c, &cid)).await?.len();
-    if existing + emails.len() > share::MAX_PER_COURSE {
+    if existing >= share::MAX_PER_COURSE {
         return Ok(back(&id, "share-full"));
     }
     let base = crate::routes::public_base(&state, &headers);
-    let (mut made, mut already) = (0, 0);
-    let mut links = Vec::new();
-    for email in emails {
-        let (cid, e) = (id.clone(), email.clone());
-        let Some(token) = state.db.call(move |c| share::invite(c, &cid, &e, now())).await? else {
-            already += 1;
-            continue;
-        };
-        // The owner passes the link on: nothing is mailed.
-        links.push(super::courses::ShareLink { email, link: format!("{base}/courses/shared/{token}") });
-        made += 1;
-    }
-    tracing::info!("user {} shared course {id} with {made} address(es)", user.id);
-    // The links are stored only hashed: the page shows them this once.
-    super::courses::share_links_page(&state, user, &id, &format!("share-made-{made}-{already}"), links).await
+    let (cid, l) = (id.clone(), label.clone());
+    let token = state.db.call(move |c| share::invite(c, &cid, &l, now())).await?;
+    tracing::info!("user {} made an invitation link for course {id}", user.id);
+    // The owner passes the link on: nothing is mailed. It is stored only
+    // hashed, so the page shows it this once.
+    let links = vec![super::courses::ShareLink { label, link: format!("{base}/courses/shared/{token}") }];
+    super::courses::share_links_page(&state, user, &id, "share-made", links).await
 }
 
-/// POST /courses/{id}/share/remove (email): the course leaves their list.
+/// POST /courses/{id}/share/remove (id): the link stops working, and the
+/// course leaves the list of whoever opened it.
 pub async fn remove(State(state): State<Arc<AppState>>, user: CurrentUser, Path(id): Path<String>, Form(form): Form<RemoveForm>) -> Result<Response, AppError> {
     super::courses::owned(&state, &user, &id).await?;
-    let email = form.email.trim().to_lowercase();
-    let (cid, e) = (id.clone(), email.clone());
-    let removed = state.db.call(move |c| share::remove(c, &cid, &e)).await?;
+    let cid = id.clone();
+    let removed = state.db.call(move |c| share::remove(c, &cid, form.id)).await?;
     if removed {
-        tracing::info!("user {} stopped sharing course {id} with one address", user.id);
+        tracing::info!("user {} removed an invitation link of course {id}", user.id);
     }
     Ok(back(&id, if removed { "share-removed" } else { "share-not-on-list" }))
 }
@@ -97,8 +81,8 @@ pub async fn remove(State(state): State<Arc<AppState>>, user: CurrentUser, Path(
 /// GET /courses/shared/{token}: the link in the invitation. Signed in, the
 /// course joins the learner's list and opens; signed out, the login page
 /// says what the link is for and comes back here afterwards. A link that no
-/// longer works (the owner removed the address, or invited it again with a
-/// new link) says so on the login page and on the course list (#1082).
+/// longer works (the owner removed it) says so on the login page and on
+/// the course list (#1082).
 pub async fn open_link(State(state): State<Arc<AppState>>, MaybeUser(user): MaybeUser, Path(token): Path<String>) -> Result<Response, AppError> {
     let token = token.trim().to_string();
     let t = token.clone();

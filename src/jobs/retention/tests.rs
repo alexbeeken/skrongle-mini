@@ -31,7 +31,7 @@ fn fill(c: &Connection, name: &str) -> i64 {
              INSERT INTO course_undo_files (course_id, seq, path, content) VALUES ('{course}', 1, 'course.json', '{{}}');
              INSERT INTO course_ai_runs (course_id, label, created_at) VALUES ('{course}', 'l', 1);
              INSERT INTO course_ai_run_files (course_id, side, path, content) VALUES ('{course}', 'after', 'course.json', '{{}}');
-             INSERT INTO course_shares (course_id, email, token_hash, created_at) VALUES ('{course}', '{name}-friend@example.org', '{name}-shash', 1);
+             INSERT INTO course_shares (course_id, label, token_hash, created_at) VALUES ('{course}', '{name}-friend', '{name}-shash', 1);
              INSERT INTO projects (user_id, course_id, created_at, last_opened_at) VALUES ({uid}, 'spanish', 1, 1), ({uid}, '{course}', 1, 1);
              INSERT INTO signup_invites (token_hash, created_by, created_at, expires_at) VALUES ('{name}-invitehash', {uid}, 1, 2);
              UPDATE users SET active_course = '{course}' WHERE id = {uid};"

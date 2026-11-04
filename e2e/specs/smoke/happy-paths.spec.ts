@@ -207,16 +207,16 @@ test("the profile asks nobody to confirm their e-mail", async ({ page }) => {
   await expect(page.getByTestId("email-no-mail-info")).toHaveCount(0);
 });
 
-test("sharing shows the link once, and a reload goes back to the dialog without inviting again", async ({ page }) => {
+test("sharing shows the link once, and a reload goes back to the dialog without making another", async ({ page }) => {
   await page.goto("/courses");
   await page.getByTestId("courses-create").click();
   const id = await page.getByTestId("course-edit").getAttribute("data-course-id");
   expect(id, "the new course's id").toBeTruthy();
   await page.goto(`/courses/${id}`);
   await page.getByTestId("course-edit-share").click();
-  await page.getByTestId("course-share-emails").fill("friend@example.org");
+  await page.getByTestId("course-share-label").fill("A friend");
   await page.getByTestId("course-share-send").click();
-  // #633: no mail, so the dialog shows the link to pass on.
+  // #633, #16: no mail, so the dialog shows the link to pass on.
   await expect(page.getByTestId("course-share-link")).toHaveValue(/\/courses\/shared\//);
   // #667: the address bar holds the course page, not the form's POST target.
   await expect(page).toHaveURL(new RegExp(`/courses/${id}\\?share=1$`));
@@ -225,7 +225,7 @@ test("sharing shows the link once, and a reload goes back to the dialog without 
   await expect(page.getByTestId("course-share")).toBeVisible();
   await expect(page.getByTestId("course-share-link")).toHaveCount(0);
   await expect(page.getByTestId("course-share-row")).toHaveCount(1);
-  await expect(page.locator('[data-testid="course-share-row"][data-email="friend@example.org"]')).toHaveAttribute("data-opened", "false");
+  await expect(page.locator('[data-testid="course-share-row"][data-label="A friend"]')).toHaveAttribute("data-opened", "false");
   // The POST target opened by hand is a redirect to the dialog, not a 405.
   const res = await page.request.get(`/courses/${id}/share`, { maxRedirects: 0 });
   expect(res.status()).toBe(303);

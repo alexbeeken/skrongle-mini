@@ -782,22 +782,24 @@ the AI tutor ask in text, so they leave these questions out
 ### Sharing a course
 
 **Share** on the course page (`src/share.rs`, `src/routes/share.rs`) opens a
-dialog: type e-mail addresses (one per line or separated by commas, up to
-20 at a time and 50 per course) and *Make invitation links*. Nothing is
-mailed (#10): the page that comes back shows each new address's link
+dialog with one form: a name for the link (optional, up to 60 characters,
+`course-share-label`) and *Make an invitation link* (`course-share-send`).
+Nothing is mailed (#10, #16): the page that comes back shows the new link
 (`/courses/shared/<token>`, `course-share-link`) with *Copy*
 (`course-share-link-copy`), once, since only the token's hash is stored,
-and the owner passes the links on. The dialog lists every address with
-*invited* or *opened* and a *Remove* button. The owner's own address is
-refused, and an address already on the list gets no second link.
+and the owner passes it on however they like. A course can have up to 50
+links. The dialog lists every link (`course-share-row`, with `data-id`,
+`data-label` and `data-opened`) with its name (*Invitation link* when it
+has none), *not opened yet* or *opened by <name>* (the account's name, or
+its address), and a *Remove* button (`course-share-remove`, by the row's
+id).
 
-Who may open a shared course: only the account that opened its link. The
-link is the only way in (#10): the first account to open it keeps it, and
-every other account that opens it later is turned away to its course list
-with a notice, the invited address included. Nothing confirms an e-mail
-address, so the address on a share is a label for the owner, never proof
-of who someone is. The owner opening their own link takes nothing and
-lands on the Share dialog.
+Who may open a shared course: only the account that opened one of its
+links. The link is the only way in (#10): the first account to open it
+keeps it, and every other account that opens it later is turned away to
+its course list with a notice. The name on a link is a label for the
+owner, never proof of who someone is. The owner opening their own link
+takes nothing and lands on the Share dialog.
 
 For the recipient the course is **read only**: it is on their course list
 (under *Shared with you* until opened, then under *Your projects*) with a
@@ -817,13 +819,13 @@ also through the two-factor code step: a short-lived `share_next`
 cookie carries the token there (#1016). *Cancel* on the code step goes back
 to the login page for the same link.
 
-**Removing** an address takes the course off that learner's list and out of
-their session (their progress rows stay for the day it is shared again).
-Deleting the course deletes its shares. A link that no longer matches a
-share (the address was removed, or invited again with a new link) leads to
-the course list with *This link no longer works. Ask the course's owner to
-share the course with you again.* (`?notice=share-gone`, #1082). Signed out,
-the login page says the same and signing in goes on to that list.
+**Removing** a link takes the course off the list of whoever opened it and
+out of their session, unless another link of the course is theirs too
+(their progress rows stay for the day it is shared again). Deleting the
+course deletes its links. A link that no longer matches a share (the owner
+removed it) leads to the course list with *This link no longer works. Ask
+the course's owner for a new one.* (`?notice=share-gone`, #1082). Signed
+out, the login page says the same and signing in goes on to that list.
 
 ### Copying a course
 

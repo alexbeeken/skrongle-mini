@@ -2385,34 +2385,27 @@ courses:
     none_right: "nenhuma certa"
     failed: "O teste de nivelamento não carregou. Escolha um nível."
   share:
-    dialog_lead: "Cada endereço recebe seu próprio link para você repassar: este servidor não envia e-mails. As pessoas estudam o curso com o próprio progresso; só você pode alterá-lo."
-    make_links: "Criar links de convite"
-    made:
-      one: "{n} link de convite criado. Copie e repasse; ele só aparece agora."
-      other: "{n} links de convite criados. Copie cada um e repasse; eles só aparecem agora."
-    link_label: "Link de convite para {email}"
+    dialog_lead: "Um link de convite deixa uma pessoa entrar: quem o abrir primeiro passa a ter o curso na sua lista, só para estudar, com o próprio progresso. Dê um nome ao link para distingui-lo dos outros, copie e repasse como quiser; daqui nada é enviado."
+    make_link: "Criar um link de convite"
+    made: "Link de convite criado. Copie e repasse; ele só aparece agora."
+    link_label: "Link de convite"
+    no_label: "Link de convite"
     copy: "Copiar"
     button: Compartilhar
     button_count: "Compartilhar ({n})"
     dialog_title: Compartilhar este curso
-    status_opened: aberto
-    status_invited: convidado
+    status_opened_by: "aberto por {name}"
+    status_invited: ainda não aberto
     remove: Remover
-    remove_label: "Parar de compartilhar com {email}"
-    emails_label: Endereços de e-mail
-    emails_note: (um por linha, ou separados por vírgulas)
+    remove_label: "Remover este link de convite"
+    label_label: Para quem é?
+    label_note: (um nome, opcional)
     close: Fechar
-    own_address: "Este é o seu próprio endereço: o curso já é seu."
-    too_many_course: "Um curso pode ser compartilhado com até {max} endereços."
-    too_many_request: "Compartilhe com até {max} endereços por vez."
-    at_least_one: Digite pelo menos um endereço de e-mail.
-    bad_address: "“{address}”: {error}"
-    bad_address_notice: "Um dos endereços não é de e-mail. Confira a lista e envie de novo."
-    already_had: "{n} já tinha um."
-    removed_notice: "Não está mais compartilhado com esse endereço."
-    not_on_list: Esse endereço não estava na lista.
-    link_taken: Outra conta já usou este link. Peça ao dono do curso para compartilhá-lo com o seu endereço.
-    link_gone: Este link não funciona mais. Peça ao dono do curso para compartilhá-lo com você de novo.
+    too_many_course: "Um curso pode ter até {max} links de convite. Remova um primeiro."
+    removed_notice: "Link removido. Quem o abriu não tem mais o curso."
+    not_on_list: Esse link não estava na lista.
+    link_taken: Outra conta já usou este link. Peça ao dono do curso um link só seu.
+    link_gone: Este link não funciona mais. Peça um novo ao dono do curso.
     not_ready: Este curso ainda não está pronto para abrir. Peça ao dono e tente o link de novo mais tarde.
     login_notice: "Parece que você não tem uma conta conosco! Entre ou cadastre-se para continuar vendo o seu curso: {title}"
     shared_heading: Compartilhados com você

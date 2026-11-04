@@ -266,11 +266,26 @@ export async function playSprintSession(page: Page, maxSteps = 300, afterCheck?:
   );
 }
 
-/** After the Share form was sent: the link the dialog shows for `email`
- * (shown this once, stored only hashed; nothing is mailed, the owner passes
- * it on). */
-export async function shareLink(page: Page, email: string): Promise<string> {
-  const input = page.locator(`[data-testid="course-share-link-row"][data-email="${email.toLowerCase()}"] [data-testid="course-share-link"]`);
+/** After the Share form was sent: the link the dialog shows (shown this
+ * once, stored only hashed; nothing is mailed, the owner passes it on). */
+export async function shareLink(page: Page): Promise<string> {
+  const input = page.locator('[data-testid="course-share-link-row"] [data-testid="course-share-link"]').first();
   await expect(input).toHaveValue(/\/courses\/shared\/[0-9a-f]{64}$/);
   return input.inputValue();
+}
+
+/** With the course's Share dialog open: make an invitation link named
+ * `label` (or unnamed); the link it shows. */
+export async function makeShareLink(page: Page, label = ""): Promise<string> {
+  const dialog = page.getByTestId("course-share");
+  await expect(dialog).toBeVisible();
+  await dialog.getByTestId("course-share-label").fill(label);
+  await dialog.getByTestId("course-share-send").click();
+  await expect(page.getByTestId("course-share-notice")).toContainText("Invitation link made");
+  return shareLink(page);
+}
+
+/** The Share dialog's row for the link named `label`. */
+export function shareRow(page: Page, label: string) {
+  return page.locator(`[data-testid="course-share-row"][data-label="${label}"]`);
 }

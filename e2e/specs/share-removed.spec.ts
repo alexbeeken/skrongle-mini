@@ -2,7 +2,7 @@
 // next API call gets a 410 and the page goes to the course list, instead of
 // Sprint's "try again" error that trying again cannot fix.
 import { expect, test } from "@playwright/test";
-import { createCourse, devLogin, devReset, shareLink } from "../lib/app";
+import { createCourse, devLogin, devReset, makeShareLink, shareRow } from "../lib/app";
 import { login, newAccount, signUp } from "../lib/learner";
 
 const LESSON = "first-lesson";
@@ -22,12 +22,10 @@ test("the share removed mid-Sprint: the page goes to the course list instead of 
   const guest = await (await browser.newContext()).newPage();
   await signUp(guest, friend);
   await page.goto(`/courses/${id}?share=1`);
-  const dialog = page.getByTestId("course-share");
-  await dialog.getByTestId("course-share-emails").fill(friend.email);
-  await dialog.getByTestId("course-share-send").click();
-  const row = page.locator(`[data-testid="course-share-row"][data-email="${friend.email.toLowerCase()}"]`);
+  const link = await makeShareLink(page, "Friend");
+  const row = shareRow(page, "Friend");
   await expect(row).toBeVisible();
-  await guest.goto(await shareLink(page, friend.email));
+  await guest.goto(link);
   await expect(guest).not.toHaveURL(/\/courses(\?|$)/);
 
   // The learner starts a Sprint; the owner removes the share.
@@ -35,7 +33,7 @@ test("the share removed mid-Sprint: the page goes to the course list instead of 
   const stage = guest.getByTestId("sprint-play-stage");
   await expect(stage).toBeVisible();
   await row.getByTestId("course-share-remove").click();
-  await expect(page.getByTestId("course-share-notice")).toContainText("No longer shared with");
+  await expect(page.getByTestId("course-share-notice")).toContainText("Link removed");
 
   // Quick-bite cards come first ("Got it" moves on in the page); then answer the
   // first exercise, right or wrong: checking it talks to the server.

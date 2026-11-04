@@ -1,10 +1,10 @@
-// Sharing a course (#451): the owner's Share dialog on the course page sends
-// one invitation per address; the link in it leads a visitor without an
+// Sharing a course (#451, #16): the owner's Share dialog on the course page
+// makes an invitation link with a name; the link leads a visitor without an
 // account to the login page, which says what the link is for, and brings
 // them back after registering; the course is then on their list, read only,
-// with the circle that says whose it is. Removing the share takes it away.
+// with the circle that says whose it is. Removing the link takes it away.
 import { expect, test } from "@playwright/test";
-import { createCourse, devLogin, devReset, shareLink } from "../lib/app";
+import { createCourse, devLogin, devReset, makeShareLink, shareRow } from "../lib/app";
 import { login, newAccount, signUp } from "../lib/learner";
 
 test.afterAll(async ({ browser }) => {
@@ -13,28 +13,25 @@ test.afterAll(async ({ browser }) => {
   await page.close();
 });
 
-test("an invited address registers from the link and has the course read only, until the owner removes the share", async ({ page, browser }) => {
+test("a friend registers from the link and has the course read only, until the owner removes the link", async ({ page, browser }) => {
   await devLogin(page, "next=/courses");
   const id = await createCourse(page);
   await page.getByTestId("generate-close").click();
   const friend = newAccount("share");
 
-  // The owner invites: the dialog lists the address and shows its link, once.
+  // The owner makes a link named for the friend: the dialog shows it once and lists it, not opened yet.
   await page.getByTestId("course-edit-share").click();
   const dialog = page.getByTestId("course-share");
   await expect(dialog).toBeVisible();
-  await dialog.getByTestId("course-share-emails").fill(`${friend.email}\ndev@example.com`);
-  await dialog.getByTestId("course-share-send").click();
-  await expect(page.getByTestId("course-share-notice")).toContainText("your own address");
-  await page.getByTestId("course-share-emails").fill(friend.email);
-  await page.getByTestId("course-share-send").click();
-  await expect(page.getByTestId("course-share-notice")).toContainText("1 invitation link made");
-  const link = await shareLink(page, friend.email);
-  const row = page.locator(`[data-testid="course-share-row"][data-email="${friend.email.toLowerCase()}"]`);
+  await expect(dialog.getByTestId("course-share-emails")).toHaveCount(0);
+  await expect(dialog).not.toContainText(/e-?mail/i);
+  const link = await makeShareLink(page, "My friend");
+  const row = shareRow(page, "My friend");
   await expect(row).toHaveAttribute("data-opened", "false");
+  await expect(row).toContainText("not opened yet");
   await expect(page.getByTestId("course-edit-share")).toHaveText("Share (1)");
 
-  // The owner opening their own link does not take it: back to the dialog, the address still unopened.
+  // The owner opening their own link does not take it: back to the dialog, the link still unopened.
   await page.goto(link);
   await expect(page).toHaveURL(new RegExp(`/courses/${id}\\?share=1$`));
   await expect(page.getByTestId("course-share")).toBeVisible();
@@ -70,12 +67,13 @@ test("an invited address registers from the link and has the course read only, u
   await expect(guest.getByTestId("nav-account-toggle")).toBeVisible();
   await expect(guest).toHaveURL(/\/lessons$/);
 
-  // The owner sees it opened and removes the share: gone from the list, and the session falls back to the course picker.
+  // The owner sees who opened it and removes the link: gone from the list, and the session falls back to the course picker.
   await page.reload(); // still ?share=1: the dialog opens by itself
   await expect(page.getByTestId("course-share")).toBeVisible();
   await expect(row).toHaveAttribute("data-opened", "true");
+  await expect(row).toContainText(`opened by ${friend.email.toLowerCase()}`);
   await row.getByTestId("course-share-remove").click();
-  await expect(page.getByTestId("course-share-notice")).toContainText("No longer shared with");
+  await expect(page.getByTestId("course-share-notice")).toContainText("Link removed");
   await expect(page.getByTestId("course-share-row")).toHaveCount(0);
   await guest.goto("/courses");
   await expect(card).toHaveCount(0);
@@ -93,10 +91,7 @@ test("a shared course's circle tip wraps inside a phone screen while it shows, e
   const id = await createCourse(ownerPage);
   await ownerPage.getByTestId("generate-close").click();
   await ownerPage.getByTestId("course-edit-share").click();
-  await ownerPage.getByTestId("course-share-emails").fill("dev@example.com");
-  await ownerPage.getByTestId("course-share-send").click();
-  await expect(ownerPage.getByTestId("course-share-notice")).toContainText("1 invitation link made");
-  const link = await shareLink(ownerPage, "dev@example.com");
+  const link = await makeShareLink(ownerPage);
   await ownerPage.context().close();
 
   await devLogin(page, "next=/courses");

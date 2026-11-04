@@ -1224,8 +1224,8 @@ fn editor_of_a_course_whose_job_just_finished() {
 /// Sharing a course (#451): the owner invites addresses, each gets a
 /// link; signed out, the link leads to a login page that says what it
 /// is for and comes back; signed in, the course is on the recipient's
-/// list read only (no editor, no files); an address alone opens nothing;
-/// a forwarded link is refused; removing the share takes the
+/// list read only (no editor, no files); a link's name opens nothing by
+/// itself; a forwarded link is refused; removing the link takes the
 /// course off their list and out of their session.
 #[test]
 fn a_shared_course_is_on_the_recipients_list_read_only() {
@@ -1252,11 +1252,13 @@ fn a_shared_course_is_on_the_recipients_list_read_only() {
     };
     // Registering signs in and carries the share link on.
     let register = |email: &str, share: &str| post("/register", "", &[("email", email), ("password", "long-enough-pw"), ("age", "on"), ("share", share)]);
-    // The Share form answers with the dialog and the links just made: (status, page).
-    let share_post = |path: &str, cookie: &str, emails: &str| {
-        let mut r = agent.post(&format!("{base}{path}")).header("cookie", cookie).send_form([("emails", emails)]).unwrap();
+    // The Share form answers with the dialog and the link just made: (status, page).
+    let share_post = |path: &str, cookie: &str, label: &str| {
+        let mut r = agent.post(&format!("{base}{path}")).header("cookie", cookie).send_form([("label", label)]).unwrap();
         (r.status().as_u16(), r.body_mut().read_to_string().unwrap())
     };
+    // The token of the one link on a links page.
+    let token_on = |page: &str| page.split(&format!(r#"value="{base}/courses/shared/"#)).nth(1).and_then(|r| r.split('"').next()).expect("the link").to_string();
     let shares = || state.db.with(|c| c.query_row("SELECT COUNT(*) FROM course_shares", [], |r| r.get::<_, i64>(0))).unwrap();
 
     let (_, ann, _) = register("ann@example.org", "");
@@ -1265,36 +1267,28 @@ fn a_shared_course_is_on_the_recipients_list_read_only() {
     let id = loc.strip_prefix("/courses/").and_then(|l| l.strip_suffix("?generate=1")).expect("the editor").to_string();
     assert!(get(&format!("/courses/{id}"), &ann).2.contains(r#"data-testid="course-edit-share""#));
 
-    // Inviting: the owner's own address refuses the list; otherwise one link per new address.
-    let (status, _, loc) = post(&format!("/courses/{id}/share"), &ann, &[("emails", "bob@example.org, ann@example.org")]);
-    assert!(status == 303 && loc.contains("share=1&notice=share-own"), "{loc}");
     // The POST target opened as a page goes back to the dialog, not a 405 (#667).
     let (status, loc, _) = get(&format!("/courses/{id}/share"), &ann);
     assert!(status == 303 && loc.ends_with(&format!("/courses/{id}?share=1")), "{status} {loc}");
     assert_eq!(shares(), 0);
-    let (status, page) = share_post(&format!("/courses/{id}/share"), &ann, "Bob@Example.org\ncarol@example.org");
-    assert!(status == 200 && page.contains("2 invitation links made"), "{page}");
-    let token = page
-        .split(r#"data-email="bob@example.org""#)
-        .nth(1)
-        .and_then(|r| r.split(&format!(r#"value="{base}/courses/shared/"#)).nth(1))
-        .and_then(|r| r.split('"').next())
-        .expect("bob's link")
-        .to_string();
+    // Making links: one per click, named or not, shown once.
+    let (status, page) = share_post(&format!("/courses/{id}/share"), &ann, " Bob ");
+    assert!(status == 200 && page.contains("Invitation link made") && page.contains(r#"data-testid="course-share-link-row" data-label="Bob""#), "{page}");
+    let token = token_on(&page);
     assert_eq!(token.len(), 64);
-    let carol_token = page
-        .split(r#"data-email="carol@example.org""#)
-        .nth(1)
-        .and_then(|r| r.split(&format!(r#"value="{base}/courses/shared/"#)).nth(1))
-        .and_then(|r| r.split('"').next())
-        .expect("carol's link")
-        .to_string();
-    let (status, page) = share_post(&format!("/courses/{id}/share"), &ann, "bob@example.org");
-    assert!(status == 200 && page.contains("already had one") && !page.contains(r#"data-testid="course-share-link""#), "{page}");
-    assert_eq!(shares(), 2, "one invitation per address");
+    let (status, page) = share_post(&format!("/courses/{id}/share"), &ann, "");
+    assert!(status == 200 && page.contains(r#"data-testid="course-share-link-row" data-label="""#), "{page}");
+    let carol_token = token_on(&page);
+    assert_ne!(token, carol_token);
+    assert_eq!(shares(), 2, "one link per click");
     let editor = get(&format!("/courses/{id}"), &ann).2;
-    assert!(editor.contains(r#"data-testid="course-share-row" data-email="bob@example.org" data-opened="false""#), "{editor}");
+    assert!(editor.contains(r#"data-label="Bob" data-opened="false""#) && editor.contains("not opened yet"), "{editor}");
     assert!(editor.contains(r#"data-testid="course-edit-share">Share (2)"#), "{editor}");
+    let bob_row = || {
+        let editor = get(&format!("/courses/{id}"), &ann).2;
+        editor.split(r#"data-label="Bob" "#).nth(1).map(|r| r.split("</tr>").next().unwrap_or_default().to_string()).unwrap_or_default()
+    };
+    let bob_id: i64 = state.db.with(|c| c.query_row("SELECT id FROM course_shares WHERE label = 'Bob'", [], |r| r.get(0))).unwrap();
 
     // Signed out, the link leads to the login page, which says what it is for; registering there comes back to it.
     let (status, loc, _) = get(&format!("/courses/shared/{token}"), "");
@@ -1310,7 +1304,7 @@ fn a_shared_course_is_on_the_recipients_list_read_only() {
     // The owner opening their own link (from the inbox, say) does not take it: their course page instead.
     let (status, loc, _) = get(&format!("/courses/shared/{token}"), &ann);
     assert_eq!((status, loc.as_str()), (303, format!("/courses/{id}?share=1").as_str()));
-    assert!(get(&format!("/courses/{id}"), &ann).2.contains(r#"data-email="bob@example.org" data-opened="false""#), "still unopened");
+    assert!(bob_row().contains(r#"data-opened="false""#), "still unopened");
     let (status, bob, loc) = register("bob@example.org", &token);
     assert_eq!((status, loc.as_str()), (303, format!("/courses/shared/{token}").as_str()));
     let (status, loc, _) = get(&format!("/courses/shared/{token}"), &bob);
@@ -1323,9 +1317,10 @@ fn a_shared_course_is_on_the_recipients_list_read_only() {
     assert!(!list.contains(&format!(r#"href="/courses/{id}" data-testid="courses-edit""#)), "no editor link\n{list}");
     assert_eq!(get(&format!("/courses/{id}"), &bob).0, 404);
     assert_eq!(get(&format!("/courses/{id}/export.json"), &bob).0, 404);
-    assert_eq!(post(&format!("/courses/{id}/share"), &bob, &[("emails", "dan@example.org")]).0, 404, "only the owner shares");
+    assert_eq!(post(&format!("/courses/{id}/share"), &bob, &[("label", "Dan")]).0, 404, "only the owner shares");
     assert_eq!(post(&format!("/courses/open/{id}"), &bob, &[]).0, 303, "Open on the card works");
-    assert!(get(&format!("/courses/{id}"), &ann).2.contains(r#"data-email="bob@example.org" data-opened="true""#));
+    let row = bob_row();
+    assert!(row.contains(r#"data-opened="true""#) && row.contains("opened by bob@example.org"), "the owner sees who opened it\n{row}");
 
     // A forwarded link lets nobody else in; a log-in with it goes on to the link too.
     let (_, dan, _) = register("dan@example.org", "");
@@ -1337,19 +1332,20 @@ fn a_shared_course_is_on_the_recipients_list_read_only() {
     let (status, _, loc) = post("/login", "", &[("email", "bob@example.org"), ("password", "long-enough-pw")]);
     assert_eq!((status, loc.as_str()), (303, "/"));
 
-    // An address is only a label (#10): even marked confirmed, Carol's
-    // account has nothing until she opens her link.
+    // A link's name is only a label (#10): Carol's account has nothing
+    // until she opens a link.
     let (_, carol, _) = register("carol@example.org", "");
-    state.db.with(|c| c.execute("UPDATE users SET email_verified_at = 5 WHERE email = 'carol@example.org'", [])).unwrap();
     assert!(!get("/courses", &carol).2.contains(&format!(r#"data-course-id="{id}""#)), "no link opened: not on her list");
     let (status, _, _) = get(&format!("/courses/shared/{carol_token}"), &carol);
     assert_eq!(status, 303);
     let list = get("/courses", &carol).2;
     assert!(list.contains(&format!(r#"data-course-id="{id}""#)), "{list}");
 
-    // Removing the share: off bob's list, out of his session; the owner keeps it.
-    let (status, _, loc) = post(&format!("/courses/{id}/share/remove"), &ann, &[("email", "bob@example.org")]);
+    // Removing the link: off bob's list, out of his session; the owner keeps it.
+    let (status, _, loc) = post(&format!("/courses/{id}/share/remove"), &ann, &[("id", &bob_id.to_string())]);
     assert!(status == 303 && loc.contains("notice=share-removed"), "{loc}");
+    let (status, _, loc) = post(&format!("/courses/{id}/share/remove"), &ann, &[("id", &bob_id.to_string())]);
+    assert!(status == 303 && loc.contains("notice=share-not-on-list"), "gone already: {loc}");
     assert!(!get("/courses", &bob).2.contains(&format!(r#"data-course-id="{id}""#)));
     assert_eq!(get("/lessons", &bob).1, "/courses", "no active course any more");
     // The old link says it no longer works (#1082): on the list signed in, on the login page signed out.
@@ -1363,7 +1359,7 @@ fn a_shared_course_is_on_the_recipients_list_read_only() {
     assert_eq!((status, loc.as_str()), (303, format!("/courses/shared/{token}").as_str()), "signing in goes on to the link, and so to the notice");
     assert_eq!(post(&format!("/courses/open/{id}"), &bob, &[]).0, 404);
     let editor = get(&format!("/courses/{id}"), &ann).2;
-    assert!(!editor.contains(r#"data-email="bob@example.org""#) && editor.contains(r#"data-email="carol@example.org""#), "{editor}");
+    assert!(!editor.contains(r#"data-label="Bob""#) && editor.contains("opened by carol@example.org"), "{editor}");
     assert!(get("/courses", &carol).2.contains(&format!(r#"data-course-id="{id}""#)), "carol's stays");
 }
 
@@ -1400,18 +1396,17 @@ fn nothing_offers_to_send_mail() {
     // Sharing: the dialog makes links, shows them, and mails nothing; a link works.
     let (_, _, loc, _) = post("/courses/new", &ann, &[("title", "Fractions")]);
     let id = loc.strip_prefix("/courses/").and_then(|l| l.strip_suffix("?generate=1")).expect("the editor").to_string();
-    assert!(get(&format!("/courses/{id}"), &ann).2.contains("Make invitation links"));
-    let (status, _, _, page) = post(&format!("/courses/{id}/share"), &ann, &[("emails", "bob@example.org")]);
+    let editor = get(&format!("/courses/{id}"), &ann).2;
+    assert!(editor.contains("Make an invitation link") && !editor.contains("course-share-emails") && !editor.to_lowercase().contains("e-mail address"), "{editor}");
+    let (status, _, _, page) = post(&format!("/courses/{id}/share"), &ann, &[("label", "Bob")]);
     assert_eq!(status, 200);
-    assert!(page.contains("1 invitation link made") && page.contains(r#"data-testid="course-share-link-copy""#), "{page}");
+    assert!(page.contains("Invitation link made") && page.contains(r#"data-testid="course-share-link-copy""#), "{page}");
     let link = page.split(&format!(r#"value="{base}/courses/shared/"#)).nth(1).and_then(|r| r.split('"').next()).expect("the link").to_string();
     assert_eq!(link.len(), 64);
     assert_eq!(count("SELECT COUNT(*) FROM course_shares"), 1);
     let (status, bob, _, _) = post("/register", "", &[("email", "bob@example.org"), ("password", "long-enough-pw"), ("age", "on")]);
     assert_eq!(status, 303);
     assert_eq!(get(&format!("/courses/shared/{link}"), &bob).1, "/", "the link opens the course");
-    let (status, _, _, page) = post(&format!("/courses/{id}/share"), &ann, &[("emails", "bob@example.org")]);
-    assert!(status == 200 && !page.contains(r#"data-testid="course-share-link""#) && page.contains("already had one"), "{page}");
 
     // No data export: the route is gone and the profile offers none.
     assert_eq!(post("/profile/export", &ann, &[]).0, 404);
