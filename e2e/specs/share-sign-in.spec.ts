@@ -1,10 +1,9 @@
 // A course's share link survives every way of signing in (#1016): the
-// two-factor code step. Each learner signs in with an
-// address the link was not sent to, so only the link puts the course on
-// their list. A link that no longer works says so before and after signing
+// two-factor code step. Only the link puts the course on a learner's
+// list. A link that no longer works says so before and after signing
 // in (#1082).
 import { expect, test, type Page } from "@playwright/test";
-import { createCourse, devLogin, devReset, shareLink } from "../lib/app";
+import { createCourse, devLogin, devReset, makeShareLink } from "../lib/app";
 import { logout, newAccount, register, signUp } from "../lib/learner";
 import { totp } from "../lib/totp";
 
@@ -14,17 +13,13 @@ test.afterAll(async ({ browser }) => {
   await page.close();
 });
 
-/** As the dev user: a new course shared with a fresh address; its id and link. */
+/** As the dev user: a new course with an invitation link; its id and link. */
 async function sharedCourse(page: Page): Promise<{ id: string; link: string }> {
   await devLogin(page, "next=/courses");
   const id = await createCourse(page);
   await page.getByTestId("generate-close").click();
-  const invited = newAccount("share-invited");
   await page.getByTestId("course-edit-share").click();
-  await page.getByTestId("course-share-emails").fill(invited.email);
-  await page.getByTestId("course-share-send").click();
-  await expect(page.getByTestId("course-share-notice")).toContainText("1 invitation link made");
-  const link = await shareLink(page, invited.email);
+  const link = await makeShareLink(page, "Someone");
   await logout(page);
   return { id, link };
 }
@@ -95,11 +90,11 @@ test("a share link survives the two-factor code step, and cancelling it keeps th
 
 test("an old link after the share was removed says it no longer works, signed out and signed in (#1082)", async ({ page, browser }) => {
   const { id, link } = await sharedCourse(page);
-  // The owner removes the address: the link in the mail stops working.
+  // The owner removes the link: it stops working.
   await devLogin(page, `next=/courses/${id}?share=1`);
   await expect(page.getByTestId("course-share")).toBeVisible();
   await page.getByTestId("course-share-remove").click();
-  await expect(page.getByTestId("course-share-notice")).toContainText("No longer shared with");
+  await expect(page.getByTestId("course-share-notice")).toContainText("Link removed");
   await logout(page);
 
   // Signed out: the login page says so, and signing in leads to the course list with the same notice.
@@ -109,12 +104,12 @@ test("an old link after the share was removed says it no longer works, signed ou
   await logout(guest);
   await guest.goto(link);
   await expect(guest).toHaveURL(/\/login\?share=/);
-  await expect(guest.getByTestId("login-share-notice")).toHaveText("This link no longer works. Ask the course's owner to share the course with you again.");
+  await expect(guest.getByTestId("login-share-notice")).toHaveText("This link no longer works. Ask the course's owner for a new one.");
   await guest.getByTestId("login-email").fill(a.email);
   await guest.getByTestId("login-password").fill(a.password);
   await guest.getByTestId("login-submit").click();
   await expect(guest).toHaveURL(/\/courses\?notice=share-gone$/);
-  await expect(guest.getByTestId("courses-notice")).toHaveText("This link no longer works. Ask the course's owner to share the course with you again.");
+  await expect(guest.getByTestId("courses-notice")).toHaveText("This link no longer works. Ask the course's owner for a new one.");
   await expect(guest.locator(`[data-testid="courses-card"][data-course-id="${id}"]`)).toHaveCount(0);
 
   // Signed in: straight to the list with the notice, not a bare 404.

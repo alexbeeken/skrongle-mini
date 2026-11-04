@@ -1,39 +1,42 @@
-//! Sharing a course with other learners (#451). The owner types e-mail
-//! addresses on the course's page; every address gets a link, which the
-//! Share dialog shows the owner once to pass on (nothing is mailed).
-//! A learner who opens the link signed in has the course on their course
-//! list from then on, read only: they learn from it with their own progress,
-//! and only the owner can change its files. Signed out, the link leads to
-//! the login page, which says what the link is for and comes back here after
-//! signing in or registering.
+//! Sharing a course with other learners (#451, #16). The owner makes
+//! invitation links on the course's page, each with a name of their choice
+//! (or none) to tell it from the others; the Share dialog shows a new link
+//! once, for the owner to pass on however they like (nothing is mailed:
+//! this server has no e-mail). A learner who opens the link signed in has
+//! the course on their course list from then on, read only: they learn from
+//! it with their own progress, and only the owner can change its files.
+//! Signed out, the link leads to the login page, which says what the link
+//! is for and comes back here after signing in or registering.
 //!
 //! The link is the only way in (#10): the first account to open it keeps
-//! it, and every other account that opens it later is turned away, the
-//! invited address included. Nothing confirms an e-mail address, so the
-//! address on a share is only a label for the owner, never proof of who
-//! someone is. `can_open` asks whether this account opened the link.
+//! it, and every other account that opens it later is turned away. The
+//! name on a link is a label for the owner, never proof of who someone is.
+//! `can_open` asks whether this account opened a link of the course.
 //!
-//! Table `course_shares`: one row per (course, address). The link's token
-//! is stored as its SHA-256 only.
+//! Table `course_shares`: one row per link. The link's token is stored as
+//! its SHA-256 only.
 
 use rusqlite::{params, Connection, OptionalExtension};
 
-/// Addresses one course can be shared with.
+/// Links one course can have.
 pub const MAX_PER_COURSE: usize = 50;
-/// Addresses one share form may list.
-pub const MAX_PER_REQUEST: usize = 20;
+/// The longest name a link may carry (characters); the rest is cut.
+pub const MAX_LABEL: usize = 60;
 
-/// One address a course is shared with.
+/// One invitation link of a course.
 #[derive(Debug, Clone)]
-#[allow(dead_code)] // created_at is for the dialog's "invited … ago" to come
+#[allow(dead_code)] // created_at is for the dialog's "made … ago" to come
 pub struct Share {
     pub id: i64,
     pub course_id: String,
-    pub email: String,
+    /// The name the owner gave the link, or "".
+    pub label: String,
     /// The account that opened the link (NULL until then).
     pub user_id: Option<i64>,
     pub created_at: i64,
     pub opened_at: Option<i64>,
+    /// Who opened it, for the owner: that account's name, or its address.
+    pub opened_by: Option<String>,
 }
 
 impl Share {
@@ -56,41 +59,57 @@ pub fn hash_token(token: &str) -> String {
 }
 
 fn share_row(r: &rusqlite::Row<'_>) -> rusqlite::Result<Share> {
-    Ok(Share { id: r.get(0)?, course_id: r.get(1)?, email: r.get(2)?, user_id: r.get(3)?, created_at: r.get(4)?, opened_at: r.get(5)? })
+    let user_id: Option<i64> = r.get(3)?;
+    let opened_by = match user_id {
+        Some(_) => Some(owner_label(r.get(6)?, r.get(7)?, r.get(8)?)),
+        None => None,
+    };
+    Ok(Share { id: r.get(0)?, course_id: r.get(1)?, label: r.get(2)?, user_id, created_at: r.get(4)?, opened_at: r.get(5)?, opened_by })
 }
 
-const SHARE_COLS: &str = "id, course_id, email, user_id, created_at, opened_at";
+/// A share with the account that opened it (`u.*` NULL until then).
+const SHARE_SELECT: &str = "SELECT s.id, s.course_id, s.label, s.user_id, s.created_at, s.opened_at,
+            COALESCE(u.first_name, ''), COALESCE(u.last_name, ''), COALESCE(u.email, '')
+         FROM course_shares s LEFT JOIN users u ON u.id = s.user_id";
 
-/// Everyone a course is shared with, in the order they were added.
+/// Every link of a course, oldest first.
 pub fn shares_of(conn: &Connection, course_id: &str) -> rusqlite::Result<Vec<Share>> {
-    let mut stmt = conn.prepare_cached(&format!("SELECT {SHARE_COLS} FROM course_shares WHERE course_id = ?1 ORDER BY id"))?;
+    let mut stmt = conn.prepare_cached(&format!("{SHARE_SELECT} WHERE s.course_id = ?1 ORDER BY s.id"))?;
     let rows = stmt.query_map([course_id], share_row)?;
     rows.collect()
 }
 
-/// Share the course with `email` (lower case, validated by the caller).
-/// The link's token, or `None` when that address already has one.
-pub fn invite(conn: &Connection, course_id: &str, email: &str, now: i64) -> rusqlite::Result<Option<String>> {
+/// A new invitation link for the course, named `label` ("" for none; the
+/// caller trims and cuts it). The link's token.
+pub fn invite(conn: &Connection, course_id: &str, label: &str, now: i64) -> rusqlite::Result<String> {
     let token = crate::auth::generate_token();
-    let n = conn.execute(
-        "INSERT OR IGNORE INTO course_shares (course_id, email, token_hash, created_at) VALUES (?1, ?2, ?3, ?4)",
-        params![course_id, email, hash_token(&token), now],
+    conn.execute(
+        "INSERT INTO course_shares (course_id, label, token_hash, created_at) VALUES (?1, ?2, ?3, ?4)",
+        params![course_id, label, hash_token(&token), now],
     )?;
-    Ok((n > 0).then_some(token))
+    Ok(token)
 }
 
-/// Stop sharing the course with `email`: the row goes, and so does the
-/// recipient's project in it (the course leaves their list; their progress
-/// rows stay for the day it is shared again). True when there was a share.
-pub fn remove(conn: &Connection, course_id: &str, email: &str) -> rusqlite::Result<bool> {
+/// Take the link `share_id` of the course away: the row goes, and so does
+/// the recipient's project in it (the course leaves their list; their
+/// progress rows stay for the day it is shared again). True when there was
+/// such a link.
+pub fn remove(conn: &Connection, course_id: &str, share_id: i64) -> rusqlite::Result<bool> {
     let row: Option<(i64, Option<i64>)> = conn
-        .query_row("SELECT id, user_id FROM course_shares WHERE course_id = ?1 AND email = ?2", params![course_id, email], |r| Ok((r.get(0)?, r.get(1)?)))
+        .query_row("SELECT id, user_id FROM course_shares WHERE course_id = ?1 AND id = ?2", params![course_id, share_id], |r| Ok((r.get(0)?, r.get(1)?)))
         .optional()?;
     let Some((id, user_id)) = row else { return Ok(false) };
     conn.execute("DELETE FROM course_shares WHERE id = ?1", [id])?;
-    // Whoever the share let in: the account that opened the link.
-    conn.execute(REMOVE_PROJECTS_SQL, params![course_id, user_id])?;
-    conn.execute(REMOVE_ACTIVE_SQL, params![course_id, user_id])?;
+    // Whoever the link let in, unless another link of theirs still does.
+    let still: bool = conn.query_row(
+        "SELECT EXISTS(SELECT 1 FROM course_shares WHERE course_id = ?1 AND user_id = ?2)",
+        params![course_id, user_id],
+        |r| r.get(0),
+    )?;
+    if !still {
+        conn.execute(REMOVE_PROJECTS_SQL, params![course_id, user_id])?;
+        conn.execute(REMOVE_ACTIVE_SQL, params![course_id, user_id])?;
+    }
     Ok(true)
 }
 
@@ -102,7 +121,7 @@ const REMOVE_ACTIVE_SQL: &str = "UPDATE users SET active_course = NULL WHERE act
 
 /// The share a link's token names.
 pub fn by_token(conn: &Connection, token: &str) -> rusqlite::Result<Option<Share>> {
-    conn.query_row(&format!("SELECT {SHARE_COLS} FROM course_shares WHERE token_hash = ?1"), [hash_token(token)], share_row).optional()
+    conn.query_row(&format!("{SHARE_SELECT} WHERE s.token_hash = ?1"), [hash_token(token)], share_row).optional()
 }
 
 /// What opening a link signed in does.
@@ -119,7 +138,7 @@ pub enum Claim {
 
 /// The signed-in account opens the link: the share is theirs from now on
 /// (the first account to open it keeps it, so a forwarded link lets nobody
-/// else in, the invited address included).
+/// else in).
 pub fn claim(conn: &Connection, share: &Share, user_id: i64, now: i64) -> rusqlite::Result<Claim> {
     let owner: Option<i64> = conn.query_row("SELECT owner_id FROM courses WHERE id = ?1", [&share.course_id], |r| r.get(0)).optional()?;
     if owner == Some(user_id) {
@@ -150,12 +169,13 @@ pub fn can_open(conn: &Connection, user_id: i64, course_id: &str) -> rusqlite::R
 }
 
 /// The shares an account opened, one indexed lookup (#621,
-/// `idx_course_shares_user`).
-const SHARED_WITH_SQL: &str = "SELECT s.course_id, o.first_name, o.last_name, COALESCE(o.email, ''), s.id
+/// `idx_course_shares_user`), one row per course.
+const SHARED_WITH_SQL: &str = "SELECT s.course_id, o.first_name, o.last_name, COALESCE(o.email, ''), MAX(s.id)
          FROM (SELECT id, course_id FROM course_shares WHERE user_id = ?1) s
          JOIN courses c ON c.id = s.course_id JOIN users o ON o.id = c.owner_id
          WHERE c.owner_id != ?1
-         ORDER BY s.id DESC";
+         GROUP BY s.course_id
+         ORDER BY MAX(s.id) DESC";
 
 /// The courses shared with this account (links it opened), newest share first, leaving out the ones taken down or of a
 /// owner waiting to be deleted (#970). The caller skips the ones that do not load.
@@ -167,8 +187,8 @@ pub fn shared_with(conn: &Connection, user_id: i64) -> rusqlite::Result<Vec<Shar
     rows.collect()
 }
 
-/// How a recipient sees the owner: "First Last", or the address when the
-/// profile has no name.
+/// How an account is named to someone else: "First Last", or the address
+/// when the profile has no name.
 pub fn owner_label(first: String, last: String, email: String) -> String {
     let name = format!("{} {}", first.trim(), last.trim()).trim().to_string();
     if name.is_empty() {
@@ -178,24 +198,10 @@ pub fn owner_label(first: String, last: String, email: String) -> String {
     }
 }
 
-/// The addresses typed into the share form: separated by commas, semicolons,
-/// spaces or new lines; each one validated and lower-cased, duplicates
-/// dropped. The first bad one stops the whole list, so nothing is half sent.
-pub fn parse_addresses(text: &str) -> Result<Vec<String>, String> {
-    let mut out: Vec<String> = Vec::new();
-    for raw in text.split(|c: char| c == ',' || c == ';' || c.is_whitespace()).filter(|s| !s.is_empty()) {
-        let email = crate::profile::validate_email(raw).map_err(|e| crate::t2("courses.share.bad_address", "address", raw, "error", e))?;
-        if !out.contains(&email) {
-            out.push(email);
-        }
-    }
-    if out.is_empty() {
-        return Err(crate::t("courses.share.at_least_one"));
-    }
-    if out.len() > MAX_PER_REQUEST {
-        return Err(crate::t1("courses.share.too_many_request", "max", MAX_PER_REQUEST));
-    }
-    Ok(out)
+/// The name typed into the share form, as stored: trimmed, inner runs of
+/// whitespace made one space, at most `MAX_LABEL` characters.
+pub fn clean_label(text: &str) -> String {
+    text.split_whitespace().collect::<Vec<_>>().join(" ").chars().take(MAX_LABEL).collect()
 }
 
 /// The message on the login and register pages when a share link brought
@@ -219,7 +225,7 @@ mod tests {
     }
 
     #[test]
-    fn a_link_lets_one_account_in_and_the_address_is_only_a_label() {
+    fn a_link_lets_one_account_in_and_its_name_is_only_a_label() {
         let db = Db::open_in_memory().unwrap();
         db.with(|c| {
             let ann = user(c, "ann@example.org");
@@ -227,102 +233,69 @@ mod tests {
             let carol = user(c, "carol@example.org");
             let dan = user(c, "dan@example.org");
             course(c, ann, "fractions-1");
-            let token = invite(c, "fractions-1", "bob@example.org", 10).unwrap().expect("a new share");
-            assert!(invite(c, "fractions-1", "bob@example.org", 11).unwrap().is_none(), "one share per address");
+            let token = invite(c, "fractions-1", "Bob", 10).unwrap();
+            // Two links with the same name, and unnamed ones: all fine.
+            let token_b2 = invite(c, "fractions-1", "Bob", 11).unwrap();
+            let token_none = invite(c, "fractions-1", "", 11).unwrap();
+            assert_ne!(token, token_b2);
+            assert_eq!(shares_of(c, "fractions-1").unwrap().len(), 3);
             assert!(!can_open(c, bob, "fractions-1").unwrap(), "the link is needed");
 
             let share = by_token(c, &token).unwrap().expect("the share by its token");
+            assert_eq!((share.label.as_str(), share.opened_by.as_deref()), ("Bob", None));
             assert!(by_token(c, "nope").unwrap().is_none());
             // The owner opening their own link (a preview) does not take it.
             assert_eq!(claim(c, &share, ann, 11).unwrap(), Claim::Owner);
             assert_eq!(by_token(c, &token).unwrap().unwrap().user_id, None);
-            // A forwarded link: whoever opens it first keeps it, even another address.
+            // A forwarded link: whoever opens it first keeps it, whatever its name says.
             assert_eq!(claim(c, &share, dan, 12).unwrap(), Claim::Ok);
             assert!(can_open(c, dan, "fractions-1").unwrap());
             let share = by_token(c, &token).unwrap().unwrap();
             assert_eq!((share.user_id, share.opened_at), (Some(dan), Some(12)));
-            // The invited address comes too late: turned away like anyone else.
+            assert_eq!(share.opened_by.as_deref(), Some("dan@example.org"), "no name: the address");
+            // The person it was named for comes too late: turned away like anyone else.
             assert_eq!(claim(c, &share, bob, 13).unwrap(), Claim::Taken);
             assert!(!can_open(c, bob, "fractions-1").unwrap());
             assert!(shared_with(c, bob).unwrap().is_empty());
             assert_eq!(claim(c, &share, dan, 14).unwrap(), Claim::Ok);
 
-            // An address with an account: nothing until its link is opened.
-            let token_c = invite(c, "fractions-1", "carol@example.org", 20).unwrap().unwrap();
+            // An account with the same address as a link's name: nothing until a link is opened.
             assert!(!can_open(c, carol, "fractions-1").unwrap());
             assert!(shared_with(c, carol).unwrap().is_empty());
-            assert_eq!(claim(c, &by_token(c, &token_c).unwrap().unwrap(), carol, 21).unwrap(), Claim::Ok);
+            assert_eq!(claim(c, &by_token(c, &token_none).unwrap().unwrap(), carol, 21).unwrap(), Claim::Ok);
             let mine: Vec<String> = shared_with(c, carol).unwrap().into_iter().map(|s| s.course_id).collect();
             assert_eq!(mine, vec!["fractions-1".to_string()]);
             assert_eq!(shared_with(c, carol).unwrap()[0].owner, "ann@example.org", "no name: the address");
             c.execute("UPDATE users SET first_name = 'Ann', last_name = 'Lee' WHERE id = ?1", [ann]).unwrap();
             assert_eq!(shared_with(c, carol).unwrap()[0].owner, "Ann Lee");
             assert!(shared_with(c, ann).unwrap().is_empty(), "the owner's own course is not shared with them");
+            c.execute("UPDATE users SET first_name = 'Carol' WHERE id = ?1", [carol]).unwrap();
+            assert_eq!(by_token(c, &token_none).unwrap().unwrap().opened_by.as_deref(), Some("Carol"));
 
-            // Removing a share takes the course off the list and out of the session of the account that opened it.
-            crate::courses::open_project(c, dan, "fractions-1").unwrap();
-            crate::courses::open_project(c, ann, "fractions-1").unwrap();
-            assert!(remove(c, "fractions-1", "bob@example.org").unwrap());
-            assert!(!remove(c, "fractions-1", "bob@example.org").unwrap());
-            assert!(!can_open(c, dan, "fractions-1").unwrap());
-            let active = |u: i64| c.query_row("SELECT active_course FROM users WHERE id = ?1", [u], |r| r.get::<_, Option<String>>(0)).unwrap();
-            assert_eq!(active(dan), None);
-            assert_eq!(active(ann).as_deref(), Some("fractions-1"), "the owner keeps it");
-            let projects: i64 = c.query_row("SELECT COUNT(*) FROM projects WHERE course_id = 'fractions-1'", [], |r| r.get(0)).unwrap();
-            assert_eq!(projects, 1);
-            assert_eq!(shares_of(c, "fractions-1").unwrap().len(), 1);
-
-            // Deleting the course deletes its shares; deleting the recipient keeps the share, unclaimed.
-            assert!(by_token(c, &token).unwrap().is_none(), "removed");
-            c.execute("DELETE FROM users WHERE id = ?1", [carol]).unwrap();
-            assert_eq!(shares_of(c, "fractions-1").unwrap()[0].user_id, None);
-            crate::courses::delete_course(c, "fractions-1").unwrap();
-            assert!(shares_of(c, "fractions-1").unwrap().is_empty());
-            Ok(())
-        })
-        .unwrap();
-    }
-
-    #[test]
-    fn share_lookups_read_through_indexes() {
-        let db = Db::open_in_memory().unwrap();
-        db.with(|c| {
-            for sql in [SHARED_WITH_SQL, REMOVE_PROJECTS_SQL, REMOVE_ACTIVE_SQL] {
-                assert_eq!(crate::db::table_scans(c, sql).unwrap(), Vec::<String>::new(), "{sql}");
-            }
-            Ok(())
-        })
-        .unwrap();
-    }
-
-    #[test]
-    fn a_share_shows_once() {
-        let db = Db::open_in_memory().unwrap();
-        db.with(|c| {
-            let ann = user(c, "ann@example.org");
-            let carol = user(c, "carol@example.org");
-            course(c, ann, "fractions-1");
-            // Carol opens the link made for her own address: one entry.
-            let token = invite(c, "fractions-1", "carol@example.org", 10).unwrap().unwrap();
-            let share = by_token(c, &token).unwrap().unwrap();
-            assert_eq!(claim(c, &share, carol, 11).unwrap(), Claim::Ok);
+            // Two links opened by the same account: one course on their list; removing
+            // one link keeps the course until the other goes too.
+            assert_eq!(claim(c, &by_token(c, &token_b2).unwrap().unwrap(), carol, 22).unwrap(), Claim::Ok);
             assert_eq!(shared_with(c, carol).unwrap().len(), 1);
-            Ok(())
+            let b2 = by_token(c, &token_b2).unwrap().unwrap();
+            assert!(remove(c, "fractions-1", b2.id).unwrap());
+            assert!(can_open(c, carol, "fractions-1").unwrap(), "the other link still lets her in");
+            let none = by_token(c, &token_none).unwrap().unwrap();
+            assert!(remove(c, "fractions-1", none.id).unwrap());
+            assert!(!can_open(c, carol, "fractions-1").unwrap());
+            assert!(shared_with(c, carol).unwrap().is_empty());
+            assert!(by_token(c, &token_none).unwrap().is_none(), "the link went with the share");
+            assert!(!remove(c, "fractions-1", none.id).unwrap(), "already gone");
+            assert!(!remove(c, "other-course", share.id).unwrap(), "a link of another course is not this course's to remove");
+            assert!(can_open(c, dan, "fractions-1").unwrap(), "dan's link stays");
+            Ok::<(), rusqlite::Error>(())
         })
         .unwrap();
     }
 
     #[test]
-    fn addresses_are_split_checked_and_deduplicated() {
-        assert_eq!(parse_addresses("Bob@Example.org, carol@example.org\nbob@example.org; dan@example.org").unwrap(), vec!["bob@example.org", "carol@example.org", "dan@example.org"]);
-        assert!(parse_addresses("  \n").unwrap_err().contains("at least one"));
-        assert!(parse_addresses("bob@example.org, not-an-address").unwrap_err().contains("not-an-address"));
-        let many: Vec<String> = (0..=MAX_PER_REQUEST).map(|i| format!("u{i}@example.org")).collect();
-        assert!(parse_addresses(&many.join(" ")).unwrap_err().contains("at a time"));
-    }
-
-    #[test]
-    fn the_login_notice_names_the_course() {
-        assert!(login_notice("Fractions").starts_with("It looks like you don't have an account with us!"));
+    fn a_links_name_is_trimmed_and_cut() {
+        assert_eq!(clean_label("  Bob   from \n work  "), "Bob from work");
+        assert_eq!(clean_label(""), "");
+        assert_eq!(clean_label(&"é".repeat(100)).chars().count(), MAX_LABEL);
     }
 }

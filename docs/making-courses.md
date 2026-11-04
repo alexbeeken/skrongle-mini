@@ -140,11 +140,13 @@ While the server's owner hides the AI features (*Manage Users → AI features*),
 
 ## Share a course
 
-**Share** on the course page: type e-mail addresses, *Send invitations*. Each
-person gets a link; the course then sits on their list (under *Shared with
-you* until opened). They learn from it with their own progress; only you can
-change it, and your edits reach them at once. The dialog lists every address
-with *invited* or *opened*; *Remove* stops sharing with one.
+**Share** on the course page: give the link a name if you like (who it is
+for), *Make an invitation link*, copy it and pass it on however you like;
+nothing is sent from the app. Whoever opens the link first has the course
+on their list (under *Shared with you* until opened). They learn from it
+with their own progress; only you can change it, and your edits reach them
+at once. The dialog lists every link with *not opened yet* or *opened by*
+whom; *Remove* takes one away, and the course with it.
 
 ## Fixing validation errors
 

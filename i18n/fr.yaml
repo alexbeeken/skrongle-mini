@@ -2385,34 +2385,27 @@ courses:
     none_right: "rien de juste"
     failed: "Le test de niveau n’a pas pu se charger. Choisissez un niveau."
   share:
-    dialog_lead: "Chaque adresse reçoit son propre lien, à transmettre vous-même : ce serveur n'envoie pas d'e-mails. Les personnes apprennent avec le cours à leur rythme ; vous seul pouvez le modifier."
-    make_links: "Créer les liens d'invitation"
-    made:
-      one: "{n} lien d'invitation créé. Copiez-le et transmettez-le ; il n'est affiché que maintenant."
-      other: "{n} liens d'invitation créés. Copiez-les et transmettez-les ; ils ne sont affichés que maintenant."
-    link_label: "Lien d'invitation pour {email}"
+    dialog_lead: "Un lien d'invitation fait entrer une personne : la première qui l'ouvre a le cours sur sa liste, en lecture seule, avec sa propre progression. Donnez un nom au lien pour le distinguer des autres, copiez-le et transmettez-le comme vous voulez ; rien n'est envoyé d'ici."
+    make_link: "Créer un lien d'invitation"
+    made: "Lien d'invitation créé. Copiez-le et transmettez-le ; il n'est affiché que maintenant."
+    link_label: "Lien d'invitation"
+    no_label: "Lien d'invitation"
     copy: "Copier"
     button: Partager
     button_count: "Partager ({n})"
     dialog_title: Partager ce cours
-    status_opened: ouvert
-    status_invited: invité
+    status_opened_by: "ouvert par {name}"
+    status_invited: pas encore ouvert
     remove: Retirer
-    remove_label: "Arrêter le partage avec {email}"
-    emails_label: Adresses e-mail
-    emails_note: (une par ligne, ou séparées par des virgules)
+    remove_label: "Retirer ce lien d'invitation"
+    label_label: Pour qui est-il ?
+    label_note: (un nom, facultatif)
     close: Fermer
-    own_address: "C'est votre propre adresse : le cours vous appartient déjà."
-    too_many_course: "Un cours peut être partagé avec jusqu'à {max} adresses."
-    too_many_request: "Partagez avec jusqu'à {max} adresses à la fois."
-    at_least_one: Saisissez au moins une adresse e-mail.
-    bad_address: "« {address} » : {error}"
-    bad_address_notice: Une de ces adresses n'est pas une adresse e-mail. Vérifiez la liste et envoyez-la à nouveau.
-    already_had: "{n} en avait déjà une."
-    removed_notice: Ce cours n'est plus partagé avec cette adresse.
-    not_on_list: Cette adresse ne figurait pas dans la liste.
-    link_taken: Un autre compte a déjà utilisé ce lien. Demandez au propriétaire du cours de le partager avec votre adresse.
-    link_gone: Ce lien ne fonctionne plus. Demandez au propriétaire du cours de le partager à nouveau avec vous.
+    too_many_course: "Un cours peut avoir jusqu'à {max} liens d'invitation. Retirez-en un d'abord."
+    removed_notice: "Lien retiré. La personne qui l'avait ouvert n'a plus le cours."
+    not_on_list: Ce lien ne figurait pas dans la liste.
+    link_taken: Un autre compte a déjà utilisé ce lien. Demandez au propriétaire du cours un lien pour vous.
+    link_gone: Ce lien ne fonctionne plus. Demandez-en un nouveau au propriétaire du cours.
     not_ready: Ce cours n'est pas encore prêt à être ouvert. Demandez à son propriétaire, et réessayez le lien plus tard.
     login_notice: "Il semble que vous n'ayez pas de compte chez nous ! Connectez-vous ou inscrivez-vous pour continuer à consulter votre cours : {title}"
     shared_heading: Partagés avec vous

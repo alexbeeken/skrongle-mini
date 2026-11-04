@@ -20,8 +20,8 @@ A feature only appears when the course has the data for it. Date Dash needs a
 [Which field switches on what](course-structure#which-field-switches-on-what).
 
 **Can other people see my course?**
-Only the people you share it with: **Share** on the course page makes a
-link for each address, which you pass on. They learn from it read-only, with their own progress. See
+Only the people you share it with: **Share** on the course page makes an
+invitation link, which you pass on; whoever opens it first is in. They learn from it read-only, with their own progress. See
 [Share a course](making-courses#share-a-course).
 
 **My course does not load. What now?**

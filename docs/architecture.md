@@ -85,7 +85,7 @@ src/
   proxy_auth.rs  sign-in through a reverse proxy's identity header (SKRONGLE_PROXY_AUTH_HEADER / _FROM, #642): a middleware before every handler
   signup.rs      the age confirmation and SKRONGLE_MIN_AGE; who may make an account (SKRONGLE_SIGNUP: open / invite / closed, #634): the first account is the owner, through the owner link written to the log at startup, invitation links (table signup_invites, the token hashed), the Manage Users page's Accounts part and invitation links (routes/manage.rs)
 
-  share.rs       sharing a course with other learners by e-mail address (#451): invitation links the owner passes on (table course_shares, the link's token hashed), who may open a shared course
+  share.rs       sharing a course with other learners by invitation link (#451, #16): links the owner names and passes on (table course_shares, the link's token hashed), who may open a shared course
   totp.rs        time-based one-time passwords: RFC 6238 TOTP over RFC 4226 HOTP (SHA-1 written out, SHA-256/512 via sha2), base32, the otpauth://totp/ Key Uri Format and its QR code as inline SVG (the qrcode crate, no image feature); the dev authenticator (/dev/authenticator) reads its keys with it
   two_factor.rs  two-factor sign-in: on or off, the authenticator app's enrolment, sign-in challenges, the proof for turning it off (tables totp_keys, two_factor_challenges)
   profile.rs     user profiles: name/e-mail validation, profile persistence
@@ -139,7 +139,7 @@ src/
       revise.rs    POST /courses/{id}/ai (add, edit or revise with AI)|undo|redo|review (Accept in the review: what is left out), POST /api/review-quiet
       lessons.rs   POST /courses/{id}/lessons (JSON: the whole table) and /api/courses/{id}/lessons (the same, the editor's autosave: `session` + `base` version, 409 when behind or busy, 422 refused)
       tests.rs     the editor autosave, notices, write limits, prompt boxes and preview-answer tests
-    share.rs     POST /courses/{id}/share (invite addresses) and /courses/{id}/share/remove (owner only); GET /courses/shared/{token} (the invitation's link: signed in, the course joins the list and opens; signed out, /login?share=<token>)
+    share.rs     POST /courses/{id}/share (make a named link) and /courses/{id}/share/remove (by id, owner only); GET /courses/shared/{token} (the invitation's link: signed in, the course joins the list and opens; signed out, /login?share=<token>)
     docs.rs      /docs (sidebar sections: SECTIONS), /llms.txt (docs/llms.txt)
     auth.rs      /login /register (signs the new account in; a taken address is refused on the form) /logout
     auth/code.rs /login/code… (the two-factor step: code form, resend, cancel, status, dev device)
@@ -333,11 +333,11 @@ course_ai_run_files (course_id, side, path, content)  PRIMARY KEY (course_id, si
                 -- `edits`: the review's own text for lines the AI wrote (JSON `review::Edits`:
                 -- path → row key → text, '' for none); `why`: the run's why and check lines per
                 -- lesson (JSON `ai::LessonNote`s, '' for none)
-course_shares  (id, course_id, email, token_hash UNIQUE, user_id, created_at, opened_at)  UNIQUE (course_id, email)
+course_shares  (id, course_id, label, token_hash UNIQUE, user_id, created_at, opened_at)
                 -- a course shared by link (src/share.rs): token_hash is the SHA-256 of the
                 -- link's token; user_id the account that opened the link (NULL until then, or when
                 -- that account is deleted; the share stays and can be opened again). The course is
-                -- open to that account only; `email` is a label for the owner
+                -- open to that account only; `label` is a name the owner gave the link, or ''
 projects       (user_id, course_id, created_at, last_opened_at, start_unit, motivator, set_up)  PRIMARY KEY (user_id, course_id)
                -- a course the learner opened; motivator: the course's setting, '' = the default;
                -- set_up: 0 until the first visit's settings wizard is left
@@ -371,7 +371,8 @@ game_rounds    (user_id, course_id, game, rounds)  PRIMARY KEY (user_id, course_
 
 The schema is `src/db/migrations/v001_schema.sql` plus the later
 migrations (`v002_no_skc.sql` drops `motivator_purchases` and turns a saved
-`skc` motivator into `xp`), which `src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
+`skc` motivator into `xp`; `v003_share_links.sql` rebuilds `course_shares` with a
+`label` instead of an address), which `src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
 how many have run, and a later change appends its own entry. A database
 from a build before this schema (its `users` table still has a column of
 the old history) is refused at start with one line naming the file: there

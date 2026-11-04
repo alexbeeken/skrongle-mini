@@ -8,7 +8,7 @@
 import { expect, test, type Page } from "@playwright/test";
 import { readdirSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
-import { courseDir, createCourse, devLogin, devReset, generationEnds, shareLink } from "../lib/app";
+import { courseDir, createCourse, devLogin, devReset, generationEnds, makeShareLink } from "../lib/app";
 import { login, newAccount, openCourse, signUp } from "../lib/learner";
 
 test.afterAll(async ({ browser }) => {
@@ -179,10 +179,7 @@ test("no copy or translate icon in the settings of a course shared with you; cop
   await page.getByTestId("generate-close").click();
   const friend = newAccount("copyshare");
   await page.getByTestId("course-edit-share").click();
-  await page.getByTestId("course-share-emails").fill(friend.email);
-  await page.getByTestId("course-share-send").click();
-  await expect(page.getByTestId("course-share-notice")).toContainText("1 invitation link made");
-  const link = await shareLink(page, friend.email);
+  const link = await makeShareLink(page, "Copy friend");
   // A private course of the owner's, not shared.
   await page.goto("/courses");
   const priv = await createCourse(page);

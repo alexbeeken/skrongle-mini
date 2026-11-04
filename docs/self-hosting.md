@@ -218,7 +218,7 @@ e-mail address is only what an account signs in with.
 | Registration | Registering signs the account in at once; nothing confirms the address. |
 | A forgotten password | No reset link: you give the account a temporary password (below). |
 | Two-factor sign-in | The authenticator app. |
-| Sharing a course | After inviting, the Share dialog shows each address's link with a Copy button, once (links are stored only hashed); pass it on yourself. |
+| Sharing a course | The Share dialog makes an invitation link and shows it with a Copy button, once (links are stored only hashed); pass it on yourself. |
 
 ## Accounts and AI keys
 

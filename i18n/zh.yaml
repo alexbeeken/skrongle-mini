@@ -2385,34 +2385,27 @@ courses:
     none_right: "全部答错"
     failed: "分级测试没有加载出来。请直接选择一个级别。"
   share:
-    dialog_lead: "每个地址都会得到一个专属链接，由你转发：此服务器不发送电子邮件。他们以自己的进度学习这门课程；只有你可以修改它。"
-    make_links: "生成邀请链接"
-    made:
-      one: "已生成 {n} 个邀请链接。请复制并转发；它只在此时显示。"
-      other: "已生成 {n} 个邀请链接。请逐个复制并转发；它们只在此时显示。"
-    link_label: "{email} 的邀请链接"
+    dialog_lead: "一个邀请链接只让一个人进入：谁先打开，课程就出现在谁的列表中，只能学习，进度各自独立。给链接起个名字以便区分，复制后随你转发；这里不会发送任何东西。"
+    make_link: "生成邀请链接"
+    made: "已生成邀请链接。请复制并转发；它只在此时显示。"
+    link_label: "邀请链接"
+    no_label: "邀请链接"
     copy: "复制"
     button: 分享
     button_count: "分享（{n}）"
     dialog_title: 分享此课程
-    status_opened: 已打开
-    status_invited: 已邀请
+    status_opened_by: "已由 {name} 打开"
+    status_invited: 尚未打开
     remove: 移除
-    remove_label: "停止与 {email} 分享"
-    emails_label: 电子邮件地址
-    emails_note: （每行一个，或用逗号分隔）
+    remove_label: "移除此邀请链接"
+    label_label: 给谁用？
+    label_note: （名字，可不填）
     close: 关闭
-    own_address: "这是你自己的地址：该课程已经属于你。"
-    too_many_course: "一门课程最多可与 {max} 个地址分享。"
-    too_many_request: "每次最多可与 {max} 个地址分享。"
-    at_least_one: 请至少输入一个电子邮件地址。
-    bad_address: "“{address}”：{error}"
-    bad_address_notice: 其中有一个不是电子邮箱地址。请检查列表后重新发送。
-    already_had: "{n} 个地址已经收到过邀请。"
-    removed_notice: 已停止与该地址共享。
-    not_on_list: 该地址不在列表中。
-    link_taken: 已有其他账户使用过此链接。请让课程所有者用你的地址重新分享。
-    link_gone: 此链接已失效。请让课程所有者重新与你分享课程。
+    too_many_course: "一门课程最多可有 {max} 个邀请链接。请先移除一个。"
+    removed_notice: "链接已移除。打开过它的人不再拥有该课程。"
+    not_on_list: 该链接不在列表中。
+    link_taken: 已有其他账户使用过此链接。请向课程所有者索取你自己的链接。
+    link_gone: 此链接已失效。请向课程所有者索取新链接。
     not_ready: 该课程尚未准备好打开。请联系其所有者，稍后再试此链接。
     login_notice: "看起来你还没有账户！请登录或注册，以继续查看你的课程：{title}"
     shared_heading: 与你分享

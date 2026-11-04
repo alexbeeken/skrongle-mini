@@ -59,17 +59,17 @@ impl Server {
         loc.strip_prefix("/courses/").and_then(|l| l.strip_suffix("?generate=1")).expect("the editor").to_string()
     }
 
-    /// Post the Share form: (status, location, page). Shared, the page is
-    /// the dialog with the links just made.
-    fn share(&self, id: &str, cookie: &str, emails: &str) -> (u16, String, String) {
-        let mut r = self.agent.post(&format!("{}/courses/{id}/share", self.base)).header("cookie", cookie).send_form([("emails", emails)]).unwrap();
+    /// Post the Share form: (status, location, page). Made, the page is
+    /// the dialog with the link just made.
+    fn share(&self, id: &str, cookie: &str, label: &str) -> (u16, String, String) {
+        let mut r = self.agent.post(&format!("{}/courses/{id}/share", self.base)).header("cookie", cookie).send_form([("label", label)]).unwrap();
         let loc = r.headers().get("location").and_then(|v| v.to_str().ok()).unwrap_or_default().to_string();
         (r.status().as_u16(), loc, r.body_mut().read_to_string().unwrap())
     }
 
-    /// Share course `id` with `to` and return the link's token from the page.
-    fn token(&self, id: &str, owner: &str, to: &str) -> String {
-        let (status, _, page) = self.share(id, owner, to);
+    /// Make an invitation link named `label` for course `id` and return its token from the page.
+    fn token(&self, id: &str, owner: &str, label: &str) -> String {
+        let (status, _, page) = self.share(id, owner, label);
         assert_eq!(status, 200, "{page}");
         let marker = "/courses/shared/";
         let at = page.find(marker).expect("the link") + marker.len();
@@ -85,52 +85,42 @@ impl Server {
     }
 }
 
-/// The share form refuses, with a notice and nothing sent: the owner's own
-/// address in any case, an empty list, a bad address, more than 20 at a
-/// time, and the address past the 50 a course may have.
+/// The share form makes a link per click, named as typed (trimmed, cut
+/// at 60 characters) or not at all, up to 50 per course; the 51st is
+/// refused with a notice and nothing made.
 #[test]
-fn the_share_form_refuses_its_own_address_in_any_case_and_past_its_limits() {
+fn the_share_form_names_a_link_as_typed_and_stops_at_its_limit() {
     let s = Server::start();
     let ann = s.account("ann@example.org");
     let id = s.course(&ann);
-    // A refusal goes back to the dialog with a notice; a share answers with the links page.
-    let share = |emails: &str| {
-        let (status, loc, page) = s.share(&id, &ann, emails);
+    // A refusal goes back to the dialog with a notice; a link answers with the links page.
+    let share = |label: &str| {
+        let (status, loc, page) = s.share(&id, &ann, label);
         if status == 200 {
-            page.split(r#"data-testid="course-share-notice">"#).nth(1).and_then(|r| r.split('<').next()).unwrap_or_default().to_string()
+            page.split(r#"data-testid="course-share-link-row" data-label=""#).nth(1).and_then(|r| r.split('"').next()).unwrap_or_default().to_string()
         } else {
             loc
         }
     };
     let made = || s.state.db.with(|c| c.query_row("SELECT COUNT(*) FROM course_shares", [], |r| r.get::<_, i64>(0))).unwrap();
 
-    assert!(share("bob@example.org ANN@Example.ORG").ends_with("notice=share-own"));
-    assert!(share(" \n ").ends_with("notice=share-none"));
-    assert!(share("bob@example.org, not-an-address").ends_with("notice=share-bad"));
-    let addresses = |from: usize, n: usize| (from..from + n).map(|i| format!("u{i}@example.org")).collect::<Vec<_>>().join("\n");
-    assert!(share(&addresses(0, 21)).ends_with("notice=share-many"));
-    assert_eq!(made(), 0, "nothing made for a refused list");
-
-    // Up to 50: 20 + 20 + 10; the 51st is refused, and so is a list that would go past 50.
-    assert!(share(&addresses(0, 20)).starts_with("20 invitation links made"));
-    assert!(share(&addresses(20, 20)).starts_with("20 invitation links made"));
-    assert!(share(&addresses(40, 9)).starts_with("9 invitation links made"));
-    assert!(share(&addresses(49, 2)).ends_with("notice=share-full"));
-    assert!(share(&addresses(49, 1)).starts_with("1 invitation link made"));
-    assert!(share("late@example.org").ends_with("notice=share-full"));
-    assert_eq!(made(), 50);
-
-    // The dialog says why in words.
-    for (key, text) in [
-        ("share-own", "That is your own address: the course is yours already."),
-        ("share-full", "A course can be shared with up to 50 addresses."),
-        ("share-many", "Share with up to 20 addresses at a time."),
-        ("share-none", "Type at least one e-mail address."),
-        ("share-bad", "One of those is not an e-mail address."),
-    ] {
-        let (status, _, page) = s.get(&format!("/courses/{id}?share=1&notice={key}"), &ann);
-        assert!(status == 200 && page.contains(text), "{key}: {page}");
+    assert_eq!(share("  Bob   from\nwork "), "Bob from work");
+    assert_eq!(share(""), "", "no name is fine");
+    assert_eq!(share("Bob from work"), "Bob from work", "the same name twice is fine");
+    assert_eq!(share(&"x".repeat(80)), "x".repeat(60), "cut at 60");
+    assert_eq!(made(), 4);
+    for _ in 4..50 {
+        share("more");
     }
+    assert_eq!(made(), 50);
+    assert!(share("late").ends_with("notice=share-full"));
+    assert_eq!(made(), 50, "nothing made past the limit");
+
+    // The dialog says why in words, and lists the links with their names.
+    let (status, _, page) = s.get(&format!("/courses/{id}?share=1&notice=share-full"), &ann);
+    assert!(status == 200 && page.contains("A course can have up to 50 invitation links."), "{page}");
+    assert!(page.contains(r#"data-label="Bob from work" data-opened="false">"#) && page.contains(r#"data-label="" data-opened="false">"#), "{page}");
+    assert!(page.contains(r#"<td>Invitation link</td>"#), "an unnamed link is called that\n{page}");
 }
 
 /// A link opened while the course is being written (#144) is refused with
@@ -142,7 +132,7 @@ fn a_link_opened_while_the_course_is_written_counts_once_it_is_ready() {
     let s = Server::start();
     let ann = s.account("ann@example.org");
     let id = s.course(&ann);
-    let token = s.token(&id, &ann, "bob@example.org");
+    let token = s.token(&id, &ann, "Bob");
     let bob = s.account("bob@example.org");
     let on_list = || s.get("/courses", &bob).2.contains(&format!(r#"data-testid="courses-card" data-course-id="{id}""#));
 
@@ -154,7 +144,7 @@ fn a_link_opened_while_the_course_is_written_counts_once_it_is_ready() {
     assert!(!on_list(), "not while it is being written");
 
     s.set_state(&id, "ready");
-    assert!(s.get(&format!("/courses/{id}"), &ann).2.contains(r#"data-email="bob@example.org" data-opened="true""#), "the owner sees it opened");
+    assert!(s.get(&format!("/courses/{id}"), &ann).2.contains(r#"data-label="Bob" data-opened="true""#), "the owner sees it opened");
     assert!(on_list(), "ready: on the list, no second click on the link");
     assert_eq!(s.post(&format!("/courses/open/{id}"), &bob, &[]).0, 303);
     assert_eq!(s.get("/lessons", &bob).0, 200);

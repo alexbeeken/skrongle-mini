@@ -2388,34 +2388,27 @@ courses:
     none_right: "none right"
     failed: "The placement test did not load. Pick a level instead."
   share:
-    dialog_lead: "Each address gets its own link for you to pass on: this server does not send e-mail. They learn from the course with their own progress; only you can change it."
-    make_links: "Make invitation links"
-    made:
-      one: "{n} invitation link made. Copy it and pass it on; it is shown only now."
-      other: "{n} invitation links made. Copy each and pass it on; they are shown only now."
-    link_label: "Invitation link for {email}"
+    dialog_lead: "An invitation link lets one person in: whoever opens it first has the course on their list, read only, with their own progress. Give a link a name to tell it from the others, copy it and pass it on however you like; nothing is sent from here."
+    make_link: "Make an invitation link"
+    made: "Invitation link made. Copy it and pass it on; it is shown only now."
+    link_label: "Invitation link"
+    no_label: "Invitation link"
     copy: "Copy"
     button: Share
     button_count: "Share ({n})"
     dialog_title: Share this course
-    status_opened: opened
-    status_invited: invited
+    status_opened_by: "opened by {name}"
+    status_invited: not opened yet
     remove: Remove
-    remove_label: "Stop sharing with {email}"
-    emails_label: E-mail addresses
-    emails_note: (one per line, or separated by commas)
+    remove_label: "Remove this invitation link"
+    label_label: Who is it for?
+    label_note: (a name, optional)
     close: Close
-    own_address: "That is your own address: the course is yours already."
-    too_many_course: "A course can be shared with up to {max} addresses."
-    too_many_request: "Share with up to {max} addresses at a time."
-    at_least_one: Type at least one e-mail address.
-    bad_address: "“{address}”: {error}"
-    bad_address_notice: One of those is not an e-mail address. Check the list and send it again.
-    already_had: "{n} already had one."
-    removed_notice: No longer shared with that address.
-    not_on_list: That address was not on the list.
-    link_taken: Another account has already used this link. Ask the course's owner to share it with your address.
-    link_gone: This link no longer works. Ask the course's owner to share the course with you again.
+    too_many_course: "A course can have up to {max} invitation links. Remove one first."
+    removed_notice: "Link removed. Whoever opened it no longer has the course."
+    not_on_list: That link was not on the list.
+    link_taken: Another account has already used this link. Ask the course's owner for a link of your own.
+    link_gone: This link no longer works. Ask the course's owner for a new one.
     not_ready: That course is not ready to open yet. Ask its owner, and try the link again later.
     login_notice: "It looks like you don't have an account with us! Please login or signup to continue viewing your course: {title}"
     shared_heading: Shared with you

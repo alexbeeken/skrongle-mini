@@ -6,6 +6,7 @@
 pub(crate) const MIGRATIONS: &[&str] = &[
     include_str!("migrations/v001_schema.sql"), // v1: the schema
     include_str!("migrations/v002_no_skc.sql"), // v2: no Skrongle Cash, no shop
+    include_str!("migrations/v003_share_links.sql"), // v3: share links carry a name, not an address
 ];
 
 /// Migrations (1-based versions) that rebuild a table other tables point at:

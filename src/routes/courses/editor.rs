@@ -46,7 +46,8 @@ pub struct EditorTemplate {
 /// An invitation link, for the owner to pass on.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct ShareLink {
-    pub email: String,
+    /// The name the owner gave it, or "".
+    pub label: String,
     pub link: String,
 }
 
@@ -543,8 +544,8 @@ pub(super) async fn editor_page_with(
     Ok(Page(editor_template(state, user, row, notice, refill, modal, generate, review, share_open).await?).into_response())
 }
 
-/// The Share dialog open after inviting:
-/// the course page with `notice` (a `share-made-…` key) and the links made.
+/// The Share dialog open after making a link:
+/// the course page with `notice` (`share-made`) and the link made.
 pub(in crate::routes) async fn share_links_page(state: &AppState, user: CurrentUser, id: &str, notice: &str, links: Vec<ShareLink>) -> Result<Response, AppError> {
     let row = owned(state, &user, id).await?;
     let (row, modal) = settled(state, &user, row, None).await?;

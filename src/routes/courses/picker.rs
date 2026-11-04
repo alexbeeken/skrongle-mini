@@ -336,8 +336,7 @@ fn too_many_writes_text() -> String {
 /// The editor's `?notice=` keys and their text (#385), as `picker_notice`.
 /// What a text names comes from the server, never the URL: `undone` and
 /// `redone` name the change from the Undo/Redo buttons' labels and a
-/// `-broken` notice the course's own load error, both from the database; the
-/// Share dialog's counts are digits in the key (`share-made-2-1`).
+/// `-broken` notice the course's own load error, both from the database.
 pub(super) fn editor_notice(key: &str, undo: Option<&UndoView>, error: Option<&str>) -> Option<String> {
     let redo_label = undo.and_then(|u| u.redo.as_deref()).unwrap_or_default();
     let undo_label = undo.and_then(|u| u.undo.as_deref()).unwrap_or_default();
@@ -359,15 +358,6 @@ pub(super) fn editor_notice(key: &str, undo: Option<&UndoView>, error: Option<&s
             _ => return None,
         });
     }
-    if let Some(counts) = key.strip_prefix("share-made-") {
-        let (made, already) = counts.split_once('-')?;
-        let (made, already) = (made.parse::<u32>().ok()?, already.parse::<u32>().ok()?);
-        let mut text = if made == 0 { String::new() } else { crate::tn("courses.share.made", made) };
-        if already > 0 {
-            text = format!("{text} {}", crate::t1("courses.share.already_had", "n", already)).trim().to_string();
-        }
-        return (!text.is_empty()).then_some(text);
-    }
     Some(match key {
         "generating" => crate::t("courses.editor.locked_generating"),
         "revising" => crate::t("courses.editor.locked_revising"),
@@ -387,11 +377,8 @@ pub(super) fn editor_notice(key: &str, undo: Option<&UndoView>, error: Option<&s
         "undone-broken" => crate::t2("courses.undo.undone_broken", "label", redo_label, "error", error),
         "redone" => crate::t1("courses.undo.redone", "label", undo_label),
         "redone-broken" => crate::t2("courses.undo.redone_broken", "label", undo_label, "error", error),
-        "share-own" => crate::t("courses.share.own_address"),
+        "share-made" => crate::t("courses.share.made"),
         "share-full" => crate::t1("courses.share.too_many_course", "max", crate::share::MAX_PER_COURSE),
-        "share-none" => crate::t("courses.share.at_least_one"),
-        "share-many" => crate::t1("courses.share.too_many_request", "max", crate::share::MAX_PER_REQUEST),
-        "share-bad" => crate::t("courses.share.bad_address_notice"),
         "share-removed" => crate::t("courses.share.removed_notice"),
         "share-not-on-list" => crate::t("courses.share.not_on_list"),
         "too-many-writes" => too_many_writes_text(),

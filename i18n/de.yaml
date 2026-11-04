@@ -2385,34 +2385,27 @@ courses:
     none_right: "nichts richtig"
     failed: "Der Einstufungstest hat nicht geladen. Wähle stattdessen eine Stufe."
   share:
-    dialog_lead: "Jede Adresse bekommt einen eigenen Link, den du weitergibst: Dieser Server sendet keine E-Mails. Sie lernen mit dem Kurs mit eigenem Fortschritt; nur du kannst ihn ändern."
-    make_links: "Einladungslinks erstellen"
-    made:
-      one: "{n} Einladungslink erstellt. Kopiere ihn und gib ihn weiter; er wird nur jetzt angezeigt."
-      other: "{n} Einladungslinks erstellt. Kopiere jeden und gib ihn weiter; sie werden nur jetzt angezeigt."
-    link_label: "Einladungslink für {email}"
+    dialog_lead: "Ein Einladungslink lässt eine Person herein: Wer ihn zuerst öffnet, hat den Kurs auf seiner Liste, nur zum Lernen, mit eigenem Fortschritt. Gib dem Link einen Namen, um ihn von den anderen zu unterscheiden, kopiere ihn und gib ihn weiter, wie du willst; von hier wird nichts verschickt."
+    make_link: "Einladungslink erstellen"
+    made: "Einladungslink erstellt. Kopiere ihn und gib ihn weiter; er wird nur jetzt angezeigt."
+    link_label: "Einladungslink"
+    no_label: "Einladungslink"
     copy: "Kopieren"
     button: Teilen
     button_count: "Teilen ({n})"
     dialog_title: Diesen Kurs teilen
-    status_opened: geöffnet
-    status_invited: eingeladen
+    status_opened_by: "geöffnet von {name}"
+    status_invited: noch nicht geöffnet
     remove: Entfernen
-    remove_label: "Teilen mit {email} beenden"
-    emails_label: E-Mail-Adressen
-    emails_note: (eine pro Zeile oder durch Kommas getrennt)
+    remove_label: "Diesen Einladungslink entfernen"
+    label_label: Für wen ist er?
+    label_note: (ein Name, optional)
     close: Schließen
-    own_address: "Das ist deine eigene Adresse: Der Kurs gehört dir bereits."
-    too_many_course: "Ein Kurs kann mit höchstens {max} Adressen geteilt werden."
-    too_many_request: "Du kannst auf einmal mit höchstens {max} Adressen teilen."
-    at_least_one: Gib mindestens eine E-Mail-Adresse ein.
-    bad_address: "„{address}“: {error}"
-    bad_address_notice: "Eine dieser Adressen ist keine E-Mail-Adresse. Prüfe die Liste und schick sie noch einmal."
-    already_had: "{n} hatte bereits eine."
-    removed_notice: "Nicht mehr mit dieser Adresse geteilt."
-    not_on_list: Diese Adresse stand nicht auf der Liste.
-    link_taken: Ein anderes Konto hat diesen Link bereits benutzt. Bitte den Besitzer des Kurses, ihn mit deiner Adresse zu teilen.
-    link_gone: Dieser Link funktioniert nicht mehr. Bitte den Besitzer des Kurses, ihn noch einmal mit dir zu teilen.
+    too_many_course: "Ein Kurs kann höchstens {max} Einladungslinks haben. Entferne zuerst einen."
+    removed_notice: "Link entfernt. Wer ihn geöffnet hatte, hat den Kurs nicht mehr."
+    not_on_list: Dieser Link stand nicht auf der Liste.
+    link_taken: Ein anderes Konto hat diesen Link bereits benutzt. Bitte den Besitzer des Kurses um einen eigenen Link.
+    link_gone: Dieser Link funktioniert nicht mehr. Bitte den Besitzer des Kurses um einen neuen.
     not_ready: Dieser Kurs ist noch nicht bereit zum Öffnen. Bitte den Besitzer, und versuche den Link später erneut.
     login_notice: "Es sieht so aus, als hättest du bei uns kein Konto! Bitte melde dich an oder registriere dich, um deinen Kurs {title} weiter anzusehen."
     shared_heading: Mit dir geteilt
