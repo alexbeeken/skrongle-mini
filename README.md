@@ -4,6 +4,8 @@
 
 *A learning app you run yourself, on a Raspberry Pi, for the people at home.*
 
+https://github.com/user-attachments/assets/0f80e7ae-db51-4e85-b1c9-dac56d8edcd3
+
 Skrongle is one small binary that teaches from courses made of JSON files:
 lessons, adaptive quizzes, five-minute practice sessions, games, flashcards
 and an AI tutor. Spanish and French courses ship with it; any subject that
