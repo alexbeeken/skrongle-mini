@@ -2534,45 +2534,6 @@ motivator:
     reward:
       earned: "+{n} XP"
       level_up: "Level up! Lv {n}"
-  skc:
-    title: "Skrongle Cash"
-    short: "SKC"
-    about: "Play money for your progress, like tickets at an arcade: each course has its own balance of Skrongle Cash (SKC)."
-    today: "today: {n} / {goal} SKC"
-    reward:
-      amount: "+{n} SKC"
-      pass: "+{n} SKC lesson passed"
-      goal: "+{n} SKC daily goal"
-      unit: "+{n} SKC unit finished"
-    info:
-      label: "How Skrongle Cash is earned"
-      p: "Skrongle Cash (SKC) is play money for this course. You earn it for everything you do here, whichever motivator you wear:"
-      per_point: "Each effort point"
-      per_pass: "Lesson passed"
-      per_goal: "Daily goal met"
-      per_unit: "Unit finished"
-      points: "Effort points, as the daily goal counts them:"
-      shop: "Spend SKC on badges in this course's shop. They show on this card and stay yours whichever motivator you wear."
-    shop:
-      open: "Shop"
-      title: "Shop"
-      shelf: "Your badges"
-      shelf_empty: "No badges yet."
-      badges: "Badges"
-      buy: "Buy"
-      owned: "Owned"
-      back: "Back to the course"
-      refused_title: "Not bought"
-      refused_owned: "You already have {title}."
-      refused_short: "You need {n} more SKC for {title}."
-      refused_unknown: "That badge is not in the shop."
-    badge:
-      sprout: "Sprout"
-      lantern: "Lantern"
-      kite: "Kite"
-      compass: "Compass"
-      lighthouse: "Lighthouse"
-      comet: "Comet"
 
 # The lesson editor (#841): static/lesson-editor.js and static/lesson-preview.js.
 editor:

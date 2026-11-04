@@ -2531,45 +2531,6 @@ motivator:
     reward:
       earned: "+{n} XP"
       level_up: "Subiu de nível! Nv {n}"
-  skc:
-    title: "Skrongle Cash"
-    short: "SKC"
-    about: "Dinheiro de brincadeira pelo seu progresso, como fichas de fliperama: cada curso tem seu próprio saldo de Skrongle Cash (SKC)."
-    today: "hoje: {n} / {goal} SKC"
-    reward:
-      amount: "+{n} SKC"
-      pass: "+{n} SKC lição aprovada"
-      goal: "+{n} SKC meta diária"
-      unit: "+{n} SKC unidade concluída"
-    info:
-      label: "Como se ganha Skrongle Cash"
-      p: "Skrongle Cash (SKC) é o dinheiro de brincadeira deste curso. Você ganha com tudo o que faz aqui, seja qual for o motivador escolhido:"
-      per_point: "Cada ponto de esforço"
-      per_pass: "Lição aprovada"
-      per_goal: "Meta diária cumprida"
-      per_unit: "Unidade concluída"
-      points: "Pontos de esforço, como a meta diária os conta:"
-      shop: "Gaste SKC em insígnias na loja deste curso. Elas aparecem neste cartão e continuam suas com qualquer motivador."
-    shop:
-      open: "Loja"
-      title: "Loja"
-      shelf: "Suas insígnias"
-      shelf_empty: "Nenhuma insígnia ainda."
-      badges: "Insígnias"
-      buy: "Comprar"
-      owned: "Comprada"
-      back: "Voltar ao curso"
-      refused_title: "Não comprada"
-      refused_owned: "Você já tem {title}."
-      refused_short: "Faltam {n} SKC para {title}."
-      refused_unknown: "Essa insígnia não está na loja."
-    badge:
-      sprout: "Broto"
-      lantern: "Lanterna"
-      kite: "Pipa"
-      compass: "Bússola"
-      lighthouse: "Farol"
-      comet: "Cometa"
 
 # The lesson editor (#841): static/lesson-editor.js and static/lesson-preview.js.
 editor:

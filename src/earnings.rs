@@ -1,5 +1,5 @@
 //! What a learner has earned in a course, for the motivators that count in
-//! units of their own (XP #561, Skrongle Cash #562), the day streak and the
+//! units of their own (XP, #561), the day streak and the
 //! reward line at the end of a run (#568).
 //!
 //! Earnings are worked out from the shared tables, never priced in advance:
@@ -26,7 +26,6 @@ use rusqlite::{params, Connection, OptionalExtension};
 
 use crate::activity::{Kind, DAILY_GOAL};
 use crate::content::ContentStore;
-use crate::db::now;
 
 /// What was earned in a window of time.
 #[derive(Debug, Clone, Copy, Default, PartialEq)]
@@ -65,10 +64,6 @@ pub struct Rates {
 /// XP (#561): 10 per effort point, +50 per lesson passed, +100 per daily
 /// goal met, +250 per unit finished.
 pub const XP_RATES: Rates = Rates { per_point: 10, per_pass: 50, per_goal: 100, per_unit: 250 };
-
-/// Skrongle Cash (#562): 1 per effort point, +5 per lesson passed, +10 per
-/// daily goal met, +25 per unit finished.
-pub const SKC_RATES: Rates = Rates { per_point: 1, per_pass: 5, per_goal: 10, per_unit: 25 };
 
 impl Rates {
     /// The tally in these units (effort rounded down after the rate).
@@ -188,12 +183,6 @@ pub fn total(conn: &Connection, user_id: i64, course: &ContentStore, tz: i64) ->
     let passed = passed_at(conn, user_id, course.id())?;
     let units = units_finished(&course_units(course), &passed).count() as i64;
     Ok(Tally { points: ledger.points, passes: passed.len() as i64, goals: ledger.goals, units })
-}
-
-/// What was earned since the learner's day began.
-pub fn today(conn: &Connection, user_id: i64, course: &ContentStore, tz: i64) -> rusqlite::Result<Tally> {
-    let at = now();
-    between(conn, user_id, course, tz, crate::sprint::local_day_start(tz, at), at + 1)
 }
 
 /// The local day number `at` falls on for an offset of `tz` seconds.
@@ -374,7 +363,6 @@ mod tests {
     fn rates_price_a_tally() {
         let t = Tally { points: 31.6, passes: 2, goals: 1, units: 1 };
         assert_eq!(XP_RATES.earned(&t), 316 + 100 + 100 + 250);
-        assert_eq!(SKC_RATES.earned(&t), 31 + 10 + 10 + 25);
         assert_eq!(XP_RATES.earned(&Tally::default()), 0);
     }
 

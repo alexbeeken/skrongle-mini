@@ -474,9 +474,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     }
     tracing::info!("API keys are encrypted with the secret from {secret_source}");
 
-    let shop = motivators::shop::init(&cfg.data_dir).map_err(|e| format!("failed to load the shop's badges from {}: {e}", cfg.data_dir.join("badges").display()))?;
-    tracing::info!("shop: {} badges", shop.badges.len());
-
     for w in security::https_warnings(cfg.bind, cfg.secure_cookies, env("PUBLIC_URL").as_deref()) {
         tracing::warn!("{w}");
     }

@@ -865,20 +865,20 @@ fn a_new_course_asks_for_its_settings_once() {
     assert!(page.contains("data-wizard data-open-on-load") && page.contains("course-settings.js"), "the wizard on the first visit");
     assert!(page.contains(r#"data-testid="courses-settings-motivator" data-motivator-id="stats""#));
     // Get Started!: the settings are saved and the home page comes back without it.
-    let started = [("motivator", "skc"), ("next", "home")];
+    let started = [("motivator", "xp"), ("next", "home")];
     assert_eq!(post("/courses/spanish/settings", &started), (303, "/".to_string()));
     let page = home();
-    assert!(!page.contains("data-wizard") && page.contains(r#"data-motivator="skc""#), "the course wears SKC, the wizard is gone");
+    assert!(!page.contains("data-wizard") && page.contains(r#"data-motivator="xp""#), "the course wears XP, the wizard is gone");
     // The gear on the course list is the plain form with the choice made.
     let list = agent.get(&format!("{base}/courses")).header("cookie", &cookie).call().unwrap().body_mut().read_to_string().unwrap();
     assert!(list.contains(r#"data-testid="courses-settings-about""#) && !list.contains(r#"data-course-id="spanish" data-wizard"#));
-    assert!(list.contains(r#"<input type="radio" name="motivator" value="skc" class="sr-only" checked>"#));
+    assert!(list.contains(r#"<input type="radio" name="motivator" value="xp" class="sr-only" checked>"#));
     // Another course: its own wizard, closed without a choice; the default motivator.
     assert_eq!(post("/courses/open/french", &[]).0, 303);
     assert!(home().contains("data-wizard"));
     assert_eq!(post("/courses/french/settings", &[("next", "home")]), (303, "/".to_string()));
     let page = home();
-    assert!(!page.contains("data-wizard") && !page.contains(r#"data-motivator="skc""#), "French keeps its own motivator");
+    assert!(!page.contains("data-wizard") && !page.contains(r#"data-motivator="xp""#), "French keeps its own motivator");
     // A motivator that is not one: 400.
     assert_eq!(post("/courses/french/settings", &[("motivator", "nope")]).0, 400);
 }
@@ -915,13 +915,13 @@ fn start_opens_the_course_with_its_wizard_settings() {
     // A level that is not one: 400, and nothing is opened.
     assert_eq!(post("/courses/open/spanish", &[("wizard", "1"), ("start_unit", "Z9")]), 400);
     assert!(project().is_none());
-    // Get Started! at A2: open, set up, at A2, wearing SKC.
-    let started = [("wizard", "1"), ("start_unit", "A2"), ("motivator", "skc")];
+    // Get Started! at A2: open, set up, at A2, wearing XP.
+    let started = [("wizard", "1"), ("start_unit", "A2"), ("motivator", "xp")];
     assert_eq!(post("/courses/open/spanish", &started), 303);
     let pr = project().unwrap();
-    assert!(pr.set_up && pr.start_unit == "A2" && pr.motivator == "skc");
+    assert!(pr.set_up && pr.start_unit == "A2" && pr.motivator == "xp");
     let home = get("/").1;
-    assert!(!home.contains("data-wizard") && home.contains(r#"data-motivator="skc""#));
+    assert!(!home.contains("data-wizard") && home.contains(r#"data-motivator="xp""#));
     // The gear's form shows A2 chosen; saving it untouched keeps A2, another level moves.
     let list = get("/courses").1;
     assert!(list.contains(r#"value="A2" class="sr-only" data-testid="courses-settings-level-radio" checked"#));
