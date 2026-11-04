@@ -464,7 +464,7 @@ below: `SKRONGLE_SIGNUP=invite`,
 A mini has no e-mail and no outside service, and no setting for one. The startup line and `/healthz`
 (`ok skrongle mini <version>`) name it. The
 release tarballs are `skrongle-<version>-<arch>.tar.gz`
-(`routes::docs::RELEASE_TARBALL`, `scripts/package-release.sh`); The pitch and the security
+(`scripts/package-release.sh`); the pitch and the security
 posture are in `docs/self-hosting.md`, "Skrongle mini".
 
 | Variable | Default | Meaning |

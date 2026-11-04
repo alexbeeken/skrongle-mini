@@ -2,7 +2,7 @@
 
 The first questions people ask when they run their own copy. The details
 are in [Self-hosting](self-hosting); the step-by-step Pi guide is
-[Host it yourself](/self-host).
+[Set up on home Wi-Fi](setup-home-wifi).
 
 **Before you ask anywhere, run the diagnostics.** `skrongle doctor` prints
 the version, OS, database, schema level, which settings are configured and

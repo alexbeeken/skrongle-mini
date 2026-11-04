@@ -39,7 +39,6 @@ all driven by JSON course files.
   anywhere over a private link.
 - [Self-hosting](self-hosting): the technical guide, every setting and
   command; [Self-hosting FAQ](self-hosting-faq) for when something is off.
-- [Host it yourself](/self-host): the overview, with what to buy and why.
 
 ## For LLMs
 
