@@ -70,7 +70,7 @@ fn migrations_apply_once() {
     let db = Db::open_in_memory().unwrap();
     let v: i64 = db.with(|c| c.query_row("PRAGMA user_version", [], |r| r.get(0))).unwrap();
     assert_eq!(v, MIGRATIONS.len() as i64);
-    assert_eq!(v, 1, "the schema starts at v1 (#49)");
+    assert_eq!(v, 2, "v1 is the schema (#49), v2 drops Skrongle Cash");
     // Re-running is a no-op.
     db.with(|c| migrate(c)).unwrap();
 }
@@ -134,5 +134,39 @@ fn a_database_from_before_the_schema_squash_is_refused_and_left_alone() {
     drop(Db::open(&path).unwrap());
     assert!(check_not_newer(&path).is_ok());
     assert!(Db::open(&path).is_ok());
+    std::fs::remove_dir_all(&dir).unwrap();
+}
+
+/// v2: a database still on v1 loses the shop's table, and a course that wore
+/// Skrongle Cash wears XP.
+#[test]
+fn v2_drops_the_shop_and_turns_skc_into_xp() {
+    let dir = std::env::temp_dir().join(format!("skrongle-v1-db-{}", std::process::id()));
+    std::fs::create_dir_all(&dir).unwrap();
+    let path = dir.join("learn.db");
+    {
+        let conn = Connection::open(&path).unwrap();
+        conn.execute_batch(MIGRATIONS[0]).unwrap();
+        conn.execute_batch(
+            "PRAGMA user_version = 1;
+             INSERT INTO users (id, email, password_hash, created_at) VALUES (1, 'ann@example.org', 'h', 1);
+             INSERT INTO projects (user_id, course_id, created_at, last_opened_at, motivator) VALUES (1, 'es', 1, 1, 'skc'), (1, 'fr', 1, 1, 'xp'), (1, 'de', 1, 1, 'stats');
+             INSERT INTO motivator_purchases (user_id, course_id, item, price, created_at) VALUES (1, 'es', 'sprout', 50, 1);",
+        )
+        .unwrap();
+    }
+    let db = Db::open(&path).unwrap();
+    db.with(|c| {
+        let v: i64 = c.query_row("PRAGMA user_version", [], |r| r.get(0))?;
+        assert_eq!(v, MIGRATIONS.len() as i64);
+        let tables: i64 = c.query_row("SELECT count(*) FROM sqlite_master WHERE name = 'motivator_purchases'", [], |r| r.get(0))?;
+        assert_eq!(tables, 0);
+        let mut got: Vec<(String, String)> = c.prepare("SELECT course_id, motivator FROM projects ORDER BY course_id")?.query_map([], |r| Ok((r.get(0)?, r.get(1)?)))?.collect::<Result<_, _>>()?;
+        got.sort();
+        assert_eq!(got, [("de", "stats"), ("es", "xp"), ("fr", "xp")].map(|(a, b)| (a.to_string(), b.to_string())));
+        Ok(())
+    })
+    .unwrap();
+    drop(db);
     std::fs::remove_dir_all(&dir).unwrap();
 }

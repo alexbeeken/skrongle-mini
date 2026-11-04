@@ -10,8 +10,7 @@
 # flat into /opt/skrongle:
 #
 #   skrongle            the server (built as spanish-learning, renamed)
-#   data/courses/       built-in courses   } SKRONGLE_DATA_DIR
-#   data/badges/        the SKC shop       }
+#   data/courses/       built-in courses     SKRONGLE_DATA_DIR
 #   skrongle.service    deploy/skrongle.service
 #   update.sh           deploy/update.sh: `sudo /opt/skrongle/update.sh`
 #   VERSION             the version, one line
@@ -39,11 +38,9 @@ mkdir -p "$STAGE/data"
 
 cp "$BIN" "$STAGE/skrongle"
 chmod 0755 "$STAGE/skrongle"
-# Courses and the shop's badges only: test courses and LLM fixtures are for the test
+# Courses only: test courses and LLM fixtures are for the test
 # suites, and the authoring briefs are for whoever writes the content.
-for d in courses badges; do
-  cp -R "data/$d" "$STAGE/data/$d"
-done
+cp -R data/courses "$STAGE/data/courses"
 find "$STAGE/data" \( -name AUTHORING.md -o -name fact-check-ok.txt -o -name .DS_Store \) -delete
 cp deploy/skrongle.service "$STAGE/skrongle.service"
 cp deploy/update.sh "$STAGE/update.sh"

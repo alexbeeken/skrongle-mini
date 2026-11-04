@@ -22,7 +22,6 @@ fn fill(c: &Connection, name: &str) -> i64 {
              INSERT INTO lesson_touches (user_id, course_id, lesson_id, mode, at) VALUES ({uid}, 'spanish', 'a1', 'study', 1);
              INSERT INTO lesson_notes (user_id, course_id, lesson_id, body, updated_at) VALUES ({uid}, 'spanish', 'a1', '{name}-note', 1);
              INSERT INTO earnings (user_id, course_id, points, goals, day, day_points, streak) VALUES ({uid}, 'spanish', 1, 0, 0, 1, 1);
-             INSERT INTO motivator_purchases (user_id, course_id, item, price, created_at) VALUES ({uid}, 'spanish', 'sprout', 50, 1);
              INSERT INTO totp_keys (user_id, secret, created_at, confirmed_at) VALUES ({uid}, '{name}-totpsecret', 1, 2);
              INSERT INTO two_factor_challenges (user_id, token_hash, created_at, expires_at) VALUES ({uid}, '{name}-chtoken', 1, 2);
              UPDATE users SET two_factor = 'totp' WHERE id = {uid};

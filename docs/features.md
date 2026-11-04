@@ -979,14 +979,13 @@ the end of a lesson or session in every mode. The learner picks one per
 course in [the course's settings](#a-courses-settings) (the wizard of its first visit,
 then the gear on its card; the (i) says what each one does), stored in
 `projects.motivator` ('' for the default; #574). A new course starts with
-the default. Motivators are app-level code, not course data: a course
+the default. A course that saved the removed Skrongle Cash (`skc`) wears XP (the v2 migration rewrites it, and `motivators::worn` reads it as XP). Motivators are app-level code, not course data: a course
 file cannot switch one on.
 
 | Motivator | id | What the home page leads with | Reward line |
 |---|---|---|---|
 | Statistics and metrics (default) | `stats` | The daily goal's ring, the streak, lessons passed of the course, terms collected, *Continue: <lesson>* and the current unit's bar | "✓ Passed · 14 / 20 today · 🔥 6" (unit finished or daily goal met in place of the first parts when they happen) |
 | XP (#561) | `xp` | A character level badge ("Lv 7"), the bar to the next level ("340 / 700 XP"), *Continue: <lesson>* and today's daily goal counted in XP ("today: 120 / 200 XP": effort points ×10, the same goal as everyone's); its (i) has the effort table in XP and the bonuses | "+45 XP", plus "Level up! Lv 8" when the run crossed one or more levels |
-| Skrongle Cash | `skc` | The course's SKC balance with SKC's own glyph, today's SKC against the daily goal in SKC ("today: 18 / 20 SKC", the effort-point goal at SKC rates), *Continue: <lesson>*; a *Shop* button and the shelf of badges bought (#569); its (i) lists the rates and explains the shop in one line | "+27 SKC · +10 SKC daily goal · +5 SKC lesson passed" (the run's SKC, then each bonus that landed) |
 
 **The reward line** (#568) is the same element on every end screen:
 `<p class="motivator-reward" data-testid="motivator-reward"
@@ -1022,15 +1021,14 @@ the effort points logged (`activity_log`), lessons passed
 daily goal was reached (the moment a day's points reached the goal fell in
 the window) and units finished (every lesson of the unit passed, the last
 in the window). It reads the log for that window only (from the start of
-its first day), so a run's tally (`RunOutcome::earned`) and
-`earnings::today` cost a day of rows at most. `Rates::earned(&tally)`
+its first day), so a run's tally (`RunOutcome::earned`) costs a day of rows at most. `Rates::earned(&tally)`
 prices a tally: `XP_RATES` (10 per effort point, +50 per pass, +100 per
-daily goal, +250 per unit) and `SKC_RATES` (1 / 5 / 10 / 25) are tunable
-constants; changing one re-prices everything already earned. The counting
+daily goal, +250 per unit) is a tunable
+constant; changing it re-prices everything already earned. The counting
 itself is the pure `earnings::tally(&facts, from, to, goal)`, unit-tested
 apart from the database.
 
-The course total (`earnings::total`, what XP and SKC lead with) is never
+The course total (`earnings::total`, what XP leads with) is never
 added up from the whole log (#589): what grows without bound lives in one
 `earnings` row per learner and course, the `earnings::Ledger`: the effort
 points ever logged, the days whose goal was reached, the local day last
@@ -1042,7 +1040,7 @@ from it. A learner with activity from before the row existed gets it added
 up from their history once, on first use, and kept from then on. Passes
 and units finished are counted from `lesson_passes`, one row per lesson of
 the course at most. The history's retention (`SKRONGLE_RETAIN_HISTORY_DAYS`)
-therefore never takes XP or SKC away.
+therefore never takes XP away.
 
 **XP** (`src/motivators/xp.rs`) is per course and prices nothing in
 advance: a learner's XP is `XP_RATES.earned(&earnings::total(..))`, so XP
@@ -1053,34 +1051,6 @@ level n starts at 50 · n · (n − 1)). Changing `LEVEL_STEP` or `XP_RATES`
 re-levels everyone. A run's "+N XP" is `XP_RATES.earned(&run.earned)`;
 "Level up!" names the level the course total is at after the run when it is
 above the level of the total less the run.
-
-**Skrongle Cash** (`src/motivators/skc.rs`, #562) is play money, one
-balance per course, priced at `earnings::SKC_RATES` from
-`earnings::total`: it keeps counting while another motivator is worn.
-The balance shown is earned less spent (`motivators::skc::balance`).
-
-The shop (`src/motivators/shop.rs`, `src/routes/shop.rs`, #569) sells
-badges. A badge only changes looks. Nothing bought touches passes, the
-streak, effort points or lessons. A badge belongs to one course. It is
-bought with that course's SKC and shows only on that course's SKC hero,
-never on the profile, the course cards or the top bar. `/shop` (course-scoped, through
-`Project`) is reached only from the hero's *Shop* button and sends a course
-that does not wear SKC home; it lists the catalogue with prices and *Buy*,
-and the learner's shelf. `POST /api/shop/buy` (`item`) checks the price
-and the balance on the server; a badge already owned or one the balance
-cannot pay is refused and nothing is charged. The shop then opens with a
-modal that says why (400 when the course does not wear SKC). The catalogue is
-`data/badges/catalogue.json` (`id`, `price`; six badges, 50 to 1500 SKC),
-each with plain art `data/badges/<id>.svg` and a title
-`motivator.skc.badge.<id>` in every `i18n/<code>.yaml`. A badge is bought
-once and kept in `motivator_purchases` (user, course, item, the price
-paid), which a switch of motivator never clears. No refunds, no consumables.
-Its glyph is an arcade ticket with a spark (an original shape, not a
-currency sign), drawn in `currentColor` so it follows every
-colour scheme: `motivators::skc::symbol()` draws it and
-`motivators::skc::amount(n)` an amount with it; use them wherever an SKC
-amount shows. "Skrongle Cash" and "SKC" are i18n keys
-(`motivator.skc.title`, `.short`), left untranslated in every language.
 
 **What a motivator may not do.** The measures underneath are the same
 whichever is worn: lesson passes (`progress.rs`), the daily goal's effort

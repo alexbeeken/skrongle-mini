@@ -5,6 +5,7 @@
 /// Schema migrations, applied in order. `PRAGMA user_version` tracks which have run.
 pub(crate) const MIGRATIONS: &[&str] = &[
     include_str!("migrations/v001_schema.sql"), // v1: the schema
+    include_str!("migrations/v002_no_skc.sql"), // v2: no Skrongle Cash, no shop
 ];
 
 /// Migrations (1-based versions) that rebuild a table other tables point at:

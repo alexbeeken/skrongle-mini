@@ -2531,45 +2531,6 @@ motivator:
     reward:
       earned: "+{n} XP"
       level_up: "Stufe aufgestiegen! Stufe {n}"
-  skc:
-    title: "Skrongle Cash"
-    short: "SKC"
-    about: "Spielgeld für deinen Fortschritt, wie Tickets in einer Spielhalle: Jeder Kurs hat sein eigenes Guthaben an Skrongle Cash (SKC)."
-    today: "heute: {n} / {goal} SKC"
-    reward:
-      amount: "+{n} SKC"
-      pass: "+{n} SKC Lektion bestanden"
-      goal: "+{n} SKC Tagesziel"
-      unit: "+{n} SKC Einheit abgeschlossen"
-    info:
-      label: "So verdienst du Skrongle Cash"
-      p: "Skrongle Cash (SKC) ist Spielgeld für diesen Kurs. Du verdienst es mit allem, was du hier tust, egal welchen Motivator du trägst:"
-      per_point: "Jeder Aufwandspunkt"
-      per_pass: "Lektion bestanden"
-      per_goal: "Tagesziel erreicht"
-      per_unit: "Einheit abgeschlossen"
-      points: "Aufwandspunkte, so wie das Tagesziel sie zählt:"
-      shop: "Gib SKC im Laden dieses Kurses für Abzeichen aus. Sie erscheinen auf dieser Karte und bleiben dir, egal welchen Motivator du trägst."
-    shop:
-      open: "Laden"
-      title: "Laden"
-      shelf: "Deine Abzeichen"
-      shelf_empty: "Noch keine Abzeichen."
-      badges: "Abzeichen"
-      buy: "Kaufen"
-      owned: "Gekauft"
-      back: "Zurück zum Kurs"
-      refused_title: "Nicht gekauft"
-      refused_owned: "Du hast {title} schon."
-      refused_short: "Dir fehlen {n} SKC für {title}."
-      refused_unknown: "Dieses Abzeichen gibt es im Laden nicht."
-    badge:
-      sprout: "Keimling"
-      lantern: "Laterne"
-      kite: "Drachen"
-      compass: "Kompass"
-      lighthouse: "Leuchtturm"
-      comet: "Komet"
 
 # Der Lektionseditor (#841): static/lesson-editor.js und static/lesson-preview.js.
 editor:
