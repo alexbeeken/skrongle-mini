@@ -31,15 +31,13 @@ use crate::content::ContentStore;
 use crate::earnings::Tally;
 use crate::routes::CourseView;
 
-pub mod shop;
-pub mod skc;
 mod xp;
 
 /// The motivator worn by anyone who has not picked one ([`Stats`]).
 pub const DEFAULT: &str = "stats";
 
 /// Every motivator the app has, in the order a course's settings offer them.
-pub static ALL: &[&dyn Motivator] = &[&Stats, &xp::Xp, &skc::Skc];
+pub static ALL: &[&dyn Motivator] = &[&Stats, &xp::Xp];
 
 /// A way of presenting progress. It reads what it keeps of its own in
 /// [`load`](Motivator::load); the shared measures come in [`Progress`].
@@ -209,7 +207,9 @@ pub fn worn(conn: &Connection, user_id: i64, course_id: &str) -> rusqlite::Resul
     let id: Option<String> = conn
         .query_row("SELECT motivator FROM projects WHERE user_id = ?1 AND course_id = ?2", params![user_id, course_id], |r| r.get(0))
         .optional()?;
-    Ok(get(id.as_deref().unwrap_or("")))
+    // Skrongle Cash is gone: an account that saved it wears XP.
+    let id = id.as_deref().map(|s| if s == "skc" { "xp" } else { s });
+    Ok(get(id.unwrap_or("")))
 }
 
 /// Open the course for the user and wear a motivator in it (tests; the app
@@ -355,8 +355,10 @@ mod tests {
             set(c, uid, "es", DEFAULT)?;
             assert_eq!(Today::load(c, uid, "es", 0)?.points, 3);
             // Each course wears its own (#574).
+            set(c, uid, "fr", "xp")?;
+            assert_eq!((worn(c, uid, "es")?.id(), worn(c, uid, "fr")?.id()), (DEFAULT, "xp"));
             set(c, uid, "fr", "skc")?;
-            assert_eq!((worn(c, uid, "es")?.id(), worn(c, uid, "fr")?.id()), (DEFAULT, "skc"));
+            assert_eq!(worn(c, uid, "fr")?.id(), "xp", "the removed Skrongle Cash reads as XP");
             Ok(())
         })
         .unwrap();

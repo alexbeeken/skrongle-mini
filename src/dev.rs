@@ -521,7 +521,7 @@ pub fn save_dev_keys(conn: &Connection, vault: &crate::secrets::Vault) -> rusqli
 }
 
 /// Every progress table, keyed by user.
-const PROGRESS_TABLES: [&str; 13] = [
+const PROGRESS_TABLES: [&str; 12] = [
     "lesson_passes",
     "user_progress",
     "quiz_history",
@@ -534,7 +534,6 @@ const PROGRESS_TABLES: [&str; 13] = [
     "lesson_touches",
     "lesson_notes",
     "earnings",
-    "motivator_purchases",
 ];
 
 /// Wipe a user's progress and own courses (drafts and generated ones) and

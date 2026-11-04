@@ -2449,45 +2449,6 @@ motivator:
     reward:
       earned: "+{n} XP"
       level_up: "Niveau supérieur ! Niv {n}"
-  skc:
-    title: "Skrongle Cash"
-    short: "SKC"
-    about: "De l'argent de jeu pour vos progrès, comme les tickets d'une salle d'arcade : chaque cours a son propre solde de Skrongle Cash (SKC)."
-    today: "aujourd'hui : {n} / {goal} SKC"
-    reward:
-      amount: "+{n} SKC"
-      pass: "+{n} SKC leçon réussie"
-      goal: "+{n} SKC objectif du jour"
-      unit: "+{n} SKC unité terminée"
-    info:
-      label: "Comment gagner des Skrongle Cash"
-      p: "Les Skrongle Cash (SKC) sont l'argent de jeu de ce cours. Vous en gagnez pour tout ce que vous faites ici, quel que soit le motivateur choisi :"
-      per_point: "Chaque point d'effort"
-      per_pass: "Leçon réussie"
-      per_goal: "Objectif du jour atteint"
-      per_unit: "Unité terminée"
-      points: "Les points d'effort, comptés comme pour l'objectif du jour :"
-      shop: "Dépensez vos SKC en badges dans la boutique de ce cours. Ils s'affichent sur cette carte et restent à vous, quel que soit le motivateur choisi."
-    shop:
-      open: "Boutique"
-      title: "Boutique"
-      shelf: "Vos badges"
-      shelf_empty: "Pas encore de badge."
-      badges: "Badges"
-      buy: "Acheter"
-      owned: "Acheté"
-      back: "Retour au cours"
-      refused_title: "Pas acheté"
-      refused_owned: "Vous avez déjà {title}."
-      refused_short: "Il vous manque {n} SKC pour {title}."
-      refused_unknown: "Ce badge n'est pas dans la boutique."
-    badge:
-      sprout: "Pousse"
-      lantern: "Lanterne"
-      kite: "Cerf-volant"
-      compass: "Boussole"
-      lighthouse: "Phare"
-      comet: "Comète"
 
 # L'éditeur de leçon (#841) : static/lesson-editor.js et static/lesson-preview.js.
 editor:

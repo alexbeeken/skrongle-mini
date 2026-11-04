@@ -1,8 +1,8 @@
-// The course home page (and the new-password gate, /password/change, and the shop, /shop): each
+// The course home page (and the new-password gate, /password/change): each
 // (i) opens a modal with what it explains. The buttons carry commandfor/command, which browsers with
 // invoker commands follow on their own (no script needed); this fills in
-// for the ones without. A modal drawn with data-open-on-load (the shop's
-// refusal, #569) opens as the page does; the server may draw it `open` so it
+// for the ones without. A modal drawn with data-open-on-load
+// opens as the page does; the server may draw it `open` so it
 // shows without script too (#926), and this turns it into a real modal.
 (function () {
   "use strict";

@@ -989,7 +989,7 @@ dialog.gen-dialog { width: min(720px, calc(100vw - 2rem)); max-width: none; over
    when the link scrolled to the section around it, in that section's flow. */
 dialog.modal[open]:not(:modal) { position: absolute; top: 1rem; margin: 0 auto; z-index: 60; }
 :target dialog.modal[open]:not(:modal) { position: relative; top: auto; max-width: 100%; margin: 1rem auto; }
-dialog.gen-dialog[open]:not(:modal), #shop-refusal[open]:not(:modal) { position: relative; top: auto; margin: 1rem auto; }
+dialog.gen-dialog[open]:not(:modal) { position: relative; top: auto; margin: 1rem auto; }
 /* Held at the top rather than centred, so an error opening inside it grows
    it downwards and nothing above moves. */
 dialog.gen-dialog:modal { margin-block: 1rem auto; }
@@ -1563,26 +1563,6 @@ details.info-tip { position: static; }
 .xp-today { margin: 0; color: var(--muted); font-variant-numeric: tabular-nums; }
 .xp-today.done { color: var(--ok-text, var(--ok)); font-weight: 700; }
 @media (max-width: 720px) { .xp-hero .today-head { align-self: center; } }
-/* Skrongle Cash (#562): the SKC glyph follows the text's colour. */
-.skc-symbol { display: inline-block; width: 1em; height: 1em; vertical-align: -0.15em; flex: none; }
-.skc-hero .today-body { gap: .6rem; }
-.skc-balance { margin: 0; display: inline-flex; align-items: baseline; gap: .35rem; font-size: 2rem; line-height: 1.1; font-weight: 700; font-variant-numeric: tabular-nums; }
-.skc-balance .skc-symbol { color: var(--accent); }
-.skc-balance .skc-unit { font-size: 1rem; color: var(--muted); font-weight: 600; }
-.skc-today { margin: 0; font-variant-numeric: tabular-nums; color: var(--muted); }
-.skc-today.done { color: var(--text); font-weight: 600; }
-.skc-bar { width: 100%; }
-/* The Skrongle Cash shop (#569): the Shop button and shelf on the hero, and /shop. */
-.skc-hero .today-head { align-items: center; padding-right: 2.4rem; flex-wrap: wrap; }
-.skc-shelf { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .4rem; }
-.skc-shelf img { display: block; }
-.shop-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem 1rem; }
-.shop-grid { list-style: none; margin: 0 0 1.5rem; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: .8rem; }
-.shop-badge { display: flex; flex-direction: column; align-items: center; gap: .45rem; padding: 1rem .75rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); text-align: center; }
-.shop-badge form { margin: 0; }
-.shop-price { font-variant-numeric: tabular-nums; color: var(--muted); }
-.shop-price .skc-symbol { color: var(--accent); }
-.shop-owned { font-size: .85rem; color: var(--ok-text, var(--ok)); font-weight: 600; }
 
 /* The first visit's settings wizard (#574, templates/course_wizard.html): one step a page.
    course-settings.js adds .cs-on: the steps sit side by side and slide, an arrow on either side and

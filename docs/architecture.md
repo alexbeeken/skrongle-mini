@@ -36,8 +36,8 @@ under `static/`, `templates/` or `data/` is missing from this list.
 
 - Lessons and home: `routes/pages.rs` (`/`, `/lessons`, `/history`, `/mistakes`), `templates/home.html`, `static/home.js`, `static/lessons.js`; a learner's note on a lesson: `notes.rs`, `static/lesson-note.js` (#336). Tapping a conversation line to hear it and see its meaning: `static/conversation.js` (#1264). Music notation in lesson text (#1176) and on quiz items (#1218): `notation.rs` (does a lesson have any; `music.note_names` and note options), `static/notation.js` draws ```` ```abc ```` blocks and quiz staves with abcjs from `static/vendor/` (third-party files, unchanged, with their licences); `static/music-sound.js` plays a quiz item's or sort item's `play` with Web Audio tones (#1219). The Fill the bar quiz type (#1230): `notation/fill_bar.rs` (gap and note lengths, validation, grading), `static/fill-bar.js` and `static/fill-bar.css` (the bar and its tiles in every mode). A Sprint spot on a staff (#1227): `sprint/spot.rs` (both kinds of spot: exercise, grading, validation), `notation::abc_notes` counts the notes, `static/wrong-note.js` takes the taps. The Spell the chord quiz type (#1228): `notation/chord_spell.rs` (validation, grading as a set, the tiles in the course's note names), `static/chord-spell.js` and `static/chord-spell.css` (the slots, tiles and chord staff in every mode). The Place the note quiz type (#1226): `notation/staff_note.rs` (validation, grading by pitch and octave, the clef and note names for the page), `static/staff-note.js` and `static/staff-note.css` (the staff it draws itself, in every mode). The keyboard quiz type (#1231): `notation/keyboard.rs` (ABC notes as pitches, validation, grading), `static/keyboard.js` and `static/keyboard.css` (the piano keyboard component, in every mode).
 - Questions: `quiz.rs` (picking, checking), `routes/quiz.rs` (`/api/answer`, the one grading path), `mathcheck.rs` (maths answers), `clock.rs` and `static/clock.js` (Set the clock, #1340; lesson, stage and quiz pages load it and `measure.js` only when `has_clock()` / `has_measure()`), `static/quiz.js`, `static/lesson-check.js`; the algebra tiles question (#1355): `algebra_tiles.rs` (reading the pile, the two-sides check), `static/algebra-tiles.js` and `.css` (the board); Measure the angle (#1352): `measure.rs` (fields, grading, which modes skip it), `templates/measure.html`, `static/measure.js` draws the protractor with JSXGraph from `static/vendor/`.
-- Passes and progress: `progress.rs` (the pass rule), `routes/progress.rs` (agent API), `mastery.rs` (scores), `mastery/cache.rs` (each learner's progress rows for their course, in memory, #38), `activity.rs` (daily goal, resume point), `earnings.rs` (XP, SKC, streak totals).
-- Motivators: `motivators.rs`, `motivators/xp.rs`, `motivators/skc.rs`, `templates/motivators/`; the Skrongle Cash shop: `motivators/shop.rs`, `routes/shop.rs`, catalogue in `data/badges/`.
+- Passes and progress: `progress.rs` (the pass rule), `routes/progress.rs` (agent API), `mastery.rs` (scores), `mastery/cache.rs` (each learner's progress rows for their course, in memory, #38), `activity.rs` (daily goal, resume point), `earnings.rs` (XP, streak totals).
+- Motivators: `motivators.rs`, `motivators/xp.rs`, `templates/motivators/`.
 - Sprint: `sprint.rs` (fill-the-gap tiles in `sprint/gap.rs`), `routes/sprint.rs`, `static/sprint.js`, `static/sprint.css`. Build the scale (#1229), the ladder with notes: `sprint/scale.rs` (exercise, grading, validation); `static/scale-ladder.js` draws and plays each note as it lands, `static/sprint.js` runs the ladder.
 - Study: `guide.rs` + `routes/guide.rs` (Guide), `tutor.rs` + `routes/tutor.rs` (AI tutor), `listening.rs` + `routes/listening.rs`, `vocab.rs` + `routes/vocab.rs`, `routes/map.rs` (`/map`); scripts `static/guide.js` (list styles `static/guide.css`), `static/tutor.js`, `static/listening.js`, `static/vocab.js`.
 - Play: `games.rs` + `routes/games.rs` (hub, Word Match, numbers, dates), `conjugation.rs` (drill), `static/matching.js`, `static/conjugation.js`, `static/numbers.js`, `static/dates.js`.
@@ -99,7 +99,7 @@ src/
   activity.rs    activity from every mode (#558): the daily goal's effort points per kind (tables activity_log), the lesson every mode resumes at (lesson_touches)
   notes.rs       a learner's own note on a lesson (#336): "My note" on the lesson page, POST /api/lessons/{slug}/note (table lesson_notes)
   earnings.rs    what a learner earned in a course: a window's tally from the log (a run, today), the running totals and the day streak as one `earnings` row per course (#589) that activity::record moves; priced by the motivators' rates
-  motivators.rs  motivators (#559): how progress is dressed up (projects.motivator, per course since #574); each draws the course home's top from the shared measures; registry ALL, default "stats"; motivators/xp.rs: XP and the character level (#561); motivators/skc.rs: Skrongle Cash (#562); motivators/shop.rs: the Skrongle Cash shop (#569), badges per course in motivator_purchases, catalogue data/badges/
+  motivators.rs  motivators (#559): how progress is dressed up (projects.motivator, per course since #574); each draws the course home's top from the shared measures; registry ALL, default "stats"; motivators/xp.rs: XP and the character level (#561)
   placement.rs   the placement test (#1106): placement.json parsed and checked against the manifest, one sitting drawn (written questions, else random_per_unit of a unit's multiple-choice quiz items), the answers marked (each unit's tally, the first unit with a miss as the start)
   progress.rs    lesson passes shared by every mode: the rule (seen + a run of >= 70 %), the RULES text for tutors and agents, table lesson_passes
   quiz.rs        adaptive question selection, answer normalisation/checking, tiny PRNG
@@ -361,9 +361,7 @@ lesson_touches (user_id, course_id, lesson_id, mode, at)  PRIMARY KEY (user_id, 
 activity_log   (id, user_id, course_id, kind, n, at)     -- n of activity::Kind `kind` done at `at`: the daily goal
 earnings       (user_id, course_id, points, goals, day, day_points, streak)  PRIMARY KEY (user_id, course_id)
                 -- running totals: effort points ever logged, daily goals reached, the local day last
-                -- active, its points and the streak ending on it; XP, SKC and the streak read this, not the log
-motivator_purchases (user_id, course_id, item, price, created_at)  PRIMARY KEY (user_id, course_id, item)
-                -- what the learner bought in a course's shop (src/motivators/shop.rs)
+                -- active, its points and the streak ending on it; XP and the streak read this, not the log
 game_scores    (id, user_id, course_id, game, board, score_ms, wrong, played_at)
 game_activity  (id, user_id, course_id, game, board, label, duration_ms, total, correct, score_ms, played_at)
                 -- every finished game round or Sprint session
@@ -371,8 +369,9 @@ game_rounds    (user_id, course_id, game, rounds)  PRIMARY KEY (user_id, course_
                 -- rounds finished per game, moved by games::record_activity_at: "rounds played" reads this
 ```
 
-The schema is one migration, `src/db/migrations/v001_schema.sql`, which
-`src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
+The schema is `src/db/migrations/v001_schema.sql` plus the later
+migrations (`v002_no_skc.sql` drops `motivator_purchases` and turns a saved
+`skc` motivator into `xp`), which `src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
 how many have run, and a later change appends its own entry. A database
 from a build before this schema (its `users` table still has a column of
 the old history) is refused at start with one line naming the file: there

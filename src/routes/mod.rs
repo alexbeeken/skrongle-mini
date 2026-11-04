@@ -32,7 +32,6 @@ pub mod profile;
 pub mod progress;
 pub mod quiz;
 pub mod password;
-pub mod shop;
 pub mod manage;
 pub mod tutor;
 pub mod vocab;
@@ -262,9 +261,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/api/games/dates/finish", post(games::dates_finish))
         // the active course's picture files (SVG)
         .route("/pictures/{*path}", get(course_picture))
-        .route("/shop", get(shop::page))
-        .route("/api/shop/buy", post(shop::buy))
-        .route("/badges/{file}", get(shop::art))
         // vocabulary
         .route("/vocabulary", get(vocab::index))
         .route("/lookup", get(vocab::lookup))
@@ -475,26 +471,6 @@ async fn course_picture(p: crate::auth::Project, Path(path): Path<String>, heade
         [
             (header::CONTENT_TYPE, HeaderValue::from_static("image/svg+xml")),
             (header::CACHE_CONTROL, HeaderValue::from_static("private, no-cache")),
-            (header::ETAG, HeaderValue::from_str(&etag).expect("hex etag")),
-            (header::CONTENT_SECURITY_POLICY, HeaderValue::from_static("default-src 'none'; style-src 'unsafe-inline'; img-src data:")),
-            (header::X_CONTENT_TYPE_OPTIONS, HeaderValue::from_static("nosniff")),
-        ],
-        body.to_string(),
-    )
-        .into_response()
-}
-
-/// An SVG file of the app's data (a shop badge), with an
-/// ETag and a policy that lets it run nothing.
-pub(crate) fn svg_response(headers: &HeaderMap, body: &str, cache: &'static str) -> Response {
-    let etag = format!("\"{:016x}\"", fnv1a(body.bytes()));
-    if headers.get(header::IF_NONE_MATCH).and_then(|v| v.to_str().ok()) == Some(etag.as_str()) {
-        return StatusCode::NOT_MODIFIED.into_response();
-    }
-    (
-        [
-            (header::CONTENT_TYPE, HeaderValue::from_static("image/svg+xml")),
-            (header::CACHE_CONTROL, HeaderValue::from_static(cache)),
             (header::ETAG, HeaderValue::from_str(&etag).expect("hex etag")),
             (header::CONTENT_SECURITY_POLICY, HeaderValue::from_static("default-src 'none'; style-src 'unsafe-inline'; img-src data:")),
             (header::X_CONTENT_TYPE_OPTIONS, HeaderValue::from_static("nosniff")),

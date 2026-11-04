@@ -2449,45 +2449,6 @@ motivator:
     reward:
       earned: "+{n} 经验值"
       level_up: "升级了！等级 {n}"
-  skc:
-    title: "Skrongle Cash"
-    short: "SKC"
-    about: "为你的进步发放的游戏币，就像游戏厅的奖票：每门课程都有自己的 Skrongle Cash（SKC）余额。"
-    today: "今天：{n} / {goal} SKC"
-    reward:
-      amount: "+{n} SKC"
-      pass: "+{n} SKC 通过课程"
-      goal: "+{n} SKC 每日目标"
-      unit: "+{n} SKC 完成单元"
-    info:
-      label: "如何赚取 Skrongle Cash"
-      p: "Skrongle Cash（SKC）是这门课程的游戏币。无论你选择哪个激励方式，你在这里做的每件事都能赚取它："
-      per_point: "每个努力点"
-      per_pass: "通过课程"
-      per_goal: "达成每日目标"
-      per_unit: "完成单元"
-      points: "努力点，按每日目标的方式计算："
-      shop: "在本课程的商店里用 SKC 兑换徽章。徽章显示在这张卡片上，无论你选择哪种激励方式都归你所有。"
-    shop:
-      open: "商店"
-      title: "商店"
-      shelf: "你的徽章"
-      shelf_empty: "还没有徽章。"
-      badges: "徽章"
-      buy: "购买"
-      owned: "已拥有"
-      back: "返回课程"
-      refused_title: "未购买"
-      refused_owned: "你已经有{title}了。"
-      refused_short: "购买{title}还差 {n} SKC。"
-      refused_unknown: "商店里没有这个徽章。"
-    badge:
-      sprout: "嫩芽"
-      lantern: "灯笼"
-      kite: "风筝"
-      compass: "指南针"
-      lighthouse: "灯塔"
-      comet: "彗星"
 
 # The lesson editor (#841): static/lesson-editor.js and static/lesson-preview.js.
 editor:

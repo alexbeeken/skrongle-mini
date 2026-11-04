@@ -20,7 +20,6 @@ pub(crate) const USER_TABLES: &[(&str, &str)] = &[
     ("lesson_touches", "user_id = ?1"),
     ("lesson_notes", "user_id = ?1"),
     ("earnings", "user_id = ?1"),
-    ("motivator_purchases", "user_id = ?1"),
     ("game_rounds", "user_id = ?1"),
     ("projects", "user_id = ?1"),
     ("totp_keys", "user_id = ?1"),
