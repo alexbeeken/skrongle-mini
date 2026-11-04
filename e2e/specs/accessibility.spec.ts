@@ -13,7 +13,7 @@ test("pages fit a phone at 200 % text size (#342)", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await devLogin(page);
   // /guide and /tutor since #1058.
-  for (const path of ["/sprint", "/profile", "/", "/courses", "/lessons", "/listening", "/guide", "/tutor", "/self-host"]) {
+  for (const path of ["/sprint", "/profile", "/", "/courses", "/lessons", "/listening", "/guide", "/tutor"]) {
     await page.goto(path);
     // What the browser's text size setting does: the root font size doubles.
     await page.addStyleTag({ content: "html { font-size: 200% !important; }" });

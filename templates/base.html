@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="{{ crate::routes::asset_url("style.css") }}">
 <script>if (/[?&]reduce-motion=1\b/.test(location.search)) document.documentElement.classList.add('reduce-motion');</script>
 {% block head %}{% endblock %}
-<link rel="icon" href="{{ crate::routes::asset_url("favicon.svg") }}" type="image/svg+xml">
+<link rel="icon" href="{{ crate::routes::asset_url("favicon.png") }}" type="image/png" sizes="32x32">
 <link rel="manifest" href="{{ crate::url("/manifest.webmanifest") }}">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="{{ crate::APP_NAME }}">
@@ -17,7 +17,7 @@
 <a class="skip-link" href="#main" data-testid="skip-to-content">{{ crate::t("nav.skip_to_content") }}</a>
 <header class="topbar">
   <nav class="container">
-    <a class="brand" data-testid="nav-home" href="{{ crate::url("/") }}">{% include "logo-mark.svg" %}{{ crate::APP_NAME }}</a>
+    <a class="brand" data-testid="nav-home" href="{{ crate::url("/") }}"><img class="brand-mark" src="{{ crate::routes::asset_url("logo-mark.png") }}" width="22" height="22" alt="">{{ crate::APP_NAME }}</a>
     <ul>
     {% if let Some(u) = user %}
       {% if let Some(ct) = u.course_title %}

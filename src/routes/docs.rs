@@ -81,28 +81,9 @@ fn title_of(md: &str, slug: &str) -> String {
 /// as `docs/self-hosting.md` lays out. The download only exists once the
 /// repo is public and that version is released (#95, #101).
 #[allow(dead_code)] // the page links to the guide now; the release check still pins the name
-pub const RELEASE_TARBALL_NAME: &str = concat!("skrongle-", env!("CARGO_PKG_VERSION"), "-aarch64.tar.gz");
 #[allow(dead_code)]
-pub const RELEASE_TARBALL: &str = concat!(
-    "https://github.com/alexbeeken/skrongle-mini/releases/download/v",
-    env!("CARGO_PKG_VERSION"),
-    "/skrongle-",
-    env!("CARGO_PKG_VERSION"),
-    "-aarch64.tar.gz"
-);
 
-/// "Host it yourself": the friendly guide for first-time self-hosters. The
-/// technical steps are in `docs/self-hosting.md`, which it links to.
-#[derive(Template)]
-#[template(path = "self_host.html")]
-pub struct SelfHostTemplate {
-    pub user: Option<CurrentUser>,
-}
 
-/// GET /self-host.
-pub async fn self_host(MaybeUser(user): MaybeUser) -> Result<Page<SelfHostTemplate>, AppError> {
-    Ok(Page(SelfHostTemplate { user }))
-}
 
 /// Every embedded `.md` file, as (slug, title).
 pub fn pages() -> Vec<DocLink> {
@@ -316,11 +297,6 @@ mod tests {
     use super::*;
 
     /// The guide downloads one tarball and unpacks the same name (#641).
-    #[test]
-    fn release_tarball_is_this_version() {
-        assert!(RELEASE_TARBALL.ends_with(&format!("/{RELEASE_TARBALL_NAME}")));
-        assert_eq!(RELEASE_TARBALL_NAME, format!("skrongle-{}-aarch64.tar.gz", env!("CARGO_PKG_VERSION")));
-    }
 
     /// A page is parsed on its first request only (#39).
     #[test]

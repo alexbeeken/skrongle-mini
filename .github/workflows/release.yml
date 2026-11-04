@@ -51,7 +51,7 @@ jobs:
             [0-9]*) ;;
             *) echo "a release tag looks like v1.2.3, got $VERSION"; exit 1 ;;
           esac
-          # A tag must match Cargo.toml: the server's /self-host page links
+          # A tag must match Cargo.toml: the self-hosting guide links
           # the tarball of the version it was built from.
           cargo_version=$(sed -n 's/^version = "\(.*\)"$/\1/p' Cargo.toml | head -1)
           if [ "${{ github.event_name }}" = push ] && [ "$v" != "$cargo_version" ]; then

@@ -219,7 +219,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/docs", get(docs::index))
         .route("/llms.txt", get(docs::llms_txt))
         .route("/docs/{page}", get(docs::page))
-        .route("/self-host", get(docs::self_host))
         .route("/password/change", get(password::change_form).post(password::change))
         // the modes' old paths (/d, /k, /g, /games), for bookmarks and open tabs
         .route("/d", get(|q: RawQuery| moved("/sprint", q)))
