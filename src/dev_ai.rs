@@ -811,8 +811,17 @@ pub fn content_text(v: &serde_json::Value) -> String {
     }
 }
 
+/// A parsed request body: the model, the system prompt, and the
+/// `(role, text)` messages in order.
+#[derive(Debug, PartialEq)]
+pub struct ParsedBody {
+    pub model: String,
+    pub system: String,
+    pub messages: Vec<(String, String)>,
+}
+
 /// Parse a request body in `format`. `Err` is the provider's 400 message.
-pub fn parse_body(format: Format, body: &[u8]) -> Result<(String, String, Vec<(String, String)>), String> {
+pub fn parse_body(format: Format, body: &[u8]) -> Result<ParsedBody, String> {
     let v: serde_json::Value = serde_json::from_slice(body).map_err(|e| format!("There was an error parsing the body of your request: {e}"))?;
     if v.get("stream").and_then(|s| s.as_bool()) == Some(true) {
         return Err("stream: the dev simulator does not stream; send the request without \"stream\": true".into());
@@ -844,7 +853,7 @@ pub fn parse_body(format: Format, body: &[u8]) -> Result<(String, String, Vec<(S
     if messages.is_empty() {
         return Err("messages: at least one message is required".into());
     }
-    Ok((model, system, messages))
+    Ok(ParsedBody { model, system, messages })
 }
 
 #[cfg(test)]
@@ -1037,11 +1046,11 @@ mod tests {
     #[test]
     fn bodies_parse_and_answer_in_each_format() {
         let a = br#"{"model": "claude-opus-5-5", "max_tokens": 10, "system": "sys", "messages": [{"role": "user", "content": [{"type": "text", "text": "hi"}]}]}"#;
-        assert_eq!(parse_body(Format::Anthropic, a).unwrap(), ("claude-opus-5-5".into(), "sys".into(), vec![("user".into(), "hi".into())]));
+        assert_eq!(parse_body(Format::Anthropic, a).unwrap(), ParsedBody { model: "claude-opus-5-5".into(), system: "sys".into(), messages: vec![("user".into(), "hi".into())] });
         assert!(parse_body(Format::Anthropic, br#"{"model": "m", "messages": [{"role": "user", "content": "x"}]}"#).unwrap_err().contains("max_tokens"));
         assert!(parse_body(Format::Anthropic, br#"{"model": "m", "max_tokens": 1, "stream": true, "messages": [{"role": "user", "content": "x"}]}"#).unwrap_err().contains("stream"));
         let o = br#"{"model": "gpt-5", "messages": [{"role": "system", "content": "sys"}, {"role": "user", "content": "hi"}]}"#;
-        assert_eq!(parse_body(Format::OpenAi, o).unwrap(), ("gpt-5".into(), "sys".into(), vec![("user".into(), "hi".into())]));
+        assert_eq!(parse_body(Format::OpenAi, o).unwrap(), ParsedBody { model: "gpt-5".into(), system: "sys".into(), messages: vec![("user".into(), "hi".into())] });
         assert!(parse_body(Format::OpenAi, b"not json").is_err());
         let ok = success_body(Format::Anthropic, 3, "m", "hello", 5, 2, 0);
         assert_eq!((ok["content"][0]["text"].as_str(), ok["usage"]["output_tokens"].as_u64()), (Some("hello"), Some(2)));

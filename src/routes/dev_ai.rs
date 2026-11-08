@@ -92,7 +92,7 @@ async fn serve(state: &AppState, format: Format, headers: &HeaderMap, body: &[u8
         };
         return refuse(state, format, headers, body, 401, kind, message);
     };
-    let (model, system, messages) = match dev_ai::parse_body(format, body) {
+    let parsed = match dev_ai::parse_body(format, body) {
         Ok(p) => p,
         Err(e) => return refuse(state, format, headers, body, 400, "invalid_request_error", &e),
     };
@@ -100,9 +100,9 @@ async fn serve(state: &AppState, format: Format, headers: &HeaderMap, body: &[u8
         format,
         who,
         key: key.clone(),
-        model,
-        system,
-        messages,
+        model: parsed.model,
+        system: parsed.system,
+        messages: parsed.messages,
         meta: dev_ai::Meta::parse(header(headers, crate::ai::CALL_HEADER)),
         body: serde_json::from_slice::<serde_json::Value>(body).ok().and_then(|v| serde_json::to_string_pretty(&v).ok()).unwrap_or_default(),
     };
