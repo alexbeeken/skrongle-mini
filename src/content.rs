@@ -257,10 +257,6 @@ impl Manifest {
         self.units.iter().position(|u| u.id == id)
     }
 
-    pub fn group_title(&self, id: &str) -> String {
-        self.groups.iter().find(|g| g.id == id).map(|g| g.title.clone()).unwrap_or_else(|| id.to_string())
-    }
-
     pub fn subject(&self) -> &str {
         if self.subject.is_empty() { &self.title } else { &self.subject }
     }
@@ -673,6 +669,7 @@ pub struct ContentStore {
     lessons: Vec<Lesson>,
     by_id: HashMap<String, usize>,
     by_slug: HashMap<String, usize>,
+    by_group: HashMap<String, usize>,
     /// question_id -> (lesson index, quiz item index)
     questions: HashMap<String, (usize, usize)>,
     /// conversation id -> (lesson index, conversation index)
@@ -813,7 +810,9 @@ impl ContentStore {
             }
         }
 
-        Ok(ContentStore { manifest, lessons, by_id, by_slug, questions, conversations, conjugations, item_art, assets, placement })
+        // Reversed, so the first group with an id wins, as the search it replaces did.
+        let by_group: HashMap<String, usize> = manifest.groups.iter().enumerate().rev().map(|(gi, g)| (g.id.clone(), gi)).collect();
+        Ok(ContentStore { manifest, lessons, by_id, by_slug, by_group, questions, conversations, conjugations, item_art, assets, placement })
     }
 
     pub fn manifest(&self) -> &Manifest {
@@ -875,8 +874,9 @@ impl ContentStore {
         self.manifest.paradigm.as_ref()
     }
 
-    pub fn group_title(&self, id: &str) -> String {
-        self.manifest.group_title(id)
+    /// The title of group `id`, or `id` itself when the course has no such group.
+    pub fn group_title<'a>(&'a self, id: &'a str) -> &'a str {
+        self.by_group.get(id).map_or(id, |&i| self.manifest.groups[i].title.as_str())
     }
 
     pub fn lessons(&self) -> &[Lesson] {

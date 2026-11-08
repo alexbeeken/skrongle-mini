@@ -204,7 +204,7 @@ pub(crate) fn stages(
                 slug: lesson.slug.clone(),
                 title: lesson.title.clone(),
                 unit: content.unit(lesson.unit_index).title.clone(),
-                group: content.group_title(&lesson.group),
+                group: content.group_title(&lesson.group).to_string(),
                 summary: lesson.summary.clone(),
                 steps: total,
                 questions: lesson.guide_question_count(),

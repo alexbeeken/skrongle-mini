@@ -99,7 +99,7 @@ pub async fn map(State(state): State<Arc<AppState>>, p: Project) -> Result<Respo
                 number: i + 1,
                 slug: l.slug.clone(),
                 title: l.title.clone(),
-                group: content.group_title(&l.group),
+                group: content.group_title(&l.group).to_string(),
                 score: pr.map(|p| p.effective(at).round() as u32).unwrap_or(0),
                 status_label: status.label(),
                 status_css: status.css(),
