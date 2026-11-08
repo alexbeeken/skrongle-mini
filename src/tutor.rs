@@ -333,6 +333,7 @@ impl Sessions {
 
 /// The next question: the adaptive picker's choice, skipping anything
 /// already asked this session while something else is available.
+#[allow(clippy::too_many_arguments)] // each is a distinct input of the picker; a params struct would only rename them
 pub fn pick<'a>(
     content: &'a ContentStore,
     progress: &HashMap<String, Progress>,

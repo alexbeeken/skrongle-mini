@@ -588,7 +588,7 @@ pub fn group_digits(n: i64) -> String {
     let digits = n.abs().to_string();
     let mut out = String::new();
     for (i, ch) in digits.chars().enumerate() {
-        if i > 0 && (digits.len() - i) % 3 == 0 {
+        if i > 0 && (digits.len() - i).is_multiple_of(3) {
             out.push(',');
         }
         out.push(ch);
@@ -597,7 +597,7 @@ pub fn group_digits(n: i64) -> String {
 }
 
 /// Lessons that can be played (enough vocabulary).
-pub fn playable<'a>(content: &'a ContentStore) -> impl Iterator<Item = &'a Lesson> {
+pub fn playable(content: &ContentStore) -> impl Iterator<Item = &Lesson> {
     content.lessons().iter().filter(|l| l.vocabulary.len() >= MIN_WORDS)
 }
 

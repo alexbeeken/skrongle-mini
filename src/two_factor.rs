@@ -127,6 +127,7 @@ pub fn key_for(email: &str, user_id: i64, secret: Vec<u8>) -> totp::Key {
 /// The stored key (sealed, see the module doc), whether it is confirmed, and
 /// the last step accepted. `None` with no key, or one that no longer opens.
 fn stored_key(conn: &Connection, vault: &Vault, user_id: i64) -> rusqlite::Result<Option<(totp::Key, bool, Option<u64>)>> {
+    #[allow(clippy::type_complexity)] // #6 names this tuple
     let row: Option<(Vec<u8>, Option<i64>, Option<i64>, String)> = conn
         .query_row(
             "SELECT k.secret, k.confirmed_at, k.last_step, u.email FROM totp_keys k JOIN users u ON u.id = k.user_id WHERE k.user_id = ?1",

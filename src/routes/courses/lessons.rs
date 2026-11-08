@@ -149,7 +149,7 @@ pub async fn save_lessons(
                     let current = files.iter().find(|f| f.path == MANIFEST_FILE).map(|f| f.content.as_str()).unwrap_or_default();
                     match crate::arrange::retitle(body.manifest.as_deref().unwrap_or(current), t) {
                         Ok(m) => m,
-                        Err(e) => return Ok(Saved::Refused(e)),
+                        Err(e) => return Ok(Saved::Refused(*e)),
                     }
                 }
                 None => None,
@@ -158,7 +158,7 @@ pub async fn save_lessons(
             let (new_files, mut label, row_paths) = match crate::arrange::edit_rows(&files, &body.lessons, manifest, body.placement.as_deref()) {
                 Ok(x) => x,
                 Err(e) if e.message == crate::arrange::NOTHING_TO_SAVE && body.session.is_some() => return Ok(Saved::Unchanged { version: courses::version_of(&files) }),
-                Err(e) => return Ok(Saved::Refused(e)),
+                Err(e) => return Ok(Saved::Refused(*e)),
             };
             if let Some(p) = courses::room_for(c, &row.id, courses::size_of(&new_files), limits)? {
                 return Ok(Saved::Refused(p));

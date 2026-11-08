@@ -400,7 +400,7 @@ fn normalized(f: &AiRunFile) -> (Option<String>, Option<String>) {
     }
     let (b, a) = (f.before.as_deref().map(pretty), f.after.as_deref().map(pretty));
     // Pretty-print only when every side there parses, so both sides match.
-    let parsed = |side: &Option<Option<String>>| side.as_ref().map_or(true, Option::is_some);
+    let parsed = |side: &Option<Option<String>>| side.as_ref().is_none_or(Option::is_some);
     if parsed(&b) && parsed(&a) {
         (b.flatten(), a.flatten())
     } else {
@@ -756,7 +756,7 @@ fn mend(lines: &[&str]) -> String {
     let lines: Vec<&str> = lines.iter().map(|l| l.trim_end()).filter(|l| !l.is_empty()).collect();
     let mut out = Vec::with_capacity(lines.len());
     for (i, l) in lines.iter().enumerate() {
-        let closes = lines.get(i + 1).map_or(true, |n| n.trim_start().starts_with([']', '}']));
+        let closes = lines.get(i + 1).is_none_or(|n| n.trim_start().starts_with([']', '}']));
         let opens = l.ends_with('{') || l.ends_with('[');
         let line = match (l.strip_suffix(','), closes) {
             (Some(bare), true) => bare.to_string(),
@@ -914,30 +914,30 @@ fn diff<'a>(a: &'a [String], b: &'a [String]) -> Vec<Op> {
     let (am, bm) = (&a[pre..a.len() - suf], &b[pre..b.len() - suf]);
     let mut ops = vec![Op::Same; pre];
     if am.len().saturating_mul(bm.len()) > MAX_CELLS {
-        ops.extend(std::iter::repeat(Op::Del).take(am.len()));
-        ops.extend(std::iter::repeat(Op::Add).take(bm.len()));
+        ops.extend(std::iter::repeat_n(Op::Del, am.len()));
+        ops.extend(std::iter::repeat_n(Op::Add, bm.len()));
     } else {
         hirschberg(am, bm, &mut ops);
     }
-    ops.extend(std::iter::repeat(Op::Same).take(suf));
+    ops.extend(std::iter::repeat_n(Op::Same, suf));
     ops
 }
 
 fn hirschberg(a: &[u32], b: &[u32], out: &mut Vec<Op>) {
     if a.is_empty() {
-        out.extend(std::iter::repeat(Op::Add).take(b.len()));
+        out.extend(std::iter::repeat_n(Op::Add, b.len()));
     } else if b.is_empty() {
-        out.extend(std::iter::repeat(Op::Del).take(a.len()));
+        out.extend(std::iter::repeat_n(Op::Del, a.len()));
     } else if a.len() == 1 {
         match b.iter().position(|x| *x == a[0]) {
             Some(j) => {
-                out.extend(std::iter::repeat(Op::Add).take(j));
+                out.extend(std::iter::repeat_n(Op::Add, j));
                 out.push(Op::Same);
-                out.extend(std::iter::repeat(Op::Add).take(b.len() - j - 1));
+                out.extend(std::iter::repeat_n(Op::Add, b.len() - j - 1));
             }
             None => {
                 out.push(Op::Del);
-                out.extend(std::iter::repeat(Op::Add).take(b.len()));
+                out.extend(std::iter::repeat_n(Op::Add, b.len()));
             }
         }
     } else {

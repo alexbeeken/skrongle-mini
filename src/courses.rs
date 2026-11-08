@@ -280,7 +280,8 @@ impl Courses {
         }
         let courses = Courses::with_builtin(builtin, builtin_dirs);
         if let Some(store) = kept {
-            courses.lock().insert(&store.id().to_string(), Arc::new(store));
+            let id = store.id().to_string();
+            courses.lock().insert(&id, Arc::new(store));
         }
         Ok(courses)
     }
@@ -776,6 +777,7 @@ pub fn redo_step(conn: &Connection, id: &str) -> rusqlite::Result<Option<UndoSte
 
 /// A step's files, title, outline and label: the newest Undo step
 /// (`redo` false) or Redo step (`redo` true).
+#[allow(clippy::type_complexity)] // #6 names this tuple
 fn top_step(tx: &rusqlite::Transaction, id: &str, redo: bool) -> rusqlite::Result<Option<(i64, String, Option<String>, String)>> {
     let sql = if redo {
         "SELECT seq, title, outline, label FROM course_undo WHERE course_id = ?1 AND seq < 0 ORDER BY seq ASC LIMIT 1"
@@ -885,7 +887,7 @@ pub fn ai_run(conn: &Connection, id: &str) -> rusqlite::Result<Option<AiRun>> {
     let mut files: Vec<AiRunFile> = Vec::new();
     for row in stmt.query_map([id], |r| Ok((r.get::<_, String>(0)?, r.get::<_, String>(1)?, r.get::<_, String>(2)?)))? {
         let (side, path, content) = row?;
-        if files.last().map_or(true, |f| f.path != path) {
+        if files.last().is_none_or(|f| f.path != path) {
             files.push(AiRunFile { path, before: None, after: None });
         }
         let f = files.last_mut().expect("just pushed");
@@ -1105,7 +1107,7 @@ fn account_bytes(conn: &Connection, owner: i64, except: &str) -> rusqlite::Resul
 /// Bytes as the refusals say them: "8 MB", "3.6 MB" (MiB, rounded up).
 pub fn megabytes(bytes: usize) -> String {
     let tenths = (bytes * 10).div_ceil(1024 * 1024);
-    if tenths % 10 == 0 {
+    if tenths.is_multiple_of(10) {
         format!("{} MB", tenths / 10)
     } else {
         format!("{}.{} MB", tenths / 10, tenths % 10)

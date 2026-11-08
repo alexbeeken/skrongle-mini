@@ -812,6 +812,7 @@ pub fn content_text(v: &serde_json::Value) -> String {
 }
 
 /// Parse a request body in `format`. `Err` is the provider's 400 message.
+#[allow(clippy::type_complexity)] // #6 names this tuple
 pub fn parse_body(format: Format, body: &[u8]) -> Result<(String, String, Vec<(String, String)>), String> {
     let v: serde_json::Value = serde_json::from_slice(body).map_err(|e| format!("There was an error parsing the body of your request: {e}"))?;
     if v.get("stream").and_then(|s| s.as_bool()) == Some(true) {

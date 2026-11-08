@@ -73,18 +73,6 @@ fn title_of(md: &str, slug: &str) -> String {
         .unwrap_or_else(|| slug.replace('-', " "))
 }
 
-/// The release tarball the self-hosting guide installs: the one for the
-/// version this server runs (`Cargo.toml`; the release workflow refuses a
-/// tag that doesn't match it), for the Pi (`aarch64`). Named
-/// `skrongle-<version>-<arch>.tar.gz` by `scripts/package-release.sh`, with
-/// `skrongle`, `data/`, `skrongle.service` and `terms.example.md` inside,
-/// as `docs/self-hosting.md` lays out. The download only exists once the
-/// repo is public and that version is released (#95, #101).
-#[allow(dead_code)] // the page links to the guide now; the release check still pins the name
-#[allow(dead_code)]
-
-
-
 /// Every embedded `.md` file, as (slug, title).
 pub fn pages() -> Vec<DocLink> {
     let mut names: Vec<String> = Docs::iter().map(|n| n.to_string()).filter(|n| n.ends_with(".md")).collect();
@@ -176,6 +164,7 @@ fn render(slug: &str, user: Option<CurrentUser>) -> Result<Response, AppError> {
 /// current-page marker live in the template. Only pages that exist are
 /// stored, so the map is bounded by the docs.
 fn rendered(slug: &str) -> Option<(String, std::sync::Arc<str>)> {
+    #[allow(clippy::type_complexity)] // #6 names this tuple
     static CACHE: Mutex<Option<HashMap<String, (String, std::sync::Arc<str>)>>> = Mutex::new(None);
     let mut guard = CACHE.lock().unwrap_or_else(|e| e.into_inner());
     let map = guard.get_or_insert_with(HashMap::new);
@@ -295,8 +284,6 @@ fn attr(s: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    /// The guide downloads one tarball and unpacks the same name (#641).
 
     /// A page is parsed on its first request only (#39).
     #[test]

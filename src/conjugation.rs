@@ -118,7 +118,7 @@ pub fn check(expected: &str, answer: &str, labels: &[String]) -> Verdict {
         return Verdict { correct: false, expected: expected.to_string(), note: Some(crate::t("play.drill.empty_answer")) };
     }
     let readings = readings(&got, labels);
-    if readings.iter().any(|r| *r == want) {
+    if readings.contains(&want) {
         return Verdict { correct: true, expected: expected.to_string(), note: None };
     }
     if readings.iter().any(|r| strip_accents(r) == strip_accents(&want)) {

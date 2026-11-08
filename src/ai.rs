@@ -179,7 +179,7 @@ pub fn grouped(n: usize) -> String {
     let s = n.to_string();
     let mut out = String::with_capacity(s.len() + s.len() / 3);
     for (i, c) in s.chars().enumerate() {
-        if i > 0 && (s.len() - i) % 3 == 0 {
+        if i > 0 && (s.len() - i).is_multiple_of(3) {
             out.push(',');
         }
         out.push(c);
@@ -1483,7 +1483,7 @@ fn send(req: ureq::RequestBuilder<ureq::typestate::WithBody>, body: &serde_json:
         Err(ureq::Error::BodyExceedsLimit(_)) => return Err(format!("the reply is larger than {} KB, more than a course file may be", MAX_REPLY_BYTES / 1024)),
         Err(e) => return Err(format!("could not read the reply: {e}")),
     };
-    let json: serde_json::Value = serde_json::from_str(&text).map_err(|_| format!("HTTP {status}: reply is not JSON: {}", &text.chars().take(200).collect::<String>()))?;
+    let json: serde_json::Value = serde_json::from_str(&text).map_err(|_| format!("HTTP {status}: reply is not JSON: {}", text.chars().take(200).collect::<String>()))?;
     if status >= 300 {
         let msg = json
             .pointer("/error/message")

@@ -247,14 +247,14 @@ fn preview_answer_grades_a_draft_question() {
     assert_eq!(body["correct"].as_bool(), Some(false));
     assert!(body["note"].as_str().is_some_and(|n| n.contains("está")), "{body}");
     // Nothing recorded: no quiz history for the course.
-    let n: i64 = state.db.with(|c| Ok(c.query_row("SELECT COUNT(*) FROM quiz_history", [], |r| r.get(0))?)).unwrap();
+    let n: i64 = state.db.with(|c| c.query_row("SELECT COUNT(*) FROM quiz_history", [], |r| r.get(0))).unwrap();
     assert_eq!(n, 0);
     // Not the owner: refused.
     let (status, _) = ask(&bobs, json!({"question": fill, "answer": "está"}));
     assert_eq!(status, 400);
     // A question that is not one: a plain bad request, not a crash.
     let (status, _) = ask(&cookie, json!({"question": {"prompt": "no type"}, "answer": "x"}));
-    assert!(status >= 400 && status < 500, "{status}");
+    assert!((400..500).contains(&status), "{status}");
 
     // The editor's check of a math question's answers (#1200): the first
     // one the checker cannot read, the rule a save would refuse.

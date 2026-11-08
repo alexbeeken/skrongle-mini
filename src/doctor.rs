@@ -194,7 +194,7 @@ fn os_line() -> String {
         }
         (None, None) => {}
     }
-    if let Some(model) = std::fs::read_to_string("/proc/device-tree/model").ok() {
+    if let Ok(model) = std::fs::read_to_string("/proc/device-tree/model") {
         let _ = write!(s, ", {}", model.trim_end_matches('\0').trim());
     }
     s

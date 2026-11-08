@@ -370,7 +370,7 @@ impl<'a> Course<'a> {
         let manifest = path == MANIFEST_FILE;
         // The placement test's fields are its own (#1106): no lesson hints.
         let field = if path == crate::placement::FILE {
-            Some(if rest.starts_with("random_per_unit") { "random_per_unit" } else { "questions" }).filter(|_| !rest.starts_with("no questions"))
+            (!rest.starts_with("no questions")).then_some(if rest.starts_with("random_per_unit") { "random_per_unit" } else { "questions" })
         } else {
             field_of(rest, manifest)
         };
@@ -595,7 +595,7 @@ fn plain_type(t: &str) -> String {
         return format!("the number {}", t.split('`').nth(1).unwrap_or(""));
     }
     if t.starts_with("boolean") {
-        return format!("{}", t.split('`').nth(1).unwrap_or("true or false"));
+        return t.split('`').nth(1).unwrap_or("true or false").to_string();
     }
     if matches!(t, "u8" | "u16" | "u32" | "u64" | "usize" | "i8" | "i16" | "i32" | "i64" | "isize") {
         return "a whole number".into();
@@ -733,7 +733,7 @@ mod tests {
         format!("{{\n  \"id\": \"{id}\",\n  \"slug\": \"{id}\",\n  \"title\": \"{title}\",\n  \"unit\": \"1\",\n  \"group\": \"g\",\n  \"summary\": \"\",\n  \"content\": \"## {title}\\n\\nText.\"{extra}\n}}\n")
     }
     fn problem(f: &[CourseFile]) -> Problem {
-        let e = ContentStore::from_files(f).err().expect("the course is refused");
+        let e = ContentStore::from_files(f).expect_err("the course is refused");
         Course::new(f).explain(&e)
     }
 
