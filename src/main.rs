@@ -204,7 +204,7 @@ struct Config {
 /// The settings' prefix, then the old ones `env` still reads, newest first.
 /// The old prefixes are read for one release only (#584); the next release
 /// drops them, and with them `old_prefix_warning`.
-const ENV_PREFIXES: [&str; 3] = ["SKRONGLE_", "LEARN_", "SPANISH_"];
+pub(crate) const ENV_PREFIXES: [&str; 3] = ["SKRONGLE_", "LEARN_", "SPANISH_"];
 
 /// `SKRONGLE_<name>`, falling back for one release to the old
 /// `LEARN_<name>` and `SPANISH_<name>` spellings. Empty counts as unset.
@@ -298,8 +298,9 @@ Skrongle, a self-hosted learning app.
 
 Usage:
   skrongle                     start the server (settings from SKRONGLE_* environment variables)
-  skrongle doctor [--env-file FILE]
-                               print diagnostics to paste into a bug report (no secrets)
+  skrongle doctor [--service | --env-file FILE]
+                               print diagnostics to paste into a bug report (no secrets);
+                               --service reads the settings of the installed skrongle unit (run it with sudo)
   skrongle reset-password <email>
                                give the account a temporary password, printed here; it must be changed at the next sign-in
   skrongle disable-2fa <email> turn the account's two-factor sign-in off

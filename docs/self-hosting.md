@@ -1,9 +1,14 @@
-# Self-hosting
+# Self-hosting reference
 
-The technical reference for self-hosting, for experts and AI assistants. For
-the step-by-step path, follow [Set up Skrongle on a new Raspberry Pi](setup-home-wifi)
-and then [Away from home with Tailscale](setup-tailscale); this page has the
-details behind each step, for any 64-bit Linux machine. Stuck? The
+**New here? Don't start on this page.** Follow
+[Set up Skrongle on a new Raspberry Pi](setup-home-wifi), top to bottom: it
+goes from the box to a private install with your account, two-factor sign-in
+and a backup. Then [Away from home with Tailscale](setup-tailscale) if you
+want it outside the house.
+
+This page is the reference behind those steps, for any 64-bit Linux
+machine: every setting, the systemd unit, a proxy in front, recovery
+commands and troubleshooting. Stuck? The
 [self-hosting FAQ](self-hosting-faq) answers the first questions people ask.
 
 Self-hosting is free. Help is best-effort, in
@@ -89,11 +94,12 @@ prints `OK`); stop if it doesn't. `update.sh` does the same check.
 
 ## Install
 
-Pick the version from the [releases page](https://github.com/alexbeeken/skrongle-mini/releases)
-(the commands below use `0.2.0`; `uname -m` picks the architecture):
+The first line finds the newest release on the
+[releases page](https://github.com/alexbeeken/skrongle-mini/releases)
+(or set `V=` to the one you want); `uname -m` picks the architecture:
 
 ```sh
-V=0.2.0
+V=$(curl -fsSLI -o /dev/null -w '%{url_effective}' https://github.com/alexbeeken/skrongle-mini/releases/latest); V=${V##*/v}; echo "installing $V"
 curl -LO https://github.com/alexbeeken/skrongle-mini/releases/download/v$V/skrongle-$V-$(uname -m).tar.gz
 curl -LO https://github.com/alexbeeken/skrongle-mini/releases/download/v$V/skrongle-$V-$(uname -m).tar.gz.sha256
 sha256sum -c skrongle-$V-$(uname -m).tar.gz.sha256
@@ -104,8 +110,19 @@ sudo cp /opt/skrongle/skrongle.service /etc/systemd/system/
 sudo systemctl enable --now skrongle
 ```
 
-Then open `http://<hostname>.local:8080`, or `http://<ip>:8080` where `<ip>`
-is the first address `hostname -I` prints.
+Then:
+
+1. `sudo /opt/skrongle/skrongle doctor --service` should show no `PROBLEM:`
+   line ([Diagnostics](#diagnostics-skrongle-doctor)).
+2. `http://<hostname>.local:8080` (or `http://<ip>:8080`, where `<ip>` is the
+   first address `hostname -I` prints) opens. It has no account yet.
+3. **Make your account with the owner link** from the log:
+   `sudo journalctl -u skrongle -g "Owner link" -o cat | tail -n 1`. Until
+   you do, `/register` only says the server has no owner yet
+   ([Accounts and AI keys](#accounts-and-ai-keys)).
+4. Turn on two-factor sign-in (*Profile → Two-factor authentication*), keep
+   it off the internet ([Reaching it from outside](#reaching-it-from-outside))
+   and make a backup ([Backup and restore](#backup-and-restore)).
 
 To try it without systemd, run it from its folder:
 `cd /opt/skrongle && SKRONGLE_DB=$HOME/learn.db ./skrongle`.
@@ -123,11 +140,16 @@ Secrets show as yes/no only, never their values. It only reads. It opens
 the database read-only and creates nothing.
 
 It reads the same `SKRONGLE_*` settings as the server. To see what the systemd
-service sees, give it the unit's settings and its env file:
+service sees, run it with `--service`: it asks systemd for the `skrongle`
+unit's settings and reads its env file, as the service does (the shell's own
+`SKRONGLE_*` variables are left out):
 
 ```sh
-sudo env $(systemctl show skrongle -p Environment --value) /opt/skrongle/skrongle doctor --env-file /etc/skrongle/env
+sudo /opt/skrongle/skrongle doctor --service
 ```
+
+Without systemd, `skrongle doctor --env-file FILE` reads the settings from a
+file on top of the environment.
 
 A line that starts with `PROBLEM:` says what to fix.
 
@@ -159,7 +181,9 @@ sudo systemctl restart skrongle    # after changing /etc/skrongle/env
 ## Configuration
 
 Every setting is an environment variable. Put extra ones in
-`/etc/skrongle/env`, one `NAME=value` per line, and restart. Every name
+`/etc/skrongle/env`, one `NAME=value` per line, and restart.
+[`deploy/env.example`](https://github.com/alexbeeken/skrongle-mini/blob/main/deploy/env.example)
+lists the ones you might set, commented out. Every name
 starts `SKRONGLE_`; see [Renamed settings](#renamed-settings) if yours start `LEARN_`.
 
 Where a default says "unit", `skrongle.service` sets it.
@@ -178,7 +202,8 @@ Where a default says "unit", `skrongle.service` sets it.
 | `SKRONGLE_AI_JOB_BUDGET_SECS` | `3600` | How long one AI generation job may run in all. Raise it for a slow self-hosted model. |
 | `SKRONGLE_LOG` | `info` | One level: `error`, `warn`, `info`, `debug` or `trace`. Per-module filters like `skrongle=debug` are not supported; an unrecognised value logs one warning and runs at `info`. |
 | `SKRONGLE_SECURE_COOKIES` | off | `1` when the site is served over HTTPS (behind a TLS proxy). |
-| `SKRONGLE_PUBLIC_URL` | — | The address people use, e.g. `https://learn.example.org`. |
+| `SKRONGLE_PUBLIC_URL` | — | The address people use, e.g. `https://learn.example.org`. The owner link and invitation links start with it. |
+| `SKRONGLE_BASE_PATH` | *(empty)* | A URL prefix when a proxy serves the app under a path, e.g. `/learn`. |
 | `SKRONGLE_MIN_AGE` | `14` | The minimum age the registration checkbox states. |
 | `SKRONGLE_FAILED_COURSE_RETENTION_DAYS` | `30` | An AI course whose generation failed is deleted, with the notes it was given, after this many days without a resume or edit. `0` keeps them. |
 | `SKRONGLE_COURSES_PER_USER` | `50` | Courses one account may make. "Create a course" says so when an account has them all. |
@@ -514,25 +539,6 @@ the saved AI keys are deleted and learners enter theirs again. An
 authenticator app set up for two-factor sign-in was sealed with the old key
 too: it is turned off, and those learners sign in with their password and
 set it up again. Everything else is unaffected.
-
-## Releases
-
-For maintainers. A release is a tag that matches the `version` in
-`Cargo.toml` (bump it, merge, then tag main; the workflow refuses a tag
-that doesn't match). Pushing `v<version>` runs
-`.github/workflows/release.yml`, which builds both architectures with
-`scripts/build-pi.sh` (cargo-zigbuild, glibc 2.31), packs each with
-`scripts/package-release.sh` and attaches the tarballs and checksums to the
-GitHub release of that tag (created with generated notes if it doesn't
-exist yet). The binary reports the tag's version (`skrongle --version`).
-
-```sh
-git tag v0.2.0 origin/main && git push origin v0.2.0
-```
-
-*Actions → release → Run workflow* builds the same tarballs as workflow
-artifacts without making a release. To check the layout locally:
-`scripts/build-pi.sh aarch64 && scripts/package-release.sh 0.0.0 aarch64`.
 
 ## Troubleshooting
 

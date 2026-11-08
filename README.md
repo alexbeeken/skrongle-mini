@@ -19,23 +19,27 @@ Raspberry Pi Zero 2 W runs it with room to spare.
 
 ## Run it yourself
 
-For the step-by-step path, follow the
-[home Wi-Fi guide](docs/setup-home-wifi.md), written for someone who has never
-run a server, and the [Tailscale guide](docs/setup-tailscale.md) to reach it
-away from home. The technical reference is
-[docs/self-hosting.md](docs/self-hosting.md). The short form:
+Follow **[Set up Skrongle on a new Raspberry Pi](docs/setup-home-wifi.md)**,
+top to bottom. It is written for someone who has never run a server, and
+it is the only install path; this is its outline:
 
-1. Download the [release](https://github.com/alexbeeken/skrongle-mini/releases)
-   tarball for your machine: `skrongle-<version>-aarch64.tar.gz` for a Pi
-   (64-bit Raspberry Pi OS) or `-x86_64` for a PC running Linux.
-2. Unpack it, install the systemd unit it contains and start the service.
-   The server writes an **owner link** to its log: open it to make the
-   first account, which is the owner's.
-3. Everyone else joins with an invitation link the owner makes on the
-   **Manage Users** page.
-4. Optional: paste an AI provider's API key on the same page. It serves every
-   account, and the owner can hide the AI features for everyone with one
-   switch.
+1. **Get it**: download the latest release for your machine, check its
+   checksum, unpack it to `/opt/skrongle` and start the systemd unit it
+   contains.
+2. **Check it**: `sudo /opt/skrongle/skrongle doctor --service` shows no
+   `PROBLEM:` line, and the page opens on the same Wi-Fi.
+3. **Make your account**: open the one-time **owner link** the server wrote
+   to its log. The first account is the owner's.
+4. **Keep it private**: two-factor sign-in on, never forward a port; for
+   access away from home, the [Tailscale guide](docs/setup-tailscale.md).
+5. **Invite your people**: one invitation link per person, from the
+   **Manage Users** page. Optionally paste an AI provider's key there too.
+6. **Back it up**: `learn.db` and `learn.db.key` in `/var/lib/skrongle`,
+   always together.
+7. **Update it**: `sudo /opt/skrongle/update.sh`.
+
+Every setting, a proxy in front and recovery commands are in the
+[Self-hosting reference](docs/self-hosting.md).
 
 What you get, and what you are responsible for:
 
@@ -104,7 +108,8 @@ to write a course.
 
 - [docs/getting-started.md](docs/getting-started.md), the user guides and
   the [FAQ](docs/faq.md).
-- [docs/self-hosting.md](docs/self-hosting.md) and the
+- [docs/setup-home-wifi.md](docs/setup-home-wifi.md) (the install path),
+  [docs/self-hosting.md](docs/self-hosting.md) (the reference) and the
   [self-hosting FAQ](docs/self-hosting-faq.md).
 - [docs/course-format.md](docs/course-format.md): the complete course
   format, also the specification the AI generator follows.

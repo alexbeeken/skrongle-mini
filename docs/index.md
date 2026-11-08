@@ -33,11 +33,12 @@ all driven by JSON course files.
 
 ## Self-hosting
 
-- [Set up Skrongle on a new Raspberry Pi](setup-home-wifi): the step-by-step
-  guide, from a new Pi to a running Skrongle on your home Wi-Fi.
+- [Set up Skrongle on a new Raspberry Pi](setup-home-wifi): start here. The
+  one install path, from a new Pi to a private Skrongle with your account,
+  two-factor sign-in, invitations and a backup.
 - [Away from home with Tailscale](setup-tailscale): reach your Pi from
   anywhere over a private link.
-- [Self-hosting](self-hosting): the technical guide, every setting and
+- [Self-hosting reference](self-hosting): every setting and
   command; [Self-hosting FAQ](self-hosting-faq) for when something is off.
 
 ## For LLMs

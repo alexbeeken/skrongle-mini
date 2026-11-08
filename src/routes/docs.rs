@@ -73,18 +73,6 @@ fn title_of(md: &str, slug: &str) -> String {
         .unwrap_or_else(|| slug.replace('-', " "))
 }
 
-/// The release tarball the self-hosting guide installs: the one for the
-/// version this server runs (`Cargo.toml`; the release workflow refuses a
-/// tag that doesn't match it), for the Pi (`aarch64`). Named
-/// `skrongle-<version>-<arch>.tar.gz` by `scripts/package-release.sh`, with
-/// `skrongle`, `data/`, `skrongle.service` and `terms.example.md` inside,
-/// as `docs/self-hosting.md` lays out. The download only exists once the
-/// repo is public and that version is released (#95, #101).
-#[allow(dead_code)] // the page links to the guide now; the release check still pins the name
-#[allow(dead_code)]
-
-
-
 /// Every embedded `.md` file, as (slug, title).
 pub fn pages() -> Vec<DocLink> {
     let mut names: Vec<String> = Docs::iter().map(|n| n.to_string()).filter(|n| n.ends_with(".md")).collect();

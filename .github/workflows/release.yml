@@ -9,7 +9,7 @@
 # Both link glibc 2.31 (cargo-zigbuild), so they run on Debian 11+,
 # Ubuntu 20.04+ and Raspberry Pi OS Bullseye or later. "Run workflow" by hand
 # builds the same tarballs as workflow artifacts without making a release.
-# How to cut a release: docs/self-hosting.md, "Releases".
+# How to cut a release: docs/testing.md, "Releases (maintainers)".
 name: release
 
 on:
