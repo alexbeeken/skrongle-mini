@@ -51,7 +51,7 @@ pub struct UnitTrack {
 #[template(path = "map.html")]
 pub struct MapTemplate {
     pub user: Option<CurrentUser>,
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     pub tracks: Vec<UnitTrack>,
     pub current_unit: String,
 }
@@ -126,7 +126,7 @@ pub async fn map(State(state): State<Arc<AppState>>, p: Project) -> Result<Respo
         });
     }
     Ok(Page(MapTemplate {
-        course: CourseView::of(content),
+        course: content.view(),
         user: Some(p.user),
         tracks,
         current_unit: content.unit(current).title.clone(),

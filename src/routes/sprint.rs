@@ -74,7 +74,7 @@ pub struct UnitGroup {
 #[derive(Template)]
 #[template(path = "sprint.html")]
 pub struct HomeTemplate {
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     pub streak: i64,
     pub practised_today: bool,
     pub today: Today,
@@ -177,7 +177,7 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
     }
 
     Ok(Page(HomeTemplate {
-        course: CourseView::of(content),
+        course: content.view(),
         streak: streak.0,
         practised_today: streak.1,
         today,
@@ -200,7 +200,7 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
 pub struct PlayTemplate {
     pub title: String,
     pub course_title: String,
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     pub session_json: String,
     /// A quiz item or a spot or a scale draws music: load the notation scripts.
     pub notation: bool,
@@ -284,7 +284,7 @@ pub async fn play(
         _ => false,
     });
     let staff_note = session.exercises.iter().any(|e| matches!(e, sprint::Exercise::StaffNote { .. }));
-    let tpl = PlayTemplate { title: session.title.clone(), course_title: content.title().to_string(), course: CourseView::of(content), session_json, notation, sound, staff_note, keyboard };
+    let tpl = PlayTemplate { title: session.title.clone(), course_title: content.title().to_string(), course: content.view(), session_json, notation, sound, staff_note, keyboard };
     Ok(Html(tpl.render()?).into_response())
 }
 

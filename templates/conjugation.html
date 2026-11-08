@@ -2,7 +2,7 @@
 {% block title %}{{ crate::t2("play.drill.page_title", "item", course.item_label, "set", set_label) }}{% endblock %}
 {% block modenav %}{% let active = "drill" %}{% include "nav_play.html" %}{% endblock %}
 {% block content %}
-<section class="conj" id="conj" data-testid="drill" data-set="{{ set }}" data-items="{{ items_csv }}" data-count="{{ count }}" data-hide="{% if hide_item %}1{% else %}0{% endif %}" data-praise="{{ course.praise }}" data-lang="{{ course.term_lang }}">
+<section class="conj" id="conj" data-testid="drill" data-set="{{ set }}" data-items="{{ items_csv }}" data-count="{{ count }}" data-hide="{% if hide_item %}1{% else %}0{% endif %}" data-praise="{{ course.praise_line() }}" data-lang="{{ course.term_lang }}">
   <header class="quiz-head">
     <div>
       <p class="crumbs"><a href="{{ crate::base_path() }}/play">{{ crate::t("play.common.games") }}</a> › <a href="{{ crate::base_path() }}/play/conjugation">{{ crate::t1("play.drill.name", "item", course.item_label) }}</a></p>

@@ -129,7 +129,7 @@ pub async fn root(
 #[template(path = "home.html")]
 pub struct HomeTemplate {
     pub user: Option<CurrentUser>,
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     /// The top of the page, drawn by the motivator worn (`motivators.rs`).
     pub hero: String,
     /// The shared measures the motivator decorated; the mode cards read some too.
@@ -277,7 +277,7 @@ impl Pager {
 #[template(path = "lessons.html")]
 pub struct LessonsTemplate {
     pub user: Option<CurrentUser>,
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     /// One tab per unit that has lessons.
     pub tabs: Vec<PickTab>,
     /// The units shown: one, or every unit with a match while searching.
@@ -421,7 +421,7 @@ fn conversation_views(lesson: &Lesson) -> Vec<ConvView> {
 #[template(path = "lesson.html")]
 pub struct LessonTemplate<'a> {
     pub user: Option<CurrentUser>,
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     pub lesson: &'a Lesson,
     pub unit: String,
     pub group: String,
@@ -467,7 +467,7 @@ pub struct HistoryView {
 #[template(path = "history.html")]
 pub struct HistoryTemplate {
     pub user: Option<CurrentUser>,
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     pub rows: Vec<HistoryView>,
     pub games: Vec<GameRow>,
 }
@@ -488,7 +488,7 @@ pub struct MistakeView {
 #[template(path = "mistakes.html")]
 pub struct MistakesTemplate {
     pub user: Option<CurrentUser>,
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     pub rows: Vec<MistakeView>,
     pub limit: i64,
 }
@@ -585,7 +585,7 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
         unit_percent: if unit_total == 0 { 0 } else { unit_passed * 100 / unit_total },
     };
     let (due_count, due) = super::vocab::due_cards(&state, &p, 3).await?;
-    let course = CourseView::of(content);
+    let course = content.view();
     let settings = project.filter(|pr| !pr.set_up).map(|pr| super::courses::settings_view(&pr, content, true));
     Ok(Page(HomeTemplate {
         settings,
@@ -700,7 +700,7 @@ pub async fn lessons(State(state): State<Arc<AppState>>, p: Project, Query(lq): 
         pager = pg;
         groups = vec![g];
     }
-    Ok(Page(LessonsTemplate { course: CourseView::of(content), user: Some(p.user), tabs, groups, pager, search: chosen.is_none(), q }).into_response())
+    Ok(Page(LessonsTemplate { course: content.view(), user: Some(p.user), tabs, groups, pager, search: chosen.is_none(), q }).into_response())
 }
 
 #[derive(serde::Deserialize)]
@@ -786,7 +786,7 @@ pub async fn lesson(
 
     let (prev_lesson, next_lesson) = neighbours(content, lesson, &progress, p.start);
     let tpl = LessonTemplate {
-        course: CourseView::of(content),
+        course: content.view(),
         user: Some(p.user.clone()),
         lesson,
         unit: content.unit(lesson.unit_index).title.clone(),
@@ -875,7 +875,7 @@ pub async fn history(State(state): State<Arc<AppState>>, p: Project) -> Result<R
             }
         })
         .collect();
-    Ok(Page(HistoryTemplate { course: CourseView::of(content), user: Some(p.user), rows, games }).into_response())
+    Ok(Page(HistoryTemplate { course: content.view(), user: Some(p.user), rows, games }).into_response())
 }
 
 /// The mistakes list (#338): quiz questions whose latest answer was wrong,
@@ -902,7 +902,7 @@ pub async fn mistakes(State(state): State<Arc<AppState>>, p: Project) -> Result<
             })
         })
         .collect();
-    Ok(Page(MistakesTemplate { course: CourseView::of(content), user: Some(p.user), rows, limit: MISTAKES_SHOWN }).into_response())
+    Ok(Page(MistakesTemplate { course: content.view(), user: Some(p.user), rows, limit: MISTAKES_SHOWN }).into_response())
 }
 
 #[cfg(test)]

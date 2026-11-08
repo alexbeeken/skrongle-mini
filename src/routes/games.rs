@@ -22,7 +22,7 @@ use crate::AppState;
 #[template(path = "games.html")]
 pub struct GamesTemplate {
     pub user: Option<CurrentUser>,
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     pub playable_lessons: usize,
     pub total_words: usize,
     pub words_learned: i64,
@@ -49,7 +49,7 @@ pub struct BoardCard {
 #[template(path = "matching_pick.html")]
 pub struct PickTemplate {
     pub user: Option<CurrentUser>,
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     pub boards: Vec<BoardCard>,
 }
 
@@ -66,7 +66,7 @@ pub struct ScoreView {
 #[template(path = "matching.html")]
 pub struct MatchingTemplate {
     pub user: Option<CurrentUser>,
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     pub board: String,
     pub title: String,
     pub subtitle: String,
@@ -97,7 +97,7 @@ pub async fn hub(State(state): State<Arc<AppState>>, p: Project) -> Result<Respo
     let playable_lessons = games::playable(content).count();
     let total_words = content.lessons().iter().map(|l| l.vocabulary.len()).sum();
     Ok(Page(GamesTemplate {
-        course: CourseView::of(content),
+        course: content.view(),
         user: Some(p.user),
         playable_lessons,
         total_words,
@@ -158,7 +158,7 @@ pub async fn pick(State(state): State<Arc<AppState>>, p: Project) -> Result<Resp
             your_best: bests.get(&l.id).map(|ms| games::fmt_ms(*ms)),
         });
     }
-    Ok(Page(PickTemplate { course: CourseView::of(content), user: Some(p.user), boards }).into_response())
+    Ok(Page(PickTemplate { course: content.view(), user: Some(p.user), boards }).into_response())
 }
 
 #[derive(Deserialize)]
@@ -218,7 +218,7 @@ pub async fn play(
         .call(move |c| Ok((games::leaderboard(c, &cid, GAME_MATCHING, &b, 10)?, games::personal_best(c, uid, &cid, GAME_MATCHING, &b)?)))
         .await?;
     let tpl = MatchingTemplate {
-        course: CourseView::of(content),
+        course: content.view(),
         user: Some(p.user.clone()),
         board,
         title,
@@ -425,7 +425,7 @@ pub struct SlotLegend {
 #[template(path = "conjugation_setup.html")]
 pub struct ConjugationSetupTemplate {
     pub user: Option<CurrentUser>,
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     /// One tab per set (#837); only the chosen set's items are on the page.
     pub tabs: Vec<super::pages::PickTab>,
     /// The chosen set, with one page of its locked lessons.
@@ -442,7 +442,7 @@ pub struct ConjugationSetupTemplate {
 #[template(path = "conjugation.html")]
 pub struct ConjugationTemplate {
     pub user: Option<CurrentUser>,
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     pub set: String,
     pub set_label: String,
     pub items: Vec<String>,
@@ -556,7 +556,7 @@ pub async fn conjugation_setup(State(state): State<Arc<AppState>>, p: Project, Q
         vec![t]
     };
     Ok(Page(ConjugationSetupTemplate {
-        course: CourseView::of(content),
+        course: content.view(),
         user: Some(p.user),
         tabs,
         sets,
@@ -631,7 +631,7 @@ pub async fn conjugation_play(
     }
     let count = q.n.unwrap_or(20).min(120);
     Ok(Page(ConjugationTemplate {
-        course: CourseView::of(content),
+        course: content.view(),
         user: Some(p.user),
         set: set.key.clone(),
         set_label: set.label.clone(),
@@ -765,7 +765,7 @@ pub struct RangePreset {
 #[template(path = "numbers.html")]
 pub struct NumbersTemplate {
     pub user: Option<CurrentUser>,
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     pub presets: Vec<RangePreset>,
     pub limit: i64,
     pub rounds_played: i64,
@@ -810,7 +810,7 @@ pub async fn numbers(State(state): State<Arc<AppState>>, p: Project) -> Result<R
         })
         .await?;
     Ok(Page(NumbersTemplate {
-        course: CourseView::of(content),
+        course: content.view(),
         user: Some(p.user),
         presets: range_presets(),
         limit: games::NUMBERS_LIMIT,
@@ -877,7 +877,7 @@ pub async fn numbers_finish(
 #[template(path = "dates.html")]
 pub struct DatesTemplate {
     pub user: Option<CurrentUser>,
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     /// The manifest's `calendar` as JSON for the script (days, months, format).
     pub calendar_json: String,
     pub rounds_played: i64,
@@ -905,7 +905,7 @@ pub async fn dates(State(state): State<Arc<AppState>>, p: Project) -> Result<Res
             Ok((games::rounds_played(c, uid, &cid, GAME_DATES)?, best))
         })
         .await?;
-    Ok(Page(DatesTemplate { course: CourseView::of(content), user: Some(p.user), calendar_json, rounds_played, best_score }).into_response())
+    Ok(Page(DatesTemplate { course: content.view(), user: Some(p.user), calendar_json, rounds_played, best_score }).into_response())
 }
 
 #[derive(Deserialize)]

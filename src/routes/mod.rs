@@ -373,14 +373,16 @@ pub struct CourseView {
     pub say_lang: String,
     pub paradigm_label: String,
     pub item_label: String,
-    pub praise: String,
+    /// The course's first praise line, if it has one (see `praise_line`).
+    pub praise: Option<String>,
     /// The app's icons (streak, XP, the modes…).
     pub icons: crate::content::Icons,
 }
 
 impl CourseView {
-    pub fn of(c: &crate::content::ContentStore) -> CourseView {
-        let m = c.manifest();
+    /// Built once per course, when its content store is built. `has_paradigm`
+    /// and `has_listening` depend on the lessons, so the store passes them in.
+    pub fn new(m: &crate::content::Manifest, has_paradigm: bool, has_listening: bool) -> CourseView {
         CourseView {
             title: m.title.clone(),
             icon: m.icon().to_string(),
@@ -389,15 +391,24 @@ impl CourseView {
             meaning_label: m.meanings.label.clone(),
             meaning_lang: m.meanings.lang.clone(),
             chars: m.chars.clone(),
-            has_paradigm: c.has_conjugations(),
+            has_paradigm,
             has_numbers: m.is_language(),
             has_dates: m.calendar.is_some(),
-            has_listening: c.has_listening(),
+            has_listening,
             say_lang: if m.is_language() { m.terms.lang.clone() } else { String::new() },
             paradigm_label: m.paradigm.as_ref().map(|p| p.label.clone()).unwrap_or_default(),
             item_label: m.paradigm.as_ref().map(|p| p.item_label.clone()).unwrap_or_default(),
-            praise: c.praise().into_iter().next().unwrap_or_else(|| crate::t("study.correct")),
+            praise: m.strings.praise.first().cloned(),
             icons: crate::content::Icons::default(),
+        }
+    }
+
+    /// The line shown after a right answer: the course's first praise string,
+    /// else the request language's `study.correct`.
+    pub fn praise_line(&self) -> std::borrow::Cow<'_, str> {
+        match &self.praise {
+            Some(p) => std::borrow::Cow::Borrowed(p),
+            None => std::borrow::Cow::Owned(crate::t("study.correct")),
         }
     }
 }

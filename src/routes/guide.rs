@@ -79,7 +79,7 @@ fn sections(all: Vec<(StageCard, StageState)>) -> Vec<GuideSection> {
 #[template(path = "guide.html")]
 pub struct GuideTemplate {
     pub user: Option<CurrentUser>,
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     pub sections: Vec<GuideSection>,
     pub completed: usize,
     pub three_star: usize,
@@ -138,7 +138,7 @@ pub struct StepView {
 #[template(path = "stage.html")]
 pub struct StageTemplate<'a> {
     pub user: Option<CurrentUser>,
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     pub lesson: &'a Lesson,
     pub unit: String,
     pub number: usize,
@@ -239,7 +239,7 @@ pub async fn map(State(state): State<Arc<AppState>>, p: Project) -> Result<Respo
     let current = all.iter().find(|(c, _)| c.is_current).map(|(c, _)| (c.slug.clone(), c.title.clone()));
     let total = all.iter().filter(|(_, s)| *s != StageState::Skipped).count();
     Ok(Page(GuideTemplate {
-        course: CourseView::of(content),
+        course: content.view(),
         user: Some(p.user),
         sections: sections(all),
         completed,
@@ -371,7 +371,7 @@ pub async fn stage(
 
     let next = content.lessons().get(number).map(|l| (l.slug.clone(), l.title.clone()));
     let tpl = StageTemplate {
-        course: CourseView::of(content),
+        course: content.view(),
         user: Some(p.user.clone()),
         lesson,
         unit: content.unit(lesson.unit_index).title.clone(),

@@ -141,8 +141,8 @@ impl CourseInfo {
             meaning_lang: m.meanings.lang.clone(),
             say_lang: if m.is_language() { m.terms.lang.clone() } else { String::new() },
             chars: m.chars.clone(),
-            praise: content.praise(),
-            almost: content.almost(),
+            praise: content.praise().to_vec(),
+            almost: content.almost().to_vec(),
             icons: crate::content::Icons::default(),
         }
     }

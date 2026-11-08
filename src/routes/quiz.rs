@@ -114,7 +114,7 @@ pub struct NextLesson {
 #[template(path = "quiz.html")]
 pub struct QuizTemplate {
     pub user: Option<CurrentUser>,
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     pub heading: String,
     pub subheading: String,
     pub lesson_slug: Option<String>,
@@ -225,7 +225,7 @@ pub async fn practice(
     };
 
     Ok(Page(QuizTemplate {
-        course: CourseView::of(content),
+        course: content.view(),
         user: Some(p.user),
         heading,
         subheading,
