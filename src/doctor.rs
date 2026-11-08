@@ -19,6 +19,8 @@ const SERVICE: &str = "skrongle";
 
 /// Run the command; the process exit code.
 pub fn main(args: &[String]) -> i32 {
+    let mut env_file = None;
+    let mut service = false;
     let mut it = args.iter();
     while let Some(a) = it.next() {
         match a.as_str() {
@@ -27,17 +29,9 @@ pub fn main(args: &[String]) -> i32 {
                     eprintln!("--env-file needs a path, e.g. --env-file /etc/skrongle/env");
                     return 2;
                 };
-                if let Err(e) = apply_env_file(path) {
-                    eprintln!("cannot read {path}: {e}");
-                    return 1;
-                }
+                env_file = Some(path);
             }
-            "--service" => {
-                if let Err(e) = apply_service_env() {
-                    eprintln!("--service: {e}");
-                    return 1;
-                }
-            }
+            "--service" => service = true,
             "-h" | "--help" => {
                 println!("{}", crate::USAGE);
                 return 0;
@@ -46,6 +40,24 @@ pub fn main(args: &[String]) -> i32 {
                 eprintln!("unknown doctor argument {other:?}\n\n{}", crate::USAGE);
                 return 2;
             }
+        }
+    }
+    // --service already reads the unit's env file, and replaces the shell's
+    // settings, so an --env-file next to it would be dropped without a word.
+    if service && env_file.is_some() {
+        eprintln!("use --service or --env-file, not both: --service already reads the unit's env file");
+        return 2;
+    }
+    if let Some(path) = env_file {
+        if let Err(e) = apply_env_file(path) {
+            eprintln!("cannot read {path}: {e}");
+            return 1;
+        }
+    }
+    if service {
+        if let Err(e) = apply_service_env() {
+            eprintln!("--service: {e}");
+            return 1;
         }
     }
     let old_names = crate::old_prefix_warning_now();
@@ -85,10 +97,17 @@ fn apply_service_env() -> Result<(), String> {
         }
         Ok(String::from_utf8_lossy(&out.stdout).into_owned())
     };
-    let assignments = show("Environment")?;
-    if assignments.trim().is_empty() {
-        return Err(format!("the {SERVICE} unit sets no environment; is it installed? (sudo systemctl status {SERVICE})"));
+    // `systemctl show` succeeds for a unit that doesn't exist too, with every
+    // value empty; LoadState says whether systemd found it. A unit may set
+    // nothing with Environment= and still be installed (all in its env file).
+    let state = show("LoadState")?;
+    if state.trim() != "loaded" {
+        return Err(format!(
+            "the {SERVICE} unit is not installed (systemd says {:?}); install it as docs/setup-home-wifi.md step 5 does",
+            state.trim()
+        ));
     }
+    let assignments = show("Environment")?;
     let inherited: Vec<String> = std::env::vars_os()
         .filter_map(|(k, _)| k.into_string().ok())
         .filter(|k| crate::ENV_PREFIXES.iter().any(|p| k.starts_with(p)))
@@ -103,7 +122,10 @@ fn apply_service_env() -> Result<(), String> {
         match apply_env_file(&path) {
             Ok(()) => {}
             Err(e) if optional && e.kind() == std::io::ErrorKind::NotFound => {}
-            Err(e) => return Err(format!("cannot read {path}: {e} (run it with sudo)")),
+            Err(e) if e.kind() == std::io::ErrorKind::PermissionDenied => {
+                return Err(format!("cannot read {path}: {e} (run it with sudo)"))
+            }
+            Err(e) => return Err(format!("cannot read {path}: {e}")),
         }
     }
     Ok(())
@@ -589,6 +611,14 @@ mod tests {
         ];
         assert_eq!(got, want.map(|(k, v)| (k.to_string(), v.to_string())));
         assert!(split_unit_environment("\n").is_empty());
+    }
+
+    /// Refused before anything is read or set, in either order.
+    #[test]
+    fn service_and_env_file_together_are_refused() {
+        let args = |a: &[&str]| a.iter().map(|s| s.to_string()).collect::<Vec<_>>();
+        assert_eq!(main(&args(&["--service", "--env-file", "/nonexistent/env"])), 2);
+        assert_eq!(main(&args(&["--env-file", "/nonexistent/env", "--service"])), 2);
     }
 
     #[test]
