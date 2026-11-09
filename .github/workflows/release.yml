@@ -124,11 +124,28 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          sparse-checkout: CHANGELOG.md
+          persist-credentials: false
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:
           pattern: skrongle-*
           path: dist
           merge-multiple: true
+      - name: Release notes from CHANGELOG.md
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          # The section for this version, from its "## <version> (" heading to the next "## ".
+          v="${TAG#v}"
+          notes="$RUNNER_TEMP/notes.md"
+          awk -v v="$v" 'index($0, "## " v " (") == 1 { on = 1; next } /^## / { on = 0 } on' CHANGELOG.md > "$notes"
+          if ! grep -q '[^[:space:]]' "$notes"; then
+            echo "CHANGELOG.md has no section for $v: add \"## $v (<date>)\" with its notes before tagging"
+            exit 1
+          fi
+          cat "$notes"
       - name: Create the release, or add to it
         env:
           GH_TOKEN: ${{ github.token }}
@@ -136,8 +153,10 @@ jobs:
           TAG: ${{ github.ref_name }}
         run: |
           ls -l dist
+          notes="$RUNNER_TEMP/notes.md"
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" dist/* --clobber
+            gh release edit "$TAG" --notes-file "$notes"
           else
-            gh release create "$TAG" dist/* --title "Skrongle ${TAG#v}" --generate-notes --verify-tag
+            gh release create "$TAG" dist/* --title "Skrongle ${TAG#v}" --notes-file "$notes" --verify-tag
           fi

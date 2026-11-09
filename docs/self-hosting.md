@@ -545,6 +545,10 @@ checks its checksum, stops the service, copies the database aside as
 `learn.db.before-<version>`, replaces the binary and `data/`, and starts the
 service again. Give it a version to install that one instead
 (`sudo /opt/skrongle/update.sh 0.2.0`), which is also how to go back.
+Read the release's section in
+[CHANGELOG.md](https://github.com/alexbeeken/skrongle-mini/blob/main/CHANGELOG.md)
+first: it says what to do and what to back up. The version numbers' rules
+are in the README, "Versions".
 Database migrations run when the new server starts. A database from a
 build before the 1.0 schema is not upgraded: the server stops with one line
 naming the file ("this database predates the 1.0 schema; start from a fresh
