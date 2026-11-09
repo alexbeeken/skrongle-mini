@@ -222,7 +222,7 @@ ExecStart=/opt/skrongle/skrongle
 Restart=on-failure
 RestartSec=3
 
-Environment=SKRONGLE_BIND=0.0.0.0:8080
+Environment=SKRONGLE_BIND=0.0.0.0:7576
 Environment=SKRONGLE_DATA_DIR=/opt/skrongle/data
 Environment=SKRONGLE_DB=/mnt/dietpi_userdata/skrongle/learn.db
 Environment=SKRONGLE_LOG=info
