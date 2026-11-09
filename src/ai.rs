@@ -223,14 +223,15 @@ pub struct Request {
     /// Translate the course (a copy, #630) instead of writing it: one
     /// request per file, the files not done yet.
     pub translate: Option<Translation>,
+    /// The language of the request that started the job (`i18n::snapshot`):
+    /// its thread runs in it, so text it words reads as the learner's.
+    pub i18n: usize,
 }
 
-/// A translation job's plan (`translate::Plan`, saved with the copy) and
-/// the language of the request that started it, for the progress it shows.
+/// A translation job's plan (`translate::Plan`, saved with the copy).
 #[derive(Clone, Debug)]
 pub struct Translation {
     pub plan: crate::translate::Plan,
-    pub i18n: usize,
 }
 
 /// Longest brief for a new lesson (characters).

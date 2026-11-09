@@ -268,8 +268,9 @@ pub async fn translate(State(state): State<Arc<AppState>>, user: CurrentUser, Pa
         revise: None,
         add_lesson: None,
         edit: None,
-        translate: Some(ai::Translation { plan, i18n: crate::i18n::snapshot() }),
+        translate: Some(ai::Translation { plan }),
         named: courses::Draft::default(),
+        i18n: crate::i18n::snapshot(),
     };
     match ai::submit(&state, req, job.clone(), false).await {
         Ok(job) => {

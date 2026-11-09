@@ -258,15 +258,15 @@ fn launch(jobs: &Jobs, job: Arc<Job>, db: Db, registry: Arc<crate::courses::Cour
         let cid = req.course_id.clone();
         // The files as they were, for "Review AI changes".
         let before = db.with(|c| crate::courses::load_files(c, &cid));
-        let outcome = match (&req.edit, &req.revise, &req.add_lesson, &req.translate) {
+        // The whole job runs in the language of the request that started it.
+        let outcome = crate::i18n::in_scope(req.i18n, || match (&req.edit, &req.revise, &req.add_lesson, &req.translate) {
             (Some(EditRun { feedback, lesson: Some((path, _)) }), ..) => edit_lesson::edit_lesson(&job, &db, &registry, &req, path, feedback),
             (Some(EditRun { feedback, lesson: None }), ..) => edit::edit(&job, &db, &registry, &req, feedback),
             (None, Some(feedback), _, _) => revise(&job, &db, &registry, &req, feedback),
             (None, None, Some(brief), _) => add_lesson(&job, &db, &registry, &req, brief),
-            // Its progress is worded in the language of the request that started it.
-            (None, None, None, Some(t)) => crate::i18n::in_scope(t.i18n, || translate(&job, &db, &registry, &req, &t.plan)),
+            (None, None, None, Some(t)) => translate(&job, &db, &registry, &req, &t.plan),
             (None, None, None, None) => run(&job, &db, &registry, &req),
-        };
+        });
         let err = outcome.as_ref().err().cloned();
         // Still 'generating' or 'revising', so the files are what the AI
         // wrote. A stopped generation keeps the lessons it wrote, so they
@@ -574,6 +574,9 @@ fn rebuild(state: &crate::AppState, db: &Db, p: &Payload) -> Result<Request, Str
     let mut provider = db.with(|c| super::server_provider(c, &state.vault, kind, false)).map_err(|e| e.to_string())?.ok_or(INTERRUPTED)?;
     provider.model = p.model.clone();
     provider.effort = super::Effort::parse(&p.effort);
+    // No request to copy the language from: the account's own (`''` follows the browser: the default).
+    let lang = db.with(|c| c.query_row("SELECT lang FROM users WHERE id = ?1", [p.user], |r| r.get::<_, String>(0))).unwrap_or_default();
+    let i18n = crate::i18n::in_lang(&lang, crate::i18n::snapshot);
     Ok(Request {
         user_id: p.user,
         provider,
@@ -590,6 +593,7 @@ fn rebuild(state: &crate::AppState, db: &Db, p: &Payload) -> Result<Request, Str
         edit: None,
         named: crate::courses::Draft { title: p.title.clone(), lessons: p.named.clone() },
         translate: None,
+        i18n,
     })
 }
 
