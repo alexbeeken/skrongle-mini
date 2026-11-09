@@ -25,6 +25,8 @@ command -v curl >/dev/null || { echo "needs curl: sudo apt install curl"; exit 1
 case "$(uname -m)" in
   aarch64|arm64) ARCH=aarch64 ;;
   x86_64|amd64)  ARCH=x86_64 ;;
+  armv7l)        ARCH=armv7l ;;
+  armv6l)        ARCH=armv6l ;;
   *) echo "no release for $(uname -m); build from source (docs/self-hosting.md)"; exit 1 ;;
 esac
 
