@@ -607,6 +607,172 @@ on the models that support it) and OpenAI-compatible chat completions
 Google's Gemini is reached through its OpenAI-compatible endpoint). The same
 client (`ai::chat`) serves the AI tutor with a multi-turn transcript.
 
+## AI job states
+
+Whether an AI job is running, done or failed is kept in three places that
+change at different moments (#85). This section says who writes each one,
+when, and who reads it. Line numbers are as of the commit it was written at;
+they drift, so find the function by name first. It was written by reading
+the code, not by running it. "Not traced" means the cell was not followed
+to the end.
+
+The three places:
+
+- **Course row**: `courses.state` (`generating`, `revising`, `ready`,
+  `failed`), `job_id` and `error`.
+- **Jobs row**: a `jobs` row of kind `generate_course`: `queued`,
+  `running`, `done` or `failed`, with `locked_until` (the lease) and
+  `last_error`.
+- **Memory**: `ai::Jobs` (`queue.rs:73`): `map` (every job by id, with its
+  `Status`), `live` (one entry per generator thread that has not exited),
+  `waiting` (jobs adopted after a restart that the runner has not started).
+  Each `Job` also holds a cancel flag and a deadline.
+
+A fourth place, the course content cache (`Courses`, `courses.rs:412`), is
+filled by `revalidate`; it comes up in window 8.
+
+How the writes are grouped:
+
+- Every `Db::call` / `Db::with` closure holds the one connection mutex for
+  its whole run (`db.rs:169`, `db.rs:182`), so no other request runs between
+  two statements of the same closure. A closure is a transaction only when
+  its function opens one (`restart_generation`, `create_course`,
+  `commit_revision`, `record_ai_run`, `jobs::finish`).
+- The memory lock (`Jobs.inner`, and each `Job.status`) is a different mutex.
+  No code holds the database mutex and a memory lock together as one unit.
+- So between a course-row write, a jobs-row write and a memory write, other
+  requests can run. Where a cell says "separate", that is the case.
+
+### Table
+
+| Event | Course row | Jobs row | Memory | Same transaction or lock? | Who reads it |
+|---|---|---|---|---|---|
+| Submit: generate (fresh) | `restart_generation` (`courses.rs:1565`, own transaction: deletes files and undo steps, clears outline and error), called at `generate.rs:582`. Then `set_generating` (`courses.rs:582`, called at `generate.rs:590`): `generating`, `job_id`, `error` NULL | `ai::submit` (`queue.rs:601`) calls `hold` (`queue.rs:395`): `enqueue`, then `UPDATE` to `running`, lease now + 600 s, `attempts` 1. `payload.resume` is true only if no key was pasted (`generate.rs:533`) | `start` (`queue.rs:236`), under one memory lock: `capacity`, `make_room`, insert into `map` and `live`. Then `launch` (`queue.rs:250`): phase "Starting", heartbeat thread (first time), generator thread | No. Four separate steps in this order: `restart_generation`, `set_generating`, `hold`, `start`. `hold`'s two statements share one closure but no transaction | Editor: `modal_job` (`editor.rs:102`) reads row `state`/`job_id` and memory. Course list: `broken_card` (`picker.rs:236`), row and memory. Capacity: `check_capacity` (`queue.rs:197`), memory only. Progress polling: `generate_api` (`generate.rs:660`), memory only |
+| Submit: resume a stopped generation | No `restart_generation` (`generate.rs:568`). `set_generating` (`generate.rs:590`) clears `error`; files, outline and notes stay | Same as above | Same as above; the request carries the saved outline | Same as above | Same as above |
+| Submit: add a lesson, edit, edit one lesson, revise | `set_revising` (`courses.rs:593`, called at `revise.rs:123`): `UPDATE ... WHERE state = 'ready'`, so only one request wins. `error` is not touched | Same `submit` (`revise.rs:143`). Payload mode is `revise` for all four (`queue.rs:369`), `resume` false | Same `start` | No. Two steps: `set_revising`, then `submit` | Same readers. Editor locks writes while `is_busy()` (`editor.rs:306`, `files.rs:259`) |
+| Submit: translate a copy | New course: `create_course` (own transaction, `courses.rs:995`) then `start_translation` (`courses.rs:568`): `generating`, `source` `translate`, `job_id`, `notes` = plan. Both in one closure (`create.rs:115`-`117`). Resume of a stopped translation: `set_generating` (`create.rs:251`) | `submit` (`create.rs:274`); mode `translate`, `resume` false | Same `start` | The two course writes share one closure and mutex, not one transaction. Then separate from the jobs row and memory | Same readers. `gen_mode` (`generate.rs:216`) offers no Generate dialog for `source = translate` |
+| A lesson is written (generate, resume) | `write_file` per lesson (`ai.rs:569`): `course_files` only; `courses.state` and `job_id` untouched. The first request writes the manifest and the outline together (`ai.rs:487`-`491`: `write_file`, `set_outline`: one closure, no transaction) | Nothing. The heartbeat renews the lease separately, every 120 s (`queue.rs:320`) | `lessons_done` and a log line, after the write (`ai.rs:572`) | No. Files are written before memory is updated | Progress bar and list card: memory (`/api/generate`, `courses.js:1908`). A lesson written to the database is not visible to the page until the next poll |
+| A lesson is written (translate) | `write_file` plus `set_notes` (`ai.rs:1118`-`1121`, one closure, no transaction): file and plan progress | Nothing | `lessons_done` (`ai.rs:1127`) | Course writes share a closure; memory is separate | Same |
+| A lesson is written (revise, add, edit) | Nothing yet. Files are swapped once at the end: `commit_revision` (`courses.rs:661`, one transaction) then `revalidate` in the same closure (`ai.rs:904` revise, `ai.rs:1024` add, `edit.rs:322` edit, `edit_lesson.rs:108` one lesson). `state` stays `revising` until the thread's end sequence | Nothing | `lessons_done`: `edit.rs:137` (edit), `ai.rs:1017` (add). Revise: not traced | Commit and revalidate share a closure; commit is a transaction, revalidate is not | Progress: memory. Files on the page: the course row's files, already new while `state` is still `revising` (window 8) |
+| End: success | Thread end sequence, `launch` closure (`queue.rs:252`-`305`), three separate `db.with` calls and one memory update, in this order: (1) `record_ai_run` (`queue.rs:276`, own transaction; skipped for translate); (2) generate/resume/translate: `finish_generation(None)` (`courses.rs:935`): `ready`, `error` kept as it was (`COALESCE`); revision kinds: `finish_revision` (`courses.rs:600`): `ready` only if `state = 'revising'`. Both at `queue.rs:288`-`292` | (3) `settle` (`queue.rs:403`, called at `queue.rs:294`): `done`, lease cleared, `finished_at`; only if the row is still `queued` or `running` | (4) `job.update` (`queue.rs:297`): `done`, `finished_at`, phase "Done". Then the closure ends and `LiveSlot::drop` (`queue.rs:84`) removes `live` and wakes the runner | No. Four steps, each its own lock hold. (3) runs only if (2) returned `Ok` (`finished.and_then`, `queue.rs:294`) | Editor: row first, then memory; `settled` (`editor.rs:120`) re-reads the row if the row is busy and the job is done. Course list card: row; the card script reloads once when memory says done and the card still says generating (`courses.js:1908`). Capacity: memory (`live`) |
+| End: failure | Same sequence. Generate/resume/translate: `finish_generation(Some(err))`: `failed`, `error` set; lessons and outline stay, so Resume works. Revision kinds: `finish_revision`: `ready`; the course is as before, unless the error came after `commit_revision` ("does not load ... Undo it", `edit_lesson.rs:113`), when the new files are in | `settle` with the error: `failed`, `last_error` | Phase "Stopped", `error` | Same as success | Editor: `stopped_redirect` (`editor.rs:520`) sends a `failed` course to the course list. `modal_job` shows a failed job's modal until closed |
+| Cancel a running job | Nothing | Nothing | `generate_cancel` (`generate.rs:625`) finds the job by `row.job_id` and `!done`, calls `ai::cancel` (`queue.rs:615`) which falls to `Job::cancel` (`ai.rs:322`): sets the flag, phase "Cancelling…", a log line. The thread sees it at the next `check_cancelled` (`ai.rs:329`) and ends as a failure with a "Cancelled" message | Flag and phase are memory only | Modal: memory. Row and jobs row change only when the thread ends (End: failure) |
+| Cancel with no job in memory | Generation only: `finish_generation(Some("cancelled"))` at `generate.rs:629`-`634` (only when `is_generating()`). A `revising` course: nothing (`generate.rs:635`) | Nothing | Nothing | n/a | Course list, editor |
+| Cancel a job adopted after a restart and not started | `queue::cancel` (`queue.rs:630`-`641`): `finish_revision` or `finish_generation(Some(msg))` | `settle` with the message, in the same closure | `waiting` entry removed and cancel flag set first (`queue.rs:619`-`621`); job marked done after the database write (`queue.rs:643`) | Course and jobs row: one closure, not one transaction. Memory: before and after, separate | Course list, editor |
+| Job time budget reached | As End: failure | As End: failure | `check_cancelled` (`ai.rs:329`) returns the "took longer than N minutes" error before the next request; `llm` (`ai.rs:359`) also cuts the request timeout to the time left. Budget set in `new_job` (`queue.rs:205`), reset in `launch` (`queue.rs:251`) | As End: failure | As End: failure |
+| Server stops mid-job | Left as it was: `generating` or `revising`, `job_id` set | Left `running`, `locked_until` in the future, `locked_by` this server's pid. Whether shutdown waits for the generator thread: not traced | Lost | n/a | Nobody until the next boot |
+| Server starts again | `fail_interrupted` (`courses.rs:948`, `main.rs:460`): every `revising` course becomes `ready`; a `generating` course with no `queued`/`running` jobs row for it becomes `failed` with "interrupted". A course whose row was kept `queued` stays `generating` | `at_boot` (`queue.rs:434`, `main.rs:456`, before `fail_interrupted`): `payload.resume` rows become `queued`, run now; all other `queued` or `running` rows are settled `failed` with "interrupted" | `adopt` (`queue.rs:449`, `main.rs:527`): the `queued` rows go into `map` (phase "Waiting") and `waiting` | No. Three steps, three `db.with` or memory calls, in the order `at_boot`, `fail_interrupted`, `adopt`. Each is safe to run again | Course list and editor: `generating` plus a "Waiting" job |
+| Server starts again, key saved on the server (resume true) | Stays `generating` until the runner reaches the row | The runner's gate (`slot_free`, `queue.rs:486`) opens; `claim` (`jobs.rs:154`) sets `running`, `attempts` + 1. `handler` (`queue.rs:492`) rebuilds the request with `rebuild` (`queue.rs:564`): the row must still name this job and be `generating`, and `server_provider` (`queue.rs:574`) must still give a key. If so: `launch`. Otherwise `give_up` (`queue.rs:538`) | Job moves from `waiting` to `live` (`queue.rs:512`, `527`-`528`); a new generator thread resumes from the lessons written | `give_up`: course and jobs row in one closure, not one transaction; memory after. Past `max_attempts` (3) claims the handler gives up without rebuilding (`queue.rs:519`) | Course list and editor follow the job again |
+| Server starts again, key pasted (resume false) | `failed` with "interrupted" (via `fail_interrupted`); keeps its Resume button | `failed`, `last_error` "interrupted" (`at_boot`) | Nothing | Separate | Course list |
+| Account deleted while its job runs | No code that deletes an account was found in `src/` (searched `DELETE FROM users`; only a test, `db/tests.rs:85`). The schema would cascade the courses and files away (`v001_schema.sql:105`, `:122`; foreign keys on, `db.rs:31`) | No foreign key; the row is not touched | `Jobs::drop_user` (`queue.rs:177`) sets the cancel flag, drops the user's jobs from `map` and `waiting`; the thread keeps its `live` entry until it exits. It has no caller outside a test (`ai/tests.rs:233`). What the thread does when its course is gone: not traced | n/a | n/a |
+| Lease expires while the thread is alive | Nothing | `locked_until` passes. `renew` (`queue.rs:412`) every 120 s should prevent it; if the update fails it is logged only (`queue.rs:330`) | Nothing | n/a | Nobody reads it while the thread lives: `slot_free` is false, so the runner does not claim `generate_course` rows (`jobs.rs:389`, `main.rs:531`). `handler`'s "still running here" branch (`queue.rs:497`) is the only code that looks at the case; no path to it was found |
+
+### Where two stores can be read in different states
+
+Each window says what a reader sees, and whether a test covers it. "Test"
+means a unit test in `src/ai/tests.rs`, `src/routes/tests.rs`,
+`src/routes/courses/tests.rs`, `src/courses/tests.rs` or `src/jobs/tests.rs`,
+or an end-to-end spec in `e2e/specs/` that I looked at (`create.spec.ts` and
+`revise.spec.ts`, by their titles). A window with no test named has none that
+I found.
+
+1. **Submit gap.** The course row says busy before the jobs row and the
+   memory entry exist (`generate.rs:590` to `queue.rs:244`). The editor has
+   no job to show (`modal_job` finds nothing); `check_capacity` says free;
+   `generate_cancel` finds no job and, for a generation, fails the course at
+   `generate.rs:629`, after which `submit` goes on to start the job anyway.
+   Untested.
+2. **Submit refused after the row was marked.** `start` checks capacity
+   again under its lock (`queue.rs:241`). If it refuses, `submit` settles the
+   jobs row `failed` (`queue.rs:607`) and the route then fails the course
+   (`generate.rs:618`, `revise.rs:157`, `create.rs:282`). In between the course
+   still says busy. For a fresh generation the files were already deleted by
+   `restart_generation`. Partly tested: `ai/tests.rs:200` tests that `start`
+   refuses, but does not read the rows.
+3. **Two Generate posts at once on one course.** Both can read a course that
+   is not busy (`generate.rs:473`) before either calls `set_generating`
+   (`generate.rs:590`). Both then write the course, and `hold` makes two jobs
+   rows. `set_generating` has no `WHERE state` guard, unlike `set_revising`.
+   One `start` wins; the other is refused, settles its row, and the route marks
+   the course `failed` (`generate.rs:618`) while the first job runs, with
+   `job_id` possibly the loser's. Untested for generation. Revisions are
+   covered: `e2e/specs/revise.spec.ts:308` ("two revisions asked for at the
+   same moment start only one job") and `ai/tests.rs:200` (eight `start`
+   calls, one wins).
+4. **End of job, row final but memory not done yet** (between
+   `queue.rs:288` and `queue.rs:297`). The editor sees a ready course and a
+   job that is not done, and draws a running modal for a moment
+   (`modal_job`: `finished` is false, `editor.rs:111`). `check_capacity` still
+   refuses a new job. Untested.
+5. **End of job, row busy but memory done.** The stale read `settled`
+   covers (`editor.rs:120`). Tested with a faked job in memory:
+   `editor_of_a_course_whose_job_just_finished` (`routes/tests.rs:1178`). The
+   test does not run the real thread, so the order of the real writes is
+   asserted only by reading the code. The course list card has no `settled`;
+   it relies on the order of writes and a single reload (`courses.js:1908`).
+6. **Memory done, slot still held** (between `queue.rs:297` and the thread
+   exit that runs `LiveSlot::drop`, `queue.rs:84`). `check_capacity` refuses
+   a new job although the job shows done. Partly tested: the slot being held
+   until the thread exits (`ai/tests.rs:200`, after `drop_user`), not the
+   moment after `done`.
+7. **The end-of-job database write fails** (`queue.rs:294`-`296`, logged
+   only). The course stays busy, the jobs row stays `running`, memory says
+   done, and `settle` was skipped. The lease is no longer renewed (the `live`
+   entry is gone). After 600 s the runner claims the row and `handler` settles
+   it `failed` with "cancelled" because the job in memory is done
+   (`queue.rs:511`-`516`); the course stays busy until the next restart.
+   Untested.
+8. **Files and cache ahead of the row.** A revision's files are swapped and
+   the cache refreshed (`ai.rs:904` etc.) while the course still says
+   `revising`. A generation's final `revalidate` (`ai.rs:578`) puts the
+   finished course into the content cache (`courses.rs:1267`) while the row
+   still says `generating`; `Courses::get` answers from the cache without
+   looking at the row (`courses.rs:416`). Whether any page asks for a course
+   by id without reading its row first: not traced. Untested.
+9. **The generator thread dies without its end sequence** (a panic; whether
+   one can happen: not traced). The slot is freed (`LiveSlot::drop`), but the
+   course stays busy, the jobs row stays `running`, memory is not done. After
+   the lease runs out the runner claims the row: a resumable generation is
+   rebuilt and run again; any other kind goes to `give_up`
+   (`queue.rs:519`-`522`). Untested.
+10. **Cancel racing the end of the job.** `generate_cancel` checks `!done`
+    (`generate.rs:627`) and then `Job::cancel` sets the phase to
+    "Cancelling…" without checking `done` again (`ai.rs:322`). A job that
+    finished in between shows "Cancelling…" with `done` true. Untested
+    (`ai/tests.rs:1122` cancels a new job). Cancel of a running job is covered
+    end to end: `e2e/specs/create.spec.ts:224`, `e2e/specs/revise.spec.ts:259`.
+11. **Cancel of a revision with no job in memory** is a no-op
+    (`generate.rs:635`), so the course stays `revising` until a restart.
+    Reached through windows 1 and 7. Untested.
+12. **Cancel of a job adopted after a restart.** `waiting` is cleared first,
+    the database written next, memory marked done last (`queue.rs:619`,
+    `:634`, `:643`); the runner can claim the row in between and settle it
+    "cancelled" (`queue.rs:513`-`516`). Untested.
+13. **After a restart.** `at_boot`, `fail_interrupted` and `adopt` are three
+    steps (`main.rs:456`, `:460`, `:527`). The three together are tested
+    (`ai/tests.rs:259`; `fail_interrupted` alone, `courses/tests.rs:134`).
+    The runner's side is not: `handler`, `rebuild`, `give_up`, the attempts
+    count and the `queued` requeue at `queue.rs:503`-`508` have no test.
+    Whether the server answers requests before `adopt` has run: not traced.
+14. **Lease and gate.** Claiming an expired lease is tested
+    (`jobs/tests.rs:38`), and so is the gate that keeps `generate_course`
+    rows from being claimed (`jobs/tests.rs:159`). `renew`, the heartbeat
+    thread, and `handler`'s "still running" branch (`queue.rs:497`) are not.
+15. **Account or course deleted while a job runs.** No account-deletion code
+    was found, and `Jobs::drop_user` has no caller outside a test
+    (`ai/tests.rs:233`, which checks only that the slot stays taken). For a
+    course: `delete` (`files.rs:174`) reads the row, then deletes in a
+    later call, so a job started in between would lose its course; what the
+    thread does then: not traced. Untested.
+
+Fifteen windows. One is covered by a test of the window itself (5). Four have
+a test of one side only (2, 6, 13, 14). Ten have none (1, 3 for generation,
+4, 7, 8, 9, 10, 11, 12, 15).
+
+Also true, and not a window: a course keeps its `job_id` after the job ends
+(`finish_generation` and `finish_revision` do not clear it), so readers must
+check `is_busy()` before following it (`modal_job` does, `editor.rs:107`).
+
 ## Deploying
 
 A release is a tarball built by CI on a `v*` tag (`scripts/package-release.sh`,
