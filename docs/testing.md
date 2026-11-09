@@ -528,6 +528,12 @@ with one summary and the log paths. The emulated matrix is the check for
 each architecture; [Release QA: the hardware checklist](release-qa) is the
 list a person walks on a Pi Zero 2 W before announcing a release.
 
+A PR's "How to QA it" list is written to be walked there (`CLAUDE.md`, "Pull
+requests"): no `/dev/login`, only pages and buttons as the screen names them,
+each step checkable in the UI. So a person can walk it against the rig's
+server, and later the Jev harness (#58) can walk the same list. A step that
+needs a dev route or the page's markup does not belong in it.
+
 ## Panic check, file size lint and Pi budget
 
 Three tripwires run in CI and compare with a committed baseline, so raising
