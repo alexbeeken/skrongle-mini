@@ -178,6 +178,81 @@ journalctl -u skrongle -f          # the log, live
 sudo systemctl restart skrongle    # after changing /etc/skrongle/env
 ```
 
+### A static user, data outside `/var/lib`
+
+Some systems (DietPi keeps user data under `/mnt/dietpi_userdata`) want a
+fixed `skrongle` user and a data folder you choose. Changes from
+`deploy/skrongle.service`:
+
+- `User=skrongle` and `Group=skrongle` replace `DynamicUser=yes`;
+- no `StateDirectory`: you make the data folder and own it;
+- `SKRONGLE_DB` points into that folder, and `ReadWritePaths=` names it so
+  `ProtectSystem=strict` (everything else read-only) still applies;
+- the rest of the sandbox stays.
+
+```sh
+sudo useradd --system --no-create-home --shell /usr/sbin/nologin skrongle
+sudo install -d -o skrongle -g skrongle -m 0750 /mnt/dietpi_userdata/skrongle
+```
+
+The data folder must be on a local disk (SD card, SSD, USB drive), not an
+NFS or SMB mount: SQLite's locking and its `-wal`/`-shm` files do not work
+safely over a network share. `learn.db`, `learn.db-wal`, `learn.db-shm` and
+the secret key `learn.db.key` (created with mode 0600) all live in that
+folder, so back it up whole. `/opt/skrongle` stays root-owned and read-only
+to the service. If the folder is not writable the server stops with a
+message naming the folder and the user it runs as.
+
+```ini
+[Service]
+Type=simple
+User=skrongle
+Group=skrongle
+WorkingDirectory=/opt/skrongle
+ExecStart=/opt/skrongle/skrongle
+Restart=on-failure
+RestartSec=3
+
+Environment=SKRONGLE_BIND=0.0.0.0:8080
+Environment=SKRONGLE_DATA_DIR=/opt/skrongle/data
+Environment=SKRONGLE_DB=/mnt/dietpi_userdata/skrongle/learn.db
+Environment=SKRONGLE_LOG=info
+Environment=SKRONGLE_SIGNUP=invite
+EnvironmentFile=-/etc/skrongle/env
+Environment=MALLOC_ARENA_MAX=2
+Environment=MALLOC_TRIM_THRESHOLD_=65536
+
+MemoryMax=64M
+MemoryHigh=48M
+TasksMax=32
+LimitNOFILE=256
+CPUWeight=80
+Nice=2
+
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/mnt/dietpi_userdata/skrongle
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6
+RestrictNamespaces=true
+LockPersonality=true
+SystemCallArchitectures=native
+```
+
+Keep `[Unit]` and `[Install]` as in `deploy/skrongle.service`. If the folder
+is on a mount that comes up late, add `RequiresMountsFor=/mnt/dietpi_userdata/skrongle`
+under `[Unit]`. `skrongle doctor --service` reads this unit and reports the
+database and data paths; run it as the service's user
+(`sudo -u skrongle /opt/skrongle/skrongle doctor --service`) and its
+"runs as" and "db writable" lines are the service's too. CI starts the binary as
+a non-root user with the database in a temp folder and checks `/healthz`,
+the owner link and the key file's mode (`scripts/non-root-start.sh`).
+
 ## Configuration
 
 Every setting is an environment variable. Put extra ones in
