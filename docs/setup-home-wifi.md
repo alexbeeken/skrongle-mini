@@ -208,13 +208,14 @@ the Pi prints it first (something like `192.168.1.23`), and the page is
 There is no account yet, and the register page only says this server has no
 owner yet. That is on purpose: nobody else on your Wi-Fi can make the first
 account before you. The first account is made through the **owner link**, which the server
-wrote to its log when it started. Print it on the Pi:
+wrote to its log when it started. Print a link on the Pi:
 
 ```sh
-sudo journalctl -u skrongle -g "Owner link" -o cat | tail -n 1
+sudo /opt/skrongle/skrongle owner-link --service
 ```
 
-It prints one line ending in a link like
+(The log has one too, but this makes a fresh one and the older link stops
+working.) It prints a link like
 `http://skrongle.local:7576/register?invite=…`. Open that link on your phone
 or laptop and register. You are the owner: your account menu (the picture,
 top right) has **Manage Users**.
