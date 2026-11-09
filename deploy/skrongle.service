@@ -26,6 +26,9 @@ DynamicUser=yes
 WorkingDirectory=/opt/skrongle
 ExecStart=/opt/skrongle/skrongle
 Restart=on-failure
+# 78: the server refused the database (a newer release upgraded it, or it
+# predates the 1.0 schema; src/db.rs NEWER_DB_EXIT). Restarting cannot help.
+RestartPreventExitStatus=78
 RestartSec=3
 
 Environment=SKRONGLE_BIND=0.0.0.0:7576
