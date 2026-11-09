@@ -170,3 +170,17 @@ fn v2_drops_the_shop_and_turns_skc_into_xp() {
     drop(db);
     std::fs::remove_dir_all(&dir).unwrap();
 }
+
+/// Pins #94: the bundled SQLite is built without the full-text, R-tree,
+/// dbstat and soundex modules (`LIBSQLITE3_FLAGS` in `.cargo/config.toml`),
+/// since nothing in `src/` uses them. If you need full-text search, drop the
+/// `-USQLITE_ENABLE_FTS5` (and FTS3) flags there; this test then goes too.
+#[test]
+fn bundled_sqlite_has_no_fts_rtree_dbstat_or_soundex() {
+    let conn = Connection::open_in_memory().unwrap();
+    assert!(conn.execute_batch("CREATE VIRTUAL TABLE t USING fts5(x)").is_err(), "fts5 is compiled in");
+    assert!(conn.execute_batch("CREATE VIRTUAL TABLE t3 USING fts3(x)").is_err(), "fts3 is compiled in");
+    assert!(conn.execute_batch("CREATE VIRTUAL TABLE r USING rtree(id, a, b)").is_err(), "rtree is compiled in");
+    assert!(conn.prepare("SELECT * FROM dbstat").is_err(), "dbstat is compiled in");
+    assert!(conn.prepare("SELECT soundex('a')").is_err(), "soundex is compiled in");
+}

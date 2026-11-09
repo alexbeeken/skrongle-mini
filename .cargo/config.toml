@@ -17,5 +17,9 @@ linker = "armv7-unknown-linux-gnueabihf-gcc"
 rustflags = ["-C", "target-cpu=cortex-a53"]   # implies NEON/VFPv4
 
 [env]
-# The bundled SQLite build honours these; they shave a little code size.
-LIBSQLITE3_FLAGS = "-DSQLITE_DEFAULT_MEMSTATUS=0 -DSQLITE_OMIT_DEPRECATED -DSQLITE_OMIT_SHARED_CACHE -DSQLITE_OMIT_LOAD_EXTENSION -DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1 -DSQLITE_LIKE_DOESNT_MATCH_BLOBS -DSQLITE_MAX_EXPR_DEPTH=0 -DSQLITE_OMIT_PROGRESS_CALLBACK -DSQLITE_USE_ALLOCA"
+# The bundled SQLite build honours these; they shave a little code size. The
+# -U flags undo libsqlite3-sys's own -D for full-text search (FTS3, FTS5), R-tree,
+# the dbstat table and soundex(): SQLite registers them at start, so the linker
+# cannot drop them, and nothing in src/ uses them (pinned by a test in
+# src/db/tests.rs, which says where to switch them back on).
+LIBSQLITE3_FLAGS = "-DSQLITE_DEFAULT_MEMSTATUS=0 -DSQLITE_OMIT_DEPRECATED -DSQLITE_OMIT_SHARED_CACHE -DSQLITE_OMIT_LOAD_EXTENSION -DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1 -DSQLITE_LIKE_DOESNT_MATCH_BLOBS -DSQLITE_MAX_EXPR_DEPTH=0 -DSQLITE_OMIT_PROGRESS_CALLBACK -DSQLITE_USE_ALLOCA -USQLITE_ENABLE_FTS3 -USQLITE_ENABLE_FTS3_PARENTHESIS -USQLITE_ENABLE_FTS5 -USQLITE_ENABLE_RTREE -USQLITE_ENABLE_DBSTAT_VTAB -USQLITE_SOUNDEX"
