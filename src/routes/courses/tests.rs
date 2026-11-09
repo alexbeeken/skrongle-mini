@@ -1,6 +1,57 @@
 use super::*;
 use serde_json::json;
 
+/// The autosave builds the course after it has let go of the database: while
+/// the build is held, an unrelated database call still returns, and the
+/// result is recorded once the build ends (#84).
+#[test]
+fn the_autosave_builds_off_the_database_lock() {
+    use std::sync::{mpsc, Arc, Mutex};
+    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+    let state = crate::routes::test_state(false);
+    let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
+    let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
+    let id = "held-abc123";
+    state.db.with(|c| crate::courses::create_course(c, ann, id, "Held", &crate::courses::starter_files(id, "Held"))).unwrap();
+    let app = crate::routes::router(state.clone());
+    let base = rt.block_on(async {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        tokio::spawn(async move { axum::serve(listener, app).await.unwrap() });
+        format!("http://{addr}")
+    });
+    // Hold the build of this course until released.
+    let (entered_tx, entered_rx) = mpsc::channel::<()>();
+    let (release_tx, release_rx) = mpsc::channel::<()>();
+    let (entered_tx, release_rx) = (Mutex::new(entered_tx), Mutex::new(release_rx));
+    let hook: Arc<dyn Fn(&str) + Send + Sync> = Arc::new(move |_| {
+        let _ = entered_tx.lock().unwrap().send(());
+        let _ = release_rx.lock().unwrap().recv();
+    });
+    crate::courses::CHECK_HOOK.lock().unwrap().push((id.to_string(), hook));
+    let (url, cookie_header) = (format!("{base}/api/courses/{id}/lessons"), cookie);
+    let saving = std::thread::spawn(move || {
+        let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
+        let body = json!({"lessons": [{"key": "u1-first-lesson", "unit": "1", "title": "Renamed while held"}], "session": "tab-a"});
+        let mut r = agent.post(&url).header("cookie", &cookie_header).send_json(body).unwrap();
+        (r.status().as_u16(), serde_json::from_str::<serde_json::Value>(&r.body_mut().read_to_string().unwrap()).unwrap_or_default())
+    });
+    entered_rx.recv_timeout(std::time::Duration::from_secs(20)).expect("the save reached its build");
+    // The save is committed and the build is held: the database is free.
+    let (done_tx, done_rx) = mpsc::channel();
+    let db = state.db.clone();
+    std::thread::spawn(move || {
+        let _ = done_tx.send(db.with(|c| c.query_row("SELECT COUNT(*) FROM users", [], |r| r.get::<_, i64>(0))));
+    });
+    let n = done_rx.recv_timeout(std::time::Duration::from_secs(5)).expect("an unrelated database call returns while the build is held");
+    assert_eq!(n.unwrap(), 1);
+    release_tx.send(()).unwrap();
+    let (status, body) = saving.join().unwrap();
+    crate::courses::CHECK_HOOK.lock().unwrap().retain(|(i, _)| i != id);
+    assert_eq!((status, body["saved"].as_bool(), body["loads"].as_bool()), (200, Some(true), Some(true)), "{body}");
+    assert!(state.db.with(|c| crate::courses::course(c, id)).unwrap().unwrap().error.is_none());
+}
+
 /// The editor's autosave contract (#151, #190): saves of one page share
 /// an Undo step, a page that is behind or a busy course gets 409, a table
 /// the rules refuse gets 422 and stores nothing, no change is not an error.

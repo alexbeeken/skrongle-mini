@@ -1801,6 +1801,7 @@ courses:
     renamed_course_to: Renamed the course to
     label_renamed_course: "{label}; renamed the course"
     stale: This course was changed somewhere else (in another tab, or by an AI job) since this page was opened, so changes made here are not saved. Reload the page to edit the latest version.
+    build_stopped: "Could not check whether this course loads. Reload the page and save again."
     saved_undo: "{label}. Undo puts it back."
     saved_broken: "{label}, but the course does not load: {error}"
   file:

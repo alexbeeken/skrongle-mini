@@ -1798,6 +1798,7 @@ courses:
     renamed_course_to: Renomeou o curso para
     label_renamed_course: "{label}; renomeou o curso"
     stale: Este curso foi alterado em outro lugar (em outra aba ou por um trabalho da IA) desde que esta página foi aberta, então as alterações feitas aqui não são salvas. Recarregue a página para editar a versão mais recente.
+    build_stopped: "Não foi possível verificar se este curso carrega. Recarregue a página e salve de novo."
     saved_undo: "{label}. Desfazer a restaura."
     saved_broken: "{label}, mas o curso não carrega: {error}"
   file:

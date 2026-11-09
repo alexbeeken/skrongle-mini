@@ -646,3 +646,50 @@ fn a_panicking_build_lets_the_lock_go() {
     assert!(course.expect("not stuck on the lock").unwrap().is_some());
     assert_eq!(registry.rebuilds(), 1, "counted after the hook: only the second build");
 }
+
+/// #84: `record` writes what `check` found only if the files are still the
+/// ones that were checked; a save that landed in between records its own result.
+#[test]
+fn a_stale_check_records_nothing() {
+    let db = crate::db::Db::open_in_memory().unwrap();
+    let registry = Courses::empty();
+    db.with(|c| {
+        let uid = crate::auth::create_user(c, "ann@example.org", "h")?;
+        let id = "stale-abc123";
+        create_course(c, uid, id, "Old title", &starter_files(id, "Old title"))?;
+        let files = load_files(c, id)?;
+        let version = version_of(&files);
+        let checked = check(id, &files);
+        assert!(matches!(checked, Checked::Built(_)));
+        // Another save lands before the result is recorded.
+        write_file(c, id, "lessons/extra.json", "{}")?;
+        assert_eq!(record(c, &registry, id, &version, checked)?, None);
+        assert!(registry.lock().get(id).is_none(), "the old build is not cached");
+        // A failure is not recorded either, though it is still reported.
+        let version = version_of(&load_files(c, id)?);
+        write_file(c, id, "lessons/extra.json", "{ other")?;
+        assert_eq!(record(c, &registry, id, &version, Checked::Failed("nope".into()))?, Some("nope".into()));
+        assert!(course(c, id)?.unwrap().error.is_none());
+        // With the files unchanged it is recorded.
+        let version = version_of(&load_files(c, id)?);
+        assert_eq!(record(c, &registry, id, &version, Checked::Failed("nope".into()))?, Some("nope".into()));
+        assert_eq!(course(c, id)?.unwrap().error.as_deref(), Some("nope"));
+        Ok(())
+    })
+    .unwrap();
+}
+
+/// #84: the build thread works in the request's language, not the default.
+#[test]
+fn the_check_runs_in_the_requests_language() {
+    let seen = Arc::new(Mutex::new(Vec::<String>::new()));
+    let log = Arc::clone(&seen);
+    let hook: BuildHook = Arc::new(move |_| log.lock().unwrap().push(crate::i18n::lang().to_string()));
+    CHECK_HOOK.lock().unwrap().push(("lang-abc123".into(), hook));
+    let rt = tokio::runtime::Builder::new_current_thread().enable_all().build().unwrap();
+    let files = starter_files("lang-abc123", "Lang");
+    let checked = crate::i18n::in_lang("es", || rt.block_on(check_off_lock("lang-abc123".into(), files)));
+    CHECK_HOOK.lock().unwrap().retain(|(id, _)| id != "lang-abc123");
+    assert!(matches!(checked, Checked::Built(_)));
+    assert_eq!(*seen.lock().unwrap(), vec!["es".to_string()]);
+}

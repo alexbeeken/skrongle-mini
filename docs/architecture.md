@@ -176,7 +176,15 @@ on its own OS thread (it is minutes of HTTP waiting) and writes through
 `Db::with`. Building a course from its files (up to 2 s for a big one on the
 Pi) also runs on a short-lived OS thread (`courses::off_worker`, #5): a
 request for a course being built waits for that one build, every other
-request is served meanwhile. Boot builds each built-in course once to check
+request is served meanwhile. Saving is split the same way (#84):
+`courses::check` builds the files with no connection, `courses::record`
+writes the outcome (`courses.error`, `title`, the cache) and skips it if the
+files changed since they were checked, because the newer save records its
+own. `courses::revalidate` is the two together and still builds while it
+holds the database. The editor's autosave (`routes/courses/lessons.rs`)
+commits the save, lets go of the database, builds with
+`courses::check_off_lock` (own thread, request language), then records in a
+second short `Db::call`. The other writers still use `revalidate`. Boot builds each built-in course once to check
 it and keeps the seed course (`dev::SEED_COURSE`, else the first) in the
 course cache, so the first request for it builds nothing; the others are
 built on first use (keeping them all costs about 4 MB).
