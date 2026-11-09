@@ -167,6 +167,15 @@ mod tests {
     /// subquery in `user_for_session` fails here until its table is added
     /// to `WATCHED`, so writes to it forget the cache too.
     #[test]
+    fn pragma_optimize_does_not_forget_the_cache() {
+        let db = crate::db::Db::open_in_memory().unwrap();
+        let cache = db.sessions();
+        cache.put("x".into(), CurrentUser::test(1), 0, i64::MAX);
+        db.with(|c| c.execute_batch("PRAGMA optimize;")).unwrap();
+        assert!(cache.get("x", 1).is_some(), "optimize wrote to a watched table");
+    }
+
+    #[test]
     fn every_table_the_session_query_reads_is_watched() {
         let sql = super::super::session_sql();
         let words: Vec<&str> = sql.split(|c: char| !(c.is_ascii_alphanumeric() || c == '_')).filter(|w| !w.is_empty()).collect();

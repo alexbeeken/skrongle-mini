@@ -195,7 +195,7 @@ or when the next row is due, at least once a minute, and reaches SQLite
 through `Db::with`. The first user is the hourly housekeeping, one kind
 (`housekeeping`, #45) that runs every purge as a step in turn (sessions, the
 game, AI job and tutor maps, rate limits, retention,
-links, old job rows, then the WAL checkpoint); each step logs its
+links, old job rows, `PRAGMA optimize` for the planner's statistics, then the WAL checkpoint); each step logs its
 count, a failing step is logged and the next still runs. At
 boot it gets a row due now if it has none, so a server restarted more
 often than hourly still cleans up. AI generation still has its own thread. `/dev/jobs` lists the job rows in dev mode.

@@ -43,6 +43,7 @@ account: the background job queue and the server's AI keys and settings.
 | `settings` | `name`, `value`: server-wide settings (`ai_off`: the owner's "Hide AI features for everyone"); no account | what the owner set on Manage Users | no | until changed |
 | `jobs` | `kind`, `payload_json`, state, run and lease times, `last_error`; no account | background jobs (`src/jobs.rs`): today only the hourly housekeeping, whose payload is empty | no | done rows deleted after a day, failed ones after 30 days (hourly housekeeping). It is about no one |
 
+SQLite's own `sqlite_*` tables (`sqlite_stat1`, `sqlite_stat4`, written by the hourly `PRAGMA optimize`) hold query-planner statistics, no user data, and are not listed above.
 
 ## On disk besides the database
 
