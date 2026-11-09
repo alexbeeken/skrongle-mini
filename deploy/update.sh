@@ -15,11 +15,25 @@
 # another systemd unit name.
 set -eu
 
+# Run from a copy of this file. The copy of the new release below replaces
+# this very script while it runs, and sh reads a script as it goes, so it
+# would read the rest from the new file (0.1.2 -> 0.2.0 ended with a syntax
+# error that way). SKRONGLE_UPDATE_SELF is the installed path, for messages.
+if [ -z "${SKRONGLE_UPDATE_SELF:-}" ]; then
+  SKRONGLE_UPDATE_SELF="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")"
+  SKRONGLE_UPDATE_COPY=$(mktemp)
+  cp "$SKRONGLE_UPDATE_SELF" "$SKRONGLE_UPDATE_COPY"
+  export SKRONGLE_UPDATE_SELF SKRONGLE_UPDATE_COPY
+  exec sh "$SKRONGLE_UPDATE_COPY" "$@"
+fi
+SELF="$SKRONGLE_UPDATE_SELF"
+trap 'rm -f "$SKRONGLE_UPDATE_COPY"' EXIT
+
 REPO="${SKRONGLE_REPO:-alexbeeken/skrongle-mini}"
 SERVICE="${SKRONGLE_SERVICE:-skrongle}"
-DIR="$(cd "$(dirname "$0")" && pwd)"
+DIR="$(dirname "$SELF")"
 
-[ "$(id -u)" = 0 ] || { echo "run it as root: sudo $0 $*"; exit 1; }
+[ "$(id -u)" = 0 ] || { echo "run it as root: sudo $SELF $*"; exit 1; }
 command -v curl >/dev/null || { echo "needs curl: sudo apt install curl"; exit 1; }
 
 case "$(uname -m)" in
@@ -50,7 +64,7 @@ fi
 NAME="skrongle-$VERSION-$ARCH.tar.gz"
 BASE="https://github.com/$REPO/releases/download/v$VERSION"
 TMP=$(mktemp -d)
-trap 'rm -rf "$TMP"' EXIT
+trap 'rm -rf "$TMP"; rm -f "$SKRONGLE_UPDATE_COPY"' EXIT
 echo "downloading $NAME"
 curl -fL --progress-bar -o "$TMP/$NAME" "$BASE/$NAME"
 if curl -fsSL -o "$TMP/$NAME.sha256" "$BASE/$NAME.sha256"; then
@@ -89,6 +103,6 @@ if systemctl is-active --quiet "$SERVICE"; then
 else
   echo "Skrongle $VERSION did not start; the log:"
   journalctl -u "$SERVICE" -n 20 --no-pager || true
-  echo "to go back: sudo $0 $CURRENT  (the database from before is at $DB.before-$VERSION)"
+  echo "to go back: sudo $SELF $CURRENT  (the database from before is at $DB.before-$VERSION)"
   exit 1
 fi
