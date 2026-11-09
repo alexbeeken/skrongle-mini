@@ -533,6 +533,9 @@ git tag v0.2.0 origin/main && git push origin v0.2.0
 *Actions → release → Run workflow* builds the same tarballs as workflow
 artifacts without making a release. To check the layout locally:
 `scripts/build-pi.sh aarch64 && scripts/package-release.sh 0.0.0 aarch64`.
+Before announcing a release, check its tarballs on every architecture:
+`scripts/release-qa/matrix.sh <version>` runs each in a Debian container of
+that architecture (`docs/testing.md`, "Release QA").
 
 ## Troubleshooting
 

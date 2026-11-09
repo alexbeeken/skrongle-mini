@@ -7,6 +7,8 @@
 .env
 .DS_Store
 /dist
+# release QA (scripts/release-qa/matrix.sh): per-architecture logs
+/results
 # local testing (./.dev-start): captured LLM requests, background server state
 /dev-llm
 /.dev-server.pid
