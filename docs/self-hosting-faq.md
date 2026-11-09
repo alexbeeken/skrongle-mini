@@ -51,12 +51,12 @@ plenty.
 ## Installing and running
 
 **The page doesn't load.** Is it running? `systemctl status skrongle`. Then
-try `http://<ip>:8080` from the same Wi-Fi, where `<ip>` is the first
+try `http://<ip>:7576` from the same Wi-Fi, where `<ip>` is the first
 address `hostname -I` prints; `.local` names don't work on every network or
 phone.
 
 **The log says the port is already in use.** Another program (or a second
-copy) has port 8080. Find it with `sudo ss -ltnp 'sport = :8080'`, or move
+copy) has port 7576. Find it with `sudo ss -ltnp 'sport = :7576'`, or move
 Skrongle: put `SKRONGLE_BIND=0.0.0.0:8081` in `/etc/skrongle/env` and
 `sudo systemctl restart skrongle`.
 

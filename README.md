@@ -162,7 +162,7 @@ The ones most installs touch:
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `SKRONGLE_BIND` | `0.0.0.0:8080` | Listen address |
+| `SKRONGLE_BIND` | `0.0.0.0:7576` | Listen address |
 | `SKRONGLE_DB` | `learn.db` | SQLite file (WAL and SHM files are created next to it) |
 | `SKRONGLE_DATA_DIR` | `data` | Directory containing `courses/` |
 | `SKRONGLE_SIGNUP` | `open` (`invite` in the shipped unit) | Who may make an account |

@@ -178,7 +178,7 @@ curl -LO https://github.com/alexbeeken/skrongle-mini/releases/download/v$V/skron
 sha256sum -c skrongle-$V-$(uname -m).tar.gz.sha256
 sudo mkdir -p /opt/skrongle /etc/skrongle
 sudo tar -xzf skrongle-$V-$(uname -m).tar.gz -C /opt/skrongle
-echo "SKRONGLE_PUBLIC_URL=http://$(hostname).local:8080" | sudo tee /etc/skrongle/env
+echo "SKRONGLE_PUBLIC_URL=http://$(hostname).local:7576" | sudo tee /etc/skrongle/env
 sudo cp /opt/skrongle/skrongle.service /etc/systemd/system/
 sudo systemctl enable --now skrongle
 ```
@@ -196,12 +196,12 @@ sudo /opt/skrongle/skrongle doctor --service
 
 It prints one screen about the install. No line should start with
 `PROBLEM:`; if one does, it says what to fix. Then, on your phone or laptop
-(on the same Wi-Fi), open **http://skrongle.local:8080**. You should see
+(on the same Wi-Fi), open **http://skrongle.local:7576**. You should see
 Skrongle's sign-in page.
 
 If the page doesn't open, use the Pi's address instead: `hostname -I` on
 the Pi prints it first (something like `192.168.1.23`), and the page is
-`http://192.168.1.23:8080`.
+`http://192.168.1.23:7576`.
 
 ## Step 7: Make your account, the owner's
 
@@ -215,7 +215,7 @@ sudo journalctl -u skrongle -g "Owner link" -o cat | tail -n 1
 ```
 
 It prints one line ending in a link like
-`http://skrongle.local:8080/register?invite=…`. Open that link on your phone
+`http://skrongle.local:7576/register?invite=…`. Open that link on your phone
 or laptop and register. You are the owner: your account menu (the picture,
 top right) has **Manage Users**.
 
