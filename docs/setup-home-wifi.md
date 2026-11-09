@@ -183,7 +183,7 @@ sudo cp /opt/skrongle/skrongle.service /etc/systemd/system/
 sudo systemctl enable --now skrongle
 ```
 
-The first line prints `installing` and a version number such as `0.1.2`.
+The first line prints `installing` and a version number such as `0.2.0`.
 The `sha256sum` line must print `OK`: it proves the download is the real
 release; if it doesn't, stop here. `sudo` asks for the password you chose
 in step 3.
