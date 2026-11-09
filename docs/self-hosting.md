@@ -66,6 +66,8 @@ tarball per architecture, named `skrongle-<version>-<arch>.tar.gz`, where
 |---|---|
 | `skrongle-<version>-aarch64.tar.gz` | 64-bit ARM: Raspberry Pi Zero 2 W, 3, 4, 5 on the 64-bit OS |
 | `skrongle-<version>-x86_64.tar.gz` | PCs, mini PCs, most VPSs |
+| `skrongle-<version>-armv7l.tar.gz` | 32-bit ARM: Raspberry Pi 2 and newer on the 32-bit OS. Coming with the next release |
+| `skrongle-<version>-armv6l.tar.gz` | Raspberry Pi 1, Zero and Zero W (ARMv6, one core, 512 MB). Coming with the next release; sign-in is slow on these, not measured yet |
 
 Each comes with a `.sha256` file. A tarball unpacks (flat, no top folder) to:
 

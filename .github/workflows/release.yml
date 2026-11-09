@@ -5,6 +5,8 @@
 #
 #   skrongle-<version>-aarch64.tar.gz (+ .sha256)
 #   skrongle-<version>-x86_64.tar.gz  (+ .sha256)
+#   skrongle-<version>-armv7l.tar.gz  (+ .sha256)  32-bit OS, Pi 2 and newer
+#   skrongle-<version>-armv6l.tar.gz  (+ .sha256)  Pi 1, Zero, Zero W
 #
 # Both link glibc 2.31 (cargo-zigbuild), so they run on Debian 11+,
 # Ubuntu 20.04+ and Raspberry Pi OS Bullseye or later. "Run workflow" by hand
@@ -37,7 +39,11 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        arch: [aarch64, x86_64]
+        include:
+          - { arch: aarch64, target: aarch64-unknown-linux-gnu }
+          - { arch: x86_64, target: x86_64-unknown-linux-gnu }
+          - { arch: armv7l, target: armv7-unknown-linux-gnueabihf }
+          - { arch: armv6l, target: arm-unknown-linux-gnueabihf }
     env:
       VERSION: ${{ github.event_name == 'push' && github.ref_name || inputs.version }}
     steps:
@@ -62,7 +68,7 @@ jobs:
 
       - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
         with:
-          targets: ${{ matrix.arch }}-unknown-linux-gnu
+          targets: ${{ matrix.target }}
       - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
         with:
           key: release-${{ matrix.arch }}
@@ -80,12 +86,24 @@ jobs:
 
       - name: Check the binary
         run: |
-          bin=dist/${{ matrix.arch }}-unknown-linux-gnu/spanish-learning
+          bin=dist/${{ matrix.target }}/spanish-learning
           file "$bin"
           if [ "${{ matrix.arch }}" = x86_64 ]; then
             "$bin" --version | grep -qx "skrongle ${{ steps.version.outputs.version }}"
             SKRONGLE_DB="$RUNNER_TEMP/doctor.db" "$bin" doctor
           fi
+
+      # The 32-bit ARM binaries run under qemu-user, emulating the oldest CPU
+      # each is for (ARM1176 for armv6l, Cortex-A7 for armv7l): they must load,
+      # print their version and answer /healthz. Here, on GitHub-hosted
+      # runners, rather than in the PR smoke workflow: the PR runners are the
+      # owner's laptop, whose Docker VM has no arm32 binfmt.
+      - name: Run the binary under qemu
+        if: startsWith(matrix.arch, 'armv')
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends qemu-user-static libc6-armhf-cross
+          scripts/qemu-smoke.sh ${{ matrix.arch == 'armv6l' && 'armv6' || 'armv7' }}
 
       - name: Package
         run: scripts/package-release.sh "${{ steps.version.outputs.version }}" ${{ matrix.arch }}
