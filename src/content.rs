@@ -437,7 +437,7 @@ pub struct Conversation {
 #[derive(Debug, Clone)]
 pub struct Section {
     pub heading: String,
-    pub html: String,
+    pub html: std::sync::Arc<str>,
 }
 
 /// Optional hand-ordered Guide step, as written in the lesson JSON. Without a
@@ -466,7 +466,7 @@ pub struct ConceptSpec {
 /// A step of the Guide, built once at load.
 #[derive(Debug, Clone)]
 pub enum GuideStep {
-    Concept { title: String, html: String },
+    Concept { title: String, html: std::sync::Arc<str> },
     /// Index into `Lesson::quiz`.
     Question { index: usize },
     Vocab { entries: Vec<VocabEntry> },
@@ -1345,7 +1345,7 @@ pub fn split_sections(md: &str) -> Vec<Section> {
     let mut in_code = false;
     let flush = |heading: &str, body: &str, out: &mut Vec<Section>| {
         if !body.trim().is_empty() {
-            out.push(Section { heading: heading.to_string(), html: render_markdown(body.trim()) });
+            out.push(Section { heading: heading.to_string(), html: render_markdown(body.trim()).into() });
         }
     };
     for line in md.lines() {
@@ -1429,7 +1429,7 @@ pub fn build_guide(lesson: &Lesson) -> Result<Vec<GuideStep>, String> {
                 GuideSpec::Tip { tip } => steps.push(GuideStep::Tip { text: tip.clone() }),
                 GuideSpec::Concept { concept } => steps.push(GuideStep::Concept {
                     title: concept.title.clone(),
-                    html: render_markdown(&concept.markdown),
+                    html: render_markdown(&concept.markdown).into(),
                 }),
             }
         }

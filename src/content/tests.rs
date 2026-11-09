@@ -474,3 +474,20 @@ fn prerequisites_point_back_down_the_path() {
         }
     }
 }
+
+#[test]
+fn derived_guide_step_shares_its_sections_html() {
+    let mut lesson: Lesson = serde_json::from_str(
+        r#"{"id":"l","slug":"l","title":"L","unit":"A1","content":"","vocabulary":[]}"#,
+    )
+    .unwrap();
+    lesson.sections = split_sections("Intro.\n\n## One\n\nbody one\n\n## Two\n\nbody two");
+    let steps = build_guide(&lesson).unwrap();
+    let mut n = 0;
+    for (step, sec) in steps.iter().zip(&lesson.sections) {
+        let GuideStep::Concept { html, .. } = step else { panic!("expected a concept step") };
+        assert!(std::sync::Arc::ptr_eq(html, &sec.html), "guide step copies the section HTML");
+        n += 1;
+    }
+    assert_eq!(n, 3);
+}
