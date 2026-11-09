@@ -96,7 +96,7 @@ pub struct StepView {
     pub index: usize,
     pub kind: &'static str,
     pub title: String,
-    pub html: String,
+    pub html: std::sync::Arc<str>,
     pub text: String,
     // question
     pub question_id: String,
@@ -293,7 +293,7 @@ pub async fn stage(
                 index: i,
                 kind: "",
                 title: String::new(),
-                html: String::new(),
+                html: "".into(),
                 text: String::new(),
                 question_id: String::new(),
                 prompt: String::new(),

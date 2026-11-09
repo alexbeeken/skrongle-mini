@@ -86,7 +86,7 @@ type Detect = fn(&Lesson) -> bool;
 pub const FEATURES: [(&str, &str, Detect); 20] = [
     ("text", "courses.report.feature.text", |l| !l.content.trim().is_empty()),
     ("cards", "courses.report.feature.cards", |l| l.sections.len() > 1),
-    ("tables", "courses.report.feature.tables", |l| l.html_content.contains("<table")),
+    ("tables", "courses.report.feature.tables", |l| l.sections.iter().any(|s| s.html.contains("<table"))),
     ("summary", "courses.report.feature.summary", |l| !l.summary.trim().is_empty()),
     ("focus", "courses.report.feature.focus", |l| !l.focus.trim().is_empty()),
     ("prerequisites", "courses.report.feature.prerequisites", |l| !l.prerequisites.is_empty()),
