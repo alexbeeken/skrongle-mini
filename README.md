@@ -57,6 +57,28 @@ What you get, and what you are responsible for:
 
 A database from before version 1.0 is not upgraded; start from a fresh one.
 
+## Versions
+
+Numbers are `MAJOR.MINOR.PATCH`. What a release may change, for the person
+running it:
+
+- **Patch** (1.4.2 to 1.4.3): never changes the systemd unit, the
+  environment variables or the layout of the database.
+- **Minor** (1.4.x to 1.5.0): may add settings, pages and database tables
+  or columns.
+- **Major** (1.x to 2.0.0): may remove settings, features and database
+  columns.
+
+The server refuses a database that a newer build has upgraded. It checks the
+schema number (`PRAGMA user_version`, one per migration), not the version
+number, so any build with an older schema refuses it, whatever the version.
+It stops with one line naming the file and exits with status 78. So going
+back after an update that changed the database needs the copy `update.sh`
+made before it (`learn.db.before-<version>`); see
+[Updating](docs/self-hosting.md#updating).
+What each release changes, and what to back up first, is in
+[CHANGELOG.md](CHANGELOG.md).
+
 ## What it teaches with
 
 Every feature reads the same course files:
@@ -108,6 +130,8 @@ to write a course.
 
 - [docs/getting-started.md](docs/getting-started.md), the user guides and
   the [FAQ](docs/faq.md).
+- [CHANGELOG.md](CHANGELOG.md): what changed in each release, and what to
+  back up before updating.
 - [docs/setup-home-wifi.md](docs/setup-home-wifi.md) (the install path),
   [docs/self-hosting.md](docs/self-hosting.md) (the reference) and the
   [self-hosting FAQ](docs/self-hosting-faq.md).

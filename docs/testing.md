@@ -783,6 +783,17 @@ that doesn't match). Pushing `v<version>` runs
 GitHub release of that tag (created with generated notes if it doesn't
 exist yet). The binary reports the tag's version (`skrongle --version`).
 
+Before the tag, on the commit you will tag:
+
+1. Bump `version` in `Cargo.toml`, and add a `## 0.2.0 (<date>)` section to
+   `CHANGELOG.md` with what changed and what to back up. The release
+   notes are that section; the workflow fails without it.
+2. Run `scripts/release-check.sh 0.2.0`. It checks the Cargo version and the
+   changelog section, and on Linux with a tarball in `dist/` (from
+   `scripts/package-release.sh`) it unpacks the tarball and checks that
+   `skrongle --version` prints the version. Without a tarball it skips that
+   part and says so.
+
 ```sh
 git tag v0.2.0 origin/main && git push origin v0.2.0
 ```
