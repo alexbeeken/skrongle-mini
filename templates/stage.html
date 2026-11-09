@@ -3,7 +3,7 @@
 {% block modenav %}{% let active = "stages" %}{% include "nav_play.html" %}{% endblock %}
 {% block content %}
 <section class="stage-play" id="stage" data-testid="stage" data-lesson-id="{{ lesson.slug }}" data-lesson="{{ lesson.id }}" data-slug="{{ lesson.slug }}"
-         data-start="{{ start_step }}" data-total="{{ steps.len() }}" data-praise="{{ course.praise }}" data-lang="{{ course.term_lang }}">
+         data-start="{{ start_step }}" data-total="{{ steps.len() }}" data-praise="{{ course.praise_line() }}" data-lang="{{ course.term_lang }}">
   <header class="quiz-head">
     <div>
       <p class="crumbs"><a href="{{ crate::base_path() }}/guide">{{ crate::t("guide.play.crumb_guide") }}</a> › {{ crate::t1("guide.play.stage_n", "n", number) }} · {{ unit }} ·

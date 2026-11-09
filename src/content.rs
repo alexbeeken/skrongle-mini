@@ -688,6 +688,8 @@ pub struct ContentStore {
     assets: HashMap<String, String>,
     /// `placement.json`, the placement test (#1106), when the course has one.
     placement: Option<crate::placement::PlacementTest>,
+    /// What templates need of the course on every page, built once here.
+    view: std::sync::Arc<crate::routes::CourseView>,
 }
 
 impl fmt::Debug for ContentStore {
@@ -819,7 +821,15 @@ impl ContentStore {
             }
         }
 
-        Ok(ContentStore { manifest, lessons, by_id, by_slug, questions, conversations, conjugations, item_art, assets, placement })
+        let has_paradigm = manifest.paradigm.is_some() && lessons.iter().any(|l| !l.conjugations.is_empty());
+        let has_listening = manifest.is_language() && lessons.iter().any(|l| !l.listening.is_empty());
+        let view = std::sync::Arc::new(crate::routes::CourseView::new(&manifest, has_paradigm, has_listening));
+        Ok(ContentStore { manifest, lessons, by_id, by_slug, questions, conversations, conjugations, item_art, assets, placement, view })
+    }
+
+    /// The shared course view for templates (built when the store was).
+    pub fn view(&self) -> std::sync::Arc<crate::routes::CourseView> {
+        self.view.clone()
     }
 
     pub fn manifest(&self) -> &Manifest {
@@ -831,13 +841,13 @@ impl ContentStore {
     }
 
     /// The praise lines a page shows after a right answer (`strings.praise`).
-    pub fn praise(&self) -> Vec<String> {
-        self.manifest.strings.praise.clone()
+    pub fn praise(&self) -> &[String] {
+        &self.manifest.strings.praise
     }
 
     /// `praise`, for a wrong answer (`strings.almost`).
-    pub fn almost(&self) -> Vec<String> {
-        self.manifest.strings.almost.clone()
+    pub fn almost(&self) -> &[String] {
+        &self.manifest.strings.almost
     }
 
     pub fn title(&self) -> &str {

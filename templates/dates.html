@@ -2,7 +2,7 @@
 {% block title %}{{ crate::t("play.dates.name") }}{% endblock %}
 {% block modenav %}{% let active = "dates" %}{% include "nav_play.html" %}{% endblock %}
 {% block content %}
-<section class="dates" id="dates" data-testid="dates" data-calendar="{{ calendar_json }}" data-lang="{{ course.term_lang }}" data-meaning-lang="{{ course.meaning_lang }}" data-label="{{ course.term_label }}" data-praise="{{ course.praise }}" data-best="{{ best_score }}">
+<section class="dates" id="dates" data-testid="dates" data-calendar="{{ calendar_json }}" data-lang="{{ course.term_lang }}" data-meaning-lang="{{ course.meaning_lang }}" data-label="{{ course.term_label }}" data-praise="{{ course.praise_line() }}" data-best="{{ best_score }}">
   <p class="crumbs"><a href="{{ crate::base_path() }}/play">{{ crate::t("play.common.games") }}</a> › {{ crate::t("play.dates.name") }}</p>
   <h1>{{ crate::t("play.dates.name") }} <span class="muted">{{ crate::t("play.dates.tagline") }}</span></h1>
   <p class="lead">{{ crate::t("play.dates.lead") }}</p>

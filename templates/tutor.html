@@ -9,7 +9,7 @@
 <link rel="icon" href="{{ crate::routes::asset_url("favicon.png") }}" type="image/png" sizes="32x32">
 <link rel="manifest" href="{{ crate::url("/manifest.webmanifest") }}">
 </head>
-<body class="tutor" data-base="{{ crate::base_path() }}" data-provider="{{ provider }}" data-lesson="{{ lesson_slug }}" data-course="{{ course.title }}" data-praise="{{ course.praise }}" data-chars="{{ chars_json }}">
+<body class="tutor" data-base="{{ crate::base_path() }}" data-provider="{{ provider }}" data-lesson="{{ lesson_slug }}" data-course="{{ course.title }}" data-praise="{{ course.praise_line() }}" data-chars="{{ chars_json }}">
 <div class="shell">
   <header class="t-top">
     <a class="t-exit" data-testid="tutor-exit" href="{{ crate::url("/") }}" aria-label="{{ crate::t("tutor.exit") }}">✕</a>

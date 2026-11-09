@@ -138,7 +138,7 @@
   </section>
 
   {% if !check.is_empty() %}
-  <section class="lesson-check" id="lesson-check" data-testid="lesson-check" data-done="false" data-lesson="{{ lesson.slug }}" data-praise="{{ course.praise }}" data-lang="{{ course.term_lang }}">
+  <section class="lesson-check" id="lesson-check" data-testid="lesson-check" data-done="false" data-lesson="{{ lesson.slug }}" data-praise="{{ course.praise_line() }}" data-lang="{{ course.term_lang }}">
     <h2>{{ crate::t("study.lesson.check_h2") }}</h2>
     <p class="muted">{% if check.len() == 1 %}{{ crate::t("study.lesson.check_intro_one") }}{% else %}{{ crate::t("study.lesson.check_intro_two") }}{% endif %}</p>
     <form id="check-form" data-testid="lesson-check-form">

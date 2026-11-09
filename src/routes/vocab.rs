@@ -40,7 +40,7 @@ pub struct LessonVocab {
 #[template(path = "vocabulary.html")]
 pub struct VocabularyTemplate {
     pub user: Option<CurrentUser>,
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     pub total_learned: usize,
     pub total_words: usize,
     pub lessons: Vec<LessonVocab>,
@@ -61,7 +61,7 @@ pub struct Card {
 #[template(path = "vocab_study.html")]
 pub struct StudyTemplate {
     pub user: Option<CurrentUser>,
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     pub heading: String,
     pub subheading: String,
     pub lesson_slug: Option<String>,
@@ -119,7 +119,7 @@ pub async fn index(State(state): State<Arc<AppState>>, p: Project) -> Result<Res
         });
     }
     let empty_lessons = lessons.iter().filter(|l| l.learned == 0).count();
-    Ok(Page(VocabularyTemplate { course: CourseView::of(content), user: Some(p.user), total_learned, total_words, lessons, empty_lessons })
+    Ok(Page(VocabularyTemplate { course: content.view(), user: Some(p.user), total_learned, total_words, lessons, empty_lessons })
         .into_response())
 }
 
@@ -136,7 +136,7 @@ pub struct LookupRow {
 #[template(path = "lookup.html")]
 pub struct LookupTemplate {
     pub user: Option<CurrentUser>,
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     pub q: String,
     pub rows: Vec<LookupRow>,
     pub total: usize,
@@ -174,7 +174,7 @@ pub async fn lookup(State(state): State<Arc<AppState>>, p: Project, Query(params
             }
         })
         .collect();
-    Ok(Page(LookupTemplate { course: CourseView::of(content), user: Some(p.user), q, rows, total: found.total }).into_response())
+    Ok(Page(LookupTemplate { course: content.view(), user: Some(p.user), q, rows, total: found.total }).into_response())
 }
 
 #[derive(Deserialize)]
@@ -220,7 +220,7 @@ pub async fn study(
             return Ok(Redirect::to(&crate::url("/vocabulary")).into_response());
         }
         let (heading, subheading) = (crate::t("vocab.study.due_heading"), crate::tn("vocab.study.subtitle_due", cards.len()));
-        return Ok(Page(StudyTemplate { course: CourseView::of(content), user: Some(p.user), heading, subheading, lesson_slug: None, quiz_slug: None, cards, due: true })
+        return Ok(Page(StudyTemplate { course: content.view(), user: Some(p.user), heading, subheading, lesson_slug: None, quiz_slug: None, cards, due: true })
             .into_response());
     }
     let known = learned(&state, p.user.id, content.id()).await?;
@@ -250,7 +250,7 @@ pub async fn study(
         }
     };
     let quiz_slug = only.filter(|l| !l.quiz.is_empty()).map(|l| l.slug.clone());
-    Ok(Page(StudyTemplate { course: CourseView::of(content), user: Some(p.user), heading, subheading, lesson_slug, quiz_slug, cards, due: false })
+    Ok(Page(StudyTemplate { course: content.view(), user: Some(p.user), heading, subheading, lesson_slug, quiz_slug, cards, due: false })
         .into_response())
 }
 

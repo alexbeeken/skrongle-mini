@@ -33,7 +33,7 @@ pub struct ListeningUnit {
 #[template(path = "listening.html")]
 pub struct ListeningTemplate {
     pub user: Option<CurrentUser>,
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     pub units: Vec<ListeningUnit>,
     pub sentences: usize,
     pub rounds_played: i64,
@@ -67,7 +67,7 @@ pub async fn index(State(state): State<Arc<AppState>>, p: Project) -> Result<Res
         }
     }
     Ok(Page(ListeningTemplate {
-        course: CourseView::of(content),
+        course: content.view(),
         user: Some(p.user),
         units,
         sentences: listening::playable(content).map(|l| l.listening.len()).sum(),
@@ -92,7 +92,7 @@ pub struct DealtView {
 #[template(path = "listening_play.html")]
 pub struct PlayTemplate {
     pub user: Option<CurrentUser>,
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     pub heading: String,
     pub subheading: String,
     pub board: String,
@@ -158,7 +158,7 @@ pub async fn play(State(state): State<Arc<AppState>>, p: Project, Query(params):
     };
     let items_json = super::script_json(&items)?;
     Ok(Page(PlayTemplate {
-        course: CourseView::of(content),
+        course: content.view(),
         user: Some(p.user),
         heading,
         subheading,

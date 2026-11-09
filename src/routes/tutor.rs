@@ -41,7 +41,7 @@ pub struct ProviderChoice {
 #[derive(Template)]
 #[template(path = "tutor.html")]
 pub struct TutorTemplate {
-    pub course: CourseView,
+    pub course: std::sync::Arc<CourseView>,
     /// Providers with a key on file; empty means the page shows how to add one.
     pub providers: Vec<ProviderChoice>,
     /// The account is an owner: the no-key page links to Manage Users.
@@ -75,7 +75,7 @@ pub async fn page(State(state): State<Arc<AppState>>, p: Project, Query(q): Quer
     let chars_json = serde_json::to_string(&content.manifest().chars).unwrap_or_else(|_| "[]".into());
     Ok(Page(TutorTemplate {
         chars_json,
-        course: CourseView::of(content),
+        course: content.view(),
         providers,
         owner: p.user.owner,
         provider: chosen.map(|p| p.id().to_string()).unwrap_or_default(),
