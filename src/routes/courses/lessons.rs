@@ -72,7 +72,7 @@ struct UndoFragment {
 
 /// What a save of the table came to inside the database call.
 enum Saved {
-    Done { label: String, rows: Vec<SavedRow>, paths: Vec<String>, changed: std::collections::BTreeMap<String, String>, version: String, warning: Option<String> },
+    Done { label: String, rows: Vec<SavedRow>, paths: Vec<String>, changed: std::collections::BTreeMap<String, String>, version: String, files: Vec<crate::content::CourseFile> },
     Unchanged { version: String },
     /// The page is behind: the course changed since it loaded it.
     Stale,
@@ -194,12 +194,19 @@ pub async fn save_lessons(
                 .filter(|f| !files.iter().any(|g| g.path == f.path && g.content == f.content))
                 .map(|f| (f.path.clone(), f.content.clone()))
                 .collect();
-            let warning = courses::revalidate(c, &registry, &row.id)?;
-            Ok(Saved::Done { label, rows, paths, changed, version: courses::version_of(&new_files), warning })
+            // The build is slow: it happens after this call lets the database go (below).
+            registry.invalidate(&row.id);
+            Ok(Saved::Done { label, rows, paths, changed, version: courses::version_of(&new_files), files: new_files })
         })
         .await?;
     let (label, rows, paths, changed, version, warning) = match outcome {
-        Saved::Done { label, rows, paths, changed, version, warning } => (label, rows, paths, changed, version, warning),
+        Saved::Done { label, rows, paths, changed, version, files } => {
+            // Built off the database lock; a save that lands meanwhile records its own result.
+            let checked = courses::check_off_lock(id.clone(), files).await;
+            let (registry, recorded, v) = (Arc::clone(&state.courses), id.clone(), version.clone());
+            let warning = state.db.call(move |c| courses::record(c, &registry, &recorded, &v, checked)).await?;
+            (label, rows, paths, changed, version, warning)
+        }
         Saved::Unchanged { version } => {
             (String::new(), Vec::new(), Vec::new(), Default::default(), version, None)
         }

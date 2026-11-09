@@ -1798,6 +1798,7 @@ courses:
     renamed_course_to: 已将课程重命名为
     label_renamed_course: "{label}；已重命名课程"
     stale: 自此页面打开以来，此课程已在别处（其他标签页或 AI 任务）被修改，因此此处的更改无法保存。请刷新页面以编辑最新版本。
+    build_stopped: "无法检查此课程能否加载。请刷新页面后再次保存。"
     saved_undo: "{label}。撤销可将其恢复。"
     saved_broken: "{label}，但课程无法加载：{error}"
   file:

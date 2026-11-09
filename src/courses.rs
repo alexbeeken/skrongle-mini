@@ -1232,10 +1232,85 @@ pub fn valid_path(path: &str) -> bool {
     rest.ends_with(ext) && crate::content::is_safe_rel_path(rest)
 }
 
+/// What building a course from its files came to (`check`).
+pub enum Checked {
+    /// It loads, and its id is the course's.
+    Built(Box<ContentStore>),
+    /// It does not: the message the editor shows, worded in the request's language.
+    Failed(String),
+}
+
+/// Test-only: hooks `check` calls at its start, for the course id they are
+/// keyed by, so a test can hold or watch the build of its own course.
+#[cfg(test)]
+pub(crate) static CHECK_HOOK: Mutex<Vec<(String, BuildHook)>> = Mutex::new(Vec::new());
+
+/// Build a course from its files and say whether it loads. No connection:
+/// this is the slow half of `revalidate` (up to 2 s on the Pi) and must not
+/// run while the database is locked. The message is worded with `crate::t`,
+/// so on a thread of its own run it inside `i18n::in_scope` (`check_off_lock`).
+pub fn check(course_id: &str, files: &[CourseFile]) -> Checked {
+    #[cfg(test)]
+    {
+        let hook = CHECK_HOOK.lock().unwrap_or_else(|p| p.into_inner()).iter().find(|(id, _)| id == course_id).map(|(_, h)| Arc::clone(h));
+        if let Some(hook) = hook {
+            hook(course_id);
+        }
+    }
+    match ContentStore::from_files(files) {
+        Ok(store) if store.id() != course_id => Checked::Failed(
+            crate::problems::Problem::rules(format!("The course's \"id\" is “{}”, but it must be “{course_id}”", store.id()))
+                .file(MANIFEST_FILE)
+                .field("id")
+                .hint(format!("change it back to \"{course_id}\""))
+                .text,
+        ),
+        Ok(store) => Checked::Built(Box::new(store)),
+        // Worded as the editor words it (problems.rs), wherever it is shown.
+        Err(e) => Checked::Failed(crate::problems::Course::new(files).explain(&e).text),
+    }
+}
+
+/// `check` on a thread of its own, in the caller's language, for a handler
+/// that has let go of the database. A build that could not run counts as a
+/// course that does not load.
+pub async fn check_off_lock(course_id: String, files: Vec<CourseFile>) -> Checked {
+    let lang = crate::i18n::snapshot();
+    let id = course_id.clone();
+    match off_worker(move || crate::i18n::in_scope(lang, || check(&id, &files))).await {
+        Some(checked) => checked,
+        None => {
+            tracing::warn!("course {course_id} was not checked: its build stopped");
+            Checked::Failed(crate::t("courses.editor.build_stopped"))
+        }
+    }
+}
+
+/// Write down what `check` found: the database half of `revalidate`. `version`
+/// is `version_of` the files that were checked. If the course has changed
+/// since, a newer save landed in between and records its own result, so
+/// nothing is written (the failure, if any, is still returned for the reply).
+pub fn record(conn: &Connection, registry: &Courses, course_id: &str, version: &str, checked: Checked) -> rusqlite::Result<Option<String>> {
+    if version_of(&load_files(conn, course_id)?) != version {
+        return Ok(match checked {
+            Checked::Built(_) => None,
+            Checked::Failed(msg) => Some(msg),
+        });
+    }
+    apply(conn, registry, course_id, checked)
+}
+
 /// Rebuild a course from the database, record the outcome and refresh the
-/// in-memory cache. Returns the validation error, if any.
+/// in-memory cache. Returns the validation error, if any. Builds while the
+/// caller holds the connection; a handler that can wait uses `check` and
+/// `record` around the lock instead.
 pub fn revalidate(conn: &Connection, registry: &Courses, course_id: &str) -> rusqlite::Result<Option<String>> {
     let files = load_files(conn, course_id)?;
+    let checked = check(course_id, &files);
+    apply(conn, registry, course_id, checked)
+}
+
+fn apply(conn: &Connection, registry: &Courses, course_id: &str, checked: Checked) -> rusqlite::Result<Option<String>> {
     registry.invalidate(course_id);
     // A stopped generation with its outline saved stays stopped, whatever is
     // saved into it: its card keeps Resume (which writes the lessons still
@@ -1244,19 +1319,8 @@ pub fn revalidate(conn: &Connection, registry: &Courses, course_id: &str) -> rus
         .query_row("SELECT 1 FROM courses WHERE id = ?1 AND state = 'failed' AND outline IS NOT NULL", [course_id], |_| Ok(()))
         .optional()?
         .is_some();
-    match ContentStore::from_files(&files) {
-        Ok(store) => {
-            if store.id() != course_id {
-                let msg = crate::problems::Problem::rules(format!("The course's \"id\" is “{}”, but it must be “{course_id}”", store.id()))
-                    .file(MANIFEST_FILE)
-                    .field("id")
-                    .hint(format!("change it back to \"{course_id}\""))
-                    .text;
-                if !resumable {
-                    set_status(conn, course_id, None, Some(&msg))?;
-                }
-                return Ok(Some(msg));
-            }
+    match checked {
+        Checked::Built(store) => {
             if resumable {
                 conn.execute("UPDATE courses SET title = ?2, updated_at = ?3 WHERE id = ?1", params![course_id, store.title(), now()])?;
             } else {
@@ -1264,12 +1328,10 @@ pub fn revalidate(conn: &Connection, registry: &Courses, course_id: &str) -> rus
                 // A generation that stopped before its outline, fixed by hand, is a course now.
                 conn.execute("UPDATE courses SET state = 'ready' WHERE id = ?1 AND state = 'failed'", [course_id])?;
             }
-            registry.lock().insert(course_id, Arc::new(store));
+            registry.lock().insert(course_id, Arc::new(*store));
             Ok(None)
         }
-        Err(e) => {
-            // Worded as the editor words it (problems.rs), wherever it is shown.
-            let msg = crate::problems::Course::new(&files).explain(&e).text;
+        Checked::Failed(msg) => {
             if !resumable {
                 set_status(conn, course_id, None, Some(&msg))?;
             }

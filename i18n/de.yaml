@@ -1798,6 +1798,7 @@ courses:
     renamed_course_to: Kurs umbenannt in
     label_renamed_course: "{label}; Kurs umbenannt"
     stale: Dieser Kurs wurde seit dem Öffnen dieser Seite anderswo geändert (in einem anderen Tab oder durch einen KI-Auftrag), daher werden die hier gemachten Änderungen nicht gespeichert. Lade die Seite neu, um die neueste Fassung zu bearbeiten.
+    build_stopped: "Es konnte nicht geprüft werden, ob dieser Kurs lädt. Lade die Seite neu und speichere erneut."
     saved_undo: "{label}. Rückgängig stellt es wieder her."
     saved_broken: "{label}, aber der Kurs lässt sich nicht laden: {error}"
   file:
