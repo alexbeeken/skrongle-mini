@@ -50,12 +50,12 @@ else
 fi
 tar -tzf "$TARBALL" > "$WORK/list" 2>/dev/null || { fail "tarball unpacks (tar -tzf)"; echo "cannot read $TARBALL"; exit 1; }
 sed 's|^\./||' "$WORK/list" | grep -v '^$' > "$WORK/files"
-for f in skrongle VERSION update.sh skrongle.service; do
+for f in skrongle VERSION update.sh uninstall.sh skrongle.service; do
   check "has $f" grep -qx "$f" "$WORK/files"
 done
 check "has data/courses/" grep -q '^data/courses/.' "$WORK/files"
-EXTRA=$(sed 's|/.*||' "$WORK/files" | sort -u | grep -vxE 'skrongle|VERSION|update\.sh|skrongle\.service|data' || true)
-if [ -z "$EXTRA" ]; then ok "nothing but skrongle, VERSION, update.sh, skrongle.service and data/ at the top"; else fail "unexpected at the top: $(echo "$EXTRA" | tr '\n' ' ')"; fi
+EXTRA=$(sed 's|/.*||' "$WORK/files" | sort -u | grep -vxE 'skrongle|VERSION|update\.sh|uninstall\.sh|skrongle\.service|data' || true)
+if [ -z "$EXTRA" ]; then ok "nothing but skrongle, VERSION, update.sh, uninstall.sh, skrongle.service and data/ at the top"; else fail "unexpected at the top: $(echo "$EXTRA" | tr '\n' ' ')"; fi
 check "no test fixtures, test courses or authoring briefs in data/" sh -c "! grep -qE '^data/(test-|.*/AUTHORING\.md|.*/fact-check-ok\.txt)' '$WORK/files'"
 check "no .DS_Store or other Mac droppings" sh -c "! grep -qE '(^|/)(\.DS_Store|\._)' '$WORK/files'"
 
@@ -67,8 +67,10 @@ check "VERSION is one line like 1.2.3 ($VERSION)" sh -c "[ \$(wc -l < '$OPT/VERS
 case "$NAME" in *"skrongle-$VERSION-"*) ok "the file is named for $VERSION" ;; *) fail "the file name does not carry VERSION $VERSION" ;; esac
 check "skrongle is executable" test -x "$OPT/skrongle"
 check "update.sh is executable" test -x "$OPT/update.sh"
+check "uninstall.sh is executable" test -x "$OPT/uninstall.sh"
 check "skrongle.service starts /opt/skrongle/skrongle" grep -q '^ExecStart=/opt/skrongle/skrongle$' "$OPT/skrongle.service"
 check "update.sh is a /bin/sh script" sh -n "$OPT/update.sh"
+check "uninstall.sh is a /bin/sh script" sh -n "$OPT/uninstall.sh"
 
 # ---------- the binary ----------
 echo "==> binary"
