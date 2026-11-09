@@ -11,7 +11,7 @@
 #   sudo systemctl enable --now skrongle
 #
 # Update:      sudo /opt/skrongle/update.sh
-# Diagnostics: sudo env $(systemctl show skrongle -p Environment --value) /opt/skrongle/skrongle doctor --env-file /etc/skrongle/env
+# Diagnostics: sudo /opt/skrongle/skrongle doctor --service
 # Back up /var/lib/skrongle (learn.db and learn.db.key, together).
 
 [Unit]

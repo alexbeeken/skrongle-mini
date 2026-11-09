@@ -772,6 +772,25 @@ specs run one at a time, as they do.
 text from the course. A helper that misses a testid or a state attribute is
 a reason to add it to the template ([Markup hooks](#markup-hooks)). 
 
+## Releases (maintainers)
+
+Not for self-hosters: how a release is made. A release is a tag that matches the `version` in
+`Cargo.toml` (bump it, merge, then tag main; the workflow refuses a tag
+that doesn't match). Pushing `v<version>` runs
+`.github/workflows/release.yml`, which builds both architectures with
+`scripts/build-pi.sh` (cargo-zigbuild, glibc 2.31), packs each with
+`scripts/package-release.sh` and attaches the tarballs and checksums to the
+GitHub release of that tag (created with generated notes if it doesn't
+exist yet). The binary reports the tag's version (`skrongle --version`).
+
+```sh
+git tag v0.2.0 origin/main && git push origin v0.2.0
+```
+
+*Actions → release → Run workflow* builds the same tarballs as workflow
+artifacts without making a release. To check the layout locally:
+`scripts/build-pi.sh aarch64 && scripts/package-release.sh 0.0.0 aarch64`.
+
 ## CI runners
 
 CI runs on GitHub-hosted `ubuntu-latest` runners. A PR's `checks` workflow

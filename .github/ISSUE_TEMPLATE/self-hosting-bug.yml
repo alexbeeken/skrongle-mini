@@ -41,7 +41,7 @@ body:
       description: |
         The output of `skrongle doctor`. It never prints secrets: keys and passwords show as yes/no.
         With the systemd unit, run it with the service's settings:
-        `sudo env $(systemctl show skrongle -p Environment --value) /opt/skrongle/skrongle doctor --env-file /etc/skrongle/env`
+        `sudo /opt/skrongle/skrongle doctor --service`
       render: text
     validations:
       required: true
