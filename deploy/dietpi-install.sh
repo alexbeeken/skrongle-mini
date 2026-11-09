@@ -24,8 +24,9 @@
 #  8. Put the new files in /opt/skrongle: replace the binary and data/
 #     (the old binary is kept as skrongle.previous). The database is not
 #     touched; the new binary migrates it when it starts.
-#  9. Create /etc/skrongle/env from the example if it does not exist.
-#     An existing one is never changed.
+#  9. Create /etc/skrongle/env (a short file of commented examples, mode
+#     0640 root:skrongle) if it does not exist. An existing one is never
+#     changed.
 # 10. Write /etc/systemd/system/skrongle.service (user skrongle, port 7576,
 #     sign-up by invitation, database in the folder from step 6) if it does
 #     not exist, or when --unit is given. A unit you edited is left alone.
@@ -200,16 +201,34 @@ if [ -e "$CONF/env" ]; then
   echo "kept $CONF/env"
 elif [ -f "$OPT/env.example" ]; then
   cp "$OPT/env.example" "$CONF/env"
-  chmod 0600 "$CONF/env"
-  echo "created $CONF/env"
-elif curl -fsSL -o "$CONF/env" "https://raw.githubusercontent.com/$REPO/v$VERSION/deploy/env.example"; then
-  # The tarball does not carry the example; the release's tag does.
-  chmod 0600 "$CONF/env"
+  chown root:skrongle "$CONF/env"
+  chmod 0640 "$CONF/env"
   echo "created $CONF/env"
 else
-  : > "$CONF/env"
-  chmod 0600 "$CONF/env"
-  echo "created an empty $CONF/env (deploy/env.example could not be downloaded)"
+  cat > "$CONF/env" <<'ENVEOF'
+# /etc/skrongle/env  (root:skrongle, mode 0640; read by systemd)
+#
+# Every setting is optional; the unit file sets the ones a box needs. One
+# NAME=value per line, then `sudo systemctl restart skrongle`. The full list
+# is docs/self-hosting.md "Configuration". To see what the service ends up
+# with: sudo /opt/skrongle/skrongle doctor --service
+
+# The address people open, for the links the server shows (the owner link,
+# invitation links).
+#SKRONGLE_PUBLIC_URL=http://<hostname>.local:7576
+
+# Where to listen. The unit sets every interface, port 7576. 127.0.0.1:7576
+# answers only through Tailscale Serve or a proxy on the same machine.
+#SKRONGLE_BIND=0.0.0.0:7576
+
+# Optional: 64 hex characters that encrypt the AI keys saved in the app. Left
+# unset, the server makes one next to the database (learn.db.key). Set it to
+# keep the secret out of the data folder; then keep a copy of the value.
+#SKRONGLE_SECRET_KEY=
+ENVEOF
+  echo "created $CONF/env"
+  chown root:skrongle "$CONF/env"
+  chmod 0640 "$CONF/env"
 fi
 
 if [ -e "$UNIT" ] && [ -z "$WRITE_UNIT" ]; then
