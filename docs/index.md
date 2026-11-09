@@ -49,4 +49,5 @@ Every page here is also raw Markdown. Add `.md` to its address.
 ## For developers
 
 Working on the code? See [Architecture](architecture) and
-[Testing locally](testing).
+[Testing locally](testing). Packagers: the [DietPi page](dietpi), written
+to be copied into the DietPi documentation.

@@ -142,6 +142,8 @@ to write a course.
 - [docs/architecture.md](docs/architecture.md): source layout, request
   flow, database schema, configuration, security notes.
 - [docs/testing.md](docs/testing.md): how to run the checks.
+- [docs/packaging.md](docs/packaging.md): the contract for distribution
+  maintainers (variables, files, exit codes, release assets).
 
 ## Developing
 
