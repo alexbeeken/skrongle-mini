@@ -4,7 +4,7 @@
 # it for armv6 and armv7 (a real Pi Zero / Pi 2 is the final word; this
 # catches a binary that does not load or that uses instructions the CPU lacks).
 #
-#   sudo apt-get install -y qemu-user-static libc6-armhf-cross
+#   sudo apt-get install -y qemu-user libc6-armhf-cross
 #   scripts/qemu-smoke.sh armv6 [binary]     # emulates an ARM1176 (Pi 1 / Zero)
 #   scripts/qemu-smoke.sh armv7 [binary]     # emulates a Cortex-A7 (Pi 2)
 set -euo pipefail
@@ -20,7 +20,9 @@ BIN="${2:-dist/$TARGET/spanish-learning}"
 [ -x "$BIN" ] || { echo "no binary at $BIN"; exit 1; }
 # The armhf dynamic loader and glibc (libc6-armhf-cross).
 SYSROOT="${QEMU_LD_PREFIX:-/usr/arm-linux-gnueabihf}"
-run() { qemu-arm-static -cpu "$CPU" -L "$SYSROOT" "$BIN" "$@"; }
+# Ubuntu 26.04 ships qemu-arm in qemu-user; older images call it qemu-arm-static.
+QEMU=$(command -v qemu-arm || command -v qemu-arm-static) || { echo "no qemu-arm: apt-get install qemu-user"; exit 1; }
+run() { "$QEMU" -cpu "$CPU" -L "$SYSROOT" "$BIN" "$@"; }
 
 WORK=$(mktemp -d)
 trap 'kill "${PID:-}" 2>/dev/null || true; rm -rf "$WORK"' EXIT

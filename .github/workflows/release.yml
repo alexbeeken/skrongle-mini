@@ -102,7 +102,7 @@ jobs:
         if: startsWith(matrix.arch, 'armv')
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends qemu-user-static libc6-armhf-cross
+          sudo apt-get install -y --no-install-recommends qemu-user libc6-armhf-cross
           scripts/qemu-smoke.sh ${{ matrix.arch == 'armv6l' && 'armv6' || 'armv7' }}
 
       - name: Package
