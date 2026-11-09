@@ -90,6 +90,22 @@ jobs:
       - name: Package
         run: scripts/package-release.sh "${{ steps.version.outputs.version }}" ${{ matrix.arch }}
 
+      - name: Check the asset names
+        env:
+          ASSET_VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          # Installers match these names: see docs/self-hosting.md.
+          re="^skrongle-${ASSET_VERSION//./\\.}-(aarch64|x86_64|armv7l|armv6l)\.tar\.gz(\.sha256)?$"
+          bad=0
+          for f in dist/skrongle-*; do
+            name=${f#dist/}
+            if ! [[ $name =~ $re ]]; then
+              echo "bad asset name: $name (want skrongle-$ASSET_VERSION-<arch>.tar.gz[.sha256])"
+              bad=1
+            fi
+          done
+          exit $bad
+
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: skrongle-${{ matrix.arch }}

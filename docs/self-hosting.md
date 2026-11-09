@@ -67,7 +67,9 @@ tarball per architecture, named `skrongle-<version>-<arch>.tar.gz`, where
 | `skrongle-<version>-aarch64.tar.gz` | 64-bit ARM: Raspberry Pi Zero 2 W, 3, 4, 5 on the 64-bit OS |
 | `skrongle-<version>-x86_64.tar.gz` | PCs, mini PCs, most VPSs |
 
-Each comes with a `.sha256` file. A tarball unpacks (flat, no top folder) to:
+Planned, same pattern: `armv7l` (32-bit Raspberry Pi OS) and `armv6l`
+(Raspberry Pi Zero and 1). Each comes with a `.sha256` file, named
+`skrongle-<version>-<arch>.tar.gz.sha256`. A tarball unpacks (flat, no top folder) to:
 
 | Path | What it is |
 |---|---|
@@ -76,6 +78,10 @@ Each comes with a `.sha256` file. A tarball unpacks (flat, no top folder) to:
 | `skrongle.service` | The systemd unit below (`deploy/skrongle.service` in the repo). |
 | `update.sh` | Updates the install in place: see [Updating](#updating). |
 | `VERSION` | The version, one line. |
+
+This layout is stable. A later release may add files; none of these five
+paths is removed or renamed without a major version. Release assets are
+never deleted or renamed either (see the README).
 
 Everything a learner creates (accounts, progress, courses made in the app)
 is in the SQLite database, not in these files, so unpacking a new release
