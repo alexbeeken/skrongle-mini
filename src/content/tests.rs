@@ -491,3 +491,14 @@ fn derived_guide_step_shares_its_sections_html() {
     }
     assert_eq!(n, 3);
 }
+
+#[test]
+fn whole_lesson_html_is_rendered_on_first_use() {
+    let store = ContentStore::load_dir(std::path::Path::new("data/courses/spanish")).unwrap();
+    assert!(store.lessons().iter().all(|l| !l.html_rendered()), "nothing is rendered at load");
+    let l = &store.lessons()[0];
+    let html = l.html_content();
+    assert_eq!(html, render_markdown(&l.content));
+    assert!(l.html_rendered());
+    assert!(store.lessons().iter().skip(1).all(|l| !l.html_rendered()), "only the opened lesson is rendered");
+}

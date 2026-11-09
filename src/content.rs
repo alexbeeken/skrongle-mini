@@ -636,9 +636,9 @@ pub struct Lesson {
     /// Position of `unit` in the manifest (not part of the JSON).
     #[serde(skip)]
     pub unit_index: usize,
-    /// Markdown rendered to HTML once at load (not part of the JSON).
+    /// Whole-lesson HTML, rendered on first use by `html_content()` (not part of the JSON).
     #[serde(skip)]
-    pub html_content: String,
+    html: std::sync::OnceLock<String>,
     /// Markdown split into `## ` sections, rendered (not part of the JSON).
     #[serde(skip)]
     pub sections: Vec<Section>,
@@ -648,6 +648,14 @@ pub struct Lesson {
 }
 
 impl Lesson {
+    /// The whole lesson as HTML, rendered the first time it is asked for.
+    pub fn html_content(&self) -> &str {
+        self.html.get_or_init(|| render_markdown(&self.content))
+    }
+    /// Whether `html_content()` has been rendered yet.
+    pub fn html_rendered(&self) -> bool {
+        self.html.get().is_some()
+    }
     pub fn guide_question_count(&self) -> usize {
         self.guide_steps.iter().filter(|s| s.is_question()).count()
     }
@@ -765,7 +773,6 @@ impl ContentStore {
             for v in &mut lesson.vocabulary {
                 v.key = crate::quiz::normalize(&v.term);
             }
-            lesson.html_content = render_markdown(&lesson.content);
             lesson.sections = split_sections(&lesson.content);
             lesson.guide_steps =
                 build_guide(&lesson).map_err(|m| ContentError::Invalid(format!("{}: guide: {m}", f.path)))?;
