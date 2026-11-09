@@ -1235,7 +1235,7 @@ pub fn valid_path(path: &str) -> bool {
 /// What building a course from its files came to (`check`).
 pub enum Checked {
     /// It loads, and its id is the course's.
-    Built(ContentStore),
+    Built(Box<ContentStore>),
     /// It does not: the message the editor shows, worded in the request's language.
     Failed(String),
 }
@@ -1265,7 +1265,7 @@ pub fn check(course_id: &str, files: &[CourseFile]) -> Checked {
                 .hint(format!("change it back to \"{course_id}\""))
                 .text,
         ),
-        Ok(store) => Checked::Built(store),
+        Ok(store) => Checked::Built(Box::new(store)),
         // Worded as the editor words it (problems.rs), wherever it is shown.
         Err(e) => Checked::Failed(crate::problems::Course::new(files).explain(&e).text),
     }
@@ -1328,7 +1328,7 @@ fn apply(conn: &Connection, registry: &Courses, course_id: &str, checked: Checke
                 // A generation that stopped before its outline, fixed by hand, is a course now.
                 conn.execute("UPDATE courses SET state = 'ready' WHERE id = ?1 AND state = 'failed'", [course_id])?;
             }
-            registry.lock().insert(course_id, Arc::new(store));
+            registry.lock().insert(course_id, Arc::new(*store));
             Ok(None)
         }
         Checked::Failed(msg) => {
