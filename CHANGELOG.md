@@ -4,6 +4,19 @@ What changed in each release, for the person running the server. Newest
 first. Each release's GitHub notes are its section here. How version
 numbers work is in the README, "Versions".
 
+## Unreleased
+
+- `update.sh` runs from a copy of itself, so replacing `/opt/skrongle` no
+  longer disturbs the script doing the replacing. Updating 0.1.2 to 0.2.0
+  ended with `Syntax error: ")" unexpected` after the service was already
+  running the new version; that line was harmless. Updating 0.2.0 to this
+  release may show it one last time, because the script that runs is the
+  installed 0.2.0 one.
+
+**What to do:** nothing.
+
+**Back up:** nothing new.
+
 ## 0.2.0 (2026-11-09)
 
 A release for every Raspberry Pi, and a safer install.
