@@ -537,7 +537,7 @@ came in are listed in `scripts/file-size-baseline.txt`; they may shrink, not
 grow. A file that passes its limit gets split. If it has to grow, say why in
 the PR and run `scripts/file-size-lint.sh --update`, which also lowers the
 line of a file that shrank. `scripts/pi-budget.sh` (the
-`pi budget` job, #638; off in CI for now, #1387) builds `--release` (or measures `--bin <path>`) and
+`pi budget` job, #638; `.github/workflows/pi-budget.yml`, on pushes to `main` and on PRs that touch `Cargo.*`, `build.rs`, `.cargo/config.toml`, `static/`, `i18n/`, `templates/`, `docs/` or the budget files; not a required check) builds `--release` (or measures `--bin <path>`) and
 checks three numbers against `scripts/pi-budget.txt`: the stripped binary's
 size (at most its platform's baseline + 5 %), and, for a server started with
 no optional settings (no AI key, no
