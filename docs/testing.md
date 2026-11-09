@@ -522,6 +522,12 @@ walkthrough, and what a container does not cover: systemd, `update.sh` and
 rollback (the VM layer, #42), and anything timed (emulated speed means
 nothing).
 
+`scripts/release-qa.sh <version | tarball dir>` is the one command: it runs
+`scripts/release-check.sh` (for a version) and then `matrix.sh`, and ends
+with one summary and the log paths. The emulated matrix is the check for
+each architecture; [Release QA: the hardware checklist](release-qa) is the
+list a person walks on a Pi Zero 2 W before announcing a release.
+
 ## Panic check, file size lint and Pi budget
 
 Three tripwires run in CI and compare with a committed baseline, so raising
