@@ -48,10 +48,11 @@ is on a mount that comes up late, add `RequiresMountsFor=<data folder>` under
 ## Environment variables
 
 Every setting is an environment variable named `SKRONGLE_<NAME>`. An empty
-value counts as unset. The older spellings `LEARN_<NAME>` and `SPANISH_<NAME>`
-are still read for one more release: the server logs one warning listing each
-old name and its new one, and the `SKRONGLE_` spelling wins when both are set.
-New packages should write only `SKRONGLE_`.
+value counts as unset. The two older prefixes from the first releases (listed
+under "Renamed settings" in `docs/self-hosting.md`) are still read for one more
+release: the server logs one warning listing each old name and its new one,
+and the `SKRONGLE_` spelling wins when both are set. New packages should write
+only `SKRONGLE_`.
 
 Two exceptions: `SKRONGLE_SIGNUP` and `SKRONGLE_PROXY_AUTH_HEADER` /
 `SKRONGLE_PROXY_AUTH_FROM` are read under that spelling only.
@@ -181,7 +182,7 @@ level, then message, with no target. Lines worth alerting on:
 | `fatal:` | error | The server is stopping. The text says why. Exit 78 means the database is newer; any other fatal exits 1. |
 | `cannot listen on` | fatal | Port taken, no permission, or no such address. |
 | `cannot write the database` | fatal | The data folder is missing or not writable by the service user. |
-| `settings with an old name, read for this release only` | warn | A `LEARN_` or `SPANISH_` setting is still in use. Rename it. |
+| `settings with an old name, read for this release only` | warn | A setting under one of the two old prefixes is still in use. Rename it (`docs/self-hosting.md`, "Renamed settings"). |
 | `no account yet. Owner link` | warn | First run, waiting for the owner. Expected once. Alert if it appears on an install that had accounts (the database path changed). |
 | `serving plain HTTP on` | warn | Listening beyond loopback without HTTPS. Expected on a trusted home network. |
 | `SKRONGLE_PUBLIC_URL is https:// but SKRONGLE_SECURE_COOKIES is not 1` | warn | Cookies are not marked Secure. |
