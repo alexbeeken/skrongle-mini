@@ -447,7 +447,8 @@ pub fn asset_version() -> &'static str {
         let mut h: u64 = 0;
         for name in names {
             if let Some(f) = Assets::get(&name) {
-                h ^= fnv1a(name.bytes().chain(f.data.iter().copied()));
+                // The hash rust-embed stored at build time; the bytes are not read.
+                h ^= fnv1a(name.bytes().chain(f.metadata.sha256_hash()));
                 h = h.rotate_left(17);
             }
         }
@@ -528,7 +529,7 @@ async fn web_manifest() -> Response {
         .into_response()
 }
 
-/// Per-file ETags, computed once: the identity form `"{fnv1a:016x}"` and the
+/// Per-file ETags, computed once: the identity form (16 hex digits of the stored SHA-256) and the
 /// gzip form with a `-gz` suffix (a different body, so a different validator).
 type AssetEtags = HashMap<String, (String, Option<String>)>;
 static ASSET_ETAGS: OnceLock<AssetEtags> = OnceLock::new();
@@ -538,7 +539,9 @@ fn asset_etags() -> &'static AssetEtags {
         Assets::iter()
             .filter_map(|name| {
                 let file = Assets::get(&name)?;
-                let etag = format!("\"{:016x}\"", fnv1a(file.data.iter().copied()));
+                // First 8 bytes of the build-time SHA-256: no pass over the file.
+                let hash = file.metadata.sha256_hash();
+                let etag = format!("\"{}\"", hash.iter().take(8).map(|b| format!("{b:02x}")).collect::<String>());
                 let gz = (cfg!(any(not(debug_assertions), test)) && AssetsGz::get(&name).is_some())
                     .then(|| format!("{}-gz\"", etag.trim_end_matches('"')));
                 Some((name.to_string(), (etag, gz)))
