@@ -191,7 +191,7 @@ fn the_dev_pages_need_no_sign_in_and_the_simulator_speaks_the_wire_protocols() {
         let reply = crate::ai::chat(&provider(kind, key), &call, "You are a tutor", &msgs, 100).unwrap();
         assert!(reply.text.contains("[[ask]]"), "{kind:?}: {}", reply.text);
     }
-    let err = crate::ai::chat(&provider(crate::ai::ProviderKind::Anthropic, "sk-ant-api03-not-a-dev-key"), &call, "s", &msgs, 100).unwrap_err();
+    let err = crate::ai::chat(&provider(crate::ai::ProviderKind::Anthropic, "sk-ant-api03-not-a-dev-key"), &call, "s", &msgs, 100).unwrap_err().to_string();
     assert_eq!(err, "the API answered HTTP 401. invalid x-api-key");
     let log = state.dev.ai.log();
     assert_eq!(log.len(), 4);
@@ -214,17 +214,17 @@ fn the_dev_pages_need_no_sign_in_and_the_simulator_speaks_the_wire_protocols() {
     state.dev.ai.clear_log();
     // Over the limit: each provider's own quota error, which the learner reads as such.
     state.dev.ai.update(crate::dev_ai::Who::Learner, |p| p.exhausted = true);
-    let err = crate::ai::chat(&provider(crate::ai::ProviderKind::Anthropic, "sk-ant-dev-anthropic"), &call, "s", &msgs, 100).unwrap_err();
+    let err = crate::ai::chat(&provider(crate::ai::ProviderKind::Anthropic, "sk-ant-dev-anthropic"), &call, "s", &msgs, 100).unwrap_err().to_string();
     assert!(err.starts_with("the API answered HTTP 400. You have reached your specified API usage limits"), "{err}");
     assert!(crate::ai::plain_failure(&err).unwrap().contains("run out of credit"));
-    let err = crate::ai::chat(&provider(crate::ai::ProviderKind::OpenAi, "sk-dev-openai"), &call, "s", &msgs, 100).unwrap_err();
+    let err = crate::ai::chat(&provider(crate::ai::ProviderKind::OpenAi, "sk-dev-openai"), &call, "s", &msgs, 100).unwrap_err().to_string();
     assert!(err.starts_with("the API answered HTTP 429. You exceeded your current quota"), "{err}");
     // An injected malformed body and a reply that is not JSON for a JSON call.
     state.dev.ai.update(crate::dev_ai::Who::Learner, |p| {
         p.exhausted = false;
         p.inject = Some(crate::dev_ai::Injection { fault: crate::dev_ai::Fault::Malformed, sticky: false, hang_secs: 0 });
     });
-    let err = crate::ai::chat(&provider(crate::ai::ProviderKind::Anthropic, "sk-ant-dev-anthropic"), &call, "s", &msgs, 100).unwrap_err();
+    let err = crate::ai::chat(&provider(crate::ai::ProviderKind::Anthropic, "sk-ant-dev-anthropic"), &call, "s", &msgs, 100).unwrap_err().to_string();
     assert!(err.contains("not JSON"), "{err}");
 }
 

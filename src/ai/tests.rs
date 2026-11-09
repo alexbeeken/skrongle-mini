@@ -1237,10 +1237,10 @@ fn model_errors_never_carry_the_key() {
     for kind in [ProviderKind::Anthropic, ProviderKind::OpenAi] {
         let p = Provider { base_url: format!("http://{addr}"), ..kind.provider(key.to_string()) };
         for _ in 0..2 {
-            errors.push(chat(&p, &Call::new("tutor-turn"), "sys", &msgs, 10).unwrap_err());
+            errors.push(chat(&p, &Call::new("tutor-turn"), "sys", &msgs, 10).unwrap_err().to_string());
         }
         let gone = Provider { base_url: "http://127.0.0.1:9".into(), ..kind.provider(key.to_string()) };
-        errors.push(chat(&gone, &Call::new("generate-lesson"), "sys", &msgs, 10).unwrap_err());
+        errors.push(chat(&gone, &Call::new("generate-lesson"), "sys", &msgs, 10).unwrap_err().to_string());
     }
     assert!(errors.iter().any(|e| e.contains("[your key]")), "the server did echo the key: {errors:?}");
     for e in &errors {

@@ -28,6 +28,8 @@ use crate::content::{ContentStore, CourseFile, MANIFEST_FILE};
 use crate::courses;
 use crate::db::Db;
 
+mod error;
+pub use error::AiError;
 mod queue;
 pub use queue::*;
 mod providers;
@@ -361,7 +363,7 @@ impl Job {
         let msgs = [ChatMessage { role: "user", content: user.to_string() }];
         let timeout = request_timeout(GENERATE_TIMEOUT).min(self.remaining()).max(Duration::from_secs(1));
         let send = || complete(&req.provider, call, system, &msgs, budget::max_tokens(&req.provider), timeout);
-        send().map(|r| r.text)
+        send().map(|r| r.text).map_err(|e| e.to_string())
     }
 }
 
@@ -1327,7 +1329,7 @@ const GENERATE_TIMEOUT: Duration = Duration::from_secs(900);
 const CHAT_TIMEOUT: Duration = Duration::from_secs(120);
 /// A conversational turn: the whole transcript goes in, the next assistant
 /// message comes out. Blocking; callers put it on its own thread.
-pub fn chat(p: &Provider, call: &Call, system: &str, messages: &[ChatMessage], max_tokens: u32) -> Result<Reply, String> {
+pub fn chat(p: &Provider, call: &Call, system: &str, messages: &[ChatMessage], max_tokens: u32) -> Result<Reply, AiError> {
     complete(p, call, system, messages, max_tokens, CHAT_TIMEOUT)
 }
 
@@ -1338,7 +1340,7 @@ fn request_timeout(default: Duration) -> Duration {
 }
 
 /// The one place every model call goes through.
-fn complete(p: &Provider, call: &Call, system: &str, messages: &[ChatMessage], max_tokens: u32, timeout: Duration) -> Result<Reply, String> {
+fn complete(p: &Provider, call: &Call, system: &str, messages: &[ChatMessage], max_tokens: u32, timeout: Duration) -> Result<Reply, AiError> {
     let messages = merge_roles(messages);
     let timeout = request_timeout(timeout);
     let result = match p.kind {
@@ -1347,7 +1349,7 @@ fn complete(p: &Provider, call: &Call, system: &str, messages: &[ChatMessage], m
     };
     // Errors are logged and shown: never with the key in them, even when a
     // server echoes it back (a proxy's error page, a reply that is not JSON).
-    let (text, usage) = result.map_err(|e| redact_key(&e, &p.api_key))?;
+    let (text, usage) = result.map_err(|e| e.map_text(|t| redact_key(t, &p.api_key)))?;
     let usage = usage.filter(|u| !u.is_empty()).unwrap_or_else(|| Usage::estimate(system, &messages, &text));
     Ok(Reply { text, usage })
 }
@@ -1424,7 +1426,7 @@ pub fn call_header(call: &Call) -> String {
     out
 }
 
-fn call_anthropic(p: &Provider, call: &Call, system: &str, messages: &[ChatMessage], max_tokens: u32, timeout: Duration) -> Result<(String, Option<Usage>), String> {
+fn call_anthropic(p: &Provider, call: &Call, system: &str, messages: &[ChatMessage], max_tokens: u32, timeout: Duration) -> Result<(String, Option<Usage>), AiError> {
     let url = format!("{}/v1/messages", p.base_url.trim_end_matches('/'));
     let body = anthropic_body(p, system, messages, max_tokens);
     let mut req = agent(timeout)
@@ -1439,7 +1441,7 @@ fn call_anthropic(p: &Provider, call: &Call, system: &str, messages: &[ChatMessa
     let json = send(req, &body, timeout)?;
     if json.get("stop_reason").and_then(|s| s.as_str()) == Some("refusal") {
         let why = json.get("stop_details").and_then(|d| d.get("explanation")).and_then(|e| e.as_str()).unwrap_or("");
-        return Err(format!("the model declined the request. {why}").trim().to_string());
+        return Err(AiError::Declined(why.to_string()));
     }
     let text: String = json
         .get("content")
@@ -1454,7 +1456,7 @@ fn call_anthropic(p: &Provider, call: &Call, system: &str, messages: &[ChatMessa
         })
         .unwrap_or_default();
     if text.trim().is_empty() {
-        return Err("the model returned no text".into());
+        return Err(AiError::bad_reply("the model returned no text"));
     }
     Ok((text, Some(anthropic_usage(&json))))
 }
@@ -1468,29 +1470,28 @@ fn anthropic_usage(json: &serde_json::Value) -> Usage {
     Usage { input: n("input_tokens") + writes, output: n("output_tokens"), cached: n("cache_read_input_tokens") }
 }
 
-fn send(req: ureq::RequestBuilder<ureq::typestate::WithBody>, body: &serde_json::Value, timeout: Duration) -> Result<serde_json::Value, String> {
-    let timed_out = || format!("request failed: timed out after {} s", timeout.as_secs());
+fn send(req: ureq::RequestBuilder<ureq::typestate::WithBody>, body: &serde_json::Value, timeout: Duration) -> Result<serde_json::Value, AiError> {
+    let timed_out = || AiError::Timeout { secs: timeout.as_secs() };
     let mut resp = match req.send_json(body) {
         Ok(r) => r,
-        Err(ureq::Error::StatusCode(code)) => return Err(format!("the API answered HTTP {code} (check the key, model name and base URL)")),
+        Err(ureq::Error::StatusCode(code)) => return Err(AiError::Status(code)),
         Err(ureq::Error::Timeout(_)) => return Err(timed_out()),
-        Err(e) => return Err(format!("request failed: {e}")),
+        Err(e) => return Err(AiError::Unreachable(e.to_string())),
     };
     let status = resp.status().as_u16();
     let text = match resp.body_mut().with_config().limit(MAX_REPLY_BYTES).read_to_string() {
         Ok(t) => t,
         Err(ureq::Error::Timeout(_)) => return Err(timed_out()),
-        Err(ureq::Error::BodyExceedsLimit(_)) => return Err(format!("the reply is larger than {} KB, more than a course file may be", MAX_REPLY_BYTES / 1024)),
-        Err(e) => return Err(format!("could not read the reply: {e}")),
+        Err(ureq::Error::BodyExceedsLimit(_)) => return Err(AiError::bad_reply(format!("the reply is larger than {} KB, more than a course file may be", MAX_REPLY_BYTES / 1024))),
+        Err(e) => return Err(AiError::bad_reply(format!("could not read the reply: {e}"))),
     };
-    let json: serde_json::Value = serde_json::from_str(&text).map_err(|_| format!("HTTP {status}: reply is not JSON: {}", text.chars().take(200).collect::<String>()))?;
+    let json: serde_json::Value = serde_json::from_str(&text).map_err(|_| AiError::BadReply {
+        status: Some(status),
+        message: format!("HTTP {status}: reply is not JSON: {}", text.chars().take(200).collect::<String>()),
+    })?;
     if status >= 300 {
-        let msg = json
-            .pointer("/error/message")
-            .and_then(|m| m.as_str())
-            .unwrap_or("")
-            .to_string();
-        return Err(format!("the API answered HTTP {status}. {msg}").trim().to_string());
+        let message = json.pointer("/error/message").and_then(|m| m.as_str()).unwrap_or("").to_string();
+        return Err(AiError::Http { status, message, quota: error::quota_field(&json) });
     }
     Ok(json)
 }

@@ -760,7 +760,7 @@ pub async fn ask(user_id: i64, provider: ai::Provider, call: ai::Call, system: S
     std::thread::Builder::new()
         .name("tutor-llm".into())
         .spawn(move || {
-            let reply = ai::chat(&provider, &call, &system, &msgs, REPLY_MAX_TOKENS);
+            let reply = ai::chat(&provider, &call, &system, &msgs, REPLY_MAX_TOKENS).map_err(|e| e.to_string());
             // Free before replying: the same turn may ask again at once.
             drop(slot);
             let _ = tx.send(reply);
