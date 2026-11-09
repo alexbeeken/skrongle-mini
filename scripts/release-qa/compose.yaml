@@ -46,6 +46,11 @@ x-server: &server
 # Dockerfile puts on its FROM line, and architecture-named base images
 # (arm64v8/debian, amd64/debian, ...) rather than the multi-arch "debian", so
 # a cached host-architecture layer is never reused for another architecture.
+# The armv6l services carry no run-time `platform:`: the classic builder
+# drops the ARM variant from the image it builds (arm/v6 becomes plain arm,
+# which Docker reads as v7), so Docker would refuse to start it for
+# linux/arm/v6. The entrypoint checks the container's `uname -m` against ARCH
+# instead, for every architecture.
 x-build-aarch64: &build-aarch64
   context: .
   platforms: ["linux/arm64"]
@@ -112,7 +117,6 @@ services:
     <<: *server
     profiles: [arm32]
     image: skrongle-release-qa:armv6l
-    platform: linux/arm/v6
     build: *build-armv6l
     environment:
       ARCH: armv6l
@@ -154,7 +158,6 @@ services:
   qa-armv6l:
     profiles: [arm32]
     image: skrongle-release-qa:armv6l
-    platform: linux/arm/v6
     build: *build-armv6l
     command: smoke
     environment: { ARCH: armv6l, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}", HEALTH_WAIT: "600" }

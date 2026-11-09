@@ -13,6 +13,16 @@ set -eu
 
 : "${SKRONGLE_VERSION:?set SKRONGLE_VERSION (the release to run, e.g. 0.1.2)}"
 : "${ARCH:?set ARCH (aarch64, x86_64, armv7l or armv6l)}"
+# The image must be the architecture it is named for: a Docker without
+# BuildKit can tag an image for one architecture and build another, and a
+# green check on the wrong architecture would say nothing.
+MACHINE=$(uname -m)
+if [ "$MACHINE" != "$ARCH" ]; then
+  echo "this container runs as $MACHINE but ARCH=$ARCH: the image was built for the wrong architecture."
+  echo "Rebuild it (docker compose build skrongle-$ARCH) and, for armv7l or armv6l, install QEMU's handlers"
+  echo "first (docker compose --profile setup run --rm binfmt)."
+  exit 4
+fi
 TARBALL="/tarballs/skrongle-$SKRONGLE_VERSION-$ARCH.tar.gz"
 if [ ! -f "$TARBALL" ]; then
   echo "no tarball at $TARBALL."

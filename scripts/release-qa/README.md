@@ -14,7 +14,7 @@ What is here:
 | `package-smoke.sh <tarball>` | Checks one tarball on the Linux machine it runs on: layout, checksum, the binary (version, `doctor`, what it links), then a first day over HTTP with curl: the owner link from the log, the owner, an invitation and a learner, the built-in course's pages, a copied course shared by link, a clean stop and a second start on the same database. POSIX sh + curl. No dev routes: it drives the binary self-hosters run. |
 | `compose.yaml` | One service per architecture (`skrongle-aarch64` on port 8081, `skrongle-x86_64` on 8082; `skrongle-armv7l` on 8083 and `skrongle-armv6l` on 8084 behind the `arm32` profile until a release ships them, #21), plus `qa-<arch>` services that run `package-smoke.sh`, a `fetch` one-shot that downloads a release, and a `binfmt` one-shot for QEMU's handlers. |
 | `matrix.sh <version \| dir> [arch ...]` | Runs `qa-<arch>` for each architecture and prints one table. Logs in `results/release-qa/<version>/`. |
-| `Dockerfile`, `entrypoint.sh`, `fetch.sh` | The image (Debian 11 + curl), what it does with the tarball (`serve` or `smoke`), and the downloader. |
+| `Dockerfile`, `entrypoint.sh`, `fetch.sh` | The image (Debian 11 + curl), what it does with the tarball (`serve` or `smoke`, after checking that the container's `uname -m` is the architecture it is named for), and the downloader. |
 
 ## Check a release
 
@@ -76,6 +76,15 @@ Then `docker compose --profile arm32 up -d` adds the two 32-bit servers, and
 `matrix.sh` checks them when the release has their tarballs. They are slow:
 a page can take seconds, the first start minutes. The health checks allow
 for it.
+
+Until a release ships those tarballs (#21), check a build of your own:
+`scripts/build-pi.sh armv7` builds the armv7 binary, and `cargo zigbuild
+--target arm-unknown-linux-gnueabihf.2.31` the armv6 one; pack each like
+`scripts/package-release.sh` does, named `skrongle-<version>-armv7l.tar.gz`
+and `-armv6l`, into a folder of their own, and run `matrix.sh <that folder>`.
+The version in the name must be the one the binary prints (`Cargo.toml`), or
+the version check fails, as it should. Both cells pass this way under
+QEMU.
 
 ## What this does and does not cover
 
