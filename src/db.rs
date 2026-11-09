@@ -117,6 +117,10 @@ impl Db {
         let conn = Connection::open(path)?;
         conn.execute_batch(PRAGMAS)?;
         migrate(&conn)?;
+        // SQLite's advice for a connection that lives as long as the server:
+        // once after opening, with the "look at everything" flag; the hourly
+        // housekeeping runs the plain form after that.
+        conn.execute_batch("PRAGMA optimize=0x10002;")?;
         #[cfg(feature = "dev")]
         sql_trace::start(&conn);
         Db::new(conn)

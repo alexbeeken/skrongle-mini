@@ -180,3 +180,27 @@ fn housekeeping_is_the_one_hourly_kind_and_one_row_at_idle() {
     assert_eq!(runner.seed(&db, T).unwrap(), 0, "a second boot adds no row");
     assert_eq!(db.with(|c| recent(c, 50)).unwrap().len(), 1);
 }
+
+#[test]
+fn housekeeping_optimize_gathers_statistics_for_a_grown_table() {
+    let state = crate::routes::test_state(false);
+    let db = &state.db;
+    db.with(|c| {
+        c.execute("INSERT INTO users (password_hash, created_at, email) VALUES ('', 0, 'a@example.org')", [])?;
+        let tx = c.transaction()?;
+        for i in 0..3000 {
+            tx.execute("INSERT INTO quiz_history (user_id, lesson_id, question_id, selected_answer, was_correct, answered_at) VALUES (1, 'l', 'q', 'a', 1, ?1)", [i])?;
+        }
+        tx.commit()?;
+        // A query that could use an index, so the planner asks for statistics.
+        c.query_row("SELECT COUNT(*) FROM quiz_history WHERE answered_at > 10", [], |r| r.get::<_, i64>(0))?;
+        Ok(())
+    })
+    .unwrap();
+    let runner = housekeeping(Runner::new(), &state, retention::Retention { history_days: None, keep_notes: false, failed_course_days: None });
+    runner.seed(db, T).unwrap();
+    let (_, outcome) = runner.run_one(db, T).unwrap().unwrap();
+    assert!(matches!(outcome, Outcome::Done), "{outcome:?}");
+    let stat: i64 = db.with(|c| c.query_row("SELECT COUNT(*) FROM sqlite_stat1 WHERE tbl = 'quiz_history'", [], |r| r.get(0))).unwrap();
+    assert!(stat > 0, "PRAGMA optimize left no statistics for quiz_history");
+}
