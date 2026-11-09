@@ -3,7 +3,7 @@
 # Skrongle mini: the unit for self-hosters (docs/self-hosting.md, /self-host),
 # and the three SKRONGLE_ lines below are the mini's defaults. The release
 # tarball unpacked into /opt/skrongle, the database in /var/lib/skrongle, the
-# app on port 8080 of every network interface. Change a setting in
+# app on port 7576 of every network interface. Change a setting in
 # /etc/skrongle/env, not here.
 #
 #   sudo mkdir -p /etc/skrongle
@@ -11,7 +11,7 @@
 #   sudo systemctl enable --now skrongle
 #
 # Update:      sudo /opt/skrongle/update.sh
-# Diagnostics: sudo env $(systemctl show skrongle -p Environment --value) /opt/skrongle/skrongle doctor --env-file /etc/skrongle/env
+# Diagnostics: sudo /opt/skrongle/skrongle doctor --service
 # Back up /var/lib/skrongle (learn.db and learn.db.key, together).
 
 [Unit]
@@ -26,9 +26,12 @@ DynamicUser=yes
 WorkingDirectory=/opt/skrongle
 ExecStart=/opt/skrongle/skrongle
 Restart=on-failure
+# 78: the server refused the database (a newer release upgraded it, or it
+# predates the 1.0 schema; src/db.rs NEWER_DB_EXIT). Restarting cannot help.
+RestartPreventExitStatus=78
 RestartSec=3
 
-Environment=SKRONGLE_BIND=0.0.0.0:8080
+Environment=SKRONGLE_BIND=0.0.0.0:7576
 Environment=SKRONGLE_DATA_DIR=/opt/skrongle/data
 # The secret key is created next to it as learn.db.key; back up both.
 Environment=SKRONGLE_DB=/var/lib/skrongle/learn.db
@@ -36,7 +39,7 @@ Environment=SKRONGLE_LOG=info
 # One small box for a handful of accounts (docs/self-hosting.md): no e-mail
 # or outside service required.
 # The first account is the owner's, made through the owner link in the log
-#   (sudo journalctl -u skrongle -g "Owner link" -o cat | tail -n 1);
+#   (sudo /opt/skrongle/skrongle owner-link --service; the log has it too);
 # everyone else needs an invitation link from its Manage Users page:
 Environment=SKRONGLE_SIGNUP=invite
 # Optional settings (a public URL, …): see docs/self-hosting.md.

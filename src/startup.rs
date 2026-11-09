@@ -18,7 +18,7 @@ pub fn bind_error(addr: SocketAddr, e: &io::Error) -> String {
         ),
         io::ErrorKind::PermissionDenied => format!(
             "cannot listen on {addr}: permission denied. Ports below 1024 need extra privileges; \
-             use SKRONGLE_BIND=0.0.0.0:8080 and put a proxy (nginx, Caddy) in front for port 80/443"
+             use SKRONGLE_BIND=0.0.0.0:7576 and put a proxy (nginx, Caddy) in front for port 80/443"
         ),
         io::ErrorKind::AddrNotAvailable => format!(
             "cannot listen on {addr}: this machine has no address {}. Use SKRONGLE_BIND=0.0.0.0:{port} \

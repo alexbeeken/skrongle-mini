@@ -1,0 +1,195 @@
+# The release QA rig (#41): every architecture's release tarball, each in a
+# stock Debian container of that architecture, run from one laptop. This is a
+# test rig, not a way to run Skrongle: self-hosters install the tarball under
+# systemd (docs/self-hosting.md). README.md beside this file has the walkthrough.
+#
+#   cd scripts/release-qa
+#   docker compose --profile setup run --rm binfmt        # once: QEMU handlers for the 32-bit ARM images
+#   SKRONGLE_VERSION=0.1.2 docker compose --profile fetch run --rm fetch   # the release's tarballs into ../../dist
+#   SKRONGLE_VERSION=0.1.2 docker compose up              # aarch64 on :8081, x86_64 on :8082
+#   docker compose logs skrongle-aarch64 | grep "Owner link"   # the first account's link; open it as printed
+#   ./matrix.sh 0.1.2                                      # package-smoke.sh per architecture, one table
+#
+# Variables (defaults in ${...:-}): SKRONGLE_VERSION, TARBALLS (where the
+# tarballs are; ../../dist is where scripts/package-release.sh and the fetch
+# profile put them), PORT_<ARCH>.
+#
+# Profiles: (none) the servers for aarch64 and x86_64; `arm32` adds armv7l and
+# armv6l once a release ships them (#21); `fetch`, `setup`, and the `qa-*`
+# services matrix.sh runs by name. The `e2e` and `simulator` profiles come
+# with #40 and #44.
+#
+# Under QEMU (x86_64 on an ARM Mac through Rosetta is quick; armv7l and
+# armv6l are slow) a page can take seconds and the first start minutes, so
+# the health checks are patient and nothing here measures time.
+
+name: skrongle-release-qa
+
+x-bullseye-sources: &bullseye-sources |
+  deb http://archive.debian.org/debian bullseye main
+  deb http://archive.debian.org/debian-security bullseye-security main
+x-raspbian-sources: &raspbian-sources |
+  deb http://archive.raspbian.org/raspbian bullseye main
+
+x-server: &server
+  restart: unless-stopped
+  healthcheck:
+    test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8080/healthz"]
+    interval: 15s
+    timeout: 10s
+    retries: 40
+    start_period: 300s
+
+# Each build names its platform three times, so that a Docker without
+# BuildKit (the classic builder, which ignores `platforms:`) still builds the
+# right image: `platforms:` for BuildKit, the PLATFORM argument that the
+# Dockerfile puts on its FROM line, and architecture-named base images
+# (arm64v8/debian, amd64/debian, ...) rather than the multi-arch "debian", so
+# a cached host-architecture layer is never reused for another architecture.
+# The armv6l services carry no run-time `platform:`: the classic builder
+# drops the ARM variant from the image it builds (arm/v6 becomes plain arm,
+# which Docker reads as v7), so Docker would refuse to start it for
+# linux/arm/v6. The entrypoint checks the container's `uname -m` against ARCH
+# instead, for every architecture.
+x-build-aarch64: &build-aarch64
+  context: .
+  platforms: ["linux/arm64"]
+  args: { PLATFORM: "linux/arm64", BASE: "arm64v8/debian:bullseye-slim", ARCHIVE_SOURCES: *bullseye-sources }
+x-build-x86_64: &build-x86_64
+  context: .
+  platforms: ["linux/amd64"]
+  args: { PLATFORM: "linux/amd64", BASE: "amd64/debian:bullseye-slim", ARCHIVE_SOURCES: *bullseye-sources }
+x-build-armv7l: &build-armv7l
+  context: .
+  platforms: ["linux/arm/v7"]
+  args: { PLATFORM: "linux/arm/v7", BASE: "arm32v7/debian:bullseye-slim", ARCHIVE_SOURCES: *bullseye-sources }
+x-build-armv6l: &build-armv6l
+  context: .
+  platforms: ["linux/arm/v6"]
+  args: { PLATFORM: "linux/arm/v6", BASE: "balenalib/rpi-raspbian:bullseye", ARCHIVE_SOURCES: *raspbian-sources }
+
+services:
+  # ---------- the servers: one per architecture, each on its own port ----------
+  skrongle-aarch64:
+    <<: *server
+    image: skrongle-release-qa:aarch64
+    platform: linux/arm64
+    build: *build-aarch64
+    environment:
+      ARCH: aarch64
+      SKRONGLE_VERSION: ${SKRONGLE_VERSION:-0.1.2}
+      SKRONGLE_PUBLIC_URL: http://localhost:${PORT_AARCH64:-8081}
+    ports: ["${PORT_AARCH64:-8081}:8080"]
+    volumes:
+      - ${TARBALLS:-../../dist}:/tarballs:ro
+      - state-aarch64:/var/lib/skrongle
+
+  skrongle-x86_64:
+    <<: *server
+    image: skrongle-release-qa:x86_64
+    platform: linux/amd64
+    build: *build-x86_64
+    environment:
+      ARCH: x86_64
+      SKRONGLE_VERSION: ${SKRONGLE_VERSION:-0.1.2}
+      SKRONGLE_PUBLIC_URL: http://localhost:${PORT_X86_64:-8082}
+    ports: ["${PORT_X86_64:-8082}:8080"]
+    volumes:
+      - ${TARBALLS:-../../dist}:/tarballs:ro
+      - state-x86_64:/var/lib/skrongle
+
+  skrongle-armv7l:
+    <<: *server
+    profiles: [arm32]
+    image: skrongle-release-qa:armv7l
+    platform: linux/arm/v7
+    build: *build-armv7l
+    environment:
+      ARCH: armv7l
+      SKRONGLE_VERSION: ${SKRONGLE_VERSION:-0.1.2}
+      SKRONGLE_PUBLIC_URL: http://localhost:${PORT_ARMV7L:-8083}
+    ports: ["${PORT_ARMV7L:-8083}:8080"]
+    volumes:
+      - ${TARBALLS:-../../dist}:/tarballs:ro
+      - state-armv7l:/var/lib/skrongle
+
+  skrongle-armv6l:
+    <<: *server
+    profiles: [arm32]
+    image: skrongle-release-qa:armv6l
+    build: *build-armv6l
+    environment:
+      ARCH: armv6l
+      SKRONGLE_VERSION: ${SKRONGLE_VERSION:-0.1.2}
+      SKRONGLE_PUBLIC_URL: http://localhost:${PORT_ARMV6L:-8084}
+    ports: ["${PORT_ARMV6L:-8084}:8080"]
+    volumes:
+      - ${TARBALLS:-../../dist}:/tarballs:ro
+      - state-armv6l:/var/lib/skrongle
+
+  # ---------- the checks: package-smoke.sh on that architecture's tarball (matrix.sh runs these by name) ----------
+  qa-aarch64:
+    profiles: [qa]
+    image: skrongle-release-qa:aarch64
+    platform: linux/arm64
+    build: *build-aarch64
+    command: smoke
+    environment: { ARCH: aarch64, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}", HEALTH_WAIT: "300" }
+    volumes: ["${TARBALLS:-../../dist}:/tarballs:ro"]
+
+  qa-x86_64:
+    profiles: [qa]
+    image: skrongle-release-qa:x86_64
+    platform: linux/amd64
+    build: *build-x86_64
+    command: smoke
+    environment: { ARCH: x86_64, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}", HEALTH_WAIT: "300" }
+    volumes: ["${TARBALLS:-../../dist}:/tarballs:ro"]
+
+  qa-armv7l:
+    profiles: [arm32]
+    image: skrongle-release-qa:armv7l
+    platform: linux/arm/v7
+    build: *build-armv7l
+    command: smoke
+    environment: { ARCH: armv7l, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}", HEALTH_WAIT: "600" }
+    volumes: ["${TARBALLS:-../../dist}:/tarballs:ro"]
+
+  qa-armv6l:
+    profiles: [arm32]
+    image: skrongle-release-qa:armv6l
+    build: *build-armv6l
+    command: smoke
+    environment: { ARCH: armv6l, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}", HEALTH_WAIT: "600" }
+    volumes: ["${TARBALLS:-../../dist}:/tarballs:ro"]
+
+  # ---------- one-shots ----------
+  # The release's tarballs and checksums into TARBALLS (fetch.sh).
+  fetch:
+    profiles: [fetch]
+    image: curlimages/curl:8.11.1
+    user: "0:0"
+    environment:
+      SKRONGLE_VERSION: ${SKRONGLE_VERSION:-0.1.2}
+      SKRONGLE_REPO: ${SKRONGLE_REPO:-alexbeeken/skrongle-mini}
+      ARCHES: ${ARCHES:-aarch64 x86_64 armv7l armv6l}
+    volumes:
+      - ${TARBALLS:-../../dist}:/tarballs
+      - ./fetch.sh:/fetch.sh:ro
+    entrypoint: ["sh", "/fetch.sh"]
+
+  # QEMU's binfmt handlers, so this Docker can run the other architectures'
+  # containers. Once per machine (or per Docker VM). The only privileged
+  # service here.
+  binfmt:
+    profiles: [setup]
+    image: tonistiigi/binfmt
+    privileged: true
+    network_mode: none
+    command: ["--install", "all"]
+
+volumes:
+  state-aarch64:
+  state-x86_64:
+  state-armv7l:
+  state-armv6l:

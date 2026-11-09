@@ -5,7 +5,8 @@
 #   scripts/package-release.sh 0.2.0 aarch64     # binary from dist/aarch64-unknown-linux-gnu/ (scripts/build-pi.sh)
 #   scripts/package-release.sh 0.2.0 x86_64 target/release/spanish-learning
 #
-# <arch> is what `uname -m` prints on the target: aarch64 or x86_64.
+# <arch> is what `uname -m` prints on the target: aarch64, x86_64, armv7l
+# (Pi 2+, 32-bit OS) or armv6l (Pi 1, Zero, Zero W).
 # Output: dist/skrongle-<version>-<arch>.tar.gz (+ .sha256), which unpacks
 # flat into /opt/skrongle:
 #
@@ -13,6 +14,7 @@
 #   data/courses/       built-in courses     SKRONGLE_DATA_DIR
 #   skrongle.service    deploy/skrongle.service
 #   update.sh           deploy/update.sh: `sudo /opt/skrongle/update.sh`
+#   uninstall.sh        deploy/uninstall.sh: `sudo /opt/skrongle/uninstall.sh`
 #   VERSION             the version, one line
 #
 # The release workflow (.github/workflows/release.yml) runs this for each
@@ -26,10 +28,12 @@ VERSION="${VERSION#v}"
 case "$ARCH" in
   aarch64) TARGET=aarch64-unknown-linux-gnu ;;
   x86_64)  TARGET=x86_64-unknown-linux-gnu ;;
-  *) echo "unknown arch: $ARCH (use aarch64 or x86_64)"; exit 1 ;;
+  armv7l)  TARGET=armv7-unknown-linux-gnueabihf ;;
+  armv6l)  TARGET=arm-unknown-linux-gnueabihf ;;
+  *) echo "unknown arch: $ARCH (use aarch64, x86_64, armv7l or armv6l)"; exit 1 ;;
 esac
 BIN="${3:-dist/$TARGET/spanish-learning}"
-[ -x "$BIN" ] || { echo "no binary at $BIN: build it first (scripts/build-pi.sh $ARCH)"; exit 1; }
+[ -x "$BIN" ] || { echo "no binary at $BIN: build it first (scripts/build-pi.sh <arch>)"; exit 1; }
 
 NAME="skrongle-$VERSION-$ARCH"
 STAGE="dist/$NAME"
@@ -45,6 +49,8 @@ find "$STAGE/data" \( -name AUTHORING.md -o -name fact-check-ok.txt -o -name .DS
 cp deploy/skrongle.service "$STAGE/skrongle.service"
 cp deploy/update.sh "$STAGE/update.sh"
 chmod 0755 "$STAGE/update.sh"
+cp deploy/uninstall.sh "$STAGE/uninstall.sh"
+chmod 0755 "$STAGE/uninstall.sh"
 echo "$VERSION" > "$STAGE/VERSION"
 
 TARBALL="dist/$NAME.tar.gz"

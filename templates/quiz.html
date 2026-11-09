@@ -2,7 +2,7 @@
 {% block title %}{{ heading }}{% endblock %}
 {% block modenav %}{% let active = "practice" %}{% include "nav_study.html" %}{% endblock %}
 {% block content %}
-<section class="quiz" id="quiz" data-testid="quiz" data-total="{{ questions.len() }}" data-praise="{{ course.praise }}" data-lang="{{ course.term_lang }}">
+<section class="quiz" id="quiz" data-testid="quiz" data-total="{{ questions.len() }}" data-praise="{{ course.praise_line() }}" data-lang="{{ course.term_lang }}">
   <header class="quiz-head">
     <div>
       <h1>{{ heading }}</h1>

@@ -1,9 +1,14 @@
-# Self-hosting
+# Self-hosting reference
 
-The technical reference for self-hosting, for experts and AI assistants. For
-the step-by-step path, follow [Set up Skrongle on a new Raspberry Pi](setup-home-wifi)
-and then [Away from home with Tailscale](setup-tailscale); this page has the
-details behind each step, for any 64-bit Linux machine. Stuck? The
+**New here? Don't start on this page.** Follow
+[Set up Skrongle on a new Raspberry Pi](setup-home-wifi), top to bottom: it
+goes from the box to a private install with your account, two-factor sign-in
+and a backup. Then [Away from home with Tailscale](setup-tailscale) if you
+want it outside the house.
+
+This page is the reference behind those steps, for any 64-bit Linux
+machine: every setting, the systemd unit, a proxy in front, recovery
+commands, uninstalling and troubleshooting. Stuck? The
 [self-hosting FAQ](self-hosting-faq) answers the first questions people ask.
 
 Self-hosting is free. Help is best-effort, in
@@ -61,8 +66,12 @@ tarball per architecture, named `skrongle-<version>-<arch>.tar.gz`, where
 |---|---|
 | `skrongle-<version>-aarch64.tar.gz` | 64-bit ARM: Raspberry Pi Zero 2 W, 3, 4, 5 on the 64-bit OS |
 | `skrongle-<version>-x86_64.tar.gz` | PCs, mini PCs, most VPSs |
+| `skrongle-<version>-armv7l.tar.gz` | 32-bit ARM: Raspberry Pi 2 and newer on the 32-bit OS. Coming with the next release |
+| `skrongle-<version>-armv6l.tar.gz` | Raspberry Pi 1, Zero and Zero W (ARMv6, one core, 512 MB). Coming with the next release; sign-in is slow on these, not measured yet |
 
-Each comes with a `.sha256` file. A tarball unpacks (flat, no top folder) to:
+Planned, same pattern: `armv7l` (32-bit Raspberry Pi OS) and `armv6l`
+(Raspberry Pi Zero and 1). Each comes with a `.sha256` file, named
+`skrongle-<version>-<arch>.tar.gz.sha256`. A tarball unpacks (flat, no top folder) to:
 
 | Path | What it is |
 |---|---|
@@ -70,7 +79,12 @@ Each comes with a `.sha256` file. A tarball unpacks (flat, no top folder) to:
 | `data/courses/` | The built-in courses, read from disk when the server starts (`SKRONGLE_DATA_DIR`). |
 | `skrongle.service` | The systemd unit below (`deploy/skrongle.service` in the repo). |
 | `update.sh` | Updates the install in place: see [Updating](#updating). |
+| `uninstall.sh` | Removes the install, keeping the data unless `--purge`: see [Uninstalling](#uninstalling). |
 | `VERSION` | The version, one line. |
+
+This layout is stable. A later release may add files; none of these five
+paths is removed or renamed without a major version. Release assets are
+never deleted or renamed either (see the README).
 
 Everything a learner creates (accounts, progress, courses made in the app)
 is in the SQLite database, not in these files, so unpacking a new release
@@ -89,11 +103,12 @@ prints `OK`); stop if it doesn't. `update.sh` does the same check.
 
 ## Install
 
-Pick the version from the [releases page](https://github.com/alexbeeken/skrongle-mini/releases)
-(the commands below use `0.2.0`; `uname -m` picks the architecture):
+The first line finds the newest release on the
+[releases page](https://github.com/alexbeeken/skrongle-mini/releases)
+(or set `V=` to the one you want); `uname -m` picks the architecture:
 
 ```sh
-V=0.2.0
+V=$(curl -fsSLI -o /dev/null -w '%{url_effective}' https://github.com/alexbeeken/skrongle-mini/releases/latest); V=${V##*/v}; echo "installing $V"
 curl -LO https://github.com/alexbeeken/skrongle-mini/releases/download/v$V/skrongle-$V-$(uname -m).tar.gz
 curl -LO https://github.com/alexbeeken/skrongle-mini/releases/download/v$V/skrongle-$V-$(uname -m).tar.gz.sha256
 sha256sum -c skrongle-$V-$(uname -m).tar.gz.sha256
@@ -104,8 +119,19 @@ sudo cp /opt/skrongle/skrongle.service /etc/systemd/system/
 sudo systemctl enable --now skrongle
 ```
 
-Then open `http://<hostname>.local:8080`, or `http://<ip>:8080` where `<ip>`
-is the first address `hostname -I` prints.
+Then:
+
+1. `sudo /opt/skrongle/skrongle doctor --service` should show no `PROBLEM:`
+   line ([Diagnostics](#diagnostics-skrongle-doctor)).
+2. `http://<hostname>.local:7576` (or `http://<ip>:7576`, where `<ip>` is the
+   first address `hostname -I` prints) opens. It has no account yet.
+3. **Make your account with the owner link**:
+   `sudo /opt/skrongle/skrongle owner-link --service`. Until
+   you do, `/register` only says the server has no owner yet
+   ([Accounts and AI keys](#accounts-and-ai-keys)).
+4. Turn on two-factor sign-in (*Profile → Two-factor authentication*), keep
+   it off the internet ([Reaching it from outside](#reaching-it-from-outside))
+   and make a backup ([Backup and restore](#backup-and-restore)).
 
 To try it without systemd, run it from its folder:
 `cd /opt/skrongle && SKRONGLE_DB=$HOME/learn.db ./skrongle`.
@@ -123,11 +149,16 @@ Secrets show as yes/no only, never their values. It only reads. It opens
 the database read-only and creates nothing.
 
 It reads the same `SKRONGLE_*` settings as the server. To see what the systemd
-service sees, give it the unit's settings and its env file:
+service sees, run it with `--service`: it asks systemd for the `skrongle`
+unit's settings and reads its env file, as the service does (the shell's own
+`SKRONGLE_*` variables are left out):
 
 ```sh
-sudo env $(systemctl show skrongle -p Environment --value) /opt/skrongle/skrongle doctor --env-file /etc/skrongle/env
+sudo /opt/skrongle/skrongle doctor --service
 ```
+
+Without systemd, `skrongle doctor --env-file FILE` reads the settings from a
+file on top of the environment.
 
 A line that starts with `PROBLEM:` says what to fix.
 
@@ -138,7 +169,7 @@ A line that starts with `PROBLEM:` says what to fix.
 - runs `/opt/skrongle/skrongle` as a user systemd creates for it
   (`DynamicUser=yes`), so there is no `useradd` step;
 - keeps the database in `/var/lib/skrongle` (`StateDirectory=skrongle`);
-- listens on port 8080 on every interface;
+- listens on port 7576 on every interface;
 - restarts it if it stops (`Restart=on-failure`);
 - caps memory at 64 MB (`MemoryMax`) and sandboxes the process
   (`ProtectSystem=strict`, `ProtectHome`, `PrivateTmp`, …);
@@ -156,17 +187,94 @@ journalctl -u skrongle -f          # the log, live
 sudo systemctl restart skrongle    # after changing /etc/skrongle/env
 ```
 
+### A static user, data outside `/var/lib`
+
+Some systems (DietPi keeps user data under `/mnt/dietpi_userdata`) want a
+fixed `skrongle` user and a data folder you choose. Changes from
+`deploy/skrongle.service`:
+
+- `User=skrongle` and `Group=skrongle` replace `DynamicUser=yes`;
+- no `StateDirectory`: you make the data folder and own it;
+- `SKRONGLE_DB` points into that folder, and `ReadWritePaths=` names it so
+  `ProtectSystem=strict` (everything else read-only) still applies;
+- the rest of the sandbox stays.
+
+```sh
+sudo useradd --system --no-create-home --shell /usr/sbin/nologin skrongle
+sudo install -d -o skrongle -g skrongle -m 0750 /mnt/dietpi_userdata/skrongle
+```
+
+The data folder must be on a local disk (SD card, SSD, USB drive), not an
+NFS or SMB mount: SQLite's locking and its `-wal`/`-shm` files do not work
+safely over a network share. `learn.db`, `learn.db-wal`, `learn.db-shm` and
+the secret key `learn.db.key` (created with mode 0600) all live in that
+folder, so back it up whole. `/opt/skrongle` stays root-owned and read-only
+to the service. If the folder is not writable the server stops with a
+message naming the folder and the user it runs as.
+
+```ini
+[Service]
+Type=simple
+User=skrongle
+Group=skrongle
+WorkingDirectory=/opt/skrongle
+ExecStart=/opt/skrongle/skrongle
+Restart=on-failure
+RestartSec=3
+
+Environment=SKRONGLE_BIND=0.0.0.0:8080
+Environment=SKRONGLE_DATA_DIR=/opt/skrongle/data
+Environment=SKRONGLE_DB=/mnt/dietpi_userdata/skrongle/learn.db
+Environment=SKRONGLE_LOG=info
+Environment=SKRONGLE_SIGNUP=invite
+EnvironmentFile=-/etc/skrongle/env
+Environment=MALLOC_ARENA_MAX=2
+Environment=MALLOC_TRIM_THRESHOLD_=65536
+
+MemoryMax=64M
+MemoryHigh=48M
+TasksMax=32
+LimitNOFILE=256
+CPUWeight=80
+Nice=2
+
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/mnt/dietpi_userdata/skrongle
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6
+RestrictNamespaces=true
+LockPersonality=true
+SystemCallArchitectures=native
+```
+
+Keep `[Unit]` and `[Install]` as in `deploy/skrongle.service`. If the folder
+is on a mount that comes up late, add `RequiresMountsFor=/mnt/dietpi_userdata/skrongle`
+under `[Unit]`. `skrongle doctor --service` reads this unit and reports the
+database and data paths; run it as the service's user
+(`sudo -u skrongle /opt/skrongle/skrongle doctor --service`) and its
+"runs as" and "db writable" lines are the service's too. CI starts the binary as
+a non-root user with the database in a temp folder and checks `/healthz`,
+the owner link and the key file's mode (`scripts/non-root-start.sh`).
+
 ## Configuration
 
 Every setting is an environment variable. Put extra ones in
-`/etc/skrongle/env`, one `NAME=value` per line, and restart. Every name
+`/etc/skrongle/env`, one `NAME=value` per line, and restart.
+[`deploy/env.example`](https://github.com/alexbeeken/skrongle-mini/blob/main/deploy/env.example)
+lists the ones you might set, commented out. Every name
 starts `SKRONGLE_`; see [Renamed settings](#renamed-settings) if yours start `LEARN_`.
 
 Where a default says "unit", `skrongle.service` sets it.
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `SKRONGLE_BIND` | `0.0.0.0:8080` | Address and port to listen on; a bare port (`8081`) means every interface. |
+| `SKRONGLE_BIND` | `0.0.0.0:7576` | Address and port to listen on; a bare port (`8081`) means every interface. |
 | `SKRONGLE_SIGNUP` | `open` (unit: `invite`) | Who may make an account: `open`, `invite` or `closed`; see [Accounts and AI keys](#accounts-and-ai-keys). |
 | `SKRONGLE_PROXY_AUTH_HEADER`, `SKRONGLE_PROXY_AUTH_FROM` | — | Let the proxy in front sign people in; see [Signing in at the proxy](#signing-in-at-the-proxy). Both or neither. |
 | `SKRONGLE_DATA_DIR` | `data` | Folder with `courses/`. |
@@ -178,7 +286,8 @@ Where a default says "unit", `skrongle.service` sets it.
 | `SKRONGLE_AI_JOB_BUDGET_SECS` | `3600` | How long one AI generation job may run in all. Raise it for a slow self-hosted model. |
 | `SKRONGLE_LOG` | `info` | One level: `error`, `warn`, `info`, `debug` or `trace`. Per-module filters like `skrongle=debug` are not supported; an unrecognised value logs one warning and runs at `info`. |
 | `SKRONGLE_SECURE_COOKIES` | off | `1` when the site is served over HTTPS (behind a TLS proxy). |
-| `SKRONGLE_PUBLIC_URL` | — | The address people use, e.g. `https://learn.example.org`. |
+| `SKRONGLE_PUBLIC_URL` | — | The address people use, e.g. `https://learn.example.org`. The owner link and invitation links start with it. |
+| `SKRONGLE_BASE_PATH` | *(empty)* | A URL prefix when a proxy serves the app under a path, e.g. `/learn`. |
 | `SKRONGLE_MIN_AGE` | `14` | The minimum age the registration checkbox states. |
 | `SKRONGLE_FAILED_COURSE_RETENTION_DAYS` | `30` | An AI course whose generation failed is deleted, with the notes it was given, after this many days without a resume or edit. `0` keeps them. |
 | `SKRONGLE_COURSES_PER_USER` | `50` | Courses one account may make. "Create a course" says so when an account has them all. |
@@ -225,12 +334,19 @@ e-mail address is only what an account signs in with.
 `SKRONGLE_SIGNUP` decides who may make an account. The systemd unit sets it
 to `invite`:
 
-1. Start the server. While it has no account, it writes a one-time
-   **owner link** to its log. Print it:
+1. Start the server. While it has no account, it makes a one-time
+   **owner link** and writes it to its log too. Print one any time:
 
    ```sh
-   sudo journalctl -u skrongle -g "Owner link" -o cat | tail -n 1
+   sudo /opt/skrongle/skrongle owner-link --service
    ```
+
+   Links are stored hashed, so an earlier one cannot be read back: every
+   run (and `--new`, the same thing) makes a fresh link and the old one,
+   the log's included, stops working. Once an account exists it prints no
+   link and says so. Under `SKRONGLE_SIGNUP=open` there is no owner link:
+   the first account to register is the owner. Without systemd, use
+   `--env-file FILE` in place of `--service`.
 
    Open that link and register: the account is yours, the owner's. Its account menu (the picture, top right) has a
    **Manage Users** page. Without the
@@ -318,10 +434,10 @@ keys, so a database without its `.key` file can't use them.
 Don't forward a port on the router. Install [Tailscale](https://tailscale.com)
 on the server (`curl -fsSL https://tailscale.com/install.sh | sh`, then
 `sudo tailscale up`) and on each phone or laptop; the server is then at
-`http://<hostname>:8080` from any of them.
+`http://<hostname>:7576` from any of them.
 
 For a public site, put a TLS proxy (nginx, Caddy) in front, set
-`SKRONGLE_BIND=127.0.0.1:8080`, `SKRONGLE_SECURE_COOKIES=1` and `SKRONGLE_PUBLIC_URL`.
+`SKRONGLE_BIND=127.0.0.1:7576`, `SKRONGLE_SECURE_COOKIES=1` and `SKRONGLE_PUBLIC_URL`.
 
 Anything that faces the internet should sit behind such a proxy, even
 without HTTPS. The app has only coarse protection. It closes a connection
@@ -378,7 +494,7 @@ don't recommend any other setup.
 
 **Authelia with nginx** (`auth_request`). Authelia's `Remote-User` is a user
 name; use `Remote-Email` (or `Remote-User` only if your user names are
-e-mail addresses). `SKRONGLE_BIND=127.0.0.1:8080`,
+e-mail addresses). `SKRONGLE_BIND=127.0.0.1:7576`,
 `SKRONGLE_PROXY_AUTH_HEADER=Remote-Email`, `SKRONGLE_PROXY_AUTH_FROM=127.0.0.1`:
 
 ```nginx
@@ -401,7 +517,7 @@ location / {
     proxy_set_header Remote-Email $email;
     proxy_set_header Host $host;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_pass http://127.0.0.1:8080;
+    proxy_pass http://127.0.0.1:7576;
 }
 ```
 
@@ -409,11 +525,11 @@ location / {
 `Tailscale-User-Login` (and drops one the browser sent). It is an e-mail
 address for most identity providers; a GitHub login looks like
 `name@github`, which is not one, and gets no account. With
-`SKRONGLE_BIND=127.0.0.1:8080`, `SKRONGLE_PROXY_AUTH_HEADER=Tailscale-User-Login`
+`SKRONGLE_BIND=127.0.0.1:7576`, `SKRONGLE_PROXY_AUTH_HEADER=Tailscale-User-Login`
 and `SKRONGLE_PROXY_AUTH_FROM=127.0.0.1`:
 
 ```sh
-sudo tailscale serve --bg 8080
+sudo tailscale serve --bg 7576
 ```
 
 The server is then at `https://<hostname>.<tailnet>.ts.net`, and everyone on
@@ -439,6 +555,10 @@ checks its checksum, stops the service, copies the database aside as
 `learn.db.before-<version>`, replaces the binary and `data/`, and starts the
 service again. Give it a version to install that one instead
 (`sudo /opt/skrongle/update.sh 0.2.0`), which is also how to go back.
+Read the release's section in
+[CHANGELOG.md](https://github.com/alexbeeken/skrongle-mini/blob/main/CHANGELOG.md)
+first: it says what to do and what to back up. The version numbers' rules
+are in the README, "Versions".
 Database migrations run when the new server starts. A database from a
 build before the 1.0 schema is not upgraded: the server stops with one line
 naming the file ("this database predates the 1.0 schema; start from a fresh
@@ -446,6 +566,17 @@ one"); move it aside and start with an empty database. If the release notes
 say the unit changed, copy `skrongle.service` to `/etc/systemd/system/`
 again and run `sudo systemctl daemon-reload` (the script tells you when the
 two differ).
+
+The default port is now 7576, not 8080 (8080 is taken on many home servers).
+An existing install stays on 8080: `update.sh` doesn't replace the unit in
+`/etc/systemd/system`, and the old unit sets 8080. Copying the new
+`skrongle.service` there moves the service to 7576. To keep 8080 instead,
+add `SKRONGLE_BIND=0.0.0.0:8080` to `/etc/skrongle/env` first. If you do
+move, also change the port in `SKRONGLE_PUBLIC_URL` in `/etc/skrongle/env`
+(the setup guide wrote it with `:8080`, and invitation links start with it),
+and in anything else that points at 8080: a bookmark,
+`tailscale serve --bg 8080` (run `sudo tailscale serve reset`, then
+`sudo tailscale serve --bg 7576`), a proxy.
 
 By hand, the same thing:
 
@@ -515,24 +646,59 @@ authenticator app set up for two-factor sign-in was sealed with the old key
 too: it is turned off, and those learners sign in with their password and
 set it up again. Everything else is unaffected.
 
-## Releases
+## Uninstalling
 
-For maintainers. A release is a tag that matches the `version` in
-`Cargo.toml` (bump it, merge, then tag main; the workflow refuses a tag
-that doesn't match). Pushing `v<version>` runs
-`.github/workflows/release.yml`, which builds both architectures with
-`scripts/build-pi.sh` (cargo-zigbuild, glibc 2.31), packs each with
-`scripts/package-release.sh` and attaches the tarballs and checksums to the
-GitHub release of that tag (created with generated notes if it doesn't
-exist yet). The binary reports the tag's version (`skrongle --version`).
+The release has a script that removes the install, run as root:
 
 ```sh
-git tag v0.2.0 origin/main && git push origin v0.2.0
+sudo /opt/skrongle/uninstall.sh           # keeps the data
+sudo /opt/skrongle/uninstall.sh --purge   # removes the data too
 ```
 
-*Actions → release → Run workflow* builds the same tarballs as workflow
-artifacts without making a release. To check the layout locally:
-`scripts/build-pi.sh aarch64 && scripts/package-release.sh 0.0.0 aarch64`.
+Without `--purge` it removes the service and the program, and keeps the data
+(below):
+
+- stops and disables the `skrongle` unit, and deletes its unit file and
+  drop-ins in `/etc/systemd/system/`;
+- deletes `/opt/skrongle` (the program, `update.sh` and the built-in courses);
+- deletes the `skrongle` system user, but only if your install made one (a
+  DietPi-style install may have; the release unit does not).
+
+It does not remove the packages you installed, Tailscale or a proxy you set
+up. Running it again is safe: what is already gone is skipped.
+
+The same by hand:
+
+```sh
+sudo systemctl disable --now skrongle
+sudo rm /etc/systemd/system/skrongle.service
+sudo systemctl daemon-reload
+sudo rm -rf /opt/skrongle
+getent passwd skrongle && sudo userdel skrongle   # only if the user is there
+```
+
+### The data
+
+The database folder is your data, so the script keeps it unless you pass
+`--purge`. It is `/var/lib/skrongle`. The service's user is created by
+systemd, so the real folder is `/var/lib/private/skrongle`, with
+`/var/lib/skrongle` linked to it; the script handles both. The folder holds:
+
+- `learn.db`: the accounts, progress, courses made in the app, and the AI
+  keys people saved (encrypted);
+- `learn.db.key`: the key that decrypts those AI keys;
+- `learn.db.before-<version>`: the copies `update.sh` made before each update.
+
+Removing that folder is permanent: nothing brings the accounts back after
+it. [Back it up](#backup-and-restore) first. Without `--purge`, installing
+again with the same unit finds the accounts and progress as they were.
+
+`/etc/skrongle` is kept too without `--purge`, because its env file can hold
+`SKRONGLE_SECRET_KEY`, which the kept database needs to read the saved AI
+keys. `--purge` removes that folder as well. To remove the data by hand,
+after the steps above: `sudo rm -rf /var/lib/skrongle /var/lib/private/skrongle /etc/skrongle`.
+
+To use Skrongle again later, follow [Install](#install).
 
 ## Troubleshooting
 
@@ -540,7 +706,7 @@ artifacts without making a release. To check the layout locally:
 |---|---|
 | `ssh: Could not resolve hostname skrongle.local` | The Pi isn't on the Wi-Fi yet (wait a few minutes after the first boot), or the Wi-Fi details in Imager were wrong. Flash the card again. |
 | The page doesn't load from a phone | Use the IP address instead of `.local`; make sure the phone is on the same Wi-Fi; `systemctl status skrongle`. |
-| `port 8080 is already in use` in the log | Something else uses port 8080: set `SKRONGLE_BIND=0.0.0.0:8081` in `/etc/skrongle/env`. |
+| `port 7576 is already in use` in the log | Something else uses port 7576: set `SKRONGLE_BIND=0.0.0.0:8081` in `/etc/skrongle/env`. |
 | `cannot write the database` in the log | The folder isn't writable by the service: with the unit above it is `/var/lib/skrongle`; if you changed `SKRONGLE_DB`, the new folder must belong to the service user. |
 | `the secret key is missing` in the log | See [Backup and restore](#backup-and-restore): restore `learn.db.key`. |
 | Service keeps restarting | `journalctl -u skrongle -n 50`. A course validation error names the file and field. |

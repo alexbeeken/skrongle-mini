@@ -116,7 +116,7 @@ pub(super) fn notes_of(slots: &[Slot], files: &[CourseFile]) -> Vec<LessonNote> 
                 title: s.entry.get("title").and_then(|t| t.as_str()).unwrap_or_default().to_string(),
                 why: s.why.clone(),
                 check: s.check.clone(),
-                changed: before.map_or(true, |b| b.path != done.path || b.content != done.content),
+                changed: before.is_none_or(|b| b.path != done.path || b.content != done.content),
             })
         })
         .collect()

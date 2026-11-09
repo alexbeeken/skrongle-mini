@@ -19,23 +19,27 @@ Raspberry Pi Zero 2 W runs it with room to spare.
 
 ## Run it yourself
 
-For the step-by-step path, follow the
-[home Wi-Fi guide](docs/setup-home-wifi.md), written for someone who has never
-run a server, and the [Tailscale guide](docs/setup-tailscale.md) to reach it
-away from home. The technical reference is
-[docs/self-hosting.md](docs/self-hosting.md). The short form:
+Follow **[Set up Skrongle on a new Raspberry Pi](docs/setup-home-wifi.md)**,
+top to bottom. It is written for someone who has never run a server, and
+it is the only install path; this is its outline:
 
-1. Download the [release](https://github.com/alexbeeken/skrongle-mini/releases)
-   tarball for your machine: `skrongle-<version>-aarch64.tar.gz` for a Pi
-   (64-bit Raspberry Pi OS) or `-x86_64` for a PC running Linux.
-2. Unpack it, install the systemd unit it contains and start the service.
-   The server writes an **owner link** to its log: open it to make the
-   first account, which is the owner's.
-3. Everyone else joins with an invitation link the owner makes on the
-   **Manage Users** page.
-4. Optional: paste an AI provider's API key on the same page. It serves every
-   account, and the owner can hide the AI features for everyone with one
-   switch.
+1. **Get it**: download the latest release for your machine, check its
+   checksum, unpack it to `/opt/skrongle` and start the systemd unit it
+   contains.
+2. **Check it**: `sudo /opt/skrongle/skrongle doctor --service` shows no
+   `PROBLEM:` line, and the page opens on the same Wi-Fi.
+3. **Make your account**: open the one-time **owner link**
+   (`sudo /opt/skrongle/skrongle owner-link --service`; the log has it too). The first account is the owner's.
+4. **Keep it private**: two-factor sign-in on, never forward a port; for
+   access away from home, the [Tailscale guide](docs/setup-tailscale.md).
+5. **Invite your people**: one invitation link per person, from the
+   **Manage Users** page. Optionally paste an AI provider's key there too.
+6. **Back it up**: `learn.db` and `learn.db.key` in `/var/lib/skrongle`,
+   always together.
+7. **Update it**: `sudo /opt/skrongle/update.sh`.
+
+Every setting, a proxy in front and recovery commands are in the
+[Self-hosting reference](docs/self-hosting.md).
 
 What you get, and what you are responsible for:
 
@@ -52,6 +56,28 @@ What you get, and what you are responsible for:
 | Help | [GitHub Discussions](https://github.com/alexbeeken/skrongle-mini/discussions); bugs through the *Self-hosting bug* issue form with the output of `skrongle doctor` |
 
 A database from before version 1.0 is not upgraded; start from a fresh one.
+
+## Versions
+
+Numbers are `MAJOR.MINOR.PATCH`. What a release may change, for the person
+running it:
+
+- **Patch** (1.4.2 to 1.4.3): never changes the systemd unit, the
+  environment variables or the layout of the database.
+- **Minor** (1.4.x to 1.5.0): may add settings, pages and database tables
+  or columns.
+- **Major** (1.x to 2.0.0): may remove settings, features and database
+  columns.
+
+The server refuses a database that a newer build has upgraded. It checks the
+schema number (`PRAGMA user_version`, one per migration), not the version
+number, so any build with an older schema refuses it, whatever the version.
+It stops with one line naming the file and exits with status 78. So going
+back after an update that changed the database needs the copy `update.sh`
+made before it (`learn.db.before-<version>`); see
+[Updating](docs/self-hosting.md#updating).
+What each release changes, and what to back up first, is in
+[CHANGELOG.md](CHANGELOG.md).
 
 ## What it teaches with
 
@@ -104,7 +130,10 @@ to write a course.
 
 - [docs/getting-started.md](docs/getting-started.md), the user guides and
   the [FAQ](docs/faq.md).
-- [docs/self-hosting.md](docs/self-hosting.md) and the
+- [CHANGELOG.md](CHANGELOG.md): what changed in each release, and what to
+  back up before updating.
+- [docs/setup-home-wifi.md](docs/setup-home-wifi.md) (the install path),
+  [docs/self-hosting.md](docs/self-hosting.md) (the reference) and the
   [self-hosting FAQ](docs/self-hosting-faq.md).
 - [docs/course-format.md](docs/course-format.md): the complete course
   format, also the specification the AI generator follows.
@@ -149,6 +178,12 @@ scripts/package-release.sh 0.2.0 aarch64    # the release tarball
 
 Release tarballs are built by CI on a `v*` tag (`.github/workflows/release.yml`).
 
+### Release assets
+
+Release assets are never deleted or renamed. A broken release gets a new
+patch release, not an edit. Installers depend on the names; see
+[What a release contains](docs/self-hosting.md#what-a-release-contains).
+
 ## Configuration
 
 Everything is an environment variable; all are optional. The full table with
@@ -157,7 +192,7 @@ The ones most installs touch:
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `SKRONGLE_BIND` | `0.0.0.0:8080` | Listen address |
+| `SKRONGLE_BIND` | `0.0.0.0:7576` | Listen address |
 | `SKRONGLE_DB` | `learn.db` | SQLite file (WAL and SHM files are created next to it) |
 | `SKRONGLE_DATA_DIR` | `data` | Directory containing `courses/` |
 | `SKRONGLE_SIGNUP` | `open` (`invite` in the shipped unit) | Who may make an account |

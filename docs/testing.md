@@ -496,6 +496,32 @@ then resets the user.
 It leaves a running `./.dev-start` alone. Run it with `cargo test` before
 finishing a change.
 
+## Release QA
+
+The smoke test and the browser specs run a dev build. The release tarball
+(`docs/self-hosting.md`, "What a release contains") is a different binary:
+no `/dev` routes, cross-compiled for machines nobody on the project owns.
+`scripts/release-qa/` checks that package (the plan is #47):
+
+```sh
+scripts/release-qa/package-smoke.sh dist/skrongle-0.1.2-aarch64.tar.gz   # one tarball, on a Linux box
+scripts/release-qa/matrix.sh 0.1.2        # every architecture, each in a Debian container of that architecture (Docker)
+scripts/release-qa/matrix.sh dist         # the same for a candidate you built
+```
+
+`package-smoke.sh` (POSIX sh + curl) checks the tarball's layout and
+checksum, the binary (`--version`, `doctor`, what it links against), then
+a first day over HTTP with no dev routes: the owner link from the log, the
+owner, an invitation and a learner, the built-in course's pages, a copied
+course shared by link, a clean stop and a second start on the same
+database. `matrix.sh` runs it per architecture through
+`scripts/release-qa/compose.yaml`, which also serves every architecture's
+build side by side for a look in a browser (`docker compose up`, the owner
+link in `docker compose logs`). The README in that folder has the
+walkthrough, and what a container does not cover: systemd, `update.sh` and
+rollback (the VM layer, #42), and anything timed (emulated speed means
+nothing).
+
 ## Panic check, file size lint and Pi budget
 
 Three tripwires run in CI and compare with a committed baseline, so raising
@@ -772,12 +798,48 @@ specs run one at a time, as they do.
 text from the course. A helper that misses a testid or a state attribute is
 a reason to add it to the template ([Markup hooks](#markup-hooks)). 
 
+## Releases (maintainers)
+
+Not for self-hosters: how a release is made. A release is a tag that matches the `version` in
+`Cargo.toml` (bump it, merge, then tag main; the workflow refuses a tag
+that doesn't match). Pushing `v<version>` runs
+`.github/workflows/release.yml`, which builds both architectures with
+`scripts/build-pi.sh` (cargo-zigbuild, glibc 2.31), packs each with
+`scripts/package-release.sh` and attaches the tarballs and checksums to the
+GitHub release of that tag (created with generated notes if it doesn't
+exist yet). The binary reports the tag's version (`skrongle --version`).
+
+Before the tag, on the commit you will tag:
+
+1. Bump `version` in `Cargo.toml`, and add a `## 0.2.0 (<date>)` section to
+   `CHANGELOG.md` with what changed and what to back up. The release
+   notes are that section; the workflow fails without it.
+2. Run `scripts/release-check.sh 0.2.0`. It checks the Cargo version and the
+   changelog section, and on Linux with a tarball in `dist/` (from
+   `scripts/package-release.sh`) it unpacks the tarball and checks that
+   `skrongle --version` prints the version. Without a tarball it skips that
+   part and says so.
+3. Check the tarballs on every architecture: `scripts/release-qa/matrix.sh dist`
+   runs each in a Debian container of that architecture ([Release QA](#release-qa)).
+   After the tag, `scripts/release-qa/matrix.sh 0.2.0` does the same with the
+   published tarballs, before you announce it.
+
+```sh
+git tag v0.2.0 origin/main && git push origin v0.2.0
+```
+
+*Actions → release → Run workflow* builds the same tarballs as workflow
+artifacts without making a release. To check the layout locally:
+`scripts/build-pi.sh aarch64 && scripts/package-release.sh 0.0.0 aarch64`.
+
 ## CI runners
 
 CI runs on GitHub-hosted `ubuntu-latest` runners. A PR's `checks` workflow
 (`.github/workflows/smoke.yml`) is eight jobs: `cargo test` (which checks
 that a build without the `dev` feature compiles, `cargo check
---no-default-features`, runs `cargo test --features dev` and then
+--no-default-features`, lints with `cargo clippy --features dev --all-targets
+-- -D warnings` (lint levels are in `Cargo.toml` under `[lints.clippy]`; a
+warning fails the job), runs `cargo test --features dev` and then
 `scripts/smoke.sh`), three exact-spec shards and four smoke-spec shards.
 
 - **Shards**: the e2e specs run one at a time (they share the dev user), so

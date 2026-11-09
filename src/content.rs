@@ -257,10 +257,6 @@ impl Manifest {
         self.units.iter().position(|u| u.id == id)
     }
 
-    pub fn group_title(&self, id: &str) -> String {
-        self.groups.iter().find(|g| g.id == id).map(|g| g.title.clone()).unwrap_or_else(|| id.to_string())
-    }
-
     pub fn subject(&self) -> &str {
         if self.subject.is_empty() { &self.title } else { &self.subject }
     }
@@ -373,6 +369,9 @@ pub struct VocabEntry {
     /// The example in the meaning language; shown as a hint on the example.
     #[serde(default, alias = "example_en", skip_serializing_if = "Option::is_none")]
     pub example_meaning: Option<String>,
+    /// `quiz::normalize(term)`, set once when the course loads (not part of the JSON).
+    #[serde(skip)]
+    pub key: String,
 }
 
 /// Which of the two speakers says a dialogue line.
@@ -673,6 +672,7 @@ pub struct ContentStore {
     lessons: Vec<Lesson>,
     by_id: HashMap<String, usize>,
     by_slug: HashMap<String, usize>,
+    by_group: HashMap<String, usize>,
     /// question_id -> (lesson index, quiz item index)
     questions: HashMap<String, (usize, usize)>,
     /// conversation id -> (lesson index, conversation index)
@@ -685,6 +685,8 @@ pub struct ContentStore {
     assets: HashMap<String, String>,
     /// `placement.json`, the placement test (#1106), when the course has one.
     placement: Option<crate::placement::PlacementTest>,
+    /// What templates need of the course on every page, built once here.
+    view: std::sync::Arc<crate::routes::CourseView>,
 }
 
 impl fmt::Debug for ContentStore {
@@ -760,6 +762,9 @@ impl ContentStore {
             crate::notation::fill_bar::answer_missing(&mut lesson.quiz);
             crate::notation::name_notes(&mut lesson.quiz, manifest.music.as_ref().map(|m| m.note_names).unwrap_or_default()).map_err(|m| ContentError::Invalid(format!("{}: {m}", f.path)))?;
             lesson.unit_index = manifest.unit_index(&lesson.unit).expect("validated");
+            for v in &mut lesson.vocabulary {
+                v.key = crate::quiz::normalize(&v.term);
+            }
             lesson.html_content = render_markdown(&lesson.content);
             lesson.sections = split_sections(&lesson.content);
             lesson.guide_steps =
@@ -813,7 +818,17 @@ impl ContentStore {
             }
         }
 
-        Ok(ContentStore { manifest, lessons, by_id, by_slug, questions, conversations, conjugations, item_art, assets, placement })
+        let has_paradigm = manifest.paradigm.is_some() && lessons.iter().any(|l| !l.conjugations.is_empty());
+        let has_listening = manifest.is_language() && lessons.iter().any(|l| !l.listening.is_empty());
+        let view = std::sync::Arc::new(crate::routes::CourseView::new(&manifest, has_paradigm, has_listening));
+        // Reversed, so the first group with an id wins, as the search it replaces did.
+        let by_group: HashMap<String, usize> = manifest.groups.iter().enumerate().rev().map(|(gi, g)| (g.id.clone(), gi)).collect();
+        Ok(ContentStore { manifest, lessons, by_id, by_slug, by_group, questions, conversations, conjugations, item_art, assets, placement, view })
+    }
+
+    /// The shared course view for templates (built when the store was).
+    pub fn view(&self) -> std::sync::Arc<crate::routes::CourseView> {
+        self.view.clone()
     }
 
     pub fn manifest(&self) -> &Manifest {
@@ -825,13 +840,13 @@ impl ContentStore {
     }
 
     /// The praise lines a page shows after a right answer (`strings.praise`).
-    pub fn praise(&self) -> Vec<String> {
-        self.manifest.strings.praise.clone()
+    pub fn praise(&self) -> &[String] {
+        &self.manifest.strings.praise
     }
 
     /// `praise`, for a wrong answer (`strings.almost`).
-    pub fn almost(&self) -> Vec<String> {
-        self.manifest.strings.almost.clone()
+    pub fn almost(&self) -> &[String] {
+        &self.manifest.strings.almost
     }
 
     pub fn title(&self) -> &str {
@@ -875,8 +890,9 @@ impl ContentStore {
         self.manifest.paradigm.as_ref()
     }
 
-    pub fn group_title(&self, id: &str) -> String {
-        self.manifest.group_title(id)
+    /// The title of group `id`, or `id` itself when the course has no such group.
+    pub fn group_title<'a>(&'a self, id: &'a str) -> &'a str {
+        self.by_group.get(id).map_or(id, |&i| self.manifest.groups[i].title.as_str())
     }
 
     pub fn lessons(&self) -> &[Lesson] {
@@ -909,7 +925,7 @@ impl ContentStore {
         let mut out: Vec<&VocabEntry> = Vec::new();
         for entry in &lesson.vocabulary {
             let explicit = item.teaches.iter().any(|t| t == &entry.term);
-            let automatic = answers.iter().any(|a| a == &crate::quiz::normalize(&entry.term));
+            let automatic = answers.iter().any(|a| a == &entry.key);
             if (explicit || automatic) && !out.iter().any(|e| e.term == entry.term) {
                 out.push(entry);
             }

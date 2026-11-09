@@ -280,7 +280,8 @@ impl Courses {
         }
         let courses = Courses::with_builtin(builtin, builtin_dirs);
         if let Some(store) = kept {
-            courses.lock().insert(&store.id().to_string(), Arc::new(store));
+            let id = store.id().to_string();
+            courses.lock().insert(&id, Arc::new(store));
         }
         Ok(courses)
     }
@@ -774,15 +775,24 @@ pub fn redo_step(conn: &Connection, id: &str) -> rusqlite::Result<Option<UndoSte
     .optional()
 }
 
+/// One row of `course_undo`: the step's sequence number, its files' title
+/// and outline, and its label.
+struct StepRow {
+    seq: i64,
+    title: String,
+    outline: Option<String>,
+    label: String,
+}
+
 /// A step's files, title, outline and label: the newest Undo step
 /// (`redo` false) or Redo step (`redo` true).
-fn top_step(tx: &rusqlite::Transaction, id: &str, redo: bool) -> rusqlite::Result<Option<(i64, String, Option<String>, String)>> {
+fn top_step(tx: &rusqlite::Transaction, id: &str, redo: bool) -> rusqlite::Result<Option<StepRow>> {
     let sql = if redo {
         "SELECT seq, title, outline, label FROM course_undo WHERE course_id = ?1 AND seq < 0 ORDER BY seq ASC LIMIT 1"
     } else {
         "SELECT seq, title, outline, label FROM course_undo WHERE course_id = ?1 AND seq > 0 ORDER BY seq DESC LIMIT 1"
     };
-    tx.query_row(sql, [id], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?, r.get(3)?))).optional()
+    tx.query_row(sql, [id], |r| Ok(StepRow { seq: r.get(0)?, title: r.get(1)?, outline: r.get(2)?, label: r.get(3)? })).optional()
 }
 
 /// Put back the files from before the newest change. The course as it was
@@ -790,12 +800,12 @@ fn top_step(tx: &rusqlite::Transaction, id: &str, redo: bool) -> rusqlite::Resul
 /// undone; `None` when there is nothing.
 pub fn undo_revision(conn: &mut Connection, id: &str) -> rusqlite::Result<Option<String>> {
     let tx = conn.transaction()?;
-    let Some((seq, title, outline, label)) = top_step(&tx, id, false)? else { return Ok(None) };
+    let Some(step) = top_step(&tx, id, false)? else { return Ok(None) };
     let redo: i64 = tx.query_row("SELECT COALESCE(MIN(seq), 0) - 1 FROM course_undo WHERE course_id = ?1 AND seq < 0", [id], |r| r.get(0))?;
-    file_current(&tx, id, redo, &label, None)?;
-    restore_step(&tx, id, seq, &title, outline.as_deref())?;
+    file_current(&tx, id, redo, &step.label, None)?;
+    restore_step(&tx, id, step.seq, &step.title, step.outline.as_deref())?;
     tx.commit()?;
-    Ok(Some(label))
+    Ok(Some(step.label))
 }
 
 /// Put back the newest change Undo took away. The course as it was becomes
@@ -803,13 +813,13 @@ pub fn undo_revision(conn: &mut Connection, id: &str) -> rusqlite::Result<Option
 /// redone; `None` when there is nothing.
 pub fn redo_revision(conn: &mut Connection, id: &str) -> rusqlite::Result<Option<String>> {
     let tx = conn.transaction()?;
-    let Some((seq, title, outline, label)) = top_step(&tx, id, true)? else { return Ok(None) };
+    let Some(step) = top_step(&tx, id, true)? else { return Ok(None) };
     let undo = next_undo_seq(&tx, id)?;
-    file_current(&tx, id, undo, &label, None)?;
+    file_current(&tx, id, undo, &step.label, None)?;
     trim_undo(&tx, id, undo)?;
-    restore_step(&tx, id, seq, &title, outline.as_deref())?;
+    restore_step(&tx, id, step.seq, &step.title, step.outline.as_deref())?;
     tx.commit()?;
-    Ok(Some(label))
+    Ok(Some(step.label))
 }
 
 /// The latest AI run on a course, for "Review AI changes": the files it
@@ -885,7 +895,7 @@ pub fn ai_run(conn: &Connection, id: &str) -> rusqlite::Result<Option<AiRun>> {
     let mut files: Vec<AiRunFile> = Vec::new();
     for row in stmt.query_map([id], |r| Ok((r.get::<_, String>(0)?, r.get::<_, String>(1)?, r.get::<_, String>(2)?)))? {
         let (side, path, content) = row?;
-        if files.last().map_or(true, |f| f.path != path) {
+        if files.last().is_none_or(|f| f.path != path) {
             files.push(AiRunFile { path, before: None, after: None });
         }
         let f = files.last_mut().expect("just pushed");
@@ -1105,7 +1115,7 @@ fn account_bytes(conn: &Connection, owner: i64, except: &str) -> rusqlite::Resul
 /// Bytes as the refusals say them: "8 MB", "3.6 MB" (MiB, rounded up).
 pub fn megabytes(bytes: usize) -> String {
     let tenths = (bytes * 10).div_ceil(1024 * 1024);
-    if tenths % 10 == 0 {
+    if tenths.is_multiple_of(10) {
         format!("{} MB", tenths / 10)
     } else {
         format!("{}.{} MB", tenths / 10, tenths % 10)

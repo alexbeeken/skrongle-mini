@@ -104,7 +104,7 @@ src/
   progress.rs    lesson passes shared by every mode: the rule (seen + a run of >= 70 %), the RULES text for tutors and agents, table lesson_passes
   quiz.rs        adaptive question selection, answer normalisation/checking, tiny PRNG
   problems.rs    what the editor and the file page say when a course file is refused: kind, lesson, field, line, message, fix hint (every ContentError and arrange.rs refusal)
-  owner.rs       what the owner does to an account with no message sent (#635): a temporary password (users.must_change_password), two-factor off, make an owner; the binary's commands (reset-password, disable-2fa, make-owner, help)
+  owner.rs       what the owner does to an account with no message sent (#635): a temporary password (users.must_change_password), two-factor off, make an owner; the binary's commands (owner-link, reset-password, disable-2fa, make-owner, help)
   db/tables.rs   USER_TABLES and SHARED_TABLES: which tables hold a learner's rows, and the test that every table is listed (docs/data-inventory.md)
   jobs/retention.rs  the retention rules the hourly housekeeping applies (old answers, finished notes, failed AI courses)
   jobs.rs        background jobs (table jobs, #872): enqueue, the one-statement claim with a lease, retries with per-kind delays, periodic kinds that queue their next run; the `jobs` runner thread; the hourly housekeeping as one job with a step per purge
@@ -164,7 +164,7 @@ docs/            this documentation (compiled in, served at /docs)
 data/courses/    built-in courses: <id>/course.json + lessons/**.json + pictures/**.svg
 data/test-courses/  courses for automated tests, loaded only with TEST_COURSE=1 (see testing.md, "The test course")
 data/test-fixtures/llm/  canned model replies the dev AI provider answers from, one <purpose>.json per call site
-deploy/          the systemd unit and update.sh of the release tarball
+deploy/          the systemd unit, update.sh and uninstall.sh of the release tarball
 scripts/         build-pi.sh (cross-compile with zig), package-release.sh, dev-progress.sh, smoke.sh (local smoke test)
 ```
 
@@ -469,7 +469,7 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `SKRONGLE_BIND` | `0.0.0.0:8080` | Listen address; a bare port (`9000`) means every interface. A value that doesn't parse stops the server |
+| `SKRONGLE_BIND` | `0.0.0.0:7576` | Listen address; a bare port (`9000`) means every interface. A value that doesn't parse stops the server |
 | `SKRONGLE_SIGNUP` | `open` (*mini:* `invite`) | Who may make an account (`src/signup.rs`, #634): `open` (anyone), `invite` (only through a link an owner makes on `/manage`) or `closed`. Under `invite` and `closed` the first account on a server with none is made only through the owner link the server logs at startup (a new one each start), and is made an owner. Read as is, with no older spelling; any other value stops startup. `deploy/skrongle.service` sets `invite`, `deploy/aws` nothing |
 | `SKRONGLE_PROXY_AUTH_HEADER`, `SKRONGLE_PROXY_AUTH_FROM` | unset | Sign-in by a reverse proxy (`src/proxy_auth.rs`, #642): the header holding the person's e-mail address, and the proxy's addresses (IPs or CIDRs, comma-separated) it is trusted from, judged by the TCP peer, never `X-Forwarded-For`. Both or neither (one alone stops startup). A trusted request with the header is signed in without password, two-factor or rate limit; an unknown address follows `SKRONGLE_SIGNUP` (`open` makes a password-less account with its address confirmed). `/login` and `/register` only say the proxy signs in. Read as is, no older spelling. |
 | `SKRONGLE_DATA_DIR` | `data` | Directory containing `courses/` |

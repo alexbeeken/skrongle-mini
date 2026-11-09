@@ -545,7 +545,7 @@ fn only_a_language_course_talks() {
         crate::routes::sprint::PlayTemplate {
             title: "t".into(),
             course_title: c.title().to_string(),
-            course: crate::routes::CourseView::of(c),
+            course: c.view(),
             session_json: "{}".into(),
             notation: false,
             sound: false,

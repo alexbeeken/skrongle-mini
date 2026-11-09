@@ -14,39 +14,65 @@ use crate::secrets::MasterStatus;
 use crate::startup;
 use crate::Config;
 
-/// Run the command; the process exit code.
-pub fn main(args: &[String]) -> i32 {
+/// The systemd unit `--service` reads (`deploy/skrongle.service`).
+const SERVICE: &str = "skrongle";
+
+/// The settings flags `skrongle doctor` and `skrongle owner-link` share:
+/// `--service` (the installed unit's settings) or `--env-file FILE`, applied
+/// to this process's environment. Flags in `extra` are returned when given;
+/// anything else is refused. `Err(code)` is the exit code of a command that
+/// is already finished (bad arguments, an unreadable file, `--help`).
+pub fn apply_settings_args(command: &str, args: &[String], extra: &[&str]) -> Result<Vec<String>, i32> {
+    let mut env_file = None;
+    let mut service = false;
+    let mut found = Vec::new();
     let mut it = args.iter();
     while let Some(a) = it.next() {
         match a.as_str() {
             "--env-file" => {
                 let Some(path) = it.next() else {
                     eprintln!("--env-file needs a path, e.g. --env-file /etc/skrongle/env");
-                    return 2;
+                    return Err(2);
                 };
-                match std::fs::read_to_string(path) {
-                    // Like systemd's EnvironmentFile=: these win over the
-                    // environment. Still single-threaded here.
-                    Ok(text) => {
-                        for (k, v) in parse_env_file(&text) {
-                            std::env::set_var(k, v);
-                        }
-                    }
-                    Err(e) => {
-                        eprintln!("cannot read {path}: {e}");
-                        return 1;
-                    }
-                }
+                env_file = Some(path);
             }
+            "--service" => service = true,
             "-h" | "--help" => {
                 println!("{}", crate::USAGE);
-                return 0;
+                return Err(0);
             }
+            other if extra.contains(&other) => found.push(other.to_string()),
             other => {
-                eprintln!("unknown doctor argument {other:?}\n\n{}", crate::USAGE);
-                return 2;
+                eprintln!("unknown {command} argument {other:?}\n\n{}", crate::USAGE);
+                return Err(2);
             }
         }
+    }
+    // --service already reads the unit's env file, and replaces the shell's
+    // settings, so an --env-file next to it would be dropped without a word.
+    if service && env_file.is_some() {
+        eprintln!("use --service or --env-file, not both: --service already reads the unit's env file");
+        return Err(2);
+    }
+    if let Some(path) = env_file {
+        if let Err(e) = apply_env_file(path) {
+            eprintln!("cannot read {path}: {e}");
+            return Err(1);
+        }
+    }
+    if service {
+        if let Err(e) = apply_service_env() {
+            eprintln!("--service: {e}");
+            return Err(1);
+        }
+    }
+    Ok(found)
+}
+
+/// Run the command; the process exit code.
+pub fn main(args: &[String]) -> i32 {
+    if let Err(code) = apply_settings_args("doctor", args, &[]) {
+        return code;
     }
     let old_names = crate::old_prefix_warning_now();
     let mut lines = match Config::from_env() {
@@ -58,6 +84,125 @@ pub fn main(args: &[String]) -> i32 {
     }
     print!("{}", render(&lines));
     0
+}
+
+/// Like systemd's `EnvironmentFile=`: the file's settings win over the
+/// environment. Called while the process is still single-threaded.
+fn apply_env_file(path: &str) -> std::io::Result<()> {
+    let text = std::fs::read_to_string(path)?;
+    for (k, v) in parse_env_file(&text) {
+        std::env::set_var(k, v);
+    }
+    Ok(())
+}
+
+/// What the running service sees: the unit's `Environment=` lines, then its
+/// `EnvironmentFile=`s on top (as systemd orders them), in place of any
+/// setting this shell had. Asks `systemctl show`, so it reads the unit as
+/// systemd loaded it, edits and drop-ins included.
+fn apply_service_env() -> Result<(), String> {
+    let show = |prop: &str| -> Result<String, String> {
+        let out = std::process::Command::new("systemctl")
+            .args(["show", SERVICE, "-p", prop, "--value"])
+            .output()
+            .map_err(|e| format!("cannot run systemctl ({e}); without systemd, use --env-file"))?;
+        if !out.status.success() {
+            return Err(format!("systemctl show {SERVICE} failed: {}", String::from_utf8_lossy(&out.stderr).trim()));
+        }
+        Ok(String::from_utf8_lossy(&out.stdout).into_owned())
+    };
+    // `systemctl show` succeeds for a unit that doesn't exist too, with every
+    // value empty; LoadState says whether systemd found it. A unit may set
+    // nothing with Environment= and still be installed (all in its env file).
+    let state = show("LoadState")?;
+    if state.trim() != "loaded" {
+        return Err(format!(
+            "the {SERVICE} unit is not installed (systemd says {:?}); install it as docs/setup-home-wifi.md step 5 does",
+            state.trim()
+        ));
+    }
+    let assignments = show("Environment")?;
+    let inherited: Vec<String> = std::env::vars_os()
+        .filter_map(|(k, _)| k.into_string().ok())
+        .filter(|k| crate::ENV_PREFIXES.iter().any(|p| k.starts_with(p)))
+        .collect();
+    for k in inherited {
+        std::env::remove_var(k);
+    }
+    for (k, v) in split_unit_environment(&assignments) {
+        std::env::set_var(k, v);
+    }
+    for (path, optional) in unit_env_files(&show("EnvironmentFiles")?) {
+        match apply_env_file(&path) {
+            Ok(()) => {}
+            Err(e) if optional && e.kind() == std::io::ErrorKind::NotFound => {}
+            Err(e) if e.kind() == std::io::ErrorKind::PermissionDenied => {
+                return Err(format!("cannot read {path}: {e} (run it with sudo)"))
+            }
+            Err(e) => return Err(format!("cannot read {path}: {e}")),
+        }
+    }
+    Ok(())
+}
+
+/// `systemctl show -p Environment --value`: `NAME=value` words separated by
+/// spaces, a word with a space in it quoted (`"NAME=a b"`).
+pub fn split_unit_environment(text: &str) -> Vec<(String, String)> {
+    let mut words = Vec::new();
+    let mut word = String::new();
+    let mut in_word = false;
+    let mut chars = text.trim().chars();
+    while let Some(c) = chars.next() {
+        match c {
+            '"' | '\'' => {
+                in_word = true;
+                for q in chars.by_ref() {
+                    if q == c {
+                        break;
+                    }
+                    word.push(q);
+                }
+            }
+            '\\' => {
+                in_word = true;
+                if let Some(n) = chars.next() {
+                    word.push(n);
+                }
+            }
+            c if c.is_whitespace() => {
+                if in_word {
+                    words.push(std::mem::take(&mut word));
+                    in_word = false;
+                }
+            }
+            c => {
+                in_word = true;
+                word.push(c);
+            }
+        }
+    }
+    if in_word {
+        words.push(word);
+    }
+    words
+        .into_iter()
+        .filter_map(|w| w.split_once('=').map(|(k, v)| (k.to_string(), v.to_string())))
+        .filter(|(k, _)| !k.is_empty())
+        .collect()
+}
+
+/// `systemctl show -p EnvironmentFiles --value`: one file a line, as
+/// `/etc/skrongle/env (ignore_errors=yes)`; the bool is that flag (the `-`
+/// in `EnvironmentFile=-/etc/skrongle/env`).
+pub fn unit_env_files(text: &str) -> Vec<(String, bool)> {
+    text.lines()
+        .map(str::trim)
+        .filter(|l| !l.is_empty())
+        .map(|l| match l.rsplit_once(" (") {
+            Some((path, flags)) => (path.to_string(), flags.contains("ignore_errors=yes")),
+            None => (l.to_string(), false),
+        })
+        .collect()
 }
 
 /// `NAME=value` lines as systemd's `EnvironmentFile=` reads them: blank lines
@@ -194,7 +339,7 @@ fn os_line() -> String {
         }
         (None, None) => {}
     }
-    if let Some(model) = std::fs::read_to_string("/proc/device-tree/model").ok() {
+    if let Ok(model) = std::fs::read_to_string("/proc/device-tree/model") {
         let _ = write!(s, ", {}", model.trim_end_matches('\0').trim());
     }
     s
@@ -465,6 +610,36 @@ mod tests {
         assert!(out.contains("no (created as"), "{out}");
         assert!(!db.exists() && !crate::secrets::key_file_path(&db).exists(), "the doctor must not create files");
         let _ = std::fs::remove_dir_all(db.parent().unwrap());
+    }
+
+    #[test]
+    fn unit_environment_words() {
+        let got = split_unit_environment(
+            "SKRONGLE_BIND=0.0.0.0:8080 SKRONGLE_DB=/var/lib/skrongle/learn.db \"SKRONGLE_PUBLIC_URL=http://a b\" MALLOC_ARENA_MAX=2\n",
+        );
+        let want = [
+            ("SKRONGLE_BIND", "0.0.0.0:8080"),
+            ("SKRONGLE_DB", "/var/lib/skrongle/learn.db"),
+            ("SKRONGLE_PUBLIC_URL", "http://a b"),
+            ("MALLOC_ARENA_MAX", "2"),
+        ];
+        assert_eq!(got, want.map(|(k, v)| (k.to_string(), v.to_string())));
+        assert!(split_unit_environment("\n").is_empty());
+    }
+
+    /// Refused before anything is read or set, in either order.
+    #[test]
+    fn service_and_env_file_together_are_refused() {
+        let args = |a: &[&str]| a.iter().map(|s| s.to_string()).collect::<Vec<_>>();
+        assert_eq!(main(&args(&["--service", "--env-file", "/nonexistent/env"])), 2);
+        assert_eq!(main(&args(&["--env-file", "/nonexistent/env", "--service"])), 2);
+    }
+
+    #[test]
+    fn unit_env_file_list() {
+        let got = unit_env_files("/etc/skrongle/env (ignore_errors=yes)\n/etc/other (ignore_errors=no)\n");
+        assert_eq!(got, vec![("/etc/skrongle/env".to_string(), true), ("/etc/other".to_string(), false)]);
+        assert!(unit_env_files("\n").is_empty());
     }
 
     #[test]

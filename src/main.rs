@@ -82,7 +82,7 @@ pub const VERSION: &str = match option_env!("SKRONGLE_VERSION") {
 };
 
 /// Defaults for the three settings every install has.
-pub const DEFAULT_BIND: &str = "0.0.0.0:8080";
+pub const DEFAULT_BIND: &str = "0.0.0.0:7576";
 pub const DEFAULT_DATA_DIR: &str = "data";
 pub const DEFAULT_DB: &str = "learn.db";
 
@@ -204,7 +204,7 @@ struct Config {
 /// The settings' prefix, then the old ones `env` still reads, newest first.
 /// The old prefixes are read for one release only (#584); the next release
 /// drops them, and with them `old_prefix_warning`.
-const ENV_PREFIXES: [&str; 3] = ["SKRONGLE_", "LEARN_", "SPANISH_"];
+pub(crate) const ENV_PREFIXES: [&str; 3] = ["SKRONGLE_", "LEARN_", "SPANISH_"];
 
 /// `SKRONGLE_<name>`, falling back for one release to the old
 /// `LEARN_<name>` and `SPANISH_<name>` spellings. Empty counts as unset.
@@ -257,7 +257,7 @@ fn parse_bind(raw: Option<&str>) -> Result<SocketAddr, String> {
     if let Ok(port) = raw.parse::<u16>() {
         return Ok(SocketAddr::from(([0, 0, 0, 0], port)));
     }
-    raw.parse().map_err(|_| format!("SKRONGLE_BIND must be address:port, like {DEFAULT_BIND} or 127.0.0.1:8080; got {raw:?}"))
+    raw.parse().map_err(|_| format!("SKRONGLE_BIND must be address:port, like {DEFAULT_BIND} or 127.0.0.1:7576; got {raw:?}"))
 }
 
 impl Config {
@@ -298,8 +298,12 @@ Skrongle, a self-hosted learning app.
 
 Usage:
   skrongle                     start the server (settings from SKRONGLE_* environment variables)
-  skrongle doctor [--env-file FILE]
-                               print diagnostics to paste into a bug report (no secrets)
+  skrongle doctor [--service | --env-file FILE]
+                               print diagnostics to paste into a bug report (no secrets);
+                               --service reads the settings of the installed skrongle unit (run it with sudo)
+  skrongle owner-link [--new] [--service | --env-file FILE]
+                               print the link that makes the owner's account, while no account exists;
+                               it is always a new link, and the earlier one (also the one in the log) stops working
   skrongle reset-password <email>
                                give the account a temporary password, printed here; it must be changed at the next sign-in
   skrongle disable-2fa <email> turn the account's two-factor sign-in off
@@ -331,6 +335,7 @@ fn main() {
         }
         // The owner's account commands (`reset-password <email>`, …:
         // `owner.rs`) run against SKRONGLE_DB and exit.
+        Some("owner-link") => std::process::exit(owner::owner_link_command(&args[1..])),
         Some("reset-password" | "disable-2fa" | "make-owner") => std::process::exit(owner::command(&args).unwrap_or(2)),
         Some(other) => {
             eprintln!("unknown argument {other:?}\n\n{USAGE}");
@@ -578,6 +583,22 @@ async fn shutdown_signal() {
     tracing::info!("shutdown signal received");
 }
 
+
+/// Hand the heap pages that booting freed back to the OS. Loading the
+/// courses reads every file, parses it and drops the text; glibc on its own
+/// only trims the top of the heap, so what stays resident depends on the
+/// sizes and order of those files (deleting fourteen small SVGs moved the
+/// idle RSS on the Pi by 2.5 MiB, #842). `malloc_trim(0)` releases every
+/// free page in every arena, whatever the layout. Other allocators have no
+/// such call and do not keep freed pages the same way.
+fn release_boot_memory() {
+    #[cfg(all(target_os = "linux", target_env = "gnu"))]
+    // SAFETY: malloc_trim only walks glibc's own heap and takes no pointers.
+    unsafe {
+        libc::malloc_trim(0);
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::{env_from, old_prefix_warning};
@@ -643,19 +664,4 @@ mod tests {
         assert!(found.is_empty(), "settings are named SKRONGLE_ now; the old prefix is back in {found:?}");
     }
 
-}
-
-/// Hand the heap pages that booting freed back to the OS. Loading the
-/// courses reads every file, parses it and drops the text; glibc on its own
-/// only trims the top of the heap, so what stays resident depends on the
-/// sizes and order of those files (deleting fourteen small SVGs moved the
-/// idle RSS on the Pi by 2.5 MiB, #842). `malloc_trim(0)` releases every
-/// free page in every arena, whatever the layout. Other allocators have no
-/// such call and do not keep freed pages the same way.
-fn release_boot_memory() {
-    #[cfg(all(target_os = "linux", target_env = "gnu"))]
-    // SAFETY: malloc_trim only walks glibc's own heap and takes no pointers.
-    unsafe {
-        libc::malloc_trim(0);
-    }
 }

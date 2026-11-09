@@ -1,16 +1,16 @@
 # Self-hosting FAQ
 
-The first questions people ask when they run their own copy. The details
-are in [Self-hosting](self-hosting); the step-by-step Pi guide is
-[Set up on home Wi-Fi](setup-home-wifi).
+The first questions people ask when they run their own copy. The
+step-by-step path is [Set up on home Wi-Fi](setup-home-wifi); the details
+are in the [Self-hosting reference](self-hosting).
 
 **Before you ask anywhere, run the diagnostics.** `skrongle doctor` prints
 the version, OS, database, schema level, which settings are configured and
 free disk and memory, and marks anything wrong with `PROBLEM:`. It never
-prints a secret. With the systemd unit:
+prints a secret. With the systemd unit, so it sees what the service sees:
 
 ```sh
-sudo env $(systemctl show skrongle -p Environment --value) /opt/skrongle/skrongle doctor --env-file /etc/skrongle/env
+sudo /opt/skrongle/skrongle doctor --service
 ```
 
 What each line means: [Diagnostics](self-hosting#diagnostics-skrongle-doctor).
@@ -35,9 +35,10 @@ newer: a Raspberry Pi Zero 2 W, 3, 4 or 5 with the 64-bit Raspberry Pi OS
 (Bullseye or later), Debian 11+, Ubuntu 20.04+, on ARM (`aarch64`) or a PC
 (`x86_64`). `uname -m` tells you which release file to download.
 
-**What about the 32-bit Raspberry Pi OS?** There is no release for it
-(`uname -m` prints `armv7l`). Install the 64-bit OS, or build it yourself
-with `scripts/build-pi.sh armv7`.
+**What about the 32-bit Raspberry Pi OS?** The next release adds files for
+it: `armv7l` (Pi 2 and newer) and `armv6l` (Pi 1, Zero, Zero W); `uname -m`
+tells you which. Until then, install the 64-bit OS, or build it yourself
+with `scripts/build-pi.sh armv7` (or `armv6`).
 
 **macOS, Windows, Docker?** No release for them. On a Mac you can build it
 from source (`cargo build --release`) to try it; Docker isn't needed, since
@@ -51,12 +52,12 @@ plenty.
 ## Installing and running
 
 **The page doesn't load.** Is it running? `systemctl status skrongle`. Then
-try `http://<ip>:8080` from the same Wi-Fi, where `<ip>` is the first
+try `http://<ip>:7576` from the same Wi-Fi, where `<ip>` is the first
 address `hostname -I` prints; `.local` names don't work on every network or
 phone.
 
 **The log says the port is already in use.** Another program (or a second
-copy) has port 8080. Find it with `sudo ss -ltnp 'sport = :8080'`, or move
+copy) has port 7576. Find it with `sudo ss -ltnp 'sport = :7576'`, or move
 Skrongle: put `SKRONGLE_BIND=0.0.0.0:8081` in `/etc/skrongle/env` and
 `sudo systemctl restart skrongle`.
 
@@ -116,13 +117,21 @@ on the new one, start it.
 Use Tailscale, or put a TLS proxy in front for a public site: see
 [Reaching it from outside](self-hosting#reaching-it-from-outside).
 
-**Who can sign up?** Anyone who can reach the server. Keep it on your own
-network, or behind Tailscale.
+**Who can sign up?** Only people you invite. The first account is yours,
+made through the owner link in the log; everyone else needs an invitation
+link from your **Manage Users** page, one per person, up to 8 accounts. See
+[Accounts and AI keys](self-hosting#accounts-and-ai-keys).
+
+**I opened the page and it says the server has no owner yet.** Make your
+account with the owner link:
+`sudo /opt/skrongle/skrongle owner-link --service`, then open the link it
+prints.
 
 **Do I need an AI key?** No. Lessons, quizzes, games and the built-in
-courses work without one. The tutor and the course generator use a key
-each learner saves in their profile (Anthropic, OpenAI, Google, or an
-OpenAI-compatible server such as Ollama via `SKRONGLE_OPENAI_BASE_URL`).
+courses work without one. The tutor and the course generator use the keys
+you, the owner, save under *Manage Users → AI features* (Anthropic, OpenAI,
+Google, DeepSeek, Mistral, xAI, OpenRouter, or an Ollama server on your
+network). Every account uses them, billed to you.
 
 **Are saved AI keys safe?** They are encrypted with the secret key, which
 lives in a separate file (`learn.db.key`), so a copy of the database alone

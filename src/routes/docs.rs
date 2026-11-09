@@ -73,18 +73,6 @@ fn title_of(md: &str, slug: &str) -> String {
         .unwrap_or_else(|| slug.replace('-', " "))
 }
 
-/// The release tarball the self-hosting guide installs: the one for the
-/// version this server runs (`Cargo.toml`; the release workflow refuses a
-/// tag that doesn't match it), for the Pi (`aarch64`). Named
-/// `skrongle-<version>-<arch>.tar.gz` by `scripts/package-release.sh`, with
-/// `skrongle`, `data/`, `skrongle.service` and `terms.example.md` inside,
-/// as `docs/self-hosting.md` lays out. The download only exists once the
-/// repo is public and that version is released (#95, #101).
-#[allow(dead_code)] // the page links to the guide now; the release check still pins the name
-#[allow(dead_code)]
-
-
-
 /// Every embedded `.md` file, as (slug, title).
 pub fn pages() -> Vec<DocLink> {
     let mut names: Vec<String> = Docs::iter().map(|n| n.to_string()).filter(|n| n.ends_with(".md")).collect();
@@ -166,24 +154,31 @@ fn render(slug: &str, user: Option<CurrentUser>) -> Result<Response, AppError> {
     if !slug.chars().all(|c| c.is_ascii_alphanumeric() || c == '-' || c == '_') {
         return Err(AppError::NotFound);
     }
-    let (title, html) = rendered(slug).ok_or(AppError::NotFound)?;
-    Ok(Page(DocsTemplate { user, title, slug: slug.to_string(), html, sections: sections_cached() }).into_response())
+    let page = rendered(slug).ok_or(AppError::NotFound)?;
+    Ok(Page(DocsTemplate { user, title: page.title, slug: slug.to_string(), html: page.html, sections: sections_cached() }).into_response())
 }
 
-/// (title, body HTML) of a page, rendered on its first visit and kept for
+/// A rendered page: its title and body HTML.
+#[derive(Clone, Debug, PartialEq)]
+struct Rendered {
+    title: String,
+    html: std::sync::Arc<str>,
+}
+
+/// A page, rendered on its first visit and kept for
 /// the life of the process (#39). The body depends only on the page and the
 /// base path, both fixed at startup; the signed-in user and the sidebar's
 /// current-page marker live in the template. Only pages that exist are
 /// stored, so the map is bounded by the docs.
-fn rendered(slug: &str) -> Option<(String, std::sync::Arc<str>)> {
-    static CACHE: Mutex<Option<HashMap<String, (String, std::sync::Arc<str>)>>> = Mutex::new(None);
+fn rendered(slug: &str) -> Option<Rendered> {
+    static CACHE: Mutex<Option<HashMap<String, Rendered>>> = Mutex::new(None);
     let mut guard = CACHE.lock().unwrap_or_else(|e| e.into_inner());
     let map = guard.get_or_insert_with(HashMap::new);
     if let Some(hit) = map.get(slug) {
         return Some(hit.clone());
     }
     let md = md_of(slug)?;
-    let entry = (title_of(&md, slug), std::sync::Arc::<str>::from(render_doc(&md)));
+    let entry = Rendered { title: title_of(&md, slug), html: std::sync::Arc::<str>::from(render_doc(&md)) };
     map.insert(slug.to_string(), entry.clone());
     Some(entry)
 }
@@ -295,8 +290,6 @@ fn attr(s: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    /// The guide downloads one tarball and unpacks the same name (#641).
 
     /// A page is parsed on its first request only (#39).
     #[test]

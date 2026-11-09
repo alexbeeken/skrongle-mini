@@ -127,14 +127,20 @@ pub fn key_for(email: &str, user_id: i64, secret: Vec<u8>) -> totp::Key {
 /// The stored key (sealed, see the module doc), whether it is confirmed, and
 /// the last step accepted. `None` with no key, or one that no longer opens.
 fn stored_key(conn: &Connection, vault: &Vault, user_id: i64) -> rusqlite::Result<Option<(totp::Key, bool, Option<u64>)>> {
-    let row: Option<(Vec<u8>, Option<i64>, Option<i64>, String)> = conn
+    struct KeyRow {
+        secret: Vec<u8>,
+        confirmed_at: Option<i64>,
+        last_step: Option<i64>,
+        email: String,
+    }
+    let row = conn
         .query_row(
             "SELECT k.secret, k.confirmed_at, k.last_step, u.email FROM totp_keys k JOIN users u ON u.id = k.user_id WHERE k.user_id = ?1",
             [user_id],
-            |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?, r.get(3)?)),
+            |r| Ok(KeyRow { secret: r.get(0)?, confirmed_at: r.get(1)?, last_step: r.get(2)?, email: r.get(3)? }),
         )
         .optional()?;
-    Ok(row.and_then(|(blob, confirmed, last, email)| Some((key_for(&email, user_id, secrets::open_totp(vault, user_id, &blob)?), confirmed.is_some(), last.map(|l| l as u64)))))
+    Ok(row.and_then(|k| Some((key_for(&k.email, user_id, secrets::open_totp(vault, user_id, &k.secret)?), k.confirmed_at.is_some(), k.last_step.map(|l| l as u64)))))
 }
 
 /// The enrolment under way, as the app is handed it (the setup dialog).

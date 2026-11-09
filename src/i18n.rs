@@ -725,7 +725,7 @@ mod tests {
             let mut rest = text;
             while let Some(i) = rest.find(call) {
                 let before = &rest[..i];
-                let boundary = before.chars().last().map_or(true, |c| !c.is_alphanumeric() && c != '_');
+                let boundary = before.chars().last().is_none_or(|c| !c.is_alphanumeric() && c != '_');
                 rest = &rest[i + call.len()..];
                 if !boundary {
                     continue;

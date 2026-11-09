@@ -2,7 +2,7 @@
 {% block title %}{{ crate::t1("listening.play.title", "heading", heading) }}{% endblock %}
 {% block modenav %}{% let active = "listening" %}{% include "nav_study.html" %}{% endblock %}
 {% block content %}
-<section class="listening" id="listening" data-testid="listen" data-lang="{{ course.term_lang }}" data-label="{{ course.term_label }}" data-praise="{{ course.praise }}" data-board="{{ board }}" data-total="{{ total }}">
+<section class="listening" id="listening" data-testid="listen" data-lang="{{ course.term_lang }}" data-label="{{ course.term_label }}" data-praise="{{ course.praise_line() }}" data-board="{{ board }}" data-total="{{ total }}">
   <header class="quiz-head">
     <div>
       <p class="crumbs"><a href="{{ crate::base_path() }}/listening">{{ crate::t("listening.play.crumb_listening") }}</a> › {{ heading }}</p>

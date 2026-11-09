@@ -93,6 +93,14 @@ pub async fn change(
     Ok(Redirect::to(&crate::url(&next)).into_response())
 }
 
+/// An app-relative path: one `/` first, no second one, and no backslash,
+/// whitespace or control character: browsers drop tabs and newlines and read
+/// `\` as `/`, so `/<tab>/evil.example` would become `//evil.example`,
+/// another host (#358).
+pub(crate) fn is_app_path(n: &str) -> bool {
+    n.starts_with('/') && !n.starts_with("//") && !n.chars().any(|c| c == '\\' || c.is_whitespace() || c.is_control())
+}
+
 #[cfg(test)]
 mod tests {
     use super::safe_next;
@@ -104,12 +112,4 @@ mod tests {
         assert_eq!(safe_next(Some("/password/change?next=/x")), "/");
         assert_eq!(safe_next(None), "/");
     }
-}
-
-/// An app-relative path: one `/` first, no second one, and no backslash,
-/// whitespace or control character: browsers drop tabs and newlines and read
-/// `\` as `/`, so `/<tab>/evil.example` would become `//evil.example`,
-/// another host (#358).
-pub(crate) fn is_app_path(n: &str) -> bool {
-    n.starts_with('/') && !n.starts_with("//") && !n.chars().any(|c| c == '\\' || c.is_whitespace() || c.is_control())
 }

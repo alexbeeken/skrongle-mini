@@ -5,14 +5,24 @@ Skrongle running on it, reachable from every phone and laptop on your home
 Wi-Fi, and from nowhere else. It assumes nothing: if you can copy and paste,
 you can do this. Every step says what to type and what you should see.
 
+This is the one path from "I have a Pi" to "my family can use it and
+nobody else can". Follow it top to bottom. At the end you have:
+
+- Skrongle running on the Pi, reachable only from your home Wi-Fi;
+- your own account, the owner's, with two-factor sign-in on;
+- invitation links for the people you choose;
+- a backup on your computer.
+
 It is written for a person and for an AI assistant alike. If an assistant
 is doing this with you, it can follow the steps as written; the commands
 are exact.
 
-The technical reference, for experts and for AI, is
-[docs/self-hosting.md](https://github.com/alexbeeken/skrongle-mini/blob/main/docs/self-hosting.md).
-To reach your Skrongle when you are away from home, do this guide first,
-then [Away from home with Tailscale](setup-tailscale).
+Already have a Pi (or any 64-bit Linux machine) running and can sign in to
+it? Skip to [step 5](#step-5-install-skrongle). To reach your Skrongle when
+you are away from home, do this guide first, then
+[Away from home with Tailscale](setup-tailscale). Everything else (every
+setting, a proxy, recovery commands) is in the
+[Self-hosting reference](self-hosting).
 
 ## What you need
 
@@ -158,79 +168,113 @@ one called `skrongle`, and use its address instead of `skrongle.local` in
 
 ## Step 5: Install Skrongle
 
-Still on the Pi (the `dietpi@skrongle:~$` prompt). Pick the newest version
-from the [releases page](https://github.com/alexbeeken/skrongle-mini/releases)
-and put its number on the first line, then paste the whole block:
+Still on the Pi (the `dietpi@skrongle:~$` prompt). Paste the whole block;
+the first line finds the newest release by itself:
 
 ```sh
-V=0.1.0
-curl -LO https://github.com/alexbeeken/skrongle-mini/releases/download/v$V/skrongle-$V-aarch64.tar.gz
-curl -LO https://github.com/alexbeeken/skrongle-mini/releases/download/v$V/skrongle-$V-aarch64.tar.gz.sha256
-sha256sum -c skrongle-$V-aarch64.tar.gz.sha256
+V=$(curl -fsSLI -o /dev/null -w '%{url_effective}' https://github.com/alexbeeken/skrongle-mini/releases/latest); V=${V##*/v}; echo "installing $V"
+curl -LO https://github.com/alexbeeken/skrongle-mini/releases/download/v$V/skrongle-$V-$(uname -m).tar.gz
+curl -LO https://github.com/alexbeeken/skrongle-mini/releases/download/v$V/skrongle-$V-$(uname -m).tar.gz.sha256
+sha256sum -c skrongle-$V-$(uname -m).tar.gz.sha256
 sudo mkdir -p /opt/skrongle /etc/skrongle
-sudo tar -xzf skrongle-$V-aarch64.tar.gz -C /opt/skrongle
-echo "SKRONGLE_PUBLIC_URL=http://skrongle.local:8080" | sudo tee /etc/skrongle/env
+sudo tar -xzf skrongle-$V-$(uname -m).tar.gz -C /opt/skrongle
+echo "SKRONGLE_PUBLIC_URL=http://$(hostname).local:7576" | sudo tee /etc/skrongle/env
 sudo cp /opt/skrongle/skrongle.service /etc/systemd/system/
 sudo systemctl enable --now skrongle
 ```
 
+The first line prints `installing` and a version number such as `0.1.2`.
 The `sha256sum` line must print `OK`: it proves the download is the real
-release. `sudo` asks for the password you chose in step 3.
+release; if it doesn't, stop here. `sudo` asks for the password you chose
+in step 3.
 
-Check that it runs:
-
-```sh
-systemctl status skrongle --no-pager
-```
-
-You should see `active (running)`. Skrongle is now at
-**http://skrongle.local:8080** for every device on your Wi-Fi.
-
-## Step 6: Make your account, the owner's
-
-Skrongle takes new accounts only through links. The very first account is
-made through the **owner link**, which the server wrote to its log when it
-started. Print it:
+## Step 6: Check it
 
 ```sh
-sudo journalctl -u skrongle -g "Owner link" -o cat | tail -n 1
+sudo /opt/skrongle/skrongle doctor --service
 ```
 
-Open that link on your phone or laptop, make your account, and you are the
-owner: your account menu has **Manage Users**. From there:
+It prints one screen about the install. No line should start with
+`PROBLEM:`; if one does, it says what to fix. Then, on your phone or laptop
+(on the same Wi-Fi), open **http://skrongle.local:7576**. You should see
+Skrongle's sign-in page.
 
-- **Invite** everyone else: each invitation is a link to send however you
-  like; it works once.
-- **AI** (optional): paste an API key from one of the AI providers to turn on
-  the tutor and course generation for everyone. One key serves the whole
-  box.
-- Turn on **two-factor sign-in** with an authenticator app on your own
-  profile, and ask the others to as well.
+If the page doesn't open, use the Pi's address instead: `hostname -I` on
+the Pi prints it first (something like `192.168.1.23`), and the page is
+`http://192.168.1.23:7576`.
 
-## Step 7: Keep it that way
+## Step 7: Make your account, the owner's
+
+There is no account yet, and the register page only says this server has no
+owner yet. That is on purpose: nobody else on your Wi-Fi can make the first
+account before you. The first account is made through the **owner link**, which the server
+wrote to its log when it started. Print a link on the Pi:
+
+```sh
+sudo /opt/skrongle/skrongle owner-link --service
+```
+
+(The log has one too, but this makes a fresh one and the older link stops
+working.) It prints a link like
+`http://skrongle.local:7576/register?invite=…`. Open that link on your phone
+or laptop and register. You are the owner: your account menu (the picture,
+top right) has **Manage Users**.
+
+## Step 8: Turn on two-factor sign-in
+
+In your account menu, open **Profile → Two-factor authentication** and
+follow it with an authenticator app on your phone (Google Authenticator,
+1Password, Aegis, …). From then on, signing in needs the password and a
+code from the phone. Ask everyone you invite to do the same.
+
+## Step 9: Invite your people
+
+On **Manage Users**, click **Make an invitation link**, copy it (it is shown
+only once) and send it to one person however you like. Each link works once,
+for 7 days; make one per person. Skrongle holds up to 8 accounts.
+
+Optional, on the same page under **AI features**: paste an API key from one
+of the AI providers to turn on the tutor and course generation for everyone.
+One key serves the whole box, billed to you.
+
+## Step 10: Make a backup
+
+Everything Skrongle knows is two files in `/var/lib/skrongle`: the database
+`learn.db` and its key `learn.db.key`. Make your first copy now. On the Pi,
+pack the two together (Skrongle stops for a second so the copy is
+consistent):
+
+```sh
+sudo systemctl stop skrongle
+(umask 077 && rm -f ~/skrongle-backup.tar.gz && sudo tar -czf - -C /var/lib/skrongle . > ~/skrongle-backup.tar.gz)
+sudo systemctl start skrongle
+```
+
+Then copy it to your **computer**: type `exit` to leave the Pi, and on your
+computer run
+
+```sh
+scp -O skrongle:skrongle-backup.tar.gz ~/
+ls -l ~/skrongle-backup.tar.gz
+```
+
+(`-O` is needed because the Pi's small SSH server speaks the older copy
+protocol.) `ls` should show the file, at least a few hundred KB. The backup holds every
+account and the key to the saved AI keys: keep it private, and always keep
+the two files together. Do this again every month or so, and before any big
+change. Restoring is in the reference,
+[Backup and restore](self-hosting#backup-and-restore).
+
+## Keep it that way
 
 - **Never forward a port** on your router to the Pi. The guide for reaching
   it from outside is [Away from home with Tailscale](setup-tailscale); it
   needs no port forwarding either.
-- **Updates.** Skrongle: `sudo /opt/skrongle/update.sh`. The Pi's system:
-  `sudo dietpi-update`. Do both every month or two.
-- **Backups.** Everything Skrongle knows is two files. Copy them to your
-  computer now and then:
-
-  ```sh
-  scp -O skrongle:/var/lib/skrongle/learn.db ~/skrongle-backup.db
-  scp -O skrongle:/var/lib/skrongle/learn.db.key ~/skrongle-backup.db.key
-  ```
-
-  (`-O` is needed because the Pi's small SSH server speaks the older copy
-  protocol.) The `.key` file unlocks the AI keys stored in the database;
-  keep the two together, and keep them private.
-- **If something is off**, `skrongle doctor` on the Pi prints one screen of
-  facts to paste into a question:
-
-  ```sh
-  sudo SKRONGLE_DB=/var/lib/skrongle/learn.db /opt/skrongle/skrongle doctor
-  ```
+- **Update** every month or two. Skrongle: `sudo /opt/skrongle/update.sh`
+  (it keeps a copy of the database from before the update). The Pi's
+  system: `sudo dietpi-update`.
+- **If something is off**, run `sudo /opt/skrongle/skrongle doctor --service`
+  on the Pi: one screen of facts to paste into a question.
 
 ## If you get stuck
 
@@ -238,5 +282,5 @@ owner: your account menu has **Manage Users**. From there:
   people ask.
 - Ask in [GitHub Discussions](https://github.com/alexbeeken/skrongle-mini/discussions),
   with the output of `skrongle doctor`.
-- The full technical reference, every setting and command, is
-  [docs/self-hosting.md](https://github.com/alexbeeken/skrongle-mini/blob/main/docs/self-hosting.md).
+- The [Self-hosting reference](self-hosting) has every setting and
+  command, a proxy in front, and what to do if you lock yourself out.

@@ -194,6 +194,7 @@ pub struct Picked<'a> {
 /// `avoid` holds question ids answered correctly recently; they are only used
 /// if nothing else is available. Without `widgets`, questions only a page can
 /// draw (`QuizType::needs_widget`) are left out: Sprint mode and the tutor.
+#[allow(clippy::too_many_arguments)] // each is a distinct input of the picker; a params struct would only rename them
 pub fn build_quiz<'a>(
     content: &'a ContentStore,
     progress: &HashMap<String, Progress>,

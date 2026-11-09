@@ -237,6 +237,7 @@ pub async fn register_form(State(state): State<Arc<AppState>>, MaybeUser(user): 
 
 /// Parse an account form's body, after the caller's cheap checks (#370): an
 /// address over its rate limit is refused before its body is read.
+#[allow(clippy::result_large_err)] // the Err is the finished Response, returned to axum as is; boxing it would only be unboxed again
 async fn form_body<T: serde::de::DeserializeOwned>(req: axum::extract::Request) -> Result<T, Response> {
     use axum::extract::FromRequest;
     Form::<T>::from_request(req, &()).await.map(|Form(f)| f).map_err(IntoResponse::into_response)

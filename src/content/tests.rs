@@ -40,6 +40,20 @@ pub fn store(lessons: &[&str]) -> Result<ContentStore, ContentError> {
 }
 
 #[test]
+fn group_title_is_looked_up_and_falls_back_to_the_id() {
+    let manifest = r#"{
+        "id": "t", "title": "Test", "terms": {"label": "Term", "lang": "en"}, "meanings": {"label": "Meaning", "lang": "en"},
+        "units": [{"id": "1", "title": "Basics"}],
+        "groups": [{"id": "gr", "title": "Grammar"}, {"id": "vo", "title": "Vocabulary"}]
+    }"#;
+    let files = [CourseFile { path: MANIFEST_FILE.into(), content: manifest.into() }];
+    let s = ContentStore::from_files(&files).unwrap();
+    assert_eq!(s.group_title("gr"), "Grammar");
+    assert_eq!(s.group_title("vo"), "Vocabulary");
+    assert_eq!(s.group_title("nope"), "nope");
+}
+
+#[test]
 fn loads_the_builtin_spanish_course() {
     let s = ContentStore::load_dir(Path::new("data/courses/spanish")).expect("spanish course loads");
     assert_eq!(s.id(), "spanish");

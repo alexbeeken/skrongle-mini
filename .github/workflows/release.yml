@@ -5,11 +5,13 @@
 #
 #   skrongle-<version>-aarch64.tar.gz (+ .sha256)
 #   skrongle-<version>-x86_64.tar.gz  (+ .sha256)
+#   skrongle-<version>-armv7l.tar.gz  (+ .sha256)  32-bit OS, Pi 2 and newer
+#   skrongle-<version>-armv6l.tar.gz  (+ .sha256)  Pi 1, Zero, Zero W
 #
 # Both link glibc 2.31 (cargo-zigbuild), so they run on Debian 11+,
 # Ubuntu 20.04+ and Raspberry Pi OS Bullseye or later. "Run workflow" by hand
 # builds the same tarballs as workflow artifacts without making a release.
-# How to cut a release: docs/self-hosting.md, "Releases".
+# How to cut a release: docs/testing.md, "Releases (maintainers)".
 name: release
 
 on:
@@ -35,9 +37,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 40
     strategy:
-      fail-fast: true
+      # Each architecture reports on its own; `release` still needs every one.
+      fail-fast: false
       matrix:
-        arch: [aarch64, x86_64]
+        include:
+          - { arch: aarch64, target: aarch64-unknown-linux-gnu }
+          - { arch: x86_64, target: x86_64-unknown-linux-gnu }
+          - { arch: armv7l, target: armv7-unknown-linux-gnueabihf }
+          - { arch: armv6l, target: arm-unknown-linux-gnueabihf }
     env:
       VERSION: ${{ github.event_name == 'push' && github.ref_name || inputs.version }}
     steps:
@@ -62,7 +69,7 @@ jobs:
 
       - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
         with:
-          targets: ${{ matrix.arch }}-unknown-linux-gnu
+          targets: ${{ matrix.target }}
       - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
         with:
           key: release-${{ matrix.arch }}
@@ -80,15 +87,43 @@ jobs:
 
       - name: Check the binary
         run: |
-          bin=dist/${{ matrix.arch }}-unknown-linux-gnu/spanish-learning
+          bin=dist/${{ matrix.target }}/spanish-learning
           file "$bin"
           if [ "${{ matrix.arch }}" = x86_64 ]; then
             "$bin" --version | grep -qx "skrongle ${{ steps.version.outputs.version }}"
             SKRONGLE_DB="$RUNNER_TEMP/doctor.db" "$bin" doctor
           fi
 
+      # The 32-bit ARM binaries run under qemu-user, emulating the oldest CPU
+      # each is for (ARM1176 for armv6l, Cortex-A7 for armv7l): they must load,
+      # print their version and answer /healthz. Here, on GitHub-hosted
+      # runners, rather than in the PR smoke workflow: the PR runners are the
+      # owner's laptop, whose Docker VM has no arm32 binfmt.
+      - name: Run the binary under qemu
+        if: startsWith(matrix.arch, 'armv')
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends qemu-user libc6-armhf-cross
+          scripts/qemu-smoke.sh ${{ matrix.arch == 'armv6l' && 'armv6' || 'armv7' }}
+
       - name: Package
         run: scripts/package-release.sh "${{ steps.version.outputs.version }}" ${{ matrix.arch }}
+
+      - name: Check the asset names
+        env:
+          ASSET_VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          # Installers match these names: see docs/self-hosting.md.
+          re="^skrongle-${ASSET_VERSION//./\\.}-(aarch64|x86_64|armv7l|armv6l)\.tar\.gz(\.sha256)?$"
+          bad=0
+          for f in dist/skrongle-*; do
+            name=${f#dist/}
+            if ! [[ $name =~ $re ]]; then
+              echo "bad asset name: $name (want skrongle-$ASSET_VERSION-<arch>.tar.gz[.sha256])"
+              bad=1
+            fi
+          done
+          exit $bad
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
@@ -108,11 +143,28 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          sparse-checkout: CHANGELOG.md
+          persist-credentials: false
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:
           pattern: skrongle-*
           path: dist
           merge-multiple: true
+      - name: Release notes from CHANGELOG.md
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          # The section for this version, from its "## <version> (" heading to the next "## ".
+          v="${TAG#v}"
+          notes="$RUNNER_TEMP/notes.md"
+          awk -v v="$v" 'index($0, "## " v " (") == 1 { on = 1; next } /^## / { on = 0 } on' CHANGELOG.md > "$notes"
+          if ! grep -q '[^[:space:]]' "$notes"; then
+            echo "CHANGELOG.md has no section for $v: add \"## $v (<date>)\" with its notes before tagging"
+            exit 1
+          fi
+          cat "$notes"
       - name: Create the release, or add to it
         env:
           GH_TOKEN: ${{ github.token }}
@@ -120,8 +172,10 @@ jobs:
           TAG: ${{ github.ref_name }}
         run: |
           ls -l dist
+          notes="$RUNNER_TEMP/notes.md"
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" dist/* --clobber
+            gh release edit "$TAG" --notes-file "$notes"
           else
-            gh release create "$TAG" dist/* --title "Skrongle ${TAG#v}" --generate-notes --verify-tag
+            gh release create "$TAG" dist/* --title "Skrongle ${TAG#v}" --notes-file "$notes" --verify-tag
           fi
