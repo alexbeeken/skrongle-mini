@@ -154,6 +154,12 @@ scripts/package-release.sh 0.2.0 aarch64    # the release tarball
 
 Release tarballs are built by CI on a `v*` tag (`.github/workflows/release.yml`).
 
+### Release assets
+
+Release assets are never deleted or renamed. A broken release gets a new
+patch release, not an edit. Installers depend on the names; see
+[What a release contains](docs/self-hosting.md#what-a-release-contains).
+
 ## Configuration
 
 Everything is an environment variable; all are optional. The full table with
