@@ -13,6 +13,7 @@
 #   data/courses/       built-in courses     SKRONGLE_DATA_DIR
 #   skrongle.service    deploy/skrongle.service
 #   update.sh           deploy/update.sh: `sudo /opt/skrongle/update.sh`
+#   uninstall.sh        deploy/uninstall.sh: `sudo /opt/skrongle/uninstall.sh`
 #   VERSION             the version, one line
 #
 # The release workflow (.github/workflows/release.yml) runs this for each
@@ -45,6 +46,8 @@ find "$STAGE/data" \( -name AUTHORING.md -o -name fact-check-ok.txt -o -name .DS
 cp deploy/skrongle.service "$STAGE/skrongle.service"
 cp deploy/update.sh "$STAGE/update.sh"
 chmod 0755 "$STAGE/update.sh"
+cp deploy/uninstall.sh "$STAGE/uninstall.sh"
+chmod 0755 "$STAGE/uninstall.sh"
 echo "$VERSION" > "$STAGE/VERSION"
 
 TARBALL="dist/$NAME.tar.gz"

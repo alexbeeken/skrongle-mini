@@ -8,7 +8,7 @@ want it outside the house.
 
 This page is the reference behind those steps, for any 64-bit Linux
 machine: every setting, the systemd unit, a proxy in front, recovery
-commands and troubleshooting. Stuck? The
+commands, uninstalling and troubleshooting. Stuck? The
 [self-hosting FAQ](self-hosting-faq) answers the first questions people ask.
 
 Self-hosting is free. Help is best-effort, in
@@ -77,6 +77,7 @@ Planned, same pattern: `armv7l` (32-bit Raspberry Pi OS) and `armv6l`
 | `data/courses/` | The built-in courses, read from disk when the server starts (`SKRONGLE_DATA_DIR`). |
 | `skrongle.service` | The systemd unit below (`deploy/skrongle.service` in the repo). |
 | `update.sh` | Updates the install in place: see [Updating](#updating). |
+| `uninstall.sh` | Removes the install, keeping the data unless `--purge`: see [Uninstalling](#uninstalling). |
 | `VERSION` | The version, one line. |
 
 This layout is stable. A later release may add files; none of these five
@@ -635,6 +636,60 @@ the saved AI keys are deleted and learners enter theirs again. An
 authenticator app set up for two-factor sign-in was sealed with the old key
 too: it is turned off, and those learners sign in with their password and
 set it up again. Everything else is unaffected.
+
+## Uninstalling
+
+The release has a script that removes the install, run as root:
+
+```sh
+sudo /opt/skrongle/uninstall.sh           # keeps the data
+sudo /opt/skrongle/uninstall.sh --purge   # removes the data too
+```
+
+Without `--purge` it removes the service and the program, and keeps the data
+(below):
+
+- stops and disables the `skrongle` unit, and deletes its unit file and
+  drop-ins in `/etc/systemd/system/`;
+- deletes `/opt/skrongle` (the program, `update.sh` and the built-in courses);
+- deletes the `skrongle` system user, but only if your install made one (a
+  DietPi-style install may have; the release unit does not).
+
+It does not remove the packages you installed, Tailscale or a proxy you set
+up. Running it again is safe: what is already gone is skipped.
+
+The same by hand:
+
+```sh
+sudo systemctl disable --now skrongle
+sudo rm /etc/systemd/system/skrongle.service
+sudo systemctl daemon-reload
+sudo rm -rf /opt/skrongle
+getent passwd skrongle && sudo userdel skrongle   # only if the user is there
+```
+
+### The data
+
+The database folder is your data, so the script keeps it unless you pass
+`--purge`. It is `/var/lib/skrongle`. The service's user is created by
+systemd, so the real folder is `/var/lib/private/skrongle`, with
+`/var/lib/skrongle` linked to it; the script handles both. The folder holds:
+
+- `learn.db`: the accounts, progress, courses made in the app, and the AI
+  keys people saved (encrypted);
+- `learn.db.key`: the key that decrypts those AI keys;
+- `learn.db.before-<version>`: the copies `update.sh` made before each update.
+
+Removing that folder is permanent: nothing brings the accounts back after
+it. [Back it up](#backup-and-restore) first. Without `--purge`, installing
+again with the same unit finds the accounts and progress as they were.
+
+`/etc/skrongle` is kept too without `--purge`, because its env file can hold
+`SKRONGLE_SECRET_KEY`, which the kept database needs to read the saved AI
+keys. `--purge` removes that folder as well. To remove the data by hand,
+after the steps above: `sudo rm -rf /var/lib/skrongle /var/lib/private/skrongle /etc/skrongle`.
+
+To use Skrongle again later, follow [Install](#install).
 
 ## Troubleshooting
 

@@ -164,7 +164,7 @@ docs/            this documentation (compiled in, served at /docs)
 data/courses/    built-in courses: <id>/course.json + lessons/**.json + pictures/**.svg
 data/test-courses/  courses for automated tests, loaded only with TEST_COURSE=1 (see testing.md, "The test course")
 data/test-fixtures/llm/  canned model replies the dev AI provider answers from, one <purpose>.json per call site
-deploy/          the systemd unit and update.sh of the release tarball
+deploy/          the systemd unit, update.sh and uninstall.sh of the release tarball
 scripts/         build-pi.sh (cross-compile with zig), package-release.sh, dev-progress.sh, smoke.sh (local smoke test)
 ```
 
