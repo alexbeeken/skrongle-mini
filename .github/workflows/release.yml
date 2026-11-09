@@ -37,7 +37,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 40
     strategy:
-      fail-fast: true
+      # Each architecture reports on its own; `release` still needs every one.
+      fail-fast: false
       matrix:
         include:
           - { arch: aarch64, target: aarch64-unknown-linux-gnu }
