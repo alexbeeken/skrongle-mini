@@ -77,8 +77,7 @@ pub(super) fn write_slots(w: &Rewrite, slots: &mut [Slot], to_write: usize) -> R
              Use exactly these values for id, slug, title, unit, group and prerequisites:\n{}\n\n\
              The course manifest is:\n{manifest_text}\n\nThe lessons of the course, in order:\n{}\n\n\
              Keep what the feedback does not ask to change, and keep a question's id when the question stays. \
-             {}{}{}{material}{rules}\n\n\
-             ----- Course format reference -----\n\n{FORMAT_DOC}",
+             {}{}{}{material}",
             feedback.trim(),
             serde_json::to_string_pretty(&entry).unwrap_or_default(),
             serde_json::to_string(&outline_summary).unwrap_or_default(),
@@ -97,7 +96,7 @@ pub(super) fn write_slots(w: &Rewrite, slots: &mut [Slot], to_write: usize) -> R
         let (mut why, mut unsure) = (vec![], vec![]);
         let file = loop {
             attempt += 1;
-            let text = job.llm(req, &call, w.system, &format!("{prompt}{retry}"))?;
+            let text = job.llm(req, &call, w.system, &prompt::with_reference(&rules, &format!("{prompt}{retry}")))?;
             let read = parse_json(&text).map(|v| check::read_reply(&v)).and_then(|(lesson, y, c)| {
                 (why, unsure) = (y, c);
                 // A check that found nothing wrong leaves the file byte for byte.
@@ -253,7 +252,7 @@ pub(super) fn edit(job: &Job, db: &Db, registry: &crate::courses::Courses, req: 
     let mut attempt = 0;
     let mut slots = loop {
         attempt += 1;
-        let text = job.llm(req, &call, system, &format!("{plan_prompt}{retry}{rules}\n\n----- Course format reference -----\n\n{FORMAT_DOC}"))?;
+        let text = job.llm(req, &call, system, &prompt::with_reference(&rules, &format!("{plan_prompt}{retry}")))?;
         let planned = parse_json(&text).and_then(|p| read_edit_plan(&p, &lessons, &focus)).and_then(|slots| {
             // New titles must fit the course, and leave every lesson where it is (lessons without `order` sort by title).
             let planned = ContentStore::from_files(&trial(&manifest.content, &slots, &others, None)?).map_err(|e| format!("the planned course does not load: {e}"))?;

@@ -297,3 +297,15 @@ pub(super) fn plan_entry(number: usize, lesson: &crate::content::Lesson, mut ent
     }
     entry
 }
+
+/// The course format reference, as the first words of a generation request.
+/// It never varies, so a provider that caches by prefix can keep it.
+pub(super) fn reference() -> String {
+    format!("----- Course format reference -----\n\n{}", super::FORMAT_DOC)
+}
+
+/// A generation request's user text: the reference first, then the kind's
+/// `rules` (the same for every request of a job), then the `varying` part.
+pub(super) fn with_reference(rules: &str, varying: &str) -> String {
+    format!("{}{rules}\n\n{varying}", reference())
+}
