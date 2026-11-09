@@ -138,6 +138,7 @@ pub async fn ai_start(
         add_lesson: (mode == AiMode::Add).then(|| text.clone()),
         edit: (mode == AiMode::Edit).then(|| ai::EditRun { feedback: text.clone(), lesson: lesson.clone() }),
         translate: None,
+        i18n: crate::i18n::snapshot(),
         named: Default::default(),
     };
     match ai::submit(&state, req, job.clone(), false).await {

@@ -128,6 +128,7 @@ fn generating(db: &Db, user: &str, id: &str, base_url: String) -> Request {
         add_lesson: None,
         edit: None,
         translate: None,
+        i18n: 0,
         named: Default::default(),
     }
 }
@@ -425,6 +426,7 @@ fn generates_a_maths_course_and_resumes_after_a_failure() {
         add_lesson: None,
         edit: None,
         translate: None,
+        i18n: 0,
         named: Default::default(),
     };
     // First run: the second lesson never comes back usable.
@@ -501,6 +503,7 @@ fn generates_from_the_llm_fixtures() {
             add_lesson: None,
             edit: None,
             translate: None,
+            i18n: 0,
             named,
         };
         let job = test_job(id);
@@ -571,7 +574,8 @@ fn translates_a_copy_from_the_llm_fixtures() {
             revise: None,
             add_lesson: None,
             edit: None,
-            translate: Some(Translation { plan: plan.clone(), i18n: 0 }),
+            translate: Some(Translation { plan: plan.clone() }),
+            i18n: 0,
             named: Default::default(),
         };
         let job = test_job(id);
@@ -717,6 +721,7 @@ fn revises_a_course_from_feedback_and_undoes_it() {
         add_lesson: None,
         edit: None,
         translate: None,
+        i18n: 0,
         named: Default::default(),
     };
     run(&test_job(id), &db, &registry, &req).unwrap();
@@ -826,6 +831,7 @@ fn edits_lessons_from_feedback_and_undoes_it() {
         add_lesson: None,
         edit: None,
         translate: None,
+        i18n: 0,
         named: Default::default(),
     };
     run(&test_job(id), &db, &registry, &req).unwrap();
@@ -928,6 +934,7 @@ fn adds_a_lesson_where_the_ai_puts_it_and_undoes_it() {
         add_lesson: None,
         edit: None,
         translate: None,
+        i18n: 0,
         named: Default::default(),
     };
     run(&test_job(id), &db, &registry, &req).unwrap();
@@ -1026,6 +1033,7 @@ fn each_ai_run_keeps_its_changes_for_review() {
         edit: None,
         named: Default::default(),
         translate: None,
+        i18n: 0,
     };
     let finish = |jid: &str| {
         let deadline = std::time::Instant::now() + Duration::from_secs(20);
@@ -1443,6 +1451,7 @@ fn a_fact_check_fixes_and_says_why() {
         edit: None,
         named: Default::default(),
         translate: None,
+        i18n: 0,
     };
     let finish = |jid: &str| {
         let deadline = std::time::Instant::now() + Duration::from_secs(20);

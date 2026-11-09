@@ -283,4 +283,39 @@ mod tests {
         known.sort();
         assert_eq!(found, known, "a file names user_progress: keep the progress cache (src/mastery/cache.rs) in step");
     }
+
+    /// The one-write rule: SQL that writes `user_progress` (INSERT, UPDATE,
+    /// DELETE) lives in `mastery.rs`, where `save` updates the cache with it.
+    /// A file on `ALSO` may write it too, and says which `forget_*` it calls.
+    /// Unlike the test above this looks at the SQL, so a write added to a
+    /// listed file fails here as well.
+    #[test]
+    fn only_mastery_writes_user_progress() {
+        const ALSO: &[(&str, &str)] = &[
+            // The dev reset deletes through its table list, then calls forget_all.
+            ("src/dev.rs", "forget_all"),
+        ];
+        let mut stack = vec![std::path::PathBuf::from("src")];
+        let mut bad = Vec::new();
+        while let Some(dir) = stack.pop() {
+            for e in std::fs::read_dir(&dir).unwrap() {
+                let path = e.unwrap().path();
+                if path.is_dir() {
+                    stack.push(path);
+                    continue;
+                }
+                let name = path.to_string_lossy().replace('\\', "/");
+                if !name.ends_with(".rs") || name == "src/mastery.rs" || name.ends_with("tests.rs") || name.contains("/tests/") || ALSO.iter().any(|(f, _)| *f == name) {
+                    continue;
+                }
+                let text = std::fs::read_to_string(&path).unwrap();
+                let code = text.split("#[cfg(test)]\nmod tests").next().unwrap_or("");
+                let sql = code.split_whitespace().collect::<Vec<_>>().join(" ").to_lowercase();
+                if ["insert into user_progress", "insert or replace into user_progress", "update user_progress", "delete from user_progress"].iter().any(|w| sql.contains(w)) {
+                    bad.push(name);
+                }
+            }
+        }
+        assert!(bad.is_empty(), "{bad:?} write user_progress: go through mastery::save, or list the file in ALSO with the forget_* it calls");
+    }
 }

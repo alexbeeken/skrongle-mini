@@ -605,6 +605,7 @@ pub async fn generate_in(
         add_lesson: None,
         edit: None,
         translate: None,
+        i18n: crate::i18n::snapshot(),
         named: named.clone(),
     };
     match ai::submit(&state, req, job.clone(), saved_key).await {
