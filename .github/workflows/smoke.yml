@@ -52,7 +52,12 @@ jobs:
       - id: smoke
         if: ${{ !cancelled() }}
         continue-on-error: true
-        run: SERVER_BIN=$(scripts/ci-build.sh) scripts/smoke.sh
+        # Then a first start as a non-root user with the database in a temp
+        # dir (the static-user unit in docs/self-hosting.md).
+        run: |
+          export SERVER_BIN=$(scripts/ci-build.sh)
+          scripts/smoke.sh
+          scripts/non-root-start.sh
 
   server-smoke-gate:
     name: server smoke test (scripts/smoke.sh)
