@@ -12,6 +12,21 @@ numbers work is in the README, "Versions".
   running the new version; that line was harmless. Updating 0.2.0 to this
   release may show it one last time, because the script that runs is the
   installed 0.2.0 one.
+- Sign-in could be blocked for everyone: about 64 wrong sign-ins with
+  made-up addresses filled a rate-limit table, and then no account that was
+  not already in it could sign in for up to 15 minutes. Made-up addresses no
+  longer take a place there, and the per-address tables make room for a new
+  address instead of refusing it.
+- Lighter on the Pi. A course in memory holds each lesson's page once, not
+  three times. The first page after a start no longer reads every built-in
+  script and style to fingerprint it. Saving in the course editor no longer
+  holds up other people's pages while the course is checked. The bundled
+  SQLite leaves out the full-text and R-tree modules nothing used.
+- The database's query statistics are refreshed after a start and in the
+  hourly housekeeping (`PRAGMA optimize`).
+- Course generation with an Anthropic key sends the course format reference
+  in a way the provider can cache, so the lessons after the first cost less
+  input.
 
 **What to do:** nothing.
 
