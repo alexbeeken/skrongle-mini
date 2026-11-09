@@ -496,6 +496,32 @@ then resets the user.
 It leaves a running `./.dev-start` alone. Run it with `cargo test` before
 finishing a change.
 
+## Release QA
+
+The smoke test and the browser specs run a dev build. The release tarball
+(`docs/self-hosting.md`, "What a release contains") is a different binary:
+no `/dev` routes, cross-compiled for machines nobody on the project owns.
+`scripts/release-qa/` checks that package (the plan is #47):
+
+```sh
+scripts/release-qa/package-smoke.sh dist/skrongle-0.1.2-aarch64.tar.gz   # one tarball, on a Linux box
+scripts/release-qa/matrix.sh 0.1.2        # every architecture, each in a Debian container of that architecture (Docker)
+scripts/release-qa/matrix.sh dist         # the same for a candidate you built
+```
+
+`package-smoke.sh` (POSIX sh + curl) checks the tarball's layout and
+checksum, the binary (`--version`, `doctor`, what it links against), then
+a first day over HTTP with no dev routes: the owner link from the log, the
+owner, an invitation and a learner, the built-in course's pages, a copied
+course shared by link, a clean stop and a second start on the same
+database. `matrix.sh` runs it per architecture through
+`scripts/release-qa/compose.yaml`, which also serves every architecture's
+build side by side for a look in a browser (`docker compose up`, the owner
+link in `docker compose logs`). The README in that folder has the
+walkthrough, and what a container does not cover: systemd, `update.sh` and
+rollback (the VM layer, #42), and anything timed (emulated speed means
+nothing).
+
 ## Panic check, file size lint and Pi budget
 
 Three tripwires run in CI and compare with a committed baseline, so raising
@@ -793,6 +819,10 @@ Before the tag, on the commit you will tag:
    `scripts/package-release.sh`) it unpacks the tarball and checks that
    `skrongle --version` prints the version. Without a tarball it skips that
    part and says so.
+3. Check the tarballs on every architecture: `scripts/release-qa/matrix.sh dist`
+   runs each in a Debian container of that architecture ([Release QA](#release-qa)).
+   After the tag, `scripts/release-qa/matrix.sh 0.2.0` does the same with the
+   published tarballs, before you announce it.
 
 ```sh
 git tag v0.2.0 origin/main && git push origin v0.2.0
