@@ -44,7 +44,7 @@ The web interface is on port **7576**:
 - URL: `http://<your.IP>:7576`
 
 ??? info "Use `http://<hostname>.local:7576` instead of the IP"
-    See [Avahi-Daemon](../system_security/#avahi-daemon) to reach it by name.
+    See [Avahi-Daemon](https://dietpi.com/docs/software/system_security/#avahi-daemon) to reach it by name.
 
 Skrongle has no e-mail, so it cannot send a sign-up link. The first account
 is the owner's, and you make it with a one-time **owner link**:
@@ -61,7 +61,7 @@ link per person.
 !!! note "Keep it off the internet"
     Skrongle is built for people who know whoever runs it. Do not forward
     port 7576 from your router. For access away from home, use a VPN such as
-    [Tailscale](../remote_desktop/#tailscale) or WireGuard. Turn on two-factor
+    [Tailscale](https://dietpi.com/docs/software/remote_desktop/#tailscale) or WireGuard. Turn on two-factor
     sign-in for the owner under *Profile* > *Two-factor authentication*.
 
 ### AI features (optional)
