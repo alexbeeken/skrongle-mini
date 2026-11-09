@@ -373,6 +373,9 @@ pub struct VocabEntry {
     /// The example in the meaning language; shown as a hint on the example.
     #[serde(default, alias = "example_en", skip_serializing_if = "Option::is_none")]
     pub example_meaning: Option<String>,
+    /// `quiz::normalize(term)`, set once when the course loads (not part of the JSON).
+    #[serde(skip)]
+    pub key: String,
 }
 
 /// Which of the two speakers says a dialogue line.
@@ -760,6 +763,9 @@ impl ContentStore {
             crate::notation::fill_bar::answer_missing(&mut lesson.quiz);
             crate::notation::name_notes(&mut lesson.quiz, manifest.music.as_ref().map(|m| m.note_names).unwrap_or_default()).map_err(|m| ContentError::Invalid(format!("{}: {m}", f.path)))?;
             lesson.unit_index = manifest.unit_index(&lesson.unit).expect("validated");
+            for v in &mut lesson.vocabulary {
+                v.key = crate::quiz::normalize(&v.term);
+            }
             lesson.html_content = render_markdown(&lesson.content);
             lesson.sections = split_sections(&lesson.content);
             lesson.guide_steps =
@@ -909,7 +915,7 @@ impl ContentStore {
         let mut out: Vec<&VocabEntry> = Vec::new();
         for entry in &lesson.vocabulary {
             let explicit = item.teaches.iter().any(|t| t == &entry.term);
-            let automatic = answers.iter().any(|a| a == &crate::quiz::normalize(&entry.term));
+            let automatic = answers.iter().any(|a| a == &entry.key);
             if (explicit || automatic) && !out.iter().any(|e| e.term == entry.term) {
                 out.push(entry);
             }
