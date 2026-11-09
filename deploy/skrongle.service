@@ -36,7 +36,7 @@ Environment=SKRONGLE_LOG=info
 # One small box for a handful of accounts (docs/self-hosting.md): no e-mail
 # or outside service required.
 # The first account is the owner's, made through the owner link in the log
-#   (sudo journalctl -u skrongle -g "Owner link" -o cat | tail -n 1);
+#   (sudo /opt/skrongle/skrongle owner-link --service; the log has it too);
 # everyone else needs an invitation link from its Manage Users page:
 Environment=SKRONGLE_SIGNUP=invite
 # Optional settings (a public URL, …): see docs/self-hosting.md.

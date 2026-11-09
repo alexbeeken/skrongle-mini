@@ -104,7 +104,7 @@ src/
   progress.rs    lesson passes shared by every mode: the rule (seen + a run of >= 70 %), the RULES text for tutors and agents, table lesson_passes
   quiz.rs        adaptive question selection, answer normalisation/checking, tiny PRNG
   problems.rs    what the editor and the file page say when a course file is refused: kind, lesson, field, line, message, fix hint (every ContentError and arrange.rs refusal)
-  owner.rs       what the owner does to an account with no message sent (#635): a temporary password (users.must_change_password), two-factor off, make an owner; the binary's commands (reset-password, disable-2fa, make-owner, help)
+  owner.rs       what the owner does to an account with no message sent (#635): a temporary password (users.must_change_password), two-factor off, make an owner; the binary's commands (owner-link, reset-password, disable-2fa, make-owner, help)
   db/tables.rs   USER_TABLES and SHARED_TABLES: which tables hold a learner's rows, and the test that every table is listed (docs/data-inventory.md)
   jobs/retention.rs  the retention rules the hourly housekeeping applies (old answers, finished notes, failed AI courses)
   jobs.rs        background jobs (table jobs, #872): enqueue, the one-statement claim with a lease, retries with per-kind delays, periodic kinds that queue their next run; the `jobs` runner thread; the hourly housekeeping as one job with a step per purge

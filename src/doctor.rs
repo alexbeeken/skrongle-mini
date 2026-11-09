@@ -17,28 +17,34 @@ use crate::Config;
 /// The systemd unit `--service` reads (`deploy/skrongle.service`).
 const SERVICE: &str = "skrongle";
 
-/// Run the command; the process exit code.
-pub fn main(args: &[String]) -> i32 {
+/// The settings flags `skrongle doctor` and `skrongle owner-link` share:
+/// `--service` (the installed unit's settings) or `--env-file FILE`, applied
+/// to this process's environment. Flags in `extra` are returned when given;
+/// anything else is refused. `Err(code)` is the exit code of a command that
+/// is already finished (bad arguments, an unreadable file, `--help`).
+pub fn apply_settings_args(command: &str, args: &[String], extra: &[&str]) -> Result<Vec<String>, i32> {
     let mut env_file = None;
     let mut service = false;
+    let mut found = Vec::new();
     let mut it = args.iter();
     while let Some(a) = it.next() {
         match a.as_str() {
             "--env-file" => {
                 let Some(path) = it.next() else {
                     eprintln!("--env-file needs a path, e.g. --env-file /etc/skrongle/env");
-                    return 2;
+                    return Err(2);
                 };
                 env_file = Some(path);
             }
             "--service" => service = true,
             "-h" | "--help" => {
                 println!("{}", crate::USAGE);
-                return 0;
+                return Err(0);
             }
+            other if extra.contains(&other) => found.push(other.to_string()),
             other => {
-                eprintln!("unknown doctor argument {other:?}\n\n{}", crate::USAGE);
-                return 2;
+                eprintln!("unknown {command} argument {other:?}\n\n{}", crate::USAGE);
+                return Err(2);
             }
         }
     }
@@ -46,19 +52,27 @@ pub fn main(args: &[String]) -> i32 {
     // settings, so an --env-file next to it would be dropped without a word.
     if service && env_file.is_some() {
         eprintln!("use --service or --env-file, not both: --service already reads the unit's env file");
-        return 2;
+        return Err(2);
     }
     if let Some(path) = env_file {
         if let Err(e) = apply_env_file(path) {
             eprintln!("cannot read {path}: {e}");
-            return 1;
+            return Err(1);
         }
     }
     if service {
         if let Err(e) = apply_service_env() {
             eprintln!("--service: {e}");
-            return 1;
+            return Err(1);
         }
+    }
+    Ok(found)
+}
+
+/// Run the command; the process exit code.
+pub fn main(args: &[String]) -> i32 {
+    if let Err(code) = apply_settings_args("doctor", args, &[]) {
+        return code;
     }
     let old_names = crate::old_prefix_warning_now();
     let mut lines = match Config::from_env() {

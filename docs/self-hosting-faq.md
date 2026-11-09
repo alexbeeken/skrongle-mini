@@ -123,8 +123,8 @@ link from your **Manage Users** page, one per person, up to 8 accounts. See
 
 **I opened the page and it says the server has no owner yet.** Make your
 account with the owner link:
-`sudo journalctl -u skrongle -g "Owner link" -o cat | tail -n 1`, then open
-the link it prints.
+`sudo /opt/skrongle/skrongle owner-link --service`, then open the link it
+prints.
 
 **Do I need an AI key?** No. Lessons, quizzes, games and the built-in
 courses work without one. The tutor and the course generator use the keys

@@ -116,8 +116,8 @@ Then:
    line ([Diagnostics](#diagnostics-skrongle-doctor)).
 2. `http://<hostname>.local:8080` (or `http://<ip>:8080`, where `<ip>` is the
    first address `hostname -I` prints) opens. It has no account yet.
-3. **Make your account with the owner link** from the log:
-   `sudo journalctl -u skrongle -g "Owner link" -o cat | tail -n 1`. Until
+3. **Make your account with the owner link**:
+   `sudo /opt/skrongle/skrongle owner-link --service`. Until
    you do, `/register` only says the server has no owner yet
    ([Accounts and AI keys](#accounts-and-ai-keys)).
 4. Turn on two-factor sign-in (*Profile → Two-factor authentication*), keep
@@ -250,12 +250,19 @@ e-mail address is only what an account signs in with.
 `SKRONGLE_SIGNUP` decides who may make an account. The systemd unit sets it
 to `invite`:
 
-1. Start the server. While it has no account, it writes a one-time
-   **owner link** to its log. Print it:
+1. Start the server. While it has no account, it makes a one-time
+   **owner link** and writes it to its log too. Print one any time:
 
    ```sh
-   sudo journalctl -u skrongle -g "Owner link" -o cat | tail -n 1
+   sudo /opt/skrongle/skrongle owner-link --service
    ```
+
+   Links are stored hashed, so an earlier one cannot be read back: every
+   run (and `--new`, the same thing) makes a fresh link and the old one,
+   the log's included, stops working. Once an account exists it prints no
+   link and says so. Under `SKRONGLE_SIGNUP=open` there is no owner link:
+   the first account to register is the owner. Without systemd, use
+   `--env-file FILE` in place of `--service`.
 
    Open that link and register: the account is yours, the owner's. Its account menu (the picture, top right) has a
    **Manage Users** page. Without the

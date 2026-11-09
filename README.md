@@ -28,8 +28,8 @@ it is the only install path; this is its outline:
    contains.
 2. **Check it**: `sudo /opt/skrongle/skrongle doctor --service` shows no
    `PROBLEM:` line, and the page opens on the same Wi-Fi.
-3. **Make your account**: open the one-time **owner link** the server wrote
-   to its log. The first account is the owner's.
+3. **Make your account**: open the one-time **owner link**
+   (`sudo /opt/skrongle/skrongle owner-link --service`; the log has it too). The first account is the owner's.
 4. **Keep it private**: two-factor sign-in on, never forward a port; for
    access away from home, the [Tailscale guide](docs/setup-tailscale.md).
 5. **Invite your people**: one invitation link per person, from the

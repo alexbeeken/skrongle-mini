@@ -301,6 +301,9 @@ Usage:
   skrongle doctor [--service | --env-file FILE]
                                print diagnostics to paste into a bug report (no secrets);
                                --service reads the settings of the installed skrongle unit (run it with sudo)
+  skrongle owner-link [--new] [--service | --env-file FILE]
+                               print the link that makes the owner's account, while no account exists;
+                               it is always a new link, and the earlier one (also the one in the log) stops working
   skrongle reset-password <email>
                                give the account a temporary password, printed here; it must be changed at the next sign-in
   skrongle disable-2fa <email> turn the account's two-factor sign-in off
@@ -332,6 +335,7 @@ fn main() {
         }
         // The owner's account commands (`reset-password <email>`, …:
         // `owner.rs`) run against SKRONGLE_DB and exit.
+        Some("owner-link") => std::process::exit(owner::owner_link_command(&args[1..])),
         Some("reset-password" | "disable-2fa" | "make-owner") => std::process::exit(owner::command(&args).unwrap_or(2)),
         Some(other) => {
             eprintln!("unknown argument {other:?}\n\n{USAGE}");
