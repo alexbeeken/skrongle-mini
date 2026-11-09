@@ -120,7 +120,7 @@ Then:
 
 1. `sudo /opt/skrongle/skrongle doctor --service` should show no `PROBLEM:`
    line ([Diagnostics](#diagnostics-skrongle-doctor)).
-2. `http://<hostname>.local:8080` (or `http://<ip>:8080`, where `<ip>` is the
+2. `http://<hostname>.local:7576` (or `http://<ip>:7576`, where `<ip>` is the
    first address `hostname -I` prints) opens. It has no account yet.
 3. **Make your account with the owner link** from the log:
    `sudo journalctl -u skrongle -g "Owner link" -o cat | tail -n 1`. Until
@@ -166,7 +166,7 @@ A line that starts with `PROBLEM:` says what to fix.
 - runs `/opt/skrongle/skrongle` as a user systemd creates for it
   (`DynamicUser=yes`), so there is no `useradd` step;
 - keeps the database in `/var/lib/skrongle` (`StateDirectory=skrongle`);
-- listens on port 8080 on every interface;
+- listens on port 7576 on every interface;
 - restarts it if it stops (`Restart=on-failure`);
 - caps memory at 64 MB (`MemoryMax`) and sandboxes the process
   (`ProtectSystem=strict`, `ProtectHome`, `PrivateTmp`, …);
@@ -196,7 +196,7 @@ Where a default says "unit", `skrongle.service` sets it.
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `SKRONGLE_BIND` | `0.0.0.0:8080` | Address and port to listen on; a bare port (`8081`) means every interface. |
+| `SKRONGLE_BIND` | `0.0.0.0:7576` | Address and port to listen on; a bare port (`8081`) means every interface. |
 | `SKRONGLE_SIGNUP` | `open` (unit: `invite`) | Who may make an account: `open`, `invite` or `closed`; see [Accounts and AI keys](#accounts-and-ai-keys). |
 | `SKRONGLE_PROXY_AUTH_HEADER`, `SKRONGLE_PROXY_AUTH_FROM` | — | Let the proxy in front sign people in; see [Signing in at the proxy](#signing-in-at-the-proxy). Both or neither. |
 | `SKRONGLE_DATA_DIR` | `data` | Folder with `courses/`. |
@@ -349,10 +349,10 @@ keys, so a database without its `.key` file can't use them.
 Don't forward a port on the router. Install [Tailscale](https://tailscale.com)
 on the server (`curl -fsSL https://tailscale.com/install.sh | sh`, then
 `sudo tailscale up`) and on each phone or laptop; the server is then at
-`http://<hostname>:8080` from any of them.
+`http://<hostname>:7576` from any of them.
 
 For a public site, put a TLS proxy (nginx, Caddy) in front, set
-`SKRONGLE_BIND=127.0.0.1:8080`, `SKRONGLE_SECURE_COOKIES=1` and `SKRONGLE_PUBLIC_URL`.
+`SKRONGLE_BIND=127.0.0.1:7576`, `SKRONGLE_SECURE_COOKIES=1` and `SKRONGLE_PUBLIC_URL`.
 
 Anything that faces the internet should sit behind such a proxy, even
 without HTTPS. The app has only coarse protection. It closes a connection
@@ -409,7 +409,7 @@ don't recommend any other setup.
 
 **Authelia with nginx** (`auth_request`). Authelia's `Remote-User` is a user
 name; use `Remote-Email` (or `Remote-User` only if your user names are
-e-mail addresses). `SKRONGLE_BIND=127.0.0.1:8080`,
+e-mail addresses). `SKRONGLE_BIND=127.0.0.1:7576`,
 `SKRONGLE_PROXY_AUTH_HEADER=Remote-Email`, `SKRONGLE_PROXY_AUTH_FROM=127.0.0.1`:
 
 ```nginx
@@ -432,7 +432,7 @@ location / {
     proxy_set_header Remote-Email $email;
     proxy_set_header Host $host;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_pass http://127.0.0.1:8080;
+    proxy_pass http://127.0.0.1:7576;
 }
 ```
 
@@ -440,11 +440,11 @@ location / {
 `Tailscale-User-Login` (and drops one the browser sent). It is an e-mail
 address for most identity providers; a GitHub login looks like
 `name@github`, which is not one, and gets no account. With
-`SKRONGLE_BIND=127.0.0.1:8080`, `SKRONGLE_PROXY_AUTH_HEADER=Tailscale-User-Login`
+`SKRONGLE_BIND=127.0.0.1:7576`, `SKRONGLE_PROXY_AUTH_HEADER=Tailscale-User-Login`
 and `SKRONGLE_PROXY_AUTH_FROM=127.0.0.1`:
 
 ```sh
-sudo tailscale serve --bg 8080
+sudo tailscale serve --bg 7576
 ```
 
 The server is then at `https://<hostname>.<tailnet>.ts.net`, and everyone on
@@ -477,6 +477,17 @@ one"); move it aside and start with an empty database. If the release notes
 say the unit changed, copy `skrongle.service` to `/etc/systemd/system/`
 again and run `sudo systemctl daemon-reload` (the script tells you when the
 two differ).
+
+The default port is now 7576, not 8080 (8080 is taken on many home servers).
+An existing install stays on 8080: `update.sh` doesn't replace the unit in
+`/etc/systemd/system`, and the old unit sets 8080. Copying the new
+`skrongle.service` there moves the service to 7576. To keep 8080 instead,
+add `SKRONGLE_BIND=0.0.0.0:8080` to `/etc/skrongle/env` first. If you do
+move, also change the port in `SKRONGLE_PUBLIC_URL` in `/etc/skrongle/env`
+(the setup guide wrote it with `:8080`, and invitation links start with it),
+and in anything else that points at 8080: a bookmark,
+`tailscale serve --bg 8080` (run `sudo tailscale serve reset`, then
+`sudo tailscale serve --bg 7576`), a proxy.
 
 By hand, the same thing:
 
@@ -552,7 +563,7 @@ set it up again. Everything else is unaffected.
 |---|---|
 | `ssh: Could not resolve hostname skrongle.local` | The Pi isn't on the Wi-Fi yet (wait a few minutes after the first boot), or the Wi-Fi details in Imager were wrong. Flash the card again. |
 | The page doesn't load from a phone | Use the IP address instead of `.local`; make sure the phone is on the same Wi-Fi; `systemctl status skrongle`. |
-| `port 8080 is already in use` in the log | Something else uses port 8080: set `SKRONGLE_BIND=0.0.0.0:8081` in `/etc/skrongle/env`. |
+| `port 7576 is already in use` in the log | Something else uses port 7576: set `SKRONGLE_BIND=0.0.0.0:8081` in `/etc/skrongle/env`. |
 | `cannot write the database` in the log | The folder isn't writable by the service: with the unit above it is `/var/lib/skrongle`; if you changed `SKRONGLE_DB`, the new folder must belong to the service user. |
 | `the secret key is missing` in the log | See [Backup and restore](#backup-and-restore): restore `learn.db.key`. |
 | Service keeps restarting | `journalctl -u skrongle -n 50`. A course validation error names the file and field. |

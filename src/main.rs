@@ -82,7 +82,7 @@ pub const VERSION: &str = match option_env!("SKRONGLE_VERSION") {
 };
 
 /// Defaults for the three settings every install has.
-pub const DEFAULT_BIND: &str = "0.0.0.0:8080";
+pub const DEFAULT_BIND: &str = "0.0.0.0:7576";
 pub const DEFAULT_DATA_DIR: &str = "data";
 pub const DEFAULT_DB: &str = "learn.db";
 
@@ -257,7 +257,7 @@ fn parse_bind(raw: Option<&str>) -> Result<SocketAddr, String> {
     if let Ok(port) = raw.parse::<u16>() {
         return Ok(SocketAddr::from(([0, 0, 0, 0], port)));
     }
-    raw.parse().map_err(|_| format!("SKRONGLE_BIND must be address:port, like {DEFAULT_BIND} or 127.0.0.1:8080; got {raw:?}"))
+    raw.parse().map_err(|_| format!("SKRONGLE_BIND must be address:port, like {DEFAULT_BIND} or 127.0.0.1:7576; got {raw:?}"))
 }
 
 impl Config {

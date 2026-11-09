@@ -3,7 +3,7 @@
 # Skrongle mini: the unit for self-hosters (docs/self-hosting.md, /self-host),
 # and the three SKRONGLE_ lines below are the mini's defaults. The release
 # tarball unpacked into /opt/skrongle, the database in /var/lib/skrongle, the
-# app on port 8080 of every network interface. Change a setting in
+# app on port 7576 of every network interface. Change a setting in
 # /etc/skrongle/env, not here.
 #
 #   sudo mkdir -p /etc/skrongle
@@ -28,7 +28,7 @@ ExecStart=/opt/skrongle/skrongle
 Restart=on-failure
 RestartSec=3
 
-Environment=SKRONGLE_BIND=0.0.0.0:8080
+Environment=SKRONGLE_BIND=0.0.0.0:7576
 Environment=SKRONGLE_DATA_DIR=/opt/skrongle/data
 # The secret key is created next to it as learn.db.key; back up both.
 Environment=SKRONGLE_DB=/var/lib/skrongle/learn.db

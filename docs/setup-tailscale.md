@@ -58,7 +58,7 @@ Tailscale can put an HTTPS front on a local port, with a valid certificate,
 visible only inside your Tailscale network:
 
 ```sh
-sudo tailscale serve --bg 8080
+sudo tailscale serve --bg 7576
 ```
 
 It prints the address, of the form `https://skrongle.<your-tailnet>.ts.net`.
@@ -76,9 +76,9 @@ sudo systemctl restart skrongle
 (Put your real address on the first line.) Open that address on your phone:
 Skrongle, over HTTPS, from anywhere the phone has Tailscale on.
 
-The old `http://skrongle.local:8080` keeps working at home. If you'd rather
+The old `http://skrongle.local:7576` keeps working at home. If you'd rather
 the Pi answered only through Tailscale, add
-`SKRONGLE_BIND=127.0.0.1:8080` to the same file and restart; then nothing on
+`SKRONGLE_BIND=127.0.0.1:7576` to the same file and restart; then nothing on
 the home network reaches it directly, only Tailscale's HTTPS front.
 
 ## Step 4: Let the others in
