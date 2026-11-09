@@ -101,10 +101,10 @@ jobs:
       # owner's laptop, whose Docker VM has no arm32 binfmt.
       - name: Run the binary under qemu
         if: startsWith(matrix.arch, 'armv')
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends qemu-user libc6-armhf-cross
-          scripts/qemu-smoke.sh ${{ matrix.arch == 'armv6l' && 'armv6' || 'armv7' }}
+        # In a container of the target architecture (Docker + QEMU binfmt), so
+        # the C library is a real board's: Ubuntu's armhf cross libc is ARMv7
+        # and faults on an emulated ARMv6 core before the binary runs.
+        run: scripts/qemu-smoke.sh ${{ matrix.arch == 'armv6l' && 'armv6' || 'armv7' }}
 
       - name: Package
         run: scripts/package-release.sh "${{ steps.version.outputs.version }}" ${{ matrix.arch }}
