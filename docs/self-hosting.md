@@ -136,6 +136,17 @@ Then:
 To try it without systemd, run it from its folder:
 `cd /opt/skrongle && SKRONGLE_DB=$HOME/learn.db ./skrongle`.
 
+### Installing on DietPi
+
+`deploy/dietpi-install.sh` does the whole install in one run, the way
+`dietpi-software` does it: it downloads the latest release for this machine
+and checks its checksum, unpacks it to `/opt/skrongle`, creates the
+`skrongle` user, keeps the data in `/mnt/dietpi_userdata/skrongle`, writes
+the [static-user unit](#a-static-user-data-outside-varlib) and starts it,
+then prints the owner link. Run it again to update (it copies the database
+aside first and keeps your env file and unit); `--uninstall` and
+`--uninstall --purge` remove it. The steps are listed at the top of the file.
+
 ## Diagnostics: `skrongle doctor`
 
 `skrongle doctor` prints one screen about the install, to read yourself or

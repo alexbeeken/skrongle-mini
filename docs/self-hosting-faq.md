@@ -88,6 +88,11 @@ binary.
 (create it), then `sudo systemctl restart skrongle`. Every setting is listed
 under [Configuration](self-hosting#configuration).
 
+**Can the data folder be on a network drive?** No. The database must live on a
+local disk (SD card, SSD, USB drive). SQLite's locking does not work safely
+over NFS or SMB, so `/mnt/dietpi_userdata` on a network mount is unsafe: keep
+the DietPi user-data folder local.
+
 ## Keeping it running
 
 **How do I update?** `sudo /opt/skrongle/update.sh`. It keeps a copy of
