@@ -473,10 +473,15 @@ again and run `sudo systemctl daemon-reload` (the script tells you when the
 two differ).
 
 The default port is now 7576, not 8080 (8080 is taken on many home servers).
-An existing install keeps 8080 only if `/etc/skrongle/env` sets
-`SKRONGLE_BIND`. The shipped unit now says 7576, so copying the new
-`skrongle.service` moves the service to 7576; anything that points at 8080
-(a bookmark, `tailscale serve --bg 8080`, a proxy) then needs the new port.
+An existing install stays on 8080: `update.sh` doesn't replace the unit in
+`/etc/systemd/system`, and the old unit sets 8080. Copying the new
+`skrongle.service` there moves the service to 7576. To keep 8080 instead,
+add `SKRONGLE_BIND=0.0.0.0:8080` to `/etc/skrongle/env` first. If you do
+move, also change the port in `SKRONGLE_PUBLIC_URL` in `/etc/skrongle/env`
+(the setup guide wrote it with `:8080`, and invitation links start with it),
+and in anything else that points at 8080: a bookmark,
+`tailscale serve --bg 8080` (run `sudo tailscale serve reset`, then
+`sudo tailscale serve --bg 7576`), a proxy.
 
 By hand, the same thing:
 
