@@ -1613,12 +1613,12 @@ fn static_etag_is_stable_and_keeps_its_shape() {
     let b = fetch_static("style.css", &[]);
     let etag = a.headers()["etag"].to_str().unwrap().to_string();
     assert_eq!(etag, b.headers()["etag"].to_str().unwrap());
-    // "<16 hex digits>", quoted, the same fnv1a of the raw bytes as before.
+    // "<16 hex digits>", quoted, the first 8 bytes of the embedded SHA-256.
     assert_eq!(etag.len(), 18);
     assert!(etag.starts_with('"') && etag.ends_with('"'));
     assert!(etag[1..17].bytes().all(|c| c.is_ascii_hexdigit()));
     let raw = super::Assets::get("style.css").unwrap();
-    assert_eq!(etag, format!("\"{:016x}\"", super::fnv1a(raw.data.iter().copied())));
+    assert_eq!(etag, format!("\"{}\"", raw.metadata.sha256_hash().iter().take(8).map(|b| format!("{b:02x}")).collect::<String>()));
 }
 
 #[test]
