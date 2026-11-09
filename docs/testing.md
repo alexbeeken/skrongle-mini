@@ -504,8 +504,8 @@ no `/dev` routes, cross-compiled for machines nobody on the project owns.
 `scripts/release-qa/` checks that package (the plan is #47):
 
 ```sh
-scripts/release-qa/package-smoke.sh dist/skrongle-0.1.2-aarch64.tar.gz   # one tarball, on a Linux box
-scripts/release-qa/matrix.sh 0.1.2        # every architecture, each in a Debian container of that architecture (Docker)
+scripts/release-qa/package-smoke.sh dist/skrongle-0.2.0-aarch64.tar.gz   # one tarball, on a Linux box
+scripts/release-qa/matrix.sh 0.2.0        # every architecture, each in a Debian container of that architecture (Docker)
 scripts/release-qa/matrix.sh dist         # the same for a candidate you built
 ```
 

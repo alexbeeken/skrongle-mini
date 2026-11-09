@@ -35,10 +35,10 @@ newer: a Raspberry Pi Zero 2 W, 3, 4 or 5 with the 64-bit Raspberry Pi OS
 (Bullseye or later), Debian 11+, Ubuntu 20.04+, on ARM (`aarch64`) or a PC
 (`x86_64`). `uname -m` tells you which release file to download.
 
-**What about the 32-bit Raspberry Pi OS?** The next release adds files for
-it: `armv7l` (Pi 2 and newer) and `armv6l` (Pi 1, Zero, Zero W); `uname -m`
-tells you which. Until then, install the 64-bit OS, or build it yourself
-with `scripts/build-pi.sh armv7` (or `armv6`).
+**What about the 32-bit Raspberry Pi OS?** Since 0.2.0 each release has
+files for it: `armv7l` (Pi 2 and newer) and `armv6l` (Pi 1, Zero, Zero W);
+`uname -m` tells you which. The ARMv6 boards have one slow core, so sign-in
+takes a while there.
 
 **macOS, Windows, Docker?** No release for them. On a Mac you can build it
 from source (`cargo build --release`) to try it; Docker isn't needed, since
