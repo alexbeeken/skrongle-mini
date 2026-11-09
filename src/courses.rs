@@ -280,7 +280,8 @@ impl Courses {
         }
         let courses = Courses::with_builtin(builtin, builtin_dirs);
         if let Some(store) = kept {
-            courses.lock().insert(&store.id().to_string(), Arc::new(store));
+            let id = store.id().to_string();
+            courses.lock().insert(&id, Arc::new(store));
         }
         Ok(courses)
     }
@@ -894,7 +895,7 @@ pub fn ai_run(conn: &Connection, id: &str) -> rusqlite::Result<Option<AiRun>> {
     let mut files: Vec<AiRunFile> = Vec::new();
     for row in stmt.query_map([id], |r| Ok((r.get::<_, String>(0)?, r.get::<_, String>(1)?, r.get::<_, String>(2)?)))? {
         let (side, path, content) = row?;
-        if files.last().map_or(true, |f| f.path != path) {
+        if files.last().is_none_or(|f| f.path != path) {
             files.push(AiRunFile { path, before: None, after: None });
         }
         let f = files.last_mut().expect("just pushed");
@@ -1114,7 +1115,7 @@ fn account_bytes(conn: &Connection, owner: i64, except: &str) -> rusqlite::Resul
 /// Bytes as the refusals say them: "8 MB", "3.6 MB" (MiB, rounded up).
 pub fn megabytes(bytes: usize) -> String {
     let tenths = (bytes * 10).div_ceil(1024 * 1024);
-    if tenths % 10 == 0 {
+    if tenths.is_multiple_of(10) {
         format!("{} MB", tenths / 10)
     } else {
         format!("{}.{} MB", tenths / 10, tenths % 10)

@@ -583,6 +583,22 @@ async fn shutdown_signal() {
     tracing::info!("shutdown signal received");
 }
 
+
+/// Hand the heap pages that booting freed back to the OS. Loading the
+/// courses reads every file, parses it and drops the text; glibc on its own
+/// only trims the top of the heap, so what stays resident depends on the
+/// sizes and order of those files (deleting fourteen small SVGs moved the
+/// idle RSS on the Pi by 2.5 MiB, #842). `malloc_trim(0)` releases every
+/// free page in every arena, whatever the layout. Other allocators have no
+/// such call and do not keep freed pages the same way.
+fn release_boot_memory() {
+    #[cfg(all(target_os = "linux", target_env = "gnu"))]
+    // SAFETY: malloc_trim only walks glibc's own heap and takes no pointers.
+    unsafe {
+        libc::malloc_trim(0);
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::{env_from, old_prefix_warning};
@@ -648,19 +664,4 @@ mod tests {
         assert!(found.is_empty(), "settings are named SKRONGLE_ now; the old prefix is back in {found:?}");
     }
 
-}
-
-/// Hand the heap pages that booting freed back to the OS. Loading the
-/// courses reads every file, parses it and drops the text; glibc on its own
-/// only trims the top of the heap, so what stays resident depends on the
-/// sizes and order of those files (deleting fourteen small SVGs moved the
-/// idle RSS on the Pi by 2.5 MiB, #842). `malloc_trim(0)` releases every
-/// free page in every arena, whatever the layout. Other allocators have no
-/// such call and do not keep freed pages the same way.
-fn release_boot_memory() {
-    #[cfg(all(target_os = "linux", target_env = "gnu"))]
-    // SAFETY: malloc_trim only walks glibc's own heap and takes no pointers.
-    unsafe {
-        libc::malloc_trim(0);
-    }
 }

@@ -206,7 +206,7 @@ impl CourseCard {
                 let total = self.lessons;
                 let value = crate::t2("courses.picker.stat_of", "n", n, "total", total);
                 let label = crate::t2("courses.picker.stat_label", "name", &name, "value", &value);
-                let share = if total == 0 { 0 } else { (n * 100 / total).min(100) };
+                let share = (n * 100).checked_div(total).map_or(0, |v| v.min(100));
                 let info_label = crate::t(&format!("courses.stat.info_label_{metric}"));
                 CardStat { metric, n, total, share, name, value, label, info_label }
             })
@@ -238,7 +238,7 @@ fn broken_card(state: &AppState, row: &CourseRow) -> CourseCard {
     let (phase, pct) = match (&job, row.state) {
         (Some(j), courses::CourseState::Generating) => {
             let s = state.jobs.status(j);
-            let pct = if s.lessons_total > 0 { s.lessons_done * 100 / s.lessons_total } else { 0 };
+            let pct = (s.lessons_done * 100).checked_div(s.lessons_total).unwrap_or(0);
             (crate::i18n::fill(&crate::t("courses.picker.phase_progress"), &[("phase", &s.phase), ("done", &s.lessons_done), ("total", &s.lessons_total)]), pct)
         }
         (None, courses::CourseState::Generating) => (crate::t("courses.picker.starting"), 0),

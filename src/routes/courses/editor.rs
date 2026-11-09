@@ -298,7 +298,7 @@ pub(super) async fn saved_provider(state: &AppState) -> Result<Option<crate::sec
 /// Every provider the server has a key for, in `Provider::ALL` order.
 async fn saved_providers(state: &AppState) -> Result<Vec<crate::secrets::Provider>, AppError> {
     let vault = state.vault.clone();
-    Ok(state.db.call(move |c| crate::secrets::usable(c, &vault)).await?)
+    state.db.call(move |c| crate::secrets::usable(c, &vault)).await
 }
 
 /// "Add content with AI" for `row`, when it loads and no job holds it.
@@ -452,6 +452,7 @@ pub(in crate::routes) async fn owned(state: &AppState, user: &CurrentUser, id: &
 }
 
 /// Refuse changes while an AI job is writing or revising the course.
+#[allow(clippy::result_large_err)] // the Err is the finished Response, returned to axum as is; boxing it would only be unboxed again
 pub(super) fn not_while_generating(row: &CourseRow) -> Result<(), Response> {
     if row.is_busy() {
         return Err(to_editor(&row.id, if row.is_generating() { "generating" } else { "revising" }));

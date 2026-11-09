@@ -258,7 +258,7 @@ fn user_id(t: &ProfileTemplate) -> i64 {
 /// The authenticator app being set up, decrypted for its dialog.
 async fn pending_totp_key(state: &AppState, uid: i64) -> Result<Option<crate::totp::Key>, AppError> {
     let vault = state.vault.clone();
-    Ok(state.db.call(move |c| crate::two_factor::pending_key(c, &vault, uid)).await?)
+    state.db.call(move |c| crate::two_factor::pending_key(c, &vault, uid)).await
 }
 
 #[derive(Deserialize)]
@@ -377,7 +377,7 @@ pub async fn set_two_factor(
     }
     if on && current.totp_since.is_none() {
         let vault = state.vault.clone();
-        state.db.call(move |c| two_factor::totp_start(c, &vault, uid, crate::db::now())).await?.map_err(|e| AppError::Internal(e.into()))?;
+        state.db.call(move |c| two_factor::totp_start(c, &vault, uid, crate::db::now())).await?.map_err(AppError::Internal)?;
         tracing::info!("user {uid} started setting up an authenticator app");
         return Ok(Redirect::to(&crate::url("/profile?totp=enrol#two-factor")).into_response());
     }

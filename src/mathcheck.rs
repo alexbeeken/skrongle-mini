@@ -614,6 +614,7 @@ fn equivalent(a: &Expr, b: &Expr) -> Option<bool> {
     for (lo, hi) in [(-2.7, 2.9), (0.1, 3.1)] {
         let cols: Vec<Vec<f64>> = vars.iter().enumerate().map(|(i, _)| samples(16, lo, hi, i as u64 + 1)).collect();
         let mut valid = 0;
+        #[allow(clippy::needless_range_loop)] // k picks a sample inside the closure; it does not index the outer vec
         for k in 0..16 {
             let env = |c: char| vars.iter().position(|v| *v == c).map(|i| cols[i][k]).unwrap_or(f64::NAN);
             let (x, y) = (a.eval(&env), b.eval(&env));

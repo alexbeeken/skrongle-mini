@@ -291,8 +291,6 @@ fn attr(s: &str) -> String {
 mod tests {
     use super::*;
 
-    /// The guide downloads one tarball and unpacks the same name (#641).
-
     /// A page is parsed on its first request only (#39).
     #[test]
     fn page_is_rendered_once() {

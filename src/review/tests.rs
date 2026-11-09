@@ -250,7 +250,7 @@ fn lesson_table_saves_since_the_run_do_not_block_leaving_out() {
     let x = Exclusions { files: vec![], lines: BTreeMap::from([("lessons/k.json".to_string(), vec![vec![reading]])]) };
     // Renumbered and renamed in the table since: the reading is left out, the table's changes stay.
     let tabled = cf("lessons/k.json", &(pretty(r#"{"id":"k","title":"Renamed","content":"New text","quiz":["q1"],"order":1}"#) + "\n"));
-    let out = apply(&run, (&x, &ne()), (&none(), &ne()), &[tabled.clone()]).unwrap().unwrap();
+    let out = apply(&run, (&x, &ne()), (&none(), &ne()), std::slice::from_ref(&tabled)).unwrap().unwrap();
     let v: serde_json::Value = serde_json::from_str(&out[0].content).unwrap();
     assert_eq!(v, serde_json::json!({"id":"k","title":"Renamed","content":"Old text","quiz":["q1"],"order":1}));
     // Taken back in from there: the AI's reading, still with the table's changes.

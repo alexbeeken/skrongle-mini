@@ -48,6 +48,8 @@ jobs:
       # A release build has no dev feature (the /dev pages, the simulated
       # provider, the test course): it must still compile.
       - run: cargo check --no-default-features
+      # Lint levels live in Cargo.toml ([lints.clippy]); a new warning fails the job.
+      - run: cargo clippy --features dev --all-targets -- -D warnings
       - run: cargo test --features dev
       - id: smoke
         if: ${{ !cancelled() }}

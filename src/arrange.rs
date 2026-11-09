@@ -46,11 +46,11 @@ pub fn lessons_of(files: &[CourseFile]) -> Result<(ContentStore, Vec<LessonFile>
 
 /// The course settings with the course called `title` (its subject too, while
 /// that was the old title); `None` when the title is already that.
-pub fn retitle(manifest: &str, title: &str) -> Result<Option<String>, Problem> {
+pub fn retitle(manifest: &str, title: &str) -> Result<Option<String>, Box<Problem>> {
     let title = title.trim();
     if title.is_empty() || title.chars().count() > 80 {
         let what = if title.is_empty() { "The course has no title" } else { "The course title is longer than 80 characters" };
-        return Err(Problem::refused(what).field("title").hint("click the title to give the course a name of up to 80 characters"));
+        return Err(Box::new(Problem::refused(what).field("title").hint("click the title to give the course a name of up to 80 characters")));
     }
     let mut v: serde_json::Value = serde_json::from_str(manifest).map_err(|e| Problem::from_serde(&e, Some(manifest)).file(MANIFEST_FILE))?;
     let obj = v.as_object_mut().ok_or_else(not_an_object)?;
@@ -396,7 +396,7 @@ pub const NOTHING_TO_SAVE: &str = "Nothing to save: the lessons are already like
 /// save without reloading. A refusal is a `Problem` placed at its row,
 /// file and field (`problems.rs`). `placement` is the placement test
 /// (`placement.json`) when changed in the table, "" when it was taken out.
-pub fn edit_rows(files: &[CourseFile], rows: &[Edit], manifest: Option<&str>, placement: Option<&str>) -> Result<(Vec<CourseFile>, String, Vec<String>), Problem> {
+pub fn edit_rows(files: &[CourseFile], rows: &[Edit], manifest: Option<&str>, placement: Option<&str>) -> Result<(Vec<CourseFile>, String, Vec<String>), Box<Problem>> {
     let (store, lessons) = lessons_of(files).map_err(Problem::refused)?;
     let old_manifest = files.iter().find(|f| f.path == MANIFEST_FILE).map(|f| f.content.as_str()).unwrap_or_default();
     let manifest = manifest.filter(|m| *m != old_manifest);
@@ -407,13 +407,13 @@ pub fn edit_rows(files: &[CourseFile], rows: &[Edit], manifest: Option<&str>, pl
             let at = |p: Problem, key: &str| p.file(MANIFEST_FILE).line(line_of_key(m, key));
             let v: serde_json::Value = serde_json::from_str(m).map_err(|e| Problem::from_serde(&e, Some(m)).file(MANIFEST_FILE))?;
             if !v.is_object() {
-                return Err(not_an_object().file(MANIFEST_FILE));
+                return Err(Box::new(not_an_object().file(MANIFEST_FILE)));
             }
             if v.get("id").and_then(|i| i.as_str()) != Some(store.id()) {
                 let p = Problem::rules(format!("The course's \"id\" must stay “{}”", store.id()))
                     .field("id")
                     .hint(format!("change it back to \"{}\"; the course's address and everyone's progress hang on it", store.id()));
-                return Err(at(p, "id"));
+                return Err(Box::new(at(p, "id")));
             }
             v.get("units")
                 .and_then(|u| u.as_array())
@@ -425,16 +425,16 @@ pub fn edit_rows(files: &[CourseFile], rows: &[Edit], manifest: Option<&str>, pl
     };
     let unit_index = |id: &str| units.iter().position(|u| u == id);
     if rows.is_empty() {
-        return Err(Problem::refused("A course needs at least one lesson; delete the whole course instead").hint("to remove the course, use Delete this course at the bottom of the page"));
+        return Err(Box::new(Problem::refused("A course needs at least one lesson; delete the whole course instead").hint("to remove the course, use Delete this course at the bottom of the page")));
     }
     let mut kept = std::collections::HashSet::new();
     for (i, row) in rows.iter().enumerate() {
         let Some(key) = row.key.as_deref() else { continue };
         if !lessons.iter().any(|l| l.id == key) {
-            return Err(Problem::refused(format!("There is no lesson '{key}' in this course any more")).row(i, &row.title).hint("reload the page"));
+            return Err(Box::new(Problem::refused(format!("There is no lesson '{key}' in this course any more")).row(i, &row.title).hint("reload the page")));
         }
         if !kept.insert(key) {
-            return Err(Problem::refused(format!("Lesson '{key}' is listed twice in the table")).row(i, &row.title).hint("reload the page"));
+            return Err(Box::new(Problem::refused(format!("Lesson '{key}' is listed twice in the table")).row(i, &row.title).hint("reload the page")));
         }
     }
     let removed: Vec<&LessonFile> = lessons.iter().filter(|l| !kept.contains(l.id.as_str())).collect();
@@ -458,7 +458,7 @@ pub fn edit_rows(files: &[CourseFile], rows: &[Edit], manifest: Option<&str>, pl
         if !p.is_empty() {
             let v: serde_json::Value = serde_json::from_str(p).map_err(|e| Problem::from_serde(&e, Some(p)).file(crate::placement::FILE))?;
             if !v.is_object() {
-                return Err(not_an_object().file(crate::placement::FILE));
+                return Err(Box::new(not_an_object().file(crate::placement::FILE)));
             }
             out.push(CourseFile { path: crate::placement::FILE.into(), content: p.to_string() });
         }
@@ -469,7 +469,7 @@ pub fn edit_rows(files: &[CourseFile], rows: &[Edit], manifest: Option<&str>, pl
     for (i, row) in rows.iter().enumerate() {
         let title = row.title.trim();
         if title.is_empty() {
-            return Err(Problem::refused(format!("Lesson {} has no name", i + 1)).row(i, "").field("title").hint("click its name in the table and type one"));
+            return Err(Box::new(Problem::refused(format!("Lesson {} has no name", i + 1)).row(i, "").field("title").hint("click its name in the table and type one")));
         }
         if unit_index(&row.unit).is_none() {
             let known: Vec<&str> = units.iter().map(String::as_str).collect();
@@ -477,7 +477,7 @@ pub fn edit_rows(files: &[CourseFile], rows: &[Edit], manifest: Option<&str>, pl
                 .row(i, title)
                 .field("unit")
                 .hint(format!("drag it into another unit ({}), or add a unit with \"id\": \"{}\" to \"units\" in the course settings", known.join(", "), row.unit));
-            return Err(p);
+            return Err(Box::new(p));
         }
         let old = row.key.as_deref().and_then(|k| lessons.iter().find(|l| l.id == k));
         let at_row = |p: Problem| p.row(i, title);
@@ -492,7 +492,7 @@ pub fn edit_rows(files: &[CourseFile], rows: &[Edit], manifest: Option<&str>, pl
                 taken_names.insert(id.clone());
                 let group = group_for(&lessons, &store, &row.unit);
                 let content = match &row.content {
-                    Some(c) => fill_new(c, &id, &row.unit, &group).map_err(at_row)?,
+                    Some(c) => fill_new(c, &id, &row.unit, &group).map_err(|p| at_row(*p))?,
                     None => blank_lesson(&id, title, &row.unit, &group),
                 };
                 let path = unique(&format!("lessons/{id}"), |p| paths.contains(&format!("{p}.json"))) + ".json";
@@ -502,7 +502,7 @@ pub fn edit_rows(files: &[CourseFile], rows: &[Edit], manifest: Option<&str>, pl
         };
         let v: serde_json::Value = serde_json::from_str(&content).map_err(|e| at_row(Problem::from_serde(&e, Some(&content)).file(&path)))?;
         if !v.is_object() {
-            return Err(at_row(not_an_object().file(&path)));
+            return Err(Box::new(at_row(not_an_object().file(&path))));
         }
         let id = v
             .get("id")
@@ -518,19 +518,17 @@ pub fn edit_rows(files: &[CourseFile], rows: &[Edit], manifest: Option<&str>, pl
                 renamed += 1;
             }
         }
-        if old.is_none() || old.is_some_and(|l| l.id != id) {
-            if !taken_ids.insert(id.clone()) {
-                let holder = lessons.iter().find(|l| l.id == id && kept.contains(l.id.as_str()));
-                let other = holder.and_then(|l| l.value.get("title").and_then(|t| t.as_str())).map(|t| format!("“{t}”")).unwrap_or_else(|| "another lesson".into());
-                let taken: Vec<&str> = taken_ids.iter().map(String::as_str).collect();
-                let free = unique(&format!("{id}-2"), |s| taken.contains(&s));
-                let p = Problem::rules(format!("“{title}” and {other} both use the id “{id}”"))
-                    .file(&path)
-                    .field("id")
-                    .line(line_of_key(&content, "id"))
-                    .hint(format!("give “{title}” another \"id\" (lowercase a-z, 0-9 and '-'), for example “{free}”. Prerequisites name lessons by id, so change those that meant it too"));
-                return Err(at_row(p).lesson(Some(&id), Some(title)));
-            }
+        if (old.is_none() || old.is_some_and(|l| l.id != id)) && !taken_ids.insert(id.clone()) {
+            let holder = lessons.iter().find(|l| l.id == id && kept.contains(l.id.as_str()));
+            let other = holder.and_then(|l| l.value.get("title").and_then(|t| t.as_str())).map(|t| format!("“{t}”")).unwrap_or_else(|| "another lesson".into());
+            let taken: Vec<&str> = taken_ids.iter().map(String::as_str).collect();
+            let free = unique(&format!("{id}-2"), |s| taken.contains(&s));
+            let p = Problem::rules(format!("“{title}” and {other} both use the id “{id}”"))
+                .file(&path)
+                .field("id")
+                .line(line_of_key(&content, "id"))
+                .hint(format!("give “{title}” another \"id\" (lowercase a-z, 0-9 and '-'), for example “{free}”. Prerequisites name lessons by id, so change those that meant it too"));
+            return Err(Box::new(at_row(p).lesson(Some(&id), Some(title))));
         }
         wanted.push((id, row.unit.clone()));
         row_paths.push(path.clone());
@@ -548,7 +546,7 @@ pub fn edit_rows(files: &[CourseFile], rows: &[Edit], manifest: Option<&str>, pl
     let mut asked: Vec<(usize, usize, &str, &str)> = wanted.iter().enumerate().map(|(i, (id, u))| (rank(u), i, id.as_str(), u.as_str())).collect();
     asked.sort();
     if untouched && manifest.is_none() && placement.is_none() && removed.is_empty() && asked.iter().map(|(_, _, id, u)| (*id, *u)).eq(lessons.iter().map(|l| (l.id.as_str(), l.unit()))) {
-        return Err(Problem::refused(NOTHING_TO_SAVE));
+        return Err(Box::new(Problem::refused(NOTHING_TO_SAVE)));
     }
     // The renumbered files are what loads, but a refusal is placed in the
     // text as typed: renumbering adds `order` (and `unit`) lines, which
@@ -557,7 +555,7 @@ pub fn edit_rows(files: &[CourseFile], rows: &[Edit], manifest: Option<&str>, pl
     let out = renumber(&typed, &wanted).map_err(Problem::refused)?;
     if let Err(e) = ContentStore::from_files(&out) {
         let named: Vec<(String, String)> = row_paths.iter().cloned().zip(rows.iter().map(|r| r.title.trim().to_string())).collect();
-        return Err(Course { files: &typed, rows: &named, before: Some(files) }.explain(&e));
+        return Err(Box::new(Course { files: &typed, rows: &named, before: Some(files) }.explain(&e)));
     }
     let mut parts = Vec::new();
     if manifest.is_some() {
@@ -700,7 +698,7 @@ pub fn blank_lesson(id: &str, title: &str, unit: &str, group: &str) -> String {
 
 /// A new lesson's JSON as typed in the table, with what the table leaves
 /// out filled in: id and slug (Forms mode never shows them), unit and group.
-fn fill_new(content: &str, id: &str, unit: &str, group: &str) -> Result<String, Problem> {
+fn fill_new(content: &str, id: &str, unit: &str, group: &str) -> Result<String, Box<Problem>> {
     let mut v: serde_json::Value = serde_json::from_str(content).map_err(|e| Problem::from_serde(&e, Some(content)))?;
     let obj = v.as_object_mut().ok_or_else(not_an_object)?;
     let blank = |o: &serde_json::Map<String, serde_json::Value>, k: &str| o.get(k).and_then(|x| x.as_str()).is_none_or(|x| x.trim().is_empty());

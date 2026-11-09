@@ -88,7 +88,7 @@ pub async fn page(State(state): State<Arc<AppState>>, p: Project, Query(q): Quer
 /// The providers the server has a key for (the owner's, on Manage Users).
 async fn keys_on_file(state: &AppState) -> Result<Vec<Provider>, AppError> {
     let vault = state.vault.clone();
-    Ok(state.db.call(move |c| secrets::usable(c, &vault)).await?)
+    state.db.call(move |c| secrets::usable(c, &vault)).await
 }
 
 #[derive(Deserialize)]

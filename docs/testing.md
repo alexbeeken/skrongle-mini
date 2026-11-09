@@ -807,7 +807,9 @@ artifacts without making a release. To check the layout locally:
 CI runs on GitHub-hosted `ubuntu-latest` runners. A PR's `checks` workflow
 (`.github/workflows/smoke.yml`) is eight jobs: `cargo test` (which checks
 that a build without the `dev` feature compiles, `cargo check
---no-default-features`, runs `cargo test --features dev` and then
+--no-default-features`, lints with `cargo clippy --features dev --all-targets
+-- -D warnings` (lint levels are in `Cargo.toml` under `[lints.clippy]`; a
+warning fails the job), runs `cargo test --features dev` and then
 `scripts/smoke.sh`), three exact-spec shards and four smoke-spec shards.
 
 - **Shards**: the e2e specs run one at a time (they share the dev user), so
