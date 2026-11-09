@@ -558,7 +558,14 @@ lesson, in a fresh run) comes as its outline entry.
 The system prompt is `ai::DEFAULT_INSTRUCTIONS` unless the learner edited it
 on the form; every user prompt embeds `docs/course-format.md` verbatim (so the
 documentation is the specification the model follows) and the learner's
-material inside `<material>` tags. It also carries the rules for one kind of
+material inside `<material>` tags. The reference opens the user prompt, then
+the kind's rules, then the part that changes per request
+(`prompt::with_reference`): providers cache by prefix, and the reference is
+the one part identical in every request. Anthropic gets it as its own first
+text block with `cache_control` (`providers::anthropic_content`), so repeat
+lessons read it from the cache; OpenAI-compatible providers get the same
+text as one string. The cost estimate (`budget.rs`) still prices every
+request at the full input rate, an upper bound. It also carries the rules for one kind of
 course (`ai::SubjectKind`, `src/ai/prompt.rs`): the outline gets the kind
 picked on the form, or all three while the model decides and names its
 choice as the outline's `kind`; that kind is saved in `courses.outline` and

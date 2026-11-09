@@ -346,7 +346,7 @@ fn fake_llm(broken: Vec<&'static str>) -> (String, Arc<Mutex<Vec<String>>>) {
                 })
                 .to_string()
             } else {
-                let slug = prompt.split("\"slug\": \"").nth(1).and_then(|r| r.split('"').next()).unwrap_or("x").to_string();
+                let slug = after_reference(&prompt).split("\"slug\": \"").nth(1).and_then(|r| r.split('"').next()).unwrap_or("x").to_string();
                 if broken.contains(&slug.as_str()) {
                     "Sorry, I cannot do that.".to_string()
                 } else {
@@ -622,7 +622,7 @@ fn a_lesson_request_names_the_terms_of_the_lessons_before_it() {
             if prompt.contains("Design a course") {
                 return outline(3);
             }
-            let slug = prompt.split("\"slug\": \"").nth(1).and_then(|r| r.split('"').next()).unwrap_or("x").to_string();
+            let slug = after_reference(prompt).split("\"slug\": \"").nth(1).and_then(|r| r.split('"').next()).unwrap_or("x").to_string();
             serde_json::json!({
                 "id": "ignored", "slug": slug, "title": "ignored",
                 "content": format!("## Idea of {slug}\n\nOne idea.\n\n## Practice {slug}\n\nTry it."),
@@ -1267,7 +1267,7 @@ fn a_non_language_request_carries_no_language_rules() {
                 o["kind"] = "general".into();
                 return o.to_string();
             }
-            let slug = prompt.split("\"slug\": \"").nth(1).and_then(|r| r.split('"').next()).unwrap_or("x").to_string();
+            let slug = after_reference(prompt).split("\"slug\": \"").nth(1).and_then(|r| r.split('"').next()).unwrap_or("x").to_string();
             serde_json::json!({
                 "id": "ignored", "slug": slug, "title": "ignored",
                 "content": "## Parts\n\nManagers, firefighters and exiles.",
@@ -1525,7 +1525,7 @@ fn the_revise_and_edit_plan_prompts_number_the_lessons() {
             if prompt.contains("Now they want") {
                 return "no plan".into();
             }
-            let slug = prompt.split("\"slug\": \"").nth(1).and_then(|r| r.split('"').next()).unwrap_or("x").to_string();
+            let slug = after_reference(prompt).split("\"slug\": \"").nth(1).and_then(|r| r.split('"').next()).unwrap_or("x").to_string();
             serde_json::json!({
                 "id": "ignored", "slug": slug, "title": "ignored", "content": format!("## Idea of {slug}\n\nOne idea."),
                 "vocabulary": [ { "term": format!("{slug}-alpha"), "meaning": "a" } ],
@@ -1554,4 +1554,39 @@ fn the_revise_and_edit_plan_prompts_number_the_lessons() {
         assert_eq!(entries[1]["id"], "l2");
         assert_eq!(entries[1]["has"], "1 quiz questions, 1 vocabulary items, 0 listening sentences, 0 conversations, 0 Sprint sorts, 0 spots, 0 builds");
     }
+}
+
+/// A generation prompt without the format reference that now opens it (the
+/// reference holds example slugs a canned reply must not pick up).
+fn after_reference(prompt: &str) -> &str {
+    prompt.strip_prefix(prompt::reference().as_str()).unwrap_or(prompt)
+}
+
+/// Part A of #87: the format reference opens a generation request and is the
+/// cacheable block on Anthropic; the varying text follows it.
+#[test]
+fn reference_is_the_first_cacheable_block() {
+    let a = ProviderKind::Anthropic.provider("k".into());
+    let rules = SubjectKind::General.rules();
+    let first = [ChatMessage { role: "user", content: prompt::with_reference(&rules, "Write lesson one.") }];
+    let second = [ChatMessage { role: "user", content: prompt::with_reference(&rules, "Write lesson two, which is different.") }];
+    let (b1, b2) = (anthropic_body(&a, "sys", &first, 500), anthropic_body(&a, "sys", &second, 500));
+    let blocks = b1["messages"][0]["content"].as_array().unwrap();
+    assert_eq!(blocks.len(), 2);
+    assert_eq!(blocks[0]["text"], prompt::reference());
+    assert!(blocks[0]["text"].as_str().unwrap().contains(FORMAT_DOC));
+    assert_eq!(blocks[0]["cache_control"], serde_json::json!({ "type": "ephemeral" }));
+    assert!(blocks[1].get("cache_control").is_none());
+    assert_eq!(blocks[1]["text"], format!("{rules}\n\nWrite lesson one."));
+    // Two lessons of one job share every byte up to the end of the cached block.
+    let (s1, s2) = (serde_json::to_string(&b1).unwrap(), serde_json::to_string(&b2).unwrap());
+    let end = s1.find("\"cache_control\"").unwrap() + "\"cache_control\":{\"type\":\"ephemeral\"}".len();
+    assert_eq!(s1[..end], s2[..end]);
+    assert_ne!(s1, s2);
+    // A plain message stays a string.
+    let plain = [ChatMessage { role: "user", content: "hi".into() }];
+    assert_eq!(anthropic_body(&a, "sys", &plain, 500)["messages"][0]["content"], "hi");
+    // OpenAI-compatible providers get the same words as one string, reference first.
+    let o = openai_body(&ProviderKind::OpenAi.provider("k".into()), "sys", &first, 500);
+    assert_eq!(o["messages"][1]["content"], format!("{}{rules}\n\nWrite lesson one.", prompt::reference()));
 }

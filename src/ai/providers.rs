@@ -242,6 +242,22 @@ pub(super) fn call_openai(p: &Provider, call: &Call, system: &str, messages: &[C
     Ok((text, Some(openai_usage(&json))))
 }
 
+/// A message's `content` for the Messages API. One that opens with the course
+/// format reference goes as two text blocks, the reference first and marked
+/// cacheable (caching matches the request's prefix; the reference is the part
+/// that is the same in every request), the rest after it. Any other message
+/// is the plain string.
+pub(super) fn anthropic_content(m: &ChatMessage) -> serde_json::Value {
+    let reference = super::prompt::reference();
+    match m.content.strip_prefix(reference.as_str()) {
+        Some(rest) if m.role == "user" && !rest.is_empty() => serde_json::json!([
+            { "type": "text", "text": reference, "cache_control": { "type": "ephemeral" } },
+            { "type": "text", "text": rest },
+        ]),
+        _ => serde_json::Value::String(m.content.clone()),
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

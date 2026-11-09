@@ -55,13 +55,11 @@ pub(super) fn edit_lesson(job: &Job, db: &Db, registry: &crate::courses::Courses
          The learner's request, between the <request> tags:\n<request>\n{}\n</request>\n\n\
          The course manifest is:\n{}\n\n\
          Keep its id, slug, unit, group, level, order and prerequisites exactly as they are, and keep what the request does not ask to change, \
-         a question's id too when the question stays. Reply with the complete lesson JSON object only.{}{}\n\n\
-         ----- Course format reference -----\n\n{FORMAT_DOC}",
+         a question's id too when the question stays. Reply with the complete lesson JSON object only.{}",
         old.trim(),
         request.trim(),
         manifest.content.trim(),
         prompt::lesson_line(kind),
-        kind.rules(),
     );
     let call = Call::new("edit-lesson")
         .course(&course_id)
@@ -75,7 +73,7 @@ pub(super) fn edit_lesson(job: &Job, db: &Db, registry: &crate::courses::Courses
     let mut attempt = 0;
     let mut after = loop {
         attempt += 1;
-        let text = job.llm(req, &call, system, &format!("{prompt}{retry}"))?;
+        let text = job.llm(req, &call, system, &prompt::with_reference(&kind.rules(), &format!("{prompt}{retry}")))?;
         let checked = parse_json(&text)
             .and_then(|v| if v.is_object() { serde_json::to_string_pretty(&v).map_err(|e| e.to_string()) } else { Err("the lesson is not a JSON object".into()) })
             .map(|content| files.iter().map(|f| if f.path == path { CourseFile { path: f.path.clone(), content: content.clone() + "\n" } } else { f.clone() }).collect::<Vec<_>>())

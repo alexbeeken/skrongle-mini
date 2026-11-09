@@ -445,7 +445,7 @@ fn run(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Request) ->
                 named_block(&named),
             );
             let call = Call::new("generate-outline").course(&course_id).job(&job_id);
-            let text = job.llm(req, &call, system, &format!("{outline_prompt}{}\n\n----- Course format reference -----\n\n{FORMAT_DOC}", req.kind.rules()))?;
+            let text = job.llm(req, &call, system, &prompt::with_reference(&req.kind.rules(), &outline_prompt))?;
             let outline: serde_json::Value = parse_json(&text)?;
             let mut manifest = outline.get("course").cloned().ok_or("the outline has no \"course\" object")?;
             let mut entries = outline
@@ -533,7 +533,7 @@ fn run(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Request) ->
             prompt::lesson_line(kind),
             depth.lesson_line(),
         );
-        let prompt = format!("{base_prompt}{}\n\n----- Course format reference -----\n\n{FORMAT_DOC}", kind.rules());
+        let prompt = prompt::with_reference(&kind.rules(), &base_prompt);
         let slug = entry.get("slug").and_then(|s| s.as_str()).unwrap_or_default();
         let call = Call::new("generate-lesson").course(&course_id).job(&job_id).key(slug);
         let mut attempt = 0;
@@ -810,7 +810,7 @@ fn revise(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Request,
     let mut attempt = 0;
     let (new_manifest, mut slots) = loop {
         attempt += 1;
-        let text = job.llm(req, &call, system, &format!("{plan_prompt}{retry}{rules}\n\n----- Course format reference -----\n\n{FORMAT_DOC}"))?;
+        let text = job.llm(req, &call, system, &prompt::with_reference(&rules, &format!("{plan_prompt}{retry}")))?;
         let planned = parse_json(&text).and_then(|p| read_plan(&p, &lessons, &course_id, &manifest)).and_then(|(m, slots)| {
             let text = serde_json::to_string_pretty(&m).map_err(|e| e.to_string())? + "\n";
             // The plan must fit the lessons it keeps before anything is written.
@@ -955,15 +955,13 @@ fn add_lesson(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Requ
          {{\"after\": <the id of the lesson it comes right after, or null to make it the first lesson>, \"lesson\": <the complete lesson JSON>}}.\n\
          The lesson needs an id and a slug (lowercase a-z, 0-9 and '-') that no lesson above uses, a `unit` from the manifest's units \
          (the one where it fits) and a `group`. Its prerequisites may only name lessons above; prefix its question ids with its id. \
-         Do not repeat what the other lessons already teach.{}{}{}{}\n\n\
-         ----- Course format reference -----\n\n{FORMAT_DOC}",
+         Do not repeat what the other lessons already teach.{}{}{}",
         manifest.content.trim(),
         serde_json::to_string_pretty(&current).unwrap_or_default(),
         brief.trim(),
         prompt::lesson_line(kind),
         req.depth.lesson_line(),
         material_block(&notes),
-        kind.rules(),
     );
     job.log(format!("Asking {} ({}) for a new lesson…", provider_name(req.provider.kind), req.provider.model));
     // Where a canned reply can put its lesson without knowing the course.
@@ -979,7 +977,7 @@ fn add_lesson(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Requ
     let mut retry = String::new();
     let (final_files, lesson_title) = loop {
         attempt += 1;
-        let text = job.llm(req, &call, system, &format!("{prompt}{retry}"))?;
+        let text = job.llm(req, &call, system, &prompt::with_reference(&kind.rules(), &format!("{prompt}{retry}")))?;
         let placed = parse_json(&text).and_then(|reply| {
             // A bare lesson (no wrapper) goes first.
             let (after, lesson) = match reply.get("lesson") {
@@ -1390,7 +1388,7 @@ fn anthropic_body(p: &Provider, system: &str, messages: &[ChatMessage], max_toke
         "model": p.model,
         "max_tokens": max_tokens,
         "system": system,
-        "messages": messages.iter().map(|m| serde_json::json!({ "role": m.role, "content": m.content })).collect::<Vec<_>>(),
+        "messages": messages.iter().map(|m| serde_json::json!({ "role": m.role, "content": anthropic_content(m) })).collect::<Vec<_>>(),
     });
     if supports_fallbacks(&p.model) {
         // A safety-classifier decline on these models re-runs the request on a
