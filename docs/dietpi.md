@@ -62,11 +62,12 @@ Open the link it prints in a browser and register. From then on `/register`
 is closed to the public: the owner invites each family member from the
 *Manage Users* page, one link per person.
 
-!!! note "Keep it off the internet"
-    Skrongle is for people who know whoever runs it. Do not forward port
-    7576 from your router. For access away from home, use a VPN such as
+!!! note "Reaching it from outside your home"
+    Opening port 7576 on your router is not recommended unless you know
+    what you are doing. If you are unsure, use
     [Tailscale](https://dietpi.com/docs/software/remote_desktop/#tailscale)
-    or WireGuard, and turn on two-factor sign-in for the owner under
+    to be safe: it gives your phone and laptop a private way in with nothing
+    exposed. Either way, turn on two-factor sign-in for the owner under
     *Profile* > *Two-factor authentication*.
 
 ### AI features (optional)
