@@ -70,6 +70,10 @@ check "update.sh is executable" test -x "$OPT/update.sh"
 check "uninstall.sh is executable" test -x "$OPT/uninstall.sh"
 check "skrongle.service starts /opt/skrongle/skrongle" grep -q '^ExecStart=/opt/skrongle/skrongle$' "$OPT/skrongle.service"
 check "update.sh is a /bin/sh script" sh -n "$OPT/update.sh"
+# update.sh replaces itself while it runs, so it must run from a copy of itself (deploy/update.sh).
+check "update.sh re-executes from a copy of itself" grep -q 'exec sh "\$SKRONGLE_UPDATE_COPY"' "$OPT/update.sh"
+# update.sh replaces itself while it runs; only a script parsed whole before it starts survives that (deploy/update.sh).
+check "update.sh runs as one function, parsed before it starts" sh -c "tail -1 '$OPT/update.sh' | grep -qx 'main \"\$@\"'"
 check "uninstall.sh is a /bin/sh script" sh -n "$OPT/uninstall.sh"
 
 # ---------- the binary ----------
