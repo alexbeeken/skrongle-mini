@@ -128,19 +128,3 @@ jobs:
     timeout-minutes: 5
     steps:
       - run: '[ "${{ needs.e2e-smoke.result }}" = success ] || { echo "a shard did not pass: ${{ needs.e2e-smoke.result }}"; exit 1; }'
-
-  # Pi budget (#638): the stripped release binary, and the idle server's
-  # memory and threads, against scripts/pi-budget.txt; the numbers go in the
-  # job summary. The only release build in CI (fat LTO, the slowest build
-  # here, ); not a required check.
-  # Off for now (#1387): remove `if: false` to turn it back on.
-  pi-budget:
-    name: pi budget
-    if: false
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
-      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
-      - run: scripts/pi-budget.sh

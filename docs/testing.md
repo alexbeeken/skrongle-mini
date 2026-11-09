@@ -537,16 +537,16 @@ came in are listed in `scripts/file-size-baseline.txt`; they may shrink, not
 grow. A file that passes its limit gets split. If it has to grow, say why in
 the PR and run `scripts/file-size-lint.sh --update`, which also lowers the
 line of a file that shrank. `scripts/pi-budget.sh` (the
-`pi budget` job, #638; off in CI for now, #1387) builds `--release` (or measures `--bin <path>`) and
+`pi budget` job, #638; `.github/workflows/pi-budget.yml`, on pushes to `main` and on PRs that touch `Cargo.*`, `build.rs`, `.cargo/config.toml`, `static/`, `i18n/`, `templates/`, `docs/` or the budget files; not a required check) builds `--release` (or measures `--bin <path>`) and
 checks three numbers against `scripts/pi-budget.txt`: the stripped binary's
 size (at most its platform's baseline + 5 %), and, for a server started with
 no optional settings (no AI key, no
 `SKRONGLE_DEV`) on a temp database after twenty requests each to `/`, `/login`
-and `/healthz`, its resident memory (≤ 32 MiB) and thread count (≤ 12). On
+and `/healthz`, its resident memory (≤ 24 MiB) and thread count (≤ 12). On
 Linux the numbers come from `/proc/<pid>/status`; on a Mac from `ps`, so it
 runs locally too, but a Mac's binary has its own baseline line and its memory
 is shown, not checked (`ps` counts the shared system libraries, some 10 MiB
-more). CI's runners are linux-aarch64, the Pi's architecture. The job writes the numbers in its summary. Over a limit,
+more). CI runs on `ubuntu-latest` (linux-x86_64), not the Pi's architecture, so the numbers are a tripwire for growth, not the Pi's own. The job writes the numbers in its summary. Over a limit,
 make the change cheaper (a cargo feature, a lighter crate, no new thread), or
 raise the number in `pi-budget.txt` and say why in the PR;
 `scripts/pi-budget.sh --update` rewrites this platform's binary baseline.

@@ -1,28 +1,23 @@
-# Pi budget (#638): the limits scripts/pi-budget.sh checks (CI job "pi budget").
-# Raising one is a visible diff in the PR, like scripts/panic-baseline.txt.
+# Pi budget (#638): the limits scripts/pi-budget.sh checks (CI job "pi budget",
+# .github/workflows/pi-budget.yml). Raising one is a visible diff in the PR,
+# like scripts/panic-baseline.txt.
 # The target is a Pi Zero 2 W: deploy/skrongle.service caps the server at
 # MemoryHigh=48M, MemoryMax=64M, TasksMax=32.
+#
+# Measured 2026-11-09 on the CI runner (ubuntu-latest, linux-x86_64): binary
+# 16639304 bytes, idle RSS 21652 KiB, 3 threads. The Pi is aarch64 and its
+# numbers differ; CI cannot measure it, so these are a tripwire for growth.
 
 # Idle server (no optional settings, after 60 requests): resident memory in
-# KiB (32 MiB; checked on Linux only) and thread count.
-# Measured 2026-10-22 on the CI runner (linux-aarch64): 29244 KiB, 6 threads.
-# On an Apple-silicon Mac (darwin-aarch64, ps): 39472 KiB, 6 threads.
-# 2026-10-24: 33092 KiB on the CI runner (PRs #829, #840), so 36 MiB; still
-# well under the service's MemoryHigh=48M.
-rss_max_kib 36864
+# KiB (24 MiB = the measured 21652 + about 10 %; checked on Linux only) and
+# thread count (the measured 3 is not tightened: a thread is cheap to add
+# deliberately, 12 is far below TasksMax=32).
+rss_max_kib 24576
 threads_max 12
 
 # Stripped release binary, in bytes, per platform (`uname -s`-`uname -m`).
-# The CI runner is linux-aarch64, the Pi's
-# architecture. The binary may grow by binary_slack_percent over its
-# platform's baseline; a platform without a baseline only reports its size.
+# The binary may grow by binary_slack_percent over its platform's baseline; a
+# platform without a baseline (a Mac, the Pi) only reports its size.
 # scripts/pi-budget.sh --update rewrites this platform's line.
 binary_slack_percent 5
-# 2026-10-26 (batch #1004), the CI runner: the binary was 15183624
-# (terms notice, content reports, moderation). Raised by hand so the limit
-# is 20 MiB (19972877 + 5 % = 20971520), room while the binary is shrunk;
-# lower it again with --update once it is.
-# Before: 2026-10-24 (#841) 14404232; 2026-10-24 (batch #880) 14332072; 2026-10-22 (#638) 13617432.
-binary_baseline linux-aarch64 19972877
-# 2026-10-22 (#638), an Apple-silicon Mac, macOS.
-binary_baseline darwin-aarch64 12438784
+binary_baseline linux-x86_64 16639304

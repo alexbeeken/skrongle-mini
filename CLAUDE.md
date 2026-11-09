@@ -81,7 +81,7 @@ The commands, for when you do need one:
 cargo test
 scripts/smoke.sh         # fresh DB + fixtures: main pages return 200, one AI generation end to end
 scripts/e2e.sh           # headless browser specs (Playwright): exact + smoke specs (also CI on every PR)
-scripts/pi-budget.sh     # release binary size, idle RSS and threads vs scripts/pi-budget.txt (CI job "pi budget", off for now, #1387); --update after an accepted growth
+scripts/pi-budget.sh     # release binary size, idle RSS and threads vs scripts/pi-budget.txt (CI job "pi budget": pushes to main and PRs touching what is compiled in, not required); --update after an accepted growth
 ./.dev-start --reset --seed --background   # then open <url>/dev/login and click through
 ./.dev-start --test-course …   # also offer the test course (/dev/login?open=test-course)
 ./.dev-start --stop
