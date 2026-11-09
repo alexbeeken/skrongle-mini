@@ -626,9 +626,17 @@ writable path, and a release never touches the database.
   the last `X-Forwarded-For` entry when the peer is a proxy on loopback;
   an IPv6 address counts by its /64. Each limit keeps its own table of at
   most 64 keys (`caps::MAX_RATE_LIMIT_KEYS`); a full table drops ended
-  windows and otherwise refuses new keys (as over the limit) rather than
-  evicting a running one, so a flood cannot reset an account's
-  wrong-password count.
+  windows first, and then depends on the limit (`security::WhenFull`).
+  The per-account limits refuse a new key (as over the limit) rather than
+  evict a running window, so a flood cannot reset an account's
+  wrong-password count; to keep that table from filling, the sign-in
+  handler counts a wrong password against an account only when the address
+  has one (a made-up address is still counted against the client's
+  address). The per-address limits (sign-in and registration) evict the
+  entry with the fewest hits (ties: the oldest window) and admit the new
+  address, so a flood of addresses cannot lock everyone else out, while an
+  address at its limit, having the most hits, stays blocked. A full table
+  logs a warning at most once per window.
   Changing the password or two-factor sign-in
   and *Sign out everywhere else* sign out the account's other sessions; the
   owner's temporary password signs out all of them.

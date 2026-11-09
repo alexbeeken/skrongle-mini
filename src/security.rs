@@ -155,48 +155,66 @@ pub struct Limit {
     pub name: &'static str,
     pub max: u32,
     pub window: i64,
+    /// What a full table does with a key it has no entry for.
+    pub when_full: WhenFull,
+}
+
+/// What a limit's table does when it holds [`MAX_KEYS`] running windows and a
+/// new key arrives.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum WhenFull {
+    /// The new key counts as over the limit; no running window is touched.
+    /// For per-account limits: evicting would reset a wrong-password count (#371).
+    Refuse,
+    /// Drop the running entry with the fewest hits (ties: the oldest window)
+    /// and admit the new key. For per-address limits: evicting only returns
+    /// an address its few counted attempts, and an address at its limit has
+    /// the most hits, so it is the last to go.
+    EvictLowest,
 }
 
 /// Sign-in attempts from one address.
-pub const LOGIN_PER_IP: Limit = Limit { name: "login-ip", max: 30, window: 600 };
+pub const LOGIN_PER_IP: Limit = Limit { name: "login-ip", max: 30, window: 600, when_full: WhenFull::EvictLowest };
 /// Wrong passwords for one account (e-mail address), from anywhere.
-pub const LOGIN_FAILURES_PER_USER: Limit = Limit { name: "login-user", max: 10, window: 900 };
+pub const LOGIN_FAILURES_PER_USER: Limit = Limit { name: "login-user", max: 10, window: 900, when_full: WhenFull::Refuse };
 /// Registration attempts from one address.
-pub const REGISTER_PER_IP: Limit = Limit { name: "register-ip", max: 20, window: 3600 };
+pub const REGISTER_PER_IP: Limit = Limit { name: "register-ip", max: 20, window: 3600, when_full: WhenFull::EvictLowest };
 /// Password changes tried by one account.
-pub const PASSWORD_PER_USER: Limit = Limit { name: "password-user", max: 10, window: 900 };
+pub const PASSWORD_PER_USER: Limit = Limit { name: "password-user", max: 10, window: 900, when_full: WhenFull::Refuse };
 /// Learning writes by one account (an answer, a finished round, a Guide
 /// step, a word reviewed; `routes::limit_learning_write`, #381): a burst of
 /// 60 in 10 seconds, far above a fast learner (two writes per Guide question).
-pub const LEARNING_WRITES_PER_USER: Limit = Limit { name: "learning-writes-user", max: 60, window: 10 };
+pub const LEARNING_WRITES_PER_USER: Limit = Limit { name: "learning-writes-user", max: 60, window: 10, when_full: WhenFull::Refuse };
 /// The same over an hour: one write a second, every second, for the hour.
-pub const LEARNING_WRITES_PER_USER_HOUR: Limit = Limit { name: "learning-writes-user-hour", max: 3600, window: 3600 };
+pub const LEARNING_WRITES_PER_USER_HOUR: Limit = Limit { name: "learning-writes-user-hour", max: 3600, window: 3600, when_full: WhenFull::Refuse };
 /// AI jobs (Generate, Only add, Allow overall changes) started by one
 /// account in an hour, and in a day.
-pub const AI_JOBS_PER_USER_HOUR: Limit = Limit { name: "ai-jobs-user-hour", max: 10, window: 3600 };
-pub const AI_JOBS_PER_USER_DAY: Limit = Limit { name: "ai-jobs-user-day", max: 40, window: 86_400 };
+pub const AI_JOBS_PER_USER_HOUR: Limit = Limit { name: "ai-jobs-user-hour", max: 10, window: 3600, when_full: WhenFull::Refuse };
+pub const AI_JOBS_PER_USER_DAY: Limit = Limit { name: "ai-jobs-user-day", max: 40, window: 86_400, when_full: WhenFull::Refuse };
 /// Writes to course files by one account (create, upload, file save and
 /// delete, the lesson table's saves): each rebuilds the whole course, so a
 /// script cannot keep the server busy (#366). The editor's autosave saves at
 /// most about once a second while someone works, well under this.
-pub const COURSE_WRITES_PER_USER: Limit = Limit { name: "course-writes-user", max: 120, window: 300 };
+pub const COURSE_WRITES_PER_USER: Limit = Limit { name: "course-writes-user", max: 120, window: 300, when_full: WhenFull::Refuse };
 
 /// Most keys kept per limit, so memory stays bounded on the Pi (#36). Each
 /// limit has its own table: a flood of one kind of key (fresh addresses)
 /// cannot crowd out another (the per-account counters).
 const MAX_KEYS: usize = crate::caps::MAX_RATE_LIMIT_KEYS;
 
-/// One limit's counters: its window length and `key -> (window start, hits)`.
-type Table = (i64, HashMap<String, (i64, u32)>);
+/// One limit's counters: its window length, `key -> (window start, hits)`,
+/// and when the "table is full" warning was last logged (once per window).
+type Table = (i64, HashMap<String, (i64, u32)>, i64);
 
 /// Fixed-window counters in memory (they reset on restart). Off in dev mode,
 /// where browser tests register many learners from one address.
 ///
 /// A full table first drops its ended windows; if every window is still
-/// running, a new key is refused (counted as over the limit, and
-/// [`blocked`](RateLimits::blocked)) rather than evicting a running window:
-/// evicting would let a flood of fresh keys reset someone's wrong-password
-/// count (#371).
+/// running, [`WhenFull`] decides: per-account limits refuse the new key
+/// (counted as over the limit, and [`blocked`](RateLimits::blocked)) rather
+/// than evict a running window, which would let a flood of fresh keys reset
+/// someone's wrong-password count (#371); per-address limits evict the entry
+/// with the fewest hits.
 #[derive(Default)]
 pub struct RateLimits {
     windows: Mutex<HashMap<&'static str, Table>>,
@@ -207,11 +225,35 @@ pub struct RateLimits {
 
 /// Is there room in `table` for one more key? Drops ended windows first.
 fn has_room(table: &mut Table, now: i64) -> bool {
-    let (window, map) = table;
+    let (window, map, _) = table;
     if map.len() >= MAX_KEYS {
         map.retain(|_, (start, _)| now - *start < *window);
     }
     map.len() < MAX_KEYS
+}
+
+/// Make room for a new key in `limit`'s `table`: `false` when the table is
+/// full of running windows and `limit` refuses rather than evicts.
+fn make_room(table: &mut Table, limit: Limit, now: i64) -> bool {
+    if has_room(table, now) {
+        return true;
+    }
+    if limit.when_full == WhenFull::Refuse {
+        return false;
+    }
+    let lowest = table.1.iter().min_by_key(|(_, &(start, hits))| (hits, start)).map(|(k, _)| k.clone());
+    if let Some(k) = lowest {
+        table.1.remove(&k);
+    }
+    true
+}
+
+/// Log that `limit`'s table is full, at most once per window.
+fn warn_full(table: &mut Table, limit: Limit, now: i64) {
+    if now - table.2 >= limit.window {
+        table.2 = now;
+        tracing::warn!("rate limit {} is full of running windows; {}", limit.name, if limit.when_full == WhenFull::Refuse { "refusing new keys until they end" } else { "evicting the least-used entries" });
+    }
 }
 
 impl RateLimits {
@@ -233,10 +275,10 @@ impl RateLimits {
             return false;
         }
         let mut tables = self.windows.lock().unwrap_or_else(|e| e.into_inner());
-        let table = tables.entry(limit.name).or_insert_with(|| (limit.window, HashMap::new()));
+        let table = tables.entry(limit.name).or_insert_with(|| (limit.window, HashMap::new(), i64::MIN / 2));
         match table.1.get(&key.to_ascii_lowercase()) {
             Some(&(start, n)) => now - start < limit.window && n >= limit.max,
-            None => !has_room(table, now),
+            None => limit.when_full == WhenFull::Refuse && !has_room(table, now),
         }
     }
 
@@ -254,11 +296,13 @@ impl RateLimits {
     /// enough to try by hand.
     pub fn hit_always(&self, limit: Limit, key: &str, now: i64) -> bool {
         let mut tables = self.windows.lock().unwrap_or_else(|e| e.into_inner());
-        let table = tables.entry(limit.name).or_insert_with(|| (limit.window, HashMap::new()));
+        let table = tables.entry(limit.name).or_insert_with(|| (limit.window, HashMap::new(), i64::MIN / 2));
         let key = key.to_ascii_lowercase();
         if !table.1.contains_key(&key) && !has_room(table, now) {
-            tracing::warn!("rate limit {} is full; refusing new keys until windows end", limit.name);
-            return false;
+            warn_full(table, limit, now);
+            if !make_room(table, limit, now) {
+                return false;
+            }
         }
         let entry = table.1.entry(key).or_insert((now, 0));
         if now - entry.0 >= limit.window {
@@ -268,11 +312,18 @@ impl RateLimits {
         entry.1 <= limit.max
     }
 
+    /// How many keys `limit`'s table holds (tests).
+    #[cfg(test)]
+    pub fn key_count(&self, limit: Limit) -> usize {
+        let tables = self.windows.lock().unwrap_or_else(|e| e.into_inner());
+        tables.get(limit.name).map_or(0, |t| t.1.len())
+    }
+
     /// Drop the windows that have ended (hourly housekeeping).
     pub fn purge_expired(&self, now: i64) -> usize {
         let mut tables = self.windows.lock().unwrap_or_else(|e| e.into_inner());
         let mut dropped = 0;
-        for (window, map) in tables.values_mut() {
+        for (window, map, _) in tables.values_mut() {
             let before = map.len();
             map.retain(|_, (start, _)| now - *start < *window);
             dropped += before - map.len();
@@ -335,7 +386,7 @@ mod tests {
     #[test]
     fn rate_limits_count_per_key_and_window() {
         let l = RateLimits::new();
-        let lim = Limit { name: "login-ip", max: 3, window: 600 };
+        let lim = Limit { name: "login-ip", max: 3, window: 600, when_full: WhenFull::Refuse };
         for _ in 0..3 {
             assert!(l.hit(lim, "1.2.3.4", 1000));
         }
@@ -344,7 +395,7 @@ mod tests {
         assert!(!l.blocked(lim, "5.6.7.8", 1001));
         assert!(l.hit(lim, "5.6.7.8", 1001));
         // Keys are case-insensitive (addresses are).
-        let user = Limit { name: "login-user", max: 1, window: 600 };
+        let user = Limit { name: "login-user", max: 1, window: 600, when_full: WhenFull::Refuse };
         assert!(l.hit(user, "Ana", 1000));
         assert!(l.blocked(user, "ana", 1000));
         // A new window starts afresh.
@@ -362,7 +413,7 @@ mod tests {
     #[test]
     fn rate_limit_memory_is_bounded() {
         let l = RateLimits::new();
-        let lim = Limit { name: "login-ip", max: 3, window: 600 };
+        let lim = Limit { name: "login-ip", max: 3, window: 600, when_full: WhenFull::Refuse };
         for i in 0..(MAX_KEYS + 10) {
             let _ = l.hit(lim, &format!("k{i}"), i as i64 / 100);
         }
@@ -374,8 +425,8 @@ mod tests {
     #[test]
     fn a_flood_of_new_keys_cannot_reset_an_account_counter() {
         let l = RateLimits::new();
-        let ip = Limit { name: "login-ip", max: 30, window: 600 };
-        let user = Limit { name: "login-user", max: 3, window: 900 };
+        let ip = Limit { name: "login-ip", max: 30, window: 600, when_full: WhenFull::Refuse };
+        let user = Limit { name: "login-user", max: 3, window: 900, when_full: WhenFull::Refuse };
         for _ in 0..3 {
             l.hit(user, "ana@example.org", 1000);
         }
@@ -399,6 +450,52 @@ mod tests {
         // When the windows end, everything frees up.
         assert!(!l.blocked(user, "ana@example.org", 1000 + 900));
         assert!(l.hit(ip, "192.0.2.1", 1001 + 600));
+    }
+
+    #[test]
+    fn a_full_address_table_does_not_lock_out_new_addresses() {
+        let l = RateLimits::new();
+        let now = 1000;
+        for limit in [LOGIN_PER_IP, REGISTER_PER_IP] {
+            for i in 0..MAX_KEYS {
+                assert!(l.hit(limit, &format!("10.0.0.{i}"), now));
+            }
+            assert!(!l.blocked(limit, "192.0.2.1", now), "{} refuses a new address", limit.name);
+            assert!(l.hit(limit, "192.0.2.1", now), "{} counts a new address", limit.name);
+            assert!(l.windows.lock().unwrap()[limit.name].1.len() <= MAX_KEYS);
+        }
+    }
+
+    #[test]
+    fn an_address_at_its_limit_stays_blocked_while_new_addresses_arrive() {
+        let l = RateLimits::new();
+        let now = 1000;
+        for _ in 0..LOGIN_PER_IP.max {
+            assert!(l.hit(LOGIN_PER_IP, "203.0.113.9", now));
+        }
+        assert!(!l.hit(LOGIN_PER_IP, "203.0.113.9", now));
+        for i in 0..(MAX_KEYS * 3) {
+            let _ = l.hit(LOGIN_PER_IP, &format!("10.1.{}.{}", i >> 8, i & 255), now + 1);
+        }
+        assert!(l.blocked(LOGIN_PER_IP, "203.0.113.9", now + 2), "the busy address was not evicted");
+        assert!(!l.blocked(LOGIN_PER_IP, "192.0.2.77", now + 2));
+        assert!(l.windows.lock().unwrap()["login-ip"].1.len() <= MAX_KEYS);
+    }
+
+    #[test]
+    fn the_lowest_hit_count_goes_first_then_the_oldest_window() {
+        let l = RateLimits::new();
+        let lim = Limit { name: "evict-test", max: 5, window: 600, when_full: WhenFull::EvictLowest };
+        for i in 0..MAX_KEYS {
+            let _ = l.hit(lim, &format!("k{i}"), 1000 + i as i64);
+        }
+        let _ = l.hit(lim, "k0", 1100); // k0 now has two hits
+        assert!(l.hit(lim, "new", 1200));
+        let tables = l.windows.lock().unwrap();
+        let map = &tables["evict-test"].1;
+        assert!(map.contains_key("k0"), "two hits stays");
+        assert!(!map.contains_key("k1"), "one hit, oldest window, goes");
+        assert!(map.contains_key("k2") && map.contains_key("new"));
     }
 
     #[test]
