@@ -4,7 +4,9 @@ What changed in each release, for the person running the server. Newest
 first. Each release's GitHub notes are its section here. How version
 numbers work is in the README, "Versions".
 
-## Unreleased
+## 0.2.1 (2026-11-09)
+
+A sign-in fix and a lighter server. Nothing to change on your side.
 
 - `update.sh` runs from a copy of itself, so replacing `/opt/skrongle` no
   longer disturbs the script doing the replacing. Updating 0.1.2 to 0.2.0
