@@ -534,6 +534,16 @@ each step checkable in the UI. So a person can walk it against the rig's
 server, and later the Jev harness (#58) can walk the same list. A step that
 needs a dev route or the page's markup does not belong in it.
 
+The DietPi install block has its own check (#31). The `dietpi-install`
+workflow runs `scripts/dietpi-install-check.sh` after each release is
+published and every Monday against the latest one, in a Debian container for
+amd64 and for arm64 (under QEMU): it runs `deploy/dietpi-install.sh`, starts
+the installed binary by hand (a container has no systemd), checks `/healthz`
+and `owner-link`, then runs the script again and checks that it keeps the env
+file and unit and copies the database aside. A failure opens an issue with the
+log, unless one with that title is already open. Locally:
+`docker run --rm -v "$PWD:/repo:ro" -e SKRONGLE_VERSION=0.2.0 debian:bookworm-slim sh /repo/scripts/dietpi-install-check.sh amd64`.
+
 ## Panic check, file size lint and Pi budget
 
 Three tripwires run in CI and compare with a committed baseline, so raising

@@ -1,0 +1,100 @@
+# The DietPi install block (deploy/dietpi-install.sh) against a published
+# release (#31): after each release is published, and once a week against
+# the latest one. In a stock Debian container per architecture (arm64
+# under QEMU) it installs, starts the binary by hand (no systemd in a
+# container), checks /healthz and `owner-link`, and runs the script again.
+# A failure opens an issue (one per version and architecture while it is
+# open). scripts/dietpi-install-check.sh holds the steps; docs/testing.md,
+# "Release QA", says what this does and does not cover.
+name: dietpi-install
+
+on:
+  workflow_run:
+    workflows: [release]
+    types: [completed]
+  schedule:
+    - cron: "17 5 * * 1"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Release to install (0.2.0); empty means the latest
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  install:
+    name: install on ${{ matrix.arch }}
+    # A release run that failed, or was only a manual test build, has
+    # nothing new to install.
+    if: >-
+      github.event_name != 'workflow_run' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event == 'push')
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { arch: amd64, image: "debian:bookworm-slim" }
+          - { arch: arm64, image: "arm64v8/debian:bookworm-slim" }
+    env:
+      # The tag of the release run, the dispatch input, or empty (latest).
+      TAG: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_branch || inputs.version || '' }}
+    steps:
+      - name: Version to test
+        id: v
+        run: |
+          v="${TAG#v}"
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+          echo "label=${v:-latest}" >> "$GITHUB_OUTPUT"
+
+      # The script at the tag being tested; main for the weekly run.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ steps.v.outputs.version && format('v{0}', steps.v.outputs.version) || '' }}
+
+      - name: QEMU handlers
+        if: matrix.arch == 'arm64'
+        run: docker run --rm --privileged tonistiigi/binfmt --install arm64
+
+      - name: Install, start, check, update
+        id: check
+        env:
+          SKRONGLE_VERSION: ${{ steps.v.outputs.version }}
+        run: |
+          set -o pipefail
+          docker run --rm --platform linux/${{ matrix.arch }} \
+            -v "$PWD:/repo:ro" -e SKRONGLE_VERSION \
+            ${{ matrix.image }} sh /repo/scripts/dietpi-install-check.sh ${{ matrix.arch }} \
+            2>&1 | tee check.log
+
+      - name: Open an issue
+        if: failure() && steps.check.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          LABEL: ${{ steps.v.outputs.label }}
+        run: |
+          title="DietPi install check failed for $LABEL on ${{ matrix.arch }}"
+          open=$(gh issue list --state open --search "\"$title\" in:title" --json title --jq "[.[] | select(.title == \"$title\")] | length")
+          if [ "$open" != 0 ]; then
+            echo "an open issue already has this title; not opening another"
+            exit 0
+          fi
+          {
+            echo "The DietPi install check failed."
+            echo
+            echo "Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            echo "Version: $LABEL, architecture: ${{ matrix.arch }}"
+            echo
+            echo "Last 60 log lines:"
+            echo
+            echo '```'
+            tail -n 60 check.log
+            echo '```'
+          } > body.md
+          gh issue create --title "$title" --label bug --body-file body.md

@@ -98,6 +98,8 @@ nothing here measures time (the decisions on #47). A green cell is good
 evidence a release works on that architecture, not proof; the hardware
 checklist (#45) stays.
 
+The `dietpi-install` workflow covers the DietPi install block in containers (`scripts/dietpi-install-check.sh`, #31); #70 covers a real board.
+
 `package-smoke.sh` also runs on its own, on any Linux box or VM with curl:
 `scripts/release-qa/package-smoke.sh skrongle-0.1.2-aarch64.tar.gz`. `KEEP=1`
 leaves its server running and prints the URL.
