@@ -188,6 +188,44 @@ fn learning_writes_are_rate_limited() {
     assert_eq!(post("/api/progress/answers", &bob, course_question).0, 200);
 }
 
+/// #89: wrong sign-ins with addresses nobody has an account for take no slot
+/// in the per-account table, so they cannot fill it and lock real accounts
+/// out; wrong passwords on a real account still count and block it.
+#[test]
+fn made_up_addresses_do_not_fill_the_per_account_table() {
+    use crate::security::LOGIN_FAILURES_PER_USER;
+    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+    let state = super::test_state(false);
+    let hash = crate::auth::hash_password("right-password").unwrap();
+    state.db.with(|c| crate::auth::create_user(c, "ann@example.org", &hash)).unwrap();
+    let app = super::router(state.clone());
+    let base = rt.block_on(async {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        tokio::spawn(async move { axum::serve(listener, app.into_make_service_with_connect_info::<std::net::SocketAddr>()).await.unwrap() });
+        format!("http://{addr}")
+    });
+    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
+    // The peer is loopback, so the last X-Forwarded-For entry is the client.
+    let login = |from: &str, email: &str, pw: &str| {
+        agent.post(&format!("{base}/login")).header("x-forwarded-for", from).send_form([("email", email), ("password", pw)]).unwrap().status().as_u16()
+    };
+    for i in 0..(crate::caps::MAX_RATE_LIMIT_KEYS + 6) {
+        let from = format!("198.51.100.{}", i % 250 + 1);
+        assert_eq!(login(&from, &format!("nobody{i}@example.org"), "guess"), 200);
+    }
+    assert_eq!(state.limits.key_count(LOGIN_FAILURES_PER_USER), 0, "made-up addresses took no slot");
+    assert_eq!(login("203.0.113.5", "ann@example.org", "right-password"), 303, "a real account still signs in");
+
+    let hash = crate::auth::hash_password("bea-password").unwrap();
+    state.db.with(|c| crate::auth::create_user(c, "bea@example.org", &hash)).unwrap();
+    for _ in 0..LOGIN_FAILURES_PER_USER.max {
+        assert_eq!(login("203.0.113.7", "bea@example.org", "guess"), 200);
+    }
+    assert_eq!(state.limits.key_count(LOGIN_FAILURES_PER_USER), 1);
+    assert_eq!(login("203.0.113.8", "bea@example.org", "bea-password"), 429, "ten wrong passwords on a real account block it");
+}
+
 /// Password guessing is throttled per account and registrations per
 /// address; a password change signs out the account's other sessions.
 #[test]
@@ -1613,12 +1651,12 @@ fn static_etag_is_stable_and_keeps_its_shape() {
     let b = fetch_static("style.css", &[]);
     let etag = a.headers()["etag"].to_str().unwrap().to_string();
     assert_eq!(etag, b.headers()["etag"].to_str().unwrap());
-    // "<16 hex digits>", quoted, the same fnv1a of the raw bytes as before.
+    // "<16 hex digits>", quoted, the first 8 bytes of the embedded SHA-256.
     assert_eq!(etag.len(), 18);
     assert!(etag.starts_with('"') && etag.ends_with('"'));
     assert!(etag[1..17].bytes().all(|c| c.is_ascii_hexdigit()));
     let raw = super::Assets::get("style.css").unwrap();
-    assert_eq!(etag, format!("\"{:016x}\"", super::fnv1a(raw.data.iter().copied())));
+    assert_eq!(etag, format!("\"{}\"", raw.metadata.sha256_hash().iter().take(8).map(|b| format!("{b:02x}")).collect::<String>()));
 }
 
 #[test]

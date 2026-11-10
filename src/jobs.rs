@@ -483,7 +483,7 @@ impl Runner {
 /// sessions, abandoned games, old generation jobs, idle tutor chats,
 /// rate-limit windows, the retention rules
 /// (`jobs/retention.rs`), old two-factor challenges and invitation links, old job
-/// rows, and last a WAL checkpoint so the -wal file doesn't grow on
+/// rows, the query planner's statistics (`PRAGMA optimize`), and last a WAL checkpoint so the -wal file doesn't grow on
 /// the SD card. Each step logs its count; a step that fails is logged and the
 /// next still runs, and the job fails only when every step did (#45).
 pub fn housekeeping(runner: Runner, state: &Arc<crate::AppState>, retention: retention::Retention) -> Runner {
@@ -521,6 +521,8 @@ pub fn housekeeping(runner: Runner, state: &Arc<crate::AppState>, retention: ret
                 }),
             ),
             ("jobs", Box::new(|| sql(db, |c, now| purge(c, now).map(|n| note(n, "old job rows deleted"))))),
+            // Before the checkpoint, so what it writes is checkpointed in this run.
+            ("optimize", Box::new(|| sql(db, |c, _| c.execute_batch("PRAGMA optimize;").map(|()| String::new())))),
             ("wal_checkpoint", Box::new(|| sql(db, |c, _| c.execute_batch("PRAGMA wal_checkpoint(TRUNCATE);").map(|()| String::new())))),
             ("shrink_memory", Box::new(|| sql(db, |c, _| c.execute_batch("PRAGMA shrink_memory;").map(|()| String::new())))),
         ];

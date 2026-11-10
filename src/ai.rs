@@ -28,6 +28,8 @@ use crate::content::{ContentStore, CourseFile, MANIFEST_FILE};
 use crate::courses;
 use crate::db::Db;
 
+mod error;
+pub use error::AiError;
 mod queue;
 pub use queue::*;
 mod providers;
@@ -223,14 +225,15 @@ pub struct Request {
     /// Translate the course (a copy, #630) instead of writing it: one
     /// request per file, the files not done yet.
     pub translate: Option<Translation>,
+    /// The language of the request that started the job (`i18n::snapshot`):
+    /// its thread runs in it, so text it words reads as the learner's.
+    pub i18n: usize,
 }
 
-/// A translation job's plan (`translate::Plan`, saved with the copy) and
-/// the language of the request that started it, for the progress it shows.
+/// A translation job's plan (`translate::Plan`, saved with the copy).
 #[derive(Clone, Debug)]
 pub struct Translation {
     pub plan: crate::translate::Plan,
-    pub i18n: usize,
 }
 
 /// Longest brief for a new lesson (characters).
@@ -361,7 +364,7 @@ impl Job {
         let msgs = [ChatMessage { role: "user", content: user.to_string() }];
         let timeout = request_timeout(GENERATE_TIMEOUT).min(self.remaining()).max(Duration::from_secs(1));
         let send = || complete(&req.provider, call, system, &msgs, budget::max_tokens(&req.provider), timeout);
-        send().map(|r| r.text)
+        send().map(|r| r.text).map_err(|e| e.to_string())
     }
 }
 
@@ -445,7 +448,7 @@ fn run(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Request) ->
                 named_block(&named),
             );
             let call = Call::new("generate-outline").course(&course_id).job(&job_id);
-            let text = job.llm(req, &call, system, &format!("{outline_prompt}{}\n\n----- Course format reference -----\n\n{FORMAT_DOC}", req.kind.rules()))?;
+            let text = job.llm(req, &call, system, &prompt::with_reference(&req.kind.rules(), &outline_prompt))?;
             let outline: serde_json::Value = parse_json(&text)?;
             let mut manifest = outline.get("course").cloned().ok_or("the outline has no \"course\" object")?;
             let mut entries = outline
@@ -533,7 +536,7 @@ fn run(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Request) ->
             prompt::lesson_line(kind),
             depth.lesson_line(),
         );
-        let prompt = format!("{base_prompt}{}\n\n----- Course format reference -----\n\n{FORMAT_DOC}", kind.rules());
+        let prompt = prompt::with_reference(&kind.rules(), &base_prompt);
         let slug = entry.get("slug").and_then(|s| s.as_str()).unwrap_or_default();
         let call = Call::new("generate-lesson").course(&course_id).job(&job_id).key(slug);
         let mut attempt = 0;
@@ -810,7 +813,7 @@ fn revise(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Request,
     let mut attempt = 0;
     let (new_manifest, mut slots) = loop {
         attempt += 1;
-        let text = job.llm(req, &call, system, &format!("{plan_prompt}{retry}{rules}\n\n----- Course format reference -----\n\n{FORMAT_DOC}"))?;
+        let text = job.llm(req, &call, system, &prompt::with_reference(&rules, &format!("{plan_prompt}{retry}")))?;
         let planned = parse_json(&text).and_then(|p| read_plan(&p, &lessons, &course_id, &manifest)).and_then(|(m, slots)| {
             let text = serde_json::to_string_pretty(&m).map_err(|e| e.to_string())? + "\n";
             // The plan must fit the lessons it keeps before anything is written.
@@ -955,15 +958,13 @@ fn add_lesson(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Requ
          {{\"after\": <the id of the lesson it comes right after, or null to make it the first lesson>, \"lesson\": <the complete lesson JSON>}}.\n\
          The lesson needs an id and a slug (lowercase a-z, 0-9 and '-') that no lesson above uses, a `unit` from the manifest's units \
          (the one where it fits) and a `group`. Its prerequisites may only name lessons above; prefix its question ids with its id. \
-         Do not repeat what the other lessons already teach.{}{}{}{}\n\n\
-         ----- Course format reference -----\n\n{FORMAT_DOC}",
+         Do not repeat what the other lessons already teach.{}{}{}",
         manifest.content.trim(),
         serde_json::to_string_pretty(&current).unwrap_or_default(),
         brief.trim(),
         prompt::lesson_line(kind),
         req.depth.lesson_line(),
         material_block(&notes),
-        kind.rules(),
     );
     job.log(format!("Asking {} ({}) for a new lesson…", provider_name(req.provider.kind), req.provider.model));
     // Where a canned reply can put its lesson without knowing the course.
@@ -979,7 +980,7 @@ fn add_lesson(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Requ
     let mut retry = String::new();
     let (final_files, lesson_title) = loop {
         attempt += 1;
-        let text = job.llm(req, &call, system, &format!("{prompt}{retry}"))?;
+        let text = job.llm(req, &call, system, &prompt::with_reference(&kind.rules(), &format!("{prompt}{retry}")))?;
         let placed = parse_json(&text).and_then(|reply| {
             // A bare lesson (no wrapper) goes first.
             let (after, lesson) = match reply.get("lesson") {
@@ -1327,7 +1328,7 @@ const GENERATE_TIMEOUT: Duration = Duration::from_secs(900);
 const CHAT_TIMEOUT: Duration = Duration::from_secs(120);
 /// A conversational turn: the whole transcript goes in, the next assistant
 /// message comes out. Blocking; callers put it on its own thread.
-pub fn chat(p: &Provider, call: &Call, system: &str, messages: &[ChatMessage], max_tokens: u32) -> Result<Reply, String> {
+pub fn chat(p: &Provider, call: &Call, system: &str, messages: &[ChatMessage], max_tokens: u32) -> Result<Reply, AiError> {
     complete(p, call, system, messages, max_tokens, CHAT_TIMEOUT)
 }
 
@@ -1338,7 +1339,7 @@ fn request_timeout(default: Duration) -> Duration {
 }
 
 /// The one place every model call goes through.
-fn complete(p: &Provider, call: &Call, system: &str, messages: &[ChatMessage], max_tokens: u32, timeout: Duration) -> Result<Reply, String> {
+fn complete(p: &Provider, call: &Call, system: &str, messages: &[ChatMessage], max_tokens: u32, timeout: Duration) -> Result<Reply, AiError> {
     let messages = merge_roles(messages);
     let timeout = request_timeout(timeout);
     let result = match p.kind {
@@ -1347,7 +1348,7 @@ fn complete(p: &Provider, call: &Call, system: &str, messages: &[ChatMessage], m
     };
     // Errors are logged and shown: never with the key in them, even when a
     // server echoes it back (a proxy's error page, a reply that is not JSON).
-    let (text, usage) = result.map_err(|e| redact_key(&e, &p.api_key))?;
+    let (text, usage) = result.map_err(|e| e.map_text(|t| redact_key(t, &p.api_key)))?;
     let usage = usage.filter(|u| !u.is_empty()).unwrap_or_else(|| Usage::estimate(system, &messages, &text));
     Ok(Reply { text, usage })
 }
@@ -1390,7 +1391,7 @@ fn anthropic_body(p: &Provider, system: &str, messages: &[ChatMessage], max_toke
         "model": p.model,
         "max_tokens": max_tokens,
         "system": system,
-        "messages": messages.iter().map(|m| serde_json::json!({ "role": m.role, "content": m.content })).collect::<Vec<_>>(),
+        "messages": messages.iter().map(|m| serde_json::json!({ "role": m.role, "content": anthropic_content(m) })).collect::<Vec<_>>(),
     });
     if supports_fallbacks(&p.model) {
         // A safety-classifier decline on these models re-runs the request on a
@@ -1424,7 +1425,7 @@ pub fn call_header(call: &Call) -> String {
     out
 }
 
-fn call_anthropic(p: &Provider, call: &Call, system: &str, messages: &[ChatMessage], max_tokens: u32, timeout: Duration) -> Result<(String, Option<Usage>), String> {
+fn call_anthropic(p: &Provider, call: &Call, system: &str, messages: &[ChatMessage], max_tokens: u32, timeout: Duration) -> Result<(String, Option<Usage>), AiError> {
     let url = format!("{}/v1/messages", p.base_url.trim_end_matches('/'));
     let body = anthropic_body(p, system, messages, max_tokens);
     let mut req = agent(timeout)
@@ -1439,7 +1440,7 @@ fn call_anthropic(p: &Provider, call: &Call, system: &str, messages: &[ChatMessa
     let json = send(req, &body, timeout)?;
     if json.get("stop_reason").and_then(|s| s.as_str()) == Some("refusal") {
         let why = json.get("stop_details").and_then(|d| d.get("explanation")).and_then(|e| e.as_str()).unwrap_or("");
-        return Err(format!("the model declined the request. {why}").trim().to_string());
+        return Err(AiError::Declined(why.to_string()));
     }
     let text: String = json
         .get("content")
@@ -1454,7 +1455,7 @@ fn call_anthropic(p: &Provider, call: &Call, system: &str, messages: &[ChatMessa
         })
         .unwrap_or_default();
     if text.trim().is_empty() {
-        return Err("the model returned no text".into());
+        return Err(AiError::bad_reply("the model returned no text"));
     }
     Ok((text, Some(anthropic_usage(&json))))
 }
@@ -1468,29 +1469,28 @@ fn anthropic_usage(json: &serde_json::Value) -> Usage {
     Usage { input: n("input_tokens") + writes, output: n("output_tokens"), cached: n("cache_read_input_tokens") }
 }
 
-fn send(req: ureq::RequestBuilder<ureq::typestate::WithBody>, body: &serde_json::Value, timeout: Duration) -> Result<serde_json::Value, String> {
-    let timed_out = || format!("request failed: timed out after {} s", timeout.as_secs());
+fn send(req: ureq::RequestBuilder<ureq::typestate::WithBody>, body: &serde_json::Value, timeout: Duration) -> Result<serde_json::Value, AiError> {
+    let timed_out = || AiError::Timeout { secs: timeout.as_secs() };
     let mut resp = match req.send_json(body) {
         Ok(r) => r,
-        Err(ureq::Error::StatusCode(code)) => return Err(format!("the API answered HTTP {code} (check the key, model name and base URL)")),
+        Err(ureq::Error::StatusCode(code)) => return Err(AiError::Status(code)),
         Err(ureq::Error::Timeout(_)) => return Err(timed_out()),
-        Err(e) => return Err(format!("request failed: {e}")),
+        Err(e) => return Err(AiError::Unreachable(e.to_string())),
     };
     let status = resp.status().as_u16();
     let text = match resp.body_mut().with_config().limit(MAX_REPLY_BYTES).read_to_string() {
         Ok(t) => t,
         Err(ureq::Error::Timeout(_)) => return Err(timed_out()),
-        Err(ureq::Error::BodyExceedsLimit(_)) => return Err(format!("the reply is larger than {} KB, more than a course file may be", MAX_REPLY_BYTES / 1024)),
-        Err(e) => return Err(format!("could not read the reply: {e}")),
+        Err(ureq::Error::BodyExceedsLimit(_)) => return Err(AiError::bad_reply(format!("the reply is larger than {} KB, more than a course file may be", MAX_REPLY_BYTES / 1024))),
+        Err(e) => return Err(AiError::bad_reply(format!("could not read the reply: {e}"))),
     };
-    let json: serde_json::Value = serde_json::from_str(&text).map_err(|_| format!("HTTP {status}: reply is not JSON: {}", text.chars().take(200).collect::<String>()))?;
+    let json: serde_json::Value = serde_json::from_str(&text).map_err(|_| AiError::BadReply {
+        status: Some(status),
+        message: format!("HTTP {status}: reply is not JSON: {}", text.chars().take(200).collect::<String>()),
+    })?;
     if status >= 300 {
-        let msg = json
-            .pointer("/error/message")
-            .and_then(|m| m.as_str())
-            .unwrap_or("")
-            .to_string();
-        return Err(format!("the API answered HTTP {status}. {msg}").trim().to_string());
+        let message = json.pointer("/error/message").and_then(|m| m.as_str()).unwrap_or("").to_string();
+        return Err(AiError::Http { status, message, quota: error::quota_field(&json) });
     }
     Ok(json)
 }

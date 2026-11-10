@@ -128,6 +128,7 @@ fn generating(db: &Db, user: &str, id: &str, base_url: String) -> Request {
         add_lesson: None,
         edit: None,
         translate: None,
+        i18n: 0,
         named: Default::default(),
     }
 }
@@ -346,7 +347,7 @@ fn fake_llm(broken: Vec<&'static str>) -> (String, Arc<Mutex<Vec<String>>>) {
                 })
                 .to_string()
             } else {
-                let slug = prompt.split("\"slug\": \"").nth(1).and_then(|r| r.split('"').next()).unwrap_or("x").to_string();
+                let slug = after_reference(&prompt).split("\"slug\": \"").nth(1).and_then(|r| r.split('"').next()).unwrap_or("x").to_string();
                 if broken.contains(&slug.as_str()) {
                     "Sorry, I cannot do that.".to_string()
                 } else {
@@ -425,6 +426,7 @@ fn generates_a_maths_course_and_resumes_after_a_failure() {
         add_lesson: None,
         edit: None,
         translate: None,
+        i18n: 0,
         named: Default::default(),
     };
     // First run: the second lesson never comes back usable.
@@ -501,6 +503,7 @@ fn generates_from_the_llm_fixtures() {
             add_lesson: None,
             edit: None,
             translate: None,
+            i18n: 0,
             named,
         };
         let job = test_job(id);
@@ -571,7 +574,8 @@ fn translates_a_copy_from_the_llm_fixtures() {
             revise: None,
             add_lesson: None,
             edit: None,
-            translate: Some(Translation { plan: plan.clone(), i18n: 0 }),
+            translate: Some(Translation { plan: plan.clone() }),
+            i18n: 0,
             named: Default::default(),
         };
         let job = test_job(id);
@@ -622,7 +626,7 @@ fn a_lesson_request_names_the_terms_of_the_lessons_before_it() {
             if prompt.contains("Design a course") {
                 return outline(3);
             }
-            let slug = prompt.split("\"slug\": \"").nth(1).and_then(|r| r.split('"').next()).unwrap_or("x").to_string();
+            let slug = after_reference(prompt).split("\"slug\": \"").nth(1).and_then(|r| r.split('"').next()).unwrap_or("x").to_string();
             serde_json::json!({
                 "id": "ignored", "slug": slug, "title": "ignored",
                 "content": format!("## Idea of {slug}\n\nOne idea.\n\n## Practice {slug}\n\nTry it."),
@@ -717,6 +721,7 @@ fn revises_a_course_from_feedback_and_undoes_it() {
         add_lesson: None,
         edit: None,
         translate: None,
+        i18n: 0,
         named: Default::default(),
     };
     run(&test_job(id), &db, &registry, &req).unwrap();
@@ -826,6 +831,7 @@ fn edits_lessons_from_feedback_and_undoes_it() {
         add_lesson: None,
         edit: None,
         translate: None,
+        i18n: 0,
         named: Default::default(),
     };
     run(&test_job(id), &db, &registry, &req).unwrap();
@@ -928,6 +934,7 @@ fn adds_a_lesson_where_the_ai_puts_it_and_undoes_it() {
         add_lesson: None,
         edit: None,
         translate: None,
+        i18n: 0,
         named: Default::default(),
     };
     run(&test_job(id), &db, &registry, &req).unwrap();
@@ -1026,6 +1033,7 @@ fn each_ai_run_keeps_its_changes_for_review() {
         edit: None,
         named: Default::default(),
         translate: None,
+        i18n: 0,
     };
     let finish = |jid: &str| {
         let deadline = std::time::Instant::now() + Duration::from_secs(20);
@@ -1237,10 +1245,10 @@ fn model_errors_never_carry_the_key() {
     for kind in [ProviderKind::Anthropic, ProviderKind::OpenAi] {
         let p = Provider { base_url: format!("http://{addr}"), ..kind.provider(key.to_string()) };
         for _ in 0..2 {
-            errors.push(chat(&p, &Call::new("tutor-turn"), "sys", &msgs, 10).unwrap_err());
+            errors.push(chat(&p, &Call::new("tutor-turn"), "sys", &msgs, 10).unwrap_err().to_string());
         }
         let gone = Provider { base_url: "http://127.0.0.1:9".into(), ..kind.provider(key.to_string()) };
-        errors.push(chat(&gone, &Call::new("generate-lesson"), "sys", &msgs, 10).unwrap_err());
+        errors.push(chat(&gone, &Call::new("generate-lesson"), "sys", &msgs, 10).unwrap_err().to_string());
     }
     assert!(errors.iter().any(|e| e.contains("[your key]")), "the server did echo the key: {errors:?}");
     for e in &errors {
@@ -1267,7 +1275,7 @@ fn a_non_language_request_carries_no_language_rules() {
                 o["kind"] = "general".into();
                 return o.to_string();
             }
-            let slug = prompt.split("\"slug\": \"").nth(1).and_then(|r| r.split('"').next()).unwrap_or("x").to_string();
+            let slug = after_reference(prompt).split("\"slug\": \"").nth(1).and_then(|r| r.split('"').next()).unwrap_or("x").to_string();
             serde_json::json!({
                 "id": "ignored", "slug": slug, "title": "ignored",
                 "content": "## Parts\n\nManagers, firefighters and exiles.",
@@ -1443,6 +1451,7 @@ fn a_fact_check_fixes_and_says_why() {
         edit: None,
         named: Default::default(),
         translate: None,
+        i18n: 0,
     };
     let finish = |jid: &str| {
         let deadline = std::time::Instant::now() + Duration::from_secs(20);
@@ -1525,7 +1534,7 @@ fn the_revise_and_edit_plan_prompts_number_the_lessons() {
             if prompt.contains("Now they want") {
                 return "no plan".into();
             }
-            let slug = prompt.split("\"slug\": \"").nth(1).and_then(|r| r.split('"').next()).unwrap_or("x").to_string();
+            let slug = after_reference(prompt).split("\"slug\": \"").nth(1).and_then(|r| r.split('"').next()).unwrap_or("x").to_string();
             serde_json::json!({
                 "id": "ignored", "slug": slug, "title": "ignored", "content": format!("## Idea of {slug}\n\nOne idea."),
                 "vocabulary": [ { "term": format!("{slug}-alpha"), "meaning": "a" } ],
@@ -1554,4 +1563,39 @@ fn the_revise_and_edit_plan_prompts_number_the_lessons() {
         assert_eq!(entries[1]["id"], "l2");
         assert_eq!(entries[1]["has"], "1 quiz questions, 1 vocabulary items, 0 listening sentences, 0 conversations, 0 Sprint sorts, 0 spots, 0 builds");
     }
+}
+
+/// A generation prompt without the format reference that now opens it (the
+/// reference holds example slugs a canned reply must not pick up).
+fn after_reference(prompt: &str) -> &str {
+    prompt.strip_prefix(prompt::reference().as_str()).unwrap_or(prompt)
+}
+
+/// Part A of #87: the format reference opens a generation request and is the
+/// cacheable block on Anthropic; the varying text follows it.
+#[test]
+fn reference_is_the_first_cacheable_block() {
+    let a = ProviderKind::Anthropic.provider("k".into());
+    let rules = SubjectKind::General.rules();
+    let first = [ChatMessage { role: "user", content: prompt::with_reference(&rules, "Write lesson one.") }];
+    let second = [ChatMessage { role: "user", content: prompt::with_reference(&rules, "Write lesson two, which is different.") }];
+    let (b1, b2) = (anthropic_body(&a, "sys", &first, 500), anthropic_body(&a, "sys", &second, 500));
+    let blocks = b1["messages"][0]["content"].as_array().unwrap();
+    assert_eq!(blocks.len(), 2);
+    assert_eq!(blocks[0]["text"], prompt::reference());
+    assert!(blocks[0]["text"].as_str().unwrap().contains(FORMAT_DOC));
+    assert_eq!(blocks[0]["cache_control"], serde_json::json!({ "type": "ephemeral" }));
+    assert!(blocks[1].get("cache_control").is_none());
+    assert_eq!(blocks[1]["text"], format!("{rules}\n\nWrite lesson one."));
+    // Two lessons of one job share every byte up to the end of the cached block.
+    let (s1, s2) = (serde_json::to_string(&b1).unwrap(), serde_json::to_string(&b2).unwrap());
+    let end = s1.find("\"cache_control\"").unwrap() + "\"cache_control\":{\"type\":\"ephemeral\"}".len();
+    assert_eq!(s1[..end], s2[..end]);
+    assert_ne!(s1, s2);
+    // A plain message stays a string.
+    let plain = [ChatMessage { role: "user", content: "hi".into() }];
+    assert_eq!(anthropic_body(&a, "sys", &plain, 500)["messages"][0]["content"], "hi");
+    // OpenAI-compatible providers get the same words as one string, reference first.
+    let o = openai_body(&ProviderKind::OpenAi.provider("k".into()), "sys", &first, 500);
+    assert_eq!(o["messages"][1]["content"], format!("{}{rules}\n\nWrite lesson one.", prompt::reference()));
 }

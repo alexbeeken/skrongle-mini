@@ -298,7 +298,12 @@ pub async fn login(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
     let ok = auth::verify_password_async(password, hash).await?;
 
     let Some(user_id) = user_id.filter(|_| ok) else {
-        let _ = state.limits.hit(security::LOGIN_FAILURES_PER_USER, &email, t);
+        // Only an address that has an account takes a slot in the per-account
+        // table; made-up addresses are already counted against the client's
+        // address by LOGIN_PER_IP, and cannot fill the table (#89).
+        if user_id.is_some() {
+            let _ = state.limits.hit(security::LOGIN_FAILURES_PER_USER, &email, t);
+        }
         return Ok(fail(&crate::t("auth.login.incorrect")));
     };
 

@@ -40,7 +40,7 @@ impl Lesson {
     /// Does the lesson hold music to draw: a ```abc block in its text, a
     /// quiz item with music (`abc`, or `play`, drawn after the answer), a chord-spell question (its staff) or a scale?
     pub fn has_notation(&self) -> bool {
-        self.html_content.contains(ABC_BLOCK) || self.sections.iter().any(|s| s.html.contains(ABC_BLOCK)) || self.quiz.iter().any(|q| q.has_music() || q.kind == QuizType::ChordSpell) || !self.sprint.scales.is_empty()
+        self.sections.iter().any(|s| s.html.contains(ABC_BLOCK)) || self.quiz.iter().any(|q| q.has_music() || q.kind == QuizType::ChordSpell) || !self.sprint.scales.is_empty()
     }
 
     /// Does the lesson have something to play (a quiz item or sort item with

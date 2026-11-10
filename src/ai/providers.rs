@@ -226,7 +226,7 @@ pub(super) fn openai_text(json: &serde_json::Value) -> Result<String, String> {
     Ok(text)
 }
 
-pub(super) fn call_openai(p: &Provider, call: &Call, system: &str, messages: &[ChatMessage], max_tokens: u32, timeout: Duration) -> Result<(String, Option<Usage>), String> {
+pub(super) fn call_openai(p: &Provider, call: &Call, system: &str, messages: &[ChatMessage], max_tokens: u32, timeout: Duration) -> Result<(String, Option<Usage>), super::AiError> {
     let body = openai_body(p, system, messages, max_tokens);
     let mut req = agent(timeout).post(&openai_url(p)).header("content-type", "application/json").header(CALL_HEADER, &call_header(call));
     // An Ollama-compatible server takes no key: no Authorization header.
@@ -238,8 +238,24 @@ pub(super) fn call_openai(p: &Provider, call: &Call, system: &str, messages: &[C
         req = req.header("x-title", crate::APP_NAME);
     }
     let json = send(req, &body, timeout)?;
-    let text = openai_text(&json)?;
+    let text = openai_text(&json).map_err(super::AiError::bad_reply)?;
     Ok((text, Some(openai_usage(&json))))
+}
+
+/// A message's `content` for the Messages API. One that opens with the course
+/// format reference goes as two text blocks, the reference first and marked
+/// cacheable (caching matches the request's prefix; the reference is the part
+/// that is the same in every request), the rest after it. Any other message
+/// is the plain string.
+pub(super) fn anthropic_content(m: &ChatMessage) -> serde_json::Value {
+    let reference = super::prompt::reference();
+    match m.content.strip_prefix(reference.as_str()) {
+        Some(rest) if m.role == "user" && !rest.is_empty() => serde_json::json!([
+            { "type": "text", "text": reference, "cache_control": { "type": "ephemeral" } },
+            { "type": "text", "text": rest },
+        ]),
+        _ => serde_json::Value::String(m.content.clone()),
+    }
 }
 
 #[cfg(test)]
