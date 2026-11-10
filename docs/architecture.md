@@ -491,7 +491,7 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_FAILED_COURSE_RETENTION_DAYS` | `30` | Delete an AI course whose generation failed (with its notes and files) once it has gone this many days without a resume or edit (at startup and hourly, `jobs::retention::apply_retention`). `0`: keep them |
 | `SKRONGLE_MIN_AGE` | `14` | The age the sign-up forms' age checkbox names (#976) |
 | `SKRONGLE_LOG` | `info` | One level: `error`, `warn`, `info`, `debug` or `trace`. Per-module filters like `skrongle=debug` are not supported; an unrecognised value logs one warning and runs at `info`. |
-| `SKRONGLE_SECURE_COOKIES` | `0` | Set `1` behind a TLS proxy to add `Secure` to cookies. Required outside mini and dev mode: the server refuses to start without it |
+| `SKRONGLE_SECURE_COOKIES` | `0` | Set `1` behind a TLS proxy to add `Secure` to cookies. Outside mini and dev mode the server warns at start if it listens on plain HTTP beyond loopback, or if the public URL is `https://` and this is off; it does not refuse to start |
 | `SKRONGLE_BASE_PATH` | *(empty)* | URL prefix when mounted behind a reverse proxy, e.g. `/spanish` |
 | `SKRONGLE_PUBLIC_URL` | — | Public URL, for the links the app hands out: the owner link, invitations, share links (unset: links use the request's host, `X-Forwarded-Host` behind a proxy) |
 | `SKRONGLE_AI_PRICES` | see `prices::DEFAULT_PRICES` | `model=in/out[/cached],…` in dollars per million tokens, added to (or replacing) the built-in table of Anthropic's list prices; `*` prices unknown models (default: the dearest rate) |
