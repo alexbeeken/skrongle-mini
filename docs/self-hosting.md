@@ -69,8 +69,7 @@ tarball per architecture, named `skrongle-<version>-<arch>.tar.gz`, where
 | `skrongle-<version>-armv7l.tar.gz` | 32-bit ARM: Raspberry Pi 2 and newer on the 32-bit OS |
 | `skrongle-<version>-armv6l.tar.gz` | Raspberry Pi 1, Zero and Zero W (ARMv6, one core, 512 MB). Sign-in is slow on these |
 
-Planned, same pattern: `armv7l` (32-bit Raspberry Pi OS) and `armv6l`
-(Raspberry Pi Zero and 1). Each comes with a `.sha256` file, named
+Each tarball comes with a `.sha256` file, named
 `skrongle-<version>-<arch>.tar.gz.sha256`. A tarball unpacks (flat, no top folder) to:
 
 | Path | What it is |
@@ -231,6 +230,9 @@ Group=skrongle
 WorkingDirectory=/opt/skrongle
 ExecStart=/opt/skrongle/skrongle
 Restart=on-failure
+# 78: the server refused the database (a newer release upgraded it, or it
+# predates the 1.0 schema; src/db.rs NEWER_DB_EXIT). Restarting cannot help.
+RestartPreventExitStatus=78
 RestartSec=3
 
 Environment=SKRONGLE_BIND=0.0.0.0:7576
@@ -301,6 +303,8 @@ Where a default says "unit", `skrongle.service` sets it.
 | `SKRONGLE_BASE_PATH` | *(empty)* | A URL prefix when a proxy serves the app under a path, e.g. `/learn`. |
 | `SKRONGLE_MIN_AGE` | `14` | The minimum age the registration checkbox states. |
 | `SKRONGLE_FAILED_COURSE_RETENTION_DAYS` | `30` | An AI course whose generation failed is deleted, with the notes it was given, after this many days without a resume or edit. `0` keeps them. |
+| `SKRONGLE_RETAIN_HISTORY_DAYS` | `730` | Answers and finished game rounds older than this many days are deleted, at start and hourly. `0` keeps them. |
+| `SKRONGLE_KEEP_NOTES` | off | `1` or `true` keeps an AI course's notes after it is ready, so a later revision sees the original material. Off, they are removed once it is ready. |
 | `SKRONGLE_COURSES_PER_USER` | `50` | Courses one account may make. "Create a course" says so when an account has them all. |
 | `SKRONGLE_COURSE_BYTES` | `8388608` (8 MB) | Total size of one course's files (the Spanish course is 3.7 MB). A save, upload or lesson-table change past it is refused and stores nothing. |
 | `SKRONGLE_COURSE_BYTES_PER_USER` | `33554432` (32 MB) | Total size of the files of all the courses one account owns. Undo copies are not counted. |
@@ -313,6 +317,11 @@ settings).
 Settings used to start `LEARN_` (and before that `SPANISH_`). They now
 start `SKRONGLE_`: `LEARN_DB` is `SKRONGLE_DB`, `LEARN_SIGNUP` is
 `SKRONGLE_SIGNUP`, and so on. The rest of the name is the same.
+
+Three settings are the exception: `SKRONGLE_SIGNUP`, `SKRONGLE_PROXY_AUTH_HEADER`
+and `SKRONGLE_PROXY_AUTH_FROM` are read under the new name only. An old
+`LEARN_` or `SPANISH_` line for one of them does nothing, though the startup
+warning still lists it.
 
 This release still reads the old names, so an upgrade keeps working. At
 startup the log has one warning listing each old name it found and its new
@@ -573,10 +582,12 @@ are in the README, "Versions".
 Database migrations run when the new server starts. A database from a
 build before the 1.0 schema is not upgraded: the server stops with one line
 naming the file ("this database predates the 1.0 schema; start from a fresh
-one"); move it aside and start with an empty database. If the release notes
-say the unit changed, copy `skrongle.service` to `/etc/systemd/system/`
-again and run `sudo systemctl daemon-reload` (the script tells you when the
-two differ).
+one"); move it aside and start with an empty database. That exit status is
+78, the same one a database a newer build upgraded gets (the message says to
+deploy that version or restore a backup). The unit does not restart on 78,
+since a restart cannot help. If the release notes say the unit changed, copy
+`skrongle.service` to `/etc/systemd/system/` again and run
+`sudo systemctl daemon-reload` (the script tells you when the two differ).
 
 The default port is now 7576, not 8080 (8080 is taken on many home servers).
 An existing install stays on 8080: `update.sh` doesn't replace the unit in
