@@ -57,8 +57,17 @@ Read `docs/` before changing anything substantial:
     ADHD friendly: short sentences, 1–3 sentences per bullet.
   - **How to QA it**: step-by-step instructions as GitHub checkboxes
     (`- [ ] …`), one action and what you should see per box, in the order
-    to do them, starting from how to run it (e.g. `./.dev-start …`), so
-    the reviewer can tick them off as they go.
+    to do them, so the reviewer can tick them off as they go. The first box
+    says how to run it and offers both ways: the dev server
+    (`./.dev-start --reset --seed --background`, then `/dev/login`) or a
+    release build (`scripts/release-qa/matrix.sh dist` to check a tarball you
+    built; `cd scripts/release-qa && docker compose up -d` to look at it,
+    then the owner link from `docker compose logs` to make the first
+    account). After that, use only what a self-hoster sees: real pages and
+    buttons, named as the screen names them, with the path in parentheses
+    when a name is ambiguous. A step must be checkable by eye or by an exact
+    check in the UI; one that can only be checked in markup or JSON says so
+    ("in the page's session JSON: …") or is left out.
 
 ## Checks before finishing
 
