@@ -2,6 +2,8 @@
 
 # Skrongle
 
+<img width="1009" height="938" alt="Screenshot 2026-11-09 at 10 05 07 PM" src="https://github.com/user-attachments/assets/db7e7b9d-d8c1-4de5-a67b-2d670609b706" />
+
 *A learning app you run yourself, on a Raspberry Pi, for the people at home.*
 
 https://github.com/user-attachments/assets/0f80e7ae-db51-4e85-b1c9-dac56d8edcd3
