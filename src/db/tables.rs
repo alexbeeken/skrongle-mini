@@ -37,7 +37,9 @@ pub(crate) const USER_TABLES: &[(&str, &str)] = &[
 /// Tables that hold no learner's rows, only the server's:
 /// `jobs` is the background job queue (jobs.rs, #872): housekeeping rows, no account.
 /// `server_api_keys` and `settings` are the server's AI API keys and settings (#25), the owner's, no account.
+/// `permission_presets` are the named permission sets accounts are given (#138, perms.rs): no account's rows.
 #[cfg_attr(not(test), allow(dead_code))]
+pub(crate) const SHARED_TABLES: &[&str] = &["jobs", "server_api_keys", "settings", "permission_presets"];
 
 #[cfg(test)]
 mod tests {

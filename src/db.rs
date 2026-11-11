@@ -80,6 +80,7 @@ pub fn check_not_newer(path: &Path) -> Result<(), String> {
 }
 
 mod migrations;
+mod tables;
 use migrations::{MIGRATIONS, REBUILDS};
 
 /// Statements kept prepared on the connection (#3); rusqlite's default is 16,

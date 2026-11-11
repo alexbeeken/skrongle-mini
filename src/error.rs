@@ -31,6 +31,13 @@ pub enum AppError {
     AiOff,
     /// The same on an API route: a 403 JSON body.
     ApiAiOff,
+    /// The account lacks the permission the route needs
+    /// (`CurrentUser::require`, `perms.rs`, #138): a 403 page that says so.
+    #[cfg_attr(not(test), allow(dead_code))] // answered from #139 on
+    NoPermission,
+    /// The same on an API route: a 403 JSON body.
+    #[cfg_attr(not(test), allow(dead_code))] // answered from #139 on
+    ApiNoPermission,
     /// Over a rate limit on a JSON API (`security::RateLimits`): a 429 with
     /// `{"error": "..."}`.
     ApiTooManyRequests(String),
@@ -50,6 +57,7 @@ impl fmt::Display for AppError {
             AppError::ApiNoCourse => f.write_str("no course chosen"),
             AppError::PasswordChangeRequired(_) | AppError::ApiPasswordChangeRequired => f.write_str("a new password is needed"),
             AppError::AiOff | AppError::ApiAiOff => f.write_str("AI features are off"),
+            AppError::NoPermission | AppError::ApiNoPermission => f.write_str("the account is not allowed to do this"),
             AppError::ApiTooManyRequests(m) => write!(f, "too many requests: {m}"),
             AppError::Db(e) => write!(f, "database error: {e}"),
             AppError::Internal(m) => write!(f, "internal error: {m}"),
@@ -110,6 +118,13 @@ impl IntoResponse for AppError {
                 StatusCode::FORBIDDEN,
                 [(axum::http::header::CONTENT_TYPE, "application/json")],
                 r#"{"error":"AI features are off on this server"}"#,
+            )
+                .into_response(),
+            AppError::NoPermission => error_page(StatusCode::FORBIDDEN, &crate::t("error.no_permission")),
+            AppError::ApiNoPermission => (
+                StatusCode::FORBIDDEN,
+                [(axum::http::header::CONTENT_TYPE, "application/json")],
+                r#"{"error":"your account is not allowed to do this"}"#,
             )
                 .into_response(),
             AppError::ApiTooManyRequests(m) => (

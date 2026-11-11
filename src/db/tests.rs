@@ -70,7 +70,7 @@ fn migrations_apply_once() {
     let db = Db::open_in_memory().unwrap();
     let v: i64 = db.with(|c| c.query_row("PRAGMA user_version", [], |r| r.get(0))).unwrap();
     assert_eq!(v, MIGRATIONS.len() as i64);
-    assert_eq!(v, 3, "v1 is the schema (#49), v2 drops Skrongle Cash, v3 names share links");
+    assert_eq!(v, 4, "v1 is the schema (#49), v2 drops Skrongle Cash, v3 names share links, v4 adds permissions (#138)");
     // Re-running is a no-op.
     db.with(|c| migrate(c)).unwrap();
 }
@@ -164,6 +164,44 @@ fn v2_drops_the_shop_and_turns_skc_into_xp() {
         let mut got: Vec<(String, String)> = c.prepare("SELECT course_id, motivator FROM projects ORDER BY course_id")?.query_map([], |r| Ok((r.get(0)?, r.get(1)?)))?.collect::<Result<_, _>>()?;
         got.sort();
         assert_eq!(got, [("de", "stats"), ("es", "xp"), ("fr", "xp")].map(|(a, b)| (a.to_string(), b.to_string())));
+        Ok(())
+    })
+    .unwrap();
+    drop(db);
+    std::fs::remove_dir_all(&dir).unwrap();
+}
+
+/// v4 (#138): the accounts of a database still on v3 get the Teacher set,
+/// which is what they could do before, and the two built-in presets exist.
+#[test]
+fn v4_gives_every_account_the_teacher_permissions() {
+    let dir = std::env::temp_dir().join(format!("skrongle-v3-db-{}", std::process::id()));
+    std::fs::create_dir_all(&dir).unwrap();
+    let path = dir.join("learn.db");
+    {
+        let conn = Connection::open(&path).unwrap();
+        for sql in &MIGRATIONS[..3] {
+            conn.execute_batch(sql).unwrap();
+        }
+        conn.execute_batch(
+            "PRAGMA user_version = 3;
+             INSERT INTO users (id, email, password_hash, created_at) VALUES (1, 'ann@example.org', 'h', 1);
+             INSERT INTO users (id, email, password_hash, created_at, owner) VALUES (2, 'bea@example.org', 'h', 1, 1);",
+        )
+        .unwrap();
+    }
+    let db = Db::open(&path).unwrap();
+    db.with(|c| {
+        let v: i64 = c.query_row("PRAGMA user_version", [], |r| r.get(0))?;
+        assert_eq!(v, MIGRATIONS.len() as i64);
+        let users: Vec<(i64, i64, Option<i64>)> =
+            c.prepare("SELECT id, perms, preset_id FROM users ORDER BY id")?.query_map([], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?)))?.collect::<Result<_, _>>()?;
+        assert_eq!(users, [(1, 63, Some(2)), (2, 63, Some(2))]);
+        let presets: Vec<(i64, String, bool, i64)> = c
+            .prepare("SELECT id, name, builtin, perms FROM permission_presets ORDER BY id")?
+            .query_map([], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?, r.get(3)?)))?
+            .collect::<Result<_, _>>()?;
+        assert_eq!(presets, [(1, "student".to_string(), true, 0), (2, "teacher".to_string(), true, 63)]);
         Ok(())
     })
     .unwrap();

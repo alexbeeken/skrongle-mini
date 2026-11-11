@@ -36,6 +36,27 @@ error:
   lessons: Lessons
   courses: All courses
   ai_off: "The AI features are turned off on this server."
+  no_permission: "Your account is not allowed to do this. Ask the person who runs this server."
+
+perms:
+  create_courses: "Create courses"
+  create_courses_about: "Make a new course of one's own: Create a course, Copy, Copy and translate."
+  ai_courses: "Use AI in courses"
+  ai_courses_about: "Generate a course, Use AI, Add content, Edit with AI, Copy and translate."
+  ai_tutor: "Use the AI tutor"
+  ai_tutor_about: "Use the AI tutor."
+  share_courses: "Share courses"
+  share_courses_about: "Make invitation links for one's own course."
+  skip_levels: "Skip levels"
+  skip_levels_about: "Choose a starting level, change level, take the placement test."
+  privacy: "Privacy"
+  privacy_about: "The account's study progress and last sign-in are not shown on Manage Users."
+  superuser: "Superuser"
+  superuser_about: "See the accounts on Manage Users, set permissions and presets, see learners' progress."
+  student: "Student"
+  teacher: "Teacher"
+  custom: "Custom"
+  owner: "Owner"
 
 common:
   pager:

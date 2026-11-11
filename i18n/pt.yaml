@@ -34,6 +34,27 @@ error:
   lessons: Lições
   courses: Todos os cursos
   ai_off: "As funções de IA estão desligadas neste servidor."
+  no_permission: "Sua conta não tem permissão para fazer isto. Fale com quem administra este servidor."
+
+perms:
+  create_courses: "Criar cursos"
+  create_courses_about: "Criar um curso novo próprio: Criar um curso, Copiar, Copiar e traduzir."
+  ai_courses: "Usar IA nos cursos"
+  ai_courses_about: "Gerar um curso, Usar IA, Adicionar conteúdo, Editar com IA, Copiar e traduzir."
+  ai_tutor: "Usar o tutor de IA"
+  ai_tutor_about: "Usar o tutor de IA."
+  share_courses: "Compartilhar cursos"
+  share_courses_about: "Criar links de convite para um curso próprio."
+  skip_levels: "Pular níveis"
+  skip_levels_about: "Escolher um nível inicial, mudar de nível, fazer o teste de nivelamento."
+  privacy: "Privacidade"
+  privacy_about: "O progresso de estudo e o último acesso da conta não aparecem em Gerenciar usuários."
+  superuser: "Superusuário"
+  superuser_about: "Ver as contas em Gerenciar usuários, definir permissões e perfis, ver o progresso dos alunos."
+  student: "Aluno"
+  teacher: "Professor"
+  custom: "Personalizado"
+  owner: "Proprietário"
 
 common:
   pager:

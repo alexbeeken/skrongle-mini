@@ -4,6 +4,14 @@ What changed in each release, for the person running the server. Newest
 first. Each release's GitHub notes are its section here. How version
 numbers work is in the README, "Versions".
 
+## Unreleased
+
+- Groundwork for per-account permissions: every account now has a stored
+  set of permissions (Student and Teacher are the built-in presets). Every
+  existing and new account gets the Teacher set, which is everything an
+  account could do before, so nothing changes on screen yet. The database
+  moves to schema v4 on the first start.
+
 ## 0.2.1 (2026-11-09)
 
 A sign-in fix and a lighter server. Nothing to change on your side.
