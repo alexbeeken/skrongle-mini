@@ -268,11 +268,12 @@ the data. `--purge` removes the data too, permanently. Running it again is safe.
 | Service (stopped, disabled), `/etc/systemd/system/skrongle.service` and `skrongle.service.d` | removed | removed |
 | `/opt/skrongle` (binary, courses, scripts) | removed | removed |
 | `skrongle` system user and group, if a static one exists | removed | removed |
-| `/var/lib/skrongle`, `/var/lib/private/skrongle`: database, `learn.db.key`, `learn.db.before-*` | kept | removed |
+| `/var/lib/skrongle`, `/var/lib/private/skrongle`, and on DietPi `/mnt/dietpi_userdata/skrongle`: database, `learn.db.key`, `learn.db.before-*` | kept | removed |
 | `/etc/skrongle` (the env file may hold `SKRONGLE_SECRET_KEY`) | kept | removed |
 
 The script handles only these paths. A package that puts the data folder
-elsewhere (on DietPi, under `/mnt/dietpi_userdata/skrongle`) must remove or keep
-that folder in its own remove step. The script prints a note when `SKRONGLE_DB`
-in `/etc/skrongle/env` points outside `/var/lib/skrongle`. It does not remove
+anywhere else must remove or keep that folder in its own remove step. The
+script prints a note when `SKRONGLE_DB`, in the unit or in `/etc/skrongle/env`,
+points outside them, and with `--purge` it then ends by saying that the
+database is not removed. It does not remove
 packages you installed, or a proxy or Tailscale you set up.

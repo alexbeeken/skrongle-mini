@@ -2,7 +2,8 @@
 # release (#31): after each release is published, and once a week against
 # the latest one. In a stock Debian container per architecture (arm64
 # under QEMU) it installs, starts the binary by hand (no systemd in a
-# container), checks /healthz and `owner-link`, and runs the script again.
+# container), checks /healthz and `owner-link`, runs the script again, and
+# uninstalls without and with --purge.
 # A failure opens an issue (one per version and architecture while it is
 # open). scripts/dietpi-install-check.sh holds the steps; docs/testing.md,
 # "Release QA", says what this does and does not cover.

@@ -18,6 +18,15 @@ numbers work is in the README, "Versions".
   AI keys, temporary passwords, two-factor off and Make owner stay the
   owner's. The permissions are stored and shown; they do not limit anything
   else yet.
+- `uninstall.sh --purge` left the data behind on a DietPi install: it said
+  "removed, and its data with it" while `/mnt/dietpi_userdata/skrongle` (the
+  database and its key) stayed, so installing again brought the old accounts
+  back. It now removes that folder too. When the settings put the database
+  in a folder the script does not know, it says at the end that the database
+  is not removed, instead of saying the data is gone.
+- A plain `uninstall.sh` ended by telling you to run `uninstall.sh --purge`
+  to delete the data, a script it had just removed with `/opt/skrongle`. It
+  now ends with the `rm -rf` line for the folders it kept.
 
 ## 0.2.1 (2026-11-09)
 
