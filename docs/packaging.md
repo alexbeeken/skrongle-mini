@@ -96,7 +96,7 @@ keep memory flat, and limits the service to 64 MB (`MemoryMax`), 32 tasks and
 256 open files. Keep them on a small board.
 
 To see the settings the service really ends up with, run
-`sudo -u skrongle /opt/skrongle/skrongle doctor --service`. It prints
+`sudo /opt/skrongle/skrongle doctor --service`. It prints
 diagnostics with no secrets and exits 0.
 
 ## Port
@@ -150,7 +150,7 @@ curl -fsS http://127.0.0.1:7576/healthz
    back. Print a new one (the earlier one stops working), while no account exists:
 
    ```sh
-   sudo -u skrongle /opt/skrongle/skrongle owner-link --service
+   sudo /opt/skrongle/skrongle owner-link --service
    ```
 
    `--service` reads the installed unit and its env file; `--env-file FILE`

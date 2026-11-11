@@ -4,6 +4,16 @@ What changed in each release, for the person running the server. Newest
 first. Each release's GitHub notes are its section here. How version
 numbers work is in the README, "Versions".
 
+## Unreleased
+
+- `dietpi-install.sh` ends with the owner link again, in a short block of its
+  own. On a fresh DietPi it used to end with "is up: open http://..." and no
+  link, because the command that makes the link could not read the service's
+  settings there. The link now has the machine's IP address, not
+  `<hostname>.local`, which a fresh DietPi does not answer to; with
+  `SKRONGLE_PUBLIC_URL` set it starts with that. If the link cannot be made,
+  the script says why.
+
 ## 0.2.1 (2026-11-09)
 
 A sign-in fix and a lighter server. Nothing to change on your side.

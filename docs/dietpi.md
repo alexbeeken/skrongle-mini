@@ -71,14 +71,30 @@ The web interface is accessible via TCP port **7576**:
 ### First run setup
 
 Skrongle sends no e-mail, so it cannot send a sign-up link. The first account
-is the owner's, and you make it with a one-time owner link:
+is the owner's, and you make it with a one-time owner link. The install ends
+by printing it:
+
+```
+Skrongle 0.2.1 is installed and running.
+
+  Make your account (the owner's) by opening this link:
+
+  http://<your.IP>:7576/register?invite=<token>
+
+  It works once. For a new one: sudo /opt/skrongle/skrongle owner-link --service
+```
+
+Open the link in a browser on another computer. Until you do, `/register`
+only says that the server has no owner yet. If the link is lost, print a new
+one (the earlier one stops working):
 
 ```sh
 sudo /opt/skrongle/skrongle owner-link --service
 ```
 
-Open the link it prints in a browser. Until you do, `/register` only says
-that the server has no owner yet. After that the owner invites each person
+That link names the machine as `<hostname>.local` unless `SKRONGLE_PUBLIC_URL`
+is set in `/etc/skrongle/env`. If that name does not open, put the IP address
+in its place. After the owner's account exists, the owner invites each person
 from the *Manage Users* page, one link per person, and `/register` stays
 closed to everyone else.
 

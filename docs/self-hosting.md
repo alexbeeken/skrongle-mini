@@ -141,8 +141,9 @@ To try it without systemd, run it from its folder:
 `dietpi-software` does it: it downloads the latest release for this machine
 and checks its checksum, unpacks it to `/opt/skrongle`, creates the
 `skrongle` user, keeps the data in `/mnt/dietpi_userdata/skrongle`, writes
-the [static-user unit](#a-static-user-data-outside-varlib) and starts it,
-then prints the owner link. Run it again to update (it copies the database
+the [static-user unit](#a-static-user-data-outside-varlib) and starts it.
+Its last lines are the owner link, with the machine's IP address unless
+`SKRONGLE_PUBLIC_URL` is set. Run it again to update (it copies the database
 aside first and keeps your env file and unit); `--uninstall` and
 `--uninstall --purge` remove it. The steps are listed at the top of the file.
 
@@ -269,9 +270,11 @@ SystemCallArchitectures=native
 Keep `[Unit]` and `[Install]` as in `deploy/skrongle.service`. If the folder
 is on a mount that comes up late, add `RequiresMountsFor=/mnt/dietpi_userdata/skrongle`
 under `[Unit]`. `skrongle doctor --service` reads this unit and reports the
-database and data paths; run it as the service's user
-(`sudo -u skrongle /opt/skrongle/skrongle doctor --service`) and its
-"runs as" and "db writable" lines are the service's too. CI starts the binary as
+database and data paths (`sudo /opt/skrongle/skrongle doctor --service`).
+Its "runs as" and "db writable" lines are about whoever runs the command, so
+with `sudo` they are root's. `sudo -u skrongle` makes them the service's, but
+only on a system with D-Bus: a fresh DietPi has none, and there `systemctl`
+answers root alone, so `--service` fails for any other user. CI starts the binary as
 a non-root user with the database in a temp folder and checks `/healthz`,
 the owner link and the key file's mode (`scripts/non-root-start.sh`).
 
