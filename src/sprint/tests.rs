@@ -357,7 +357,7 @@ fn gap_tiles_never_give_the_answer_away() {
     // more than accents, or there is none and the answer is typed.
     let mut typed = 0;
     let mut banks = 0;
-    for dir in ["data/courses/spanish", "data/courses/french", "data/test-courses/test-course"] {
+    for dir in ["data/courses/spanish", "data/courses/french", "data/courses/how-to-use-skrongle", "data/test-courses/test-course"] {
         let c = ContentStore::load_dir(Path::new(dir)).expect("course loads");
         for l in c.lessons() {
             for q in l.quiz.iter().filter(|q| q.kind == QuizType::FillInBlank) {

@@ -27,7 +27,7 @@ request, and the entry for the DietPi documentation, which starts at
 
 | | |
 |---|---|
-| What it is | A learning web app for a household or a class: lessons, quizzes, short practice sessions, games and flashcards. Spanish and French courses are included, and people can write or upload their own |
+| What it is | A learning web app for a household or a class: lessons, quizzes, short practice sessions, games and flashcards. Spanish, French and a tutorial course for the app are included, and people can write or upload their own |
 | Install | One release tarball per architecture, checked against the SHA-256 published beside it and unpacked to `/opt/skrongle`. [`deploy/dietpi-install.sh`](https://github.com/alexbeeken/skrongle-mini/blob/main/deploy/dietpi-install.sh) is the whole install, in twelve commented steps. Running it again updates |
 | Dependencies | `curl`, for the download. It needs no web server, database server or language runtime; SQLite is compiled in |
 | Architectures | ARMv6, ARMv7, ARMv8 and x86_64. There is no RISC-V build. On ARMv6 boards (Raspberry Pi 1, Zero, Zero W) sign-in is slow |
@@ -54,8 +54,8 @@ sudo sh dietpi-install.sh
 
 A learning app for a household or a class, with a web interface. It teaches
 from courses written as JSON files: lessons, adaptive quizzes, five-minute
-practice sessions, games and flashcards. Spanish and
-French courses are included. It is one program and one SQLite file, so no web
+practice sessions, games and flashcards. Spanish,
+French and a tutorial course for the app are included. It is one program and one SQLite file, so no web
 server or database server is required.
 
 It holds up to 50 accounts, each signed in on up to 4 devices.

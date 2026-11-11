@@ -1,0 +1,141 @@
+{
+  "id": "use-guide",
+  "slug": "the-guide",
+  "title": "The Guide",
+  "unit": "learn",
+  "group": "Using",
+  "order": 50,
+  "summary": "A lesson as a stage of small steps, with stars.",
+  "focus": "Stages, steps and stars in the Guide",
+  "content": "## One stage at a time\n\nThe **Guide** plays a lesson as a stage. A stage is a row of small steps. It suits a short attention span.\n\nThe steps are concept cards, quick checks, flashcards and tips. You take them in order.\n\n## Stars\n\nWhen you finish a stage, you earn stars.\n\n- 3 stars for 90 percent or more right.\n- 2 stars for 70 percent or more.\n- 1 star for anything lower.\n\n## Opening the next stage\n\nA stage counts as complete once its lesson is passed in any mode. The next stage then opens.\n\nStages you cannot reach yet are folded into one *locked stages* row. Press it to see them.\n\nFinishing a stage marks the lesson as read. Its quick checks count as a round of answers.",
+  "vocabulary": [
+    {
+      "term": "stage",
+      "meaning": "one lesson inside the Guide"
+    },
+    {
+      "term": "quick check",
+      "meaning": "a quiz question inside a stage"
+    },
+    {
+      "term": "stars",
+      "meaning": "the reward for finishing a stage, from one to three"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "use-guide-01",
+      "prompt": "In the Guide, one lesson is called a ___.",
+      "type": "fill-in-blank",
+      "correct_answer": "stage",
+      "explanation": "The Guide plays each lesson as a stage.",
+      "hints": [
+        "It is a word from the theatre."
+      ],
+      "accepted_answers": [
+        "stages"
+      ],
+      "teaches": [
+        "stage"
+      ]
+    },
+    {
+      "question_id": "use-guide-02",
+      "prompt": "How many stars do you earn with 75 percent right?",
+      "type": "multiple-choice",
+      "options": [
+        "2",
+        "1",
+        "3",
+        "0"
+      ],
+      "correct_answer": "2",
+      "explanation": "Two stars start at 70 percent. Three need 90 percent.",
+      "hints": [
+        "Seventy to eighty-nine is the middle band."
+      ]
+    },
+    {
+      "question_id": "use-guide-03",
+      "prompt": "A lesson you passed in Sprint mode shows as complete in the Guide.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "A pass counts in every mode, so the stage is complete and the next one opens.",
+      "hints": [
+        "Progress is shared across modes."
+      ]
+    },
+    {
+      "question_id": "use-guide-04",
+      "prompt": "What are the steps in a stage?",
+      "type": "multiple-choice",
+      "options": [
+        "Cards, quick checks, flashcards and tips",
+        "Only long videos",
+        "Only games",
+        "Only reading"
+      ],
+      "correct_answer": "Cards, quick checks, flashcards and tips",
+      "explanation": "A stage mixes small steps so no single part is long.",
+      "hints": [
+        "The Guide keeps each step small."
+      ]
+    },
+    {
+      "question_id": "use-guide-05",
+      "prompt": "What happens to stages you cannot reach yet?",
+      "type": "multiple-choice",
+      "options": [
+        "They are folded into a locked stages row",
+        "They are deleted",
+        "They open at once",
+        "They turn into games"
+      ],
+      "correct_answer": "They are folded into a locked stages row",
+      "explanation": "A single row keeps the list short. Press it to see them.",
+      "hints": [
+        "They are tidied away, not removed."
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🧭",
+    "sorts": [
+      {
+        "title": "How many stars?",
+        "buckets": [
+          "1 star",
+          "2 stars",
+          "3 stars"
+        ],
+        "items": [
+          {
+            "text": "95 percent right",
+            "bucket": 2
+          },
+          {
+            "text": "90 percent right",
+            "bucket": 2
+          },
+          {
+            "text": "75 percent right",
+            "bucket": 1
+          },
+          {
+            "text": "70 percent right",
+            "bucket": 1
+          },
+          {
+            "text": "50 percent right",
+            "bucket": 0
+          },
+          {
+            "text": "60 percent right",
+            "bucket": 0
+          }
+        ],
+        "why": "Three stars start at 90 percent and two at 70 percent. Anything lower earns one."
+      }
+    ]
+  }
+}

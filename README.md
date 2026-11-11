@@ -10,7 +10,8 @@ https://github.com/user-attachments/assets/0f80e7ae-db51-4e85-b1c9-dac56d8edcd3
 
 Skrongle is one small binary that teaches from courses made of JSON files:
 lessons, adaptive quizzes, five-minute practice sessions, games, flashcards
-and an AI tutor. Spanish and French courses ship with it; any subject that
+and an AI tutor. Spanish and French courses ship with it, and so does
+*How to Use Skrongle*, a tutorial for the app itself; any subject that
 fits *units → lesson groups → lessons* can be a course, written by hand,
 uploaded from files, or described to an AI that writes it for you.
 
@@ -110,7 +111,8 @@ short files.
 
 **Ready-made.** `data/courses/<id>/` is loaded at start-up; the folder name
 must equal the manifest `id`. Spanish (101 lessons, CEFR A1 to C2) and French
-(75 lessons) ship with the app. Drop another folder next to them and restart.
+(75 lessons) ship with the app, with *How to Use Skrongle* (19 lessons, the
+app's own tutorial, in English). Drop another folder next to them and restart.
 
 **Build your own.** *Courses → Build a course* creates a starter course in
 the database. Edit the files in the browser or upload JSON files (or a whole

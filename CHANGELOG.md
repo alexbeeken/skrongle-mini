@@ -52,6 +52,10 @@ minor one, not a patch.
   learners at once, please open an issue with what `skrongle doctor` prints.
 - Study mode: after you pass a lesson's two-question check, **Next lesson**
   sits beside *Recommended practice* and *Back to the lessons*.
+- A new ready-made course, *How to Use Skrongle*: 19 short lessons on the
+  app itself (the ways to study, making and sharing courses, AI keys and
+  the AI features, your profile, two-factor sign-in and the owner's page).
+  It is in English.
 
 ## 0.2.1 (2026-11-09)
 

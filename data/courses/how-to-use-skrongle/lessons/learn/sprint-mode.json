@@ -1,0 +1,139 @@
+{
+  "id": "use-sprint",
+  "slug": "sprint-mode",
+  "title": "Sprint mode",
+  "unit": "learn",
+  "group": "Using",
+  "order": 40,
+  "summary": "Five-minute sessions for a phone.",
+  "focus": "Sessions, the review mix and the lightning round",
+  "content": "## A short session\n\n**Sprint mode** is made for a phone and a spare few minutes. A session takes about five minutes.\n\nA session starts with a short bite of the lesson. Then come small games and quiz questions.\n\n## The path\n\nThe Sprint page shows a path of lessons, grouped by unit. Press **Start a session** to play the next stop. Finishing a lesson well passes the stop and opens the next one.\n\nA session that ends under 70 percent leaves the stop open. You can play it again.\n\n## Other ways to play\n\n- **Review mix** draws questions from lessons you have read, weak spots first.\n- **Lightning** is 60 seconds of one-tap questions.\n- **Sort it** is one of the games. You tap each item into the right bucket. A wrong bucket flashes red and the item stays on top.\n\nThe page also has the daily goal ring and your day streak.",
+  "vocabulary": [
+    {
+      "term": "session",
+      "meaning": "one run of Sprint mode, about five minutes"
+    },
+    {
+      "term": "bite",
+      "meaning": "a short piece of a lesson that starts a session"
+    },
+    {
+      "term": "Review mix",
+      "meaning": "questions from lessons you have read, weak spots first"
+    },
+    {
+      "term": "Lightning",
+      "meaning": "a round of one-tap questions against the clock"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "use-sprint-01",
+      "prompt": "About how long does a Sprint mode session take?",
+      "type": "multiple-choice",
+      "options": [
+        "Five minutes",
+        "One hour",
+        "Thirty seconds",
+        "A whole evening"
+      ],
+      "correct_answer": "Five minutes",
+      "explanation": "Sprint mode is built for short sessions of about five minutes.",
+      "hints": [
+        "It is made for a spare moment."
+      ]
+    },
+    {
+      "question_id": "use-sprint-02",
+      "prompt": "How many seconds does a Lightning round last?",
+      "type": "numeric",
+      "correct_answer": "60",
+      "explanation": "Lightning is 60 seconds of one-tap questions.",
+      "hints": [
+        "It is one minute."
+      ]
+    },
+    {
+      "question_id": "use-sprint-03",
+      "prompt": "What does the Review mix ask about first?",
+      "type": "multiple-choice",
+      "options": [
+        "Your weak spots",
+        "Lessons you have not read",
+        "Your best lesson",
+        "Only a game"
+      ],
+      "correct_answer": "Your weak spots",
+      "explanation": "The review mix draws from lessons you have read, weak spots first.",
+      "hints": [
+        "Weak spots need the most practice."
+      ]
+    },
+    {
+      "question_id": "use-sprint-04",
+      "prompt": "A Sprint session that ends under 70 percent leaves the stop open.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "You need 70 percent or more to pass. Otherwise you can play the stop again.",
+      "hints": [
+        "The pass mark is 70 percent."
+      ]
+    },
+    {
+      "question_id": "use-sprint-05",
+      "prompt": "In the game Sort it, what happens when you tap a wrong bucket?",
+      "type": "multiple-choice",
+      "options": [
+        "It flashes red and the item stays",
+        "The game ends",
+        "The item is deleted",
+        "Nothing"
+      ],
+      "correct_answer": "It flashes red and the item stays",
+      "explanation": "A wrong bucket flashes red and the item stays on top of the pile. It counts as a wrong tap.",
+      "hints": [
+        "You get a second try with the same item."
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "⚡",
+    "sorts": [
+      {
+        "title": "Which part of Sprint mode?",
+        "buckets": [
+          "Lesson session",
+          "Review mix",
+          "Lightning"
+        ],
+        "items": [
+          {
+            "text": "Starts with a bite of the lesson",
+            "bucket": 0
+          },
+          {
+            "text": "Weak spots come first",
+            "bucket": 1
+          },
+          {
+            "text": "Sixty seconds of one-tap questions",
+            "bucket": 2
+          },
+          {
+            "text": "Plays the next stop on the path",
+            "bucket": 0
+          },
+          {
+            "text": "Draws from lessons you have read",
+            "bucket": 1
+          },
+          {
+            "text": "Races the clock",
+            "bucket": 2
+          }
+        ],
+        "why": "A session follows the path. The review mix revisits. Lightning is a timed burst."
+      }
+    ]
+  }
+}

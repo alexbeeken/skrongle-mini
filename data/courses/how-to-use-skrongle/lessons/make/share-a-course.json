@@ -1,0 +1,124 @@
+{
+  "id": "make-share",
+  "slug": "share-a-course",
+  "title": "Share a course",
+  "unit": "make",
+  "group": "Making",
+  "order": 30,
+  "summary": "Give someone your course with an invitation link.",
+  "focus": "Invitation links, read-only sharing and removing a link",
+  "content": "## Make a link\n\nYour courses are private. To share one, open it and press **Share**. Give the link a name if you like, so you remember who it is for. Press **Make an invitation link**.\n\nThe link shows once. Copy it and send it yourself. Skrongle sends nothing. A course can have up to 50 links.\n\n## Who gets it\n\nThe first account that opens the link keeps the course. Anyone else who opens the same link is turned away. Make one link for each person.\n\nSomeone without an account is sent to the login page first. After they sign in or register, the link continues.\n\n## What they can do\n\nThey learn from your course with their own progress. They cannot change it. Your later edits reach them at once, because it is the same course.\n\n## Take it back\n\nThe Share dialog lists each link as *not opened yet* or *opened by* a name. **Remove** takes the link away. The course leaves that person's list too.\n\nTo get a private copy of a course to change, use the copy icon in the course's settings.",
+  "vocabulary": [
+    {
+      "term": "Share",
+      "meaning": "the button on a course page that makes invitation links"
+    },
+    {
+      "term": "invitation link",
+      "meaning": "a web address that gives one account your course"
+    },
+    {
+      "term": "read only",
+      "meaning": "you can learn from it but not change it"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "make-share-01",
+      "prompt": "How many invitation links can one course have, at most?",
+      "type": "numeric",
+      "correct_answer": "50",
+      "explanation": "A course can have up to 50 links.",
+      "hints": [
+        "It is a round number above forty."
+      ]
+    },
+    {
+      "question_id": "make-share-02",
+      "prompt": "Two people open the same invitation link. Who keeps the course?",
+      "type": "multiple-choice",
+      "options": [
+        "The first one",
+        "Both",
+        "The second one",
+        "Neither"
+      ],
+      "correct_answer": "The first one",
+      "explanation": "The first account to open the link keeps the course. Others are turned away.",
+      "hints": [
+        "A link is for one person."
+      ]
+    },
+    {
+      "question_id": "make-share-03",
+      "prompt": "Skrongle sends the invitation link to the person for you.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "You copy the link and pass it on yourself. Nothing is sent from the app.",
+      "hints": [
+        "You decide how to send it."
+      ]
+    },
+    {
+      "question_id": "make-share-04",
+      "prompt": "A person you shared a course with can edit its lessons.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "A shared course is read only for them. Only you can change it.",
+      "hints": [
+        "They learn from it."
+      ]
+    },
+    {
+      "question_id": "make-share-05",
+      "prompt": "What does Remove do on a link?",
+      "type": "multiple-choice",
+      "options": [
+        "Takes the course off that person's list",
+        "Deletes your course",
+        "Makes a new link",
+        "Hides the AI"
+      ],
+      "correct_answer": "Takes the course off that person's list",
+      "explanation": "Removing a link takes the link away, and the course leaves the list of the person who opened it.",
+      "hints": [
+        "It undoes the sharing."
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🔗",
+    "sorts": [
+      {
+        "title": "Who can do it?",
+        "buckets": [
+          "Only the course's owner",
+          "Owner and people with a link"
+        ],
+        "items": [
+          {
+            "text": "Change the lessons",
+            "bucket": 0
+          },
+          {
+            "text": "Make or remove invitation links",
+            "bucket": 0
+          },
+          {
+            "text": "Learn with their own progress",
+            "bucket": 1
+          },
+          {
+            "text": "Use Sprint mode and Study mode on the course",
+            "bucket": 1
+          },
+          {
+            "text": "See who opened a link",
+            "bucket": 0
+          }
+        ],
+        "why": "The owner controls the course and the links. Everyone learns from it."
+      }
+    ]
+  }
+}

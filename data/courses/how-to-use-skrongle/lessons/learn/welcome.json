@@ -1,0 +1,145 @@
+{
+  "id": "use-welcome",
+  "slug": "welcome",
+  "title": "Welcome to Skrongle",
+  "unit": "learn",
+  "group": "Using",
+  "order": 10,
+  "summary": "What Skrongle is, the five ways to learn and who can do what.",
+  "focus": "The shape of the app and who can do what",
+  "content": "## What Skrongle is\n\nSkrongle teaches from courses. A course is a set of lessons. You open a course, pick a way to learn and go.\n\nEvery way to learn uses the same lessons. What you do in one way counts in the others.\n\n## Five ways to learn\n\n- **Sprint mode**: short sessions for a phone, about five minutes.\n- **Study mode**: read each lesson and test yourself.\n- **Play mode**: games and flashcards.\n- **Guide**: one lesson at a time, in small steps.\n- **AI tutoring**: a chat with a tutor. It needs an AI key, which the owner adds (see the AI unit).\n\nCourses, Sprint mode, Study mode, Play mode and the Guide all work without any AI key.\n\n## Who can do what\n\nEvery account can learn, make its own courses and share them.\n\nOne account is the **owner**. This is the person who runs the box Skrongle lives on. The word *Owner* shows under the owner's name on the profile page. Only the owner adds AI keys, hides the AI features and manages the other accounts.\n\nA Skrongle mini holds at most 8 accounts.",
+  "vocabulary": [
+    {
+      "term": "course",
+      "meaning": "a set of lessons on one subject"
+    },
+    {
+      "term": "lesson",
+      "meaning": "one short piece of a course, with text and questions"
+    },
+    {
+      "term": "mode",
+      "meaning": "one of the ways to learn from the same lessons"
+    },
+    {
+      "term": "owner",
+      "meaning": "the account that runs the box and manages the others"
+    },
+    {
+      "term": "account",
+      "meaning": "one person's sign-in, with its own progress"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "use-welcome-01",
+      "prompt": "What is a course in Skrongle?",
+      "type": "multiple-choice",
+      "options": [
+        "A set of lessons",
+        "A single quiz question",
+        "A kind of game",
+        "A setting on your profile"
+      ],
+      "correct_answer": "A set of lessons",
+      "explanation": "A course is a set of lessons. Each lesson has text, words and questions.",
+      "hints": [
+        "Think about what you open from the course list."
+      ],
+      "teaches": [
+        "course"
+      ]
+    },
+    {
+      "question_id": "use-welcome-02",
+      "prompt": "Something you pass in Sprint mode also counts when you open Study mode.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "All the ways to learn share the same lessons and the same progress.",
+      "hints": [
+        "Every way to learn uses the same lessons."
+      ]
+    },
+    {
+      "question_id": "use-welcome-03",
+      "prompt": "Which way to learn needs an AI key?",
+      "type": "multiple-choice",
+      "options": [
+        "AI tutoring",
+        "Study mode",
+        "Sprint mode",
+        "The Guide"
+      ],
+      "correct_answer": "AI tutoring",
+      "explanation": "The tutor is a chat with an AI, so it needs a key. The other ways to learn work without one.",
+      "hints": [
+        "Only one way to learn talks to an AI provider."
+      ]
+    },
+    {
+      "question_id": "use-welcome-04",
+      "prompt": "Who adds AI keys to the box?",
+      "type": "multiple-choice",
+      "options": [
+        "The owner",
+        "Any account",
+        "The person who made the course",
+        "Nobody, the app finds them"
+      ],
+      "correct_answer": "The owner",
+      "explanation": "Only the owner adds AI keys. They serve every account.",
+      "hints": [
+        "One account has more power than the rest."
+      ]
+    },
+    {
+      "question_id": "use-welcome-05",
+      "prompt": "At most how many accounts can a Skrongle mini hold?",
+      "type": "numeric",
+      "correct_answer": "8",
+      "explanation": "A Skrongle mini holds at most 8 accounts.",
+      "hints": [
+        "It is a small number, less than ten."
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "👋",
+    "sorts": [
+      {
+        "title": "Who can do it?",
+        "buckets": [
+          "Any account",
+          "Only the owner"
+        ],
+        "items": [
+          {
+            "text": "Read a lesson",
+            "bucket": 0
+          },
+          {
+            "text": "Make your own course",
+            "bucket": 0
+          },
+          {
+            "text": "Share a course you made",
+            "bucket": 0
+          },
+          {
+            "text": "Add an AI key",
+            "bucket": 1
+          },
+          {
+            "text": "Hide the AI features for everyone",
+            "bucket": 1
+          },
+          {
+            "text": "Change your own password",
+            "bucket": 0
+          }
+        ],
+        "why": "Learning, making and sharing are for everyone. Keys and the AI switch belong to the owner."
+      }
+    ]
+  }
+}

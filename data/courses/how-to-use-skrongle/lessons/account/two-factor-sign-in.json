@@ -1,0 +1,120 @@
+{
+  "id": "acct-two-factor",
+  "slug": "two-factor-sign-in",
+  "title": "Two-factor sign-in",
+  "unit": "account",
+  "group": "Account",
+  "order": 20,
+  "summary": "Add a code from a phone app to your sign-in.",
+  "focus": "Turning on two-factor sign-in with an authenticator app",
+  "content": "## What it is\n\nWith two-factor sign-in, a password is not enough. After the password, the app also asks for a code from an authenticator app on your phone. Google Authenticator, Authy and 1Password are examples.\n\n## Turn it on\n\n1. Open Profile settings and find **Two-factor authentication**.\n2. Choose **Authenticator app**.\n3. Scan the QR code with the authenticator app. If you cannot scan, type the setup key.\n4. Type the first code the app shows and press **Turn on**.\n\n## Signing in\n\nSign in with your password. The next page asks for the 6-digit code. The code changes every 30 seconds. Five wrong codes end the sign-in. The app asks every time. It does not remember a device.\n\n## Turn it off\n\nChoose **Off** or **Remove**. The app asks for your password to be sure it is you.\n\nIf you lose your phone, ask the owner. They can turn two-factor off for your account on **Manage Users**. There are no recovery codes.",
+  "vocabulary": [
+    {
+      "term": "two-factor sign-in",
+      "meaning": "a second step after the password, with a code from an app"
+    },
+    {
+      "term": "authenticator app",
+      "meaning": "a phone app that shows a new code every 30 seconds"
+    },
+    {
+      "term": "QR code",
+      "meaning": "a square picture a phone camera can read"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "acct-two-factor-01",
+      "prompt": "How many digits does the code have?",
+      "type": "numeric",
+      "correct_answer": "6",
+      "explanation": "The code has 6 digits.",
+      "hints": [
+        "It is a number between five and seven."
+      ]
+    },
+    {
+      "question_id": "acct-two-factor-02",
+      "prompt": "How many seconds does a code last before a new one shows?",
+      "type": "numeric",
+      "correct_answer": "30",
+      "explanation": "The code changes every 30 seconds.",
+      "hints": [
+        "It is half a minute."
+      ]
+    },
+    {
+      "question_id": "acct-two-factor-03",
+      "prompt": "You lost your phone with the authenticator app. Who can turn two-factor off?",
+      "type": "multiple-choice",
+      "options": [
+        "The owner",
+        "Any other account",
+        "Nobody",
+        "The authenticator app"
+      ],
+      "correct_answer": "The owner",
+      "explanation": "The owner can turn it off for your account on Manage Users.",
+      "hints": [
+        "Only one account can manage others."
+      ]
+    },
+    {
+      "question_id": "acct-two-factor-04",
+      "prompt": "The app remembers your device, so it asks for a code only once.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Every sign-in asks for a code.",
+      "hints": [
+        "There is no remember this device."
+      ]
+    },
+    {
+      "question_id": "acct-two-factor-05",
+      "prompt": "What do you scan to set up the authenticator app?",
+      "type": "multiple-choice",
+      "options": [
+        "A QR code",
+        "Your password",
+        "A lesson",
+        "A key from the provider"
+      ],
+      "correct_answer": "A QR code",
+      "explanation": "The profile shows a QR code. The phone app scans it.",
+      "hints": [
+        "It is a square picture."
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🔐",
+    "sorts": [
+      {
+        "title": "Setting up",
+        "buckets": [
+          "Before sign-in",
+          "During sign-in"
+        ],
+        "items": [
+          {
+            "text": "Scan the QR code",
+            "bucket": 0
+          },
+          {
+            "text": "Type the first code and press Turn on",
+            "bucket": 0
+          },
+          {
+            "text": "Type your password",
+            "bucket": 1
+          },
+          {
+            "text": "Type the 6-digit code",
+            "bucket": 1
+          }
+        ],
+        "why": "You set it up on the profile page once. After that every sign-in asks for a code."
+      }
+    ]
+  }
+}

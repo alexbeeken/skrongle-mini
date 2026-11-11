@@ -183,7 +183,7 @@ fn contains_words_needs_word_edges() {
 #[test]
 #[ignore]
 fn counts_on_the_built_in_courses() {
-    for dir in ["data/courses/spanish", "data/courses/french", "data/test-courses/test-course"] {
+    for dir in ["data/courses/spanish", "data/courses/french", "data/courses/how-to-use-skrongle", "data/test-courses/test-course"] {
         let store = ContentStore::load_dir(std::path::Path::new(dir)).expect("the course loads");
         let found = lint(&store);
         let mut by_kind: Vec<(&str, usize)> = Vec::new();

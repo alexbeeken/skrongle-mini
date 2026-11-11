@@ -1,0 +1,124 @@
+{
+  "id": "use-study-plan",
+  "slug": "recommended-way-to-study",
+  "title": "The recommended way to study",
+  "unit": "learn",
+  "group": "Using",
+  "order": 90,
+  "summary": "How often, how long and in which mode.",
+  "focus": "A study routine that makes learning stick",
+  "content": "## Deep study\n\nStudy for at least 30 minutes, 3 times a week. Use Study mode or the Guide. Take notes by writing things down. Writing helps you remember.\n\nThe **My note** box on a lesson holds up to 500 characters. For longer notes, use paper.\n\n## Check yourself\n\nTake the lesson quiz right after you study. On the lesson page, answer the reading check, then press **Practise this lesson**.\n\n## Keep it fresh\n\nSpend a few minutes on questions from lessons you have already studied. Press **Start recommended practice** on the home page. Use the **Review mix** in Sprint mode, the **Mistakes** tab, and flashcards when the **Words due** card shows.\n\n## Short bursts\n\nWhen you have 5 to 10 minutes, use Sprint mode or Play mode. They help the ideas settle.\n\nYou can learn in Sprint mode too. It will not stick as well as deep focus time.",
+  "vocabulary": [
+    {
+      "term": "deep focus",
+      "meaning": "a long, undistracted study session of 30 minutes or more"
+    },
+    {
+      "term": "recommended practice",
+      "meaning": "a quiz picked from lessons you have read, weak topics first"
+    },
+    {
+      "term": "note",
+      "meaning": "what you write down by hand while you study"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "use-study-plan-01",
+      "prompt": "At least how many minutes should a deep study session last?",
+      "type": "numeric",
+      "correct_answer": "30",
+      "explanation": "Aim for at least 30 minutes of focused study.",
+      "hints": [
+        "It is half an hour."
+      ]
+    },
+    {
+      "question_id": "use-study-plan-02",
+      "prompt": "How many times a week should you do deep study?",
+      "type": "numeric",
+      "correct_answer": "3",
+      "explanation": "Study at least 3 times a week.",
+      "hints": [
+        "It is more than two and fewer than four."
+      ]
+    },
+    {
+      "question_id": "use-study-plan-03",
+      "prompt": "When should you take the lesson quiz?",
+      "type": "multiple-choice",
+      "options": [
+        "Right after you study",
+        "A month later",
+        "Before you read anything",
+        "Never"
+      ],
+      "correct_answer": "Right after you study",
+      "explanation": "Testing yourself right after studying helps it stick.",
+      "hints": [
+        "Do it while the lesson is fresh."
+      ]
+    },
+    {
+      "question_id": "use-study-plan-04",
+      "prompt": "What is a good use of 5 to 10 spare minutes?",
+      "type": "multiple-choice",
+      "options": [
+        "Sprint mode or Play mode",
+        "Writing a whole course",
+        "Reading every lesson again",
+        "Changing your password"
+      ],
+      "correct_answer": "Sprint mode or Play mode",
+      "explanation": "Short bursts in Sprint or Play help the ideas settle.",
+      "hints": [
+        "Think of the modes made for short time."
+      ]
+    },
+    {
+      "question_id": "use-study-plan-05",
+      "prompt": "Learning only in Sprint mode sticks as well as deep focus time.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "You can learn in Sprint mode, but it will not stick as well as deep focus time.",
+      "hints": [
+        "Deep focus is the main way to learn."
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "✍️",
+    "sorts": [
+      {
+        "title": "Deep focus or short burst?",
+        "buckets": [
+          "Deep focus time",
+          "Short burst"
+        ],
+        "items": [
+          {
+            "text": "30 minutes in Study mode with notes on paper",
+            "bucket": 0
+          },
+          {
+            "text": "A Sprint session on the bus",
+            "bucket": 1
+          },
+          {
+            "text": "A round of Word Match",
+            "bucket": 1
+          },
+          {
+            "text": "A Guide stage with a pen in hand",
+            "bucket": 0
+          },
+          {
+            "text": "A Lightning round while you wait",
+            "bucket": 1
+          }
+        ],
+        "why": "Deep time is for learning. Short bursts keep it fresh."
+      }
+    ]
+  }
+}
