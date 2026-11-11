@@ -1102,6 +1102,7 @@ study:
     read_passed_html: "El dominio ahora es del <strong>{mastery}%</strong>. A partir de ahora la lección forma parte de tu práctica recomendada; practícala unas cuantas veces más para demostrar dominio."
     recommended_practice: Práctica recomendada
     back_to_lessons: Volver a las lecciones
+    next_lesson: Siguiente lección
     not_read: Todavía sin leer
     not_read_hint: Las dos respuestas tienen que ser correctas. Vuelve a mirar la parte que señala la explicación y prueba de nuevo con dos preguntas más.
     try_two_more: Probar dos preguntas más

@@ -564,6 +564,9 @@ test("pass a lesson's reading check", async ({ page }) => {
   await page.getByTestId("lesson-check-submit").click();
 
   await expect(page.getByTestId("lesson-check-result")).toHaveClass(/\bok\b/);
+  // Next lesson opens the lesson the pager names as next.
+  const nextId = await page.getByTestId("lesson-next").first().getAttribute("data-lesson-id");
+  await expect(page.getByTestId("lesson-check-next")).toHaveAttribute("href", new RegExp(`/lessons/${nextId}$`));
   await page.reload();
   await expect(page.getByTestId("lesson")).toHaveAttribute("data-read", "true");
 });

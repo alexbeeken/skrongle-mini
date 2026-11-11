@@ -4,6 +4,11 @@ What changed in each release, for the person running the server. Newest
 first. Each release's GitHub notes are its section here. How version
 numbers work is in the README, "Versions".
 
+## Unreleased
+
+- Study mode: after you pass a lesson's two-question check, **Next lesson**
+  sits beside *Recommended practice* and *Back to the lessons*.
+
 ## 0.2.1 (2026-11-09)
 
 A sign-in fix and a lighter server. Nothing to change on your side.

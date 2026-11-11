@@ -881,6 +881,7 @@ study:
     read_passed_html: "Mastery is now <strong>{mastery}%</strong>. The lesson is part of your recommended practice from here on; practise it a few more times to show mastery."
     recommended_practice: Recommended practice
     back_to_lessons: Back to the lessons
+    next_lesson: Next lesson
     not_read: Not read yet
     not_read_hint: Both answers need to be right. Have another look at the part the explanation points to, then try again with two more questions.
     try_two_more: Try two more questions
