@@ -11,6 +11,13 @@ numbers work is in the README, "Versions".
   existing and new account gets the Teacher set, which is everything an
   account could do before, so nothing changes on screen yet. The database
   moves to schema v4 on the first start.
+- Manage Users has a **Permissions** column and, on each account's row, a
+  **Permissions** dialog: choose Student, Teacher or Custom (a switch for
+  each of the seven permissions). An account given **Superuser** gets Manage
+  Users in its menu and sees only the accounts there; invitation links, the
+  AI keys, temporary passwords, two-factor off and Make owner stay the
+  owner's. The permissions are stored and shown; they do not limit anything
+  else yet.
 
 ## 0.2.1 (2026-11-09)
 

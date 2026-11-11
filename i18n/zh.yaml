@@ -331,7 +331,7 @@ profile:
     turn_on: "通过验证器应用开启两步验证"
 manage:
   title: 管理用户
-  about: "对任何账户的操作。只有所有者能看到此页面。"
+  about: "对任何账户的操作。所有者能看到整个页面；超级用户能看到账户并设置其权限。"
   email: 电子邮箱地址
   unknown: "没有账户使用邮箱地址 {email}。"
   accounts: "账户"
@@ -362,6 +362,13 @@ manage:
   make_owner: "设为所有者"
   make_owner_about: "该账户也成为所有者：账户菜单中会出现“管理用户”，并能执行此页面上的所有操作。此处无法撤销。"
   make_owner_done: "{email} 现在是所有者。"
+  permissions: "权限"
+  permissions_preset: "预设"
+  permissions_save: "保存"
+  permissions_done: "已保存 {email} 的权限。"
+  permissions_owner: "无法更改所有者的权限：所有者可以做任何事。"
+  permissions_self: "你不能更改自己的权限。"
+  permissions_ai_hidden: "此服务器已对所有人隐藏 AI 功能。"
   api_keys:
     title: AI API 密钥
     info_text: "每个账户的 AI 功能都使用这些密钥，费用记在密钥所属的账户上。密钥在保存前会加密，之后不会再显示；只显示最后四个字符，方便你分辨保存的是哪个密钥。只有所有者能看到。"
@@ -389,6 +396,8 @@ manage:
     key_on_file: "✓ 已设置"
     ends_in: "结尾为"
     paste_new_key: "粘贴新密钥以替换"
+    perm_on: "允许"
+    perm_off: "不允许"
   ai:
     title: "AI 功能"
     info: "关于 AI 功能"

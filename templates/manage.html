@@ -7,13 +7,13 @@
     <h2 id="manage-info-title">{{ crate::t("manage.title") }}</h2>
     <p>{{ crate::t("manage.about") }}</p>
     <p data-testid="manage-signup-mode" data-mode="{{ mode }}">{% if mode == "invite" %}{{ crate::t("manage.mode_invite") }}{% else if mode == "closed" %}{{ crate::t("manage.mode_closed") }}{% else %}{{ crate::t("manage.mode_open") }}{% endif %}</p>
-    {% if mode == "invite" %}<p>{{ crate::t("manage.invite_about") }}</p>{% endif %}
+    {% if mode == "invite" && is_owner %}<p>{{ crate::t("manage.invite_about") }}</p>{% endif %}
     <p class="small" data-testid="manage-account-count">{{ crate::t2("manage.accounts_of", "total", total, "max", max_accounts) }}</p>
     <div class="modal-actions"><button type="button" class="btn" data-closes>{{ crate::t("profile.ok") }}</button></div>
   </dialog>
   {% if let Some(n) = notice %}<p class="alert ok-text" role="status" data-testid="manage-notice">✓ {{ n }}</p>{% endif %}
   {% if let Some(e) = error %}<p class="alert error" role="alert" data-testid="manage-error">{{ e }}</p>{% endif %}
-  {% if mode == "invite" %}
+  {% if mode == "invite" && is_owner %}
   <section class="card" data-testid="manage-invites-card">
     <h2>{{ crate::t("manage.invite_link") }}</h2>
     {% if let Some(link) = new_link %}
@@ -45,9 +45,11 @@
   <section class="card" data-testid="manage-accounts-card">
     <h2>{{ crate::t("manage.accounts") }}</h2>
     <div class="table-scroll"><table class="small" data-testid="manage-accounts">
-      <thead><tr><th>{{ crate::t("manage.email") }}</th><th>{{ crate::t("manage.created") }}</th><th>{{ crate::t("manage.last_sign_in") }}</th><th></th></tr></thead>
+      <thead><tr><th>{{ crate::t("manage.email") }}</th><th>{{ crate::t("manage.created") }}</th><th>{{ crate::t("manage.last_sign_in") }}</th><th>{{ crate::t("manage.permissions") }}</th><th></th></tr></thead>
       <tbody>{% for a in list %}
-        <tr data-testid="manage-account-row" data-owner="{{ a.owner }}"><td>{{ a.email }}</td><td>{{ a.created }}</td><td>{{ a.last_sign_in }}</td><td class="account-actions">{% if !a.email.is_empty() %}
+        <tr data-testid="manage-account-row" data-owner="{{ a.owner }}" data-preset="{{ a.preset }}" data-perms="{{ a.perms }}"><td>{{ a.email }}</td><td>{{ a.created }}</td><td>{{ a.last_sign_in }}</td><td data-testid="manage-account-preset">{{ a.preset_label }}</td><td class="account-actions">
+          {% if a.can_edit %}<button type="button" class="link-btn small" data-opens="manage-permissions-dialog" data-account-email="{{ a.email }}" aria-haspopup="dialog" data-testid="manage-account-permissions">{{ crate::t("manage.permissions") }}</button>{% endif %}
+          {% if is_owner && !a.email.is_empty() %}
           <button type="button" class="link-btn small" data-opens="manage-password-dialog" data-account-email="{{ a.email }}" aria-haspopup="dialog" data-testid="manage-account-temp-password">{{ crate::t("manage.temp_password") }}</button>
           <button type="button" class="link-btn small" data-opens="manage-two-factor-dialog" data-account-email="{{ a.email }}" aria-haspopup="dialog" data-testid="manage-account-two-factor-off">{{ crate::t("manage.two_factor_off") }}</button>
           {% if !a.owner %}<button type="button" class="link-btn small" data-opens="manage-owner-dialog" data-account-email="{{ a.email }}" aria-haspopup="dialog" data-testid="manage-account-make-owner">{{ crate::t("manage.make_owner") }}</button>{% endif %}
@@ -56,6 +58,34 @@
     </table></div>
   </section>
 
+  {# One Permissions dialog for the page (#139): static/manage.js fills it from the row. The server decides what is stored (POST /manage/permissions). #}
+  <dialog class="modal" id="manage-permissions-dialog" aria-labelledby="manage-permissions-title" data-testid="manage-permissions-dialog">
+    <form method="post" action="{{ crate::url("/manage/permissions") }}" class="perms-form" data-testid="manage-permissions-form">
+      <h2 id="manage-permissions-title">{{ crate::t("manage.permissions") }}</h2>
+      <input type="hidden" name="email" value="" data-account-field>
+      <p><strong data-account-name></strong></p>
+      <fieldset class="perms-presets">
+        <legend class="sr-only">{{ crate::t("manage.permissions_preset") }}</legend>
+        {% for p in presets %}<label class="opt"><input type="radio" name="preset" value="{{ p.id }}" required data-preset="{{ p.id }}" data-perms="{{ p.perms }}" data-testid="manage-permissions-preset"> {{ p.label }}</label>
+        {% endfor %}<label class="opt"><input type="radio" name="preset" value="custom" required data-preset="custom" data-testid="manage-permissions-preset"> {{ crate::t("perms.custom") }}</label>
+      </fieldset>
+      <ul class="perms-list">
+        {% for p in perms %}
+        <li class="perm-line" data-testid="manage-permission" data-perm="{{ p.id }}" data-bit="{{ p.bit }}"{% if !p.needs.is_empty() %} data-needs="{{ p.needs }}"{% endif %}>
+          <div class="perm-text"><strong id="perm-{{ p.id }}-name">{{ p.label }}</strong><span class="small muted">{{ p.about }}</span>{% if ai_off && p.ai %}<span class="small warn-text" data-testid="manage-permission-ai-hidden">{{ crate::t("manage.permissions_ai_hidden") }}</span>{% endif %}</div>
+          <span class="perm-mark" role="img" data-testid="manage-permission-mark"></span>
+          <label class="ai-switch perm-switch"><input type="checkbox" role="switch" id="perm-{{ p.id }}" name="perm_{{ p.id }}" value="on" aria-labelledby="perm-{{ p.id }}-name" data-testid="manage-permission-toggle"><span class="ai-switch-knob" aria-hidden="true"></span></label>
+        </li>
+        {% endfor %}
+      </ul>
+      <div class="modal-actions">
+        <button type="button" class="btn ghost" data-closes>{{ crate::t("profile.password.cancel") }}</button>
+        <button type="submit" class="btn" data-testid="manage-permissions-save">{{ crate::t("manage.permissions_save") }}</button>
+      </div>
+    </form>
+  </dialog>
+
+  {% if is_owner %}
   <section class="card" id="ai" data-testid="manage-ai-card">
     <h2 class="heading-with-info">{{ crate::t("manage.ai.title") }} <button type="button" class="info-btn" data-opens="manage-ai-info" aria-haspopup="dialog" aria-label="{{ crate::t("manage.ai.info") }}" data-testid="manage-ai-info"><span aria-hidden="true">i</span></button> <span class="save-status" data-testid="manage-keys-save-status" data-state="saved" role="status" aria-label="{{ crate::t("profile.head.all_saved") }}" title="{{ crate::t("profile.head.all_saved") }}" hidden><svg class="when-saved" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 16.2 5.3 12l-1.4 1.4 5.6 5.6 11-11-1.4-1.4z"/></svg><svg class="when-saving" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/></svg><svg class="when-error" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5h2v9h-2zm0 11h2v2h-2z"/></svg></span></h2>
     <dialog class="modal" id="manage-ai-info" aria-labelledby="manage-ai-info-title" data-testid="manage-ai-info-dialog">
@@ -142,6 +172,7 @@
       </div>
     </form>
   </dialog>
+  {% endif %}
   {% if let Some((email, password)) = temp_password %}
   <dialog class="modal" id="manage-temp-password-new" open data-open-on-load aria-labelledby="manage-temp-password-title" data-testid="manage-temp-password-dialog">
     <h2 id="manage-temp-password-title">{{ crate::t("manage.temp_password") }}</h2>

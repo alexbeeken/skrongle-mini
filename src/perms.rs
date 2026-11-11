@@ -4,8 +4,6 @@
 //! built in). Enforcement reads only `users.perms`, through
 //! `CurrentUser::can` / `require` / `require_api` (`auth.rs`); an owner may
 //! do everything whatever is stored.
-// Nothing asks yet: the pages and routes that do come with #139 and later.
-#![cfg_attr(not(test), allow(dead_code))]
 
 use rusqlite::{params, Connection, OptionalExtension};
 
@@ -136,6 +134,7 @@ impl Perms {
 }
 
 /// `permission_presets.id` of the built-in Student preset.
+#[cfg_attr(not(test), allow(dead_code))] // only the tests name it so far
 pub const STUDENT_PRESET: i64 = 1;
 /// `permission_presets.id` of the built-in Teacher preset.
 pub const TEACHER_PRESET: i64 = 2;

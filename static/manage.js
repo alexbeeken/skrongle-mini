@@ -8,6 +8,13 @@
 // a POST, rendered in place; the address bar is set back to the page so a
 // reload asks for the page again instead of making another one (#665).
 //
+// The Permissions dialog (#139) is filled from the row too: its preset
+// ([data-preset]) picks the radio and its set ([data-perms], the bits) the
+// switches. A preset's radio shows that preset's set (its own [data-perms])
+// read-only, as marks; Custom shows the switches, starting from what was
+// shown. A permission whose needed one ([data-needs]) is off is greyed out
+// and off. The server decides what is stored; this only shows it.
+//
 // The server's AI API keys (#25) save as they are pasted or typed
 // (static/autosave.js, POST /api/manage/keys): a pasted key at once, a typed
 // one 3 s after the last keystroke. Saved, the box empties (a key is never
@@ -29,6 +36,49 @@
     });
   });
 
+  var permsDialog = document.getElementById("manage-permissions-dialog");
+  var permsForm = permsDialog && permsDialog.querySelector("form");
+  var permRadios = permsForm ? Array.prototype.slice.call(permsForm.querySelectorAll("[data-testid=manage-permissions-preset]")) : [];
+  var permLines = permsForm ? Array.prototype.slice.call(permsForm.querySelectorAll("[data-testid=manage-permission]")) : [];
+  function permBox(line) { return line.querySelector("[data-testid=manage-permission-toggle]"); }
+  // The switches show the set `bits`.
+  function showPerms(bits) {
+    permLines.forEach(function (line) { permBox(line).checked = (bits & Number(line.dataset.bit)) !== 0; });
+  }
+  // After a radio or a switch changed: read-only for a preset, and the
+  // lines whose needed permission is off greyed out (and off).
+  function refreshPerms() {
+    var custom = permRadios.some(function (r) { return r.checked && r.dataset.preset === "custom"; });
+    permsForm.classList.toggle("is-readonly", !custom);
+    permLines.forEach(function (line) {
+      var box = permBox(line);
+      var needed = line.dataset.needs && permsForm.querySelector('[data-perm="' + line.dataset.needs + '"]');
+      var off = !!needed && !permBox(needed).checked;
+      if (off) box.checked = false;
+      box.disabled = !custom || off;
+      line.classList.toggle("is-off", custom && off);
+      if (custom && off) line.setAttribute("aria-disabled", "true");
+      else line.removeAttribute("aria-disabled");
+      line.dataset.on = String(box.checked);
+      line.querySelector("[data-testid=manage-permission-mark]").setAttribute("aria-label", t(box.checked ? "manage.js.perm_on" : "manage.js.perm_off"));
+    });
+  }
+  // Opened from a row: its preset's radio (Custom when it has none) and its set.
+  function fillPermissions(row) {
+    if (!row) return;
+    var radio = permRadios.filter(function (r) { return r.dataset.preset === row.dataset.preset; })[0];
+    permRadios.forEach(function (r) { r.checked = radio ? r === radio : r.dataset.preset === "custom"; });
+    showPerms(Number(row.dataset.perms) || 0);
+    refreshPerms();
+  }
+  permRadios.forEach(function (r) {
+    r.addEventListener("change", function () {
+      if (r.dataset.perms !== undefined) showPerms(Number(r.dataset.perms) || 0);
+      refreshPerms();
+    });
+  });
+  permLines.forEach(function (line) { permBox(line).addEventListener("change", refreshPerms); });
+
   document.querySelectorAll("[data-opens]").forEach(function (b) {
     var dialog = document.getElementById(b.dataset.opens);
     if (!dialog) return;
@@ -40,6 +90,7 @@
         if (field) field.value = b.dataset.accountEmail;
         if (name) name.textContent = b.dataset.accountEmail;
       }
+      if (dialog === permsDialog) fillPermissions(b.closest("[data-testid=manage-account-row]"));
       if (b.dataset.courseId) {
         var course = dialog.querySelector("[data-course-field]");
         var title = dialog.querySelector("[data-course-name]");

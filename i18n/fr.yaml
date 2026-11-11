@@ -331,7 +331,7 @@ profile:
     turn_on: "Activer la connexion en deux étapes avec une application d'authentification"
 manage:
   title: Gérer les utilisateurs
-  about: "Actions sur n'importe quel compte. Seuls les propriétaires voient cette page."
+  about: "Actions sur n'importe quel compte. Les propriétaires voient toute la page ; les superutilisateurs voient les comptes et règlent leurs autorisations."
   email: Adresse e-mail
   unknown: "Aucun compte n'a l'adresse {email}."
   accounts: "Comptes"
@@ -362,6 +362,13 @@ manage:
   make_owner: "Rendre propriétaire"
   make_owner_about: "Le compte devient propriétaire lui aussi : il voit Gérer les utilisateurs dans le menu du compte et peut faire toutes les actions de cette page. Cela ne peut pas être annulé ici."
   make_owner_done: "{email} est maintenant propriétaire."
+  permissions: "Autorisations"
+  permissions_preset: "Profil"
+  permissions_save: "Enregistrer"
+  permissions_done: "Autorisations enregistrées pour {email}."
+  permissions_owner: "Les autorisations d'un propriétaire ne peuvent pas être modifiées : les propriétaires peuvent tout faire."
+  permissions_self: "Vous ne pouvez pas modifier vos propres autorisations."
+  permissions_ai_hidden: "Les fonctions d'IA sont masquées pour tout le monde sur ce serveur."
   api_keys:
     title: Clés d'API IA
     info_text: "Les fonctions d’IA de tous les comptes utilisent ces clés, facturées au compte auquel chaque clé appartient. Les clés sont chiffrées avant d’être enregistrées et ne sont plus jamais affichées ; seuls les quatre derniers caractères restent visibles pour savoir quelle clé est enregistrée. Seuls les propriétaires les voient."
@@ -389,6 +396,8 @@ manage:
     key_on_file: "✓ Définie"
     ends_in: "se termine par"
     paste_new_key: "Collez une nouvelle clé pour la remplacer"
+    perm_on: "Autorisé"
+    perm_off: "Non autorisé"
   ai:
     title: "Fonctions d’IA"
     info: "À propos des fonctions d’IA"

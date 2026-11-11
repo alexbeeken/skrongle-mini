@@ -333,7 +333,7 @@ profile:
     turn_on: "Turn on two-factor sign-in with an authenticator app"
 manage:
   title: Manage Users
-  about: "Actions on any account. Only owners see this page."
+  about: "Actions on any account. Owners see all of this page; superusers see the accounts and set their permissions."
   email: E-mail address
   unknown: "No account has the address {email}."
   accounts: "Accounts"
@@ -364,6 +364,13 @@ manage:
   make_owner: "Make owner"
   make_owner_about: "The account becomes an owner too: it sees Manage Users in its account menu and can take every action on this page. It cannot be undone here."
   make_owner_done: "{email} is an owner now."
+  permissions: "Permissions"
+  permissions_preset: "Preset"
+  permissions_save: "Save"
+  permissions_done: "Permissions saved for {email}."
+  permissions_owner: "An owner's permissions cannot be changed: owners may do everything."
+  permissions_self: "You cannot change your own permissions."
+  permissions_ai_hidden: "AI features are hidden for everyone on this server."
   api_keys:
     title: AI API keys
     info_text: "Every account's AI features use these keys, billed to the account each key belongs to. Keys are encrypted before they are stored and are never shown again; only the last four characters stay visible so you can tell which key is on file. Only owners see them."
@@ -391,6 +398,8 @@ manage:
     key_on_file: "✓ Set"
     ends_in: "ends in"
     paste_new_key: "Paste a new key to replace it"
+    perm_on: "Allowed"
+    perm_off: "Not allowed"
   ai:
     title: "AI features"
     info: "About the AI features"

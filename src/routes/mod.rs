@@ -285,6 +285,7 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/superuser", get(|q: RawQuery| moved("/manage", q)))
         .route("/manage", get(manage::show))
         .route("/manage/make-owner", post(manage::make_owner))
+        .route("/manage/permissions", post(manage::set_permissions))
         .route("/manage/invites", post(manage::make_invite))
         .route("/manage/invites/revoke", post(manage::revoke_invite))
         .route("/manage/temp-password", post(manage::set_temp_password))
