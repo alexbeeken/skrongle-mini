@@ -1,0 +1,130 @@
+{
+  "id": "ai-keys",
+  "slug": "api-keys",
+  "title": "What an API key is",
+  "unit": "ai",
+  "group": "AI",
+  "order": 10,
+  "summary": "A password for programs, and how the owner adds one.",
+  "focus": "What an API key is and where the owner saves it",
+  "content": "## What an AI provider is\n\nSome features use an AI. The tutor, **Generate the course**, **Use AI** and translation all do. The AI runs at a company called a provider. Skrongle can use Claude, OpenAI, Google Gemini, DeepSeek, Mistral, Grok, OpenRouter, or an Ollama-compatible server that you run yourself.\n\n## What an API key is\n\nA program cannot sign in with a face or a fingerprint. It uses an **API key**. This is a long secret text, like a password for programs. You get one from the provider, in your account on its website.\n\nProviders usually charge for use. They bill the account the key belongs to. Keep a key secret, because anyone who has it can spend your money.\n\n## Adding a key\n\nOnly the owner adds keys, and they serve every account. In the account menu open **Manage Users**. In the **AI features** card, open a provider and paste the key. It saves as you paste it. It is stored encrypted and never shown again. You will see only the last four characters.\n\nOther accounts do not see the key form. They ask the owner. A feature with no key says so and stays grey.",
+  "vocabulary": [
+    {
+      "term": "AI provider",
+      "meaning": "the company whose AI the features use"
+    },
+    {
+      "term": "API key",
+      "meaning": "a long secret text that lets a program use a provider's account"
+    },
+    {
+      "term": "Manage Users",
+      "meaning": "the owner's page for accounts and AI keys"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "ai-keys-01",
+      "prompt": "What is an API key?",
+      "type": "multiple-choice",
+      "options": [
+        "A secret text that lets a program use a provider's account",
+        "A lesson",
+        "A kind of game",
+        "A setting for fonts"
+      ],
+      "correct_answer": "A secret text that lets a program use a provider's account",
+      "explanation": "It works like a password for programs.",
+      "hints": [
+        "Think of a password."
+      ]
+    },
+    {
+      "question_id": "ai-keys-02",
+      "prompt": "Who can add an AI key to Skrongle?",
+      "type": "multiple-choice",
+      "options": [
+        "The owner",
+        "Any account",
+        "Only the person who made a course",
+        "Nobody"
+      ],
+      "correct_answer": "The owner",
+      "explanation": "Only the owner sees the key form. The key then serves every account.",
+      "hints": [
+        "The page is Manage Users."
+      ]
+    },
+    {
+      "question_id": "ai-keys-03",
+      "prompt": "After you save a key, the app shows you the whole key again later.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "The key is stored encrypted and never shown again. Only the last four characters show.",
+      "hints": [
+        "Secrets should not stay on screen."
+      ]
+    },
+    {
+      "question_id": "ai-keys-04",
+      "prompt": "Who does the provider bill for the use of a key?",
+      "type": "multiple-choice",
+      "options": [
+        "The account the key belongs to",
+        "The learner who clicked",
+        "Skrongle",
+        "Nobody"
+      ],
+      "correct_answer": "The account the key belongs to",
+      "explanation": "The provider bills the account that made the key. That is why you keep it secret.",
+      "hints": [
+        "Think about whose account made the key."
+      ]
+    },
+    {
+      "question_id": "ai-keys-05",
+      "prompt": "You need an AI key to use Study mode.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Courses and the learning modes work without a key. A key is only for the AI features.",
+      "hints": [
+        "Only some features talk to an AI."
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🔑",
+    "sorts": [
+      {
+        "title": "Who does it?",
+        "buckets": [
+          "Any account",
+          "Only the owner"
+        ],
+        "items": [
+          {
+            "text": "Paste an AI key",
+            "bucket": 1
+          },
+          {
+            "text": "Ask the owner for a key",
+            "bucket": 0
+          },
+          {
+            "text": "Use the tutor once a key is saved",
+            "bucket": 0
+          },
+          {
+            "text": "Remove a saved key",
+            "bucket": 1
+          },
+          {
+            "text": "Generate a course once a key is saved",
+            "bucket": 0
+          }
+        ],
+        "why": "The owner looks after the keys. Everyone can use the features they unlock."
+      }
+    ]
+  }
+}

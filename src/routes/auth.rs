@@ -368,8 +368,11 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
         return Ok((StatusCode::TOO_MANY_REQUESTS, fail(crate::t("auth.register.too_many_signups"))).into_response());
     }
 
-    if let Err(e) = crate::signup::AgeGate::current().check(!form.age.is_empty(), "register") {
-        return Ok(fail(e));
+    // The owner's own account is not asked: its form has no box (#126).
+    if !owner_note {
+        if let Err(e) = crate::signup::AgeGate::current().check(!form.age.is_empty(), "register") {
+            return Ok(fail(e));
+        }
     }
 
     let email = match profile::validate_email(&email_input) {
@@ -403,10 +406,14 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
                 return Ok(Signup::Taken);
             }
             let id = auth::create_user(&tx, &e, &hash)?;
+            // Only an account that was shown the age box has a yes to record (#126).
+            let asked = !matches!(admitted, Admit::Owner(_) | Admit::FirstOpen);
             if !signup::finish(&tx, admitted, id, t)? {
                 return Ok(Signup::Refused(Refusal::Used));
             }
-            crate::signup::record_age_confirmed(&tx, id, true)?;
+            if asked {
+                crate::signup::record_age_confirmed(&tx, id, true)?;
+            }
             if !lang.is_empty() {
                 profile::set_lang(&tx, id, &lang)?;
             }

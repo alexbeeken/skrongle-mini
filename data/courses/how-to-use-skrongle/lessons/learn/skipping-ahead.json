@@ -1,0 +1,130 @@
+{
+  "id": "use-skip",
+  "slug": "skipping-ahead",
+  "title": "Skipping ahead",
+  "unit": "learn",
+  "group": "Using",
+  "order": 80,
+  "summary": "Start a course further in and change your level later.",
+  "focus": "Levels, skipped lessons and the placement test",
+  "content": "## Start further in\n\nSome courses are split into levels, such as A1 and A2 in a language course. The first time you open one, the wizard asks *Where do you want to start?*.\n\nPick a later level and the lessons below it are **skipped**. You can still read them. The app never recommends them, and it does not count them as passed.\n\n## A placement test\n\nA course may offer a placement test. It asks one multiple-choice question at a time. The first level with a wrong answer is the one it suggests. You may pick another level anyway.\n\n## Change it later\n\nUse the gear on the course's card on the course list. Pick another level and press **Save**.\n\nChanging level only moves where you are. Your passes, scores and history stay. Going back down brings the skipped lessons back as not started.\n\nA course without levels, like this one, does not ask. In Study mode you can open any lesson from the list.",
+  "vocabulary": [
+    {
+      "term": "level",
+      "meaning": "one step of a course, such as A1 or A2"
+    },
+    {
+      "term": "skipped",
+      "meaning": "a lesson below your starting level, open to read but not counted"
+    },
+    {
+      "term": "placement test",
+      "meaning": "a short test that suggests where to start"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "use-skip-01",
+      "prompt": "Skipped lessons are marked as passed.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Nothing is marked passed. The lessons are only left out of your practice and totals.",
+      "hints": [
+        "Starting further in does not pretend you learned the rest."
+      ]
+    },
+    {
+      "question_id": "use-skip-02",
+      "prompt": "Where do you change your level after the first start?",
+      "type": "multiple-choice",
+      "options": [
+        "The gear on the course's card",
+        "The Map",
+        "The tutor",
+        "Manage Users"
+      ],
+      "correct_answer": "The gear on the course's card",
+      "explanation": "The course's settings, behind the gear, hold the level.",
+      "hints": [
+        "It is the same gear as for the motivator."
+      ]
+    },
+    {
+      "question_id": "use-skip-03",
+      "prompt": "Which courses ask where you want to start?",
+      "type": "multiple-choice",
+      "options": [
+        "Courses that are split into levels",
+        "Every course",
+        "Only shared courses",
+        "Only courses made with AI"
+      ],
+      "correct_answer": "Courses that are split into levels",
+      "explanation": "Only a course with levels shows the question.",
+      "hints": [
+        "The course needs levels to choose from."
+      ]
+    },
+    {
+      "question_id": "use-skip-04",
+      "prompt": "Which level does the placement test suggest?",
+      "type": "multiple-choice",
+      "options": [
+        "The first level with a wrong answer",
+        "The last level",
+        "The easiest level",
+        "A random level"
+      ],
+      "correct_answer": "The first level with a wrong answer",
+      "explanation": "The first level where you answered wrong is where you may need to start.",
+      "hints": [
+        "Think about where your knowledge ends."
+      ]
+    },
+    {
+      "question_id": "use-skip-05",
+      "prompt": "Changing your level deletes your old passes.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Passes, scores and history all stay when you change level.",
+      "hints": [
+        "Changing level only moves your position."
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "⏭️",
+    "sorts": [
+      {
+        "title": "After skipping ahead",
+        "buckets": [
+          "True",
+          "Not true"
+        ],
+        "items": [
+          {
+            "text": "Lower lessons can still be read",
+            "bucket": 0
+          },
+          {
+            "text": "Lower lessons are marked passed",
+            "bucket": 1
+          },
+          {
+            "text": "Your old passes stay when you change level",
+            "bucket": 0
+          },
+          {
+            "text": "Lower lessons are picked for recommended practice",
+            "bucket": 1
+          },
+          {
+            "text": "Lower lessons count in the lessons passed total",
+            "bucket": 1
+          }
+        ],
+        "why": "Skipped lessons are open to read but are left out of practice and totals."
+      }
+    ]
+  }
+}

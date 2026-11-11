@@ -908,6 +908,7 @@ study:
     read_passed_html: "La maîtrise est maintenant de <strong>{mastery} %</strong>. La leçon fait désormais partie de votre pratique recommandée ; pratiquez-la encore quelques fois pour montrer votre maîtrise."
     recommended_practice: Pratique recommandée
     back_to_lessons: Retour aux leçons
+    next_lesson: Leçon suivante
     not_read: Pas encore lue
     not_read_hint: "Les deux réponses doivent être justes. Revoyez la partie que l'explication indique, puis réessayez avec deux autres questions."
     try_two_more: Essayer deux autres questions
@@ -1717,6 +1718,36 @@ courses:
     heading_stopped: "La traduction s’est arrêtée"
     phase_start: "Traduction"
     phase_file: "Traduction de {file} ({n} sur {total})"
+  ai_run:
+    failure:
+      key: "L’écriture de ton cours s’est arrêtée. Le fournisseur d’IA n’a pas accepté la clé d’API du serveur. Le propriétaire peut la vérifier dans Gérer les utilisateurs ; réessaie ensuite."
+      quota: "L’écriture de ton cours s’est arrêtée. Le compte de ton fournisseur d’IA n’a plus de crédit ou a atteint sa limite d’utilisation. Vérifie ton forfait et la facturation auprès du fournisseur, puis réessaie."
+      busy: "L’écriture de ton cours s’est arrêtée. Le fournisseur d’IA est occupé en ce moment. Attends une minute, puis réessaie."
+      unusable: "L’écriture de ton cours s’est arrêtée. La réponse de l’IA n’a pas pu servir à construire le cours. Réessaie."
+      turned_down: "L’écriture de ton cours s’est arrêtée. Le fournisseur d’IA a refusé la demande. Réessaie ; si cela s’arrête encore, le propriétaire peut vérifier la clé dans Gérer les utilisateurs."
+      provider_error: "L’écriture de ton cours s’est arrêtée. Le fournisseur d’IA a répondu par une erreur. Réessaie."
+      unreachable: "L’écriture de ton cours s’est arrêtée. Le fournisseur d’IA n’a pas répondu à temps ou était injoignable. Réessaie dans une minute."
+    revision_failure:
+      key: "Le fournisseur d’IA n’a pas accepté la clé d’API du serveur. Le propriétaire peut la vérifier dans Gérer les utilisateurs ; réessaie ensuite. Le cours n’a pas changé."
+      quota: "Le compte de ton fournisseur d’IA n’a plus de crédit ou a atteint sa limite d’utilisation. Vérifie ton forfait et la facturation auprès du fournisseur, puis réessaie. Le cours n’a pas changé."
+      busy: "Le fournisseur d’IA est occupé en ce moment. Attends une minute, puis réessaie. Le cours n’a pas changé."
+      unusable: "La réponse de l’IA n’a pas pu être utilisée. Réessaie, ou formule-le autrement. Le cours n’a pas changé."
+      turned_down: "Le fournisseur d’IA a refusé la demande. Réessaie ; si cela s’arrête encore, le propriétaire peut vérifier la clé dans Gérer les utilisateurs. Le cours n’a pas changé."
+      provider_error: "Le fournisseur d’IA a répondu par une erreur. Réessaie. Le cours n’a pas changé."
+      unreachable: "Le fournisseur d’IA n’a pas répondu à temps ou était injoignable. Réessaie dans une minute. Le cours n’a pas changé."
+    heading:
+      stopped: "Génération arrêtée"
+      adding_stopped: "Ajout arrêté"
+      editing_stopped: "Modification arrêtée"
+      revision_stopped: "Révision arrêtée"
+      ready: "Ton cours est prêt"
+      new_lesson: "La nouvelle leçon est ajoutée"
+      changes_in: "Tes modifications sont en place"
+      adding: "Ajout d’une leçon à {title}…"
+      editing: "Modification de {title}…"
+      revising: "Révision de {title}…"
+      writing: "Écriture de {title}…"
+      your_course: "ton cours"
   picker:
     title: Que voulez-vous apprendre ?
     lead_anon: Choisissez un cours prêt à l'emploi. Chaque cours garde sa propre progression, son vocabulaire, ses jeux et son historique.

@@ -248,7 +248,9 @@ pub async fn translate(State(state): State<Arc<AppState>>, user: CurrentUser, Pa
         },
         (None, Some(row)) => {
             let (cid, j) = (row.id.clone(), job.clone());
-            state.db.call(move |c| courses::set_generating(c, &cid, &j)).await?;
+            if !state.db.call(move |c| courses::set_generating(c, &cid, &j)).await? {
+                return Ok(courses_notice("busy"));
+            }
             row.id.clone()
         }
         (None, None) => return Err(AppError::NotFound),

@@ -567,6 +567,7 @@ fn signup_by_invitation() {
     let register = |email: &str, invite: &str| post("/register", "", &[("email", email), ("password", "long-enough-pw"), ("age", "on"), ("invite", invite)]);
     let users = || state.db.with(|c| c.query_row("SELECT COUNT(*) FROM users", [], |r| r.get::<_, i64>(0))).unwrap();
     let has_flag = |email: &'static str| state.db.with(|c| c.query_row("SELECT owner FROM users WHERE email = ?1", [email], |r| r.get::<_, bool>(0))).unwrap();
+    let age_confirmed = |email: &'static str| state.db.with(|c| c.query_row("SELECT age_confirmed FROM users WHERE email = ?1", [email], |r| r.get::<_, bool>(0))).unwrap();
 
     // An empty server: without the owner link, nobody gets in first.
     let (status, page) = get("/register", "");
@@ -580,15 +581,17 @@ fn signup_by_invitation() {
     let (status, page) = get(&format!("/register?invite={owner_link}"), "");
     assert_eq!(status, 200);
     assert!(page.contains("register-owner-note") && page.contains(&format!(r#"name="invite" value="{owner_link}""#)), "{page}");
-    // A form error keeps the line (#665).
-    let (status, _, page) = post("/register", "", &[("email", "owner@example.org"), ("password", "short"), ("age", "on"), ("invite", &owner_link)]);
+    assert!(!page.contains("register-age"), "the owner is not asked their age (#126): {page}");
+    // A form error keeps the line (#665), and still has no age box.
+    let (status, _, page) = post("/register", "", &[("email", "owner@example.org"), ("password", "short"), ("invite", &owner_link)]);
     assert_eq!(status, 200);
-    assert!(page.contains("register-error") && page.contains("register-owner-note"), "{page}");
-    // Registering signs the account in.
-    let (status, owner, _) = register("owner@example.org", &owner_link);
+    assert!(page.contains("register-error") && page.contains("register-owner-note") && !page.contains("register-age"), "{page}");
+    // Registering signs the account in: no age field is sent, none is needed.
+    let (status, owner, _) = post("/register", "", &[("email", "owner@example.org"), ("password", "long-enough-pw"), ("invite", &owner_link)]);
     assert_eq!(status, 303);
     assert!(owner.starts_with("sid="), "{owner}");
     assert!(has_flag("owner@example.org"), "the first account is an owner");
+    assert!(!age_confirmed("owner@example.org"), "the owner was not asked, so no yes is recorded");
     assert_eq!(register("eve@example.org", &owner_link).0, 403, "the owner link works once");
 
     // Now closed without a link: a short page, and posting makes nothing.
@@ -620,9 +623,16 @@ fn signup_by_invitation() {
     assert!(!get("/manage", &owner).1.contains(&token), "the link is shown only when made");
     let (_, page) = get(&format!("/register?invite={token}"), "");
     assert!(page.contains(&format!(r#"name="invite" value="{token}""#)) && !page.contains("register-owner-note"), "{page}");
+    // An invited person is asked their age, and refused without the box.
+    assert!(page.contains(r#"data-testid="register-age""#), "{page}");
+    let (status, _, page) = post("/register", "", &[("email", "ann@example.org"), ("password", "long-enough-pw"), ("invite", &token)]);
+    assert_eq!(status, 200);
+    assert!(page.contains("register-error") && page.contains(r#"data-testid="register-age""#), "{page}");
+    assert_eq!(users(), 1, "no account without the box");
     let (status, ann, _) = register("ann@example.org", &token);
     assert_eq!(status, 303);
     assert!(!has_flag("ann@example.org"));
+    assert!(age_confirmed("ann@example.org"), "the invited person's yes is recorded");
     let (_, page) = get(&format!("/register?invite={token}"), "");
     assert!(page.contains("already been used"), "{page}");
     assert_eq!(register("eve@example.org", &token).0, 403);
@@ -698,13 +708,20 @@ fn open_signup_makes_the_first_account_the_owner() {
     let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
     let page = agent.get(&format!("{base}/register")).call().unwrap().body_mut().read_to_string().unwrap();
     assert!(page.contains("register-form") && page.contains("register-owner-note"));
-    for email in ["a@example.org", "b@example.org"] {
-        let form = [("email", email), ("password", "long-enough-pw"), ("age", "on")];
-        // 303: signed in, on to home.
-        assert_eq!(agent.post(&format!("{base}/register")).send_form(form).unwrap().status().as_u16(), 303);
-    }
+    assert!(!page.contains("register-age"), "the first account, the owner's, is not asked its age (#126): {page}");
+    let register = |form: &[(&str, &str)]| agent.post(&format!("{base}/register")).send_form(form.iter().copied()).unwrap().status().as_u16();
+    let age_confirmed = |email: &'static str| state.db.with(|c| c.query_row("SELECT age_confirmed FROM users WHERE email = ?1", [email], |r| r.get::<_, bool>(0))).unwrap();
+    // 303: signed in, on to home. The first account sends no age field.
+    assert_eq!(register(&[("email", "a@example.org"), ("password", "long-enough-pw")]), 303);
+    assert!(!age_confirmed("a@example.org"), "the owner was not asked, so no yes is recorded");
     let page = agent.get(&format!("{base}/register")).call().unwrap().body_mut().read_to_string().unwrap();
     assert!(!page.contains("register-owner-note"), "the note goes once an account exists");
+    // The second account is asked, and refused without the box.
+    assert!(page.contains(r#"data-testid="register-age""#), "{page}");
+    assert_eq!(register(&[("email", "b@example.org"), ("password", "long-enough-pw")]), 200);
+    assert_eq!(state.db.with(|c| c.query_row("SELECT COUNT(*) FROM users", [], |r| r.get::<_, i64>(0))).unwrap(), 1, "no account without the box");
+    assert_eq!(register(&[("email", "b@example.org"), ("password", "long-enough-pw"), ("age", "on")]), 303);
+    assert!(age_confirmed("b@example.org"));
     let owners: Vec<String> = state
         .db
         .with(|c| c.prepare("SELECT email FROM users WHERE owner = 1")?.query_map([], |r| r.get(0))?.collect())
@@ -1197,6 +1214,10 @@ fn ai_features_with_saved_keys_answered_by_the_simulator() {
     let list = get(&format!("/courses?generate={id}"), &dev_c).1;
     assert!(list.contains(r#"id="gen-dialog""#) && list.contains(" open data-open-on-load>") && list.contains("Volcanoes for Monday</textarea>") && list.contains(notes.trim()), "{list}");
     assert!(list.contains(r#"data-testid="generate-error">Writing your course stopped. The AI provider didn&#39;t accept the server&#39;s API key."#), "{list}");
+    // A row written with its kind shows the same sentence whatever the words say.
+    state.db.with(|c| crate::courses::finish_generation_as(c, &id, Some("the provider said something we do not read"), Some("key"))).unwrap();
+    let list = get(&format!("/courses?generate={id}"), &dev_c).1;
+    assert!(list.contains(r#"data-testid="generate-error">Writing your course stopped. The AI provider didn&#39;t accept the server&#39;s API key."#), "by kind: {list}");
     // Refused again: back on the list, not the editor.
     let (status, _, body) = post(&format!("/courses/{id}/generate"), &dev_c, &[("provider", "anthropic"), ("wish", "Volcanoes and how they erupt"), ("lessons", "6")]);
     assert_eq!(status, 200);

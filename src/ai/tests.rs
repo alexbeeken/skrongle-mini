@@ -183,7 +183,7 @@ fn ai_generation_keeps_to_the_course_caps() {
     let req = generating(&db, "huge", "huge-reply", url);
     let err = run(&test_job("huge-reply"), &db, &registry, &req).unwrap_err();
     assert!(err.contains("the reply is larger than 1024 KB"), "{err}");
-    assert_eq!(plain_failure(&err), plain_failure("the reply contains no JSON object"), "reads as an unusable reply");
+    assert_eq!(plain_failure(None, &err), plain_failure(None, "the reply contains no JSON object"), "reads as an unusable reply");
 
     // The same caps on any set of files the AI would leave.
     let file = |path: &str, len: usize| CourseFile { path: path.into(), content: "x".repeat(len) };
@@ -383,6 +383,7 @@ fn test_job(course_id: &str) -> Job {
             lessons_total: 0,
             done: false,
             error: None,
+            error_kind: None,
             course_id: None,
             course_title: None,
             revision: false,
@@ -1097,33 +1098,33 @@ fn revision_plans_are_read_leniently_but_keep_ids() {
 
 #[test]
 fn failures_read_in_plain_words() {
-    let key = plain_failure("the API answered HTTP 401. invalid x-api-key").unwrap();
+    let key = plain_failure(None, "the API answered HTTP 401. invalid x-api-key").unwrap();
     assert!(key.contains("API key") && key.contains("Manage Users"));
-    assert!(plain_failure("lesson 2: the API answered HTTP 529. Overloaded").unwrap().contains("busy"));
-    assert!(plain_failure("request failed: timed out after 900 s").unwrap().contains("in time"));
-    assert!(plain_failure("the reply contains no JSON object").unwrap().contains("couldn't be used"));
-    assert!(plain_failure("HTTP 200: reply is not JSON: <html>").unwrap().contains("couldn't be used"));
-    assert!(plain_failure("lesson 2 did not validate after 3 attempts: quiz[0]").unwrap().contains("couldn't be used"));
-    assert!(plain_failure("the API answered HTTP 404 (check the key, model name and base URL)").unwrap().contains("turned the request down"));
+    assert!(plain_failure(None, "lesson 2: the API answered HTTP 529. Overloaded").unwrap().contains("busy"));
+    assert!(plain_failure(None, "request failed: timed out after 900 s").unwrap().contains("in time"));
+    assert!(plain_failure(None, "the reply contains no JSON object").unwrap().contains("couldn't be used"));
+    assert!(plain_failure(None, "HTTP 200: reply is not JSON: <html>").unwrap().contains("couldn't be used"));
+    assert!(plain_failure(None, "lesson 2 did not validate after 3 attempts: quiz[0]").unwrap().contains("couldn't be used"));
+    assert!(plain_failure(None, "the API answered HTTP 404 (check the key, model name and base URL)").unwrap().contains("turned the request down"));
     // A used-up account reads as that, not as "busy" or "turned down" (#297).
     for raw in [
         "the API answered HTTP 400. You have reached your specified API usage limits. You will regain access on 2026-11-01 at 00:00 UTC.",
         "the API answered HTTP 400. Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.",
         "lesson 3: the API answered HTTP 429. You exceeded your current quota, please check your plan and billing details.",
     ] {
-        assert!(plain_failure(raw).unwrap().contains("run out of credit"), "{raw}");
-        assert!(plain_revision_failure(raw).unwrap().contains("run out of credit"), "{raw}");
+        assert!(plain_failure(None, raw).unwrap().contains("run out of credit"), "{raw}");
+        assert!(plain_revision_failure(None, raw).unwrap().contains("run out of credit"), "{raw}");
     }
-    assert!(plain_failure("the API answered HTTP 429. rate limited").unwrap().contains("busy"));
+    assert!(plain_failure(None, "the API answered HTTP 429. rate limited").unwrap().contains("busy"));
     // Already written for a learner: shown as it is.
-    assert_eq!(plain_failure("Cancelled. The lessons written so far are kept; resume to write the rest."), None);
-    assert_eq!(plain_failure("Generation was interrupted when the server restarted. Resume it to write the remaining lessons."), None);
+    assert_eq!(plain_failure(None, "Cancelled. The lessons written so far are kept; resume to write the rest."), None);
+    assert_eq!(plain_failure(None, "Generation was interrupted when the server restarted. Resume it to write the remaining lessons."), None);
     // Adding or revising has no Resume: the course is unchanged.
     for raw in ["the API answered HTTP 401. bad key", "the reply contains no JSON object", "request failed: timed out after 900 s"] {
-        let plain = plain_revision_failure(raw).unwrap();
+        let plain = plain_revision_failure(None, raw).unwrap();
         assert!(plain.ends_with("The course is unchanged.") && !plain.contains("Resume"), "{plain}");
     }
-    assert_eq!(plain_revision_failure("Cancelled. The course is unchanged."), None);
+    assert_eq!(plain_revision_failure(None, "Cancelled. The course is unchanged."), None);
 }
 
 #[test]
@@ -1598,4 +1599,264 @@ fn reference_is_the_first_cacheable_block() {
     // OpenAI-compatible providers get the same words as one string, reference first.
     let o = openai_body(&ProviderKind::OpenAi.provider("k".into()), "sys", &first, 500);
     assert_eq!(o["messages"][1]["content"], format!("{}{rules}\n\nWrite lesson one.", prompt::reference()));
+}
+
+// ---------- #85: the windows that can leave a course stuck ----------
+
+/// The three records of one job, read the way the pages read them:
+/// (course state, course job id, jobs row state, job in memory is done).
+fn records(db: &Db, jobs: &Jobs, course: &str, row: i64, job: &str) -> (String, Option<String>, String, Option<bool>) {
+    let (state, job_id) = db
+        .with(|c| crate::courses::course(c, course).map(|r| r.map(|r| (r.state.as_str().to_string(), r.job_id)).unwrap()))
+        .unwrap();
+    let row_state = db.with(|c| c.query_row("SELECT state FROM jobs WHERE id = ?1", [row], |r| r.get::<_, String>(0))).unwrap();
+    (state, job_id, row_state, jobs.get(job).map(|j| j.snapshot().done))
+}
+
+/// Wait until every generator thread of `jobs` has exited (the loop only
+/// polls the table the threads leave; no outcome depends on how long it takes).
+fn wait_for_slots(jobs: &Jobs) {
+    let deadline = std::time::Instant::now() + Duration::from_secs(20);
+    while !slot_free(jobs) || !jobs.lock().live.is_empty() {
+        assert!(std::time::Instant::now() < deadline, "the generator threads did not exit");
+        std::thread::sleep(Duration::from_millis(10));
+    }
+}
+
+/// `hold` for a job id, as `submit` does.
+fn hold_row(c: &rusqlite::Connection, req: &Request, id: &str) -> rusqlite::Result<i64> {
+    hold(c, &payload(req, id, false), crate::db::now())
+}
+
+/// Window 3 of the audit in `docs/architecture.md` (#85): two Generate posts
+/// at once on one course. Both read a course that was not busy, so both call
+/// `set_generating` before either job starts; one `start` wins, the other is
+/// refused and the route then fails the course. The functions are driven in
+/// that order, with no timing. The course must stay the winner's.
+#[test]
+fn a_second_generate_post_does_not_take_the_course_from_the_first() {
+    let db = Db::open_in_memory().unwrap();
+    let registry = Arc::new(crate::courses::Courses::empty());
+    let jobs = Arc::new(Jobs::default());
+    let hold_llm = Arc::new(AtomicBool::new(true));
+    let url = scripted_llm(|_| "not JSON".into(), Arc::clone(&hold_llm));
+    let req = generating(&db, "win3", "win3-course", url);
+    // The learner's course before they press Generate: ready, not busy.
+    db.with(|c| crate::courses::finish_generation(c, "win3-course", None)).unwrap();
+
+    // Both requests passed the "not busy" check in `generate_in`; both mark
+    // the course. The second is told the course is taken, and its route stops
+    // there (before `restart_generation` and `ai::submit`).
+    assert!(db.with(|c| crate::courses::set_generating(c, "win3-course", "first")).unwrap());
+    assert!(!db.with(|c| crate::courses::set_generating(c, "win3-course", "second")).unwrap());
+    // The first request's job is taken and starts.
+    let row = db.with(|c| hold_row(c, &req, "first")).unwrap();
+    start(&jobs, db.clone(), Arc::clone(&registry), req.clone(), "first".into(), row).unwrap();
+
+    // Without the guard (the second route went on) `start` refused it, `submit`
+    // settled its row and the route failed the course: the first job's course
+    // came out `failed` with the second's job id.
+    // A course a job is revising is just as taken.
+    db.with(|c| c.execute("UPDATE courses SET state = 'revising' WHERE id = 'win3-course'", [])).unwrap();
+    assert!(!db.with(|c| crate::courses::set_generating(c, "win3-course", "third")).unwrap());
+    db.with(|c| c.execute("UPDATE courses SET state = 'generating' WHERE id = 'win3-course'", [])).unwrap();
+
+    // The first job is still running; its course must say so, with its id.
+    let (state, job_id, row_state, done) = records(&db, &jobs, "win3-course", row, "first");
+    assert_eq!((row_state.as_str(), done), ("running", Some(false)));
+    assert_eq!((state.as_str(), job_id.as_deref()), ("generating", Some("first")));
+
+    hold_llm.store(false, Ordering::SeqCst);
+    wait_for_slots(&jobs);
+}
+
+/// Window 7 (#85): the write that ends a job fails (a full disk, a locked
+/// file). A trigger makes the course update fail, then a real generator
+/// thread runs a job that fails at once. Records today's behaviour: the
+/// thread logs the error and goes on, so the course stays busy, the jobs row
+/// stays `running`, and only memory says the job is done. Nothing in the
+/// running server moves the course on from there; the way out is the Cancel
+/// button (`generate_cancel`, a generation only) or a restart. Fixing it
+/// needs the one end-of-job transaction of #85 part 2, so this test passes
+/// by describing the stuck state.
+#[test]
+fn window_7_a_failed_end_of_job_write_leaves_the_course_busy() {
+    let db = Db::open_in_memory().unwrap();
+    let registry = Arc::new(crate::courses::Courses::empty());
+    let jobs = Arc::new(Jobs::default());
+    let url = scripted_llm(|_| "not JSON".into(), Arc::new(AtomicBool::new(false)));
+    let req = generating(&db, "win7", "win7-course", url);
+    db.with(|c| {
+        c.execute_batch(
+            "CREATE TRIGGER fail_the_end BEFORE UPDATE OF state ON courses WHEN NEW.state IN ('ready', 'failed')
+             BEGIN SELECT RAISE(ABORT, 'disk full'); END;",
+        )
+        .map(drop)
+    })
+    .unwrap();
+    let row = db.with(|c| hold_row(c, &req, "j7")).unwrap();
+    start(&jobs, db.clone(), registry, req, "j7".into(), row).unwrap();
+    wait_for_slots(&jobs);
+
+    // Window 7: busy course, running row, finished job in memory.
+    let (state, job_id, row_state, done) = records(&db, &jobs, "win7-course", row, "j7");
+    assert_eq!((state.as_str(), job_id.as_deref()), ("generating", Some("j")));
+    assert_eq!((row_state.as_str(), done), ("running", Some(true)));
+    // The slot is free, so a second job is not blocked by this one.
+    assert!(slot_free(&jobs));
+    // The way out for a generation: with the job done in memory, Cancel
+    // finds no live job and fails the course (`generate_cancel`).
+    db.with(|c| c.execute_batch("DROP TRIGGER fail_the_end").map(drop)).unwrap();
+    db.with(|c| crate::courses::finish_generation(c, "win7-course", Some("cancelled"))).unwrap();
+    assert_eq!(records(&db, &jobs, "win7-course", row, "j7").0, "failed");
+}
+
+/// Window 9 (#85): a generator thread dies without its end sequence. In the
+/// release build a panic aborts the whole process (`panic = "abort"` in
+/// `Cargo.toml`, held by `scripts/panic-check.sh`), so a thread cannot die
+/// while the server lives; what is left is a server that stopped mid-job. And
+/// the panic cannot be reproduced in a test build either: an SQL function
+/// that panics is caught by rusqlite and becomes an ordinary job failure, and
+/// no other code in the job path panics. So this test builds the state a dead
+/// thread leaves (course busy, row running, nothing in memory) and shows that
+/// the next boot ends it (`at_boot`, then `fail_interrupted`, as `main` does).
+#[test]
+fn window_9_what_a_job_that_died_without_its_end_sequence_leaves_is_ended_at_boot() {
+    let db = Db::open_in_memory().unwrap();
+    let jobs = Jobs::default();
+    let req = generating(&db, "win9", "win9-course", "http://127.0.0.1:1/v1".into());
+    let row = db.with(|c| hold_row(c, &req, "j9")).unwrap();
+    // As the pages see it before the boot: busy course, running row, no job in memory.
+    assert_eq!(records(&db, &jobs, "win9-course", row, "j9"), ("generating".into(), Some("j".into()), "running".into(), None));
+
+    // A pasted key (`hold_row` passes `saved_key = false`): not resumable, so it stops.
+    db.with(|c| at_boot(c, crate::db::now())).unwrap();
+    db.with(|c| crate::courses::fail_interrupted(c)).unwrap();
+    let (state, job_id, row_state, _) = records(&db, &jobs, "win9-course", row, "j9");
+    assert_eq!((state.as_str(), job_id.as_deref(), row_state.as_str()), ("failed", Some("j"), "failed"));
+    let error = db.with(|c| crate::courses::course(c, "win9-course")).unwrap().unwrap().error;
+    assert!(error.is_some_and(|e| e.contains("interrupted")));
+}
+
+/// A fake provider that answers every request with `status` and `body`.
+fn fake_error_llm(status: &'static str, body: &'static str) -> String {
+    use std::io::{BufRead, BufReader, Read, Write};
+    let listener = std::net::TcpListener::bind("127.0.0.1:0").unwrap();
+    let url = format!("http://{}/v1", listener.local_addr().unwrap());
+    std::thread::spawn(move || {
+        for stream in listener.incoming() {
+            let Ok(mut stream) = stream else { continue };
+            let mut reader = BufReader::new(stream.try_clone().unwrap());
+            let mut len = 0usize;
+            loop {
+                let mut line = String::new();
+                if reader.read_line(&mut line).unwrap_or(0) == 0 || line == "\r\n" {
+                    break;
+                }
+                if let Some(v) = line.to_ascii_lowercase().strip_prefix("content-length:") {
+                    len = v.trim().parse().unwrap_or(0);
+                }
+            }
+            let mut sink = vec![0u8; len];
+            let _ = reader.read_exact(&mut sink);
+            let _ = write!(stream, "HTTP/1.1 {status}\r\nContent-Type: application/json\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}", body.len());
+        }
+    });
+    url
+}
+
+/// A generation that stops on an AI failure keeps the failure's kind with
+/// the course (`courses.error_kind`), and the learner's sentence comes from
+/// it; a stop that is not an AI failure keeps none and reads as before.
+#[test]
+fn a_failed_generation_stores_its_kind() {
+    let db = Db::open_in_memory().unwrap();
+    let registry = Arc::new(crate::courses::Courses::empty());
+    let jobs = Jobs::default();
+    let uid = db.with(|c| crate::auth::create_user(c, "kind@example.org", "h")).unwrap();
+    let request = |id: &str, url: String| Request {
+        user_id: uid,
+        provider: Provider { kind: ProviderKind::OpenAi, base_url: url, api_key: "k".into(), model: "fake".into(), effort: None },
+        course_id: id.into(),
+        wish: "fractions".into(),
+        lesson_count: 3,
+        depth: Depth::Full,
+        notes: String::new(),
+        kind: SubjectKind::Auto,
+        instructions: String::new(),
+        resume_outline: None,
+        revise: None,
+        add_lesson: None,
+        edit: None,
+        named: Default::default(),
+        translate: None,
+        i18n: 0,
+    };
+    let finish = |jid: &str| {
+        let deadline = std::time::Instant::now() + Duration::from_secs(20);
+        while !jobs.get(jid).unwrap().snapshot().done {
+            assert!(std::time::Instant::now() < deadline, "job {jid} did not finish");
+            std::thread::sleep(Duration::from_millis(20));
+        }
+    };
+    for (id, status, body, kind) in [
+        ("kind-key", "401 Unauthorized", r#"{"error":{"message":"Nope"}}"#, "key"),
+        ("kind-quota", "429 Too Many Requests", r#"{"error":{"message":"Please check your plan","type":"insufficient_quota"}}"#, "quota"),
+        ("kind-busy", "503 Service Unavailable", r#"{"error":{"message":"Nope"}}"#, "busy"),
+    ] {
+        db.with(|c| {
+            crate::courses::create_generating(c, uid, id, "New", "fractions", "")?;
+            crate::courses::set_generating(c, id, id)
+        })
+        .unwrap();
+        start(&jobs, db.clone(), Arc::clone(&registry), request(id, fake_error_llm(status, body)), id.into(), 0).unwrap();
+        finish(id);
+        let row = db.with(|c| crate::courses::course(c, id)).unwrap().unwrap();
+        assert_eq!(row.state, crate::courses::CourseState::Failed);
+        assert_eq!(row.error_kind.as_deref(), Some(kind), "{id}");
+        let error = row.error.as_deref().unwrap();
+        assert!(plain_failure(row.error_kind.as_deref(), error).is_some(), "{id}");
+    }
+
+    // The words are not read when there is a kind, and the sentence is the same one.
+    let odd = plain_failure(Some("busy"), "something no word of ours matches").unwrap();
+    assert_eq!(Some(odd), plain_failure(None, "the API answered HTTP 529. Overloaded"));
+    // A kind this build does not know falls back to the words.
+    assert_eq!(plain_failure(Some("from_a_newer_build"), "the API answered HTTP 529. Overloaded"), plain_failure(None, "the API answered HTTP 529. Overloaded"));
+
+    // A cancel is not an AI failure: no kind, and the old reading of the text says nothing.
+    let id = "kind-cancel";
+    db.with(|c| {
+        crate::courses::create_generating(c, uid, id, "New", "fractions", "")?;
+        crate::courses::set_generating(c, id, id)?;
+        crate::courses::finish_generation_as(c, id, Some("Cancelled. The lessons written so far are kept; resume to write the rest."), None)
+    })
+    .unwrap();
+    let row = db.with(|c| crate::courses::course(c, id)).unwrap().unwrap();
+    assert_eq!((row.error_kind.clone(), plain_failure(row.error_kind.as_deref(), row.error.as_deref().unwrap())), (None, None));
+
+    // Starting over clears the kind with the error.
+    db.with(|c| {
+        crate::courses::finish_generation_as(c, id, Some("the API answered HTTP 401. x"), Some("key"))?;
+        crate::courses::set_generating(c, id, "again")
+    })
+    .unwrap();
+    let row = db.with(|c| crate::courses::course(c, id)).unwrap().unwrap();
+    assert_eq!((row.error, row.error_kind), (None, None));
+}
+
+/// The headings and sentences come from the language files, in English
+/// where there is no request.
+#[test]
+fn the_progress_headings_and_failures_are_keys() {
+    let mut s = test_job("c").snapshot();
+    assert_eq!(s.heading(), "Writing your course\u{2026}");
+    s.course_title = Some("Fractions".into());
+    assert_eq!(s.heading(), "Writing \u{201c}Fractions\u{201d}\u{2026}");
+    s.done = true;
+    assert_eq!(s.heading(), "Your course is ready");
+    s.error = Some("x".into());
+    assert_eq!(s.heading(), "Generation stopped");
+    assert!(plain_failure(Some("key"), "").unwrap().starts_with("Writing your course stopped."));
+    assert!(plain_revision_failure(Some("key"), "").unwrap().ends_with("The course is unchanged."));
 }

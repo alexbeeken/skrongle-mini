@@ -71,7 +71,7 @@ src/
   courses.rs     course registry: built-in courses from data/courses/, user-made ones in SQLite; projects
   ai.rs          LLM client (Anthropic Messages API / OpenAI-compatible, incl. Gemini) + "generate with AI" job runner (generate, resume, revise with feedback, add a lesson)
   ai/
-    error.rs     `AiError`: the typed wire failure (HTTP status, timeout, unreachable, declined, bad reply); `Display` is the stored sentence, `kind` the learner's reading of it
+    error.rs     `AiError`: the typed wire failure (HTTP status, timeout, unreachable, declined, bad reply); `Display` is the stored sentence, `kind` the learner's reading of it, stored as `courses.error_kind`; also `plain_failure` and `plain_revision_failure`, the sentences (keys under `courses.ai_run`), which read the stored kind and the text only for older rows
     edit.rs      Edit lessons (#1240): rewrite lessons, add, remove or move none; the per-lesson writer shared with revise
     edit_lesson.rs  Edit with AI on one lesson's row (#1242): one `edit-lesson` request, checked by `arrange::only_edits_one`
     queue.rs     AI jobs, one at a time (#874, #43): the one slot, the `generate_course` rows on the jobs table, the lease heartbeat, going on after a restart
@@ -287,7 +287,7 @@ users          (id AUTOINCREMENT, email, password_hash, created_at, email_verifi
                 -- email is what a password account signs in with, set once and never changed;
                 -- password_hash is '' for accounts without one (proxy sign-in);
                 -- email_verified_at: when the address was confirmed (a proxy-made account, the dev user), NULL = not;
-                -- age_confirmed: the "I am at least N" box at sign-up;
+                -- age_confirmed: the "I am at least N" box at sign-up; not asked of the first account (the owner's), which keeps 0;
                 -- owner 1 opens /manage and links it from the account menu (by hand, make-owner, or the first
                 -- account under SKRONGLE_SIGNUP=invite|closed; the dev user in dev mode);
                 -- must_change_password 1: signed in with a temporary password the owner set (src/owner.rs);
@@ -333,10 +333,11 @@ jobs           (id, kind, payload_json, state, priority, run_at, attempts, max_a
                 last_error, created_at, finished_at)
                 -- background jobs (src/jobs.rs); state 'queued' | 'running' | 'done' | 'failed';
                 -- locked_by/locked_until: the lease of a running row. Done rows deleted after a day, failed after 30
-courses        (id, owner_id, title, created_at, updated_at, error, state, source, job_id, brief, outline, notes)
+courses        (id, owner_id, title, created_at, updated_at, error, state, source, job_id, brief, outline, notes, error_kind)
                 -- user-made courses, private to their owner (and whoever they share them with);
                 -- state 'generating' | 'revising' | 'ready' | 'failed', source 'hand' | 'ai' | 'translate';
-                -- error: the last validation error, NULL when it loads; brief/notes/outline let a stopped AI run resume
+                -- error: the last validation error, NULL when it loads; brief/notes/outline let a stopped AI run resume;
+                -- error_kind: why an AI run stopped (ai::Failure name), NULL for older rows and for a cancel or restart
 course_files   (course_id, path, content, updated_at)  PRIMARY KEY (course_id, path)
 course_undo    (course_id, seq, title, outline, label, created_at, session, started_at)  PRIMARY KEY (course_id, seq)
 course_undo_files (course_id, seq, path, content)  PRIMARY KEY (course_id, seq, path)
@@ -426,7 +427,7 @@ Every request carries an `x-skrongle-call` header naming its purpose,
 key, job and vars (`ai::call_header`). The providers ignore it. The dev AI
 provider picks its fixture reply by it. Error statuses are read as
 responses (`http_status_as_error(false)`), so a provider's own message (a
-used-up quota) reaches `ai::plain_failure`.
+used-up quota) reaches `ai::plain_failure`, which reads the stored `courses.error_kind` and falls back to the words for rows without one.
 
 **AI jobs on the editor.** `POST /courses/{id}/generate` and
 `POST /courses/{id}/ai` start a job and redirect to `/courses/{id}?job=<job>`;
@@ -702,16 +703,21 @@ I found.
    still says busy. For a fresh generation the files were already deleted by
    `restart_generation`. Partly tested: `ai/tests.rs:200` tests that `start`
    refuses, but does not read the rows.
-3. **Two Generate posts at once on one course.** Both can read a course that
-   is not busy (`generate.rs:473`) before either calls `set_generating`
-   (`generate.rs:590`). Both then write the course, and `hold` makes two jobs
-   rows. `set_generating` has no `WHERE state` guard, unlike `set_revising`.
-   One `start` wins; the other is refused, settles its row, and the route marks
-   the course `failed` (`generate.rs:618`) while the first job runs, with
-   `job_id` possibly the loser's. Untested for generation. Revisions are
-   covered: `e2e/specs/revise.spec.ts:308` ("two revisions asked for at the
-   same moment start only one job") and `ai/tests.rs:200` (eight `start`
-   calls, one wins).
+3. **Two Generate posts at once on one course.** Both could read a course
+   that was not busy (`generate.rs:473`) before either called
+   `set_generating`. Confirmed by a test that drives the calls in that order
+   (`a_second_generate_post_does_not_take_the_course_from_the_first`, #85):
+   `set_generating` had no `WHERE state` guard, so the second post overwrote
+   `job_id`, its `start` was refused, and the route failed the course while
+   the first job ran (`failed`, with the second job's id). Found on the way:
+   the second post's `restart_generation` also deleted the first job's files
+   and outline. Fixed: `set_generating` now returns false when a job has the
+   course (state `generating` or `revising` with a `job_id`), like
+   `set_revising`; `generate_in` takes the course before
+   `restart_generation` and answers "busy" when it loses, and so does the
+   resume of a translation (`create.rs`). Revisions are covered too:
+   `e2e/specs/revise.spec.ts:308` and `ai/tests.rs:200`. Not covered: the
+   routes themselves with two real requests at once.
 4. **End of job, row final but memory not done yet** (between
    `queue.rs:288` and `queue.rs:297`). The editor sees a ready course and a
    job that is not done, and draws a running modal for a moment
@@ -734,7 +740,16 @@ I found.
    entry is gone). After 600 s the runner claims the row and `handler` settles
    it `failed` with "cancelled" because the job in memory is done
    (`queue.rs:511`-`516`); the course stays busy until the next restart.
-   Untested.
+   Confirmed up to the lease by a test with a real generator thread and a
+   trigger that makes the course update fail
+   (`window_7_a_failed_end_of_job_write_leaves_the_course_busy`, #85): course
+   `generating`, row `running`, job done in memory, slot freed. The test also
+   shows the way out for a generation: Cancel finds no live job and fails the
+   course (`generate_cancel`). A revision has none until a restart (window
+   11). The claim by the runner after the lease was not driven. Not fixed: a
+   failing database fails every retry, and ending the job in one transaction
+   is part 2 of #85. The test records today's behaviour and will need to
+   change with that work.
 8. **Files and cache ahead of the row.** A revision's files are swapped and
    the cache refreshed (`ai.rs:904` etc.) while the course still says
    `revising`. A generation's final `revalidate` (`ai.rs:578`) puts the
@@ -742,12 +757,18 @@ I found.
    still says `generating`; `Courses::get` answers from the cache without
    looking at the row (`courses.rs:416`). Whether any page asks for a course
    by id without reading its row first: not traced. Untested.
-9. **The generator thread dies without its end sequence** (a panic; whether
-   one can happen: not traced). The slot is freed (`LiveSlot::drop`), but the
-   course stays busy, the jobs row stays `running`, memory is not done. After
-   the lease runs out the runner claims the row: a resumable generation is
-   rebuilt and run again; any other kind goes to `give_up`
-   (`queue.rs:519`-`522`). Untested.
+9. **The generator thread dies without its end sequence.** Cannot happen in
+   the release build: `Cargo.toml` sets `panic = "abort"`, so a panic ends the
+   whole process, and `scripts/panic-check.sh` keeps panicking lines out of
+   the code. That case is "Server stops mid-job". A test build unwinds, but
+   no panic could be made in the job path (an SQL function that panics is
+   caught by rusqlite and becomes an ordinary job failure), so the thread
+   dying alone was not reproduced. Tested instead: the state such a death
+   would leave (course busy, row `running`, nothing in memory) is ended by
+   the next boot, `at_boot` then `fail_interrupted`
+   (`window_9_what_a_job_that_died_without_its_end_sequence_leaves_is_ended_at_boot`,
+   #85). Nothing to fix. The lease path (the runner claiming the row after
+   600 s, `handler`, `give_up`) is still not tested.
 10. **Cancel racing the end of the job.** `generate_cancel` checks `!done`
     (`generate.rs:627`) and then `Job::cancel` sets the phase to
     "Cancelling…" without checking `done` again (`ai.rs:322`). A job that
@@ -820,7 +841,7 @@ writable path, and a release never touches the database.
   codes count against sign-in, and a blocked sign-in blocks it). The address is the peer, or
   the last `X-Forwarded-For` entry when the peer is a proxy on loopback;
   an IPv6 address counts by its /64. Each limit keeps its own table of at
-  most 64 keys (`caps::MAX_RATE_LIMIT_KEYS`); a full table drops ended
+  most 400 keys (`caps::MAX_RATE_LIMIT_KEYS`); a full table drops ended
   windows first, and then depends on the limit (`security::WhenFull`).
   The per-account limits refuse a new key (as over the limit) rather than
   evict a running window, so a flood cannot reset an account's
@@ -856,7 +877,7 @@ writable path, and a release never touches the database.
   `Db::call` that writes). One account may write course files 120 times in
   5 minutes (`security::COURSE_WRITES_PER_USER`). The cache of built
   courses (built-in and user-made) keeps at most 8
-  of them (`courses::MAX_STORES`, one active course per account; boot
+  of them (`courses::MAX_STORES`, a number of its own, since a class mostly shares one course; boot
   puts the seed course in), least recently used out first. Lesson Markdown is rendered by pulldown-cmark; raw HTML in
   Markdown is escaped (shown as text) and links or images with a scheme
   other than http(s) or mailto point to `#` (`content::render_markdown`),

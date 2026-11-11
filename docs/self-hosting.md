@@ -141,8 +141,9 @@ To try it without systemd, run it from its folder:
 `dietpi-software` does it: it downloads the latest release for this machine
 and checks its checksum, unpacks it to `/opt/skrongle`, creates the
 `skrongle` user, keeps the data in `/mnt/dietpi_userdata/skrongle`, writes
-the [static-user unit](#a-static-user-data-outside-varlib) and starts it,
-then prints the owner link. Run it again to update (it copies the database
+the [static-user unit](#a-static-user-data-outside-varlib) and starts it.
+Its last lines are the owner link, with the machine's IP address unless
+`SKRONGLE_PUBLIC_URL` is set. Run it again to update (it copies the database
 aside first and keeps your env file and unit); `--uninstall` and
 `--uninstall --purge` remove it. The steps are listed at the top of the file.
 
@@ -269,9 +270,11 @@ SystemCallArchitectures=native
 Keep `[Unit]` and `[Install]` as in `deploy/skrongle.service`. If the folder
 is on a mount that comes up late, add `RequiresMountsFor=/mnt/dietpi_userdata/skrongle`
 under `[Unit]`. `skrongle doctor --service` reads this unit and reports the
-database and data paths; run it as the service's user
-(`sudo -u skrongle /opt/skrongle/skrongle doctor --service`) and its
-"runs as" and "db writable" lines are the service's too. CI starts the binary as
+database and data paths (`sudo /opt/skrongle/skrongle doctor --service`).
+Its "runs as" and "db writable" lines are about whoever runs the command, so
+with `sudo` they are root's. `sudo -u skrongle` makes them the service's, but
+only on a system with D-Bus: a fresh DietPi has none, and there `systemctl`
+answers root alone, so `--service` fails for any other user. CI starts the binary as
 a non-root user with the database in a temp folder and checks `/healthz`,
 the owner link and the key file's mode (`scripts/non-root-start.sh`).
 
@@ -301,7 +304,7 @@ Where a default says "unit", `skrongle.service` sets it.
 | `SKRONGLE_SECURE_COOKIES` | off | `1` when the site is served over HTTPS (behind a TLS proxy). |
 | `SKRONGLE_PUBLIC_URL` | — | The address people use, e.g. `https://learn.example.org`. The owner link and invitation links start with it. |
 | `SKRONGLE_BASE_PATH` | *(empty)* | A URL prefix when a proxy serves the app under a path, e.g. `/learn`. |
-| `SKRONGLE_MIN_AGE` | `14` | The minimum age the registration checkbox states. |
+| `SKRONGLE_MIN_AGE` | `14` | The minimum age the registration checkbox states. The owner's own account is not asked. |
 | `SKRONGLE_FAILED_COURSE_RETENTION_DAYS` | `30` | An AI course whose generation failed is deleted, with the notes it was given, after this many days without a resume or edit. `0` keeps them. |
 | `SKRONGLE_RETAIN_HISTORY_DAYS` | `730` | Answers and finished game rounds older than this many days are deleted, at start and hourly. `0` keeps them. |
 | `SKRONGLE_KEEP_NOTES` | off | `1` or `true` keeps an AI course's notes after it is ready, so a later revision sees the original material. Off, they are removed once it is ready. |
@@ -386,11 +389,11 @@ to `invite`:
 The same page lists the open invitations and the accounts (e-mail address,
 when it was made, last sign-in; 25 to a page).
 
-A Skrongle mini holds at most **8 accounts**: a household plus a couple of
-guests. This is a fixed number, not a setting, in every sign-up mode. Past
+A Skrongle mini holds at most **50 accounts**: a class, or a household with
+room to spare. This is a fixed number, not a setting, in every sign-up mode. Past
 it the register form, invitation links and the proxy sign-in's account
 creation all say "This Skrongle has all the accounts it can hold", and the
-Manage Users page shows "8 of 8 accounts" and hides the invitation form. The
+Manage Users page shows "50 of 50 accounts" and hides the invitation form. The
 Pi Zero 2 W has little memory, and one known size is what lets the rest of
 the server (sessions, rate limits, connections) bound what it keeps. The
 other values of the setting:
@@ -472,7 +475,7 @@ For a public site, put a TLS proxy (nginx, Caddy) in front, set
 Anything that faces the internet should sit behind such a proxy, even
 without HTTPS. The app has only coarse protection. It closes a connection
 that takes more than 15 seconds to send its headers or stalls 30 seconds in
-its body, takes at most 32 connections (more clients wait until one closes), and refuses
+its body, takes at most 128 connections (more clients wait until one closes), and refuses
 bodies over 64 KB outside the course editor. A proxy buffers slow clients
 and can limit them per address.
 
@@ -714,7 +717,9 @@ getent passwd skrongle && sudo userdel skrongle   # only if the user is there
 The database folder is your data, so the script keeps it unless you pass
 `--purge`. It is `/var/lib/skrongle`. The service's user is created by
 systemd, so the real folder is `/var/lib/private/skrongle`, with
-`/var/lib/skrongle` linked to it; the script handles both. The folder holds:
+`/var/lib/skrongle` linked to it; the script handles both. An install made
+by `dietpi-install.sh` keeps it in `/mnt/dietpi_userdata/skrongle`, which the
+script handles too. The folder holds:
 
 - `learn.db`: the accounts, progress, courses made in the app, and the AI
   keys people saved (encrypted);
@@ -728,7 +733,8 @@ again with the same unit finds the accounts and progress as they were.
 `/etc/skrongle` is kept too without `--purge`, because its env file can hold
 `SKRONGLE_SECRET_KEY`, which the kept database needs to read the saved AI
 keys. `--purge` removes that folder as well. To remove the data by hand,
-after the steps above: `sudo rm -rf /var/lib/skrongle /var/lib/private/skrongle /etc/skrongle`.
+after the steps above: `sudo rm -rf /var/lib/skrongle /var/lib/private/skrongle /etc/skrongle`
+(on DietPi, `/mnt/dietpi_userdata/skrongle` in place of the first two).
 
 To use Skrongle again later, follow [Install](#install).
 

@@ -29,7 +29,8 @@ use crate::courses;
 use crate::db::Db;
 
 mod error;
-pub use error::AiError;
+pub use error::{plain_failure, plain_revision_failure, AiError};
+use error::Failure;
 mod queue;
 pub use queue::*;
 mod providers;
@@ -251,6 +252,10 @@ pub struct Status {
     pub lessons_total: usize,
     pub done: bool,
     pub error: Option<String>,
+    /// The kind of AI failure behind `error` (`Failure::name`), kept with the
+    /// course row so the page need not read the words back.
+    #[serde(skip)]
+    pub error_kind: Option<&'static str>,
     pub course_id: Option<String>,
     pub course_title: Option<String>,
     /// A revision of a finished course (feedback, or a lesson added) rather
@@ -274,22 +279,24 @@ pub struct Status {
 impl Status {
     /// The progress modal's heading.
     pub fn heading(&self) -> String {
-        let t = self.lesson_title.as_deref().or(self.course_title.as_deref()).map(|t| format!("\u{201c}{t}\u{201d}")).unwrap_or_else(|| "your course".into());
+        let t = self.lesson_title.as_deref().or(self.course_title.as_deref()).map(|t| format!("\u{201c}{t}\u{201d}")).unwrap_or_else(|| crate::t("courses.ai_run.heading.your_course"));
+        let heading = |key: &str| crate::t(&format!("courses.ai_run.heading.{key}"));
+        let heading_of = |key: &str| crate::t1(&format!("courses.ai_run.heading.{key}"), "title", &t);
         match (self.done, self.error.is_some()) {
             (true, true) if self.translating => crate::t("courses.translate.heading_stopped"),
             (true, false) if self.translating => crate::t("courses.translate.heading_done"),
-            (false, _) if self.translating => crate::t1("courses.translate.heading_running", "title", t),
-            (true, true) if self.adding => "Adding stopped".into(),
-            (true, true) if self.editing => "Editing stopped".into(),
-            (true, true) if self.revision => "Revision stopped".into(),
-            (true, true) => "Generation stopped".into(),
-            (true, false) if self.adding => "The new lesson is in".into(),
-            (true, false) if self.revision => "Your changes are in".into(),
-            (true, false) => "Your course is ready".into(),
-            (false, _) if self.adding => format!("Adding a lesson to {t}\u{2026}"),
-            (false, _) if self.editing => format!("Editing {t}\u{2026}"),
-            (false, _) if self.revision => format!("Revising {t}\u{2026}"),
-            (false, _) => format!("Writing {t}\u{2026}"),
+            (false, _) if self.translating => crate::t1("courses.translate.heading_running", "title", &t),
+            (true, true) if self.adding => heading("adding_stopped"),
+            (true, true) if self.editing => heading("editing_stopped"),
+            (true, true) if self.revision => heading("revision_stopped"),
+            (true, true) => heading("stopped"),
+            (true, false) if self.adding => heading("new_lesson"),
+            (true, false) if self.revision => heading("changes_in"),
+            (true, false) => heading("ready"),
+            (false, _) if self.adding => heading_of("adding"),
+            (false, _) if self.editing => heading_of("editing"),
+            (false, _) if self.revision => heading_of("revising"),
+            (false, _) => heading_of("writing"),
         }
     }
 }
@@ -360,11 +367,20 @@ impl Job {
     /// counts as available to it), and every call that answers is recorded.
     /// Blocking; the job's thread writes through `Db::with` as for its files.
     fn llm(&self, req: &Request, call: &Call, system: &str, user: &str) -> Result<String, String> {
+        self.update(|s| s.error_kind = None);
         self.check_cancelled()?;
         let msgs = [ChatMessage { role: "user", content: user.to_string() }];
         let timeout = request_timeout(GENERATE_TIMEOUT).min(self.remaining()).max(Duration::from_secs(1));
         let send = || complete(&req.provider, call, system, &msgs, budget::max_tokens(&req.provider), timeout);
-        send().map(|r| r.text).map_err(|e| e.to_string())
+        match send() {
+            Ok(r) => Ok(r.text),
+            Err(e) => {
+                // The kind goes where the sentence goes: the job's end writes both.
+                let kind = e.kind().map(Failure::name);
+                self.update(|s| s.error_kind = kind);
+                Err(e.to_string())
+            }
+        }
     }
 }
 
@@ -1493,75 +1509,6 @@ fn send(req: ureq::RequestBuilder<ureq::typestate::WithBody>, body: &serde_json:
         return Err(AiError::Http { status, message, quota: error::quota_field(&json) });
     }
     Ok(json)
-}
-
-/// The failures a learner can do something about.
-#[derive(Clone, Copy)]
-enum Failure {
-    Key,
-    /// The account's credit or usage limit is used up (a 400 or 429 that says so).
-    Quota,
-    Busy,
-    Unusable,
-    TurnedDown,
-    ProviderError,
-    Unreachable,
-}
-
-/// What the providers say when an account's money or quota is used up:
-/// Anthropic's 400 "credit balance is too low" and "reached your specified
-/// API usage limits", OpenAI's 429 `insufficient_quota` ("exceeded your
-/// current quota"), Google's 429 "exceeded your current quota".
-fn quota_exhausted(raw: &str) -> bool {
-    let lower = raw.to_ascii_lowercase();
-    ["credit balance", "usage limit", "insufficient_quota", "exceeded your current quota", "quota exceeded", "billing"].iter().any(|w| lower.contains(w))
-}
-
-fn failure_kind(raw: &str) -> Option<Failure> {
-    let http = raw.split("HTTP ").nth(1).and_then(|r| r.get(..3)).and_then(|c| c.parse::<u16>().ok());
-    if matches!(http, Some(400 | 402 | 403 | 429)) && quota_exhausted(raw) {
-        return Some(Failure::Quota);
-    }
-    Some(match http {
-        Some(401 | 403) => Failure::Key,
-        Some(429 | 529) | Some(500..=599) => Failure::Busy,
-        Some(200..=299) => Failure::Unusable,
-        Some(400 | 404) => Failure::TurnedDown,
-        Some(_) => Failure::ProviderError,
-        None if raw.starts_with("request failed") => Failure::Unreachable,
-        None if ["JSON", "no text", "did not validate", "does not load", "no lessons", "slug '", "reply"].iter().any(|w| raw.contains(w)) => Failure::Unusable,
-        None => return None,
-    })
-}
-
-/// What a learner reads when a generation stops: a plain sentence and a next
-/// step for the failures we know (the key, a busy provider, an unusable
-/// reply). `None` when `raw` is already written for a learner (a cancel, a
-/// restart); pages show the raw text underneath as the detail.
-pub fn plain_failure(raw: &str) -> Option<&'static str> {
-    Some(match failure_kind(raw)? {
-        Failure::Key => "Writing your course stopped. The AI provider didn't accept the server's API key. The owner can check it on Manage Users; then try again.",
-        Failure::Quota => "Writing your course stopped. Your AI provider account has run out of credit or reached its usage limit. Check your plan and billing with the provider, then try again.",
-        Failure::Busy => "Writing your course stopped. The AI provider is busy right now. Wait a minute, then try again.",
-        Failure::Unusable => "Writing your course stopped. The AI's reply couldn't be used to build the course. Try again.",
-        Failure::TurnedDown => "Writing your course stopped. The AI provider turned the request down. Try again; if it stops again, the owner can check the key on Manage Users.",
-        Failure::ProviderError => "Writing your course stopped. The AI provider answered with an error. Try again.",
-        Failure::Unreachable => "Writing your course stopped. The AI provider didn't answer in time or couldn't be reached. Try again in a minute.",
-    })
-}
-
-/// `plain_failure` for an "Add content with AI" job (a lesson added, or the
-/// course revised), which has no Resume: it changed nothing, so try again.
-pub fn plain_revision_failure(raw: &str) -> Option<&'static str> {
-    Some(match failure_kind(raw)? {
-        Failure::Key => "The AI provider didn't accept the server's API key. The owner can check it on Manage Users; then try again. The course is unchanged.",
-        Failure::Quota => "Your AI provider account has run out of credit or reached its usage limit. Check your plan and billing with the provider, then try again. The course is unchanged.",
-        Failure::Busy => "The AI provider is busy right now. Wait a minute, then try again. The course is unchanged.",
-        Failure::Unusable => "The AI's reply couldn't be used. Try again, or say it differently. The course is unchanged.",
-        Failure::TurnedDown => "The AI provider turned the request down. Try again; if it stops again, the owner can check the key on Manage Users. The course is unchanged.",
-        Failure::ProviderError => "The AI provider answered with an error. Try again. The course is unchanged.",
-        Failure::Unreachable => "The AI provider didn't answer in time or couldn't be reached. Try again in a minute. The course is unchanged.",
-    })
 }
 
 #[cfg(test)]

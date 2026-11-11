@@ -10,8 +10,11 @@
 # installs; a unit with DynamicUser=yes has none).
 #
 # The database folder is the data. With DynamicUser, systemd keeps it in
-# /var/lib/private/skrongle and links /var/lib/skrongle to it; both are
-# handled. The data stays unless --purge. /etc/skrongle stays too without
+# /var/lib/private/skrongle and links /var/lib/skrongle to it; a DietPi
+# install (deploy/dietpi-install.sh) keeps it in
+# /mnt/dietpi_userdata/skrongle. All three are handled; a database the
+# settings put anywhere else is left alone, and the script says so. The data
+# stays unless --purge. /etc/skrongle stays too without
 # --purge, because its env file may hold SKRONGLE_SECRET_KEY, which the kept
 # database needs to read its saved AI keys.
 #
@@ -36,6 +39,7 @@ OPT=/opt/skrongle
 CONF=/etc/skrongle
 DATA=/var/lib/skrongle
 DATA_REAL=/var/lib/private/skrongle
+DATA_DIETPI=/mnt/dietpi_userdata/skrongle
 HAVE_SYSTEMCTL=
 if command -v systemctl >/dev/null 2>&1; then HAVE_SYSTEMCTL=1; fi
 
@@ -55,7 +59,7 @@ remove() {
 }
 
 found=
-for p in "$UNIT" "$DROPIN" "$OPT" "$CONF" "$DATA" "$DATA_REAL"; do
+for p in "$UNIT" "$DROPIN" "$OPT" "$CONF" "$DATA" "$DATA_REAL" "$DATA_DIETPI"; do
   if exists "$p"; then found=1; fi
 done
 if static_user; then found=1; fi
@@ -64,8 +68,25 @@ if [ -z "$found" ]; then
   exit 0
 fi
 
-if [ -f "$CONF/env" ] && grep -E '^SKRONGLE_DB=' "$CONF/env" | grep -qEv '=/var/lib/(private/)?skrongle/'; then
-  echo "note: $CONF/env puts the database somewhere else. This script does not touch it;"
+# Where the service was told to keep the database, read before the unit is
+# removed: the unit's Environment= line, then the env file on top, as
+# systemd orders them. Empty means the default. A path outside the folders
+# above is never touched (it may sit beside files that are not Skrongle's).
+DB=
+if [ -f "$UNIT" ]; then
+  DB=$(sed -n 's/^Environment="\{0,1\}SKRONGLE_DB=\([^"]*\)"\{0,1\}[[:space:]]*$/\1/p' "$UNIT" | tail -n 1)
+fi
+if [ -f "$CONF/env" ]; then
+  FROM_ENV=$(sed -n 's/^SKRONGLE_DB=//p' "$CONF/env" | tail -n 1)
+  [ -z "$FROM_ENV" ] || DB=$FROM_ENV
+fi
+ELSEWHERE=
+case "$DB" in
+  ""|"$DATA"/*|"$DATA_REAL"/*|"$DATA_DIETPI"/*|"$OPT"/*|[!/]*) ;;
+  *) ELSEWHERE=$DB ;;
+esac
+if [ -n "$ELSEWHERE" ]; then
+  echo "note: the settings put the database at $ELSEWHERE. This script does not touch it;"
   echo "      remove it by hand if you want it gone."
 fi
 
@@ -100,25 +121,35 @@ if [ -n "$PURGE" ]; then
   remove "$DATA"
   remove "$DATA_REAL"
   rmdir /var/lib/private 2>/dev/null || true
+  remove "$DATA_DIETPI"
   remove "$CONF"
 else
-  for d in "$DATA" "$DATA_REAL"; do
+  # What stays, for the line at the end: this script is in $OPT and is gone
+  # after this run, so it cannot be named as the way to delete the rest.
+  KEPT=
+  for d in "$DATA" "$DATA_REAL" "$DATA_DIETPI"; do
     if exists "$d"; then
       echo "kept $d: the database (accounts, progress, courses made in the app, saved AI keys) and its key"
+      KEPT="$KEPT $d"
     fi
   done
   if exists "$CONF"; then
     echo "kept $CONF: settings; its env file may hold SKRONGLE_SECRET_KEY"
+    KEPT="$KEPT $CONF"
   fi
 fi
 
 remove "$OPT"
 
 echo
-if [ -n "$PURGE" ]; then
+if [ -n "$PURGE" ] && [ -n "$ELSEWHERE" ]; then
+  echo "Skrongle is removed. The database at $ELSEWHERE is NOT: remove it by hand."
+elif [ -n "$PURGE" ]; then
   echo "Skrongle is removed, and its data with it."
 else
   echo "Skrongle is removed. Its data is kept, so installing it again brings the accounts back."
-  echo "To delete the data as well (permanent; back it up first, see docs/self-hosting.md):"
-  echo "  sudo $0 --purge"
+  if [ -n "$KEPT" ]; then
+    echo "To delete the data as well (permanent; back it up first, see docs/self-hosting.md):"
+    echo "  sudo rm -rf$KEPT"
+  fi
 fi

@@ -30,7 +30,7 @@ Read `docs/` before changing anything substantial:
   `docs/progress.md`): seen + one run of >= 70 %. A new lesson-based
   feature reports through `progress::mark_seen` / `record_run` /
   `record_taught_run`; show completion from passes, not from mode tables.
-- One shape. Skrongle mini is a handful of accounts on one box: SQLite, no
+- One shape. Skrongle mini is at most 50 accounts on one box: SQLite, no
   e-mail, and no outside service it has to reach except the AI providers the
   owner's keys point at. Don't write code, docs, tests or issues that assume
   such a service: no "if a provider is configured", no half-configured

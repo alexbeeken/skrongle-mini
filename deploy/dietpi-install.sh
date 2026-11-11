@@ -32,9 +32,13 @@
 #     not exist, or when --unit is given. A unit you edited is left alone.
 # 11. Reload systemd, enable the service, start it, and wait until it
 #     answers on port 7576.
-# 12. If nobody has an account yet, print the owner link
-#     (skrongle owner-link --service); otherwise say the server is up and
-#     where to open it.
+# 12. If nobody has an account yet, end with the owner link in a short block
+#     of its own. Root asks systemd for the unit's settings and the skrongle
+#     user runs `skrongle owner-link` with them, and /etc/skrongle/env on
+#     top. Unless SKRONGLE_PUBLIC_URL is set, the link is printed with this
+#     machine's IP address, which opens from another computer where
+#     <hostname>.local may not. If an account exists, say the server is up
+#     and where to open it. If the command fails, print what it said first.
 #
 # Every systemd step is skipped, with a note, on a machine without
 # systemctl (a container).
@@ -312,11 +316,48 @@ if ! systemctl is-active --quiet skrongle || [ "$i" -ge 20 ]; then
 fi
 
 # The command opens the database, so run it as the service's user: files it
-# creates (-wal, -shm) must not end up owned by root.
-LINK=$(su -s /bin/sh skrongle -c "$OPT/skrongle owner-link --service" 2>&1) || LINK=
+# creates (-wal, -shm) must not end up owned by root. systemctl only answers
+# root on a box without D-Bus (a fresh DietPi), so root reads the unit's
+# Environment= lines and passes them on; the env file goes on top, as
+# systemd orders them.
+SVC_ENV=$(systemctl show skrongle -p Environment --value 2>/dev/null) || SVC_ENV=
+SAID=$(su -s /bin/sh skrongle -c "cd $OPT && env $SVC_ENV $OPT/skrongle owner-link --env-file $CONF/env" 2>&1) || true
 HOST=$(hostname -I 2>/dev/null | cut -d' ' -f1)
 HOST="${HOST:-$(hostname)}"
-case "$LINK" in
-  "Owner link"*) echo "Skrongle $VERSION is up. Make your account with this link:"; echo "$LINK" ;;
-  *) echo "Skrongle $VERSION is up: open http://$HOST:$PORT" ;;
-esac
+LINK=$(printf '%s\n' "$SAID" | sed -n '/\/register?invite=/{p;q;}')
+
+if [ -z "$LINK" ]; then
+  case "$SAID" in
+    "An owner account already exists"*) ;;
+    *)
+      echo "could not make the owner link; the command said:"
+      printf '%s\n' "$SAID" | sed 's/^/  /'
+      echo "for the link, once that is fixed: sudo $OPT/skrongle owner-link --service"
+      ;;
+  esac
+  echo "Skrongle $VERSION is up: open http://$HOST:$PORT"
+  exit 0
+fi
+
+# Without SKRONGLE_PUBLIC_URL the binary names the host <hostname>.local,
+# which a fresh DietPi (no Avahi) does not answer to. Put the address that
+# does open in its place and keep the path, base path included.
+PUBLIC_URL=
+case " $SVC_ENV" in *[\ \"]SKRONGLE_PUBLIC_URL=*) PUBLIC_URL=1 ;; esac
+if grep -q '^[[:space:]]*SKRONGLE_PUBLIC_URL=' "$CONF/env" 2>/dev/null; then PUBLIC_URL=1; fi
+if [ -z "$PUBLIC_URL" ]; then
+  REST="${LINK#*://}"
+  LINK="http://$HOST:$PORT/${REST#*/}"
+fi
+
+cat <<DONEEOF
+
+Skrongle $VERSION is installed and running.
+
+  Make your account (the owner's) by opening this link:
+
+  $LINK
+
+  It works once. For a new one: sudo $OPT/skrongle owner-link --service
+
+DONEEOF

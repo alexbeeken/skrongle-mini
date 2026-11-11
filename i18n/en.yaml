@@ -911,6 +911,7 @@ study:
     read_passed_html: "Mastery is now <strong>{mastery}%</strong>. The lesson is part of your recommended practice from here on; practise it a few more times to show mastery."
     recommended_practice: Recommended practice
     back_to_lessons: Back to the lessons
+    next_lesson: Next lesson
     not_read: Not read yet
     not_read_hint: Both answers need to be right. Have another look at the part the explanation points to, then try again with two more questions.
     try_two_more: Try two more questions
@@ -1720,6 +1721,36 @@ courses:
     heading_stopped: "Translation stopped"
     phase_start: "Translating"
     phase_file: "Translating {file} ({n} of {total})"
+  ai_run:
+    failure:
+      key: "Writing your course stopped. The AI provider didn't accept the server's API key. The owner can check it on Manage Users; then try again."
+      quota: "Writing your course stopped. Your AI provider account has run out of credit or reached its usage limit. Check your plan and billing with the provider, then try again."
+      busy: "Writing your course stopped. The AI provider is busy right now. Wait a minute, then try again."
+      unusable: "Writing your course stopped. The AI's reply couldn't be used to build the course. Try again."
+      turned_down: "Writing your course stopped. The AI provider turned the request down. Try again; if it stops again, the owner can check the key on Manage Users."
+      provider_error: "Writing your course stopped. The AI provider answered with an error. Try again."
+      unreachable: "Writing your course stopped. The AI provider didn't answer in time or couldn't be reached. Try again in a minute."
+    revision_failure:
+      key: "The AI provider didn't accept the server's API key. The owner can check it on Manage Users; then try again. The course is unchanged."
+      quota: "Your AI provider account has run out of credit or reached its usage limit. Check your plan and billing with the provider, then try again. The course is unchanged."
+      busy: "The AI provider is busy right now. Wait a minute, then try again. The course is unchanged."
+      unusable: "The AI's reply couldn't be used. Try again, or say it differently. The course is unchanged."
+      turned_down: "The AI provider turned the request down. Try again; if it stops again, the owner can check the key on Manage Users. The course is unchanged."
+      provider_error: "The AI provider answered with an error. Try again. The course is unchanged."
+      unreachable: "The AI provider didn't answer in time or couldn't be reached. Try again in a minute. The course is unchanged."
+    heading:
+      stopped: "Generation stopped"
+      adding_stopped: "Adding stopped"
+      editing_stopped: "Editing stopped"
+      revision_stopped: "Revision stopped"
+      ready: "Your course is ready"
+      new_lesson: "The new lesson is in"
+      changes_in: "Your changes are in"
+      adding: "Adding a lesson to {title}…"
+      editing: "Editing {title}…"
+      revising: "Revising {title}…"
+      writing: "Writing {title}…"
+      your_course: "your course"
   picker:
     title: What would you like to learn?
     lead_anon: Pick a ready-made course. Each course keeps its own progress, vocabulary, games and history.

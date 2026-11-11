@@ -2,7 +2,7 @@
 // run on every `scripts/e2e.sh`, with no network and no key.
 import { expect, test } from "@playwright/test";
 import { aiMode, correctAnswers, createCourse, devLogin, devReset, editorSaved, fastAutosave, playSprintSession, generateCourse, generationEnds, openFromEditor } from "../lib/app";
-import { login, logout, newAccount, register, removeApiKey, resetServerKeys, saveApiKey } from "../lib/learner";
+import { login, logout, newAccount, register, removeApiKey, resetServerKeys, saveApiKey, tickAgeBox } from "../lib/learner";
 import { readdirSync, readFileSync } from "node:fs";
 
 test.beforeEach(async ({ page }) => {
@@ -331,7 +331,7 @@ test("a course someone makes stays private to them", async ({ page, browser }) =
   await them.goto("/register");
   await them.getByTestId("register-email").fill(`${name}@example.com`);
   await them.getByTestId("register-password").fill("correct horse battery");
-  await them.getByTestId("register-age").check();
+  await tickAgeBox(them);
   await them.getByTestId("register-submit").click();
   // Registering signs the new account in.
   await expect(them.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", `${name}@example.com`);
@@ -433,7 +433,11 @@ test("the course list fills a desktop row and stacks on a phone (#428)", async (
   await page.setViewportSize({ width: 1280, height: 900 });
   // (Where Make your own lands depends on how many ready-made cards there are: here the test course is one too.)
   const [projects, builtin] = await tops();
-  expect(builtin, "ready-made courses beside your projects").toBe(projects);
+  // Up to two ready-made cards share the 960 px row with one project; a third (Spanish, French and How to Use
+  // Skrongle) asks for more room than the row has, so that section wraps below and fills its own row.
+  const ready = await page.getByTestId("courses-builtin").getByTestId("courses-card").count();
+  if (ready <= 2) expect(builtin, "ready-made courses beside your projects").toBe(projects);
+  else expect(builtin, "three or more ready-made courses take a row of their own").toBeGreaterThan(projects);
   await page.setViewportSize({ width: 390, height: 844 });
   const [p2, b2, m2] = await tops();
   expect(b2).toBeGreaterThan(p2);
@@ -564,6 +568,9 @@ test("pass a lesson's reading check", async ({ page }) => {
   await page.getByTestId("lesson-check-submit").click();
 
   await expect(page.getByTestId("lesson-check-result")).toHaveClass(/\bok\b/);
+  // Next lesson opens the lesson the pager names as next.
+  const nextId = await page.getByTestId("lesson-next").first().getAttribute("data-lesson-id");
+  await expect(page.getByTestId("lesson-check-next")).toHaveAttribute("href", new RegExp(`/lessons/${nextId}$`));
   await page.reload();
   await expect(page.getByTestId("lesson")).toHaveAttribute("data-read", "true");
 });
@@ -756,7 +763,7 @@ test("the profile has no Dev section for anyone; the seeded keys answer generate
   await them.goto("/register");
   await them.getByTestId("register-email").fill(`${name}@example.com`);
   await them.getByTestId("register-password").fill("correct horse battery");
-  await them.getByTestId("register-age").check();
+  await tickAgeBox(them);
   await them.getByTestId("register-submit").click();
   // Registering signs the new account in.
   await expect(them.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", `${name}@example.com`);
@@ -843,7 +850,7 @@ test("Start asks for a course's settings before it opens, then keeps them behind
   await page.goto("/register");
   await page.getByTestId("register-email").fill(`${name}@example.com`);
   await page.getByTestId("register-password").fill("correct horse battery");
-  await page.getByTestId("register-age").check();
+  await tickAgeBox(page);
   await page.getByTestId("register-submit").click();
   // Registering signs the new account in.
   await expect(page.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", `${name}@example.com`);

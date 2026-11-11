@@ -1,0 +1,124 @@
+{
+  "id": "acct-profile",
+  "slug": "your-profile",
+  "title": "Your profile",
+  "unit": "account",
+  "group": "Account",
+  "order": 10,
+  "summary": "Name, language and password.",
+  "focus": "The profile page and what it holds",
+  "content": "## Open it\n\nUse the badge in the top-right corner. Its menu holds **Profile settings**, **Switch course**, **Documentation** and **Log out**.\n\n## Personal information\n\nYou can set a first and last name. Both are optional. The site greets you by first name. On shared boards your name shows as the first name and the last initial, such as *Ana L.*.\n\nYour e-mail address shows as read-only. It is what you sign in with, and it stays as it is.\n\nThe app can be shown in six languages: German, English, Spanish, French, Portuguese and Chinese. Pick one here. It saves at once.\n\nNames and language save as you edit. There is no Save button.\n\n## Account\n\n**Change password** asks for your current password and the new one twice. The new one needs at least 8 characters. **Sign out everywhere else** ends every other session of your account.\n\nIf you forget your password, ask the owner. They can set a temporary password for you. Skrongle sends no e-mail.",
+  "vocabulary": [
+    {
+      "term": "profile",
+      "meaning": "the page with your name, language and password"
+    },
+    {
+      "term": "session",
+      "meaning": "a sign-in on one browser or device"
+    },
+    {
+      "term": "temporary password",
+      "meaning": "a password the owner sets for you to use once"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "acct-profile-01",
+      "prompt": "At least how many characters must a new password have?",
+      "type": "numeric",
+      "correct_answer": "8",
+      "explanation": "A password needs at least 8 characters.",
+      "hints": [
+        "It is a number between five and ten."
+      ]
+    },
+    {
+      "question_id": "acct-profile-02",
+      "prompt": "You forgot your password. What do you do?",
+      "type": "multiple-choice",
+      "options": [
+        "Ask the owner for a temporary password",
+        "Wait for an e-mail",
+        "Make a second account",
+        "Use Study mode"
+      ],
+      "correct_answer": "Ask the owner for a temporary password",
+      "explanation": "Skrongle sends no e-mail. The owner sets a temporary password.",
+      "hints": [
+        "There is no reset link."
+      ]
+    },
+    {
+      "question_id": "acct-profile-03",
+      "prompt": "You can change the e-mail address from the profile page.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "The address shows read-only and stays fixed.",
+      "hints": [
+        "It is what you sign in with."
+      ]
+    },
+    {
+      "question_id": "acct-profile-04",
+      "prompt": "How does a shared board show your name?",
+      "type": "multiple-choice",
+      "options": [
+        "First name and last initial",
+        "E-mail address",
+        "Password",
+        "Account number"
+      ],
+      "correct_answer": "First name and last initial",
+      "explanation": "For example, Ana L.",
+      "hints": [
+        "Your e-mail stays private."
+      ]
+    },
+    {
+      "question_id": "acct-profile-05",
+      "prompt": "The profile has a Save button for names and language.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "They save as you edit.",
+      "hints": [
+        "The page saves as you go."
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "👤",
+    "sorts": [
+      {
+        "title": "Can you change it on the profile?",
+        "buckets": [
+          "Yes",
+          "No"
+        ],
+        "items": [
+          {
+            "text": "Your first name",
+            "bucket": 0
+          },
+          {
+            "text": "Your app language",
+            "bucket": 0
+          },
+          {
+            "text": "Your password",
+            "bucket": 0
+          },
+          {
+            "text": "Your e-mail address",
+            "bucket": 1
+          },
+          {
+            "text": "Sign out other sessions",
+            "bucket": 0
+          }
+        ],
+        "why": "The address is fixed. Names, language and password can change."
+      }
+    ]
+  }
+}

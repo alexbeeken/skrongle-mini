@@ -534,13 +534,37 @@ each step checkable in the UI. So a person can walk it against the rig's
 server, and later the Jev harness (#58) can walk the same list. A step that
 needs a dev route or the page's markup does not belong in it.
 
+In CI the same check gates the release (#46). `.github/workflows/release-qa.yml`
+has one cell per architecture (aarch64, x86_64, armv7l, armv6l), each running
+`scripts/release-qa/matrix.sh dist <arch>` on that architecture's tarball in
+its Debian container (QEMU for the ARM ones). The `release` workflow calls it
+as its `qa` job between `build` and `release`, and `release` needs it, so a
+tarball that fails `package-smoke.sh` produces no release. A manual *Run
+workflow* on `release` runs `qa` too. Every Monday the same workflow checks
+the latest published release (and once more in a stock bookworm container, for
+aarch64, x86_64 and armv7l, to notice a change in the current Debian image);
+*Actions → release-qa → Run workflow* does it for a version you name. A cell's
+job summary lists the failing checks under the section of the script that
+printed them; the failure is also an annotation on the run. A weekly failure
+is a red run, not an issue (the `dietpi-install` workflow opens issues, but
+`release.yml` cannot, and this workflow is called from it). Not in it yet: the
+Playwright `release` project and the upgrade check (#40, #43).
+
 The DietPi install block has its own check (#31). The `dietpi-install`
 workflow runs `scripts/dietpi-install-check.sh` after each release is
 published and every Monday against the latest one, in a Debian container for
 amd64 and for arm64 (under QEMU): it runs `deploy/dietpi-install.sh`, starts
 the installed binary by hand (a container has no systemd), checks `/healthz`
 and `owner-link`, then runs the script again and checks that it keeps the env
-file and unit and copies the database aside. A failure opens an issue with the
+file and unit and copies the database aside. For those later runs it puts a
+stand-in `systemctl` on the PATH (it starts and stops the binary and prints
+the unit's `Environment=` lines), so the script runs to its end and its last
+lines are checked: the owner link block with the machine's address, the link
+left alone when `SKRONGLE_PUBLIC_URL` is set, a failing `owner-link` shown,
+and one "is up" line once the owner has registered. The stand-in answers
+every user, so what real systemd refuses (#124: `systemctl` without D-Bus
+answers root only) still takes a run on a real DietPi. Last it runs `deploy/uninstall.sh`
+(the data folder stays) and `uninstall.sh --purge` (it is gone). A failure opens an issue with the
 log, unless one with that title is already open. Locally:
 `docker run --rm -v "$PWD:/repo:ro" -e SKRONGLE_VERSION=0.2.0 debian:bookworm-slim sh /repo/scripts/dietpi-install-check.sh amd64`.
 
@@ -740,6 +764,102 @@ offline. `npm --prefix e2e run typecheck` checks the TypeScript.
 | `e2e/lib/fixtures.ts` | The smoke specs' `test`: seeded `Math.random` and a fake voice in every page; prints the seed on failure |
 | `e2e/results/` | Last run: `last-run.json`, the HTML report, traces (untracked) |
 
+### Judge statements
+
+Jev is the AI judge. A spec gives it a statement with `judge` or `judgeMany`,
+and Jev answers whether the page meets it. The harness that calls it (#58) is
+not in this repository yet, so no spec calls it today.
+
+The rule:
+
+- Ask Jev to confirm what is there: a page rendered, a label reads as a
+  title, a goal was reached. Write the statement as a positive sentence.
+- Check what must be absent with an exact check: `expect(...).not.toMatch`
+  or a locator count of 0. Do not ask Jev to prove a negative.
+
+`scripts/e2e-lint.sh` enforces this. It scans `e2e/specs`, `e2e/lib` and
+`e2e/journeys.ts` for a `judge(` or `judgeMany(` call whose statement starts
+with "No", "Nothing" or "Never", or contains " not " or "n't". It prints the
+file, the line and what to use instead, and exits 1. `scripts/e2e.sh` runs it
+before the browser specs. `scripts/e2e-lint.sh --self-test` checks the rule on
+a sample file. The statement must be a string literal on the same line as the
+call.
+
+Thresholds, for the Jev harness:
+
+- A positive statement passes at 0.8 or more (`PASS` 0.8).
+- A judged value is written to the report even when the spec does not gate on
+  it, so a soft finding stays visible.
+
+## Release specs
+
+The browser specs above run a dev server: they sign in at `/dev/login`, use the
+seeded user and the simulated AI provider. The Playwright projects below use
+only what a self-hoster has (the register and login pages, the built-in
+courses, the editor, the Share dialog, Manage Users), against whatever
+`E2E_BASE_URL` points at: a tarball from `KEEP=1 scripts/release-qa/package-smoke.sh`,
+a container of `scripts/release-qa/compose.yaml`, a VM, a Pi. Issue #40.
+
+```sh
+scripts/release-e2e.sh        # starts a fresh server (release build) and runs both projects below
+SERVER_BIN=target/debug/spanish-learning RELEASE_E2E_DEV=1 scripts/release-e2e.sh   # a dev build in dev mode
+
+# a server you started or have: the owner link from its log (once), or an owner it already has
+E2E_BASE_URL=http://host:8081 E2E_OWNER_LINK='http://host:8081/register?invite=…' \
+  npx --prefix e2e playwright test --project release
+E2E_BASE_URL=… E2E_OWNER_EMAIL=… E2E_OWNER_PASSWORD=… npx --prefix e2e playwright test --project release
+```
+
+The server needs `SKRONGLE_SIGNUP=invite` (the systemd unit's setting) and
+an owner link nobody has used, so use a fresh one for each run
+(`docker compose down -v`). A run makes the owner and seven accounts. CI runs `scripts/release-e2e.sh` twice in the job "e2e release
+specs", on the dev build: once without dev mode (an owner link, as a release has) and
+once with `SKRONGLE_DEV=1` (dev routes exist, the dev user is the owner), so
+the specs cannot rot; it is not in the required checks. Run against the 0.2.1
+aarch64 tarball in the release-QA container rig, all ten pass.
+
+`e2e/lib/release.ts` has the helpers: `test` (the smoke specs' `test`, and a
+route guard that **fails the test on any request to `/dev/`**, in every context
+the helpers make), `newPerson` (a browser context of its own), `ownerAccount`
+(from `E2E_OWNER_EMAIL`/`E2E_OWNER_PASSWORD`, or what the first-run spec
+made through `E2E_OWNER_LINK`), `makeInvite` (Manage Users), `newLearner`
+(an invitation, then `/register`), `registerWithLink`, `signInOwner`. Two-factor
+codes are worked out from the setup key with `e2e/lib/totp.ts`, not read
+from the dev authenticator. `grep -r "/dev/" e2e/specs/release` finds nothing.
+
+| Project | Specs | What it checks |
+|---|---|---|
+| `release-first-run` (runs first, a dependency of `release`) | `specs/release/first-run.spec.ts` | the owner link registers the owner and is then spent; `/register` without a token (or a made-up one) is closed; the owner makes an invitation on Manage Users and a learner registers through it, once; the owner sees the account |
+| `release` | `learn.spec.ts` | open the built-in Spanish course, pass lesson 1's reading check (answers from `data/courses`), a Practice set, a Sprint session; `/lessons`, the other mode pages and the home page agree on one passed lesson |
+| | `course-by-hand.spec.ts` | create a course without AI, rename it, add a lesson in the editor, edit its JSON, autosave, reload, open it as a learner |
+| | `share.spec.ts` | the owner makes a share link, a learner opens it and has the course read only, the owner removes it, the course leaves the learner's list |
+| | `account.spec.ts` | change password (wrong current refused; the old one stops working), two-factor on and off with a code worked out from the setup key (wrong code refused), sign out and in, the language switch kept by the account, the home page and a lesson at 390 px |
+| | `docs.spec.ts` | `/docs` and every page in its sidebar answer 200 as HTML and Markdown, nothing is wider than a phone, every in-app link they hold opens, `/llms.txt` and what it lists |
+| `release-open` | the existing specs below | against a server with `SKRONGLE_SIGNUP=open` (they register their own accounts through `/register`) |
+
+The `release` project's `testMatch` is every spec in `specs/release` except
+first-run; the `release-open` project reaches into `e2e/specs/` for the specs
+audited below, so `testDir` for it is `./specs`, not `./specs/release`. The default
+`chromium` project ignores `specs/release`, so `scripts/e2e.sh` does not run these.
+
+**Audit of the specs that never touch `/dev`.** Run one by one against a release
+build with `SKRONGLE_SIGNUP=open`, each on a fresh server:
+
+| Spec | Against a release server |
+|---|---|
+| `landing-try`, `mistakes`, `profile-nav`, `profile-autosave` | clean |
+| `smoke/motivator`, `smoke/motivator-xp`, `smoke/motivator-reward`, `smoke/daily-goal`, `smoke/drill-first-set`, `smoke/french`, `smoke/sprint-check-error`, `smoke/sprint-sort` | clean |
+| `smoke/happy-paths` | its first eight tests were clean; the rest could not register, because a server held 8 accounts when this was run. It holds 50 now (#133) and the spec has not been run again |
+| `smoke/privacy` | fails: it needs an AI key on the server (the seeded one), which a release server has not |
+| `smoke/practice-empty-check`, `practice-keys`, `practice-nothing-yet`, `practice-result-order`, `practice-summary`, `placement`, `start-level`, `wrong-answers*`, `test-course-games`, `complete-test-course`, `sprint-ladder` | need the test course, which only a server with `TEST_COURSE=1` offers (the first three were run and fail with `no course "test-course"`; the rest name it and were not run) |
+| `smoke/phone-width` and every spec using `devLogin`, `devReset`, `/dev/` or the dev AI | not dev-free |
+
+Only specs that fitted together under 8 accounts, the limit when this was written (50 since #133), are in `release-open` (`landing-try`,
+`mistakes`, `profile-nav`, `smoke/motivator`, `smoke/sprint-check-error`,
+`smoke/sprint-sort`); the other clean ones need a server of their own (run them
+by file with `--project chromium` and `E2E_BASE_URL` at a fresh open-signup release server). A
+server over `SKRONGLE_SIGNUP=invite` refuses `signUp`, so none of these run in `release`.
+
 ## Smoke specs
 
 ```sh
@@ -845,19 +965,34 @@ Before the tag, on the commit you will tag:
 3. Check the tarballs on every architecture: `scripts/release-qa/matrix.sh dist`
    runs each in a Debian container of that architecture ([Release QA](#release-qa)).
    After the tag, `scripts/release-qa/matrix.sh 0.2.0` does the same with the
-   published tarballs, before you announce it.
+   published tarballs, before you announce it. The same run also checks the
+   upgrade path on each architecture (`scripts/release-qa/upgrade-check.sh`,
+   #43): the tarball is started on the database every older release wrote
+   (`scripts/release-qa/fixtures/`), and each older release's own binary
+   must refuse the database the new one migrated, exit 78, file unchanged.
+   `SKIP_UPGRADE=1` leaves it out; `upgrade-check.sh <tarball>` runs it alone
+   on a Linux machine.
+4. After the release is published, add its fixture so the next release is
+   checked against it: run `package-smoke.sh` on the published tarball with
+   `KEEP_DB=scripts/release-qa/fixtures/learn-<version>.db`, and commit the
+   four files it writes (`.db`, `.db.key`, `.env`, `.progress.txt`). The exact
+   commands are in `scripts/release-qa/fixtures/README.md`. The fixtures are
+   test data; keep the made-up `example.org` accounts.
 
 ```sh
 git tag v0.2.0 origin/main && git push origin v0.2.0
 ```
 
 *Actions → release → Run workflow* builds the same tarballs as workflow
-artifacts without making a release. To check the layout locally:
+artifacts and runs the `qa` job on them, without making a release. To check the layout locally:
 `scripts/build-pi.sh aarch64 && scripts/package-release.sh 0.0.0 aarch64`.
 
 ## CI runners
 
-CI runs on GitHub-hosted `ubuntu-latest` runners. A PR's `checks` workflow
+CI runs on GitHub-hosted `ubuntu-latest` runners. The `release` and
+`release-qa` workflows' jobs (`build`, `qa`, `release`) run on GitHub-hosted
+runners too, never the laptop's: the QEMU handlers for 32-bit ARM that a
+laptop's Docker VM may lack are installed in the job. A PR's `checks` workflow
 (`.github/workflows/smoke.yml`) is eight jobs: `cargo test` (which checks
 that a build without the `dev` feature compiles, `cargo check
 --no-default-features`, lints with `cargo clippy --features dev --all-targets

@@ -22,6 +22,10 @@
 # Under QEMU (x86_64 on an ARM Mac through Rosetta is quick; armv7l and
 # armv6l are slow) a page can take seconds and the first start minutes, so
 # the health checks are patient and nothing here measures time.
+#
+# The qa-* services run two commands: `smoke` (package-smoke.sh, the default)
+# and `upgrade` (upgrade-check.sh on the database each older release wrote,
+# from ./fixtures, #43).
 
 name: skrongle-release-qa
 
@@ -135,7 +139,7 @@ services:
     build: *build-aarch64
     command: smoke
     environment: { ARCH: aarch64, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}", HEALTH_WAIT: "300" }
-    volumes: ["${TARBALLS:-../../dist}:/tarballs:ro"]
+    volumes: ["${TARBALLS:-../../dist}:/tarballs:ro", "./fixtures:/usr/local/lib/release-qa/fixtures:ro"]
 
   qa-x86_64:
     profiles: [qa]
@@ -144,7 +148,7 @@ services:
     build: *build-x86_64
     command: smoke
     environment: { ARCH: x86_64, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}", HEALTH_WAIT: "300" }
-    volumes: ["${TARBALLS:-../../dist}:/tarballs:ro"]
+    volumes: ["${TARBALLS:-../../dist}:/tarballs:ro", "./fixtures:/usr/local/lib/release-qa/fixtures:ro"]
 
   qa-armv7l:
     profiles: [arm32]
@@ -153,7 +157,7 @@ services:
     build: *build-armv7l
     command: smoke
     environment: { ARCH: armv7l, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}", HEALTH_WAIT: "600" }
-    volumes: ["${TARBALLS:-../../dist}:/tarballs:ro"]
+    volumes: ["${TARBALLS:-../../dist}:/tarballs:ro", "./fixtures:/usr/local/lib/release-qa/fixtures:ro"]
 
   qa-armv6l:
     profiles: [arm32]
@@ -161,7 +165,7 @@ services:
     build: *build-armv6l
     command: smoke
     environment: { ARCH: armv6l, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}", HEALTH_WAIT: "600" }
-    volumes: ["${TARBALLS:-../../dist}:/tarballs:ro"]
+    volumes: ["${TARBALLS:-../../dist}:/tarballs:ro", "./fixtures:/usr/local/lib/release-qa/fixtures:ro"]
 
   # ---------- one-shots ----------
   # The release's tarballs and checksums into TARBALLS (fetch.sh).

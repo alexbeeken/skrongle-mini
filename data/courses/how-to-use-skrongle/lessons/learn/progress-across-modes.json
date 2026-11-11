@@ -1,0 +1,127 @@
+{
+  "id": "use-progress",
+  "slug": "progress-across-modes",
+  "title": "Progress across modes",
+  "unit": "learn",
+  "group": "Using",
+  "order": 70,
+  "summary": "When a lesson is passed, and how mastery differs.",
+  "focus": "The pass rule, mastery and the daily goal",
+  "content": "## One rule for passing\n\nA lesson is **passed** when two things are true. You can do them in any order and in any mode.\n\n1. **Seen.** You read the lesson and passed its reading check, or played it as a Sprint session or a Guide stage, or a tutor taught it.\n2. **Shown.** In one sitting you answered at least 3 of its questions and got 70 percent or more right.\n\nA pass in one mode counts in all. It stays even after a bad round later.\n\n## Mastery is different\n\n**Mastery** is a score from 0 to 100 for each lesson. Right answers raise it and wrong answers lower it. After about three days without practice it slowly fades. At 80 or more, a lesson is mastered.\n\nA pass says you learned a lesson once. Mastery says how fresh it is.\n\n## The daily goal\n\nEvery mode fills the same daily goal, which is 20 points. A quiz answer is worth 1 point. Reading a lesson to the end is worth 4 points.",
+  "vocabulary": [
+    {
+      "term": "passed",
+      "meaning": "seen, plus one run of 70 percent or more"
+    },
+    {
+      "term": "mastery",
+      "meaning": "a score from 0 to 100 that rises with practice and fades with time"
+    },
+    {
+      "term": "seen",
+      "meaning": "you were taught the lesson, by reading, playing or a tutor"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "use-progress-01",
+      "prompt": "What percent right do you need in a run to pass a lesson?",
+      "type": "numeric",
+      "correct_answer": "70",
+      "explanation": "The pass mark is 70 percent.",
+      "hints": [
+        "It is between sixty and eighty."
+      ]
+    },
+    {
+      "question_id": "use-progress-02",
+      "prompt": "A bad round later can take away a pass you already earned.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "A pass is a milestone and stays.",
+      "hints": [
+        "Mastery can fade. A pass cannot."
+      ]
+    },
+    {
+      "question_id": "use-progress-03",
+      "prompt": "What can fade after a few days without practice?",
+      "type": "multiple-choice",
+      "options": [
+        "Mastery",
+        "A pass",
+        "Your account",
+        "The daily goal ring"
+      ],
+      "correct_answer": "Mastery",
+      "explanation": "Mastery fades slowly without practice. A pass stays.",
+      "hints": [
+        "One of these is a score."
+      ]
+    },
+    {
+      "question_id": "use-progress-04",
+      "prompt": "How many points is the daily goal?",
+      "type": "numeric",
+      "correct_answer": "20",
+      "explanation": "The daily goal is 20 effort points, whichever mode you use.",
+      "hints": [
+        "It is a round number above ten."
+      ]
+    },
+    {
+      "question_id": "use-progress-05",
+      "prompt": "A lesson has plenty of questions. What is the fewest you must answer in one sitting to pass it?",
+      "type": "multiple-choice",
+      "options": [
+        "3",
+        "1",
+        "10",
+        "All of them"
+      ],
+      "correct_answer": "3",
+      "explanation": "You must answer at least 3 of its questions, or all of them when it has fewer.",
+      "hints": [
+        "It is a small number."
+      ],
+      "teaches": [
+        "passed"
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "📊",
+    "sorts": [
+      {
+        "title": "Passed or mastery?",
+        "buckets": [
+          "Passed",
+          "Mastery"
+        ],
+        "items": [
+          {
+            "text": "Stays after a bad round",
+            "bucket": 0
+          },
+          {
+            "text": "Fades without practice",
+            "bucket": 1
+          },
+          {
+            "text": "Needs seen plus a run of 70 percent",
+            "bucket": 0
+          },
+          {
+            "text": "A score from 0 to 100",
+            "bucket": 1
+          },
+          {
+            "text": "Rises with right answers and falls with wrong ones",
+            "bucket": 1
+          }
+        ],
+        "why": "A pass is a milestone. Mastery is a score that moves."
+      }
+    ]
+  }
+}

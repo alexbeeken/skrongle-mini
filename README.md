@@ -10,12 +10,13 @@ https://github.com/user-attachments/assets/0f80e7ae-db51-4e85-b1c9-dac56d8edcd3
 
 Skrongle is one small binary that teaches from courses made of JSON files:
 lessons, adaptive quizzes, five-minute practice sessions, games, flashcards
-and an AI tutor. Spanish and French courses ship with it; any subject that
+and an AI tutor. Spanish and French courses ship with it, and so does
+*How to Use Skrongle*, a tutorial for the app itself; any subject that
 fits *units → lesson groups → lessons* can be a course, written by hand,
 uploaded from files, or described to an AI that writes it for you.
 
-It is built for a handful of people who know whoever runs it: a family, a
-class, a few friends. Up to eight accounts, no e-mail, no outside service of
+It is built for people who know whoever runs it: a family, a class, a few
+friends. Up to 50 accounts, no e-mail, no outside service of
 any kind except the AI providers you choose to give it a key for. A
 Raspberry Pi Zero 2 W runs it with room to spare.
 
@@ -47,7 +48,7 @@ What you get, and what you are responsible for:
 
 | | |
 |---|---|
-| Accounts | Up to 8, each with up to 4 signed-in devices |
+| Accounts | Up to 50, each with up to 4 signed-in devices |
 | Who signs up | Only people the owner invites (the default, `SKRONGLE_SIGNUP=invite`) |
 | E-mail | None. Every link is shown on the page instead of sent |
 | Password reset | The owner sets a temporary password from the Manage Users page or the command line |
@@ -110,7 +111,8 @@ short files.
 
 **Ready-made.** `data/courses/<id>/` is loaded at start-up; the folder name
 must equal the manifest `id`. Spanish (101 lessons, CEFR A1 to C2) and French
-(75 lessons) ship with the app. Drop another folder next to them and restart.
+(75 lessons) ship with the app, with *How to Use Skrongle* (19 lessons, the
+app's own tutorial, in English). Drop another folder next to them and restart.
 
 **Build your own.** *Courses → Build a course* creates a starter course in
 the database. Edit the files in the browser or upload JSON files (or a whole
@@ -222,10 +224,11 @@ Measured on the Pi, release build:
 | Sign-in | about 160 ms (argon2id, 8 MiB, t=3) |
 | A page | 3 to 10 ms warm; the first page after a restart about 50 ms |
 
-The limits that keep it there are in `src/caps.rs`: 8 accounts, 4 sessions
-each, 32 open connections, 2 tutor replies at once, one course generation at
-a time, and a course cache bounded by the account count. All state lives in
-SQLite, so the process has no growth path.
+The limits that keep it there are in `src/caps.rs`: 50 accounts, 4 sessions
+each, 128 open connections, 2 tutor replies at once, one course generation at
+a time, and at most 8 built courses in memory. All state lives in
+SQLite, so the process has no growth path. The numbers above were measured
+with a few people using it; a full class at once has not been measured yet.
 
 ## Security notes
 

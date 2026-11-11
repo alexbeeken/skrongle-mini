@@ -13,8 +13,8 @@
     <p class="small muted">{% if m.status.revision %}{{ crate::t("courses.ai.modal_leave_revision") }}{% else %}{{ crate::t("courses.ai.modal_leave") }}{% endif %}</p>
   {% else if let Some(e) = m.status.error %}
     <h2 id="ai-modal-title" data-testid="course-ai-modal-title">{{ m.status.heading() }}</h2>
-    <p class="alert error" role="alert" data-testid="course-ai-modal-error">{% if let Some(plain) = crate::ai::plain_revision_failure(e) %}{{ plain }}{% else %}{{ e }}{% endif %}</p>
-    {% if crate::ai::plain_revision_failure(e).is_some() %}<details class="error-detail small muted" data-testid="course-ai-modal-error-detail"><summary>{{ crate::t("courses.ai.modal_provider_said") }}</summary><code>{{ e }}</code></details>{% endif %}
+    <p class="alert error" role="alert" data-testid="course-ai-modal-error">{% if let Some(plain) = crate::ai::plain_revision_failure(m.status.error_kind.as_deref(), e) %}{{ plain }}{% else %}{{ e }}{% endif %}</p>
+    {% if crate::ai::plain_revision_failure(m.status.error_kind.as_deref(), e).is_some() %}<details class="error-detail small muted" data-testid="course-ai-modal-error-detail"><summary>{{ crate::t("courses.ai.modal_provider_said") }}</summary><code>{{ e }}</code></details>{% endif %}
     <p class="actions"><a class="btn" href="{{ crate::base_path() }}/courses/{{ m.course_id }}" data-testid="course-ai-modal-close" data-modal-close>{{ crate::t("courses.ai.modal_close") }}</a></p>
   {% else %}
     <h2 id="ai-modal-title" data-testid="course-ai-modal-title">{{ m.status.heading() }}</h2>

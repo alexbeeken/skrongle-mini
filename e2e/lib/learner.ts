@@ -39,13 +39,25 @@ export async function register(page: Page, account: Account, course: string): Pr
   await openCourse(page, course);
 }
 
-/** Fill in and send /register (ticking both boxes).
+/** Tick "I am at least N years old" on the /register form `page` shows, if
+ * the form has it. The first account on a server (the owner's) is not asked
+ * (#126). A dev-mode server makes the dev user when it starts, so against
+ * scripts/e2e.sh or ./.dev-start a spec's account is never the first and
+ * the box is shown; this only keeps the helpers working against a server
+ * with no account yet. */
+export async function tickAgeBox(page: Page): Promise<void> {
+  await expect(page.getByTestId("register-submit")).toBeVisible();
+  const box = page.getByTestId("register-age");
+  if (await box.count()) await box.check();
+}
+
+/** Fill in and send /register (ticking the age box when it is there).
  * Registering signs the new account in. */
 export async function signUp(page: Page, account: Account): Promise<void> {
   await page.goto("/register");
   await page.getByTestId("register-email").fill(account.email);
   await page.getByTestId("register-password").fill(account.password);
-  await page.getByTestId("register-age").check();
+  await tickAgeBox(page);
   await page.getByTestId("register-submit").click();
   await page.waitForLoadState("domcontentloaded");
   if (await page.getByTestId("register-error").isVisible()) throw new Error(`registration failed: ${await page.getByTestId("register-error").innerText()}`);

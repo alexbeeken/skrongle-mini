@@ -1,12 +1,15 @@
 //! The limits a Skrongle mini holds itself to (#48). Fixed numbers, not
-//! settings: a small known size is what lets every structure that grows
-//! with use (sessions, rate-limit keys, connections, tutor calls, and the
-//! built courses kept in memory, `courses::MAX_STORES`) be bounded by a
-//! number derived from [`MAX_ACCOUNTS`].
+//! settings: a known size is what lets every structure that grows with use
+//! (sessions, rate-limit keys, connections, tutor calls, and the built
+//! courses kept in memory, `courses::MAX_STORES`) be bounded. Sessions,
+//! rate-limit keys and the per-learner caches follow [`MAX_ACCOUNTS`]; the
+//! costly ones (connections, tutor calls, built courses) are fixed numbers
+//! of their own.
 
-/// Accounts one Skrongle mini can hold (#29): a household plus a couple of
-/// guests. The other caps are derived from this number.
-pub const MAX_ACCOUNTS: usize = 8;
+/// Accounts one Skrongle mini can hold (#29): a class, or a household with
+/// room to spare. It was 8 until mini #133. Sessions, rate-limit keys and
+/// the per-learner caches are derived from this number.
+pub const MAX_ACCOUNTS: usize = 50;
 
 /// Is a server holding `count` accounts at its cap? The dev server is never
 /// at it: it registers an account per e2e spec, and the
@@ -17,20 +20,25 @@ pub fn accounts_full(count: i64, dev: bool) -> bool {
 
 /// Live sessions one account keeps (phone, tablet, laptop, one spare, #30).
 /// Signing in a fifth time ends the oldest, so the `sessions` table never
-/// holds more than `MAX_ACCOUNTS * MAX_SESSIONS_PER_ACCOUNT` (32) rows.
+/// holds more than `MAX_ACCOUNTS * MAX_SESSIONS_PER_ACCOUNT` (200) rows.
 pub const MAX_SESSIONS_PER_ACCOUNT: usize = 4;
 
-/// Keys one rate-limit table holds (#36). A mini has a handful of accounts
-/// and addresses, so 8 keys per account is ample; a full table only ever
-/// refuses a stranger's address during a flood. Keeps the in-memory tables
-/// a few KiB on the Pi.
+/// Keys one rate-limit table holds (#36): 8 per account (400), which is
+/// ample for the addresses a class or a household signs in from; a full
+/// table only ever refuses a stranger's address during a flood. Keeps the
+/// in-memory tables to tens of KiB on the Pi.
 pub const MAX_RATE_LIMIT_KEYS: usize = MAX_ACCOUNTS * 8;
 
-/// Open HTTP connections one Skrongle mini allows (#46): 8 accounts times a
-/// browser's 6 connections, with room. Past it new clients wait in the
-/// kernel's backlog, and a runaway client or a port scan cannot hold more
-/// sockets than that.
-pub const MAX_CONNECTIONS: usize = 32;
+/// Open HTTP connections one Skrongle mini allows (#46). Not derived from
+/// [`MAX_ACCOUNTS`]: 128 is about twenty browsers loading a page at the
+/// same moment (a browser opens up to 6), and half of the unit's
+/// `LimitNOFILE=256`, which also has to cover the database files and the
+/// calls out to AI providers. An idle connection is closed after 15
+/// seconds (`server::Limits::header_read`), so a class takes turns on them.
+/// Past the cap new clients wait in the kernel's backlog, and a runaway
+/// client or a port scan cannot hold more sockets than that. It was 32
+/// while a mini held 8 accounts (mini #133).
+pub const MAX_CONNECTIONS: usize = 128;
 
 /// Tutor model calls in flight at once, for all learners (#47). Each holds an
 /// OS thread and a TLS connection for up to two minutes on a 512 MB Pi; a

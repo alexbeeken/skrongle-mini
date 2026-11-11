@@ -18,6 +18,44 @@ numbers work is in the README, "Versions".
   AI keys, temporary passwords, two-factor off and Make owner stay the
   owner's. The permissions are stored and shown; they do not limit anything
   else yet.
+- `uninstall.sh --purge` left the data behind on a DietPi install: it said
+  "removed, and its data with it" while `/mnt/dietpi_userdata/skrongle` (the
+  database and its key) stayed, so installing again brought the old accounts
+  back. It now removes that folder too. When the settings put the database
+  in a folder the script does not know, it says at the end that the database
+  is not removed, instead of saying the data is gone.
+- A plain `uninstall.sh` ended by telling you to run `uninstall.sh --purge`
+  to delete the data, a script it had just removed with `/opt/skrongle`. It
+  now ends with the `rm -rf` line for the folders it kept.
+- `dietpi-install.sh` ends with the owner link again, in a short block of its
+  own. On a fresh DietPi it used to end with "is up: open http://..." and no
+  link, because the command that makes the link could not read the service's
+  settings there. The link now has the machine's IP address, not
+  `<hostname>.local`, which a fresh DietPi does not answer to; with
+  `SKRONGLE_PUBLIC_URL` set it starts with that. If the link cannot be made,
+  the script says why.
+- Making your own account, the owner's, no longer asks you to tick "I am
+  at least 14 years old". The people you invite are still asked, and
+  `SKRONGLE_MIN_AGE` works as before.
+Changes the database (a new column on `courses`), so the next release is a
+minor one, not a patch.
+
+- When writing a course stops because of the AI provider (a rejected key, no
+  credit left, a busy provider), the explanation and next step now appear in
+  your language, as do the headings of the progress window. They were English
+  only. The reason is kept with the course, so it no longer depends on the
+  provider's wording.
+- A Skrongle mini now holds up to 50 accounts, up from 8, so a class fits.
+  It takes 128 connections at once, up from 32. Nothing to change on your
+  side. A full class using it at the same moment has not been measured on a
+  Pi Zero 2 W yet; if yours is slow or runs out of memory with many
+  learners at once, please open an issue with what `skrongle doctor` prints.
+- Study mode: after you pass a lesson's two-question check, **Next lesson**
+  sits beside *Recommended practice* and *Back to the lessons*.
+- A new ready-made course, *How to Use Skrongle*: 19 short lessons on the
+  app itself (the ways to study, making and sharing courses, AI keys and
+  the AI features, your profile, two-factor sign-in and the owner's page).
+  It is in English.
 
 ## 0.2.1 (2026-11-09)
 

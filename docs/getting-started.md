@@ -8,7 +8,8 @@ of the app practises the same lessons.
 1. Register with your e-mail address. There are no usernames. Registering
    signs you in.
 2. On *What would you like to learn?* (`/courses`) pick a ready-made course
-   (Spanish and French ship with the app), or *Create a course* of your own, by hand
+   (Spanish, French and *How to Use Skrongle*, a tutorial for the app
+   itself, ship with it), or *Create a course* of your own, by hand
    or [with AI](making-courses).
 3. The first time you open a course, a short wizard sets it up: the
    motivator and, last, where to start (for a course whose units are

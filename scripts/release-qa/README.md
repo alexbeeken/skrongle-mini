@@ -12,8 +12,9 @@ What is here:
 | File | What it is |
 |---|---|
 | `package-smoke.sh <tarball>` | Checks one tarball on the Linux machine it runs on: layout, checksum, the binary (version, `doctor`, what it links), then a first day over HTTP with curl: the owner link from the log, the owner, an invitation and a learner, the built-in course's pages, a copied course shared by link, a clean stop and a second start on the same database. POSIX sh + curl. No dev routes: it drives the binary self-hosters run. |
+| `upgrade-check.sh <tarball>` | The upgrade path (#43): the tarball started on the database each older release wrote (`fixtures/`), checking the migration ran, both accounts sign in, progress, the shared course and the unused invitation survived, a second start changes nothing, and the older release's binary refuses the migrated database (exit 78, file unchanged). `KEEP_DB=<path>.db` on `package-smoke.sh` writes a new fixture (`fixtures/README.md`). |
 | `compose.yaml` | One service per architecture (`skrongle-aarch64` on port 8081, `skrongle-x86_64` on 8082; `skrongle-armv7l` on 8083 and `skrongle-armv6l` on 8084 behind the `arm32` profile until a release ships them, #21), plus `qa-<arch>` services that run `package-smoke.sh`, a `fetch` one-shot that downloads a release, and a `binfmt` one-shot for QEMU's handlers. |
-| `matrix.sh <version \| dir> [arch ...]` | Runs `qa-<arch>` for each architecture and prints one table. Logs in `results/release-qa/<version>/`. |
+| `matrix.sh <version \| dir> [arch ...]` | Runs `qa-<arch>` (package-smoke.sh, then upgrade-check.sh; `SKIP_UPGRADE=1` leaves the second out) for each architecture and prints one table. Logs in `results/release-qa/<version>/`. |
 | `Dockerfile`, `entrypoint.sh`, `fetch.sh` | The image (Debian 11 + curl), what it does with the tarball (`serve` or `smoke`, after checking that the container's `uname -m` is the architecture it is named for), and the downloader. |
 
 ## Check a release
@@ -103,3 +104,8 @@ The `dietpi-install` workflow covers the DietPi install block in containers (`sc
 `package-smoke.sh` also runs on its own, on any Linux box or VM with curl:
 `scripts/release-qa/package-smoke.sh skrongle-0.1.2-aarch64.tar.gz`. `KEEP=1`
 leaves its server running and prints the URL.
+
+The browser specs for a release server (`e2e/specs/release`, Playwright project
+`release`, #40) run against any of these servers: `E2E_BASE_URL=http://localhost:8081
+E2E_OWNER_LINK='<owner link from docker compose logs>' npx --prefix e2e playwright test --project release`
+on a fresh volume (`docker compose down -v`). See `docs/testing.md`, "Release specs".

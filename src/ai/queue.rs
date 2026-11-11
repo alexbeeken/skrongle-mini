@@ -153,6 +153,7 @@ impl Jobs {
                 lessons_total: 3,
                 done: true,
                 error: None,
+                error_kind: None,
                 course_id: Some(course_id.into()),
                 course_title: None,
                 revision: false,
@@ -214,6 +215,7 @@ fn new_job(req: &Request, id: &str) -> Job {
             lessons_total: req.lesson_count,
             done: false,
             error: None,
+            error_kind: None,
             course_id: Some(req.course_id.clone()),
             course_title: None,
             revision: req.changes_a_course(),
@@ -268,6 +270,9 @@ fn launch(jobs: &Jobs, job: Arc<Job>, db: Db, registry: Arc<crate::courses::Cour
             (None, None, None, None) => run(&job, &db, &registry, &req),
         });
         let err = outcome.as_ref().err().cloned();
+        // Only an AI failure that ended the job has a kind; the sentence and
+        // the kind come from the same request.
+        let err_kind = err.as_ref().and_then(|_| job.snapshot().error_kind);
         // Still 'generating' or 'revising', so the files are what the AI
         // wrote. A stopped generation keeps the lessons it wrote, so they
         // are kept for review too; a failed revision changed nothing. A
@@ -289,7 +294,7 @@ fn launch(jobs: &Jobs, job: Arc<Job>, db: Db, registry: Arc<crate::courses::Cour
             // A revision that fails has changed nothing: the course is as it was.
             db.with(|c| crate::courses::finish_revision(c, &cid))
         } else {
-            db.with(|c| crate::courses::finish_generation(c, &cid, err.as_deref()))
+            db.with(|c| crate::courses::finish_generation_as(c, &cid, err.as_deref(), err_kind))
         };
         if let Err(e) = finished.and_then(|()| db.with(|c| settle(c, row, err.as_deref(), crate::db::now()))) {
             tracing::warn!("generate: could not record the end of {cid}: {e}");
@@ -461,6 +466,7 @@ pub fn adopt(jobs: &Jobs, db: &Db) -> rusqlite::Result<usize> {
                 lessons_total: p.lessons,
                 done: false,
                 error: None,
+                error_kind: None,
                 course_id: Some(p.course.clone()),
                 course_title: None,
                 revision: false,

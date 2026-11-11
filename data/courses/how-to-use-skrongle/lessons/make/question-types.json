@@ -1,0 +1,146 @@
+{
+  "id": "make-questions",
+  "slug": "question-types",
+  "title": "The question types",
+  "unit": "make",
+  "group": "Making",
+  "order": 20,
+  "summary": "Choose the right kind of question for what you teach.",
+  "focus": "Multiple choice, true or false, fill in the blank, number and formula questions",
+  "content": "## The common kinds\n\n- **Multiple choice**: two or more options and one right answer. The options are shuffled each time.\n- **True or false**: the learner taps True or False.\n- **Fill in the blank**: the learner types a word or phrase. Write `___` in the prompt where the answer goes.\n\nA fill-in answer ignores capital letters and extra spaces. List other right answers as accepted answers.\n\n## Numbers and formulas\n\n- **Numeric**: the learner types a number. It is checked by value, so `3/4` and `0.75` are the same. You can allow a small margin and show a unit.\n- **Expression**: the learner types a formula. It is checked by value too, so `2(x+1)` is right for `2x + 2`.\n\n## Special kinds\n\nOther kinds exist for music (a staff, a keyboard, chords and bars), clocks, angles measured with a protractor and algebra tiles.\n\n## For every question\n\nAdd an **explanation**. It shows after a wrong answer and teaches. Add hints too. A question can also teach a word, so the word goes to the learner's flashcards.",
+  "vocabulary": [
+    {
+      "term": "multiple choice",
+      "meaning": "a question with options and one right answer"
+    },
+    {
+      "term": "fill in the blank",
+      "meaning": "a question answered by typing a word or phrase"
+    },
+    {
+      "term": "numeric",
+      "meaning": "a question answered with a number, checked by value"
+    },
+    {
+      "term": "explanation",
+      "meaning": "the text shown after an answer that says why"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "make-questions-01",
+      "prompt": "Which question type is checked by value, so 3/4 equals 0.75?",
+      "type": "multiple-choice",
+      "options": [
+        "Numeric",
+        "Multiple choice",
+        "True or false",
+        "Fill in the blank"
+      ],
+      "correct_answer": "Numeric",
+      "explanation": "A numeric question reads the answer as a number.",
+      "hints": [
+        "The answer is a number."
+      ]
+    },
+    {
+      "question_id": "make-questions-02",
+      "prompt": "In a fill in the blank prompt, what marks where the answer goes?",
+      "type": "multiple-choice",
+      "options": [
+        "___",
+        "???",
+        "[ ]",
+        "***"
+      ],
+      "correct_answer": "___",
+      "explanation": "Write three underscores where the answer goes.",
+      "hints": [
+        "It looks like a short line."
+      ]
+    },
+    {
+      "question_id": "make-questions-03",
+      "prompt": "The options of a multiple choice question are shuffled each time.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "The options are shuffled for each quiz, so the right answer moves around.",
+      "hints": [
+        "Order should not give the answer away."
+      ]
+    },
+    {
+      "question_id": "make-questions-04",
+      "prompt": "Which answer is right for an expression question whose answer is 2x + 2?",
+      "type": "multiple-choice",
+      "options": [
+        "2(x+1)",
+        "2x",
+        "x+2",
+        "4x"
+      ],
+      "correct_answer": "2(x+1)",
+      "explanation": "Expression questions accept anything equal in value.",
+      "hints": [
+        "Multiply the bracket out."
+      ]
+    },
+    {
+      "question_id": "make-questions-05",
+      "prompt": "What is an explanation for?",
+      "type": "multiple-choice",
+      "options": [
+        "Teaching the learner after an answer",
+        "Hiding the answer",
+        "Counting points",
+        "Sharing the course"
+      ],
+      "correct_answer": "Teaching the learner after an answer",
+      "explanation": "The explanation shows after the answer and says why it is right.",
+      "hints": [
+        "It comes after the answer."
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "❓",
+    "sorts": [
+      {
+        "title": "Which type fits?",
+        "buckets": [
+          "Multiple choice",
+          "True or false",
+          "Fill in the blank",
+          "Number or formula"
+        ],
+        "items": [
+          {
+            "text": "Choose A, B or C",
+            "bucket": 0
+          },
+          {
+            "text": "Tap True or False",
+            "bucket": 1
+          },
+          {
+            "text": "Type the missing word",
+            "bucket": 2
+          },
+          {
+            "text": "Type 0.75",
+            "bucket": 3
+          },
+          {
+            "text": "Type 2(x+1)",
+            "bucket": 3
+          },
+          {
+            "text": "Pick one of four answers",
+            "bucket": 0
+          }
+        ],
+        "why": "Pick the type that matches how the learner answers."
+      }
+    ]
+  }
+}

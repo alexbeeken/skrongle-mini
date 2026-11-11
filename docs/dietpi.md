@@ -27,7 +27,7 @@ request, and the entry for the DietPi documentation, which starts at
 
 | | |
 |---|---|
-| What it is | A learning web app for a household or a class: lessons, quizzes, short practice sessions, games and flashcards. Spanish and French courses are included, and people can write or upload their own |
+| What it is | A learning web app for a household or a class: lessons, quizzes, short practice sessions, games and flashcards. Spanish, French and a tutorial course for the app are included, and people can write or upload their own |
 | Install | One release tarball per architecture, checked against the SHA-256 published beside it and unpacked to `/opt/skrongle`. [`deploy/dietpi-install.sh`](https://github.com/alexbeeken/skrongle-mini/blob/main/deploy/dietpi-install.sh) is the whole install, in twelve commented steps. Running it again updates |
 | Dependencies | `curl`, for the download. It needs no web server, database server or language runtime; SQLite is compiled in |
 | Architectures | ARMv6, ARMv7, ARMv8 and x86_64. There is no RISC-V build. On ARMv6 boards (Raspberry Pi 1, Zero, Zero W) sign-in is slow |
@@ -54,11 +54,11 @@ sudo sh dietpi-install.sh
 
 A learning app for a household or a class, with a web interface. It teaches
 from courses written as JSON files: lessons, adaptive quizzes, five-minute
-practice sessions, games and flashcards. Spanish and
-French courses are included. It is one program and one SQLite file, so no web
+practice sessions, games and flashcards. Spanish,
+French and a tutorial course for the app are included. It is one program and one SQLite file, so no web
 server or database server is required.
 
-It holds up to 8 accounts, each signed in on up to 4 devices.
+It holds up to 50 accounts, each signed in on up to 4 devices.
 
 ### Access to the web interface
 
@@ -71,14 +71,30 @@ The web interface is accessible via TCP port **7576**:
 ### First run setup
 
 Skrongle sends no e-mail, so it cannot send a sign-up link. The first account
-is the owner's, and you make it with a one-time owner link:
+is the owner's, and you make it with a one-time owner link. The install ends
+by printing it:
+
+```
+Skrongle 0.2.1 is installed and running.
+
+  Make your account (the owner's) by opening this link:
+
+  http://<your.IP>:7576/register?invite=<token>
+
+  It works once. For a new one: sudo /opt/skrongle/skrongle owner-link --service
+```
+
+Open the link in a browser on another computer. Until you do, `/register`
+only says that the server has no owner yet. If the link is lost, print a new
+one (the earlier one stops working):
 
 ```sh
 sudo /opt/skrongle/skrongle owner-link --service
 ```
 
-Open the link it prints in a browser. Until you do, `/register` only says
-that the server has no owner yet. After that the owner invites each person
+That link names the machine as `<hostname>.local` unless `SKRONGLE_PUBLIC_URL`
+is set in `/etc/skrongle/env`. If that name does not open, put the IP address
+in its place. After the owner's account exists, the owner invites each person
 from the *Manage Users* page, one link per person, and `/register` stays
 closed to everyone else.
 

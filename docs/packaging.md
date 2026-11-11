@@ -71,7 +71,7 @@ Two exceptions: `SKRONGLE_SIGNUP` and `SKRONGLE_PROXY_AUTH_HEADER` /
 | `SKRONGLE_SECURE_COOKIES` | off | `1` or `true` when the site is served over HTTPS. The server warns at start if it listens on plain HTTP beyond loopback, or if the public URL is `https://` and this is off. It does not refuse to start. |
 | `SKRONGLE_BASE_PATH` | empty | URL prefix when a proxy serves the app under a path, such as `/learn`. |
 | `SKRONGLE_LOG` | `info` | One level: `error`, `warn`, `info`, `debug` or `trace`. Anything else logs one warning and runs at `info`. |
-| `SKRONGLE_MIN_AGE` | `14` | Age named by the register page's checkbox. A value that is not a whole number stops the server. |
+| `SKRONGLE_MIN_AGE` | `14` | Age named by the register page's checkbox. A value that is not a whole number stops the server. The owner's own account is not asked. |
 | `SKRONGLE_PROXY_AUTH_HEADER`, `SKRONGLE_PROXY_AUTH_FROM` | unset | Sign people in by a reverse proxy: the header carrying the person's e-mail address, and the proxy's addresses (IPs or CIDRs, comma-separated). Both or neither; one alone stops the server. Bind to `127.0.0.1` so nobody reaches the app around the proxy. |
 | `SKRONGLE_COURSES_PER_USER` | `50` | Courses one account may make. |
 | `SKRONGLE_COURSE_BYTES` | `8388608` (8 MB) | Size of one made course's files. |
@@ -96,7 +96,7 @@ keep memory flat, and limits the service to 64 MB (`MemoryMax`), 32 tasks and
 256 open files. Keep them on a small board.
 
 To see the settings the service really ends up with, run
-`sudo -u skrongle /opt/skrongle/skrongle doctor --service`. It prints
+`sudo /opt/skrongle/skrongle doctor --service`. It prints
 diagnostics with no secrets and exits 0.
 
 ## Port
@@ -150,7 +150,7 @@ curl -fsS http://127.0.0.1:7576/healthz
    back. Print a new one (the earlier one stops working), while no account exists:
 
    ```sh
-   sudo -u skrongle /opt/skrongle/skrongle owner-link --service
+   sudo /opt/skrongle/skrongle owner-link --service
    ```
 
    `--service` reads the installed unit and its env file; `--env-file FILE`
@@ -268,11 +268,12 @@ the data. `--purge` removes the data too, permanently. Running it again is safe.
 | Service (stopped, disabled), `/etc/systemd/system/skrongle.service` and `skrongle.service.d` | removed | removed |
 | `/opt/skrongle` (binary, courses, scripts) | removed | removed |
 | `skrongle` system user and group, if a static one exists | removed | removed |
-| `/var/lib/skrongle`, `/var/lib/private/skrongle`: database, `learn.db.key`, `learn.db.before-*` | kept | removed |
+| `/var/lib/skrongle`, `/var/lib/private/skrongle`, and on DietPi `/mnt/dietpi_userdata/skrongle`: database, `learn.db.key`, `learn.db.before-*` | kept | removed |
 | `/etc/skrongle` (the env file may hold `SKRONGLE_SECRET_KEY`) | kept | removed |
 
 The script handles only these paths. A package that puts the data folder
-elsewhere (on DietPi, under `/mnt/dietpi_userdata/skrongle`) must remove or keep
-that folder in its own remove step. The script prints a note when `SKRONGLE_DB`
-in `/etc/skrongle/env` points outside `/var/lib/skrongle`. It does not remove
+anywhere else must remove or keep that folder in its own remove step. The
+script prints a note when `SKRONGLE_DB`, in the unit or in `/etc/skrongle/env`,
+points outside them, and with `--purge` it then ends by saying that the
+database is not removed. It does not remove
 packages you installed, or a proxy or Tailscale you set up.
