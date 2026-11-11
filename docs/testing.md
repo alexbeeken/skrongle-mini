@@ -534,6 +534,22 @@ each step checkable in the UI. So a person can walk it against the rig's
 server, and later the Jev harness (#58) can walk the same list. A step that
 needs a dev route or the page's markup does not belong in it.
 
+In CI the same check gates the release (#46). `.github/workflows/release-qa.yml`
+has one cell per architecture (aarch64, x86_64, armv7l, armv6l), each running
+`scripts/release-qa/matrix.sh dist <arch>` on that architecture's tarball in
+its Debian container (QEMU for the ARM ones). The `release` workflow calls it
+as its `qa` job between `build` and `release`, and `release` needs it, so a
+tarball that fails `package-smoke.sh` produces no release. A manual *Run
+workflow* on `release` runs `qa` too. Every Monday the same workflow checks
+the latest published release (and once more in a stock bookworm container, for
+aarch64, x86_64 and armv7l, to notice a change in the current Debian image);
+*Actions → release-qa → Run workflow* does it for a version you name. A cell's
+job summary lists the failing checks under the section of the script that
+printed them; the failure is also an annotation on the run. A weekly failure
+is a red run, not an issue (the `dietpi-install` workflow opens issues, but
+`release.yml` cannot, and this workflow is called from it). Not in it yet: the
+Playwright `release` project and the upgrade check (#40, #43).
+
 The DietPi install block has its own check (#31). The `dietpi-install`
 workflow runs `scripts/dietpi-install-check.sh` after each release is
 published and every Monday against the latest one, in a Debian container for
@@ -879,12 +895,15 @@ git tag v0.2.0 origin/main && git push origin v0.2.0
 ```
 
 *Actions → release → Run workflow* builds the same tarballs as workflow
-artifacts without making a release. To check the layout locally:
+artifacts and runs the `qa` job on them, without making a release. To check the layout locally:
 `scripts/build-pi.sh aarch64 && scripts/package-release.sh 0.0.0 aarch64`.
 
 ## CI runners
 
-CI runs on GitHub-hosted `ubuntu-latest` runners. A PR's `checks` workflow
+CI runs on GitHub-hosted `ubuntu-latest` runners. The `release` and
+`release-qa` workflows' jobs (`build`, `qa`, `release`) run on GitHub-hosted
+runners too, never the laptop's: the QEMU handlers for 32-bit ARM that a
+laptop's Docker VM may lack are installed in the job. A PR's `checks` workflow
 (`.github/workflows/smoke.yml`) is eight jobs: `cargo test` (which checks
 that a build without the `dev` feature compiles, `cargo check
 --no-default-features`, lints with `cargo clippy --features dev --all-targets

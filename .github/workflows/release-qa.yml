@@ -1,0 +1,151 @@
+# Release QA in CI (#46): scripts/release-qa/package-smoke.sh on every
+# architecture's tarball, each in a Debian container of that architecture
+# (the rig of scripts/release-qa/compose.yaml; the ARM cells run under QEMU).
+# Three ways in, one job:
+#
+#   release.yml  calls this as its `qa` job (artifacts: true) on the tarballs
+#                its `build` job just made, between `build` and `release`. A
+#                failed cell means no release. "Run workflow" on release.yml
+#                runs it too, so a candidate is checked before anyone tags.
+#   schedule     every Monday, against the latest published release, and
+#                again in a stock bookworm container (the current Debian
+#                image) so a change on the image side is noticed before a
+#                self-hoster reports it.
+#   dispatch     "Run workflow" here with a version, or empty for the latest.
+#
+# Kept apart from dietpi-install.yml (the DietPi install block, #31): that one
+# runs after a release is published and opens issues; this one runs before,
+# and must stay callable from release.yml, whose token cannot write issues.
+# docs/testing.md, "Release QA", says what is and is not covered.
+#
+# GitHub-hosted runners only: nothing here runs on the owner's laptop.
+name: release-qa
+
+on:
+  workflow_call:
+    inputs:
+      artifacts:
+        description: Take the tarballs from this run's skrongle-<arch> artifacts instead of a published release
+        type: boolean
+        default: false
+  schedule:
+    - cron: "47 5 * * 1"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Release to check (0.2.1); empty means the latest
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  qa:
+    name: qa ${{ matrix.arch }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      # Every cell reports on its own, so the summaries name each failure.
+      fail-fast: false
+      matrix:
+        include:
+          - { arch: aarch64, platform: linux/arm64, current: "arm64v8/debian:bookworm-slim" }
+          - { arch: x86_64, platform: linux/amd64, current: "amd64/debian:bookworm-slim" }
+          - { arch: armv7l, platform: linux/arm/v7, current: "arm32v7/debian:bookworm-slim" }
+          # Raspbian has no current image to add; the rig's Raspbian 11 is the check.
+          - { arch: armv6l, platform: linux/arm/v6, current: "" }
+    env:
+      FROM_ARTIFACTS: ${{ inputs.artifacts == true }}
+      WANT: ${{ inputs.version || '' }}
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      # A scheduled run uses the scripts on main; a called or dispatched one
+      # the ref it was started on.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: This run's tarball
+        if: env.FROM_ARTIFACTS == 'true'
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: skrongle-${{ matrix.arch }}
+          path: dist
+
+      - name: The published release's tarball
+        if: env.FROM_ARTIFACTS != 'true'
+        run: |
+          tag="v${WANT#v}"
+          [ -n "$WANT" ] || tag=$(gh release view --json tagName --jq .tagName)
+          echo "release $tag"
+          mkdir -p dist
+          # An old release may have no build for this architecture; that is not a failure here.
+          if ! gh release download "$tag" --pattern "skrongle-*-${{ matrix.arch }}.tar.gz*" --dir dist; then
+            echo "NO_TARBALL=1" >> "$GITHUB_ENV"
+            echo "::notice::$tag has no ${{ matrix.arch }} tarball; skipped"
+          fi
+
+      - name: QEMU handlers
+        if: matrix.arch != 'x86_64' && env.NO_TARBALL != '1'
+        run: docker run --rm --privileged tonistiigi/binfmt --install arm64,arm
+
+      # The rig, as on a laptop: scripts/release-qa/matrix.sh builds the
+      # architecture's Debian 11 (Raspbian 11 for armv6l) image and runs
+      # package-smoke.sh in it. It exits non-zero on any FAIL line.
+      - name: package-smoke.sh on ${{ matrix.arch }}
+        id: smoke
+        if: env.NO_TARBALL != '1'
+        run: |
+          set -o pipefail
+          ls -l dist
+          scripts/release-qa/matrix.sh dist ${{ matrix.arch }} 2>&1 | tee matrix.log
+
+      # Weekly only: the same script in a stock current Debian with only
+      # curl added, as a self-hoster's fresh box would be.
+      - name: package-smoke.sh on current Debian
+        id: current
+        if: env.NO_TARBALL != '1' && env.FROM_ARTIFACTS != 'true' && matrix.current != ''
+        run: |
+          set -o pipefail
+          tarball=$(basename "$(ls dist/skrongle-*-${{ matrix.arch }}.tar.gz)")
+          docker run --rm --platform ${{ matrix.platform }} -e HEALTH_WAIT=600 \
+            -v "$PWD/dist:/dist:ro" -v "$PWD/scripts/release-qa/package-smoke.sh:/package-smoke.sh:ro" \
+            ${{ matrix.current }} sh -c \
+            "apt-get update -qq && apt-get install -y -qq --no-install-recommends curl ca-certificates procps >/dev/null && sh /package-smoke.sh /dist/$tarball" \
+            2>&1 | tee current.log
+
+      # Which cell and which check, on the run page, whatever failed.
+      - name: Summary
+        if: always() && env.NO_TARBALL != '1'
+        env:
+          SMOKE: ${{ steps.smoke.outcome }}
+          CURRENT: ${{ steps.current.outcome }}
+          ARCH: ${{ matrix.arch }}
+        run: |
+          {
+            echo "### qa $ARCH"
+            echo
+            echo "| step | result |"
+            echo "|---|---|"
+            echo "| package-smoke.sh in the rig (Debian 11) | $SMOKE |"
+            [ "$CURRENT" = skipped ] || echo "| package-smoke.sh on current Debian (bookworm) | $CURRENT |"
+            for log in matrix.log current.log; do
+              [ -f "$log" ] || continue
+              fails=$(awk '/^==> /{sec=$0} /^ *FAIL/{print "- `" sec "`: " $0}' "$log" | head -40)
+              if [ -n "$fails" ]; then
+                echo
+                echo "Failing checks in $log (section, then the check):"
+                echo
+                echo "$fails"
+                echo "$fails" | head -5 | sed 's/^- //' | while read -r l; do echo "::error title=qa $ARCH::$l" >&2; done
+              fi
+            done
+            if [ "$SMOKE" != success ] || { [ "$CURRENT" != success ] && [ "$CURRENT" != skipped ]; }; then
+              echo
+              echo "Last 30 lines of matrix.log (no FAIL line above means it stopped before a check, for instance the image build):"
+              echo
+              echo '```'
+              tail -n 30 matrix.log 2>/dev/null
+              echo '```'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
