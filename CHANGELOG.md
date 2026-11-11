@@ -12,6 +12,9 @@ numbers work is in the README, "Versions".
   back. It now removes that folder too. When the settings put the database
   in a folder the script does not know, it says at the end that the database
   is not removed, instead of saying the data is gone.
+- A plain `uninstall.sh` ended by telling you to run `uninstall.sh --purge`
+  to delete the data, a script it had just removed with `/opt/skrongle`. It
+  now ends with the `rm -rf` line for the folders it kept.
 
 ## 0.2.1 (2026-11-09)
 

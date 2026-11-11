@@ -124,13 +124,18 @@ if [ -n "$PURGE" ]; then
   remove "$DATA_DIETPI"
   remove "$CONF"
 else
+  # What stays, for the line at the end: this script is in $OPT and is gone
+  # after this run, so it cannot be named as the way to delete the rest.
+  KEPT=
   for d in "$DATA" "$DATA_REAL" "$DATA_DIETPI"; do
     if exists "$d"; then
       echo "kept $d: the database (accounts, progress, courses made in the app, saved AI keys) and its key"
+      KEPT="$KEPT $d"
     fi
   done
   if exists "$CONF"; then
     echo "kept $CONF: settings; its env file may hold SKRONGLE_SECRET_KEY"
+    KEPT="$KEPT $CONF"
   fi
 fi
 
@@ -143,6 +148,8 @@ elif [ -n "$PURGE" ]; then
   echo "Skrongle is removed, and its data with it."
 else
   echo "Skrongle is removed. Its data is kept, so installing it again brings the accounts back."
-  echo "To delete the data as well (permanent; back it up first, see docs/self-hosting.md):"
-  echo "  sudo $0 --purge"
+  if [ -n "$KEPT" ]; then
+    echo "To delete the data as well (permanent; back it up first, see docs/self-hosting.md):"
+    echo "  sudo rm -rf$KEPT"
+  fi
 fi
