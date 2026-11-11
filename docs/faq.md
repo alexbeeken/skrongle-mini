@@ -19,6 +19,14 @@ A feature only appears when the course has the data for it. Date Dash needs a
 `calendar`, the drill a `paradigm`, Listening a language course with `listening` sentences. See
 [Which field switches on what](course-structure#which-field-switches-on-what).
 
+**Why is there no *Create a course* button on my course list?**
+Making a course (creating one, copying one, copying and translating one)
+needs the *Create courses* permission, and your account does not have it.
+Ask the person who runs your Skrongle, or whoever manages its accounts: they
+turn it on under *Manage Users → Permissions*. You can still learn from the
+ready-made courses and from courses shared with you, and courses you already
+made stay yours to open and edit.
+
 **Can other people see my course?**
 Only the people you share it with: **Share** on the course page makes an
 invitation link, which you pass on; whoever opens it first is in. They learn from it read-only, with their own progress. See

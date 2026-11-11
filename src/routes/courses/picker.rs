@@ -144,6 +144,10 @@ pub struct PickerTemplate {
     pub mine: Vec<CourseCard>,
     /// Courses others shared with this learner and not opened yet.
     pub shared: Vec<CourseCard>,
+    /// The account may make a new course (`Perm::CreateCourses`, #143):
+    /// without it the page has no "Create a course" block, and no settings
+    /// dialog has Copy or Copy and translate.
+    pub can_create: bool,
     pub notice: Option<String>,
     /// `?generate=<id>`: the Generate dialog of a stopped course (Retry or Resume).
     pub generate: Option<GenerateView>,
@@ -407,10 +411,13 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
             ))
         })
         .await?;
+    // Copy and Copy and translate make a new course: not offered to an
+    // account that may not create one (#143).
+    let can_create = user.can(crate::perms::Perm::CreateCourses);
     let translate_providers = if user.ai_off { Vec::new() } else { offered_providers(state, &user).await? };
     // "Copy and translate to…" beside a settings dialog's copy icon (#630).
     let translate = |st: &mut CourseSettings, c: &CourseCard| {
-        st.translate = c.copyable && !user.ai_off;
+        st.translate = c.copyable && can_create && !user.ai_off;
         st.meanings_lang = c.meanings_lang.clone();
         st.translate_providers = translate_providers.clone();
     };
@@ -418,7 +425,7 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
     let fresh_for = |id: &str| courses::ProjectRow { course_id: id.to_string(), ..fresh.clone() };
     let with_wizard = |mut st: CourseSettings, mut c: CourseCard| {
         st.start = true;
-        st.copyable = c.copyable;
+        st.copyable = c.copyable && can_create;
         st.editable = c.editable;
         translate(&mut st, &c);
         c.settings = Some(st);
@@ -451,7 +458,7 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
         c.progress = Some((passed.get(&pr.course_id).copied().unwrap_or(0), mastered));
         c.last_opened = Some(time_ago(pr.last_opened_at, at));
         c.is_active = user.course_id.as_deref() == Some(pr.course_id.as_str());
-        settings.copyable = c.copyable;
+        settings.copyable = c.copyable && can_create;
         settings.editable = c.editable;
         translate(&mut settings, &c);
         c.settings = Some(settings);
@@ -496,5 +503,5 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
         c.shared_by = Some(s.owner.clone());
         shared_cards.push(with_wizard(settings_view(&fresh_for(content.id()), &content, true), c));
     }
-    Ok(Page(PickerTemplate { user: Some(user), projects: project_cards, builtin, mine: my_cards, shared: shared_cards, notice, generate, translate_providers }).into_response())
+    Ok(Page(PickerTemplate { user: Some(user), can_create, projects: project_cards, builtin, mine: my_cards, shared: shared_cards, notice, generate, translate_providers }).into_response())
 }

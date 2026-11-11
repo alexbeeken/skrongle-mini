@@ -446,3 +446,102 @@ fn use_ai_mode_choice_follows_the_mode_and_greys_add_and_edit_in_place() {
     assert!(html.contains(">What should the AI add or change?</label>") && html.contains("maxlength=\"4000\""));
     assert!(!html[html.find("data-testid=\"course-ai-outline\"").unwrap()..].split('>').next().unwrap().contains(" disabled"));
 }
+
+/// The Create courses permission (#143): without it "Create a course", Copy
+/// and Copy and translate answer 403 and add no course, and the course list
+/// offers none of them; a course the account already owns still opens in
+/// the editor. With the Teacher set it is all as before, and an owner
+/// creates whatever its stored set says.
+#[test]
+fn making_a_course_needs_the_create_courses_permission() {
+    use crate::perms::{self, Perms};
+    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+    let state = crate::routes::test_state(false);
+    let user = |email: &str| {
+        let uid = state.db.with(|c| crate::auth::create_user(c, email, "x")).unwrap();
+        (uid, format!("sid={}", state.db.with(|c| crate::auth::create_session(c, uid)).unwrap()))
+    };
+    let (stu, stu_c) = user("stu@example.org");
+    let (tea, tea_c) = user("tea@example.org");
+    let (root, root_c) = user("root@example.org");
+    // Stu made a course while a Teacher, then became a Student; Spanish is open.
+    let old = "old-abc123";
+    state
+        .db
+        .with(|c| {
+            courses::create_course(c, stu, old, "From before", &courses::starter_files(old, "From before"))?;
+            courses::open_project(c, stu, "spanish")?;
+            c.execute("UPDATE users SET perms = 0", [])?;
+            perms::set_custom(c, tea, Perms::TEACHER)?;
+            c.execute("UPDATE users SET owner = 1 WHERE id = ?1", [root])?;
+            Ok(())
+        })
+        .unwrap();
+    let app = crate::routes::router(state.clone());
+    let base = rt.block_on(async {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        tokio::spawn(async move { axum::serve(listener, app).await.unwrap() });
+        format!("http://{addr}")
+    });
+    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
+    let location = |r: &ureq::http::Response<ureq::Body>| r.headers().get("location").map(|v| v.to_str().unwrap().to_string()).unwrap_or_default();
+    let post = |path: &str, cookie: &str, form: &[(&str, &str)]| {
+        let r = agent.post(&format!("{base}{path}")).header("cookie", cookie).send_form(form.iter().copied()).unwrap();
+        (r.status().as_u16(), location(&r))
+    };
+    let get = |path: &str, cookie: &str| {
+        let mut r = agent.get(&format!("{base}{path}")).header("cookie", cookie).call().unwrap();
+        (r.status().as_u16(), r.body_mut().read_to_string().unwrap())
+    };
+    let count = || state.db.with(|c| c.query_row("SELECT COUNT(*) FROM courses", [], |r| r.get::<_, i64>(0))).unwrap();
+    assert_eq!(count(), 1);
+
+    // A Student: the three routes refuse, for a built-in course or its own, and nothing is made.
+    assert_eq!(post("/courses/new", &stu_c, &[("title", "")]).0, 403);
+    for id in ["spanish", old] {
+        assert_eq!(post(&format!("/courses/{id}/copy"), &stu_c, &[]).0, 403, "{id}");
+        assert_eq!(post(&format!("/courses/{id}/translate"), &stu_c, &[("lang", "es")]).0, 403, "{id}");
+    }
+    assert_eq!(count(), 1);
+    // Its course list offers none of it, and no heading is left where the block was.
+    let (status, page) = get("/courses", &stu_c);
+    assert_eq!(status, 200);
+    for part in ["courses-make", "courses-create", "courses-copy", "courses-translate"] {
+        assert!(!page.contains(part), "{part} is offered to a Student");
+    }
+    assert!(page.contains(&crate::t("courses.picker.lead_learn_only")), "{page}");
+    assert!(page.contains(r#"data-course-id="spanish""#) && page.contains(&format!(r#"data-course-id="{old}""#)));
+    // The course it owns from before still opens in the editor, and still saves.
+    let (status, page) = get(&format!("/courses/{old}"), &stu_c);
+    assert_eq!(status, 200);
+    assert!(page.contains(r#"data-testid="course-edit""#));
+    let r = agent
+        .post(&format!("{base}/api/courses/{old}/lessons"))
+        .header("cookie", &stu_c)
+        .send_json(json!({"lessons": [{"key": "u1-first-lesson", "unit": "1", "title": "Renamed by a Student"}], "session": "tab-a"}))
+        .unwrap();
+    assert_eq!(r.status().as_u16(), 200);
+
+    // A Teacher: as before.
+    let (status, page) = get("/courses", &tea_c);
+    assert_eq!(status, 200);
+    assert!(page.contains(r#"data-testid="courses-create""#) && !page.contains(&crate::t("courses.picker.lead_learn_only")), "{page}");
+    let (status, loc) = post("/courses/new", &tea_c, &[("title", "")]);
+    assert!(status == 303 && loc.contains("generate=1"), "{status} {loc}");
+    let (status, loc) = post("/courses/spanish/copy", &tea_c, &[]);
+    assert!(status == 303 && loc.starts_with("/courses/"), "{status} {loc}");
+    assert_eq!(count(), 3);
+    // Copy and translate gets past the permission (this server has no AI key, so it stops there).
+    assert_ne!(post("/courses/spanish/translate", &tea_c, &[("lang", "es")]).0, 403);
+    // Copy is behind the gear of a course it has opened.
+    state.db.with(|c| courses::open_project(c, tea, "spanish")).unwrap();
+    assert!(get("/courses", &tea_c).1.contains(r#"data-testid="courses-copy""#));
+
+    // An owner whose stored set is empty still creates and copies.
+    assert_eq!(state.db.with(|c| c.query_row("SELECT perms FROM users WHERE id = ?1", [root], |r| r.get::<_, i64>(0))).unwrap(), 0);
+    assert!(post("/courses/new", &root_c, &[("title", "")]).1.contains("generate=1"));
+    assert_eq!(post("/courses/spanish/copy", &root_c, &[]).0, 303);
+    assert_eq!(count(), 5);
+    assert!(get("/courses", &root_c).1.contains(r#"data-testid="courses-create""#));
+}

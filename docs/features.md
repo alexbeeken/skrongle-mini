@@ -78,7 +78,9 @@ to the new ones with their query strings, so old bookmarks still work.
 
 ## Your own courses
 
-Anyone can make a course, and it is theirs alone: a course made in the app
+An account with the **Create courses** permission ([Permissions](#permissions);
+every account has it unless someone took it away, and an owner always does)
+can make a course, and it is theirs alone: a course made in the app
 lives in the database as the same JSON files a built-in course has
 (`courses` + `course_files`), and only its owner sees it, opens it or
 changes it (anyone else gets a 404), unless the owner shares it (below).
@@ -90,6 +92,14 @@ like Spanish: the three modes, the tutor, mastery, passes, streaks, the daily go
 history. The language-only games (Listening, Numbers by ear,
 tap to hear, the listening exercises of Sprint mode) appear only when its
 manifest says it is a language course.
+
+Without **Create courses** (#143) the course list has no **Create a
+course** block (the whole `courses-make-section` is left out) and its lead
+says only *Pick a course to learn from.* (`courses.picker.lead_learn_only`);
+`POST /courses/new` answers the 403 page (`AppError::NoPermission`). The
+account still learns from built-in courses and from courses shared with it,
+and a course it already owns stays on its list, opens in the editor, saves,
+exports and deletes as before: only making a new one is refused.
 
 One button on the course list, **Create a course** (`POST /courses/new`),
 makes a starter course called *Untitled course* (one example lesson, the
@@ -856,10 +866,16 @@ account's bytes), checked in the same `Db::call` that stores it. Over a
 limit nothing is made and the course list says which limit (`?notice=`
 `course-count-<n>`, `copy-too-big-<bytes>` or `copy-no-room-<bytes>`).
 
+A copy is a new course, so it needs the **Create courses** permission
+(#143): without it no settings dialog has the copy icon (`picker.rs` sets
+`copyable` to false) and the route answers 403, for a built-in course and
+for one of the account's own.
+
 ### Copying and translating a course
 
 **Copy and translate to…**, an icon left of the copy icon in the same
-settings dialogs (not with AI off), opens a dialog of its own: the language to translate into, the AI
+settings dialogs (not with AI off, and not without the **Create courses**
+permission, #143: no icon, and `POST /courses/{id}/translate` answers 403), opens a dialog of its own: the language to translate into, the AI
 to use (when there is more than one: the server's keys, as
 Generate offers them) and **Start**; what gets translated is behind its
 (i). The languages are the app's own (`i18n/*.yaml`, each in its own
@@ -1854,6 +1870,9 @@ for them yet (the other issues of #137 do that).
   with the `superuser` permission, and it sees only the accounts on Manage
   Users. Invitation links, temporary passwords, two-factor off, Make owner,
   the AI keys and "Hide AI features" stay the owner's.
+- **Create courses** is asked for (#143): without it the course list offers
+  no Create a course, Copy or Copy and translate, and their three routes
+  answer 403 (see [Your own courses](#your-own-courses)).
 - **Who may edit whom**: an owner or a superuser sets the permissions of any
   account that is not an owner, except, for a superuser, their own. Rows
   that cannot be edited have no **Permissions** button, and the route

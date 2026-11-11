@@ -1725,6 +1725,7 @@ courses:
     lead_anon: Pick a ready-made course. Each course keeps its own progress, vocabulary, games and history.
     lead_ai_off: Pick a ready-made course or write your own. Each course keeps its own progress, vocabulary, games and history.
     lead_ai: Pick a ready-made course, write your own, or describe what you want and let an AI write the course for you. Each course keeps its own progress, vocabulary, games and history.
+    lead_learn_only: Pick a course to learn from. Each course keeps its own progress, vocabulary, games and history.
     projects_heading: Your projects
     tag_current: current
     tag_revising: revising

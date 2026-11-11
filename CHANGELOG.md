@@ -18,6 +18,11 @@ numbers work is in the README, "Versions".
   AI keys, temporary passwords, two-factor off and Make owner stay the
   owner's. The permissions are stored and shown; they do not limit anything
   else yet.
+- The **Create courses** permission now counts: an account without it (a
+  Student, for example) has no *Create a course*, *Copy* or *Copy and
+  translate* on its course list, and those actions are refused. It still
+  learns from built-in and shared courses, and courses it already made stay
+  its own to open and edit.
 
 ## 0.2.1 (2026-11-09)
 

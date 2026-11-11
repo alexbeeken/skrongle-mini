@@ -1,6 +1,7 @@
 //! Making a course: a new one, a copy, and a copy translated by AI.
 
 use super::*;
+use crate::perms::Perm;
 
 // ---------- create a course ----------
 
@@ -17,8 +18,11 @@ pub async fn new_form(_user: CurrentUser) -> Response {
 }
 
 /// POST /courses/new: "Create a course". A starter course straight away,
-/// then the editor with the "Generate the course" dialog open.
+/// then the editor with the "Generate the course" dialog open. Like Copy
+/// and Copy and translate below, it needs the Create courses permission
+/// (#143): without it the route answers 403.
 pub async fn create(State(state): State<Arc<AppState>>, user: CurrentUser, Form(form): Form<NewForm>) -> Result<Response, AppError> {
+    user.require(Perm::CreateCourses)?;
     let title = match form.title.trim() {
         "" => courses::untitled(),
         t if t.chars().count() > 80 => return Ok(Redirect::to(&crate::url("/courses?notice=title-too-long")).into_response()),
@@ -132,6 +136,7 @@ async fn store_copy_as(
 /// course of the user's own with every file of the original, called "Copy
 /// of <title>", opened in the editor. The original is not touched.
 pub async fn copy(State(state): State<Arc<AppState>>, user: CurrentUser, Path(id): Path<String>) -> Result<Response, AppError> {
+    user.require(Perm::CreateCourses)?;
     let courses_notice = |key: &str| Redirect::to(&crate::url(&format!("/courses?notice={key}"))).into_response();
     let (files, title) = match copy_source(&state, &user, &id).await? {
         Ok(source) => source,
@@ -171,6 +176,7 @@ pub struct TranslateForm {
 /// user's own it resumes with the files not done yet. The original is
 /// never changed. It runs on the learner's own key, like generation.
 pub async fn translate(State(state): State<Arc<AppState>>, user: CurrentUser, Path(id): Path<String>, Form(form): Form<TranslateForm>) -> Result<Response, AppError> {
+    user.require(Perm::CreateCourses)?;
     user.require_ai()?;
     let courses_notice = |key: &str| Redirect::to(&crate::url(&format!("/courses?notice={key}"))).into_response();
     // A stopped translation of their own resumes; any other course is copied.
