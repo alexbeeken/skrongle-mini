@@ -2435,6 +2435,7 @@ courses:
     too_many_course: "Ein Kurs kann höchstens {max} Einladungslinks haben. Entferne zuerst einen."
     removed_notice: "Link entfernt. Wer ihn geöffnet hatte, hat den Kurs nicht mehr."
     not_on_list: Dieser Link stand nicht auf der Liste.
+    not_allowed: "Dein Konto kann keine neuen Einladungslinks erstellen. Links, die du schon erstellt hast, funktionieren weiter, bis du sie entfernst."
     link_taken: Ein anderes Konto hat diesen Link bereits benutzt. Bitte den Besitzer des Kurses um einen eigenen Link.
     link_gone: Dieser Link funktioniert nicht mehr. Bitte den Besitzer des Kurses um einen neuen.
     not_ready: Dieser Kurs ist noch nicht bereit zum Öffnen. Bitte den Besitzer, und versuche den Link später erneut.

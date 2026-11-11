@@ -148,6 +148,12 @@ with their own progress; only you can change it, and your edits reach them
 at once. The dialog lists every link with *not opened yet* or *opened by*
 whom; *Remove* takes one away, and the course with it.
 
+Making a link needs the **Share courses** permission, which the server's
+owner or a superuser sets on Manage Users. Without it there is no *Share* button, unless
+the course already has links: then the dialog still lists them and you can
+remove them, but not make new ones. Opening someone's link needs no
+permission.
+
 ## Fixing validation errors
 
 Every error names the file and the field, for example:

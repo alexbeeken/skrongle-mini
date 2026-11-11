@@ -12,6 +12,7 @@ use std::sync::Arc;
 use crate::auth::{CurrentUser, MaybeUser};
 use crate::db::now;
 use crate::error::AppError;
+use crate::perms::Perm;
 use crate::urlenc::urlencode;
 use crate::share;
 use crate::AppState;
@@ -42,6 +43,8 @@ pub async fn to_course(Path(id): Path<String>) -> Response {
 }
 
 /// POST /courses/{id}/share (label): one new invitation link, shown once.
+/// Needs the Share courses permission (#144); removing a link and opening
+/// one do not.
 pub async fn invite(
     State(state): State<Arc<AppState>>,
     user: CurrentUser,
@@ -49,6 +52,7 @@ pub async fn invite(
     Path(id): Path<String>,
     Form(form): Form<InviteForm>,
 ) -> Result<Response, AppError> {
+    user.require(Perm::ShareCourses)?;
     super::courses::owned(&state, &user, &id).await?;
     let label = share::clean_label(&form.label);
     let cid = id.clone();

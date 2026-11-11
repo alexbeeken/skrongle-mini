@@ -2435,6 +2435,7 @@ courses:
     too_many_course: "Um curso pode ter até {max} links de convite. Remova um primeiro."
     removed_notice: "Link removido. Quem o abriu não tem mais o curso."
     not_on_list: Esse link não estava na lista.
+    not_allowed: "A sua conta não pode criar novos links de convite. Os links que já criou continuam a funcionar até os remover."
     link_taken: Outra conta já usou este link. Peça ao dono do curso um link só seu.
     link_gone: Este link não funciona mais. Peça um novo ao dono do curso.
     not_ready: Este curso ainda não está pronto para abrir. Peça ao dono e tente o link de novo mais tarde.

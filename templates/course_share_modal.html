@@ -1,4 +1,4 @@
-{# The Share dialog of the course page (src/share.rs): the course's invitation links, and the form that makes one more. #}
+{# The Share dialog of the course page (src/share.rs): the course's invitation links, and the form that makes one more (only with the Share courses permission, #144). #}
 <dialog class="modal" id="course-share" aria-labelledby="course-share-title" data-testid="course-share"{% if share_open %} data-open-on-load{% endif %}>
   <h2 id="course-share-title">{{ crate::t("courses.share.dialog_title") }}</h2>
   <p class="small muted">{{ crate::t("courses.share.dialog_lead") }}</p>
@@ -27,6 +27,7 @@
     </tbody>
   </table>
   {% endif %}
+  {% if can_share %}
   <form method="post" action="{{ crate::base_path() }}/courses/{{ id }}/share" data-testid="course-share-form">
     <label>{{ crate::t("courses.share.label_label") }} <span class="muted">{{ crate::t("courses.share.label_note") }}</span>
       <input type="text" name="label" maxlength="60" autocomplete="off" data-testid="course-share-label">
@@ -36,4 +37,10 @@
       <button type="button" class="btn ghost" data-dialog-close data-testid="course-share-close">{{ crate::t("courses.share.close") }}</button>
     </div>
   </form>
+  {% else %}
+  <p class="small muted" data-testid="course-share-not-allowed">{{ crate::t("courses.share.not_allowed") }}</p>
+  <div class="modal-actions">
+    <button type="button" class="btn ghost" data-dialog-close data-testid="course-share-close">{{ crate::t("courses.share.close") }}</button>
+  </div>
+  {% endif %}
 </dialog>

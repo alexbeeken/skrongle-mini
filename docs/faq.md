@@ -24,6 +24,12 @@ Only the people you share it with: **Share** on the course page makes an
 invitation link, which you pass on; whoever opens it first is in. They learn from it read-only, with their own progress. See
 [Share a course](making-courses#share-a-course).
 
+**Why is there no Share button on my course?**
+Your account does not have the **Share courses** permission; the server's
+owner or a superuser can turn it on for you on Manage Users. Links you made before keep
+working, and you can still remove them. See
+[Share a course](making-courses#share-a-course).
+
 **My course does not load. What now?**
 The error names the file and the field. See
 [Fixing validation errors](making-courses#fixing-validation-errors).

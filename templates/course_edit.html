@@ -20,7 +20,8 @@
     <p><span class="tag" title="{{ crate::t("courses.editor.private_tip") }}">{{ crate::t("courses.editor.private_tag") }}</span></p>
   </div>
   <div class="actions">
-    <button type="button" class="btn ghost" data-open-dialog="course-share" aria-haspopup="dialog" data-testid="course-edit-share">{% if shares.is_empty() %}{{ crate::t("courses.share.button") }}{% else %}{{ crate::t1("courses.share.button_count", "n", shares.len()) }}{% endif %}</button>
+    {# Without the Share courses permission (#144) the button is only there for a course that has links, to remove them. #}
+    {% if can_share || !shares.is_empty() %}<button type="button" class="btn ghost" data-open-dialog="course-share" aria-haspopup="dialog" data-testid="course-edit-share">{% if shares.is_empty() %}{{ crate::t("courses.share.button") }}{% else %}{{ crate::t1("courses.share.button_count", "n", shares.len()) }}{% endif %}</button>{% endif %}
     {% if (state == "generating" || state == "revising") && !locked %}
       <form method="post" action="{{ crate::base_path() }}/courses/{{ id }}/cancel" class="inline" data-testid="course-edit-cancel-form"><button type="submit" class="btn ghost" data-testid="course-edit-cancel">{% if state == "revising" %}{{ crate::t("courses.editor.cancel_revision") }}{% else %}{{ crate::t("courses.editor.cancel_generation") }}{% endif %}</button></form>
     {% endif %}
@@ -84,7 +85,7 @@
 </form>
 </div>
 
-{% include "course_share_modal.html" %}
+{% if can_share || !shares.is_empty() %}{% include "course_share_modal.html" %}{% endif %}
 {% if let Some(m) = modal %}{% include "ai_job_modal.html" %}{% endif %}
 {% if let Some(g) = generate %}{% include "generate_form.html" %}{% endif %}
 {% if let Some(r) = review %}{% include "course_review_modal.html" %}{% endif %}

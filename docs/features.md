@@ -794,6 +794,16 @@ has none), *not opened yet* or *opened by <name>* (the account's name, or
 its address), and a *Remove* button (`course-share-remove`, by the row's
 id).
 
+Making a link needs the **Share courses** permission
+(`Perm::ShareCourses`, #144; see [Permissions](#permissions)):
+`POST /courses/{id}/share` answers 403 without it. An account without it
+has no Share button on a course that has no links. On a course that has
+links the button stays, and the dialog lists them with *Remove* but has no
+form: in its place one line (`course-share-not-allowed`) says the account
+cannot make new links and the ones it made keep working until removed.
+Removing a link and opening one never ask for a permission: a Student
+gets a course by opening a link.
+
 Who may open a shared course: only the account that opened one of its
 links. The link is the only way in (#10): the first account to open it
 keeps it, and every other account that opens it later is turned away to
@@ -1843,6 +1853,10 @@ A permission whose needed one is off counts as off, and a set is always
 stored that way (`Perms::normalized`). So far the permissions are stored and
 edited; except for `superuser` opening Manage Users, the features do not ask
 for them yet (the other issues of #137 do that).
+
+`share_courses` is asked for (#144): without it an account makes no new
+invitation link; its links keep working and it can remove them
+([Sharing a course](#sharing-a-course)).
 
 - **Presets**: **Student** is no permission (0), **Teacher** the first six
   (63, not `superuser`); both are rows of `permission_presets`
