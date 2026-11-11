@@ -563,6 +563,14 @@ pub async fn generate_in(
     }
     let job = ai::new_job_id();
 
+    // Take the course first: of two Generate posts at once only one gets it,
+    // and only that one may clear the files below (#85).
+    let (cid, j) = (row.id.clone(), job.clone());
+    if !state.db.call(move |c| courses::set_generating(c, &cid, &j)).await? {
+        return Ok(to_editor(&id, "busy"));
+    }
+    state.courses.invalidate(&row.id);
+
     // The course stays in the course list, greyed out while it is being written.
     let (resume_outline, wish, notes) = match &mode {
         GenMode::Resume => {
@@ -579,17 +587,19 @@ pub async fn generate_in(
             };
             let title = d.title.clone().unwrap_or_else(|| provisional_title(&brief));
             let (cid, b, n) = (row.id.clone(), brief.clone(), notes.clone());
-            state.db.call(move |c| courses::restart_generation(c, &cid, &title, &b, &n)).await?;
+            let restarted = state.db.call(move |c| courses::restart_generation(c, &cid, &title, &b, &n)).await;
+            if let Err(e) = restarted {
+                // The course is ours already: give it back before failing.
+                let (cid, msg) = (row.id.clone(), e.to_string());
+                state.db.call(move |c| courses::finish_generation(c, &cid, Some(&msg))).await?;
+                return Err(e.into());
+            }
             (None, brief, notes)
         }
     };
     // The same model at every level; only how hard it works changes.
     provider.effort = Some(effort);
     let course_id = row.id.clone();
-    let (cid, j) = (course_id.clone(), job.clone());
-    state.db.call(move |c| courses::set_generating(c, &cid, &j)).await?;
-    state.courses.invalidate(&course_id);
-
     let req = ai::Request {
         user_id: user.id,
         provider,

@@ -1599,3 +1599,140 @@ fn reference_is_the_first_cacheable_block() {
     let o = openai_body(&ProviderKind::OpenAi.provider("k".into()), "sys", &first, 500);
     assert_eq!(o["messages"][1]["content"], format!("{}{rules}\n\nWrite lesson one.", prompt::reference()));
 }
+
+// ---------- #85: the windows that can leave a course stuck ----------
+
+/// The three records of one job, read the way the pages read them:
+/// (course state, course job id, jobs row state, job in memory is done).
+fn records(db: &Db, jobs: &Jobs, course: &str, row: i64, job: &str) -> (String, Option<String>, String, Option<bool>) {
+    let (state, job_id) = db
+        .with(|c| crate::courses::course(c, course).map(|r| r.map(|r| (r.state.as_str().to_string(), r.job_id)).unwrap()))
+        .unwrap();
+    let row_state = db.with(|c| c.query_row("SELECT state FROM jobs WHERE id = ?1", [row], |r| r.get::<_, String>(0))).unwrap();
+    (state, job_id, row_state, jobs.get(job).map(|j| j.snapshot().done))
+}
+
+/// Wait until every generator thread of `jobs` has exited (the loop only
+/// polls the table the threads leave; no outcome depends on how long it takes).
+fn wait_for_slots(jobs: &Jobs) {
+    let deadline = std::time::Instant::now() + Duration::from_secs(20);
+    while !slot_free(jobs) || !jobs.lock().live.is_empty() {
+        assert!(std::time::Instant::now() < deadline, "the generator threads did not exit");
+        std::thread::sleep(Duration::from_millis(10));
+    }
+}
+
+/// `hold` for a job id, as `submit` does.
+fn hold_row(c: &rusqlite::Connection, req: &Request, id: &str) -> rusqlite::Result<i64> {
+    hold(c, &payload(req, id, false), crate::db::now())
+}
+
+/// Window 3 of the audit in `docs/architecture.md` (#85): two Generate posts
+/// at once on one course. Both read a course that was not busy, so both call
+/// `set_generating` before either job starts; one `start` wins, the other is
+/// refused and the route then fails the course. The functions are driven in
+/// that order, with no timing. The course must stay the winner's.
+#[test]
+fn a_second_generate_post_does_not_take_the_course_from_the_first() {
+    let db = Db::open_in_memory().unwrap();
+    let registry = Arc::new(crate::courses::Courses::empty());
+    let jobs = Arc::new(Jobs::default());
+    let hold_llm = Arc::new(AtomicBool::new(true));
+    let url = scripted_llm(|_| "not JSON".into(), Arc::clone(&hold_llm));
+    let req = generating(&db, "win3", "win3-course", url);
+    // The learner's course before they press Generate: ready, not busy.
+    db.with(|c| crate::courses::finish_generation(c, "win3-course", None)).unwrap();
+
+    // Both requests passed the "not busy" check in `generate_in`; both mark
+    // the course. The second is told the course is taken, and its route stops
+    // there (before `restart_generation` and `ai::submit`).
+    assert!(db.with(|c| crate::courses::set_generating(c, "win3-course", "first")).unwrap());
+    assert!(!db.with(|c| crate::courses::set_generating(c, "win3-course", "second")).unwrap());
+    // The first request's job is taken and starts.
+    let row = db.with(|c| hold_row(c, &req, "first")).unwrap();
+    start(&jobs, db.clone(), Arc::clone(&registry), req.clone(), "first".into(), row).unwrap();
+
+    // Without the guard (the second route went on) `start` refused it, `submit`
+    // settled its row and the route failed the course: the first job's course
+    // came out `failed` with the second's job id.
+    // A course a job is revising is just as taken.
+    db.with(|c| c.execute("UPDATE courses SET state = 'revising' WHERE id = 'win3-course'", [])).unwrap();
+    assert!(!db.with(|c| crate::courses::set_generating(c, "win3-course", "third")).unwrap());
+    db.with(|c| c.execute("UPDATE courses SET state = 'generating' WHERE id = 'win3-course'", [])).unwrap();
+
+    // The first job is still running; its course must say so, with its id.
+    let (state, job_id, row_state, done) = records(&db, &jobs, "win3-course", row, "first");
+    assert_eq!((row_state.as_str(), done), ("running", Some(false)));
+    assert_eq!((state.as_str(), job_id.as_deref()), ("generating", Some("first")));
+
+    hold_llm.store(false, Ordering::SeqCst);
+    wait_for_slots(&jobs);
+}
+
+/// Window 7 (#85): the write that ends a job fails (a full disk, a locked
+/// file). A trigger makes the course update fail, then a real generator
+/// thread runs a job that fails at once. Records today's behaviour: the
+/// thread logs the error and goes on, so the course stays busy, the jobs row
+/// stays `running`, and only memory says the job is done. Nothing in the
+/// running server moves the course on from there; the way out is the Cancel
+/// button (`generate_cancel`, a generation only) or a restart. Fixing it
+/// needs the one end-of-job transaction of #85 part 2, so this test passes
+/// by describing the stuck state.
+#[test]
+fn window_7_a_failed_end_of_job_write_leaves_the_course_busy() {
+    let db = Db::open_in_memory().unwrap();
+    let registry = Arc::new(crate::courses::Courses::empty());
+    let jobs = Arc::new(Jobs::default());
+    let url = scripted_llm(|_| "not JSON".into(), Arc::new(AtomicBool::new(false)));
+    let req = generating(&db, "win7", "win7-course", url);
+    db.with(|c| {
+        c.execute_batch(
+            "CREATE TRIGGER fail_the_end BEFORE UPDATE OF state ON courses WHEN NEW.state IN ('ready', 'failed')
+             BEGIN SELECT RAISE(ABORT, 'disk full'); END;",
+        )
+        .map(drop)
+    })
+    .unwrap();
+    let row = db.with(|c| hold_row(c, &req, "j7")).unwrap();
+    start(&jobs, db.clone(), registry, req, "j7".into(), row).unwrap();
+    wait_for_slots(&jobs);
+
+    // Window 7: busy course, running row, finished job in memory.
+    let (state, job_id, row_state, done) = records(&db, &jobs, "win7-course", row, "j7");
+    assert_eq!((state.as_str(), job_id.as_deref()), ("generating", Some("j")));
+    assert_eq!((row_state.as_str(), done), ("running", Some(true)));
+    // The slot is free, so a second job is not blocked by this one.
+    assert!(slot_free(&jobs));
+    // The way out for a generation: with the job done in memory, Cancel
+    // finds no live job and fails the course (`generate_cancel`).
+    db.with(|c| c.execute_batch("DROP TRIGGER fail_the_end").map(drop)).unwrap();
+    db.with(|c| crate::courses::finish_generation(c, "win7-course", Some("cancelled"))).unwrap();
+    assert_eq!(records(&db, &jobs, "win7-course", row, "j7").0, "failed");
+}
+
+/// Window 9 (#85): a generator thread dies without its end sequence. In the
+/// release build a panic aborts the whole process (`panic = "abort"` in
+/// `Cargo.toml`, held by `scripts/panic-check.sh`), so a thread cannot die
+/// while the server lives; what is left is a server that stopped mid-job. And
+/// the panic cannot be reproduced in a test build either: an SQL function
+/// that panics is caught by rusqlite and becomes an ordinary job failure, and
+/// no other code in the job path panics. So this test builds the state a dead
+/// thread leaves (course busy, row running, nothing in memory) and shows that
+/// the next boot ends it (`at_boot`, then `fail_interrupted`, as `main` does).
+#[test]
+fn window_9_what_a_job_that_died_without_its_end_sequence_leaves_is_ended_at_boot() {
+    let db = Db::open_in_memory().unwrap();
+    let jobs = Jobs::default();
+    let req = generating(&db, "win9", "win9-course", "http://127.0.0.1:1/v1".into());
+    let row = db.with(|c| hold_row(c, &req, "j9")).unwrap();
+    // As the pages see it before the boot: busy course, running row, no job in memory.
+    assert_eq!(records(&db, &jobs, "win9-course", row, "j9"), ("generating".into(), Some("j".into()), "running".into(), None));
+
+    // A pasted key (`hold_row` passes `saved_key = false`): not resumable, so it stops.
+    db.with(|c| at_boot(c, crate::db::now())).unwrap();
+    db.with(|c| crate::courses::fail_interrupted(c)).unwrap();
+    let (state, job_id, row_state, _) = records(&db, &jobs, "win9-course", row, "j9");
+    assert_eq!((state.as_str(), job_id.as_deref(), row_state.as_str()), ("failed", Some("j"), "failed"));
+    let error = db.with(|c| crate::courses::course(c, "win9-course")).unwrap().unwrap().error;
+    assert!(error.is_some_and(|e| e.contains("interrupted")));
+}
