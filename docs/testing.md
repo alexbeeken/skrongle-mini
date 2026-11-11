@@ -739,6 +739,76 @@ offline. `npm --prefix e2e run typecheck` checks the TypeScript.
 | `e2e/lib/fixtures.ts` | The smoke specs' `test`: seeded `Math.random` and a fake voice in every page; prints the seed on failure |
 | `e2e/results/` | Last run: `last-run.json`, the HTML report, traces (untracked) |
 
+## Release specs
+
+The browser specs above run a dev server: they sign in at `/dev/login`, use the
+seeded user and the simulated AI provider. The Playwright projects below use
+only what a self-hoster has (the register and login pages, the built-in
+courses, the editor, the Share dialog, Manage Users), against whatever
+`E2E_BASE_URL` points at: a tarball from `KEEP=1 scripts/release-qa/package-smoke.sh`,
+a container of `scripts/release-qa/compose.yaml`, a VM, a Pi. Issue #40.
+
+```sh
+scripts/release-e2e.sh        # starts a fresh server (release build) and runs both projects below
+SERVER_BIN=target/debug/spanish-learning RELEASE_E2E_DEV=1 scripts/release-e2e.sh   # a dev build in dev mode
+
+# a server you started or have: the owner link from its log (once), or an owner it already has
+E2E_BASE_URL=http://host:8081 E2E_OWNER_LINK='http://host:8081/register?invite=…' \
+  npx --prefix e2e playwright test --project release
+E2E_BASE_URL=… E2E_OWNER_EMAIL=… E2E_OWNER_PASSWORD=… npx --prefix e2e playwright test --project release
+```
+
+The server needs `SKRONGLE_SIGNUP=invite` (the systemd unit's setting) and
+**no more than 8 accounts**, the most a server holds, so use a fresh one for
+each run (`docker compose down -v`). A run makes the owner and seven
+accounts. CI runs `scripts/release-e2e.sh` twice in the job "e2e release
+specs", on the dev build: once without dev mode (an owner link, as a release has) and
+once with `SKRONGLE_DEV=1` (dev routes exist, the dev user is the owner), so
+the specs cannot rot; it is not in the required checks. Run against the 0.2.1
+aarch64 tarball in the release-QA container rig, all ten pass.
+
+`e2e/lib/release.ts` has the helpers: `test` (the smoke specs' `test`, and a
+route guard that **fails the test on any request to `/dev/`**, in every context
+the helpers make), `newPerson` (a browser context of its own), `ownerAccount`
+(from `E2E_OWNER_EMAIL`/`E2E_OWNER_PASSWORD`, or what the first-run spec
+made through `E2E_OWNER_LINK`), `makeInvite` (Manage Users), `newLearner`
+(an invitation, then `/register`), `registerWithLink`, `signInOwner`. Two-factor
+codes are worked out from the setup key with `e2e/lib/totp.ts`, not read
+from the dev authenticator. `grep -r "/dev/" e2e/specs/release` finds nothing.
+
+| Project | Specs | What it checks |
+|---|---|---|
+| `release-first-run` (runs first, a dependency of `release`) | `specs/release/first-run.spec.ts` | the owner link registers the owner and is then spent; `/register` without a token (or a made-up one) is closed; the owner makes an invitation on Manage Users and a learner registers through it, once; the owner sees the account |
+| `release` | `learn.spec.ts` | open the built-in Spanish course, pass lesson 1's reading check (answers from `data/courses`), a Practice set, a Sprint session; `/lessons`, the other mode pages and the home page agree on one passed lesson |
+| | `course-by-hand.spec.ts` | create a course without AI, rename it, add a lesson in the editor, edit its JSON, autosave, reload, open it as a learner |
+| | `share.spec.ts` | the owner makes a share link, a learner opens it and has the course read only, the owner removes it, the course leaves the learner's list |
+| | `account.spec.ts` | change password (wrong current refused; the old one stops working), two-factor on and off with a code worked out from the setup key (wrong code refused), sign out and in, the language switch kept by the account, the home page and a lesson at 390 px |
+| | `docs.spec.ts` | `/docs` and every page in its sidebar answer 200 as HTML and Markdown, nothing is wider than a phone, every in-app link they hold opens, `/llms.txt` and what it lists |
+| `release-open` | the existing specs below | against a server with `SKRONGLE_SIGNUP=open` (they register their own accounts through `/register`) |
+
+The `release` project's `testMatch` is every spec in `specs/release` except
+first-run; the `release-open` project reaches into `e2e/specs/` for the specs
+audited below, so `testDir` for it is `./specs`, not `./specs/release`. The default
+`chromium` project ignores `specs/release`, so `scripts/e2e.sh` does not run these.
+
+**Audit of the specs that never touch `/dev`.** Run one by one against a release
+build with `SKRONGLE_SIGNUP=open`, each on a fresh server:
+
+| Spec | Against a release server |
+|---|---|
+| `landing-try`, `mistakes`, `profile-nav`, `profile-autosave` | clean |
+| `smoke/motivator`, `smoke/motivator-xp`, `smoke/motivator-reward`, `smoke/daily-goal`, `smoke/drill-first-set`, `smoke/french`, `smoke/sprint-check-error`, `smoke/sprint-sort` | clean |
+| `smoke/happy-paths` | its first eight tests are clean; the rest cannot register, because the server is full (8 accounts) |
+| `smoke/privacy` | fails: it needs an AI key on the server (the seeded one), which a release server has not |
+| `smoke/practice-empty-check`, `practice-keys`, `practice-nothing-yet`, `practice-result-order`, `practice-summary`, `placement`, `start-level`, `wrong-answers*`, `test-course-games`, `complete-test-course`, `sprint-ladder` | need the test course, which only a server with `TEST_COURSE=1` offers (the first three were run and fail with `no course "test-course"`; the rest name it and were not run) |
+| `smoke/phone-width` and every spec using `devLogin`, `devReset`, `/dev/` or the dev AI | not dev-free |
+
+Only specs that fit together under 8 accounts are in `release-open` (`landing-try`,
+`mistakes`, `profile-nav`, `smoke/motivator`, `smoke/sprint-check-error`,
+`smoke/sprint-sort`); the other clean ones need a server of their own (run them
+by file with `--project chromium` and `E2E_BASE_URL` at a fresh open-signup release server). A
+server over `SKRONGLE_SIGNUP=invite` refuses `signUp`, so none of these run in `release`.
+
 ## Smoke specs
 
 ```sh

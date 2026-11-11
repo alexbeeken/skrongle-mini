@@ -103,3 +103,8 @@ The `dietpi-install` workflow covers the DietPi install block in containers (`sc
 `package-smoke.sh` also runs on its own, on any Linux box or VM with curl:
 `scripts/release-qa/package-smoke.sh skrongle-0.1.2-aarch64.tar.gz`. `KEEP=1`
 leaves its server running and prints the URL.
+
+The browser specs for a release server (`e2e/specs/release`, Playwright project
+`release`, #40) run against any of these servers: `E2E_BASE_URL=http://localhost:8081
+E2E_OWNER_LINK='<owner link from docker compose logs>' npx --prefix e2e playwright test --project release`
+on a fresh volume (`docker compose down -v`). See `docs/testing.md`, "Release specs".
