@@ -109,6 +109,43 @@ jobs:
           shard: ${{ matrix.shard }}
           report-name: playwright-report-smoke-${{ strategy.job-index }}
 
+  # The release specs (e2e/specs/release, docs/testing.md "Release specs") run
+  # here once so they cannot rot: against the dev build with no dev mode (a
+  # server with an owner link, as a release has), then with SKRONGLE_DEV=1
+  # (dev routes exist; the specs fail if they touch one).
+  e2e-release:
+    name: e2e release specs
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: e2e/package-lock.json
+      - name: Install the browser test tools
+        working-directory: e2e
+        run: |
+          npm ci --no-fund --no-audit
+          npx playwright install --with-deps chromium
+      - name: Release specs
+        run: |
+          export SERVER_BIN=$(scripts/ci-build.sh)
+          scripts/release-e2e.sh
+          RELEASE_E2E_DEV=1 scripts/release-e2e.sh
+      - name: Keep the report of a failed run
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: playwright-report-release
+          path: |
+            e2e/results/report
+            e2e/results/artifacts
+          retention-days: 7
+
   # A skipped required check counts as passed, so the gates run unless the
   # run was cancelled, and fail unless every shard succeeded.
   e2e-exact-gate:
