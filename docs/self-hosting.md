@@ -704,7 +704,9 @@ getent passwd skrongle && sudo userdel skrongle   # only if the user is there
 The database folder is your data, so the script keeps it unless you pass
 `--purge`. It is `/var/lib/skrongle`. The service's user is created by
 systemd, so the real folder is `/var/lib/private/skrongle`, with
-`/var/lib/skrongle` linked to it; the script handles both. The folder holds:
+`/var/lib/skrongle` linked to it; the script handles both. An install made
+by `dietpi-install.sh` keeps it in `/mnt/dietpi_userdata/skrongle`, which the
+script handles too. The folder holds:
 
 - `learn.db`: the accounts, progress, courses made in the app, and the AI
   keys people saved (encrypted);
@@ -718,7 +720,8 @@ again with the same unit finds the accounts and progress as they were.
 `/etc/skrongle` is kept too without `--purge`, because its env file can hold
 `SKRONGLE_SECRET_KEY`, which the kept database needs to read the saved AI
 keys. `--purge` removes that folder as well. To remove the data by hand,
-after the steps above: `sudo rm -rf /var/lib/skrongle /var/lib/private/skrongle /etc/skrongle`.
+after the steps above: `sudo rm -rf /var/lib/skrongle /var/lib/private/skrongle /etc/skrongle`
+(on DietPi, `/mnt/dietpi_userdata/skrongle` in place of the first two).
 
 To use Skrongle again later, follow [Install](#install).
 

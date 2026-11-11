@@ -10,8 +10,9 @@
 # deploy/dietpi-install.sh, starts the installed binary by hand (a
 # container has no systemd) with the environment the unit gives it, checks
 # /healthz and `owner-link`, then runs the script again to see an update
-# keep the env file and unit and copy the database aside. One line per
-# check, ok or FAIL; non-zero exit on any FAIL.
+# keep the env file and unit and copy the database aside, and last runs
+# deploy/uninstall.sh without and with --purge. One line per check, ok or
+# FAIL; non-zero exit on any FAIL.
 set -u
 
 LABEL="${1:-container}"
@@ -98,4 +99,18 @@ grep -q "^kept /etc/skrongle/env" "$LOG" && ok "second run keeps the env file" |
 grep -q "^kept /etc/systemd/system/skrongle.service" "$LOG" && ok "second run keeps the unit" || fail "second run keeps the unit"
 [ -f "$DATA/learn.db.before-$VERSION" ] && ok "learn.db.before-$VERSION exists" || fail "learn.db.before-$VERSION exists"
 [ -x /opt/skrongle/skrongle.previous ] && ok "skrongle.previous kept" || fail "skrongle.previous kept"
+
+# 5. Uninstall keeps the data folder, --purge removes it (#127). This is the
+# repository's uninstall.sh: at a release tag, the one in the tarball.
+UNINSTALL="$HERE/../deploy/uninstall.sh"
+if sh "$UNINSTALL" >"$LOG" 2>&1; then ok "uninstall.sh runs"; else fail "uninstall.sh runs"; fi
+cat "$LOG"
+[ ! -e /opt/skrongle ] && ok "uninstall removes /opt/skrongle" || fail "uninstall removes /opt/skrongle"
+[ -f "$DATA/learn.db" ] && ok "uninstall keeps $DATA/learn.db" || fail "uninstall keeps $DATA/learn.db"
+grep -q "^kept $DATA" "$LOG" && ok "uninstall says it kept $DATA" || fail "uninstall says it kept $DATA"
+if sh "$UNINSTALL" --purge >"$LOG" 2>&1; then ok "uninstall.sh --purge runs"; else fail "uninstall.sh --purge runs"; fi
+cat "$LOG"
+[ ! -e "$DATA" ] && ok "--purge removes $DATA" || fail "--purge removes $DATA"
+[ ! -e /etc/skrongle ] && ok "--purge removes /etc/skrongle" || fail "--purge removes /etc/skrongle"
+grep -q "and its data with it" "$LOG" && ok "--purge says the data is gone" || fail "--purge says the data is gone"
 finish

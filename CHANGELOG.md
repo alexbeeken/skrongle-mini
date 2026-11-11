@@ -4,6 +4,15 @@ What changed in each release, for the person running the server. Newest
 first. Each release's GitHub notes are its section here. How version
 numbers work is in the README, "Versions".
 
+## Unreleased
+
+- `uninstall.sh --purge` left the data behind on a DietPi install: it said
+  "removed, and its data with it" while `/mnt/dietpi_userdata/skrongle` (the
+  database and its key) stayed, so installing again brought the old accounts
+  back. It now removes that folder too. When the settings put the database
+  in a folder the script does not know, it says at the end that the database
+  is not removed, instead of saying the data is gone.
+
 ## 0.2.1 (2026-11-09)
 
 A sign-in fix and a lighter server. Nothing to change on your side.
