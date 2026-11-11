@@ -844,7 +844,19 @@ Before the tag, on the commit you will tag:
 3. Check the tarballs on every architecture: `scripts/release-qa/matrix.sh dist`
    runs each in a Debian container of that architecture ([Release QA](#release-qa)).
    After the tag, `scripts/release-qa/matrix.sh 0.2.0` does the same with the
-   published tarballs, before you announce it.
+   published tarballs, before you announce it. The same run also checks the
+   upgrade path on each architecture (`scripts/release-qa/upgrade-check.sh`,
+   #43): the tarball is started on the database every older release wrote
+   (`scripts/release-qa/fixtures/`), and each older release's own binary
+   must refuse the database the new one migrated, exit 78, file unchanged.
+   `SKIP_UPGRADE=1` leaves it out; `upgrade-check.sh <tarball>` runs it alone
+   on a Linux machine.
+4. After the release is published, add its fixture so the next release is
+   checked against it: run `package-smoke.sh` on the published tarball with
+   `KEEP_DB=scripts/release-qa/fixtures/learn-<version>.db`, and commit the
+   four files it writes (`.db`, `.db.key`, `.env`, `.progress.txt`). The exact
+   commands are in `scripts/release-qa/fixtures/README.md`. The fixtures are
+   test data; keep the made-up `example.org` accounts.
 
 ```sh
 git tag v0.2.0 origin/main && git push origin v0.2.0

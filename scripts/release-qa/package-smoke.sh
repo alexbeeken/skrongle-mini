@@ -9,6 +9,9 @@
 #   scripts/release-qa/package-smoke.sh dist/skrongle-0.1.2-aarch64.tar.gz
 #   KEEP=1 scripts/release-qa/package-smoke.sh <tarball>   # leave the server running (prints its URL)
 #   PORT=18080 scripts/release-qa/package-smoke.sh <tarball>
+#   KEEP_DB=/path/learn-0.1.2.db scripts/release-qa/package-smoke.sh <tarball>
+#       also keep the database this release wrote, with its .key, a progress
+#       digest and an .env of the accounts, as an upgrade fixture (#43)
 #
 # POSIX sh, curl, tar and sha256sum only, so it runs unchanged in a minimal
 # Debian container or VM of any architecture (scripts/release-qa/compose.yaml
@@ -166,6 +169,28 @@ page owner "/courses/$COURSE?share=1" 'data-opened="true"'
 http learner POST "/courses/open/$COURSE"
 page learner /lessons 'href="/lessons/'
 
+echo "==> progress, and an invitation nobody has used"
+# What the upgrade check (upgrade-check.sh, #43) looks for after a newer
+# release has migrated this database. The digest is one line per lesson:
+# id, seen, passed, best_pct; it leaves out mastery, which decays with time.
+digest() {
+  http "$1" GET /api/progress
+  sed 's/.*"lessons":\[//; s/},{"id"/}\n{"id"/g' "$WORK/body" |
+    sed -n 's/^[{]*"id":"\([^"]*\)".*"seen":\([a-z]*\),"passed":\([a-z]*\),.*"best_pct":\([a-z0-9]*\),.*/\1 \2 \3 \4/p'
+}
+http learner GET /api/progress
+L1=$(sed 's/.*"lessons":\[//' "$WORK/body" | grep -o '"id":"[^"]*"' | sed -n 1p | cut -d'"' -f4)
+L2=$(sed 's/.*"lessons":\[//' "$WORK/body" | grep -o '"id":"[^"]*"' | sed -n 2p | cut -d'"' -f4)
+http learner POST /api/progress/pass -H 'content-type: application/json' -d "{\"lesson\":\"$L1\",\"answered\":5,\"correct\":5,\"evidence\":\"made by package-smoke.sh\"}"
+if [ "$CODE" = 200 ]; then ok "the learner passes $L1"; else fail "passing $L1: $CODE $(head -c 200 "$WORK/body")"; fi
+http learner POST /api/progress/seen -H 'content-type: application/json' -d "{\"lesson\":\"$L2\"}"
+if [ "$CODE" = 200 ]; then ok "the learner has seen $L2"; else fail "seen $L2: $CODE $(head -c 200 "$WORK/body")"; fi
+digest learner > "$WORK/progress.digest"
+check "the progress digest shows one lesson passed and one seen" sh -c "[ \$(grep -c ' true true ' '$WORK/progress.digest') = 1 ] && [ \$(grep -c ' true false ' '$WORK/progress.digest') = 1 ]"
+http owner POST /manage/invites
+SPARE=$(grep -o '/register?invite=[A-Za-z0-9_-]*' "$WORK/body" | head -1 | sed 's/.*invite=//')
+if [ "$CODE" = 200 ] && [ -n "$SPARE" ]; then ok "a second invitation link, left unused"; else fail "the second invitation: $CODE"; fi
+
 echo "==> stop and start again"
 kill -TERM "$PID"; wait "$PID"; RC=$?; PID=""
 if [ "$RC" = 0 ]; then ok "SIGTERM: a clean exit"; else fail "exit code $RC on SIGTERM"; fi
@@ -174,6 +199,27 @@ if [ ! -s "$WORK/state/learn.db-wal" ]; then ok "the write-ahead log folded into
 SKRONGLE_DB="$WORK/state/learn.db" "$OPT/skrongle" doctor > "$WORK/doctor2" 2>&1 || true
 check "doctor: the database is at v$SCHEMA (up to date)" grep -q "v$SCHEMA (up to date)" "$WORK/doctor2"
 check "no panic in the log" sh -c "! grep -q panicked '$WORK/server.log'"
+# KEEP_DB=<dir>/learn-<version>.db: keep what this release wrote, as an
+# upgrade fixture (scripts/release-qa/fixtures, #43). The server is stopped
+# and the write-ahead log folded in, so the copy is the file a self-hoster
+# would back up.
+if [ -n "${KEEP_DB:-}" ]; then
+  cp "$WORK/state/learn.db" "$KEEP_DB" && cp "$WORK/state/learn.db.key" "$KEEP_DB.key" && ok "kept the database as $KEEP_DB (and $KEEP_DB.key)" || fail "could not keep the database at $KEEP_DB"
+  cp "$WORK/progress.digest" "${KEEP_DB%.db}.progress.txt"
+  {
+    echo "# $NAME wrote this (package-smoke.sh with KEEP_DB). Test data only."
+    echo "VERSION=$VERSION"
+    echo "SCHEMA=$SCHEMA"
+    echo "OWNER=$OWNER"
+    echo "LEARNER=$LEARNER"
+    echo "PASSWORD=$PW"
+    echo "COURSE=$COURSE"
+    echo "SHARE=$SHARE"
+    echo "SPARE_INVITE=$SPARE"
+    echo "PASSED_LESSON=$L1"
+    echo "SEEN_LESSON=$L2"
+  } > "${KEEP_DB%.db}.env"
+fi
 : > "$WORK/server.log"
 if start_server; then ok "starts again on the same database"; else fail "second start failed; the log:"; sed 's/^/       /' "$WORK/server.log"; exit 1; fi
 check "no owner link on a server that has an owner" sh -c "! grep -q 'Owner link' '$WORK/server.log'"
@@ -183,6 +229,8 @@ if [ "$CODE" = 303 ]; then ok "the owner signs in"; else fail "owner sign-in: $C
 http learner POST /login --data-urlencode "email=$LEARNER" --data-urlencode "password=$PW"
 if [ "$CODE" = 303 ]; then ok "the learner signs in"; else fail "learner sign-in: $CODE"; fi
 page learner /courses "data-course-id=\"$COURSE\""
+digest learner > "$WORK/progress.digest2"
+if cmp -s "$WORK/progress.digest" "$WORK/progress.digest2"; then ok "the learner's progress is unchanged"; else fail "the learner's progress changed across the restart"; fi
 page owner /manage 'data-testid="manage-page"'
 check "no panic in the log" sh -c "! grep -q panicked '$WORK/server.log'"
 
