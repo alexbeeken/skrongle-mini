@@ -48,6 +48,7 @@
       <thead><tr><th>{{ crate::t("manage.email") }}</th><th>{{ crate::t("manage.created") }}</th><th>{{ crate::t("manage.last_sign_in") }}</th><th>{{ crate::t("manage.permissions") }}</th><th></th></tr></thead>
       <tbody>{% for a in list %}
         <tr data-testid="manage-account-row" data-owner="{{ a.owner }}" data-preset="{{ a.preset }}" data-perms="{{ a.perms }}"><td>{{ a.email }}</td><td>{{ a.created }}</td><td>{{ a.last_sign_in }}</td><td data-testid="manage-account-preset">{{ a.preset_label }}</td><td class="account-actions">
+          {% if a.private %}<span class="muted small" data-testid="manage-account-private">{{ crate::t("manage.private") }}</span>{% else if !a.progress_url.is_empty() %}<a class="small" href="{{ a.progress_url }}" data-testid="manage-account-progress">{{ crate::t("manage.progress") }}</a>{% endif %}
           {% if a.can_edit %}<button type="button" class="link-btn small" data-opens="manage-permissions-dialog" data-account-email="{{ a.email }}" aria-haspopup="dialog" data-testid="manage-account-permissions">{{ crate::t("manage.permissions") }}</button>{% endif %}
           {% if is_owner && !a.email.is_empty() %}
           <button type="button" class="link-btn small" data-opens="manage-password-dialog" data-account-email="{{ a.email }}" aria-haspopup="dialog" data-testid="manage-account-temp-password">{{ crate::t("manage.temp_password") }}</button>

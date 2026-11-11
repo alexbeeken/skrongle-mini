@@ -24,6 +24,14 @@ Only the people you share it with: **Share** on the course page makes an
 invitation link, which you pass on; whoever opens it first is in. They learn from it read-only, with their own progress. See
 [Share a course](making-courses#share-a-course).
 
+**Can the person who runs the server see my progress?**
+It depends on your account's permissions, and your profile tells you: open
+**Profile** and the (i) beside *Personal information*. If your account does
+not have the **Privacy** permission (a Student does not), the owner and any
+superuser can see which courses you study, how many lessons you have
+passed, when you last studied and your streak. They never see your answers
+or your notes. With Privacy (a Teacher has it) nobody else gets that page.
+
 **My course does not load. What now?**
 The error names the file and the field. See
 [Fixing validation errors](making-courses#fixing-validation-errors).

@@ -18,6 +18,13 @@ numbers work is in the README, "Versions".
   AI keys, temporary passwords, two-factor off and Make owner stay the
   owner's. The permissions are stored and shown; they do not limit anything
   else yet.
+- Manage Users has a **Progress** link on each account's row: the courses
+  the account studies, how many lessons it has passed, when it last studied
+  and its streak, for you and for superusers. An account with the
+  **Privacy** permission (a Teacher has it, a Student does not) shows
+  *Private* instead, has no progress page, and a superuser does not see its
+  last sign-in. Owners are always private. Each account's profile says, in
+  *Who sees what*, whether its progress is visible.
 
 ## 0.2.1 (2026-11-09)
 

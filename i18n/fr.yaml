@@ -329,6 +329,8 @@ profile:
     password_mismatch: Les nouveaux mots de passe ne correspondent pas.
     turn_off: Désactiver la double authentification
     turn_on: "Activer la connexion en deux étapes avec une application d'authentification"
+  progress_visible: "Les personnes qui gèrent ce serveur peuvent voir quels cours vous étudiez et combien de leçons vous avez réussies."
+  progress_private: "Votre progression est privée : les personnes qui gèrent ce serveur ne peuvent pas la voir."
 manage:
   title: Gérer les utilisateurs
   about: "Actions sur n'importe quel compte. Les propriétaires voient toute la page ; les superutilisateurs voient les comptes et règlent leurs autorisations."
@@ -407,6 +409,19 @@ manage:
     off: "Non"
     hidden_notice: "Les fonctions d’IA sont masquées pour tous les comptes."
     shown_notice: "Les fonctions d’IA sont de nouveau affichées pour tous les comptes."
+  progress: "Progression"
+  private: "Privé"
+  progress_title: "Progression d'étude"
+  progress_course: "Cours"
+  progress_passed: "Leçons réussies"
+  progress_of: "{n} sur {total}"
+  progress_last_studied: "Dernière étude"
+  progress_never: "jamais"
+  progress_streak: "Série"
+  progress_streak_one: "1 jour"
+  progress_streak_days: "{n} jours"
+  progress_none: "Ce compte n'a encore ouvert aucun cours."
+  progress_about: "Des nombres et des dates seulement. Un propriétaire et un compte ayant la permission Confidentialité n'ont pas de page ici."
 
 landing:
   title: "Apprends n'importe quoi à partir d'un dossier de fichiers JSON"

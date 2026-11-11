@@ -19,6 +19,7 @@
   <h2 id="privacy-dialog-title">{{ crate::t("profile.privacy.title") }}</h2>
   <p>{{ crate::t("profile.privacy.appear_as_before") }}<strong data-testid="profile-public-name" data-no-name="{{ crate::profile::no_name() }}">{{ public_name }}</strong>{{ crate::t("profile.privacy.appear_as_after") }}</p>
   <p>{{ crate::t("profile.privacy.email_private") }}</p>
+  <p data-testid="profile-progress-visibility" data-private="{{ self.progress_private() }}">{% if self.progress_private() %}{{ crate::t("profile.progress_private") }}{% else %}{{ crate::t("profile.progress_visible") }}{% endif %}</p>
   <div class="modal-actions">
     <button type="button" class="btn" data-closes data-testid="profile-privacy-close">{{ crate::t("profile.privacy.ok") }}</button>
   </div>

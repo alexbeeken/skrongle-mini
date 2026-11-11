@@ -329,6 +329,8 @@ profile:
     password_mismatch: Die neuen Passwörter stimmen nicht überein.
     turn_off: Zwei-Faktor-Anmeldung ausschalten
     turn_on: "Zwei-Faktor-Anmeldung mit einer Authenticator-App einschalten"
+  progress_visible: "Die Personen, die diesen Server verwalten, können sehen, welche Kurse du lernst und wie viele Lektionen du bestanden hast."
+  progress_private: "Dein Lernfortschritt ist privat: Die Personen, die diesen Server verwalten, können ihn nicht sehen."
 manage:
   title: Benutzer verwalten
   about: "Aktionen für jedes Konto. Eigentümer sehen die ganze Seite; Superuser sehen die Konten und legen deren Berechtigungen fest."
@@ -407,6 +409,19 @@ manage:
     off: "Aus"
     hidden_notice: "Die KI-Funktionen sind für jedes Konto ausgeblendet."
     shown_notice: "Die KI-Funktionen sind für jedes Konto wieder eingeblendet."
+  progress: "Fortschritt"
+  private: "Privat"
+  progress_title: "Lernfortschritt"
+  progress_course: "Kurs"
+  progress_passed: "Bestandene Lektionen"
+  progress_of: "{n} von {total}"
+  progress_last_studied: "Zuletzt gelernt"
+  progress_never: "nie"
+  progress_streak: "Serie"
+  progress_streak_one: "1 Tag"
+  progress_streak_days: "{n} Tage"
+  progress_none: "Dieses Konto hat noch keinen Kurs geöffnet."
+  progress_about: "Nur Zahlen und Daten. Für einen Besitzer und für ein Konto mit der Berechtigung Privatsphäre gibt es hier keine Seite."
 
 landing:
   title: "Lerne alles aus einem Ordner mit JSON-Dateien"

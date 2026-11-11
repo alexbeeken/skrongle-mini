@@ -85,6 +85,13 @@ pub struct AccountRow {
     /// The viewer may set this account's permissions: not an owner's, and
     /// not their own.
     pub can_edit: bool,
+    /// The account's progress page (`manage/progress.rs`, #147), for the
+    /// row's Progress link; '' when there is none to open: an owner's, an
+    /// account with Privacy, one without an address.
+    pub progress_url: String,
+    /// Its progress is not shown (`progress::hidden`): the row says Private
+    /// instead of the link.
+    pub private: bool,
 }
 
 /// A preset in the Permissions dialog: a radio that carries its set.
@@ -145,6 +152,11 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
         list: accounts
             .into_iter()
             .map(|a| AccountRow {
+                // Not the template's to hide: a superuser's page does not
+                // hold the last sign-in of an owner or a private account.
+                last_sign_in: a.last_sign_in.filter(|_| is_owner || !progress::hidden(a.owner, a.perms, a.id == viewer)).map(profile::long_date).unwrap_or_default(),
+                progress_url: if progress::hidden(a.owner, a.perms, a.id == viewer) || a.email.is_empty() { String::new() } else { progress::url_of(&a.email) },
+                private: progress::hidden(a.owner, a.perms, a.id == viewer),
                 can_edit: !a.owner && a.id != viewer && !a.email.is_empty(),
                 perms: a.perms.bits(),
                 preset: match a.preset_id {
@@ -159,7 +171,6 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
                 },
                 email: a.email,
                 created: profile::long_date(a.created_at),
-                last_sign_in: a.last_sign_in.map(profile::long_date).unwrap_or_default(),
                 owner: a.owner,
             })
             .collect(),
@@ -518,6 +529,8 @@ pub async fn set_ai(State(state): State<Arc<AppState>>, user: CurrentUser, Form(
     let did = if off { "ai-off" } else { "ai-on" };
     Ok(Redirect::to(&crate::url(&format!("/manage?did={did}#ai"))).into_response())
 }
+
+pub mod progress;
 
 #[cfg(test)]
 mod tests;

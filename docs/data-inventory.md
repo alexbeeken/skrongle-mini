@@ -44,6 +44,30 @@ account: the background job queue, the server's AI keys and settings, and the na
 | `permission_presets` | `name`, `builtin`, `perms`, `created_at`: named sets of permissions (Student and Teacher are built in); no account | giving accounts the same permissions (`src/perms.rs`). What an account may do is on its own row: `users.perms`, and `users.preset_id` for the preset it came from | no | built-in ones always; a saved one until it is deleted (its accounts keep their permissions) |
 | `jobs` | `kind`, `payload_json`, state, run and lease times, `last_error`; no account | background jobs (`src/jobs.rs`): today only the hourly housekeeping, whose payload is empty | no | done rows deleted after a day, failed ones after 30 days (hourly housekeeping). It is about no one |
 
+**Who else can see a learner's rows.** Other learners see only what the
+table says (a leaderboard name, a shared course). The accounts that manage
+the server see more (Manage Users, `/manage`):
+
+| Who | Sees, of every account | Sees, of an account without the Privacy permission that is not an owner |
+|---|---|---|
+| An owner (`users.owner`) | e-mail address, when it was created, its permissions, its last sign-in (the newest row of `sessions`) | its progress page (below) |
+| A superuser (the `superuser` permission) | e-mail address, when it was created, its permissions | its last sign-in and its progress page |
+
+The progress page (`GET /manage/progress`, #147,
+`src/routes/manage/progress.rs`) shows the account's address and name
+(`users.first_name`, `last_name`) and, per course it has opened (`projects`):
+the course's title (for a course the account made or was shared, that is
+`courses.title`), how many lessons it has passed (a count of
+`lesson_passes`), the date it last studied (`lesson_touches.at`, or
+`lesson_passes.seen_at`) and its day streak (`earnings.streak`). Counts and
+dates only: no answers (`quiz_history`), no notes (`lesson_notes`), no
+`evidence`, nothing per question. An account with the Privacy permission
+(a Teacher has it; a Student does not) and every owner has no such page for
+anyone else, and a superuser does not get its last sign-in. Each account's
+profile says which is true for it (the *Who sees what* dialog). Nothing of
+this leaves the server. Whoever runs the server can read the database file
+itself, whatever the permissions say.
+
 SQLite's own `sqlite_*` tables (`sqlite_stat1`, `sqlite_stat4`, written by the hourly `PRAGMA optimize`) hold query-planner statistics, no user data, and are not listed above.
 
 ## On disk besides the database

@@ -284,6 +284,7 @@ pub fn router(state: Arc<AppState>) -> Router {
         // owners (404 for anyone else); /superuser was its old address
         .route("/superuser", get(|q: RawQuery| moved("/manage", q)))
         .route("/manage", get(manage::show))
+        .route("/manage/progress", get(manage::progress::show))
         .route("/manage/make-owner", post(manage::make_owner))
         .route("/manage/permissions", post(manage::set_permissions))
         .route("/manage/invites", post(manage::make_invite))
