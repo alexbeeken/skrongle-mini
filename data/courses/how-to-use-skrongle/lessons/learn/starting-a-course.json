@@ -1,0 +1,137 @@
+{
+  "id": "use-start",
+  "slug": "starting-a-course",
+  "title": "Starting a course",
+  "unit": "learn",
+  "group": "Using",
+  "order": 20,
+  "summary": "Open a course for the first time and choose a motivator.",
+  "focus": "The first start wizard and the two motivators",
+  "content": "## Open a course\n\nOpen the course list. Its title is *What would you like to learn?*. It shows ready-made courses and your own.\n\nPress **Start learning** on a course card. The first time, a short wizard sets the course up.\n\n## Choose a motivator\n\nA motivator is how the app shows your progress. It sets the top of the course home page and the line you see at the end of a lesson.\n\n- **Statistics and metrics** is the default. It shows your daily goal as a ring, your streak, lessons passed and terms collected.\n- **XP** shows a level, a bar to the next level and the points you earn. XP raises your level like a character in a game.\n\nPress **Get Started!** to open the course.\n\n## Change it later\n\nEach course has its own motivator. Use the gear on the course's card on the course list to change it.\n\nChanging a motivator never resets anything. Your progress stays. The home page also has **Continue**, which takes you back to where you left off.",
+  "vocabulary": [
+    {
+      "term": "motivator",
+      "meaning": "the way a course shows your progress"
+    },
+    {
+      "term": "XP",
+      "meaning": "points that raise your level"
+    },
+    {
+      "term": "daily goal",
+      "meaning": "the effort you aim for each day, shown as a ring"
+    },
+    {
+      "term": "streak",
+      "meaning": "the number of days in a row you practised"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "use-start-01",
+      "prompt": "Which motivator do you wear when you have not chosen one?",
+      "type": "multiple-choice",
+      "options": [
+        "Statistics and metrics",
+        "XP",
+        "Streak",
+        "None"
+      ],
+      "correct_answer": "Statistics and metrics",
+      "explanation": "Statistics and metrics is the default.",
+      "hints": [
+        "The default shows a ring, a streak and counts."
+      ]
+    },
+    {
+      "question_id": "use-start-02",
+      "prompt": "Changing the motivator resets your progress.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Switching never resets anything. Progress, passes and points stay.",
+      "hints": [
+        "A motivator only shows things."
+      ]
+    },
+    {
+      "question_id": "use-start-03",
+      "prompt": "Where do you change a course's motivator after the first start?",
+      "type": "multiple-choice",
+      "options": [
+        "The gear on the course's card",
+        "The Play mode page",
+        "The lesson page",
+        "The Map"
+      ],
+      "correct_answer": "The gear on the course's card",
+      "explanation": "The gear on the course's card on the course list opens the course's settings.",
+      "hints": [
+        "Look at the course list."
+      ]
+    },
+    {
+      "question_id": "use-start-04",
+      "prompt": "A motivator you choose in one course is used in every course.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Each course has its own motivator.",
+      "hints": [
+        "Progress is kept per course."
+      ]
+    },
+    {
+      "question_id": "use-start-05",
+      "prompt": "Which motivator shows a level and a bar to the next level?",
+      "type": "multiple-choice",
+      "options": [
+        "XP",
+        "Statistics and metrics",
+        "Both",
+        "Neither"
+      ],
+      "correct_answer": "XP",
+      "explanation": "XP shows a level badge and a bar to the next level.",
+      "hints": [
+        "The name is two letters that stand for points."
+      ],
+      "teaches": [
+        "XP"
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🎯",
+    "sorts": [
+      {
+        "title": "Which motivator?",
+        "buckets": [
+          "Statistics and metrics",
+          "XP"
+        ],
+        "items": [
+          {
+            "text": "A level badge",
+            "bucket": 1
+          },
+          {
+            "text": "A bar to the next level",
+            "bucket": 1
+          },
+          {
+            "text": "Lessons passed and terms collected",
+            "bucket": 0
+          },
+          {
+            "text": "A line at the end that says Passed",
+            "bucket": 0
+          },
+          {
+            "text": "A line at the end that says +45 XP",
+            "bucket": 1
+          }
+        ],
+        "why": "Statistics and metrics counts what you did. XP turns it into points and levels."
+      }
+    ]
+  }
+}

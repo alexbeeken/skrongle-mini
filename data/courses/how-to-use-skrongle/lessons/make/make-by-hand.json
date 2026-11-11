@@ -1,0 +1,145 @@
+{
+  "id": "make-by-hand",
+  "slug": "make-by-hand",
+  "title": "Make a course by hand",
+  "unit": "make",
+  "group": "Making",
+  "order": 10,
+  "summary": "Create a course and fill in its lessons yourself.",
+  "focus": "The course editor: units, lessons, saving and downloading",
+  "content": "## Create it\n\nOn the course list, press **Create a course**. The app makes a starter course called *Untitled course* with one example lesson. A **Generate the course** dialog opens. Close it to write the course yourself.\n\nClick the title at the top of the page to rename the course.\n\n## The lesson table\n\nThe page lists your lessons as a table. The first row holds the course settings.\n\n- **+** on a unit adds a lesson to it.\n- Click a name to rename it.\n- Drag a row by its grip to move it.\n- **✕** deletes a row.\n- **⧉** duplicates a lesson.\n- **+ Add unit** adds a unit at the end.\n\nThe **▸** on a row opens the lesson. A lesson has text split into cards by `##` headings, words, and questions. To fill it in with forms, open the gear on the course settings row and turn the **JSON** switch off.\n\n## Saving\n\nThere is no Save button. Every change saves as you make it. The circle by the title is a green check when all is saved.\n\n**Undo** and **Redo** under the table take back and restore your last edits. **Download all files** at the bottom saves the whole course as one file.",
+  "vocabulary": [
+    {
+      "term": "unit",
+      "meaning": "a group of lessons inside a course"
+    },
+    {
+      "term": "card",
+      "meaning": "one part of a lesson, started by a ## heading"
+    },
+    {
+      "term": "Undo",
+      "meaning": "takes back your last stretch of editing"
+    },
+    {
+      "term": "Download all files",
+      "meaning": "saves the whole course as one JSON file"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "make-by-hand-01",
+      "prompt": "Which button starts a new course of your own?",
+      "type": "multiple-choice",
+      "options": [
+        "Create a course",
+        "Start learning",
+        "Get Started!",
+        "Share"
+      ],
+      "correct_answer": "Create a course",
+      "explanation": "Create a course on the course list makes a starter course.",
+      "hints": [
+        "Its name says what it does."
+      ]
+    },
+    {
+      "question_id": "make-by-hand-02",
+      "prompt": "You must press a Save button to keep your changes.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "There is no Save button. Every change saves as you make it.",
+      "hints": [
+        "Look for the circle by the title."
+      ]
+    },
+    {
+      "question_id": "make-by-hand-03",
+      "prompt": "What name does a new course start with?",
+      "type": "multiple-choice",
+      "options": [
+        "Untitled course",
+        "My course",
+        "Course 1",
+        "New"
+      ],
+      "correct_answer": "Untitled course",
+      "explanation": "The starter course is called Untitled course. Click the title to rename it.",
+      "hints": [
+        "It has no title yet."
+      ]
+    },
+    {
+      "question_id": "make-by-hand-04",
+      "prompt": "What does the ⧉ button on a lesson row do?",
+      "type": "multiple-choice",
+      "options": [
+        "Duplicates the lesson",
+        "Deletes the lesson",
+        "Shares the lesson",
+        "Opens the Map"
+      ],
+      "correct_answer": "Duplicates the lesson",
+      "explanation": "The copy lands right below, ready to edit.",
+      "hints": [
+        "Think of two overlapping squares."
+      ]
+    },
+    {
+      "question_id": "make-by-hand-05",
+      "prompt": "What does Download all files give you?",
+      "type": "multiple-choice",
+      "options": [
+        "The whole course as one file",
+        "Only the first lesson",
+        "Your progress",
+        "A printed page"
+      ],
+      "correct_answer": "The whole course as one file",
+      "explanation": "It exports every file of the course as one JSON file.",
+      "hints": [
+        "The word all is the clue."
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🛠️",
+    "sorts": [
+      {
+        "title": "What does it do?",
+        "buckets": [
+          "Makes something",
+          "Removes",
+          "Moves or renames"
+        ],
+        "items": [
+          {
+            "text": "+ on a unit",
+            "bucket": 0
+          },
+          {
+            "text": "⧉ on a lesson",
+            "bucket": 0
+          },
+          {
+            "text": "✕ on a row",
+            "bucket": 1
+          },
+          {
+            "text": "Dragging a row by its grip",
+            "bucket": 2
+          },
+          {
+            "text": "Clicking a name",
+            "bucket": 2
+          },
+          {
+            "text": "+ Add unit",
+            "bucket": 0
+          }
+        ],
+        "why": "Plus and copy make new rows. The cross removes. Dragging and clicking a name change order and names."
+      }
+    ]
+  }
+}

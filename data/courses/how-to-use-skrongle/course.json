@@ -1,0 +1,68 @@
+{
+  "id": "how-to-use-skrongle",
+  "title": "How to Use Skrongle",
+  "subject": "Using Skrongle",
+  "description": "The tutorial for the app itself. Learn the ways to study, how to make and share your own course, how AI helps, and how to look after your account.",
+  "icon": "🧭",
+  "terms": {
+    "label": "Term",
+    "lang": "en"
+  },
+  "meanings": {
+    "label": "Meaning",
+    "lang": "en"
+  },
+  "units": [
+    {
+      "id": "learn",
+      "title": "Learn with Skrongle",
+      "description": "Start a course and study well"
+    },
+    {
+      "id": "make",
+      "title": "Make your own course",
+      "description": "Write it by hand and share it"
+    },
+    {
+      "id": "ai",
+      "title": "Make courses with AI",
+      "description": "API keys, models and AI changes"
+    },
+    {
+      "id": "account",
+      "title": "Your account",
+      "description": "Profile, safety and the owner's page"
+    }
+  ],
+  "groups": [
+    {
+      "id": "Using",
+      "title": "Using"
+    },
+    {
+      "id": "Making",
+      "title": "Making"
+    },
+    {
+      "id": "AI",
+      "title": "AI"
+    },
+    {
+      "id": "Account",
+      "title": "Account"
+    }
+  ],
+  "strings": {
+    "praise": [
+      "Correct!",
+      "Well done!",
+      "That's it!",
+      "Nice!"
+    ],
+    "almost": [
+      "Not quite",
+      "Close",
+      "Try again"
+    ]
+  }
+}

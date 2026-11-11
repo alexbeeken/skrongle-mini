@@ -1,0 +1,137 @@
+{
+  "id": "ai-change",
+  "slug": "change-a-course-with-ai",
+  "title": "Change a course with AI",
+  "unit": "ai",
+  "group": "AI",
+  "order": 40,
+  "summary": "Add, edit or fix lessons with the Use AI box.",
+  "focus": "The Use AI box, its three modes, review and undo",
+  "content": "## The Use AI box\n\nUnder the lesson table of your own course is **Use AI**. Say what should change in your own words. A choice of three modes decides what the AI may do.\n\n- **Add** writes one new lesson. Nothing else changes.\n- **Edit** rewrites the lessons already there. It adds, removes and moves none.\n- **Add and edit** may also add, reorder or remove lessons.\n\n## Ask for what you want\n\nExamples: *Use simpler words in the explanations.* *Add a lesson on ...* *Add three multiple-choice questions to lesson 4.*\n\nYou can ask for a fact check: *Check the facts in every lesson and fix what is wrong.* The AI changes only what is wrong. It lists what it was unsure of.\n\nThe ✦ on a lesson row edits just that lesson.\n\n## Review and undo\n\nWhen the job ends, **Review AI changes** shows every file it changed, side by side. The course keeps working until the whole new version is ready. **Undo** under the table brings the old version back.",
+  "vocabulary": [
+    {
+      "term": "Use AI",
+      "meaning": "the box under the lesson table for changing a course with AI"
+    },
+    {
+      "term": "fact check",
+      "meaning": "an AI pass that reads each lesson for errors"
+    },
+    {
+      "term": "Review AI changes",
+      "meaning": "a side by side view of what the AI changed"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "ai-change-01",
+      "prompt": "Which mode writes one new lesson and changes nothing else?",
+      "type": "multiple-choice",
+      "options": [
+        "Add",
+        "Edit",
+        "Add and edit",
+        "Resume"
+      ],
+      "correct_answer": "Add",
+      "explanation": "Add writes a single lesson. Everything else stays.",
+      "hints": [
+        "The name says what it does."
+      ]
+    },
+    {
+      "question_id": "ai-change-02",
+      "prompt": "Can Edit add or remove a lesson?",
+      "type": "multiple-choice",
+      "options": [
+        "No, it only rewrites lessons already there",
+        "Yes, both",
+        "It can add but not remove",
+        "It can remove but not add"
+      ],
+      "correct_answer": "No, it only rewrites lessons already there",
+      "explanation": "Edit adds, removes and moves no lesson.",
+      "hints": [
+        "It only changes what exists."
+      ]
+    },
+    {
+      "question_id": "ai-change-03",
+      "prompt": "You can bring the old version back with Undo.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Undo under the table puts the previous version back.",
+      "hints": [
+        "The course keeps the earlier files."
+      ]
+    },
+    {
+      "question_id": "ai-change-04",
+      "prompt": "What does the ✦ on a lesson row do?",
+      "type": "multiple-choice",
+      "options": [
+        "Edits just that lesson with AI",
+        "Deletes the lesson",
+        "Shares the lesson",
+        "Plays the lesson"
+      ],
+      "correct_answer": "Edits just that lesson with AI",
+      "explanation": "Only that lesson is rewritten.",
+      "hints": [
+        "It is a small star."
+      ]
+    },
+    {
+      "question_id": "ai-change-05",
+      "prompt": "Where can you see what the AI changed?",
+      "type": "multiple-choice",
+      "options": [
+        "Review AI changes",
+        "The Map",
+        "Mistakes",
+        "Word Match"
+      ],
+      "correct_answer": "Review AI changes",
+      "explanation": "It shows each file the AI changed, with a side by side view.",
+      "hints": [
+        "The name says it."
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "✨",
+    "sorts": [
+      {
+        "title": "Which mode?",
+        "buckets": [
+          "Add",
+          "Edit",
+          "Add and edit"
+        ],
+        "items": [
+          {
+            "text": "Writes one new lesson",
+            "bucket": 0
+          },
+          {
+            "text": "Rewrites lessons already there",
+            "bucket": 1
+          },
+          {
+            "text": "Can drop a lesson",
+            "bucket": 2
+          },
+          {
+            "text": "Can reorder lessons",
+            "bucket": 2
+          },
+          {
+            "text": "Adds, removes and moves none",
+            "bucket": 1
+          }
+        ],
+        "why": "Add only adds. Edit only rewrites. Add and edit may do both and reorder."
+      }
+    ]
+  }
+}

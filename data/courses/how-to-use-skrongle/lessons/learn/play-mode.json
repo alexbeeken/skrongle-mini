@@ -1,0 +1,134 @@
+{
+  "id": "use-play",
+  "slug": "play-mode",
+  "title": "Play mode and flashcards",
+  "unit": "learn",
+  "group": "Using",
+  "order": 60,
+  "summary": "Word Match, flashcards and why a game can be missing.",
+  "focus": "Word Match, flashcard review and games that depend on course data",
+  "content": "## Games\n\n**Play mode** holds games and one-off exercises. In this course you will find **Word Match** and **Flashcards**.\n\n**Word Match** deals pairs of terms and meanings in rounds of five pairs. It runs against the clock. Every wrong pair costs a second. The top 10 board is shared by everyone who uses the course.\n\n## Flashcards\n\nWords are collected when you answer a question that teaches them. Study them as flashcards.\n\nAfter each card, press **Knew it** or **Didn't know**.\n\n- A new word is due tomorrow.\n- **Knew it** on a due word moves it up a ladder: 1, 3, 7, 16, 35, 75, then 150 days.\n- **Didn't know** puts it back to 1 day.\n\nThe home page shows a **Words due** card on days when words are waiting.\n\n## Games that are missing\n\nA game shows only when the course has the data for it. A course without a calendar has no Date Dash. A maths course has no listening game. This is normal.",
+  "vocabulary": [
+    {
+      "term": "Word Match",
+      "meaning": "a timed game of matching terms to meanings"
+    },
+    {
+      "term": "flashcard",
+      "meaning": "a card showing a term, to test your memory"
+    },
+    {
+      "term": "Words due",
+      "meaning": "the words whose review day has come"
+    },
+    {
+      "term": "Date Dash",
+      "meaning": "a game about days and months, for courses with a calendar"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "use-play-01",
+      "prompt": "In Word Match, how many seconds does every wrong pair cost?",
+      "type": "numeric",
+      "correct_answer": "1",
+      "explanation": "Each wrong pair costs one second.",
+      "hints": [
+        "It is the smallest whole number above zero."
+      ]
+    },
+    {
+      "question_id": "use-play-02",
+      "prompt": "What does Didn't know do to a word?",
+      "type": "multiple-choice",
+      "options": [
+        "Puts it back to 1 day",
+        "Deletes it",
+        "Moves it to 150 days",
+        "Nothing"
+      ],
+      "correct_answer": "Puts it back to 1 day",
+      "explanation": "A miss drops the word back to a review in 1 day.",
+      "hints": [
+        "The word needs another look soon."
+      ]
+    },
+    {
+      "question_id": "use-play-03",
+      "prompt": "When is a newly collected word first due?",
+      "type": "multiple-choice",
+      "options": [
+        "Tomorrow",
+        "In a week",
+        "Right now only",
+        "Never"
+      ],
+      "correct_answer": "Tomorrow",
+      "explanation": "A new word is due tomorrow.",
+      "hints": [
+        "The first review comes soon."
+      ]
+    },
+    {
+      "question_id": "use-play-04",
+      "prompt": "Every game is shown in every course.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "A game shows only when the course has the data for it.",
+      "hints": [
+        "Date Dash needs a calendar."
+      ]
+    },
+    {
+      "question_id": "use-play-05",
+      "prompt": "How do you collect a word for the flashcards?",
+      "type": "multiple-choice",
+      "options": [
+        "Answer a question that teaches it",
+        "Print the lesson",
+        "Ask the owner",
+        "Press Share"
+      ],
+      "correct_answer": "Answer a question that teaches it",
+      "explanation": "Words are collected when you answer a question that teaches them.",
+      "hints": [
+        "You earn the word by answering."
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🎮",
+    "sorts": [
+      {
+        "title": "Which one?",
+        "buckets": [
+          "Word Match",
+          "Flashcards"
+        ],
+        "items": [
+          {
+            "text": "Pairs against the clock",
+            "bucket": 0
+          },
+          {
+            "text": "Knew it and Didn't know",
+            "bucket": 1
+          },
+          {
+            "text": "A shared top 10 board",
+            "bucket": 0
+          },
+          {
+            "text": "A review schedule of 1, 3, 7 days and more",
+            "bucket": 1
+          },
+          {
+            "text": "A wrong pair costs a second",
+            "bucket": 0
+          }
+        ],
+        "why": "Word Match is a timed game. Flashcards follow a review schedule."
+      }
+    ]
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "id": "ai-generate",
+  "slug": "generate-a-course",
+  "title": "Generate a course with AI",
+  "unit": "ai",
+  "group": "AI",
+  "order": 30,
+  "summary": "Describe what you want to learn and let the AI write the course.",
+  "focus": "The Generate the course dialog and what happens next",
+  "content": "## Start\n\nPress **Create a course**. The **Generate the course** dialog opens. It works only when the owner has added a key. Without one the dialog is grey and says so.\n\n## Fill it in\n\n1. **What do you want to learn?** Write a sentence or two. It takes 20 to 2,000 characters.\n2. **Your material.** This is optional. Paste notes, homework or a syllabus, or drop in text files. The course teaches exactly that.\n3. **What kind of course.** Maths or science, a language, facts and concepts, or let the AI decide.\n4. **How much to write.** *Full course* writes as many lessons as the subject needs, at most 15. *Preview* writes one unit with one full lesson. *Outline* lists every unit and lesson with one example question.\n\nYour words go to your AI provider with the key. Do not paste private details.\n\n## While it runs\n\nA progress window shows the phase. It has **Cancel**. The AI writes an outline, then one lesson at a time. Each lesson is checked.\n\nIf a run stops, it keeps what was written. Press **Resume** to write only the missing lessons. To start over, delete the course and make a new one.",
+  "vocabulary": [
+    {
+      "term": "Generate the course",
+      "meaning": "the dialog where the AI writes a whole course"
+    },
+    {
+      "term": "Outline",
+      "meaning": "a plan of every unit and lesson, without full lessons"
+    },
+    {
+      "term": "Resume",
+      "meaning": "writes only the lessons a stopped run is missing"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "ai-generate-01",
+      "prompt": "What is the fewest characters you can write in the box about what you want to learn?",
+      "type": "numeric",
+      "correct_answer": "20",
+      "explanation": "The box takes 20 to 2,000 characters.",
+      "hints": [
+        "It is a small number above ten."
+      ]
+    },
+    {
+      "question_id": "ai-generate-02",
+      "prompt": "A full course has at most how many lessons?",
+      "type": "numeric",
+      "correct_answer": "15",
+      "explanation": "The AI decides how many, up to 15.",
+      "hints": [
+        "It is more than ten and fewer than twenty."
+      ]
+    },
+    {
+      "question_id": "ai-generate-03",
+      "prompt": "What does Preview write?",
+      "type": "multiple-choice",
+      "options": [
+        "One unit with one full lesson",
+        "Every lesson",
+        "Only a title",
+        "Nothing"
+      ],
+      "correct_answer": "One unit with one full lesson",
+      "explanation": "A preview is a small first look at the course.",
+      "hints": [
+        "It is the smallest of the three."
+      ]
+    },
+    {
+      "question_id": "ai-generate-04",
+      "prompt": "A generation stops half way. What can you press to finish it?",
+      "type": "multiple-choice",
+      "options": [
+        "Resume",
+        "Share",
+        "Undo",
+        "Download all files"
+      ],
+      "correct_answer": "Resume",
+      "explanation": "Resume writes only the lessons that are missing.",
+      "hints": [
+        "It continues instead of starting over."
+      ]
+    },
+    {
+      "question_id": "ai-generate-05",
+      "prompt": "Adding your own material to the dialog is optional.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "You can describe the subject in a sentence or two and leave the material empty.",
+      "hints": [
+        "The box says optional."
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🪄",
+    "sorts": [
+      {
+        "title": "Which size?",
+        "buckets": [
+          "Full course",
+          "Preview",
+          "Outline"
+        ],
+        "items": [
+          {
+            "text": "Writes up to 15 full lessons",
+            "bucket": 0
+          },
+          {
+            "text": "Writes a single full lesson",
+            "bucket": 1
+          },
+          {
+            "text": "Plans every unit and lesson as a list",
+            "bucket": 2
+          },
+          {
+            "text": "Has one example question per lesson and no word list",
+            "bucket": 2
+          },
+          {
+            "text": "The AI decides how many lessons",
+            "bucket": 0
+          }
+        ],
+        "why": "Full writes everything, Preview a sample, Outline a plan."
+      }
+    ]
+  }
+}

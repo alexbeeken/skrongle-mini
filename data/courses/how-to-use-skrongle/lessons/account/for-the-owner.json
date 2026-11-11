@@ -1,0 +1,130 @@
+{
+  "id": "acct-owner",
+  "slug": "for-the-owner",
+  "title": "For the owner: Manage Users",
+  "unit": "account",
+  "group": "Account",
+  "order": 30,
+  "summary": "Invitation links, temporary passwords and the AI switch.",
+  "focus": "What the owner does on Manage Users",
+  "content": "## Who sees it\n\n**Manage Users** is in the account menu of owner accounts only. For anyone else the page does not exist.\n\n## Accounts\n\nThe page lists every account. The box holds at most 8.\n\nIf the box takes people by invitation, press **Make an invitation link**. The link works once and lasts 7 days. It shows only once, so press **Copy**. **Revoke** takes back a link nobody used.\n\nOn each account the owner can:\n\n- Set a **temporary password**. It shows once. The person chooses their own at the next sign-in.\n- **Turn off two-factor** for someone who lost their phone.\n- **Make owner**, which cannot be undone on this page.\n\n## AI features\n\nThis card holds the AI keys. It also holds one switch, **Hide AI features for everyone**. When it is on, no account sees the tutor, Generate the course, Use AI or translation. The keys stay saved. Turn it off to show them again.\n\nThe switch is for the whole box. There is no setting for one account.",
+  "vocabulary": [
+    {
+      "term": "temporary password",
+      "meaning": "a one-time password the owner sets for an account"
+    },
+    {
+      "term": "Revoke",
+      "meaning": "takes back an invitation link nobody has used"
+    },
+    {
+      "term": "Hide AI features for everyone",
+      "meaning": "one switch that removes the AI features for all accounts"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "acct-owner-01",
+      "prompt": "Every account has Manage Users in its menu.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Only owner accounts have it.",
+      "hints": [
+        "It is the owner's page."
+      ]
+    },
+    {
+      "question_id": "acct-owner-02",
+      "prompt": "How long does an invitation link last?",
+      "type": "multiple-choice",
+      "options": [
+        "7 days",
+        "1 hour",
+        "1 year",
+        "Forever"
+      ],
+      "correct_answer": "7 days",
+      "explanation": "A link works once, for 7 days.",
+      "hints": [
+        "It is a week."
+      ]
+    },
+    {
+      "question_id": "acct-owner-03",
+      "prompt": "What does Hide AI features for everyone do?",
+      "type": "multiple-choice",
+      "options": [
+        "Removes the AI features for all accounts",
+        "Hides only your own AI",
+        "Deletes the keys",
+        "Turns off Study mode"
+      ],
+      "correct_answer": "Removes the AI features for all accounts",
+      "explanation": "The keys stay saved. The features come back when the switch is turned off.",
+      "hints": [
+        "The word everyone is the clue."
+      ]
+    },
+    {
+      "question_id": "acct-owner-04",
+      "prompt": "Someone forgot their password. What does the owner do?",
+      "type": "multiple-choice",
+      "options": [
+        "Sets a temporary password",
+        "Sends an e-mail",
+        "Deletes the account",
+        "Turns on two-factor"
+      ],
+      "correct_answer": "Sets a temporary password",
+      "explanation": "The password shows once. The person picks their own at the next sign-in.",
+      "hints": [
+        "There is no reset link."
+      ]
+    },
+    {
+      "question_id": "acct-owner-05",
+      "prompt": "At most how many accounts can the box hold?",
+      "type": "numeric",
+      "correct_answer": "8",
+      "explanation": "A Skrongle mini holds at most 8 accounts.",
+      "hints": [
+        "It is the same number as in the first lesson."
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "👑",
+    "sorts": [
+      {
+        "title": "Owner actions",
+        "buckets": [
+          "On Manage Users",
+          "Elsewhere"
+        ],
+        "items": [
+          {
+            "text": "Make an invitation link",
+            "bucket": 0
+          },
+          {
+            "text": "Set a temporary password",
+            "bucket": 0
+          },
+          {
+            "text": "Hide AI features for everyone",
+            "bucket": 0
+          },
+          {
+            "text": "Share your own course",
+            "bucket": 1
+          },
+          {
+            "text": "Change your own name",
+            "bucket": 1
+          }
+        ],
+        "why": "Manage Users holds the box-wide actions. Sharing and your name are yours on other pages."
+      }
+    ]
+  }
+}

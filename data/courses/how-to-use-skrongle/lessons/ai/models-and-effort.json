@@ -1,0 +1,130 @@
+{
+  "id": "ai-models",
+  "slug": "models-and-effort",
+  "title": "Providers, models and effort",
+  "unit": "ai",
+  "group": "AI",
+  "order": 20,
+  "summary": "How AI models differ, in plain words, and what you can choose.",
+  "focus": "Differences between models, the provider choice and the effort levels",
+  "content": "## What a model is\n\nA model is the part of an AI that writes. Each provider has several. They differ in a few simple ways.\n\n- **Size.** A bigger model usually writes more carefully. It also takes longer and costs more.\n- **Speed and price.** A smaller model answers faster and costs less. It may make more mistakes.\n- **Style.** Models from different companies write in different ways. None is best at everything.\n\nAny model can be wrong. Check the facts in a course it writes.\n\n## What you can choose\n\nSkrongle uses each provider's usual model for you. If the owner saved two or more keys, the dialog asks *Your AI provider*. With one key it just uses it.\n\nUnder *How much to write* the dialog shows an estimate: the number of lessons, the time and a rough price. A *Preview* writes only one lesson, so it is a cheap way to try.\n\n## Effort\n\nThe **Effort** button beside **Generate** has three levels: *Fast*, *Balanced* and *Thorough*. Balanced is the first choice. Thorough lets each request write twice as much. It applies to Generate and Resume only.",
+  "vocabulary": [
+    {
+      "term": "model",
+      "meaning": "the part of an AI that writes the answers"
+    },
+    {
+      "term": "effort",
+      "meaning": "how hard the AI works on a course: Fast, Balanced or Thorough"
+    },
+    {
+      "term": "estimate",
+      "meaning": "a rough guess of lessons, time and price before you start"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "ai-models-01",
+      "prompt": "A bigger model is always right.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Any model can be wrong. Check the facts it writes.",
+      "hints": [
+        "Think about whether anything is always right."
+      ]
+    },
+    {
+      "question_id": "ai-models-02",
+      "prompt": "How many effort levels are there?",
+      "type": "numeric",
+      "correct_answer": "3",
+      "explanation": "Fast, Balanced and Thorough.",
+      "hints": [
+        "Count the three names."
+      ]
+    },
+    {
+      "question_id": "ai-models-03",
+      "prompt": "Which effort level is chosen at first?",
+      "type": "multiple-choice",
+      "options": [
+        "Balanced",
+        "Fast",
+        "Thorough",
+        "None"
+      ],
+      "correct_answer": "Balanced",
+      "explanation": "Balanced is the level the dialog starts on.",
+      "hints": [
+        "It sits in the middle."
+      ]
+    },
+    {
+      "question_id": "ai-models-04",
+      "prompt": "Which choice writes only one lesson, so you can try it cheaply?",
+      "type": "multiple-choice",
+      "options": [
+        "Preview",
+        "Full course",
+        "Thorough",
+        "Resume"
+      ],
+      "correct_answer": "Preview",
+      "explanation": "A Preview writes one unit with one full lesson.",
+      "hints": [
+        "The name means a first look."
+      ]
+    },
+    {
+      "question_id": "ai-models-05",
+      "prompt": "When does the dialog ask which AI provider to use?",
+      "type": "multiple-choice",
+      "options": [
+        "When two or more keys are saved",
+        "Always",
+        "Never",
+        "Only for the owner"
+      ],
+      "correct_answer": "When two or more keys are saved",
+      "explanation": "With one key there is nothing to choose, so it just uses that one.",
+      "hints": [
+        "A choice needs more than one thing."
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🧠",
+    "sorts": [
+      {
+        "title": "Who chooses?",
+        "buckets": [
+          "You choose",
+          "Skrongle chooses"
+        ],
+        "items": [
+          {
+            "text": "The provider, when there are two or more keys",
+            "bucket": 0
+          },
+          {
+            "text": "Fast, Balanced or Thorough",
+            "bucket": 0
+          },
+          {
+            "text": "The model each provider uses",
+            "bucket": 1
+          },
+          {
+            "text": "Full course, Preview or Outline",
+            "bucket": 0
+          },
+          {
+            "text": "The rules a course must follow",
+            "bucket": 1
+          }
+        ],
+        "why": "You choose the provider, the effort and the size. Skrongle picks the model and the course rules."
+      }
+    ]
+  }
+}

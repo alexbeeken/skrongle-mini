@@ -1,0 +1,134 @@
+{
+  "id": "use-study",
+  "slug": "study-mode",
+  "title": "Study mode",
+  "unit": "learn",
+  "group": "Using",
+  "order": 30,
+  "summary": "Read a lesson, check yourself and practise.",
+  "focus": "Reading, the reading check and the Study mode tabs",
+  "content": "## Read a lesson\n\nOpen **Study mode** from the course home page. The **Lessons** tab lists the lessons, one unit at a time. Open one and read it from top to bottom.\n\nAt the end there is a reading check of two questions. Answer them to mark the lesson as read. Then you can practise it.\n\n## The tabs\n\n- **Lessons**: the list of lessons.\n- **Practice**: quizzes drawn from the lessons you have read, weak topics first.\n- **Map**: every lesson in order with your mastery, and a mark for where you are.\n- **Vocabulary**: the words you have collected, as flashcards.\n- **History**: every answer and every finished game.\n- **Mistakes**: questions you got wrong lately.\n\nA **Listening** tab shows up only in a language course.\n\n## Mistakes and notes\n\nA question leaves **Mistakes** when you answer it right.\n\nEach lesson page has a **My note** box. It holds a private note of up to 500 characters and saves as you type.",
+  "vocabulary": [
+    {
+      "term": "reading check",
+      "meaning": "the two questions at the end of a lesson page"
+    },
+    {
+      "term": "Practice",
+      "meaning": "quizzes from the lessons you have read"
+    },
+    {
+      "term": "Map",
+      "meaning": "every lesson in order with your mastery"
+    },
+    {
+      "term": "Mistakes",
+      "meaning": "the questions you got wrong lately"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "use-study-01",
+      "prompt": "How many questions are in the reading check at the end of a lesson page?",
+      "type": "numeric",
+      "correct_answer": "2",
+      "explanation": "The reading check has two questions.",
+      "hints": [
+        "It is a small number."
+      ]
+    },
+    {
+      "question_id": "use-study-02",
+      "prompt": "Where do you find the questions you answered wrong lately?",
+      "type": "multiple-choice",
+      "options": [
+        "Mistakes",
+        "Map",
+        "Vocabulary",
+        "Listening"
+      ],
+      "correct_answer": "Mistakes",
+      "explanation": "The Mistakes tab lists them, newest first.",
+      "hints": [
+        "The tab is named after what you did."
+      ]
+    },
+    {
+      "question_id": "use-study-03",
+      "prompt": "What does the Map show?",
+      "type": "multiple-choice",
+      "options": [
+        "Every lesson in order with your mastery",
+        "Only the words you collected",
+        "Your account settings",
+        "The games you can play"
+      ],
+      "correct_answer": "Every lesson in order with your mastery",
+      "explanation": "The Map shows the whole course, your mastery, and where you are.",
+      "hints": [
+        "The word means a picture of a place."
+      ]
+    },
+    {
+      "question_id": "use-study-04",
+      "prompt": "A Listening tab shows in every course.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Listening shows only in a language course that has listening sentences.",
+      "hints": [
+        "This course teaches the app, not a language."
+      ]
+    },
+    {
+      "question_id": "use-study-05",
+      "prompt": "How many characters can your My note on a lesson hold, at most?",
+      "type": "numeric",
+      "correct_answer": "500",
+      "explanation": "A note holds up to 500 characters and is private to you.",
+      "hints": [
+        "It is a round number in the hundreds."
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "📖",
+    "sorts": [
+      {
+        "title": "Which Study tab?",
+        "buckets": [
+          "Map",
+          "Vocabulary",
+          "History",
+          "Mistakes"
+        ],
+        "items": [
+          {
+            "text": "Every lesson with a you-are-here mark",
+            "bucket": 0
+          },
+          {
+            "text": "Words you collected, as flashcards",
+            "bucket": 1
+          },
+          {
+            "text": "Every answer and finished game",
+            "bucket": 2
+          },
+          {
+            "text": "Questions you got wrong lately",
+            "bucket": 3
+          },
+          {
+            "text": "Your mastery for each lesson in a unit",
+            "bucket": 0
+          },
+          {
+            "text": "A list you clear by answering right",
+            "bucket": 3
+          }
+        ],
+        "why": "Each tab answers a different question about your learning."
+      }
+    ]
+  }
+}

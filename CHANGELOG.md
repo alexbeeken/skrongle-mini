@@ -4,6 +4,13 @@ What changed in each release, for the person running the server. Newest
 first. Each release's GitHub notes are its section here. How version
 numbers work is in the README, "Versions".
 
+## Unreleased
+
+- A new ready-made course, *How to Use Skrongle*: 19 short lessons on the
+  app itself (the ways to study, making and sharing courses, AI keys and
+  the AI features, your profile, two-factor sign-in and the owner's page).
+  It is in English.
+
 ## 0.2.1 (2026-11-09)
 
 A sign-in fix and a lighter server. Nothing to change on your side.
