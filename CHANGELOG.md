@@ -4,6 +4,12 @@ What changed in each release, for the person running the server. Newest
 first. Each release's GitHub notes are its section here. How version
 numbers work is in the README, "Versions".
 
+## Unreleased
+
+- Making your own account, the owner's, no longer asks you to tick "I am
+  at least 14 years old". The people you invite are still asked, and
+  `SKRONGLE_MIN_AGE` works as before.
+
 ## 0.2.1 (2026-11-09)
 
 A sign-in fix and a lighter server. Nothing to change on your side.

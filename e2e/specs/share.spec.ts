@@ -5,7 +5,7 @@
 // with the circle that says whose it is. Removing the link takes it away.
 import { expect, test } from "@playwright/test";
 import { createCourse, devLogin, devReset, makeShareLink, shareRow } from "../lib/app";
-import { login, newAccount, signUp } from "../lib/learner";
+import { login, newAccount, signUp, tickAgeBox } from "../lib/learner";
 
 test.afterAll(async ({ browser }) => {
   const page = await browser.newPage();
@@ -48,7 +48,7 @@ test("a friend registers from the link and has the course read only, until the o
   await expect(guest.getByTestId("register-share-notice")).toContainText("continue viewing your course: Untitled course");
   await guest.getByTestId("register-email").fill(friend.email);
   await guest.getByTestId("register-password").fill(friend.password);
-  await guest.getByTestId("register-age").check();
+  await tickAgeBox(guest);
   await guest.getByTestId("register-submit").click();
   // Registering signs the account in and goes on to the link.
   await expect(guest.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", friend.email.toLowerCase());

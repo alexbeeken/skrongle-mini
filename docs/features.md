@@ -1801,6 +1801,12 @@ a rounded check box on its right in the AI pill's style). The server refuses
 the form without it. The answer is stored as `users.age_confirmed` (a
 boolean, never a birth date).
 
+The first account on a server, the owner's, is not asked: the form that
+says the account is the owner's (`register-owner-note`; through the owner link
+under `SKRONGLE_SIGNUP=invite` or `closed`, or on an empty server under
+`open`) has no box, the server does not look for the field, and that
+account's `age_confirmed` stays 0. Every later account is asked.
+
 ## Registration
 
 `/register` (e-mail address, password, the

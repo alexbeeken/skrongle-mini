@@ -285,7 +285,7 @@ users          (id AUTOINCREMENT, email, password_hash, created_at, email_verifi
                 -- email is what a password account signs in with, set once and never changed;
                 -- password_hash is '' for accounts without one (proxy sign-in);
                 -- email_verified_at: when the address was confirmed (a proxy-made account, the dev user), NULL = not;
-                -- age_confirmed: the "I am at least N" box at sign-up;
+                -- age_confirmed: the "I am at least N" box at sign-up; not asked of the first account (the owner's), which keeps 0;
                 -- owner 1 opens /manage and links it from the account menu (by hand, make-owner, or the first
                 -- account under SKRONGLE_SIGNUP=invite|closed; the dev user in dev mode);
                 -- must_change_password 1: signed in with a temporary password the owner set (src/owner.rs);
