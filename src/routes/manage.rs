@@ -10,7 +10,8 @@
 //! (`settings::AI_OFF`).
 //! A superuser (an account with `Perm::Superuser`, not an owner) gets the
 //! page too, with the accounts and their permissions and nothing else: the
-//! rest, and every route but `POST /manage/permissions`, stays the owners'.
+//! rest, and every route but `POST /manage/permissions` and its form for
+//! several accounts (`manage/bulk.rs`, #141), stays the owners'.
 //! Anyone else gets a 404, as if the page did not exist; the account menu
 //! links here only for those two (`CurrentUser::manages_users`).
 
@@ -29,6 +30,9 @@ use crate::perms::{self, Perm, Perms};
 use crate::profile;
 use crate::secrets::{self, KeyStatus, Provider};
 use crate::AppState;
+
+mod bulk;
+pub use bulk::set_permissions_bulk;
 
 #[derive(Template)]
 #[template(path = "manage.html")]
@@ -200,6 +204,11 @@ pub struct ShowQuery {
     pub did: Option<String>,
     pub email: Option<String>,
     pub provider: Option<String>,
+    /// After `did=bulk` (#141, `manage/bulk.rs`): how many accounts got the
+    /// preset, how many were left as they are, and the preset's id.
+    pub n: Option<String>,
+    pub skipped: Option<String>,
+    pub preset: Option<String>,
 }
 
 /// GET /manage
@@ -217,6 +226,8 @@ pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, Query(q
         Some("permissions") => t.notice = Some(crate::t1("manage.permissions_done", "email", email)),
         Some("permissions-owner") => t.error = Some(crate::t("manage.permissions_owner")),
         Some("permissions-self") => t.error = Some(crate::t("manage.permissions_self")),
+        Some("bulk") => bulk::notice(&mut t, &q),
+        Some("bulk-none") => t.error = Some(crate::t("manage.bulk_none")),
         Some("key-removed") => {
             if let Some(p) = q.provider.as_deref().and_then(Provider::parse) {
                 t.notice = Some(crate::t1("manage.api_keys.removed", "provider", p.label()));

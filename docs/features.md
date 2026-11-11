@@ -1879,6 +1879,30 @@ for them yet (the other issues of #137 do that).
   (`perms::set_custom`). It writes one `info` log line and comes back to the
   page with "Permissions saved for …". The change reaches the account at its
   next request.
+- **Several accounts at once** (#141, `src/routes/manage/bulk.rs`): the
+  accounts table is one form (`manage-bulk-form`). Its first column has a
+  checkbox on every row the viewer may edit (`manage-account-select`,
+  `name="email"`; none on an owner's row, on one's own, or on a row without
+  an address), and the header's checkbox (`manage-account-select-all`) ticks
+  or unticks them all and shows the mixed state while only some are ticked.
+  While a row is ticked a bar above the table (`manage-bulk-bar`, hidden by
+  `static/manage.js`; without script it is always there) says *N selected*
+  and offers every preset in a list (`manage-bulk-preset`: Student, Teacher,
+  then the saved ones; no Custom) and **Apply to selected**, which opens a
+  dialog (`manage-bulk-dialog`) asking *Give "Teacher" to 12 accounts?*
+  before the form is sent. The row buttons only open dialogs, and every
+  dialog's form is outside the table's, so no form holds another.
+  **`POST /manage/permissions/bulk`** (`email` once per ticked account,
+  `preset` = a preset's id; an owner or a superuser, 404 otherwise) copies
+  the preset onto each account named, in one transaction. The server decides
+  who is skipped: an owner, the signed-in account and an address nobody has
+  are left as they are and counted. No address comes back with "Select at
+  least one account first."; a preset that does not exist is a 400 and
+  changes nothing. It writes one `info` log line (who, the preset's id, both
+  counts) and comes back to `/manage?did=bulk&n=…&skipped=…&preset=…`,
+  where the page says *"Teacher" given to 12 accounts.* and, when some were
+  skipped, *2 were left as they are (owners and your own account cannot be
+  changed).*
 
 ## Two-factor sign-in
 

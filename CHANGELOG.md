@@ -18,6 +18,11 @@ numbers work is in the README, "Versions".
   AI keys, temporary passwords, two-factor off and Make owner stay the
   owner's. The permissions are stored and shown; they do not limit anything
   else yet.
+- Manage Users: tick several accounts (or all of them with the box in the
+  table's heading), choose a preset and click **Apply to selected** to give
+  it to all of them in one step, after a confirmation. The page says how
+  many accounts were changed; owners and your own account are never changed
+  this way.
 
 ## 0.2.1 (2026-11-09)
 

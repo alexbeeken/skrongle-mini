@@ -368,6 +368,19 @@ manage:
   permissions_done: "Permissões salvas para {email}."
   permissions_owner: "As permissões de um proprietário não podem ser alteradas: proprietários podem tudo."
   permissions_self: "Você não pode alterar as suas próprias permissões."
+  bulk_select: "Selecionar {email}"
+  bulk_select_all: "Selecionar todas as contas"
+  bulk_preset: "Perfil a dar"
+  bulk_apply: "Aplicar às selecionadas"
+  bulk_about: "As permissões próprias de cada conta são substituídas pelas do perfil. Os proprietários e a sua própria conta nunca são alterados."
+  bulk_confirm: "Dar o perfil"
+  bulk_none: "Selecione primeiro pelo menos uma conta."
+  bulk_done:
+    one: "«{preset}» dado a {n} conta."
+    other: "«{preset}» dado a {n} contas."
+  bulk_skipped:
+    one: "{n} ficou como estava (os proprietários e a sua própria conta não podem ser alterados)."
+    other: "{n} ficaram como estavam (os proprietários e a sua própria conta não podem ser alterados)."
   permissions_ai_hidden: "Os recursos de IA estão ocultos para todos neste servidor."
   api_keys:
     title: Chaves de API de IA
@@ -396,6 +409,12 @@ manage:
     key_on_file: "✓ Definida"
     ends_in: "termina em"
     paste_new_key: "Cole uma chave nova para a substituir"
+    bulk_selected:
+      one: "{n} selecionada"
+      other: "{n} selecionadas"
+    bulk_confirm:
+      one: "Dar «{preset}» a {n} conta?"
+      other: "Dar «{preset}» a {n} contas?"
     perm_on: "Permitido"
     perm_off: "Não permitido"
   ai:

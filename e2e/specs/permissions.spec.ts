@@ -114,3 +114,85 @@ test("the owner sets an account's permissions; a superuser sees only the account
   expect((await them.request.post("/manage/temp-password", { form: { email }, maxRedirects: 0 })).status()).toBe(404);
   await them.context().close();
 });
+
+// One preset for several accounts (#141): the owner ticks two accounts, the
+// bar above the table says how many and offers the presets, Apply to selected
+// asks first, and both rows say Student afterwards. The header's checkbox
+// ticks every row that has one; the owner's row has none.
+test("the owner gives several accounts a preset at once", async ({ page, browser }) => {
+  const accounts = [newAccount("bulk"), newAccount("bulk")];
+  for (const a of accounts) {
+    const context = await browser.newContext();
+    await signUp(await context.newPage(), a);
+    await context.close();
+  }
+  await devLogin(page);
+  await page.goto("/manage");
+  const rows = page.getByTestId("manage-account-row");
+  const rowOf = (email: string) => rows.filter({ hasText: email.toLowerCase() });
+  const bar = page.getByTestId("manage-bulk-bar");
+  const count = page.getByTestId("manage-bulk-count");
+  const all = page.getByTestId("manage-account-select-all");
+  const boxes = page.getByTestId("manage-account-select");
+  const ticked = page.locator("[data-testid=manage-account-select]:checked");
+  const mixed = () => all.evaluate((box: HTMLInputElement) => box.indeterminate);
+
+  // Nothing ticked: no bar. An owner's row cannot be ticked.
+  await expect(bar).toBeHidden();
+  await expect(rows.filter({ hasText: "dev@example.com" }).getByTestId("manage-account-select")).toHaveCount(0);
+  await expect(all).not.toBeChecked();
+
+  for (const a of accounts) {
+    await expect(rowOf(a.email).getByTestId("manage-account-preset")).toHaveText("Teacher");
+    await rowOf(a.email).getByTestId("manage-account-select").check();
+  }
+  await expect(bar).toBeVisible();
+  await expect(count).toHaveText("2 selected");
+
+  // The presets, no Custom; Apply asks before anything is sent.
+  const options = await page.getByTestId("manage-bulk-preset").locator("option").allInnerTexts();
+  expect(options.slice(0, 2)).toEqual(["Student", "Teacher"]);
+  expect(options).not.toContain("Custom");
+  await page.getByTestId("manage-bulk-preset").selectOption({ label: "Student" });
+  await page.getByTestId("manage-bulk-apply").click();
+  const dialog = page.getByTestId("manage-bulk-dialog");
+  await expect(dialog).toBeVisible();
+  await expect(dialog.getByTestId("manage-bulk-question")).toHaveText('Give "Student" to 2 accounts?');
+  await dialog.getByTestId("manage-bulk-confirm").click();
+
+  await expect(page.getByTestId("manage-notice")).toContainText('"Student" given to 2 accounts.');
+  await expect(page.getByTestId("manage-notice")).not.toContainText("left as");
+  for (const a of accounts) {
+    await expect(rowOf(a.email).getByTestId("manage-account-preset")).toHaveText("Student");
+    await expect(rowOf(a.email)).toHaveAttribute("data-preset", "1");
+    await expect(rowOf(a.email)).toHaveAttribute("data-perms", "0");
+  }
+
+  // The header's checkbox: every row that has a box, mixed while only some are ticked.
+  await expect(bar).toBeHidden();
+  const total = await boxes.count();
+  expect(total).toBeGreaterThanOrEqual(2);
+  await all.check();
+  await expect(ticked).toHaveCount(total);
+  await expect(count).toHaveText(`${total} selected`);
+  expect(await mixed()).toBe(false);
+  await rowOf(accounts[0].email).getByTestId("manage-account-select").uncheck();
+  await expect(all).not.toBeChecked();
+  expect(await mixed()).toBe(true);
+  await expect(count).toHaveText(`${total - 1} selected`);
+  await all.check();
+  await expect(ticked).toHaveCount(total);
+  await all.uncheck();
+  await expect(ticked).toHaveCount(0);
+  await expect(bar).toBeHidden();
+
+  // A row's own action still goes to its own form, not the table's.
+  await rowOf(accounts[1].email).getByTestId("manage-account-permissions").click();
+  const permissions = page.getByTestId("manage-permissions-dialog");
+  await expect(permissions).toBeVisible();
+  await permissions.locator('[data-testid=manage-permissions-preset][data-preset="2"]').check();
+  await permissions.getByTestId("manage-permissions-save").click();
+  await expect(page.getByTestId("manage-notice")).toContainText(`Permissions saved for ${accounts[1].email.toLowerCase()}`);
+  await expect(rowOf(accounts[1].email).getByTestId("manage-account-preset")).toHaveText("Teacher");
+  await expect(rowOf(accounts[0].email).getByTestId("manage-account-preset")).toHaveText("Student");
+});

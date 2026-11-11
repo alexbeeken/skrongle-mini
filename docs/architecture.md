@@ -50,6 +50,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 - Data rights: `db/tables.rs` (the user-table list), `jobs/retention.rs` (retention rules), `signup.rs` (the age confirmation).
 - Permissions: `perms.rs` (`Perm`, `Perms`, the presets; #137), asked through `CurrentUser::can` / `require` / `require_api` in `auth.rs`; stored in `users.perms`, `users.preset_id` and table `permission_presets`.
 - Owner: `owner.rs`, `routes/manage.rs`, `static/manage.js`, `routes/password.rs` (temporary password gate); an account's permissions (`perms.rs`) and the Permissions dialog on Manage Users, which a superuser reaches too (#139, `POST /manage/permissions`); the server's AI API keys in `secrets.rs` and the hide-AI switch in `settings.rs`, both on Manage Users (#25).
+- One preset for several accounts (#141): `routes/manage/bulk.rs` (`POST /manage/permissions/bulk`, and the notice after it); the checkboxes, the bar and the confirm dialog are in `templates/manage.html` and `static/manage.js`.
 - Docs pages: `routes/docs.rs` (`/docs` sidebar `SECTIONS`, `/llms.txt`).
 
 ### Dev builds only (the `dev` cargo feature)
@@ -148,6 +149,7 @@ src/
     auth/code.rs /login/code… (the two-factor step: code form, resend, cancel, status, dev device)
     password.rs  /password/change (the gate after signing in with a temporary password: the new one twice, no old one)
     manage.rs    /manage, the Manage Users page (owners; a superuser, CurrentUser::manages_users, gets the accounts and POST /manage/permissions only; 404 otherwise; /superuser redirects here): every account on one page with its permissions (the Permissions dialog: a preset or Custom, POST /manage/permissions, #139) and, for owners, Temporary password, Turn off two-factor and Make owner per row; invitation links under SKRONGLE_SIGNUP=invite; and the AI section (#25): the server's AI API keys (autosaved, POST /api/manage/keys) and Hide AI features for everyone. POST /manage/make-owner|invites|invites/revoke|temp-password|two-factor-off|api-keys/remove|ai
+    manage/bulk.rs POST /manage/permissions/bulk (#141: email=… once per ticked account, preset=<id>; an owner or a superuser, 404 otherwise): the preset is copied onto every account named, in one transaction; owners, the signed-in account and unknown addresses are skipped; back to /manage?did=bulk&n=…&skipped=…&preset=…
     profile.rs   /profile (personal information, account), POST /api/profile (autosave), POST /profile/password
     pages.rs     / (landing for visitors, home: the three modes) /lessons /lessons/{slug} /history /mistakes, POST /api/lessons/{slug}/note (the lesson note, autosave)
     map.rs       /map

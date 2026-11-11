@@ -424,6 +424,12 @@ change an owner's permissions or its own. Owners always have every
 permission. For now the permissions are only stored and shown: apart from
 Superuser, they do not yet limit what an account can do.
 
+For a whole class, tick the box at the start of each account's row (or the
+one in the table's heading for all of them), choose a preset in the bar that
+appears above the table and click **Apply to selected**. After you confirm,
+every ticked account gets that preset; the page says how many were changed.
+Owners and your own account have no box and are never changed this way.
+
 ### If you lock yourself out
 
 The binary has commands that change the database directly, for when you
