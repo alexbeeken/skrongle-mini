@@ -108,6 +108,23 @@
     if (dialog.hasAttribute("data-open-on-load")) { dialog.removeAttribute("open"); dialog.showModal(); }
   });
 
+  // Saved presets (#140). The Permissions dialog's "Save as a preset" box
+  // starts empty each time the dialog opens (style.css shows it only while
+  // Custom is chosen). A saved preset's Delete fills the confirm dialog with
+  // its id and name; the [data-opens] handler above opens it.
+  var saveAs = permsForm && permsForm.querySelector("[data-testid=manage-permissions-save-as]");
+  document.querySelectorAll("[data-opens=manage-permissions-dialog]").forEach(function (b) {
+    b.addEventListener("click", function () { if (saveAs) saveAs.value = ""; });
+  });
+  document.querySelectorAll("[data-testid=manage-preset-delete]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var dialog = document.getElementById(b.dataset.opens);
+      if (!dialog) return;
+      dialog.querySelector("[data-preset-field]").value = b.dataset.presetId;
+      dialog.querySelector("[data-preset-name]").textContent = b.dataset.presetName;
+    });
+  });
+
   var inputs = document.querySelectorAll("[data-testid=manage-api-key-input]");
   if (inputs.length && window.Autosave) {
     var base = document.body.dataset.base || "";

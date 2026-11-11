@@ -371,6 +371,18 @@ manage:
   permissions_owner: "An owner's permissions cannot be changed: owners may do everything."
   permissions_self: "You cannot change your own permissions."
   permissions_ai_hidden: "AI features are hidden for everyone on this server."
+  permissions_save_as: "Save as a preset (optional)"
+  permissions_save_as_help: "Give this set a name to reuse it for other accounts. Leave empty to save it for this account only."
+  presets: "Saved presets"
+  preset_name: "Name"
+  preset_no_perms: "No permissions"
+  preset_delete: "Delete"
+  preset_delete_title: "Delete this preset?"
+  preset_delete_about: "Accounts that have this preset keep their permissions and show as Custom."
+  preset_deleted: "Preset deleted."
+  preset_name_taken: "A preset with that name already exists."
+  preset_too_many: "This server already has {max} saved presets. Delete one first."
+  preset_bad_name: "A preset's name is 1 to {max} characters, with no line breaks or other control characters."
   api_keys:
     title: AI API keys
     info_text: "Every account's AI features use these keys, billed to the account each key belongs to. Keys are encrypted before they are stored and are never shown again; only the last four characters stay visible so you can tell which key is on file. Only owners see them."

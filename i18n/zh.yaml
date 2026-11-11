@@ -369,6 +369,18 @@ manage:
   permissions_owner: "无法更改所有者的权限：所有者可以做任何事。"
   permissions_self: "你不能更改自己的权限。"
   permissions_ai_hidden: "此服务器已对所有人隐藏 AI 功能。"
+  permissions_save_as: "保存为预设（可选）"
+  permissions_save_as_help: "给这组权限起个名字，以便用于其他账户。留空则只为此账户保存。"
+  presets: "已保存的预设"
+  preset_name: "名称"
+  preset_no_perms: "没有权限"
+  preset_delete: "删除"
+  preset_delete_title: "删除此预设？"
+  preset_delete_about: "使用此预设的账户会保留其权限，并显示为“自定义”。"
+  preset_deleted: "预设已删除。"
+  preset_name_taken: "已有同名的预设。"
+  preset_too_many: "此服务器已有 {max} 个已保存的预设。请先删除一个。"
+  preset_bad_name: "预设名称为 1 到 {max} 个字符，不能包含换行或其他控制字符。"
   api_keys:
     title: AI API 密钥
     info_text: "每个账户的 AI 功能都使用这些密钥，费用记在密钥所属的账户上。密钥在保存前会加密，之后不会再显示；只显示最后四个字符，方便你分辨保存的是哪个密钥。只有所有者能看到。"

@@ -136,3 +136,155 @@ fn superusers_see_the_accounts_and_set_permissions() {
     assert_eq!(get("/manage", &sue_c).0, 404);
     assert!(!get("/profile", &sue_c).1.contains("nav-manage"));
 }
+
+/// Saved presets (#140): Custom with a `save_as` name makes a preset and
+/// gives the account it; a name that is taken or too long saves nothing
+/// and says why; the list under the accounts; deleting one leaves its
+/// accounts their permissions, as Custom. A Student gets a 404 on both
+/// routes.
+#[test]
+fn a_custom_set_is_saved_as_a_preset_and_deleted() {
+    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+    let listener = rt.block_on(tokio::net::TcpListener::bind("127.0.0.1:0")).unwrap();
+    let addr = listener.local_addr().unwrap();
+    let state = crate::routes::test_state(false);
+    let (root, sue, stu, ann) = state
+        .db
+        .with(|c| {
+            let root = crate::auth::create_user(c, "root@example.org", "h")?;
+            crate::owner::make_owner(c, root)?;
+            let sue = crate::auth::create_user(c, "sue@example.org", "h")?;
+            perms::set_custom(c, sue, Perms::TEACHER.with(Perm::Superuser, true))?;
+            let stu = crate::auth::create_user(c, "stu@example.org", "h")?;
+            perms::apply_preset(c, stu, perms::STUDENT_PRESET)?;
+            let ann = crate::auth::create_user(c, "ann@example.org", "h")?;
+            Ok((root, sue, stu, ann))
+        })
+        .unwrap();
+    let cookie = |u| format!("sid={}", state.db.with(|c| crate::auth::create_session(c, u)).unwrap());
+    let (root_c, sue_c, stu_c) = (cookie(root), cookie(sue), cookie(stu));
+    let stored = |u: i64| state.db.with(|c| c.query_row("SELECT perms, preset_id FROM users WHERE id = ?1", [u], |r| Ok((r.get::<_, i64>(0)?, r.get::<_, Option<i64>>(1)?)))).unwrap();
+    // The saved presets: (id, name, perms).
+    let saved = || {
+        state
+            .db
+            .with(|c| {
+                let mut stmt = c.prepare("SELECT id, name, perms FROM permission_presets WHERE builtin = 0 ORDER BY id")?;
+                let rows = stmt.query_map([], |r| Ok((r.get::<_, i64>(0)?, r.get::<_, String>(1)?, r.get::<_, i64>(2)?)))?.collect::<rusqlite::Result<Vec<_>>>();
+                rows
+            })
+            .unwrap()
+    };
+    let app = crate::routes::router(state.clone());
+    rt.spawn(async move { axum::serve(listener, app.into_make_service_with_connect_info::<std::net::SocketAddr>()).await.unwrap() });
+    let base = format!("http://{addr}");
+    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
+    let get = |path: &str, cookie: &str| {
+        let mut r = agent.get(&format!("{base}{path}")).header("cookie", cookie).call().unwrap();
+        (r.status().as_u16(), r.body_mut().read_to_string().unwrap())
+    };
+    let post = |path: &str, cookie: &str, form: &[(&str, &str)]| {
+        let r = agent.post(&format!("{base}{path}")).header("cookie", cookie).send_form(form.iter().copied()).unwrap();
+        (r.status().as_u16(), r.headers().get("location").and_then(|v| v.to_str().ok()).unwrap_or_default().to_string())
+    };
+    let row = |page: &str, email: &str| {
+        let cell = format!("<td>{email}</td>");
+        page.split("<tr ").find(|r| r.contains(&cell)).unwrap_or_else(|| panic!("no row for {email}: {page}")).to_string()
+    };
+
+    // None saved yet: the dialog has the field, the page no list.
+    let (_, page) = get("/manage", &sue_c);
+    assert!(page.contains(r#"name="save_as" maxlength="40""#) && page.contains(r#"data-testid="manage-permissions-save-as""#), "{page}");
+    assert!(!page.contains(r#"data-testid="manage-presets""#) && !page.contains("manage-preset-delete"), "{page}");
+
+    // A Student: a 404 on both routes, nothing saved.
+    assert_eq!(post("/manage/permissions", &stu_c, &[("email", "ann@example.org"), ("preset", "custom"), ("save_as", "Helpers")]).0, 404);
+    assert_eq!(post("/manage/presets/delete", &stu_c, &[("id", "2")]).0, 404);
+    assert!(saved().is_empty());
+
+    // A name with a preset other than Custom is ignored, and so is an empty one with Custom.
+    assert_eq!(post("/manage/permissions", &sue_c, &[("email", "stu@example.org"), ("preset", "2"), ("save_as", "Helpers")]).0, 303);
+    assert_eq!(stored(stu), (63, Some(perms::TEACHER_PRESET)));
+    assert_eq!(post("/manage/permissions", &sue_c, &[("email", "stu@example.org"), ("preset", "custom"), ("save_as", "   "), ("perm_skip_levels", "on")]).0, 303);
+    assert_eq!(stored(stu), (16, None));
+    assert!(saved().is_empty());
+
+    // Custom with a name: the set, normalised, becomes a preset and the account has it.
+    let (status, loc) = post("/manage/permissions", &sue_c, &[("email", "stu@example.org"), ("preset", "custom"), ("save_as", "  Helpers "), ("perm_ai_tutor", "on"), ("perm_ai_courses", "on")]);
+    assert_eq!((status, loc.as_str()), (303, "/manage?did=permissions&email=stu%40example.org"));
+    let presets = saved();
+    assert_eq!(presets.len(), 1);
+    let id = presets[0].0;
+    assert_eq!(presets[0], (id, "Helpers".to_string(), 4), "ai_courses needs create_courses");
+    assert_eq!(stored(stu), (4, Some(id)));
+    let (_, page) = get(&loc, &sue_c);
+    assert!(page.contains("Permissions saved for stu@example.org."), "{page}");
+    let stu_row = row(&page, "stu@example.org");
+    assert!(stu_row.contains(&format!(r#"data-preset="{id}" data-perms="4""#)) && stu_row.contains(">Helpers</td>"), "{stu_row}");
+    // It is a radio of the dialog, for every account, and a row of the list.
+    assert!(page.contains(&format!(r#"value="{id}" required data-preset="{id}" data-perms="4""#)), "{page}");
+    assert!(page.contains(r#"data-testid="manage-presets""#) && page.contains(r#"data-testid="manage-preset-dialog""#), "{page}");
+    let preset_row = page.split("<tr ").find(|r| r.contains("manage-preset-row")).unwrap().to_string();
+    for part in [r#"data-testid="manage-preset-name">Helpers</td>"#, r#"data-testid="manage-preset-perms">Use the AI tutor</td>"#, r#"data-testid="manage-preset-count">1</td>"#, r#"data-preset-name="Helpers""#, "manage-preset-delete"] {
+        assert!(preset_row.contains(part), "{part}: {preset_row}");
+    }
+
+    // The same name again, in another case: the error, nothing made, the account as it was.
+    let (status, loc) = post("/manage/permissions", &sue_c, &[("email", "ann@example.org"), ("preset", "custom"), ("save_as", "helpers"), ("perm_privacy", "on")]);
+    assert_eq!((status, loc.as_str()), (303, "/manage?did=preset-name-taken&email=ann%40example.org"));
+    let (_, page) = get(&loc, &sue_c);
+    assert!(page.contains(r#"data-testid="manage-error""#) && page.contains("A preset with that name already exists.") && !page.contains("manage-notice"), "{page}");
+    // A built-in preset's name, and a name that is too long.
+    let (_, loc) = post("/manage/permissions", &sue_c, &[("email", "ann@example.org"), ("preset", "custom"), ("save_as", "Teacher")]);
+    assert!(loc.starts_with("/manage?did=preset-name-taken"), "{loc}");
+    let long = "x".repeat(41);
+    let (_, loc) = post("/manage/permissions", &sue_c, &[("email", "ann@example.org"), ("preset", "custom"), ("save_as", &long)]);
+    assert!(loc.starts_with("/manage?did=preset-bad-name"), "{loc}");
+    assert!(get(&loc, &sue_c).1.contains("1 to 40 characters"));
+    assert_eq!(saved().len(), 1);
+    assert_eq!(stored(ann), (63, Some(perms::TEACHER_PRESET)));
+
+    // Given like Student and Teacher; a set with no permission says so in the list.
+    assert_eq!(post("/manage/permissions", &root_c, &[("email", "ann@example.org"), ("preset", &id.to_string())]).0, 303);
+    assert_eq!(stored(ann), (4, Some(id)));
+    assert_eq!(post("/manage/permissions", &root_c, &[("email", "sue@example.org"), ("preset", "custom"), ("save_as", "Nothing <b>")]).0, 303);
+    let (_, page) = get("/manage", &root_c);
+    assert!(page.contains(r#"data-testid="manage-preset-count">2</td>"#) && page.contains(r#"data-testid="manage-preset-perms">No permissions</td>"#), "{page}");
+    assert!(page.contains("Nothing &#60;b&#62;") && !page.contains("Nothing <b>"), "a name is text, never markup: {page}");
+    assert_eq!(get("/manage", &sue_c).0, 404, "sue is no superuser now");
+    assert_eq!(post("/manage/presets/delete", &sue_c, &[("id", &id.to_string())]).0, 404);
+
+    // The limit: the 21st is refused.
+    let have = saved().len();
+    state
+        .db
+        .with(|c| {
+            for n in have..perms::MAX_SAVED_PRESETS {
+                c.execute("INSERT INTO permission_presets (name, perms, created_at) VALUES (?1, 0, 1)", [format!("Set {n}")])?;
+            }
+            Ok(())
+        })
+        .unwrap();
+    let (_, loc) = post("/manage/permissions", &root_c, &[("email", "ann@example.org"), ("preset", "custom"), ("save_as", "One more")]);
+    assert!(loc.starts_with("/manage?did=preset-too-many"), "{loc}");
+    assert!(get(&loc, &root_c).1.contains("This server already has 20 saved presets. Delete one first."));
+    assert_eq!(saved().len(), perms::MAX_SAVED_PRESETS);
+    assert_eq!(stored(ann), (4, Some(id)));
+
+    // A built-in preset is not deleted, nor one nobody has.
+    for bad in ["1", "2", "9999"] {
+        assert_eq!(post("/manage/presets/delete", &root_c, &[("id", bad)]).0, 400, "{bad:?}");
+    }
+    assert_eq!(saved().len(), perms::MAX_SAVED_PRESETS);
+    // Deleted: its accounts keep their permissions and show as Custom.
+    let (status, loc) = post("/manage/presets/delete", &root_c, &[("id", &id.to_string())]);
+    assert_eq!((status, loc.as_str()), (303, "/manage?did=preset-deleted&email="));
+    let (_, page) = get(&loc, &root_c);
+    assert!(page.contains(r#"data-testid="manage-notice""#) && page.contains("Preset deleted."), "{page}");
+    assert!(!page.contains(">Helpers<"), "{page}");
+    assert_eq!((stored(stu), stored(ann)), ((4, None), (4, None)));
+    for email in ["stu@example.org", "ann@example.org"] {
+        let r = row(&page, email);
+        assert!(r.contains(r#"data-preset="custom" data-perms="4""#) && r.contains(">Custom</td>"), "{r}");
+    }
+}

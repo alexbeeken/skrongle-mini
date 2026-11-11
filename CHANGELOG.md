@@ -18,6 +18,11 @@ numbers work is in the README, "Versions".
   AI keys, temporary passwords, two-factor off and Make owner stay the
   owner's. The permissions are stored and shown; they do not limit anything
   else yet.
+- In the Permissions dialog, a **Custom** set can be given a name (**Save as
+  a preset**): it is then offered for every account, next to Student and
+  Teacher. A server keeps up to 20 saved presets; they are listed under the
+  accounts on Manage Users, each with **Delete**. Deleting one changes
+  nobody's permissions: the accounts that had it show as Custom.
 
 ## 0.2.1 (2026-11-09)
 

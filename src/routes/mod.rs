@@ -292,6 +292,7 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/manage/two-factor-off", post(manage::turn_off_two_factor))
         .route("/manage/api-keys/remove", post(manage::remove_key))
         .route("/manage/ai", post(manage::set_ai))
+        .route("/manage/presets/delete", post(manage::presets::delete))
         .route("/api/manage/keys", post(manage::save_keys))
         // api
         .route("/api/answer", post(quiz::answer))
