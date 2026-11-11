@@ -24,3 +24,6 @@
 
 # Local assistant configuration and rules; not part of the published tree
 .claude/
+# upgrade fixtures: test data written by released binaries (scripts/release-qa/fixtures/README.md)
+!/scripts/release-qa/fixtures/learn-*.db
+!/scripts/release-qa/fixtures/learn-*.db.key

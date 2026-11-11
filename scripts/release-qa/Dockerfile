@@ -22,7 +22,7 @@ RUN set -eu; \
     apt-get update; \
     apt-get install -y --no-install-recommends curl ca-certificates procps; \
     rm -rf /var/lib/apt/lists/*
-COPY package-smoke.sh entrypoint.sh /usr/local/lib/release-qa/
+COPY package-smoke.sh upgrade-check.sh entrypoint.sh /usr/local/lib/release-qa/
 RUN chmod 0755 /usr/local/lib/release-qa/*.sh
 # Where `serve` unpacks the tarball and the server keeps its database.
 RUN mkdir -p /opt/skrongle /tarballs /var/lib/skrongle

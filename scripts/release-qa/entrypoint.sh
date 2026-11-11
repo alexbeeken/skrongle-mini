@@ -6,6 +6,8 @@
 #   entrypoint.sh serve   unpack /tarballs/skrongle-$SKRONGLE_VERSION-$ARCH.tar.gz
 #                         into /opt/skrongle and run it, as a self-hoster would
 #   entrypoint.sh smoke   run package-smoke.sh on that tarball and exit with its status
+#   entrypoint.sh upgrade run upgrade-check.sh: that tarball on the database each older release
+#                         wrote (the fixtures mounted at /usr/local/lib/release-qa/fixtures)
 #
 # ARCH is what `uname -m` prints on the target (aarch64, x86_64, armv7l,
 # armv6l); the tarballs are named for it.
@@ -45,6 +47,9 @@ case "${1:-serve}" in
     ;;
   smoke)
     exec sh /usr/local/lib/release-qa/package-smoke.sh "$TARBALL"
+    ;;
+  upgrade)
+    exec sh /usr/local/lib/release-qa/upgrade-check.sh "$TARBALL"
     ;;
   *)
     exec "$@"
