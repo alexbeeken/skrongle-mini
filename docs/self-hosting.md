@@ -304,7 +304,7 @@ Where a default says "unit", `skrongle.service` sets it.
 | `SKRONGLE_SECURE_COOKIES` | off | `1` when the site is served over HTTPS (behind a TLS proxy). |
 | `SKRONGLE_PUBLIC_URL` | — | The address people use, e.g. `https://learn.example.org`. The owner link and invitation links start with it. |
 | `SKRONGLE_BASE_PATH` | *(empty)* | A URL prefix when a proxy serves the app under a path, e.g. `/learn`. |
-| `SKRONGLE_MIN_AGE` | `14` | The minimum age the registration checkbox states. |
+| `SKRONGLE_MIN_AGE` | `14` | The minimum age the registration checkbox states. The owner's own account is not asked. |
 | `SKRONGLE_FAILED_COURSE_RETENTION_DAYS` | `30` | An AI course whose generation failed is deleted, with the notes it was given, after this many days without a resume or edit. `0` keeps them. |
 | `SKRONGLE_RETAIN_HISTORY_DAYS` | `730` | Answers and finished game rounds older than this many days are deleted, at start and hourly. `0` keeps them. |
 | `SKRONGLE_KEEP_NOTES` | off | `1` or `true` keeps an AI course's notes after it is ready, so a later revision sees the original material. Off, they are removed once it is ready. |

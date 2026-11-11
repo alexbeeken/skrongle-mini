@@ -34,6 +34,9 @@ numbers work is in the README, "Versions".
   `<hostname>.local`, which a fresh DietPi does not answer to; with
   `SKRONGLE_PUBLIC_URL` set it starts with that. If the link cannot be made,
   the script says why.
+- Making your own account, the owner's, no longer asks you to tick "I am
+  at least 14 years old". The people you invite are still asked, and
+  `SKRONGLE_MIN_AGE` works as before.
 
 ## 0.2.1 (2026-11-09)
 

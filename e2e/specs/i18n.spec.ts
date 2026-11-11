@@ -23,6 +23,7 @@ const ES = {
   navLogout: "Cerrar sesión",
   navProfile: "Ajustes del perfil",
   languageLabel: "Idioma",
+  ageLabel: /^Tengo al menos \d+ años$/,
 };
 
 test.describe("languages", () => {
@@ -54,6 +55,10 @@ test.describe("languages", () => {
     await page.goto("/register");
     await page.getByTestId("register-email").fill(account.email);
     await page.getByTestId("register-password").fill(account.password);
+    // The age box, in Spanish. Only the first account on a server (the
+    // owner's) is not asked (#126), and a dev-mode server makes the dev user
+    // when it starts, so this account is never the first.
+    await expect(page.getByTestId("register-age-row").locator(".check-row-label")).toHaveText(ES.ageLabel);
     await page.getByTestId("register-age").check();
     await page.getByTestId("register-submit").click();
     await page.waitForLoadState("domcontentloaded");
