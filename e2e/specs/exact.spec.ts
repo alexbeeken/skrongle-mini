@@ -433,7 +433,11 @@ test("the course list fills a desktop row and stacks on a phone (#428)", async (
   await page.setViewportSize({ width: 1280, height: 900 });
   // (Where Make your own lands depends on how many ready-made cards there are: here the test course is one too.)
   const [projects, builtin] = await tops();
-  expect(builtin, "ready-made courses beside your projects").toBe(projects);
+  // Up to three ready-made cards share the 1240 px row with one project; a fourth (Spanish, French, How to Use
+  // Skrongle and the test course here) asks for more room than the row has, so that section wraps below.
+  const ready = await page.getByTestId("courses-builtin").getByTestId("courses-card").count();
+  if (ready <= 3) expect(builtin, "ready-made courses beside your projects").toBe(projects);
+  else expect(builtin, "four ready-made courses take a row of their own").toBeGreaterThan(projects);
   await page.setViewportSize({ width: 390, height: 844 });
   const [p2, b2, m2] = await tops();
   expect(b2).toBeGreaterThan(p2);
