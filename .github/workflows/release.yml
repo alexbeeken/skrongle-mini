@@ -11,6 +11,8 @@
 # Both link glibc 2.31 (cargo-zigbuild), so they run on Debian 11+,
 # Ubuntu 20.04+ and Raspberry Pi OS Bullseye or later. "Run workflow" by hand
 # builds the same tarballs as workflow artifacts without making a release.
+# Either way a `qa` job runs scripts/release-qa/package-smoke.sh on each
+# tarball before `release` (release-qa.yml); a failing tarball makes no release.
 # How to cut a release: docs/testing.md, "Releases (maintainers)".
 name: release
 
@@ -134,10 +136,24 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
+  # package-smoke.sh on every tarball just built, in a container of its
+  # architecture (#46): a cell that fails keeps `release` from running, so
+  # such a tarball never reaches the releases page. Runs on a manual "Run
+  # workflow" too (which makes no release), so a candidate is checked before
+  # anyone tags. .github/workflows/release-qa.yml has the cells.
+  qa:
+    name: qa
+    needs: build
+    uses: ./.github/workflows/release-qa.yml
+    with:
+      artifacts: true
+    permissions:
+      contents: read
+
   release:
     name: attach to the release
     if: github.event_name == 'push'
-    needs: build
+    needs: [build, qa]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
