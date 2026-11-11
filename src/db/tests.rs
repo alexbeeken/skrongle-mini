@@ -70,7 +70,7 @@ fn migrations_apply_once() {
     let db = Db::open_in_memory().unwrap();
     let v: i64 = db.with(|c| c.query_row("PRAGMA user_version", [], |r| r.get(0))).unwrap();
     assert_eq!(v, MIGRATIONS.len() as i64);
-    assert_eq!(v, 3, "v1 is the schema (#49), v2 drops Skrongle Cash, v3 names share links");
+    assert_eq!(v, 4, "v1 is the schema (#49), v2 drops Skrongle Cash, v3 names share links, v4 adds courses.error_kind");
     // Re-running is a no-op.
     db.with(|c| migrate(c)).unwrap();
 }

@@ -251,7 +251,7 @@ pub(super) async fn generate_view(state: &AppState, user: &CurrentUser, row: &Co
         String::new()
     };
     let rates = rates(state, &providers);
-    let error = row.error.as_deref().filter(|_| stopped).map(|e| ai::plain_failure(e).map(str::to_string).unwrap_or_else(|| e.to_string()));
+    let error = row.error.as_deref().filter(|_| stopped).map(|e| ai::plain_failure(row.error_kind.as_deref(), e).unwrap_or_else(|| e.to_string()));
     Ok(Some(GenerateView {
         course_id: row.id.clone(),
         title: row.title.clone(),

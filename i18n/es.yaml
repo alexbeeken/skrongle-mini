@@ -1688,6 +1688,36 @@ courses:
     heading_stopped: "La traducción se detuvo"
     phase_start: "Traduciendo"
     phase_file: "Traduciendo {file} ({n} de {total})"
+  ai_run:
+    failure:
+      key: "Se detuvo la escritura de tu curso. El proveedor de IA no aceptó la clave de API del servidor. La persona propietaria puede revisarla en Gestionar usuarios; después inténtalo de nuevo."
+      quota: "Se detuvo la escritura de tu curso. La cuenta de tu proveedor de IA se quedó sin crédito o llegó a su límite de uso. Revisa tu plan y la facturación con el proveedor y vuelve a intentarlo."
+      busy: "Se detuvo la escritura de tu curso. El proveedor de IA está ocupado en este momento. Espera un minuto e inténtalo de nuevo."
+      unusable: "Se detuvo la escritura de tu curso. No se pudo usar la respuesta de la IA para construir el curso. Inténtalo de nuevo."
+      turned_down: "Se detuvo la escritura de tu curso. El proveedor de IA rechazó la solicitud. Inténtalo de nuevo; si se detiene otra vez, la persona propietaria puede revisar la clave en Gestionar usuarios."
+      provider_error: "Se detuvo la escritura de tu curso. El proveedor de IA respondió con un error. Inténtalo de nuevo."
+      unreachable: "Se detuvo la escritura de tu curso. El proveedor de IA no respondió a tiempo o no se pudo contactar. Inténtalo de nuevo en un minuto."
+    revision_failure:
+      key: "El proveedor de IA no aceptó la clave de API del servidor. La persona propietaria puede revisarla en Gestionar usuarios; después inténtalo de nuevo. El curso no ha cambiado."
+      quota: "La cuenta de tu proveedor de IA se quedó sin crédito o llegó a su límite de uso. Revisa tu plan y la facturación con el proveedor y vuelve a intentarlo. El curso no ha cambiado."
+      busy: "El proveedor de IA está ocupado en este momento. Espera un minuto e inténtalo de nuevo. El curso no ha cambiado."
+      unusable: "No se pudo usar la respuesta de la IA. Inténtalo de nuevo o dilo de otra manera. El curso no ha cambiado."
+      turned_down: "El proveedor de IA rechazó la solicitud. Inténtalo de nuevo; si se detiene otra vez, la persona propietaria puede revisar la clave en Gestionar usuarios. El curso no ha cambiado."
+      provider_error: "El proveedor de IA respondió con un error. Inténtalo de nuevo. El curso no ha cambiado."
+      unreachable: "El proveedor de IA no respondió a tiempo o no se pudo contactar. Inténtalo de nuevo en un minuto. El curso no ha cambiado."
+    heading:
+      stopped: "Generación detenida"
+      adding_stopped: "Se detuvo la incorporación"
+      editing_stopped: "Se detuvo la edición"
+      revision_stopped: "Se detuvo la revisión"
+      ready: "Tu curso está listo"
+      new_lesson: "La nueva lección ya está"
+      changes_in: "Tus cambios ya están"
+      adding: "Añadiendo una lección a {title}…"
+      editing: "Editando {title}…"
+      revising: "Revisando {title}…"
+      writing: "Escribiendo {title}…"
+      your_course: "tu curso"
   picker:
     title: ¿Qué te gustaría aprender?
     lead_anon: Elige un curso ya hecho. Cada curso guarda su propio progreso, vocabulario, juegos e historial.
