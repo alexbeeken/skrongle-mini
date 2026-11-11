@@ -908,6 +908,7 @@ study:
     read_passed_html: "掌握度现为 <strong>{mastery}%</strong>。从此刻起，本课节属于你的推荐练习；再多练几次以展示掌握度。"
     recommended_practice: 推荐练习
     back_to_lessons: 返回课节列表
+    next_lesson: 下一课节
     not_read: 尚未阅读
     not_read_hint: 两个答案都需要正确。请重新看看解释所指的部分，然后再用两道新题重试。
     try_two_more: 再试两道题

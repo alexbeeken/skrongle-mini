@@ -908,6 +908,7 @@ study:
     read_passed_html: "Die Beherrschung liegt jetzt bei <strong>{mastery} %</strong>. Die Lektion gehört von jetzt an zu deiner empfohlenen Übung; übe sie noch ein paar Mal, um Beherrschung zu zeigen."
     recommended_practice: "Empfohlene Übung"
     back_to_lessons: "Zurück zu den Lektionen"
+    next_lesson: "Nächste Lektion"
     not_read: "Noch nicht gelesen"
     not_read_hint: "Beide Antworten müssen richtig sein. Sieh dir den Teil, auf den die Erklärung zeigt, noch einmal an, und versuche es dann mit zwei weiteren Fragen."
     try_two_more: "Zwei weitere Fragen versuchen"

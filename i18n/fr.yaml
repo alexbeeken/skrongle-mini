@@ -908,6 +908,7 @@ study:
     read_passed_html: "La maîtrise est maintenant de <strong>{mastery} %</strong>. La leçon fait désormais partie de votre pratique recommandée ; pratiquez-la encore quelques fois pour montrer votre maîtrise."
     recommended_practice: Pratique recommandée
     back_to_lessons: Retour aux leçons
+    next_lesson: Leçon suivante
     not_read: Pas encore lue
     not_read_hint: "Les deux réponses doivent être justes. Revoyez la partie que l'explication indique, puis réessayez avec deux autres questions."
     try_two_more: Essayer deux autres questions

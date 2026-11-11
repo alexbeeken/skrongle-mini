@@ -50,6 +50,8 @@ minor one, not a patch.
   side. A full class using it at the same moment has not been measured on a
   Pi Zero 2 W yet; if yours is slow or runs out of memory with many
   learners at once, please open an issue with what `skrongle doctor` prints.
+- Study mode: after you pass a lesson's two-question check, **Next lesson**
+  sits beside *Recommended practice* and *Back to the lessons*.
 
 ## 0.2.1 (2026-11-09)
 

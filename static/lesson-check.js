@@ -10,6 +10,7 @@
   var base = document.body.dataset.base || "";
   var praise = root.dataset.praise || t('study.js.correct');
   var lang = root.dataset.lang || "";
+  var next = root.dataset.next || "";
   var questions = Array.prototype.slice.call(form.querySelectorAll(".question"));
   var result = document.getElementById("check-result");
 
@@ -60,6 +61,8 @@
       html = '<p class="verdict">' + esc(t('study.js.lesson_read')) + "</p>" +
         "<p>" + t('study.js.read_passed_html', { mastery: esc(String(last.mastery)) }) + "</p>" +
         '<p class="actions"><a class="btn" href="' + base + '/practice">' + esc(t('study.js.recommended_practice')) + "</a> " +
+        // The lesson the page's pager names as next; the last lesson has none.
+        (next ? '<a class="btn ghost" data-testid="lesson-check-next" href="' + base + "/lessons/" + esc(encodeURIComponent(next)) + '">' + esc(t('study.js.next_lesson')) + "</a> " : "") +
         '<a class="btn ghost" href="' + base + '/lessons">' + esc(t('study.js.back_to_lessons')) + "</a></p>";
       result.className = "check-result ok";
       result.dataset.state = "passed";
