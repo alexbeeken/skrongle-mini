@@ -15,7 +15,8 @@ test("the owner link registers the owner", async ({ browser }) => {
   const owner = newAccount("owner");
   await page.getByTestId("register-email").fill(owner.email);
   await page.getByTestId("register-password").fill(owner.password);
-  await page.getByTestId("register-age").check();
+  // The owner is not asked their age (#126).
+  await expect(page.getByTestId("register-age")).toHaveCount(0);
   await page.getByTestId("register-submit").click();
   await expect(page.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", owner.email.toLowerCase());
   saveOwner(owner);
