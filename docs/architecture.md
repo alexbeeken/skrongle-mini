@@ -71,7 +71,7 @@ src/
   courses.rs     course registry: built-in courses from data/courses/, user-made ones in SQLite; projects
   ai.rs          LLM client (Anthropic Messages API / OpenAI-compatible, incl. Gemini) + "generate with AI" job runner (generate, resume, revise with feedback, add a lesson)
   ai/
-    error.rs     `AiError`: the typed wire failure (HTTP status, timeout, unreachable, declined, bad reply); `Display` is the stored sentence, `kind` the learner's reading of it
+    error.rs     `AiError`: the typed wire failure (HTTP status, timeout, unreachable, declined, bad reply); `Display` is the stored sentence, `kind` the learner's reading of it, stored as `courses.error_kind`; also `plain_failure` and `plain_revision_failure`, the sentences (keys under `courses.ai_run`), which read the stored kind and the text only for older rows
     edit.rs      Edit lessons (#1240): rewrite lessons, add, remove or move none; the per-lesson writer shared with revise
     edit_lesson.rs  Edit with AI on one lesson's row (#1242): one `edit-lesson` request, checked by `arrange::only_edits_one`
     queue.rs     AI jobs, one at a time (#874, #43): the one slot, the `generate_course` rows on the jobs table, the lease heartbeat, going on after a restart
@@ -333,10 +333,11 @@ jobs           (id, kind, payload_json, state, priority, run_at, attempts, max_a
                 last_error, created_at, finished_at)
                 -- background jobs (src/jobs.rs); state 'queued' | 'running' | 'done' | 'failed';
                 -- locked_by/locked_until: the lease of a running row. Done rows deleted after a day, failed after 30
-courses        (id, owner_id, title, created_at, updated_at, error, state, source, job_id, brief, outline, notes)
+courses        (id, owner_id, title, created_at, updated_at, error, state, source, job_id, brief, outline, notes, error_kind)
                 -- user-made courses, private to their owner (and whoever they share them with);
                 -- state 'generating' | 'revising' | 'ready' | 'failed', source 'hand' | 'ai' | 'translate';
-                -- error: the last validation error, NULL when it loads; brief/notes/outline let a stopped AI run resume
+                -- error: the last validation error, NULL when it loads; brief/notes/outline let a stopped AI run resume;
+                -- error_kind: why an AI run stopped (ai::Failure name), NULL for older rows and for a cancel or restart
 course_files   (course_id, path, content, updated_at)  PRIMARY KEY (course_id, path)
 course_undo    (course_id, seq, title, outline, label, created_at, session, started_at)  PRIMARY KEY (course_id, seq)
 course_undo_files (course_id, seq, path, content)  PRIMARY KEY (course_id, seq, path)
@@ -426,7 +427,7 @@ Every request carries an `x-skrongle-call` header naming its purpose,
 key, job and vars (`ai::call_header`). The providers ignore it. The dev AI
 provider picks its fixture reply by it. Error statuses are read as
 responses (`http_status_as_error(false)`), so a provider's own message (a
-used-up quota) reaches `ai::plain_failure`.
+used-up quota) reaches `ai::plain_failure`, which reads the stored `courses.error_kind` and falls back to the words for rows without one.
 
 **AI jobs on the editor.** `POST /courses/{id}/generate` and
 `POST /courses/{id}/ai` start a job and redirect to `/courses/{id}?job=<job>`;

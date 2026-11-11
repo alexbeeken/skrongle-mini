@@ -506,6 +506,9 @@ pub struct CourseRow {
     pub brief: String,
     /// The AI's plan (JSON), kept so a failed run can resume.
     pub outline: Option<String>,
+    /// Why an AI run stopped (`ai::Failure::name`); `None` for a row from
+    /// before the column and for a stop that is not an AI failure.
+    pub error_kind: Option<String>,
 }
 
 impl CourseRow {
@@ -538,10 +541,11 @@ fn course_row(r: &rusqlite::Row<'_>) -> rusqlite::Result<CourseRow> {
         job_id: r.get(8)?,
         brief: r.get(9)?,
         outline: r.get(10)?,
+        error_kind: r.get(11)?,
     })
 }
 
-const COURSE_COLS: &str = "id, owner_id, title, created_at, updated_at, error, state, source, job_id, brief, outline";
+const COURSE_COLS: &str = "id, owner_id, title, created_at, updated_at, error, state, source, job_id, brief, outline, error_kind";
 
 /// Register a course an AI job is about to write: no files yet, greyed out
 /// in the course list until the job finishes. (The app makes a draft with
@@ -567,7 +571,7 @@ pub fn set_notes(conn: &Connection, id: &str, notes: &str) -> rusqlite::Result<(
 /// job's plan, for a resume.
 pub fn start_translation(conn: &Connection, id: &str, job_id: &str, plan: &str) -> rusqlite::Result<()> {
     conn.execute(
-        "UPDATE courses SET state = 'generating', source = 'translate', job_id = ?2, notes = ?3, error = NULL, updated_at = ?4 WHERE id = ?1",
+        "UPDATE courses SET state = 'generating', source = 'translate', job_id = ?2, notes = ?3, error = NULL, error_kind = NULL, updated_at = ?4 WHERE id = ?1",
         params![id, job_id, plan, now()],
     )?;
     Ok(())
@@ -584,7 +588,7 @@ pub fn notes_of(conn: &Connection, id: &str) -> rusqlite::Result<String> {
 /// with no job yet (as `create_generating` leaves it) is free to take.
 pub fn set_generating(conn: &Connection, id: &str, job_id: &str) -> rusqlite::Result<bool> {
     let n = conn.execute(
-        "UPDATE courses SET state = 'generating', job_id = ?2, error = NULL, updated_at = ?3
+        "UPDATE courses SET state = 'generating', job_id = ?2, error = NULL, error_kind = NULL, updated_at = ?3
          WHERE id = ?1 AND (state NOT IN ('generating', 'revising') OR job_id IS NULL)",
         params![id, job_id, now()],
     )?;
@@ -937,10 +941,18 @@ pub fn set_outline(conn: &Connection, id: &str, title: &str, outline: &str) -> r
 
 /// The end of a generation job: ready, or failed with the reason.
 pub fn finish_generation(conn: &Connection, id: &str, error: Option<&str>) -> rusqlite::Result<()> {
+    finish_generation_as(conn, id, error, None)
+}
+
+/// `finish_generation` with the kind of the AI failure behind `error`
+/// (`ai::Failure::name`), which `ai::plain_failure` reads instead of the
+/// words. `None` for a stop that is not one (a cancel, a restart), and so
+/// for the text-reading fallback. Ready keeps the error and kind it had.
+pub fn finish_generation_as(conn: &Connection, id: &str, error: Option<&str>, kind: Option<&str>) -> rusqlite::Result<()> {
     let state = if error.is_some() { CourseState::Failed } else { CourseState::Ready };
     conn.execute(
-        "UPDATE courses SET state = ?2, error = COALESCE(?3, error), updated_at = ?4 WHERE id = ?1",
-        params![id, state.as_str(), error, now()],
+        "UPDATE courses SET state = ?2, error = COALESCE(?3, error), error_kind = CASE WHEN ?3 IS NULL THEN error_kind ELSE ?5 END, updated_at = ?4 WHERE id = ?1",
+        params![id, state.as_str(), error, now(), kind],
     )?;
     Ok(())
 }
@@ -953,7 +965,7 @@ pub fn fail_interrupted(conn: &Connection) -> rusqlite::Result<usize> {
     conn.execute("UPDATE courses SET state = 'ready' WHERE state = 'revising'", [])?;
     conn.execute(
         // `updated_at` starts the failed-course retention clock (jobs/retention.rs).
-        "UPDATE courses SET state = 'failed', updated_at = ?1, error = ?2
+        "UPDATE courses SET state = 'failed', updated_at = ?1, error = ?2, error_kind = NULL
          WHERE state = 'generating'
            AND id NOT IN (SELECT json_extract(payload_json, '$.course') FROM jobs WHERE kind = ?3 AND state IN ('queued', 'running'))",
         params![now(), crate::ai::INTERRUPTED, crate::ai::GENERATE.name],
@@ -1026,10 +1038,10 @@ pub fn delete_course(conn: &Connection, id: &str) -> rusqlite::Result<()> {
 pub fn set_status(conn: &Connection, id: &str, title: Option<&str>, error: Option<&str>) -> rusqlite::Result<()> {
     match title {
         Some(t) => conn.execute(
-            "UPDATE courses SET title = ?2, error = ?3, updated_at = ?4 WHERE id = ?1",
+            "UPDATE courses SET title = ?2, error = ?3, error_kind = NULL, updated_at = ?4 WHERE id = ?1",
             params![id, t, error, now()],
         )?,
-        None => conn.execute("UPDATE courses SET error = ?2, updated_at = ?3 WHERE id = ?1", params![id, error, now()])?,
+        None => conn.execute("UPDATE courses SET error = ?2, error_kind = NULL, updated_at = ?3 WHERE id = ?1", params![id, error, now()])?,
     };
     Ok(())
 }
@@ -1634,7 +1646,7 @@ pub fn restart_generation(conn: &mut Connection, id: &str, title: &str, brief: &
     tx.execute("DELETE FROM course_undo_files WHERE course_id = ?1", [id])?;
     tx.execute("DELETE FROM course_undo WHERE course_id = ?1", [id])?;
     tx.execute(
-        "UPDATE courses SET title = ?2, source = 'ai', brief = ?3, notes = ?4, outline = NULL, error = NULL, updated_at = ?5 WHERE id = ?1",
+        "UPDATE courses SET title = ?2, source = 'ai', brief = ?3, notes = ?4, outline = NULL, error = NULL, error_kind = NULL, updated_at = ?5 WHERE id = ?1",
         params![id, title, brief, notes, now()],
     )?;
     tx.commit()

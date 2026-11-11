@@ -216,7 +216,7 @@ fn the_dev_pages_need_no_sign_in_and_the_simulator_speaks_the_wire_protocols() {
     state.dev.ai.update(crate::dev_ai::Who::Learner, |p| p.exhausted = true);
     let err = crate::ai::chat(&provider(crate::ai::ProviderKind::Anthropic, "sk-ant-dev-anthropic"), &call, "s", &msgs, 100).unwrap_err().to_string();
     assert!(err.starts_with("the API answered HTTP 400. You have reached your specified API usage limits"), "{err}");
-    assert!(crate::ai::plain_failure(&err).unwrap().contains("run out of credit"));
+    assert!(crate::ai::plain_failure(None, &err).unwrap().contains("run out of credit"));
     let err = crate::ai::chat(&provider(crate::ai::ProviderKind::OpenAi, "sk-dev-openai"), &call, "s", &msgs, 100).unwrap_err().to_string();
     assert!(err.starts_with("the API answered HTTP 429. You exceeded your current quota"), "{err}");
     // An injected malformed body and a reply that is not JSON for a JSON call.

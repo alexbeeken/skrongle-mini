@@ -1214,6 +1214,10 @@ fn ai_features_with_saved_keys_answered_by_the_simulator() {
     let list = get(&format!("/courses?generate={id}"), &dev_c).1;
     assert!(list.contains(r#"id="gen-dialog""#) && list.contains(" open data-open-on-load>") && list.contains("Volcanoes for Monday</textarea>") && list.contains(notes.trim()), "{list}");
     assert!(list.contains(r#"data-testid="generate-error">Writing your course stopped. The AI provider didn&#39;t accept the server&#39;s API key."#), "{list}");
+    // A row written with its kind shows the same sentence whatever the words say.
+    state.db.with(|c| crate::courses::finish_generation_as(c, &id, Some("the provider said something we do not read"), Some("key"))).unwrap();
+    let list = get(&format!("/courses?generate={id}"), &dev_c).1;
+    assert!(list.contains(r#"data-testid="generate-error">Writing your course stopped. The AI provider didn&#39;t accept the server&#39;s API key."#), "by kind: {list}");
     // Refused again: back on the list, not the editor.
     let (status, _, body) = post(&format!("/courses/{id}/generate"), &dev_c, &[("provider", "anthropic"), ("wish", "Volcanoes and how they erupt"), ("lessons", "6")]);
     assert_eq!(status, 200);

@@ -1717,6 +1717,36 @@ courses:
     heading_stopped: "翻译已停止"
     phase_start: "正在翻译"
     phase_file: "正在翻译 {file}（第 {n} 个，共 {total} 个）"
+  ai_run:
+    failure:
+      key: "课程的编写已停止。AI 服务商不接受服务器的 API 密钥。所有者可以在“管理用户”中检查密钥，然后再试一次。"
+      quota: "课程的编写已停止。你的 AI 服务商账户已用完额度或达到使用上限。请向服务商查看你的套餐和账单，然后再试一次。"
+      busy: "课程的编写已停止。AI 服务商现在很忙。请等一分钟，然后再试一次。"
+      unusable: "课程的编写已停止。AI 的回复无法用来生成课程。请再试一次。"
+      turned_down: "课程的编写已停止。AI 服务商拒绝了这次请求。请再试一次；如果再次停止，所有者可以在“管理用户”中检查密钥。"
+      provider_error: "课程的编写已停止。AI 服务商返回了错误。请再试一次。"
+      unreachable: "课程的编写已停止。AI 服务商没有及时响应，或无法连接。请一分钟后再试。"
+    revision_failure:
+      key: "AI 服务商不接受服务器的 API 密钥。所有者可以在“管理用户”中检查密钥，然后再试一次。课程没有改变。"
+      quota: "你的 AI 服务商账户已用完额度或达到使用上限。请向服务商查看你的套餐和账单，然后再试一次。课程没有改变。"
+      busy: "AI 服务商现在很忙。请等一分钟，然后再试一次。课程没有改变。"
+      unusable: "AI 的回复无法使用。请再试一次，或换一种说法。课程没有改变。"
+      turned_down: "AI 服务商拒绝了这次请求。请再试一次；如果再次停止，所有者可以在“管理用户”中检查密钥。课程没有改变。"
+      provider_error: "AI 服务商返回了错误。请再试一次。课程没有改变。"
+      unreachable: "AI 服务商没有及时响应，或无法连接。请一分钟后再试。课程没有改变。"
+    heading:
+      stopped: "生成已停止"
+      adding_stopped: "添加已停止"
+      editing_stopped: "编辑已停止"
+      revision_stopped: "修订已停止"
+      ready: "你的课程已就绪"
+      new_lesson: "新课程已添加"
+      changes_in: "你的修改已生效"
+      adding: "正在为{title}添加课程…"
+      editing: "正在编辑{title}…"
+      revising: "正在修订{title}…"
+      writing: "正在编写{title}…"
+      your_course: "你的课程"
   picker:
     title: 你想学什么？
     lead_anon: 选一门现成的课程。每门课程都保留自己的进度、词汇、游戏和记录。

@@ -1717,6 +1717,36 @@ courses:
     heading_stopped: "A tradução parou"
     phase_start: "Traduzindo"
     phase_file: "Traduzindo {file} ({n} de {total})"
+  ai_run:
+    failure:
+      key: "A escrita do seu curso parou. O provedor de IA não aceitou a chave de API do servidor. Quem é dono do servidor pode conferi-la em Gerenciar usuários; depois tente novamente."
+      quota: "A escrita do seu curso parou. A conta do seu provedor de IA ficou sem crédito ou atingiu o limite de uso. Confira seu plano e a cobrança com o provedor e tente novamente."
+      busy: "A escrita do seu curso parou. O provedor de IA está ocupado agora. Aguarde um minuto e tente novamente."
+      unusable: "A escrita do seu curso parou. A resposta da IA não pôde ser usada para montar o curso. Tente novamente."
+      turned_down: "A escrita do seu curso parou. O provedor de IA recusou o pedido. Tente novamente; se parar de novo, quem é dono do servidor pode conferir a chave em Gerenciar usuários."
+      provider_error: "A escrita do seu curso parou. O provedor de IA respondeu com um erro. Tente novamente."
+      unreachable: "A escrita do seu curso parou. O provedor de IA não respondeu a tempo ou não pôde ser alcançado. Tente novamente em um minuto."
+    revision_failure:
+      key: "O provedor de IA não aceitou a chave de API do servidor. Quem é dono do servidor pode conferi-la em Gerenciar usuários; depois tente novamente. O curso não mudou."
+      quota: "A conta do seu provedor de IA ficou sem crédito ou atingiu o limite de uso. Confira seu plano e a cobrança com o provedor e tente novamente. O curso não mudou."
+      busy: "O provedor de IA está ocupado agora. Aguarde um minuto e tente novamente. O curso não mudou."
+      unusable: "A resposta da IA não pôde ser usada. Tente novamente ou diga de outra forma. O curso não mudou."
+      turned_down: "O provedor de IA recusou o pedido. Tente novamente; se parar de novo, quem é dono do servidor pode conferir a chave em Gerenciar usuários. O curso não mudou."
+      provider_error: "O provedor de IA respondeu com um erro. Tente novamente. O curso não mudou."
+      unreachable: "O provedor de IA não respondeu a tempo ou não pôde ser alcançado. Tente novamente em um minuto. O curso não mudou."
+    heading:
+      stopped: "Geração interrompida"
+      adding_stopped: "Adição interrompida"
+      editing_stopped: "Edição interrompida"
+      revision_stopped: "Revisão interrompida"
+      ready: "Seu curso está pronto"
+      new_lesson: "A nova lição foi adicionada"
+      changes_in: "Suas alterações foram aplicadas"
+      adding: "Adicionando uma lição a {title}…"
+      editing: "Editando {title}…"
+      revising: "Revisando {title}…"
+      writing: "Escrevendo {title}…"
+      your_course: "seu curso"
   picker:
     title: O que você quer aprender?
     lead_anon: Escolha um curso pronto. Cada curso guarda o próprio progresso, vocabulário, jogos e histórico.

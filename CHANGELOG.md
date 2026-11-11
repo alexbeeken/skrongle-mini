@@ -37,6 +37,14 @@ numbers work is in the README, "Versions".
 - Making your own account, the owner's, no longer asks you to tick "I am
   at least 14 years old". The people you invite are still asked, and
   `SKRONGLE_MIN_AGE` works as before.
+Changes the database (a new column on `courses`), so the next release is a
+minor one, not a patch.
+
+- When writing a course stops because of the AI provider (a rejected key, no
+  credit left, a busy provider), the explanation and next step now appear in
+  your language, as do the headings of the progress window. They were English
+  only. The reason is kept with the course, so it no longer depends on the
+  provider's wording.
 
 ## 0.2.1 (2026-11-09)
 

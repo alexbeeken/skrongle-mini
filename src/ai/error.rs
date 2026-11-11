@@ -1,12 +1,13 @@
 //! What went wrong on the wire to a model provider, as a value instead of a
 //! sentence. `Display` is the sentence the app has always produced (stored
 //! `courses.error` values and the dev provider's tests compare against it);
-//! `kind` is what `failure_kind` works out from that sentence, here from the
-//! fields instead. The wire code (`send`, `call_anthropic`, `call_openai`,
-//! `complete`, `chat`) returns this; the first caller outside it turns it
-//! into a `String`.
+//! `kind` is what `failure_kind_from_text` works out from that sentence, here
+//! from the fields instead. The wire code (`send`, `call_anthropic`,
+//! `call_openai`, `complete`, `chat`) returns this; the first caller outside
+//! it turns it into a `String`, after `Job::llm` has noted the kind for
+//! `courses.error_kind`. The learner's sentences for each kind
+//! (`plain_failure`, `plain_revision_failure`) are here too.
 
-use super::{quota_exhausted, Failure};
 use std::fmt;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -43,7 +44,6 @@ impl AiError {
 
     /// What a learner is told about this failure; `None` when nothing in it
     /// is worth explaining beyond the raw text.
-    #[cfg_attr(not(test), allow(dead_code))] // used by PR 2 (the stored kind); tested here
     pub(super) fn kind(&self) -> Option<Failure> {
         match self {
             AiError::Http { status, message, quota } => Some(http_kind(*status, *quota || quota_exhausted(message))),
@@ -57,7 +57,6 @@ impl AiError {
 }
 
 /// The learner's reading of an HTTP status; `quota` says the account is out of credit.
-#[cfg_attr(not(test), allow(dead_code))]
 fn http_kind(status: u16, quota: bool) -> Failure {
     if quota && matches!(status, 400 | 402 | 403 | 429) {
         return Failure::Quota;
@@ -92,6 +91,91 @@ impl fmt::Display for AiError {
 }
 
 impl std::error::Error for AiError {}
+
+/// The failures a learner can do something about.
+#[derive(Clone, Copy)]
+pub(super) enum Failure {
+    Key,
+    /// The account's credit or usage limit is used up (a 400 or 429 that says so).
+    Quota,
+    Busy,
+    Unusable,
+    TurnedDown,
+    ProviderError,
+    Unreachable,
+}
+
+/// What the providers say when an account's money or quota is used up:
+/// Anthropic's 400 "credit balance is too low" and "reached your specified
+/// API usage limits", OpenAI's 429 `insufficient_quota` ("exceeded your
+/// current quota"), Google's 429 "exceeded your current quota".
+fn quota_exhausted(raw: &str) -> bool {
+    let lower = raw.to_ascii_lowercase();
+    ["credit balance", "usage limit", "insufficient_quota", "exceeded your current quota", "quota exceeded", "billing"].iter().any(|w| lower.contains(w))
+}
+
+/// The legacy path: work out the kind from the words of a stored error. Only
+/// for rows written before `courses.error_kind` (and the test that proves the
+/// typed `AiError::kind` agrees with it).
+fn failure_kind_from_text(raw: &str) -> Option<Failure> {
+    let http = raw.split("HTTP ").nth(1).and_then(|r| r.get(..3)).and_then(|c| c.parse::<u16>().ok());
+    if matches!(http, Some(400 | 402 | 403 | 429)) && quota_exhausted(raw) {
+        return Some(Failure::Quota);
+    }
+    Some(match http {
+        Some(401 | 403) => Failure::Key,
+        Some(429 | 529) | Some(500..=599) => Failure::Busy,
+        Some(200..=299) => Failure::Unusable,
+        Some(400 | 404) => Failure::TurnedDown,
+        Some(_) => Failure::ProviderError,
+        None if raw.starts_with("request failed") => Failure::Unreachable,
+        None if ["JSON", "no text", "did not validate", "does not load", "no lessons", "slug '", "reply"].iter().any(|w| raw.contains(w)) => Failure::Unusable,
+        None => return None,
+    })
+}
+
+impl Failure {
+    /// The name stored in `courses.error_kind`.
+    pub(super) fn name(self) -> &'static str {
+        match self {
+            Failure::Key => "key",
+            Failure::Quota => "quota",
+            Failure::Busy => "busy",
+            Failure::Unusable => "unusable",
+            Failure::TurnedDown => "turned_down",
+            Failure::ProviderError => "provider_error",
+            Failure::Unreachable => "unreachable",
+        }
+    }
+
+    fn from_name(name: &str) -> Option<Failure> {
+        [Failure::Key, Failure::Quota, Failure::Busy, Failure::Unusable, Failure::TurnedDown, Failure::ProviderError, Failure::Unreachable].into_iter().find(|k| k.name() == name)
+    }
+}
+
+/// The kind of a stored failure: the name in `courses.error_kind` when the
+/// row has one, else the words of `raw` read back (a row from before the
+/// column, a name this build does not know, or a stop that is not an AI
+/// failure, which reads as `None`).
+fn stored_failure(kind: Option<&str>, raw: &str) -> Option<Failure> {
+    kind.and_then(Failure::from_name).or_else(|| failure_kind_from_text(raw))
+}
+
+/// What a learner reads when a generation stops: a plain sentence and a next
+/// step for the failures we know (the key, a busy provider, an unusable
+/// reply), in their language. `kind` is `courses.error_kind`; `raw` the
+/// stored text, read only when there is no kind. `None` when `raw` is already
+/// written for a learner (a cancel, a restart); pages show the raw text
+/// underneath as the detail.
+pub fn plain_failure(kind: Option<&str>, raw: &str) -> Option<String> {
+    Some(crate::t(&format!("courses.ai_run.failure.{}", stored_failure(kind, raw)?.name())))
+}
+
+/// `plain_failure` for an "Add content with AI" job (a lesson added, or the
+/// course revised), which has no Resume: it changed nothing, so try again.
+pub fn plain_revision_failure(kind: Option<&str>, raw: &str) -> Option<String> {
+    Some(crate::t(&format!("courses.ai_run.revision_failure.{}", stored_failure(kind, raw)?.name())))
+}
 
 #[cfg(test)]
 mod tests {
@@ -128,7 +212,7 @@ mod tests {
         ];
         for (err, text) in cases {
             assert_eq!(err.to_string(), text);
-            let (new, old) = (err.kind().map(|k| k as u8), super::super::failure_kind(&text).map(|k| k as u8));
+            let (new, old) = (err.kind().map(|k| k as u8), super::failure_kind_from_text(&text).map(|k| k as u8));
             assert_eq!(new, old, "{text}");
         }
     }

@@ -1717,6 +1717,36 @@ courses:
     heading_stopped: "Übersetzung angehalten"
     phase_start: "Wird übersetzt"
     phase_file: "{file} wird übersetzt ({n} von {total})"
+  ai_run:
+    failure:
+      key: "Dein Kurs wurde nicht fertig geschrieben. Der KI-Anbieter hat den API-Schlüssel des Servers nicht akzeptiert. Die Besitzerin oder der Besitzer kann ihn unter Benutzer verwalten prüfen; dann versuche es erneut."
+      quota: "Dein Kurs wurde nicht fertig geschrieben. Das Konto bei deinem KI-Anbieter hat kein Guthaben mehr oder sein Nutzungslimit erreicht. Prüfe Tarif und Abrechnung beim Anbieter und versuche es dann erneut."
+      busy: "Dein Kurs wurde nicht fertig geschrieben. Der KI-Anbieter ist gerade ausgelastet. Warte eine Minute und versuche es dann erneut."
+      unusable: "Dein Kurs wurde nicht fertig geschrieben. Die Antwort der KI ließ sich nicht zum Aufbau des Kurses verwenden. Versuche es erneut."
+      turned_down: "Dein Kurs wurde nicht fertig geschrieben. Der KI-Anbieter hat die Anfrage abgelehnt. Versuche es erneut; wenn es wieder anhält, kann die Besitzerin oder der Besitzer den Schlüssel unter Benutzer verwalten prüfen."
+      provider_error: "Dein Kurs wurde nicht fertig geschrieben. Der KI-Anbieter hat mit einem Fehler geantwortet. Versuche es erneut."
+      unreachable: "Dein Kurs wurde nicht fertig geschrieben. Der KI-Anbieter hat nicht rechtzeitig geantwortet oder war nicht erreichbar. Versuche es in einer Minute erneut."
+    revision_failure:
+      key: "Der KI-Anbieter hat den API-Schlüssel des Servers nicht akzeptiert. Die Besitzerin oder der Besitzer kann ihn unter Benutzer verwalten prüfen; dann versuche es erneut. Der Kurs ist unverändert."
+      quota: "Das Konto bei deinem KI-Anbieter hat kein Guthaben mehr oder sein Nutzungslimit erreicht. Prüfe Tarif und Abrechnung beim Anbieter und versuche es dann erneut. Der Kurs ist unverändert."
+      busy: "Der KI-Anbieter ist gerade ausgelastet. Warte eine Minute und versuche es dann erneut. Der Kurs ist unverändert."
+      unusable: "Die Antwort der KI ließ sich nicht verwenden. Versuche es erneut oder formuliere es anders. Der Kurs ist unverändert."
+      turned_down: "Der KI-Anbieter hat die Anfrage abgelehnt. Versuche es erneut; wenn es wieder anhält, kann die Besitzerin oder der Besitzer den Schlüssel unter Benutzer verwalten prüfen. Der Kurs ist unverändert."
+      provider_error: "Der KI-Anbieter hat mit einem Fehler geantwortet. Versuche es erneut. Der Kurs ist unverändert."
+      unreachable: "Der KI-Anbieter hat nicht rechtzeitig geantwortet oder war nicht erreichbar. Versuche es in einer Minute erneut. Der Kurs ist unverändert."
+    heading:
+      stopped: "Erstellung angehalten"
+      adding_stopped: "Hinzufügen angehalten"
+      editing_stopped: "Bearbeitung angehalten"
+      revision_stopped: "Überarbeitung angehalten"
+      ready: "Dein Kurs ist fertig"
+      new_lesson: "Die neue Lektion ist da"
+      changes_in: "Deine Änderungen sind übernommen"
+      adding: "Lektion zu {title} wird hinzugefügt…"
+      editing: "{title} wird bearbeitet…"
+      revising: "{title} wird überarbeitet…"
+      writing: "{title} wird geschrieben…"
+      your_course: "dein Kurs"
   picker:
     title: Was möchtest du lernen?
     lead_anon: Wähle einen fertigen Kurs. Jeder Kurs behält seinen eigenen Fortschritt, Wortschatz, Spiele und Verlauf.

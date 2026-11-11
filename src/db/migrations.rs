@@ -8,6 +8,7 @@ pub(crate) const MIGRATIONS: &[&str] = &[
     include_str!("migrations/v002_no_skc.sql"), // v2: no Skrongle Cash, no shop
     include_str!("migrations/v003_share_links.sql"), // v3: share links carry a name, not an address
     include_str!("migrations/v004_permissions.sql"), // v4: per-account permissions and their presets
+    include_str!("migrations/v005_error_kind.sql"), // v5: courses.error_kind
 ];
 
 /// Migrations (1-based versions) that rebuild a table other tables point at:
