@@ -586,7 +586,11 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
     };
     let (due_count, due) = super::vocab::due_cards(&state, &p, 3).await?;
     let course = content.view();
-    let settings = project.filter(|pr| !pr.set_up).map(|pr| super::courses::settings_view(&pr, content, true));
+    let settings = project.filter(|pr| !pr.set_up).map(|pr| {
+        let mut st = super::courses::settings_view(&pr, content, true);
+        st.for_account(&p.user);
+        st
+    });
     Ok(Page(HomeTemplate {
         settings,
         hero: hero.render(&course, &measures)?,

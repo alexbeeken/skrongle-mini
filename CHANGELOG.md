@@ -18,6 +18,11 @@ numbers work is in the README, "Versions".
   AI keys, temporary passwords, two-factor off and Make owner stay the
   owner's. The permissions are stored and shown; they do not limit anything
   else yet.
+- The **Skip levels** permission now counts. An account without it starts
+  every course at the beginning: it is not asked *Where do you want to
+  start?*, has no level row behind the gear on a course's card and cannot
+  take the placement test. A level chosen earlier is kept; it just cannot be
+  moved.
 
 ## 0.2.1 (2026-11-09)
 

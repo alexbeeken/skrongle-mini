@@ -15,7 +15,9 @@ of the app practises the same lessons.
    levels, like Spanish's A1, A2…; a course with a placement test lets you
    take it to find out). Starting further in skips the earlier lessons
    without passing them. Change any of it later from the gear on the
-   course's card on `/courses`.
+   course's card on `/courses`. Choosing a level needs the **Skip levels**
+   permission, which the person who runs the server gives: without it the
+   wizard does not ask and the course starts at the beginning.
 4. The course's home page leads with today's goal and *Continue*, then the
    modes. Pick one.
 
