@@ -7,7 +7,7 @@
   "order": 30,
   "summary": "Invitation links, temporary passwords and the AI switch.",
   "focus": "What the owner does on Manage Users",
-  "content": "## Who sees it\n\n**Manage Users** is in the account menu of owner accounts only. For anyone else the page does not exist.\n\n## Accounts\n\nThe page lists every account. The box holds at most 8.\n\nIf the box takes people by invitation, press **Make an invitation link**. The link works once and lasts 7 days. It shows only once, so press **Copy**. **Revoke** takes back a link nobody used.\n\nOn each account the owner can:\n\n- Set a **temporary password**. It shows once. The person chooses their own at the next sign-in.\n- **Turn off two-factor** for someone who lost their phone.\n- **Make owner**, which cannot be undone on this page.\n\n## AI features\n\nThis card holds the AI keys. It also holds one switch, **Hide AI features for everyone**. When it is on, no account sees the tutor, Generate the course, Use AI or translation. The keys stay saved. Turn it off to show them again.\n\nThe switch is for the whole box. There is no setting for one account.",
+  "content": "## Who sees it\n\n**Manage Users** is in the account menu of owner accounts only. For anyone else the page does not exist.\n\n## Accounts\n\nThe page lists every account. The box holds at most 50.\n\nIf the box takes people by invitation, press **Make an invitation link**. The link works once and lasts 7 days. It shows only once, so press **Copy**. **Revoke** takes back a link nobody used.\n\nOn each account the owner can:\n\n- Set a **temporary password**. It shows once. The person chooses their own at the next sign-in.\n- **Turn off two-factor** for someone who lost their phone.\n- **Make owner**, which cannot be undone on this page.\n\n## AI features\n\nThis card holds the AI keys. It also holds one switch, **Hide AI features for everyone**. When it is on, no account sees the tutor, Generate the course, Use AI or translation. The keys stay saved. Turn it off to show them again.\n\nThe switch is for the whole box. There is no setting for one account.",
   "vocabulary": [
     {
       "term": "temporary password",
@@ -85,8 +85,8 @@
       "question_id": "acct-owner-05",
       "prompt": "At most how many accounts can the box hold?",
       "type": "numeric",
-      "correct_answer": "8",
-      "explanation": "A Skrongle mini holds at most 8 accounts.",
+      "correct_answer": "50",
+      "explanation": "A Skrongle mini holds at most 50 accounts.",
       "hints": [
         "It is the same number as in the first lesson."
       ]

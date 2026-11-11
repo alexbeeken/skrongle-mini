@@ -811,9 +811,8 @@ E2E_BASE_URL=… E2E_OWNER_EMAIL=… E2E_OWNER_PASSWORD=… npx --prefix e2e pla
 ```
 
 The server needs `SKRONGLE_SIGNUP=invite` (the systemd unit's setting) and
-**no more than 8 accounts**, the most a server holds, so use a fresh one for
-each run (`docker compose down -v`). A run makes the owner and seven
-accounts. CI runs `scripts/release-e2e.sh` twice in the job "e2e release
+an owner link nobody has used, so use a fresh one for each run
+(`docker compose down -v`). A run makes the owner and seven accounts. CI runs `scripts/release-e2e.sh` twice in the job "e2e release
 specs", on the dev build: once without dev mode (an owner link, as a release has) and
 once with `SKRONGLE_DEV=1` (dev routes exist, the dev user is the owner), so
 the specs cannot rot; it is not in the required checks. Run against the 0.2.1
@@ -850,12 +849,12 @@ build with `SKRONGLE_SIGNUP=open`, each on a fresh server:
 |---|---|
 | `landing-try`, `mistakes`, `profile-nav`, `profile-autosave` | clean |
 | `smoke/motivator`, `smoke/motivator-xp`, `smoke/motivator-reward`, `smoke/daily-goal`, `smoke/drill-first-set`, `smoke/french`, `smoke/sprint-check-error`, `smoke/sprint-sort` | clean |
-| `smoke/happy-paths` | its first eight tests are clean; the rest cannot register, because the server is full (8 accounts) |
+| `smoke/happy-paths` | its first eight tests were clean; the rest could not register, because a server held 8 accounts when this was run. It holds 50 now (#133) and the spec has not been run again |
 | `smoke/privacy` | fails: it needs an AI key on the server (the seeded one), which a release server has not |
 | `smoke/practice-empty-check`, `practice-keys`, `practice-nothing-yet`, `practice-result-order`, `practice-summary`, `placement`, `start-level`, `wrong-answers*`, `test-course-games`, `complete-test-course`, `sprint-ladder` | need the test course, which only a server with `TEST_COURSE=1` offers (the first three were run and fail with `no course "test-course"`; the rest name it and were not run) |
 | `smoke/phone-width` and every spec using `devLogin`, `devReset`, `/dev/` or the dev AI | not dev-free |
 
-Only specs that fit together under 8 accounts are in `release-open` (`landing-try`,
+Only specs that fitted together under 8 accounts, the limit when this was written (50 since #133), are in `release-open` (`landing-try`,
 `mistakes`, `profile-nav`, `smoke/motivator`, `smoke/sprint-check-error`,
 `smoke/sprint-sort`); the other clean ones need a server of their own (run them
 by file with `--project chromium` and `E2E_BASE_URL` at a fresh open-signup release server). A

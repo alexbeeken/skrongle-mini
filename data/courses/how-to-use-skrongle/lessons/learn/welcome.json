@@ -7,7 +7,7 @@
   "order": 10,
   "summary": "What Skrongle is, the five ways to learn and who can do what.",
   "focus": "The shape of the app and who can do what",
-  "content": "## What Skrongle is\n\nSkrongle teaches from courses. A course is a set of lessons. You open a course, pick a way to learn and go.\n\nEvery way to learn uses the same lessons. What you do in one way counts in the others.\n\n## Five ways to learn\n\n- **Sprint mode**: short sessions for a phone, about five minutes.\n- **Study mode**: read each lesson and test yourself.\n- **Play mode**: games and flashcards.\n- **Guide**: one lesson at a time, in small steps.\n- **AI tutoring**: a chat with a tutor. It needs an AI key, which the owner adds (see the AI unit).\n\nCourses, Sprint mode, Study mode, Play mode and the Guide all work without any AI key.\n\n## Who can do what\n\nEvery account can learn, make its own courses and share them.\n\nOne account is the **owner**. This is the person who runs the box Skrongle lives on. The word *Owner* shows under the owner's name on the profile page. Only the owner adds AI keys, hides the AI features and manages the other accounts.\n\nA Skrongle mini holds at most 8 accounts.",
+  "content": "## What Skrongle is\n\nSkrongle teaches from courses. A course is a set of lessons. You open a course, pick a way to learn and go.\n\nEvery way to learn uses the same lessons. What you do in one way counts in the others.\n\n## Five ways to learn\n\n- **Sprint mode**: short sessions for a phone, about five minutes.\n- **Study mode**: read each lesson and test yourself.\n- **Play mode**: games and flashcards.\n- **Guide**: one lesson at a time, in small steps.\n- **AI tutoring**: a chat with a tutor. It needs an AI key, which the owner adds (see the AI unit).\n\nCourses, Sprint mode, Study mode, Play mode and the Guide all work without any AI key.\n\n## Who can do what\n\nEvery account can learn, make its own courses and share them.\n\nOne account is the **owner**. This is the person who runs the box Skrongle lives on. The word *Owner* shows under the owner's name on the profile page. Only the owner adds AI keys, hides the AI features and manages the other accounts.\n\nA Skrongle mini holds at most 50 accounts.",
   "vocabulary": [
     {
       "term": "course",
@@ -96,10 +96,10 @@
       "question_id": "use-welcome-05",
       "prompt": "At most how many accounts can a Skrongle mini hold?",
       "type": "numeric",
-      "correct_answer": "8",
-      "explanation": "A Skrongle mini holds at most 8 accounts.",
+      "correct_answer": "50",
+      "explanation": "A Skrongle mini holds at most 50 accounts.",
       "hints": [
-        "It is a small number, less than ten."
+        "It is enough for a class: more than forty, fewer than sixty."
       ]
     }
   ],

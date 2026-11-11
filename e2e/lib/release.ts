@@ -12,7 +12,7 @@
 // systemd unit's setting) and one of
 //   E2E_OWNER_LINK                          the first-run owner link from the log
 //   E2E_OWNER_EMAIL + E2E_OWNER_PASSWORD    an owner that already exists
-// A server holds 8 accounts at most, so use a fresh one for each run.
+// A run needs the server's unused owner link, so use a fresh server for each run.
 import { expect, type Browser, type BrowserContext, type Page } from "@playwright/test";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -98,7 +98,9 @@ export function saveOwner(account: Account): void {
 export async function registerHere(page: Page, account: Account): Promise<void> {
   await page.getByTestId("register-email").fill(account.email);
   await page.getByTestId("register-password").fill(account.password);
-  await page.getByTestId("register-age").check();
+  // The owner's form has no age box (#126); everyone else's has.
+  const age = page.getByTestId("register-age");
+  if (await age.count()) await age.check();
   await page.getByTestId("register-submit").click();
   await page.waitForLoadState("domcontentloaded");
   if (await page.getByTestId("register-error").isVisible()) throw new Error(`registration failed: ${await page.getByTestId("register-error").innerText()}`);
