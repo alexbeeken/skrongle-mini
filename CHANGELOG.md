@@ -4,6 +4,14 @@ What changed in each release, for the person running the server. Newest
 first. Each release's GitHub notes are its section here. How version
 numbers work is in the README, "Versions".
 
+## Unreleased
+
+- A Skrongle mini now holds up to 50 accounts, up from 8, so a class fits.
+  It takes 128 connections at once, up from 32. Nothing to change on your
+  side. A full class using it at the same moment has not been measured on a
+  Pi Zero 2 W yet; if yours is slow or runs out of memory with many
+  learners at once, please open an issue with what `skrongle doctor` prints.
+
 ## 0.2.1 (2026-11-09)
 
 A sign-in fix and a lighter server. Nothing to change on your side.

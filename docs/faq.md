@@ -42,8 +42,8 @@ two-factor sign-in off for you there too. Skrongle sends no e-mail, so there is 
 See [Accounts and AI keys](self-hosting#accounts-and-ai-keys).
 
 **Why does my Skrongle mini say it has all the accounts it can hold?**
-A Skrongle mini holds at most 8 accounts (a household plus a couple of
-guests). The number is fixed, not a setting: a small known size keeps the
+A Skrongle mini holds at most 50 accounts (a class, or a household with
+room to spare). The number is fixed, not a setting: a known size keeps the
 server light enough for a Pi Zero 2 W. Nobody new can register, by form,
 invitation link or proxy sign-in, until an account is deleted. See
 [Accounts and AI keys](self-hosting#accounts-and-ai-keys).

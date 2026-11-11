@@ -32,9 +32,11 @@ pub const MAX_ACCOUNT_BYTES: usize = 32 * 1024 * 1024;
 pub const MAX_COURSES_PER_USER: usize = 50;
 /// How many built courses (built-in and user-made together) the in-memory
 /// cache keeps: past it the least recently used one is dropped and rebuilt
-/// on its next use (#33). Equal to `caps::MAX_ACCOUNTS`: each account has one
-/// active course, so this is the most anyone can be using.
-pub const MAX_STORES: usize = crate::caps::MAX_ACCOUNTS;
+/// on its next use (#33). A number of its own, not `caps::MAX_ACCOUNTS`
+/// (mini #133): a built course is megabytes, and one per account would not
+/// fit in the unit's `MemoryMax=64M`. A class mostly shares one course, so 8
+/// covers it; a learner on a ninth course waits for it to be built again.
+pub const MAX_STORES: usize = 8;
 
 /// What one account may store in courses. `Default` gives the constants
 /// above; the server reads `SKRONGLE_COURSES_PER_USER`, `SKRONGLE_COURSE_BYTES` and

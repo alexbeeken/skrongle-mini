@@ -807,7 +807,7 @@ writable path, and a release never touches the database.
   codes count against sign-in, and a blocked sign-in blocks it). The address is the peer, or
   the last `X-Forwarded-For` entry when the peer is a proxy on loopback;
   an IPv6 address counts by its /64. Each limit keeps its own table of at
-  most 64 keys (`caps::MAX_RATE_LIMIT_KEYS`); a full table drops ended
+  most 400 keys (`caps::MAX_RATE_LIMIT_KEYS`); a full table drops ended
   windows first, and then depends on the limit (`security::WhenFull`).
   The per-account limits refuse a new key (as over the limit) rather than
   evict a running window, so a flood cannot reset an account's
@@ -843,7 +843,7 @@ writable path, and a release never touches the database.
   `Db::call` that writes). One account may write course files 120 times in
   5 minutes (`security::COURSE_WRITES_PER_USER`). The cache of built
   courses (built-in and user-made) keeps at most 8
-  of them (`courses::MAX_STORES`, one active course per account; boot
+  of them (`courses::MAX_STORES`, a number of its own, since a class mostly shares one course; boot
   puts the seed course in), least recently used out first. Lesson Markdown is rendered by pulldown-cmark; raw HTML in
   Markdown is escaped (shown as text) and links or images with a scheme
   other than http(s) or mailto point to `#` (`content::render_markdown`),

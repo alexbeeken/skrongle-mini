@@ -52,9 +52,9 @@ Environment=MALLOC_TRIM_THRESHOLD_=65536
 MemoryMax=64M
 MemoryHigh=48M
 TasksMax=32
-# Open files: 32 connections (caps::MAX_CONNECTIONS, #46) plus SQLite's files,
-# outgoing calls (the AI providers) and logs, with headroom: 32 + ~200 is
-# plenty. Set explicitly, not left to the distro.
+# Open files: 128 connections (caps::MAX_CONNECTIONS, #46) plus SQLite's files,
+# outgoing calls (the AI providers) and logs: 128 + ~128 of headroom. Set
+# explicitly, not left to the distro.
 LimitNOFILE=256
 CPUWeight=80
 Nice=2

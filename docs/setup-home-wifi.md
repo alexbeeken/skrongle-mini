@@ -231,7 +231,7 @@ code from the phone. Ask everyone you invite to do the same.
 
 On **Manage Users**, click **Make an invitation link**, copy it (it is shown
 only once) and send it to one person however you like. Each link works once,
-for 7 days; make one per person. Skrongle holds up to 8 accounts.
+for 7 days; make one per person. Skrongle holds up to 50 accounts.
 
 Optional, on the same page under **AI features**: paste an API key from one
 of the AI providers to turn on the tutor and course generation for everyone.

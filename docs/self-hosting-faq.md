@@ -124,7 +124,7 @@ Use Tailscale, or put a TLS proxy in front for a public site: see
 
 **Who can sign up?** Only people you invite. The first account is yours,
 made through the owner link in the log; everyone else needs an invitation
-link from your **Manage Users** page, one per person, up to 8 accounts. See
+link from your **Manage Users** page, one per person, up to 50 accounts. See
 [Accounts and AI keys](self-hosting#accounts-and-ai-keys).
 
 **I opened the page and it says the server has no owner yet.** Make your
