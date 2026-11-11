@@ -10,9 +10,13 @@
 # deploy/dietpi-install.sh, starts the installed binary by hand (a
 # container has no systemd) with the environment the unit gives it, checks
 # /healthz and `owner-link`, then runs the script again to see an update
-# keep the env file and unit and copy the database aside, and last runs
-# deploy/uninstall.sh without and with --purge. One line per check, ok or
-# FAIL; non-zero exit on any FAIL.
+# keep the env file and unit and copy the database aside. The later runs
+# get a stand-in `systemctl` (it starts and stops the binary and prints the
+# unit's Environment= lines), so the script's systemd half runs too and its
+# last lines, the owner link block, are checked (#124, #125). The stand-in
+# answers every user, so it cannot show what real systemd refuses; that
+# takes a real DietPi. Last it runs deploy/uninstall.sh without and with
+# --purge (#127). One line per check, ok or FAIL; non-zero exit on any FAIL.
 set -u
 
 LABEL="${1:-container}"
@@ -28,8 +32,10 @@ LOG=$(mktemp)
 ok()   { echo "  ok   $1"; }
 fail() { echo "  FAIL $1"; FAILED=1; }
 stop_server() {
-  [ -z "$PID" ] || kill "$(cat "$DATA/server.pid" 2>/dev/null)" 2>/dev/null
-  wait "$PID" 2>/dev/null; PID=
+  SERVER=$(cat "$DATA/server.pid" 2>/dev/null) || SERVER=
+  [ -z "$SERVER" ] || kill "$SERVER" 2>/dev/null
+  [ -z "$PID" ] || wait "$PID" 2>/dev/null
+  PID=
 }
 finish() {
   stop_server
@@ -90,17 +96,102 @@ case "$LINK" in
   *) echo "$LINK"; fail "owner-link prints a /register?invite= link" ;;
 esac
 
-# 4. Run the script again: an update keeps the env and unit and copies the
-# database aside. Stop the server first, as systemctl stop would.
-stop_server
+# 4. Run the script again, now with a stand-in systemctl on the PATH, so it
+# goes on past "no systemctl" to its end: stop, copy the database aside,
+# start, print the owner link block (#124, #125). An update keeps the env
+# file and unit.
+cat > /usr/local/bin/systemctl <<'STUBEOF'
+#!/bin/sh
+# A stand-in for systemd in scripts/dietpi-install-check.sh: stop, restart,
+# is-active and `show -p Environment` for the skrongle unit. Anything else
+# (daemon-reload, enable) does nothing.
+DATA=/mnt/dietpi_userdata/skrongle
+unit_env() { sed -n 's/^Environment=//p' /etc/systemd/system/skrongle.service | tr '\n' ' '; }
+alive() { P=$(cat "$DATA/server.pid" 2>/dev/null) && [ -n "$P" ] && kill -0 "$P" 2>/dev/null; }
+stop() { if alive; then kill "$P"; while alive; do sleep 1; done; fi; }
+case "${1:-}" in
+  stop) stop ;;
+  restart)
+    stop
+    su -s /bin/sh skrongle -c "echo \$\$ >$DATA/server.pid; cd /opt/skrongle && exec env $(unit_env) /opt/skrongle/skrongle >>$DATA/server.log 2>&1" >/dev/null 2>&1 &
+    # systemd would not wait, but under QEMU a start can take longer than
+    # the 20 s the install script allows.
+    i=0
+    while [ "$i" -lt "${HEALTH_WAIT:-600}" ]; do
+      if curl -fsS -o /dev/null http://127.0.0.1:7576/healthz 2>/dev/null; then break; fi
+      i=$((i + 2)); sleep 2
+    done
+    ;;
+  is-active) alive ;;
+  show) case "$*" in *"-p Environment "*) unit_env; echo ;; esac ;;
+esac
+STUBEOF
+chmod 0755 /usr/local/bin/systemctl
+IP=$(hostname -I 2>/dev/null | cut -d' ' -f1)
+IP="${IP:-$(hostname)}"
+# The last line of the script's output that is not blank.
+last_line() { grep -v '^$' "$LOG" | tail -n 1; }
+
 if sh "$INSTALL" >"$LOG" 2>&1; then ok "a second run succeeds"; else fail "a second run succeeds"; fi
 cat "$LOG"
 grep -q "^kept /etc/skrongle/env" "$LOG" && ok "second run keeps the env file" || fail "second run keeps the env file"
 grep -q "^kept /etc/systemd/system/skrongle.service" "$LOG" && ok "second run keeps the unit" || fail "second run keeps the unit"
 [ -f "$DATA/learn.db.before-$VERSION" ] && ok "learn.db.before-$VERSION exists" || fail "learn.db.before-$VERSION exists"
 [ -x /opt/skrongle/skrongle.previous ] && ok "skrongle.previous kept" || fail "skrongle.previous kept"
+grep -q "^Skrongle $VERSION is installed and running\.$" "$LOG" \
+  && ok "second run says installed and running" || fail "second run says installed and running"
+grep -q "^  http://$IP:$PORT/register?invite=[A-Za-z0-9_-]*$" "$LOG" \
+  && ok "the owner link is on a line of its own, with this machine's address ($IP)" \
+  || fail "the owner link is on a line of its own, with this machine's address ($IP)"
+case "$(last_line)" in
+  "  It works once. For a new one: sudo /opt/skrongle/skrongle owner-link --service") ok "the owner link block ends the output" ;;
+  *) fail "the owner link block ends the output (last line: $(last_line))" ;;
+esac
+NOT_OURS=$(find "$DATA" ! -user skrongle 2>/dev/null)
+[ -z "$NOT_OURS" ] && ok "every file in $DATA is owned by skrongle" || fail "every file in $DATA is owned by skrongle (not: $NOT_OURS)"
 
-# 5. Uninstall keeps the data folder, --purge removes it (#127). This is the
+# 5. With SKRONGLE_PUBLIC_URL set, the link is printed as the binary gave it.
+echo "SKRONGLE_PUBLIC_URL=http://example.test:$PORT" >> /etc/skrongle/env
+sh "$INSTALL" >"$LOG" 2>&1 || fail "a run with SKRONGLE_PUBLIC_URL succeeds"
+if grep -q "^  http://example.test:$PORT/register?invite=" "$LOG"; then
+  ok "with SKRONGLE_PUBLIC_URL the link starts with it"
+else
+  cat "$LOG"; fail "with SKRONGLE_PUBLIC_URL the link starts with it"
+fi
+
+# 6. A failing owner-link is shown, not swallowed: the skrongle user cannot
+# read an env file that is root's alone.
+chmod 0600 /etc/skrongle/env
+sh "$INSTALL" >"$LOG" 2>&1 || fail "a run where owner-link fails still ends well"
+if grep -q "cannot read /etc/skrongle/env" "$LOG"; then
+  ok "a failing owner-link shows what it said"
+else
+  cat "$LOG"; fail "a failing owner-link shows what it said"
+fi
+case "$(last_line)" in
+  "Skrongle $VERSION is up: open http://$IP:$PORT") ok "and the run ends with the is-up line" ;;
+  *) fail "and the run ends with the is-up line (last line: $(last_line))" ;;
+esac
+chmod 0640 /etc/skrongle/env
+
+# 7. Once the owner has registered, a run ends with the is-up line alone.
+TOKEN=$(run_as "cd /opt/skrongle && /opt/skrongle/skrongle owner-link" 2>&1 | sed -n 's/.*\/register?invite=//p')
+CODE=$(curl -s -o /dev/null -w '%{http_code}' --data-urlencode "invite=$TOKEN" \
+  --data-urlencode "email=owner@example.test" --data-urlencode "password=a long test password 7" \
+  --data-urlencode "age=on" "http://127.0.0.1:$PORT/register")
+[ "$CODE" = 303 ] && ok "the owner registers with the link" || fail "the owner registers with the link (HTTP $CODE)"
+sh "$INSTALL" >"$LOG" 2>&1 || fail "a run with an account succeeds"
+if grep -q "register?invite=\|could not make the owner link" "$LOG"; then
+  cat "$LOG"; fail "with an account, no link and no error text"
+else
+  ok "with an account, no link and no error text"
+fi
+case "$(last_line)" in
+  "Skrongle $VERSION is up: open http://$IP:$PORT") ok "and the run ends with the is-up line" ;;
+  *) fail "and the run ends with the is-up line (last line: $(last_line))" ;;
+esac
+
+# 8. Uninstall keeps the data folder, --purge removes it (#127). This is the
 # repository's uninstall.sh: at a release tag, the one in the tarball.
 UNINSTALL="$HERE/../deploy/uninstall.sh"
 if sh "$UNINSTALL" >"$LOG" 2>&1; then ok "uninstall.sh runs"; else fail "uninstall.sh runs"; fi
