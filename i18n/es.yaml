@@ -681,7 +681,7 @@ profile:
     turn_on: "Activar la verificación en dos pasos con una aplicación de autenticación"
 manage:
   title: Gestionar usuarios
-  about: "Acciones sobre cualquier cuenta. Solo los propietarios ven esta página."
+  about: "Acciones sobre cualquier cuenta. Los propietarios ven toda la página; los superusuarios ven las cuentas y fijan sus permisos."
   email: Dirección de correo electrónico
   unknown: "Ninguna cuenta tiene la dirección {email}."
   accounts: "Cuentas"
@@ -712,6 +712,13 @@ manage:
   make_owner: "Hacer propietario"
   make_owner_about: "La cuenta pasa a ser propietaria también: ve Gestionar usuarios en el menú de la cuenta y puede hacer todo lo de esta página. Aquí no se puede deshacer."
   make_owner_done: "{email} ya es propietario."
+  permissions: "Permisos"
+  permissions_preset: "Perfil"
+  permissions_save: "Guardar"
+  permissions_done: "Permisos guardados para {email}."
+  permissions_owner: "Los permisos de un propietario no se pueden cambiar: los propietarios pueden hacerlo todo."
+  permissions_self: "No puedes cambiar tus propios permisos."
+  permissions_ai_hidden: "Las funciones de IA están ocultas para todos en este servidor."
   api_keys:
     title: Claves API de IA
     info_text: "Las funciones de IA de todas las cuentas usan estas claves, facturadas a la cuenta a la que pertenece cada clave. Las claves se cifran antes de guardarse y no se vuelven a mostrar; solo quedan visibles los últimos cuatro caracteres para que sepas qué clave hay guardada. Solo los propietarios las ven."
@@ -739,6 +746,8 @@ manage:
     key_on_file: "✓ Configurada"
     ends_in: "termina en"
     paste_new_key: "Pega una clave nueva para reemplazarla"
+    perm_on: "Permitido"
+    perm_off: "No permitido"
   ai:
     title: "Funciones de IA"
     info: "Sobre las funciones de IA"

@@ -36,7 +36,7 @@
               <div><strong>{{ u.display_name() }}</strong></div>
             </div>
             <a role="menuitem" href="{{ crate::base_path() }}/profile" data-testid="nav-profile">{{ crate::t("nav.profile") }}</a>
-            {% if u.owner %}<a role="menuitem" href="{{ crate::base_path() }}/manage" data-testid="nav-manage">{{ crate::t("nav.manage") }}</a>{% endif %}
+            {% if u.manages_users() %}<a role="menuitem" href="{{ crate::base_path() }}/manage" data-testid="nav-manage">{{ crate::t("nav.manage") }}</a>{% endif %}
             <a role="menuitem" href="{{ crate::base_path() }}/courses" data-testid="nav-switch-course">{{ crate::t("nav.switch_course") }}</a>
             <a role="menuitem" href="{{ crate::base_path() }}/docs" data-testid="nav-docs">{{ crate::t("nav.documentation") }}</a>
             <form method="post" action="{{ crate::base_path() }}/logout" data-testid="nav-logout-form">

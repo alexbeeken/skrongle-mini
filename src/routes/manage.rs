@@ -1,14 +1,18 @@
-//! `/manage`: the page for whoever runs the server (owners only,
+//! `/manage`: the page for whoever runs the server (owners,
 //! `users.owner`). Every account, newest first, all on one page (the
-//! server holds at most `caps::MAX_ACCOUNTS`), with
+//! server holds at most `caps::MAX_ACCOUNTS`), with its permissions
+//! (#139, `perms.rs`: the Permissions dialog, Student / Teacher / Custom) and
 //! the actions on one: a temporary password, two-factor off and make
 //! owner (#635, #16, `owner.rs`); and with
 //! `SKRONGLE_SIGNUP=invite`, the invitation links (#634, `signup.rs`); and the AI section
 //! (#25): the server's AI API keys, which every account's AI features use
 //! (`secrets.rs`), and the switch that hides those features for everyone
 //! (`settings::AI_OFF`).
+//! A superuser (an account with `Perm::Superuser`, not an owner) gets the
+//! page too, with the accounts and their permissions and nothing else: the
+//! rest, and every route but `POST /manage/permissions`, stays the owners'.
 //! Anyone else gets a 404, as if the page did not exist; the account menu
-//! links here only for owners.
+//! links here only for those two (`CurrentUser::manages_users`).
 
 use askama::Template;
 use axum::extract::{Query, State};
@@ -21,6 +25,7 @@ use std::sync::Arc;
 use super::Page;
 use crate::auth::{self, CurrentUser};
 use crate::error::AppError;
+use crate::perms::{self, Perm, Perms};
 use crate::profile;
 use crate::secrets::{self, KeyStatus, Provider};
 use crate::AppState;
@@ -29,6 +34,9 @@ use crate::AppState;
 #[template(path = "manage.html")]
 pub struct ManageTemplate {
     pub user: Option<CurrentUser>,
+    /// The viewer is an owner: the whole page. Otherwise a superuser, who
+    /// gets the accounts and their permissions only.
+    pub is_owner: bool,
     /// What the last action did, or why it could not.
     pub notice: Option<String>,
     pub error: Option<String>,
@@ -55,6 +63,11 @@ pub struct ManageTemplate {
     pub ai_off: bool,
     /// The model the Ollama-compatible server runs (`settings::OLLAMA_MODEL`), '' for the default.
     pub ollama_model: String,
+    /// The presets the Permissions dialog offers, the built-in ones first;
+    /// Custom follows them in the template.
+    pub presets: Vec<PresetChoice>,
+    /// The seven permissions, in the order the dialog lists them.
+    pub perms: Vec<PermLine>,
 }
 
 pub struct AccountRow {
@@ -63,22 +76,66 @@ pub struct AccountRow {
     /// '' when no session is on record.
     pub last_sign_in: String,
     pub owner: bool,
+    /// `users.perms`, for the dialog (`data-perms`).
+    pub perms: i64,
+    /// `owner`, a preset's id, or `custom` (`data-preset`).
+    pub preset: String,
+    /// The same as the Permissions column shows it.
+    pub preset_label: String,
+    /// The viewer may set this account's permissions: not an owner's, and
+    /// not their own.
+    pub can_edit: bool,
 }
 
-/// The page, for an owner.
+/// A preset in the Permissions dialog: a radio that carries its set.
+pub struct PresetChoice {
+    pub id: i64,
+    pub label: String,
+    pub perms: i64,
+}
+
+/// A permission in the Permissions dialog.
+pub struct PermLine {
+    pub id: &'static str,
+    pub bit: i64,
+    pub label: String,
+    pub about: String,
+    /// The permission it is no use without (`Perm::needs`), '' for none.
+    pub needs: &'static str,
+    /// An AI feature: gone for everyone while "Hide AI features" is on.
+    pub ai: bool,
+}
+
+/// A preset's name on screen: the built-in ones translated
+/// (`perms.student`, `perms.teacher`), a saved one as it was named.
+fn preset_label(name: &str, builtin: bool) -> String {
+    if builtin { crate::t(&format!("perms.{name}")) } else { name.to_string() }
+}
+
+/// The page: all of it for an owner, the accounts for a superuser (what
+/// only an owner sees is not read for anyone else).
 async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, AppError> {
     let now = crate::db::now();
     let vault = state.vault.clone();
-    let (invites, accounts, (api_keys, ai_off, ollama_model)) = state
+    let is_owner = user.owner;
+    let (invites, accounts, (api_keys, ai_off, ollama_model), presets) = state
         .db
         .call(move |c| {
-            let ai = (secrets::statuses(c, &vault)?, crate::settings::ai_off(c)?, crate::settings::get(c, crate::settings::OLLAMA_MODEL)?.unwrap_or_default());
-            Ok((crate::signup::open_invites(c, now)?, crate::signup::accounts(c)?, ai))
+            let ai_off = crate::settings::ai_off(c)?;
+            let (invites, ai) = if is_owner {
+                let model = crate::settings::get(c, crate::settings::OLLAMA_MODEL)?.unwrap_or_default();
+                (crate::signup::open_invites(c, now)?, (secrets::statuses(c, &vault)?, ai_off, model))
+            } else {
+                (Vec::new(), (Vec::new(), ai_off, String::new()))
+            };
+            Ok((invites, crate::signup::accounts(c)?, ai, perms::presets(c)?))
         })
         .await?;
     let total = accounts.len() as i64;
+    let viewer = user.id;
     Ok(ManageTemplate {
         user: Some(user),
+        is_owner,
         notice: None,
         error: None,
         mode: state.signup.as_str(),
@@ -88,6 +145,18 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
         list: accounts
             .into_iter()
             .map(|a| AccountRow {
+                can_edit: !a.owner && a.id != viewer && !a.email.is_empty(),
+                perms: a.perms.bits(),
+                preset: match a.preset_id {
+                    _ if a.owner => "owner".to_string(),
+                    Some(id) => id.to_string(),
+                    None => "custom".to_string(),
+                },
+                preset_label: match &a.preset_name {
+                    _ if a.owner => crate::t("perms.owner"),
+                    Some(name) => preset_label(name, a.preset_builtin),
+                    None => crate::t("perms.custom"),
+                },
                 email: a.email,
                 created: profile::long_date(a.created_at),
                 last_sign_in: a.last_sign_in.map(profile::long_date).unwrap_or_default(),
@@ -100,6 +169,18 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
         api_keys,
         ai_off,
         ollama_model,
+        presets: presets.into_iter().map(|p| PresetChoice { id: p.id, label: preset_label(&p.name, p.builtin), perms: p.perms.bits() }).collect(),
+        perms: Perm::ALL
+            .into_iter()
+            .map(|p| PermLine {
+                id: p.id(),
+                bit: p.bit(),
+                label: p.label(),
+                about: p.about(),
+                needs: p.needs().map(Perm::id).unwrap_or_default(),
+                ai: matches!(p, Perm::AiCourses | Perm::AiTutor),
+            })
+            .collect(),
     })
 }
 
@@ -113,7 +194,8 @@ impl ManageTemplate {
 #[derive(Deserialize)]
 pub struct ShowQuery {
     /// Back from an action: `unknown`, `revoked`,
-    /// `two-factor-off` or `owner`, about `email`;
+    /// `two-factor-off`, `owner`, `permissions` (or why not:
+    /// `permissions-owner`, `permissions-self`), about `email`;
     /// or `key-removed`, about `provider`; or `ai-off` / `ai-on`.
     pub did: Option<String>,
     pub email: Option<String>,
@@ -122,7 +204,7 @@ pub struct ShowQuery {
 
 /// GET /manage
 pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, Query(q): Query<ShowQuery>) -> Result<Response, AppError> {
-    if !user.owner {
+    if !user.manages_users() {
         return Err(AppError::NotFound);
     }
     let mut t = load(&state, user).await?;
@@ -132,6 +214,9 @@ pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, Query(q
         Some("revoked") => t.notice = Some(crate::t("manage.invite_revoked")),
         Some("two-factor-off") => t.notice = Some(crate::t1("manage.two_factor_off_done", "email", email)),
         Some("owner") => t.notice = Some(crate::t1("manage.make_owner_done", "email", email)),
+        Some("permissions") => t.notice = Some(crate::t1("manage.permissions_done", "email", email)),
+        Some("permissions-owner") => t.error = Some(crate::t("manage.permissions_owner")),
+        Some("permissions-self") => t.error = Some(crate::t("manage.permissions_self")),
         Some("key-removed") => {
             if let Some(p) = q.provider.as_deref().and_then(Provider::parse) {
                 t.notice = Some(crate::t1("manage.api_keys.removed", "provider", p.label()));
@@ -265,6 +350,56 @@ pub async fn turn_off_two_factor(State(state): State<Arc<AppState>>, user: Curre
     Ok(done("two-factor-off", &email))
 }
 
+/// POST /manage/permissions (email=…, preset=<id>|custom, perm_<id>=on …):
+/// the account gets a preset's set (`perms::apply_preset`, a copy) or, for
+/// `custom`, the set of the `perm_<id>` fields sent, normalised here: a
+/// permission whose needed one is off is stored off, whatever the form's
+/// greyed-out toggles said. For a preset the `perm_<id>` fields are ignored.
+/// An owner or a superuser; a 404 otherwise. Nobody changes an owner's
+/// permissions, and a superuser does not change their own.
+pub async fn set_permissions(State(state): State<Arc<AppState>>, user: CurrentUser, Form(form): Form<Vec<(String, String)>>) -> Result<Response, AppError> {
+    if !user.manages_users() {
+        return Err(AppError::NotFound);
+    }
+    let field = |name: &str| form.iter().find(|(k, _)| k == name).map(|(_, v)| v.as_str());
+    let email = field("email").unwrap_or_default().trim().to_lowercase();
+    let e = email.clone();
+    let found = state
+        .db
+        .call(move |c| {
+            let Some(id) = crate::owner::find(c, &e)? else {
+                return Ok(None);
+            };
+            let owner: bool = c.query_row("SELECT owner FROM users WHERE id = ?1", [id], |r| r.get(0))?;
+            Ok(Some((id, owner)))
+        })
+        .await?;
+    let Some((target, target_owner)) = found else {
+        return Ok(done("unknown", &email));
+    };
+    if target_owner {
+        return Ok(done("permissions-owner", &email));
+    }
+    if target == user.id {
+        return Ok(done("permissions-self", &email));
+    }
+    let preset = field("preset").unwrap_or_default();
+    if preset == "custom" {
+        let set = Perm::ALL.into_iter().fold(Perms::STUDENT, |set, p| set.with(p, field(&format!("perm_{}", p.id())).is_some())).normalized();
+        state.db.call(move |c| perms::set_custom(c, target, set)).await?;
+        tracing::info!("user {} set the permissions of user {target} to custom ({})", user.id, set.bits());
+    } else {
+        let Ok(id) = preset.parse::<i64>() else {
+            return Err(AppError::BadRequest("preset must be a preset's id or custom".into()));
+        };
+        if !state.db.call(move |c| perms::apply_preset(c, target, id)).await? {
+            return Err(AppError::BadRequest("no such preset".into()));
+        }
+        tracing::info!("user {} set the permissions of user {target} to preset {id}", user.id);
+    }
+    Ok(done("permissions", &email))
+}
+
 /// What the keys form autosaves (`static/manage.js`): `key_<provider>`
 /// (`key_anthropic`, …; `key_ollama` is a base URL), any of them, and
 /// `ollama_model`.
@@ -383,3 +518,6 @@ pub async fn set_ai(State(state): State<Arc<AppState>>, user: CurrentUser, Form(
     let did = if off { "ai-off" } else { "ai-on" };
     Ok(Redirect::to(&crate::url(&format!("/manage?did={did}#ai"))).into_response())
 }
+
+#[cfg(test)]
+mod tests;

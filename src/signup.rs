@@ -286,21 +286,42 @@ pub fn purge(conn: &Connection, now: i64) -> rusqlite::Result<usize> {
 /// One account, for the Manage Users page's list.
 #[derive(Debug, Clone)]
 pub struct Account {
+    pub id: i64,
     pub email: String,
     pub created_at: i64,
     /// The newest session still on record (sessions last 30 days), if any.
     pub last_sign_in: Option<i64>,
     pub owner: bool,
+    /// What the account may do (`users.perms`, #138).
+    pub perms: crate::perms::Perms,
+    /// The preset it was given (`users.preset_id`): `None` is Custom.
+    pub preset_id: Option<i64>,
+    /// That preset's stored name (`student` and `teacher` for the built-in ones).
+    pub preset_name: Option<String>,
+    pub preset_builtin: bool,
 }
 
 /// Every account, newest first. The server holds at most
 /// `caps::MAX_ACCOUNTS`, so there is no paging.
 pub fn accounts(conn: &Connection) -> rusqlite::Result<Vec<Account>> {
     let mut stmt = conn.prepare_cached(
-        "SELECT COALESCE(u.email, ''), u.created_at, (SELECT MAX(s.created_at) FROM sessions s WHERE s.user_id = u.id), u.owner
-         FROM users u ORDER BY u.created_at DESC, u.id DESC",
+        "SELECT COALESCE(u.email, ''), u.created_at, (SELECT MAX(s.created_at) FROM sessions s WHERE s.user_id = u.id), u.owner,
+                u.id, u.perms, p.id, p.name, COALESCE(p.builtin, 0)
+         FROM users u LEFT JOIN permission_presets p ON p.id = u.preset_id ORDER BY u.created_at DESC, u.id DESC",
     )?;
-    let rows = stmt.query_map([], |r| Ok(Account { email: r.get(0)?, created_at: r.get(1)?, last_sign_in: r.get(2)?, owner: r.get(3)? }))?;
+    let rows = stmt.query_map([], |r| {
+        Ok(Account {
+            email: r.get(0)?,
+            created_at: r.get(1)?,
+            last_sign_in: r.get(2)?,
+            owner: r.get(3)?,
+            id: r.get(4)?,
+            perms: crate::perms::Perms::from_bits(r.get(5)?),
+            preset_id: r.get(6)?,
+            preset_name: r.get(7)?,
+            preset_builtin: r.get(8)?,
+        })
+    })?;
     rows.collect()
 }
 
@@ -493,6 +514,13 @@ mod tests {
             assert_eq!(list.len(), crate::caps::MAX_ACCOUNTS);
             assert_eq!(list[0].email, format!("u{:02}@example.org", crate::caps::MAX_ACCOUNTS - 1));
             assert_eq!(list[list.len() - 1].email, "u00@example.org");
+            // Its permissions and the preset they came from (#139).
+            use crate::perms::{self, Perm, Perms};
+            let first = &list[0];
+            assert_eq!((first.perms, first.preset_id, first.preset_name.as_deref(), first.preset_builtin), (Perms::TEACHER, Some(perms::TEACHER_PRESET), Some("teacher"), true));
+            perms::set_custom(c, first.id, Perms::STUDENT.with(Perm::AiTutor, true))?;
+            let first = &accounts(c)?[0];
+            assert_eq!((first.perms.bits(), first.preset_id, first.preset_name.as_deref(), first.preset_builtin), (4, None, None, false));
             Ok(())
         })
         .unwrap();

@@ -331,7 +331,7 @@ profile:
     turn_on: "Zwei-Faktor-Anmeldung mit einer Authenticator-App einschalten"
 manage:
   title: Benutzer verwalten
-  about: "Aktionen für jedes Konto. Nur Eigentümer sehen diese Seite."
+  about: "Aktionen für jedes Konto. Eigentümer sehen die ganze Seite; Superuser sehen die Konten und legen deren Berechtigungen fest."
   email: E-Mail-Adresse
   unknown: "Kein Konto hat die Adresse {email}."
   accounts: "Konten"
@@ -362,6 +362,13 @@ manage:
   make_owner: "Zum Eigentümer machen"
   make_owner_about: "Das Konto wird ebenfalls Eigentümer: Es sieht „Benutzer verwalten“ im Kontomenü und kann jede Aktion auf dieser Seite ausführen. Das lässt sich hier nicht rückgängig machen."
   make_owner_done: "{email} ist jetzt Eigentümer."
+  permissions: "Berechtigungen"
+  permissions_preset: "Vorlage"
+  permissions_save: "Speichern"
+  permissions_done: "Berechtigungen für {email} gespeichert."
+  permissions_owner: "Die Berechtigungen eines Eigentümers lassen sich nicht ändern: Eigentümer dürfen alles."
+  permissions_self: "Du kannst deine eigenen Berechtigungen nicht ändern."
+  permissions_ai_hidden: "KI-Funktionen sind auf diesem Server für alle ausgeblendet."
   api_keys:
     title: KI-API-Schlüssel
     info_text: "Die KI-Funktionen jedes Kontos verwenden diese Schlüssel, abgerechnet über das Konto, zu dem der Schlüssel gehört. Schlüssel werden vor dem Speichern verschlüsselt und nie wieder angezeigt; nur die letzten vier Zeichen bleiben sichtbar, damit du erkennst, welcher Schlüssel hinterlegt ist. Nur Eigentümer sehen sie."
@@ -389,6 +396,8 @@ manage:
     key_on_file: "✓ Gesetzt"
     ends_in: "endet auf"
     paste_new_key: "Füge einen neuen Schlüssel ein, um ihn zu ersetzen"
+    perm_on: "Erlaubt"
+    perm_off: "Nicht erlaubt"
   ai:
     title: "KI-Funktionen"
     info: "Über die KI-Funktionen"

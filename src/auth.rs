@@ -190,9 +190,15 @@ impl CurrentUser {
     }
 
     /// May this account use `p`? An owner may use everything.
-    #[cfg_attr(not(test), allow(dead_code))] // asked from #139 on
     pub fn can(&self, p: Perm) -> bool {
         self.owner || self.perms.has(p)
+    }
+
+    /// May this account open Manage Users (`/manage`, #139)? An owner, who
+    /// sees all of it, or a superuser, who sees the accounts and sets
+    /// their permissions.
+    pub fn manages_users(&self) -> bool {
+        self.can(Perm::Superuser)
     }
 
     /// The same for a page route: `Err(AppError::NoPermission)`.

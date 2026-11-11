@@ -414,6 +414,16 @@ their next sign-in), **Turn off two-factor** and **Make owner** (another
 person who may do all this). No message is sent: give
 them the password yourself.
 
+Each account's row also has **Permissions**: choose **Student** (may do
+nothing extra), **Teacher** (everything but Superuser; what a new account
+gets) or **Custom**, which shows a switch for each of the seven permissions.
+An account you give **Superuser** gets **Manage Users** in its menu and sees
+the accounts there, to set other people's permissions; it never sees the
+invitation links, the AI keys or the three actions above, and it cannot
+change an owner's permissions or its own. Owners always have every
+permission. For now the permissions are only stored and shown: apart from
+Superuser, they do not yet limit what an account can do.
+
 ### If you lock yourself out
 
 The binary has commands that change the database directly, for when you

@@ -1682,7 +1682,8 @@ keys). The password dialog keeps its explicit buttons. The page needs JavaScript
   account without one (signed in through a proxy) gives a code from its
   second step, or with no second step nothing (#376). It guards the
   password change and every two-factor change.
-- **Manage Users page** (`/manage`, owner accounts only, #220): actions
+- **Manage Users page** (`/manage`, #220; owners, and superusers for its
+  account list, see [Permissions](#permissions)): actions
   that reach any account, for people running the app; the account menu
   links to it. An account is an owner when `users.owner` is 1. With `SKRONGLE_SIGNUP` `invite` or `closed` (#634)
   the first account made on a server with no accounts becomes one (the
@@ -1692,8 +1693,13 @@ keys). The password dialog keeps its explicit buttons. The page needs JavaScript
   `./spanish-learning make-owner <email>` does (#635; see
   `docs/self-hosting.md`, "If you lock yourself out").
   In dev mode the
-  dev user (`dev@example.com`) always is one. For anyone else the menu has
-  no link, and the page and its forms answer 404 (`src/routes/manage.rs`).
+  dev user (`dev@example.com`) always is one. An account with the
+  `superuser` permission that is not an owner (#139) gets the link and the
+  page too, with the title, the notices and the **Accounts** card only (no
+  invitation card, no AI card, none of the three owner's actions below),
+  and of the page's forms only `POST /manage/permissions`. For anyone else the menu has
+  no link, and the page and its forms answer 404 (`src/routes/manage.rs`,
+  `CurrentUser::manages_users`).
   - **Accounts** (#634, `src/signup.rs`): the (i) says which sign-up mode
     the server is in (`SKRONGLE_SIGNUP`: `open`, the default; `invite`; `closed`), how invitations work and how many accounts
     there are. In `invite` mode,
@@ -1704,7 +1710,9 @@ keys). The password dialog keeps its explicit buttons. The page needs JavaScript
     invitations are listed (made, expires) with **Revoke**
     (`POST /manage/invites/revoke`). Below, every account, newest
     first, all on one page (the server holds at most 8): e-mail address, created, last sign-in
-    (the newest session on record; sessions last 30 days), and the
+    (the newest session on record; sessions last 30 days), **Permissions**
+    (*Owner*, the preset's name, or *Custom*; the row's **Permissions**
+    button opens the dialog described under [Permissions](#permissions)), and the
     actions per row, each opening a dialog with the address, what it does
     and a confirm button. Nothing is sent to the account; each writes one
     `info` log line (which owner, which account id, what; never the
@@ -1815,6 +1823,62 @@ there is no e-mail verification (#10).
 A forgotten password has no reset link: the owner sets a temporary
 password on the Manage Users page (under [Profile](#profile)), which the
 learner changes at the next sign-in.
+
+## Permissions
+
+What an account may do is a set of seven permissions (#137, `src/perms.rs`),
+stored as one integer, `users.perms`, one bit each:
+
+| id | bit | Name on screen | Needs | What it allows |
+|---|---|---|---|---|
+| `create_courses` | 1 | Create courses | | Make a new course of one's own: Create a course, Copy, Copy and translate |
+| `ai_courses` | 2 | Use AI in courses | `create_courses` | Generate a course, Use AI / Add content, Edit with AI, Copy and translate |
+| `ai_tutor` | 4 | Use the AI tutor | | The AI tutor (`/tutor`) |
+| `share_courses` | 8 | Share courses | `create_courses` | Make invitation links for one's own course |
+| `skip_levels` | 16 | Skip levels | | Choose a starting level, change level, take the placement test |
+| `privacy` | 32 | Privacy | | The account's study progress and last sign-in are not shown on Manage Users |
+| `superuser` | 64 | Superuser | | See the accounts on Manage Users, set permissions and presets, see learners' progress |
+
+A permission whose needed one is off counts as off, and a set is always
+stored that way (`Perms::normalized`). So far the permissions are stored and
+edited; except for `superuser` opening Manage Users, the features do not ask
+for them yet (the other issues of #137 do that).
+
+- **Presets**: **Student** is no permission (0), **Teacher** the first six
+  (63, not `superuser`); both are rows of `permission_presets`
+  (`builtin = 1`, ids 1 and 2). An account has its own set and the preset it
+  was given (`users.preset_id`, `NULL` = **Custom**). Giving a preset copies
+  the preset's set onto the account. A new account is a Teacher.
+- **Owners** have every permission whatever is stored, and nobody edits an
+  owner's permissions. A **superuser** is not an owner: it is an account
+  with the `superuser` permission, and it sees only the accounts on Manage
+  Users. Invitation links, temporary passwords, two-factor off, Make owner,
+  the AI keys and "Hide AI features" stay the owner's.
+- **Who may edit whom**: an owner or a superuser sets the permissions of any
+  account that is not an owner, except, for a superuser, their own. Rows
+  that cannot be edited have no **Permissions** button, and the route
+  refuses them with a red notice and changes nothing.
+- **The dialog** (`manage-permissions-dialog`, one for the page, filled from
+  the row's `data-preset` and `data-perms` by `static/manage.js`): the
+  account's address, the radios **Student**, **Teacher** (every row of
+  `permission_presets`, each carrying its set in `data-perms`) and
+  **Custom**, then the seven permissions, one line each with its name and
+  one sentence (`perms.<id>_about`). With a preset chosen the lines are a
+  read-only list (✓ or –, no switch). With **Custom** each line has a switch
+  (a checkbox named `perm_<id>`), starting from what was shown. While
+  **Create courses** is off, **Use AI in courses** and **Share courses** are
+  greyed out and off (`data-needs`, from `Perm::needs`). While "Hide AI
+  features for everyone" is on, the two AI permissions say that AI features
+  are hidden for everyone on this server (that switch wins).
+- **`POST /manage/permissions`** (`email`, `preset` = a preset's id or
+  `custom`, `perm_<id>` for each permission that is on; an owner or a
+  superuser, 404 otherwise): a preset is copied onto the account
+  (`perms::apply_preset`; an id no preset has is a 400) and the `perm_`
+  fields are ignored; `custom` stores the set of the fields sent, normalised
+  by the server, which never trusts the greyed-out state
+  (`perms::set_custom`). It writes one `info` log line and comes back to the
+  page with "Permissions saved for …". The change reaches the account at its
+  next request.
 
 ## Two-factor sign-in
 
