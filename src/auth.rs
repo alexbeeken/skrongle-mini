@@ -145,7 +145,8 @@ pub struct CurrentUser {
     /// The server's "Hide AI features" switch (`settings::AI_OFF`, the
     /// owner's, on Manage Users; the same for every account, #25). Pages
     /// hide the tutor, course generation and AI revisions, and their routes
-    /// refuse through `require_ai`.
+    /// refuse. It wins over the two AI permissions: ask through `ai_courses`
+    /// / `ai_tutor` and their `require_…` forms (#145), not this field.
     pub ai_off: bool,
     /// `users.lang`: the language the app speaks to this account in
     /// (`i18n`), '' for "whatever the browser asks for".
@@ -178,15 +179,52 @@ impl CurrentUser {
         }
     }
 
-    /// A page that calls an AI provider: `Err` sends an account with AI
-    /// features off to the profile section that turns them back on.
-    pub fn require_ai(&self) -> Result<(), AppError> {
-        if self.ai_off { Err(AppError::AiOff) } else { Ok(()) }
+    /// May this account use AI on courses (`Perm::AiCourses`, #145: Generate
+    /// the course, Use AI / Add content, Edit with AI, Review AI changes,
+    /// Copy and translate)? Not while the server's switch hides AI.
+    pub fn ai_courses(&self) -> bool {
+        !self.ai_off && self.can(Perm::AiCourses)
     }
 
-    /// The same for a JSON route: a 403 body.
-    pub fn require_ai_api(&self) -> Result<(), AppError> {
-        if self.ai_off { Err(AppError::ApiAiOff) } else { Ok(()) }
+    /// May this account use the AI tutor (`Perm::AiTutor`, #145)? Not while
+    /// the server's switch hides AI.
+    pub fn ai_tutor(&self) -> bool {
+        !self.ai_off && self.can(Perm::AiTutor)
+    }
+
+    /// A page that uses AI on a course: `Err(AppError::AiOff)` while the
+    /// server's switch hides AI (asked first, so the page names that
+    /// reason), else `Err(AppError::NoPermission)` for an account without
+    /// "Use AI in courses".
+    pub fn require_ai_courses(&self) -> Result<(), AppError> {
+        self.require_ai_perm(Perm::AiCourses, false)
+    }
+
+    /// The same for a JSON route: `ApiAiOff`, else `ApiNoPermission`.
+    pub fn require_ai_courses_api(&self) -> Result<(), AppError> {
+        self.require_ai_perm(Perm::AiCourses, true)
+    }
+
+    /// The tutor page: `AiOff`, else `NoPermission` for an account without
+    /// "Use the AI tutor".
+    pub fn require_ai_tutor(&self) -> Result<(), AppError> {
+        self.require_ai_perm(Perm::AiTutor, false)
+    }
+
+    /// The same for the tutor's JSON routes: `ApiAiOff`, else `ApiNoPermission`.
+    pub fn require_ai_tutor_api(&self) -> Result<(), AppError> {
+        self.require_ai_perm(Perm::AiTutor, true)
+    }
+
+    /// The switch first, then the permission.
+    fn require_ai_perm(&self, p: Perm, api: bool) -> Result<(), AppError> {
+        match (self.ai_off, self.can(p), api) {
+            (true, _, false) => Err(AppError::AiOff),
+            (true, _, true) => Err(AppError::ApiAiOff),
+            (false, false, false) => Err(AppError::NoPermission),
+            (false, false, true) => Err(AppError::ApiNoPermission),
+            (false, true, _) => Ok(()),
+        }
     }
 
     /// May this account use `p`? An owner may use everything.
@@ -701,6 +739,55 @@ mod tests {
         for e in [AppError::NoPermission, AppError::ApiNoPermission] {
             assert_eq!(e.into_response().status(), axum::http::StatusCode::FORBIDDEN);
         }
+    }
+
+    /// #145: AI is the server's switch and then the account's permission,
+    /// the two permissions apart; the switch is named first.
+    #[test]
+    fn ai_needs_the_switch_off_and_the_permission() {
+        let with = |ai_off: bool, perms: Perms| CurrentUser { ai_off, perms, ..CurrentUser::test(1) };
+        let no_tutor = Perms::TEACHER.with(Perm::AiTutor, false);
+        let no_ai_courses = Perms::TEACHER.with(Perm::AiCourses, false);
+
+        // Neither: the switch is off and the account has the permission.
+        let u = with(false, Perms::TEACHER);
+        assert!(u.ai_courses() && u.ai_tutor());
+        assert!(u.require_ai_courses().is_ok() && u.require_ai_courses_api().is_ok());
+        assert!(u.require_ai_tutor().is_ok() && u.require_ai_tutor_api().is_ok());
+
+        // Permission off: that feature only, and the answer is "not allowed".
+        let u = with(false, no_tutor);
+        assert!(u.ai_courses() && !u.ai_tutor());
+        assert!(u.require_ai_courses().is_ok() && u.require_ai_courses_api().is_ok());
+        assert!(matches!(u.require_ai_tutor(), Err(AppError::NoPermission)));
+        assert!(matches!(u.require_ai_tutor_api(), Err(AppError::ApiNoPermission)));
+        let u = with(false, no_ai_courses);
+        assert!(!u.ai_courses() && u.ai_tutor());
+        assert!(u.require_ai_tutor().is_ok() && u.require_ai_tutor_api().is_ok());
+        assert!(matches!(u.require_ai_courses(), Err(AppError::NoPermission)));
+        assert!(matches!(u.require_ai_courses_api(), Err(AppError::ApiNoPermission)));
+        // "Use AI in courses" needs "Create courses".
+        assert!(!with(false, Perms::TEACHER.with(Perm::CreateCourses, false)).ai_courses());
+
+        // Switch on, with the permission or without: nobody has AI, and the
+        // answer names the switch.
+        for perms in [Perms::TEACHER, no_tutor, no_ai_courses, Perms::STUDENT] {
+            let u = with(true, perms);
+            assert!(!u.ai_courses() && !u.ai_tutor(), "{perms:?}");
+            assert!(matches!(u.require_ai_courses(), Err(AppError::AiOff)));
+            assert!(matches!(u.require_ai_courses_api(), Err(AppError::ApiAiOff)));
+            assert!(matches!(u.require_ai_tutor(), Err(AppError::AiOff)));
+            assert!(matches!(u.require_ai_tutor_api(), Err(AppError::ApiAiOff)));
+        }
+
+        // An owner has both whatever is stored, and neither under the switch.
+        let owner = CurrentUser { owner: true, ..with(false, Perms::STUDENT) };
+        assert!(owner.ai_courses() && owner.ai_tutor());
+        assert!(owner.require_ai_courses().is_ok() && owner.require_ai_tutor_api().is_ok());
+        let owner = CurrentUser { owner: true, ..with(true, Perms::STUDENT) };
+        assert!(!owner.ai_courses() && !owner.ai_tutor());
+        assert!(matches!(owner.require_ai_courses(), Err(AppError::AiOff)));
+        assert!(matches!(owner.require_ai_tutor_api(), Err(AppError::ApiAiOff)));
     }
 
     #[test]

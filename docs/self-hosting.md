@@ -456,7 +456,10 @@ billed to you, and nobody else sees them. To use a model you run yourself,
 give the *Ollama* row your server's base URL (`http://192.168.1.20:11434`,
 any OpenAI-compatible server) and the model it runs (`llama3.1`); it needs
 no key, and a Pi Zero 2 W is far too small to run one itself. The same section has *Hide AI features for everyone*, which takes
-the AI features away from every account. The secret key encrypts saved
+the AI features away from every account. With it off, each account has the AI
+its permissions give it: *Use the AI tutor* and *Use AI in courses*, set per
+account in the *Permissions* dialog on the same page (an account that does not
+see the tutor lacks the first one). The secret key encrypts saved
 keys, so a database without its `.key` file can't use them.
 
 ## Reaching it from outside

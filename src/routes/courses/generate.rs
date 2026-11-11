@@ -232,7 +232,7 @@ pub(super) async fn gen_mode(state: &AppState, row: &CourseRow) -> Result<Option
 
 /// The dialog as it first shows for `row`, or `None` when it is not offered.
 pub(super) async fn generate_view(state: &AppState, user: &CurrentUser, row: &CourseRow, open: bool) -> Result<Option<GenerateView>, AppError> {
-    if user.ai_off {
+    if !user.ai_courses() {
         return Ok(None);
     }
     let Some(mode) = gen_mode(state, row).await? else { return Ok(None) };
@@ -467,7 +467,7 @@ pub async fn generate_in(
     Path(id): Path<String>,
     Form(form): Form<GenerateForm>,
 ) -> Result<Response, AppError> {
-    user.require_ai()?;
+    user.require_ai_courses()?;
     let row = owned(&state, &user, &id).await?;
     let Some(mode) = gen_mode(&state, &row).await? else {
         return Ok(to_editor(&id, if row.is_busy() { "busy" } else { "has-content" }));
@@ -652,14 +652,14 @@ fn job_of(state: &AppState, user: &CurrentUser, id: &str) -> Result<Arc<ai::Job>
 /// GET /courses/generate/{job}: the old status page. Every job is followed
 /// in the editor's modal now.
 pub async fn generate_status(State(state): State<Arc<AppState>>, user: CurrentUser, Path(job): Path<String>) -> Result<Response, AppError> {
-    user.require_ai()?;
+    user.require_ai_courses()?;
     let j = job_of(&state, &user, &job)?;
     Ok(Redirect::to(&crate::url(&format!("/courses/{}?job={job}", j.course_id))).into_response())
 }
 
 /// GET /api/generate/{job}
 pub async fn generate_api(State(state): State<Arc<AppState>>, user: CurrentUser, Path(job): Path<String>) -> Result<Json<ai::Status>, AppError> {
-    user.require_ai_api()?;
+    user.require_ai_courses_api()?;
     let j = job_of(&state, &user, &job).map_err(|_| AppError::Unauthorized)?;
     Ok(Json(state.jobs.status(&j)))
 }

@@ -100,7 +100,7 @@ impl AiJobModal {
 /// While the row still says busy, the finished job's modal (Continue) is
 /// shown rather than a "being generated" page nothing would refresh.
 fn modal_job(state: &AppState, user: &CurrentUser, row: &CourseRow, asked: Option<&str>) -> Option<AiJobModal> {
-    if user.ai_off {
+    if !user.ai_courses() {
         // Hide all AI features: no AI job is followed; the page says the course is busy and offers Cancel.
         return None;
     }
@@ -303,7 +303,7 @@ async fn saved_providers(state: &AppState) -> Result<Vec<crate::secrets::Provide
 
 /// "Add content with AI" for `row`, when it loads and no job holds it.
 async fn ai_view(state: &AppState, user: &CurrentUser, row: &CourseRow, refill: &Refill, locked: bool) -> Result<Option<AiFormView>, AppError> {
-    if (row.is_busy() && !locked) || row.error.is_some() || user.ai_off {
+    if (row.is_busy() && !locked) || row.error.is_some() || !user.ai_courses() {
         return Ok(None);
     }
     // The server's first key.

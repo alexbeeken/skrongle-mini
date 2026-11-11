@@ -416,12 +416,17 @@ whether the other end is real. There is no mock provider and no stub in
 (`ai::ProviderKind::default_base_url`, through `dev::provider_base_url`)
 point at the dev AI provider on this server, and the seeded keys
 are its keys, so fake replies come only from a key whose base URL points
-there. Before any of that, every such handler asks `user.require_ai()` (pages) or
-`user.require_ai_api()` (JSON): while the owner hides the AI features
-(`settings::AI_OFF`, which the session query reads into `CurrentUser::ai_off`
-for every account, #25) a page answers 403 saying so (`AppError::AiOff`) and
-JSON a 403 (`AppError::ApiAiOff`), and the pages that link to those handlers
-leave the links out (`user.ai_off` in the templates).
+there. Before any of that, every such handler asks `user.require_ai_courses()`
+or `user.require_ai_tutor()` (pages), or their `_api` forms (JSON): while the
+owner hides the AI features (`settings::AI_OFF`, which the session query reads
+into `CurrentUser::ai_off` for every account, #25) a page answers 403 saying so
+(`AppError::AiOff`) and JSON a 403 (`AppError::ApiAiOff`); otherwise an account
+without the permission (`Perm::AiCourses` for generation, Use AI, Review AI
+changes and Copy and translate; `Perm::AiTutor` for the tutor; #145) gets
+`AppError::NoPermission` / `ApiNoPermission`. The switch is asked first, so the
+message names the right reason. The pages that link to those handlers leave the
+links out (`user.ai_courses()` / `user.ai_tutor()` in the templates and view
+builders, never `ai_off` itself).
 Every request carries an `x-skrongle-call` header naming its purpose,
 key, job and vars (`ai::call_header`). The providers ignore it. The dev AI
 provider picks its fixture reply by it. Error statuses are read as

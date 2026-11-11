@@ -407,10 +407,10 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
             ))
         })
         .await?;
-    let translate_providers = if user.ai_off { Vec::new() } else { offered_providers(state, &user).await? };
+    let translate_providers = if !user.ai_courses() { Vec::new() } else { offered_providers(state, &user).await? };
     // "Copy and translate to…" beside a settings dialog's copy icon (#630).
     let translate = |st: &mut CourseSettings, c: &CourseCard| {
-        st.translate = c.copyable && !user.ai_off;
+        st.translate = c.copyable && user.ai_courses();
         st.meanings_lang = c.meanings_lang.clone();
         st.translate_providers = translate_providers.clone();
     };

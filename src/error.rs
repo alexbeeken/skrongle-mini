@@ -26,7 +26,7 @@ pub enum AppError {
     /// The same on an API route: a 403 JSON body.
     ApiPasswordChangeRequired,
     /// An AI feature asked for while the owner has hidden the AI features
-    /// for the whole server (`CurrentUser::require_ai`, `settings::AI_OFF`):
+    /// for the whole server (`CurrentUser::require_ai_courses` / `require_ai_tutor`, `settings::AI_OFF`):
     /// a 403 page that says so.
     AiOff,
     /// The same on an API route: a 403 JSON body.

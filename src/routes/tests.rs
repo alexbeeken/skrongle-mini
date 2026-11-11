@@ -1771,6 +1771,115 @@ fn newer_providers_answer_the_tutor_through_the_simulator() {
     assert_eq!(json("/api/manage/keys", &ann_c, serde_json::json!({"ollama_model": "x"})).0, 404);
 }
 
+/// AI per account (#145): "Use the AI tutor" and "Use AI in courses" each
+/// hide and refuse their own feature and leave the other alone. Teacher
+/// minus the tutor is 59, Teacher minus AI in courses is 61; a full Teacher
+/// says how far each route gets when it is allowed.
+#[test]
+fn the_two_ai_permissions_refuse_their_own_routes_only() {
+    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+    let state = super::test_state(false);
+    let account = |email: &str, perms: i64| {
+        state
+            .db
+            .with(|c| {
+                let id = crate::auth::create_user(c, email, "x")?;
+                crate::courses::open_project(c, id, "spanish")?;
+                crate::perms::set_custom(c, id, crate::perms::Perms::from_bits(perms))?;
+                crate::auth::create_session(c, id)
+            })
+            .map(|token| format!("sid={token}"))
+            .unwrap()
+    };
+    let (teacher, no_tutor, no_ai_courses) = (account("tea@example.org", 63), account("ann@example.org", 59), account("bob@example.org", 61));
+    let app = super::router(state.clone());
+    let base = rt.block_on(async {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        tokio::spawn(async move { axum::serve(listener, app).await.unwrap() });
+        format!("http://{addr}")
+    });
+    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
+    let get = |path: &str, c: &str| {
+        let mut r = agent.get(&format!("{base}{path}")).header("cookie", c).call().unwrap();
+        (r.status().as_u16(), r.body_mut().read_to_string().unwrap())
+    };
+    let post = |path: &str, c: &str, form: &[(&str, &str)]| {
+        let mut r = agent.post(&format!("{base}{path}")).header("cookie", c).send_form(form.iter().copied()).unwrap();
+        let loc = r.headers().get("location").and_then(|v| v.to_str().ok()).unwrap_or_default().to_string();
+        (r.status().as_u16(), loc, r.body_mut().read_to_string().unwrap())
+    };
+    let json = |path: &str, c: &str| {
+        let mut r = agent.post(&format!("{base}{path}")).header("cookie", c).send_json(serde_json::json!({"provider": "anthropic", "session": "x", "kind": "say", "text": "hola"})).unwrap();
+        (r.status().as_u16(), r.body_mut().read_to_string().unwrap())
+    };
+    // "Create a course": the new course's id and its editor.
+    let draft = |c: &str| {
+        let (status, loc, _) = post("/courses/new", c, &[]);
+        assert_eq!(status, 303);
+        let id = loc.strip_prefix("/courses/").and_then(|l| l.split('?').next()).expect("to the editor").to_string();
+        (id, get(&loc, c).1)
+    };
+    let generate = |id: &str, c: &str| post(&format!("/courses/{id}/generate"), c, &[("provider", "anthropic"), ("wish", "Volcanoes and how they erupt")]);
+    let tutor_card = r#"data-testid="home-mode" data-mode="ai""#;
+    let not_allowed = "ccount is not allowed to do this";
+
+    // A Teacher: everything, as far as a server without a key takes it.
+    let (id, editor) = draft(&teacher);
+    assert!(editor.contains(r#"data-testid="generate""#), "{editor}");
+    let allowed_generate = generate(&id, &teacher).0;
+    assert_ne!(allowed_generate, 403);
+    assert_eq!(get("/tutor", &teacher).0, 200);
+    let allowed_session = get("/api/tutor/session?id=x", &teacher).0;
+    let allowed_start = json("/api/tutor/start", &teacher).0;
+    assert!(allowed_session != 403 && allowed_start != 403, "{allowed_session} {allowed_start}");
+    assert!(get("/", &teacher).1.contains(tutor_card));
+
+    // Without "Use the AI tutor": no tutor, and AI in courses as before.
+    let (status, body) = get("/tutor", &no_tutor);
+    assert!(status == 403 && body.contains(not_allowed) && !body.contains("turned off on this server"), "{status} {body}");
+    for (status, body) in [get("/api/tutor/session?id=x", &no_tutor), json("/api/tutor/start", &no_tutor), json("/api/tutor/turn", &no_tutor), json("/api/tutor/cancel", &no_tutor)] {
+        assert!(status == 403 && body.contains(not_allowed), "{status} {body}");
+    }
+    let home = get("/", &no_tutor).1;
+    assert!(!home.contains(tutor_card) && !home.contains("/tutor"), "{home}");
+    assert!(!get("/lessons/adjectives-agreement-position", &no_tutor).1.contains("lesson-tutor"));
+    let (id, editor) = draft(&no_tutor);
+    assert!(editor.contains(r#"data-testid="generate""#), "{editor}");
+    assert_eq!(generate(&id, &no_tutor).0, allowed_generate);
+    assert_ne!(get("/api/generate/nope", &no_tutor).0, 403);
+    assert!(get("/courses", &no_tutor).1.contains("Have AI write it"));
+
+    // Without "Use AI in courses": the reverse.
+    assert_eq!(get("/tutor", &no_ai_courses).0, 200);
+    assert_eq!(get("/api/tutor/session?id=x", &no_ai_courses).0, allowed_session);
+    assert_eq!(json("/api/tutor/start", &no_ai_courses).0, allowed_start);
+    assert!(get("/", &no_ai_courses).1.contains(tutor_card));
+    assert!(get("/lessons/adjectives-agreement-position", &no_ai_courses).1.contains("lesson-tutor"));
+    let (id, editor) = draft(&no_ai_courses);
+    assert!(!editor.contains(r#"data-testid="generate""#) && !editor.contains(r#"data-testid="course-ai""#), "{editor}");
+    let (status, _, body) = generate(&id, &no_ai_courses);
+    assert!(status == 403 && body.contains(not_allowed), "{status} {body}");
+    for path in [format!("/courses/{id}/ai"), format!("/courses/{id}/review"), "/courses/spanish/translate".to_string()] {
+        let (status, _, body) = post(&path, &no_ai_courses, &[("provider", "anthropic"), ("lang", "fr")]);
+        assert!(status == 403 && body.contains(not_allowed), "{path}: {status} {body}");
+    }
+    assert_eq!(get("/courses/generate/nope", &no_ai_courses).0, 403);
+    let (status, body) = get("/api/generate/nope", &no_ai_courses);
+    assert!(status == 403 && body.contains(not_allowed), "{status} {body}");
+    let courses = get("/courses", &no_ai_courses).1;
+    assert!(!courses.contains("Have AI write it") && !courses.contains("let an AI write") && !courses.contains("courses-translate"), "{courses}");
+
+    // The server's switch wins, and is the reason named.
+    state.db.with(|c| crate::settings::set_ai_off(c, true)).unwrap();
+    for c in [&teacher, &no_tutor, &no_ai_courses] {
+        let (status, body) = get("/tutor", c);
+        assert!(status == 403 && body.contains("turned off on this server"), "{status} {body}");
+        let (status, _, body) = generate(&id, c);
+        assert!(status == 403 && body.contains("turned off on this server"), "{status} {body}");
+    }
+}
+
 /// Links the app hands out (invitations, share links) use
 /// `SKRONGLE_PUBLIC_URL`, else the request's host; a forwarded host with a
 /// path in it is ignored.
