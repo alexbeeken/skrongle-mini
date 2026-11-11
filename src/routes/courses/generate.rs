@@ -592,7 +592,7 @@ pub async fn generate_in(
                 // The course is ours already: give it back before failing.
                 let (cid, msg) = (row.id.clone(), e.to_string());
                 state.db.call(move |c| courses::finish_generation(c, &cid, Some(&msg))).await?;
-                return Err(e.into());
+                return Err(e);
             }
             (None, brief, notes)
         }
