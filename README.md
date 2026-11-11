@@ -14,8 +14,8 @@ and an AI tutor. Spanish and French courses ship with it; any subject that
 fits *units → lesson groups → lessons* can be a course, written by hand,
 uploaded from files, or described to an AI that writes it for you.
 
-It is built for a handful of people who know whoever runs it: a family, a
-class, a few friends. Up to eight accounts, no e-mail, no outside service of
+It is built for people who know whoever runs it: a family, a class, a few
+friends. Up to 50 accounts, no e-mail, no outside service of
 any kind except the AI providers you choose to give it a key for. A
 Raspberry Pi Zero 2 W runs it with room to spare.
 
@@ -47,7 +47,7 @@ What you get, and what you are responsible for:
 
 | | |
 |---|---|
-| Accounts | Up to 8, each with up to 4 signed-in devices |
+| Accounts | Up to 50, each with up to 4 signed-in devices |
 | Who signs up | Only people the owner invites (the default, `SKRONGLE_SIGNUP=invite`) |
 | E-mail | None. Every link is shown on the page instead of sent |
 | Password reset | The owner sets a temporary password from the Manage Users page or the command line |
@@ -222,10 +222,11 @@ Measured on the Pi, release build:
 | Sign-in | about 160 ms (argon2id, 8 MiB, t=3) |
 | A page | 3 to 10 ms warm; the first page after a restart about 50 ms |
 
-The limits that keep it there are in `src/caps.rs`: 8 accounts, 4 sessions
-each, 32 open connections, 2 tutor replies at once, one course generation at
-a time, and a course cache bounded by the account count. All state lives in
-SQLite, so the process has no growth path.
+The limits that keep it there are in `src/caps.rs`: 50 accounts, 4 sessions
+each, 128 open connections, 2 tutor replies at once, one course generation at
+a time, and at most 8 built courses in memory. All state lives in
+SQLite, so the process has no growth path. The numbers above were measured
+with a few people using it; a full class at once has not been measured yet.
 
 ## Security notes
 

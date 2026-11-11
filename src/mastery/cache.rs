@@ -1,8 +1,8 @@
 //! Each learner's `user_progress` rows for the course they are on, kept in
 //! memory (#38). Quiz picking, the lesson pages and the home page read a
-//! learner's whole map many times a day; with at most
-//! [`caps::MAX_ACCOUNTS`](crate::caps::MAX_ACCOUNTS) accounts the maps are
-//! small, so they stay here instead of being read again each time.
+//! learner's whole map many times a day; a map is one small row per lesson
+//! and there are at most [`caps::MAX_ACCOUNTS`](crate::caps::MAX_ACCOUNTS)
+//! of them, so they stay here instead of being read again each time.
 //!
 //! - One entry per user: the course last read. Reading another course
 //!   replaces it, and when the cache holds `MAX_ACCOUNTS` users a new one

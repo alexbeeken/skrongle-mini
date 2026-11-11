@@ -58,7 +58,7 @@ practice sessions, games and flashcards. Spanish and
 French courses are included. It is one program and one SQLite file, so no web
 server or database server is required.
 
-It holds up to 8 accounts, each signed in on up to 4 devices.
+It holds up to 50 accounts, each signed in on up to 4 devices.
 
 ### Access to the web interface
 

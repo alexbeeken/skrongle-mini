@@ -38,8 +38,9 @@ pub struct Limits {
 
 impl Default for Limits {
     fn default() -> Limits {
-        // 32 connections (#46) stay well inside the units' LimitNOFILE=256 with
-        // SQLite's files and the outgoing connections (the AI providers).
+        // 128 connections (#46, mini #133) are half of the units'
+        // LimitNOFILE=256; the rest covers SQLite's files and the outgoing
+        // connections (the AI providers).
         Limits { max_connections: crate::caps::MAX_CONNECTIONS, header_read: Duration::from_secs(15), body_idle: Duration::from_secs(30) }
     }
 }

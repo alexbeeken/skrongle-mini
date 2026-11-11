@@ -45,6 +45,11 @@ minor one, not a patch.
   your language, as do the headings of the progress window. They were English
   only. The reason is kept with the course, so it no longer depends on the
   provider's wording.
+- A Skrongle mini now holds up to 50 accounts, up from 8, so a class fits.
+  It takes 128 connections at once, up from 32. Nothing to change on your
+  side. A full class using it at the same moment has not been measured on a
+  Pi Zero 2 W yet; if yours is slow or runs out of memory with many
+  learners at once, please open an issue with what `skrongle doctor` prints.
 
 ## 0.2.1 (2026-11-09)
 

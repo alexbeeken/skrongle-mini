@@ -1709,7 +1709,7 @@ keys). The password dialog keeps its explicit buttons. The page needs JavaScript
     its SHA-256 in `signup_invites`, and works once, for 7 days. The open
     invitations are listed (made, expires) with **Revoke**
     (`POST /manage/invites/revoke`). Below, every account, newest
-    first, all on one page (the server holds at most 8): e-mail address, created, last sign-in
+    first, all on one page (the server holds at most 50): e-mail address, created, last sign-in
     (the newest session on record; sessions last 30 days), **Permissions**
     (*Owner*, the preset's name, or *Custom*; the row's **Permissions**
     button opens the dialog described under [Permissions](#permissions)), and the
