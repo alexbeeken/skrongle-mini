@@ -739,6 +739,33 @@ offline. `npm --prefix e2e run typecheck` checks the TypeScript.
 | `e2e/lib/fixtures.ts` | The smoke specs' `test`: seeded `Math.random` and a fake voice in every page; prints the seed on failure |
 | `e2e/results/` | Last run: `last-run.json`, the HTML report, traces (untracked) |
 
+### Judge statements
+
+Jev is the AI judge. A spec gives it a statement with `judge` or `judgeMany`,
+and Jev answers whether the page meets it. The harness that calls it (#58) is
+not in this repository yet, so no spec calls it today.
+
+The rule:
+
+- Ask Jev to confirm what is there: a page rendered, a label reads as a
+  title, a goal was reached. Write the statement as a positive sentence.
+- Check what must be absent with an exact check: `expect(...).not.toMatch`
+  or a locator count of 0. Do not ask Jev to prove a negative.
+
+`scripts/e2e-lint.sh` enforces this. It scans `e2e/specs`, `e2e/lib` and
+`e2e/journeys.ts` for a `judge(` or `judgeMany(` call whose statement starts
+with "No", "Nothing" or "Never", or contains " not " or "n't". It prints the
+file, the line and what to use instead, and exits 1. `scripts/e2e.sh` runs it
+before the browser specs. `scripts/e2e-lint.sh --self-test` checks the rule on
+a sample file. The statement must be a string literal on the same line as the
+call.
+
+Thresholds, for the Jev harness:
+
+- A positive statement passes at 0.8 or more (`PASS` 0.8).
+- A judged value is written to the report even when the spec does not gate on
+  it, so a soft finding stays visible.
+
 ## Smoke specs
 
 ```sh

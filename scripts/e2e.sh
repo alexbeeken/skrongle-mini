@@ -26,6 +26,7 @@
 # Playwright's Chromium (needs network once).
 set -euo pipefail
 cd "$(dirname "$0")/.."
+scripts/e2e-lint.sh # judge statements that say what is absent (docs/testing.md, "Judge statements")
 command -v cargo >/dev/null 2>&1 || { [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"; }
 
 if [ ! -d e2e/node_modules/@playwright/test ]; then
