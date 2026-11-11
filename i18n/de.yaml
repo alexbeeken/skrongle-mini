@@ -34,6 +34,27 @@ error:
   lessons: Lektionen
   courses: Alle Kurse
   ai_off: "Die KI-Funktionen sind auf diesem Server ausgeschaltet."
+  no_permission: "Dein Konto darf das nicht. Frag die Person, die diesen Server betreibt."
+
+perms:
+  create_courses: "Kurse erstellen"
+  create_courses_about: "Einen eigenen neuen Kurs anlegen: Kurs erstellen, Kopieren, Kopieren und übersetzen."
+  ai_courses: "KI in Kursen nutzen"
+  ai_courses_about: "Einen Kurs generieren, KI verwenden, Inhalte hinzufügen, Mit KI bearbeiten, Kopieren und übersetzen."
+  ai_tutor: "Den KI-Tutor nutzen"
+  ai_tutor_about: "Den KI-Tutor nutzen."
+  share_courses: "Kurse teilen"
+  share_courses_about: "Einladungslinks für den eigenen Kurs erstellen."
+  skip_levels: "Stufen überspringen"
+  skip_levels_about: "Eine Anfangsstufe wählen, die Stufe wechseln, den Einstufungstest machen."
+  privacy: "Privatsphäre"
+  privacy_about: "Der Lernfortschritt und die letzte Anmeldung des Kontos werden unter „Benutzer verwalten“ nicht angezeigt."
+  superuser: "Superuser"
+  superuser_about: "Die Konten unter „Benutzer verwalten“ sehen, Berechtigungen und Vorlagen festlegen, den Fortschritt der Lernenden sehen."
+  student: "Schüler"
+  teacher: "Lehrkraft"
+  custom: "Eigene"
+  owner: "Eigentümer"
 
 common:
   pager:

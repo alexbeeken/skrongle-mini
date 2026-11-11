@@ -34,6 +34,27 @@ error:
   lessons: 课节
   courses: 全部课程
   ai_off: "本服务器已关闭 AI 功能。"
+  no_permission: "你的账户无权执行此操作。请联系此服务器的管理者。"
+
+perms:
+  create_courses: "创建课程"
+  create_courses_about: "创建自己的新课程：创建课程、复制、复制并翻译。"
+  ai_courses: "在课程中使用 AI"
+  ai_courses_about: "生成课程、使用 AI、添加内容、用 AI 编辑、复制并翻译。"
+  ai_tutor: "使用 AI 导师"
+  ai_tutor_about: "使用 AI 导师。"
+  share_courses: "分享课程"
+  share_courses_about: "为自己的课程创建邀请链接。"
+  skip_levels: "跳过级别"
+  skip_levels_about: "选择起始级别、更改级别、参加分级测试。"
+  privacy: "隐私"
+  privacy_about: "该账户的学习进度和上次登录时间不会显示在“管理用户”中。"
+  superuser: "超级用户"
+  superuser_about: "在“管理用户”中查看账户、设置权限和预设、查看学习者的进度。"
+  student: "学生"
+  teacher: "教师"
+  custom: "自定义"
+  owner: "所有者"
 
 common:
   pager:

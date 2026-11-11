@@ -12,6 +12,7 @@ use std::sync::Arc;
 
 use crate::db::{now, CachedSql};
 use crate::error::AppError;
+use crate::perms::{Perm, Perms};
 use crate::AppState;
 
 mod cache;
@@ -137,6 +138,10 @@ pub struct CurrentUser {
     /// `users.owner`: sees the Manage Users page, whose actions
     /// reach any account. Set by hand (and on the dev user in dev mode).
     pub owner: bool,
+    /// `users.perms`: what this account may do (`perms.rs`, #138). Ask
+    /// through `can` / `require` / `require_api`, which let an owner do
+    /// everything whatever is stored here.
+    pub perms: Perms,
     /// The server's "Hide AI features" switch (`settings::AI_OFF`, the
     /// owner's, on Manage Users; the same for every account, #25). Pages
     /// hide the tutor, course generation and AI revisions, and their routes
@@ -166,6 +171,7 @@ impl CurrentUser {
             start_unit: String::new(),
             must_change_password: false,
             owner: false,
+            perms: Perms::TEACHER,
             ai_off: false,
             lang: String::new(),
             tz: 0,
@@ -181,6 +187,24 @@ impl CurrentUser {
     /// The same for a JSON route: a 403 body.
     pub fn require_ai_api(&self) -> Result<(), AppError> {
         if self.ai_off { Err(AppError::ApiAiOff) } else { Ok(()) }
+    }
+
+    /// May this account use `p`? An owner may use everything.
+    #[cfg_attr(not(test), allow(dead_code))] // asked from #139 on
+    pub fn can(&self, p: Perm) -> bool {
+        self.owner || self.perms.has(p)
+    }
+
+    /// The same for a page route: `Err(AppError::NoPermission)`.
+    #[cfg_attr(not(test), allow(dead_code))] // asked from #139 on
+    pub fn require(&self, p: Perm) -> Result<(), AppError> {
+        if self.can(p) { Ok(()) } else { Err(AppError::NoPermission) }
+    }
+
+    /// The same for a JSON route: `Err(AppError::ApiNoPermission)`.
+    #[cfg_attr(not(test), allow(dead_code))] // asked from #139 on
+    pub fn require_api(&self, p: Perm) -> Result<(), AppError> {
+        if self.can(p) { Ok(()) } else { Err(AppError::ApiNoPermission) }
     }
 
     /// First name if known, else "Learner": for greetings and the top bar.
@@ -218,11 +242,12 @@ pub fn password_too_long(p: &str) -> bool {
 }
 
 /// Create a password account. The e-mail address (already validated and
-/// lower-cased) names the account and is fixed from here on.
+/// lower-cased) names the account and is fixed from here on. It starts with
+/// the Teacher permissions (#138).
 pub fn create_user(conn: &Connection, email: &str, password_hash: &str) -> rusqlite::Result<i64> {
     conn.execute(
-        "INSERT INTO users (password_hash, created_at, email) VALUES (?1, ?2, ?3)",
-        params![password_hash, now(), email],
+        "INSERT INTO users (password_hash, created_at, email, perms, preset_id) VALUES (?1, ?2, ?3, ?4, ?5)",
+        params![password_hash, now(), email, Perms::TEACHER.bits(), crate::perms::TEACHER_PRESET],
     )?;
     Ok(conn.last_insert_rowid())
 }
@@ -304,7 +329,7 @@ fn session_sql() -> String {
     format!(
         "SELECT u.id, COALESCE(u.email, ''), u.active_course, c.title, u.first_name, u.last_name, NULL, NULL, {}, u.email_verified_at IS NOT NULL, u.owner,
                 COALESCE(p.start_unit, ''), NULL, u.lang, c.owner_id, u.must_change_password,
-                s.expires_at
+                s.expires_at, u.perms
          FROM sessions s JOIN users u ON u.id = s.user_id LEFT JOIN courses c ON c.id = u.active_course
          LEFT JOIN projects p ON p.user_id = u.id AND p.course_id = u.active_course
          WHERE s.session_token = ?1 AND s.expires_at > ?2",
@@ -331,6 +356,7 @@ fn read_session(conn: &Connection, hash: &str, now: i64) -> rusqlite::Result<Opt
                 ai_off: r.get(8)?,
                 email_verified: r.get(9)?,
                 owner: r.get(10)?,
+                perms: Perms::from_bits(r.get(17)?),
                 start_unit: r.get(11)?,
                 lang: r.get(13)?,
                 tz: 0,
@@ -605,6 +631,70 @@ mod tests {
         request(&last);
         request(&last);
         assert_eq!(cache.reads(), reads + 1);
+    }
+
+    /// #138: a changed permission reaches a signed-in account at its next
+    /// request (`users` is watched, so the write forgets the cached session).
+    #[test]
+    fn a_changed_permission_reaches_the_signed_in_account() {
+        let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+        let state = crate::routes::test_state(false);
+        let ann = state.db.with(|c| create_user(c, "ann@example.org", "h")).unwrap();
+        let token = state.db.with(|c| create_session(c, ann)).unwrap();
+        let request = || {
+            let mut headers = HeaderMap::new();
+            headers.insert(COOKIE, HeaderValue::from_str(&format!("sid={token}")).unwrap());
+            rt.block_on(user_from_headers(&state, &headers)).unwrap()
+        };
+        assert_eq!(request().perms, Perms::TEACHER, "a new account has the Teacher set");
+        assert_eq!(request().perms, Perms::TEACHER, "from the cache");
+
+        state.db.with(|c| crate::perms::apply_preset(c, ann, crate::perms::STUDENT_PRESET)).unwrap();
+        assert_eq!(request().perms, Perms::STUDENT);
+        state.db.with(|c| crate::perms::set_custom(c, ann, Perms::STUDENT.with(Perm::AiTutor, true))).unwrap();
+        let user = request();
+        assert!(user.can(Perm::AiTutor) && !user.can(Perm::CreateCourses));
+        // Written by hand, with a bit no permission has and a dependent one alone: read normalised.
+        state.db.with(|c| c.execute("UPDATE users SET perms = ?1 WHERE id = ?2", params![64 + 2 + 1024, ann])).unwrap();
+        assert_eq!(request().perms.bits(), 64);
+    }
+
+    #[test]
+    fn a_new_account_has_the_teacher_set() {
+        let db = crate::db::Db::open_in_memory().unwrap();
+        db.with(|c| {
+            let ann = create_user(c, "ann@example.org", "h")?;
+            let stored: (i64, Option<i64>) = c.query_row("SELECT perms, preset_id FROM users WHERE id = ?1", [ann], |r| Ok((r.get(0)?, r.get(1)?)))?;
+            assert_eq!(stored, (Perms::TEACHER.bits(), Some(crate::perms::TEACHER_PRESET)));
+            let token = create_session(c, ann)?;
+            assert_eq!(user_for_session(c, &token)?.map(|u| u.perms), Some(Perms::TEACHER));
+            Ok(())
+        })
+        .unwrap();
+    }
+
+    #[test]
+    fn an_owner_can_everything_a_student_nothing_a_teacher_all_but_superuser() {
+        use axum::response::IntoResponse;
+        let owner = CurrentUser { owner: true, perms: Perms::STUDENT, ..CurrentUser::test(1) };
+        let student = CurrentUser { perms: Perms::STUDENT, ..CurrentUser::test(2) };
+        let teacher = CurrentUser::test(3);
+        assert_eq!(teacher.perms, Perms::TEACHER);
+        for p in Perm::ALL {
+            assert!(owner.can(p), "owner {p:?}");
+            assert!(owner.require(p).is_ok() && owner.require_api(p).is_ok());
+            assert!(!student.can(p), "student {p:?}");
+            assert!(matches!(student.require(p), Err(AppError::NoPermission)));
+            assert!(matches!(student.require_api(p), Err(AppError::ApiNoPermission)));
+            assert_eq!(teacher.can(p), p != Perm::Superuser, "teacher {p:?}");
+        }
+        // A dependent permission is off when the one it needs is off.
+        let no_create = CurrentUser { perms: Perms::TEACHER.with(Perm::CreateCourses, false), ..CurrentUser::test(4) };
+        assert!(!no_create.can(Perm::AiCourses) && !no_create.can(Perm::ShareCourses) && no_create.can(Perm::AiTutor));
+
+        for e in [AppError::NoPermission, AppError::ApiNoPermission] {
+            assert_eq!(e.into_response().status(), axum::http::StatusCode::FORBIDDEN);
+        }
     }
 
     #[test]

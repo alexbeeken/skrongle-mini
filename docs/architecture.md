@@ -48,6 +48,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 - Two-factor: `two_factor.rs`, `totp.rs`.
 - Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`.
 - Data rights: `db/tables.rs` (the user-table list), `jobs/retention.rs` (retention rules), `signup.rs` (the age confirmation).
+- Permissions: `perms.rs` (`Perm`, `Perms`, the presets; #137), asked through `CurrentUser::can` / `require` / `require_api` in `auth.rs`; stored in `users.perms`, `users.preset_id` and table `permission_presets`.
 - Owner: `owner.rs`, `routes/manage.rs`, `static/manage.js`, `routes/password.rs` (temporary password gate); the server's AI API keys in `secrets.rs` and the hide-AI switch in `settings.rs`, both on Manage Users (#25).
 - Docs pages: `routes/docs.rs` (`/docs` sidebar `SECTIONS`, `/llms.txt`).
 
@@ -105,6 +106,7 @@ src/
   progress.rs    lesson passes shared by every mode: the rule (seen + a run of >= 70 %), the RULES text for tutors and agents, table lesson_passes
   quiz.rs        adaptive question selection, answer normalisation/checking, tiny PRNG
   problems.rs    what the editor and the file page say when a course file is refused: kind, lesson, field, line, message, fix hint (every ContentError and arrange.rs refusal)
+  perms.rs       per-account permissions (#137, #138): Perm (seven, one bit each), Perms (the set in users.perms, normalised: a permission whose needed one is off is off), the presets (table permission_presets; Student and Teacher built in), set_custom / apply_preset. Asked through CurrentUser::can / require / require_api; an owner may do everything
   owner.rs       what the owner does to an account with no message sent (#635): a temporary password (users.must_change_password), two-factor off, make an owner; the binary's commands (owner-link, reset-password, disable-2fa, make-owner, help)
   db/tables.rs   USER_TABLES and SHARED_TABLES: which tables hold a learner's rows, and the test that every table is listed (docs/data-inventory.md)
   jobs/retention.rs  the retention rules the hourly housekeeping applies (old answers, finished notes, failed AI courses)
@@ -280,7 +282,7 @@ session JSON, never hard-coded.
 ```sql
 users          (id AUTOINCREMENT, email, password_hash, created_at, email_verified_at, first_name, last_name,
                 age_confirmed, owner, must_change_password, two_factor, active_course, lang, review_quiet,
-                ai_effort, delete_at)
+                ai_effort, delete_at, perms, preset_id)
                 -- id is never reused after a deletion (AUTOINCREMENT);
                 -- email is what a password account signs in with, set once and never changed;
                 -- password_hash is '' for accounts without one (proxy sign-in);
@@ -296,6 +298,12 @@ users          (id AUTOINCREMENT, email, password_hash, created_at, email_verifi
                 -- review_quiet 1: "Review AI changes" does not open by itself;
                 -- ai_effort: the effort Generate the course last ran at: low | medium | high (Fast, Balanced, Thorough);
                 -- delete_at: unused, nothing reads or writes it; stays until the next schema change
+                -- perms: what the account may do, one bit a permission (src/perms.rs: create_courses 1, ai_courses 2,
+                -- ai_tutor 4, share_courses 8, skip_levels 16, privacy 32, superuser 64), stored normalised; a new
+                -- account gets 63 (Teacher). The session query reads it into CurrentUser::perms; an owner may do
+                -- everything whatever it says;
+                -- preset_id: the preset the set was copied from (permission_presets, SET NULL when it is deleted),
+                -- NULL = a custom set; nothing is enforced from it
 sessions       (id, user_id, session_token UNIQUE, created_at, expires_at)
                 -- session_token is the SHA-256 (hex) of the cookie's token (auth::hash_token), never the token
 totp_keys      (user_id PRIMARY KEY, secret, created_at, confirmed_at, last_step)
@@ -311,6 +319,10 @@ signup_invites (id, token_hash UNIQUE, created_by, created_at, expires_at, used_
                 -- of the link's token; one use (used_at, used_by), 7 days; created_by NULL for the first
                 -- owner's link, else it cascades; used_by is set NULL when the invited account is deleted;
                 -- gone 30 days after expiry
+permission_presets (id, name UNIQUE NOCASE, builtin, perms, created_at)
+                -- named permission sets an account can be given (src/perms.rs); giving one copies perms onto
+                -- users.perms. Built in (builtin 1): id 1 'student' (0) and id 2 'teacher' (63), whose names the
+                -- screen translates
 settings       (name PRIMARY KEY, value)  WITHOUT ROWID
                 -- server-wide settings (src/settings.rs): 'ai_off' = '1' hides every AI feature for
                 -- every account (no row: shown). The session query reads it, so auth/cache.rs watches it
@@ -381,7 +393,8 @@ game_rounds    (user_id, course_id, game, rounds)  PRIMARY KEY (user_id, course_
 The schema is `src/db/migrations/v001_schema.sql` plus the later
 migrations (`v002_no_skc.sql` drops `motivator_purchases` and turns a saved
 `skc` motivator into `xp`; `v003_share_links.sql` rebuilds `course_shares` with a
-`label` instead of an address), which `src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
+`label` instead of an address; `v004_permissions.sql` adds `permission_presets`, `users.perms` and
+`users.preset_id`, and gives every existing account the Teacher set), which `src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
 how many have run, and a later change appends its own entry. A database
 from a build before this schema (its `users` table still has a column of
 the old history) is refused at start with one line naming the file: there

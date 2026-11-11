@@ -119,7 +119,7 @@ Restarting cannot fix 78, so the unit must say `RestartPreventExitStatus=78`.
 Otherwise systemd restarts it every few seconds forever. The log line is:
 
 ```
-fatal: this database was upgraded by a newer Skrongle (schema v4; this binary knows up to v3); deploy that version or restore a backup
+fatal: this database was upgraded by a newer Skrongle (schema v5; this binary knows up to v4); deploy that version or restore a backup
 ```
 
 The older case reads `fatal: this database predates the 1.0 schema; start from a fresh one`.

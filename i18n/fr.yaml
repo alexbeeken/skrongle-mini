@@ -34,6 +34,27 @@ error:
   lessons: Leçons
   courses: Tous les cours
   ai_off: "Les fonctions d’IA sont désactivées sur ce serveur."
+  no_permission: "Votre compte n’est pas autorisé à faire cela. Adressez-vous à la personne qui gère ce serveur."
+
+perms:
+  create_courses: "Créer des cours"
+  create_courses_about: "Créer un nouveau cours à soi : Créer un cours, Copier, Copier et traduire."
+  ai_courses: "Utiliser l’IA dans les cours"
+  ai_courses_about: "Générer un cours, Utiliser l’IA, Ajouter du contenu, Modifier avec l’IA, Copier et traduire."
+  ai_tutor: "Utiliser le tuteur IA"
+  ai_tutor_about: "Utiliser le tuteur IA."
+  share_courses: "Partager des cours"
+  share_courses_about: "Créer des liens d’invitation pour son propre cours."
+  skip_levels: "Sauter des niveaux"
+  skip_levels_about: "Choisir un niveau de départ, changer de niveau, passer le test de niveau."
+  privacy: "Confidentialité"
+  privacy_about: "La progression et la dernière connexion du compte ne sont pas affichées dans Gérer les utilisateurs."
+  superuser: "Superutilisateur"
+  superuser_about: "Voir les comptes dans Gérer les utilisateurs, définir les autorisations et les profils, voir la progression des apprenants."
+  student: "Élève"
+  teacher: "Enseignant"
+  custom: "Personnalisé"
+  owner: "Propriétaire"
 
 common:
   pager:
