@@ -16,8 +16,9 @@
 #
 # Profiles: (none) the servers for aarch64 and x86_64; `arm32` adds armv7l and
 # armv6l once a release ships them (#21); `fetch`, `setup`, and the `qa-*`
-# services matrix.sh runs by name. The `e2e` and `simulator` profiles come
-# with #40 and #44.
+# services matrix.sh runs by name; `e2e` adds e2e-server-<arch> and e2e-<arch>
+# (the release browser specs against the unpacked tarball; aarch64 and
+# x86_64, run by matrix.sh with E2E=1). The `simulator` profile comes with #44.
 #
 # Under QEMU (x86_64 on an ARM Mac through Rosetta is quick; armv7l and
 # armv6l are slow) a page can take seconds and the first start minutes, so
@@ -71,6 +72,28 @@ x-build-armv6l: &build-armv6l
   context: .
   platforms: ["linux/arm/v6"]
   args: { PLATFORM: "linux/arm/v6", BASE: "balenalib/rpi-raspbian:bullseye", ARCHIVE_SOURCES: *raspbian-sources }
+
+x-e2e-server: &e2e-server
+  profiles: [e2e]
+  restart: "no"
+  # A fresh database at every start (a run spends the owner link).
+  tmpfs: [/var/lib/skrongle]
+  command: serve-e2e
+  healthcheck:
+    test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8080/healthz"]
+    interval: 3s
+    timeout: 10s
+    retries: 200
+    start_period: 300s
+
+# Playwright's image for the version e2e/package.json pins (keep them equal):
+# Chromium and its libraries for the host's architecture, so only the server
+# is the architecture under test. Node and the specs run natively.
+x-e2e-runner: &e2e-runner
+  profiles: [e2e]
+  image: mcr.microsoft.com/playwright:v1.64.1-noble
+  init: true
+  entrypoint: ["bash", "/e2e-run.sh"]
 
 services:
   # ---------- the servers: one per architecture, each on its own port ----------
@@ -167,6 +190,48 @@ services:
     environment: { ARCH: armv6l, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}", HEALTH_WAIT: "600" }
     volumes: ["${TARBALLS:-../../dist}:/tarballs:ro", "./fixtures:/usr/local/lib/release-qa/fixtures:ro"]
 
+  # ---------- the browser specs (profile e2e; matrix.sh with E2E=1 runs these) ----------
+  # A server from the unpacked tarball on a fresh database (e2e-server-<arch>
+  # writes its log to a volume), then the Playwright `release` projects
+  # (e2e/specs/release; docs/testing.md, "Release specs") from a second
+  # container, with the owner link read from that log. `docker compose
+  # --profile e2e run --rm --build e2e-<arch>` starts the server it needs.
+  e2e-server-aarch64:
+    <<: *e2e-server
+    image: skrongle-release-qa:aarch64
+    platform: linux/arm64
+    build: *build-aarch64
+    environment: { ARCH: aarch64, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}", SKRONGLE_PUBLIC_URL: "http://e2e-server-aarch64:8080", E2E_LOG: /e2e-log/server.log }
+    volumes: ["${TARBALLS:-../../dist}:/tarballs:ro", "e2e-log-aarch64:/e2e-log"]
+
+  e2e-server-x86_64:
+    <<: *e2e-server
+    image: skrongle-release-qa:x86_64
+    platform: linux/amd64
+    build: *build-x86_64
+    environment: { ARCH: x86_64, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}", SKRONGLE_PUBLIC_URL: "http://e2e-server-x86_64:8080", E2E_LOG: /e2e-log/server.log }
+    volumes: ["${TARBALLS:-../../dist}:/tarballs:ro", "e2e-log-x86_64:/e2e-log"]
+
+  e2e-aarch64:
+    <<: *e2e-runner
+    depends_on: { e2e-server-aarch64: { condition: service_healthy } }
+    environment: { E2E_BASE_URL: "http://e2e-server-aarch64:8080", E2E_SERVER_LOG: /e2e-log/server.log }
+    volumes:
+      - ../..:/repo:ro
+      - ./e2e-run.sh:/e2e-run.sh:ro
+      - ${E2E_RESULTS:-../../results/release-qa/e2e}:/out
+      - e2e-log-aarch64:/e2e-log:ro
+
+  e2e-x86_64:
+    <<: *e2e-runner
+    depends_on: { e2e-server-x86_64: { condition: service_healthy } }
+    environment: { E2E_BASE_URL: "http://e2e-server-x86_64:8080", E2E_SERVER_LOG: /e2e-log/server.log }
+    volumes:
+      - ../..:/repo:ro
+      - ./e2e-run.sh:/e2e-run.sh:ro
+      - ${E2E_RESULTS:-../../results/release-qa/e2e}:/out
+      - e2e-log-x86_64:/e2e-log:ro
+
   # ---------- one-shots ----------
   # The release's tarballs and checksums into TARBALLS (fetch.sh).
   fetch:
@@ -197,3 +262,5 @@ volumes:
   state-x86_64:
   state-armv7l:
   state-armv6l:
+  e2e-log-aarch64:
+  e2e-log-x86_64:

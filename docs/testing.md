@@ -522,6 +522,21 @@ walkthrough, and what a container does not cover: systemd, `update.sh` and
 rollback (the VM layer, #42), and anything timed (emulated speed means
 nothing).
 
+`E2E=1 scripts/release-qa/matrix.sh dist x86_64` adds the release browser
+specs ([Release specs](#release-specs)) for aarch64 and x86_64: the `e2e`
+profile of `compose.yaml` runs the tarball's server in the Debian 11 container and the
+Playwright `release` projects against it from Playwright's own container
+(#41; `scripts/release-qa/README.md`). Off by default.
+
+`.github/workflows/release-qa.yml` runs the same specs in its x86_64 cell
+(#46), natively on the runner: it unpacks the tarball and runs
+`SERVER_BIN=<unpacked>/skrongle RELEASE_E2E_DATA=<unpacked>/data scripts/release-e2e.sh`,
+so the specs (from the checked-out ref) drive the tarball's binary and data;
+a failed run keeps the Playwright report as the artifact
+`playwright-report-release-qa-x86_64`. The ARM cells do not run them (Chromium
+under QEMU); the rig's `e2e` profile does that on a laptop. The workflow also
+has *Run workflow* (`workflow_dispatch`, with a published version or the latest).
+
 `scripts/release-qa.sh <version | tarball dir>` is the one command: it runs
 `scripts/release-check.sh` (for a version) and then `matrix.sh`, and ends
 with one summary and the log paths. The emulated matrix is the check for
@@ -825,7 +840,8 @@ an owner link nobody has used, so use a fresh one for each run
 (`docker compose down -v`). A run makes the owner and eight accounts. CI runs `scripts/release-e2e.sh` twice in the job "e2e release
 specs", on the dev build: once without dev mode (an owner link, as a release has) and
 once with `SKRONGLE_DEV=1` (dev routes exist, the dev user is the owner), so
-the specs cannot rot; it is not in the required checks. Run against the 0.2.1
+the specs cannot rot; it is not in the required checks. The release-QA
+workflow and the Compose rig run them on the unpacked tarball ([Release QA](#release-qa)). Run against the 0.2.1
 aarch64 tarball in the release-QA container rig, all ten pass.
 
 ### AI on a release server

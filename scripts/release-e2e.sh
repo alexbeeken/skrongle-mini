@@ -7,7 +7,8 @@
 #
 #   scripts/release-e2e.sh                    # builds a release binary (no dev feature) and runs both
 #   SERVER_BIN=path scripts/release-e2e.sh    # that binary (CI: the dev build, run with SKRONGLE_DEV=1)
-#   RELEASE_E2E_DEV=1 ...                     # start it with SKRONGLE_DEV=1 (a dev build): /dev routes exist, the specs must not
+#   RELEASE_E2E_DATA=dir ...                  # the server's SKRONGLE_DATA_DIR instead of ./data (a release's unpacked data/, #46)
+#   RELEASE_E2E_DEV=1 ...                   # start it with SKRONGLE_DEV=1 (a dev build): /dev routes exist, the specs must not
 #                                             # use them; the dev user is the owner, so the owner-link test is skipped
 #   SIM_BIN=path ...                          # the dev-feature binary that plays the AI providers for specs/release/ai.spec.ts
 #                                             # (default: SERVER_BIN if it has dev routes, else target/debug built with --features dev;
@@ -84,7 +85,7 @@ start_server() {
   LOG="$WORK/server-$port.log"
   local dev=()
   [ "${RELEASE_E2E_DEV:-0}" = 1 ] && dev=(SKRONGLE_DEV=1)
-  env SKRONGLE_BIND="127.0.0.1:$port" SKRONGLE_DB="$WORK/learn-$port.db" SKRONGLE_DATA_DIR=./data \
+  env SKRONGLE_BIND="127.0.0.1:$port" SKRONGLE_DB="$WORK/learn-$port.db" SKRONGLE_DATA_DIR="${RELEASE_E2E_DATA:-./data}" \
     SKRONGLE_SIGNUP="$1" SKRONGLE_LOG=info ${dev[@]+"${dev[@]}"} ${AI_ENV[@]+"${AI_ENV[@]}"} "$BIN" >"$LOG" 2>&1 &
   PID=$!
   for _ in $(seq 1 100); do curl -fsS "$URL/healthz" >/dev/null 2>&1 && break; sleep 0.2; done
