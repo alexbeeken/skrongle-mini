@@ -1754,6 +1754,7 @@ courses:
     lead_anon: Elige un curso ya hecho. Cada curso guarda su propio progreso, vocabulario, juegos e historial.
     lead_ai_off: Elige un curso ya hecho o escribe el tuyo. Cada curso guarda su propio progreso, vocabulario, juegos e historial.
     lead_ai: Elige un curso ya hecho, escribe el tuyo o describe lo que quieres y deja que una IA escriba el curso por ti. Cada curso guarda su propio progreso, vocabulario, juegos e historial.
+    lead_learn_only: Elige un curso para aprender. Cada curso guarda su propio progreso, vocabulario, juegos e historial.
     projects_heading: Tus proyectos
     tag_current: actual
     tag_revising: en revisión

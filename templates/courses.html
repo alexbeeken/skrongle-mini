@@ -5,7 +5,7 @@
 <section class="hero courses-hero">
   <div>
     <h1>{{ crate::t("courses.picker.title") }}</h1>
-    <p class="lead">{% if let Some(u) = user %}{% if u.ai_off %}{{ crate::t("courses.picker.lead_ai_off") }}{% else %}{{ crate::t("courses.picker.lead_ai") }}{% endif %}{% else %}{{ crate::t("courses.picker.lead_anon") }}{% endif %}</p>
+    <p class="lead" data-testid="courses-lead">{% if let Some(u) = user %}{% if !can_create %}{{ crate::t("courses.picker.lead_learn_only") }}{% else if u.ai_off %}{{ crate::t("courses.picker.lead_ai_off") }}{% else %}{{ crate::t("courses.picker.lead_ai") }}{% endif %}{% else %}{{ crate::t("courses.picker.lead_anon") }}{% endif %}</p>
   </div>
 </section>
 {% if let Some(n) = notice %}<p class="alert" role="status" data-testid="courses-notice">{{ n }}</p>{% endif %}
@@ -138,6 +138,8 @@
 </section>
 {% endif %}
 
+{# Only for an account that may make a course (the Create courses permission, #143). #}
+{% if can_create %}
 <section data-testid="courses-make-section" style="--n: 1">
   <h2 data-testid="courses-make">{{ crate::t("courses.picker.make_heading") }}</h2>
   <div class="course-grid">
@@ -151,6 +153,7 @@
     </article>
   </div>
 </section>
+{% endif %}
 </div>
 
 {% if let Some(g) = generate %}{% include "generate_form.html" %}{% endif %}

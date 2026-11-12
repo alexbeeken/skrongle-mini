@@ -10,7 +10,7 @@ of the app practises the same lessons.
 2. On *What would you like to learn?* (`/courses`) pick a ready-made course
    (Spanish, French and *How to Use Skrongle*, a tutorial for the app
    itself, ship with it), or *Create a course* of your own, by hand
-   or [with AI](making-courses).
+   or [with AI](making-courses). (No *Create a course*? See the [FAQ](faq).)
 3. The first time you open a course, a short wizard sets it up: the
    motivator and, last, where to start (for a course whose units are
    levels, like Spanish's A1, A2…; a course with a placement test lets you

@@ -4,6 +4,14 @@ What changed in each release, for the person running the server. Newest
 first. Each release's GitHub notes are its section here. How version
 numbers work is in the README, "Versions".
 
+## Unreleased
+
+- The **Create courses** permission now counts: an account without it (a
+  Student, for example) has no *Create a course*, *Copy* or *Copy and
+  translate* on its course list, and those actions are refused. It still
+  learns from built-in and shared courses, and courses it already made stay
+  its own to open and edit.
+
 ## 0.3.0 (2026-11-11)
 
 Room for a class, a tutorial course, and fixes for the DietPi installer.

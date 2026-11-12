@@ -1753,6 +1753,7 @@ courses:
     lead_anon: Wähle einen fertigen Kurs. Jeder Kurs behält seinen eigenen Fortschritt, Wortschatz, Spiele und Verlauf.
     lead_ai_off: Wähle einen fertigen Kurs oder schreibe deinen eigenen. Jeder Kurs behält seinen eigenen Fortschritt, Wortschatz, Spiele und Verlauf.
     lead_ai: Wähle einen fertigen Kurs, schreibe deinen eigenen oder beschreibe, was du willst, und lass eine KI den Kurs für dich schreiben. Jeder Kurs behält seinen eigenen Fortschritt, Wortschatz, Spiele und Verlauf.
+    lead_learn_only: Wähle einen Kurs zum Lernen. Jeder Kurs behält seinen eigenen Fortschritt, Wortschatz, Spiele und Verlauf.
     projects_heading: Deine Projekte
     tag_current: aktuell
     tag_revising: wird überarbeitet
