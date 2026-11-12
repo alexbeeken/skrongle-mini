@@ -7,6 +7,9 @@
     "provider-error": {
       "error": "the API answered HTTP 429. rate limited"
     },
+    "second-turn": {
+      "reply": "This is the tutor's second turn: here is the next one. [[ask]]"
+    },
     "compatible": {
       "reply": "This came back over the OpenAI-compatible wire. [[ask]]"
     },

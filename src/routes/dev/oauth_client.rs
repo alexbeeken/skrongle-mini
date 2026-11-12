@@ -3,8 +3,9 @@
 //! The page's script does what an app's client does: reads the discovery
 //! documents, registers itself, builds the authorize address with PKCE,
 //! takes the answer at `/dev/oauth-client/callback`, trades the code for
-//! tokens, calls `/api/v1/whoami`, refreshes, replays the old refresh token
-//! and the code (either one revokes the connection, #184), and disconnects
+//! tokens, calls `/api/v1/whoami`, refreshes, replays the old refresh token,
+//! the connection's first one (#192) and the code (each revokes the
+//! connection, #184), and disconnects
 //! (`/oauth/revoke`). Its state lives in the
 //! tab (`sessionStorage`).
 

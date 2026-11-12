@@ -6,6 +6,17 @@ numbers work is in the README, "Versions".
 
 ## Unreleased
 
+- Other pages stay responsive while a big course is saved, in the course
+  editor or by an AI job: the course is checked while the database is free,
+  so other people's pages no longer wait for it.
+- **Connected apps are no longer locked out by their neighbours.** Ten bad
+  tokens from one address used to refuse every app there for ten minutes,
+  working ones included (one cloud assistant's servers, one home router). Now
+  a working token is always served, only bad ones get "too many requests",
+  and an app's first request without a token no longer counts as a bad one.
+- The download and the installed program are smaller (about 2.5 MB less):
+  the site's styles and scripts are now stored in the program once,
+  compressed, instead of twice.
 - A new docs page, **Connect an AI assistant**, tells people how to let Claude
   Code, Claude or ChatGPT make courses for them: what a token is, what plain
   HTTP on a home network means, the exact steps for Claude Code, and what a
@@ -92,13 +103,17 @@ numbers work is in the README, "Versions".
   the app and where the answer goes, picks courses and how long, and
   clicks **Allow**. The connection then shows under Connected apps like a
   token made by hand. Without `SKRONGLE_PUBLIC_URL` none of this answers.
-  If an app's refresh token is ever used twice, the connection ends, as it
-  could have been stolen: an app that retries a refresh after losing the
-  answer is disconnected too, and the person connects it again.
+  Signed out, the sign-in page (and the two-factor code page) says which
+  app is waiting and where its answer goes, before a password is typed.
+  If any of an app's refresh tokens is ever used again, the latest or one
+  from many refreshes back, the connection ends, as it could have been
+  stolen: an app that retries a refresh after losing the answer is
+  disconnected too, and the person connects it again.
   Behind a path such as `/skrongle`, *Self-hosting* has two optional proxy
   lines for apps that look only at the site's root. The database gets two
-  new tables (`oauth_clients`, `oauth_codes`) and a column on `api_tokens`
-  (`used_at`); going back drops them and the used refresh tokens.
+  new tables (`oauth_clients`, `oauth_codes`) and a column on `api_grants`
+  (`refresh_family_hash`, the hash of the part every refresh token of a
+  connection shares); going back drops them.
 - Connected apps, after a security review: the **Connected apps** card on
   Manage Users now says how many apps registered and how many tokens were
   issued in the last day, so a flood or a stolen token shows (the token

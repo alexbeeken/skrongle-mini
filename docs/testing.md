@@ -339,6 +339,10 @@ any course goes through unchanged. The numbers follow the order the app
 walks a file's JSON (keys sorted), each distinct text once: a change to
 the starter files moves them (`ai::tests::translates_a_copy_from_the_llm_fixtures`
 says so).
+`tutor-turn.json` answers every tutor turn with the greeting ("Let's practise
+this lesson together"); `[fixture:second-turn]` in a learner's message makes
+the next reply "This is the tutor's second turn: here is the next one", so a
+spec can tell a real second turn from a repeated first one.
 The key is the call's own (the lesson slug for `generate-lesson` and `revise-lesson`), or else
 a `[fixture:NAME]` token anywhere in the prompt, or else `default`; `*`
 catches the rest. A reply may be text or JSON (sent as pretty JSON). In a
@@ -526,7 +530,9 @@ nothing).
 specs ([Release specs](#release-specs)) for aarch64 and x86_64: the `e2e`
 profile of `compose.yaml` runs the tarball's server in the Debian 11 container and the
 Playwright `release` projects against it from Playwright's own container
-(#41; `scripts/release-qa/README.md`). Off by default.
+(#41; `scripts/release-qa/README.md`). Off by default. `E2E=1 SIM=1` also
+starts the AI simulator beside it (the `simulator` profile), so `ai.spec.ts`
+runs on the tarball instead of skipping itself ([AI on a release server](#ai-on-a-release-server)).
 
 `.github/workflows/release-qa.yml` runs the same specs in its x86_64 cell
 (#46), natively on the runner: it unpacks the tarball and runs
@@ -646,7 +652,19 @@ checks three numbers against `scripts/pi-budget.txt`: the stripped binary's
 size (at most its platform's baseline + 5 %), and, for a server started with
 no optional settings (no AI key, no
 `SKRONGLE_DEV`) on a temp database after twenty requests each to `/`, `/login`
-and `/healthz`, its resident memory (≤ 24 MiB) and thread count (≤ 12). On
+and `/healthz`, its resident memory (≤ 24 MiB) and thread count (≤ 12).
+Then it checks that connected apps cannot grow that server (#191): it makes
+the owner's account from the owner link in the log, turns on **Let apps
+connect** and makes two tokens through the real forms, so it needs no dev
+route; reads resident memory before and after 300 MCP `tools/call
+list_courses` requests on one token; writes `users`, `oauth_clients`,
+`api_grants` and `api_tokens` up to their caps (read from `src/caps.rs`)
+straight into the database and does the same again on another token; and
+then checks the thread count is back at the idle one (`/mcp` holds nothing
+open; it waits up to 15 s for the blocking threads `Db::call` used, which
+end after 10 idle seconds). Each growth may be at most
+`apps_rss_growth_max_kib` (256 KiB). These steps add about 20 to 45
+seconds. On
 Linux the numbers come from `/proc/<pid>/status`; on a Mac from `ps`, so it
 runs locally too, but a Mac's binary has its own baseline line and its memory
 is shown, not checked (`ps` counts the shared system libraries, some 10 MiB
@@ -654,6 +672,8 @@ more). CI runs on `ubuntu-latest` (linux-x86_64), not the Pi's architecture, so 
 make the change cheaper (a cargo feature, a lighter crate, no new thread), or
 raise the number in `pi-budget.txt` and say why in the PR;
 `scripts/pi-budget.sh --update` rewrites this platform's binary baseline.
+A connected-apps growth over its margin is memory a request kept, a leak to
+find rather than a margin to raise.
 
 ## Markup hooks
 
@@ -681,8 +701,8 @@ The pages the AI creation flow and lesson tests use, in full:
 | every page (`base.html`) | `nav-home`, `nav-course-switch`, `nav-courses`, `nav-account-menu`, `nav-account-toggle`, `nav-profile`, `nav-switch-course`, `nav-docs`, `nav-logout-form`, `nav-logout`, `nav-login`, `nav-register`; mode bars `nav-study`/`nav-play` with tabs `nav-study-<tab>`, `nav-play-<tab>`, and `nav-study-mode`, `nav-study-to-sprint`, `nav-study-to-play`, `nav-study-menu` (and `nav-play-…` likewise) | `nav-account-toggle[data-email]`, `nav-course-switch[data-course-id]` (the course open now), `a[aria-current=page]` on links to the current page |
 | `/` (home) | `home-stats` with `home-stat-passed`, `home-stat-mastered`, `home-stat-streak`, `home-skipped`; the map row `home-map` with `home-map-title`, `home-map-unit`, `home-map-progress`; `home-mode` (each card), `home-<mode>-open` (its heading link), `home-info-<mode>` (its (i)) opening `home-info-<mode>-dialog` (closed by `home-info-close`), `home-<mode>-<target>` (each link in it: `home-study-lessons`, `home-guide-stages`, `home-guide-next`, `home-ai-api-keys`, …), `home-guide-stat`, `home-start-sprint`/`-study`/`-play`/`-guide`/`-tutor`; with nothing to run the tutor on, `home-ai-blocked` (the red !, in place of `home-info-ai`) and `home-start-tutor` open `home-tutor-gate` (`home-tutor-gate-close`, `home-tutor-gate-add-key`) | `home-mode[data-mode=sprint\|study\|play\|guide\|ai]`, `home-map-progress[data-passed][data-total]` (the current unit), `home-guide-stat[data-completed][data-total]` |
 | `/sprint/play` | `sprint-play-main` (the `<main>`: stage, answer sheet and results), `sprint-play-stage`, `sprint-play-result`, `sprint-play-verdict`, `sprint-play-next`, `sprint-play-done`, `sprint-play-done-home`, `sprint-play-again`, `sprint-play-check`, `sprint-play-exit`, `sprint-play-audio`, `sprint-play-sound`, `sprint-play-progress` | `sprint-play-stage[data-kind][data-exercise-id][data-pos]` (the exercise up: its kind, its id as in `src/sprint.rs`, its place; `data-kind=done` at the end), `sprint-play-result[data-state=right\|wrong]`, `sprint-play-done[data-saved=true]` once the session is recorded; tiles and options: `[aria-pressed]` when picked, `[data-state=right\|wrong\|used\|done]`; options and speakers carry `[data-value]` |
-| `/login`, `/register` | `login-form`, `login-email`, `login-password`, `login-submit`, `login-error`, `login-register-link`, `login-notice`; dev mode, in the `login-dev` card: `login-dev-login`,  `register-form`, `register-email`, `register-password`, `register-submit`, `register-error`, `register-login-link`, `register-owner-note` (the first account on an invite/closed server), `register-invite` (the hidden invitation token); `register-closed` (the sign-ups-closed page), `register-closed-message`, `register-closed-login`; behind a signing-in proxy (`SKRONGLE_PROXY_AUTH_*`) `/login`, `/register` and `/logout` are `proxy-signin` with `proxy-signin-note` (or `proxy-signin-signed-out` after logout) and `proxy-signin-home`; dev mode, in the `register-dev` card: `register-dev-login` | |
-| `/login/code` | `login-code`, `login-code-sent-to`, `login-code-form`, `login-code-input`, `login-code-submit`, `login-code-error`, `login-code-cancel`; dev mode: `login-code-dev` (the floating window), `login-code-dev-frame` (its frame of `/login/code/device`: `login-code-device[data-method]`, `login-code-device-to`, `login-code-device-item[data-code]`, `login-code-device-code`, `login-code-device-remaining`, `login-code-device-use`, `login-code-device-empty`) | `login-code[data-method]`, `login-code-device-item[data-code]` | `login-code[data-method]` |
+| `/login`, `/register` | `login-form`, `login-email`, `login-password`, `login-submit`, `login-error`, `login-register-link`, `login-notice`; while an app's checked OAuth request waits (#190): `login-oauth-notice` with `login-oauth-host` (also on `/login/code`); dev mode, in the `login-dev` card: `login-dev-login`,  `register-form`, `register-email`, `register-password`, `register-submit`, `register-error`, `register-login-link`, `register-owner-note` (the first account on an invite/closed server), `register-invite` (the hidden invitation token); `register-closed` (the sign-ups-closed page), `register-closed-message`, `register-closed-login`; behind a signing-in proxy (`SKRONGLE_PROXY_AUTH_*`) `/login`, `/register` and `/logout` are `proxy-signin` with `proxy-signin-note` (or `proxy-signin-signed-out` after logout) and `proxy-signin-home`; dev mode, in the `register-dev` card: `register-dev-login` | |
+| `/login/code` | `login-code`, `login-oauth-notice` (an app waits, #190), `login-code-sent-to`, `login-code-form`, `login-code-input`, `login-code-submit`, `login-code-error`, `login-code-cancel`; dev mode: `login-code-dev` (the floating window), `login-code-dev-frame` (its frame of `/login/code/device`: `login-code-device[data-method]`, `login-code-device-to`, `login-code-device-item[data-code]`, `login-code-device-code`, `login-code-device-remaining`, `login-code-device-use`, `login-code-device-empty`) | `login-code[data-method]`, `login-code-device-item[data-code]` | `login-code[data-method]` |
 | `/password/change` | `password-change-gate`, `password-change-info` (the (i)) and `password-change-dialog`, `password-change-form`, `password-change-new`, `password-change-confirm`, `password-change-submit`, `password-change-error`, `password-change-logout` | |
 | `/courses` | the lead `courses-lead`; sections `courses-projects`, `courses-mine`, `courses-builtin`, `courses-make` (in `courses-make-section`, only with the Create courses permission); each card `courses-card` with `courses-open`, `courses-resume` (stopped with its outline saved), `courses-retry` (stopped before it), `courses-delete-form`, `courses-delete` (stopped cards), `courses-card-stopped`, `courses-watch`, `courses-cancel`, `courses-generating`, `courses-card-phase`, `courses-card-revising`, `courses-card-error`, `courses-card-error-detail`, `courses-settings` (the gear of an opened course) opening `courses-settings-dialog[data-course-id][data-step]` (on a course not opened yet, `[data-wizard][data-start]`: `courses-open` opens it, #587) with `courses-settings-step`, `courses-settings-level[data-unit]` (a level card; `courses-settings-level-radio` its radio, `courses-settings-level-info` its (i)), `courses-settings-prev`, `courses-settings-next`, `courses-settings-save` (Get Started!), `courses-settings-close`, and at the gear dialog's top right (not in the wizard) `courses-edit` (the pencil to the editor, own courses) and `courses-copy` in `courses-copy-form` (#629); `courses-notice`, `courses-create-form`, `courses-create` (Create a course); `?generate=<id>`: the Generate dialog of a stopped course (testids as on `/courses/{id}`) | `courses-card[data-course-id][data-course-status=generating\|revising\|ready\|failed]`, project cards `[data-active]` |
 | `/courses/{id}` Generate dialog (a draft or a stopped generation; open on `?generate=1`) | `generate` (the `<dialog>`), `generate-close`, `generate-named` (the names the AI keeps), `generate-own`, `generate-form`, `generate-error`, `generate-wish`, `generate-wish-readonly` (resume), `generate-notes`, `generate-sensitive-note` (the "don't paste sensitive personal data" line under it), `generate-files`, `generate-kind` (each radio), `generate-depth-choice` (the Full course / Preview / Outline fieldset) with `generate-depth` (each radio), `generate-depth-info` and `generate-depth-info-text`, `generate-provider` (each radio: only with two or more choices;), `generate-provider-only` (one choice: a hidden input, no choice shown), `generate-no-key` (with,, ; the same on `tutor-no-key` and `home-tutor-gate`) (no key: the line above the form) with `generate-profile-link`, `generate-disabled` (the form's fieldset, disabled then), `generate-instructions`, `generate-submit` | on `generate`: `data-course-id`, `data-resume`; `[open]` while shown |
@@ -700,7 +720,7 @@ The pages the AI creation flow and lesson tests use, in full:
 | `/manage` (owners, and superusers for the accounts; `nav-manage` in the account menu) | `manage-page`, `manage-info` + `manage-info-dialog` (`manage-signup-mode[data-mode]`), `manage-notice`, `manage-error`; in invite mode `manage-invites-card`, `manage-invite-form`, `manage-invite-make`, `manage-invite-new`, `manage-invite-link`, `manage-invite-copy`, `manage-invites`, `manage-invite-row`, `manage-invite-revoke`; `manage-accounts-card`, `manage-accounts`, `manage-account-row[data-manage]`, `manage-account-temp-password`, `manage-account-two-factor-off`, `manage-account-make-owner` (rows that are not owners; each `[data-account-email]`), `manage-account-preset` (the Permissions column), `manage-account-permissions` (rows the viewer may edit), `manage-permissions-dialog` / `-form` / `-save`, `manage-permissions-preset[data-preset][data-perms]` (the radios), `manage-permission[data-perm][data-bit][data-needs][data-on]` (a line; `aria-disabled` and `.is-off` while what it needs is off) with `manage-permission-toggle`, `manage-permission-mark` and `manage-permission-ai-hidden`, `manage-permissions-save-as` (the name box, in `manage-permissions-save-as-row`, hidden unless Custom is chosen), `manage-presets` (the saved presets' card, absent while there are none) with `manage-preset-row[data-preset-id]`, `manage-preset-name`, `manage-preset-perms`, `manage-preset-count`, `manage-preset-delete`, and `manage-preset-dialog` / `-form` / `-confirm`, `manage-password-dialog` / `-form` / `-confirm`, `manage-two-factor-dialog` / `-form` / `-confirm`, `manage-owner-dialog` / `-form` / `-confirm`, `manage-temp-password-dialog`, `manage-temp-password-new`, `manage-temp-password`, `manage-temp-password-copy`, `manage-temp-password-close` | `manage-account-row[data-manage]`, `manage-account-row[data-owner][data-preset][data-perms]` (`data-preset`: a preset's id, `custom` or `owner`), `manage-signup-mode[data-mode]` |
 | `/manage`, one preset for several accounts (#141) | `manage-bulk-form` (the form around `manage-accounts`), `manage-account-select` (a row's checkbox, only on rows the viewer may edit; `name="email"`), `manage-account-select-all` (the header's; `indeterminate` while only some are ticked), `manage-bulk-bar` (`hidden` while nothing is ticked) with `manage-bulk-count`, `manage-bulk-preset` (a `<select>` of the presets) and `manage-bulk-apply`, `manage-bulk-dialog` with `manage-bulk-question` and `manage-bulk-confirm` | |
 | `/profile` and `/manage`, Connected apps (#167; only while *Let apps connect* is on) | on `/profile`: `profile-apps` (the card), `profile-apps-info` + `profile-apps-info-dialog`, `profile-apps-none`, `profile-apps-list`, `profile-app` with `profile-app-name`, `profile-app-scopes`, `profile-app-courses`, `profile-app-expires`, `profile-app-last-used`, `profile-app-revoke`; `profile-apps-make-open` (Make a token), `profile-apps-no-password` (in the (i) dialog, an account without a password), `profile-apps-token-dialog` with `profile-apps-token-form`, `profile-apps-token-error`, `profile-apps-token-name`, `profile-apps-token-scope` (each checkbox), `profile-apps-token-course` (each checkbox), `profile-apps-token-lifetime`, `profile-apps-token-password`, `profile-apps-token-submit`; `profile-apps-new-token-dialog` with `profile-apps-new-token` (the field), `profile-apps-new-token-copy`, `profile-apps-new-token-close`; `profile-password-apps-note`. On `/manage` (owners): `manage-apps-card`, `manage-apps-info` + `manage-apps-info-dialog`, `manage-apps` (the switch row), `manage-apps-form`, `manage-apps-switch`, `manage-apps-none`, `manage-apps-list`, `manage-app` with `manage-app-name`, `manage-app-account`, `manage-app-revoke` | `profile-app[data-used]` (`true` once the token was used), `manage-apps[data-apps-on]` |
-| `/oauth/authorize` (#169; with `SKRONGLE_PUBLIC_URL` and *Let apps connect*) | the consent page `oauth-consent` with `oauth-consent-info` + `oauth-consent-info-dialog` (`oauth-consent-info-close`), `oauth-consent-form`, `oauth-consent-app` (the app's name), `oauth-consent-scopes` with `oauth-consent-scope` (each), `oauth-consent-host`, `oauth-consent-account`, `oauth-consent-courses` with `oauth-consent-courses-note` and `oauth-consent-course` (each checkbox), `oauth-consent-lifetime`, `oauth-consent-allow`, `oauth-consent-deny`; a refused request: `oauth-error` with `oauth-error-info` + `oauth-error-info-dialog`, `oauth-error-message`, `oauth-error-code`; an account without Create courses: `oauth-no-permission`, `oauth-no-permission-message`. Dev build: `/dev/oauth-client` (`dev-oauth-client`) with `dev-oauth-connect`, `dev-oauth-whoami-btn`, `dev-oauth-refresh`, `dev-oauth-reuse`, `dev-oauth-replay`, `dev-oauth-disconnect`, `dev-oauth-forget`, and the results `dev-oauth-issuer`, `dev-oauth-client-id`, `dev-oauth-authorize-url`, `dev-oauth-answer`, `dev-oauth-token`, `dev-oauth-refresh-token`, `dev-oauth-reuse-result`, `dev-oauth-replay-result`, `dev-oauth-whoami` | |
+| `/oauth/authorize` (#169; with `SKRONGLE_PUBLIC_URL` and *Let apps connect*) | the consent page `oauth-consent` with `oauth-consent-info` + `oauth-consent-info-dialog` (`oauth-consent-info-close`), `oauth-consent-form`, `oauth-consent-app` (the app's name), `oauth-consent-scopes` with `oauth-consent-scope` (each), `oauth-consent-host`, `oauth-consent-account`, `oauth-consent-courses` with `oauth-consent-courses-note` and `oauth-consent-course` (each checkbox), `oauth-consent-lifetime`, `oauth-consent-allow`, `oauth-consent-deny`; a refused request: `oauth-error` with `oauth-error-info` + `oauth-error-info-dialog`, `oauth-error-message`, `oauth-error-code`; an account without Create courses: `oauth-no-permission`, `oauth-no-permission-message`. Dev build: `/dev/oauth-client` (`dev-oauth-client`) with `dev-oauth-connect`, `dev-oauth-whoami-btn`, `dev-oauth-refresh`, `dev-oauth-reuse`, `dev-oauth-reuse-oldest`, `dev-oauth-replay`, `dev-oauth-disconnect`, `dev-oauth-forget`, and the results `dev-oauth-issuer`, `dev-oauth-client-id`, `dev-oauth-authorize-url`, `dev-oauth-answer`, `dev-oauth-token`, `dev-oauth-refresh-token`, `dev-oauth-reuse-result`, `dev-oauth-reuse-oldest-result`, `dev-oauth-replay-result`, `dev-oauth-whoami` | |
 | `/manage/progress?email=…` (#147; an owner or a superuser, 404 for a private account) | `manage-progress-page`, `manage-progress-back`, `manage-progress-email`, `manage-progress-name`, `manage-progress-empty`, `manage-progress-courses`, `manage-progress-course` with `manage-progress-course-title`, `manage-progress-passed`, `manage-progress-last-studied`, `manage-progress-streak`; on `/manage` each row has `manage-account-progress` (the link) or `manage-account-private`; on `/profile`, in `profile-privacy-note`, `profile-progress-visibility` | `manage-progress-course[data-course]`, `profile-progress-visibility[data-private]` |
 
 Practice and Guide stages name the button that appears after Check
@@ -798,6 +818,28 @@ nothing from there is in the app binary or the Pi deploy. The first run
 installs `e2e/node_modules` and Chromium (network once); after that it runs
 offline. `npm --prefix e2e run typecheck` checks the TypeScript.
 
+CI does not run every spec here: the exact-spec job runs the files listed in
+`.github/workflows/smoke.yml` (`e2e-exact`), plus `specs/smoke`. A spec missing
+from that list is only ever run locally, so "it passes in CI" says nothing
+about it; check the list before comparing a local failure with CI (#189).
+`scripts/e2e.sh` runs the `chromium` project only (the dev specs); the
+release projects need a release server ([Release specs](#release-specs)).
+
+A spec can pass alone and fail in the whole suite: the specs share one
+server and one dev user, and `SKRONGLE_RNG_SEED` makes the n-th draw of the
+server process repeatable, not the n-th draw of a spec. So a spec does not
+assume the dev user has a course open (an earlier `/dev/reset` leaves none,
+and an empty draft left active does not open; pass `open=` to `devLogin`), nor which question a draw puts first. To replay
+other draws for one spec, run it with `--repeat-each 8`.
+
+On a Mac (#189) the suite runs as it is, with nothing to set: each
+`scripts/e2e.sh` picks a free port and starts its own server on `./e2e.db`,
+so a `./.dev-start` or another worktree's run is left alone. Two runs in the
+same checkout at once would share `./e2e.db` and `e2e/results/`; give the
+second its own `E2E_DB` and `--output <dir> --reporter list`. On a busy
+machine (several builds and servers at once) a step can time out; rerun that
+spec alone before blaming it.
+
 | File | What it is |
 |---|---|
 | `e2e/specs/exact.spec.ts` | Exact specs, no model in the loop: generate a course from the fixtures and open it; pass a lesson's reading check (answers read from the lesson files); finish a Sprint mode session; the profile has no Dev section for anyone (the seeded keys answer generate and the tutor through the simulator); a key the simulator never issued gets the provider's 401; the picture and password dialogs (a pick saves at once and shows in the heading, a mismatched or wrong password keeps the dialog open) |
@@ -821,7 +863,7 @@ offline. `npm --prefix e2e run typecheck` checks the TypeScript.
 | `e2e/specs/course-translate.spec.ts` | Copy and translate (#630), from `translate-course.json`: a fresh draft translated to Español through the dialog behind the icon in the course's settings (what is translated behind its (i)) is followed to its end in the editor and comes out as *Untitled course (Español)*, ids kept and the answer still one of the options, the original untouched; the Spanish card's dialog offers no English |
 | `e2e/specs/permissions-ai.spec.ts` | AI per account (#145), set through the Permissions dialog on a second account: *Use the AI tutor* off leaves four mode cards, no *Tutor me*, a 403 page on `/tutor` saying the account is not allowed, and the Generate dialog still opens; the tutor back and *Use AI in courses* off brings the tutor card back and leaves the editor without `generate` and `course-ai`, the course list without `courses-translate`, and `POST /courses/{id}/generate` a 403 |
 | `e2e/specs/modals.spec.ts` | Closing by clicking outside: a Sprint mode stop's sheet (`sprint-sheet`) closes on a tap outside the stop and on Escape, a tap inside keeps it (#233); modals close on a click on their backdrop (#226, `static/modal.js`): the profile's dialogs (not on a drag out of them, not with a password typed), the Generate dialog (not with a wish typed), not a running job's box (`data-modal-static`), Review AI changes by its Close link. Runs in CI with the exact specs |
-| `e2e/specs/oauth-client.spec.ts` | OAuth (#169) with the dev client `/dev/oauth-client`: discovery names the endpoints from the public address; signed out, **Connect** goes through the sign-in to the consent page (app, host, two scopes, course picker, expiry); **Deny** comes back `access_denied` and nothing is connected; **Allow** with one course trades the code (whoami answers, the profile lists *Dev test client* with that course); **Refresh token** rotates; **Use the old refresh token** is `invalid_grant` and revokes the app (whoami 401, the profile lists none, #184); after connecting again, **Replay the code** revokes the app; an authorize address edited by hand (no `code_challenge`, `plain`, no `state`, another host) gets the error page and no redirect; a Student gets the no-permission page. Runs in CI with the exact specs |
+| `e2e/specs/oauth-client.spec.ts` | OAuth (#169) with the dev client `/dev/oauth-client`: discovery names the endpoints from the public address; signed out, **Connect** goes through the sign-in to the consent page (app, host, two scopes, course picker, expiry); **Deny** comes back `access_denied` and nothing is connected; **Allow** with one course trades the code (whoami answers, the profile lists *Dev test client* with that course); **Refresh token** rotates; **Use the old refresh token** is `invalid_grant` and revokes the app (whoami 401, the profile lists none, #184); after connecting again and two refreshes, **Use the oldest refresh token** does the same (#192); after connecting again, **Replay the code** revokes the app; an authorize address edited by hand (no `code_challenge`, `plain`, no `state`, another host) gets the error page and no redirect; a Student gets the no-permission page. Runs in CI with the exact specs |
 | `e2e/specs/connected-apps.spec.ts` | Connected apps (#167): the owner turns on *Let apps connect* (`manage-apps[data-apps-on]`); a new account's profile has the section, a wrong password makes no token, the right one shows a `skr_` token once, listed as *Test* and unused; the token answers `/api/v1/whoami` from a client with no cookies (a cookie alone gets 401, a token in the address 400), the row then says used and the page holds no token; the owner's list has it; Revoke ends it (401). Turns the switch off again. Runs in CI with the exact specs |
 | `e2e/specs/smoke/` | [Smoke specs](#smoke-specs): a new account passes lessons in every mode, answering from the course files; the whole test course, right and wrong |
 | `e2e/lib/app.ts` | Exact helpers: `devLogin`, `devReset`, `correctAnswers`, `playSprintSession`; `TEST_COURSE` and `courseDir` for [the test course](#the-test-course) |
@@ -880,7 +922,10 @@ E2E_BASE_URL=… E2E_OWNER_EMAIL=… E2E_OWNER_PASSWORD=… npx --prefix e2e pla
 
 The server needs `SKRONGLE_SIGNUP=invite` (the systemd unit's setting) and
 an owner link nobody has used, so use a fresh one for each run
-(`docker compose down -v`). A run makes the owner and eight accounts. CI runs `scripts/release-e2e.sh` twice in the job "e2e release
+(`docker compose down -v`). A run makes the owner and ten accounts (counted
+2026-11-12: one in first-run, three in `account`, one each in `learn`,
+`course-by-hand`, `share` and `ai`, two in `ai-formats`; the AI specs' three
+only when there is a simulator). CI runs `scripts/release-e2e.sh` twice in the job "e2e release
 specs", on the dev build: once without dev mode (an owner link, as a release has) and
 once with `SKRONGLE_DEV=1` (dev routes exist, the dev user is the owner), so
 the specs cannot rot; it is not in the required checks. The release-QA
@@ -894,22 +939,56 @@ not use `/dev/` on the server under test. `scripts/release-e2e.sh` therefore
 starts a **second process**, a dev-feature build of the same code in dev mode
 (`SKRONGLE_DEV=1`, its own database, fixtures from `data/test-fixtures/llm`) on a free
 port, and starts the release server with
-`SKRONGLE_ANTHROPIC_BASE_URL=<simulator>/dev/ai/anthropic`. A base URL set this
+`SKRONGLE_ANTHROPIC_BASE_URL=<simulator>/dev/ai/anthropic` and
+`SKRONGLE_OPENAI_BASE_URL=<simulator>/dev/ai/openai/v1`. A base URL set this
 way is the operator's, not one typed into a form, so the private-address rule
 (`SKRONGLE_ALLOW_PRIVATE_AI_URLS`) does not apply and the harness does not set it.
-`ai.spec.ts` gets the simulator's address as `E2E_AI_SIM_URL` and reads its
-call log (`<sim>/dev/ai?format=json`) from the test, not the browser, to prove the
-release server made the calls. The key it saves on Manage Users is any
-`sk-ant-dev-…` key, which the simulator accepts.
+The AI specs get the simulator's address as `E2E_AI_SIM_URL` and read its
+call log (`<sim>/dev/ai?format=json`, through `e2e/lib/release-ai.ts`) from the
+test, not the browser, to prove the release server made the calls and in which
+wire format (`anthropic` or `openai`), with which model and key.
+
+- `ai.spec.ts`, Anthropic's format: the owner saves any `sk-ant-dev-…` key on
+  Manage Users; the long path (generate, a lesson, two tutor turns, Edit with
+  AI, key removed). The learner's second message carries
+  `[fixture:second-turn]`, so the tutor's second reply is
+  `tutor-turn.json`'s `second-turn` ("This is the tutor's second turn…"),
+  not the greeting again.
+- `ai-formats.spec.ts`, OpenAI's chat-completions format, the short path
+  (key, a generated course, the tutor's greeting) twice: with an OpenAI key
+  (`sk-dev-…`; every call `gpt-5`, the key as a bearer token), and with
+  **Ollama's row**: the owner types the simulator's
+  `http://127.0.0.1:<port>/dev/ai/ollama` and a model (`qwen2.5:7b`), and
+  every call goes there with that model and no key. A text that is not an
+  `http(s)://` URL is refused under the field.
+- **The private-address rule cannot be seen from a page.** Ollama's row takes
+  a loopback address on any port with `SKRONGLE_ALLOW_PRIVATE_AI_URLS` unset,
+  on purpose (`secrets::validate_key`: only the owner sets it, for their own
+  server). `ai::check_base_url` guards only the `base_url` field of
+  `POST /courses/<id>/generate`, a custom base URL with a pasted key, which
+  no page offers; `cargo test` covers it (`ai::tests`), the release specs do not.
+
+Each AI spec removes the other providers' keys first, so the generate dialog
+and the tutor have one provider, and removes its own at the end.
 
 The simulator binary is `SIM_BIN` if set, else `SERVER_BIN` when that has the dev
 feature (CI), else `target/debug/spanish-learning` built with `cargo build --features dev`.
-With no such binary and no cargo, the script says so and the AI spec skips itself;
+With no such binary and no cargo, the script says so and the AI specs skip themselves;
 the other specs run. The `RELEASE_E2E_DEV=1` run has no simulator process (its own
-dev AI is not used), so the spec skips there. To run it against a server you started,
-set `E2E_AI_SIM_URL` and start that server with the matching `SKRONGLE_ANTHROPIC_BASE_URL`.
-Not yet covered: running it inside the container rig (`scripts/release-qa`), and
-the other providers' wire formats (the simulator speaks them; `ai.spec.ts` uses Anthropic's).
+dev AI is not used), so they skip there. To run it against a server you started,
+set `E2E_AI_SIM_URL` and start that server with the matching `SKRONGLE_ANTHROPIC_BASE_URL`
+and `SKRONGLE_OPENAI_BASE_URL`.
+In the container rig, `E2E=1 SIM=1 scripts/release-qa/matrix.sh dist aarch64` runs
+them against the tarball (the `simulator` profile of `scripts/release-qa/compose.yaml`,
+#41): the simulator is a dev-feature Linux build of the checkout
+(`scripts/release-qa/sim-build.sh <arch>`, cargo-zigbuild without debug assertions,
+so its pages and translations are embedded rather than read from the checkout's
+path), and since dev
+mode answers only requests made to localhost, it and the Playwright container share
+the release server's network namespace (`scripts/release-qa/README.md`).
+Not covered here: the other OpenAI-format providers (DeepSeek, Mistral, xAI,
+OpenRouter, Gemini), which reach the simulator by the same client as OpenAI's and are
+covered by the dev specs (`manage-keys.spec.ts`) and `cargo test`.
 
 `e2e/lib/release.ts` has the helpers: `test` (the smoke specs' `test`, and a
 route guard that **fails the test on any request to `/dev/`**, in every context
@@ -929,7 +1008,8 @@ from the dev authenticator. `grep -r "/dev/" e2e/specs/release` finds nothing.
 | | `account.spec.ts` | change password (wrong current refused; the old one stops working), two-factor on and off with a code worked out from the setup key (wrong code refused), sign out and in, the language switch kept by the account, the home page and a lesson at 390 px |
 | | `connected-apps.spec.ts` | the owner turns *Let apps connect* on, makes a token on the profile (shown once, never again on the page), sees it on Manage Users with the tokens-issued count up by one, calls `list_courses` on `/mcp` with it from a client with no cookies (401 without it), revokes it (401) and turns the switch off (404) |
 | | `docs.spec.ts` | `/docs` and every page in its sidebar answer 200 as HTML and Markdown, nothing is wider than a phone, every in-app link they hold opens, `/llms.txt` and what it lists |
-| | `ai.spec.ts` | the AI workflows on a release server, through a simulator process ([below](#ai-on-a-release-server)): the owner saves the Anthropic key on Manage Users, a learner generates a course, passes a lesson's reading check and has the tutor answer, the owner uses Edit with AI on a lesson, the key is removed and the learner is told to ask the owner; the simulator's own call log shows each request. Skips itself without `E2E_AI_SIM_URL` |
+| | `ai.spec.ts` | the AI workflows on a release server, through a simulator process ([below](#ai-on-a-release-server)): the owner saves the Anthropic key on Manage Users, a learner generates a course, passes a lesson's reading check and has the tutor answer twice (the second reply its own fixture text), the owner uses Edit with AI on a lesson, the key is removed and the learner is told to ask the owner; the simulator's own call log shows each request, in Anthropic's format. Skips itself without `E2E_AI_SIM_URL` |
+| | `ai-formats.spec.ts` | OpenAI's wire format through the simulator: the owner's OpenAI key, then Ollama's row (a loopback base URL and a model typed on Manage Users, a non-URL refused); each time a learner generates the fixture course and the tutor greets them, and the call log shows chat completions with that provider's model and key (none for Ollama). Skips itself without `E2E_AI_SIM_URL` |
 | `release-open` | the existing specs below | against a server with `SKRONGLE_SIGNUP=open` (they register their own accounts through `/register`) |
 
 The `release` project's `testMatch` is every spec in `specs/release` except
@@ -1139,9 +1219,10 @@ with no vendor. **Connect** reads the discovery documents, registers
 *Dev test client* with `<issuer>/dev/oauth-client/callback` (once per tab),
 and opens the authorize address with PKCE; the callback checks `iss` and
 `state`, trades the code and calls `/api/v1/whoami`. **Refresh token**,
-**Use the old refresh token**, **Replay the code**, **Disconnect** and
-**Forget this client** do what they say; the old refresh token and the
-code replayed are each refused and disconnect the app (whoami then
+**Use the old refresh token**, **Use the oldest refresh token** (the
+connection's first, #192), **Replay the code**, **Disconnect** and
+**Forget this client** do what they say; the old refresh token, the oldest
+one and the code replayed are each refused and disconnect the app (whoami then
 answers 401; **Connect** starts again). It needs `SKRONGLE_PUBLIC_URL`
 (`./.dev-start` and `scripts/e2e.sh` set it to the server's own address)
 and *Let apps connect* on Manage Users. On a base path:

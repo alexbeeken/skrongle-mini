@@ -55,9 +55,11 @@ pub const MAX_API_GRANTS: usize = MAX_ACCOUNTS * MAX_GRANTS_PER_ACCOUNT;
 /// Rows `api_tokens` holds for the whole server: a personal token is one
 /// row; an app that signs in with OAuth holds an access and a refresh token
 /// and, after refreshing, the access token it replaced (working until its
-/// hour ends) and the refresh token it used (kept, marked used, so a reuse
-/// is noticed, #184): four rows, however often it refreshes.
-pub const MAX_API_TOKENS: usize = MAX_API_GRANTS * 4;
+/// hour ends). The refresh token it used is deleted: an earlier one is
+/// still known by the family hash on its grant (#192), with no row per
+/// refresh. So three rows a grant, however often it refreshes:
+/// 50 accounts × 4 grants = 200 grants; 200 × 3 = 600 rows.
+pub const MAX_API_TOKENS: usize = MAX_API_GRANTS * 3;
 
 /// Apps registered for OAuth sign-in (#169, `oauth_clients`): a new
 /// registration past it pushes out the oldest one with no grant. A

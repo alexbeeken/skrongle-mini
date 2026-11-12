@@ -3073,6 +3073,8 @@ oauth:
     courses_note: "Eine App, die auf einige Kurse beschränkt ist, kann keine neuen anlegen."
     allow: "Erlauben"
     deny: "Ablehnen"
+  signin:
+    notice: "Melde dich an, damit sich {app} mit deinem Konto verbinden kann."
   error:
     title: "Diese App kann sich nicht verbinden"
     info: "Über diesen Fehler"

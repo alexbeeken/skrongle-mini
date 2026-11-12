@@ -1860,3 +1860,81 @@ fn the_progress_headings_and_failures_are_keys() {
     assert!(plain_failure(Some("key"), "").unwrap().starts_with("Writing your course stopped."));
     assert!(plain_revision_failure(Some("key"), "").unwrap().ends_with("The course is unchanged."));
 }
+
+/// #84 step 3: an AI job builds the course on its own thread with the
+/// database free, in the job's language. A generation's final build and an
+/// added lesson's build each let an unrelated database call through, and a
+/// save that lands while the generation's final build runs is not
+/// overwritten by that build's result.
+#[cfg(feature = "dev")]
+#[test]
+fn ai_jobs_build_off_the_database_lock() {
+    let db = Db::open_in_memory().unwrap();
+    let registry = crate::courses::Courses::empty();
+    let id = "fractions-held";
+    let uid = db.with(|c| crate::auth::create_user(c, "held@example.org", "h")).unwrap();
+    db.with(|c| {
+        crate::courses::create_generating(c, uid, id, "New", "fractions", "")?;
+        crate::courses::set_generating(c, id, "j")
+    })
+    .unwrap();
+    let req = Request {
+        user_id: uid,
+        provider: crate::routes::simulated_provider(ProviderKind::Anthropic),
+        course_id: id.into(),
+        wish: "fractions".into(),
+        lesson_count: 3,
+        depth: Depth::Full,
+        notes: String::new(),
+        kind: SubjectKind::Auto,
+        instructions: String::new(),
+        resume_outline: None,
+        revise: None,
+        add_lesson: None,
+        edit: None,
+        translate: None,
+        i18n: crate::i18n::in_lang("es", crate::i18n::snapshot),
+        named: Default::default(),
+    };
+    // Each build: the language it runs in, and whether a database call from
+    // another thread got through meanwhile. The first one also makes a save.
+    let seen: Arc<Mutex<Vec<(String, bool)>>> = Arc::new(Mutex::new(Vec::new()));
+    let (log, other, first) = (Arc::clone(&seen), db.clone(), Arc::new(AtomicBool::new(true)));
+    let hook: Arc<dyn Fn(&str) + Send + Sync> = Arc::new(move |id| {
+        let (db, id, save) = (other.clone(), id.to_string(), first.swap(false, std::sync::atomic::Ordering::SeqCst));
+        let (tx, rx) = std::sync::mpsc::channel();
+        std::thread::spawn(move || {
+            let _ = tx.send(db.with(|c| {
+                if save {
+                    crate::courses::write_file(c, &id, "lessons/extra.json", "{ not json")?;
+                    crate::courses::set_status(c, &id, None, Some("the newer save's error"))?;
+                }
+                c.query_row("SELECT COUNT(*) FROM users", [], |r| r.get::<_, i64>(0))
+            }));
+        });
+        let through = rx.recv_timeout(std::time::Duration::from_secs(5)).is_ok();
+        log.lock().unwrap().push((crate::i18n::lang().to_string(), through));
+    });
+    crate::courses::CHECK_HOOK.lock().unwrap().push((id.to_string(), hook));
+    let generated = crate::i18n::in_scope(req.i18n, || run(&test_job(id), &db, &registry, &req));
+    let row = db.with(|c| crate::courses::course(c, id)).unwrap().unwrap();
+    // Put the save back, and add a lesson to the finished course.
+    db.with(|c| {
+        crate::courses::delete_file(c, id, "lessons/extra.json")?;
+        crate::courses::set_status(c, id, None, None)?;
+        crate::courses::finish_generation(c, id, None)?;
+        crate::courses::set_revising(c, id, "a")
+    })
+    .unwrap();
+    let mut add = req.clone();
+    add.add_lesson = Some("comparing two fractions".into());
+    let added = crate::i18n::in_scope(req.i18n, || add_lesson(&test_job(id), &db, &registry, &add, "comparing two fractions"));
+    db.with(|c| crate::courses::finish_revision(c, id)).unwrap();
+    crate::courses::CHECK_HOOK.lock().unwrap().retain(|(i, _)| i != id);
+    assert_eq!(*seen.lock().unwrap(), vec![("es".to_string(), true), ("es".to_string(), true)]);
+    generated.unwrap();
+    assert_eq!(row.error.as_deref(), Some("the newer save's error"), "the build did not record over the newer save");
+    added.unwrap();
+    let row = db.with(|c| crate::courses::course(c, id)).unwrap().unwrap();
+    assert!(row.error.is_none());
+}

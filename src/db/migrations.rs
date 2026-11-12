@@ -28,6 +28,8 @@ const STEPS: &[M<'static>] = &[
     M::up(include_str!("migrations/v007_oauth.sql")).down(include_str!("migrations/v007_oauth.down.sql")),
     // v8: api_tokens.used_at, a reused refresh token revokes its grant (#184)
     M::up(include_str!("migrations/v008_refresh_reuse.sql")).down(include_str!("migrations/v008_refresh_reuse.down.sql")),
+    // v9: api_grants.refresh_family_hash, any earlier refresh token revokes its grant (#192)
+    M::up(include_str!("migrations/v009_refresh_family.sql")).down(include_str!("migrations/v009_refresh_family.down.sql")),
 ];
 
 /// Schema migrations, applied in order. `PRAGMA user_version` tracks which have run.

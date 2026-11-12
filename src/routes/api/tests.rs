@@ -212,20 +212,34 @@ fn a_token_in_the_address_is_refused() {
     assert_eq!(s.get("/api/v1/whoami", &[("authorization", &auth)]).status, 200);
 }
 
-/// Ten bad tokens from one address in ten minutes, then 429, even for a
-/// good token from there.
+/// Ten bad tokens from one address in ten minutes, then a bad token is 429
+/// (#185). A request with no `Authorization` header is a 401 and is not
+/// counted (it is how an MCP client finds `resource_metadata`); a good token
+/// is served even when its address is over the limit. An expired token is
+/// refused like an unknown one.
 #[test]
 fn bad_tokens_are_limited_per_address() {
     let s = Server::start(None);
     let (_, me) = s.account("ann@example.org");
     s.apps_on(true);
     let token = s.make_token(&me, "Test", PASSWORD).1.unwrap();
-    let bad = format!("{TOKEN_PREFIX}{}", "0".repeat(64));
-    for i in 0..crate::security::API_BAD_TOKENS_PER_IP.max {
-        assert_eq!(s.whoami(&bad).status, 401, "bad token {i}");
+    let expired = s.make_token(&me, "Old", PASSWORD).1.unwrap();
+    s.state.db.with(|c| c.execute("UPDATE api_tokens SET expires_at = 0 WHERE token_hash = ?1", [crate::auth::hash_token(&expired)])).unwrap();
+    let max = crate::security::API_BAD_TOKENS_PER_IP.max;
+    let no_header = || s.get("/api/v1/whoami", &[]).status;
+    for i in 0..max {
+        assert_eq!(no_header(), 401, "no header {i}");
     }
-    assert_eq!(s.whoami(&bad).status, 429);
-    assert_eq!(s.whoami(&token).status, 429, "the address is over the limit");
+    let bad = format!("{TOKEN_PREFIX}{}", "0".repeat(64));
+    for i in 0..max {
+        assert_eq!(s.whoami(&bad).status, 401, "bad token {i}: requests with no header were not counted");
+    }
+    assert_eq!(s.whoami(&token).status, 200, "a good token is served over the limit");
+    assert_eq!(s.whoami(&bad).status, 429, "an eleventh bad token");
+    assert_eq!(s.whoami(&expired).status, 429, "an expired token is refused like an unknown one");
+    assert_eq!(s.get("/api/v1/whoami", &[("authorization", "Basic abc")]).status, 429, "a header that holds no token of ours counts");
+    assert_eq!(no_header(), 401, "no header is still not a guess");
+    assert_eq!(s.whoami(&token).status, 200);
 }
 
 /// Checked on every request: the account losing Create courses, or waiting
