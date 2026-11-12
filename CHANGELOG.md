@@ -65,6 +65,14 @@ numbers work is in the README, "Versions".
   disconnect its apps. Only a token's fingerprint (SHA-256) is stored. The
   database gets two new tables (`api_grants`, `api_tokens`); going back to
   an older version drops them.
+- **An MCP server for those apps** at `<your address>/mcp`: with a token
+  from the profile, an AI assistant (Claude Code, Claude, ChatGPT…) can read
+  the course format, list your own courses, read and check them, make a new
+  course and change one's files. It goes through the same checks and limits
+  as the course editor, writes all or nothing, never sees built-in courses
+  or ones shared with you, and starts no AI job. Nothing answers there while
+  **Let apps connect** is off. *The MCP server* in the docs says how to try
+  it.
 
 **What to do:** nothing to update. The update script no longer leaves a copy
 of the database behind, so if you relied on those as backups, make your own

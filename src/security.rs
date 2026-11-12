@@ -200,6 +200,11 @@ pub const AI_JOBS_PER_USER_DAY: Limit = Limit { name: "ai-jobs-user-day", max: 4
 /// script cannot keep the server busy (#366). The editor's autosave saves at
 /// most about once a second while someone works, well under this.
 pub const COURSE_WRITES_PER_USER: Limit = Limit { name: "course-writes-user", max: 120, window: 300, when_full: WhenFull::Refuse };
+/// Requests to `/mcp` one connected app's grant may make (#168), keyed by
+/// the grant id: one every two seconds over ten minutes, far above an
+/// agent writing a course. Its writes count against
+/// `COURSE_WRITES_PER_USER` as well.
+pub const MCP_CALLS_PER_GRANT: Limit = Limit { name: "mcp-calls-grant", max: 300, window: 600, when_full: WhenFull::Refuse };
 
 /// Most keys kept per limit, so memory stays bounded on the Pi (#36). Each
 /// limit has its own table: a flood of one kind of key (fresh addresses)

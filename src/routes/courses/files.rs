@@ -51,30 +51,6 @@ pub struct SaveForm {
     pub content: String,
 }
 
-/// A file as the file page and the upload take it, before the course rules
-/// (which `courses::revalidate` checks once it is stored); refusals are
-/// worded as in the editor (`problems.rs`).
-fn check_file(path: &str, content: &str) -> Result<(), String> {
-    use crate::problems::Problem;
-    if !courses::valid_path(path) {
-        let p = Problem::refused(crate::t1("courses.file.bad_path", "path", path)).hint(crate::t("courses.file.bad_path_hint"));
-        return Err(p.text);
-    }
-    if content.len() > courses::MAX_FILE_BYTES {
-        let p = Problem::refused(crate::t1("courses.file.too_large", "kb", courses::MAX_FILE_BYTES / 1024)).file(path).hint(crate::t("courses.file.too_large_hint"));
-        return Err(p.text);
-    }
-    if crate::content::is_picture_path(path) {
-        let head = content.trim_start();
-        if !(head.starts_with("<svg") || (head.starts_with("<?xml") && head.contains("<svg"))) {
-            return Err(Problem::refused(crate::t("courses.file.not_svg")).file(path).hint(crate::t("courses.file.not_svg_hint")).text);
-        }
-        return Ok(());
-    }
-    serde_json::from_str::<serde_json::Value>(content).map_err(|e| Problem::from_serde(&e, Some(content)).file(path).text)?;
-    Ok(())
-}
-
 /// POST /courses/{id}/file
 pub async fn file_save(
     State(state): State<Arc<AppState>>,
@@ -396,17 +372,9 @@ pub async fn upload(
     // course keeps its state (#366).
     let outcome = state
         .db
-        .call(move |c| {
-            if courses::file_count(c, &cid)? + good.len() > courses::MAX_FILES {
-                return Ok(Err(crate::problems::Problem::refused(crate::t1("courses.editor.too_many_files", "max", courses::MAX_FILES)).text));
-            }
-            if let Some(p) = courses::room_for(c, &cid, courses::size_after(c, &cid, &good)?, limits)? {
-                return Ok(Err(p.text));
-            }
-            for f in &good {
-                courses::write_file(c, &cid, &f.path, &f.content)?;
-            }
-            courses::revalidate(c, &registry, &cid).map(Ok)
+        .call(move |c| match store_files(c, &cid, &good, limits)? {
+            Ok(()) => courses::revalidate(c, &registry, &cid).map(Ok),
+            Err(refusal) => Ok(Err(refusal)),
         })
         .await?;
     match outcome {

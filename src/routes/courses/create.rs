@@ -79,12 +79,19 @@ async fn copy_source(state: &AppState, user: &CurrentUser, id: &str) -> Result<R
     Ok(Ok((files, row.title)))
 }
 
-/// Store `files` as a new private course of `user`'s called `title`, within
-/// the course limits (`Limits`): the new course's id, or the course list's
-/// notice key of the limit it would pass. Nothing of the learner's progress
-/// goes with it (#347).
-pub(in crate::routes) async fn store_copy(state: &AppState, user: &CurrentUser, files: &[CourseFile], title: &str) -> Result<Result<String, String>, AppError> {
-    store_copy_as(state, user, files, title, None).await
+/// Why `store_copy` stored nothing: the course list's notice key, and the
+/// limit's own words (`Problem` text, for a caller with no notices).
+pub(crate) struct NoRoom {
+    pub key: String,
+    pub text: String,
+}
+
+/// Store `files` as a new private course of account `user_id`'s called
+/// `title`, within the course limits (`Limits`): the new course's id, or the
+/// limit it would pass. Nothing of the learner's progress goes with it
+/// (#347). Copy calls it, and so does the MCP tool `create_course` (#168).
+pub(crate) async fn store_copy(state: &AppState, user_id: i64, files: &[CourseFile], title: &str) -> Result<Result<String, NoRoom>, AppError> {
+    store_copy_as(state, user_id, files, title, None).await
 }
 
 /// `store_copy`, handed straight to the translation job `job` with its
@@ -92,29 +99,30 @@ pub(in crate::routes) async fn store_copy(state: &AppState, user: &CurrentUser, 
 /// in the original language.
 async fn store_copy_as(
     state: &AppState,
-    user: &CurrentUser,
+    user_id: i64,
     files: &[CourseFile],
     title: &str,
     translation: Option<(String, String)>,
-) -> Result<Result<String, String>, AppError> {
+) -> Result<Result<String, NoRoom>, AppError> {
     let id = courses::new_course_id(title);
     let files = courses::copied_files(files, &id, title).map_err(AppError::Internal)?;
     let size = courses::size_of(&files);
     let limits = state.courses.limits();
-    let (uid, cid, t) = (user.id, id.clone(), title.to_string());
+    let (uid, cid, t) = (user_id, id.clone(), title.to_string());
     let registry = Arc::clone(&state.courses);
     let refused = state
         .db
         .call(move |c| {
-            if courses::room_for_course(c, uid, limits)?.is_some() {
-                return Ok(Some(format!("course-count-{}", limits.max_courses)));
+            if let Some(p) = courses::room_for_course(c, uid, limits)? {
+                return Ok(Some(NoRoom { key: format!("course-count-{}", limits.max_courses), text: p.text }));
             }
-            if courses::room_for_copy(c, uid, size, limits)?.is_some() {
-                return Ok(Some(if size > limits.course_bytes {
+            if let Some(p) = courses::room_for_copy(c, uid, size, limits)? {
+                let key = if size > limits.course_bytes {
                     format!("copy-too-big-{}", limits.course_bytes)
                 } else {
                     format!("copy-no-room-{}", limits.account_bytes)
-                }));
+                };
+                return Ok(Some(NoRoom { key, text: p.text }));
             }
             courses::create_course(c, uid, &cid, &t, &files)?;
             match &translation {
@@ -127,7 +135,7 @@ async fn store_copy_as(
         })
         .await?;
     Ok(match refused {
-        Some(key) => Err(key),
+        Some(no) => Err(no),
         None => Ok(id),
     })
 }
@@ -146,12 +154,12 @@ pub async fn copy(State(state): State<Arc<AppState>>, user: CurrentUser, Path(id
         return Ok(courses_notice("too-many-writes"));
     }
     let title = courses::short_title(&crate::t1("courses.picker.copy_title", "title", title.as_str()));
-    match store_copy(&state, &user, &files, &title).await? {
+    match store_copy(&state, user.id, &files, &title).await? {
         Ok(new_id) => {
             tracing::info!("user {} copied course {id} as {new_id}", user.id);
             Ok(Redirect::to(&crate::url(&format!("/courses/{new_id}"))).into_response())
         }
-        Err(key) => Ok(courses_notice(&key)),
+        Err(no) => Ok(courses_notice(&no.key)),
     }
 }
 
@@ -248,9 +256,9 @@ pub async fn translate(State(state): State<Arc<AppState>>, user: CurrentUser, Pa
     };
     let job = ai::new_job_id();
     let course_id = match (copy, &resume) {
-        (Some((files, title)), _) => match store_copy_as(&state, &user, &files, &title, Some((job.clone(), plan.to_json()))).await? {
+        (Some((files, title)), _) => match store_copy_as(&state, user.id, &files, &title, Some((job.clone(), plan.to_json()))).await? {
             Ok(new_id) => new_id,
-            Err(key) => return Ok(courses_notice(&key)),
+            Err(no) => return Ok(courses_notice(&no.key)),
         },
         (None, Some(row)) => {
             let (cid, j) = (row.id.clone(), job.clone());

@@ -48,6 +48,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 - Two-factor: `two_factor.rs`, `totp.rs`.
 - Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`; its Connected apps section (#167): `routes/profile/apps.rs`.
 - Connected apps' API (#167): `routes/api.rs` (`/api/v1/…`, bearer token only); the owner's switch and list: `routes/manage/apps.rs`, the switch in `settings.rs` (`APPS_ON`).
+- The MCP server (#168, `docs/api.md`): `routes/mcp.rs` (the HTTP gate of `POST /mcp`: switch, `Origin`, method, content type, bearer, per-grant limit, body cap, scopes), `mcp.rs` (JSON-RPC: `initialize`, `ping`, `tools/list`, `tools/call`, batches of 10), `mcp/tools.rs` (the six course tools), `mcp/format.rs` (`get_course_format`: `docs/course-format.md` by heading, the test course embedded as the example). The tools write through the editor's own functions in `routes/courses/write.rs` (`own_course`, `check_file`, `course_write_refused`, `may_create_courses`, `store_files`) and `store_copy` in `routes/courses/create.rs`.
 - Data rights: `db/tables.rs` (the user-table list), `jobs/retention.rs` (retention rules), `signup.rs` (the age confirmation).
 - Permissions: `perms.rs` (`Perm`, `Perms`, the presets; #137), asked through `CurrentUser::can` / `require` / `require_api` in `auth.rs`; stored in `users.perms`, `users.preset_id` and table `permission_presets`.
 - Owner: `owner.rs`, `routes/manage.rs`, `static/manage.js`, `routes/password.rs` (temporary password gate); an account's permissions (`perms.rs`) and the Permissions dialog on Manage Users, which a superuser reaches too (#139, `POST /manage/permissions`); a learner's progress for an owner or a superuser, unless the account has Privacy (#147): `routes/manage/progress.rs`, `templates/manage_progress.html`; saved presets in `routes/manage/presets.rs` (#140, `POST /manage/presets/delete`); the server's AI API keys in `secrets.rs` and the hide-AI switch in `settings.rs`, both on Manage Users (#25).
@@ -139,6 +140,7 @@ src/
       stat.rs      GET /courses/{id}/stat/{metric}: a card chip's modal body (what is next), fetched as it opens
       create.rs    POST /courses/new (a draft), /courses/{id}/copy, /courses/{id}/translate (copy and translate with AI)
       editor.rs    GET /courses/{id}: the editor (lesson table, Use AI form, review modal, Undo/Redo, Share links), `owned`
+      write.rs     what the editor and the MCP tools (#168) share: own_course (whose course), check_file (a file's path and text), course_write_refused (COURSE_WRITES_PER_USER), may_create_courses, store_files (MAX_FILES, room_for, one transaction)
       files.rs     GET/POST /courses/{id}/file, file/delete, publish, delete, export.json; GET/POST /api/courses/{id}/files, GET /api/courses/{id}/file, POST /api/courses/{id}/preview-answer, POST /api/courses/{id}/answer-key
       generate.rs  POST /courses/{id}/generate (its Generate dialog) and /cancel, provider and quota checks, GET /api/generate/{job}
       revise.rs    POST /courses/{id}/ai (add, edit or revise with AI)|undo|redo|review (Accept in the review: what is left out), POST /api/review-quiet
@@ -156,6 +158,7 @@ src/
     profile.rs   /profile (personal information, account), POST /api/profile (autosave), POST /profile/password (also revokes every connected app)
     profile/apps.rs  the profile's Connected apps section (#167; only while settings::APPS_ON is on and the account has Create courses, 404 otherwise): POST /profile/apps/token (Make a token: name, scope=…, course=…, lifetime 30|90|365, the password; the token shown once, no-store), POST /profile/apps/revoke (id)
     api.rs       GET /api/v1/whoami (#167): the probe of a bearer token (auth::api::ApiUser; never the session cookie): user_id, client_id, client_name, scopes, courses
+    mcp.rs       /mcp (#168, docs/api.md): the MCP server's HTTP gate, every method (all but POST get 405); the protocol is src/mcp.rs, the tools src/mcp/tools.rs
     manage/apps.rs  the owner's Connected apps card (#167): POST /manage/apps (on=1|0, Let apps connect), POST /manage/apps/revoke (id, any account's grant); owners only, 404 otherwise
     pages.rs     / (landing for visitors, home: the three modes) /lessons /lessons/{slug} /history /mistakes, POST /api/lessons/{slug}/note (the lesson note, autosave)
     map.rs       /map
@@ -854,6 +857,15 @@ writable path, and a release never touches the database.
   gate; nothing is cached. Ten bad tokens per address in ten minutes, then 429
   (`security::API_BAD_TOKENS_PER_IP`). A password change, a temporary password and the owner
   turning off two-factor revoke every grant of the account.
+- The MCP server (#168, `routes/mcp.rs`, `docs/api.md`): any request to `/mcp` with an `Origin`
+  header is a 403 whatever the origin (no web page reaches a box on a home network by DNS
+  rebinding) and no `Access-Control-*` header is sent; POST and `application/json` only; the
+  body is capped at the course size limit plus 64 KiB while it is read, its nesting at 32 and a
+  batch at 10; 300 requests per grant in ten minutes (`security::MCP_CALLS_PER_GRANT`). The tools
+  reach only the account's own courses (never a built-in or shared one) inside the grant's course
+  list, check files with the editor's `check_file`, write all or nothing through the editor's
+  functions and count against `COURSE_WRITES_PER_USER`; a failure that is not the agent's is a
+  fixed message.
 - CSRF: the cookie is `SameSite=Lax`, the JSON API only accepts
   `Content-Type: application/json`, and every POST from another site is
   refused with a 403 before its handler runs (`security::csrf`: the
