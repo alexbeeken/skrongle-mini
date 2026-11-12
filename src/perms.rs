@@ -239,6 +239,15 @@ pub fn delete_preset(conn: &Connection, id: i64) -> rusqlite::Result<bool> {
     Ok(true)
 }
 
+/// A new account raised to Teacher, for tests of what an account with
+/// permissions does: new accounts start as Student (#142).
+#[cfg(test)]
+pub fn create_teacher(conn: &Connection, email: &str, password_hash: &str) -> rusqlite::Result<i64> {
+    let id = crate::auth::create_user(conn, email, password_hash)?;
+    apply_preset(conn, id, TEACHER_PRESET)?;
+    Ok(id)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -427,13 +436,4 @@ mod tests {
         })
         .unwrap();
     }
-}
-
-/// A new account raised to Teacher, for tests of what an account with
-/// permissions does: new accounts start as Student (#142).
-#[cfg(test)]
-pub fn create_teacher(conn: &Connection, email: &str, password_hash: &str) -> rusqlite::Result<i64> {
-    let id = crate::auth::create_user(conn, email, password_hash)?;
-    apply_preset(conn, id, TEACHER_PRESET)?;
-    Ok(id)
 }
