@@ -878,8 +878,9 @@ writable path, and a release never touches the database.
   empty 401 there, a token on a page gets the sign-in redirect, and the proxy sign-in header does not
   touch `/api/v1/`. A token in the address (`?access_token=`, `?token=`) is a 400. Every request
   checks the switch, the token and grant and their expiry, Create courses and the temporary-password
-  gate; nothing is cached. Ten bad tokens per address in ten minutes, then 429
-  (`security::API_BAD_TOKENS_PER_IP`). A password change, a temporary password and the owner
+  gate; nothing is cached. Ten bad tokens per address in ten minutes, then a bad token is 429
+  (`security::API_BAD_TOKENS_PER_IP`); the token is looked up first, so a good one is served,
+  and a request with no `Authorization` header is not counted (#185). A password change, a temporary password and the owner
   turning off two-factor revoke every grant of the account.
 - The MCP server (#168, `routes/mcp.rs`, `docs/api.md`): any request to `/mcp` with an `Origin`
   header is a 403 whatever the origin (no web page reaches a box on a home network by DNS

@@ -597,15 +597,23 @@ fn registration_cannot_fill_the_box() {
     assert_eq!(reg(serde_json::json!({ "client_name": "App", "redirect_uris": [CB] })).status, 429);
 }
 
-/// 30 refused token requests from one address in ten minutes, then 429.
+/// 30 refused token requests from one address in ten minutes, then a
+/// refusal is 429. A good code or refresh token from that address is still
+/// served (#185): the neighbours' guesses do not lock a working app out.
 #[test]
 fn guessing_codes_is_rate_limited() {
     let s = Site::start(true, None);
-    let flow = s.flow();
+    let (_, me) = s.account("ann@example.org");
+    let (flow, code) = s.connect(&me);
     let guess = || s.post_form("/oauth/token", &[], &[("grant_type", "refresh_token"), ("refresh_token", "skr_guess"), ("client_id", &flow.client_id)]).status;
-    for _ in 0..30 {
+    for _ in 0..crate::security::OAUTH_TOKEN_FAILURES_PER_IP.max {
         assert_eq!(guess(), 400);
     }
+    let t = s.trade(&flow, &code);
+    assert_eq!(t.status, 200, "a good code over the limit: {}", t.body);
+    assert_eq!(guess(), 429);
+    let r = s.refresh(&flow.client_id, t.json()["refresh_token"].as_str().unwrap());
+    assert_eq!(r.status, 200, "a good refresh over the limit: {}", r.body);
     assert_eq!(guess(), 429);
 }
 
