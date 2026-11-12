@@ -57,8 +57,14 @@ for _ in $(seq 1 100); do curl -fsS "$URL/healthz" >/dev/null 2>&1 && break; sle
 curl -fsS "$URL/healthz" >/dev/null || { echo "server did not start:"; cat "$LOG"; exit 1; }
 
 echo "==> e2e against $URL, seed $SEED"
+# The dev specs only: the release projects need a release server
+# (scripts/release-e2e.sh), and with no --project Playwright runs them all (#189).
+# Last: --project takes every word after it, so spec paths after it would be
+# read as project names.
+PROJECT=(--project chromium)
+for a in "$@"; do case "$a" in --project | --project=*) PROJECT=() ;; esac; done
 STATUS=0
-(cd e2e && E2E_BASE_URL="$URL" E2E_SEED="$SEED" npx playwright test "$@") || STATUS=$?
+(cd e2e && E2E_BASE_URL="$URL" E2E_SEED="$SEED" npx playwright test "$@" ${PROJECT[@]+"${PROJECT[@]}"}) || STATUS=$?
 if [ "$STATUS" != 0 ]; then
   echo "==> e2e FAILED (seed $SEED: rerun with E2E_SEED=$SEED). Report: npx --prefix e2e playwright show-report e2e/results/report; server log tail:"
   tail -20 "$LOG"

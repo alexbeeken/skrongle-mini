@@ -24,7 +24,7 @@ function pile(qid: string): { squares: number; strips: number; units: number } {
   return { squares: n(m[1], 1), strips: n(m[2], 0), units: n(m[3], 0) };
 }
 
-async function pos(tile: Locator): Promise<[number, number]> {
+async function pos(tile: Pick<Locator, "getAttribute">): Promise<[number, number]> {
   return [Number(await tile.getAttribute("data-x")), Number(await tile.getAttribute("data-y"))];
 }
 
@@ -52,7 +52,10 @@ test("practice draws the pile, tiles drag, snap, move with keys and turn", async
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(PHONE.width);
 
   // Drag the big square down into the open part of the board: it lands on the grid.
-  const square = tiles.and(page.locator('[data-kind="square"]')).first();
+  // A tile picked up moves to the end of the board's markup (drawn on top), so
+  // with two squares (2x² + …) `.first()` would be the other one after the drag:
+  // hold this element itself (#189).
+  const square = (await tiles.and(page.locator('[data-kind="square"]')).first().elementHandle())!;
   const before = await pos(square);
   const box = (await square.boundingBox())!;
   const boardBox = (await board.getByTestId("tiles-board").boundingBox())!;

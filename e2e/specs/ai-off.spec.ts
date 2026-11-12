@@ -65,7 +65,10 @@ test.afterEach(async ({ page }) => {
 });
 
 test("the owner's switch hides every AI feature from every account, and shows them again", async ({ page, browser }) => {
-  await devLogin(page, "keys=fake&next=/manage");
+  // The owner's home is checked too, so open a course: a spec before this one
+  // may have left the dev user with none (`/dev/reset`), and then `/` is the
+  // course list, with no mode cards (#189).
+  await devLogin(page, "keys=fake&open=spanish&next=/manage");
   const other = await learner(browser);
   await expectAiShown(other);
 
