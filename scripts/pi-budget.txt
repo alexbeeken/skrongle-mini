@@ -28,5 +28,8 @@ apps_rss_growth_max_kib 256
 # The binary may grow by binary_slack_percent over its platform's baseline; a
 # platform without a baseline (a Mac, the Pi) only reports its size.
 # scripts/pi-budget.sh --update rewrites this platform's line.
+# 2026-11-12 (#93): static files embedded once, gzipped; the CI runner measured
+# 14505032 bytes (was 17141096), so the baseline drops to it and the 2.5 MB
+# given back is not silently spent.
 binary_slack_percent 5
-binary_baseline linux-x86_64 16639304
+binary_baseline linux-x86_64 14505032

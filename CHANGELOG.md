@@ -14,6 +14,9 @@ numbers work is in the README, "Versions".
   working ones included (one cloud assistant's servers, one home router). Now
   a working token is always served, only bad ones get "too many requests",
   and an app's first request without a token no longer counts as a bad one.
+- The download and the installed program are smaller (about 2.5 MB less):
+  the site's styles and scripts are now stored in the program once,
+  compressed, instead of twice.
 - A new docs page, **Connect an AI assistant**, tells people how to let Claude
   Code, Claude or ChatGPT make courses for them: what a token is, what plain
   HTTP on a home network means, the exact steps for Claude Code, and what a

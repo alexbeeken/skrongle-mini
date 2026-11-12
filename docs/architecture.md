@@ -175,7 +175,7 @@ src/
     dev.rs       /dev/login, /dev/reset, /dev/jobs, /dev/authenticator, /dev/boot (the --watch reload poll); all mounted only in dev mode and for local clients, see testing.md; the dev pages need no sign-in
     dev_ai.rs    /dev/ai: the dev AI provider's wire API (Anthropic Messages, OpenAI chat completions, Gemini's OpenAI endpoint; checked by API key; a held request waits for its reply file) and its page among the dev pages (log, limits, failures, Manual replies with the held requests and their reply forms, fixture editor)
 templates/       askama templates (compiled in)
-static/          CSS + dependency-free JS (compiled in); vendor/ holds the one third-party script, abcjs
+static/          CSS + dependency-free JS (compiled in); vendor/ holds the one third-party script, abcjs. A release embeds each file once: build.rs gzips it and only a file that does not shrink is kept raw; a client without gzip gets the file inflated (#93). Debug builds read static/ from disk
 docs/            this documentation (compiled in, served at /docs)
 data/courses/    built-in courses: <id>/course.json + lessons/**.json + pictures/**.svg
 data/test-courses/  courses for automated tests, loaded only with TEST_COURSE=1 (see testing.md, "The test course")
