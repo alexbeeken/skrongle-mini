@@ -78,6 +78,33 @@
     </form>
   </section>
 
+  {# The saved presets (#140), under the accounts: nothing while there are none. Student and Teacher are not listed. #}
+  {% if !saved_presets.is_empty() %}
+  <section class="card" data-testid="manage-presets">
+    <h2>{{ crate::t("manage.presets") }}</h2>
+    <div class="table-scroll"><table class="small">
+      <thead><tr><th>{{ crate::t("manage.preset_name") }}</th><th>{{ crate::t("manage.permissions") }}</th><th>{{ crate::t("manage.accounts") }}</th><th></th></tr></thead>
+      <tbody>{% for p in saved_presets %}
+        <tr data-testid="manage-preset-row" data-preset-id="{{ p.id }}"><td data-testid="manage-preset-name">{{ p.name }}</td><td data-testid="manage-preset-perms">{% if p.perms.is_empty() %}{{ crate::t("manage.preset_no_perms") }}{% else %}{{ p.perms.join(", ") }}{% endif %}</td><td data-testid="manage-preset-count">{{ p.accounts }}</td><td class="account-actions">
+          <button type="button" class="link-btn small" data-opens="manage-preset-dialog" data-preset-id="{{ p.id }}" data-preset-name="{{ p.name }}" aria-haspopup="dialog" data-testid="manage-preset-delete">{{ crate::t("manage.preset_delete") }}</button>
+        </td></tr>{% endfor %}
+      </tbody>
+    </table></div>
+  </section>
+  <dialog class="modal" id="manage-preset-dialog" aria-labelledby="manage-preset-title" data-testid="manage-preset-dialog">
+    <form method="post" action="{{ crate::url("/manage/presets/delete") }}" data-testid="manage-preset-form">
+      <h2 id="manage-preset-title">{{ crate::t("manage.preset_delete_title") }}</h2>
+      <input type="hidden" name="id" value="" data-preset-field>
+      <p><strong data-preset-name></strong></p>
+      <p class="small">{{ crate::t("manage.preset_delete_about") }}</p>
+      <div class="modal-actions">
+        <button type="button" class="btn ghost" data-closes>{{ crate::t("profile.password.cancel") }}</button>
+        <button type="submit" class="btn danger" data-testid="manage-preset-confirm">{{ crate::t("manage.preset_delete") }}</button>
+      </div>
+    </form>
+  </dialog>
+  {% endif %}
+
   {# One Permissions dialog for the page (#139): static/manage.js fills it from the row. The server decides what is stored (POST /manage/permissions). #}
   <dialog class="modal" id="manage-permissions-dialog" aria-labelledby="manage-permissions-title" data-testid="manage-permissions-dialog">
     <form method="post" action="{{ crate::url("/manage/permissions") }}" class="perms-form" data-testid="manage-permissions-form">
@@ -98,6 +125,12 @@
         </li>
         {% endfor %}
       </ul>
+      {# Save as a preset (#140): shown only while Custom is chosen (.perms-form.is-readonly hides it); the server ignores it for a preset. #}
+      <div class="perm-save-as" data-testid="manage-permissions-save-as-row">
+        <label for="perm-save-as">{{ crate::t("manage.permissions_save_as") }}</label>
+        <input type="text" id="perm-save-as" name="save_as" maxlength="{{ crate::perms::PRESET_NAME_MAX }}" autocomplete="off" aria-describedby="perm-save-as-help" data-testid="manage-permissions-save-as">
+        <p class="small muted" id="perm-save-as-help">{{ crate::t("manage.permissions_save_as_help") }}</p>
+      </div>
       <div class="modal-actions">
         <button type="button" class="btn ghost" data-closes>{{ crate::t("profile.password.cancel") }}</button>
         <button type="submit" class="btn" data-testid="manage-permissions-save">{{ crate::t("manage.permissions_save") }}</button>

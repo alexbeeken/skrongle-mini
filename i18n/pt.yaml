@@ -384,6 +384,18 @@ manage:
     one: "{n} ficou como estava (os proprietários e a sua própria conta não podem ser alterados)."
     other: "{n} ficaram como estavam (os proprietários e a sua própria conta não podem ser alterados)."
   permissions_ai_hidden: "Os recursos de IA estão ocultos para todos neste servidor."
+  permissions_save_as: "Salvar como perfil (opcional)"
+  permissions_save_as_help: "Dê um nome a este conjunto para reutilizá-lo em outras contas. Deixe vazio para salvá-lo só para esta conta."
+  presets: "Perfis salvos"
+  preset_name: "Nome"
+  preset_no_perms: "Sem permissões"
+  preset_delete: "Excluir"
+  preset_delete_title: "Excluir este perfil?"
+  preset_delete_about: "As contas que têm este perfil mantêm as suas permissões e aparecem como Personalizado."
+  preset_deleted: "Perfil excluído."
+  preset_name_taken: "Já existe um perfil com esse nome."
+  preset_too_many: "Este servidor já tem {max} perfis salvos. Exclua um primeiro."
+  preset_bad_name: "O nome de um perfil tem de 1 a {max} caracteres, sem quebras de linha nem outros caracteres de controle."
   api_keys:
     title: Chaves de API de IA
     info_text: "As funções de IA de todas as contas usam estas chaves, faturadas à conta a que cada chave pertence. As chaves são cifradas antes de serem guardadas e nunca mais são mostradas; só os últimos quatro caracteres ficam visíveis para saber que chave está guardada. Só os proprietários as veem."

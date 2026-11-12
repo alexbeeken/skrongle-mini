@@ -10,8 +10,10 @@
 //! (`settings::AI_OFF`).
 //! A superuser (an account with `Perm::Superuser`, not an owner) gets the
 //! page too, with the accounts and their permissions and nothing else: the
-//! rest, and every route but `POST /manage/permissions` and its form for
-//! several accounts (`manage/bulk.rs`, #141), stays the owners'.
+//! rest, and every route but `POST /manage/permissions`, its form for
+//! several accounts (`manage/bulk.rs`, #141) and the saved presets'
+//! `POST /manage/presets/delete` (`manage/presets.rs`, #140), stays the
+//! owners'.
 //! Anyone else gets a 404, as if the page did not exist; the account menu
 //! links here only for those two (`CurrentUser::manages_users`).
 
@@ -33,6 +35,8 @@ use crate::AppState;
 
 mod bulk;
 pub use bulk::set_permissions_bulk;
+
+pub mod presets;
 
 #[derive(Template)]
 #[template(path = "manage.html")]
@@ -72,6 +76,9 @@ pub struct ManageTemplate {
     pub presets: Vec<PresetChoice>,
     /// The seven permissions, in the order the dialog lists them.
     pub perms: Vec<PermLine>,
+    /// The saved presets (not Student and Teacher), listed under the
+    /// accounts with Delete (#140).
+    pub saved_presets: Vec<presets::SavedPreset>,
 }
 
 pub struct AccountRow {
@@ -144,6 +151,7 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
         .await?;
     let total = accounts.len() as i64;
     let viewer = user.id;
+    let saved_presets = presets::saved(&presets, &accounts);
     Ok(ManageTemplate {
         user: Some(user),
         is_owner,
@@ -196,6 +204,7 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
                 ai: matches!(p, Perm::AiCourses | Perm::AiTutor),
             })
             .collect(),
+        saved_presets,
     })
 }
 
@@ -211,7 +220,8 @@ pub struct ShowQuery {
     /// Back from an action: `unknown`, `revoked`,
     /// `two-factor-off`, `owner`, `permissions` (or why not:
     /// `permissions-owner`, `permissions-self`), about `email`;
-    /// or `key-removed`, about `provider`; or `ai-off` / `ai-on`.
+    /// or `key-removed`, about `provider`; or `ai-off` / `ai-on`; or
+    /// `preset-…` (`presets::notice`).
     pub did: Option<String>,
     pub email: Option<String>,
     pub provider: Option<String>,
@@ -246,6 +256,7 @@ pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, Query(q
         }
         Some("ai-off") => t.notice = Some(crate::t("manage.ai.hidden_notice")),
         Some("ai-on") => t.notice = Some(crate::t("manage.ai.shown_notice")),
+        Some(did) if did.starts_with("preset-") => presets::notice(&mut t, did),
         _ => {}
     }
     Ok(Page(t).into_response())
@@ -377,6 +388,8 @@ pub async fn turn_off_two_factor(State(state): State<Arc<AppState>>, user: Curre
 /// `custom`, the set of the `perm_<id>` fields sent, normalised here: a
 /// permission whose needed one is off is stored off, whatever the form's
 /// greyed-out toggles said. For a preset the `perm_<id>` fields are ignored.
+/// `custom` with a `save_as` name saves the set as a preset and gives the
+/// account that preset (`presets::save_as`, #140).
 /// An owner or a superuser; a 404 otherwise. Nobody changes an owner's
 /// permissions, and a superuser does not change their own.
 pub async fn set_permissions(State(state): State<Arc<AppState>>, user: CurrentUser, Form(form): Form<Vec<(String, String)>>) -> Result<Response, AppError> {
@@ -408,6 +421,11 @@ pub async fn set_permissions(State(state): State<Arc<AppState>>, user: CurrentUs
     let preset = field("preset").unwrap_or_default();
     if preset == "custom" {
         let set = Perm::ALL.into_iter().fold(Perms::STUDENT, |set, p| set.with(p, field(&format!("perm_{}", p.id())).is_some())).normalized();
+        // With a name (#140): saved as a preset, which the account is given.
+        let save_as = field("save_as").unwrap_or_default().trim();
+        if !save_as.is_empty() {
+            return presets::save_as(&state, &user, target, &email, save_as.to_string(), set).await;
+        }
         state.db.call(move |c| perms::set_custom(c, target, set)).await?;
         tracing::info!("user {} set the permissions of user {target} to custom ({})", user.id, set.bits());
     } else {

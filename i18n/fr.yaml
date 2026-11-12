@@ -384,6 +384,18 @@ manage:
     one: "{n} est resté tel quel (les propriétaires et votre propre compte ne peuvent pas être modifiés)."
     other: "{n} sont restés tels quels (les propriétaires et votre propre compte ne peuvent pas être modifiés)."
   permissions_ai_hidden: "Les fonctions d'IA sont masquées pour tout le monde sur ce serveur."
+  permissions_save_as: "Enregistrer comme profil (facultatif)"
+  permissions_save_as_help: "Donnez un nom à cet ensemble pour le réutiliser pour d'autres comptes. Laissez vide pour l'enregistrer pour ce compte seulement."
+  presets: "Profils enregistrés"
+  preset_name: "Nom"
+  preset_no_perms: "Aucune autorisation"
+  preset_delete: "Supprimer"
+  preset_delete_title: "Supprimer ce profil ?"
+  preset_delete_about: "Les comptes qui ont ce profil gardent leurs autorisations et apparaissent comme Personnalisé."
+  preset_deleted: "Profil supprimé."
+  preset_name_taken: "Un profil portant ce nom existe déjà."
+  preset_too_many: "Ce serveur a déjà {max} profils enregistrés. Supprimez-en un d'abord."
+  preset_bad_name: "Le nom d'un profil compte de 1 à {max} caractères, sans saut de ligne ni autre caractère de contrôle."
   api_keys:
     title: Clés d'API IA
     info_text: "Les fonctions d’IA de tous les comptes utilisent ces clés, facturées au compte auquel chaque clé appartient. Les clés sont chiffrées avant d’être enregistrées et ne sont plus jamais affichées ; seuls les quatre derniers caractères restent visibles pour savoir quelle clé est enregistrée. Seuls les propriétaires les voient."

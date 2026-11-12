@@ -196,3 +196,101 @@ test("the owner gives several accounts a preset at once", async ({ page, browser
   await expect(rowOf(accounts[1].email).getByTestId("manage-account-preset")).toHaveText("Teacher");
   await expect(rowOf(accounts[0].email).getByTestId("manage-account-preset")).toHaveText("Student");
 });
+
+// Saved presets (#140): a Custom set saved under a name is a preset for every
+// account; deleting it leaves the accounts that had it their permissions, as
+// Custom.
+test("a custom set saved as a preset is offered to another account, then deleted", async ({ page, browser }) => {
+  const emails: string[] = [];
+  for (const prefix of ["preset-a", "preset-b"]) {
+    const context = await browser.newContext();
+    const account = newAccount(prefix);
+    await signUp(await context.newPage(), account);
+    await context.close();
+    emails.push(account.email.toLowerCase());
+  }
+  // Its own name each run, so a retry does not meet the last run's preset.
+  const name = `Helpers ${Math.random().toString(36).slice(2, 7)}`;
+
+  await devLogin(page);
+  await page.goto("/manage");
+  const rowOf = (email: string) => page.getByTestId("manage-account-row").filter({ hasText: email });
+  const [first, second] = emails.map(rowOf);
+  const dialog = page.getByTestId("manage-permissions-dialog");
+  const preset = (id: string) => dialog.locator(`[data-testid=manage-permissions-preset][data-preset="${id}"]`);
+  const line = (id: string) => dialog.locator(`[data-testid=manage-permission][data-perm="${id}"]`);
+  const toggle = (id: string) => line(id).getByTestId("manage-permission-toggle");
+  const saveAs = dialog.getByTestId("manage-permissions-save-as");
+  const saved = page.getByTestId("manage-preset-row").filter({ hasText: name });
+  await expect(saved).toHaveCount(0);
+
+  // The name box is there only while Custom is chosen.
+  await first.getByTestId("manage-account-permissions").click();
+  await expect(preset("2")).toBeChecked();
+  await expect(saveAs).toBeHidden();
+  await preset("custom").check();
+  await expect(saveAs).toBeVisible();
+  await expect(dialog).toContainText("Save as a preset (optional)");
+  await expect(dialog).toContainText("Leave empty to save it for this account only.");
+  // The AI tutor and Skip levels only: 4 + 16.
+  await toggle("create_courses").uncheck();
+  await toggle("privacy").uncheck();
+  await saveAs.fill(name);
+  await dialog.getByTestId("manage-permissions-save").click();
+  await expect(page.getByTestId("manage-notice")).toContainText(`Permissions saved for ${emails[0]}`);
+  // The row shows the preset's name, not Custom; the list under the accounts has it.
+  await expect(first.getByTestId("manage-account-preset")).toHaveText(name);
+  await expect(first).toHaveAttribute("data-perms", "20");
+  await expect(page.getByTestId("manage-presets")).toBeVisible();
+  await expect(saved.getByTestId("manage-preset-name")).toHaveText(name);
+  await expect(saved.getByTestId("manage-preset-perms")).toHaveText("Use the AI tutor, Skip levels");
+  await expect(saved.getByTestId("manage-preset-count")).toHaveText("1");
+
+  // Another account: the preset is among the radios; chosen, its permissions are listed without switches.
+  await second.getByTestId("manage-account-permissions").click();
+  await expect(dialog).toContainText(emails[1]);
+  const radio = dialog.getByRole("radio", { name, exact: true });
+  await expect(radio).toBeVisible();
+  await expect(radio).not.toBeChecked();
+  await radio.check();
+  await expect(saveAs).toBeHidden();
+  for (const id of ["create_courses", "ai_courses", "ai_tutor", "share_courses", "skip_levels", "privacy", "superuser"]) {
+    await expect(toggle(id)).toBeHidden();
+    await expect(line(id).getByTestId("manage-permission-mark")).toBeVisible();
+    await expect(line(id)).toHaveAttribute("data-on", id === "ai_tutor" || id === "skip_levels" ? "true" : "false");
+  }
+  await dialog.getByTestId("manage-permissions-save").click();
+  await expect(page.getByTestId("manage-notice")).toContainText(`Permissions saved for ${emails[1]}`);
+  await expect(second.getByTestId("manage-account-preset")).toHaveText(name);
+  await expect(second).toHaveAttribute("data-perms", "20");
+  await expect(saved.getByTestId("manage-preset-count")).toHaveText("2");
+
+  // The same name again, in another case: refused, and the account is as it was.
+  await second.getByTestId("manage-account-permissions").click();
+  await expect(radio).toBeChecked();
+  await preset("custom").check();
+  await expect(saveAs).toHaveValue("");
+  await saveAs.fill(name.toUpperCase());
+  await dialog.getByTestId("manage-permissions-save").click();
+  await expect(page.getByTestId("manage-error")).toHaveText("A preset with that name already exists.");
+  await expect(second.getByTestId("manage-account-preset")).toHaveText(name);
+  await expect(saved).toHaveCount(1);
+
+  // Delete it: a dialog asks first, and both accounts say Custom with what they had.
+  await saved.getByTestId("manage-preset-delete").click();
+  const confirm = page.getByTestId("manage-preset-dialog");
+  await expect(confirm).toBeVisible();
+  await expect(confirm).toContainText(name);
+  await expect(confirm).toContainText("Accounts that have this preset keep their permissions and show as Custom.");
+  await confirm.getByTestId("manage-preset-confirm").click();
+  await expect(page.getByTestId("manage-notice")).toContainText("Preset deleted.");
+  await expect(saved).toHaveCount(0);
+  for (const row of [first, second]) {
+    await expect(row.getByTestId("manage-account-preset")).toHaveText("Custom");
+    await expect(row).toHaveAttribute("data-preset", "custom");
+    await expect(row).toHaveAttribute("data-perms", "20");
+  }
+  await first.getByTestId("manage-account-permissions").click();
+  await expect(preset("custom")).toBeChecked();
+  await expect(dialog.getByRole("radio", { name, exact: true })).toHaveCount(0);
+});

@@ -38,6 +38,11 @@ numbers work is in the README, "Versions".
   *Private* instead, has no progress page, and a superuser does not see its
   last sign-in. Owners are always private. Each account's profile says, in
   *Who sees what*, whether its progress is visible.
+- In the Permissions dialog, a **Custom** set can be given a name (**Save as
+  a preset**): it is then offered for every account, next to Student and
+  Teacher. A server keeps up to 20 saved presets; they are listed under the
+  accounts on Manage Users, each with **Delete**. Deleting one changes
+  nobody's permissions: the accounts that had it show as Custom.
 
 ## 0.3.0 (2026-11-11)
 

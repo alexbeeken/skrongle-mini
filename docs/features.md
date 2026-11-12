@@ -1739,7 +1739,8 @@ keys). The password dialog keeps its explicit buttons. The page needs JavaScript
   `superuser` permission that is not an owner (#139) gets the link and the
   page too, with the title, the notices and the **Accounts** card only (no
   invitation card, no AI card, none of the three owner's actions below),
-  and of the page's forms only `POST /manage/permissions`. For anyone else the menu has
+  and of the page's forms only `POST /manage/permissions` and, for a saved
+  preset, `POST /manage/presets/delete` (#140). For anyone else the menu has
   no link, and the page and its forms answer 404 (`src/routes/manage.rs`,
   `CurrentUser::manages_users`).
   - **Accounts** (#634, `src/signup.rs`): the (i) says which sign-up mode
@@ -2020,6 +2021,31 @@ invitation link; its links keep working and it can remove them
   server can see which courses you study and how many lessons you have
   passed.* or *Your study progress is private: the people who manage this
   server cannot see it.*
+- **Saved presets** (#140, `src/routes/manage/presets.rs`): while **Custom**
+  is chosen the dialog has a box **Save as a preset (optional)** (`save_as`,
+  at most 40 characters). Left empty, the set is the account's own, as
+  above. With a name, `POST /manage/permissions` saves the normalised set as
+  a row of `permission_presets` (`builtin = 0`) and gives the account that
+  preset, in one transaction (`perms::save_preset`, `perms::apply_preset`):
+  the row shows the name instead of *Custom*, and the preset is a radio of
+  the dialog for every account, given like Student and Teacher. `save_as`
+  sent with a preset other than Custom is ignored. Refused, nothing is saved
+  and the page comes back with a red notice: a name that is not 1 to 40
+  characters after trimming or has a control character; a name a preset
+  already has, in any case, or one the Permissions column uses in the
+  viewer's language (Student, Teacher, Custom, Owner); or a server that has
+  its 20 saved presets (`perms::MAX_SAVED_PRESETS`): "This server already
+  has 20 saved presets. Delete one first."
+- **The list of saved presets** (`manage-presets`, a card under Accounts,
+  absent while there are none; Student and Teacher are not in it): each
+  one's name, the names of its permissions or *No permissions*, how many
+  accounts have it, and **Delete**, which asks in a dialog first.
+  **`POST /manage/presets/delete`** (`id`; an owner or a superuser, 404
+  otherwise; a built-in preset or an id no preset has is a 400) deletes the
+  row. The accounts that had it keep their permissions and show as *Custom*
+  (`users.preset_id` is set `NULL` by the foreign key). A `default_preset`
+  setting naming it is removed too. A saved preset cannot be edited: save a
+  new one and delete the old.
 
 ## Two-factor sign-in
 

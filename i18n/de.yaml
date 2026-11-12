@@ -384,6 +384,18 @@ manage:
     one: "{n} blieb unverändert (Eigentümer und dein eigenes Konto können nicht geändert werden)."
     other: "{n} blieben unverändert (Eigentümer und dein eigenes Konto können nicht geändert werden)."
   permissions_ai_hidden: "KI-Funktionen sind auf diesem Server für alle ausgeblendet."
+  permissions_save_as: "Als Vorlage speichern (optional)"
+  permissions_save_as_help: "Gib dieser Auswahl einen Namen, um sie für andere Konten wiederzuverwenden. Leer lassen, um sie nur für dieses Konto zu speichern."
+  presets: "Gespeicherte Vorlagen"
+  preset_name: "Name"
+  preset_no_perms: "Keine Berechtigungen"
+  preset_delete: "Löschen"
+  preset_delete_title: "Diese Vorlage löschen?"
+  preset_delete_about: "Konten mit dieser Vorlage behalten ihre Berechtigungen und werden als „Eigene“ angezeigt."
+  preset_deleted: "Vorlage gelöscht."
+  preset_name_taken: "Eine Vorlage mit diesem Namen gibt es schon."
+  preset_too_many: "Dieser Server hat schon {max} gespeicherte Vorlagen. Lösche zuerst eine."
+  preset_bad_name: "Der Name einer Vorlage hat 1 bis {max} Zeichen, ohne Zeilenumbrüche oder andere Steuerzeichen."
   api_keys:
     title: KI-API-Schlüssel
     info_text: "Die KI-Funktionen jedes Kontos verwenden diese Schlüssel, abgerechnet über das Konto, zu dem der Schlüssel gehört. Schlüssel werden vor dem Speichern verschlüsselt und nie wieder angezeigt; nur die letzten vier Zeichen bleiben sichtbar, damit du erkennst, welcher Schlüssel hinterlegt ist. Nur Eigentümer sehen sie."

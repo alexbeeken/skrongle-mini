@@ -180,6 +180,57 @@ pub fn apply_preset(conn: &Connection, user_id: i64, preset_id: i64) -> rusqlite
     Ok(true)
 }
 
+/// The most saved presets a server keeps (the built-in two not counted, #140).
+pub const MAX_SAVED_PRESETS: usize = 20;
+/// The most characters in a saved preset's name.
+pub const PRESET_NAME_MAX: usize = 40;
+
+/// Why a set was not saved as a preset.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum PresetError {
+    /// A preset has that name already (in any case), or it is a name the
+    /// Permissions column uses: Student, Teacher, Custom, Owner.
+    NameTaken,
+    /// The server has `MAX_SAVED_PRESETS` saved presets already.
+    TooMany,
+    /// Not 1 to `PRESET_NAME_MAX` characters, or it has a control character.
+    BadName,
+}
+
+/// Save `perms` (normalised) as a preset named `name` (trimmed): its id.
+/// Nothing is stored when it is refused. The names taken include the
+/// built-in presets' as the request's language shows them.
+pub fn save_preset(conn: &Connection, name: &str, perms: Perms) -> rusqlite::Result<Result<i64, PresetError>> {
+    let name = name.trim();
+    if name.is_empty() || name.chars().count() > PRESET_NAME_MAX || name.chars().any(char::is_control) {
+        return Ok(Err(PresetError::BadName));
+    }
+    let lower = name.to_lowercase();
+    let all = presets(conn)?;
+    let shown = ["perms.student", "perms.teacher", "perms.custom", "perms.owner"];
+    if all.iter().any(|p| p.name.to_lowercase() == lower) || shown.iter().any(|key| crate::t(key).to_lowercase() == lower) {
+        return Ok(Err(PresetError::NameTaken));
+    }
+    if all.iter().filter(|p| !p.builtin).count() >= MAX_SAVED_PRESETS {
+        return Ok(Err(PresetError::TooMany));
+    }
+    conn.execute("INSERT INTO permission_presets (name, builtin, perms, created_at) VALUES (?1, 0, ?2, ?3)", params![name, perms.normalized().bits(), crate::db::now()])?;
+    Ok(Ok(conn.last_insert_rowid()))
+}
+
+/// Delete a saved preset: `false` when there is none with that id or it is
+/// built in (nothing changes). Its accounts keep their set and become
+/// Custom (`users.preset_id` is `ON DELETE SET NULL`). A `default_preset`
+/// setting that names it goes too, so new accounts fall back to Student.
+/// Two statements: call it in a transaction.
+pub fn delete_preset(conn: &Connection, id: i64) -> rusqlite::Result<bool> {
+    if conn.execute("DELETE FROM permission_presets WHERE id = ?1 AND builtin = 0", [id])? == 0 {
+        return Ok(false);
+    }
+    conn.execute("DELETE FROM settings WHERE name = 'default_preset' AND value = ?1", [id.to_string()])?;
+    Ok(true)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -291,6 +342,77 @@ mod tests {
             set_custom(c, ann, Perms::ALL.with(Perm::CreateCourses, false))?;
             assert_eq!(stored(c, ann)?, (4 + 16 + 32 + 64, None), "stored normalised, preset cleared");
             assert_eq!(stored(c, bob)?, (63, Some(TEACHER_PRESET)), "another account is untouched");
+            Ok(())
+        })
+        .unwrap();
+    }
+
+    #[test]
+    fn a_set_is_saved_as_a_named_preset() {
+        let db = crate::db::Db::open_in_memory().unwrap();
+        db.with(|c| {
+            let count = |c: &Connection| c.query_row("SELECT COUNT(*) FROM permission_presets WHERE builtin = 0", [], |r| r.get::<_, i64>(0));
+            // The name rule: 1 to 40 characters after trimming, no control characters.
+            for bad in ["", "   ", &"x".repeat(41), "Help\ners", "Help\u{7}"] {
+                assert_eq!(save_preset(c, bad, Perms::TEACHER)?, Err(PresetError::BadName), "{bad:?}");
+            }
+            // The built-in names, as stored and as shown, and the column's other words.
+            for taken in ["Teacher", "teacher", " STUDENT ", "Custom", "owner"] {
+                assert_eq!(save_preset(c, taken, Perms::TEACHER)?, Err(PresetError::NameTaken), "{taken:?}");
+            }
+            assert_eq!(count(c)?, 0);
+
+            // Saved trimmed and normalised.
+            let id = save_preset(c, "  Helpers ", Perms::ALL.with(Perm::CreateCourses, false))?.unwrap();
+            assert_eq!(preset(c, id)?, Some(Preset { id, name: "Helpers".into(), builtin: false, perms: Perms::from_bits(4 + 16 + 32 + 64) }));
+            for taken in ["Helpers", "HELPERS", "helpers "] {
+                assert_eq!(save_preset(c, taken, Perms::STUDENT)?, Err(PresetError::NameTaken), "{taken:?}");
+            }
+            // Beyond ASCII too, which the column's NOCASE does not fold.
+            save_preset(c, "Élèves", Perms::STUDENT)?.unwrap();
+            assert_eq!(save_preset(c, "éLÈVES", Perms::STUDENT)?, Err(PresetError::NameTaken));
+            assert_eq!(count(c)?, 2);
+            assert!(save_preset(c, &"x".repeat(40), Perms::STUDENT)?.is_ok(), "40 characters is allowed");
+
+            // The 21st is refused, until one is deleted.
+            for n in 3..MAX_SAVED_PRESETS {
+                save_preset(c, &format!("Set {n}"), Perms::STUDENT)?.unwrap();
+            }
+            assert_eq!(count(c)?, MAX_SAVED_PRESETS as i64);
+            assert_eq!(save_preset(c, "One more", Perms::STUDENT)?, Err(PresetError::TooMany));
+            assert_eq!(count(c)?, MAX_SAVED_PRESETS as i64);
+            assert!(delete_preset(c, id)?);
+            assert!(save_preset(c, "One more", Perms::STUDENT)?.is_ok());
+            Ok(())
+        })
+        .unwrap();
+    }
+
+    #[test]
+    fn deleting_a_preset_leaves_its_accounts_their_set_as_custom() {
+        let db = crate::db::Db::open_in_memory().unwrap();
+        db.with(|c| {
+            let ann = crate::auth::create_user(c, "ann@example.org", "h")?;
+            let bob = crate::auth::create_user(c, "bob@example.org", "h")?;
+            let id = save_preset(c, "Helpers", Perms::from_bits(5))?.unwrap();
+            let other = save_preset(c, "Aides", Perms::from_bits(16))?.unwrap();
+            assert!(apply_preset(c, ann, id)?);
+            assert_eq!(stored(c, ann)?, (5, Some(id)));
+            crate::settings::set(c, "default_preset", &id.to_string())?;
+
+            // A built-in preset, or an id nobody has: nothing happens.
+            assert!(!delete_preset(c, TEACHER_PRESET)? && !delete_preset(c, STUDENT_PRESET)? && !delete_preset(c, 99)?);
+            assert_eq!(presets(c)?.len(), 4);
+            // Another preset's deletion leaves the default alone.
+            assert!(delete_preset(c, other)?);
+            assert_eq!(crate::settings::get(c, "default_preset")?, Some(id.to_string()));
+
+            assert!(delete_preset(c, id)?);
+            assert_eq!(preset(c, id)?, None);
+            assert_eq!(stored(c, ann)?, (5, None), "the set is kept, the account is Custom");
+            assert_eq!(stored(c, bob)?, (63, Some(TEACHER_PRESET)));
+            assert_eq!(crate::settings::get(c, "default_preset")?, None, "new accounts fall back to Student");
+            assert!(!delete_preset(c, id)?, "already gone");
             Ok(())
         })
         .unwrap();
