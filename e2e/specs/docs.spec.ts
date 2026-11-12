@@ -3,7 +3,7 @@
 // an LLM at the course format and its schema. No account, no key.
 import { expect, test } from "@playwright/test";
 
-const USER_PAGES = ["index", "getting-started", "course-structure", "making-courses", "faq"];
+const USER_PAGES = ["index", "getting-started", "course-structure", "making-courses", "connect-an-assistant", "faq"];
 
 test("the docs index is reachable logged out, with user and developer pages apart", async ({ page }) => {
   await page.goto("/docs");
