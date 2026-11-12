@@ -2467,6 +2467,7 @@ courses:
     too_many_course: "Un cours peut avoir jusqu'à {max} liens d'invitation. Retirez-en un d'abord."
     removed_notice: "Lien retiré. La personne qui l'avait ouvert n'a plus le cours."
     not_on_list: Ce lien ne figurait pas dans la liste.
+    not_allowed: "Votre compte ne peut pas créer de nouveaux liens d'invitation. Les liens que vous avez déjà créés continuent de fonctionner jusqu'à ce que vous les supprimiez."
     link_taken: Un autre compte a déjà utilisé ce lien. Demandez au propriétaire du cours un lien pour vous.
     link_gone: Ce lien ne fonctionne plus. Demandez-en un nouveau au propriétaire du cours.
     not_ready: Ce cours n'est pas encore prêt à être ouvert. Demandez à son propriétaire, et réessayez le lien plus tard.

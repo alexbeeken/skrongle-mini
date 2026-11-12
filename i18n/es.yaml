@@ -2468,6 +2468,7 @@ courses:
     too_many_course: "Un curso puede tener hasta {max} enlaces de invitación. Quita uno primero."
     removed_notice: "Enlace quitado. Quien lo abrió ya no tiene el curso."
     not_on_list: Ese enlace no estaba en la lista.
+    not_allowed: "Tu cuenta no puede crear nuevos enlaces de invitación. Los enlaces que ya creaste siguen funcionando hasta que los quites."
     link_taken: Otra cuenta ya usó este enlace. Pide a quien creó el curso un enlace propio.
     link_gone: Este enlace ya no funciona. Pide a quien creó el curso uno nuevo.
     not_ready: Ese curso todavía no se puede abrir. Pregunta a quien lo creó y vuelve a probar el enlace más tarde.

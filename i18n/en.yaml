@@ -2470,6 +2470,7 @@ courses:
     too_many_course: "A course can have up to {max} invitation links. Remove one first."
     removed_notice: "Link removed. Whoever opened it no longer has the course."
     not_on_list: That link was not on the list.
+    not_allowed: "Your account cannot make new invitation links. Links you already made keep working until you remove them."
     link_taken: Another account has already used this link. Ask the course's owner for a link of your own.
     link_gone: This link no longer works. Ask the course's owner for a new one.
     not_ready: That course is not ready to open yet. Ask its owner, and try the link again later.

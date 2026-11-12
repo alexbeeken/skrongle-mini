@@ -11,6 +11,10 @@ numbers work is in the README, "Versions".
   translate* on its course list, and those actions are refused. It still
   learns from built-in and shared courses, and courses it already made stay
   its own to open and edit.
+- The **Share courses** permission now counts: an account without it cannot
+  make invitation links for its courses. Links it already made keep working
+  and it can still remove them; opening someone else's link is open to
+  every account.
 
 ## 0.3.0 (2026-11-11)
 
