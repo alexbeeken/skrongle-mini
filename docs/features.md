@@ -244,7 +244,7 @@ with the table, like any other change (the editor saves as you edit; see
   with the first run's wish and notes filled in). A save that still reaches a
   stopped run with its outline (a stale editor tab, the file form, the upload
   API, Undo) leaves it stopped, with its reason and Resume, even when the
-  files then load (`courses::revalidate`); Resume keeps the files that load,
+  files then load (`courses::record`); Resume keeps the files that load,
   edits included. Only a run that stopped before its outline becomes a course
   when its files are fixed by hand. When the run stops while
   its progress modal is open, the page goes straight to that dialog, with

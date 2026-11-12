@@ -315,10 +315,12 @@ pub(super) fn edit(job: &Job, db: &Db, registry: &crate::courses::Courses, req: 
     final_files.sort_by(|a, b| a.path.cmp(&b.path));
     let outline = crate::arrange::outline_for(row.outline.as_deref(), &final_files);
     let (cid, t, label) = (course_id.clone(), title.clone(), courses::quoted("Edited with feedback:", feedback));
+    // Built before the commit, while the database is free (#84); recorded with it.
+    let (version, checked) = (courses::version_of(&final_files), courses::check(&course_id, &final_files));
     let err = db
         .with(move |c| {
             courses::commit_revision(c, &cid, &final_files, &t, outline.as_deref(), &label)?;
-            courses::revalidate(c, registry, &cid)
+            courses::record(c, registry, &cid, &version, checked)
         })
         .map_err(|e| format!("database: {e}"))?;
     if let Some(e) = err {

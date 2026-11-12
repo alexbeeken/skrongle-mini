@@ -196,15 +196,18 @@ request is served meanwhile. Saving is split the same way (#84):
 `courses::check` builds the files with no connection, `courses::record`
 writes the outcome (`courses.error`, `title`, the cache) and skips it if the
 files changed since they were checked, because the newer save records its
-own. `courses::revalidate` is the two together and still builds while it
-holds the database. Every handler in `routes/courses/` (the autosave,
+own. Nothing builds a course while it holds the database. Every handler in `routes/courses/` (the autosave,
 Upload, the file page, Check the course, Undo and Redo, Create, Copy)
 commits its write, lets go of the database, and calls `built`
 (`routes/courses/write.rs`): it builds with `courses::check_off_lock` (own
 thread, request language), then records in a second short `Db::call`. The
 review's Accept and the MCP tool `put_course_files` build first and write
 after, in one call that writes nothing if the course changed meanwhile. The
-AI job threads still use `revalidate`. Boot builds each built-in course once to check
+AI job threads build on their own thread, in the job's language: a
+generation or translation ends with `courses::check_and_record` (read, build
+with the database free, record); a revision, an added lesson and an edit
+build their new files with `courses::check` before they commit them, then
+commit and `record` in one closure. Boot builds each built-in course once to check
 it and keeps the seed course (`dev::SEED_COURSE`, else the first) in the
 course cache, so the first request for it builds nothing; the others are
 built on first use (keeping them all costs about 4 MB).
@@ -691,7 +694,7 @@ The three places:
   Each `Job` also holds a cancel flag and a deadline.
 
 A fourth place, the course content cache (`Courses`, `courses.rs:412`), is
-filled by `revalidate`; it comes up in window 8.
+filled by `courses::record` after a build (`check`); it comes up in window 8.
 
 How the writes are grouped:
 
@@ -715,7 +718,7 @@ How the writes are grouped:
 | Submit: translate a copy | New course: `create_course` (own transaction, `courses.rs:995`) then `start_translation` (`courses.rs:568`): `generating`, `source` `translate`, `job_id`, `notes` = plan. Both in one closure (`create.rs:115`-`117`). Resume of a stopped translation: `set_generating` (`create.rs:251`) | `submit` (`create.rs:274`); mode `translate`, `resume` false | Same `start` | The two course writes share one closure and mutex, not one transaction. Then separate from the jobs row and memory | Same readers. `gen_mode` (`generate.rs:216`) offers no Generate dialog for `source = translate` |
 | A lesson is written (generate, resume) | `write_file` per lesson (`ai.rs:569`): `course_files` only; `courses.state` and `job_id` untouched. The first request writes the manifest and the outline together (`ai.rs:487`-`491`: `write_file`, `set_outline`: one closure, no transaction) | Nothing. The heartbeat renews the lease separately, every 120 s (`queue.rs:320`) | `lessons_done` and a log line, after the write (`ai.rs:572`) | No. Files are written before memory is updated | Progress bar and list card: memory (`/api/generate`, `courses.js:1908`). A lesson written to the database is not visible to the page until the next poll |
 | A lesson is written (translate) | `write_file` plus `set_notes` (`ai.rs:1118`-`1121`, one closure, no transaction): file and plan progress | Nothing | `lessons_done` (`ai.rs:1127`) | Course writes share a closure; memory is separate | Same |
-| A lesson is written (revise, add, edit) | Nothing yet. Files are swapped once at the end: `commit_revision` (`courses.rs:661`, one transaction) then `revalidate` in the same closure (`ai.rs:904` revise, `ai.rs:1024` add, `edit.rs:322` edit, `edit_lesson.rs:108` one lesson). `state` stays `revising` until the thread's end sequence | Nothing | `lessons_done`: `edit.rs:137` (edit), `ai.rs:1017` (add). Revise: not traced | Commit and revalidate share a closure; commit is a transaction, revalidate is not | Progress: memory. Files on the page: the course row's files, already new while `state` is still `revising` (window 8) |
+| A lesson is written (revise, add, edit) | Nothing yet. Files are swapped once at the end: `commit_revision` (`courses.rs:661`, one transaction) then `record` in the same closure (`revise`, `add_lesson` in `ai.rs`, `edit.rs` edit, `edit_lesson.rs` one lesson); the new files are built with `courses::check` just before, with the database free (#84). `state` stays `revising` until the thread's end sequence | Nothing | `lessons_done`: `edit.rs:137` (edit), `ai.rs:1017` (add). Revise: not traced | Commit and record share a closure; commit is a transaction, record is not | Progress: memory. Files on the page: the course row's files, already new while `state` is still `revising` (window 8) |
 | End: success | Thread end sequence, `launch` closure (`queue.rs:252`-`305`), three separate `db.with` calls and one memory update, in this order: (1) `record_ai_run` (`queue.rs:276`, own transaction; skipped for translate); (2) generate/resume/translate: `finish_generation(None)` (`courses.rs:935`): `ready`, `error` kept as it was (`COALESCE`); revision kinds: `finish_revision` (`courses.rs:600`): `ready` only if `state = 'revising'`. Both at `queue.rs:288`-`292` | (3) `settle` (`queue.rs:403`, called at `queue.rs:294`): `done`, lease cleared, `finished_at`; only if the row is still `queued` or `running` | (4) `job.update` (`queue.rs:297`): `done`, `finished_at`, phase "Done". Then the closure ends and `LiveSlot::drop` (`queue.rs:84`) removes `live` and wakes the runner | No. Four steps, each its own lock hold. (3) runs only if (2) returned `Ok` (`finished.and_then`, `queue.rs:294`) | Editor: row first, then memory; `settled` (`editor.rs:120`) re-reads the row if the row is busy and the job is done. Course list card: row; the card script reloads once when memory says done and the card still says generating (`courses.js:1908`). Capacity: memory (`live`) |
 | End: failure | Same sequence. Generate/resume/translate: `finish_generation(Some(err))`: `failed`, `error` set; lessons and outline stay, so Resume works. Revision kinds: `finish_revision`: `ready`; the course is as before, unless the error came after `commit_revision` ("does not load ... Undo it", `edit_lesson.rs:113`), when the new files are in | `settle` with the error: `failed`, `last_error` | Phase "Stopped", `error` | Same as success | Editor: `stopped_redirect` (`editor.rs:520`) sends a `failed` course to the course list. `modal_job` shows a failed job's modal until closed |
 | Cancel a running job | Nothing | Nothing | `generate_cancel` (`generate.rs:625`) finds the job by `row.job_id` and `!done`, calls `ai::cancel` (`queue.rs:615`) which falls to `Job::cancel` (`ai.rs:322`): sets the flag, phase "Cancelling…", a log line. The thread sees it at the next `check_cancelled` (`ai.rs:329`) and ends as a failure with a "Cancelled" message | Flag and phase are memory only | Modal: memory. Row and jobs row change only when the thread ends (End: failure) |
@@ -800,7 +803,7 @@ I found.
    change with that work.
 8. **Files and cache ahead of the row.** A revision's files are swapped and
    the cache refreshed (`ai.rs:904` etc.) while the course still says
-   `revising`. A generation's final `revalidate` (`ai.rs:578`) puts the
+   `revising`. A generation's final `check_and_record` (`ai.rs`, `run`) puts the
    finished course into the content cache (`courses.rs:1267`) while the row
    still says `generating`; `Courses::get` answers from the cache without
    looking at the row (`courses.rs:416`). Whether any page asks for a course

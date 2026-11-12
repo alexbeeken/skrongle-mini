@@ -1264,7 +1264,7 @@ pub enum Checked {
 pub(crate) static CHECK_HOOK: Mutex<Vec<(String, BuildHook)>> = Mutex::new(Vec::new());
 
 /// Build a course from its files and say whether it loads. No connection:
-/// this is the slow half of `revalidate` (up to 2 s on the Pi) and must not
+/// this is the slow half of a save (up to 2 s on the Pi) and must not
 /// run while the database is locked. The message is worded with `crate::t`,
 /// so on a thread of its own run it inside `i18n::in_scope` (`check_off_lock`).
 pub fn check(course_id: &str, files: &[CourseFile]) -> Checked {
@@ -1304,7 +1304,7 @@ pub async fn check_off_lock(course_id: String, files: Vec<CourseFile>) -> Checke
     }
 }
 
-/// Write down what `check` found: the database half of `revalidate`. `version`
+/// Write down what `check` found: the database half of a save. `version`
 /// is `version_of` the files that were checked. If the course has changed
 /// since, a newer save landed in between and records its own result, so
 /// nothing is written (the failure, if any, is still returned for the reply).
@@ -1318,14 +1318,16 @@ pub fn record(conn: &Connection, registry: &Courses, course_id: &str, version: &
     apply(conn, registry, course_id, checked)
 }
 
-/// Rebuild a course from the database, record the outcome and refresh the
-/// in-memory cache. Returns the validation error, if any. Builds while the
-/// caller holds the connection; a handler that can wait uses `check` and
-/// `record` around the lock instead.
-pub fn revalidate(conn: &Connection, registry: &Courses, course_id: &str) -> rusqlite::Result<Option<String>> {
-    let files = load_files(conn, course_id)?;
+/// Read course `course_id`'s files, build them with the database free, and
+/// record the outcome and refresh the in-memory cache (`record`): the
+/// validation error, if any. For a thread of its own that may block, such as
+/// an AI job's, which already runs in its job's language; a handler awaits
+/// `check_off_lock` between two `Db::call`s instead (#84).
+pub fn check_and_record(db: &Db, registry: &Courses, course_id: &str) -> rusqlite::Result<Option<String>> {
+    let files = db.with(|c| load_files(c, course_id))?;
+    let version = version_of(&files);
     let checked = check(course_id, &files);
-    apply(conn, registry, course_id, checked)
+    db.with(|c| record(c, registry, course_id, &version, checked))
 }
 
 fn apply(conn: &Connection, registry: &Courses, course_id: &str, checked: Checked) -> rusqlite::Result<Option<String>> {
