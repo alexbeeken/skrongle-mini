@@ -174,10 +174,10 @@ for i in range(caps["MAX_ACCOUNTS"] - 1):
 def grant(user, client):
     return db.execute("INSERT INTO api_grants (user_id, client_id, client_name, scopes, created_at, expires_at) VALUES (?, ?, ?, 'courses:read courses:write', ?, ?)",
                       (user, client, f"App {client[:6]}", now, later)).lastrowid
-def token(g, kind, used=None):
+def token(g, kind):
     t = "skr_" + secrets.token_hex(32)
-    db.execute("INSERT INTO api_tokens (grant_id, kind, token_hash, expires_at, used_at) VALUES (?, ?, ?, ?, ?)",
-               (g, kind, hashlib.sha256(t.encode()).hexdigest(), later, used))
+    db.execute("INSERT INTO api_tokens (grant_id, kind, token_hash, expires_at) VALUES (?, ?, ?, ?)",
+               (g, kind, hashlib.sha256(t.encode()).hexdigest(), later))
     return t
 known = []
 for n, u in enumerate(users):
@@ -188,13 +188,12 @@ for n, u in enumerate(users):
         else:
             grant(u, clients[(n * caps["MAX_GRANTS_PER_ACCOUNT"] + k) % len(clients)])
 grants = [r[0] for r in db.execute("SELECT id FROM api_grants ORDER BY id")]
-# An OAuth app's four rows (caps.rs): access, refresh, the access token it
-# replaced and the used refresh token, until api_tokens is full.
-kinds = [("access", None), ("refresh", None), ("access", None), ("refresh", now)]
+# An OAuth app's three rows (caps.rs): access, refresh and the access token
+# it replaced (a used refresh token is deleted, #192), until api_tokens is full.
+kinds = ["access", "refresh", "access"]
 i = 0
 while db.execute("SELECT COUNT(*) FROM api_tokens").fetchone()[0] < caps["MAX_API_TOKENS"]:
-    kind, used = kinds[(i // len(grants)) % 4]
-    token(grants[i % len(grants)], kind, used); i += 1
+    token(grants[i % len(grants)], kinds[(i // len(grants)) % len(kinds)]); i += 1
 db.commit()
 counts = {t: db.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0] for t in ("users", "oauth_clients", "api_grants", "api_tokens")}
 want = {"users": caps["MAX_ACCOUNTS"], "oauth_clients": caps["MAX_OAUTH_CLIENTS"], "api_grants": caps["MAX_API_GRANTS"], "api_tokens": caps["MAX_API_TOKENS"]}
