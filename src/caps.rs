@@ -54,7 +54,9 @@ pub const MAX_API_GRANTS: usize = MAX_ACCOUNTS * MAX_GRANTS_PER_ACCOUNT;
 
 /// Rows `api_tokens` holds for the whole server: a personal token is one
 /// row; an app that signs in with OAuth holds an access and a refresh token
-/// and, for an hour after refreshing, the access token it replaced.
+/// and, after refreshing, the access token it replaced (working until its
+/// hour ends) and the refresh token it used (kept, marked used, so a reuse
+/// is noticed, #184): four rows, however often it refreshes.
 pub const MAX_API_TOKENS: usize = MAX_API_GRANTS * 4;
 
 /// Apps registered for OAuth sign-in (#169, `oauth_clients`): a new

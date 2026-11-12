@@ -34,6 +34,7 @@ cargo test --features dev <test name>
 | A forgotten connection lives for ever | Every grant expires (30 days, 90 or a year; there is no "until revoked"). The hourly housekeeping deletes expired grants and their tokens. | `auth::api::purge_expired`, `jobs::housekeeping` | `auth::api::tests::expired_grants_and_tokens_are_purged`, `auth::api::tests::the_hourly_job_purges_an_expired_grant`, `auth::api::tests::scopes_and_course_lists` |
 | A password change or a temporary password leaves an attacker's app connected | Changing the password, a temporary password from the owner or `skrongle reset-password`, and the owner turning two-factor off all revoke every grant of the account. An account that loses Create courses is refused at its next request, mid-batch and mid-sign-in included. | `auth::api::revoke_all_for_user`, `owner::set_temporary_password` | `routes::api::tests::password_and_two_factor_events_revoke_every_grant`, `mcp::tests::losing_the_permission_or_a_temporary_password_cuts_off_mcp`, `routes::oauth::tests::an_account_changed_mid_flow_cannot_trade`, `mcp::tests::a_batch_stops_when_the_connection_ends` |
 | A stolen authorization code is used | PKCE with S256 is required (`plain` is refused). A code works once, for ten minutes, bound to its client, redirect address and resource; a second use revokes the grant and every token under it. | `oauth_server::exchange_code`, `oauth_server::pkce_ok` | `oauth_server::tests::pkce_is_s256`, `oauth_server::tests::a_code_used_twice_revokes_its_grant`, `oauth_server::tests::a_code_lasts_ten_minutes`, `routes::oauth::tests::oauth_refuses_the_checklist`, `routes::oauth::tests::code_refresh_and_replay` |
+| A stolen refresh token is used (#184) | Refresh tokens rotate with reuse detection (RFC 9700 §4.14.2): a refresh marks the token used instead of deleting it, and a used one presented again by the grant's own client revokes the grant and every token under it, logs one warning naming the grant and the account (no token, no hash), and answers `invalid_grant`. Whichever of the thief and the real app comes second ends the connection, and it leaves Connected apps. Another client's attempt changes nothing. A grant keeps only its newest used refresh token, so it holds at most four token rows. | `oauth_server::refresh` | `oauth_server::tests::a_reused_refresh_token_revokes_its_grant`, `oauth_server::tests::a_used_refresh_token_from_another_client_revokes_nothing`, `oauth_server::tests::refresh_tokens_rotate`, `oauth_server::tests::used_refresh_tokens_go_with_their_grant`, `routes::oauth::tests::a_reused_refresh_token_disconnects_the_app`, `db::tests::v8_down_drops_used_refresh_tokens_only` |
 | The code is sent to an attacker | Redirect addresses match exactly; only `https://`, or `http://` on `localhost`, `127.0.0.1` or `[::1]` where only the port may differ. No user name, fragment, backslash, look-alike loopback name or other scheme. A failed check is shown on a page here and never redirected. | `oauth_server::valid_redirect_uri`, `oauth_server::redirect_matches` | `oauth_server::tests::redirect_addresses_are_https_or_loopback_only`, `oauth_server::tests::redirect_addresses_match_exactly_but_for_a_loopback_port`, `oauth_server::tests::redirect_tricks_do_not_pass`, `routes::oauth::tests::a_failed_check_never_redirects` |
 | A look-alike app asks for consent | The consent page names the app and the host the answer goes to, cannot be framed, grants nothing on GET, and its Allow needs the session and this site's own page. An app's or a token's name cannot hide text-direction or invisible characters. | `routes::oauth::authorize`, `routes::oauth::decide`, `auth::api::is_hidden_char` | `routes::oauth::tests::the_consent_page_says_who_asks_and_grants_nothing_on_get`, `routes::oauth::tests::the_consent_post_needs_the_session_and_this_sites_page`, `routes::oauth::tests::app_names_cannot_mislead`, `auth::api::tests::names_cannot_hide_characters` |
 | Registration fills the SD card | 20 registrations per address an hour; at most 100 registered apps, the oldest unused one pushed out first; an unused registration gone after a day; 5 redirect addresses of 200 characters, a name of 60, a body of 4 KB. Nothing named in a registration is ever fetched. | `oauth_server::register`, `oauth_server::purge` | `routes::oauth::tests::registration_cannot_fill_the_box`, `oauth_server::tests::the_registry_is_bounded`, `oauth_server::tests::purge_drops_expired_codes_and_untraded_grants` |
@@ -51,13 +52,8 @@ cargo test --features dev <test name>
 
 ## Open questions
 
-Two findings of the review need a decision before they are changed:
+One finding of the review needs a decision before it is changed:
 
-- **A reused refresh token does not revoke its grant** (#184). Refresh
-  tokens rotate, but a used one is deleted, so the server cannot tell a
-  replay from a guess. If someone steals a refresh token and uses it first,
-  the real app is locked out and the thief keeps the connection until you
-  revoke it on Manage Users or it expires.
 - **Ten bad requests from one address lock out every app there** (#185),
   good tokens included, for up to ten minutes. Apps that share an address
   (one cloud vendor's servers, one home router) can lock each other out.
@@ -81,9 +77,24 @@ These are known and left as they are, each for the reason given.
   only ever travels to the app's own redirect address, and the worst case is
   that the person connects the app again; ending a grant whose code was
   stolen matters more.
+- **A reused refresh token disconnects the app, even an honest one** (#184).
+  An honest client that retries a refresh after losing the answer will be
+  disconnected and the person has to connect again. Telling that retry from
+  a thief's replay is not possible, and ending a connection whose token was
+  stolen matters more.
+- **Only the previous refresh token is remembered** (#184). A grant keeps
+  the hash of its newest used refresh token, not every one it ever had, so
+  the table stays at four rows per grant over a year of hourly refreshes
+  instead of about 8,760. A thief who refreshes with a stolen token and then
+  refreshes again before the real app next does has pushed the stolen token
+  out: the real app's late try is then an unknown token, refused without
+  revoking, and the thief keeps the connection until it is revoked on the
+  profile or Manage Users, or expires. The real app does stop working, and
+  the owner's "tokens issued" count shows the extra refreshes. Any older
+  token that comes back is refused too, so a stale one never works.
 - **After a refresh, the old access token works until its hour ends.**
   Refreshing keeps only the newest older access token, so a client holds at
-  most three tokens; cutting the old one at once would break a client that
+  most three working tokens; cutting the old one at once would break a client that
   refreshes while a request is in flight.
 - **Allow sent twice makes two grants.** Each Allow is one grant against the
   account's four. One whose code is never traded is purged within about an

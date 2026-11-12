@@ -199,9 +199,16 @@ one grant (counted against the account's 4) and sends `code=…&state=…&iss=�
   the request's. A code works once, for ten minutes; a second use deletes
   the grant it made and every token under it.
 - `grant_type=refresh_token` with `refresh_token` and `client_id` (and
-  `resource` if the app sends it). The refresh token is used up: a second
-  use answers `invalid_grant`. Only the client the grant was made for may
-  use it.
+  `resource` if the app sends it). Only the client the grant was made for
+  may use it; another client gets `invalid_grant` and changes nothing. The
+  refresh token works once (rotation with reuse detection, RFC 9700
+  §4.14.2): a second use by its client answers `invalid_grant` and revokes
+  the grant and every token under it, the newest pair included, since one
+  of the two holders stole it. An honest client that retries a refresh
+  after losing the answer will be disconnected and the person has to
+  connect again. Only the previous refresh token is remembered as used; an
+  older one is simply `invalid_grant` ([Security: connected
+  apps](security-apps), "Accepted risks").
 
 200 is `{"access_token", "token_type": "Bearer", "expires_in": 3600,
 "refresh_token", "scope"}`: the access token works an hour (never past the

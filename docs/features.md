@@ -2172,7 +2172,8 @@ token they give it (#167, the first step of plan #166). The code is
   gets an error page (`oauth-error`) and the app hears nothing. Allow makes
   one grant, listed under Connected apps with the app's name like a token
   made by hand, and the app trades the code for an access token (an hour)
-  and a refresh token that works once. Revoke on the profile, the owner's
+  and a refresh token that works once (used again, it ends the connection:
+  it may have been stolen). Revoke on the profile, the owner's
   Revoke and the events below end it the same way.
 - **`GET /api/v1/whoami`** is the probe: `{"user_id", "client_id",
   "client_name", "scopes", "courses"}`.
