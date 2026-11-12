@@ -274,9 +274,10 @@ pub fn report(cfg: &Config, env: &dyn Fn(&str) -> Option<String>) -> Vec<Line> {
     }));
     let facts = read_db(db);
     out.push(Line::new("schema", schema_line(&facts)));
-    if let DbFacts::Open { users, saved_keys, .. } = &facts {
+    if let DbFacts::Open { users, saved_keys, apps, .. } = &facts {
         out.push(Line::new("accounts", users.to_string()));
         out.push(Line::new("saved AI keys", format!("{saved_keys} (the server's keys, set by the owner, encrypted with the secret key)")));
+        out.push(Line::new("connected apps", apps_line(apps, env("PUBLIC_URL").as_deref())));
     }
 
     let saved_keys = match &facts {
@@ -394,7 +395,15 @@ fn db_size_line(db: &Path) -> String {
 enum DbFacts {
     Missing,
     Unreadable(String),
-    Open { version: i64, users: i64, saved_keys: i64 },
+    Open { version: i64, users: i64, saved_keys: i64, apps: AppsFacts },
+}
+
+/// Connected apps (#167, #169): the owner's switch, the grants and the apps
+/// registered for OAuth sign-in. All zero on a database from before them.
+struct AppsFacts {
+    on: bool,
+    grants: i64,
+    registered: i64,
 }
 
 fn read_db(db: &Path) -> DbFacts {
@@ -411,7 +420,56 @@ fn read_db(db: &Path) -> DbFacts {
         Err(e) => return DbFacts::Unreadable(e.to_string()),
     };
     let count = |table: &str| conn.query_row(&format!("SELECT COUNT(*) FROM {table}"), [], |r| r.get::<_, i64>(0)).unwrap_or(0);
-    DbFacts::Open { version, users: count("users"), saved_keys: count("server_api_keys") }
+    let on = conn.query_row("SELECT value = '1' FROM settings WHERE name = ?1", [crate::settings::APPS_ON], |r| r.get::<_, bool>(0)).unwrap_or(false);
+    let apps = AppsFacts { on, grants: count("api_grants"), registered: count("oauth_clients") };
+    DbFacts::Open { version, users: count("users"), saved_keys: count("server_api_keys"), apps }
+}
+
+/// Whether apps may connect, how many grants and registered apps there are,
+/// and a warning when they may connect over plain HTTP on a public address
+/// (#170): a token then crosses the internet unencrypted. The address itself
+/// is never printed (it may hold a user name and password).
+fn apps_line(apps: &AppsFacts, public_url: Option<&str>) -> String {
+    let mut s = format!(
+        "{} ({} grants, {} apps registered for sign-in)",
+        if apps.on { "on: apps may connect" } else { "off" },
+        apps.grants,
+        apps.registered
+    );
+    if apps.on && public_url.is_some_and(plain_http_on_a_public_address) {
+        s.push_str(" (WARNING: SKRONGLE_PUBLIC_URL is a plain http:// address that is not a private one, so tokens cross the internet unencrypted: put HTTPS in front, or turn Let apps connect off)");
+    }
+    s
+}
+
+/// `url` is `http://` and its host is not one of a home network's: not
+/// loopback, not a private or link-local address, not `localhost` or a
+/// name under `.local`, `.lan`, `.home.arpa` or `.internal`, not a name
+/// without a dot.
+fn plain_http_on_a_public_address(url: &str) -> bool {
+    let Some(rest) = url.get(..7).filter(|s| s.eq_ignore_ascii_case("http://")).and_then(|_| url.get(7..)) else { return false };
+    let authority = rest.split(['/', '?', '#']).next().unwrap_or("");
+    let authority = authority.rsplit_once('@').map_or(authority, |(_, h)| h);
+    let host = match authority.strip_prefix('[') {
+        Some(v6) => v6.split(']').next().unwrap_or(""),
+        None => authority.split(':').next().unwrap_or(""),
+    }
+    .trim_end_matches('.')
+    .to_ascii_lowercase();
+    match host.parse::<std::net::IpAddr>() {
+        Ok(std::net::IpAddr::V4(ip)) => !(ip.is_private() || ip.is_loopback() || ip.is_link_local() || ip.is_unspecified()),
+        Ok(std::net::IpAddr::V6(ip)) => {
+            let first = ip.segments().first().copied().unwrap_or(0);
+            let private = ip.is_loopback() || ip.is_unspecified() || (first & 0xfe00) == 0xfc00 || (first & 0xffc0) == 0xfe80;
+            !private && ip.to_ipv4_mapped().is_none_or(|v4| !(v4.is_private() || v4.is_loopback()))
+        }
+        Err(_) => {
+            let local = host == "localhost"
+                || !host.contains('.')
+                || [".local", ".lan", ".home.arpa", ".internal", ".localhost"].iter().any(|suffix| host.ends_with(suffix));
+            !local
+        }
+    }
 }
 
 fn schema_line(facts: &DbFacts) -> String {
@@ -655,6 +713,41 @@ mod tests {
                 ("SKRONGLE_AI_PROVIDER".into(), "anthropic".into()),
             ]
         );
+    }
+
+    /// The connected-apps line (#170): the switch and the counts, and a
+    /// warning only when apps may connect over plain HTTP on an address that
+    /// is not a home network's. The address is never printed.
+    #[test]
+    fn connected_apps_line_warns_about_plain_http_on_the_internet() {
+        let on = AppsFacts { on: true, grants: 3, registered: 2 };
+        let off = AppsFacts { on: false, grants: 3, registered: 2 };
+        assert_eq!(apps_line(&off, Some("http://203.0.113.9")), "off (3 grants, 2 apps registered for sign-in)");
+        assert_eq!(apps_line(&on, None), "on: apps may connect (3 grants, 2 apps registered for sign-in)");
+        for public in ["http://203.0.113.9", "http://learn.example.org/skrongle", "HTTP://learn.example.org", "http://admin:hunter2@learn.example.org", "http://[2001:db8::1]:8080", "http://8.8.8.8:7576"] {
+            let line = apps_line(&on, Some(public));
+            assert!(line.contains("WARNING"), "{public}: {line}");
+            assert!(!line.contains("hunter2") && !line.contains("example.org") && !line.contains("203.0.113"), "the address is not printed: {line}");
+        }
+        for home in [
+            "https://learn.example.org",
+            "http://192.168.1.20:7576",
+            "http://10.0.0.5",
+            "http://172.16.4.4",
+            "http://127.0.0.1:8100",
+            "http://localhost:7576",
+            "http://[::1]:7576",
+            "http://[fd12::5]",
+            "http://[fe80::1]",
+            "http://169.254.0.9",
+            "http://raspberrypi.local",
+            "http://skrongle.lan/skrongle",
+            "http://pi.home.arpa",
+            "http://pi",
+        ] {
+            assert!(!apps_line(&on, Some(home)).contains("WARNING"), "{home}");
+        }
+        assert!(!apps_line(&off, Some("http://203.0.113.9")).contains("WARNING"), "off: nothing to warn about");
     }
 
     #[test]

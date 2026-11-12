@@ -348,7 +348,10 @@ pub async fn decide(State(state): State<Arc<AppState>>, user: CurrentUser, heade
                 .call(move |c| {
                     // Only the account's own courses can be on the list.
                     let owned = crate::courses::courses_owned_by(c, uid)?;
-                    let courses: Vec<String> = asked.into_iter().filter(|id| owned.iter().any(|o| &o.id == id)).collect();
+                    let courses = match crate::auth::api::own_courses(asked, &owned) {
+                        Ok(c) => c,
+                        Err(e) => return Ok(Err(e)),
+                    };
                     server::allow(c, &req, &Consent { user_id: uid, courses: &courses, lifetime }, t)
                 })
                 .await?;
@@ -459,7 +462,9 @@ pub async fn token(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
         return Ok(too_many());
     }
     Ok(match token_result(&state, &issuer, req).await? {
-        Ok(t) => no_store(
+        Ok(t) => {
+            state.issued.count(now());
+            no_store(
             StatusCode::OK,
             &json!({
                 "access_token": t.access,
@@ -468,7 +473,8 @@ pub async fn token(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
                 "refresh_token": t.refresh,
                 "scope": Scope::join(&t.scopes),
             }),
-        ),
+            )
+        }
         Err(e) => {
             state.limits.hit(OAUTH_TOKEN_FAILURES_PER_IP, &ip, now());
             token_error(e)

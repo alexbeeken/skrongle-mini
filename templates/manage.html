@@ -195,6 +195,7 @@
       <h2 id="manage-apps-info-title">{{ crate::t("apps.title") }}</h2>
       <p>{{ crate::t("apps.manage_about") }}</p>
       <p>{{ crate::t("apps.manage_about_off") }}</p>
+      <p>{{ crate::t("apps.manage_counts_about") }}</p>
       <div class="modal-actions"><button type="button" class="btn" data-closes>{{ crate::t("profile.ok") }}</button></div>
     </dialog>
     <div class="switch-row" data-testid="manage-apps" data-apps-on="{{ apps_on }}">
@@ -204,6 +205,7 @@
         <button type="submit" class="switch" role="switch" aria-checked="{{ apps_on }}" aria-labelledby="manage-apps-label" data-testid="manage-apps-switch"><span class="switch-knob" aria-hidden="true"></span>{% if apps_on %}{{ crate::t("manage.ai.on") }}{% else %}{{ crate::t("manage.ai.off") }}{% endif %}</button>
       </form>
     </div>
+    <p class="small" data-testid="manage-apps-counts" data-registered="{{ apps_registered }}" data-issued="{{ tokens_issued }}">{{ crate::t2("apps.manage_last_day", "registered", crate::tn("apps.manage_registered", apps_registered), "issued", crate::tn("apps.manage_issued", tokens_issued)) }}</p>
     {% if grants.is_empty() %}
     <p class="muted small" data-testid="manage-apps-none">{{ crate::t("apps.manage_none") }}</p>
     {% else %}

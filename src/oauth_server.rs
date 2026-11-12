@@ -178,9 +178,10 @@ pub struct Registration {
 }
 
 /// An app's name as registered: trimmed, at most `api::NAME_MAX`
-/// characters, no control characters, no markup.
+/// characters, no control, direction or invisible characters
+/// (`api::is_hidden_char`), no markup.
 pub fn valid_name(name: &str) -> bool {
-    name.chars().count() <= api::NAME_MAX && !name.chars().any(|c| c.is_control() || matches!(c, '<' | '>' | '"' | '`'))
+    name.chars().count() <= api::NAME_MAX && !name.chars().any(|c| api::is_hidden_char(c) || matches!(c, '<' | '>' | '"' | '`'))
 }
 
 /// Check a registration: the app's name and redirect addresses, or the
@@ -221,6 +222,12 @@ fn purge_clients(conn: &Connection, now: i64) -> rusqlite::Result<usize> {
          AND NOT EXISTS (SELECT 1 FROM api_grants g WHERE g.client_id = oauth_clients.client_id)",
         [now - UNUSED_CLIENT_TTL_SECS],
     )
+}
+
+/// How many apps registered since `since` (the owner's card, #170). A
+/// registration pushed out by a newer one at the cap is no longer counted.
+pub fn registered_since(conn: &Connection, since: i64) -> rusqlite::Result<i64> {
+    conn.query_row("SELECT COUNT(*) FROM oauth_clients WHERE created_at > ?1", [since], |r| r.get(0))
 }
 
 /// Register an app; its new client id, or `Refused::Full` when the table

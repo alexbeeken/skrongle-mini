@@ -101,14 +101,18 @@ pub async fn load(state: &AppState, user: &CurrentUser) -> Result<Option<Apps>, 
 }
 
 /// A token's name as typed: trimmed, 1 to `NAME_MAX` characters, no
-/// control characters.
+/// control, direction or invisible characters (`api::is_hidden_char`: the
+/// owner reads this name on Manage Users).
 pub fn validate_name(name: &str) -> Result<String, String> {
     let name = name.trim();
     if name.is_empty() {
         return Err(crate::t("apps.name_missing"));
     }
-    if name.chars().count() > api::NAME_MAX || name.chars().any(char::is_control) {
+    if name.chars().count() > api::NAME_MAX {
         return Err(crate::t1("apps.name_too_long", "max", api::NAME_MAX));
+    }
+    if name.chars().any(api::is_hidden_char) {
+        return Err(crate::t("apps.name_hidden"));
     }
     Ok(name.to_string())
 }
@@ -159,7 +163,10 @@ pub async fn make_token(State(state): State<Arc<AppState>>, user: CurrentUser, F
         .call(move |c| {
             // Only the account's own courses can be on the list.
             let owned = crate::courses::courses_owned_by(c, uid)?;
-            let courses: Vec<String> = asked.into_iter().filter(|id| owned.iter().any(|o| &o.id == id)).collect();
+            let courses = match api::own_courses(asked, &owned) {
+                Ok(c) => c,
+                Err(e) => return Ok(Err(e)),
+            };
             let tx = c.transaction()?;
             let g = NewGrant { client_id: api::PERSONAL_CLIENT_ID, client_name: &name, scopes: &scopes, courses: &courses, lifetime };
             let made = api::make_personal(&tx, uid, &g, now)?;
@@ -175,6 +182,7 @@ pub async fn make_token(State(state): State<Arc<AppState>>, user: CurrentUser, F
     };
     // The log names the account, never the token.
     tracing::info!("user {uid} made a personal API token");
+    state.issued.count(now);
     let page = profile_with(&state, user, StatusCode::OK, move |t: &mut ProfileTemplate| {
         if let Some(a) = t.apps.as_mut() {
             a.new_token = Some(token);

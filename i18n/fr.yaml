@@ -3035,6 +3035,7 @@ apps:
   too_many: "Ce compte a déjà {max} applications connectées. Révoque-en une d'abord."
   server_full: "Ce serveur a déjà autant d'applications connectées qu'il peut en garder. Demande au propriétaire d'en révoquer."
   no_scope: "Choisis au moins une chose que l'application peut faire."
+  courses_gone: "Aucun des cours que tu as choisis n'est encore à toi. Choisis-les à nouveau."
   name_missing: "Donne un nom au jeton."
   name_too_long: "Le nom est trop long ({max} caractères au plus)."
   password_changed: "Mot de passe changé. Tes applications connectées ont été déconnectées."
@@ -3046,6 +3047,15 @@ apps:
   manage_on_notice: "Les applications peuvent se connecter."
   manage_off_notice: "Les applications ne peuvent plus se connecter."
   manage_revoked_too: "Ses applications connectées sont déconnectées aussi."
+  name_hidden: "Le nom contient un caractère invisible, comme une marque de sens du texte. Saisis-le à nouveau."
+  manage_counts_about: "Le nombre de jetons émis est gardé en mémoire : il repart de zéro au redémarrage du serveur."
+  manage_last_day: "{registered} et {issued} au cours du dernier jour."
+  manage_registered:
+    one: "{n} application inscrite"
+    other: "{n} applications inscrites"
+  manage_issued:
+    one: "{n} jeton émis"
+    other: "{n} jetons émis"
   js:
     copied: "Copié"
 oauth:

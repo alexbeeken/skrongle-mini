@@ -3035,6 +3035,7 @@ apps:
   too_many: "Dieses Konto hat schon {max} verbundene Apps. Widerrufe zuerst eine."
   server_full: "Dieser Server hat so viele verbundene Apps, wie er halten kann. Bitte den Besitzer, einige zu widerrufen."
   no_scope: "Wähle mindestens eine Sache, die die App darf."
+  courses_gone: "Keiner der gewählten Kurse gehört noch dir. Wähle sie neu aus."
   name_missing: "Gib dem Token einen Namen."
   name_too_long: "Der Name ist zu lang (höchstens {max} Zeichen)."
   password_changed: "Passwort geändert. Deine verbundenen Apps wurden getrennt."
@@ -3046,6 +3047,15 @@ apps:
   manage_on_notice: "Apps dürfen sich verbinden."
   manage_off_notice: "Apps können sich nicht mehr verbinden."
   manage_revoked_too: "Seine verbundenen Apps werden auch getrennt."
+  name_hidden: "Der Name enthält ein unsichtbares Zeichen, etwa eine Schreibrichtungsmarke. Gib ihn neu ein."
+  manage_counts_about: "Die Zahl der ausgegebenen Token liegt nur im Speicher: Nach einem Neustart des Servers beginnt sie wieder bei null."
+  manage_last_day: "{registered} und {issued} am letzten Tag."
+  manage_registered:
+    one: "{n} App registriert"
+    other: "{n} Apps registriert"
+  manage_issued:
+    one: "{n} Token ausgegeben"
+    other: "{n} Token ausgegeben"
   js:
     copied: "Kopiert"
 oauth:

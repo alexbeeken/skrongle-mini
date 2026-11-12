@@ -84,6 +84,10 @@ pub struct ManageTemplate {
     /// grants in force (`manage/apps.rs`); owners only, empty for a superuser.
     pub apps_on: bool,
     pub grants: Vec<apps::OwnerGrantRow>,
+    /// Apps that registered for OAuth sign-in and tokens handed out, in the
+    /// last day (#170): a flood or a stolen token shows here.
+    pub apps_registered: i64,
+    pub tokens_issued: u32,
 }
 
 pub struct AccountRow {
@@ -141,16 +145,16 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
     let now = crate::db::now();
     let vault = state.vault.clone();
     let is_owner = user.owner;
-    let (invites, accounts, (api_keys, ai_off, ollama_model), presets, (apps_on, grants)) = state
+    let (invites, accounts, (api_keys, ai_off, ollama_model), presets, (apps_on, grants, apps_registered)) = state
         .db
         .call(move |c| {
             let ai_off = crate::settings::ai_off(c)?;
             let (invites, ai, apps) = if is_owner {
                 let model = crate::settings::get(c, crate::settings::OLLAMA_MODEL)?.unwrap_or_default();
-                let apps = (crate::settings::apps_on(c)?, auth::api::all_grants(c, now)?);
+                let apps = (crate::settings::apps_on(c)?, auth::api::all_grants(c, now)?, crate::oauth_server::registered_since(c, now - 86_400)?);
                 (crate::signup::open_invites(c, now)?, (secrets::statuses(c, &vault)?, ai_off, model), apps)
             } else {
-                (Vec::new(), (Vec::new(), ai_off, String::new()), (false, Vec::new()))
+                (Vec::new(), (Vec::new(), ai_off, String::new()), (false, Vec::new(), 0))
             };
             Ok((invites, crate::signup::accounts(c)?, ai, perms::presets(c)?, apps))
         })
@@ -213,6 +217,8 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
         saved_presets,
         apps_on,
         grants: apps::rows(grants, now),
+        apps_registered,
+        tokens_issued: if is_owner { state.issued.last_day(now) } else { 0 },
     })
 }
 

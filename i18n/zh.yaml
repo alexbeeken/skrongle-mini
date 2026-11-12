@@ -3035,6 +3035,7 @@ apps:
   too_many: "此账户已有 {max} 个已连接的应用。请先撤销一个。"
   server_full: "此服务器的已连接应用已达上限。请让所有者撤销一些。"
   no_scope: "请至少选择一项应用可以做的事。"
+  courses_gone: "你选的课程都已不再属于你。请重新选择。"
   name_missing: "请给令牌起个名字。"
   name_too_long: "名称太长（最多 {max} 个字符）。"
   password_changed: "密码已修改。你的已连接应用已断开。"
@@ -3046,6 +3047,15 @@ apps:
   manage_on_notice: "应用可以连接。"
   manage_off_notice: "应用无法再连接。"
   manage_revoked_too: "该账户的已连接应用也会断开。"
+  name_hidden: "名称中有看不见的字符（例如文字方向标记）。请重新输入。"
+  manage_counts_about: "已发放令牌的数量只保存在内存中：服务器重启后从零开始。"
+  manage_last_day: "最近一天：{registered}，{issued}。"
+  manage_registered:
+    one: "注册了 {n} 个应用"
+    other: "注册了 {n} 个应用"
+  manage_issued:
+    one: "发放了 {n} 个令牌"
+    other: "发放了 {n} 个令牌"
   js:
     copied: "已复制"
 oauth:

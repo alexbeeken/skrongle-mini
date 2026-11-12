@@ -302,3 +302,96 @@ fn bearer_header_and_token_in_the_address() {
         assert!(token_in_query(&uri(&format!("/api/v1/whoami?{q}"))), "{q}");
     }
 }
+
+// ---------- #170: the security review ----------
+
+/// The hourly housekeeping job (not only `purge_expired` on its own)
+/// removes a grant whose expiry has passed, and its token stops working.
+#[test]
+fn the_hourly_job_purges_an_expired_grant() {
+    let state = crate::routes::test_state(false);
+    let db = &state.db;
+    let now = crate::db::now();
+    let (ann, token) = db
+        .with(|c| {
+            let ann = setup(c);
+            let token = make_personal(c, ann, &new_grant(&Scope::ALL, &[], Lifetime::Days30), now)?.unwrap();
+            Ok((ann, token))
+        })
+        .unwrap();
+    assert!(db.with(|c| user_for_token(c, &token, now)).map(found).unwrap().is_some());
+    db.with(|c| c.execute("UPDATE api_grants SET expires_at = ?1", [now - 1])).unwrap();
+    let keep_all = crate::jobs::retention::Retention { history_days: None, keep_notes: false, failed_course_days: None };
+    let runner = crate::jobs::housekeeping(crate::jobs::Runner::new(), &state, keep_all);
+    runner.seed(db, now).unwrap();
+    let (_, outcome) = runner.run_one(db, now).unwrap().unwrap();
+    assert!(matches!(outcome, crate::jobs::Outcome::Done), "{outcome:?}");
+    let rows: (i64, i64) = db.with(|c| c.query_row("SELECT (SELECT COUNT(*) FROM api_grants), (SELECT COUNT(*) FROM api_tokens)", [], |r| Ok((r.get(0)?, r.get(1)?)))).unwrap();
+    assert_eq!(rows, (0, 0), "the expired grant and its token are gone");
+    assert!(db.with(|c| grants(c, ann, now)).unwrap().is_empty());
+    assert!(db.with(|c| user_for_token(c, &token, now)).map(found).unwrap().is_none());
+}
+
+/// A wrong token, an expired one, a revoked one and a refresh token used as
+/// a bearer all take the same path: one indexed lookup that finds no row,
+/// so neither the answer nor the work done says which it was.
+#[test]
+fn unknown_expired_and_revoked_tokens_are_one_answer() {
+    let db = Db::open_in_memory().unwrap();
+    db.with(|c| {
+        let ann = setup(c);
+        let unknown = format!("{TOKEN_PREFIX}{}", "0".repeat(64));
+        let expired = personal(c, ann);
+        c.execute("UPDATE api_tokens SET expires_at = ?1 WHERE token_hash = ?2", params![NOW - 1, hash_token(&expired)])?;
+        let revoked = personal(c, ann);
+        let gid: i64 = c.query_row("SELECT grant_id FROM api_tokens WHERE token_hash = ?1", [hash_token(&revoked)], |r| r.get(0))?;
+        revoke(c, ann, gid)?;
+        let g = create_grant(c, ann, &new_grant(&Scope::ALL, &[], Lifetime::Days30), NOW)?.unwrap();
+        let refresh = mint(c, g, Kind::Refresh, NOW + 3600)?.unwrap();
+        for t in [&unknown, &expired, &revoked, &refresh] {
+            assert!(matches!(user_for_token(c, t, NOW)?, Lookup::Refused), "{t}");
+            // The same query plan for each: a search of the unique hash index.
+            let plan: Vec<String> = c
+                .prepare(&format!("EXPLAIN QUERY PLAN {TOKEN_SQL}"))?
+                .query_map(params![hash_token(t), NOW], |r| r.get::<_, String>(3))?
+                .collect::<Result<_, _>>()?;
+            assert!(plan.first().is_some_and(|p| p.contains("USING INDEX") && p.contains("token_hash")), "{plan:?}");
+        }
+        Ok(())
+    })
+    .unwrap();
+}
+
+/// A name a person reads to decide whom to trust may not hide characters:
+/// no direction overrides or isolates, no zero-width or invisible ones, no
+/// control characters. Letters of any script and emoji are fine.
+#[test]
+fn names_cannot_hide_characters() {
+    for hidden in ['\u{202E}', '\u{202D}', '\u{2066}', '\u{2069}', '\u{200B}', '\u{200F}', '\u{FEFF}', '\u{061C}', '\u{00AD}', '\u{E0041}', '\u{1B}', '\u{7F}'] {
+        assert!(is_hidden_char(hidden), "{:04X}", hidden as u32);
+        assert!(!crate::oauth_server::valid_name(&format!("Claude{hidden}x")), "{:04X} in an app's name", hidden as u32);
+        assert!(crate::routes::profile::apps::validate_name(&format!("Laptop{hidden}")).is_err(), "{:04X} in a token's name", hidden as u32);
+    }
+    for fine in ["Claude", "Mi asistente", "Ассистент", "助手", "مساعد", "Laptop 🚀"] {
+        assert!(fine.chars().all(|c| !is_hidden_char(c)), "{fine}");
+        assert!(crate::oauth_server::valid_name(fine) && crate::routes::profile::apps::validate_name(fine).is_ok(), "{fine}");
+    }
+}
+
+/// The owner's "tokens issued in the last day": by the hour, the oldest
+/// hour dropping out after 24, a slot reused for its new hour.
+#[test]
+fn issued_tokens_are_counted_for_a_day() {
+    let issued = Issued::default();
+    let t = 1_800_000_000; // a whole hour
+    assert_eq!(issued.last_day(t), 0);
+    issued.count(t);
+    issued.count(t + 10);
+    issued.count(t + 3600 * 5);
+    assert_eq!(issued.last_day(t + 3600 * 5), 3);
+    assert_eq!(issued.last_day(t + 3600 * 23 + 3599), 3, "still inside the day");
+    assert_eq!(issued.last_day(t + 3600 * 24), 1, "the first hour dropped out");
+    issued.count(t + 3600 * 24);
+    assert_eq!(issued.last_day(t + 3600 * 24), 2, "its slot counts the new hour from zero");
+    assert_eq!(issued.last_day(t + 3600 * 60), 0);
+}

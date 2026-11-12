@@ -329,6 +329,8 @@ pub fn router(state: Arc<AppState>) -> Router {
     let (dev, reload) = (state.dev.on, state.dev.on && crate::dev::reload_wanted());
     let app = app
         .fallback(|| async { AppError::NotFound })
+        // Connected apps (#170): the owner's switch before any extractor.
+        .layer(axum::middleware::from_fn_with_state(state.clone(), api::switch))
         .layer(axum::middleware::from_fn_with_state(state.clone(), crate::error::in_layout));
     // A reverse proxy's identity header signs people in (#642), before any
     // handler or the error layout looks for a session.
@@ -748,6 +750,7 @@ pub(crate) fn test_state(dev: bool) -> Arc<AppState> {
         public_url: None,
         signup: Default::default(),
         proxy_auth: None,
+        issued: Default::default(),
     })
 }
 

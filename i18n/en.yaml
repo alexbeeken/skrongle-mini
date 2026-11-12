@@ -3038,6 +3038,7 @@ apps:
   too_many: "This account already has {max} connected apps. Revoke one first."
   server_full: "This server holds as many connected apps as it can. Ask the owner to revoke some."
   no_scope: "Choose at least one thing the app may do."
+  courses_gone: "None of the courses you picked is yours any more. Pick them again."
   name_missing: "Give the token a name."
   name_too_long: "The name is too long (max {max} characters)."
   password_changed: "Password changed. Your connected apps were disconnected."
@@ -3049,6 +3050,15 @@ apps:
   manage_on_notice: "Apps may connect."
   manage_off_notice: "Apps can no longer connect."
   manage_revoked_too: "Its connected apps are disconnected too."
+  name_hidden: "The name has a character that doesn't show, such as a text direction mark. Type it again."
+  manage_counts_about: "The count of tokens issued is kept in memory: it starts again from zero when the server restarts."
+  manage_last_day: "{registered} and {issued} in the last day."
+  manage_registered:
+    one: "{n} app registered"
+    other: "{n} apps registered"
+  manage_issued:
+    one: "{n} token issued"
+    other: "{n} tokens issued"
   js:
     copied: "Copied"
 oauth:

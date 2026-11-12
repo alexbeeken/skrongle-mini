@@ -151,6 +151,95 @@ fn authorization_requests_are_checked_in_full() {
     assert_eq!(AuthorizeParams::from_pairs(&dup).unwrap_err().what, "duplicate");
 }
 
+/// #170's redirect tricks: user names, a trailing dot, case, a default port
+/// written out, look-alike loopback names, IPv6 spellings of loopback,
+/// percent-encoding, a backslash, a fragment, white space and length. None
+/// registers as something it is not, and none matches a registered address
+/// it only resembles.
+#[test]
+fn redirect_tricks_do_not_pass() {
+    for bad in [
+        "https://good.example@evil.example/cb",
+        "https://good.example%40evil.example/cb",
+        "https://good.example\\@evil.example/cb",
+        "https://evil.example\\.good.example/cb",
+        "http://localhost.evil.example/cb",
+        "http://127.0.0.1.evil.example/cb",
+        "http://127.0.0.1.nip.io/cb",
+        "http://LOCALHOST/cb",
+        "http://[::ffff:127.0.0.1]/cb",
+        "http://[0:0:0:0:0:0:0:1]/cb",
+        "http://[::1%25lo0]/cb",
+        "http://2130706433/cb",
+        "http://0x7f000001/cb",
+        "http://127.1/cb",
+        "https://app.example/cb#x",
+        "https://app.example/cb#",
+        "https://app.example/c\tb",
+        "https://app.example/cb\n",
+        " https://app.example/cb",
+        "https://app.example:-1/cb",
+        "https:app.example/cb",
+        "https:/app.example/cb",
+    ] {
+        assert!(!valid_redirect_uri(bad), "{bad:?} registers");
+        assert!(!redirect_matches(CB, bad), "{bad:?} matches");
+    }
+    for (registered, asked) in [
+        (CB, "https://app.example./cb"),
+        (CB, "https://App.Example/cb"),
+        (CB, "https://app.example:443/cb"),
+        (CB, "https://app.example/%63b"),
+        (CB, "https://app.example/cb/."),
+        (CB, "https://app.example//cb"),
+        ("https://app.example:8443/cb", "https://app.example/cb"),
+        ("http://127.0.0.1/cb", "http://127.0.0.1:80@evil.example/cb"),
+        ("http://127.0.0.1/cb", "http://127.0.0.1:5000/cb/../x"),
+        ("http://127.0.0.1/cb", "http://127.0.0.1:5000/cb?x=1"),
+        ("http://localhost/cb", "http://localhost.:5000/cb"),
+    ] {
+        assert!(!redirect_matches(registered, asked), "{asked:?} matched {registered:?}");
+    }
+    let long = format!("https://app.example/{}", "a".repeat(10_000));
+    assert!(!valid_redirect_uri(&long) && !redirect_matches(&long, &long), "a very long address");
+    // What is left is written exactly as registered, so a trailing dot or
+    // another case only matches itself, and the consent page names that host.
+    assert!(valid_redirect_uri("https://app.example./cb") && redirect_matches("https://app.example./cb", "https://app.example./cb"));
+    assert_eq!(redirect_host("https://app.example./cb"), "app.example.");
+}
+
+/// #170's `resource` tricks: one trailing slash is the only spelling of the
+/// two resources besides their own; a path below `/mcp`, another scheme,
+/// port, case or base path, a query or a fragment is another resource.
+#[test]
+fn resource_tricks_do_not_pass() {
+    let mcp = format!("{ISSUER}/mcp");
+    assert_eq!(served_resource(&mcp, ISSUER).as_deref(), Some(mcp.as_str()));
+    assert_eq!(served_resource(&format!("{mcp}/"), ISSUER).as_deref(), Some(mcp.as_str()));
+    assert_eq!(served_resource(&format!("{ISSUER}/"), ISSUER).as_deref(), Some(ISSUER));
+    for bad in [
+        format!("{mcp}//"),
+        format!("{mcp}/x"),
+        format!("{mcp}/../mcp"),
+        format!("{ISSUER}//mcp"),
+        format!("{ISSUER}/MCP"),
+        format!("{mcp}?x=1"),
+        format!("{mcp}#x"),
+        "http://learn.example.org/skrongle/mcp".to_string(),
+        "https://learn.example.org:443/skrongle/mcp".to_string(),
+        "https://learn.example.org:8443/skrongle/mcp".to_string(),
+        "https://LEARN.example.org/skrongle/mcp".to_string(),
+        "https://learn.example.org/mcp".to_string(),
+        "https://learn.example.org/skrongle2/mcp".to_string(),
+        "https://learn.example.org.evil.example/skrongle/mcp".to_string(),
+        "https://evil.example/skrongle/mcp".to_string(),
+        String::new(),
+    ] {
+        assert_eq!(served_resource(&bad, ISSUER), None, "{bad:?}");
+        assert_eq!(what(params(|p| p.resource = Some(bad.clone()))), "resource", "{bad:?}");
+    }
+}
+
 /// Ann, apps on, and a registered client; the request it would make.
 fn setup(c: &mut Connection) -> (i64, Authorize) {
     crate::settings::set_apps_on(c, true).unwrap();
