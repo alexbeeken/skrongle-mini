@@ -17,6 +17,7 @@ What is here:
 | `matrix.sh <version \| dir> [arch ...]` | Runs `qa-<arch>` (package-smoke.sh, then upgrade-check.sh; `SKIP_UPGRADE=1` leaves the second out) for each architecture and prints one table. Logs in `results/release-qa/<version>/`. |
 | `vm.sh <arch> <command>`, `lima/` | A full Debian 12 VM with systemd per architecture under Lima (#42): `up`, `install`, `update`, `e2e`, `measure`, `uninstall`, `down`, `shell`. See "VMs" below. |
 | `e2e-run.sh` | What the `e2e` profile's Playwright container runs (below). |
+| `sim-build.sh <arch>` | Builds the AI simulator the `simulator` profile mounts (below). |
 | `Dockerfile`, `entrypoint.sh`, `fetch.sh` | The image (Debian 11 + curl), what it does with the tarball (`serve`, `serve-e2e`, `smoke` or `upgrade`, after checking that the container's `uname -m` is the architecture it is named for), and the downloader. |
 
 ## Check a release
@@ -147,16 +148,18 @@ runs instead of skipping itself:
 
 ```sh
 E2E=1 SIM=1 scripts/release-qa/matrix.sh dist aarch64   # the e2e cell reads "ok (AI spec ran)"
-# or by hand (SIM_BIN_AARCH64 defaults to target/aarch64-unknown-linux-gnu/debug/spanish-learning):
-cargo zigbuild --features dev --target aarch64-unknown-linux-gnu.2.31
+# or by hand:
+scripts/release-qa/sim-build.sh aarch64      # prints target/aarch64-unknown-linux-gnu/release-qa-sim/spanish-learning (compose's default SIM_BIN_AARCH64)
 cd scripts/release-qa
 E2E_SIM=1 SKRONGLE_VERSION=0.3.0 docker compose --profile e2e --profile simulator run --rm --build e2e-aarch64
 docker compose --profile e2e --profile simulator rm -fs simulator-aarch64 e2e-server-aarch64
 ```
 
 `simulator-<arch>` is a dev-feature build of this checkout for that
-architecture (not in the tarball: built on the host with `cargo zigbuild
---features dev`, or `SIM_BIN_AARCH64` / `SIM_BIN_X86_64`), run in the same
+architecture (not in the tarball: built on the host by `sim-build.sh`,
+cargo-zigbuild with the dev feature and without debug assertions, so the
+pages and translations are embedded as in a release, not read from this
+checkout's path; or `SIM_BIN_AARCH64` / `SIM_BIN_X86_64`), run in the same
 Debian 11 image as the server, in dev mode with the fixtures from the repo's
 `data/`, as `scripts/release-e2e.sh` runs its simulator. Dev mode answers
 only requests made to `localhost` or `127.0.0.1`, so it cannot be reached by

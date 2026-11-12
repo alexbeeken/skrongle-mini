@@ -912,7 +912,10 @@ dev AI is not used), so the spec skips there. To run it against a server you sta
 set `E2E_AI_SIM_URL` and start that server with the matching `SKRONGLE_ANTHROPIC_BASE_URL`.
 In the container rig, `E2E=1 SIM=1 scripts/release-qa/matrix.sh dist aarch64` runs
 it against the tarball (the `simulator` profile of `scripts/release-qa/compose.yaml`,
-#41): the simulator is a dev-feature Linux build of the checkout, and since dev
+#41): the simulator is a dev-feature Linux build of the checkout
+(`scripts/release-qa/sim-build.sh <arch>`, cargo-zigbuild without debug assertions,
+so its pages and translations are embedded rather than read from the checkout's
+path), and since dev
 mode answers only requests made to localhost, it and the Playwright container share
 the release server's network namespace (`scripts/release-qa/README.md`).
 Not yet covered: the other providers' wire formats (the simulator speaks them;

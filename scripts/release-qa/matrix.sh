@@ -22,7 +22,7 @@
 # of skipping itself; the e2e cell then says whether it ran. The simulator is a
 # dev-feature Linux build of this checkout for that architecture:
 # SIM_BIN_AARCH64 / SIM_BIN_X86_64 if set, else built here with
-# `cargo zigbuild --features dev` into target/<triple>/debug/. Off by default.
+# sim-build.sh (cargo zigbuild). Off by default.
 #
 # Logs: results/release-qa/<version>/<arch>.log (and <arch>.upgrade.log). Exit status: non-zero when
 # any architecture FAILs. An architecture the release has no tarball for is
@@ -57,21 +57,12 @@ else
 fi
 export SKRONGLE_VERSION="$VERSION" TARBALLS
 
-# sim_bin <arch>: the simulator binary for that architecture (SIM_BIN_<ARCH>, else built with cargo zigbuild); its path, or fails.
+# sim_bin <arch>: the simulator binary for that architecture (SIM_BIN_<ARCH>, else sim-build.sh); its absolute path, or fails.
 sim_bin() {
-  local var triple bin
-  case "$1" in
-    aarch64) var=SIM_BIN_AARCH64; triple=aarch64-unknown-linux-gnu ;;
-    x86_64) var=SIM_BIN_X86_64; triple=x86_64-unknown-linux-gnu ;;
-  esac
+  local var bin
+  var="SIM_BIN_$(echo "$1" | tr '[:lower:]' '[:upper:]')"
   bin="${!var:-}"
-  if [ -z "$bin" ]; then
-    bin="${CARGO_TARGET_DIR:-$ROOT/target}/$triple/debug/spanish-learning"
-    command -v cargo >/dev/null 2>&1 || { [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"; }
-    command -v cargo-zigbuild >/dev/null 2>&1 || { echo "SIM=1 needs cargo-zigbuild (brew install zig && cargo install cargo-zigbuild), or $var" >&2; return 1; }
-    rustup target add "$triple" >/dev/null 2>&1 || true
-    (cd "$ROOT" && cargo zigbuild -q --features dev --target "$triple.2.31") >&2 || return 1
-  fi
+  [ -n "$bin" ] || bin=$("$HERE/sim-build.sh" "$1" 2>"$OUT/$1.sim-build.log" | tail -1) || { echo "     sim-build.sh failed: results/release-qa/$VERSION/$1.sim-build.log" >&2; return 1; }
   [ -f "$bin" ] || { echo "no simulator binary at $bin" >&2; return 1; }
   (cd "$(dirname "$bin")" && echo "$(pwd)/$(basename "$bin")")
 }
@@ -122,7 +113,7 @@ for a in "${ARCHES[@]}"; do
         PROFILES=(--profile e2e)
         SIM_VARS=()
         if [ "${SIM:-0}" = 1 ]; then
-          echo "==> $a: the AI simulator (a dev-feature build of this checkout for $a)"
+          echo "==> $a: the AI simulator, a dev-feature build of this checkout for $a (log: results/release-qa/$VERSION/$a.sim-build.log)"
           if ! bin=$(sim_bin "$a"); then
             E2E_RESULT[$a]="FAIL (no simulator binary for $a)"
             STATUS=1

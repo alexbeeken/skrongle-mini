@@ -34,7 +34,7 @@ fi
 # The AI simulator of the `simulator` profile (#41): the dev-feature binary
 # mounted at /usr/local/bin/skrongle-sim, not the tarball's, so no tarball needed.
 if [ "${1:-}" = simulator ]; then
-  [ -x /usr/local/bin/skrongle-sim ] || { echo "no simulator binary at /usr/local/bin/skrongle-sim: build one (matrix.sh with SIM=1 does) and set SIM_BIN_$ARCH"; exit 3; }
+  [ -x /usr/local/bin/skrongle-sim ] || { echo "no simulator binary at /usr/local/bin/skrongle-sim: build one with scripts/release-qa/sim-build.sh $ARCH (matrix.sh with SIM=1 does)"; exit 3; }
   exec /usr/local/bin/skrongle-sim
 fi
 TARBALL="/tarballs/skrongle-$SKRONGLE_VERSION-$ARCH.tar.gz"

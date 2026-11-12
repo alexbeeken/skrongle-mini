@@ -93,7 +93,7 @@ x-e2e-server: &e2e-server
 # a database of its own, the fixtures in data/test-fixtures/llm), so
 # e2e/specs/release/ai.spec.ts runs against the tarball too. It is not in the
 # tarball: the Linux binary of the rig's architecture is built on the host
-# (matrix.sh with SIM=1 does it with cargo zigbuild) and mounted, with the
+# (sim-build.sh; matrix.sh with SIM=1 runs it) and mounted, with the
 # repo's data/, into the same Debian 11 image as the server (entrypoint.sh
 # `simulator`, which checks the architecture as for the server).
 #
@@ -299,7 +299,7 @@ services:
     depends_on: { e2e-server-aarch64: { condition: service_started } }
     environment: { <<: *simulator-env, ARCH: aarch64, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}" }
     volumes:
-      - ${SIM_BIN_AARCH64:-../../target/aarch64-unknown-linux-gnu/debug/spanish-learning}:/usr/local/bin/skrongle-sim:ro
+      - ${SIM_BIN_AARCH64:-../../target/aarch64-unknown-linux-gnu/release-qa-sim/spanish-learning}:/usr/local/bin/skrongle-sim:ro
       - ../../data:/sim/data:ro
 
   simulator-x86_64:
@@ -311,7 +311,7 @@ services:
     depends_on: { e2e-server-x86_64: { condition: service_started } }
     environment: { <<: *simulator-env, ARCH: x86_64, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}" }
     volumes:
-      - ${SIM_BIN_X86_64:-../../target/x86_64-unknown-linux-gnu/debug/spanish-learning}:/usr/local/bin/skrongle-sim:ro
+      - ${SIM_BIN_X86_64:-../../target/x86_64-unknown-linux-gnu/release-qa-sim/spanish-learning}:/usr/local/bin/skrongle-sim:ro
       - ../../data:/sim/data:ro
 
   # ---------- one-shots ----------
