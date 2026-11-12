@@ -2151,6 +2151,14 @@ token they give it (#167, the first step of plan #166). The code is
   or `token` in its address is a 400, even with a good header. Ten bad
   tokens from one address in ten minutes, then 429
   (`security::API_BAD_TOKENS_PER_IP`; off in dev mode like every limit).
+- **The MCP server** (#168): `POST /mcp` with the token, six course tools
+  (`get_course_format`, `list_courses`, `get_course_files`,
+  `validate_course`, `create_course`, `put_course_files`). Each is a thin
+  layer over the course editor's own functions
+  (`src/routes/courses/write.rs`): the account's own courses only, the
+  grant's course list, the editor's file check and limits, all or nothing.
+  The endpoint, the tools, the scopes and the errors are in
+  [The MCP server](api).
 - **`GET /api/v1/whoami`** is the probe: `{"user_id", "client_id",
   "client_name", "scopes", "courses"}`.
 - **The profile's Connected apps** (`profile-apps`, `#apps`): each grant
