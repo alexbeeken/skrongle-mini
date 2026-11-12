@@ -2,7 +2,8 @@
 // (/dev/oauth-client): discovery names the endpoints; signed out, Connect
 // goes through the sign-in to the consent page; Deny sends access_denied
 // back; Allow with one course trades a code for tokens that work; a refresh
-// token rotates; the code replayed revokes the app; a request edited by
+// token rotates and the old one used again revokes the app (#184); the code
+// replayed revokes the app; a request edited by
 // hand gets the error page and is never sent back; a Student is told to ask
 // the owner. scripts/e2e.sh sets SKRONGLE_PUBLIC_URL to the server's address.
 import { expect, test, type Page } from "@playwright/test";
@@ -84,15 +85,27 @@ test("the dev client signs in, is denied, allowed, refreshes and is revoked by a
   await expect(me.getByTestId("profile-app-name")).toHaveText("Dev test client");
   await expect(me.getByTestId("profile-app-courses")).toHaveText("OAuth course");
 
-  // Refresh: a new refresh token; the old one is used up.
+  // Refresh: a new refresh token, and whoami still answers.
   await me.goto("/dev/oauth-client");
   const before = (await me.getByTestId("dev-oauth-refresh-token").textContent())!;
   await me.getByTestId("dev-oauth-refresh").click();
   await expect(me.getByTestId("dev-oauth-refresh-token")).not.toHaveText(before);
+  await me.getByTestId("dev-oauth-whoami-btn").click();
+  await expect(me.getByTestId("dev-oauth-whoami")).toContainText("200");
+
+  // The old refresh token again (#184): refused, and the app is disconnected.
   await me.getByTestId("dev-oauth-reuse").click();
   await expect(me.getByTestId("dev-oauth-reuse-result")).toHaveText("400 invalid_grant");
+  await expect(me.getByTestId("dev-oauth-whoami")).toContainText("401");
+  await me.goto("/profile#apps");
+  await expect(me.getByTestId("profile-apps-none")).toBeVisible();
 
-  // The code again: refused, and the app is disconnected.
+  // Connect again, then the code again: refused, and the app is disconnected.
+  await me.goto("/dev/oauth-client");
+  await me.getByTestId("dev-oauth-connect").click();
+  await me.getByTestId("oauth-consent-allow").click();
+  await expect(me.getByTestId("dev-oauth-token")).toHaveText("ok: courses:read courses:write");
+  await expect(me.getByTestId("dev-oauth-whoami")).toContainText("200");
   await me.getByTestId("dev-oauth-replay").click();
   await expect(me.getByTestId("dev-oauth-replay-result")).toHaveText("400 invalid_grant");
   await expect(me.getByTestId("dev-oauth-whoami")).toContainText("401");

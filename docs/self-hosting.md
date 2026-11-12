@@ -55,6 +55,9 @@ yourself, [Updating](#updating)).
   people in: [Signing in at the proxy](#signing-in-at-the-proxy).
 - Locked yourself out? The binary resets a password or two-factor from the
   shell: [If you lock yourself out](#if-you-lock-yourself-out).
+- Thinking of turning on *Let apps connect*? [Security: connected
+  apps](security-apps) lists what can go wrong with tokens, the MCP server
+  and OAuth sign-in, what stops each, and the risks left.
 
 ## What a release contains
 
@@ -155,7 +158,10 @@ device model, the listen address and whether the port is free, the data
 folder and how many courses it holds, the database path, size
 and schema (migration) level, and whether the database folder is writable.
 It also shows whether a secret key is
-configured, how many AI keys learners have saved, and free disk and memory.
+configured, how many AI keys learners have saved, whether apps may connect
+(with the number of grants and registered apps, and a warning when they may
+connect over plain HTTP on an address that is not a home network's), and
+free disk and memory.
 Secrets show as yes/no only, never their values. It only reads. It opens
 the database read-only and creates nothing.
 
@@ -477,7 +483,10 @@ AI assistant or another app, which can then work on that account's
 courses; you see every connection there and can revoke any of them. Off,
 no app can connect and every token stops working; turning it on again
 brings them back. It needs none of the AI keys above
-([features](features#connected-apps)).
+([features](features#connected-apps)). The card also counts the apps that
+registered and the tokens handed out in the last day, so a flood or a
+stolen token shows; what can go wrong and what stops it is on
+[Security: connected apps](security-apps).
 
 With `SKRONGLE_PUBLIC_URL` set, an app in a vendor's cloud (claude.ai,
 ChatGPT) can also sign in with OAuth instead of being given a token: the

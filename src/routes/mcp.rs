@@ -77,6 +77,18 @@ fn challenge(state: &AppState, e: ApiError) -> Response {
     r
 }
 
+/// The request's token still works for the same grant: the switch, the
+/// grant, its expiry and the account's permission asked again, as
+/// `ApiUser` asks them. A failed lookup is not counted as a bad token.
+async fn still_works(state: &AppState, headers: &HeaderMap, grant_id: i64) -> bool {
+    let token = crate::auth::api::bearer(headers).unwrap_or_default();
+    let now = crate::db::now();
+    matches!(
+        state.db.call(move |c| crate::auth::api::user_for_token(c, &token, now)).await,
+        Ok(crate::auth::api::Lookup::Found(u)) if u.grant_id == grant_id
+    )
+}
+
 /// Every method on `/mcp`.
 pub async fn endpoint(State(state): State<Arc<AppState>>, req: Request) -> Response {
     let (mut parts, body) = req.into_parts();
@@ -132,9 +144,19 @@ pub async fn endpoint(State(state): State<Arc<AppState>>, req: Request) -> Respo
     }
     let ctx = Ctx { state: &state, user: &user };
     let mut answers = Vec::new();
+    let mut ran = false;
     for item in incoming.items {
         match item {
-            Item::Request(m) => answers.push(mcp::answer(&ctx, m).await),
+            // A batch's later messages ask again (#170): a switch turned off,
+            // a grant revoked or a permission taken away while the earlier
+            // ones ran stops the rest.
+            Item::Request(m) if ran && !still_works(&state, &parts.headers, user.grant_id).await => {
+                answers.push(mcp::error(&m.id, mcp::CONNECTION_ENDED, "This connection stopped working while the batch ran."));
+            }
+            Item::Request(m) => {
+                ran = true;
+                answers.push(mcp::answer(&ctx, m).await);
+            }
             Item::Invalid(e) => answers.push(e),
             Item::Quiet => {}
         }

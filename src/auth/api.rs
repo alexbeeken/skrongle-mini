@@ -44,6 +44,26 @@ pub const LAST_USED_EVERY_SECS: i64 = 60;
 /// The longest name a token can be given on the profile (characters).
 pub const NAME_MAX: usize = 60;
 
+/// A character that changes how the text around it reads without showing
+/// itself: a control character, a bidirectional mark, override or isolate
+/// (`U+202E` turns "elgnorkS" into what looks like "Skrongle"), or an
+/// invisible or zero-width one. None may be in a name a person reads to
+/// decide whom to trust: an app's name on the consent page, a token's name
+/// on the profile and on Manage Users (#170).
+pub fn is_hidden_char(c: char) -> bool {
+    c.is_control()
+        || matches!(
+            c,
+            '\u{00AD}' | '\u{034F}' | '\u{061C}' | '\u{115F}' | '\u{1160}' | '\u{17B4}' | '\u{17B5}' | '\u{180E}'
+                | '\u{200B}'..='\u{200F}'
+                | '\u{2028}'..='\u{202E}'
+                | '\u{2060}'..='\u{206F}'
+                | '\u{3164}' | '\u{FEFF}' | '\u{FFA0}'
+                | '\u{FFF9}'..='\u{FFFB}'
+                | '\u{E0000}'..='\u{E007F}'
+        )
+}
+
 /// What a grant lets an app do. Fixed: nothing else exists to ask for.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Scope {
@@ -186,6 +206,10 @@ pub enum Refused {
     Full,
     /// No scope was asked for.
     NoScope,
+    /// A course list was asked for, but none of its courses is the
+    /// account's own (any more): without this the grant would reach every
+    /// course instead of none (#170).
+    CoursesGone,
 }
 
 impl Refused {
@@ -194,12 +218,25 @@ impl Refused {
             Refused::TooManyGrants => crate::t1("apps.too_many", "max", MAX_GRANTS_PER_ACCOUNT),
             Refused::Full => crate::t("apps.server_full"),
             Refused::NoScope => crate::t("apps.no_scope"),
+            Refused::CoursesGone => crate::t("apps.courses_gone"),
         }
     }
 }
 
 fn count(conn: &Connection, sql: &str, p: impl rusqlite::Params) -> rusqlite::Result<usize> {
     conn.query_row(sql, p, |r| r.get::<_, i64>(0)).map(|n| n.max(0) as usize)
+}
+
+/// The courses of `asked` that are the account's own (`owned`): a grant's
+/// course list. Refused when courses were asked for and none is left, so a
+/// list never turns into "all of them" (#170).
+pub fn own_courses(asked: Vec<String>, owned: &[crate::courses::CourseRow]) -> Result<Vec<String>, Refused> {
+    let any = !asked.is_empty();
+    let kept: Vec<String> = asked.into_iter().filter(|id| owned.iter().any(|o| &o.id == id)).collect();
+    if any && kept.is_empty() {
+        return Err(Refused::CoursesGone);
+    }
+    Ok(kept)
 }
 
 /// A new grant for `user_id`, refused past the caps. Its course list is
@@ -313,6 +350,35 @@ pub fn purge_expired(conn: &Connection, now: i64) -> rusqlite::Result<usize> {
     let tokens = conn.execute("DELETE FROM api_tokens WHERE expires_at <= ?1", [now])?;
     let grants = conn.execute("DELETE FROM api_grants WHERE expires_at <= ?1", [now])?;
     Ok(tokens + grants + crate::oauth_server::purge(conn, now)?)
+}
+
+/// How many tokens were handed out in the last day: a token made on the
+/// profile, a code traded and a refresh each count one. The owner's
+/// Connected apps card shows it (#170), so a flood or a stolen refresh
+/// token used in a loop shows. One counter per hour, in memory like the
+/// rate limits: it starts at zero after a restart.
+#[derive(Default)]
+pub struct Issued(std::sync::Mutex<[(i64, u32); 24]>);
+
+impl Issued {
+    /// Count one token handed out at `now`.
+    pub fn count(&self, now: i64) {
+        let hour = now.div_euclid(3600);
+        let mut hours = self.0.lock().unwrap_or_else(|e| e.into_inner());
+        if let Some(slot) = hours.get_mut(hour.rem_euclid(24) as usize) {
+            if slot.0 != hour {
+                *slot = (hour, 0);
+            }
+            slot.1 = slot.1.saturating_add(1);
+        }
+    }
+
+    /// Tokens handed out in the 24 hours up to `now` (by the hour).
+    pub fn last_day(&self, now: i64) -> u32 {
+        let hour = now.div_euclid(3600);
+        let hours = self.0.lock().unwrap_or_else(|e| e.into_inner());
+        hours.iter().filter(|(h, _)| *h <= hour && hour - *h < 24).map(|(_, n)| *n).sum()
+    }
 }
 
 /// What a token lookup found.

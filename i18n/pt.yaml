@@ -3035,6 +3035,7 @@ apps:
   too_many: "Esta conta já tem {max} apps ligadas. Revoga uma primeiro."
   server_full: "Este servidor já tem todas as apps ligadas que consegue guardar. Pede ao proprietário que revogue algumas."
   no_scope: "Escolhe pelo menos uma coisa que a app possa fazer."
+  courses_gone: "Nenhum dos cursos que escolheste continua a ser teu. Escolhe-os de novo."
   name_missing: "Dá um nome ao token."
   name_too_long: "O nome é demasiado longo (máximo {max} caracteres)."
   password_changed: "Palavra-passe alterada. As tuas apps ligadas foram desligadas."
@@ -3046,6 +3047,15 @@ apps:
   manage_on_notice: "As apps podem ligar-se."
   manage_off_notice: "As apps já não se podem ligar."
   manage_revoked_too: "As apps ligadas da conta também são desligadas."
+  name_hidden: "O nome tem um carácter que não se vê, como uma marca de direção do texto. Escreve-o de novo."
+  manage_counts_about: "O número de tokens emitidos fica só em memória: volta a zero quando o servidor reinicia."
+  manage_last_day: "{registered} e {issued} no último dia."
+  manage_registered:
+    one: "{n} app registada"
+    other: "{n} apps registadas"
+  manage_issued:
+    one: "{n} token emitido"
+    other: "{n} tokens emitidos"
   js:
     copied: "Copiado"
 oauth:

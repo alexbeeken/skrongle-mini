@@ -151,6 +151,95 @@ fn authorization_requests_are_checked_in_full() {
     assert_eq!(AuthorizeParams::from_pairs(&dup).unwrap_err().what, "duplicate");
 }
 
+/// #170's redirect tricks: user names, a trailing dot, case, a default port
+/// written out, look-alike loopback names, IPv6 spellings of loopback,
+/// percent-encoding, a backslash, a fragment, white space and length. None
+/// registers as something it is not, and none matches a registered address
+/// it only resembles.
+#[test]
+fn redirect_tricks_do_not_pass() {
+    for bad in [
+        "https://good.example@evil.example/cb",
+        "https://good.example%40evil.example/cb",
+        "https://good.example\\@evil.example/cb",
+        "https://evil.example\\.good.example/cb",
+        "http://localhost.evil.example/cb",
+        "http://127.0.0.1.evil.example/cb",
+        "http://127.0.0.1.nip.io/cb",
+        "http://LOCALHOST/cb",
+        "http://[::ffff:127.0.0.1]/cb",
+        "http://[0:0:0:0:0:0:0:1]/cb",
+        "http://[::1%25lo0]/cb",
+        "http://2130706433/cb",
+        "http://0x7f000001/cb",
+        "http://127.1/cb",
+        "https://app.example/cb#x",
+        "https://app.example/cb#",
+        "https://app.example/c\tb",
+        "https://app.example/cb\n",
+        " https://app.example/cb",
+        "https://app.example:-1/cb",
+        "https:app.example/cb",
+        "https:/app.example/cb",
+    ] {
+        assert!(!valid_redirect_uri(bad), "{bad:?} registers");
+        assert!(!redirect_matches(CB, bad), "{bad:?} matches");
+    }
+    for (registered, asked) in [
+        (CB, "https://app.example./cb"),
+        (CB, "https://App.Example/cb"),
+        (CB, "https://app.example:443/cb"),
+        (CB, "https://app.example/%63b"),
+        (CB, "https://app.example/cb/."),
+        (CB, "https://app.example//cb"),
+        ("https://app.example:8443/cb", "https://app.example/cb"),
+        ("http://127.0.0.1/cb", "http://127.0.0.1:80@evil.example/cb"),
+        ("http://127.0.0.1/cb", "http://127.0.0.1:5000/cb/../x"),
+        ("http://127.0.0.1/cb", "http://127.0.0.1:5000/cb?x=1"),
+        ("http://localhost/cb", "http://localhost.:5000/cb"),
+    ] {
+        assert!(!redirect_matches(registered, asked), "{asked:?} matched {registered:?}");
+    }
+    let long = format!("https://app.example/{}", "a".repeat(10_000));
+    assert!(!valid_redirect_uri(&long) && !redirect_matches(&long, &long), "a very long address");
+    // What is left is written exactly as registered, so a trailing dot or
+    // another case only matches itself, and the consent page names that host.
+    assert!(valid_redirect_uri("https://app.example./cb") && redirect_matches("https://app.example./cb", "https://app.example./cb"));
+    assert_eq!(redirect_host("https://app.example./cb"), "app.example.");
+}
+
+/// #170's `resource` tricks: one trailing slash is the only spelling of the
+/// two resources besides their own; a path below `/mcp`, another scheme,
+/// port, case or base path, a query or a fragment is another resource.
+#[test]
+fn resource_tricks_do_not_pass() {
+    let mcp = format!("{ISSUER}/mcp");
+    assert_eq!(served_resource(&mcp, ISSUER).as_deref(), Some(mcp.as_str()));
+    assert_eq!(served_resource(&format!("{mcp}/"), ISSUER).as_deref(), Some(mcp.as_str()));
+    assert_eq!(served_resource(&format!("{ISSUER}/"), ISSUER).as_deref(), Some(ISSUER));
+    for bad in [
+        format!("{mcp}//"),
+        format!("{mcp}/x"),
+        format!("{mcp}/../mcp"),
+        format!("{ISSUER}//mcp"),
+        format!("{ISSUER}/MCP"),
+        format!("{mcp}?x=1"),
+        format!("{mcp}#x"),
+        "http://learn.example.org/skrongle/mcp".to_string(),
+        "https://learn.example.org:443/skrongle/mcp".to_string(),
+        "https://learn.example.org:8443/skrongle/mcp".to_string(),
+        "https://LEARN.example.org/skrongle/mcp".to_string(),
+        "https://learn.example.org/mcp".to_string(),
+        "https://learn.example.org/skrongle2/mcp".to_string(),
+        "https://learn.example.org.evil.example/skrongle/mcp".to_string(),
+        "https://evil.example/skrongle/mcp".to_string(),
+        String::new(),
+    ] {
+        assert_eq!(served_resource(&bad, ISSUER), None, "{bad:?}");
+        assert_eq!(what(params(|p| p.resource = Some(bad.clone()))), "resource", "{bad:?}");
+    }
+}
+
 /// Ann, apps on, and a registered client; the request it would make.
 fn setup(c: &mut Connection) -> (i64, Authorize) {
     crate::settings::set_apps_on(c, true).unwrap();
@@ -243,8 +332,13 @@ fn a_code_lasts_ten_minutes() {
     .unwrap();
 }
 
-/// Refreshing deletes the refresh token: a second use is `invalid_grant`.
-/// Another client cannot use it, and its attempt does not use it up.
+fn token_rows(c: &Connection) -> i64 {
+    c.query_row("SELECT COUNT(*) FROM api_tokens", [], |r| r.get(0)).unwrap()
+}
+
+/// Refreshing marks the refresh token used and hands out a new pair.
+/// Another client cannot use it, and its attempt does not use it up. An
+/// access token refreshes nothing.
 #[test]
 fn refresh_tokens_rotate() {
     let db = Db::open_in_memory().unwrap();
@@ -256,15 +350,92 @@ fn refresh_tokens_rotate() {
         let second = refresh(c, &first.refresh, &a.client.client_id, NOW + 2).unwrap().unwrap();
         assert_ne!(second.refresh, first.refresh);
         assert!(works(c, &second.access));
-        assert_eq!(refresh(c, &first.refresh, &a.client.client_id, NOW + 3).unwrap().unwrap_err(), TokenError::InvalidGrant, "used up");
-        assert_eq!(refresh(c, &first.access, &a.client.client_id, NOW + 3).unwrap().unwrap_err(), TokenError::InvalidGrant, "an access token refreshes nothing");
-        // Refreshing in a loop keeps at most two access tokens and one refresh token.
+        assert_eq!(refresh(c, &second.access, &a.client.client_id, NOW + 3).unwrap().unwrap_err(), TokenError::InvalidGrant, "an access token refreshes nothing");
+        let used: Option<i64> = c.query_row("SELECT used_at FROM api_tokens WHERE token_hash = ?1", [hash_token(&first.refresh)], |r| r.get(0))?;
+        assert_eq!(used, Some(NOW + 2), "kept, marked used");
+        // Refreshing in a loop keeps at most two access tokens, one refresh
+        // token and one used refresh token.
         let mut last = second;
         for i in 0..10 {
             last = refresh(c, &last.refresh, &a.client.client_id, NOW + 4 + i).unwrap().unwrap();
         }
-        let tokens: i64 = c.query_row("SELECT COUNT(*) FROM api_tokens", [], |r| r.get(0))?;
-        assert_eq!(tokens, 3);
+        assert!(works(c, &last.access));
+        assert_eq!(token_rows(c), 4);
+        let used: i64 = c.query_row("SELECT COUNT(*) FROM api_tokens WHERE used_at IS NOT NULL", [], |r| r.get(0))?;
+        assert_eq!(used, 1, "only the newest used refresh token");
+        Ok(())
+    })
+    .unwrap();
+}
+
+/// A used refresh token presented again (RFC 9700 §4.14.2, #184) revokes
+/// the grant and every token under it: the newest access and refresh
+/// tokens stop working, and the account's list no longer has the app.
+#[test]
+fn a_reused_refresh_token_revokes_its_grant() {
+    let db = Db::open_in_memory().unwrap();
+    db.with(|c| {
+        let (ann, a) = setup(c);
+        let code = allow(c, &a, &consent(ann), NOW).unwrap().unwrap();
+        let first = exchange_code(c, &exchange(&a, &code), NOW + 1).unwrap().unwrap();
+        let second = refresh(c, &first.refresh, &a.client.client_id, NOW + 2).unwrap().unwrap();
+        assert_eq!(api::grants(c, ann, NOW + 3)?.len(), 1);
+        assert_eq!(refresh(c, &first.refresh, &a.client.client_id, NOW + 3).unwrap().unwrap_err(), TokenError::InvalidGrant);
+        assert_eq!(grants(c), 0, "the grant is gone");
+        assert!(api::grants(c, ann, NOW + 3)?.is_empty(), "Connected apps no longer lists it");
+        assert!(!works(c, &second.access), "the newest access token stops working");
+        assert_eq!(refresh(c, &second.refresh, &a.client.client_id, NOW + 4).unwrap().unwrap_err(), TokenError::InvalidGrant, "and the newest refresh token");
+        assert_eq!(token_rows(c), 0);
+        Ok(())
+    })
+    .unwrap();
+}
+
+/// Reuse is told by the token alone, but the client check comes first:
+/// another client presenting a used refresh token gets `invalid_grant` and
+/// revokes nothing; the client the grant was made for still refreshes with
+/// its newest token.
+#[test]
+fn a_used_refresh_token_from_another_client_revokes_nothing() {
+    let db = Db::open_in_memory().unwrap();
+    db.with(|c| {
+        let (ann, a) = setup(c);
+        let code = allow(c, &a, &consent(ann), NOW).unwrap().unwrap();
+        let first = exchange_code(c, &exchange(&a, &code), NOW + 1).unwrap().unwrap();
+        let second = refresh(c, &first.refresh, &a.client.client_id, NOW + 2).unwrap().unwrap();
+        assert_eq!(refresh(c, &first.refresh, "other-client", NOW + 3).unwrap().unwrap_err(), TokenError::InvalidGrant);
+        assert_eq!(grants(c), 1);
+        assert!(works(c, &second.access));
+        assert!(refresh(c, &second.refresh, &a.client.client_id, NOW + 4).unwrap().is_ok());
+        Ok(())
+    })
+    .unwrap();
+}
+
+/// A used refresh token goes with its grant: when the grant expires, the
+/// purge deletes it with every other token; revoked, the cascade does.
+#[test]
+fn used_refresh_tokens_go_with_their_grant() {
+    let db = Db::open_in_memory().unwrap();
+    db.with(|c| {
+        let (ann, a) = setup(c);
+        let code = allow(c, &a, &consent(ann), NOW).unwrap().unwrap();
+        let first = exchange_code(c, &exchange(&a, &code), NOW + 1).unwrap().unwrap();
+        refresh(c, &first.refresh, &a.client.client_id, NOW + 2).unwrap().unwrap();
+        let used = |c: &Connection| c.query_row("SELECT COUNT(*) FROM api_tokens WHERE used_at IS NOT NULL", [], |r| r.get::<_, i64>(0)).unwrap();
+        assert_eq!(used(c), 1);
+        api::purge_expired(c, NOW + 3)?;
+        assert_eq!(used(c), 1, "kept while the grant lasts");
+        let expires: i64 = c.query_row("SELECT expires_at FROM api_grants", [], |r| r.get(0))?;
+        api::purge_expired(c, expires)?;
+        assert_eq!((grants(c), token_rows(c)), (0, 0), "gone with the grant");
+        // Revoked on the profile: the used row goes too.
+        let code = allow(c, &a, &consent(ann), NOW).unwrap().unwrap();
+        let t = exchange_code(c, &exchange(&a, &code), NOW + 1).unwrap().unwrap();
+        refresh(c, &t.refresh, &a.client.client_id, NOW + 2).unwrap().unwrap();
+        let id = api::grants(c, ann, NOW + 3)?[0].id;
+        assert!(api::revoke(c, ann, id)?);
+        assert_eq!(token_rows(c), 0);
         Ok(())
     })
     .unwrap();
