@@ -802,6 +802,8 @@ CI does not run every spec here: the exact-spec job runs the files listed in
 `.github/workflows/smoke.yml` (`e2e-exact`), plus `specs/smoke`. A spec missing
 from that list is only ever run locally, so "it passes in CI" says nothing
 about it; check the list before comparing a local failure with CI (#189).
+`scripts/e2e.sh` runs the `chromium` project only (the dev specs); the
+release projects need a release server ([Release specs](#release-specs)).
 
 A spec can pass alone and fail in the whole suite: the specs share one
 server and one dev user, and `SKRONGLE_RNG_SEED` makes the n-th draw of the
