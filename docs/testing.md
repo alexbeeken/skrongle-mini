@@ -650,7 +650,19 @@ checks three numbers against `scripts/pi-budget.txt`: the stripped binary's
 size (at most its platform's baseline + 5 %), and, for a server started with
 no optional settings (no AI key, no
 `SKRONGLE_DEV`) on a temp database after twenty requests each to `/`, `/login`
-and `/healthz`, its resident memory (≤ 24 MiB) and thread count (≤ 12). On
+and `/healthz`, its resident memory (≤ 24 MiB) and thread count (≤ 12).
+Then it checks that connected apps cannot grow that server (#191): it makes
+the owner's account from the owner link in the log, turns on **Let apps
+connect** and makes two tokens through the real forms, so it needs no dev
+route; reads resident memory before and after 300 MCP `tools/call
+list_courses` requests on one token; writes `users`, `oauth_clients`,
+`api_grants` and `api_tokens` up to their caps (read from `src/caps.rs`)
+straight into the database and does the same again on another token; and
+then checks the thread count is back at the idle one (`/mcp` holds nothing
+open; it waits up to 15 s for the blocking threads `Db::call` used, which
+end after 10 idle seconds). Each growth may be at most
+`apps_rss_growth_max_kib` (256 KiB). These steps add about 20 to 45
+seconds. On
 Linux the numbers come from `/proc/<pid>/status`; on a Mac from `ps`, so it
 runs locally too, but a Mac's binary has its own baseline line and its memory
 is shown, not checked (`ps` counts the shared system libraries, some 10 MiB
@@ -658,6 +670,8 @@ more). CI runs on `ubuntu-latest` (linux-x86_64), not the Pi's architecture, so 
 make the change cheaper (a cargo feature, a lighter crate, no new thread), or
 raise the number in `pi-budget.txt` and say why in the PR;
 `scripts/pi-budget.sh --update` rewrites this platform's binary baseline.
+A connected-apps growth over its margin is memory a request kept, a leak to
+find rather than a margin to raise.
 
 ## Markup hooks
 

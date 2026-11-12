@@ -15,6 +15,15 @@
 rss_max_kib 24576
 threads_max 12
 
+# Connected apps (#191, added 2026-11-12): how far resident memory may grow
+# over 300 MCP `list_courses` calls on one token, once as is and once with
+# users, oauth_clients, api_grants and api_tokens at their caps (src/caps.rs);
+# checked on Linux only. Measured on a release build in a Debian container
+# (linux-aarch64, colima), four runs: +4, +0, +12, +4 KiB and +0, +0, +0,
+# +0 KiB at the caps. 256 KiB is twenty times that noise and still fails a
+# leak of 1 KiB a call. Over it is a leak to find, not a margin to raise.
+apps_rss_growth_max_kib 256
+
 # Stripped release binary, in bytes, per platform (`uname -s`-`uname -m`).
 # The binary may grow by binary_slack_percent over its platform's baseline; a
 # platform without a baseline (a Mac, the Pi) only reports its size.
