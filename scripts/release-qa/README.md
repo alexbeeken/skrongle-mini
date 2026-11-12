@@ -166,8 +166,9 @@ only requests made to `localhost` or `127.0.0.1`, so it cannot be reached by
 its compose name: the simulator and the Playwright container join the
 server's network namespace (`network_mode: service:e2e-server-<arch>`), and
 on that shared loopback the release server reaches it at
-`127.0.0.1:8090/dev/ai/anthropic` (`SKRONGLE_ANTHROPIC_BASE_URL`, the
-operator's setting) and the spec reads its call log there (`E2E_AI_SIM_URL`).
+`127.0.0.1:8090/dev/ai/anthropic` and `/dev/ai/openai/v1`
+(`SKRONGLE_ANTHROPIC_BASE_URL` and `SKRONGLE_OPENAI_BASE_URL`, the
+operator's settings; `ai-formats.spec.ts` needs the second) and the spec reads its call log there (`E2E_AI_SIM_URL`).
 `E2E_SIM=1` sets both; without it they are empty and the `e2e` profile runs
 as before. With `SIM=1`, `matrix.sh` marks the cell `FAIL` if the AI spec did
 not run. aarch64 and x86_64 only, as for the `e2e` profile (the Playwright

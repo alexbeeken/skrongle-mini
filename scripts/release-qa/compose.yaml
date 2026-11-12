@@ -247,7 +247,7 @@ services:
     image: skrongle-release-qa:aarch64
     platform: linux/arm64
     build: *build-aarch64
-    environment: { ARCH: aarch64, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}", SKRONGLE_PUBLIC_URL: "http://e2e-server-aarch64:8080", E2E_LOG: /e2e-log/server.log, SKRONGLE_ANTHROPIC_BASE_URL: "${E2E_SIM:+http://127.0.0.1:8090/dev/ai/anthropic}" }
+    environment: { ARCH: aarch64, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}", SKRONGLE_PUBLIC_URL: "http://e2e-server-aarch64:8080", E2E_LOG: /e2e-log/server.log, SKRONGLE_ANTHROPIC_BASE_URL: "${E2E_SIM:+http://127.0.0.1:8090/dev/ai/anthropic}", SKRONGLE_OPENAI_BASE_URL: "${E2E_SIM:+http://127.0.0.1:8090/dev/ai/openai/v1}" }
     volumes: ["${TARBALLS:-../../dist}:/tarballs:ro", "e2e-log-aarch64:/e2e-log"]
 
   e2e-server-x86_64:
@@ -255,7 +255,7 @@ services:
     image: skrongle-release-qa:x86_64
     platform: linux/amd64
     build: *build-x86_64
-    environment: { ARCH: x86_64, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}", SKRONGLE_PUBLIC_URL: "http://e2e-server-x86_64:8080", E2E_LOG: /e2e-log/server.log, SKRONGLE_ANTHROPIC_BASE_URL: "${E2E_SIM:+http://127.0.0.1:8090/dev/ai/anthropic}" }
+    environment: { ARCH: x86_64, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}", SKRONGLE_PUBLIC_URL: "http://e2e-server-x86_64:8080", E2E_LOG: /e2e-log/server.log, SKRONGLE_ANTHROPIC_BASE_URL: "${E2E_SIM:+http://127.0.0.1:8090/dev/ai/anthropic}", SKRONGLE_OPENAI_BASE_URL: "${E2E_SIM:+http://127.0.0.1:8090/dev/ai/openai/v1}" }
     volumes: ["${TARBALLS:-../../dist}:/tarballs:ro", "e2e-log-x86_64:/e2e-log"]
 
   e2e-aarch64:
