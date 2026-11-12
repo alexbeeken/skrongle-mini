@@ -139,6 +139,37 @@ The `release-qa` workflow runs the same specs in its x86_64 cell, natively on
 the runner against the unpacked tarball, not through this profile
 (`docs/testing.md`, "Release QA").
 
+### The AI spec in the rig (`simulator` profile)
+
+`e2e/specs/release/ai.spec.ts` needs an AI simulator: a release binary has no
+`/dev` routes. `SIM=1` starts one beside the tarball's server, so that spec
+runs instead of skipping itself:
+
+```sh
+E2E=1 SIM=1 scripts/release-qa/matrix.sh dist aarch64   # the e2e cell reads "ok (AI spec ran)"
+# or by hand (SIM_BIN_AARCH64 defaults to target/aarch64-unknown-linux-gnu/debug/spanish-learning):
+cargo zigbuild --features dev --target aarch64-unknown-linux-gnu.2.31
+cd scripts/release-qa
+E2E_SIM=1 SKRONGLE_VERSION=0.3.0 docker compose --profile e2e --profile simulator run --rm --build e2e-aarch64
+docker compose --profile e2e --profile simulator rm -fs simulator-aarch64 e2e-server-aarch64
+```
+
+`simulator-<arch>` is a dev-feature build of this checkout for that
+architecture (not in the tarball: built on the host with `cargo zigbuild
+--features dev`, or `SIM_BIN_AARCH64` / `SIM_BIN_X86_64`), run in the same
+Debian 11 image as the server, in dev mode with the fixtures from the repo's
+`data/`, as `scripts/release-e2e.sh` runs its simulator. Dev mode answers
+only requests made to `localhost` or `127.0.0.1`, so it cannot be reached by
+its compose name: the simulator and the Playwright container join the
+server's network namespace (`network_mode: service:e2e-server-<arch>`), and
+on that shared loopback the release server reaches it at
+`127.0.0.1:8090/dev/ai/anthropic` (`SKRONGLE_ANTHROPIC_BASE_URL`, the
+operator's setting) and the spec reads its call log there (`E2E_AI_SIM_URL`).
+`E2E_SIM=1` sets both; without it they are empty and the `e2e` profile runs
+as before. With `SIM=1`, `matrix.sh` marks the cell `FAIL` if the AI spec did
+not run. aarch64 and x86_64 only, as for the `e2e` profile (the Playwright
+image has no 32-bit ARM build).
+
 The specs also run against any server you start yourself:
 `E2E_BASE_URL=http://localhost:8081
 E2E_OWNER_LINK='<owner link from docker compose logs>' npx --prefix e2e playwright test --project release`

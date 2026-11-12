@@ -9,6 +9,9 @@
 #                         the same, with the server's log written to $E2E_LOG (a volume the
 #                         browser-spec container reads the owner link from, #41)
 #   entrypoint.sh smoke   run package-smoke.sh on that tarball and exit with its status
+#   entrypoint.sh simulator
+#                         the AI simulator for the release AI spec: the dev-feature binary mounted
+#                         at /usr/local/bin/skrongle-sim (compose.yaml, profile simulator, #41)
 #   entrypoint.sh upgrade run upgrade-check.sh: that tarball on the database each older release
 #                         wrote (the fixtures mounted at /usr/local/lib/release-qa/fixtures)
 #
@@ -27,6 +30,12 @@ if [ "$MACHINE" != "$ARCH" ]; then
   echo "Rebuild it (docker compose build skrongle-$ARCH) and, for armv7l or armv6l, install QEMU's handlers"
   echo "first (docker compose --profile setup run --rm binfmt)."
   exit 4
+fi
+# The AI simulator of the `simulator` profile (#41): the dev-feature binary
+# mounted at /usr/local/bin/skrongle-sim, not the tarball's, so no tarball needed.
+if [ "${1:-}" = simulator ]; then
+  [ -x /usr/local/bin/skrongle-sim ] || { echo "no simulator binary at /usr/local/bin/skrongle-sim: build one (matrix.sh with SIM=1 does) and set SIM_BIN_$ARCH"; exit 3; }
+  exec /usr/local/bin/skrongle-sim
 fi
 TARBALL="/tarballs/skrongle-$SKRONGLE_VERSION-$ARCH.tar.gz"
 if [ ! -f "$TARBALL" ]; then
