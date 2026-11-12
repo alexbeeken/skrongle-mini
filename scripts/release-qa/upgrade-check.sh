@@ -21,7 +21,8 @@
 #     "back to vN"), PRAGMA user_version is the fixture's again, and the
 #     older release's own binary starts on it, migrates nothing, the owner
 #     and the learner sign in and the progress is what the fixture recorded.
-#     A step the candidate has no `down` half for is a `note`, not a FAIL.
+#     A step the candidate has no `down` half for is a FAIL: every migration
+#     has a way back (docs/packaging.md "Upgrade").
 #
 # The last two need the older release's binary for this architecture; a
 # release never built for it (the 32-bit builds started with 0.2.0) is a
@@ -245,9 +246,10 @@ for DB in "$FIXTURES"/learn-*.db; do
   OUT=$(cd "$CAND" && SKRONGLE_DB="$BACK/learn.db" ./skrongle migrate "$FROM" 2>&1); RC=$?
   if [ "$RC" != 0 ]; then
     case "$OUT" in
-      # rusqlite_migration's words for a step with no `down` half
-      # (src/db/migrations.rs): that step cannot be undone, by design.
-      *"cannot be reverted"*) note "back to v$FROM: $CAND_VERSION has no way back for a step between v$FROM and v$CAND_SCHEMA: $(printf '%s' "$OUT" | head -1)" ;;
+      # rusqlite_migration's words for a step with no `down` half. Every
+      # migration has a way back (docs/packaging.md "Upgrade";
+      # src/db/migrations.rs), and update.sh <older version> relies on it.
+      *"cannot be reverted"*) fail "back to v$FROM: $CAND_VERSION has no way back for a step between v$FROM and v$CAND_SCHEMA (a migration without a .down.sql): $(printf '%s' "$OUT" | head -1)" ;;
       *) fail "back to v$FROM: skrongle migrate $FROM exited $RC:"; printf '%s\n' "$OUT" | sed 's/^/       /' ;;
     esac
     continue

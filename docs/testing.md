@@ -1074,7 +1074,7 @@ Before the tag, on the commit you will tag:
    <the fixture's schema>` takes that database down again, and the older
    release's binary must start on it, migrate nothing, sign in the owner and
    the learner and show the progress the fixture recorded (the "back to vN"
-   lines; a step with no `.down.sql` is a `note`, not a failure). An older
+   lines; a step with no `.down.sql` fails the check). An older
    tarball that is not beside the new one is downloaded from its GitHub
    release, with two retries. `SKIP_UPGRADE=1` leaves it out; `upgrade-check.sh <tarball>` runs it alone
    on a Linux machine.
