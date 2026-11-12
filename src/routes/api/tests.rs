@@ -44,7 +44,7 @@ impl Server {
     /// An account with the password `PASSWORD` (Teacher set) and a session cookie for it.
     fn account(&self, email: &str) -> (i64, String) {
         let hash = crate::auth::hash_password(PASSWORD).unwrap();
-        let id = self.state.db.with(|c| crate::auth::create_user(c, email, &hash)).unwrap();
+        let id = self.state.db.with(|c| crate::perms::create_teacher(c, email, &hash)).unwrap();
         (id, self.cookie(id))
     }
 
@@ -314,7 +314,7 @@ fn making_a_token_needs_the_password_and_is_limited() {
     assert_eq!(over.status, 429);
     assert!(token.is_none());
 
-    let none = s.state.db.with(|c| crate::auth::create_user(c, "proxy@example.org", "")).unwrap();
+    let none = s.state.db.with(|c| crate::perms::create_teacher(c, "proxy@example.org", "")).unwrap();
     let theirs = s.cookie(none);
     let page = s.get("/profile", &[("cookie", &theirs)]);
     assert!(page.body.contains("data-testid=\"profile-apps\"") && !page.body.contains("profile-apps-make-open"), "no Make a token");
@@ -416,7 +416,7 @@ fn log_capture() {
     let subscriber = tracing_subscriber::fmt().with_writer(buf.clone()).with_max_level(tracing::Level::TRACE).finish();
     let state = crate::routes::test_state(false);
     let hash = crate::auth::hash_password(PASSWORD).unwrap();
-    let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", &hash)).unwrap();
+    let ann = state.db.with(|c| crate::perms::create_teacher(c, "ann@example.org", &hash)).unwrap();
     let sid = state.db.with(|c| crate::auth::create_session(c, ann)).unwrap();
     state.db.with(|c| crate::settings::set_apps_on(c, true)).unwrap();
     let app = crate::routes::router(state.clone());

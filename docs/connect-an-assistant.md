@@ -178,7 +178,7 @@ anyone in the world can then open its sign-in page. Do not do that without
 reading [Accounts and AI keys](self-hosting#accounts-and-ai-keys) (the
 `SKRONGLE_SIGNUP` setting: use `invite` or `closed`, not `open`), turning on
 two-factor sign-in for the owner (**Profile**, **Two-factor
-authentication**), and the security page for connected apps (`security-apps`).
+authentication**), and [Security: connected apps](security-apps).
 An app always goes through Skrongle's own sign-in and consent page, and
 there is no setting that skips them. Do not put anything in front of
 Skrongle that lets people in without signing in.

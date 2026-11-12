@@ -62,8 +62,8 @@ fn site_with(limits: Option<Limits>, public_url: Option<&str>, proxy_from: Optio
     let (ann, _bob) = state
         .db
         .with(|c| {
-            let ann = crate::auth::create_user(c, "ann@example.org", &hash)?;
-            let bob = crate::auth::create_user(c, "bob@example.org", &hash)?;
+            let ann = crate::perms::create_teacher(c, "ann@example.org", &hash)?;
+            let bob = crate::perms::create_teacher(c, "bob@example.org", &hash)?;
             for (owner, id, title) in [(ann, ANN, "Ann's"), (ann, ANN_TWO, "Ann's second"), (bob, BOB_SHARED, "Bob's shared"), (bob, BOB_OWN, "Bob's own")] {
                 crate::courses::create_course(c, owner, id, title, &crate::courses::starter_files(id, title))?;
             }
@@ -792,7 +792,7 @@ fn log_capture() {
     let buf = Buf::default();
     let subscriber = tracing_subscriber::fmt().with_writer(buf.clone()).with_max_level(tracing::Level::TRACE).finish();
     let state = crate::routes::test_state(false);
-    let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
+    let ann = state.db.with(|c| crate::perms::create_teacher(c, "ann@example.org", "x")).unwrap();
     state.db.with(|c| crate::courses::create_course(c, ann, ANN, "Ann's", &crate::courses::starter_files(ANN, "Ann's"))).unwrap();
     state.db.with(|c| crate::settings::set_apps_on(c, true)).unwrap();
     let token = state

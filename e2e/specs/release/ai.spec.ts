@@ -72,7 +72,7 @@ test("AI on a release server, through the simulator: generate, learn, edit with 
   const start = await lastCallId();
 
   // A learner generates a course; the release server calls the simulator for the outline and each lesson.
-  const learner = await newLearner(browser, "ai");
+  const learner = await newLearner(browser, "ai", "Teacher");
   const id = await generate(learner.page, "Fractions for Friday");
   expect(await callsSince(start)).toEqual(["generate-outline", "generate-lesson", "generate-lesson", "generate-lesson"]);
 

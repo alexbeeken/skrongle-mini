@@ -512,7 +512,7 @@ ChatGPT) can also sign in with OAuth instead of being given a token: the
 person sees a page naming the app and clicks **Allow**. For a cloud app
 the server needs a public HTTPS address; on a home network give the app a
 token instead ([api](api#oauth)). A server that faces the internet needs
-the care in the security page for connected apps (`security-apps`), the sign-up mode
+the care in [Security: connected apps](security-apps), the sign-up mode
 (`SKRONGLE_SIGNUP`, above) and two-factor sign-in.
 
 ### Connected apps behind a path

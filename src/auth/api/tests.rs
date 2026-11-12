@@ -14,7 +14,7 @@ fn personal(c: &Connection, uid: i64) -> String {
 
 fn setup(c: &Connection) -> i64 {
     crate::settings::set_apps_on(c, true).unwrap();
-    crate::auth::create_user(c, "ann@example.org", "h").unwrap()
+    crate::perms::create_teacher(c, "ann@example.org", "h").unwrap()
 }
 
 fn found(l: Lookup) -> Option<ApiUser> {
@@ -142,7 +142,7 @@ fn a_fifth_grant_is_refused() {
     let db = Db::open_in_memory().unwrap();
     db.with(|c| {
         let ann = setup(c);
-        let bea = crate::auth::create_user(c, "bea@example.org", "h")?;
+        let bea = crate::perms::create_teacher(c, "bea@example.org", "h")?;
         for _ in 0..MAX_GRANTS_PER_ACCOUNT {
             personal(c, ann);
         }
@@ -172,14 +172,14 @@ fn full_tables_refuse() {
         c.execute("DELETE FROM api_grants", [])?;
         let mut users = Vec::new();
         for i in 0..MAX_API_GRANTS / MAX_GRANTS_PER_ACCOUNT {
-            users.push(crate::auth::create_user(c, &format!("u{i}@example.org"), "h")?);
+            users.push(crate::perms::create_teacher(c, &format!("u{i}@example.org"), "h")?);
         }
         for u in &users {
             for _ in 0..MAX_GRANTS_PER_ACCOUNT {
                 create_grant(c, *u, &new_grant(&[Scope::Read], &[], Lifetime::Days30), NOW)?.unwrap();
             }
         }
-        let bea = crate::auth::create_user(c, "bea@example.org", "h")?;
+        let bea = crate::perms::create_teacher(c, "bea@example.org", "h")?;
         assert_eq!(create_grant(c, bea, &new_grant(&[Scope::Read], &[], Lifetime::Days30), NOW)?, Err(Refused::Full));
         Ok(())
     })
@@ -194,7 +194,7 @@ fn revoke_and_cascade() {
     let db = Db::open_in_memory().unwrap();
     db.with(|c| {
         let ann = setup(c);
-        let bea = crate::auth::create_user(c, "bea@example.org", "h")?;
+        let bea = crate::perms::create_teacher(c, "bea@example.org", "h")?;
         let token = personal(c, ann);
         let g = grants(c, ann, NOW)?[0].id;
         assert!(!revoke(c, bea, g)?, "Bea can't revoke Ann's grant");

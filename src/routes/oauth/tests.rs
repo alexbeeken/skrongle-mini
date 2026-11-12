@@ -91,7 +91,7 @@ impl Site {
     /// A Teacher account and a session cookie for it.
     fn account(&self, email: &str) -> (i64, String) {
         let hash = crate::auth::hash_password(PASSWORD).unwrap();
-        let id = self.state.db.with(|c| crate::auth::create_user(c, email, &hash)).unwrap();
+        let id = self.state.db.with(|c| crate::perms::create_teacher(c, email, &hash)).unwrap();
         let sid = self.state.db.with(|c| crate::auth::create_session(c, id)).unwrap();
         (id, format!("sid={sid}"))
     }

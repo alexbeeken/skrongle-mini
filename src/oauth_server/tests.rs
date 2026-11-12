@@ -243,7 +243,7 @@ fn resource_tricks_do_not_pass() {
 /// Ann, apps on, and a registered client; the request it would make.
 fn setup(c: &mut Connection) -> (i64, Authorize) {
     crate::settings::set_apps_on(c, true).unwrap();
-    let ann = crate::auth::create_user(c, "ann@example.org", "h").unwrap();
+    let ann = crate::perms::create_teacher(c, "ann@example.org", "h").unwrap();
     let id = register(c, "App", &[CB.to_string()], NOW).unwrap().unwrap();
     let cl = super::client(c, &id, NOW).unwrap().unwrap();
     let mut p = params(|_| {});
