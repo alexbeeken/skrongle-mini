@@ -79,9 +79,13 @@ numbers work is in the README, "Versions".
   the app and where the answer goes, picks courses and how long, and
   clicks **Allow**. The connection then shows under Connected apps like a
   token made by hand. Without `SKRONGLE_PUBLIC_URL` none of this answers.
+  If an app's refresh token is ever used twice, the connection ends, as it
+  could have been stolen: an app that retries a refresh after losing the
+  answer is disconnected too, and the person connects it again.
   Behind a path such as `/skrongle`, *Self-hosting* has two optional proxy
   lines for apps that look only at the site's root. The database gets two
-  new tables (`oauth_clients`, `oauth_codes`); going back drops them.
+  new tables (`oauth_clients`, `oauth_codes`) and a column on `api_tokens`
+  (`used_at`); going back drops them and the used refresh tokens.
 - Connected apps, after a security review: the **Connected apps** card on
   Manage Users now says how many apps registered and how many tokens were
   issued in the last day, so a flood or a stolen token shows (the token

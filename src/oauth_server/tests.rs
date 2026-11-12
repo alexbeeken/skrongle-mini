@@ -332,8 +332,13 @@ fn a_code_lasts_ten_minutes() {
     .unwrap();
 }
 
-/// Refreshing deletes the refresh token: a second use is `invalid_grant`.
-/// Another client cannot use it, and its attempt does not use it up.
+fn token_rows(c: &Connection) -> i64 {
+    c.query_row("SELECT COUNT(*) FROM api_tokens", [], |r| r.get(0)).unwrap()
+}
+
+/// Refreshing marks the refresh token used and hands out a new pair.
+/// Another client cannot use it, and its attempt does not use it up. An
+/// access token refreshes nothing.
 #[test]
 fn refresh_tokens_rotate() {
     let db = Db::open_in_memory().unwrap();
@@ -345,15 +350,92 @@ fn refresh_tokens_rotate() {
         let second = refresh(c, &first.refresh, &a.client.client_id, NOW + 2).unwrap().unwrap();
         assert_ne!(second.refresh, first.refresh);
         assert!(works(c, &second.access));
-        assert_eq!(refresh(c, &first.refresh, &a.client.client_id, NOW + 3).unwrap().unwrap_err(), TokenError::InvalidGrant, "used up");
-        assert_eq!(refresh(c, &first.access, &a.client.client_id, NOW + 3).unwrap().unwrap_err(), TokenError::InvalidGrant, "an access token refreshes nothing");
-        // Refreshing in a loop keeps at most two access tokens and one refresh token.
+        assert_eq!(refresh(c, &second.access, &a.client.client_id, NOW + 3).unwrap().unwrap_err(), TokenError::InvalidGrant, "an access token refreshes nothing");
+        let used: Option<i64> = c.query_row("SELECT used_at FROM api_tokens WHERE token_hash = ?1", [hash_token(&first.refresh)], |r| r.get(0))?;
+        assert_eq!(used, Some(NOW + 2), "kept, marked used");
+        // Refreshing in a loop keeps at most two access tokens, one refresh
+        // token and one used refresh token.
         let mut last = second;
         for i in 0..10 {
             last = refresh(c, &last.refresh, &a.client.client_id, NOW + 4 + i).unwrap().unwrap();
         }
-        let tokens: i64 = c.query_row("SELECT COUNT(*) FROM api_tokens", [], |r| r.get(0))?;
-        assert_eq!(tokens, 3);
+        assert!(works(c, &last.access));
+        assert_eq!(token_rows(c), 4);
+        let used: i64 = c.query_row("SELECT COUNT(*) FROM api_tokens WHERE used_at IS NOT NULL", [], |r| r.get(0))?;
+        assert_eq!(used, 1, "only the newest used refresh token");
+        Ok(())
+    })
+    .unwrap();
+}
+
+/// A used refresh token presented again (RFC 9700 §4.14.2, #184) revokes
+/// the grant and every token under it: the newest access and refresh
+/// tokens stop working, and the account's list no longer has the app.
+#[test]
+fn a_reused_refresh_token_revokes_its_grant() {
+    let db = Db::open_in_memory().unwrap();
+    db.with(|c| {
+        let (ann, a) = setup(c);
+        let code = allow(c, &a, &consent(ann), NOW).unwrap().unwrap();
+        let first = exchange_code(c, &exchange(&a, &code), NOW + 1).unwrap().unwrap();
+        let second = refresh(c, &first.refresh, &a.client.client_id, NOW + 2).unwrap().unwrap();
+        assert_eq!(api::grants(c, ann, NOW + 3)?.len(), 1);
+        assert_eq!(refresh(c, &first.refresh, &a.client.client_id, NOW + 3).unwrap().unwrap_err(), TokenError::InvalidGrant);
+        assert_eq!(grants(c), 0, "the grant is gone");
+        assert!(api::grants(c, ann, NOW + 3)?.is_empty(), "Connected apps no longer lists it");
+        assert!(!works(c, &second.access), "the newest access token stops working");
+        assert_eq!(refresh(c, &second.refresh, &a.client.client_id, NOW + 4).unwrap().unwrap_err(), TokenError::InvalidGrant, "and the newest refresh token");
+        assert_eq!(token_rows(c), 0);
+        Ok(())
+    })
+    .unwrap();
+}
+
+/// Reuse is told by the token alone, but the client check comes first:
+/// another client presenting a used refresh token gets `invalid_grant` and
+/// revokes nothing; the client the grant was made for still refreshes with
+/// its newest token.
+#[test]
+fn a_used_refresh_token_from_another_client_revokes_nothing() {
+    let db = Db::open_in_memory().unwrap();
+    db.with(|c| {
+        let (ann, a) = setup(c);
+        let code = allow(c, &a, &consent(ann), NOW).unwrap().unwrap();
+        let first = exchange_code(c, &exchange(&a, &code), NOW + 1).unwrap().unwrap();
+        let second = refresh(c, &first.refresh, &a.client.client_id, NOW + 2).unwrap().unwrap();
+        assert_eq!(refresh(c, &first.refresh, "other-client", NOW + 3).unwrap().unwrap_err(), TokenError::InvalidGrant);
+        assert_eq!(grants(c), 1);
+        assert!(works(c, &second.access));
+        assert!(refresh(c, &second.refresh, &a.client.client_id, NOW + 4).unwrap().is_ok());
+        Ok(())
+    })
+    .unwrap();
+}
+
+/// A used refresh token goes with its grant: when the grant expires, the
+/// purge deletes it with every other token; revoked, the cascade does.
+#[test]
+fn used_refresh_tokens_go_with_their_grant() {
+    let db = Db::open_in_memory().unwrap();
+    db.with(|c| {
+        let (ann, a) = setup(c);
+        let code = allow(c, &a, &consent(ann), NOW).unwrap().unwrap();
+        let first = exchange_code(c, &exchange(&a, &code), NOW + 1).unwrap().unwrap();
+        refresh(c, &first.refresh, &a.client.client_id, NOW + 2).unwrap().unwrap();
+        let used = |c: &Connection| c.query_row("SELECT COUNT(*) FROM api_tokens WHERE used_at IS NOT NULL", [], |r| r.get::<_, i64>(0)).unwrap();
+        assert_eq!(used(c), 1);
+        api::purge_expired(c, NOW + 3)?;
+        assert_eq!(used(c), 1, "kept while the grant lasts");
+        let expires: i64 = c.query_row("SELECT expires_at FROM api_grants", [], |r| r.get(0))?;
+        api::purge_expired(c, expires)?;
+        assert_eq!((grants(c), token_rows(c)), (0, 0), "gone with the grant");
+        // Revoked on the profile: the used row goes too.
+        let code = allow(c, &a, &consent(ann), NOW).unwrap().unwrap();
+        let t = exchange_code(c, &exchange(&a, &code), NOW + 1).unwrap().unwrap();
+        refresh(c, &t.refresh, &a.client.client_id, NOW + 2).unwrap().unwrap();
+        let id = api::grants(c, ann, NOW + 3)?[0].id;
+        assert!(api::revoke(c, ann, id)?);
+        assert_eq!(token_rows(c), 0);
         Ok(())
     })
     .unwrap();

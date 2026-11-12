@@ -383,8 +383,8 @@ fn deny_and_allow_answer_the_app() {
 }
 
 /// The whole flow: code to tokens (no-store), the token works, a refresh
-/// rotates, the old refresh token is `invalid_grant`, the code replayed
-/// revokes the grant and every token under it.
+/// rotates (another client can neither use nor replay it), the code
+/// replayed revokes the grant and every token under it.
 #[test]
 fn code_refresh_and_replay() {
     let s = Site::start(true, None);
@@ -404,17 +404,44 @@ fn code_refresh_and_replay() {
     let r = s.refresh(&flow.client_id, &refresh);
     assert_eq!(r.status, 200);
     let new_refresh = r.json()["refresh_token"].as_str().unwrap().to_string();
-    let old = s.refresh(&flow.client_id, &refresh);
-    assert_eq!((old.status, old.json()["error"].as_str()), (400, Some("invalid_grant")));
-    assert_eq!(old.json().as_object().map(|o| o.len()), Some(1), "the error code only");
     let other = s.flow();
     assert_eq!(s.refresh(&other.client_id, &new_refresh).json()["error"], "invalid_grant", "another client may not");
+    assert_eq!(s.refresh(&other.client_id, &refresh).json()["error"], "invalid_grant", "nor replay a used one");
+    assert_eq!(s.grants(), 1, "another client's replay revokes nothing");
     assert_eq!(s.refresh(&flow.client_id, &new_refresh).status, 200, "and did not use it up");
 
     let replay = s.trade(&flow, &code);
     assert_eq!(replay.json()["error"], "invalid_grant");
     assert_eq!(s.grants(), 0, "the replay revoked the grant");
     assert_eq!(s.whoami(&access), 401);
+}
+
+/// The old refresh token presented again (#184) is `invalid_grant` and
+/// revokes the connection: the newest access and refresh tokens stop
+/// working and the profile's Connected apps no longer lists the app.
+#[test]
+fn a_reused_refresh_token_disconnects_the_app() {
+    let s = Site::start(true, None);
+    let (_, me) = s.account("ann@example.org");
+    let (flow, code) = s.connect(&me);
+    let t = s.trade(&flow, &code).json();
+    let old = t["refresh_token"].as_str().unwrap().to_string();
+    let r = s.refresh(&flow.client_id, &old).json();
+    let (access, newest) = (r["access_token"].as_str().unwrap().to_string(), r["refresh_token"].as_str().unwrap().to_string());
+    assert_eq!(s.whoami(&access), 200);
+    let profile = s.get("/profile", &[("cookie", &me)]);
+    assert!(profile.body.contains("data-testid=\"profile-app\""), "listed before");
+
+    let again = s.refresh(&flow.client_id, &old);
+    assert_eq!((again.status, again.json()["error"].as_str()), (400, Some("invalid_grant")));
+    assert_eq!(again.json().as_object().map(|o| o.len()), Some(1), "the error code only");
+    assert_eq!(s.grants(), 0, "the reuse revoked the grant");
+    assert_eq!(s.whoami(&access), 401, "the newest access token stops working");
+    assert_eq!(s.refresh(&flow.client_id, &newest).json()["error"], "invalid_grant", "and the newest refresh token");
+    let profile = s.get("/profile", &[("cookie", &me)]);
+    assert_eq!(profile.status, 200);
+    assert!(!profile.body.contains("data-testid=\"profile-app\""), "Connected apps no longer lists it");
+    assert!(profile.body.contains("data-testid=\"profile-apps-none\""));
 }
 
 /// The token request repeats the redirect address and the resource, with
@@ -1000,12 +1027,18 @@ fn trace_log_of_a_full_flow() {
     s.whoami("skr_0000000000000000000000000000000000000000000000000000000000000000");
     s.trade(&flow, &code);
     s.post_form("/oauth/revoke", &[], &[("token", &refresh2), ("client_id", &flow.client_id)]);
+    // A second connection, its refresh token used twice (#184).
+    let (flow2, code2) = s.connect(&me);
+    let refresh3 = s.trade(&flow2, &code2).json()["refresh_token"].as_str().unwrap().to_string();
+    let refresh4 = s.refresh(&flow2.client_id, &refresh3).json()["refresh_token"].as_str().unwrap().to_string();
+    s.refresh(&flow2.client_id, &refresh3);
 
     let log = String::from_utf8(buf.0.lock().unwrap().clone()).unwrap();
-    assert!(log.contains("connected an OAuth app") && log.contains("used twice"), "the log was captured: {log}");
+    assert!(log.contains("connected an OAuth app") && log.contains("code was used twice"), "the log was captured: {log}");
+    assert!(log.contains("refresh token was used twice") && log.contains(&format!("of account {ann}")), "the reuse names the grant and account: {log}");
     let sid = me.trim_start_matches("sid=").to_string();
     let challenge = s256(VERIFIER);
-    for secret in [&personal, &access, &refresh, &refresh2, &code, &sid] {
+    for secret in [&personal, &access, &refresh, &refresh2, &refresh3, &refresh4, &code, &code2, &sid] {
         let bare = secret.trim_start_matches("skr_");
         assert!(!log.contains(bare), "a token or code is in the log");
         assert!(!log.contains(&crate::auth::hash_token(secret)), "a hash is in the log");

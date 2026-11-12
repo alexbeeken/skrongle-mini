@@ -7,6 +7,7 @@
   <dialog class="modal" id="dev-oauth-info" aria-labelledby="dev-oauth-info-title">
     <h2 id="dev-oauth-info-title">About the dev test client</h2>
     <p>A public OAuth client, as an app in a vendor's cloud is: it reads the discovery documents, registers itself, asks for access with PKCE, trades the code for tokens and calls <code>/api/v1/whoami</code>. Its state lives in this tab. Needs <code>SKRONGLE_PUBLIC_URL</code> and Let apps connect.</p>
+    <p>Using the old refresh token or replaying the code is refused and disconnects the app: whoami then answers 401, and Connect starts again.</p>
     <form method="dialog" class="modal-actions"><button type="submit" class="btn">OK</button></form>
   </dialog>
   <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0">
@@ -114,6 +115,8 @@
     reuse: async function () {
       var r = await form(get("token-endpoint"), { grant_type: "refresh_token", refresh_token: get("old-refresh"), client_id: get("client") });
       show("dev-oauth-reuse-result", r.status + " " + (r.body.error || "ok"));
+      // A reused refresh token revokes the connection (#184): whoami says so.
+      await whoami();
     },
     replay: async function () {
       var r = await form(get("token-endpoint"), { grant_type: "authorization_code", code: get("code"), redirect_uri: redirect(), code_verifier: get("verifier"), client_id: get("client"), resource: get("resource") });

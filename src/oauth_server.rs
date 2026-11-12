@@ -17,8 +17,9 @@
 //!   the resource, and the token request repeats all three;
 //! - a code works once, for ten minutes; a second use revokes the grant it
 //!   made and every token under it;
-//! - a refresh token works once: refreshing deletes it, and only the client
-//!   the grant was made for may use it;
+//! - a refresh token works once, and only for the client the grant was
+//!   made for: refreshing marks it used, and a used one presented again
+//!   revokes the grant and every token under it (#184);
 //! - registration is bounded: five redirect addresses of 200 characters, a
 //!   name of 60, `MAX_OAUTH_CLIENTS` rows (the oldest unused one goes
 //!   first), and a registration nobody finished a grant for within a day
@@ -572,30 +573,52 @@ pub fn exchange_code(conn: &mut Connection, x: &CodeExchange, now: i64) -> rusql
     Ok(Ok(tokens))
 }
 
-/// Trade a refresh token for a new pair. The old refresh token is deleted,
-/// so it answers `invalid_grant` from then on; only the client the grant
-/// was made for may use it (another client's attempt leaves it alone). Of
-/// the grant's access tokens only the newest is kept, still working until
-/// its hour ends, so a client that refreshes in a loop cannot fill the
-/// token table.
+/// Trade a refresh token for a new pair (rotation with reuse detection,
+/// RFC 9700 §4.14.2, #184). Only the client the grant was made for may use
+/// it: another client's attempt is `invalid_grant` and changes nothing,
+/// whether the token is used or not. The token is then marked used, not
+/// deleted, so it is still recognised: presented again, it revokes the
+/// grant and every token under it (one of the two holders stole it), as a
+/// replayed code does. A grant keeps only its newest used refresh token,
+/// and of its access tokens only the newest, still working until its hour
+/// ends, so a client that refreshes in a loop cannot fill the token table:
+/// a grant holds at most four token rows.
 pub fn refresh(conn: &mut Connection, token: &str, client_id: &str, now: i64) -> rusqlite::Result<Result<Tokens, TokenError>> {
     let tx = conn.transaction()?;
     let sql = format!(
-        "SELECT t.grant_id, g.client_id, g.scopes, g.expires_at, {GRANT_LIVE}
+        "SELECT t.grant_id, g.client_id, g.scopes, g.expires_at, t.used_at, g.user_id, {GRANT_LIVE}
          FROM api_tokens t JOIN api_grants g ON g.id = t.grant_id JOIN users u ON u.id = g.user_id
          WHERE t.token_hash = ?1 AND t.kind = 'refresh' AND t.expires_at > ?2"
     );
     let hash = hash_token(token);
     let found = tx
         .query_row(&sql, params![hash, now, create_courses_bit()], |r| {
-            Ok((r.get::<_, i64>(0)?, r.get::<_, String>(1)?, r.get::<_, String>(2)?, r.get::<_, i64>(3)?, r.get::<_, bool>(4)?))
+            Ok((
+                r.get::<_, i64>(0)?,
+                r.get::<_, String>(1)?,
+                r.get::<_, String>(2)?,
+                r.get::<_, i64>(3)?,
+                r.get::<_, Option<i64>>(4)?,
+                r.get::<_, i64>(5)?,
+                r.get::<_, bool>(6)?,
+            ))
         })
         .optional()?;
-    let Some((grant_id, owner, scopes, grant_expires, live)) = found else { return Ok(Err(TokenError::InvalidGrant)) };
-    if owner != client_id || !live {
+    let Some((grant_id, owner, scopes, grant_expires, used_at, user_id, live)) = found else { return Ok(Err(TokenError::InvalidGrant)) };
+    if owner != client_id {
         return Ok(Err(TokenError::InvalidGrant));
     }
-    tx.execute("DELETE FROM api_tokens WHERE token_hash = ?1", [&hash])?;
+    if used_at.is_some() {
+        tx.execute("DELETE FROM api_grants WHERE id = ?1", [grant_id])?;
+        tx.commit()?;
+        tracing::warn!("an OAuth refresh token was used twice: grant {grant_id} of account {user_id} and its tokens were revoked");
+        return Ok(Err(TokenError::InvalidGrant));
+    }
+    if !live {
+        return Ok(Err(TokenError::InvalidGrant));
+    }
+    tx.execute("DELETE FROM api_tokens WHERE grant_id = ?1 AND kind = 'refresh' AND used_at IS NOT NULL", [grant_id])?;
+    tx.execute("UPDATE api_tokens SET used_at = ?2 WHERE token_hash = ?1", params![hash, now])?;
     tx.execute(
         "DELETE FROM api_tokens WHERE grant_id = ?1 AND kind = 'access'
          AND id NOT IN (SELECT id FROM api_tokens WHERE grant_id = ?1 AND kind = 'access' ORDER BY id DESC LIMIT 1)",
