@@ -76,9 +76,9 @@ The server refuses a database that a newer build has upgraded. It checks the
 schema number (`PRAGMA user_version`, one per migration), not the version
 number, so any build with an older schema refuses it, whatever the version.
 It stops with one line naming the file and exits with status 78. So going
-back after an update that changed the database needs the copy `update.sh`
-made before it (`learn.db.before-<version>`); see
-[Updating](docs/self-hosting.md#updating).
+back after an update that changed the database goes through `update.sh`,
+which has the newer binary take the schema back first (`skrongle migrate`);
+see [Updating](docs/self-hosting.md#updating).
 What each release changes, and what to back up first, is in
 [CHANGELOG.md](CHANGELOG.md).
 

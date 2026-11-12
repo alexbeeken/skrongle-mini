@@ -6,18 +6,25 @@ numbers work is in the README, "Versions".
 
 ## Unreleased
 
-- Running `dietpi-install.sh` a second time at the same version (or
-  uninstalling and installing again) replaced `learn.db.before-<version>`,
-  the copy of the database from before the upgrade, with the database as it
-  is now. The way back to the older version was gone. A copy that is there
-  is now replaced only when the installed version changes; otherwise the
-  script says `kept ... from an earlier run`. `FORCE=1 update.sh` at the
-  same version keeps it too.
+- Updating no longer copies the whole database. `update.sh` and
+  `dietpi-install.sh` made a `learn.db.before-<version>` copy on every run;
+  they make none now.
+- Every database migration can be taken back. `update.sh <older version>`
+  does it for you: the installed binary takes the database's layout back to
+  the older version's before the binary is swapped (`skrongle migrate
+  <schema-version>` is the command behind it). What only the newer version
+  stored is dropped on the way back.
 - A fresh `dietpi-install.sh` install no longer prints
   `stopping skrongle (none -> <version>)`, and a second run says
   `installing <version> again`.
 
-**What to do:** nothing.
+**What to do:** nothing to update. The update script no longer leaves a copy
+of the database behind, so if you relied on those as backups, make your own
+before an update (`dietpi-backup`, or copy `learn.db` and `learn.db.key`
+with the service stopped). The `learn.db.before-*` files from earlier
+updates are yours to delete. Going back from this version to 0.3.0 works
+with `update.sh 0.3.0`; going back from 0.3.0 to an older one still needs
+the copy that update made.
 
 ## 0.3.0 (2026-11-11)
 

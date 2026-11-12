@@ -36,7 +36,7 @@ const PRAGMAS: &str = "
 
 /// The schema level this binary migrates a database to.
 pub fn schema_version() -> i64 {
-    MIGRATIONS.len() as i64
+    COUNT as i64
 }
 
 /// The exit status of a server that refuses a database a newer release
@@ -81,7 +81,7 @@ pub fn check_not_newer(path: &Path) -> Result<(), String> {
 
 mod migrations;
 mod tables;
-use migrations::{MIGRATIONS, REBUILDS};
+use migrations::{COUNT, MIGRATIONS, REBUILDS};
 
 /// Statements kept prepared on the connection (#3); rusqlite's default is 16,
 /// which the hot pages' statements evict from each other.
@@ -115,9 +115,9 @@ impl CachedSql for Connection {
 
 impl Db {
     pub fn open(path: &Path) -> rusqlite::Result<Db> {
-        let conn = Connection::open(path)?;
+        let mut conn = Connection::open(path)?;
         conn.execute_batch(PRAGMAS)?;
-        migrate(&conn)?;
+        migrate(&mut conn)?;
         // SQLite's advice for a connection that lives as long as the server:
         // once after opening, with the "look at everything" flag; the hourly
         // housekeeping runs the plain form after that.
@@ -149,9 +149,9 @@ impl Db {
     /// Open an in-memory database (tests).
     #[cfg(test)]
     pub fn open_in_memory() -> rusqlite::Result<Db> {
-        let conn = Connection::open_in_memory()?;
+        let mut conn = Connection::open_in_memory()?;
         conn.execute_batch("PRAGMA foreign_keys = ON;")?;
-        migrate(&conn)?;
+        migrate(&mut conn)?;
         Db::new(conn)
     }
 
@@ -260,49 +260,97 @@ mod sql_trace {
     }
 }
 
-fn migrate(conn: &Connection) -> rusqlite::Result<()> {
+/// `skrongle migrate <schema-version> [--service | --env-file FILE]`: takes
+/// SKRONGLE_DB's schema to that version and exits. `update.sh` runs it with
+/// the installed binary before it installs an older release, whose binary
+/// refuses a newer schema and has no `down` for it. The process exit code.
+pub fn migrate_command(args: &[String]) -> i32 {
+    let Some(target) = args.first().and_then(|a| a.parse::<i64>().ok()) else {
+        eprintln!("usage: skrongle migrate <schema-version> [--service | --env-file FILE]\n\n{}", crate::USAGE);
+        return 2;
+    };
+    if let Err(code) = crate::doctor::apply_settings_args("migrate", &args[1..], &[]) {
+        return code;
+    }
+    let path = crate::env("DB").unwrap_or_else(|| "learn.db".to_string());
+    // A mistyped SKRONGLE_DB must not quietly make a new, empty database.
+    if !Path::new(&path).is_file() {
+        eprintln!("{path}: no database there (set SKRONGLE_DB to the server's, or use --service)");
+        return 1;
+    }
+    let run = || -> rusqlite::Result<i64> {
+        let mut conn = Connection::open(&path)?;
+        // Alone on the file, or not at all: a server that is still running
+        // would go on with a schema it does not expect. An exclusive
+        // connection cannot be had while another one is open.
+        conn.execute_batch("PRAGMA busy_timeout = 2000; PRAGMA locking_mode = EXCLUSIVE;")?;
+        conn.execute_batch(PRAGMAS)?;
+        let from: i64 = conn.query_row("PRAGMA user_version", [], |r| r.get(0))?;
+        conn.execute_batch("BEGIN IMMEDIATE; COMMIT;")?;
+        migrate_to(&mut conn, target)?;
+        Ok(from)
+    };
+    match run() {
+        Ok(from) if from == target => {
+            println!("{path}: already at schema v{target}");
+            0
+        }
+        Ok(from) => {
+            println!("{path}: schema v{from} -> v{target}");
+            0
+        }
+        Err(e) => {
+            eprintln!("{path}: {e}");
+            if e.sqlite_error_code() == Some(rusqlite::ErrorCode::DatabaseBusy) {
+                eprintln!("something else has the database open: stop the server first; nothing changed");
+            }
+            1
+        }
+    }
+}
+
+fn migrate(conn: &mut Connection) -> rusqlite::Result<()> {
+    migrate_to(conn, schema_version())
+}
+
+fn schema_error(message: String) -> rusqlite::Error {
+    rusqlite::Error::SqliteFailure(rusqlite::ffi::Error::new(rusqlite::ffi::SQLITE_ERROR), Some(message))
+}
+
+/// Takes the schema to `target`: up through the migrations after the
+/// database's own, or down through the `down` halves of the ones above
+/// `target`. All of it is one transaction: a step that fails leaves the
+/// database at the schema it had.
+pub(crate) fn migrate_to(conn: &mut Connection, target: i64) -> rusqlite::Result<()> {
     if predates_schema(conn)? {
-        return Err(rusqlite::Error::SqliteFailure(rusqlite::ffi::Error::new(rusqlite::ffi::SQLITE_ERROR), Some(PREDATES_MESSAGE.to_string())));
+        return Err(schema_error(PREDATES_MESSAGE.to_string()));
     }
     let current: i64 = conn.query_row("PRAGMA user_version", [], |r| r.get(0))?;
     if current > schema_version() {
-        return Err(rusqlite::Error::SqliteFailure(
-            rusqlite::ffi::Error::new(rusqlite::ffi::SQLITE_ERROR),
-            Some(newer_db_message(current)),
-        ));
+        return Err(schema_error(newer_db_message(current)));
     }
-    for (i, sql) in MIGRATIONS.iter().enumerate() {
-        let version = (i + 1) as i64;
-        if version <= current {
-            continue;
-        }
-        tracing::info!("applying schema migration v{version}");
-        // `foreign_keys` cannot change inside a transaction.
-        let rebuild = REBUILDS.contains(&version);
-        let fk_on: bool = conn.query_row("PRAGMA foreign_keys", [], |r| r.get(0))?;
-        if rebuild {
-            conn.execute_batch("PRAGMA foreign_keys = OFF;")?;
-        }
-        conn.execute_batch("BEGIN;")?;
-        let applied = conn.execute_batch(sql).and_then(|()| {
-            if rebuild && conn.prepare("PRAGMA foreign_key_check")?.query([])?.next()?.is_some() {
-                return Err(rusqlite::Error::SqliteFailure(
-                    rusqlite::ffi::Error::new(rusqlite::ffi::SQLITE_CONSTRAINT),
-                    Some(format!("migration v{version} broke a foreign key")),
-                ));
-            }
-            Ok(())
-        });
-        let done = applied.and_then(|()| conn.execute_batch(&format!("PRAGMA user_version = {version}; COMMIT;")));
-        if done.is_err() {
-            let _ = conn.execute_batch("ROLLBACK;");
-        }
-        if rebuild && fk_on {
-            conn.execute_batch("PRAGMA foreign_keys = ON;")?;
-        }
-        done?;
+    if !(1..=schema_version()).contains(&target) {
+        return Err(schema_error(format!("there is no schema v{target}; this binary knows v1 to v{}", schema_version())));
     }
-    Ok(())
+    if current == target {
+        return Ok(());
+    }
+    tracing::info!("migrating the schema from v{current} to v{target}");
+    // `foreign_keys` cannot change inside a transaction.
+    let (low, high) = (current.min(target), current.max(target));
+    let rebuild = REBUILDS.iter().any(|v| (low + 1..=high).contains(v));
+    let fk_on: bool = conn.query_row("PRAGMA foreign_keys", [], |r| r.get(0))?;
+    if rebuild {
+        conn.execute_batch("PRAGMA foreign_keys = OFF;")?;
+    }
+    let done = MIGRATIONS.to_version(conn, target as usize).map_err(|e| match e {
+        rusqlite_migration::Error::RusqliteError { err, .. } => err,
+        other => schema_error(other.to_string()),
+    });
+    if rebuild && fk_on {
+        conn.execute_batch("PRAGMA foreign_keys = ON;")?;
+    }
+    done
 }
 
 /// The plan SQLite picks for `sql` (parameters unbound), one line per step,

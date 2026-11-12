@@ -556,7 +556,7 @@ published and every Monday against the latest one, in a Debian container for
 amd64 and for arm64 (under QEMU): it runs `deploy/dietpi-install.sh`, starts
 the installed binary by hand (a container has no systemd), checks `/healthz`
 and `owner-link`, then runs the script again and checks that it keeps the env
-file and unit and copies the database aside. For those later runs it puts a
+file and unit and does not copy the database. For those later runs it puts a
 stand-in `systemctl` on the PATH (it starts and stops the binary and prints
 the unit's `Environment=` lines), so the script runs to its end and its last
 lines are checked: the owner link block with the machine's address, the link

@@ -6,10 +6,11 @@
 #
 # Shipped in every release tarball. It downloads
 # skrongle-<version>-<arch>.tar.gz for this machine, checks its checksum,
-# stops the service, copies the database aside (learn.db.before-<version>),
-# replaces the binary and data/, and starts the service again. Learners'
-# accounts and progress live in the database, which it never changes;
-# the new binary migrates it when it starts.
+# stops the service, replaces the binary and data/, and starts the service
+# again. Learners' accounts and progress live in the database. Going up, the
+# new binary migrates it when it starts; going back to an older release, the
+# installed binary first takes the schema back to that release's
+# (`skrongle migrate`). The database is never copied.
 #
 # SKRONGLE_REPO=owner/repo picks another GitHub repository; SKRONGLE_SERVICE
 # another systemd unit name.
@@ -74,8 +75,8 @@ mkdir "$TMP/new"
 tar -xzf "$TMP/$NAME" -C "$TMP/new"
 "$TMP/new/skrongle" --version >/dev/null || { echo "the new binary does not run on this machine; nothing changed"; exit 1; }
 
-# Where the service keeps its database (SKRONGLE_DB in the unit), to copy it
-# aside. A unit from before #584 still says LEARN_DB; read that too for one release.
+# Where the service keeps its database (SKRONGLE_DB in the unit), for the
+# step back below. A unit from before #584 still says LEARN_DB; read that too for one release.
 DB=$(systemctl show "$SERVICE" -p Environment --value 2>/dev/null | tr ' ' '\n' | sed -nE 's/^(SKRONGLE|LEARN)_DB=//p' | head -1)
 DB="${DB:-/var/lib/skrongle/learn.db}"
 
@@ -85,20 +86,28 @@ else
   echo "stopping $SERVICE ($CURRENT -> $VERSION)"
 fi
 systemctl stop "$SERVICE" 2>/dev/null || true
-COPY="$DB.before-$VERSION"
-if [ -f "$DB" ]; then
-  # The copy is the way back from $VERSION. Installing the same version
-  # again (FORCE=1) must not replace it with the database $VERSION changed.
-  if [ -f "$COPY" ] && [ "$CURRENT" = "$VERSION" ]; then
-    echo "kept $COPY from an earlier run"
-  else
-    rm -f "$COPY-wal"
-    cp -p "$DB" "$COPY"
-    # A clean stop folds the WAL into learn.db; after a crash it still holds
-    # recent writes, and SQLite reads <file>-wal as that file's log.
-    if [ -s "$DB-wal" ]; then cp -p "$DB-wal" "$COPY-wal"; fi
-    echo "database copied to $COPY"
-  fi
+# Going back to an older release: its binary refuses a database whose schema
+# is newer than its own, and only the installed binary knows how to take
+# that schema back (`skrongle migrate`, the `down` half of each migration).
+# So that runs first. Nothing is copied aside: going up, the new binary
+# migrates the database when it starts, and this is the way back.
+if [ -f "$DB" ] && [ -x "$DIR/skrongle" ]; then
+  WANT=$("$TMP/new/skrongle" --schema-version 2>/dev/null || true)
+  HAVE=$("$DIR/skrongle" --schema-version 2>/dev/null || true)
+  case "$WANT:$HAVE" in
+    *[!0-9:]*|:*|*:) ;; # a release from before --schema-version
+    *)
+      if [ "$WANT" -lt "$HAVE" ]; then
+        echo "taking the database back to schema v$WANT for $VERSION (it is at v$HAVE)"
+        if ! SKRONGLE_DB="$DB" "$DIR/skrongle" migrate "$WANT"; then
+          echo "the database could not be taken back to schema v$WANT; nothing changed, starting $CURRENT again"
+          echo "(a Skrongle from before 'skrongle migrate' cannot do this: put back the copy its update made, $DB.before-$CURRENT)"
+          systemctl start "$SERVICE" || true
+          exit 1
+        fi
+      fi
+      ;;
+  esac
 fi
 [ -f "$DIR/skrongle" ] && cp -p "$DIR/skrongle" "$DIR/skrongle.previous"
 rm -rf "$DIR/data"
@@ -115,6 +124,6 @@ if systemctl is-active --quiet "$SERVICE"; then
 else
   echo "Skrongle $VERSION did not start; the log:"
   journalctl -u "$SERVICE" -n 20 --no-pager || true
-  echo "to go back: sudo $SELF $CURRENT  (the database from before is at $DB.before-$VERSION)"
+  echo "to go back: sudo $SELF $CURRENT"
   exit 1
 fi

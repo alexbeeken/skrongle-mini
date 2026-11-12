@@ -271,7 +271,7 @@ change. Restoring is in the reference,
   it from outside is [Away from home with Tailscale](setup-tailscale); it
   needs no port forwarding either.
 - **Update** every month or two. Skrongle: `sudo /opt/skrongle/update.sh`
-  (it keeps a copy of the database from before the update). The Pi's
+  (it does not copy the database; `dietpi-backup` does). The Pi's
   system: `sudo dietpi-update`.
 - **If something is off**, run `sudo /opt/skrongle/skrongle doctor --service`
   on the Pi: one screen of facts to paste into a question.

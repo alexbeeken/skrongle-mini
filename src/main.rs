@@ -309,6 +309,9 @@ Usage:
                                give the account a temporary password, printed here; it must be changed at the next sign-in
   skrongle disable-2fa <email> turn the account's two-factor sign-in off
   skrongle make-owner <email>  make the account an owner (the Manage Users page)
+  skrongle migrate <schema-version> [--service | --env-file FILE]
+                               take the database's schema to that version, up or down, with the server stopped;
+                               update.sh does it before it installs an older release
   skrongle --version           print the version
   skrongle --schema-version    print the database schema version this binary migrates to
 
@@ -336,6 +339,7 @@ fn main() {
         }
         // The owner's account commands (`reset-password <email>`, …:
         // `owner.rs`) run against SKRONGLE_DB and exit.
+        Some("migrate") => std::process::exit(db::migrate_command(&args[1..])),
         Some("owner-link") => std::process::exit(owner::owner_link_command(&args[1..])),
         Some("reset-password" | "disable-2fa" | "make-owner") => std::process::exit(owner::command(&args).unwrap_or(2)),
         Some(other) => {
@@ -552,8 +556,8 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     // Handlers get the client's address (ConnectInfo) for the rate limits.
     server::serve(listener, app, server::Limits::default(), shutdown_signal()).await?;
     // Fold the WAL back into learn.db, so after a clean stop that one file
-    // holds everything: a copy of it alone (update.sh's learn.db.before-<v>,
-    // a move to a new machine) is complete.
+    // holds everything: a copy of it alone (a backup, a move to a new
+    // machine) is complete.
     if let Err(e) = shutdown_db.with(|c| c.execute_batch("PRAGMA wal_checkpoint(TRUNCATE);")) {
         tracing::warn!("checkpoint at shutdown failed: {e}");
     }
