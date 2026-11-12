@@ -329,6 +329,8 @@ profile:
     password_mismatch: 两次输入的新密码不一致。
     turn_off: 关闭两步登录验证
     turn_on: "通过验证器应用开启两步验证"
+  progress_visible: "管理此服务器的人可以看到你在学哪些课程，以及你通过了多少课。"
+  progress_private: "你的学习进度不公开：管理此服务器的人看不到。"
 manage:
   title: 管理用户
   about: "对任何账户的操作。所有者能看到整个页面；超级用户能看到账户并设置其权限。"
@@ -426,6 +428,19 @@ manage:
     off: "关"
     hidden_notice: "已为所有账户隐藏 AI 功能。"
     shown_notice: "已为所有账户重新显示 AI 功能。"
+  progress: "学习进度"
+  private: "不公开"
+  progress_title: "学习进度"
+  progress_course: "课程"
+  progress_passed: "已通过的课"
+  progress_of: "{n} / {total}"
+  progress_last_studied: "最近学习"
+  progress_never: "从未"
+  progress_streak: "连续天数"
+  progress_streak_one: "1 天"
+  progress_streak_days: "{n} 天"
+  progress_none: "此账号还没有打开过任何课程。"
+  progress_about: "只显示数量和日期。所有者以及拥有“隐私”权限的账号在这里没有页面。"
 
 landing:
   title: 从一个 JSON 文件夹学习任何内容

@@ -49,7 +49,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 - Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`.
 - Data rights: `db/tables.rs` (the user-table list), `jobs/retention.rs` (retention rules), `signup.rs` (the age confirmation).
 - Permissions: `perms.rs` (`Perm`, `Perms`, the presets; #137), asked through `CurrentUser::can` / `require` / `require_api` in `auth.rs`; stored in `users.perms`, `users.preset_id` and table `permission_presets`.
-- Owner: `owner.rs`, `routes/manage.rs`, `static/manage.js`, `routes/password.rs` (temporary password gate); an account's permissions (`perms.rs`) and the Permissions dialog on Manage Users, which a superuser reaches too (#139, `POST /manage/permissions`); the server's AI API keys in `secrets.rs` and the hide-AI switch in `settings.rs`, both on Manage Users (#25).
+- Owner: `owner.rs`, `routes/manage.rs`, `static/manage.js`, `routes/password.rs` (temporary password gate); an account's permissions (`perms.rs`) and the Permissions dialog on Manage Users, which a superuser reaches too (#139, `POST /manage/permissions`); a learner's progress for an owner or a superuser, unless the account has Privacy (#147): `routes/manage/progress.rs`, `templates/manage_progress.html`; the server's AI API keys in `secrets.rs` and the hide-AI switch in `settings.rs`, both on Manage Users (#25).
 - One preset for several accounts (#141): `routes/manage/bulk.rs` (`POST /manage/permissions/bulk`, and the notice after it); the checkboxes, the bar and the confirm dialog are in `templates/manage.html` and `static/manage.js`.
 - Docs pages: `routes/docs.rs` (`/docs` sidebar `SECTIONS`, `/llms.txt`).
 
@@ -150,6 +150,7 @@ src/
     password.rs  /password/change (the gate after signing in with a temporary password: the new one twice, no old one)
     manage.rs    /manage, the Manage Users page (owners; a superuser, CurrentUser::manages_users, gets the accounts and POST /manage/permissions only; 404 otherwise; /superuser redirects here): every account on one page with its permissions (the Permissions dialog: a preset or Custom, POST /manage/permissions, #139) and, for owners, Temporary password, Turn off two-factor and Make owner per row; invitation links under SKRONGLE_SIGNUP=invite; and the AI section (#25): the server's AI API keys (autosaved, POST /api/manage/keys) and Hide AI features for everyone. POST /manage/make-owner|invites|invites/revoke|temp-password|two-factor-off|api-keys/remove|ai
     manage/bulk.rs POST /manage/permissions/bulk (#141: email=… once per ticked account, preset=<id>; an owner or a superuser, 404 otherwise): the preset is copied onto every account named, in one transaction; owners, the signed-in account and unknown addresses are skipped; back to /manage?did=bulk&n=…&skipped=…&preset=…
+    manage/progress.rs  GET /manage/progress?email=… (#147): one account's progress for an owner or a superuser, a row per course it opened (lessons passed from lesson_passes, last studied, day streak), counts and dates only, read in one Db::call and without building a course (a built-in course's summary, a made one's courses row); a 404 for an owner's account, one with Perm::Privacy (but a superuser's own), an unknown address, and any viewer who manages nothing. `hidden` is the one rule, which manage.rs applies to each row's Progress link, Private mark and (for a superuser) last sign-in. templates/manage_progress.html
     profile.rs   /profile (personal information, account), POST /api/profile (autosave), POST /profile/password
     pages.rs     / (landing for visitors, home: the three modes) /lessons /lessons/{slug} /history /mistakes, POST /api/lessons/{slug}/note (the lesson note, autosave)
     map.rs       /map
@@ -893,6 +894,15 @@ writable path, and a release never touches the database.
   an XML prologue); they are served with `Content-Security-Policy:
   default-src 'none'` so a script inside one does not run even when the file
   is opened directly, and `nosniff`.
+- Learners' progress is shown to the accounts that manage the server and to
+  nobody else (#147, `routes/manage/progress.rs`): `GET /manage/progress`
+  answers 404 unless the viewer is an owner or a superuser, and 404 for an
+  owner's account or one with the Privacy permission, so the page does not
+  say whether such an account exists. The check reads the target's stored
+  `users.perms` in the same `Db::call` as the data. A superuser's Manage
+  Users is built without the last sign-in of owners and private accounts
+  (`load()` leaves it out; the template has nothing to hide). The page is
+  counts and dates: no answers, notes or history of single questions.
 - API keys pasted into the course generator are used for that job only and
   never stored. The server's keys, which an owner saves on Manage Users
   (`src/secrets.rs`, #25), are sealed with ChaCha20-Poly1305 under a key

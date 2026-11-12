@@ -679,6 +679,8 @@ profile:
     password_mismatch: Las nuevas contraseñas no coinciden.
     turn_off: Desactivar el inicio de sesión en dos pasos
     turn_on: "Activar la verificación en dos pasos con una aplicación de autenticación"
+  progress_visible: "Las personas que gestionan este servidor pueden ver qué cursos estudias y cuántas lecciones has aprobado."
+  progress_private: "Tu progreso de estudio es privado: las personas que gestionan este servidor no pueden verlo."
 manage:
   title: Gestionar usuarios
   about: "Acciones sobre cualquier cuenta. Los propietarios ven toda la página; los superusuarios ven las cuentas y fijan sus permisos."
@@ -776,6 +778,19 @@ manage:
     off: "No"
     hidden_notice: "Las funciones de IA están ocultas para todas las cuentas."
     shown_notice: "Las funciones de IA se muestran de nuevo para todas las cuentas."
+  progress: "Progreso"
+  private: "Privado"
+  progress_title: "Progreso de estudio"
+  progress_course: "Curso"
+  progress_passed: "Lecciones aprobadas"
+  progress_of: "{n} de {total}"
+  progress_last_studied: "Último estudio"
+  progress_never: "nunca"
+  progress_streak: "Racha"
+  progress_streak_one: "1 día"
+  progress_streak_days: "{n} días"
+  progress_none: "Esta cuenta todavía no ha abierto ningún curso."
+  progress_about: "Solo cifras y fechas. Un propietario y una cuenta con el permiso Privacidad no tienen página aquí."
 
 
 home:

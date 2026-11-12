@@ -329,6 +329,8 @@ profile:
     password_mismatch: As novas senhas não coincidem.
     turn_off: Desligar a autenticação em duas etapas
     turn_on: "Ligar a verificação em duas etapas com um aplicativo autenticador"
+  progress_visible: "As pessoas que gerenciam este servidor podem ver quais cursos você estuda e em quantas lições você foi aprovado."
+  progress_private: "Seu progresso de estudo é privado: as pessoas que gerenciam este servidor não podem vê-lo."
 manage:
   title: Gerenciar usuários
   about: "Ações em qualquer conta. Proprietários veem a página inteira; superusuários veem as contas e definem as permissões delas."
@@ -426,6 +428,19 @@ manage:
     off: "Não"
     hidden_notice: "As funções de IA estão ocultas para todas as contas."
     shown_notice: "As funções de IA voltaram a aparecer para todas as contas."
+  progress: "Progresso"
+  private: "Privado"
+  progress_title: "Progresso de estudo"
+  progress_course: "Curso"
+  progress_passed: "Lições aprovadas"
+  progress_of: "{n} de {total}"
+  progress_last_studied: "Último estudo"
+  progress_never: "nunca"
+  progress_streak: "Sequência"
+  progress_streak_one: "1 dia"
+  progress_streak_days: "{n} dias"
+  progress_none: "Esta conta ainda não abriu nenhum curso."
+  progress_about: "Somente números e datas. Um proprietário e uma conta com a permissão Privacidade não têm página aqui."
 
 landing:
   title: Aprenda qualquer coisa a partir de uma pasta de arquivos JSON

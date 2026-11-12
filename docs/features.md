@@ -1752,7 +1752,9 @@ keys). The password dialog keeps its explicit buttons. The page needs JavaScript
     invitations are listed (made, expires) with **Revoke**
     (`POST /manage/invites/revoke`). Below, every account, newest
     first, all on one page (the server holds at most 50): e-mail address, created, last sign-in
-    (the newest session on record; sessions last 30 days), **Permissions**
+    (the newest session on record; sessions last 30 days; a superuser gets
+    an empty cell for owners and for accounts with Privacy, see
+    [Permissions](#permissions)), **Permissions**
     (*Owner*, the preset's name, or *Custom*; the row's **Permissions**
     button opens the dialog described under [Permissions](#permissions)), and the
     actions per row, each opening a dialog with the address, what it does
@@ -1895,7 +1897,8 @@ stored as one integer, `users.perms`, one bit each:
 
 A permission whose needed one is off counts as off, and a set is always
 stored that way (`Perms::normalized`). So far the permissions are stored and
-edited; except for `superuser` opening Manage Users, the features do not ask
+edited; except for `superuser` opening Manage Users and `privacy` hiding an
+account's progress there, the features do not ask
 for them yet (the other issues of #137 do that).
 
 `share_courses` is asked for (#144): without it an account makes no new
@@ -1982,6 +1985,41 @@ invitation link; its links keep working and it can remove them
   where the page says *"Teacher" given to 12 accounts.* and, when some were
   skipped, *2 were left as they are (owners and your own account cannot be
   changed).*
+- **Learners' progress** (#147, `src/routes/manage/progress.rs`,
+  `templates/manage_progress.html`): each row of Manage Users has a
+  **Progress** link (`manage-account-progress`) to
+  `GET /manage/progress?email=<address>`, for an owner or a superuser (404
+  for anyone else). The page shows the account's address and name, then
+  one row per course it has opened, most recently opened first
+  (`manage-progress-course[data-course]`): the course's title (its id when
+  the course no longer exists), **Lessons passed** ("12 of 48", from
+  `lesson_passes` through `progress::passed_by_course`, the rule in
+  [Progress](progress); a course somebody made shows the count alone,
+  because its total would need the course built), **Last studied** (the
+  newest of `activity::last_touched`, or *never*) and **Streak** (the day
+  streak on the account's `earnings` row, in the viewer's time zone;
+  `earnings::streak_on_record`, which reads and never writes). *This
+  account has not opened a course yet.* when there are none, and a link
+  back to Manage Users. It is read-only, counts and dates: no answers, no
+  notes, no history of single questions. Everything is read in one
+  `Db::call`, and no course is built or loaded to draw it.
+- **What Privacy hides**: an account with the `privacy` permission (a
+  Teacher has it, a Student does not), and every owner, has no progress
+  page: the address answers 404, as an unknown address does, and the row
+  shows *Private* (`manage-account-private`) instead of the link. A
+  superuser also gets an empty **Last sign-in** cell for those rows; the
+  server leaves the value out (`load()` in `src/routes/manage.rs`). An
+  owner still sees every last sign-in, which is needed to run the server.
+  The address and the creation date stay visible for every account. A
+  superuser may open their own page whatever their set says
+  (`progress::hidden` is the one rule). So a teacher made superuser can
+  follow students and cannot look at other teachers.
+- **The learner is told**: the profile's *Who sees what* dialog (the (i)
+  beside **Personal information**) has one line,
+  `profile-progress-visibility[data-private]`: *The people who manage this
+  server can see which courses you study and how many lessons you have
+  passed.* or *Your study progress is private: the people who manage this
+  server cannot see it.*
 
 ## Two-factor sign-in
 

@@ -331,6 +331,8 @@ profile:
     password_mismatch: The new passwords do not match.
     turn_off: Turn two-factor sign-in off
     turn_on: "Turn on two-factor sign-in with an authenticator app"
+  progress_visible: "The people who manage this server can see which courses you study and how many lessons you have passed."
+  progress_private: "Your study progress is private: the people who manage this server cannot see it."
 manage:
   title: Manage Users
   about: "Actions on any account. Owners see all of this page; superusers see the accounts and set their permissions."
@@ -428,6 +430,19 @@ manage:
     off: "Off"
     hidden_notice: "AI features are hidden for every account."
     shown_notice: "AI features are shown again for every account."
+  progress: "Progress"
+  private: "Private"
+  progress_title: "Study progress"
+  progress_course: "Course"
+  progress_passed: "Lessons passed"
+  progress_of: "{n} of {total}"
+  progress_last_studied: "Last studied"
+  progress_never: "never"
+  progress_streak: "Streak"
+  progress_streak_one: "1 day"
+  progress_streak_days: "{n} days"
+  progress_none: "This account has not opened a course yet."
+  progress_about: "Counts and dates only. An owner, and an account with the Privacy permission, has no page here."
 
 landing:
   title: Learn anything from a folder of JSON files

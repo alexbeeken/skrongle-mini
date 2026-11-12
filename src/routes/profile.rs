@@ -56,6 +56,13 @@ impl ProfileTemplate {
         self.user.as_ref().is_some_and(|u| u.owner)
     }
 
+    /// Its study progress is not shown to the people who manage the server
+    /// (the progress page on Manage Users, #147): an owner's never is, nor
+    /// that of an account with the Privacy permission.
+    pub fn progress_private(&self) -> bool {
+        self.user.as_ref().is_some_and(|u| u.owner || u.perms.has(crate::perms::Perm::Privacy))
+    }
+
     /// How this account proves it is its owner (`prove_owner`): `password`;
     /// an account without one a `code` from its app, or, without a second
     /// step, `none`.

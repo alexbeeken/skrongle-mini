@@ -31,6 +31,13 @@ numbers work is in the README, "Versions".
   it to all of them in one step, after a confirmation. The page says how
   many accounts were changed; owners and your own account are never changed
   this way.
+- Manage Users has a **Progress** link on each account's row: the courses
+  the account studies, how many lessons it has passed, when it last studied
+  and its streak, for you and for superusers. An account with the
+  **Privacy** permission (a Teacher has it, a Student does not) shows
+  *Private* instead, has no progress page, and a superuser does not see its
+  last sign-in. Owners are always private. Each account's profile says, in
+  *Who sees what*, whether its progress is visible.
 
 ## 0.3.0 (2026-11-11)
 
