@@ -822,11 +822,35 @@ E2E_BASE_URL=… E2E_OWNER_EMAIL=… E2E_OWNER_PASSWORD=… npx --prefix e2e pla
 
 The server needs `SKRONGLE_SIGNUP=invite` (the systemd unit's setting) and
 an owner link nobody has used, so use a fresh one for each run
-(`docker compose down -v`). A run makes the owner and seven accounts. CI runs `scripts/release-e2e.sh` twice in the job "e2e release
+(`docker compose down -v`). A run makes the owner and eight accounts. CI runs `scripts/release-e2e.sh` twice in the job "e2e release
 specs", on the dev build: once without dev mode (an owner link, as a release has) and
 once with `SKRONGLE_DEV=1` (dev routes exist, the dev user is the owner), so
 the specs cannot rot; it is not in the required checks. Run against the 0.2.1
 aarch64 tarball in the release-QA container rig, all ten pass.
+
+### AI on a release server
+
+A release binary has no `/dev` routes and no simulator, and the specs must
+not use `/dev/` on the server under test. `scripts/release-e2e.sh` therefore
+starts a **second process**, a dev-feature build of the same code in dev mode
+(`SKRONGLE_DEV=1`, its own database, fixtures from `data/test-fixtures/llm`) on a free
+port, and starts the release server with
+`SKRONGLE_ANTHROPIC_BASE_URL=<simulator>/dev/ai/anthropic`. A base URL set this
+way is the operator's, not one typed into a form, so the private-address rule
+(`SKRONGLE_ALLOW_PRIVATE_AI_URLS`) does not apply and the harness does not set it.
+`ai.spec.ts` gets the simulator's address as `E2E_AI_SIM_URL` and reads its
+call log (`<sim>/dev/ai?format=json`) from the test, not the browser, to prove the
+release server made the calls. The key it saves on Manage Users is any
+`sk-ant-dev-…` key, which the simulator accepts.
+
+The simulator binary is `SIM_BIN` if set, else `SERVER_BIN` when that has the dev
+feature (CI), else `target/debug/spanish-learning` built with `cargo build --features dev`.
+With no such binary and no cargo, the script says so and the AI spec skips itself;
+the other specs run. The `RELEASE_E2E_DEV=1` run has no simulator process (its own
+dev AI is not used), so the spec skips there. To run it against a server you started,
+set `E2E_AI_SIM_URL` and start that server with the matching `SKRONGLE_ANTHROPIC_BASE_URL`.
+Not yet covered: running it inside the container rig (`scripts/release-qa`), and
+the other providers' wire formats (the simulator speaks them; `ai.spec.ts` uses Anthropic's).
 
 `e2e/lib/release.ts` has the helpers: `test` (the smoke specs' `test`, and a
 route guard that **fails the test on any request to `/dev/`**, in every context
@@ -846,6 +870,7 @@ from the dev authenticator. `grep -r "/dev/" e2e/specs/release` finds nothing.
 | | `account.spec.ts` | change password (wrong current refused; the old one stops working), two-factor on and off with a code worked out from the setup key (wrong code refused), sign out and in, the language switch kept by the account, the home page and a lesson at 390 px |
 | | `connected-apps.spec.ts` | the owner turns *Let apps connect* on, makes a token on the profile (shown once, never again on the page), sees it on Manage Users with the tokens-issued count up by one, calls `list_courses` on `/mcp` with it from a client with no cookies (401 without it), revokes it (401) and turns the switch off (404) |
 | | `docs.spec.ts` | `/docs` and every page in its sidebar answer 200 as HTML and Markdown, nothing is wider than a phone, every in-app link they hold opens, `/llms.txt` and what it lists |
+| | `ai.spec.ts` | the AI workflows on a release server, through a simulator process ([below](#ai-on-a-release-server)): the owner saves the Anthropic key on Manage Users, a learner generates a course, passes a lesson's reading check and has the tutor answer, the owner uses Edit with AI on a lesson, the key is removed and the learner is told to ask the owner; the simulator's own call log shows each request. Skips itself without `E2E_AI_SIM_URL` |
 | `release-open` | the existing specs below | against a server with `SKRONGLE_SIGNUP=open` (they register their own accounts through `/register`) |
 
 The `release` project's `testMatch` is every spec in `specs/release` except
