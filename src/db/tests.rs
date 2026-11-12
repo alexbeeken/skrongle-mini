@@ -72,7 +72,7 @@ fn migrations_apply_once() {
     assert_eq!(v, schema_version());
     assert_eq!(v, 5, "v1 is the schema (#49), v2 drops Skrongle Cash, v3 names share links, v4 adds permissions (#138), v5 adds courses.error_kind");
     // Re-running is a no-op.
-    db.with(|c| migrate(c)).unwrap();
+    db.with(migrate).unwrap();
 }
 
 /// What a schema is, apart from how its SQL was typed: every table's
