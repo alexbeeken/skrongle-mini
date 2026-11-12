@@ -2162,8 +2162,10 @@ token they give it (#167, the first step of plan #166). The code is
   alone. A missing, unknown, expired or revoked token gets 401 with an
   empty body and `WWW-Authenticate: Bearer`. A request with `access_token`
   or `token` in its address is a 400, even with a good header. Ten bad
-  tokens from one address in ten minutes, then 429
-  (`security::API_BAD_TOKENS_PER_IP`; off in dev mode like every limit).
+  tokens from one address in ten minutes, then a bad token is 429
+  (`security::API_BAD_TOKENS_PER_IP`; off in dev mode like every limit). A
+  good token is still served, and a request with no `Authorization` header
+  is not counted (#185).
 - **The MCP server** (#168): `POST /mcp` with the token, six course tools
   (`get_course_format`, `list_courses`, `get_course_files`,
   `validate_course`, `create_course`, `put_course_files`). Each is a thin

@@ -42,7 +42,7 @@ checked in this order:
 | 400 `{"error": "invalid_request"}` | a token in the address (`?access_token=`, `?token=`), even beside a good header |
 | 401, empty, `WWW-Authenticate: Bearer` | no token, or one that is unknown, expired or revoked, or an account without **Create courses** or waiting behind a temporary password. With `SKRONGLE_PUBLIC_URL` set the header is `Bearer resource_metadata="<public address><base>/.well-known/oauth-protected-resource/mcp"`, where an app learns how to sign in (see "OAuth" below); the 403 below carries it too. |
 | 400 `{"error": "unsupported_protocol_version"}` | an `MCP-Protocol-Version` header this server does not speak |
-| 429, a JSON-RPC error (`-32000`) | more than 300 requests from one grant in ten minutes (`security::MCP_CALLS_PER_GRANT`); ten bad tokens from one address give a 429 too |
+| 429, a JSON-RPC error (`-32000`) | more than 300 requests from one grant in ten minutes (`security::MCP_CALLS_PER_GRANT`); a bad token from an address that sent ten bad tokens in ten minutes gets a 429 too; a good token is still served, and a request with no `Authorization` header is not counted |
 | 413, a JSON-RPC error | a body larger than a course may be (`SKRONGLE_COURSE_BYTES`) plus 64 KiB, stopped while it is read |
 | 400, a JSON-RPC error | not JSON (`-32700`), nested more than 32 deep (`-32700`), an empty batch or one of more than 10 (`-32600`) |
 | 403 `{"error": "insufficient_scope", "scope": "…"}` | a tool the grant's scopes do not allow; `WWW-Authenticate` names the scope. In a batch, nothing runs. |
@@ -216,8 +216,9 @@ grant), the refresh token as long as the grant. Errors are RFC 6749 §5.2,
 the code only (`{"error": "invalid_grant"}`): `invalid_request`,
 `invalid_client` (401), `invalid_grant`, `unsupported_grant_type`,
 `invalid_target`. Every answer carries `Cache-Control: no-store`. 30
-refused requests from one address in ten minutes, then 429 until the
-window ends (`security::OAUTH_TOKEN_FAILURES_PER_IP`).
+refused requests from one address in ten minutes, then a refused request
+is 429 until the window ends (`security::OAUTH_TOKEN_FAILURES_PER_IP`); a
+good code or refresh token from that address is still served.
 
 **Revoke** (`token`, `client_id`): the grant behind the app's own access or
 refresh token goes, with every token under it. 200 for an unknown token

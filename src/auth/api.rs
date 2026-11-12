@@ -492,19 +492,20 @@ impl FromRequestParts<Arc<AppState>> for ApiUser {
         }
         let Ok(ClientIp(ip)) = ClientIp::from_request_parts(parts, state).await;
         let now = crate::db::now();
-        if state.limits.blocked(API_BAD_TOKENS_PER_IP, &ip, now) {
-            return Err(ApiError::TooManyRequests);
-        }
-        // No header: still one lookup (of a hash nothing has), so the switch
-        // is asked and the answer takes the time a wrong token takes.
-        let token = bearer(&parts.headers).unwrap_or_default();
+        // The token is looked up first: a good one is served whatever its
+        // address's neighbours did (#185). No header: still one lookup (of a
+        // hash nothing has), so the switch is asked and the answer takes the
+        // time a wrong token takes; but it is not counted, since it is how an
+        // MCP client finds `resource_metadata`, not a guess.
+        let header = bearer(&parts.headers);
+        let counted = header.is_some();
+        let token = header.unwrap_or_default();
         match state.db.call(move |c| user_for_token(c, &token, now)).await? {
             Lookup::Off => Err(ApiError::Off),
             Lookup::Found(u) => Ok(u),
-            Lookup::Refused => {
-                state.limits.hit(API_BAD_TOKENS_PER_IP, &ip, now);
-                Err(ApiError::Unauthorized)
-            }
+            Lookup::Refused if !counted => Err(ApiError::Unauthorized),
+            Lookup::Refused if state.limits.hit(API_BAD_TOKENS_PER_IP, &ip, now) => Err(ApiError::Unauthorized),
+            Lookup::Refused => Err(ApiError::TooManyRequests),
         }
     }
 }

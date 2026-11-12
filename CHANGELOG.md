@@ -6,6 +6,11 @@ numbers work is in the README, "Versions".
 
 ## Unreleased
 
+- **Connected apps are no longer locked out by their neighbours.** Ten bad
+  tokens from one address used to refuse every app there for ten minutes,
+  working ones included (one cloud assistant's servers, one home router). Now
+  a working token is always served, only bad ones get "too many requests",
+  and an app's first request without a token no longer counts as a bad one.
 - A new docs page, **Connect an AI assistant**, tells people how to let Claude
   Code, Claude or ChatGPT make courses for them: what a token is, what plain
   HTTP on a home network means, the exact steps for Claude Code, and what a

@@ -455,12 +455,11 @@ async fn token_result(state: &AppState, issuer: &str, req: Request) -> Result<Re
 /// redirect address and the resource gives an access token (an hour) and a
 /// refresh token; a refresh token gives a new pair and stops working.
 /// Errors per RFC 6749 §5.2, the code only. Each refusal counts against
-/// `OAUTH_TOKEN_FAILURES_PER_IP`; past it, 429.
+/// `OAUTH_TOKEN_FAILURES_PER_IP`; past it, a refusal is 429. The request is
+/// checked first, so a good code or refresh token is served whatever its
+/// address's neighbours did (#185).
 pub async fn token(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, req: Request) -> Result<Response, AppError> {
     let issuer = gate(&state).await?;
-    if state.limits.blocked(OAUTH_TOKEN_FAILURES_PER_IP, &ip, now()) {
-        return Ok(too_many());
-    }
     Ok(match token_result(&state, &issuer, req).await? {
         Ok(t) => {
             state.issued.count(now());
@@ -475,10 +474,8 @@ pub async fn token(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
             }),
             )
         }
-        Err(e) => {
-            state.limits.hit(OAUTH_TOKEN_FAILURES_PER_IP, &ip, now());
-            token_error(e)
-        }
+        Err(_) if !state.limits.hit(OAUTH_TOKEN_FAILURES_PER_IP, &ip, now()) => too_many(),
+        Err(e) => token_error(e),
     })
 }
 
