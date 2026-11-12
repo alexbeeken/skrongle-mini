@@ -2,6 +2,9 @@
 
 Every course of your own starts from one button, *Courses → Create a
 course* (`/courses`). Your courses are private until you share them (below).
+If the button is not there, your account does not have the *Create courses*
+permission: ask the person who runs your Skrongle (or whoever manages its
+accounts) to turn it on. The same goes for copying a course.
 On the course list each of yours has *Open* (to learn from it) and
 *Edit files* (this page).
 
@@ -136,7 +139,7 @@ above each fixed lesson's diff, and lessons it left alone with *Check:* lines
 are under *Looked at, left alone*. *Review AI changes* under Use AI
 opens it again later. **Undo** under the table brings the old version back.
 
-While the server's owner hides the AI features (*Manage Users → AI features*), none of this is shown.
+While the server's owner hides the AI features (*Manage Users → AI features*), none of this is shown; nor is it for an account without the permission *Use AI in courses*.
 
 ## Share a course
 
@@ -147,6 +150,12 @@ on their list (under *Shared with you* until opened). They learn from it
 with their own progress; only you can change it, and your edits reach them
 at once. The dialog lists every link with *not opened yet* or *opened by*
 whom; *Remove* takes one away, and the course with it.
+
+Making a link needs the **Share courses** permission, which the server's
+owner or a superuser sets on Manage Users. Without it there is no *Share* button, unless
+the course already has links: then the dialog still lists them and you can
+remove them, but not make new ones. Opening someone's link needs no
+permission.
 
 ## Fixing validation errors
 

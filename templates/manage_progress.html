@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("manage.progress_title") }}{% endblock %}
+{% block content %}
+<section class="manage" data-testid="manage-progress-page">
+  <p class="small"><a href="{{ crate::url("/manage") }}" data-testid="manage-progress-back">← {{ crate::t("manage.title") }}</a></p>
+  <h1>{{ crate::t("manage.progress_title") }}</h1>
+  <p><strong data-testid="manage-progress-email">{{ email }}</strong> · <span data-testid="manage-progress-name">{{ name }}</span></p>
+  <section class="card">
+    {% if courses.is_empty() %}
+    <p data-testid="manage-progress-empty">{{ crate::t("manage.progress_none") }}</p>
+    {% else %}
+    <div class="table-scroll"><table class="small" data-testid="manage-progress-courses">
+      <thead><tr><th>{{ crate::t("manage.progress_course") }}</th><th>{{ crate::t("manage.progress_passed") }}</th><th>{{ crate::t("manage.progress_last_studied") }}</th><th>{{ crate::t("manage.progress_streak") }}</th></tr></thead>
+      <tbody>{% for c in courses %}
+        <tr data-testid="manage-progress-course" data-course="{{ c.id }}"><td data-testid="manage-progress-course-title">{{ c.title }}</td><td data-testid="manage-progress-passed">{{ c.passed }}</td><td data-testid="manage-progress-last-studied">{{ c.last_studied }}</td><td data-testid="manage-progress-streak">{{ c.streak }}</td></tr>{% endfor %}
+      </tbody>
+    </table></div>
+    {% endif %}
+  </section>
+  <p class="small muted">{{ crate::t("manage.progress_about") }}</p>
+</section>
+{% endblock %}

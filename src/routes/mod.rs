@@ -284,14 +284,17 @@ pub fn router(state: Arc<AppState>) -> Router {
         // owners (404 for anyone else); /superuser was its old address
         .route("/superuser", get(|q: RawQuery| moved("/manage", q)))
         .route("/manage", get(manage::show))
+        .route("/manage/progress", get(manage::progress::show))
         .route("/manage/make-owner", post(manage::make_owner))
         .route("/manage/permissions", post(manage::set_permissions))
+        .route("/manage/permissions/bulk", post(manage::set_permissions_bulk))
         .route("/manage/invites", post(manage::make_invite))
         .route("/manage/invites/revoke", post(manage::revoke_invite))
         .route("/manage/temp-password", post(manage::set_temp_password))
         .route("/manage/two-factor-off", post(manage::turn_off_two_factor))
         .route("/manage/api-keys/remove", post(manage::remove_key))
         .route("/manage/ai", post(manage::set_ai))
+        .route("/manage/presets/delete", post(manage::presets::delete))
         .route("/api/manage/keys", post(manage::save_keys))
         // api
         .route("/api/answer", post(quiz::answer))

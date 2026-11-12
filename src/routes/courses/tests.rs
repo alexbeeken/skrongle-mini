@@ -370,6 +370,89 @@ fn notices_are_keys_not_text() {
     assert!(page.contains(r#"data-testid="course-edit-delete-form" data-confirm="Delete this course?"#), "{page}");
 }
 
+/// Skip levels (#146): without the permission no level and no placement
+/// test is offered, a level change and the test are a 403, and the motivator
+/// still saves; with it everything works; a level chosen while it was held
+/// stays when it is taken away, and cannot be moved.
+#[test]
+fn choosing_a_level_needs_the_skip_levels_permission() {
+    use crate::perms::{Perm, Perms};
+    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+    // The test course has levels and a placement test.
+    let with_test_course = Arc::new(crate::courses::Courses::load(std::path::Path::new("data"), true).unwrap());
+    let state = Arc::new(AppState { courses: with_test_course, ..Arc::into_inner(crate::routes::test_state(false)).unwrap() });
+    let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
+    let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
+    let id = "test-course";
+    let content = rt.block_on(state.courses.get(&state.db, id)).unwrap().unwrap();
+    let later = pages::level_options(&content, 0)[1].id.clone();
+    assert!(!later.is_empty() && crate::placement::offered(&content));
+    let app = crate::routes::router(state.clone());
+    let base = rt.block_on(async {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        tokio::spawn(async move { axum::serve(listener, app).await.unwrap() });
+        format!("http://{addr}")
+    });
+    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
+    let get = |path: &str| {
+        let mut r = agent.get(&format!("{base}{path}")).header("cookie", &cookie).call().unwrap();
+        (r.status().as_u16(), r.body_mut().read_to_string().unwrap())
+    };
+    let post = |path: &str, form: &[(&str, &str)]| agent.post(&format!("{base}{path}")).header("cookie", &cookie).send_form(form.iter().copied()).unwrap().status().as_u16();
+    let mark = || agent.post(&format!("{base}/courses/{id}/placement")).header("cookie", &cookie).send_json(json!({"answers": []})).unwrap().status().as_u16();
+    let project = || state.db.with(|c| crate::courses::project(c, ann, id)).unwrap();
+    let level = || project().unwrap().start_unit;
+    let allow = |on: bool| state.db.with(|c| crate::perms::set_custom(c, ann, Perms::STUDENT.with(Perm::SkipLevels, on))).unwrap();
+    let settings = format!("/courses/{id}/settings");
+    let (motivator, other) = (crate::motivators::ALL[1].id(), crate::motivators::ALL[0].id());
+    let level_card = r#"data-testid="courses-settings-level""#;
+
+    // A Student: the Start wizard offers no level and no test; a level posted by hand opens nothing.
+    allow(false);
+    let (status, page) = get("/courses");
+    assert_eq!(status, 200);
+    assert!(page.contains(r#"data-testid="courses-settings-motivator""#) && !page.contains(level_card) && !page.contains(r#"data-testid="placement"#), "{page}");
+    assert_eq!(post(&format!("/courses/open/{id}"), &[("wizard", "1"), ("start_unit", &later)]), 403);
+    assert!(project().is_none());
+    assert_eq!(post(&format!("/courses/open/{id}"), &[("wizard", "1"), ("motivator", motivator)]), 303);
+    assert_eq!((level(), project().unwrap().motivator.as_str()), (String::new(), motivator));
+    // Opened: the gear has no level row; a level change is refused, the motivator and the level they have are not.
+    assert!(!get("/courses").1.contains(level_card));
+    assert_eq!(post(&settings, &[("start_unit", &later)]), 403);
+    assert_eq!(level(), "");
+    assert_eq!(post(&settings, &[("motivator", other)]), 303);
+    assert_eq!(project().unwrap().motivator, other);
+    assert_eq!(post(&settings, &[("start_unit", ""), ("motivator", motivator)]), 303);
+    assert_eq!(get(&format!("/courses/{id}/placement")).0, 403);
+    assert_eq!(mark(), 403);
+    // The wizard on the home page of a course opened another way: no level step either.
+    assert_eq!(post("/courses/open/spanish", &[]), 303);
+    let (status, home) = get("/");
+    assert_eq!(status, 200);
+    assert!(home.contains(r#"data-testid="courses-settings-dialog""#) && !home.contains(level_card), "{home}");
+
+    // Skip levels (16): the level row, a saved level, the test.
+    allow(true);
+    assert_eq!(state.db.with(|c| c.query_row("SELECT perms FROM users WHERE id = ?1", [ann], |r| r.get::<_, i64>(0))).unwrap(), 16);
+    assert!(get("/courses").1.contains(level_card));
+    assert!(get("/").1.contains(level_card));
+    assert_eq!(post(&settings, &[("start_unit", &later)]), 303);
+    assert_eq!(level(), later);
+    assert_eq!(get(&format!("/courses/{id}/placement")).0, 200);
+    assert_eq!(mark(), 200);
+
+    // Taken away: the level stays, saving the motivator does not reset it, and it cannot be moved.
+    allow(false);
+    assert_eq!(level(), later);
+    assert!(!get("/courses").1.contains(level_card));
+    assert_eq!(post(&settings, &[("motivator", other)]), 303);
+    assert_eq!(post(&settings, &[("start_unit", &later), ("motivator", motivator)]), 303);
+    assert_eq!((level(), project().unwrap().motivator.as_str()), (later.clone(), motivator));
+    assert_eq!(post(&settings, &[("start_unit", "")]), 403);
+    assert_eq!(level(), later);
+}
+
 /// The Generate dialog's estimate (#443): lessons and time always, dollars
 /// for a priced model, and the same
 /// sum `Meter::estimate` reserves.
@@ -445,4 +528,103 @@ fn use_ai_mode_choice_follows_the_mode_and_greys_add_and_edit_in_place() {
     assert!(mode_radio(&html, "change").contains(" checked"));
     assert!(html.contains(">What should the AI add or change?</label>") && html.contains("maxlength=\"4000\""));
     assert!(!html[html.find("data-testid=\"course-ai-outline\"").unwrap()..].split('>').next().unwrap().contains(" disabled"));
+}
+
+/// The Create courses permission (#143): without it "Create a course", Copy
+/// and Copy and translate answer 403 and add no course, and the course list
+/// offers none of them; a course the account already owns still opens in
+/// the editor. With the Teacher set it is all as before, and an owner
+/// creates whatever its stored set says.
+#[test]
+fn making_a_course_needs_the_create_courses_permission() {
+    use crate::perms::{self, Perms};
+    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+    let state = crate::routes::test_state(false);
+    let user = |email: &str| {
+        let uid = state.db.with(|c| crate::auth::create_user(c, email, "x")).unwrap();
+        (uid, format!("sid={}", state.db.with(|c| crate::auth::create_session(c, uid)).unwrap()))
+    };
+    let (stu, stu_c) = user("stu@example.org");
+    let (tea, tea_c) = user("tea@example.org");
+    let (root, root_c) = user("root@example.org");
+    // Stu made a course while a Teacher, then became a Student; Spanish is open.
+    let old = "old-abc123";
+    state
+        .db
+        .with(|c| {
+            courses::create_course(c, stu, old, "From before", &courses::starter_files(old, "From before"))?;
+            courses::open_project(c, stu, "spanish")?;
+            c.execute("UPDATE users SET perms = 0", [])?;
+            perms::set_custom(c, tea, Perms::TEACHER)?;
+            c.execute("UPDATE users SET owner = 1 WHERE id = ?1", [root])?;
+            Ok(())
+        })
+        .unwrap();
+    let app = crate::routes::router(state.clone());
+    let base = rt.block_on(async {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        tokio::spawn(async move { axum::serve(listener, app).await.unwrap() });
+        format!("http://{addr}")
+    });
+    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
+    let location = |r: &ureq::http::Response<ureq::Body>| r.headers().get("location").map(|v| v.to_str().unwrap().to_string()).unwrap_or_default();
+    let post = |path: &str, cookie: &str, form: &[(&str, &str)]| {
+        let r = agent.post(&format!("{base}{path}")).header("cookie", cookie).send_form(form.iter().copied()).unwrap();
+        (r.status().as_u16(), location(&r))
+    };
+    let get = |path: &str, cookie: &str| {
+        let mut r = agent.get(&format!("{base}{path}")).header("cookie", cookie).call().unwrap();
+        (r.status().as_u16(), r.body_mut().read_to_string().unwrap())
+    };
+    let count = || state.db.with(|c| c.query_row("SELECT COUNT(*) FROM courses", [], |r| r.get::<_, i64>(0))).unwrap();
+    assert_eq!(count(), 1);
+
+    // A Student: the three routes refuse, for a built-in course or its own, and nothing is made.
+    assert_eq!(post("/courses/new", &stu_c, &[("title", "")]).0, 403);
+    for id in ["spanish", old] {
+        assert_eq!(post(&format!("/courses/{id}/copy"), &stu_c, &[]).0, 403, "{id}");
+        assert_eq!(post(&format!("/courses/{id}/translate"), &stu_c, &[("lang", "es")]).0, 403, "{id}");
+    }
+    assert_eq!(count(), 1);
+    // Its course list offers none of it, and no heading is left where the block was.
+    let (status, page) = get("/courses", &stu_c);
+    assert_eq!(status, 200);
+    for part in ["courses-make", "courses-create", "courses-copy", "courses-translate"] {
+        assert!(!page.contains(part), "{part} is offered to a Student");
+    }
+    assert!(page.contains(&crate::t("courses.picker.lead_learn_only")), "{page}");
+    assert!(page.contains(r#"data-course-id="spanish""#) && page.contains(&format!(r#"data-course-id="{old}""#)));
+    // The course it owns from before still opens in the editor, and still saves.
+    let (status, page) = get(&format!("/courses/{old}"), &stu_c);
+    assert_eq!(status, 200);
+    assert!(page.contains(r#"data-testid="course-edit""#));
+    let r = agent
+        .post(&format!("{base}/api/courses/{old}/lessons"))
+        .header("cookie", &stu_c)
+        .send_json(json!({"lessons": [{"key": "u1-first-lesson", "unit": "1", "title": "Renamed by a Student"}], "session": "tab-a"}))
+        .unwrap();
+    assert_eq!(r.status().as_u16(), 200);
+
+    // A Teacher: as before.
+    let (status, page) = get("/courses", &tea_c);
+    assert_eq!(status, 200);
+    assert!(page.contains(r#"data-testid="courses-create""#) && !page.contains(&crate::t("courses.picker.lead_learn_only")), "{page}");
+    let (status, loc) = post("/courses/new", &tea_c, &[("title", "")]);
+    assert!(status == 303 && loc.contains("generate=1"), "{status} {loc}");
+    let (status, loc) = post("/courses/spanish/copy", &tea_c, &[]);
+    assert!(status == 303 && loc.starts_with("/courses/"), "{status} {loc}");
+    assert_eq!(count(), 3);
+    // Copy and translate gets past the permission (this server has no AI key, so it stops there).
+    assert_ne!(post("/courses/spanish/translate", &tea_c, &[("lang", "es")]).0, 403);
+    // Copy is behind the gear of a course it has opened.
+    state.db.with(|c| courses::open_project(c, tea, "spanish")).unwrap();
+    assert!(get("/courses", &tea_c).1.contains(r#"data-testid="courses-copy""#));
+
+    // An owner whose stored set is empty still creates and copies.
+    assert_eq!(state.db.with(|c| c.query_row("SELECT perms FROM users WHERE id = ?1", [root], |r| r.get::<_, i64>(0))).unwrap(), 0);
+    assert!(post("/courses/new", &root_c, &[("title", "")]).1.contains("generate=1"));
+    assert_eq!(post("/courses/spanish/copy", &root_c, &[]).0, 303);
+    assert_eq!(count(), 5);
+    assert!(get("/courses", &root_c).1.contains(r#"data-testid="courses-create""#));
 }

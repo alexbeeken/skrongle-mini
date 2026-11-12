@@ -401,6 +401,11 @@ input[type="file"] { max-width: 100%; }
 .table-scroll > table.small th, .table-scroll > table.small td { text-align: left; padding: .5rem 1.2rem .5rem 0; border-bottom: 1px solid var(--line); white-space: nowrap; vertical-align: middle; }
 .manage table td, .manage table th { white-space: nowrap; }
 .account-actions { display: flex; flex-wrap: wrap; gap: .25rem .75rem; }
+/* One preset for several accounts (#141): the checkbox column and the bar above the table, shown while a row is ticked. */
+.account-select { width: 1%; }
+.account-select input { margin: 0; vertical-align: middle; }
+.bulk-bar { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .75rem; margin: 0 0 .5rem; }
+.bulk-bar select { width: auto; max-width: 100%; }
 /* The Permissions dialog (#139): the preset radios, then one line a permission with its switch
    (a checkbox drawn as .ai-switch). A preset's set is read-only (.is-readonly): a mark instead of the switch. */
 .perms-form { display: block; }
@@ -418,6 +423,11 @@ input[type="file"] { max-width: 100%; }
 .perms-form.is-readonly .perm-switch { display: none; }
 .perms-form.is-readonly .perm-mark { display: block; }
 .perm-line.is-off .perm-text { opacity: .5; }
+/* Save as a preset (#140): under the switches, only while Custom is chosen. */
+.perm-save-as { padding-top: .6rem; border-top: 1px solid var(--line); }
+.perm-save-as label, .perm-save-as p { margin: 0; }
+.perm-save-as p { margin-top: .3rem; }
+.perms-form.is-readonly .perm-save-as { display: none; }
 .pager { display: flex; gap: 1rem; align-items: center; justify-content: center; margin-top: .75rem; }
 .invite-link { display: flex; gap: .5rem; align-items: center; }
 .invite-link input { flex: 1; min-width: 0; font-family: var(--mono, monospace); }

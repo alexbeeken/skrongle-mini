@@ -679,6 +679,8 @@ profile:
     password_mismatch: Las nuevas contraseñas no coinciden.
     turn_off: Desactivar el inicio de sesión en dos pasos
     turn_on: "Activar la verificación en dos pasos con una aplicación de autenticación"
+  progress_visible: "Las personas que gestionan este servidor pueden ver qué cursos estudias y cuántas lecciones has aprobado."
+  progress_private: "Tu progreso de estudio es privado: las personas que gestionan este servidor no pueden verlo."
 manage:
   title: Gestionar usuarios
   about: "Acciones sobre cualquier cuenta. Los propietarios ven toda la página; los superusuarios ven las cuentas y fijan sus permisos."
@@ -718,7 +720,32 @@ manage:
   permissions_done: "Permisos guardados para {email}."
   permissions_owner: "Los permisos de un propietario no se pueden cambiar: los propietarios pueden hacerlo todo."
   permissions_self: "No puedes cambiar tus propios permisos."
+  bulk_select: "Seleccionar {email}"
+  bulk_select_all: "Seleccionar todas las cuentas"
+  bulk_preset: "Perfil que se dará"
+  bulk_apply: "Aplicar a las seleccionadas"
+  bulk_about: "Los permisos propios de cada cuenta se sustituyen por los del perfil. Los propietarios y tu propia cuenta nunca se cambian."
+  bulk_confirm: "Dar el perfil"
+  bulk_none: "Selecciona primero al menos una cuenta."
+  bulk_done:
+    one: "«{preset}» dado a {n} cuenta."
+    other: "«{preset}» dado a {n} cuentas."
+  bulk_skipped:
+    one: "{n} se dejó como estaba (los propietarios y tu propia cuenta no se pueden cambiar)."
+    other: "{n} se dejaron como estaban (los propietarios y tu propia cuenta no se pueden cambiar)."
   permissions_ai_hidden: "Las funciones de IA están ocultas para todos en este servidor."
+  permissions_save_as: "Guardar como perfil (opcional)"
+  permissions_save_as_help: "Ponle un nombre a este conjunto para reutilizarlo en otras cuentas. Déjalo vacío para guardarlo solo para esta cuenta."
+  presets: "Perfiles guardados"
+  preset_name: "Nombre"
+  preset_no_perms: "Sin permisos"
+  preset_delete: "Eliminar"
+  preset_delete_title: "¿Eliminar este perfil?"
+  preset_delete_about: "Las cuentas que tienen este perfil conservan sus permisos y aparecen como Personalizado."
+  preset_deleted: "Perfil eliminado."
+  preset_name_taken: "Ya existe un perfil con ese nombre."
+  preset_too_many: "Este servidor ya tiene {max} perfiles guardados. Elimina uno primero."
+  preset_bad_name: "El nombre de un perfil tiene de 1 a {max} caracteres, sin saltos de línea ni otros caracteres de control."
   api_keys:
     title: Claves API de IA
     info_text: "Las funciones de IA de todas las cuentas usan estas claves, facturadas a la cuenta a la que pertenece cada clave. Las claves se cifran antes de guardarse y no se vuelven a mostrar; solo quedan visibles los últimos cuatro caracteres para que sepas qué clave hay guardada. Solo los propietarios las ven."
@@ -746,6 +773,12 @@ manage:
     key_on_file: "✓ Configurada"
     ends_in: "termina en"
     paste_new_key: "Pega una clave nueva para reemplazarla"
+    bulk_selected:
+      one: "{n} seleccionada"
+      other: "{n} seleccionadas"
+    bulk_confirm:
+      one: "¿Dar «{preset}» a {n} cuenta?"
+      other: "¿Dar «{preset}» a {n} cuentas?"
     perm_on: "Permitido"
     perm_off: "No permitido"
   ai:
@@ -757,6 +790,19 @@ manage:
     off: "No"
     hidden_notice: "Las funciones de IA están ocultas para todas las cuentas."
     shown_notice: "Las funciones de IA se muestran de nuevo para todas las cuentas."
+  progress: "Progreso"
+  private: "Privado"
+  progress_title: "Progreso de estudio"
+  progress_course: "Curso"
+  progress_passed: "Lecciones aprobadas"
+  progress_of: "{n} de {total}"
+  progress_last_studied: "Último estudio"
+  progress_never: "nunca"
+  progress_streak: "Racha"
+  progress_streak_one: "1 día"
+  progress_streak_days: "{n} días"
+  progress_none: "Esta cuenta todavía no ha abierto ningún curso."
+  progress_about: "Solo cifras y fechas. Un propietario y una cuenta con el permiso Privacidad no tienen página aquí."
 
 
 home:
@@ -1754,6 +1800,7 @@ courses:
     lead_anon: Elige un curso ya hecho. Cada curso guarda su propio progreso, vocabulario, juegos e historial.
     lead_ai_off: Elige un curso ya hecho o escribe el tuyo. Cada curso guarda su propio progreso, vocabulario, juegos e historial.
     lead_ai: Elige un curso ya hecho, escribe el tuyo o describe lo que quieres y deja que una IA escriba el curso por ti. Cada curso guarda su propio progreso, vocabulario, juegos e historial.
+    lead_learn_only: Elige un curso para aprender. Cada curso guarda su propio progreso, vocabulario, juegos e historial.
     projects_heading: Tus proyectos
     tag_current: actual
     tag_revising: en revisión
@@ -2467,6 +2514,7 @@ courses:
     too_many_course: "Un curso puede tener hasta {max} enlaces de invitación. Quita uno primero."
     removed_notice: "Enlace quitado. Quien lo abrió ya no tiene el curso."
     not_on_list: Ese enlace no estaba en la lista.
+    not_allowed: "Tu cuenta no puede crear nuevos enlaces de invitación. Los enlaces que ya creaste siguen funcionando hasta que los quites."
     link_taken: Otra cuenta ya usó este enlace. Pide a quien creó el curso un enlace propio.
     link_gone: Este enlace ya no funciona. Pide a quien creó el curso uno nuevo.
     not_ready: Ese curso todavía no se puede abrir. Pregunta a quien lo creó y vuelve a probar el enlace más tarde.

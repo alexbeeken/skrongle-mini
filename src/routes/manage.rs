@@ -10,7 +10,10 @@
 //! (`settings::AI_OFF`).
 //! A superuser (an account with `Perm::Superuser`, not an owner) gets the
 //! page too, with the accounts and their permissions and nothing else: the
-//! rest, and every route but `POST /manage/permissions`, stays the owners'.
+//! rest, and every route but `POST /manage/permissions`, its form for
+//! several accounts (`manage/bulk.rs`, #141) and the saved presets'
+//! `POST /manage/presets/delete` (`manage/presets.rs`, #140), stays the
+//! owners'.
 //! Anyone else gets a 404, as if the page did not exist; the account menu
 //! links here only for those two (`CurrentUser::manages_users`).
 
@@ -29,6 +32,11 @@ use crate::perms::{self, Perm, Perms};
 use crate::profile;
 use crate::secrets::{self, KeyStatus, Provider};
 use crate::AppState;
+
+mod bulk;
+pub use bulk::set_permissions_bulk;
+
+pub mod presets;
 
 #[derive(Template)]
 #[template(path = "manage.html")]
@@ -68,6 +76,9 @@ pub struct ManageTemplate {
     pub presets: Vec<PresetChoice>,
     /// The seven permissions, in the order the dialog lists them.
     pub perms: Vec<PermLine>,
+    /// The saved presets (not Student and Teacher), listed under the
+    /// accounts with Delete (#140).
+    pub saved_presets: Vec<presets::SavedPreset>,
 }
 
 pub struct AccountRow {
@@ -85,6 +96,13 @@ pub struct AccountRow {
     /// The viewer may set this account's permissions: not an owner's, and
     /// not their own.
     pub can_edit: bool,
+    /// The account's progress page (`manage/progress.rs`, #147), for the
+    /// row's Progress link; '' when there is none to open: an owner's, an
+    /// account with Privacy, one without an address.
+    pub progress_url: String,
+    /// Its progress is not shown (`progress::hidden`): the row says Private
+    /// instead of the link.
+    pub private: bool,
 }
 
 /// A preset in the Permissions dialog: a radio that carries its set.
@@ -133,6 +151,7 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
         .await?;
     let total = accounts.len() as i64;
     let viewer = user.id;
+    let saved_presets = presets::saved(&presets, &accounts);
     Ok(ManageTemplate {
         user: Some(user),
         is_owner,
@@ -145,6 +164,11 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
         list: accounts
             .into_iter()
             .map(|a| AccountRow {
+                // Not the template's to hide: a superuser's page does not
+                // hold the last sign-in of an owner or a private account.
+                last_sign_in: a.last_sign_in.filter(|_| is_owner || !progress::hidden(a.owner, a.perms, a.id == viewer)).map(profile::long_date).unwrap_or_default(),
+                progress_url: if progress::hidden(a.owner, a.perms, a.id == viewer) || a.email.is_empty() { String::new() } else { progress::url_of(&a.email) },
+                private: progress::hidden(a.owner, a.perms, a.id == viewer),
                 can_edit: !a.owner && a.id != viewer && !a.email.is_empty(),
                 perms: a.perms.bits(),
                 preset: match a.preset_id {
@@ -159,7 +183,6 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
                 },
                 email: a.email,
                 created: profile::long_date(a.created_at),
-                last_sign_in: a.last_sign_in.map(profile::long_date).unwrap_or_default(),
                 owner: a.owner,
             })
             .collect(),
@@ -181,6 +204,7 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
                 ai: matches!(p, Perm::AiCourses | Perm::AiTutor),
             })
             .collect(),
+        saved_presets,
     })
 }
 
@@ -196,10 +220,16 @@ pub struct ShowQuery {
     /// Back from an action: `unknown`, `revoked`,
     /// `two-factor-off`, `owner`, `permissions` (or why not:
     /// `permissions-owner`, `permissions-self`), about `email`;
-    /// or `key-removed`, about `provider`; or `ai-off` / `ai-on`.
+    /// or `key-removed`, about `provider`; or `ai-off` / `ai-on`; or
+    /// `preset-…` (`presets::notice`).
     pub did: Option<String>,
     pub email: Option<String>,
     pub provider: Option<String>,
+    /// After `did=bulk` (#141, `manage/bulk.rs`): how many accounts got the
+    /// preset, how many were left as they are, and the preset's id.
+    pub n: Option<String>,
+    pub skipped: Option<String>,
+    pub preset: Option<String>,
 }
 
 /// GET /manage
@@ -217,6 +247,8 @@ pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, Query(q
         Some("permissions") => t.notice = Some(crate::t1("manage.permissions_done", "email", email)),
         Some("permissions-owner") => t.error = Some(crate::t("manage.permissions_owner")),
         Some("permissions-self") => t.error = Some(crate::t("manage.permissions_self")),
+        Some("bulk") => bulk::notice(&mut t, &q),
+        Some("bulk-none") => t.error = Some(crate::t("manage.bulk_none")),
         Some("key-removed") => {
             if let Some(p) = q.provider.as_deref().and_then(Provider::parse) {
                 t.notice = Some(crate::t1("manage.api_keys.removed", "provider", p.label()));
@@ -224,6 +256,7 @@ pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, Query(q
         }
         Some("ai-off") => t.notice = Some(crate::t("manage.ai.hidden_notice")),
         Some("ai-on") => t.notice = Some(crate::t("manage.ai.shown_notice")),
+        Some(did) if did.starts_with("preset-") => presets::notice(&mut t, did),
         _ => {}
     }
     Ok(Page(t).into_response())
@@ -355,6 +388,8 @@ pub async fn turn_off_two_factor(State(state): State<Arc<AppState>>, user: Curre
 /// `custom`, the set of the `perm_<id>` fields sent, normalised here: a
 /// permission whose needed one is off is stored off, whatever the form's
 /// greyed-out toggles said. For a preset the `perm_<id>` fields are ignored.
+/// `custom` with a `save_as` name saves the set as a preset and gives the
+/// account that preset (`presets::save_as`, #140).
 /// An owner or a superuser; a 404 otherwise. Nobody changes an owner's
 /// permissions, and a superuser does not change their own.
 pub async fn set_permissions(State(state): State<Arc<AppState>>, user: CurrentUser, Form(form): Form<Vec<(String, String)>>) -> Result<Response, AppError> {
@@ -386,6 +421,11 @@ pub async fn set_permissions(State(state): State<Arc<AppState>>, user: CurrentUs
     let preset = field("preset").unwrap_or_default();
     if preset == "custom" {
         let set = Perm::ALL.into_iter().fold(Perms::STUDENT, |set, p| set.with(p, field(&format!("perm_{}", p.id())).is_some())).normalized();
+        // With a name (#140): saved as a preset, which the account is given.
+        let save_as = field("save_as").unwrap_or_default().trim();
+        if !save_as.is_empty() {
+            return presets::save_as(&state, &user, target, &email, save_as.to_string(), set).await;
+        }
         state.db.call(move |c| perms::set_custom(c, target, set)).await?;
         tracing::info!("user {} set the permissions of user {target} to custom ({})", user.id, set.bits());
     } else {
@@ -518,6 +558,8 @@ pub async fn set_ai(State(state): State<Arc<AppState>>, user: CurrentUser, Form(
     let did = if off { "ai-off" } else { "ai-on" };
     Ok(Redirect::to(&crate::url(&format!("/manage?did={did}#ai"))).into_response())
 }
+
+pub mod progress;
 
 #[cfg(test)]
 mod tests;

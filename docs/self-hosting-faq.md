@@ -134,11 +134,21 @@ account with the owner link:
 `sudo /opt/skrongle/skrongle owner-link --service`, then open the link it
 prints.
 
+**Can I see how my learners are getting on?** Yes, for accounts without
+the **Privacy** permission: **Progress** on the account's row of *Manage
+Users* shows the courses it studies, the lessons passed, when it last
+studied and its streak. A Student has no Privacy; a Teacher has it and
+shows *Private* instead. A superuser sees the same as you, minus the last
+sign-in of private accounts and owners. Each learner's profile says whether
+they are visible. See [Permissions](features#permissions).
+
 **Do I need an AI key?** No. Lessons, quizzes, games and the built-in
 courses work without one. The tutor and the course generator use the keys
 you, the owner, save under *Manage Users → AI features* (Anthropic, OpenAI,
 Google, DeepSeek, Mistral, xAI, OpenRouter, or an Ollama server on your
-network). Every account uses them, billed to you.
+network). Every account uses them, billed to you. To decide who may: the
+*Permissions* dialog on an account's row has *Use the AI tutor* and *Use AI in
+courses*; *Hide AI features for everyone* turns AI off for all.
 
 **Are saved AI keys safe?** They are encrypted with the secret key, which
 lives in a separate file (`learn.db.key`), so a copy of the database alone

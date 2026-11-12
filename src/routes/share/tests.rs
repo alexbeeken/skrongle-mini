@@ -156,3 +156,72 @@ fn a_link_opened_while_the_course_is_written_counts_once_it_is_ready() {
     let (status, loc, _) = s.get(&format!("/courses/shared/{token}"), &bob);
     assert_eq!((status, loc.as_str()), (303, "/"), "the link still opens it");
 }
+
+/// Share courses (#144, `Perm::ShareCourses`): without it no link is made,
+/// by request or by button; links made before keep working, their owner
+/// still removes them, and anyone may open one. An owner of the server
+/// shares whatever is stored.
+#[test]
+fn making_a_link_needs_the_share_courses_permission() {
+    let s = Server::start();
+    // The first account is the server's owner: Ann is the second.
+    s.account("root@example.org");
+    let ann = s.account("ann@example.org");
+    let id = s.course(&ann);
+    let empty = s.course(&ann);
+    let token = s.token(&id, &ann, "Bob");
+    let set = |email: &str, sql: &'static str, n: i64| {
+        let email = email.to_string();
+        s.state.db.with(move |c| c.execute(sql, rusqlite::params![n, email])).unwrap();
+    };
+    let perms = |email: &str, bits: i64| set(email, "UPDATE users SET perms = ?1, preset_id = NULL WHERE email = ?2", bits);
+    let made = || s.state.db.with(|c| c.query_row("SELECT COUNT(*) FROM course_shares", [], |r| r.get::<_, i64>(0))).unwrap();
+    assert_eq!(made(), 1);
+
+    // Teacher minus Share courses (63 - 8): refused, nothing made.
+    perms("ann@example.org", 55);
+    let (status, _, page) = s.share(&id, &ann, "Cat");
+    assert!(status == 403 && page.contains(&crate::t("error.no_permission")), "{status}\n{page}");
+    assert_eq!(made(), 1, "no link made");
+
+    // The course with a link: Share is there, the dialog lists the link
+    // with Remove and says why there is no form.
+    let (status, _, page) = s.get(&format!("/courses/{id}?share=1"), &ann);
+    assert_eq!(status, 200);
+    assert!(page.contains(r#"data-testid="course-edit-share""#) && page.contains(r#"data-label="Bob" data-opened="false">"#) && page.contains(r#"data-testid="course-share-remove""#), "{page}");
+    assert!(page.contains(r#"data-testid="course-share-not-allowed""#) && page.contains("Your account cannot make new invitation links."), "{page}");
+    assert!(!page.contains("course-share-send") && !page.contains("course-share-form") && !page.contains("course-share-label"), "no form\n{page}");
+    // The course without one: no button, no dialog.
+    let (status, _, page) = s.get(&format!("/courses/{empty}?share=1"), &ann);
+    assert_eq!(status, 200);
+    assert!(!page.contains("course-edit-share") && !page.contains(r#"id="course-share""#), "{page}");
+
+    // A Student (no permission at all) opens the link.
+    let bob = s.account("bob@example.org");
+    perms("bob@example.org", 0);
+    let (status, loc, _) = s.get(&format!("/courses/shared/{token}"), &bob);
+    assert_eq!((status, loc.as_str()), (303, "/"), "opening a link is never gated");
+    assert!(s.get("/courses", &bob).2.contains(&format!(r#"data-testid="courses-card" data-course-id="{id}""#)));
+
+    // Share without Create courses (8) is stored as nothing: refused.
+    perms("ann@example.org", 8);
+    assert_eq!(s.share(&id, &ann, "Cat").0, 403);
+    assert_eq!(made(), 1);
+
+    // Removing a link made before still works.
+    let row = s.state.db.with(|c| c.query_row("SELECT id FROM course_shares", [], |r| r.get::<_, i64>(0))).unwrap();
+    let (status, _, loc) = s.post(&format!("/courses/{id}/share/remove"), &ann, &[("id", &row.to_string())]);
+    assert_eq!(status, 303);
+    assert!(loc.ends_with("notice=share-removed"), "{loc}");
+    assert_eq!(made(), 0);
+    // With the last link gone, so is the button.
+    assert!(!s.get(&format!("/courses/{id}"), &ann).2.contains("course-edit-share"));
+
+    // An owner of the server has every permission, whatever is stored.
+    perms("ann@example.org", 0);
+    set("ann@example.org", "UPDATE users SET owner = ?1 WHERE email = ?2", 1);
+    let (status, _, page) = s.share(&id, &ann, "Dan");
+    assert!(status == 200 && page.contains(r#"data-testid="course-share-link""#), "{status}\n{page}");
+    assert_eq!(made(), 1);
+    assert!(s.get(&format!("/courses/{empty}"), &ann).2.contains(r#"data-testid="course-share-send""#), "the form, for an owner");
+}

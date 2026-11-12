@@ -329,6 +329,8 @@ profile:
     password_mismatch: Die neuen Passwörter stimmen nicht überein.
     turn_off: Zwei-Faktor-Anmeldung ausschalten
     turn_on: "Zwei-Faktor-Anmeldung mit einer Authenticator-App einschalten"
+  progress_visible: "Die Personen, die diesen Server verwalten, können sehen, welche Kurse du lernst und wie viele Lektionen du bestanden hast."
+  progress_private: "Dein Lernfortschritt ist privat: Die Personen, die diesen Server verwalten, können ihn nicht sehen."
 manage:
   title: Benutzer verwalten
   about: "Aktionen für jedes Konto. Eigentümer sehen die ganze Seite; Superuser sehen die Konten und legen deren Berechtigungen fest."
@@ -368,7 +370,32 @@ manage:
   permissions_done: "Berechtigungen für {email} gespeichert."
   permissions_owner: "Die Berechtigungen eines Eigentümers lassen sich nicht ändern: Eigentümer dürfen alles."
   permissions_self: "Du kannst deine eigenen Berechtigungen nicht ändern."
+  bulk_select: "{email} auswählen"
+  bulk_select_all: "Alle Konten auswählen"
+  bulk_preset: "Zu vergebende Vorlage"
+  bulk_apply: "Auf Auswahl anwenden"
+  bulk_about: "Die eigenen Berechtigungen jedes Kontos werden durch die der Vorlage ersetzt. Eigentümer und dein eigenes Konto werden nie geändert."
+  bulk_confirm: "Vorlage vergeben"
+  bulk_none: "Wähle zuerst mindestens ein Konto aus."
+  bulk_done:
+    one: "„{preset}“ an {n} Konto vergeben."
+    other: "„{preset}“ an {n} Konten vergeben."
+  bulk_skipped:
+    one: "{n} blieb unverändert (Eigentümer und dein eigenes Konto können nicht geändert werden)."
+    other: "{n} blieben unverändert (Eigentümer und dein eigenes Konto können nicht geändert werden)."
   permissions_ai_hidden: "KI-Funktionen sind auf diesem Server für alle ausgeblendet."
+  permissions_save_as: "Als Vorlage speichern (optional)"
+  permissions_save_as_help: "Gib dieser Auswahl einen Namen, um sie für andere Konten wiederzuverwenden. Leer lassen, um sie nur für dieses Konto zu speichern."
+  presets: "Gespeicherte Vorlagen"
+  preset_name: "Name"
+  preset_no_perms: "Keine Berechtigungen"
+  preset_delete: "Löschen"
+  preset_delete_title: "Diese Vorlage löschen?"
+  preset_delete_about: "Konten mit dieser Vorlage behalten ihre Berechtigungen und werden als „Eigene“ angezeigt."
+  preset_deleted: "Vorlage gelöscht."
+  preset_name_taken: "Eine Vorlage mit diesem Namen gibt es schon."
+  preset_too_many: "Dieser Server hat schon {max} gespeicherte Vorlagen. Lösche zuerst eine."
+  preset_bad_name: "Der Name einer Vorlage hat 1 bis {max} Zeichen, ohne Zeilenumbrüche oder andere Steuerzeichen."
   api_keys:
     title: KI-API-Schlüssel
     info_text: "Die KI-Funktionen jedes Kontos verwenden diese Schlüssel, abgerechnet über das Konto, zu dem der Schlüssel gehört. Schlüssel werden vor dem Speichern verschlüsselt und nie wieder angezeigt; nur die letzten vier Zeichen bleiben sichtbar, damit du erkennst, welcher Schlüssel hinterlegt ist. Nur Eigentümer sehen sie."
@@ -396,6 +423,12 @@ manage:
     key_on_file: "✓ Gesetzt"
     ends_in: "endet auf"
     paste_new_key: "Füge einen neuen Schlüssel ein, um ihn zu ersetzen"
+    bulk_selected:
+      one: "{n} ausgewählt"
+      other: "{n} ausgewählt"
+    bulk_confirm:
+      one: "„{preset}“ an {n} Konto vergeben?"
+      other: "„{preset}“ an {n} Konten vergeben?"
     perm_on: "Erlaubt"
     perm_off: "Nicht erlaubt"
   ai:
@@ -407,6 +440,19 @@ manage:
     off: "Aus"
     hidden_notice: "Die KI-Funktionen sind für jedes Konto ausgeblendet."
     shown_notice: "Die KI-Funktionen sind für jedes Konto wieder eingeblendet."
+  progress: "Fortschritt"
+  private: "Privat"
+  progress_title: "Lernfortschritt"
+  progress_course: "Kurs"
+  progress_passed: "Bestandene Lektionen"
+  progress_of: "{n} von {total}"
+  progress_last_studied: "Zuletzt gelernt"
+  progress_never: "nie"
+  progress_streak: "Serie"
+  progress_streak_one: "1 Tag"
+  progress_streak_days: "{n} Tage"
+  progress_none: "Dieses Konto hat noch keinen Kurs geöffnet."
+  progress_about: "Nur Zahlen und Daten. Für einen Besitzer und für ein Konto mit der Berechtigung Privatsphäre gibt es hier keine Seite."
 
 landing:
   title: "Lerne alles aus einem Ordner mit JSON-Dateien"
@@ -1753,6 +1799,7 @@ courses:
     lead_anon: Wähle einen fertigen Kurs. Jeder Kurs behält seinen eigenen Fortschritt, Wortschatz, Spiele und Verlauf.
     lead_ai_off: Wähle einen fertigen Kurs oder schreibe deinen eigenen. Jeder Kurs behält seinen eigenen Fortschritt, Wortschatz, Spiele und Verlauf.
     lead_ai: Wähle einen fertigen Kurs, schreibe deinen eigenen oder beschreibe, was du willst, und lass eine KI den Kurs für dich schreiben. Jeder Kurs behält seinen eigenen Fortschritt, Wortschatz, Spiele und Verlauf.
+    lead_learn_only: Wähle einen Kurs zum Lernen. Jeder Kurs behält seinen eigenen Fortschritt, Wortschatz, Spiele und Verlauf.
     projects_heading: Deine Projekte
     tag_current: aktuell
     tag_revising: wird überarbeitet
@@ -2466,6 +2513,7 @@ courses:
     too_many_course: "Ein Kurs kann höchstens {max} Einladungslinks haben. Entferne zuerst einen."
     removed_notice: "Link entfernt. Wer ihn geöffnet hatte, hat den Kurs nicht mehr."
     not_on_list: Dieser Link stand nicht auf der Liste.
+    not_allowed: "Dein Konto kann keine neuen Einladungslinks erstellen. Links, die du schon erstellt hast, funktionieren weiter, bis du sie entfernst."
     link_taken: Ein anderes Konto hat diesen Link bereits benutzt. Bitte den Besitzer des Kurses um einen eigenen Link.
     link_gone: Dieser Link funktioniert nicht mehr. Bitte den Besitzer des Kurses um einen neuen.
     not_ready: Dieser Kurs ist noch nicht bereit zum Öffnen. Bitte den Besitzer, und versuche den Link später erneut.

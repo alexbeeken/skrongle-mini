@@ -329,6 +329,8 @@ profile:
     password_mismatch: Les nouveaux mots de passe ne correspondent pas.
     turn_off: Désactiver la double authentification
     turn_on: "Activer la connexion en deux étapes avec une application d'authentification"
+  progress_visible: "Les personnes qui gèrent ce serveur peuvent voir quels cours vous étudiez et combien de leçons vous avez réussies."
+  progress_private: "Votre progression est privée : les personnes qui gèrent ce serveur ne peuvent pas la voir."
 manage:
   title: Gérer les utilisateurs
   about: "Actions sur n'importe quel compte. Les propriétaires voient toute la page ; les superutilisateurs voient les comptes et règlent leurs autorisations."
@@ -368,7 +370,32 @@ manage:
   permissions_done: "Autorisations enregistrées pour {email}."
   permissions_owner: "Les autorisations d'un propriétaire ne peuvent pas être modifiées : les propriétaires peuvent tout faire."
   permissions_self: "Vous ne pouvez pas modifier vos propres autorisations."
+  bulk_select: "Sélectionner {email}"
+  bulk_select_all: "Sélectionner tous les comptes"
+  bulk_preset: "Profil à donner"
+  bulk_apply: "Appliquer à la sélection"
+  bulk_about: "Les autorisations propres à chaque compte sont remplacées par celles du profil. Les propriétaires et votre propre compte ne sont jamais modifiés."
+  bulk_confirm: "Donner le profil"
+  bulk_none: "Sélectionnez d'abord au moins un compte."
+  bulk_done:
+    one: "« {preset} » donné à {n} compte."
+    other: "« {preset} » donné à {n} comptes."
+  bulk_skipped:
+    one: "{n} est resté tel quel (les propriétaires et votre propre compte ne peuvent pas être modifiés)."
+    other: "{n} sont restés tels quels (les propriétaires et votre propre compte ne peuvent pas être modifiés)."
   permissions_ai_hidden: "Les fonctions d'IA sont masquées pour tout le monde sur ce serveur."
+  permissions_save_as: "Enregistrer comme profil (facultatif)"
+  permissions_save_as_help: "Donnez un nom à cet ensemble pour le réutiliser pour d'autres comptes. Laissez vide pour l'enregistrer pour ce compte seulement."
+  presets: "Profils enregistrés"
+  preset_name: "Nom"
+  preset_no_perms: "Aucune autorisation"
+  preset_delete: "Supprimer"
+  preset_delete_title: "Supprimer ce profil ?"
+  preset_delete_about: "Les comptes qui ont ce profil gardent leurs autorisations et apparaissent comme Personnalisé."
+  preset_deleted: "Profil supprimé."
+  preset_name_taken: "Un profil portant ce nom existe déjà."
+  preset_too_many: "Ce serveur a déjà {max} profils enregistrés. Supprimez-en un d'abord."
+  preset_bad_name: "Le nom d'un profil compte de 1 à {max} caractères, sans saut de ligne ni autre caractère de contrôle."
   api_keys:
     title: Clés d'API IA
     info_text: "Les fonctions d’IA de tous les comptes utilisent ces clés, facturées au compte auquel chaque clé appartient. Les clés sont chiffrées avant d’être enregistrées et ne sont plus jamais affichées ; seuls les quatre derniers caractères restent visibles pour savoir quelle clé est enregistrée. Seuls les propriétaires les voient."
@@ -396,6 +423,12 @@ manage:
     key_on_file: "✓ Définie"
     ends_in: "se termine par"
     paste_new_key: "Collez une nouvelle clé pour la remplacer"
+    bulk_selected:
+      one: "{n} sélectionné"
+      other: "{n} sélectionnés"
+    bulk_confirm:
+      one: "Donner « {preset} » à {n} compte ?"
+      other: "Donner « {preset} » à {n} comptes ?"
     perm_on: "Autorisé"
     perm_off: "Non autorisé"
   ai:
@@ -407,6 +440,19 @@ manage:
     off: "Non"
     hidden_notice: "Les fonctions d’IA sont masquées pour tous les comptes."
     shown_notice: "Les fonctions d’IA sont de nouveau affichées pour tous les comptes."
+  progress: "Progression"
+  private: "Privé"
+  progress_title: "Progression d'étude"
+  progress_course: "Cours"
+  progress_passed: "Leçons réussies"
+  progress_of: "{n} sur {total}"
+  progress_last_studied: "Dernière étude"
+  progress_never: "jamais"
+  progress_streak: "Série"
+  progress_streak_one: "1 jour"
+  progress_streak_days: "{n} jours"
+  progress_none: "Ce compte n'a encore ouvert aucun cours."
+  progress_about: "Des nombres et des dates seulement. Un propriétaire et un compte ayant la permission Confidentialité n'ont pas de page ici."
 
 landing:
   title: "Apprends n'importe quoi à partir d'un dossier de fichiers JSON"
@@ -1753,6 +1799,7 @@ courses:
     lead_anon: Choisissez un cours prêt à l'emploi. Chaque cours garde sa propre progression, son vocabulaire, ses jeux et son historique.
     lead_ai_off: Choisissez un cours prêt à l'emploi ou écrivez le vôtre. Chaque cours garde sa propre progression, son vocabulaire, ses jeux et son historique.
     lead_ai: Choisissez un cours prêt à l'emploi, écrivez le vôtre, ou décrivez ce que vous voulez et laissez une IA écrire le cours pour vous. Chaque cours garde sa propre progression, son vocabulaire, ses jeux et son historique.
+    lead_learn_only: Choisissez un cours à suivre. Chaque cours garde sa propre progression, son vocabulaire, ses jeux et son historique.
     projects_heading: Vos projets
     tag_current: en cours
     tag_revising: en cours de révision
@@ -2466,6 +2513,7 @@ courses:
     too_many_course: "Un cours peut avoir jusqu'à {max} liens d'invitation. Retirez-en un d'abord."
     removed_notice: "Lien retiré. La personne qui l'avait ouvert n'a plus le cours."
     not_on_list: Ce lien ne figurait pas dans la liste.
+    not_allowed: "Votre compte ne peut pas créer de nouveaux liens d'invitation. Les liens que vous avez déjà créés continuent de fonctionner jusqu'à ce que vous les supprimiez."
     link_taken: Un autre compte a déjà utilisé ce lien. Demandez au propriétaire du cours un lien pour vous.
     link_gone: Ce lien ne fonctionne plus. Demandez-en un nouveau au propriétaire du cours.
     not_ready: Ce cours n'est pas encore prêt à être ouvert. Demandez à son propriétaire, et réessayez le lien plus tard.

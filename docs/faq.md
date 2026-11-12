@@ -9,6 +9,14 @@ features*, and every account uses it; it is stored encrypted and never
 shown again. Don't want AI at all? The owner turns on *Hide AI features for
 everyone* in the same place.
 
+**Why do I not see the AI tutor, or "Generate the course"?**
+There are two possible reasons. The server's owner has turned on *Hide AI
+features for everyone*, which takes them from every account. Or your account
+does not have the permission: *Use the AI tutor* for the tutor, *Use AI in
+courses* for generating a course, *Use AI* in the editor and *Copy and
+translate*. The owner (or a superuser) sets these per account under *Manage
+Users → Permissions*.
+
 **I passed a lesson in Sprint. Why does Study mode still say "in progress" or "needs practice"?**
 Passing and mastery are different. A pass is a milestone that stays. Mastery
 is a score that rises with practice and fades with time. See
@@ -19,10 +27,32 @@ A feature only appears when the course has the data for it. Date Dash needs a
 `calendar`, the drill a `paradigm`, Listening a language course with `listening` sentences. See
 [Which field switches on what](course-structure#which-field-switches-on-what).
 
+**Why is there no *Create a course* button on my course list?**
+Making a course (creating one, copying one, copying and translating one)
+needs the *Create courses* permission, and your account does not have it.
+Ask the person who runs your Skrongle, or whoever manages its accounts: they
+turn it on under *Manage Users → Permissions*. You can still learn from the
+ready-made courses and from courses shared with you, and courses you already
+made stay yours to open and edit.
+
 **Can other people see my course?**
 Only the people you share it with: **Share** on the course page makes an
 invitation link, which you pass on; whoever opens it first is in. They learn from it read-only, with their own progress. See
 [Share a course](making-courses#share-a-course).
+
+**Why is there no Share button on my course?**
+Your account does not have the **Share courses** permission; the server's
+owner or a superuser can turn it on for you on Manage Users. Links you made before keep
+working, and you can still remove them. See
+[Share a course](making-courses#share-a-course).
+
+**Can the person who runs the server see my progress?**
+It depends on your account's permissions, and your profile tells you: open
+**Profile** and the (i) beside *Personal information*. If your account does
+not have the **Privacy** permission (a Student does not), the owner and any
+superuser can see which courses you study, how many lessons you have
+passed, when you last studied and your streak. They never see your answers
+or your notes. With Privacy (a Teacher has it) nobody else gets that page.
 
 **My course does not load. What now?**
 The error names the file and the field. See
