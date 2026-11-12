@@ -1,0 +1,33 @@
+# Release QA VM, 64-bit ARM (a Pi 4/5/Zero 2 W running the 64-bit OS): stock
+# Debian 12 with systemd, one CPU, 512 MiB. Used by scripts/release-qa/vm.sh
+# (docs/testing.md, "Release QA", "VMs"; issue #42); the instance is named
+# skrongle-qa-aarch64. Apple Silicon runs it with Apple's Virtualization
+# framework (vz): no QEMU. A Linux ARM host runs it with QEMU/KVM.
+vmType: vz
+arch: aarch64
+cpus: 1
+memory: 512MiB
+disk: 6GiB
+
+images:
+- location: "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-arm64.qcow2"
+  arch: aarch64
+
+# No host folders in the guest: the tarball is copied in (limactl copy) or
+# downloaded by update.sh from a small HTTP server on the host.
+mounts: []
+containerd:
+  system: false
+  user: false
+
+# The app's port, on the host's loopback: for the browser specs (vm.sh e2e).
+portForwards:
+- guestPort: 7576
+  hostIP: 127.0.0.1
+  hostPort: 18576
+
+provision:
+- mode: system
+  script: |
+    #!/bin/sh
+    command -v curl >/dev/null || { apt-get update -q && apt-get install -y -q curl ca-certificates; }

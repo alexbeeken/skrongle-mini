@@ -689,6 +689,7 @@ deploy that version or restore a backup). The unit does not restart on 78,
 since a restart cannot help. If the release notes say the unit changed, copy
 `skrongle.service` to `/etc/systemd/system/` again and run
 `sudo systemctl daemon-reload` (the script tells you when the two differ).
+`SKRONGLE_RELEASE_BASE=http://host:port/folder` makes the script download from that folder instead of GitHub (it still checks the checksum); it is a testing aid for release candidates, and it needs a version.
 
 The default port is now 7576, not 8080 (8080 is taken on many home servers).
 An existing install stays on 8080: `update.sh` doesn't replace the unit in

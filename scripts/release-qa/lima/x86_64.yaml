@@ -1,0 +1,33 @@
+# Release QA VM, x86_64: stock Debian 12 with systemd, one CPU, 512 MiB. Used by
+# scripts/release-qa/vm.sh (docs/testing.md, "Release QA", "VMs"; issue #42);
+# the instance is named skrongle-qa-x86_64. NOT RUN YET: it needs QEMU
+# (`brew install qemu` on a Mac; an Apple Silicon Mac emulates x86_64, which
+# is slow, so vm.sh waits longer). A Linux x86_64 host uses QEMU/KVM.
+vmType: qemu
+arch: x86_64
+cpus: 1
+memory: 512MiB
+disk: 6GiB
+
+images:
+- location: "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2"
+  arch: x86_64
+
+# No host folders in the guest: the tarball is copied in (limactl copy) or
+# downloaded by update.sh from a small HTTP server on the host.
+mounts: []
+containerd:
+  system: false
+  user: false
+
+# The app's port, on the host's loopback: for the browser specs (vm.sh e2e).
+portForwards:
+- guestPort: 7576
+  hostIP: 127.0.0.1
+  hostPort: 18577
+
+provision:
+- mode: system
+  script: |
+    #!/bin/sh
+    command -v curl >/dev/null || { apt-get update -q && apt-get install -y -q curl ca-certificates; }

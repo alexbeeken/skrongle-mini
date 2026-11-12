@@ -565,6 +565,49 @@ is a red run, not an issue (the `dietpi-install` workflow opens issues, but
 `release.yml` cannot, and this workflow is called from it). Not in it yet: the
 Playwright `release` project and the upgrade check (#40, #43).
 
+### VMs (systemd, update, going back, uninstall)
+
+A container has no systemd. `scripts/release-qa/vm.sh <arch> <command>` (#42)
+runs the tarball in a full Debian 12 VM under [Lima](https://lima-vm.io)
+(`brew install lima`; 1 CPU, 512 MiB, named `skrongle-qa-<arch>`; it never
+touches another Lima instance, such as colima's):
+
+```sh
+scripts/release-qa/vm.sh aarch64 up          # create and start the VM (first run downloads the Debian image)
+scripts/release-qa/vm.sh aarch64 install     # docs/self-hosting.md "Install", the code block as written, with dist/'s tarball
+scripts/release-qa/vm.sh aarch64 update      # newest published release, then the candidate through update.sh, then back
+scripts/release-qa/vm.sh aarch64 e2e         # the Playwright `release` project from this Mac against the VM's forwarded port
+scripts/release-qa/vm.sh aarch64 measure     # results/release-qa/<version>/aarch64-vm.txt
+scripts/release-qa/vm.sh aarch64 uninstall   # uninstall.sh, then --purge
+scripts/release-qa/vm.sh aarch64 down        # delete the VM
+```
+
+The candidate is the newest `dist/skrongle-*-<arch>.tar.gz` (build it with
+`scripts/build-pi.sh <arch>` and `scripts/package-release.sh <version> <arch>`;
+give it a version that differs from the published one, such as `0.3.0-qa`, or
+`update` needs `FORCE=1` to tell them apart). `install` checks the unit is
+active and enabled, `/healthz` in the guest and on the forwarded port, the
+owner link in the journal, `skrongle doctor --service`, that the state
+folder's mode is the unit's `StateDirectoryMode`, and that the owner can be
+made and signs in. `update` serves the candidate from this machine and runs
+the real `update.sh` with `SKRONGLE_RELEASE_BASE` pointing at it, so it goes
+through the same download and SHA-256 check as a GitHub release (a copy with a
+wrong checksum must be refused and change nothing); the published release's
+own `update.sh` predates that variable, so the candidate's copy is put in its
+place first. Then it goes back with `update.sh <published version>` (from
+GitHub), checking the unit, `/healthz` and the owner's sign-in after each
+step. Updates make no copy of the database: going back to an older release
+takes the schema back with `skrongle migrate` first, which only releases that
+have it can do (`BACK_TO=<version>` adds a step further back; with releases
+from before #165 that step is expected to fail). `uninstall` checks what stays
+(the database, `/etc/skrongle`), that a reinstall brings the owner back, and
+that `--purge` leaves nothing.
+
+`aarch64` uses Apple's Virtualization framework (no QEMU) and has been run.
+`x86_64` (`scripts/release-qa/lima/x86_64.yaml`) needs QEMU (`brew install
+qemu`; an Apple Silicon Mac emulates it, slowly) and has not been run yet.
+armv7l has no Debian cloud image Lima can boot, so it stays in the containers.
+
 The DietPi install block has its own check (#31). The `dietpi-install`
 workflow runs `scripts/dietpi-install-check.sh` after each release is
 published and every Monday against the latest one, in a Debian container for
