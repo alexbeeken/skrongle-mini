@@ -20,6 +20,12 @@ numbers work is in the README, "Versions".
   start?*, has no level row behind the gear on a course's card and cannot
   take the placement test. A level chosen earlier is kept; it just cannot be
   moved.
+- AI is now per account. **Use the AI tutor** decides who sees and may open
+  the tutor; **Use AI in courses** decides who may generate a course, use
+  *Use AI* in the editor and *Copy and translate*. An account without one
+  is not shown that feature, and its pages answer "Your account is not
+  allowed to do this". *Hide AI features for everyone* still turns AI off
+  for every account, whatever their permissions.
 
 ## 0.3.0 (2026-11-11)
 

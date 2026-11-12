@@ -177,7 +177,7 @@ pub struct TranslateForm {
 /// never changed. It runs on the learner's own key, like generation.
 pub async fn translate(State(state): State<Arc<AppState>>, user: CurrentUser, Path(id): Path<String>, Form(form): Form<TranslateForm>) -> Result<Response, AppError> {
     user.require(Perm::CreateCourses)?;
-    user.require_ai()?;
+    user.require_ai_courses()?;
     let courses_notice = |key: &str| Redirect::to(&crate::url(&format!("/courses?notice={key}"))).into_response();
     // A stopped translation of their own resumes; any other course is copied.
     let resume = if state.courses.is_builtin(&id) {

@@ -516,7 +516,7 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
     let tz = super::sprint::tz_offset_secs(&headers);
     let day_start = crate::sprint::local_day_start(tz, at);
     let vault = state.vault.clone();
-    let ai_off = p.user.ai_off;
+    let ai_tutor = p.user.ai_tutor();
     let store = p.course.clone();
     let (progress, (streak, practised_today), today, week, words_learned, games_week, tutor_provider, stage_progress, passes, touched, hero, project) = state
         .db
@@ -529,11 +529,12 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
             let (week, _) = mastery::stats_since(c, uid, &cid, at - 7 * 86_400)?;
             let words = crate::vocab::count(c, uid, &cid)?;
             let games = crate::games::activity_stats(c, uid, &cid, at - 7 * 86_400)?;
-            // The AI tutoring card is not drawn while the owner hides the AI features.
-            let tutor = if ai_off {
-                None
-            } else {
+            // The AI tutoring card is not drawn while the owner hides the AI
+            // features, nor for an account without "Use the AI tutor" (#145).
+            let tutor = if ai_tutor {
                 crate::secrets::usable(c, &vault)?.into_iter().next().map(|p| p.label().to_string())
+            } else {
+                None
             };
             let stages = crate::guide::load_all(c, uid, &cid)?;
             let passes = progress::load_all(c, uid, &cid)?;
@@ -566,7 +567,7 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
     let guide_total = stages.iter().filter(|(_, s)| *s != super::guide::StageState::Skipped).count();
     let guide_completed = stages.iter().filter(|(_, s)| *s == super::guide::StageState::Complete).count();
     let guide_next = stages.iter().find(|(c, _)| c.is_current).map(|(c, _)| (c.slug.clone(), c.title.clone()));
-    let tutor_blocked = !ai_off && tutor_provider.is_none();
+    let tutor_blocked = ai_tutor && tutor_provider.is_none();
     let measures = crate::motivators::Progress {
         today,
         practised_today,

@@ -136,7 +136,9 @@ prints.
 courses work without one. The tutor and the course generator use the keys
 you, the owner, save under *Manage Users → AI features* (Anthropic, OpenAI,
 Google, DeepSeek, Mistral, xAI, OpenRouter, or an Ollama server on your
-network). Every account uses them, billed to you.
+network). Every account uses them, billed to you. To decide who may: the
+*Permissions* dialog on an account's row has *Use the AI tutor* and *Use AI in
+courses*; *Hide AI features for everyone* turns AI off for all.
 
 **Are saved AI keys safe?** They are encrypted with the secret key, which
 lives in a separate file (`learn.db.key`), so a copy of the database alone

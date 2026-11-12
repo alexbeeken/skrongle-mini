@@ -68,7 +68,7 @@ pub async fn ai_start(
     Path(id): Path<String>,
     Form(form): Form<AiForm>,
 ) -> Result<Response, AppError> {
-    user.require_ai()?;
+    user.require_ai_courses()?;
     let row = owned(&state, &user, &id).await?;
     if let Err(r) = not_while_generating(&row) {
         return Ok(r);
@@ -169,7 +169,7 @@ pub async fn ai_start(
 /// take back; what was left out and edited is kept on the run, so the review
 /// shows it again. `quiet=1`: "Don't show this automatically next time" (#187).
 pub async fn review_accept(State(state): State<Arc<AppState>>, user: CurrentUser, Path(id): Path<String>, Form(form): Form<Vec<(String, String)>>) -> Result<Response, AppError> {
-    user.require_ai()?;
+    user.require_ai_courses()?;
     let row = owned(&state, &user, &id).await?;
     if let Err(r) = not_while_generating(&row) {
         return Ok(r);

@@ -9,6 +9,14 @@ features*, and every account uses it; it is stored encrypted and never
 shown again. Don't want AI at all? The owner turns on *Hide AI features for
 everyone* in the same place.
 
+**Why do I not see the AI tutor, or "Generate the course"?**
+There are two possible reasons. The server's owner has turned on *Hide AI
+features for everyone*, which takes them from every account. Or your account
+does not have the permission: *Use the AI tutor* for the tutor, *Use AI in
+courses* for generating a course, *Use AI* in the editor and *Copy and
+translate*. The owner (or a superuser) sets these per account under *Manage
+Users → Permissions*.
+
 **I passed a lesson in Sprint. Why does Study mode still say "in progress" or "needs practice"?**
 Passing and mastery are different. A pass is a milestone that stays. Mastery
 is a score that rises with practice and fades with time. See

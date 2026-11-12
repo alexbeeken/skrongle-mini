@@ -139,7 +139,7 @@ above each fixed lesson's diff, and lessons it left alone with *Check:* lines
 are under *Looked at, left alone*. *Review AI changes* under Use AI
 opens it again later. **Undo** under the table brings the old version back.
 
-While the server's owner hides the AI features (*Manage Users → AI features*), none of this is shown.
+While the server's owner hides the AI features (*Manage Users → AI features*), none of this is shown; nor is it for an account without the permission *Use AI in courses*.
 
 ## Share a course
 
