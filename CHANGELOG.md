@@ -6,6 +6,19 @@ numbers work is in the README, "Versions".
 
 ## Unreleased
 
+- A new docs page, **Connect an AI assistant**, tells people how to let Claude
+  Code, Claude or ChatGPT make courses for them: what a token is, what plain
+  HTTP on a home network means, the exact steps for Claude Code, and what a
+  public address needs for claude.ai and ChatGPT. The FAQ and the
+  self-hosting page link to it, and the *How to Use Skrongle* course has a
+  lesson on it.
+- **New accounts now start as a Student**, not a Teacher: they can learn, but
+  cannot create courses, share them, use AI or skip levels until you raise
+  them. Change what new accounts start as under *Manage Users → Accounts →
+  New accounts start as* (any preset; existing accounts keep theirs, and the
+  first account of a server is still the owner with everything). If you
+  relied on invited people making courses, choose Teacher there.
+
 - The **Create courses** permission now counts: an account without it (a
   Student, for example) has no *Create a course*, *Copy* or *Copy and
   translate* on its course list, and those actions are refused. It still
@@ -54,6 +67,50 @@ numbers work is in the README, "Versions".
 - A fresh `dietpi-install.sh` install no longer prints
   `stopping skrongle (none -> <version>)`, and a second run says
   `installing <version> again`.
+- **Connected apps** (first step of letting an AI assistant make courses):
+  a new switch on Manage Users, **Let apps connect**, off until you turn it
+  on. With it on, an account that may create courses gets a *Connected
+  apps* section on its profile, where it can **Make a token** (it asks for
+  the password, the token is shown once and works for 30 days, 90 days or
+  a year) and **Revoke** one. You see every account's connections on
+  Manage Users and can revoke any of them. Changing a password, setting a
+  temporary password and turning off an account's two-factor sign-in
+  disconnect its apps. Only a token's fingerprint (SHA-256) is stored. The
+  database gets two new tables (`api_grants`, `api_tokens`); going back to
+  an older version drops them.
+- **An MCP server for those apps** at `<your address>/mcp`: with a token
+  from the profile, an AI assistant (Claude Code, Claude, ChatGPT…) can read
+  the course format, list your own courses, read and check them, make a new
+  course and change one's files. It goes through the same checks and limits
+  as the course editor, writes all or nothing, never sees built-in courses
+  or ones shared with you, and starts no AI job. Nothing answers there while
+  **Let apps connect** is off. *The MCP server* in the docs says how to try
+  it.
+- **Apps in the cloud can sign in** (claude.ai, ChatGPT and others): with
+  **Let apps connect** on and `SKRONGLE_PUBLIC_URL` set to your HTTPS
+  address, such an app asks to connect and the person sees a page naming
+  the app and where the answer goes, picks courses and how long, and
+  clicks **Allow**. The connection then shows under Connected apps like a
+  token made by hand. Without `SKRONGLE_PUBLIC_URL` none of this answers.
+  If an app's refresh token is ever used twice, the connection ends, as it
+  could have been stolen: an app that retries a refresh after losing the
+  answer is disconnected too, and the person connects it again.
+  Behind a path such as `/skrongle`, *Self-hosting* has two optional proxy
+  lines for apps that look only at the site's root. The database gets two
+  new tables (`oauth_clients`, `oauth_codes`) and a column on `api_tokens`
+  (`used_at`); going back drops them and the used refresh tokens.
+- Connected apps, after a security review: the **Connected apps** card on
+  Manage Users now says how many apps registered and how many tokens were
+  issued in the last day, so a flood or a stolen token shows (the token
+  count starts from zero when the server restarts). `skrongle doctor` has
+  a *connected apps* line: whether apps may connect, how many connections
+  and registered apps there are, and a warning when they may connect over
+  plain `http://` on an address that is not a home network's. A new docs
+  page, *Security: connected apps* (under Self-hosting), lists what can go
+  wrong, what stops it and the risks left. An app's or a token's name can no
+  longer hold invisible or text-direction characters, and a token or a
+  connection limited to courses that are no longer yours is refused instead
+  of reaching all of them.
 
 **What to do:** nothing to update. The update script no longer leaves a copy
 of the database behind, so if you relied on those as backups, make your own

@@ -32,14 +32,18 @@ pub(crate) const USER_TABLES: &[(&str, &str)] = &[
     ("course_ai_run_files", "course_id IN (SELECT id FROM courses WHERE owner_id = ?1)"),
     ("course_shares", "course_id IN (SELECT id FROM courses WHERE owner_id = ?1) OR user_id = ?1"),
     ("signup_invites", "created_by = ?1 OR used_by = ?1"),
+    ("api_grants", "user_id = ?1"),
+    ("api_tokens", "grant_id IN (SELECT id FROM api_grants WHERE user_id = ?1)"),
+    ("oauth_codes", "user_id = ?1"),
 ];
 
 /// Tables that hold no learner's rows, only the server's:
 /// `jobs` is the background job queue (jobs.rs, #872): housekeeping rows, no account.
 /// `server_api_keys` and `settings` are the server's AI API keys and settings (#25), the owner's, no account.
 /// `permission_presets` are the named permission sets accounts are given (#138, perms.rs): no account's rows.
+/// `oauth_clients` are the apps that registered for OAuth sign-in (#169, oauth_server.rs): an app's name and addresses, no account.
 #[cfg_attr(not(test), allow(dead_code))]
-pub(crate) const SHARED_TABLES: &[&str] = &["jobs", "server_api_keys", "settings", "permission_presets"];
+pub(crate) const SHARED_TABLES: &[&str] = &["jobs", "server_api_keys", "settings", "permission_presets", "oauth_clients"];
 
 #[cfg(test)]
 mod tests {

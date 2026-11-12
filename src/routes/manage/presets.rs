@@ -6,7 +6,7 @@
 //! save a new one and delete the old.
 
 use axum::extract::State;
-use axum::response::Response;
+use axum::response::{IntoResponse, Redirect, Response};
 use axum::Form;
 use serde::Deserialize;
 use std::sync::Arc;
@@ -111,4 +111,44 @@ pub async fn delete(State(state): State<Arc<AppState>>, user: CurrentUser, Form(
     }
     tracing::info!("user {} deleted preset {id}", user.id);
     Ok(done("preset-deleted", ""))
+}
+
+#[derive(Deserialize)]
+pub struct DefaultPresetForm {
+    #[serde(default)]
+    pub preset: String,
+}
+
+/// POST /manage/default-preset (preset=<id>): the preset new accounts start
+/// as (`settings::DEFAULT_PRESET`, #142). An owner or a superuser; a 404
+/// for anyone else. A preset with Superuser is refused: an invitation link
+/// must not hand out control of the user list.
+pub async fn set_default(State(state): State<Arc<AppState>>, user: CurrentUser, Form(form): Form<DefaultPresetForm>) -> Result<Response, AppError> {
+    if !user.manages_users() {
+        return Err(AppError::NotFound);
+    }
+    let Ok(id) = form.preset.trim().parse::<i64>() else {
+        return Err(AppError::BadRequest("preset must be a preset's id".into()));
+    };
+    let chosen = state
+        .db
+        .call(move |c| {
+            let Some(p) = perms::preset(c, id)? else {
+                return Ok(None);
+            };
+            if p.perms.has(Perm::Superuser) {
+                return Ok(Some(false));
+            }
+            crate::settings::set_default_preset(c, id)?;
+            Ok(Some(true))
+        })
+        .await?;
+    match chosen {
+        None => Err(AppError::BadRequest("no such preset".into())),
+        Some(false) => Ok(Redirect::to(&crate::url("/manage?did=preset-default-superuser")).into_response()),
+        Some(true) => {
+            tracing::info!("user {} set new accounts to start as preset {id}", user.id);
+            Ok(Redirect::to(&crate::url(&format!("/manage?did=preset-default&preset={id}"))).into_response())
+        }
+    }
 }

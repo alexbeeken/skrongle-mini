@@ -294,3 +294,37 @@ test("a custom set saved as a preset is offered to another account, then deleted
   await expect(preset("custom")).toBeChecked();
   await expect(dialog.getByRole("radio", { name, exact: true })).toHaveCount(0);
 });
+
+// New accounts start as (#142): the owner picks the preset in the Accounts
+// card; the next account to register has it, the ones before keep theirs.
+// The dev server starts as Teacher (src/dev.rs); the spec puts it back.
+test("the owner chooses the preset new accounts start as", async ({ page, browser }) => {
+  await devLogin(page);
+  const select = page.getByTestId("manage-default-preset");
+  const register = async (prefix: string) => {
+    const context = await browser.newContext();
+    const a = newAccount(prefix);
+    await signUp(await context.newPage(), a);
+    await context.close();
+    return a.email.toLowerCase();
+  };
+  const chooseDefault = async (label: string) => {
+    await page.goto("/manage");
+    await select.selectOption({ label });
+    await page.getByTestId("manage-default-save").click();
+    await expect(page.getByTestId("manage-notice")).toContainText(`New accounts now start as ${label}.`);
+    await expect(select.locator("option:checked")).toHaveText(label);
+  };
+  try {
+    await chooseDefault("Teacher");
+    const teacher = await register("default-t");
+    await chooseDefault("Student");
+    const student = await register("default-s");
+    await page.goto("/manage");
+    const preset = (email: string) => page.getByTestId("manage-account-row").filter({ hasText: email }).getByTestId("manage-account-preset");
+    await expect(preset(teacher)).toHaveText("Teacher");
+    await expect(preset(student)).toHaveText("Student");
+  } finally {
+    await chooseDefault("Teacher");
+  }
+});

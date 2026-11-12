@@ -28,7 +28,9 @@ A feature only appears when the course has the data for it. Date Dash needs a
 [Which field switches on what](course-structure#which-field-switches-on-what).
 
 **Why is there no *Create a course* button on my course list?**
-Making a course (creating one, copying one, copying and translating one)
+A new account starts as a Student, which has no extra permissions; the owner
+can change what new accounts start as under *Manage Users → New accounts
+start as*. Making a course (creating one, copying one, copying and translating one)
 needs the *Create courses* permission, and your account does not have it.
 Ask the person who runs your Skrongle, or whoever manages its accounts: they
 turn it on under *Manage Users → Permissions*. You can still learn from the
@@ -63,6 +65,15 @@ Yes. Give it [`/llms.txt`](/llms.txt) or paste the
 [course format](course-format.md), then add its replies on the course page.
 See [Write lessons with an LLM](making-courses#write-lessons-with-an-llm-you-already-use).
 
+
+**Can my AI assistant make courses for me?**
+Yes, if the owner has turned on *Let apps connect* on *Manage Users* and your
+account has the *Create courses* permission. Make a token under *Profile →
+Connected apps*, or sign in from claude.ai or ChatGPT if your Skrongle has a
+public address, and the assistant can read the course format, write the
+lessons and add the course to your list. It sees only your courses, never your
+progress. A token is a password for making courses as you: keep it to
+yourself. See [Connect an AI assistant](connect-an-assistant).
 
 **I forgot my password. How do I get back in?**
 Ask whoever runs your Skrongle. On the Superuser page they set a temporary

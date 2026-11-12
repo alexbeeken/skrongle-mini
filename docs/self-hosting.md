@@ -55,6 +55,9 @@ yourself, [Updating](#updating)).
   people in: [Signing in at the proxy](#signing-in-at-the-proxy).
 - Locked yourself out? The binary resets a password or two-factor from the
   shell: [If you lock yourself out](#if-you-lock-yourself-out).
+- Thinking of turning on *Let apps connect*? [Security: connected
+  apps](security-apps) lists what can go wrong with tokens, the MCP server
+  and OAuth sign-in, what stops each, and the risks left.
 
 ## What a release contains
 
@@ -155,7 +158,10 @@ device model, the listen address and whether the port is free, the data
 folder and how many courses it holds, the database path, size
 and schema (migration) level, and whether the database folder is writable.
 It also shows whether a secret key is
-configured, how many AI keys learners have saved, and free disk and memory.
+configured, how many AI keys learners have saved, whether apps may connect
+(with the number of grants and registered apps, and a warning when they may
+connect over plain HTTP on an address that is not a home network's), and
+free disk and memory.
 Secrets show as yes/no only, never their values. It only reads. It opens
 the database read-only and creates nothing.
 
@@ -302,7 +308,7 @@ Where a default says "unit", `skrongle.service` sets it.
 | `SKRONGLE_AI_JOB_BUDGET_SECS` | `3600` | How long one AI generation job may run in all. Raise it for a slow self-hosted model. |
 | `SKRONGLE_LOG` | `info` | One level: `error`, `warn`, `info`, `debug` or `trace`. Per-module filters like `skrongle=debug` are not supported; an unrecognised value logs one warning and runs at `info`. |
 | `SKRONGLE_SECURE_COOKIES` | off | `1` when the site is served over HTTPS (behind a TLS proxy). |
-| `SKRONGLE_PUBLIC_URL` | — | The address people use, e.g. `https://learn.example.org`. The owner link and invitation links start with it. |
+| `SKRONGLE_PUBLIC_URL` | — | The address people use, e.g. `https://learn.example.org`. The owner link and invitation links start with it. Apps that connect from the cloud (OAuth) need it: without it their sign-in routes answer 404. |
 | `SKRONGLE_BASE_PATH` | *(empty)* | A URL prefix when a proxy serves the app under a path, e.g. `/learn`. |
 | `SKRONGLE_MIN_AGE` | `14` | The minimum age the registration checkbox states. The owner's own account is not asked. |
 | `SKRONGLE_FAILED_COURSE_RETENTION_DAYS` | `30` | An AI course whose generation failed is deleted, with the notes it was given, after this many days without a resume or edit. `0` keeps them. |
@@ -417,9 +423,15 @@ their next sign-in), **Turn off two-factor** and **Make owner** (another
 person who may do all this). No message is sent: give
 them the password yourself.
 
+A new account starts as a **Student**: it can learn from the courses
+it is given, but cannot create courses, share them, use AI or skip levels
+until you raise it. **New accounts start as**, above the accounts table,
+changes that for the accounts made from then on (any preset except one
+with Superuser); it does not change accounts that exist, and the first
+account of a server is the owner and has everything.
+
 Each account's row also has **Permissions**: choose **Student** (may do
-nothing extra), **Teacher** (everything but Superuser; what a new account
-gets) or **Custom**, which shows a switch for each of the seven permissions.
+nothing extra), **Teacher** (everything but Superuser) or **Custom**, which shows a switch for each of the seven permissions.
 An account you give **Superuser** gets **Manage Users** in its menu and sees
 the accounts there, to set other people's permissions; it never sees the
 invitation links, the AI keys or the three actions above, and it cannot
@@ -470,6 +482,71 @@ its permissions give it: *Use the AI tutor* and *Use AI in courses*, set per
 account in the *Permissions* dialog on the same page (an account that does not
 see the tutor lacks the first one). The secret key encrypts saved
 keys, so a database without its `.key` file can't use them.
+
+### Connected apps
+
+Below the AI card on **Manage Users** is the **Connected apps** card with
+**Let apps connect**, off until you turn it on. On, an account that has
+the **Create courses** permission can make a token on its profile and give it
+to an AI assistant or another app, which can then work on that account's
+courses. A Student has no permissions, so a Student cannot connect an app.
+You see every account's connections in the same card and can revoke any of
+them. Off, no app can connect and every token stops working; turning it on
+again brings them back. It needs none of the AI keys above
+([features](features#connected-apps)). People are told how in
+[Connect an AI assistant](connect-an-assistant); the endpoint is in the
+[MCP server reference](api).
+
+A token is a password for making courses as its owner, so tell people to
+guard it and to make it the least it needs (one course, read-only, 30 days).
+On a home network Skrongle is plain HTTP: anyone who can read that network
+can copy a token as it goes by. Tell people not to use one over public
+Wi-Fi, or through a forwarded port, without HTTPS.
+
+The card also counts the apps that registered and the tokens handed out in
+the last day, so a flood or a stolen token shows; what can go wrong and what
+stops it is on [Security: connected apps](security-apps).
+
+With `SKRONGLE_PUBLIC_URL` set, an app in a vendor's cloud (claude.ai,
+ChatGPT) can also sign in with OAuth instead of being given a token: the
+person sees a page naming the app and clicks **Allow**. For a cloud app
+the server needs a public HTTPS address; on a home network give the app a
+token instead ([api](api#oauth)). A server that faces the internet needs
+the care in [Security: connected apps](security-apps), the sign-up mode
+(`SKRONGLE_SIGNUP`, above) and two-factor sign-in.
+
+### Connected apps behind a path
+
+When Skrongle is at a path such as `https://example.org/skrongle`
+(`SKRONGLE_BASE_PATH=/skrongle`), its OAuth issuer is
+`https://example.org/skrongle`. The MCP authorization spec (draft of
+2026, "Authorization Server Discovery") has a client try, for an issuer
+with a path, in this order:
+
+1. `https://example.org/.well-known/oauth-authorization-server/skrongle`
+2. `https://example.org/.well-known/openid-configuration/skrongle`
+3. `https://example.org/skrongle/.well-known/openid-configuration`
+
+and find the MCP server's own document from the `resource_metadata` in
+`/mcp`'s 401 (Skrongle names
+`https://example.org/skrongle/.well-known/oauth-protected-resource/mcp`),
+else at `https://example.org/.well-known/oauth-protected-resource/skrongle/mcp`
+and then `https://example.org/.well-known/oauth-protected-resource`.
+
+Skrongle answers everything under its path: the third address above, and
+`/skrongle/.well-known/oauth-authorization-server` and
+`/skrongle/.well-known/oauth-protected-resource/mcp`. A client that follows
+the spec finds it with no change to the proxy. For clients that only try
+the addresses at the site's root, pass those two on in nginx:
+
+```nginx
+location = /.well-known/oauth-authorization-server/skrongle { proxy_pass http://127.0.0.1:7576/skrongle/.well-known/oauth-authorization-server; }
+location = /.well-known/oauth-protected-resource/skrongle/mcp { proxy_pass http://127.0.0.1:7576/skrongle/.well-known/oauth-protected-resource/mcp; }
+```
+
+(Caddy: `rewrite /.well-known/oauth-authorization-server/skrongle /skrongle/.well-known/oauth-authorization-server`
+and the same for the second, before the `reverse_proxy`.) At the site's
+root, with no base path, nothing is needed.
 
 ## Reaching it from outside
 
@@ -612,6 +689,7 @@ deploy that version or restore a backup). The unit does not restart on 78,
 since a restart cannot help. If the release notes say the unit changed, copy
 `skrongle.service` to `/etc/systemd/system/` again and run
 `sudo systemctl daemon-reload` (the script tells you when the two differ).
+`SKRONGLE_RELEASE_BASE=http://host:port/folder` makes the script download from that folder instead of GitHub (it still checks the checksum); it is a testing aid for release candidates, and it needs a version.
 
 The default port is now 7576, not 8080 (8080 is taken on many home servers).
 An existing install stays on 8080: `update.sh` doesn't replace the unit in

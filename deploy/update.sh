@@ -13,7 +13,10 @@
 # (`skrongle migrate`). The database is never copied.
 #
 # SKRONGLE_REPO=owner/repo picks another GitHub repository; SKRONGLE_SERVICE
-# another systemd unit name.
+# another systemd unit name. SKRONGLE_RELEASE_BASE=http://host:port/dir is a
+# testing aid (scripts/release-qa/vm.sh): download skrongle-<version>-<arch>.tar.gz
+# and its .sha256 from that folder instead of GitHub (a version is required).
+# The checksum check is the same.
 set -eu
 
 # Run from a copy of this file. The copy of the new release below replaces
@@ -47,6 +50,8 @@ esac
 
 if [ $# -ge 1 ]; then
   VERSION="${1#v}"
+elif [ -n "${SKRONGLE_RELEASE_BASE:-}" ]; then
+  echo "SKRONGLE_RELEASE_BASE needs a version: sudo $SELF <version>"; exit 1
 else
   # /releases/latest redirects to /releases/tag/v<version>.
   URL=$(curl -fsSLI -o /dev/null -w '%{url_effective}' "https://github.com/$REPO/releases/latest")
@@ -64,6 +69,7 @@ fi
 
 NAME="skrongle-$VERSION-$ARCH.tar.gz"
 BASE="https://github.com/$REPO/releases/download/v$VERSION"
+[ -z "${SKRONGLE_RELEASE_BASE:-}" ] || BASE="${SKRONGLE_RELEASE_BASE%/}"
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"; rm -f "$SKRONGLE_UPDATE_COPY"' EXIT
 echo "downloading $NAME"

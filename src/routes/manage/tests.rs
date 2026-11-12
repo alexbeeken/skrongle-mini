@@ -158,6 +158,7 @@ fn a_custom_set_is_saved_as_a_preset_and_deleted() {
             let stu = crate::auth::create_user(c, "stu@example.org", "h")?;
             perms::apply_preset(c, stu, perms::STUDENT_PRESET)?;
             let ann = crate::auth::create_user(c, "ann@example.org", "h")?;
+            perms::apply_preset(c, ann, perms::TEACHER_PRESET)?;
             Ok((root, sue, stu, ann))
         })
         .unwrap();
@@ -287,4 +288,66 @@ fn a_custom_set_is_saved_as_a_preset_and_deleted() {
         let r = row(&page, email);
         assert!(r.contains(r#"data-preset="custom" data-perms="4""#) && r.contains(">Custom</td>"), "{r}");
     }
+}
+
+/// "New accounts start as" (#142): an owner or a superuser chooses the
+/// preset; a Student gets a 404, an unknown preset a 400, and a preset with
+/// Superuser is refused. The next account made has the chosen one; deleting a
+/// saved default puts Student back.
+#[test]
+fn new_accounts_start_as_the_chosen_preset() {
+    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+    let listener = rt.block_on(tokio::net::TcpListener::bind("127.0.0.1:0")).unwrap();
+    let addr = listener.local_addr().unwrap();
+    let state = crate::routes::test_state(false);
+    let (root, stu, boss) = state
+        .db
+        .with(|c| {
+            let root = crate::auth::create_user(c, "root@example.org", "h")?;
+            crate::owner::make_owner(c, root)?;
+            let stu = crate::auth::create_user(c, "stu@example.org", "h")?;
+            let boss = perms::save_preset(c, "Bosses", Perms::TEACHER.with(Perm::Superuser, true))?.unwrap();
+            Ok((root, stu, boss))
+        })
+        .unwrap();
+    let cookie = |u| format!("sid={}", state.db.with(|c| crate::auth::create_session(c, u)).unwrap());
+    let (root_c, stu_c) = (cookie(root), cookie(stu));
+    let default = || state.db.with(|c| crate::settings::default_preset(c)).unwrap();
+    let app = crate::routes::router(state.clone());
+    rt.spawn(async move { axum::serve(listener, app.into_make_service_with_connect_info::<std::net::SocketAddr>()).await.unwrap() });
+    let base = format!("http://{addr}");
+    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
+    let post = |cookie: &str, id: &str| {
+        let r = agent.post(&format!("{base}/manage/default-preset")).header("cookie", cookie).send_form([("preset", id)]).unwrap();
+        (r.status().as_u16(), r.headers().get("location").and_then(|v| v.to_str().ok()).unwrap_or_default().to_string())
+    };
+    let page = |cookie: &str, path: &str| agent.get(&format!("{base}{path}")).header("cookie", cookie).call().unwrap().body_mut().read_to_string().unwrap();
+
+    assert_eq!(default(), perms::STUDENT_PRESET);
+    assert_eq!(post(&stu_c, "2").0, 404, "a Student may not");
+    assert_eq!(post(&root_c, "99").0, 400, "no such preset");
+    assert_eq!(post(&root_c, "x").0, 400);
+    let (status, loc) = post(&root_c, &boss.to_string());
+    assert_eq!((status, loc.as_str()), (303, "/manage?did=preset-default-superuser"));
+    assert!(page(&root_c, &loc).contains("New accounts cannot start as superusers."));
+    assert_eq!(default(), perms::STUDENT_PRESET);
+
+    let (status, loc) = post(&root_c, "2");
+    assert_eq!((status, loc.as_str()), (303, "/manage?did=preset-default&preset=2"));
+    let html = page(&root_c, &loc);
+    assert!(html.contains("New accounts now start as Teacher."), "{html}");
+    assert!(html.contains(r#"<option value="2" selected>Teacher</option>"#), "{html}");
+    let select = html.split(r#"data-testid="manage-default-preset">"#).nth(1).and_then(|r| r.split("</select>").next()).unwrap();
+    assert!(select.contains("Teacher") && !select.contains("Bosses"), "no preset with Superuser is offered: {select}");
+    let made = state.db.with(|c| crate::auth::create_user(c, "new@example.org", "h")).unwrap();
+    let stored = |u: i64| state.db.with(|c| c.query_row("SELECT perms, preset_id FROM users WHERE id = ?1", [u], |r| Ok((r.get::<_, i64>(0)?, r.get::<_, Option<i64>>(1)?)))).unwrap();
+    assert_eq!(stored(made), (63, Some(perms::TEACHER_PRESET)));
+    assert_eq!(stored(stu), (0, Some(perms::STUDENT_PRESET)), "an existing account keeps its preset");
+
+    // A saved preset can be the default; deleting it puts Student back.
+    let helpers = state.db.with(|c| perms::save_preset(c, "Helpers", Perms::STUDENT.with(Perm::AiTutor, true))).unwrap().unwrap();
+    assert_eq!(post(&root_c, &helpers.to_string()).0, 303);
+    assert_eq!(default(), helpers);
+    assert!(state.db.with(|c| perms::delete_preset(c, helpers)).unwrap());
+    assert_eq!(default(), perms::STUDENT_PRESET);
 }

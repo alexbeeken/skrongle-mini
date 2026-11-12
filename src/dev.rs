@@ -490,6 +490,16 @@ pub fn valid_stem(stem: &str) -> bool {
 /// The dev user's address counts as confirmed, and it is an owner
 /// (`users.owner`: the Manage Users page).
 pub fn ensure_user(db: &Db) -> Result<i64, String> {
+    // The dev server's accounts start as Teacher, so a spec's second account
+    // can create, share and use AI; a server's own default is Student (#142).
+    // Only while nobody has chosen: the owner's choice stays across restarts.
+    db.with(|c| {
+        if crate::settings::get(c, crate::settings::DEFAULT_PRESET)?.is_none() {
+            crate::settings::set_default_preset(c, crate::perms::TEACHER_PRESET)?;
+        }
+        Ok(())
+    })
+    .map_err(|e| e.to_string())?;
     let accept = |id: i64| {
         db.with(|c| {
             c.execute("UPDATE users SET owner = 1 WHERE id = ?1", [id])?;

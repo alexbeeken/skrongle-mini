@@ -1909,7 +1909,20 @@ invitation link; its links keep working and it can remove them
   (63, not `superuser`); both are rows of `permission_presets`
   (`builtin = 1`, ids 1 and 2). An account has its own set and the preset it
   was given (`users.preset_id`, `NULL` = **Custom**). Giving a preset copies
-  the preset's set onto the account. A new account is a Teacher.
+  the preset's set onto the account. A new account is given the
+  preset chosen in **New accounts start as** (see below), Student at first.
+- **New accounts start as** (#142): in the Accounts card on Manage Users, a
+  list of the presets (`manage-default-preset`, Student at first) and
+  **Save** (`POST /manage/default-preset`). Owners and superusers may change
+  it (a 404 for anyone else). Every way an account is made reads it in the
+  same transaction as the insert (`perms::default_for_new`: registration,
+  proxy sign-in, the dev user): the preset's set and id are copied onto the
+  new account, and no existing account changes. A preset with Superuser is
+  refused (*New accounts cannot start as superusers.*). The setting is
+  `settings::DEFAULT_PRESET`; no row, or a deleted saved preset, means
+  Student. The first account of a server is the owner and has everything. The
+  dev server sets it to Teacher when nobody has chosen, so test accounts can
+  create, share and use AI.
 - **Owners** have every permission whatever is stored, and nobody edits an
   owner's permissions. A **superuser** is not an owner: it is an account
   with the `superuser` permission, and it sees only the accounts on Manage
@@ -2107,6 +2120,101 @@ comes back with the dialog shown as a form.
   passwords. There is no "remember this device": every sign-in asks.
 - `/dev/login` skips the second step (it is the dev shortcut); the real
   `/login` never does.
+
+## Connected apps
+
+A person's AI assistant (or another app) can work on their courses with a
+token they give it (#167, the first step of plan #166). The code is
+`src/auth/api.rs`; the routes are `src/routes/api.rs`,
+`src/routes/profile/apps.rs` and `src/routes/manage/apps.rs`.
+
+- **The owner's switch.** *Let apps connect* on Manage Users
+  (`manage-apps-card`, `#apps`, `POST /manage/apps`, `on=1|0`,
+  `settings::APPS_ON`), off on a new and on an upgraded server. Off, every
+  `/api/v1/` route answers 404 with an empty body, every token stops
+  working at its next request, making a token and revoking answer 404, and
+  no profile has the section. On again, the grants that were there work
+  again. It is apart from *Hide AI features*: nothing here uses the
+  server's AI keys.
+- **Who.** An account with **Create courses** (`Perm::CreateCourses`, an
+  owner always) while the switch is on (`CurrentUser::connects_apps`). An
+  account that loses the permission keeps its grants, but every request
+  from them gets a 401 until it has it again; so does an account waiting
+  behind a temporary password.
+- **Grants.** One row of `api_grants` per connection: the account, the
+  app's name and client id (`personal` for a token made on the profile),
+  the scopes, an optional list of the account's own courses, made, expires
+  (30 days, 90, the default, or a year; never "until revoked") and last
+  used (written at most once a minute). At most 4 per account
+  (`caps::MAX_GRANTS_PER_ACCOUNT`; a fifth is refused with a message saying
+  to revoke one) and 200 rows on the server; `api_tokens` holds at most 800.
+- **Scopes.** `courses:read` (read your courses) and `courses:write`
+  (create and change them). Nothing else exists. A route asks
+  `ApiUser::require(scope)`; a missing scope is the one 403
+  (`{"error": "insufficient_scope", "scope": …}`). `ApiUser::allows_course`
+  applies the course list; anything not the account's own answers 404.
+- **Tokens.** `skr_` and 256 random bits in hex, shown once, stored only as
+  SHA-256 (`auth::hash_token`, as for sessions) and looked up by that hash.
+  A personal token lasts as long as its grant.
+- **Bearer only.** `ApiUser` reads `Authorization: Bearer …` and nothing
+  else. A session cookie on `/api/v1/whoami` gets 401; a token on a page
+  gets the sign-in redirect; the proxy sign-in header leaves `/api/v1/`
+  alone. A missing, unknown, expired or revoked token gets 401 with an
+  empty body and `WWW-Authenticate: Bearer`. A request with `access_token`
+  or `token` in its address is a 400, even with a good header. Ten bad
+  tokens from one address in ten minutes, then 429
+  (`security::API_BAD_TOKENS_PER_IP`; off in dev mode like every limit).
+- **The MCP server** (#168): `POST /mcp` with the token, six course tools
+  (`get_course_format`, `list_courses`, `get_course_files`,
+  `validate_course`, `create_course`, `put_course_files`). Each is a thin
+  layer over the course editor's own functions
+  (`src/routes/courses/write.rs`): the account's own courses only, the
+  grant's course list, the editor's file check and limits, all or nothing.
+  The endpoint, the tools, the scopes and the errors are in
+  [The MCP server](api).
+- **OAuth** (#169): an app that connects from a vendor's cloud signs in
+  instead of being given a token, on a server with `SKRONGLE_PUBLIC_URL`
+  set ([The MCP server](api), "OAuth"). The app registers itself, sends
+  the person to `/oauth/authorize`, and the person sees the **consent
+  page** (`oauth-consent`): the app's name, the host the answer goes to,
+  what it may do in plain words, an optional list of their own courses
+  (one line says a limited app can't create a course), how long it works,
+  **Allow** and **Deny**. Signed out, the normal sign-in comes first and
+  leads back to it. An account without Create courses gets a page saying
+  to ask the owner (`oauth-no-permission`); a request that fails a check
+  gets an error page (`oauth-error`) and the app hears nothing. Allow makes
+  one grant, listed under Connected apps with the app's name like a token
+  made by hand, and the app trades the code for an access token (an hour)
+  and a refresh token that works once (used again, it ends the connection:
+  it may have been stolen). Revoke on the profile, the owner's
+  Revoke and the events below end it the same way.
+- **`GET /api/v1/whoami`** is the probe: `{"user_id", "client_id",
+  "client_name", "scopes", "courses"}`.
+- **The profile's Connected apps** (`profile-apps`, `#apps`): each grant
+  (`profile-app`) with its name, scopes, courses, made, expires and last
+  used, and **Revoke** (`POST /profile/apps/revoke`, `id`). With none,
+  `profile-apps-none`. **Make a token** (`POST /profile/apps/token`: `name`,
+  `scope` once per scope, `course` once per course, none for all,
+  `lifetime` 30, 90 or 365, `password`) asks for the account's password
+  in the same form; a wrong one is counted like every proof of ownership
+  (`PASSWORD_PER_USER`). An account without a password (made by the proxy
+  sign-in) is not offered it. Made, the page shows the token once with
+  **Copy** (`Cache-Control: no-store`).
+- **The owner's list.** Manage Users lists every account's grants in force
+  (`manage-app`: the app's name, the account, scopes, last used, expires)
+  with **Revoke** (`POST /manage/apps/revoke`, `id`). Owners only; a
+  superuser sees neither the switch nor the list.
+- **Revoked by events.** Changing the password on the profile, replacing a
+  temporary password, the owner setting a temporary password (and
+  `skrongle reset-password`), and the owner turning off two-factor for the
+  account (and `skrongle disable-2fa`) delete every grant of the account in
+  the same database call. The password dialog and the owner's two dialogs
+  say so.
+- **Expiry.** Expired grants and tokens are purged with the sessions (the
+  hourly housekeeping and at startup), with OAuth's expired codes, grants
+  whose code was never traded, and registrations nobody finished a grant
+  for within a day. Deleting the account deletes both
+  tables' rows (`ON DELETE CASCADE`).
 
 ## Install as an app
 

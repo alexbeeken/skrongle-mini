@@ -6,7 +6,9 @@ of the app practises the same lessons.
 ## First steps
 
 1. Register with your e-mail address. There are no usernames. Registering
-   signs you in.
+   signs you in. A new account starts as a **Student**: it can learn from
+   the courses it is given, and the person who runs the server raises it
+   (Manage Users, *Permissions*) to let you create or share courses or use AI.
 2. On *What would you like to learn?* (`/courses`) pick a ready-made course
    (Spanish, French and *How to Use Skrongle*, a tutorial for the app
    itself, ship with it), or *Create a course* of your own, by hand

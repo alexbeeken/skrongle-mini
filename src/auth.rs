@@ -15,6 +15,7 @@ use crate::error::AppError;
 use crate::perms::{Perm, Perms};
 use crate::AppState;
 
+pub mod api;
 mod cache;
 pub use cache::SessionCache;
 
@@ -148,6 +149,9 @@ pub struct CurrentUser {
     /// refuse. It wins over the two AI permissions: ask through `ai_courses`
     /// / `ai_tutor` and their `require_…` forms (#145), not this field.
     pub ai_off: bool,
+    /// The server's "Let apps connect" switch (`settings::APPS_ON`, #167):
+    /// the profile shows Connected apps only while it is on.
+    pub apps_on: bool,
     /// `users.lang`: the language the app speaks to this account in
     /// (`i18n`), '' for "whatever the browser asks for".
     pub lang: String,
@@ -174,6 +178,7 @@ impl CurrentUser {
             owner: false,
             perms: Perms::TEACHER,
             ai_off: false,
+            apps_on: false,
             lang: String::new(),
             tz: 0,
         }
@@ -229,7 +234,13 @@ impl CurrentUser {
 
     /// May this account use `p`? An owner may use everything.
     pub fn can(&self, p: Perm) -> bool {
-        self.owner || self.perms.has(p)
+        allowed(self.owner, self.perms, p)
+    }
+
+    /// May this account connect apps (#167): the switch is on and it has
+    /// Create courses, the one thing an app can do for it.
+    pub fn connects_apps(&self) -> bool {
+        self.apps_on && self.can(Perm::CreateCourses)
     }
 
     /// May this account open Manage Users (`/manage`, #139)? An owner, who
@@ -263,6 +274,12 @@ impl CurrentUser {
 
 }
 
+/// The one permission rule, for a session (`CurrentUser::can`) and a
+/// bearer token (`api::ApiUser`) alike: an owner may use everything.
+pub fn allowed(owner: bool, perms: Perms, p: Perm) -> bool {
+    owner || perms.has(p)
+}
+
 // ---------- DB helpers (run inside Db::call) ----------
 
 /// Longest password (characters). Longer ones are not hashed at all, so a
@@ -289,9 +306,11 @@ pub fn password_too_long(p: &str) -> bool {
 /// lower-cased) names the account and is fixed from here on. It starts with
 /// the Teacher permissions (#138).
 pub fn create_user(conn: &Connection, email: &str, password_hash: &str) -> rusqlite::Result<i64> {
+    // The preset new accounts start as (#142), read with the insert.
+    let (preset, perms) = crate::perms::default_for_new(conn)?;
     conn.execute(
         "INSERT INTO users (password_hash, created_at, email, perms, preset_id) VALUES (?1, ?2, ?3, ?4, ?5)",
-        params![password_hash, now(), email, Perms::TEACHER.bits(), crate::perms::TEACHER_PRESET],
+        params![password_hash, now(), email, perms.bits(), preset],
     )?;
     Ok(conn.last_insert_rowid())
 }
@@ -373,11 +392,12 @@ fn session_sql() -> String {
     format!(
         "SELECT u.id, COALESCE(u.email, ''), u.active_course, c.title, u.first_name, u.last_name, NULL, NULL, {}, u.email_verified_at IS NOT NULL, u.owner,
                 COALESCE(p.start_unit, ''), NULL, u.lang, c.owner_id, u.must_change_password,
-                s.expires_at, u.perms
+                s.expires_at, u.perms, {}
          FROM sessions s JOIN users u ON u.id = s.user_id LEFT JOIN courses c ON c.id = u.active_course
          LEFT JOIN projects p ON p.user_id = u.id AND p.course_id = u.active_course
          WHERE s.session_token = ?1 AND s.expires_at > ?2",
-        crate::settings::AI_OFF_SQL
+        crate::settings::AI_OFF_SQL,
+        crate::settings::APPS_ON_SQL
     )
 }
 
@@ -398,6 +418,7 @@ fn read_session(conn: &Connection, hash: &str, now: i64) -> rusqlite::Result<Opt
                 last_name: r.get(5)?,
                 must_change_password: r.get(15)?,
                 ai_off: r.get(8)?,
+                apps_on: r.get(18)?,
                 email_verified: r.get(9)?,
                 owner: r.get(10)?,
                 perms: Perms::from_bits(r.get(17)?),
@@ -684,6 +705,8 @@ mod tests {
         let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
         let state = crate::routes::test_state(false);
         let ann = state.db.with(|c| create_user(c, "ann@example.org", "h")).unwrap();
+        // New accounts start as Student (#142); this one is raised to Teacher.
+        state.db.with(|c| crate::perms::apply_preset(c, ann, crate::perms::TEACHER_PRESET)).unwrap();
         let token = state.db.with(|c| create_session(c, ann)).unwrap();
         let request = || {
             let mut headers = HeaderMap::new();
@@ -704,14 +727,14 @@ mod tests {
     }
 
     #[test]
-    fn a_new_account_has_the_teacher_set() {
+    fn a_new_account_has_the_student_set() {
         let db = crate::db::Db::open_in_memory().unwrap();
         db.with(|c| {
             let ann = create_user(c, "ann@example.org", "h")?;
             let stored: (i64, Option<i64>) = c.query_row("SELECT perms, preset_id FROM users WHERE id = ?1", [ann], |r| Ok((r.get(0)?, r.get(1)?)))?;
-            assert_eq!(stored, (Perms::TEACHER.bits(), Some(crate::perms::TEACHER_PRESET)));
+            assert_eq!(stored, (Perms::STUDENT.bits(), Some(crate::perms::STUDENT_PRESET)));
             let token = create_session(c, ann)?;
-            assert_eq!(user_for_session(c, &token)?.map(|u| u.perms), Some(Perms::TEACHER));
+            assert_eq!(user_for_session(c, &token)?.map(|u| u.perms), Some(Perms::STUDENT));
             Ok(())
         })
         .unwrap();

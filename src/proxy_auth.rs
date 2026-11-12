@@ -27,7 +27,10 @@
 //! The request continues with the new session in its `Cookie` header, so
 //! every extractor downstream (`CurrentUser`, `MaybeUser`, `SessionToken`)
 //! sees the account without knowing about the proxy. `/dev/*` (dev mode's
-//! `/dev/login` among them), `/static/*` and `/logout` are left alone.
+//! `/dev/login` among them), `/static/*`, `/logout`, the bearer-token API
+//! `/api/v1/*` (#167) and `/mcp` (#168), and OAuth's discovery documents
+//! and program endpoints (#169) are left alone, and the consent page's
+//! answer (`POST /oauth/authorize`) needs the session cookie itself.
 
 use axum::extract::{ConnectInfo, Request, State};
 use axum::http::header::COOKIE;
@@ -190,6 +193,20 @@ fn app_path(req: &Request) -> &str {
 /// Paths the proxy's header never signs in on.
 fn left_alone(path: &str) -> bool {
     (cfg!(feature = "dev") && path.starts_with("/dev/")) || path.starts_with("/static/") || path == "/logout"
+        // The API takes a bearer token only: the header never stands in for one (#167).
+        || path.starts_with("/api/v1/")
+        || path == "/mcp"
+        // OAuth (#169): the discovery documents and the endpoints programs
+        // call never sign anyone in.
+        || path.starts_with("/.well-known/")
+        || crate::routes::oauth::PROGRAM_PATHS.contains(&path)
+}
+
+/// The consent page's answer (`POST /oauth/authorize`, #169) needs the
+/// session the consent page was shown in: the header alone signs nobody in
+/// there.
+fn needs_its_session(req: &Request) -> bool {
+    req.method() == axum::http::Method::POST && app_path(req) == "/oauth/authorize"
 }
 
 /// What the header asks for.
@@ -245,9 +262,10 @@ fn resolve(conn: &mut Connection, value: &str, session: Option<&str>, mode: sign
                 }
             };
             // No password; the proxy vouched for the address.
+            let (preset, perms) = crate::perms::default_for_new(&tx)?;
             tx.execute(
                 "INSERT INTO users (password_hash, created_at, email, email_verified_at, perms, preset_id) VALUES ('', ?1, ?2, ?1, ?3, ?4)",
-                params![now, email, crate::perms::Perms::TEACHER.bits(), crate::perms::TEACHER_PRESET],
+                params![now, email, perms.bits(), preset],
             )?;
             let id = tx.last_insert_rowid();
             if !signup::finish(&tx, admitted, id, now)? {
@@ -285,7 +303,7 @@ fn with_session(req: &mut Request, token: &str) {
 /// The middleware (see the module comment). A no-op without the settings.
 pub async fn middleware(State(state): State<Arc<AppState>>, mut req: Request, next: Next) -> Response {
     let Some(cfg) = state.proxy_auth.as_ref() else { return next.run(req).await };
-    if left_alone(app_path(&req)) {
+    if left_alone(app_path(&req)) || needs_its_session(&req) {
         return next.run(req).await;
     }
     let Some(value) = req.headers().get(&cfg.header) else { return next.run(req).await };

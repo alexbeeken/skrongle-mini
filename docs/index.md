@@ -13,6 +13,8 @@ all driven by JSON course files.
 - [Building and generating courses](making-courses): the editor, adding
   files, generating a course with AI, sharing a course, fixing validation
   errors.
+- [Connect an AI assistant](connect-an-assistant): let Claude Code, Claude
+  or ChatGPT make courses for you, on a home network or through a domain.
 - [FAQ](faq) — API keys, missing games, sharing, AI agents.
 
 ## Reference

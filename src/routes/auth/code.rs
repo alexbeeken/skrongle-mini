@@ -154,9 +154,15 @@ pub async fn login_code(State(state): State<Arc<AppState>>, ClientIp(ip): Client
             let session = state.db.call(move |c| auth::create_session(c, user_id)).await?;
             tracing::info!("user {user_id} logged in with a second step");
             let share = share_notice(&state, &hex_cookie(&headers, SHARE_COOKIE)).await?;
-            let to = after_sign_in(share.as_ref());
-            let cookies = [twofa_cookie("", 0, state.secure_cookies), auth::set_session_cookie(&session, state.secure_cookies), named_cookie(SHARE_COOKIE, "", 0, state.secure_cookies)];
-            Ok((AppendHeaders(cookies), Redirect::to(&crate::url(&to))).into_response())
+            // An app's sign-in request waiting for this one goes first (#169).
+            let to = crate::routes::oauth::resume(&headers).unwrap_or_else(|| crate::url(&after_sign_in(share.as_ref())));
+            let cookies = [
+                twofa_cookie("", 0, state.secure_cookies),
+                auth::set_session_cookie(&session, state.secure_cookies),
+                named_cookie(SHARE_COOKIE, "", 0, state.secure_cookies),
+                crate::routes::oauth::clear_next_cookie(state.secure_cookies),
+            ];
+            Ok((AppendHeaders(cookies), Redirect::to(&to)).into_response())
         }
         two_factor::Checked::Wrong(left) => {
             tracing::info!("user {} typed a wrong sign-in code", user_id.unwrap_or_default());

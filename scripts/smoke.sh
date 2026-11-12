@@ -99,6 +99,22 @@ if [ -z "$JOB" ] || [ "$JOB" = "$LOC" ]; then echo "  FAIL no job started (redir
     echo "  FAIL generation did not finish cleanly: $STATUS"; FAILED=1
   fi
 fi
+
+echo "==> connected apps (#170): let apps connect, make a token, call one tool"
+code=$(curl -s -o /dev/null -w '%{http_code}' -b "$JAR" -c "$JAR" --data "on=1" "$URL/manage/apps")
+[ "$code" = 303 ] && echo "  ok   $code Let apps connect is on" || { echo "  FAIL $code turning Let apps connect on"; FAILED=1; }
+TOKEN=$(curl -s -b "$JAR" -c "$JAR" --data "name=Smoke&scope=courses%3Aread&scope=courses%3Awrite&lifetime=30&password=dev-password" "$URL/profile/apps/token" | grep -o 'skr_[0-9a-f]\{64\}' | head -1 || true)
+if [ -z "$TOKEN" ]; then echo "  FAIL Make a token showed no token"; FAILED=1; else
+  echo "  ok   a token was made and shown once"
+  code=$(curl -s -o "$WORK/body" -w '%{http_code}' -H "Authorization: Bearer $TOKEN" -H 'content-type: application/json' \
+    --data '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_courses"}}' "$URL/mcp")
+  if [ "$code" = 200 ] && grep -q '"isError":false' "$WORK/body" && { [ -z "${COURSE:-}" ] || grep -q "$COURSE" "$WORK/body"; }; then
+    echo "  ok   $code /mcp list_courses with the token"
+  else echo "  FAIL $code /mcp list_courses: $(head -c 300 "$WORK/body")"; FAILED=1; fi
+  code=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'content-type: application/json' --data '{}' "$URL/mcp")
+  [ "$code" = 401 ] && echo "  ok   $code /mcp without a token" || { echo "  FAIL $code /mcp without a token (expected 401)"; FAILED=1; }
+  if grep -q "${TOKEN#skr_}" "$WORK/server.log"; then echo "  FAIL the token is in the server log"; FAILED=1; else echo "  ok   the token is not in the server log"; fi
+fi
 check "/dev/reset" 303
 
 if [ "$FAILED" = 1 ]; then echo "==> smoke test FAILED; server log:"; tail -30 "$WORK/server.log"; exit 1; fi

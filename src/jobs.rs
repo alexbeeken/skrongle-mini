@@ -480,7 +480,7 @@ impl Runner {
 // ---------- housekeeping ----------
 
 /// The hourly housekeeping, one job that runs every purge in turn: expired
-/// sessions, abandoned games, old generation jobs, idle tutor chats,
+/// sessions and connected apps (#167), abandoned games, old generation jobs, idle tutor chats,
 /// rate-limit windows, the retention rules
 /// (`jobs/retention.rs`), old two-factor challenges and invitation links, old job
 /// rows, the query planner's statistics (`PRAGMA optimize`), and last a WAL checkpoint so the -wal file doesn't grow on
@@ -494,6 +494,7 @@ pub fn housekeeping(runner: Runner, state: &Arc<crate::AppState>, retention: ret
         type Step<'a> = (&'static str, Box<dyn Fn() -> Result<String, String> + 'a>);
         let steps: Vec<Step> = vec![
             ("sessions", Box::new(|| sql(db, |c, _| crate::auth::purge_expired_sessions(c).map(|n| note(n, "expired sessions purged"))))),
+            ("api_grants", Box::new(|| sql(db, |c, t| crate::auth::api::purge_expired(c, t).map(|n| note(n, "expired connected apps and tokens purged"))))),
             ("games", Box::new(|| Ok(note(s.games.purge_expired(), "abandoned games dropped")))),
             ("ai_jobs", Box::new(|| Ok(note(s.jobs.purge_expired(), "old generation jobs dropped")))),
             ("tutor_chats", Box::new(|| Ok(note(s.tutors.purge_expired(), "idle tutor chats dropped")))),

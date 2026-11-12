@@ -1,0 +1,9 @@
+{# /oauth/authorize for an account without Create courses (routes/oauth.rs, #169): it may not connect apps; the owner can give it the permission. #}
+{% extends "base.html" %}
+{% block title %}{{ crate::t("oauth.no_permission.title") }}{% endblock %}
+{% block content %}
+<section class="narrow" data-testid="oauth-no-permission">
+  <h1>{{ crate::t("oauth.no_permission.title") }}</h1>
+  <p class="alert" role="status" data-testid="oauth-no-permission-message">{{ crate::t("oauth.no_permission.text") }}</p>
+</section>
+{% endblock %}

@@ -348,6 +348,9 @@ pub fn routes() -> axum::Router<Arc<AppState>> {
         .route("/dev/authenticator", get(authenticator).post(authenticator_add))
         .route("/dev/authenticator/rows", get(authenticator_rows))
         .route("/dev/authenticator/{id}", post(authenticator_act))
+        // A public OAuth client playing the flow against this server (#169).
+        .route("/dev/oauth-client", get(oauth_client::page))
+        .route("/dev/oauth-client/callback", get(oauth_client::page))
         .route("/dev/ai", get(super::dev_ai::page))
         .route("/dev/ai/rows", get(super::dev_ai::rows))
         .route("/dev/ai/clear", post(super::dev_ai::clear))
@@ -386,6 +389,7 @@ pub fn routes() -> axum::Router<Arc<AppState>> {
 }
 
 mod jobs_page;
+mod oauth_client;
 pub use jobs_page::{jobs, jobs_act, jobs_fail};
 
 #[cfg(test)]

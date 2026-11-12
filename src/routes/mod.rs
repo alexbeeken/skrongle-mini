@@ -14,6 +14,7 @@ use std::sync::{Arc, OnceLock};
 use crate::error::AppError;
 use crate::AppState;
 
+pub mod api;
 pub mod auth;
 pub mod courses;
 pub mod share;
@@ -33,6 +34,8 @@ pub mod progress;
 pub mod quiz;
 pub mod password;
 pub mod manage;
+pub mod mcp;
+pub mod oauth;
 pub mod tutor;
 pub mod vocab;
 
@@ -281,12 +284,23 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/profile/two-factor", post(profile::set_two_factor))
         .route("/profile/two-factor/totp/confirm", post(profile::confirm_totp))
         .route("/profile/two-factor/totp/remove", post(profile::remove_totp))
+        .route("/profile/apps/token", post(profile::apps::make_token))
+        .route("/profile/apps/revoke", post(profile::apps::revoke))
+        // Connected apps (#167): bearer token only, never the session cookie.
+        .route("/api/v1/whoami", get(api::whoami))
+        // The MCP server (#168): every method reaches the handler, which
+        // refuses all but POST itself, after the switch and the Origin check.
+        .route("/mcp", axum::routing::any(mcp::endpoint))
+        // OAuth sign-in for apps that connect from the cloud (#169): the
+        // discovery documents, the consent page and the program endpoints.
+        .merge(oauth::routes())
         // owners (404 for anyone else); /superuser was its old address
         .route("/superuser", get(|q: RawQuery| moved("/manage", q)))
         .route("/manage", get(manage::show))
         .route("/manage/progress", get(manage::progress::show))
         .route("/manage/make-owner", post(manage::make_owner))
         .route("/manage/permissions", post(manage::set_permissions))
+        .route("/manage/default-preset", post(manage::presets::set_default))
         .route("/manage/permissions/bulk", post(manage::set_permissions_bulk))
         .route("/manage/invites", post(manage::make_invite))
         .route("/manage/invites/revoke", post(manage::revoke_invite))
@@ -294,6 +308,8 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/manage/two-factor-off", post(manage::turn_off_two_factor))
         .route("/manage/api-keys/remove", post(manage::remove_key))
         .route("/manage/ai", post(manage::set_ai))
+        .route("/manage/apps", post(manage::apps::set_apps))
+        .route("/manage/apps/revoke", post(manage::apps::revoke))
         .route("/manage/presets/delete", post(manage::presets::delete))
         .route("/api/manage/keys", post(manage::save_keys))
         // api
@@ -314,6 +330,8 @@ pub fn router(state: Arc<AppState>) -> Router {
     let (dev, reload) = (state.dev.on, state.dev.on && crate::dev::reload_wanted());
     let app = app
         .fallback(|| async { AppError::NotFound })
+        // Connected apps (#170): the owner's switch before any extractor.
+        .layer(axum::middleware::from_fn_with_state(state.clone(), api::switch))
         .layer(axum::middleware::from_fn_with_state(state.clone(), crate::error::in_layout));
     // A reverse proxy's identity header signs people in (#642), before any
     // handler or the error layout looks for a session.
@@ -733,6 +751,7 @@ pub(crate) fn test_state(dev: bool) -> Arc<AppState> {
         public_url: None,
         signup: Default::default(),
         proxy_auth: None,
+        issued: Default::default(),
     })
 }
 

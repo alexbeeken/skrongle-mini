@@ -87,11 +87,19 @@ pub fn is_cross_site(headers: &HeaderMap) -> bool {
 /// sibling subdomains and browsers without SameSite.
 pub async fn csrf(req: Request, next: Next) -> Response {
     let safe = matches!(*req.method(), Method::GET | Method::HEAD | Method::OPTIONS);
-    if !safe && is_cross_site(req.headers()) {
+    if !safe && !for_programs(req.uri().path()) && is_cross_site(req.headers()) {
         tracing::warn!("refused a cross-site {} {}", req.method(), req.uri().path());
         return (StatusCode::FORBIDDEN, crate::t("error.cross_site")).into_response();
     }
     next.run(req).await
+}
+
+/// The OAuth endpoints programs call (#169, `routes::oauth::PROGRAM_PATHS`):
+/// they never read a cookie, so a cross-site request there carries no
+/// sign-in to abuse, and the CSRF check leaves them alone.
+pub fn for_programs(path: &str) -> bool {
+    let path = path.strip_prefix(crate::base_path()).filter(|p| p.starts_with('/')).unwrap_or(path);
+    crate::routes::oauth::PROGRAM_PATHS.contains(&path)
 }
 
 // ---------- client address ----------
@@ -175,6 +183,17 @@ pub enum WhenFull {
 
 /// Sign-in attempts from one address.
 pub const LOGIN_PER_IP: Limit = Limit { name: "login-ip", max: 30, window: 600, when_full: WhenFull::EvictLowest };
+/// Bad bearer tokens from one address (#167, `auth::api::ApiUser`): a
+/// missing, unknown, expired or revoked one. Past ten in ten minutes every
+/// API request from the address gets a 429 until the window ends.
+pub const API_BAD_TOKENS_PER_IP: Limit = Limit { name: "api-bad-tokens-ip", max: 10, window: 600, when_full: WhenFull::EvictLowest };
+/// OAuth registrations (#169, `POST /oauth/register`) from one address: a
+/// person connecting a few apps is far below it; filling the registry is not.
+pub const OAUTH_REGISTRATIONS_PER_IP: Limit = Limit { name: "oauth-register-ip", max: 20, window: 3600, when_full: WhenFull::EvictLowest };
+/// Refused requests to `/oauth/token` and `/oauth/revoke` (#169) from one
+/// address: a wrong code, verifier or refresh token. Past 30 in ten minutes
+/// the address gets a 429 until the window ends.
+pub const OAUTH_TOKEN_FAILURES_PER_IP: Limit = Limit { name: "oauth-token-failures-ip", max: 30, window: 600, when_full: WhenFull::EvictLowest };
 /// Wrong passwords for one account (e-mail address), from anywhere.
 pub const LOGIN_FAILURES_PER_USER: Limit = Limit { name: "login-user", max: 10, window: 900, when_full: WhenFull::Refuse };
 /// Registration attempts from one address.
@@ -196,6 +215,11 @@ pub const AI_JOBS_PER_USER_DAY: Limit = Limit { name: "ai-jobs-user-day", max: 4
 /// script cannot keep the server busy (#366). The editor's autosave saves at
 /// most about once a second while someone works, well under this.
 pub const COURSE_WRITES_PER_USER: Limit = Limit { name: "course-writes-user", max: 120, window: 300, when_full: WhenFull::Refuse };
+/// Requests to `/mcp` one connected app's grant may make (#168), keyed by
+/// the grant id: one every two seconds over ten minutes, far above an
+/// agent writing a course. Its writes count against
+/// `COURSE_WRITES_PER_USER` as well.
+pub const MCP_CALLS_PER_GRANT: Limit = Limit { name: "mcp-calls-grant", max: 300, window: 600, when_full: WhenFull::Refuse };
 
 /// Most keys kept per limit, so memory stays bounded on the Pi (#36). Each
 /// limit has its own table: a flood of one kind of key (fresh addresses)

@@ -485,7 +485,7 @@ Off unless the variable is set; not for production.
 ## Smoke test
 
 ```sh
-scripts/smoke.sh          # fresh ./smoke.db, a free port, the dev AI provider; pages + one generation
+scripts/smoke.sh          # fresh ./smoke.db, a free port, the dev AI provider; pages + one generation + a token and one MCP tool
 ```
 
 It seeds, logs in through `/dev/login`, expects 200 from every main page
@@ -522,6 +522,21 @@ walkthrough, and what a container does not cover: systemd, `update.sh` and
 rollback (the VM layer, #42), and anything timed (emulated speed means
 nothing).
 
+`E2E=1 scripts/release-qa/matrix.sh dist x86_64` adds the release browser
+specs ([Release specs](#release-specs)) for aarch64 and x86_64: the `e2e`
+profile of `compose.yaml` runs the tarball's server in the Debian 11 container and the
+Playwright `release` projects against it from Playwright's own container
+(#41; `scripts/release-qa/README.md`). Off by default.
+
+`.github/workflows/release-qa.yml` runs the same specs in its x86_64 cell
+(#46), natively on the runner: it unpacks the tarball and runs
+`SERVER_BIN=<unpacked>/skrongle RELEASE_E2E_DATA=<unpacked>/data scripts/release-e2e.sh`,
+so the specs (from the checked-out ref) drive the tarball's binary and data;
+a failed run keeps the Playwright report as the artifact
+`playwright-report-release-qa-x86_64`. The ARM cells do not run them (Chromium
+under QEMU); the rig's `e2e` profile does that on a laptop. The workflow also
+has *Run workflow* (`workflow_dispatch`, with a published version or the latest).
+
 `scripts/release-qa.sh <version | tarball dir>` is the one command: it runs
 `scripts/release-check.sh` (for a version) and then `matrix.sh`, and ends
 with one summary and the log paths. The emulated matrix is the check for
@@ -549,6 +564,49 @@ printed them; the failure is also an annotation on the run. A weekly failure
 is a red run, not an issue (the `dietpi-install` workflow opens issues, but
 `release.yml` cannot, and this workflow is called from it). Not in it yet: the
 Playwright `release` project and the upgrade check (#40, #43).
+
+### VMs (systemd, update, going back, uninstall)
+
+A container has no systemd. `scripts/release-qa/vm.sh <arch> <command>` (#42)
+runs the tarball in a full Debian 12 VM under [Lima](https://lima-vm.io)
+(`brew install lima`; 1 CPU, 512 MiB, named `skrongle-qa-<arch>`; it never
+touches another Lima instance, such as colima's):
+
+```sh
+scripts/release-qa/vm.sh aarch64 up          # create and start the VM (first run downloads the Debian image)
+scripts/release-qa/vm.sh aarch64 install     # docs/self-hosting.md "Install", the code block as written, with dist/'s tarball
+scripts/release-qa/vm.sh aarch64 update      # newest published release, then the candidate through update.sh, then back
+scripts/release-qa/vm.sh aarch64 e2e         # the Playwright `release` project from this Mac against the VM's forwarded port
+scripts/release-qa/vm.sh aarch64 measure     # results/release-qa/<version>/aarch64-vm.txt
+scripts/release-qa/vm.sh aarch64 uninstall   # uninstall.sh, then --purge
+scripts/release-qa/vm.sh aarch64 down        # delete the VM
+```
+
+The candidate is the newest `dist/skrongle-*-<arch>.tar.gz` (build it with
+`scripts/build-pi.sh <arch>` and `scripts/package-release.sh <version> <arch>`;
+give it a version that differs from the published one, such as `0.3.0-qa`, or
+`update` needs `FORCE=1` to tell them apart). `install` checks the unit is
+active and enabled, `/healthz` in the guest and on the forwarded port, the
+owner link in the journal, `skrongle doctor --service`, that the state
+folder's mode is the unit's `StateDirectoryMode`, and that the owner can be
+made and signs in. `update` serves the candidate from this machine and runs
+the real `update.sh` with `SKRONGLE_RELEASE_BASE` pointing at it, so it goes
+through the same download and SHA-256 check as a GitHub release (a copy with a
+wrong checksum must be refused and change nothing); the published release's
+own `update.sh` predates that variable, so the candidate's copy is put in its
+place first. Then it goes back with `update.sh <published version>` (from
+GitHub), checking the unit, `/healthz` and the owner's sign-in after each
+step. Updates make no copy of the database: going back to an older release
+takes the schema back with `skrongle migrate` first, which only releases that
+have it can do (`BACK_TO=<version>` adds a step further back; with releases
+from before #165 that step is expected to fail). `uninstall` checks what stays
+(the database, `/etc/skrongle`), that a reinstall brings the owner back, and
+that `--purge` leaves nothing.
+
+`aarch64` uses Apple's Virtualization framework (no QEMU) and has been run.
+`x86_64` (`scripts/release-qa/lima/x86_64.yaml`) needs QEMU (`brew install
+qemu`; an Apple Silicon Mac emulates it, slowly) and has not been run yet.
+armv7l has no Debian cloud image Lima can boot, so it stays in the containers.
 
 The DietPi install block has its own check (#31). The `dietpi-install`
 workflow runs `scripts/dietpi-install-check.sh` after each release is
@@ -641,6 +699,8 @@ The pages the AI creation flow and lesson tests use, in full:
 | `/profile` | `profile-nav`, `profile-nav-link`, `profile-form`, `profile-notice`, `profile-display-name`, `avatar-blank` (the gear in the top-right corner), `profile-save-status`, `profile-save-error`, `profile-first-name-error`, `profile-last-name-error`, `autosave-leave-dialog`, `autosave-leave`, `autosave-stay`, `profile-password-open`, `profile-password-dialog`, `profile-password-rule` (the length rule), `profile-password-cancel`, `profile-first-name`, `profile-last-name`, `profile-email` (read-only), `email-verified` (the check inside a confirmed address), `profile-privacy-info` (the (i) button), `profile-privacy-note` (the dialog it opens), `profile-privacy-close`, `profile-public-name` (the name others see, live), `profile-password-form`, `profile-password-current`, `profile-password-new`, `profile-password-confirm`, `profile-password-submit`, `profile-password-error`, `profile-sign-in` (how the account signs in), `profile-sign-out-others-form`, `profile-sign-out-others`, `profile-sign-out-others-info` and `profile-sign-out-others-info-dialog` (`profile-sign-out-others-info-close`), `profile-role` (the word Owner under the name, owners only), `profile-api-keys`, `profile-api-key` (a `<details>` row), `profile-api-key-toggle`, `profile-api-key-status`, `profile-api-key-error`, `profile-api-key-input`, `profile-api-key-remove-form`, `profile-api-key-remove`, `email-verified` (the ✓) (the address's state), `profile-two-factor` (the card), `profile-two-factor-info`, `profile-two-factor-info-dialog`, `profile-two-factor-form`, `profile-two-factor-choice` (a chip), `profile-two-factor-error`, `two-factor-totp-dialog`, `two-factor-totp-qr` (the inline SVG; `data-modules` its width), `two-factor-totp-secret`, `two-factor-totp-qr` (the QR's wrapper; `data-uri` is the `otpauth://` link it encodes), `profile-2fa-totp-qr-info` (the (i) by the dialog's title) and `profile-2fa-totp-qr-info-dialog`, `two-factor-totp-dev` (dev mode), `two-factor-totp-form`, `two-factor-totp-code`, `two-factor-totp-confirm`, `two-factor-totp-cancel`, `two-factor-totp-error`, `profile-two-factor-totp` (the added app's line), `profile-two-factor-totp-remove`, `two-factor-confirm-dialog` (Confirm it's you: any two-factor change), `two-factor-confirm-what`, `two-factor-confirm-form`, `two-factor-confirm-choice`, `two-factor-confirm-password` (or `two-factor-confirm-code` for an account without a password), `two-factor-confirm-submit`, `two-factor-confirm-cancel`, `two-factor-confirm-error` | `profile-save-status[data-state]` (`saved`, `saving`, `error`), `[data-saved]` on a saved field's `.field-wrap`, label or chip, `profile-api-key[data-provider][data-key-set][data-unreadable]`, `profile-nav-link[data-section]` (the id it jumps to), `profile-two-factor[data-on]` (`true`, `false`), `profile-two-factor-choice[data-on]` |
 | `/manage` (owners, and superusers for the accounts; `nav-manage` in the account menu) | `manage-page`, `manage-info` + `manage-info-dialog` (`manage-signup-mode[data-mode]`), `manage-notice`, `manage-error`; in invite mode `manage-invites-card`, `manage-invite-form`, `manage-invite-make`, `manage-invite-new`, `manage-invite-link`, `manage-invite-copy`, `manage-invites`, `manage-invite-row`, `manage-invite-revoke`; `manage-accounts-card`, `manage-accounts`, `manage-account-row[data-manage]`, `manage-account-temp-password`, `manage-account-two-factor-off`, `manage-account-make-owner` (rows that are not owners; each `[data-account-email]`), `manage-account-preset` (the Permissions column), `manage-account-permissions` (rows the viewer may edit), `manage-permissions-dialog` / `-form` / `-save`, `manage-permissions-preset[data-preset][data-perms]` (the radios), `manage-permission[data-perm][data-bit][data-needs][data-on]` (a line; `aria-disabled` and `.is-off` while what it needs is off) with `manage-permission-toggle`, `manage-permission-mark` and `manage-permission-ai-hidden`, `manage-permissions-save-as` (the name box, in `manage-permissions-save-as-row`, hidden unless Custom is chosen), `manage-presets` (the saved presets' card, absent while there are none) with `manage-preset-row[data-preset-id]`, `manage-preset-name`, `manage-preset-perms`, `manage-preset-count`, `manage-preset-delete`, and `manage-preset-dialog` / `-form` / `-confirm`, `manage-password-dialog` / `-form` / `-confirm`, `manage-two-factor-dialog` / `-form` / `-confirm`, `manage-owner-dialog` / `-form` / `-confirm`, `manage-temp-password-dialog`, `manage-temp-password-new`, `manage-temp-password`, `manage-temp-password-copy`, `manage-temp-password-close` | `manage-account-row[data-manage]`, `manage-account-row[data-owner][data-preset][data-perms]` (`data-preset`: a preset's id, `custom` or `owner`), `manage-signup-mode[data-mode]` |
 | `/manage`, one preset for several accounts (#141) | `manage-bulk-form` (the form around `manage-accounts`), `manage-account-select` (a row's checkbox, only on rows the viewer may edit; `name="email"`), `manage-account-select-all` (the header's; `indeterminate` while only some are ticked), `manage-bulk-bar` (`hidden` while nothing is ticked) with `manage-bulk-count`, `manage-bulk-preset` (a `<select>` of the presets) and `manage-bulk-apply`, `manage-bulk-dialog` with `manage-bulk-question` and `manage-bulk-confirm` | |
+| `/profile` and `/manage`, Connected apps (#167; only while *Let apps connect* is on) | on `/profile`: `profile-apps` (the card), `profile-apps-info` + `profile-apps-info-dialog`, `profile-apps-none`, `profile-apps-list`, `profile-app` with `profile-app-name`, `profile-app-scopes`, `profile-app-courses`, `profile-app-expires`, `profile-app-last-used`, `profile-app-revoke`; `profile-apps-make-open` (Make a token), `profile-apps-no-password` (in the (i) dialog, an account without a password), `profile-apps-token-dialog` with `profile-apps-token-form`, `profile-apps-token-error`, `profile-apps-token-name`, `profile-apps-token-scope` (each checkbox), `profile-apps-token-course` (each checkbox), `profile-apps-token-lifetime`, `profile-apps-token-password`, `profile-apps-token-submit`; `profile-apps-new-token-dialog` with `profile-apps-new-token` (the field), `profile-apps-new-token-copy`, `profile-apps-new-token-close`; `profile-password-apps-note`. On `/manage` (owners): `manage-apps-card`, `manage-apps-info` + `manage-apps-info-dialog`, `manage-apps` (the switch row), `manage-apps-form`, `manage-apps-switch`, `manage-apps-none`, `manage-apps-list`, `manage-app` with `manage-app-name`, `manage-app-account`, `manage-app-revoke` | `profile-app[data-used]` (`true` once the token was used), `manage-apps[data-apps-on]` |
+| `/oauth/authorize` (#169; with `SKRONGLE_PUBLIC_URL` and *Let apps connect*) | the consent page `oauth-consent` with `oauth-consent-info` + `oauth-consent-info-dialog` (`oauth-consent-info-close`), `oauth-consent-form`, `oauth-consent-app` (the app's name), `oauth-consent-scopes` with `oauth-consent-scope` (each), `oauth-consent-host`, `oauth-consent-account`, `oauth-consent-courses` with `oauth-consent-courses-note` and `oauth-consent-course` (each checkbox), `oauth-consent-lifetime`, `oauth-consent-allow`, `oauth-consent-deny`; a refused request: `oauth-error` with `oauth-error-info` + `oauth-error-info-dialog`, `oauth-error-message`, `oauth-error-code`; an account without Create courses: `oauth-no-permission`, `oauth-no-permission-message`. Dev build: `/dev/oauth-client` (`dev-oauth-client`) with `dev-oauth-connect`, `dev-oauth-whoami-btn`, `dev-oauth-refresh`, `dev-oauth-reuse`, `dev-oauth-replay`, `dev-oauth-disconnect`, `dev-oauth-forget`, and the results `dev-oauth-issuer`, `dev-oauth-client-id`, `dev-oauth-authorize-url`, `dev-oauth-answer`, `dev-oauth-token`, `dev-oauth-refresh-token`, `dev-oauth-reuse-result`, `dev-oauth-replay-result`, `dev-oauth-whoami` | |
 | `/manage/progress?email=…` (#147; an owner or a superuser, 404 for a private account) | `manage-progress-page`, `manage-progress-back`, `manage-progress-email`, `manage-progress-name`, `manage-progress-empty`, `manage-progress-courses`, `manage-progress-course` with `manage-progress-course-title`, `manage-progress-passed`, `manage-progress-last-studied`, `manage-progress-streak`; on `/manage` each row has `manage-account-progress` (the link) or `manage-account-private`; on `/profile`, in `profile-privacy-note`, `profile-progress-visibility` | `manage-progress-course[data-course]`, `profile-progress-visibility[data-private]` |
 
 Practice and Guide stages name the button that appears after Check
@@ -761,6 +821,8 @@ offline. `npm --prefix e2e run typecheck` checks the TypeScript.
 | `e2e/specs/course-translate.spec.ts` | Copy and translate (#630), from `translate-course.json`: a fresh draft translated to Español through the dialog behind the icon in the course's settings (what is translated behind its (i)) is followed to its end in the editor and comes out as *Untitled course (Español)*, ids kept and the answer still one of the options, the original untouched; the Spanish card's dialog offers no English |
 | `e2e/specs/permissions-ai.spec.ts` | AI per account (#145), set through the Permissions dialog on a second account: *Use the AI tutor* off leaves four mode cards, no *Tutor me*, a 403 page on `/tutor` saying the account is not allowed, and the Generate dialog still opens; the tutor back and *Use AI in courses* off brings the tutor card back and leaves the editor without `generate` and `course-ai`, the course list without `courses-translate`, and `POST /courses/{id}/generate` a 403 |
 | `e2e/specs/modals.spec.ts` | Closing by clicking outside: a Sprint mode stop's sheet (`sprint-sheet`) closes on a tap outside the stop and on Escape, a tap inside keeps it (#233); modals close on a click on their backdrop (#226, `static/modal.js`): the profile's dialogs (not on a drag out of them, not with a password typed), the Generate dialog (not with a wish typed), not a running job's box (`data-modal-static`), Review AI changes by its Close link. Runs in CI with the exact specs |
+| `e2e/specs/oauth-client.spec.ts` | OAuth (#169) with the dev client `/dev/oauth-client`: discovery names the endpoints from the public address; signed out, **Connect** goes through the sign-in to the consent page (app, host, two scopes, course picker, expiry); **Deny** comes back `access_denied` and nothing is connected; **Allow** with one course trades the code (whoami answers, the profile lists *Dev test client* with that course); **Refresh token** rotates; **Use the old refresh token** is `invalid_grant` and revokes the app (whoami 401, the profile lists none, #184); after connecting again, **Replay the code** revokes the app; an authorize address edited by hand (no `code_challenge`, `plain`, no `state`, another host) gets the error page and no redirect; a Student gets the no-permission page. Runs in CI with the exact specs |
+| `e2e/specs/connected-apps.spec.ts` | Connected apps (#167): the owner turns on *Let apps connect* (`manage-apps[data-apps-on]`); a new account's profile has the section, a wrong password makes no token, the right one shows a `skr_` token once, listed as *Test* and unused; the token answers `/api/v1/whoami` from a client with no cookies (a cookie alone gets 401, a token in the address 400), the row then says used and the page holds no token; the owner's list has it; Revoke ends it (401). Turns the switch off again. Runs in CI with the exact specs |
 | `e2e/specs/smoke/` | [Smoke specs](#smoke-specs): a new account passes lessons in every mode, answering from the course files; the whole test course, right and wrong |
 | `e2e/lib/app.ts` | Exact helpers: `devLogin`, `devReset`, `correctAnswers`, `playSprintSession`; `TEST_COURSE` and `courseDir` for [the test course](#the-test-course) |
 | `e2e/lib/key.ts` | `AnswerKey`: the right answer to a question id or a Sprint mode exercise id, read from the course files |
@@ -818,11 +880,36 @@ E2E_BASE_URL=… E2E_OWNER_EMAIL=… E2E_OWNER_PASSWORD=… npx --prefix e2e pla
 
 The server needs `SKRONGLE_SIGNUP=invite` (the systemd unit's setting) and
 an owner link nobody has used, so use a fresh one for each run
-(`docker compose down -v`). A run makes the owner and seven accounts. CI runs `scripts/release-e2e.sh` twice in the job "e2e release
+(`docker compose down -v`). A run makes the owner and eight accounts. CI runs `scripts/release-e2e.sh` twice in the job "e2e release
 specs", on the dev build: once without dev mode (an owner link, as a release has) and
 once with `SKRONGLE_DEV=1` (dev routes exist, the dev user is the owner), so
-the specs cannot rot; it is not in the required checks. Run against the 0.2.1
+the specs cannot rot; it is not in the required checks. The release-QA
+workflow and the Compose rig run them on the unpacked tarball ([Release QA](#release-qa)). Run against the 0.2.1
 aarch64 tarball in the release-QA container rig, all ten pass.
+
+### AI on a release server
+
+A release binary has no `/dev` routes and no simulator, and the specs must
+not use `/dev/` on the server under test. `scripts/release-e2e.sh` therefore
+starts a **second process**, a dev-feature build of the same code in dev mode
+(`SKRONGLE_DEV=1`, its own database, fixtures from `data/test-fixtures/llm`) on a free
+port, and starts the release server with
+`SKRONGLE_ANTHROPIC_BASE_URL=<simulator>/dev/ai/anthropic`. A base URL set this
+way is the operator's, not one typed into a form, so the private-address rule
+(`SKRONGLE_ALLOW_PRIVATE_AI_URLS`) does not apply and the harness does not set it.
+`ai.spec.ts` gets the simulator's address as `E2E_AI_SIM_URL` and reads its
+call log (`<sim>/dev/ai?format=json`) from the test, not the browser, to prove the
+release server made the calls. The key it saves on Manage Users is any
+`sk-ant-dev-…` key, which the simulator accepts.
+
+The simulator binary is `SIM_BIN` if set, else `SERVER_BIN` when that has the dev
+feature (CI), else `target/debug/spanish-learning` built with `cargo build --features dev`.
+With no such binary and no cargo, the script says so and the AI spec skips itself;
+the other specs run. The `RELEASE_E2E_DEV=1` run has no simulator process (its own
+dev AI is not used), so the spec skips there. To run it against a server you started,
+set `E2E_AI_SIM_URL` and start that server with the matching `SKRONGLE_ANTHROPIC_BASE_URL`.
+Not yet covered: running it inside the container rig (`scripts/release-qa`), and
+the other providers' wire formats (the simulator speaks them; `ai.spec.ts` uses Anthropic's).
 
 `e2e/lib/release.ts` has the helpers: `test` (the smoke specs' `test`, and a
 route guard that **fails the test on any request to `/dev/`**, in every context
@@ -840,7 +927,9 @@ from the dev authenticator. `grep -r "/dev/" e2e/specs/release` finds nothing.
 | | `course-by-hand.spec.ts` | create a course without AI, rename it, add a lesson in the editor, edit its JSON, autosave, reload, open it as a learner |
 | | `share.spec.ts` | the owner makes a share link, a learner opens it and has the course read only, the owner removes it, the course leaves the learner's list |
 | | `account.spec.ts` | change password (wrong current refused; the old one stops working), two-factor on and off with a code worked out from the setup key (wrong code refused), sign out and in, the language switch kept by the account, the home page and a lesson at 390 px |
+| | `connected-apps.spec.ts` | the owner turns *Let apps connect* on, makes a token on the profile (shown once, never again on the page), sees it on Manage Users with the tokens-issued count up by one, calls `list_courses` on `/mcp` with it from a client with no cookies (401 without it), revokes it (401) and turns the switch off (404) |
 | | `docs.spec.ts` | `/docs` and every page in its sidebar answer 200 as HTML and Markdown, nothing is wider than a phone, every in-app link they hold opens, `/llms.txt` and what it lists |
+| | `ai.spec.ts` | the AI workflows on a release server, through a simulator process ([below](#ai-on-a-release-server)): the owner saves the Anthropic key on Manage Users, a learner generates a course, passes a lesson's reading check and has the tutor answer, the owner uses Edit with AI on a lesson, the key is removed and the learner is told to ask the owner; the simulator's own call log shows each request. Skips itself without `E2E_AI_SIM_URL` |
 | `release-open` | the existing specs below | against a server with `SKRONGLE_SIGNUP=open` (they register their own accounts through `/register`) |
 
 The `release` project's `testMatch` is every spec in `specs/release` except
@@ -1041,3 +1130,19 @@ warning fails the job), runs `cargo test --features dev` and then
   shows, turn full debug info on for CI with
   `gh variable set CI_DEBUGINFO --body full`, rerun, and
   `gh variable delete CI_DEBUGINFO` afterwards.
+
+## The dev OAuth client
+
+`/dev/oauth-client` (dev builds only, `src/routes/dev/oauth_client.rs`,
+#169) is a public OAuth client in a page, so the OAuth flow can be tried
+with no vendor. **Connect** reads the discovery documents, registers
+*Dev test client* with `<issuer>/dev/oauth-client/callback` (once per tab),
+and opens the authorize address with PKCE; the callback checks `iss` and
+`state`, trades the code and calls `/api/v1/whoami`. **Refresh token**,
+**Use the old refresh token**, **Replay the code**, **Disconnect** and
+**Forget this client** do what they say; the old refresh token and the
+code replayed are each refused and disconnect the app (whoami then
+answers 401; **Connect** starts again). It needs `SKRONGLE_PUBLIC_URL`
+(`./.dev-start` and `scripts/e2e.sh` set it to the server's own address)
+and *Let apps connect* on Manage Users. On a base path:
+`SKRONGLE_BASE_PATH=/skrongle ./.dev-start --reset --seed --background`.

@@ -44,3 +44,26 @@ pub const MAX_CONNECTIONS: usize = 128;
 /// OS thread and a TLS connection for up to two minutes on a 512 MB Pi; a
 /// third call is refused with the busy message (`tutor::ALL_BUSY`).
 pub const MAX_TUTOR_CALLS: usize = 2;
+
+/// Connected apps one account keeps (#167): grants in `api_grants`, as for
+/// sessions. A fifth is refused with a message saying to revoke one.
+pub const MAX_GRANTS_PER_ACCOUNT: usize = 4;
+
+/// Rows `api_grants` holds for the whole server: one per grant that can exist.
+pub const MAX_API_GRANTS: usize = MAX_ACCOUNTS * MAX_GRANTS_PER_ACCOUNT;
+
+/// Rows `api_tokens` holds for the whole server: a personal token is one
+/// row; an app that signs in with OAuth holds an access and a refresh token
+/// and, after refreshing, the access token it replaced (working until its
+/// hour ends) and the refresh token it used (kept, marked used, so a reuse
+/// is noticed, #184): four rows, however often it refreshes.
+pub const MAX_API_TOKENS: usize = MAX_API_GRANTS * 4;
+
+/// Apps registered for OAuth sign-in (#169, `oauth_clients`): a new
+/// registration past it pushes out the oldest one with no grant. A
+/// registration nobody finished a grant for is purged after a day anyway.
+pub const MAX_OAUTH_CLIENTS: usize = 100;
+
+/// OAuth codes waiting to be traded at once (#169, `oauth_codes`): each
+/// lives ten minutes. Past it Allow says the server is busy.
+pub const MAX_OAUTH_CODES: usize = 200;
