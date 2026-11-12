@@ -15,6 +15,11 @@ numbers work is in the README, "Versions".
   make invitation links for its courses. Links it already made keep working
   and it can still remove them; opening someone else's link is open to
   every account.
+- The **Skip levels** permission now counts. An account without it starts
+  every course at the beginning: it is not asked *Where do you want to
+  start?*, has no level row behind the gear on a course's card and cannot
+  take the placement test. A level chosen earlier is kept; it just cannot be
+  moved.
 
 ## 0.3.0 (2026-11-11)
 

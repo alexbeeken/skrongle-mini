@@ -1122,6 +1122,12 @@ course without `levels`, or with fewer than two units that have lessons,
 never shows the level step. The dev login (`/dev/login?open=…`) opens a
 course without asking.
 
+Choosing a level needs the **Skip levels** permission
+([Permissions](#permissions), #146). Without it the course starts at the
+beginning: the settings view has no levels (`CourseSettings::for_account`),
+so the wizard is the motivator step alone, as for a course without levels,
+and a `start_unit` posted anyway is a 403.
+
 Starting at A2 does not pretend A1 was learnt. Nothing is passed and no
 score is given: the learner starts with zero points. The A1 lessons are
 **skipped** (`progress::is_skipped`): still open to read, but
@@ -1159,6 +1165,8 @@ another. **Show report card** opens a table of each tested level's right
 answers ("2 / 3"), green when all were right, yellow for some, red for
 none. **Take it again** draws a new sitting. Nothing is stored until the
 wizard is saved; the gear on `/courses` changes the level later as usual.
+The test needs the **Skip levels** permission (#146): without it the level
+step is not shown, so the test is not offered, and both routes answer 403.
 
 The rule: a level answered all right can be skipped; the first level with
 a wrong answer is the suggested start. With every answer right it is the
@@ -1181,6 +1189,14 @@ on `/courses` (the gear) shows the levels first, the current one chosen
 (`courses-settings-level`); saving another level changes it
 (`POST /courses/{id}/settings`, `start_unit`). That is the only place it
 changes (#587: no `/start` page, no picker on the lessons page). Only the course has to have levels (above).
+
+Changing level needs the **Skip levels** permission (#146). Without it the
+dialog has no level row and a save that carries another level than the
+stored one is a 403 (`may_change_level` in `src/routes/courses/settings.rs`);
+the motivator still saves. A level chosen before the permission was taken
+away is kept: `projects.start_unit` is not reset, the learner stays where
+they are and the lessons below stay skipped (and open to read). They just
+cannot move it, not even back to the beginning.
 
 Changing level moves the learner's position and nothing else:
 
@@ -1897,6 +1913,9 @@ invitation link; its links keep working and it can remove them
   account that is not an owner, except, for a superuser, their own. Rows
   that cannot be edited have no **Permissions** button, and the route
   refuses them with a red notice and changes nothing.
+- **Skip levels** is asked for (#146): without it an account is not offered
+  a starting level or the placement test and cannot change level; the level
+  it already has stays (see [Changing level](#changing-level)).
 - **The dialog** (`manage-permissions-dialog`, one for the page, filled from
   the row's `data-preset` and `data-perms` by `static/manage.js`): the
   account's address, the radios **Student**, **Teacher** (every row of

@@ -42,6 +42,21 @@ fn settings_change(content: &ContentStore, form: &SettingsForm) -> Result<course
     Ok(change)
 }
 
+/// Choosing a level needs the Skip levels permission (#146): a change that
+/// carries a level other than the one stored for the learner (the beginning,
+/// for a course they never opened) is refused for an account without it. The
+/// stored level sent back, or no level at all, passes, so the motivator of
+/// an account that lost the permission still saves and its level stays.
+async fn may_change_level(state: &AppState, user: &CurrentUser, content: &ContentStore, change: &courses::SettingsChange) -> Result<(), AppError> {
+    let Some(unit) = change.start_unit.clone() else { return Ok(()) };
+    if user.can(crate::perms::Perm::SkipLevels) {
+        return Ok(());
+    }
+    let (uid, cid) = (user.id, content.id().to_string());
+    let stored = state.db.call(move |c| Ok(courses::project(c, uid, &cid)?.map(|pr| pr.start_unit).unwrap_or_default())).await?;
+    if unit == stored { Ok(()) } else { Err(AppError::NoPermission) }
+}
+
 /// Save a checked settings change for a course the user opened; false when
 /// they never opened it. A new level moves where every mode resumes to its
 /// first lesson (#333); nothing is passed or scored, the lessons below it
@@ -68,10 +83,13 @@ async fn save_settings(state: &AppState, user_id: i64, content: &ContentStore, c
 /// from its dialog on the course list or the wizard of its first visit:
 /// the level and the motivator worn in it. A field left out keeps its value; any save, even of nothing
 /// (the wizard closed), counts the course as set up. A choice that is not
-/// one is a 400 (`settings_change`); a course they never opened a 404.
+/// one is a 400 (`settings_change`); a course they never opened a 404; a
+/// new level from an account that may not skip levels a 403
+/// (`may_change_level`).
 pub async fn set_settings(State(state): State<Arc<AppState>>, user: CurrentUser, Path(id): Path<String>, Form(form): Form<SettingsForm>) -> Result<Response, AppError> {
     let Some(content) = state.courses.get(&state.db, &id).await? else { return Err(AppError::NotFound) };
     let change = settings_change(&content, &form)?;
+    may_change_level(&state, &user, &content, &change).await?;
     if !save_settings(&state, user.id, &content, change).await? {
         return Err(AppError::NotFound);
     }
@@ -117,6 +135,10 @@ pub async fn open(
         return Ok(Redirect::to(&crate::url(&format!("/courses/{id}"))).into_response());
     };
     let change = if form.wizard == "1" { Some(settings_change(&content, &form)?) } else { None };
+    // Refused before the course is opened: a 403 opens nothing.
+    if let Some(change) = &change {
+        may_change_level(&state, &user, &content, change).await?;
+    }
     let then = match content.lessons().iter().find(|l| !form.lesson.is_empty() && l.slug == form.lesson) {
         Some(l) => format!("/lessons/{}", l.slug),
         None => "/".to_string(),
@@ -144,8 +166,10 @@ pub(in crate::routes) async fn open_for(state: &AppState, user: &CurrentUser, id
 }
 
 /// The course `id` for its placement test (#1106): one the user may open
-/// that loads and has a test on offer.
+/// that loads and has a test on offer. The test picks a level, so it needs
+/// the Skip levels permission (#146): a 403 without it.
 async fn placement_course(state: &AppState, user: &CurrentUser, id: &str) -> Result<Arc<ContentStore>, AppError> {
+    user.require(crate::perms::Perm::SkipLevels)?;
     if !accessible(state, user, id).await? {
         return Err(AppError::NotFound);
     }

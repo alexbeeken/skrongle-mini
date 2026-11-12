@@ -87,6 +87,18 @@ pub struct CourseSettings {
     pub translate_providers: Vec<ProviderChoice>,
 }
 
+impl CourseSettings {
+    /// The dialog as `user` may use it: an account without the Skip levels
+    /// permission is offered no level and no placement test (#146), so the
+    /// course's dialog and wizard are those of a course without levels.
+    pub(in crate::routes) fn for_account(&mut self, user: &CurrentUser) {
+        if !user.can(crate::perms::Perm::SkipLevels) {
+            self.levels.clear();
+            self.placement = false;
+        }
+    }
+}
+
 /// A motivator on a course's settings chips (#574).
 pub struct MotivatorView {
     pub id: &'static str,
@@ -502,6 +514,11 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
         let mut c = card(&content, false);
         c.shared_by = Some(s.owner.clone());
         shared_cards.push(with_wizard(settings_view(&fresh_for(content.id()), &content, true), c));
+    }
+    // Levels and the placement test only for an account that may skip levels (#146).
+    let (mut project_cards, mut builtin, mut my_cards, mut shared_cards) = (project_cards, builtin, my_cards, shared_cards);
+    for st in project_cards.iter_mut().chain(&mut builtin).chain(&mut my_cards).chain(&mut shared_cards).filter_map(|c| c.settings.as_mut()) {
+        st.for_account(&user);
     }
     Ok(Page(PickerTemplate { user: Some(user), can_create, projects: project_cards, builtin, mine: my_cards, shared: shared_cards, notice, generate, translate_providers }).into_response())
 }

@@ -370,6 +370,89 @@ fn notices_are_keys_not_text() {
     assert!(page.contains(r#"data-testid="course-edit-delete-form" data-confirm="Delete this course?"#), "{page}");
 }
 
+/// Skip levels (#146): without the permission no level and no placement
+/// test is offered, a level change and the test are a 403, and the motivator
+/// still saves; with it everything works; a level chosen while it was held
+/// stays when it is taken away, and cannot be moved.
+#[test]
+fn choosing_a_level_needs_the_skip_levels_permission() {
+    use crate::perms::{Perm, Perms};
+    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+    // The test course has levels and a placement test.
+    let with_test_course = Arc::new(crate::courses::Courses::load(std::path::Path::new("data"), true).unwrap());
+    let state = Arc::new(AppState { courses: with_test_course, ..Arc::into_inner(crate::routes::test_state(false)).unwrap() });
+    let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
+    let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
+    let id = "test-course";
+    let content = rt.block_on(state.courses.get(&state.db, id)).unwrap().unwrap();
+    let later = pages::level_options(&content, 0)[1].id.clone();
+    assert!(!later.is_empty() && crate::placement::offered(&content));
+    let app = crate::routes::router(state.clone());
+    let base = rt.block_on(async {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        tokio::spawn(async move { axum::serve(listener, app).await.unwrap() });
+        format!("http://{addr}")
+    });
+    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
+    let get = |path: &str| {
+        let mut r = agent.get(&format!("{base}{path}")).header("cookie", &cookie).call().unwrap();
+        (r.status().as_u16(), r.body_mut().read_to_string().unwrap())
+    };
+    let post = |path: &str, form: &[(&str, &str)]| agent.post(&format!("{base}{path}")).header("cookie", &cookie).send_form(form.iter().copied()).unwrap().status().as_u16();
+    let mark = || agent.post(&format!("{base}/courses/{id}/placement")).header("cookie", &cookie).send_json(json!({"answers": []})).unwrap().status().as_u16();
+    let project = || state.db.with(|c| crate::courses::project(c, ann, id)).unwrap();
+    let level = || project().unwrap().start_unit;
+    let allow = |on: bool| state.db.with(|c| crate::perms::set_custom(c, ann, Perms::STUDENT.with(Perm::SkipLevels, on))).unwrap();
+    let settings = format!("/courses/{id}/settings");
+    let (motivator, other) = (crate::motivators::ALL[1].id(), crate::motivators::ALL[0].id());
+    let level_card = r#"data-testid="courses-settings-level""#;
+
+    // A Student: the Start wizard offers no level and no test; a level posted by hand opens nothing.
+    allow(false);
+    let (status, page) = get("/courses");
+    assert_eq!(status, 200);
+    assert!(page.contains(r#"data-testid="courses-settings-motivator""#) && !page.contains(level_card) && !page.contains(r#"data-testid="placement"#), "{page}");
+    assert_eq!(post(&format!("/courses/open/{id}"), &[("wizard", "1"), ("start_unit", &later)]), 403);
+    assert!(project().is_none());
+    assert_eq!(post(&format!("/courses/open/{id}"), &[("wizard", "1"), ("motivator", motivator)]), 303);
+    assert_eq!((level(), project().unwrap().motivator.as_str()), (String::new(), motivator));
+    // Opened: the gear has no level row; a level change is refused, the motivator and the level they have are not.
+    assert!(!get("/courses").1.contains(level_card));
+    assert_eq!(post(&settings, &[("start_unit", &later)]), 403);
+    assert_eq!(level(), "");
+    assert_eq!(post(&settings, &[("motivator", other)]), 303);
+    assert_eq!(project().unwrap().motivator, other);
+    assert_eq!(post(&settings, &[("start_unit", ""), ("motivator", motivator)]), 303);
+    assert_eq!(get(&format!("/courses/{id}/placement")).0, 403);
+    assert_eq!(mark(), 403);
+    // The wizard on the home page of a course opened another way: no level step either.
+    assert_eq!(post("/courses/open/spanish", &[]), 303);
+    let (status, home) = get("/");
+    assert_eq!(status, 200);
+    assert!(home.contains(r#"data-testid="courses-settings-dialog""#) && !home.contains(level_card), "{home}");
+
+    // Skip levels (16): the level row, a saved level, the test.
+    allow(true);
+    assert_eq!(state.db.with(|c| c.query_row("SELECT perms FROM users WHERE id = ?1", [ann], |r| r.get::<_, i64>(0))).unwrap(), 16);
+    assert!(get("/courses").1.contains(level_card));
+    assert!(get("/").1.contains(level_card));
+    assert_eq!(post(&settings, &[("start_unit", &later)]), 303);
+    assert_eq!(level(), later);
+    assert_eq!(get(&format!("/courses/{id}/placement")).0, 200);
+    assert_eq!(mark(), 200);
+
+    // Taken away: the level stays, saving the motivator does not reset it, and it cannot be moved.
+    allow(false);
+    assert_eq!(level(), later);
+    assert!(!get("/courses").1.contains(level_card));
+    assert_eq!(post(&settings, &[("motivator", other)]), 303);
+    assert_eq!(post(&settings, &[("start_unit", &later), ("motivator", motivator)]), 303);
+    assert_eq!((level(), project().unwrap().motivator.as_str()), (later.clone(), motivator));
+    assert_eq!(post(&settings, &[("start_unit", "")]), 403);
+    assert_eq!(level(), later);
+}
+
 /// The Generate dialog's estimate (#443): lessons and time always, dollars
 /// for a priced model, and the same
 /// sum `Meter::estimate` reserves.
