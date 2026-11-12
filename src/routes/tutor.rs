@@ -61,7 +61,7 @@ pub struct TutorQuery {
 
 /// GET /tutor
 pub async fn page(State(state): State<Arc<AppState>>, p: Project, Query(q): Query<TutorQuery>) -> Result<Response, AppError> {
-    p.user.require_ai()?;
+    p.user.require_ai_tutor()?;
     let content = &p.course;
     let lesson = match q.lesson.as_deref() {
         Some(slug) => Some(content.lesson_by_slug(slug).ok_or(AppError::NotFound)?),
@@ -98,7 +98,7 @@ pub struct SessionQuery {
 
 /// GET /api/tutor/session?id=
 pub async fn session(State(state): State<Arc<AppState>>, p: Project, Query(q): Query<SessionQuery>) -> Result<Json<tutor::Snapshot>, AppError> {
-    p.user.require_ai_api()?;
+    p.user.require_ai_tutor_api()?;
     state
         .tutors
         .with(&q.id, p.user.id, p.course_id(), |s| s.snapshot())
@@ -134,7 +134,7 @@ pub async fn start(
     headers: axum::http::HeaderMap,
     Json(req): Json<StartRequest>,
 ) -> Result<Json<TurnResponse>, AppError> {
-    p.user.require_ai_api()?;
+    p.user.require_ai_tutor_api()?;
     let provider = Provider::parse(&req.provider).map(ai::ProviderKind::from_secret).ok_or_else(|| AppError::ApiBadRequest(crate::t("tutor.api.unknown_provider")))?;
     let lesson = if req.lesson.is_empty() {
         None
@@ -171,7 +171,7 @@ pub async fn turn(
     headers: axum::http::HeaderMap,
     Json(req): Json<TurnRequest>,
 ) -> Result<Json<TurnResponse>, AppError> {
-    p.user.require_ai_api()?;
+    p.user.require_ai_tutor_api()?;
     let text = req.text.trim().to_string();
     if text.chars().count() > tutor::MAX_MESSAGE_CHARS {
         return Err(AppError::ApiBadRequest(crate::t("tutor.api.message_too_long")));
@@ -193,7 +193,7 @@ pub async fn turn(
 /// `cancelled` is false when nothing was running; a 429 while a reply
 /// they cancelled before is still running.
 pub async fn cancel(p: Project) -> Result<Json<serde_json::Value>, AppError> {
-    p.user.require_ai_api()?;
+    p.user.require_ai_tutor_api()?;
     let cancelled = tutor::cancel(p.user.id).map_err(|_| AppError::ApiTooManyRequests(crate::t("tutor.api.already_cancelled")))?;
     Ok(Json(serde_json::json!({ "cancelled": cancelled })))
 }

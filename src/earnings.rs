@@ -290,6 +290,24 @@ pub fn streak(conn: &Connection, user_id: i64, course_id: &str, tz: i64, now: i6
     Ok(Ledger::load(conn, user_id, course_id, tz)?.streak_at(day_of(tz, now)))
 }
 
+/// The day streak as the ledger has it on record, for someone else looking
+/// (the progress page on Manage Users, #147): nothing is added up from the
+/// history and nothing is written, so a learner without a row has none.
+/// `tz` is the viewer's offset, which decides what "today" is. The ledger's
+/// days are the learner's, whose offset may be ahead of the viewer's: a
+/// streak that ends on the viewer's tomorrow is current too.
+pub fn streak_on_record(conn: &Connection, user_id: i64, course_id: &str, tz: i64, now: i64) -> rusqlite::Result<i64> {
+    let row: Option<(Option<i64>, i64)> = conn
+        .prepare_cached("SELECT day, streak FROM earnings WHERE user_id = ?1 AND course_id = ?2")?
+        .query_row(params![user_id, course_id], |r| Ok((r.get(0)?, r.get(1)?)))
+        .optional()?;
+    let today = day_of(tz, now);
+    Ok(match row {
+        Some((Some(day), streak)) if (today - 1..=today + 1).contains(&day) => streak,
+        _ => 0,
+    })
+}
+
 /// A learner's ledger from their history: the one time the whole log is
 /// read, for a learner from before #589 (nothing, for a new one). Points
 /// and goals come from `activity_log`; the days active, and so the streak,

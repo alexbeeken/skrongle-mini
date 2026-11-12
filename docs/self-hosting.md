@@ -424,8 +424,14 @@ An account you give **Superuser** gets **Manage Users** in its menu and sees
 the accounts there, to set other people's permissions; it never sees the
 invitation links, the AI keys or the three actions above, and it cannot
 change an owner's permissions or its own. Owners always have every
-permission. For now the permissions are only stored and shown: apart from
-Superuser, they do not yet limit what an account can do.
+permission. An account without a permission is not shown that feature and
+is refused if it asks for it anyway.
+
+For a whole class, tick the box at the start of each account's row (or the
+one in the table's heading for all of them), choose a preset in the bar that
+appears above the table and click **Apply to selected**. After you confirm,
+every ticked account gets that preset; the page says how many were changed.
+Owners and your own account have no box and are never changed this way.
 
 ### If you lock yourself out
 
@@ -459,7 +465,10 @@ billed to you, and nobody else sees them. To use a model you run yourself,
 give the *Ollama* row your server's base URL (`http://192.168.1.20:11434`,
 any OpenAI-compatible server) and the model it runs (`llama3.1`); it needs
 no key, and a Pi Zero 2 W is far too small to run one itself. The same section has *Hide AI features for everyone*, which takes
-the AI features away from every account. The secret key encrypts saved
+the AI features away from every account. With it off, each account has the AI
+its permissions give it: *Use the AI tutor* and *Use AI in courses*, set per
+account in the *Permissions* dialog on the same page (an account that does not
+see the tutor lacks the first one). The secret key encrypts saved
 keys, so a database without its `.key` file can't use them.
 
 ## Reaching it from outside

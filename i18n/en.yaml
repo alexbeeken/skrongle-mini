@@ -331,6 +331,8 @@ profile:
     password_mismatch: The new passwords do not match.
     turn_off: Turn two-factor sign-in off
     turn_on: "Turn on two-factor sign-in with an authenticator app"
+  progress_visible: "The people who manage this server can see which courses you study and how many lessons you have passed."
+  progress_private: "Your study progress is private: the people who manage this server cannot see it."
 manage:
   title: Manage Users
   about: "Actions on any account. Owners see all of this page; superusers see the accounts and set their permissions."
@@ -370,7 +372,32 @@ manage:
   permissions_done: "Permissions saved for {email}."
   permissions_owner: "An owner's permissions cannot be changed: owners may do everything."
   permissions_self: "You cannot change your own permissions."
+  bulk_select: "Select {email}"
+  bulk_select_all: "Select all accounts"
+  bulk_preset: "Preset to give"
+  bulk_apply: "Apply to selected"
+  bulk_about: "Each account's own set of permissions is replaced by the preset's. Owners and your own account are never changed."
+  bulk_confirm: "Give the preset"
+  bulk_none: "Select at least one account first."
+  bulk_done:
+    one: "\"{preset}\" given to {n} account."
+    other: "\"{preset}\" given to {n} accounts."
+  bulk_skipped:
+    one: "{n} was left as it is (owners and your own account cannot be changed)."
+    other: "{n} were left as they are (owners and your own account cannot be changed)."
   permissions_ai_hidden: "AI features are hidden for everyone on this server."
+  permissions_save_as: "Save as a preset (optional)"
+  permissions_save_as_help: "Give this set a name to reuse it for other accounts. Leave empty to save it for this account only."
+  presets: "Saved presets"
+  preset_name: "Name"
+  preset_no_perms: "No permissions"
+  preset_delete: "Delete"
+  preset_delete_title: "Delete this preset?"
+  preset_delete_about: "Accounts that have this preset keep their permissions and show as Custom."
+  preset_deleted: "Preset deleted."
+  preset_name_taken: "A preset with that name already exists."
+  preset_too_many: "This server already has {max} saved presets. Delete one first."
+  preset_bad_name: "A preset's name is 1 to {max} characters, with no line breaks or other control characters."
   api_keys:
     title: AI API keys
     info_text: "Every account's AI features use these keys, billed to the account each key belongs to. Keys are encrypted before they are stored and are never shown again; only the last four characters stay visible so you can tell which key is on file. Only owners see them."
@@ -398,6 +425,12 @@ manage:
     key_on_file: "✓ Set"
     ends_in: "ends in"
     paste_new_key: "Paste a new key to replace it"
+    bulk_selected:
+      one: "{n} selected"
+      other: "{n} selected"
+    bulk_confirm:
+      one: "Give \"{preset}\" to {n} account?"
+      other: "Give \"{preset}\" to {n} accounts?"
     perm_on: "Allowed"
     perm_off: "Not allowed"
   ai:
@@ -409,6 +442,19 @@ manage:
     off: "Off"
     hidden_notice: "AI features are hidden for every account."
     shown_notice: "AI features are shown again for every account."
+  progress: "Progress"
+  private: "Private"
+  progress_title: "Study progress"
+  progress_course: "Course"
+  progress_passed: "Lessons passed"
+  progress_of: "{n} of {total}"
+  progress_last_studied: "Last studied"
+  progress_never: "never"
+  progress_streak: "Streak"
+  progress_streak_one: "1 day"
+  progress_streak_days: "{n} days"
+  progress_none: "This account has not opened a course yet."
+  progress_about: "Counts and dates only. An owner, and an account with the Privacy permission, has no page here."
 
 landing:
   title: Learn anything from a folder of JSON files
@@ -1756,6 +1802,7 @@ courses:
     lead_anon: Pick a ready-made course. Each course keeps its own progress, vocabulary, games and history.
     lead_ai_off: Pick a ready-made course or write your own. Each course keeps its own progress, vocabulary, games and history.
     lead_ai: Pick a ready-made course, write your own, or describe what you want and let an AI write the course for you. Each course keeps its own progress, vocabulary, games and history.
+    lead_learn_only: Pick a course to learn from. Each course keeps its own progress, vocabulary, games and history.
     projects_heading: Your projects
     tag_current: current
     tag_revising: revising
@@ -2469,6 +2516,7 @@ courses:
     too_many_course: "A course can have up to {max} invitation links. Remove one first."
     removed_notice: "Link removed. Whoever opened it no longer has the course."
     not_on_list: That link was not on the list.
+    not_allowed: "Your account cannot make new invitation links. Links you already made keep working until you remove them."
     link_taken: Another account has already used this link. Ask the course's owner for a link of your own.
     link_gone: This link no longer works. Ask the course's owner for a new one.
     not_ready: That course is not ready to open yet. Ask its owner, and try the link again later.

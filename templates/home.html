@@ -79,7 +79,7 @@
     {% endif %}
   </article>
 
-  {% if let Some(u) = user %}{% if !u.ai_off %}
+  {% if let Some(u) = user %}{% if u.ai_tutor() %}
   <article class="mode-card ai" data-testid="home-mode" data-mode="ai">
     <div class="mode-top">
       <a class="mode-head" href="{{ crate::base_path() }}/tutor" data-testid="home-ai-open" aria-label="{{ crate::t("home.open_ai") }}">
@@ -136,7 +136,7 @@
   <p>{{ crate::t("home.info_guide_p") }}</p>
   <div class="modal-actions"><button type="button" class="btn" commandfor="home-info-guide" command="close" data-closes data-testid="home-info-close">{{ crate::t("home.ok") }}</button></div>
 </dialog>
-{% if let Some(u) = user %}{% if !u.ai_off %}
+{% if let Some(u) = user %}{% if u.ai_tutor() %}
 <dialog class="modal" id="home-info-ai" aria-labelledby="home-info-ai-title" data-testid="home-info-ai-dialog">
   <h2 id="home-info-ai-title">{{ course.icons.mode_ai }} {{ crate::t("home.ai") }}</h2>
   <p>{{ crate::t("home.info_ai_p") }}</p>

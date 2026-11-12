@@ -4,6 +4,46 @@ What changed in each release, for the person running the server. Newest
 first. Each release's GitHub notes are its section here. How version
 numbers work is in the README, "Versions".
 
+## Unreleased
+
+- The **Create courses** permission now counts: an account without it (a
+  Student, for example) has no *Create a course*, *Copy* or *Copy and
+  translate* on its course list, and those actions are refused. It still
+  learns from built-in and shared courses, and courses it already made stay
+  its own to open and edit.
+- The **Share courses** permission now counts: an account without it cannot
+  make invitation links for its courses. Links it already made keep working
+  and it can still remove them; opening someone else's link is open to
+  every account.
+- The **Skip levels** permission now counts. An account without it starts
+  every course at the beginning: it is not asked *Where do you want to
+  start?*, has no level row behind the gear on a course's card and cannot
+  take the placement test. A level chosen earlier is kept; it just cannot be
+  moved.
+- AI is now per account. **Use the AI tutor** decides who sees and may open
+  the tutor; **Use AI in courses** decides who may generate a course, use
+  *Use AI* in the editor and *Copy and translate*. An account without one
+  is not shown that feature, and its pages answer "Your account is not
+  allowed to do this". *Hide AI features for everyone* still turns AI off
+  for every account, whatever their permissions.
+- Manage Users: tick several accounts (or all of them with the box in the
+  table's heading), choose a preset and click **Apply to selected** to give
+  it to all of them in one step, after a confirmation. The page says how
+  many accounts were changed; owners and your own account are never changed
+  this way.
+- Manage Users has a **Progress** link on each account's row: the courses
+  the account studies, how many lessons it has passed, when it last studied
+  and its streak, for you and for superusers. An account with the
+  **Privacy** permission (a Teacher has it, a Student does not) shows
+  *Private* instead, has no progress page, and a superuser does not see its
+  last sign-in. Owners are always private. Each account's profile says, in
+  *Who sees what*, whether its progress is visible.
+- In the Permissions dialog, a **Custom** set can be given a name (**Save as
+  a preset**): it is then offered for every account, next to Student and
+  Teacher. A server keeps up to 20 saved presets; they are listed under the
+  accounts on Manage Users, each with **Delete**. Deleting one changes
+  nobody's permissions: the accounts that had it show as Custom.
+
 ## 0.3.0 (2026-11-11)
 
 Room for a class, a tutorial course, and fixes for the DietPi installer.

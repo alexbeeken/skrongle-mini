@@ -61,12 +61,12 @@ to the new ones with their query strings, so old bookmarks still work.
 | Starting level | The course's settings: the level step at the end of its start wizard, then the gear on `/courses` | A course whose units are `levels` asks a learner who opens it for the first time which level to start at; the lessons below it are skipped; the level can be changed later without losing progress (see [Starting level](#starting-level)) | `levels`, units |
 | Home | `/` | Today's goal as a ring with the streak, lessons passed and terms collected, *Continue* where you left off, the current unit's progress, a "Words due" card on days collected words are due (#1360: the count, three of the words, an (i) with the ladder, and *Review N words*, which opens `/vocabulary/study?due=1`), then the four modes (Sprint, Study, Play, Guide) and AI tutoring, with one stat and one button each and an (i) explaining each | everything |
 | Landing | `/` (no session) | The sales page for visitors: what the app is, a twenty-second sample of each mode to play in place (Sprint, Study, Play and Guide tabs, each in Language, Maths and Music, each subject with its own kinds of question: listening and a typed word with accent near misses; shading a fraction, a number line, plotting a point, a formula graded by equivalence, graphs as options and pairs; a staff to read and to place a note on, a keyboard, intervals and chords played by a small synth. Several preview question types still in issues and PRs (#1218–#1234, #1330–#1359). `static/landing.js` holds the samples, `static/landing-kit.js` the drawing and sound; #1365), a lesson file next to the features it switches on, the three ways to get a course, the built-in courses with their unit and lesson counts, "What can I do with it?" (use cases), register / log in | manifests |
-| Lessons | `/lessons`, `/lessons/{slug}` | One unit at a time (#837): a tab per unit with its passed count and bar, 12 lessons a page with page links (`?unit=<id>&page=<n>`; without `?page=` the page holding the next lesson to do, without `?unit=` the unit holding it; `?unit=all` lists every unit on one page). A filter box searches every unit (every word typed must appear in a lesson's title, group or summary; a search that finds nothing says so; without script it is `?q=`); under the box, *Look up "…" in the words* opens `/lookup?q=` (#348): the words of the whole course whose term or meaning has a word starting with each word typed (accents and case ignored), and the forms of its paradigm tables (a form names its item, set and slots, and a form two verbs share is listed for both), at most 20, exact terms first; each with its meaning, the lessons that teach it (linked), *Collected* with the flashcard tally when you have it, and a 🔊 in a language course; a quiet header (#999): the breadcrumb with a small mastery ring, the status pills and an (i) on one line, then the title, the summary and one main button (I've read it, quiz me until the lesson is seen, then Practise; a lesson without `quiz` questions has no mastery ring, no Practise and no Test yourself, and its button just says I've read it, #1197) beside a "More ways" menu (Practise before the lesson is seen, Listen and type when the lesson has listening, Tutor when AI is on, the Guide, a Sprint session). The (i) opens the mastery details, the focus and question counts and the pass rule; the footer has its button and the same (i); the lesson text (read as a page), vocabulary table (hover a term for its meaning, an example for its translation), paradigm tables, conversations (#989: each one as two characters talking, the role's name over its line, A on the left and B on the right; each line is a button, and tapping it reads the line aloud in the course's language (when the audio switch is on and there is a voice) and shows its meaning under it, which a second tap hides again (#1264); without JavaScript the meanings show from the start), a "My note" box (#336: the learner's own private note on the lesson, plain text up to 500 characters, saved as they type; its (i) says who can see it), and the two-question reading check that marks the lesson as read (once passed, its result offers *Recommended practice*, *Next lesson*, which opens the lesson the pager names as next and is left out on the last lesson, and *Back to the lessons*) | `content`, `vocabulary` (`example_meaning` for the hover hint), `conjugations`, `conversations`, `quiz` |
+| Lessons | `/lessons`, `/lessons/{slug}` | One unit at a time (#837): a tab per unit with its passed count and bar, 12 lessons a page with page links (`?unit=<id>&page=<n>`; without `?page=` the page holding the next lesson to do, without `?unit=` the unit holding it; `?unit=all` lists every unit on one page). A filter box searches every unit (every word typed must appear in a lesson's title, group or summary; a search that finds nothing says so; without script it is `?q=`); under the box, *Look up "…" in the words* opens `/lookup?q=` (#348): the words of the whole course whose term or meaning has a word starting with each word typed (accents and case ignored), and the forms of its paradigm tables (a form names its item, set and slots, and a form two verbs share is listed for both), at most 20, exact terms first; each with its meaning, the lessons that teach it (linked), *Collected* with the flashcard tally when you have it, and a 🔊 in a language course; a quiet header (#999): the breadcrumb with a small mastery ring, the status pills and an (i) on one line, then the title, the summary and one main button (I've read it, quiz me until the lesson is seen, then Practise; a lesson without `quiz` questions has no mastery ring, no Practise and no Test yourself, and its button just says I've read it, #1197) beside a "More ways" menu (Practise before the lesson is seen, Listen and type when the lesson has listening, Tutor when AI is on and the account may use the AI tutor, the Guide, a Sprint session). The (i) opens the mastery details, the focus and question counts and the pass rule; the footer has its button and the same (i); the lesson text (read as a page), vocabulary table (hover a term for its meaning, an example for its translation), paradigm tables, conversations (#989: each one as two characters talking, the role's name over its line, A on the left and B on the right; each line is a button, and tapping it reads the line aloud in the course's language (when the audio switch is on and there is a voice) and shows its meaning under it, which a second tap hides again (#1264); without JavaScript the meanings show from the start), a "My note" box (#336: the learner's own private note on the lesson, plain text up to 500 characters, saved as they type; its (i) says who can see it), and the two-question reading check that marks the lesson as read (once passed, its result offers *Recommended practice*, *Next lesson*, which opens the lesson the pager names as next and is left out on the last lesson, and *Back to the lessons*) | `content`, `vocabulary` (`example_meaning` for the hover hint), `conjugations`, `conversations`, `quiz` |
 | Quizzes | `/practice`, `/practice?lesson=` | Adaptive micro-quizzes: 5–10 questions from the lessons you have read, weighted towards weak topics; or one lesson on request (a lesson with no questions, reached by its URL, says so and links back to the lesson and its Sprint session) | `quiz` |
 | Listening | `/listening`, `/listening/play?lesson=` | Hear a sentence, type it, see it checked word by word; one lesson or a mixed round | `listening` |
 | Guide | `/guide`, `/guide/{slug}` | The short-attention-span version: each lesson as a stage of small steps (cards, quick checks, flashcards, tips); stars | `content`, `quiz`, `vocabulary`, `guide` |
 | Sprint mode | `/sprint`, `/sprint/play` | Phone-first five-minute sessions of short exercises: bites, sort / spot / build / ladder / scale / pick / match exercises (a sort judges each tap at once, a ladder or a scale is graded only at Check), five listening exercises (tap what you hear, fill in what you hear, what do you hear, select the matching audio, listen and match), an audio switch, streaks, daily goal, lightning round | `sprint`, `quiz`, `vocabulary`, `conjugations`, `conversations`, `listening` |
-| AI tutoring | `/tutor`, `/tutor?lesson=` | A one-to-one tutor over chat: teaches the lesson, checks you follow, sets the adaptive quiz's questions when it judges you ready, and reacts to the app's grading; you answer in the chat (typed or a tapped choice) and can ask anything in between; needs an API key on the server (the owner adds it on Manage Users); at most two tutor replies run at once on the server, and a third learner gets the busy message and tries again | `content`, `vocabulary`, `quiz` |
+| AI tutoring | `/tutor`, `/tutor?lesson=` | A one-to-one tutor over chat: teaches the lesson, checks you follow, sets the adaptive quiz's questions when it judges you ready, and reacts to the app's grading; you answer in the chat (typed or a tapped choice) and can ask anything in between; needs an API key on the server (the owner adds it on Manage Users) and, for the account, the permission *Use the AI tutor*; at most two tutor replies run at once on the server, and a third learner gets the busy message and tries again | `content`, `vocabulary`, `quiz` |
 | Play | `/play` (also `/g`) | The Play mode hub: Word Match (timed pairs, shared leaderboard), the paradigm drill (type the form for a picture), Numbers by ear (hear a number, type the digits), Date Dash, plus links to flashcards and the Guide | `vocabulary`, `conjugations`, `terms.lang`, `calendar` |
 | Map | `/map` | Every lesson of every unit in order with your mastery; how far you are from mastering the unit; one "you are here" on the whole map, at the lesson every mode resumes at ([where you left off](progress)) | units, mastery |
 | Vocabulary | `/vocabulary`, `/vocabulary/study` | Terms collected by answering questions, studied as flashcards with per-term review stats. Each word has a review schedule (#1360, `src/vocab.rs`): a new word is due tomorrow; *Knew it* on a due word moves it up the ladder of 1, 3, 7, 16, 35, 75, then 150 days; *Didn't know* drops it back to 1 day. A review before the word is due counts in the stats but doesn't move it (a miss still drops it). Only flashcards and Sprint's word exercises move it; Sprint's review mix deals due words first. "Due today" is by the end of the learner's day. `?due=1` deals the due words, longest overdue first, at most 20; a missed card comes back once at the end, and the summary says how many come back tomorrow and when the next words are due. Passes don't change; each card gives 0.3 effort points | `vocabulary`, `quiz[].teaches` |
@@ -78,7 +78,9 @@ to the new ones with their query strings, so old bookmarks still work.
 
 ## Your own courses
 
-Anyone can make a course, and it is theirs alone: a course made in the app
+An account with the **Create courses** permission ([Permissions](#permissions);
+every account has it unless someone took it away, and an owner always does)
+can make a course, and it is theirs alone: a course made in the app
 lives in the database as the same JSON files a built-in course has
 (`courses` + `course_files`), and only its owner sees it, opens it or
 changes it (anyone else gets a 404), unless the owner shares it (below).
@@ -90,6 +92,14 @@ like Spanish: the three modes, the tutor, mastery, passes, streaks, the daily go
 history. The language-only games (Listening, Numbers by ear,
 tap to hear, the listening exercises of Sprint mode) appear only when its
 manifest says it is a language course.
+
+Without **Create courses** (#143) the course list has no **Create a
+course** block (the whole `courses-make-section` is left out) and its lead
+says only *Pick a course to learn from.* (`courses.picker.lead_learn_only`);
+`POST /courses/new` answers the 403 page (`AppError::NoPermission`). The
+account still learns from built-in courses and from courses shared with it,
+and a course it already owns stays on its list, opens in the editor, saves,
+exports and deletes as before: only making a new one is refused.
 
 One button on the course list, **Create a course** (`POST /courses/new`),
 makes a starter course called *Untitled course* (one example lesson, the
@@ -794,6 +804,16 @@ has none), *not opened yet* or *opened by <name>* (the account's name, or
 its address), and a *Remove* button (`course-share-remove`, by the row's
 id).
 
+Making a link needs the **Share courses** permission
+(`Perm::ShareCourses`, #144; see [Permissions](#permissions)):
+`POST /courses/{id}/share` answers 403 without it. An account without it
+has no Share button on a course that has no links. On a course that has
+links the button stays, and the dialog lists them with *Remove* but has no
+form: in its place one line (`course-share-not-allowed`) says the account
+cannot make new links and the ones it made keep working until removed.
+Removing a link and opening one never ask for a permission: a Student
+gets a course by opening a link.
+
 Who may open a shared course: only the account that opened one of its
 links. The link is the only way in (#10): the first account to open it
 keeps it, and every other account that opens it later is turned away to
@@ -856,10 +876,16 @@ account's bytes), checked in the same `Db::call` that stores it. Over a
 limit nothing is made and the course list says which limit (`?notice=`
 `course-count-<n>`, `copy-too-big-<bytes>` or `copy-no-room-<bytes>`).
 
+A copy is a new course, so it needs the **Create courses** permission
+(#143): without it no settings dialog has the copy icon (`picker.rs` sets
+`copyable` to false) and the route answers 403, for a built-in course and
+for one of the account's own.
+
 ### Copying and translating a course
 
 **Copy and translate to…**, an icon left of the copy icon in the same
-settings dialogs (not with AI off), opens a dialog of its own: the language to translate into, the AI
+settings dialogs (not with AI off, and not without the **Create courses**
+permission, #143: no icon, and `POST /courses/{id}/translate` answers 403), opens a dialog of its own: the language to translate into, the AI
 to use (when there is more than one: the server's keys, as
 Generate offers them) and **Start**; what gets translated is behind its
 (i). The languages are the app's own (`i18n/*.yaml`, each in its own
@@ -1096,6 +1122,12 @@ course without `levels`, or with fewer than two units that have lessons,
 never shows the level step. The dev login (`/dev/login?open=…`) opens a
 course without asking.
 
+Choosing a level needs the **Skip levels** permission
+([Permissions](#permissions), #146). Without it the course starts at the
+beginning: the settings view has no levels (`CourseSettings::for_account`),
+so the wizard is the motivator step alone, as for a course without levels,
+and a `start_unit` posted anyway is a 403.
+
 Starting at A2 does not pretend A1 was learnt. Nothing is passed and no
 score is given: the learner starts with zero points. The A1 lessons are
 **skipped** (`progress::is_skipped`): still open to read, but
@@ -1133,6 +1165,8 @@ another. **Show report card** opens a table of each tested level's right
 answers ("2 / 3"), green when all were right, yellow for some, red for
 none. **Take it again** draws a new sitting. Nothing is stored until the
 wizard is saved; the gear on `/courses` changes the level later as usual.
+The test needs the **Skip levels** permission (#146): without it the level
+step is not shown, so the test is not offered, and both routes answer 403.
 
 The rule: a level answered all right can be skipped; the first level with
 a wrong answer is the suggested start. With every answer right it is the
@@ -1155,6 +1189,14 @@ on `/courses` (the gear) shows the levels first, the current one chosen
 (`courses-settings-level`); saving another level changes it
 (`POST /courses/{id}/settings`, `start_unit`). That is the only place it
 changes (#587: no `/start` page, no picker on the lessons page). Only the course has to have levels (above).
+
+Changing level needs the **Skip levels** permission (#146). Without it the
+dialog has no level row and a save that carries another level than the
+stored one is a 403 (`may_change_level` in `src/routes/courses/settings.rs`);
+the motivator still saves. A level chosen before the permission was taken
+away is kept: `projects.start_unit` is not reset, the learner stays where
+they are and the lessons below stay skipped (and open to read). They just
+cannot move it, not even back to the beginning.
 
 Changing level moves the learner's position and nothing else:
 
@@ -1697,7 +1739,8 @@ keys). The password dialog keeps its explicit buttons. The page needs JavaScript
   `superuser` permission that is not an owner (#139) gets the link and the
   page too, with the title, the notices and the **Accounts** card only (no
   invitation card, no AI card, none of the three owner's actions below),
-  and of the page's forms only `POST /manage/permissions`. For anyone else the menu has
+  and of the page's forms only `POST /manage/permissions` and, for a saved
+  preset, `POST /manage/presets/delete` (#140). For anyone else the menu has
   no link, and the page and its forms answer 404 (`src/routes/manage.rs`,
   `CurrentUser::manages_users`).
   - **Accounts** (#634, `src/signup.rs`): the (i) says which sign-up mode
@@ -1710,7 +1753,9 @@ keys). The password dialog keeps its explicit buttons. The page needs JavaScript
     invitations are listed (made, expires) with **Revoke**
     (`POST /manage/invites/revoke`). Below, every account, newest
     first, all on one page (the server holds at most 50): e-mail address, created, last sign-in
-    (the newest session on record; sessions last 30 days), **Permissions**
+    (the newest session on record; sessions last 30 days; a superuser gets
+    an empty cell for owners and for accounts with Privacy, see
+    [Permissions](#permissions)), **Permissions**
     (*Owner*, the preset's name, or *Custom*; the row's **Permissions**
     button opens the dialog described under [Permissions](#permissions)), and the
     actions per row, each opening a dialog with the address, what it does
@@ -1750,13 +1795,19 @@ keys). The password dialog keeps its explicit buttons. The page needs JavaScript
       page or tutor links on a lesson, no *Generate with AI* card, *Resume*
       or *Watch* on the course picker, no *Use AI* form or resume button on
       the course editor, no *Translate*. Their routes refuse too:
-      `CurrentUser::require_ai` answers a page request with a 403 page that
-      says the AI features are off on this server, `require_ai_api` a JSON
-      route with 403. Tutor conversations under way end. The keys stay, for
-      when they are shown again; off (the default) shows them again. The
-      session query reads the setting into `CurrentUser::ai_off`, and the
-      session cache watches the table, so the next request of every account
-      sees the change.
+      `CurrentUser::require_ai_courses` / `require_ai_tutor` answer a page
+      request with a 403 page that says the AI features are off on this
+      server, the `…_api` forms a JSON route with 403. Tutor conversations
+      under way end. The keys stay, for when they are shown again; off (the
+      default) shows them again. The session query reads the setting into
+      `CurrentUser::ai_off`, and the session cache watches the table, so
+      the next request of every account sees the change.
+    - **With the switch off, AI is per account** (#145): an account sees
+      and may use the tutor only with the permission **Use the AI tutor**,
+      and Generate the course, Use AI, Review AI changes and Copy and
+      translate only with **Use AI in courses** (the Permissions dialog,
+      below). The switch wins: on, nobody has AI, whatever their
+      permissions.
     - **AI API keys**: one key each for Claude (Anthropic), OpenAI, Google
       (Gemini), DeepSeek, Mistral, xAI (Grok) and OpenRouter, and for an
       Ollama-compatible server its base URL and model instead (#24), used
@@ -1846,9 +1897,13 @@ stored as one integer, `users.perms`, one bit each:
 | `superuser` | 64 | Superuser | | See the accounts on Manage Users, set permissions and presets, see learners' progress |
 
 A permission whose needed one is off counts as off, and a set is always
-stored that way (`Perms::normalized`). So far the permissions are stored and
-edited; except for `superuser` opening Manage Users, the features do not ask
-for them yet (the other issues of #137 do that).
+stored that way (`Perms::normalized`). Each feature asks for its permission
+(#143 to #147): an account without it is not shown the feature, and the
+feature's routes refuse it.
+
+`share_courses` is asked for (#144): without it an account makes no new
+invitation link; its links keep working and it can remove them
+([Sharing a course](#sharing-a-course)).
 
 - **Presets**: **Student** is no permission (0), **Teacher** the first six
   (63, not `superuser`); both are rows of `permission_presets`
@@ -1860,10 +1915,16 @@ for them yet (the other issues of #137 do that).
   with the `superuser` permission, and it sees only the accounts on Manage
   Users. Invitation links, temporary passwords, two-factor off, Make owner,
   the AI keys and "Hide AI features" stay the owner's.
+- **Create courses** is asked for (#143): without it the course list offers
+  no Create a course, Copy or Copy and translate, and their three routes
+  answer 403 (see [Your own courses](#your-own-courses)).
 - **Who may edit whom**: an owner or a superuser sets the permissions of any
   account that is not an owner, except, for a superuser, their own. Rows
   that cannot be edited have no **Permissions** button, and the route
   refuses them with a red notice and changes nothing.
+- **Skip levels** is asked for (#146): without it an account is not offered
+  a starting level or the placement test and cannot change level; the level
+  it already has stays (see [Changing level](#changing-level)).
 - **The dialog** (`manage-permissions-dialog`, one for the page, filled from
   the row's `data-preset` and `data-perms` by `static/manage.js`): the
   account's address, the radios **Student**, **Teacher** (every row of
@@ -1876,6 +1937,21 @@ for them yet (the other issues of #137 do that).
   greyed out and off (`data-needs`, from `Perm::needs`). While "Hide AI
   features for everyone" is on, the two AI permissions say that AI features
   are hidden for everyone on this server (that switch wins).
+- **The two AI permissions** (#145) are asked through
+  `CurrentUser::ai_courses()` / `ai_tutor()` (pages: what is not allowed is
+  not shown) and `require_ai_courses` / `require_ai_tutor` and their `_api`
+  forms (routes), which check the "Hide AI features" switch first
+  (`AppError::AiOff`, "turned off on this server") and then the permission
+  (`AppError::NoPermission`, "Your account is not allowed to do this").
+  **Use the AI tutor**: the AI tutoring card and its (i) on the home page,
+  *Tutor me* on a lesson, `/tutor` and `/api/tutor/*`. **Use AI in
+  courses**: the Generate dialog and *Use AI* in the editor, *Watch*,
+  *Resume* and *Retry* on a course card, the translate control, the
+  wording on `/courses` that offers AI, and `POST
+  /courses/{id}/generate|ai|review|translate`, `/courses/generate/{job}`
+  and `/api/generate/{job}`. Each works without the other; a tutor chat
+  under way when the permission is taken away is refused at its next
+  request.
 - **`POST /manage/permissions`** (`email`, `preset` = a preset's id or
   `custom`, `perm_<id>` for each permission that is on; an owner or a
   superuser, 404 otherwise): a preset is copied onto the account
@@ -1885,6 +1961,90 @@ for them yet (the other issues of #137 do that).
   (`perms::set_custom`). It writes one `info` log line and comes back to the
   page with "Permissions saved for …". The change reaches the account at its
   next request.
+- **Several accounts at once** (#141, `src/routes/manage/bulk.rs`): the
+  accounts table is one form (`manage-bulk-form`). Its first column has a
+  checkbox on every row the viewer may edit (`manage-account-select`,
+  `name="email"`; none on an owner's row, on one's own, or on a row without
+  an address), and the header's checkbox (`manage-account-select-all`) ticks
+  or unticks them all and shows the mixed state while only some are ticked.
+  While a row is ticked a bar above the table (`manage-bulk-bar`, hidden by
+  `static/manage.js`; without script it is always there) says *N selected*
+  and offers every preset in a list (`manage-bulk-preset`: Student, Teacher,
+  then the saved ones; no Custom) and **Apply to selected**, which opens a
+  dialog (`manage-bulk-dialog`) asking *Give "Teacher" to 12 accounts?*
+  before the form is sent. The row buttons only open dialogs, and every
+  dialog's form is outside the table's, so no form holds another.
+  **`POST /manage/permissions/bulk`** (`email` once per ticked account,
+  `preset` = a preset's id; an owner or a superuser, 404 otherwise) copies
+  the preset onto each account named, in one transaction. The server decides
+  who is skipped: an owner, the signed-in account and an address nobody has
+  are left as they are and counted. No address comes back with "Select at
+  least one account first."; a preset that does not exist is a 400 and
+  changes nothing. It writes one `info` log line (who, the preset's id, both
+  counts) and comes back to `/manage?did=bulk&n=…&skipped=…&preset=…`,
+  where the page says *"Teacher" given to 12 accounts.* and, when some were
+  skipped, *2 were left as they are (owners and your own account cannot be
+  changed).*
+- **Learners' progress** (#147, `src/routes/manage/progress.rs`,
+  `templates/manage_progress.html`): each row of Manage Users has a
+  **Progress** link (`manage-account-progress`) to
+  `GET /manage/progress?email=<address>`, for an owner or a superuser (404
+  for anyone else). The page shows the account's address and name, then
+  one row per course it has opened, most recently opened first
+  (`manage-progress-course[data-course]`): the course's title (its id when
+  the course no longer exists), **Lessons passed** ("12 of 48", from
+  `lesson_passes` through `progress::passed_by_course`, the rule in
+  [Progress](progress); a course somebody made shows the count alone,
+  because its total would need the course built), **Last studied** (the
+  newest of `activity::last_touched`, or *never*) and **Streak** (the day
+  streak on the account's `earnings` row, in the viewer's time zone;
+  `earnings::streak_on_record`, which reads and never writes). *This
+  account has not opened a course yet.* when there are none, and a link
+  back to Manage Users. It is read-only, counts and dates: no answers, no
+  notes, no history of single questions. Everything is read in one
+  `Db::call`, and no course is built or loaded to draw it.
+- **What Privacy hides**: an account with the `privacy` permission (a
+  Teacher has it, a Student does not), and every owner, has no progress
+  page: the address answers 404, as an unknown address does, and the row
+  shows *Private* (`manage-account-private`) instead of the link. A
+  superuser also gets an empty **Last sign-in** cell for those rows; the
+  server leaves the value out (`load()` in `src/routes/manage.rs`). An
+  owner still sees every last sign-in, which is needed to run the server.
+  The address and the creation date stay visible for every account. A
+  superuser may open their own page whatever their set says
+  (`progress::hidden` is the one rule). So a teacher made superuser can
+  follow students and cannot look at other teachers.
+- **The learner is told**: the profile's *Who sees what* dialog (the (i)
+  beside **Personal information**) has one line,
+  `profile-progress-visibility[data-private]`: *The people who manage this
+  server can see which courses you study and how many lessons you have
+  passed.* or *Your study progress is private: the people who manage this
+  server cannot see it.*
+- **Saved presets** (#140, `src/routes/manage/presets.rs`): while **Custom**
+  is chosen the dialog has a box **Save as a preset (optional)** (`save_as`,
+  at most 40 characters). Left empty, the set is the account's own, as
+  above. With a name, `POST /manage/permissions` saves the normalised set as
+  a row of `permission_presets` (`builtin = 0`) and gives the account that
+  preset, in one transaction (`perms::save_preset`, `perms::apply_preset`):
+  the row shows the name instead of *Custom*, and the preset is a radio of
+  the dialog for every account, given like Student and Teacher. `save_as`
+  sent with a preset other than Custom is ignored. Refused, nothing is saved
+  and the page comes back with a red notice: a name that is not 1 to 40
+  characters after trimming or has a control character; a name a preset
+  already has, in any case, or one the Permissions column uses in the
+  viewer's language (Student, Teacher, Custom, Owner); or a server that has
+  its 20 saved presets (`perms::MAX_SAVED_PRESETS`): "This server already
+  has 20 saved presets. Delete one first."
+- **The list of saved presets** (`manage-presets`, a card under Accounts,
+  absent while there are none; Student and Teacher are not in it): each
+  one's name, the names of its permissions or *No permissions*, how many
+  accounts have it, and **Delete**, which asks in a dialog first.
+  **`POST /manage/presets/delete`** (`id`; an owner or a superuser, 404
+  otherwise; a built-in preset or an id no preset has is a 400) deletes the
+  row. The accounts that had it keep their permissions and show as *Custom*
+  (`users.preset_id` is set `NULL` by the foreign key). A `default_preset`
+  setting naming it is removed too. A saved preset cannot be edited: save a
+  new one and delete the old.
 
 ## Two-factor sign-in
 

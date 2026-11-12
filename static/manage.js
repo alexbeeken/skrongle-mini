@@ -15,6 +15,10 @@
 // shown. A permission whose needed one ([data-needs]) is off is greyed out
 // and off. The server decides what is stored; this only shows it.
 //
+// Several accounts get one preset at once (#141): a checkbox per row the
+// viewer may edit, the header's box for all of them, a bar above the table
+// while any is ticked, and a confirm dialog before the table's form is sent.
+//
 // The server's AI API keys (#25) save as they are pasted or typed
 // (static/autosave.js, POST /api/manage/keys): a pasted key at once, a typed
 // one 3 s after the last keystroke. Saved, the box empties (a key is never
@@ -106,6 +110,63 @@
       b.addEventListener("click", function () { dialog.close(); });
     });
     if (dialog.hasAttribute("data-open-on-load")) { dialog.removeAttribute("open"); dialog.showModal(); }
+  });
+
+  // One preset for several accounts (#141). The table is a form; the bar
+  // above it shows while a row is ticked, with how many. The header's box
+  // ticks or unticks every row and is mixed while only some are ticked.
+  // "Apply to selected" asks first, in a dialog whose button sends the form.
+  // The server decides who is skipped; this only counts what is ticked.
+  var bulkForm = document.querySelector("[data-testid=manage-bulk-form]");
+  var bulkDialog = document.getElementById("manage-bulk-dialog");
+  if (bulkForm && bulkDialog) {
+    var bulkBar = bulkForm.querySelector("[data-testid=manage-bulk-bar]");
+    var bulkCount = bulkForm.querySelector("[data-testid=manage-bulk-count]");
+    var bulkAll = bulkForm.querySelector("[data-testid=manage-account-select-all]");
+    var bulkPreset = bulkForm.querySelector("[data-testid=manage-bulk-preset]");
+    var bulkBoxes = Array.prototype.slice.call(bulkForm.querySelectorAll("[data-testid=manage-account-select]"));
+    var bulkTicked = function () { return bulkBoxes.filter(function (b) { return b.checked; }).length; };
+    var bulkRefresh = function () {
+      var n = bulkTicked();
+      bulkBar.hidden = n === 0;
+      bulkCount.textContent = tn("manage.js.bulk_selected", n);
+      bulkAll.checked = n > 0 && n === bulkBoxes.length;
+      bulkAll.indeterminate = n > 0 && n < bulkBoxes.length;
+    };
+    bulkAll.hidden = bulkBoxes.length === 0;
+    bulkAll.addEventListener("change", function () {
+      bulkBoxes.forEach(function (b) { b.checked = bulkAll.checked; });
+      bulkRefresh();
+    });
+    bulkBoxes.forEach(function (b) { b.addEventListener("change", bulkRefresh); });
+    bulkForm.querySelector("[data-testid=manage-bulk-apply]").addEventListener("click", function (e) {
+      e.preventDefault();
+      var n = bulkTicked();
+      var chosen = bulkPreset.options[bulkPreset.selectedIndex];
+      if (!n || !chosen) return;
+      bulkDialog.querySelector("[data-testid=manage-bulk-question]").textContent = tn("manage.js.bulk_confirm", n).replace("{preset}", function () { return chosen.textContent; });
+      if (!bulkDialog.open) bulkDialog.showModal();
+    });
+    // A page come back to (Back, a reload) keeps its ticks.
+    window.addEventListener("pageshow", bulkRefresh);
+    bulkRefresh();
+  }
+
+  // Saved presets (#140). The Permissions dialog's "Save as a preset" box
+  // starts empty each time the dialog opens (style.css shows it only while
+  // Custom is chosen). A saved preset's Delete fills the confirm dialog with
+  // its id and name; the [data-opens] handler above opens it.
+  var saveAs = permsForm && permsForm.querySelector("[data-testid=manage-permissions-save-as]");
+  document.querySelectorAll("[data-opens=manage-permissions-dialog]").forEach(function (b) {
+    b.addEventListener("click", function () { if (saveAs) saveAs.value = ""; });
+  });
+  document.querySelectorAll("[data-testid=manage-preset-delete]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var dialog = document.getElementById(b.dataset.opens);
+      if (!dialog) return;
+      dialog.querySelector("[data-preset-field]").value = b.dataset.presetId;
+      dialog.querySelector("[data-preset-name]").textContent = b.dataset.presetName;
+    });
   });
 
   var inputs = document.querySelectorAll("[data-testid=manage-api-key-input]");

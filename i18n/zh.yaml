@@ -329,6 +329,8 @@ profile:
     password_mismatch: 两次输入的新密码不一致。
     turn_off: 关闭两步登录验证
     turn_on: "通过验证器应用开启两步验证"
+  progress_visible: "管理此服务器的人可以看到你在学哪些课程，以及你通过了多少课。"
+  progress_private: "你的学习进度不公开：管理此服务器的人看不到。"
 manage:
   title: 管理用户
   about: "对任何账户的操作。所有者能看到整个页面；超级用户能看到账户并设置其权限。"
@@ -368,7 +370,32 @@ manage:
   permissions_done: "已保存 {email} 的权限。"
   permissions_owner: "无法更改所有者的权限：所有者可以做任何事。"
   permissions_self: "你不能更改自己的权限。"
+  bulk_select: "选择 {email}"
+  bulk_select_all: "选择所有账户"
+  bulk_preset: "要授予的预设"
+  bulk_apply: "应用到所选账户"
+  bulk_about: "每个账户自己的权限会被预设的权限替换。所有者和你自己的账户不会被更改。"
+  bulk_confirm: "授予预设"
+  bulk_none: "请先至少选择一个账户。"
+  bulk_done:
+    one: "已将“{preset}”授予 {n} 个账户。"
+    other: "已将“{preset}”授予 {n} 个账户。"
+  bulk_skipped:
+    one: "{n} 个账户保持不变（所有者和你自己的账户无法更改）。"
+    other: "{n} 个账户保持不变（所有者和你自己的账户无法更改）。"
   permissions_ai_hidden: "此服务器已对所有人隐藏 AI 功能。"
+  permissions_save_as: "保存为预设（可选）"
+  permissions_save_as_help: "给这组权限起个名字，以便用于其他账户。留空则只为此账户保存。"
+  presets: "已保存的预设"
+  preset_name: "名称"
+  preset_no_perms: "没有权限"
+  preset_delete: "删除"
+  preset_delete_title: "删除此预设？"
+  preset_delete_about: "使用此预设的账户会保留其权限，并显示为“自定义”。"
+  preset_deleted: "预设已删除。"
+  preset_name_taken: "已有同名的预设。"
+  preset_too_many: "此服务器已有 {max} 个已保存的预设。请先删除一个。"
+  preset_bad_name: "预设名称为 1 到 {max} 个字符，不能包含换行或其他控制字符。"
   api_keys:
     title: AI API 密钥
     info_text: "每个账户的 AI 功能都使用这些密钥，费用记在密钥所属的账户上。密钥在保存前会加密，之后不会再显示；只显示最后四个字符，方便你分辨保存的是哪个密钥。只有所有者能看到。"
@@ -396,6 +423,12 @@ manage:
     key_on_file: "✓ 已设置"
     ends_in: "结尾为"
     paste_new_key: "粘贴新密钥以替换"
+    bulk_selected:
+      one: "已选择 {n} 个"
+      other: "已选择 {n} 个"
+    bulk_confirm:
+      one: "将“{preset}”授予 {n} 个账户？"
+      other: "将“{preset}”授予 {n} 个账户？"
     perm_on: "允许"
     perm_off: "不允许"
   ai:
@@ -407,6 +440,19 @@ manage:
     off: "关"
     hidden_notice: "已为所有账户隐藏 AI 功能。"
     shown_notice: "已为所有账户重新显示 AI 功能。"
+  progress: "学习进度"
+  private: "不公开"
+  progress_title: "学习进度"
+  progress_course: "课程"
+  progress_passed: "已通过的课"
+  progress_of: "{n} / {total}"
+  progress_last_studied: "最近学习"
+  progress_never: "从未"
+  progress_streak: "连续天数"
+  progress_streak_one: "1 天"
+  progress_streak_days: "{n} 天"
+  progress_none: "此账号还没有打开过任何课程。"
+  progress_about: "只显示数量和日期。所有者以及拥有“隐私”权限的账号在这里没有页面。"
 
 landing:
   title: 从一个 JSON 文件夹学习任何内容
@@ -1753,6 +1799,7 @@ courses:
     lead_anon: 选一门现成的课程。每门课程都保留自己的进度、词汇、游戏和记录。
     lead_ai_off: 选一门现成的课程，或自己写一门。每门课程都保留自己的进度、词汇、游戏和记录。
     lead_ai: 选一门现成的课程，自己写一门，或描述你想学的内容，让 AI 为你编写一门课程。每门课程都保留自己的进度、词汇、游戏和记录。
+    lead_learn_only: 选一门课程来学习。每门课程都保留自己的进度、词汇、游戏和记录。
     projects_heading: 你的项目
     tag_current: 当前
     tag_revising: 修改中
@@ -2466,6 +2513,7 @@ courses:
     too_many_course: "一门课程最多可有 {max} 个邀请链接。请先移除一个。"
     removed_notice: "链接已移除。打开过它的人不再拥有该课程。"
     not_on_list: 该链接不在列表中。
+    not_allowed: "你的账户不能创建新的邀请链接。你已创建的链接在你移除之前仍然有效。"
     link_taken: 已有其他账户使用过此链接。请向课程所有者索取你自己的链接。
     link_gone: 此链接已失效。请向课程所有者索取新链接。
     not_ready: 该课程尚未准备好打开。请联系其所有者，稍后再试此链接。

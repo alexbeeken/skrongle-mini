@@ -5,7 +5,7 @@
 <section class="hero courses-hero">
   <div>
     <h1>{{ crate::t("courses.picker.title") }}</h1>
-    <p class="lead">{% if let Some(u) = user %}{% if u.ai_off %}{{ crate::t("courses.picker.lead_ai_off") }}{% else %}{{ crate::t("courses.picker.lead_ai") }}{% endif %}{% else %}{{ crate::t("courses.picker.lead_anon") }}{% endif %}</p>
+    <p class="lead" data-testid="courses-lead">{% if let Some(u) = user %}{% if !can_create %}{{ crate::t("courses.picker.lead_learn_only") }}{% else if u.ai_courses() %}{{ crate::t("courses.picker.lead_ai") }}{% else %}{{ crate::t("courses.picker.lead_ai_off") }}{% endif %}{% else %}{{ crate::t("courses.picker.lead_anon") }}{% endif %}</p>
   </div>
 </section>
 {% if let Some(n) = notice %}<p class="alert" role="status" data-testid="courses-notice">{{ n }}</p>{% endif %}
@@ -95,12 +95,12 @@
       <div class="course-actions">
         {% if c.state == "generating" %}
           <button type="button" class="btn" disabled data-testid="courses-generating">{{ crate::t("courses.picker.generating") }}</button>
-          {% if let Some(u) = user %}{% if !u.ai_off && c.job.is_some() %}<a class="btn ghost" href="{{ crate::base_path() }}/courses/{{ c.id }}" data-testid="courses-watch">{{ crate::t("courses.picker.watch") }}</a>{% endif %}{% endif %}
+          {% if let Some(u) = user %}{% if u.ai_courses() && c.job.is_some() %}<a class="btn ghost" href="{{ crate::base_path() }}/courses/{{ c.id }}" data-testid="courses-watch">{{ crate::t("courses.picker.watch") }}</a>{% endif %}{% endif %}
           <form method="post" action="{{ crate::base_path() }}/courses/{{ c.id }}/cancel"><button type="submit" class="btn ghost" data-testid="courses-cancel">{{ crate::t("courses.picker.cancel") }}</button></form>
         {% else %}
           {% if c.error.is_none() %}<form method="post" action="{{ crate::base_path() }}/courses/open/{{ c.id }}"><button type="submit" class="btn" data-testid="courses-open">{{ crate::t("courses.picker.open") }}</button></form>{% endif %}
           {% if c.stopped %}
-            {% if let Some(u) = user %}{% if !u.ai_off %}
+            {% if let Some(u) = user %}{% if u.ai_courses() %}
             {% if c.translation %}{% let tr_id = c.id.as_str() %}{% let tr_title = c.title.as_str() %}{% let tr_lang = c.meanings_lang.as_str() %}{% let tr_resume = true %}{% let tr_providers = translate_providers %}{% include "course_translate.html" %}
             {% else if c.resumable %}<a class="btn" href="{{ crate::base_path() }}/courses?generate={{ c.id }}" data-testid="courses-resume">{{ crate::t("courses.picker.resume") }}</a>
             {% else %}<a class="btn" href="{{ crate::base_path() }}/courses?generate={{ c.id }}" data-testid="courses-retry">{{ crate::t("courses.picker.retry") }}</a>{% endif %}
@@ -138,6 +138,8 @@
 </section>
 {% endif %}
 
+{# Only for an account that may make a course (the Create courses permission, #143). #}
+{% if can_create %}
 <section data-testid="courses-make-section" style="--n: 1">
   <h2 data-testid="courses-make">{{ crate::t("courses.picker.make_heading") }}</h2>
   <div class="course-grid">
@@ -145,12 +147,13 @@
       <div class="course-icon">✨</div>
       <div class="course-body">
         <h3>{{ crate::t("courses.picker.create_title") }}</h3>
-        <p class="small">{% if let Some(u) = user %}{% if u.ai_off %}{{ crate::t1("courses.picker.create_ai_off_html", "url", crate::url("/docs/course-format"))|safe }}{% else %}{{ crate::t1("courses.picker.create_ai_html", "url", crate::url("/docs/course-format"))|safe }}{% endif %}{% endif %} {{ crate::t("courses.picker.create_private") }}</p>
+        <p class="small">{% if let Some(u) = user %}{% if u.ai_courses() %}{{ crate::t1("courses.picker.create_ai_html", "url", crate::url("/docs/course-format"))|safe }}{% else %}{{ crate::t1("courses.picker.create_ai_off_html", "url", crate::url("/docs/course-format"))|safe }}{% endif %}{% endif %} {{ crate::t("courses.picker.create_private") }}</p>
       </div>
       <div class="course-actions"><form method="post" action="{{ crate::base_path() }}/courses/new" class="inline" data-testid="courses-create-form"><button type="submit" class="btn" data-testid="courses-create">{{ crate::t("courses.picker.create_button") }}</button></form></div>
     </article>
   </div>
 </section>
+{% endif %}
 </div>
 
 {% if let Some(g) = generate %}{% include "generate_form.html" %}{% endif %}

@@ -36,6 +36,10 @@ pub struct EditorTemplate {
     pub review: Option<ReviewView>,
     /// Who the course is shared with (the Share dialog, `share.rs`).
     pub shares: Vec<crate::share::Share>,
+    /// The account may make invitation links (`Perm::ShareCourses`, #144).
+    /// Without it the Share dialog is only there for a course that has
+    /// links, to list and remove them.
+    pub can_share: bool,
     /// `?share=1`: open the Share dialog straight away (after sending or removing).
     pub share_open: bool,
     /// The links just made, one per new address, each with a Copy button
@@ -100,7 +104,7 @@ impl AiJobModal {
 /// While the row still says busy, the finished job's modal (Continue) is
 /// shown rather than a "being generated" page nothing would refresh.
 fn modal_job(state: &AppState, user: &CurrentUser, row: &CourseRow, asked: Option<&str>) -> Option<AiJobModal> {
-    if user.ai_off {
+    if !user.ai_courses() {
         // Hide all AI features: no AI job is followed; the page says the course is busy and offers Cancel.
         return None;
     }
@@ -303,7 +307,7 @@ async fn saved_providers(state: &AppState) -> Result<Vec<crate::secrets::Provide
 
 /// "Add content with AI" for `row`, when it loads and no job holds it.
 async fn ai_view(state: &AppState, user: &CurrentUser, row: &CourseRow, refill: &Refill, locked: bool) -> Result<Option<AiFormView>, AppError> {
-    if (row.is_busy() && !locked) || row.error.is_some() || user.ai_off {
+    if (row.is_busy() && !locked) || row.error.is_some() || !user.ai_courses() {
         return Ok(None);
     }
     // The server's first key.
@@ -592,6 +596,7 @@ async fn editor_template(
     }
     let sid = row.id.clone();
     let shares = state.db.call(move |c| crate::share::shares_of(c, &sid)).await?;
+    let can_share = user.can(crate::perms::Perm::ShareCourses);
     Ok(EditorTemplate {
         state: row.state.as_str(),
         user: Some(user),
@@ -608,6 +613,7 @@ async fn editor_template(
         generate,
         review,
         shares,
+        can_share,
         share_open,
         share_links: Vec::new(),
     })
