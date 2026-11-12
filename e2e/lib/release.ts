@@ -136,13 +136,25 @@ export async function ownerPerson(browser: Browser): Promise<{ context: BrowserC
   return { ...p, owner };
 }
 
-/** A new learner registered through an invitation the owner makes, signed in, in a person of their own. */
-export async function newLearner(browser: Browser, prefix: string): Promise<{ context: BrowserContext; page: Page; account: Account }> {
+/** As the owner on `page`: give the account `email` the preset named `preset` through its Permissions dialog on Manage Users. */
+export async function givePreset(page: Page, email: string, preset: string): Promise<void> {
+  await page.goto("/manage");
+  await page.getByTestId("manage-account-row").filter({ hasText: email.toLowerCase() }).getByTestId("manage-account-permissions").click();
+  const dialog = page.getByTestId("manage-permissions-dialog");
+  await dialog.getByRole("radio", { name: preset, exact: true }).check();
+  await dialog.getByTestId("manage-permissions-save").click();
+  await expect(page.getByTestId("manage-notice")).toContainText(`Permissions saved for ${email.toLowerCase()}`);
+}
+
+/** A new learner registered through an invitation the owner makes, signed in, in a person of their own.
+ * New accounts start as Student (#142); `preset` (Teacher, say) is given to this one by the owner before it is returned. */
+export async function newLearner(browser: Browser, prefix: string, preset?: string): Promise<{ context: BrowserContext; page: Page; account: Account }> {
   const o = await ownerPerson(browser);
   const link = await makeInvite(o.page);
-  await o.context.close();
   const p = await newPerson(browser);
   const account = newAccount(prefix);
   await registerWithLink(p.page, link, account);
+  if (preset) await givePreset(o.page, account.email, preset);
+  await o.context.close();
   return { ...p, account };
 }
