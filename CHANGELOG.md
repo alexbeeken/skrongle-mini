@@ -12,6 +12,13 @@ numbers work is in the README, "Versions".
   public address needs for claude.ai and ChatGPT. The FAQ and the
   self-hosting page link to it, and the *How to Use Skrongle* course has a
   lesson on it.
+- **New accounts now start as a Student**, not a Teacher: they can learn, but
+  cannot create courses, share them, use AI or skip levels until you raise
+  them. Change what new accounts start as under *Manage Users → Accounts →
+  New accounts start as* (any preset; existing accounts keep theirs, and the
+  first account of a server is still the owner with everything). If you
+  relied on invited people making courses, choose Teacher there.
+
 - The **Create courses** permission now counts: an account without it (a
   Student, for example) has no *Create a course*, *Copy* or *Copy and
   translate* on its course list, and those actions are refused. It still

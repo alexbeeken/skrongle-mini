@@ -180,6 +180,14 @@ pub fn apply_preset(conn: &Connection, user_id: i64, preset_id: i64) -> rusqlite
     Ok(true)
 }
 
+/// The preset a new account is given (`settings::default_preset`) and its
+/// set: (preset id, perms).
+pub fn default_for_new(conn: &Connection) -> rusqlite::Result<(i64, Perms)> {
+    let id = crate::settings::default_preset(conn)?;
+    let perms = preset(conn, id)?.map_or(Perms::STUDENT, |p| p.perms);
+    Ok((id, perms))
+}
+
 /// The most saved presets a server keeps (the built-in two not counted, #140).
 pub const MAX_SAVED_PRESETS: usize = 20;
 /// The most characters in a saved preset's name.
@@ -322,8 +330,10 @@ mod tests {
         db.with(|c| {
             let ann = crate::auth::create_user(c, "ann@example.org", "h")?;
             let bob = crate::auth::create_user(c, "bob@example.org", "h")?;
-            assert_eq!(stored(c, ann)?, (63, Some(TEACHER_PRESET)));
+            assert_eq!(stored(c, ann)?, (0, Some(STUDENT_PRESET)), "new accounts start as Student");
 
+            assert!(apply_preset(c, ann, TEACHER_PRESET)?);
+            assert_eq!(stored(c, ann)?, (63, Some(TEACHER_PRESET)));
             assert!(apply_preset(c, ann, STUDENT_PRESET)?);
             assert_eq!(stored(c, ann)?, (0, Some(STUDENT_PRESET)));
             assert!(!apply_preset(c, ann, 99)?, "no such preset");
@@ -341,7 +351,7 @@ mod tests {
             assert!(apply_preset(c, ann, TEACHER_PRESET)?);
             set_custom(c, ann, Perms::ALL.with(Perm::CreateCourses, false))?;
             assert_eq!(stored(c, ann)?, (4 + 16 + 32 + 64, None), "stored normalised, preset cleared");
-            assert_eq!(stored(c, bob)?, (63, Some(TEACHER_PRESET)), "another account is untouched");
+            assert_eq!(stored(c, bob)?, (0, Some(STUDENT_PRESET)), "another account is untouched");
             Ok(())
         })
         .unwrap();
@@ -410,7 +420,7 @@ mod tests {
             assert!(delete_preset(c, id)?);
             assert_eq!(preset(c, id)?, None);
             assert_eq!(stored(c, ann)?, (5, None), "the set is kept, the account is Custom");
-            assert_eq!(stored(c, bob)?, (63, Some(TEACHER_PRESET)));
+            assert_eq!(stored(c, bob)?, (0, Some(STUDENT_PRESET)));
             assert_eq!(crate::settings::get(c, "default_preset")?, None, "new accounts fall back to Student");
             assert!(!delete_preset(c, id)?, "already gone");
             Ok(())

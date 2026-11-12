@@ -899,6 +899,7 @@ fn a_new_course_asks_for_its_settings_once() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let state = super::test_state(false);
     let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
+    state.db.with(|c| crate::perms::apply_preset(c, ann, crate::perms::TEACHER_PRESET)).unwrap();
     let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
     let app = super::router(state.clone());
     let base = rt.block_on(async {
@@ -947,6 +948,7 @@ fn start_opens_the_course_with_its_wizard_settings() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let state = super::test_state(false);
     let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
+    state.db.with(|c| crate::perms::apply_preset(c, ann, crate::perms::TEACHER_PRESET)).unwrap();
     let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
     let app = super::router(state.clone());
     let base = rt.block_on(async {
@@ -1003,6 +1005,7 @@ fn ai_features_with_saved_keys_answered_by_the_simulator() {
         .db
         .with(|c| {
             let ann = crate::auth::create_user(c, "ann@example.org", "x")?;
+            crate::perms::apply_preset(c, ann, crate::perms::TEACHER_PRESET)?;
             let dev = crate::auth::create_user(c, "dora@example.org", "x")?;
             crate::owner::make_owner(c, dev)?;
             crate::courses::open_project(c, dev, "spanish")?;
@@ -1241,6 +1244,7 @@ fn editor_of_a_course_whose_job_just_finished() {
         .db
         .with(|c| {
             let ann = crate::auth::create_user(c, "ann@example.org", "x")?;
+            crate::perms::apply_preset(c, ann, crate::perms::TEACHER_PRESET)?;
             Ok(ann)
         })
         .unwrap();
@@ -1310,7 +1314,12 @@ fn a_shared_course_is_on_the_recipients_list_read_only() {
         (r.status().as_u16(), set, loc)
     };
     // Registering signs in and carries the share link on.
-    let register = |email: &str, share: &str| post("/register", "", &[("email", email), ("password", "long-enough-pw"), ("age", "on"), ("share", share)]);
+    let register = |email: &str, share: &str| {
+        let r = post("/register", "", &[("email", email), ("password", "long-enough-pw"), ("age", "on"), ("share", share)]);
+        // New accounts start as Student (#142); these two make and share courses.
+        state.db.with(|c| c.execute("UPDATE users SET perms = 63, preset_id = 2 WHERE email = ?1", [email])).unwrap();
+        r
+    };
     // The Share form answers with the dialog and the link just made: (status, page).
     let share_post = |path: &str, cookie: &str, label: &str| {
         let mut r = agent.post(&format!("{base}{path}")).header("cookie", cookie).send_form([("label", label)]).unwrap();
@@ -1737,6 +1746,7 @@ fn newer_providers_answer_the_tutor_through_the_simulator() {
         .with(|c| {
             let owner = crate::auth::create_user(c, "owner@example.org", "x")?;
             let ann = crate::auth::create_user(c, "ann@example.org", "x")?;
+            crate::perms::apply_preset(c, ann, crate::perms::TEACHER_PRESET)?;
             for u in [owner, ann] {
                 crate::courses::open_project(c, u, "spanish")?;
             }

@@ -306,9 +306,11 @@ pub fn password_too_long(p: &str) -> bool {
 /// lower-cased) names the account and is fixed from here on. It starts with
 /// the Teacher permissions (#138).
 pub fn create_user(conn: &Connection, email: &str, password_hash: &str) -> rusqlite::Result<i64> {
+    // The preset new accounts start as (#142), read with the insert.
+    let (preset, perms) = crate::perms::default_for_new(conn)?;
     conn.execute(
         "INSERT INTO users (password_hash, created_at, email, perms, preset_id) VALUES (?1, ?2, ?3, ?4, ?5)",
-        params![password_hash, now(), email, Perms::TEACHER.bits(), crate::perms::TEACHER_PRESET],
+        params![password_hash, now(), email, perms.bits(), preset],
     )?;
     Ok(conn.last_insert_rowid())
 }
@@ -703,6 +705,8 @@ mod tests {
         let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
         let state = crate::routes::test_state(false);
         let ann = state.db.with(|c| create_user(c, "ann@example.org", "h")).unwrap();
+        // New accounts start as Student (#142); this one is raised to Teacher.
+        state.db.with(|c| crate::perms::apply_preset(c, ann, crate::perms::TEACHER_PRESET)).unwrap();
         let token = state.db.with(|c| create_session(c, ann)).unwrap();
         let request = || {
             let mut headers = HeaderMap::new();
@@ -723,14 +727,14 @@ mod tests {
     }
 
     #[test]
-    fn a_new_account_has_the_teacher_set() {
+    fn a_new_account_has_the_student_set() {
         let db = crate::db::Db::open_in_memory().unwrap();
         db.with(|c| {
             let ann = create_user(c, "ann@example.org", "h")?;
             let stored: (i64, Option<i64>) = c.query_row("SELECT perms, preset_id FROM users WHERE id = ?1", [ann], |r| Ok((r.get(0)?, r.get(1)?)))?;
-            assert_eq!(stored, (Perms::TEACHER.bits(), Some(crate::perms::TEACHER_PRESET)));
+            assert_eq!(stored, (Perms::STUDENT.bits(), Some(crate::perms::STUDENT_PRESET)));
             let token = create_session(c, ann)?;
-            assert_eq!(user_for_session(c, &token)?.map(|u| u.perms), Some(Perms::TEACHER));
+            assert_eq!(user_for_session(c, &token)?.map(|u| u.perms), Some(Perms::STUDENT));
             Ok(())
         })
         .unwrap();

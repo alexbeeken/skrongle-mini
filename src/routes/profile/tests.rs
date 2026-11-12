@@ -161,6 +161,7 @@ fn the_ai_keys_and_the_hide_ai_switch_are_the_owners_over_http() {
     };
     let account = |email: &str, owner: bool| {
         let id = state.db.with(|c| crate::auth::create_user(c, email, "x")).unwrap();
+        state.db.with(|c| crate::perms::apply_preset(c, id, crate::perms::TEACHER_PRESET)).unwrap();
         state.db.with(|c| {
             c.execute("UPDATE users SET active_course = 'spanish', owner = ?2 WHERE id = ?1", rusqlite::params![id, owner])?;
             Ok(())
@@ -267,6 +268,7 @@ fn the_profile_header_says_owner_only_for_the_owner() {
         .with(|c| {
             let root = crate::auth::create_user(c, "root@example.org", "x")?;
             let bob = crate::auth::create_user(c, "bob@example.org", "x")?;
+            crate::perms::apply_preset(c, bob, crate::perms::TEACHER_PRESET)?;
             crate::owner::make_owner(c, root)?;
             Ok((crate::auth::create_session(c, root)?, crate::auth::create_session(c, bob)?))
         })

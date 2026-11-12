@@ -4,7 +4,7 @@ import { createCourse, editorSaved, fastAutosave } from "../../lib/app.ts";
 import { expect, newLearner, test } from "../../lib/release.ts";
 
 test("a course made by hand: add a lesson in the editor, it autosaves, and opens as a course", async ({ browser }) => {
-  const { page } = await newLearner(browser, "by-hand");
+  const { page } = await newLearner(browser, "by-hand", "Teacher");
   await fastAutosave(page);
   const id = await createCourse(page);
   await page.getByTestId("generate-close").click();

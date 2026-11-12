@@ -1909,7 +1909,20 @@ invitation link; its links keep working and it can remove them
   (63, not `superuser`); both are rows of `permission_presets`
   (`builtin = 1`, ids 1 and 2). An account has its own set and the preset it
   was given (`users.preset_id`, `NULL` = **Custom**). Giving a preset copies
-  the preset's set onto the account. A new account is a Teacher.
+  the preset's set onto the account. A new account is given the
+  preset chosen in **New accounts start as** (see below), Student at first.
+- **New accounts start as** (#142): in the Accounts card on Manage Users, a
+  list of the presets (`manage-default-preset`, Student at first) and
+  **Save** (`POST /manage/default-preset`). Owners and superusers may change
+  it (a 404 for anyone else). Every way an account is made reads it in the
+  same transaction as the insert (`perms::default_for_new`: registration,
+  proxy sign-in, the dev user): the preset's set and id are copied onto the
+  new account, and no existing account changes. A preset with Superuser is
+  refused (*New accounts cannot start as superusers.*). The setting is
+  `settings::DEFAULT_PRESET`; no row, or a deleted saved preset, means
+  Student. The first account of a server is the owner and has everything. The
+  dev server sets it to Teacher when nobody has chosen, so test accounts can
+  create, share and use AI.
 - **Owners** have every permission whatever is stored, and nobody edits an
   owner's permissions. A **superuser** is not an owner: it is an account
   with the `superuser` permission, and it sees only the accounts on Manage

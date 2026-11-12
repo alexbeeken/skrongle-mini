@@ -423,9 +423,15 @@ their next sign-in), **Turn off two-factor** and **Make owner** (another
 person who may do all this). No message is sent: give
 them the password yourself.
 
+A new account starts as a **Student**: it can learn from the courses
+it is given, but cannot create courses, share them, use AI or skip levels
+until you raise it. **New accounts start as**, above the accounts table,
+changes that for the accounts made from then on (any preset except one
+with Superuser); it does not change accounts that exist, and the first
+account of a server is the owner and has everything.
+
 Each account's row also has **Permissions**: choose **Student** (may do
-nothing extra), **Teacher** (everything but Superuser; what a new account
-gets) or **Custom**, which shows a switch for each of the seven permissions.
+nothing extra), **Teacher** (everything but Superuser) or **Custom**, which shows a switch for each of the seven permissions.
 An account you give **Superuser** gets **Manage Users** in its menu and sees
 the accounts there, to set other people's permissions; it never sees the
 invitation links, the AI keys or the three actions above, and it cannot

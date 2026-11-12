@@ -49,6 +49,8 @@ impl Server {
     fn account(&self, email: &str) -> String {
         let (status, cookie, _) = self.post("/register", "", &[("email", email), ("password", "long-enough-pw"), ("age", "on")]);
         assert_eq!(status, 303, "registered and signed in");
+        // New accounts start as Student (#142); these make and share courses.
+        self.state.db.with(|c| c.execute("UPDATE users SET perms = 63, preset_id = 2 WHERE email = ?1", [email])).unwrap();
         cookie
     }
 
