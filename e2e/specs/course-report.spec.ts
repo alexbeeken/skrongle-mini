@@ -21,13 +21,21 @@ test("the report shows which features each lesson uses", async ({ page }) => {
   await page.getByTestId("course-report-open").click();
   await expect(report).toBeVisible();
 
-  // The first unit is open, the others folded; it counts its lessons.
+  // The first unit is open, the others folded; it counts its lessons, and
+  // its totals are the lists a lesson shows (this course has no music, so
+  // no music question types: src/report.rs).
   const units = report.getByTestId("course-report-unit");
   await expect(units.first()).toHaveAttribute("open", "");
-  await expect(units.first().getByTestId("course-report-unit-counts")).toContainText(/\d+ lessons? · \d+ of \d+ features · \d+ of 6 question types/);
+  const lesson = units.first().getByTestId("course-report-lesson").first();
+  const features = await lesson.getByTestId("course-report-feature").count();
+  const questions = await lesson.getByTestId("course-report-question").count();
+  expect(questions).toBeGreaterThan(0);
+  await expect(units.first().getByTestId("course-report-unit-counts")).toContainText(
+    new RegExp(`\\d+ lessons? · \\d+ of ${features} features · \\d+ of ${questions} question types`),
+  );
+  await expect(lesson.locator('[data-testid=course-report-question][data-key="keyboard"]')).toHaveCount(0);
 
   // A lesson opens to its two lists; its text is used, listening is not.
-  const lesson = units.first().getByTestId("course-report-lesson").first();
   await lesson.locator("summary").click();
   await expect(lesson.locator('[data-testid=course-report-feature][data-key="text"]')).toHaveAttribute("data-used", "true");
   await expect(lesson.locator('[data-testid=course-report-feature][data-key="listening"]')).toHaveAttribute("data-used", "false");

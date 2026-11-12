@@ -60,7 +60,10 @@ test("keys: folded away, a pasted key saves at once, a typed one 3 s after typin
 });
 
 test("a key the owner saves serves another account; removed, that account is told to ask the owner", async ({ page, browser }) => {
-  await devLogin(page, "keys=fake&next=/manage");
+  // The owner opens /tutor too, which needs a course open: a spec before this
+  // one may have left the dev user on a draft that does not open, and then
+  // /tutor goes to the course list (#189).
+  await devLogin(page, "keys=fake&open=spanish&next=/manage");
   const ctx = await browser.newContext();
   const other = await ctx.newPage();
   await register(other, newAccount("server-key"), "spanish");

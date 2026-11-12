@@ -798,6 +798,26 @@ nothing from there is in the app binary or the Pi deploy. The first run
 installs `e2e/node_modules` and Chromium (network once); after that it runs
 offline. `npm --prefix e2e run typecheck` checks the TypeScript.
 
+CI does not run every spec here: the exact-spec job runs the files listed in
+`.github/workflows/smoke.yml` (`e2e-exact`), plus `specs/smoke`. A spec missing
+from that list is only ever run locally, so "it passes in CI" says nothing
+about it; check the list before comparing a local failure with CI (#189).
+
+A spec can pass alone and fail in the whole suite: the specs share one
+server and one dev user, and `SKRONGLE_RNG_SEED` makes the n-th draw of the
+server process repeatable, not the n-th draw of a spec. So a spec does not
+assume the dev user has a course open (an earlier `/dev/reset` leaves none,
+and an empty draft left active does not open; pass `open=` to `devLogin`), nor which question a draw puts first. To replay
+other draws for one spec, run it with `--repeat-each 8`.
+
+On a Mac (#189) the suite runs as it is, with nothing to set: each
+`scripts/e2e.sh` picks a free port and starts its own server on `./e2e.db`,
+so a `./.dev-start` or another worktree's run is left alone. Two runs in the
+same checkout at once would share `./e2e.db` and `e2e/results/`; give the
+second its own `E2E_DB` and `--output <dir> --reporter list`. On a busy
+machine (several builds and servers at once) a step can time out; rerun that
+spec alone before blaming it.
+
 | File | What it is |
 |---|---|
 | `e2e/specs/exact.spec.ts` | Exact specs, no model in the loop: generate a course from the fixtures and open it; pass a lesson's reading check (answers read from the lesson files); finish a Sprint mode session; the profile has no Dev section for anyone (the seeded keys answer generate and the tutor through the simulator); a key the simulator never issued gets the provider's 401; the picture and password dialogs (a pick saves at once and shows in the heading, a mismatched or wrong password keeps the dialog open) |
