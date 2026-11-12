@@ -143,8 +143,8 @@ and checks its checksum, unpacks it to `/opt/skrongle`, creates the
 `skrongle` user, keeps the data in `/mnt/dietpi_userdata/skrongle`, writes
 the [static-user unit](#a-static-user-data-outside-varlib) and starts it.
 Its last lines are the owner link, with the machine's IP address unless
-`SKRONGLE_PUBLIC_URL` is set. Run it again to update (it copies the database
-aside first and keeps your env file and unit); `--uninstall` and
+`SKRONGLE_PUBLIC_URL` is set. Run it again to update (it keeps your env file
+and unit; the database is not copied); `--uninstall` and
 `--uninstall --purge` remove it. The steps are listed at the top of the file.
 
 ## Diagnostics: `skrongle doctor`
@@ -593,10 +593,12 @@ sudo /opt/skrongle/update.sh
 ```
 
 It finds the latest release, downloads the tarball for this machine and
-checks its checksum, stops the service, copies the database aside as
-`learn.db.before-<version>`, replaces the binary and `data/`, and starts the
-service again. Give it a version to install that one instead
-(`sudo /opt/skrongle/update.sh 0.2.0`), which is also how to go back.
+checks its checksum, stops the service, replaces the binary and `data/`, and
+starts the service again. It does not copy the database. Give it a version
+to install that one instead (`sudo /opt/skrongle/update.sh 0.2.0`), which is
+also how to go back: when the older version has an older database schema,
+the installed binary first takes the schema back to it
+(`skrongle migrate`; [what that keeps](packaging#upgrade)).
 Read the release's section in
 [CHANGELOG.md](https://github.com/alexbeeken/skrongle-mini/blob/main/CHANGELOG.md)
 first: it says what to do and what to back up. The version numbers' rules
@@ -733,7 +735,8 @@ script handles too. The folder holds:
 - `learn.db`: the accounts, progress, courses made in the app, and the AI
   keys people saved (encrypted);
 - `learn.db.key`: the key that decrypts those AI keys;
-- `learn.db.before-<version>`: the copies `update.sh` made before each update.
+- `learn.db.before-<version>`: copies an `update.sh` up to 0.3.0 made before
+  each update. Later ones make none; delete these when you no longer want them.
 
 Removing that folder is permanent: nothing brings the accounts back after
 it. [Back it up](#backup-and-restore) first. Without `--purge`, installing

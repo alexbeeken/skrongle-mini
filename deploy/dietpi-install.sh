@@ -19,11 +19,12 @@
 #  6. Create /mnt/dietpi_userdata/skrongle, owned by that user, mode 0750.
 #     The database lives there (learn.db, learn.db.key), so it must be on a
 #     local disk, not a network mount.
-#  7. If an install exists: stop the service and copy the database aside as
-#     learn.db.before-<version> (and its -wal file, if there is one).
+#  7. If an install exists: stop the service. The database is not copied.
+#     When the version asked for is older than the installed one, the
+#     installed binary first takes the schema back (`skrongle migrate`).
 #  8. Put the new files in /opt/skrongle: replace the binary and data/
-#     (the old binary is kept as skrongle.previous). The database is not
-#     touched; the new binary migrates it when it starts.
+#     (the old binary is kept as skrongle.previous). The new binary
+#     migrates the database when it starts.
 #  9. Create /etc/skrongle/env (a short file of commented examples, mode
 #     0640 root:skrongle) if it does not exist. An existing one is never
 #     changed.
@@ -182,16 +183,37 @@ chown -R skrongle:skrongle "$DATA"
 chmod 0750 "$DATA"
 
 if [ -n "$HAVE_SYSTEMCTL" ]; then
-  echo "stopping skrongle ($CURRENT -> $VERSION)"
+  case "$CURRENT" in
+    none) ;;
+    "$VERSION") echo "stopping skrongle (installing $VERSION again)" ;;
+    *) echo "stopping skrongle ($CURRENT -> $VERSION)" ;;
+  esac
   systemctl stop skrongle 2>/dev/null || true
 else
   skipped "stopping the service"
 fi
 DB="$DATA/learn.db"
-if [ -f "$DB" ]; then
-  cp -p "$DB" "$DB.before-$VERSION"
-  if [ -s "$DB-wal" ]; then cp -p "$DB-wal" "$DB.before-$VERSION-wal"; fi
-  echo "database copied to $DB.before-$VERSION"
+# An older version than the one installed: its binary refuses a database
+# whose schema is newer than its own, so the installed binary takes the
+# schema back first (`skrongle migrate`), as the service's user. Nothing is
+# copied aside.
+if [ -f "$DB" ] && [ -x "$OPT/skrongle" ]; then
+  WANT=$("$TMP/new/skrongle" --schema-version 2>/dev/null || true)
+  HAVE=$("$OPT/skrongle" --schema-version 2>/dev/null || true)
+  case "$WANT:$HAVE" in
+    *[!0-9:]*|:*|*:) ;; # a release from before --schema-version
+    *)
+      if [ "$WANT" -lt "$HAVE" ]; then
+        echo "taking the database back to schema v$WANT for $VERSION (it is at v$HAVE)"
+        if ! su -s /bin/sh skrongle -c "SKRONGLE_DB=$DB $OPT/skrongle migrate $WANT"; then
+          echo "the database could not be taken back to schema v$WANT; nothing changed"
+          echo "(a Skrongle from before 'skrongle migrate' cannot do this: put back the copy its update made, $DB.before-$CURRENT)"
+          [ -z "$HAVE_SYSTEMCTL" ] || systemctl start skrongle || true
+          exit 1
+        fi
+      fi
+      ;;
+  esac
 fi
 
 mkdir -p "$OPT"
@@ -311,7 +333,7 @@ done
 if ! systemctl is-active --quiet skrongle || [ "$i" -ge 20 ]; then
   echo "Skrongle $VERSION did not start; the log:"
   journalctl -u skrongle -n 20 --no-pager || true
-  [ "$CURRENT" = none ] || echo "to go back: sudo $OPT/update.sh $CURRENT (the database from before is at $DB.before-$VERSION)"
+  [ "$CURRENT" = none ] || echo "to go back: sudo $OPT/update.sh $CURRENT"
   exit 1
 fi
 

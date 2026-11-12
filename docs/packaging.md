@@ -34,7 +34,7 @@ use, keep `RestartPreventExitStatus=78` (see [Exit codes](#exit-codes)).
 | Built-in courses | `/opt/skrongle/data/courses/` | Read at start. `SKRONGLE_DATA_DIR` points at the folder that holds `courses/`. Replaced on every update. |
 | Database | `<data folder>/learn.db` | SQLite, WAL mode: `learn.db-wal` and `learn.db-shm` appear beside it. |
 | Secret key | `<data folder>/learn.db.key` | Created on first start, mode 0600, next to the database (`<SKRONGLE_DB>.key`). It decrypts the AI keys saved in the database. Back both up together. |
-| Copies from updates | `<data folder>/learn.db.before-<version>` | Made by `update.sh`. |
+| Copies from updates | `<data folder>/learn.db.before-<version>` | Made by `update.sh` up to 0.3.0. Later versions make none. |
 | Settings | `/etc/skrongle/env` | `NAME=value` lines, read by systemd (`EnvironmentFile=-`). It may hold `SKRONGLE_SECRET_KEY`. |
 | Unit | `/etc/systemd/system/skrongle.service` | |
 | Release helpers | `/opt/skrongle/update.sh`, `uninstall.sh`, `VERSION` | From the tarball. |
@@ -124,7 +124,9 @@ fatal: this database was upgraded by a newer Skrongle (schema v5; this binary kn
 
 The older case reads `fatal: this database predates the 1.0 schema; start from a fresh one`.
 For a script, `skrongle --schema-version` prints the schema number this
-binary migrates to, and `skrongle --version` prints `skrongle <version>`.
+binary migrates to, `skrongle --version` prints `skrongle <version>`, and
+`skrongle migrate <schema-version>` takes the database's schema to that
+number, up or down, with the server stopped.
 
 ## Health check
 
@@ -198,22 +200,32 @@ Releases are tarballs, so an upgrade is a binary swap:
 
 1. Download `skrongle-<version>-<arch>.tar.gz` and its `.sha256`; check it.
 2. Stop the service.
-3. Copy the database aside: `learn.db` to `learn.db.before-<version>` (and
-   `learn.db-wal` if it is not empty, as `learn.db.before-<version>-wal`).
+3. Only when the new binary is an older release: compare
+   `skrongle --schema-version` of the installed binary and of the new one.
+   If the new one's is smaller, run the installed binary's
+   `skrongle migrate <that number>` with `SKRONGLE_DB` set to the database,
+   as the service's user. If it fails, nothing has changed: stop here.
 4. Replace `/opt/skrongle/skrongle`, and delete and replace `/opt/skrongle/data/`.
    Never touch the data folder.
 5. Start the service. The new binary migrates the database as it starts.
 
 `/opt/skrongle/update.sh [version]` does all of this and reports whether the
-service came up. A clean stop folds the write-ahead log into `learn.db`, so one
-file is a complete copy. `update.sh` does not replace the unit; it prints a note
+service came up. It does not copy the database: your backups are yours to
+make ([Backup and restore](self-hosting#backup-and-restore)). `update.sh` does not replace the unit; it prints a note
 when the shipped `skrongle.service` differs from the installed one.
 
-Migrations only go forward. The database records its schema number
+Every migration has a way back. The database records its schema number
 (`PRAGMA user_version`, one per migration). A binary with a smaller number than
 the database refuses it: exit 78 before any write. The version number does not
-matter, only the schema. So a downgrade after a release that changed the schema
-needs the `learn.db.before-<version>` copy put back first. Version rules:
+matter, only the schema. So before a downgrade past a release that changed the
+schema, the newer binary takes the schema back (`skrongle migrate <number>`,
+step 3): the older binary does not know how. Taking a migration back restores
+the older layout and keeps the rows it has a place for. What the newer version
+added (a new column's values, a new table's rows) is dropped, and what the
+newer version removed does not come back; each `src/db/migrations/*.down.sql`
+says what its step does not keep. A Skrongle up to 0.3.0 has no
+`skrongle migrate`: going back from one of those needs the
+`learn.db.before-<version>` copy its `update.sh` made. Version rules:
 a patch release never changes the unit, the variables or the database layout;
 a minor release may add settings and tables; a major release may remove them.
 Read the release's section in `CHANGELOG.md` before you upgrade.

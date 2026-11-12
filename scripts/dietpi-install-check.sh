@@ -136,7 +136,9 @@ if sh "$INSTALL" >"$LOG" 2>&1; then ok "a second run succeeds"; else fail "a sec
 cat "$LOG"
 grep -q "^kept /etc/skrongle/env" "$LOG" && ok "second run keeps the env file" || fail "second run keeps the env file"
 grep -q "^kept /etc/systemd/system/skrongle.service" "$LOG" && ok "second run keeps the unit" || fail "second run keeps the unit"
-[ -f "$DATA/learn.db.before-$VERSION" ] && ok "learn.db.before-$VERSION exists" || fail "learn.db.before-$VERSION exists"
+if ls "$DATA"/learn.db.before-* >/dev/null 2>&1; then fail "second run does not copy the database"; else ok "second run does not copy the database"; fi
+grep -q "^stopping skrongle (installing $VERSION again)$" "$LOG" \
+  && ok "second run says it installs $VERSION again" || fail "second run says it installs $VERSION again"
 [ -x /opt/skrongle/skrongle.previous ] && ok "skrongle.previous kept" || fail "skrongle.previous kept"
 grep -q "^Skrongle $VERSION is installed and running\.$" "$LOG" \
   && ok "second run says installed and running" || fail "second run says installed and running"

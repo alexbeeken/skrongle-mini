@@ -19,7 +19,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 
 - Start-up: `main.rs` (env config, commands), `caps.rs` (the fixed limits of a mini, `MAX_ACCOUNTS`, #29), `startup.rs` (start-up errors), `doctor.rs` (`skrongle doctor`), `server.rs` (listener limits).
 - HTTP: `routes/mod.rs` (Router, embedded static files and docs, CourseView), `error.rs` (AppError to responses), `security.rs` (headers, CSRF, rate limits).
-- Database: `db.rs` (connection, `Db::call`), `db/migrations.rs` (`MIGRATIONS`, the schema in `db/migrations/v001_schema.sql`); described in "SQLite schema" below; background jobs (the hourly housekeeping) in `jobs.rs`.
+- Database: `db.rs` (connection, `Db::call`), `db/migrations.rs` (`MIGRATIONS`: each step's `up` and `down` SQL, run through `rusqlite_migration`; the schema in `db/migrations/v001_schema.sql`); described in "SQLite schema" below; background jobs (the hourly housekeeping) in `jobs.rs`.
 - App text: `i18n.rs` reads `i18n/<code>.yaml` (`docs/i18n.md`). Randomness: `random.rs` (OS bytes), `quiz.rs` has the small PRNG.
 
 ### Courses and content
@@ -400,7 +400,9 @@ migrations (`v002_no_skc.sql` drops `motivator_purchases` and turns a saved
 `skc` motivator into `xp`; `v003_share_links.sql` rebuilds `course_shares` with a
 `label` instead of an address; `v004_permissions.sql` adds `permission_presets`, `users.perms` and
 `users.preset_id`, and gives every existing account the Teacher set), which `src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
-how many have run, and a later change appends its own entry. A database
+how many have run, and a later change appends its own entry with a
+`.down.sql` beside it that takes it back (`db::migrate_to`, behind `skrongle migrate <schema-version>`;
+`db::tests::every_down_restores_the_schema_before_it` holds each one to the schema before it). A database
 from a build before this schema (its `users` table still has a column of
 the old history) is refused at start with one line naming the file: there
 is no upgrade from it (`db::check_not_newer`). The indexes are in the

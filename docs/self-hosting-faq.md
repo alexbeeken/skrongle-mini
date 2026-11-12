@@ -113,8 +113,10 @@ both services, copy `learn.db` and `learn.db.key` into `/var/lib/skrongle`
 on the new one, start it.
 
 **How do I go back to an older version?** `sudo /opt/skrongle/update.sh
-<old version>`. If the newer version changed the database, restore the
-`learn.db.before-<version>` copy the update made.
+<old version>`. If the newer version changed the database's layout, the
+script takes it back to the older one first; what only the newer version
+stored is dropped ([Upgrade](packaging#upgrade)). Going back from 0.3.0 or
+older needs the `learn.db.before-<version>` copy that update made instead.
 
 ## Access and AI
 

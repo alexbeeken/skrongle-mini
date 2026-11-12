@@ -19,7 +19,7 @@ before it.
 
 ## Update the install
 
-- [ ] On the Pi, run `sudo /opt/skrongle/update.sh <version>`. It prints `downloading skrongle-<version>-aarch64.tar.gz`, then `stopping skrongle (<previous> -> <version>)`, then `database copied to /var/lib/skrongle/learn.db.before-<version>`.
+- [ ] On the Pi, run `sudo /opt/skrongle/update.sh <version>`. It prints `downloading skrongle-<version>-aarch64.tar.gz`, then `stopping skrongle (<previous> -> <version>)`. It does not print `database copied`.
 - [ ] The output ends with `Skrongle <version> is running`. It does not end with `did not start`.
 - [ ] `cat /opt/skrongle/VERSION` prints `<version>`.
 - [ ] `sudo /opt/skrongle/skrongle doctor --service` shows the version and no line that starts with `PROBLEM:`.

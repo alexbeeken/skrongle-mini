@@ -63,6 +63,7 @@ chacha20poly1305 = { version = "0.11", default-features = false, features = ["al
 
 # --- Two-factor sign-in (src/totp.rs): the QR code an authenticator app scans, drawn as SVG by hand; no image crate ---
 qrcode = { version = "0.14", default-features = false }
+rusqlite_migration = "2.6.0"
 
 # --- Diagnostics (`skrongle doctor`, startup checks): statvfs, access, geteuid.
 # Already in the tree through tokio and getrandom; no new code is pulled in.
