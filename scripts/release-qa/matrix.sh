@@ -17,6 +17,13 @@
 # default. Its log and report: results/release-qa/<version>/<arch>.e2e.log and
 # results/release-qa/e2e/report.
 #
+# SIM=1 (with E2E=1) also starts the AI simulator (compose.yaml, profile
+# simulator), so e2e/specs/release/ai.spec.ts runs against the tarball instead
+# of skipping itself; the e2e cell then says whether it ran. The simulator is a
+# dev-feature Linux build of this checkout for that architecture:
+# SIM_BIN_AARCH64 / SIM_BIN_X86_64 if set, else built here with
+# sim-build.sh (cargo zigbuild). Off by default.
+#
 # Logs: results/release-qa/<version>/<arch>.log (and <arch>.upgrade.log). Exit status: non-zero when
 # any architecture FAILs. An architecture the release has no tarball for is
 # skipped and says so. The 32-bit ARM architectures need QEMU's handlers
@@ -49,6 +56,16 @@ else
   fi
 fi
 export SKRONGLE_VERSION="$VERSION" TARBALLS
+
+# sim_bin <arch>: the simulator binary for that architecture (SIM_BIN_<ARCH>, else sim-build.sh); its absolute path, or fails.
+sim_bin() {
+  local var bin
+  var="SIM_BIN_$(echo "$1" | tr '[:lower:]' '[:upper:]')"
+  bin="${!var:-}"
+  [ -n "$bin" ] || bin=$("$HERE/sim-build.sh" "$1" 2>"$OUT/$1.sim-build.log" | tail -1) || { echo "     sim-build.sh failed: results/release-qa/$VERSION/$1.sim-build.log" >&2; return 1; }
+  [ -f "$bin" ] || { echo "no simulator binary at $bin" >&2; return 1; }
+  (cd "$(dirname "$bin")" && echo "$(pwd)/$(basename "$bin")")
+}
 
 OUT="$ROOT/results/release-qa/$VERSION"
 mkdir -p "$OUT"
@@ -93,15 +110,37 @@ for a in "${ARCHES[@]}"; do
       aarch64|x86_64)
         echo "==> $a: release browser specs against skrongle-$VERSION-$a.tar.gz (log: results/release-qa/$VERSION/$a.e2e.log)"
         mkdir -p "$ROOT/results/release-qa/e2e"
-        if E2E_RESULTS="$ROOT/results/release-qa/e2e" docker compose --profile e2e run --rm --build "e2e-$a" > "$OUT/$a.e2e.log" 2>&1; then
+        PROFILES=(--profile e2e)
+        SIM_VARS=()
+        if [ "${SIM:-0}" = 1 ]; then
+          echo "==> $a: the AI simulator, a dev-feature build of this checkout for $a (log: results/release-qa/$VERSION/$a.sim-build.log)"
+          if ! bin=$(sim_bin "$a"); then
+            E2E_RESULT[$a]="FAIL (no simulator binary for $a)"
+            STATUS=1
+            continue
+          fi
+          PROFILES+=(--profile simulator)
+          SIM_VARS=(E2E_SIM=1 "SIM_BIN_$(echo "$a" | tr '[:lower:]' '[:upper:]')=$bin")
+        fi
+        if env E2E_RESULTS="$ROOT/results/release-qa/e2e" ${SIM_VARS[@]+"${SIM_VARS[@]}"} docker compose "${PROFILES[@]}" run --rm --build "e2e-$a" > "$OUT/$a.e2e.log" 2>&1; then
           E2E_RESULT[$a]=ok
+          if [ "${SIM:-0}" = 1 ]; then
+            # The list reporter marks a passed test ✓ and a skipped one -: with SIM=1 the AI spec must have run.
+            if grep -E 'ai\.spec\.ts' "$OUT/$a.e2e.log" | grep -q '✓'; then
+              E2E_RESULT[$a]="ok (AI spec ran)"
+            else
+              E2E_RESULT[$a]="FAIL (SIM=1 but the AI spec did not run; see $a.e2e.log)"
+              STATUS=1
+            fi
+          fi
         else
           rc=$?
           E2E_RESULT[$a]="FAIL (exit $rc; see $a.e2e.log)"
           STATUS=1
           grep -E '^ +[0-9]+ (failed|passed)|✘|FAILED' "$OUT/$a.e2e.log" | head -20 | sed 's/^/     /'
         fi
-        docker compose --profile e2e rm -fs "e2e-server-$a" >/dev/null 2>&1
+        # The simulator lives in the server's network namespace, so it goes first.
+        docker compose --profile e2e --profile simulator rm -fs "simulator-$a" "e2e-server-$a" >/dev/null 2>&1
         ;;
       *) E2E_RESULT[$a]="n/a" ;;
     esac

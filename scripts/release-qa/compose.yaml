@@ -18,7 +18,9 @@
 # armv6l once a release ships them (#21); `fetch`, `setup`, and the `qa-*`
 # services matrix.sh runs by name; `e2e` adds e2e-server-<arch> and e2e-<arch>
 # (the release browser specs against the unpacked tarball; aarch64 and
-# x86_64, run by matrix.sh with E2E=1). The `simulator` profile comes with #44.
+# x86_64, run by matrix.sh with E2E=1); `simulator` adds simulator-<arch>, the
+# AI simulator that e2e/specs/release/ai.spec.ts needs (with E2E_SIM=1; run by
+# matrix.sh with E2E=1 SIM=1).
 #
 # Under QEMU (x86_64 on an ARM Mac through Rosetta is quick; armv7l and
 # armv6l are slow) a page can take seconds and the first start minutes, so
@@ -85,6 +87,50 @@ x-e2e-server: &e2e-server
     timeout: 10s
     retries: 200
     start_period: 300s
+
+# The AI simulator (profile simulator, #41): a dev-feature build of this
+# checkout, started as scripts/release-e2e.sh starts its simulator (dev mode,
+# a database of its own, the fixtures in data/test-fixtures/llm), so
+# e2e/specs/release/ai.spec.ts runs against the tarball too. It is not in the
+# tarball: the Linux binary of the rig's architecture is built on the host
+# (sim-build.sh; matrix.sh with SIM=1 runs it) and mounted, with the
+# repo's data/, into the same Debian 11 image as the server (entrypoint.sh
+# `simulator`, which checks the architecture as for the server).
+#
+# Dev mode answers only requests made to localhost (a loopback bind, a
+# loopback Host header, src/dev.rs), so the simulator cannot be reached by its
+# compose name. It joins e2e-server-<arch>'s network namespace instead
+# (network_mode: service:...), and so does the Playwright container: all three
+# share one loopback, where the release server reaches the simulator at
+# 127.0.0.1:8090 and the spec reads its call log there.
+#
+# E2E_SIM=1 is what turns the provider base URL on in e2e-server-<arch> and
+# tells the spec where the simulator is (a profile cannot change another
+# service's environment); without it both are empty, which the app and the
+# spec read as unset, and the e2e profile runs as it did before.
+x-simulator: &simulator
+  profiles: [simulator]
+  restart: "no"
+  tmpfs: [/sim-state]
+  working_dir: /sim
+  command: simulator
+  healthcheck:
+    test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8090/dev/ai?format=json"]
+    interval: 3s
+    timeout: 10s
+    retries: 200
+    start_period: 300s
+
+x-simulator-env: &simulator-env
+  SKRONGLE_BIND: 127.0.0.1:8090
+  SKRONGLE_DB: /sim-state/sim.db
+  SKRONGLE_DATA_DIR: ./data
+  SKRONGLE_LLM_DIR: /sim-state/llm
+  SKRONGLE_LOG: info
+  SKRONGLE_DEV: "1"
+  SKRONGLE_DEV_FORCE: "1"
+  # The image's invite-only signup is the release server's setting, not the simulator's (empty reads as unset).
+  SKRONGLE_SIGNUP: ""
 
 # Playwright's image for the version e2e/package.json pins (keep them equal):
 # Chromium and its libraries for the host's architecture, so only the server
@@ -201,7 +247,7 @@ services:
     image: skrongle-release-qa:aarch64
     platform: linux/arm64
     build: *build-aarch64
-    environment: { ARCH: aarch64, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}", SKRONGLE_PUBLIC_URL: "http://e2e-server-aarch64:8080", E2E_LOG: /e2e-log/server.log }
+    environment: { ARCH: aarch64, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}", SKRONGLE_PUBLIC_URL: "http://e2e-server-aarch64:8080", E2E_LOG: /e2e-log/server.log, SKRONGLE_ANTHROPIC_BASE_URL: "${E2E_SIM:+http://127.0.0.1:8090/dev/ai/anthropic}" }
     volumes: ["${TARBALLS:-../../dist}:/tarballs:ro", "e2e-log-aarch64:/e2e-log"]
 
   e2e-server-x86_64:
@@ -209,13 +255,19 @@ services:
     image: skrongle-release-qa:x86_64
     platform: linux/amd64
     build: *build-x86_64
-    environment: { ARCH: x86_64, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}", SKRONGLE_PUBLIC_URL: "http://e2e-server-x86_64:8080", E2E_LOG: /e2e-log/server.log }
+    environment: { ARCH: x86_64, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}", SKRONGLE_PUBLIC_URL: "http://e2e-server-x86_64:8080", E2E_LOG: /e2e-log/server.log, SKRONGLE_ANTHROPIC_BASE_URL: "${E2E_SIM:+http://127.0.0.1:8090/dev/ai/anthropic}" }
     volumes: ["${TARBALLS:-../../dist}:/tarballs:ro", "e2e-log-x86_64:/e2e-log"]
 
   e2e-aarch64:
     <<: *e2e-runner
-    depends_on: { e2e-server-aarch64: { condition: service_healthy } }
-    environment: { E2E_BASE_URL: "http://e2e-server-aarch64:8080", E2E_SERVER_LOG: /e2e-log/server.log }
+    network_mode: "service:e2e-server-aarch64"
+    depends_on:
+      e2e-server-aarch64: { condition: service_healthy }
+      simulator-aarch64: { condition: service_healthy, required: false }
+    environment:
+      E2E_BASE_URL: "http://e2e-server-aarch64:8080"
+      E2E_SERVER_LOG: /e2e-log/server.log
+      E2E_AI_SIM_URL: "${E2E_SIM:+http://127.0.0.1:8090}"
     volumes:
       - ../..:/repo:ro
       - ./e2e-run.sh:/e2e-run.sh:ro
@@ -224,13 +276,43 @@ services:
 
   e2e-x86_64:
     <<: *e2e-runner
-    depends_on: { e2e-server-x86_64: { condition: service_healthy } }
-    environment: { E2E_BASE_URL: "http://e2e-server-x86_64:8080", E2E_SERVER_LOG: /e2e-log/server.log }
+    network_mode: "service:e2e-server-x86_64"
+    depends_on:
+      e2e-server-x86_64: { condition: service_healthy }
+      simulator-x86_64: { condition: service_healthy, required: false }
+    environment:
+      E2E_BASE_URL: "http://e2e-server-x86_64:8080"
+      E2E_SERVER_LOG: /e2e-log/server.log
+      E2E_AI_SIM_URL: "${E2E_SIM:+http://127.0.0.1:8090}"
     volumes:
       - ../..:/repo:ro
       - ./e2e-run.sh:/e2e-run.sh:ro
       - ${E2E_RESULTS:-../../results/release-qa/e2e}:/out
       - e2e-log-x86_64:/e2e-log:ro
+
+  simulator-aarch64:
+    <<: *simulator
+    image: skrongle-release-qa:aarch64
+    platform: linux/arm64
+    build: *build-aarch64
+    network_mode: "service:e2e-server-aarch64"
+    depends_on: { e2e-server-aarch64: { condition: service_started } }
+    environment: { <<: *simulator-env, ARCH: aarch64, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}" }
+    volumes:
+      - ${SIM_BIN_AARCH64:-../../target/aarch64-unknown-linux-gnu/release-qa-sim/spanish-learning}:/usr/local/bin/skrongle-sim:ro
+      - ../../data:/sim/data:ro
+
+  simulator-x86_64:
+    <<: *simulator
+    image: skrongle-release-qa:x86_64
+    platform: linux/amd64
+    build: *build-x86_64
+    network_mode: "service:e2e-server-x86_64"
+    depends_on: { e2e-server-x86_64: { condition: service_started } }
+    environment: { <<: *simulator-env, ARCH: x86_64, SKRONGLE_VERSION: "${SKRONGLE_VERSION:-0.1.2}" }
+    volumes:
+      - ${SIM_BIN_X86_64:-../../target/x86_64-unknown-linux-gnu/release-qa-sim/spanish-learning}:/usr/local/bin/skrongle-sim:ro
+      - ../../data:/sim/data:ro
 
   # ---------- one-shots ----------
   # The release's tarballs and checksums into TARBALLS (fetch.sh).

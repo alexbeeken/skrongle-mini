@@ -530,7 +530,9 @@ nothing).
 specs ([Release specs](#release-specs)) for aarch64 and x86_64: the `e2e`
 profile of `compose.yaml` runs the tarball's server in the Debian 11 container and the
 Playwright `release` projects against it from Playwright's own container
-(#41; `scripts/release-qa/README.md`). Off by default.
+(#41; `scripts/release-qa/README.md`). Off by default. `E2E=1 SIM=1` also
+starts the AI simulator beside it (the `simulator` profile), so `ai.spec.ts`
+runs on the tarball instead of skipping itself ([AI on a release server](#ai-on-a-release-server)).
 
 `.github/workflows/release-qa.yml` runs the same specs in its x86_64 cell
 (#46), natively on the runner: it unpacks the tarball and runs
@@ -953,8 +955,16 @@ With no such binary and no cargo, the script says so and the AI specs skip thems
 the other specs run. The `RELEASE_E2E_DEV=1` run has no simulator process (its own
 dev AI is not used), so they skip there. To run it against a server you started,
 set `E2E_AI_SIM_URL` and start that server with the matching `SKRONGLE_ANTHROPIC_BASE_URL`
-and `SKRONGLE_OPENAI_BASE_URL`. Not covered here: running them inside the container rig
-(`scripts/release-qa`), and the other OpenAI-format providers (DeepSeek, Mistral, xAI,
+and `SKRONGLE_OPENAI_BASE_URL`.
+In the container rig, `E2E=1 SIM=1 scripts/release-qa/matrix.sh dist aarch64` runs
+them against the tarball (the `simulator` profile of `scripts/release-qa/compose.yaml`,
+#41): the simulator is a dev-feature Linux build of the checkout
+(`scripts/release-qa/sim-build.sh <arch>`, cargo-zigbuild without debug assertions,
+so its pages and translations are embedded rather than read from the checkout's
+path), and since dev
+mode answers only requests made to localhost, it and the Playwright container share
+the release server's network namespace (`scripts/release-qa/README.md`).
+Not covered here: the other OpenAI-format providers (DeepSeek, Mistral, xAI,
 OpenRouter, Gemini), which reach the simulator by the same client as OpenAI's and are
 covered by the dev specs (`manage-keys.spec.ts`) and `cargo test`.
 
