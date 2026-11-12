@@ -15,6 +15,7 @@ What is here:
 | `upgrade-check.sh <tarball>` | The upgrade path (#43): the tarball started on the database each older release wrote (`fixtures/`), checking the migration ran, both accounts sign in, progress, the shared course and the unused invitation survived, a second start changes nothing, and the older release's binary refuses the migrated database (exit 78, file unchanged). `KEEP_DB=<path>.db` on `package-smoke.sh` writes a new fixture (`fixtures/README.md`). |
 | `compose.yaml` | One service per architecture (`skrongle-aarch64` on port 8081, `skrongle-x86_64` on 8082; `skrongle-armv7l` on 8083 and `skrongle-armv6l` on 8084 behind the `arm32` profile until a release ships them, #21), plus `qa-<arch>` services that run `package-smoke.sh`, a `fetch` one-shot that downloads a release, and a `binfmt` one-shot for QEMU's handlers. |
 | `matrix.sh <version \| dir> [arch ...]` | Runs `qa-<arch>` (package-smoke.sh, then upgrade-check.sh; `SKIP_UPGRADE=1` leaves the second out) for each architecture and prints one table. Logs in `results/release-qa/<version>/`. |
+| `vm.sh <arch> <command>`, `lima/` | A full Debian 12 VM with systemd per architecture under Lima (#42): `up`, `install`, `update`, `e2e`, `measure`, `uninstall`, `down`, `shell`. See "VMs" below. |
 | `Dockerfile`, `entrypoint.sh`, `fetch.sh` | The image (Debian 11 + curl), what it does with the tarball (`serve` or `smoke`, after checking that the container's `uname -m` is the architecture it is named for), and the downloader. |
 
 ## Check a release
@@ -94,7 +95,7 @@ A container runs the binary and the app: the architecture's instruction set,
 is the oldest we support), the data files, SQLite, the pages, the links the
 app hands out. It does not run systemd, so the unit's sandboxing,
 `DynamicUser`, `StateDirectory`, `update.sh` and rollback are not covered
-here; that is the VM layer, #42. Timings under emulation mean nothing, so
+here; that is the VM layer below (#42). Timings under emulation mean nothing, so
 nothing here measures time (the decisions on #47). A green cell is good
 evidence a release works on that architecture, not proof; the hardware
 checklist (#45) stays.
@@ -109,3 +110,31 @@ The browser specs for a release server (`e2e/specs/release`, Playwright project
 `release`, #40) run against any of these servers: `E2E_BASE_URL=http://localhost:8081
 E2E_OWNER_LINK='<owner link from docker compose logs>' npx --prefix e2e playwright test --project release`
 on a fresh volume (`docker compose down -v`). See `docs/testing.md`, "Release specs".
+
+## VMs
+
+The containers above do not run systemd. `vm.sh` does, in a Lima VM (Debian 12,
+1 CPU, 512 MiB, named `skrongle-qa-<arch>`; only that name is ever touched), and
+runs the commands of `docs/self-hosting.md` in it: Install (the doc's code
+block, read from the file), `update.sh` (a candidate served from this machine
+through `SKRONGLE_RELEASE_BASE`, so the download and the SHA-256 check are the
+real ones), going back to the published release, `uninstall.sh` plain and with
+`--purge`. `docs/testing.md`, "Release QA", "VMs" has the commands and what
+each checks.
+
+```sh
+scripts/build-pi.sh aarch64 && scripts/package-release.sh 0.3.0-qa aarch64   # the candidate, in dist/
+scripts/release-qa/vm.sh aarch64 up
+scripts/release-qa/vm.sh aarch64 install
+scripts/release-qa/vm.sh aarch64 update
+scripts/release-qa/vm.sh aarch64 e2e        # the release Playwright specs against http://127.0.0.1:18576
+scripts/release-qa/vm.sh aarch64 measure    # results/release-qa/<version>/aarch64-vm.txt
+scripts/release-qa/vm.sh aarch64 uninstall
+scripts/release-qa/vm.sh aarch64 down
+```
+
+`vm.sh aarch64 shell` opens a shell in it; the app is also at
+`http://127.0.0.1:18576` (x86_64: 18577) while it runs. aarch64 uses Apple's
+Virtualization framework (`vmType: vz`), so no QEMU. x86_64 needs QEMU
+(`brew install qemu`) and has been written but not run. armv7l: no Debian
+cloud image Lima can boot, so 32-bit ARM stays with the containers.
