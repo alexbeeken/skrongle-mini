@@ -100,11 +100,53 @@ jobs:
           ls -l dist
           scripts/release-qa/matrix.sh dist ${{ matrix.arch }} 2>&1 | tee matrix.log
 
+      # x86_64 only, because the runner is x86_64: the release browser specs
+      # (docs/testing.md, "Release specs", #46) on the unpacked tarball's own
+      # binary and data, natively. scripts/release-e2e.sh starts it fresh (an
+      # invite-only server with the owner link read from its log, then an
+      # open-signup one for the release-open project). The specs and their
+      # course answers come from the checked-out ref, the server from the
+      # tarball. The other cells would run Chromium under QEMU; the rig's e2e
+      # profile does that on a laptop (scripts/release-qa/README.md).
+      - name: Browser tools for the release specs
+        if: matrix.arch == 'x86_64' && env.NO_TARBALL != '1'
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: e2e/package-lock.json
+      - name: Install the browser test tools
+        if: matrix.arch == 'x86_64' && env.NO_TARBALL != '1'
+        working-directory: e2e
+        run: |
+          npm ci --no-fund --no-audit
+          npx playwright install --with-deps chromium
+      - name: Release browser specs on the tarball
+        id: e2e
+        if: matrix.arch == 'x86_64' && env.NO_TARBALL != '1'
+        run: |
+          set -o pipefail
+          tarball=$(ls dist/skrongle-*-x86_64.tar.gz)
+          unpacked="$RUNNER_TEMP/skrongle-unpacked"
+          rm -rf "$unpacked" && mkdir -p "$unpacked"
+          tar -xzf "$tarball" -C "$unpacked"
+          echo "skrongle $(cat "$unpacked/VERSION") from $tarball"
+          SERVER_BIN="$unpacked/skrongle" RELEASE_E2E_DATA="$unpacked/data" scripts/release-e2e.sh 2>&1 | tee e2e.log
+      - name: Keep the report of a failed run
+        if: failure() && steps.e2e.outcome == 'failure'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: playwright-report-release-qa-x86_64
+          path: |
+            e2e/results/report
+            e2e/results/artifacts
+          retention-days: 7
+
       # Weekly only: the same script in a stock current Debian with only
       # curl added, as a self-hoster's fresh box would be.
       - name: package-smoke.sh on current Debian
         id: current
-        if: env.NO_TARBALL != '1' && env.FROM_ARTIFACTS != 'true' && matrix.current != ''
+        if: ${{ !cancelled() && env.NO_TARBALL != '1' && env.FROM_ARTIFACTS != 'true' && matrix.current != '' }}
         run: |
           set -o pipefail
           tarball=$(basename "$(ls dist/skrongle-*-${{ matrix.arch }}.tar.gz)")
@@ -120,6 +162,7 @@ jobs:
         env:
           SMOKE: ${{ steps.smoke.outcome }}
           CURRENT: ${{ steps.current.outcome }}
+          E2E: ${{ steps.e2e.outcome }}
           ARCH: ${{ matrix.arch }}
         run: |
           {
@@ -128,6 +171,7 @@ jobs:
             echo "| step | result |"
             echo "|---|---|"
             echo "| package-smoke.sh in the rig (Debian 11) | $SMOKE |"
+            [ "$E2E" = skipped ] || echo "| release browser specs on the unpacked tarball | $E2E |"
             [ "$CURRENT" = skipped ] || echo "| package-smoke.sh on current Debian (bookworm) | $CURRENT |"
             for log in matrix.log current.log; do
               [ -f "$log" ] || continue
@@ -140,6 +184,7 @@ jobs:
                 echo "$fails" | head -5 | sed 's/^- //' | while read -r l; do echo "::error title=qa $ARCH::$l" >&2; done
               fi
             done
+            [ "$E2E" != failure ] || { echo; echo "The release browser specs failed; the Playwright report is this run's artifact playwright-report-release-qa-x86_64. Tail of the output:"; echo; echo '```'; tail -n 30 e2e.log; echo '```'; }
             if [ "$SMOKE" != success ] || { [ "$CURRENT" != success ] && [ "$CURRENT" != skipped ]; }; then
               echo
               echo "Last 30 lines of matrix.log (no FAIL line above means it stopped before a check, for instance the image build):"

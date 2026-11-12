@@ -5,6 +5,9 @@
 #
 #   entrypoint.sh serve   unpack /tarballs/skrongle-$SKRONGLE_VERSION-$ARCH.tar.gz
 #                         into /opt/skrongle and run it, as a self-hoster would
+#   entrypoint.sh serve-e2e
+#                         the same, with the server's log written to $E2E_LOG (a volume the
+#                         browser-spec container reads the owner link from, #41)
 #   entrypoint.sh smoke   run package-smoke.sh on that tarball and exit with its status
 #   entrypoint.sh upgrade run upgrade-check.sh: that tarball on the database each older release
 #                         wrote (the fixtures mounted at /usr/local/lib/release-qa/fixtures)
@@ -34,8 +37,9 @@ if [ ! -f "$TARBALL" ]; then
   exit 3
 fi
 
-case "${1:-serve}" in
-  serve)
+CMD="${1:-serve}"
+case "$CMD" in
+  serve|serve-e2e)
     if [ -f "$TARBALL.sha256" ]; then
       (cd /tarballs && sha256sum -c "$(basename "$TARBALL").sha256" >/dev/null) || { echo "checksum mismatch for $TARBALL"; exit 1; }
     fi
@@ -43,6 +47,10 @@ case "${1:-serve}" in
     tar -xzf "$TARBALL" -C /opt/skrongle
     echo "skrongle $(cat /opt/skrongle/VERSION) for $ARCH on $(uname -m); the owner link is in this log, open it with the host port"
     cd /opt/skrongle
+    if [ "$CMD" = serve-e2e ]; then
+      : "${E2E_LOG:?set E2E_LOG (where to write the server log)}"
+      exec ./skrongle >"$E2E_LOG" 2>&1
+    fi
     exec ./skrongle
     ;;
   smoke)

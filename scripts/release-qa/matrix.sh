@@ -11,6 +11,12 @@
 # this release on the database every older release wrote (fixtures/), and the
 # older release refusing the migrated one. SKIP_UPGRADE=1 leaves that out.
 #
+# E2E=1 adds a third check for aarch64 and x86_64 (#41): the Playwright `release`
+# projects (docs/testing.md, "Release specs") against the tarball's server in
+# the rig, from a Playwright container (compose.yaml, profile e2e). Off by
+# default. Its log and report: results/release-qa/<version>/<arch>.e2e.log and
+# results/release-qa/e2e/report.
+#
 # Logs: results/release-qa/<version>/<arch>.log (and <arch>.upgrade.log). Exit status: non-zero when
 # any architecture FAILs. An architecture the release has no tarball for is
 # skipped and says so. The 32-bit ARM architectures need QEMU's handlers
@@ -46,12 +52,13 @@ export SKRONGLE_VERSION="$VERSION" TARBALLS
 
 OUT="$ROOT/results/release-qa/$VERSION"
 mkdir -p "$OUT"
-declare -A VERDICT UPGRADE
+declare -A VERDICT UPGRADE E2E_RESULT
 STATUS=0
 for a in "${ARCHES[@]}"; do
   if [ ! -f "$TARBALLS/skrongle-$VERSION-$a.tar.gz" ]; then
     VERDICT[$a]="skipped (no tarball for $a in $TARBALLS)"
     UPGRADE[$a]="-"
+    E2E_RESULT[$a]="-"
     continue
   fi
   echo "==> $a: package-smoke.sh on skrongle-$VERSION-$a.tar.gz (log: results/release-qa/$VERSION/$a.log)"
@@ -80,14 +87,35 @@ for a in "${ARCHES[@]}"; do
       grep -E '^  FAIL|^FAIL|^PASS' "$OUT/$a.upgrade.log" | head -20 | sed 's/^/     /'
     fi
   fi
+  E2E_RESULT[$a]="-"
+  if [ "${E2E:-0}" = 1 ]; then
+    case "$a" in
+      aarch64|x86_64)
+        echo "==> $a: release browser specs against skrongle-$VERSION-$a.tar.gz (log: results/release-qa/$VERSION/$a.e2e.log)"
+        mkdir -p "$ROOT/results/release-qa/e2e"
+        if E2E_RESULTS="$ROOT/results/release-qa/e2e" docker compose --profile e2e run --rm --build "e2e-$a" > "$OUT/$a.e2e.log" 2>&1; then
+          E2E_RESULT[$a]=ok
+        else
+          rc=$?
+          E2E_RESULT[$a]="FAIL (exit $rc; see $a.e2e.log)"
+          STATUS=1
+          grep -E '^ +[0-9]+ (failed|passed)|✘|FAILED' "$OUT/$a.e2e.log" | head -20 | sed 's/^/     /'
+        fi
+        docker compose --profile e2e rm -fs "e2e-server-$a" >/dev/null 2>&1
+        ;;
+      *) E2E_RESULT[$a]="n/a" ;;
+    esac
+  fi
 done
 
 echo
 echo "release $VERSION"
-printf '%-10s %-8s %s\n' architecture verdict upgrade
+if [ "${E2E:-0}" = 1 ]; then printf '%-10s %-8s %-8s %s\n' architecture verdict upgrade e2e; else printf '%-10s %-8s %s\n' architecture verdict upgrade; fi
 for a in "${ARCHES[@]}"; do
   case "${VERDICT[$a]}" in
-    ok) printf '%-10s %-8s %s\n' "$a" ok "${UPGRADE[$a]}" ;;
+    ok)
+      if [ "${E2E:-0}" = 1 ]; then printf '%-10s %-8s %-8s %s\n' "$a" ok "${UPGRADE[$a]}" "${E2E_RESULT[$a]}"
+      else printf '%-10s %-8s %s\n' "$a" ok "${UPGRADE[$a]}"; fi ;;
     *) printf '%-10s %s\n' "$a" "${VERDICT[$a]}" ;;
   esac
 done
