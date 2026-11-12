@@ -27,8 +27,10 @@
 //! The request continues with the new session in its `Cookie` header, so
 //! every extractor downstream (`CurrentUser`, `MaybeUser`, `SessionToken`)
 //! sees the account without knowing about the proxy. `/dev/*` (dev mode's
-//! `/dev/login` among them), `/static/*`, `/logout` and the bearer-token API
-//! `/api/v1/*` (#167) and `/mcp` (#168) are left alone.
+//! `/dev/login` among them), `/static/*`, `/logout`, the bearer-token API
+//! `/api/v1/*` (#167) and `/mcp` (#168), and OAuth's discovery documents
+//! and program endpoints (#169) are left alone, and the consent page's
+//! answer (`POST /oauth/authorize`) needs the session cookie itself.
 
 use axum::extract::{ConnectInfo, Request, State};
 use axum::http::header::COOKIE;
@@ -194,6 +196,17 @@ fn left_alone(path: &str) -> bool {
         // The API takes a bearer token only: the header never stands in for one (#167).
         || path.starts_with("/api/v1/")
         || path == "/mcp"
+        // OAuth (#169): the discovery documents and the endpoints programs
+        // call never sign anyone in.
+        || path.starts_with("/.well-known/")
+        || crate::routes::oauth::PROGRAM_PATHS.contains(&path)
+}
+
+/// The consent page's answer (`POST /oauth/authorize`, #169) needs the
+/// session the consent page was shown in: the header alone signs nobody in
+/// there.
+fn needs_its_session(req: &Request) -> bool {
+    req.method() == axum::http::Method::POST && app_path(req) == "/oauth/authorize"
 }
 
 /// What the header asks for.
@@ -289,7 +302,7 @@ fn with_session(req: &mut Request, token: &str) {
 /// The middleware (see the module comment). A no-op without the settings.
 pub async fn middleware(State(state): State<Arc<AppState>>, mut req: Request, next: Next) -> Response {
     let Some(cfg) = state.proxy_auth.as_ref() else { return next.run(req).await };
-    if left_alone(app_path(&req)) {
+    if left_alone(app_path(&req)) || needs_its_session(&req) {
         return next.run(req).await;
     }
     let Some(value) = req.headers().get(&cfg.header) else { return next.run(req).await };

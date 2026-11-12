@@ -120,7 +120,14 @@ if [ "$RESET" = 1 ]; then
   say "==> removed $SKRONGLE_DB (and its .key file) and $SKRONGLE_LLM_DIR"
 fi
 
-URL="http://$HOST:$PORT"
+ORIGIN="http://$HOST:$PORT"
+# With SKRONGLE_BASE_PATH (e.g. /skrongle) the app, /healthz included, is under it.
+BASE="${SKRONGLE_BASE_PATH:-}"; BASE="${BASE%/}"; [ -z "$BASE" ] || [ "${BASE#/}" != "$BASE" ] || BASE="/$BASE"
+URL="$ORIGIN$BASE"
+# OAuth sign-in for apps (#169) answers only with a public address: the
+# server's own (without the base path, which the app adds), so
+# /dev/oauth-client works. Not with --lan (dev mode is off there).
+[ "$HOST" = 0.0.0.0 ] || export SKRONGLE_PUBLIC_URL="${SKRONGLE_PUBLIC_URL:-$ORIGIN}"
 say "==> dev server: $URL   (db: $SKRONGLE_DB, courses: $SKRONGLE_DATA_DIR/courses, log: $SKRONGLE_LOG, llm: ${SKRONGLE_LLM_MODE:-simulator}, canned replies after ${SKRONGLE_LLM_DELAY_MS} ms)"
 LAN_IP=""
 if [ "$HOST" = 0.0.0.0 ]; then

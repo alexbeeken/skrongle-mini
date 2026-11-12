@@ -35,6 +35,7 @@ pub mod quiz;
 pub mod password;
 pub mod manage;
 pub mod mcp;
+pub mod oauth;
 pub mod tutor;
 pub mod vocab;
 
@@ -290,6 +291,9 @@ pub fn router(state: Arc<AppState>) -> Router {
         // The MCP server (#168): every method reaches the handler, which
         // refuses all but POST itself, after the switch and the Origin check.
         .route("/mcp", axum::routing::any(mcp::endpoint))
+        // OAuth sign-in for apps that connect from the cloud (#169): the
+        // discovery documents, the consent page and the program endpoints.
+        .merge(oauth::routes())
         // owners (404 for anyone else); /superuser was its old address
         .route("/superuser", get(|q: RawQuery| moved("/manage", q)))
         .route("/manage", get(manage::show))
@@ -325,6 +329,8 @@ pub fn router(state: Arc<AppState>) -> Router {
     let (dev, reload) = (state.dev.on, state.dev.on && crate::dev::reload_wanted());
     let app = app
         .fallback(|| async { AppError::NotFound })
+        // Connected apps (#170): the owner's switch before any extractor.
+        .layer(axum::middleware::from_fn_with_state(state.clone(), api::switch))
         .layer(axum::middleware::from_fn_with_state(state.clone(), crate::error::in_layout));
     // A reverse proxy's identity header signs people in (#642), before any
     // handler or the error layout looks for a session.
@@ -744,6 +750,7 @@ pub(crate) fn test_state(dev: bool) -> Arc<AppState> {
         public_url: None,
         signup: Default::default(),
         proxy_auth: None,
+        issued: Default::default(),
     })
 }
 

@@ -1,0 +1,15 @@
+{# An OAuth authorization request that failed a check, or an Allow that could not make its grant (routes/oauth.rs, #169): the error code and what is wrong. Nothing is sent back to the app. #}
+{% extends "base.html" %}
+{% block title %}{{ crate::t("oauth.error.title") }}{% endblock %}
+{% block content %}
+<section class="narrow" data-testid="oauth-error">
+  <h1 class="heading-with-info">{{ crate::t("oauth.error.title") }} <button type="button" class="info-btn" data-show-dialog="oauth-error-info-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("oauth.error.info") }}" data-testid="oauth-error-info"><span aria-hidden="true">i</span></button></h1>
+  <dialog class="modal" id="oauth-error-info-dialog" aria-labelledby="oauth-error-info-title" data-testid="oauth-error-info-dialog">
+    <h2 id="oauth-error-info-title">{{ crate::t("oauth.error.info") }}</h2>
+    <p>{{ crate::t("oauth.error.info_text") }}</p>
+    <form method="dialog" class="modal-actions"><button type="submit" class="btn">{{ crate::t("profile.ok") }}</button></form>
+  </dialog>
+  <p class="alert error" role="alert" data-testid="oauth-error-message">{{ message }}</p>
+  {% if !error.is_empty() %}<p class="small muted"><code data-testid="oauth-error-code">{{ error }}</code></p>{% endif %}
+</section>
+{% endblock %}

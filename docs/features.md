@@ -2159,6 +2159,22 @@ token they give it (#167, the first step of plan #166). The code is
   grant's course list, the editor's file check and limits, all or nothing.
   The endpoint, the tools, the scopes and the errors are in
   [The MCP server](api).
+- **OAuth** (#169): an app that connects from a vendor's cloud signs in
+  instead of being given a token, on a server with `SKRONGLE_PUBLIC_URL`
+  set ([The MCP server](api), "OAuth"). The app registers itself, sends
+  the person to `/oauth/authorize`, and the person sees the **consent
+  page** (`oauth-consent`): the app's name, the host the answer goes to,
+  what it may do in plain words, an optional list of their own courses
+  (one line says a limited app can't create a course), how long it works,
+  **Allow** and **Deny**. Signed out, the normal sign-in comes first and
+  leads back to it. An account without Create courses gets a page saying
+  to ask the owner (`oauth-no-permission`); a request that fails a check
+  gets an error page (`oauth-error`) and the app hears nothing. Allow makes
+  one grant, listed under Connected apps with the app's name like a token
+  made by hand, and the app trades the code for an access token (an hour)
+  and a refresh token that works once (used again, it ends the connection:
+  it may have been stolen). Revoke on the profile, the owner's
+  Revoke and the events below end it the same way.
 - **`GET /api/v1/whoami`** is the probe: `{"user_id", "client_id",
   "client_name", "scopes", "courses"}`.
 - **The profile's Connected apps** (`profile-apps`, `#apps`): each grant
@@ -2182,7 +2198,9 @@ token they give it (#167, the first step of plan #166). The code is
   the same database call. The password dialog and the owner's two dialogs
   say so.
 - **Expiry.** Expired grants and tokens are purged with the sessions (the
-  hourly housekeeping and at startup). Deleting the account deletes both
+  hourly housekeeping and at startup), with OAuth's expired codes, grants
+  whose code was never traded, and registrations nobody finished a grant
+  for within a day. Deleting the account deletes both
   tables' rows (`ON DELETE CASCADE`).
 
 ## Install as an app

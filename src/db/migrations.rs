@@ -24,6 +24,10 @@ const STEPS: &[M<'static>] = &[
     M::up(include_str!("migrations/v005_error_kind.sql")).down(include_str!("migrations/v005_error_kind.down.sql")),
     // v6: connected apps (api_grants, api_tokens, #167)
     M::up(include_str!("migrations/v006_api_grants.sql")).down(include_str!("migrations/v006_api_grants.down.sql")),
+    // v7: OAuth sign-in for connected apps (oauth_clients, oauth_codes, #169)
+    M::up(include_str!("migrations/v007_oauth.sql")).down(include_str!("migrations/v007_oauth.down.sql")),
+    // v8: api_tokens.used_at, a reused refresh token revokes its grant (#184)
+    M::up(include_str!("migrations/v008_refresh_reuse.sql")).down(include_str!("migrations/v008_refresh_reuse.down.sql")),
 ];
 
 /// Schema migrations, applied in order. `PRAGMA user_version` tracks which have run.

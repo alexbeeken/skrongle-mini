@@ -48,6 +48,9 @@ pub const INVALID_PARAMS: i64 = -32602;
 pub const INTERNAL_ERROR: i64 = -32603;
 /// Server-defined: the per-grant request limit.
 pub const TOO_MANY_REQUESTS: i64 = -32000;
+/// Server-defined: the connection stopped working between two messages of
+/// one batch (the switch, the grant or the account's permission, #170).
+pub const CONNECTION_ENDED: i64 = -32001;
 
 /// A tool's answer: its JSON result, and whether it is a refusal the agent
 /// should read and fix (`isError`), which is not a protocol error.
@@ -268,6 +271,11 @@ pub fn too_deep(body: &[u8], max: usize) -> bool {
 fn item(v: Value) -> Item {
     let Some(obj) = v.as_object() else { return Item::Invalid(error(&Value::Null, INVALID_REQUEST, "Each message must be a JSON object.")) };
     let id = obj.get("id").cloned();
+    // JSON-RPC 2.0 §4: an id is a string, a number or null. Anything else
+    // (an object, a list, a boolean) is not echoed back (#170).
+    if id.as_ref().is_some_and(|v| !matches!(v, Value::String(_) | Value::Number(_) | Value::Null)) {
+        return Item::Invalid(error(&Value::Null, INVALID_REQUEST, "id must be a string or a number."));
+    }
     if obj.get("jsonrpc").and_then(Value::as_str) != Some("2.0") {
         return Item::Invalid(error(&id.unwrap_or(Value::Null), INVALID_REQUEST, "jsonrpc must be \"2.0\"."));
     }

@@ -448,3 +448,26 @@ fn log_capture() {
     assert!(!log.contains(&token[TOKEN_PREFIX.len()..]), "the token is in the log");
     assert!(!log.contains(&crate::auth::hash_token(&token)), "the hash is in the log");
 }
+
+/// #170: no template or script holds a token. The prefix appears nowhere
+/// in `templates/` or `static/`, and the one place a token is shown is the
+/// profile's one-time dialog (`new_token`), which only a just-made token
+/// fills.
+#[test]
+fn no_template_shows_a_token_but_the_one_time_dialog() {
+    let mut shown_in = Vec::new();
+    for dir in ["templates", "static"] {
+        for entry in std::fs::read_dir(dir).unwrap() {
+            let path = entry.unwrap().path();
+            let Ok(text) = std::fs::read_to_string(&path) else { continue };
+            assert!(!text.contains(TOKEN_PREFIX), "{} names the token prefix", path.display());
+            if text.contains("new_token") || text.contains("token_hash") {
+                shown_in.push(path.display().to_string());
+            }
+        }
+    }
+    assert_eq!(shown_in, vec!["templates/profile.html".to_string()]);
+    let profile = std::fs::read_to_string("templates/profile.html").unwrap();
+    assert!(profile.contains("{% if let Some(token) = a.new_token %}"));
+    assert!(!profile.contains("token_hash"));
+}

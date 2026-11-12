@@ -1,0 +1,41 @@
+{# The OAuth consent page (routes/oauth.rs, #169): who asks, for what, where the answer goes; Allow or Deny. Nothing is granted until the form is posted. #}
+{% extends "base.html" %}
+{% block title %}{{ crate::t1("oauth.consent.title", "app", client_name) }}{% endblock %}
+{% block content %}
+<section class="narrow card" data-testid="oauth-consent">
+  <h1 class="heading-with-info">{{ crate::t1("oauth.consent.title", "app", client_name) }} <button type="button" class="info-btn" data-show-dialog="oauth-consent-info-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("oauth.consent.info") }}" data-testid="oauth-consent-info"><span aria-hidden="true">i</span></button></h1>
+  <dialog class="modal" id="oauth-consent-info-dialog" aria-labelledby="oauth-consent-info-title" data-testid="oauth-consent-info-dialog">
+    <h2 id="oauth-consent-info-title">{{ crate::t("oauth.consent.info") }}</h2>
+    <p>{{ crate::t("oauth.consent.info_text") }}</p>
+    <p class="small">{{ crate::t("oauth.consent.info_revoke") }}</p>
+    <form method="dialog" class="modal-actions"><button type="submit" class="btn" data-testid="oauth-consent-info-close">{{ crate::t("profile.ok") }}</button></form>
+  </dialog>
+  <form method="post" action="{{ crate::url("/oauth/authorize") }}" class="profile-form" data-testid="oauth-consent-form">
+    {% for (name, value) in fields %}<input type="hidden" name="{{ name }}" value="{{ value }}">
+    {% endfor %}
+    <p><strong data-testid="oauth-consent-app">{{ client_name }}</strong> {{ crate::t("oauth.consent.wants") }}</p>
+    <ul data-testid="oauth-consent-scopes">
+      {% for s in scopes %}<li data-testid="oauth-consent-scope">{{ s }}</li>
+      {% endfor %}
+    </ul>
+    <p class="small">{{ crate::t("oauth.consent.sends_to") }} <strong data-testid="oauth-consent-host">{{ host }}</strong></p>
+    {% if let Some(u) = user %}<p class="small muted" data-testid="oauth-consent-account">{{ crate::t1("oauth.consent.account", "email", u.email.as_str()) }}</p>{% endif %}
+    {% if !courses.is_empty() %}
+    <fieldset data-testid="oauth-consent-courses">
+      <legend>{{ crate::t("apps.courses") }}</legend>
+      <p class="small muted" data-testid="oauth-consent-courses-note">{{ crate::t("oauth.consent.courses_note") }}</p>
+      {% for c in courses %}<label><input type="checkbox" name="course" value="{{ c.id }}" data-testid="oauth-consent-course"> {{ c.label }}</label>{% endfor %}
+    </fieldset>
+    {% endif %}
+    <label>{{ crate::t("apps.lifetime") }}
+      <select name="lifetime" data-testid="oauth-consent-lifetime">
+        {% for l in lifetimes %}<option value="{{ l.id }}"{% if l.checked %} selected{% endif %}>{{ l.label }}</option>{% endfor %}
+      </select>
+    </label>
+    <div class="modal-actions">
+      <button type="submit" class="btn" name="decision" value="allow" data-testid="oauth-consent-allow">{{ crate::t("oauth.consent.allow") }}</button>
+      <button type="submit" class="btn ghost" name="decision" value="deny" data-testid="oauth-consent-deny">{{ crate::t("oauth.consent.deny") }}</button>
+    </div>
+  </form>
+</section>
+{% endblock %}

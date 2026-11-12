@@ -837,3 +837,217 @@ fn log_capture() {
     assert!(!log.contains(&token[grants::TOKEN_PREFIX.len()..]), "the token is in the log");
     assert!(!log.contains(marker), "the course text is in the log");
 }
+
+// ---------- #170: the security review ----------
+
+/// The checklist of #170, each as it is written there: an `Origin` header,
+/// a cookie alone, a token in the address, a 10 MB body, JSON nested 1,000
+/// deep, a batch of 1,000 calls and a file named `../x.json` are all
+/// refused, and none of them runs a tool or writes anything.
+#[test]
+fn the_checklist_requests_are_refused() {
+    let s = site();
+    let token = s.ann_token();
+    let auth = format!("Bearer {token}");
+    let list = rpc_body("tools/call", json!({"name": "list_courses"}));
+    let before = s.files(ANN);
+
+    for origin in [format!("http://{}", s.addr), "http://localhost".into(), "https://evil.example".into(), "null".into()] {
+        let a = s.post(Some(&token), &[("origin", &origin)], &list);
+        assert_eq!(a.status, 403, "Origin {origin}");
+        assert!(!a.body.contains(ANN), "nothing ran");
+    }
+    let cookie = format!("sid={}", s.state.db.with(|c| crate::auth::create_session(c, s.ann)).unwrap());
+    assert_eq!(s.post(None, &[("cookie", &cookie)], &list).status, 401, "a cookie alone");
+    let in_address = answer(s.agent.post(&s.url(&format!("/mcp?access_token={token}"))).header("content-type", "application/json").send(list.to_string()).unwrap());
+    assert_eq!(in_address.status, 400, "a token in the address, with no header");
+
+    // 10 MB, declared: refused before the body is read.
+    let ten_mb = 10 * 1024 * 1024;
+    let head = format!(
+        "POST /mcp HTTP/1.1\r\nHost: {}\r\nAuthorization: {auth}\r\nContent-Type: application/json\r\nContent-Length: {ten_mb}\r\nConnection: close\r\n\r\n",
+        s.addr
+    );
+    let mut req = head.into_bytes();
+    req.extend_from_slice(&vec![b' '; 64 * 1024]);
+    let raw = s.raw(&req);
+    assert!(raw.starts_with("HTTP/1.1 413"), "{}", raw.lines().next().unwrap_or(""));
+
+    let deep = format!("{}{}", "[".repeat(1000), "]".repeat(1000));
+    let a = s.post_raw(&[("authorization", &auth), ("content-type", "application/json")], &deep);
+    assert_eq!((a.status, a.json()["error"]["code"].as_i64()), (400, Some(PARSE_ERROR)), "1,000 deep");
+
+    let thousand: Vec<Value> = (0..1000).map(|i| json!({"jsonrpc": "2.0", "id": i, "method": "tools/call", "params": {"name": "list_courses"}})).collect();
+    let a = s.post(Some(&token), &[], &Value::Array(thousand));
+    assert_eq!((a.status, a.json()["error"]["code"].as_i64()), (400, Some(INVALID_REQUEST)), "a batch of 1,000");
+    assert!(!a.body.contains(ANN));
+
+    let file = json!({"path": "../x.json", "content": "{}"});
+    for (tool, args) in [
+        ("put_course_files", json!({"course_id": ANN, "files": [file]})),
+        ("create_course", json!({"files": [file]})),
+        ("validate_course", json!({"files": [file]})),
+    ] {
+        let (err, why) = s.call(&token, tool, args);
+        assert!(err && why["errors"][0].as_str().is_some_and(|e| e.contains("../x.json")), "{tool}: {why}");
+    }
+    assert_eq!(s.files(ANN), before, "nothing was written");
+    assert_eq!(s.course_count(s.ann), 2, "nothing was made");
+}
+
+/// JSON-RPC that is odd on purpose: an `id` that is an object, a list or a
+/// boolean is refused and not echoed (it was echoed before #170); a message
+/// without `jsonrpc`, a 10 KB method name, `arguments` as a string; a
+/// notification naming a write tool runs nothing; duplicate keys are read
+/// the same way by the scope check and by the call (the last one wins), so
+/// they cannot slip a write past a read-only token.
+#[test]
+fn odd_json_rpc_is_refused_or_harmless() {
+    let s = site();
+    let token = s.ann_token();
+    let reader = s.token(s.ann, &[Scope::Read], &[]);
+    let auth = format!("Bearer {reader}");
+    let raw = |body: &str| s.post_raw(&[("authorization", &auth), ("content-type", "application/json")], body);
+
+    for id in [json!({"a": 1}), json!([1]), json!(true)] {
+        let a = s.post(Some(&token), &[], &json!({"jsonrpc": "2.0", "id": id, "method": "ping"}));
+        assert_eq!((a.status, a.json()["error"]["code"].as_i64()), (400, Some(INVALID_REQUEST)), "id {id}");
+        assert_eq!(a.json()["id"], Value::Null, "id {id} is not echoed");
+    }
+    for id in [json!(7), json!("seven"), json!(1.5)] {
+        assert_eq!(s.post(Some(&token), &[], &json!({"jsonrpc": "2.0", "id": id, "method": "ping"})).json()["id"], id);
+    }
+    let a = s.post(Some(&token), &[], &json!({"id": 1, "method": "ping"}));
+    assert_eq!((a.status, a.json()["error"]["code"].as_i64()), (400, Some(INVALID_REQUEST)), "no jsonrpc");
+    let long = "m".repeat(10 * 1024);
+    let a = s.rpc(&token, &long, json!({}));
+    assert_eq!(a.json()["error"]["code"], METHOD_NOT_FOUND);
+    assert!(a.body.len() < 200, "the name is not echoed: {} bytes", a.body.len());
+    let a = s.rpc(&token, "tools/call", json!({"name": "list_courses", "arguments": "{}"}));
+    assert_eq!(a.json()["error"]["code"], INVALID_PARAMS, "arguments as a string");
+
+    let n = s.course_count(s.ann);
+    let note = json!({"jsonrpc": "2.0", "method": "tools/call", "params": {"name": "create_course", "arguments": {"files": example_files()}}});
+    let a = s.post(Some(&token), &[], &note);
+    assert_eq!((a.status, a.body.as_str()), (202, ""), "a notification is not answered");
+    assert_eq!(s.course_count(s.ann), n, "and runs nothing");
+
+    let sneaky = r#"{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_courses","name":"create_course","arguments":{"files":[]}}}"#;
+    assert_eq!(raw(sneaky).status, 403, "the last name is the one checked and the one run");
+    let harmless = r#"{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"create_course","name":"list_courses"}}"#;
+    let a = raw(harmless);
+    assert_eq!(a.status, 200);
+    assert!(a.json()["result"]["structuredContent"]["courses"].is_array(), "list_courses ran: {}", a.body);
+    assert_eq!(s.course_count(s.ann), n);
+}
+
+/// More file names than `bad_file_names_are_refused` tries: another case,
+/// a NUL, 4 KB, Windows separators, a leading `./`. Each is refused by
+/// both write tools and changes nothing. (Course files live in SQLite and
+/// are never written to disk; `check_file` is still the one gate.)
+#[test]
+fn odd_file_names_are_refused() {
+    let s = site();
+    let token = s.ann_token();
+    let before = s.files(ANN);
+    let n = s.course_count(s.ann);
+    let json_text = json!({"id": "x", "title": "X", "unit": "1"}).to_string();
+    let long = format!("lessons/{}.json", "a".repeat(4096));
+    for bad in [
+        "COURSE.JSON",
+        "Course.json",
+        "LESSONS/a.json",
+        "lessons/a\u{0}.json",
+        "lessons/a.json\u{0}",
+        long.as_str(),
+        "..\\x.json",
+        "lessons\\..\\course.json",
+        "./course.json",
+        "lessons/./../course.json",
+        "lessons/a.json/",
+        " course.json",
+        "lessons/a b.json",
+        "lessons/é.json",
+    ] {
+        let file = json!({"path": bad, "content": json_text});
+        let (err, why) = s.call(&token, "put_course_files", json!({"course_id": ANN, "files": [file]}));
+        assert!(err && why["errors"].is_array(), "{bad:?} was taken: {why}");
+        let mut files = example_files();
+        files.push(file);
+        assert!(s.call(&token, "create_course", json!({"files": files})).0, "{bad:?} made a course");
+    }
+    assert_eq!(s.files(ANN), before, "nothing was written");
+    assert_eq!(s.course_count(s.ann), n);
+}
+
+/// What the hook below runs once, and a change made to the server.
+type Change = Box<dyn Fn() + Send>;
+type OnState = dyn Fn(&AppState) + Send + Sync;
+
+/// A batch asks again before each later message: the owner turning the
+/// switch off, the grant being revoked or the account losing Create courses
+/// while an earlier message runs stops the rest (before #170 the rest ran).
+/// The first message's build is held by a hook that makes the change.
+#[test]
+fn a_batch_stops_when_the_connection_ends() {
+    const HELD: &str = "ann-held-ccc333";
+    let s = site();
+    s.state.db.with(|c| crate::courses::create_course(c, s.ann, HELD, "Held", &crate::courses::starter_files(HELD, "Held"))).unwrap();
+    let change: Arc<std::sync::Mutex<Option<Change>>> = Arc::new(std::sync::Mutex::new(None));
+    let hook_change = Arc::clone(&change);
+    let hook: Arc<dyn Fn(&str) + Send + Sync> = Arc::new(move |_| {
+        if let Some(f) = hook_change.lock().unwrap().take() {
+            f();
+        }
+    });
+    crate::courses::CHECK_HOOK.lock().unwrap().push((HELD.to_string(), hook));
+    let batch = json!([
+        {"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": "validate_course", "arguments": {"course_id": HELD}}},
+        {"jsonrpc": "2.0", "id": 2, "method": "tools/call", "params": {"name": "list_courses"}},
+        {"jsonrpc": "2.0", "id": 3, "method": "ping"},
+    ]);
+    let ann = s.ann;
+    let changes: Vec<(&str, Box<OnState>)> = vec![
+        ("the switch off", Box::new(|st: &AppState| st.db.with(|c| crate::settings::set_apps_on(c, false)).unwrap())),
+        ("the grant revoked", Box::new(move |st: &AppState| st.db.with(|c| grants::revoke_all_for_user(c, ann)).map(|_| ()).unwrap())),
+        ("Create courses taken away", Box::new(move |st: &AppState| st.db.with(|c| crate::perms::set_custom(c, ann, crate::perms::Perms::STUDENT)).unwrap())),
+    ];
+    for (what, f) in changes {
+        s.state.db.with(|c| crate::settings::set_apps_on(c, true)).unwrap();
+        s.state.db.with(|c| crate::perms::apply_preset(c, ann, crate::perms::TEACHER_PRESET)).unwrap();
+        let token = s.ann_token();
+        let state = Arc::clone(&s.state);
+        // The build runs off the database lock, so the change can take it.
+        *change.lock().unwrap() = Some(Box::new(move || f(&state)));
+        let a = s.post(Some(&token), &[], &batch);
+        assert_eq!(a.status, 200, "{what}: {}", a.body);
+        let answers = a.json();
+        let answers = answers.as_array().unwrap();
+        assert!(answers[0].get("result").is_some(), "{what}: the first ran: {}", answers[0]);
+        for later in &answers[1..] {
+            assert_eq!(later["error"]["code"], CONNECTION_ENDED, "{what}: {later}");
+        }
+        assert!(!a.body.contains(ANN), "{what}: list_courses did not run");
+    }
+    crate::courses::CHECK_HOOK.lock().unwrap().retain(|(id, _)| id != HELD);
+}
+
+/// An account that loses Create courses, or is given a temporary password,
+/// is cut off at its next request to `/mcp`; the temporary password also
+/// revokes its grants, so giving the permission back does not bring them.
+#[test]
+fn losing_the_permission_or_a_temporary_password_cuts_off_mcp() {
+    let s = site();
+    let token = s.ann_token();
+    let ping = |t: &str| s.rpc(t, "ping", json!({})).status;
+    assert_eq!(ping(&token), 200);
+    s.state.db.with(|c| crate::perms::set_custom(c, s.ann, crate::perms::Perms::STUDENT)).unwrap();
+    assert_eq!(ping(&token), 401, "no Create courses");
+    s.state.db.with(|c| crate::perms::apply_preset(c, s.ann, crate::perms::TEACHER_PRESET)).unwrap();
+    assert_eq!(ping(&token), 200, "the grant was kept");
+    s.state.db.with(|c| crate::owner::set_temporary_password(c, s.ann, "x", None).map(|_| ())).unwrap();
+    assert_eq!(ping(&token), 401, "a temporary password");
+    s.state.db.with(|c| c.execute("UPDATE users SET must_change_password = 0", [])).unwrap();
+    assert_eq!(ping(&token), 401, "and its grants were revoked");
+    assert_eq!(s.state.db.with(|c| grants::grants(c, s.ann, crate::db::now())).unwrap().len(), 0);
+}

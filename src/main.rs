@@ -32,6 +32,7 @@ mod mcp;
 mod measure;
 mod notation;
 mod notes;
+mod oauth_server;
 mod mastery;
 mod prices;
 mod motivators;
@@ -163,6 +164,9 @@ pub struct AppState {
     /// `SKRONGLE_PROXY_AUTH_HEADER` + `SKRONGLE_PROXY_AUTH_FROM`: the proxy in
     /// front signs people in (`proxy_auth.rs`); `None` when unset.
     pub proxy_auth: Option<proxy_auth::Config>,
+    /// Tokens handed out in the last day, for the owner's Connected apps
+    /// card (in memory, #170).
+    pub issued: auth::api::Issued,
 }
 
 impl AppState {
@@ -525,6 +529,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         public_url: env("PUBLIC_URL").map(|u| u.trim_end_matches('/').to_string()),
         signup,
         proxy_auth,
+        issued: Default::default(),
     });
 
     // Background jobs: the hourly housekeeping (one job per purge, each queuing its

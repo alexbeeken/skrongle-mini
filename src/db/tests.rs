@@ -70,7 +70,7 @@ fn migrations_apply_once() {
     let db = Db::open_in_memory().unwrap();
     let v: i64 = db.with(|c| c.query_row("PRAGMA user_version", [], |r| r.get(0))).unwrap();
     assert_eq!(v, schema_version());
-    assert_eq!(v, 6, "v1 is the schema (#49), v2 drops Skrongle Cash, v3 names share links, v4 adds permissions (#138), v5 adds courses.error_kind, v6 adds connected apps (#167)");
+    assert_eq!(v, 8, "v1 is the schema (#49), v2 drops Skrongle Cash, v3 names share links, v4 adds permissions (#138), v5 adds courses.error_kind, v6 adds connected apps (#167), v7 adds OAuth clients and codes (#169), v8 adds api_tokens.used_at (#184)");
     // Re-running is a no-op.
     db.with(migrate).unwrap();
 }
@@ -155,6 +155,29 @@ fn down_and_up_again_keeps_the_rows() {
         let (id, perms): (i64, i64) = c.query_row("SELECT id, perms FROM users WHERE email = 'ann@example.org'", [], |r| Ok((r.get(0)?, r.get(1)?)))?;
         assert_eq!((id, perms), (ann, 63), "the account is kept; going up gives it the Teacher set again");
         assert_eq!(c.query_row("SELECT count(*) FROM courses", [], |r| r.get::<_, i64>(0))?, 2);
+        Ok(())
+    })
+    .unwrap();
+}
+
+/// v8's `down` deletes used refresh tokens (a v7 binary would take one for
+/// a working one) and keeps every other token; going up again keeps them.
+#[test]
+fn v8_down_drops_used_refresh_tokens_only() {
+    let db = Db::open_in_memory().unwrap();
+    db.with(|c| {
+        let ann = crate::auth::create_user(c, "ann@example.org", "h")?;
+        c.execute("INSERT INTO api_grants (id, user_id, client_id, client_name, scopes, created_at, expires_at) VALUES (1, ?1, 'c', 'App', 'courses:read', 1, 9999999999)", [ann])?;
+        c.execute_batch(
+            "INSERT INTO api_tokens (grant_id, kind, token_hash, expires_at, used_at) VALUES
+                 (1, 'access', 'a', 9999999999, NULL), (1, 'refresh', 'r2', 9999999999, NULL), (1, 'refresh', 'r1', 9999999999, 5);",
+        )?;
+        migrate_to(c, 7)?;
+        let hashes: Vec<String> = c.prepare("SELECT token_hash FROM api_tokens ORDER BY token_hash")?.query_map([], |r| r.get(0))?.collect::<Result<_, _>>()?;
+        assert_eq!(hashes, ["a", "r2"]);
+        migrate(c)?;
+        let unused: i64 = c.query_row("SELECT COUNT(*) FROM api_tokens WHERE used_at IS NULL", [], |r| r.get(0))?;
+        assert_eq!(unused, 2);
         Ok(())
     })
     .unwrap();
