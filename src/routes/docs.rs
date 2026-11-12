@@ -43,7 +43,7 @@ pub const SECTIONS: &[(&str, &str, &[&str])] = &[
     (
         "self-hosting",
         "docs.section_self_hosting",
-        &["setup-home-wifi", "setup-tailscale", "self-hosting", "self-hosting-faq"],
+        &["setup-home-wifi", "setup-tailscale", "self-hosting", "self-hosting-faq", "security-apps"],
     ),
     (
         "reference",

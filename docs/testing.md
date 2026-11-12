@@ -485,7 +485,7 @@ Off unless the variable is set; not for production.
 ## Smoke test
 
 ```sh
-scripts/smoke.sh          # fresh ./smoke.db, a free port, the dev AI provider; pages + one generation
+scripts/smoke.sh          # fresh ./smoke.db, a free port, the dev AI provider; pages + one generation + a token and one MCP tool
 ```
 
 It seeds, logs in through `/dev/login`, expects 200 from every main page
@@ -844,6 +844,7 @@ from the dev authenticator. `grep -r "/dev/" e2e/specs/release` finds nothing.
 | | `course-by-hand.spec.ts` | create a course without AI, rename it, add a lesson in the editor, edit its JSON, autosave, reload, open it as a learner |
 | | `share.spec.ts` | the owner makes a share link, a learner opens it and has the course read only, the owner removes it, the course leaves the learner's list |
 | | `account.spec.ts` | change password (wrong current refused; the old one stops working), two-factor on and off with a code worked out from the setup key (wrong code refused), sign out and in, the language switch kept by the account, the home page and a lesson at 390 px |
+| | `connected-apps.spec.ts` | the owner turns *Let apps connect* on, makes a token on the profile (shown once, never again on the page), sees it on Manage Users with the tokens-issued count up by one, calls `list_courses` on `/mcp` with it from a client with no cookies (401 without it), revokes it (401) and turns the switch off (404) |
 | | `docs.spec.ts` | `/docs` and every page in its sidebar answer 200 as HTML and Markdown, nothing is wider than a phone, every in-app link they hold opens, `/llms.txt` and what it lists |
 | `release-open` | the existing specs below | against a server with `SKRONGLE_SIGNUP=open` (they register their own accounts through `/register`) |
 
