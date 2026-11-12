@@ -336,9 +336,9 @@ fn token_rows(c: &Connection) -> i64 {
     c.query_row("SELECT COUNT(*) FROM api_tokens", [], |r| r.get(0)).unwrap()
 }
 
-/// Refreshing marks the refresh token used and hands out a new pair.
-/// Another client cannot use it, and its attempt does not use it up. An
-/// access token refreshes nothing.
+/// Refreshing deletes the refresh token and hands out a new pair of the same
+/// family. Another client cannot use it, and its attempt does not use it
+/// up. An access token refreshes nothing.
 #[test]
 fn refresh_tokens_rotate() {
     let db = Db::open_in_memory().unwrap();
@@ -346,23 +346,173 @@ fn refresh_tokens_rotate() {
         let (ann, a) = setup(c);
         let code = allow(c, &a, &consent(ann), NOW).unwrap().unwrap();
         let first = exchange_code(c, &exchange(&a, &code), NOW + 1).unwrap().unwrap();
+        assert_eq!(first.refresh.len(), 4 + 64 + api::FAMILY_HEX, "skr_, 256 random bits, the family");
         assert_eq!(refresh(c, &first.refresh, "other-client", NOW + 2).unwrap().unwrap_err(), TokenError::InvalidGrant);
         let second = refresh(c, &first.refresh, &a.client.client_id, NOW + 2).unwrap().unwrap();
         assert_ne!(second.refresh, first.refresh);
+        assert_eq!(api::family_of(&second.refresh), api::family_of(&first.refresh), "one family for the grant");
+        assert_ne!(second.refresh[..68], first.refresh[..68], "fresh random bits");
         assert!(works(c, &second.access));
         assert_eq!(refresh(c, &second.access, &a.client.client_id, NOW + 3).unwrap().unwrap_err(), TokenError::InvalidGrant, "an access token refreshes nothing");
-        let used: Option<i64> = c.query_row("SELECT used_at FROM api_tokens WHERE token_hash = ?1", [hash_token(&first.refresh)], |r| r.get(0))?;
-        assert_eq!(used, Some(NOW + 2), "kept, marked used");
-        // Refreshing in a loop keeps at most two access tokens, one refresh
-        // token and one used refresh token.
+        let kept: i64 = c.query_row("SELECT COUNT(*) FROM api_tokens WHERE token_hash = ?1", [hash_token(&first.refresh)], |r| r.get(0))?;
+        assert_eq!(kept, 0, "the used token's row is gone");
+        // Refreshing in a loop keeps at most two access tokens and one
+        // refresh token.
         let mut last = second;
         for i in 0..10 {
             last = refresh(c, &last.refresh, &a.client.client_id, NOW + 4 + i).unwrap().unwrap();
         }
         assert!(works(c, &last.access));
-        assert_eq!(token_rows(c), 4);
-        let used: i64 = c.query_row("SELECT COUNT(*) FROM api_tokens WHERE used_at IS NOT NULL", [], |r| r.get(0))?;
-        assert_eq!(used, 1, "only the newest used refresh token");
+        assert_eq!(token_rows(c), 3);
+        Ok(())
+    })
+    .unwrap();
+}
+
+/// The case #184 missed (#192): a thief with a stolen refresh token
+/// refreshes twice before the real app refreshes once. The real app's
+/// token is then two generations old; presented by the grant's client it
+/// still revokes the grant, and the thief's newest pair stops working.
+#[test]
+fn a_thief_who_refreshes_twice_is_still_caught() {
+    let db = Db::open_in_memory().unwrap();
+    db.with(|c| {
+        let (ann, a) = setup(c);
+        let code = allow(c, &a, &consent(ann), NOW).unwrap().unwrap();
+        let app = exchange_code(c, &exchange(&a, &code), NOW + 1).unwrap().unwrap();
+        let stolen = app.refresh.clone();
+        let thief1 = refresh(c, &stolen, &a.client.client_id, NOW + 2).unwrap().unwrap();
+        let thief2 = refresh(c, &thief1.refresh, &a.client.client_id, NOW + 3).unwrap().unwrap();
+        assert!(works(c, &thief2.access));
+        assert_eq!(refresh(c, &app.refresh, &a.client.client_id, NOW + 4).unwrap().unwrap_err(), TokenError::InvalidGrant);
+        assert_eq!(grants(c), 0, "the grant is gone");
+        assert!(api::grants(c, ann, NOW + 4)?.is_empty(), "Connected apps no longer lists it");
+        assert!(!works(c, &thief2.access), "the thief's access token stops working");
+        assert_eq!(refresh(c, &thief2.refresh, &a.client.client_id, NOW + 5).unwrap().unwrap_err(), TokenError::InvalidGrant, "and its refresh token");
+        assert_eq!(token_rows(c), 0);
+        Ok(())
+    })
+    .unwrap();
+}
+
+/// There is no age past which an earlier refresh token goes unnoticed:
+/// after 1,000 refreshes of one grant, the token table still holds three
+/// rows for it (within `MAX_API_TOKENS`), and the very first refresh token,
+/// presented again, revokes the grant.
+#[test]
+fn a_thousand_refreshes_keep_three_rows_and_the_first_token_still_revokes() {
+    let db = Db::open_in_memory().unwrap();
+    db.with(|c| {
+        let (ann, a) = setup(c);
+        let code = allow(c, &a, &consent(ann), NOW).unwrap().unwrap();
+        let first = exchange_code(c, &exchange(&a, &code), NOW + 1).unwrap().unwrap();
+        let mut last = refresh(c, &first.refresh, &a.client.client_id, NOW + 2).unwrap().unwrap();
+        for i in 1..1000 {
+            last = refresh(c, &last.refresh, &a.client.client_id, NOW + 2 + i).unwrap().unwrap();
+            assert!(token_rows(c) <= 3, "after {i} refreshes");
+        }
+        assert_eq!(token_rows(c), 3);
+        assert!(token_rows(c) as usize <= crate::caps::MAX_API_TOKENS);
+        let rows: i64 = c.query_row("SELECT COUNT(*) FROM api_grants", [], |r| r.get(0))?;
+        assert_eq!(rows, 1, "no row per generation anywhere");
+        assert!(works(c, &last.access));
+        assert_eq!(refresh(c, &first.refresh, &a.client.client_id, NOW + 2000).unwrap().unwrap_err(), TokenError::InvalidGrant);
+        assert_eq!(grants(c), 0, "a thousand generations back still revokes");
+        Ok(())
+    })
+    .unwrap();
+}
+
+/// Tokens that are not an earlier one of a live grant are refused and
+/// revoke nothing: a made-up token in the refresh shape, one with the
+/// grant's random part but another family, an access token, a token of a
+/// grant that has expired, and anything not in the shape at all.
+#[test]
+fn unknown_tokens_revoke_nothing() {
+    let db = Db::open_in_memory().unwrap();
+    db.with(|c| {
+        let (ann, a) = setup(c);
+        let code = allow(c, &a, &consent(ann), NOW).unwrap().unwrap();
+        let first = exchange_code(c, &exchange(&a, &code), NOW + 1).unwrap().unwrap();
+        let second = refresh(c, &first.refresh, &a.client.client_id, NOW + 2).unwrap().unwrap();
+        let made_up = format!("skr_{}{}", crate::auth::generate_token(), api::new_family());
+        let other_family = format!("{}{}", &second.refresh[..68], api::new_family());
+        for t in [made_up.as_str(), other_family.as_str(), second.access.as_str(), "skr_", "", "nonsense"] {
+            assert_eq!(refresh(c, t, &a.client.client_id, NOW + 3).unwrap().unwrap_err(), TokenError::InvalidGrant, "{t}");
+            assert_eq!(grants(c), 1, "{t} revoked the grant");
+        }
+        // An earlier token of a grant that has expired: refused, and the
+        // purge, not a revoke, takes the grant.
+        let expires: i64 = c.query_row("SELECT expires_at FROM api_grants", [], |r| r.get(0))?;
+        assert_eq!(refresh(c, &first.refresh, &a.client.client_id, expires).unwrap().unwrap_err(), TokenError::InvalidGrant);
+        assert_eq!(grants(c), 1);
+        assert!(refresh(c, &second.refresh, &a.client.client_id, NOW + 4).unwrap().is_ok(), "the newest token still works");
+        Ok(())
+    })
+    .unwrap();
+}
+
+/// The database holds no family and no refresh token, only their hashes:
+/// a copy of it cannot make a token, nor revoke a grant by forging an
+/// earlier one.
+#[test]
+fn the_database_holds_no_family() {
+    let db = Db::open_in_memory().unwrap();
+    db.with(|c| {
+        let (ann, a) = setup(c);
+        let code = allow(c, &a, &consent(ann), NOW).unwrap().unwrap();
+        let first = exchange_code(c, &exchange(&a, &code), NOW + 1).unwrap().unwrap();
+        let second = refresh(c, &first.refresh, &a.client.client_id, NOW + 2).unwrap().unwrap();
+        let family = api::family_of(&second.refresh).unwrap().to_string();
+        let stored: Option<String> = c.query_row("SELECT refresh_family_hash FROM api_grants", [], |r| r.get(0))?;
+        assert_eq!(stored, Some(hash_token(&family)), "the family's hash only");
+        let mut cells = Vec::new();
+        for table in ["api_grants", "api_tokens"] {
+            let mut stmt = c.prepare(&format!("SELECT * FROM {table}"))?;
+            let n = stmt.column_count();
+            let mut rows = stmt.query([])?;
+            while let Some(r) = rows.next()? {
+                for i in 0..n {
+                    if let rusqlite::types::ValueRef::Text(t) = r.get_ref(i)? {
+                        cells.push(String::from_utf8_lossy(t).to_string());
+                    }
+                }
+            }
+        }
+        for cell in &cells {
+            assert!(!cell.contains(&family), "a family in the database");
+            for t in [&first.refresh, &second.refresh, &second.access] {
+                assert!(!cell.contains(&t[4..68]), "a token in the database");
+            }
+        }
+        Ok(())
+    })
+    .unwrap();
+}
+
+/// A refresh token from before families (v8: 64 hex, no family) still
+/// refreshes once, and the grant then has a family like any other.
+#[test]
+fn a_token_from_before_families_starts_one() {
+    let db = Db::open_in_memory().unwrap();
+    db.with(|c| {
+        let (ann, a) = setup(c);
+        let code = allow(c, &a, &consent(ann), NOW).unwrap().unwrap();
+        exchange_code(c, &exchange(&a, &code), NOW + 1).unwrap().unwrap();
+        let old = format!("skr_{}", crate::auth::generate_token());
+        c.execute("DELETE FROM api_tokens WHERE kind = 'refresh'", [])?;
+        c.execute("UPDATE api_grants SET refresh_family_hash = NULL", [])?;
+        let grant: i64 = c.query_row("SELECT id FROM api_grants", [], |r| r.get(0))?;
+        let expires: i64 = c.query_row("SELECT expires_at FROM api_grants", [], |r| r.get(0))?;
+        c.execute("INSERT INTO api_tokens (grant_id, kind, token_hash, expires_at) VALUES (?1, 'refresh', ?2, ?3)", params![grant, hash_token(&old), expires])?;
+        let next = refresh(c, &old, &a.client.client_id, NOW + 2).unwrap().unwrap();
+        let family = api::family_of(&next.refresh).unwrap();
+        let stored: Option<String> = c.query_row("SELECT refresh_family_hash FROM api_grants", [], |r| r.get(0))?;
+        assert_eq!(stored, Some(hash_token(family)));
+        let newer = refresh(c, &next.refresh, &a.client.client_id, NOW + 3).unwrap().unwrap();
+        assert_eq!(refresh(c, &next.refresh, &a.client.client_id, NOW + 4).unwrap().unwrap_err(), TokenError::InvalidGrant);
+        assert_eq!(grants(c), 0, "from then on an earlier one revokes");
+        assert!(!works(c, &newer.access));
         Ok(())
     })
     .unwrap();
@@ -392,9 +542,9 @@ fn a_reused_refresh_token_revokes_its_grant() {
 }
 
 /// Reuse is told by the token alone, but the client check comes first:
-/// another client presenting a used refresh token gets `invalid_grant` and
-/// revokes nothing; the client the grant was made for still refreshes with
-/// its newest token.
+/// another client presenting an earlier refresh token gets `invalid_grant`
+/// and revokes nothing, whether it is the previous one or older; the client
+/// the grant was made for still refreshes with its newest token.
 #[test]
 fn a_used_refresh_token_from_another_client_revokes_nothing() {
     let db = Db::open_in_memory().unwrap();
@@ -403,33 +553,62 @@ fn a_used_refresh_token_from_another_client_revokes_nothing() {
         let code = allow(c, &a, &consent(ann), NOW).unwrap().unwrap();
         let first = exchange_code(c, &exchange(&a, &code), NOW + 1).unwrap().unwrap();
         let second = refresh(c, &first.refresh, &a.client.client_id, NOW + 2).unwrap().unwrap();
-        assert_eq!(refresh(c, &first.refresh, "other-client", NOW + 3).unwrap().unwrap_err(), TokenError::InvalidGrant);
+        let third = refresh(c, &second.refresh, &a.client.client_id, NOW + 3).unwrap().unwrap();
+        assert_eq!(refresh(c, &second.refresh, "other-client", NOW + 4).unwrap().unwrap_err(), TokenError::InvalidGrant);
+        assert_eq!(refresh(c, &first.refresh, "other-client", NOW + 4).unwrap().unwrap_err(), TokenError::InvalidGrant);
         assert_eq!(grants(c), 1);
-        assert!(works(c, &second.access));
-        assert!(refresh(c, &second.refresh, &a.client.client_id, NOW + 4).unwrap().is_ok());
+        assert!(works(c, &third.access));
+        assert!(refresh(c, &third.refresh, &a.client.client_id, NOW + 5).unwrap().is_ok());
         Ok(())
     })
     .unwrap();
 }
 
-/// A used refresh token goes with its grant: when the grant expires, the
-/// purge deletes it with every other token; revoked, the cascade does.
+/// Two registered apps, each with a grant of Ann's: an earlier refresh
+/// token of one presented by the other revokes neither, and each still
+/// refreshes with its own newest token.
 #[test]
-fn used_refresh_tokens_go_with_their_grant() {
+fn a_token_of_another_clients_grant_revokes_nothing() {
+    let db = Db::open_in_memory().unwrap();
+    db.with(|c| {
+        let (ann, a) = setup(c);
+        let id = register(c, "Other", &[CB.to_string()], NOW).unwrap().unwrap();
+        let mut p = params(|_| {});
+        p.client_id = Some(id.clone());
+        let b = check_authorize(&p, super::client(c, &id, NOW)?, ISSUER).unwrap();
+        let code_a = allow(c, &a, &consent(ann), NOW).unwrap().unwrap();
+        let code_b = allow(c, &b, &consent(ann), NOW).unwrap().unwrap();
+        let a1 = exchange_code(c, &exchange(&a, &code_a), NOW + 1).unwrap().unwrap();
+        let b1 = exchange_code(c, &exchange(&b, &code_b), NOW + 1).unwrap().unwrap();
+        let a2 = refresh(c, &a1.refresh, &a.client.client_id, NOW + 2).unwrap().unwrap();
+        let b2 = refresh(c, &b1.refresh, &b.client.client_id, NOW + 2).unwrap().unwrap();
+        assert_eq!(refresh(c, &a1.refresh, &b.client.client_id, NOW + 3).unwrap().unwrap_err(), TokenError::InvalidGrant);
+        assert_eq!(refresh(c, &b1.refresh, &a.client.client_id, NOW + 3).unwrap().unwrap_err(), TokenError::InvalidGrant);
+        assert_eq!(grants(c), 2, "neither grant was revoked");
+        assert!(refresh(c, &a2.refresh, &a.client.client_id, NOW + 4).unwrap().is_ok());
+        assert!(refresh(c, &b2.refresh, &b.client.client_id, NOW + 4).unwrap().is_ok());
+        Ok(())
+    })
+    .unwrap();
+}
+
+/// Nothing per refresh outlives the refresh: when the grant expires, the
+/// purge deletes it with every token; revoked, the cascade does, and its
+/// family's hash goes with the grant row.
+#[test]
+fn refresh_rows_go_with_their_grant() {
     let db = Db::open_in_memory().unwrap();
     db.with(|c| {
         let (ann, a) = setup(c);
         let code = allow(c, &a, &consent(ann), NOW).unwrap().unwrap();
         let first = exchange_code(c, &exchange(&a, &code), NOW + 1).unwrap().unwrap();
         refresh(c, &first.refresh, &a.client.client_id, NOW + 2).unwrap().unwrap();
-        let used = |c: &Connection| c.query_row("SELECT COUNT(*) FROM api_tokens WHERE used_at IS NOT NULL", [], |r| r.get::<_, i64>(0)).unwrap();
-        assert_eq!(used(c), 1);
         api::purge_expired(c, NOW + 3)?;
-        assert_eq!(used(c), 1, "kept while the grant lasts");
+        assert_eq!((grants(c), token_rows(c)), (1, 3), "kept while the grant lasts");
         let expires: i64 = c.query_row("SELECT expires_at FROM api_grants", [], |r| r.get(0))?;
         api::purge_expired(c, expires)?;
         assert_eq!((grants(c), token_rows(c)), (0, 0), "gone with the grant");
-        // Revoked on the profile: the used row goes too.
+        // Revoked on the profile.
         let code = allow(c, &a, &consent(ann), NOW).unwrap().unwrap();
         let t = exchange_code(c, &exchange(&a, &code), NOW + 1).unwrap().unwrap();
         refresh(c, &t.refresh, &a.client.client_id, NOW + 2).unwrap().unwrap();

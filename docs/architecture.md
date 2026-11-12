@@ -337,16 +337,20 @@ permission_presets (id, name UNIQUE NOCASE, builtin, perms, created_at)
                 -- users.perms. Built in (builtin 1): id 1 'student' (0) and id 2 'teacher' (63), whose names the
                 -- screen translates
 settings       (name PRIMARY KEY, value)  WITHOUT ROWID
-api_grants     (id, user_id, client_id, client_name, scopes, courses, created_at, expires_at, last_used_at)
+api_grants     (id, user_id, client_id, client_name, scopes, courses, created_at, expires_at, last_used_at,
+                refresh_family_hash UNIQUE)
                 -- connected apps (#167, src/auth/api.rs): one row per connection; client_id 'personal' for a token made
                 -- on the profile; scopes space-separated (courses:read courses:write); courses space-separated ids,
                 -- '' = all of the account's own; expires_at always set (30, 90 or 365 days); last_used_at written at
-                -- most once a minute; at most 4 per account and 200 rows (caps.rs); cascades from users
-api_tokens     (id, grant_id, kind, token_hash UNIQUE, expires_at, used_at)
+                -- most once a minute; at most 4 per account and 200 rows (caps.rs); cascades from users;
+                -- refresh_family_hash (v9, #192) is the SHA-256 of the 128-bit family every refresh token of an
+                -- OAuth grant ends with, never the family: an earlier refresh token of the grant is known by it,
+                -- and presented again revokes the grant; NULL for a personal grant
+api_tokens     (id, grant_id, kind, token_hash UNIQUE, expires_at)
                 -- kind personal | access | refresh (the last two for OAuth, #169); token_hash is the SHA-256 of
-                -- the skr_ token (auth::hash_token), never the token; at most 800 rows; cascades from api_grants;
-                -- expired grants and tokens are purged with the sessions; used_at marks a used refresh token
-                -- (v8, #184): kept, one per grant, so that its reuse revokes the grant
+                -- the skr_ token (auth::hash_token), never the token; at most 600 rows (3 per grant: an access
+                -- token, the access token it replaced, a refresh token; a used refresh token is deleted, #192);
+                -- cascades from api_grants; expired grants and tokens are purged with the sessions
 oauth_clients  (id, client_id UNIQUE, name, redirect_uris, created_at, last_grant_at)
                 -- apps registered for OAuth sign-in (#169, src/oauth_server.rs): name at most 60 characters,
                 -- redirect_uris newline-separated (at most 5 of 200 characters, https or loopback http);
@@ -432,7 +436,8 @@ migrations (`v002_no_skc.sql` drops `motivator_purchases` and turns a saved
 `users.preset_id`, and gives every existing account the Teacher set; `v005_error_kind.sql` adds
 `courses.error_kind`; `v006_api_grants.sql` adds connected apps' `api_grants` and `api_tokens`;
 `v007_oauth.sql` adds OAuth's `oauth_clients` and `oauth_codes`; `v008_refresh_reuse.sql` adds
-`api_tokens.used_at`, so a reused refresh token revokes its grant), which `src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
+`api_tokens.used_at`, so a reused refresh token revokes its grant; `v009_refresh_family.sql` drops it again for
+`api_grants.refresh_family_hash`, so any earlier refresh token revokes its grant), which `src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
 how many have run, and a later change appends its own entry with a
 `.down.sql` beside it that takes it back (`db::migrate_to`, behind `skrongle migrate <schema-version>`;
 `db::tests::every_down_restores_the_schema_before_it` holds each one to the schema before it). A database
@@ -889,7 +894,7 @@ writable path, and a release never touches the database.
   required; redirect addresses match exactly (https, or loopback http where only the port may
   differ); a request that fails a check gets an error page and is never redirected. A code works
   once for ten minutes and a second use revokes its grant; refresh tokens rotate and belong to their
-  client, and a used one presented again revokes its grant (#184). The consent page is framed by nothing and not cached, nothing is granted on GET, and its
+  client, and any earlier one presented again by its client revokes its grant, known by the family hash on the grant (#184, #192). The consent page is framed by nothing and not cached, nothing is granted on GET, and its
   POST needs the session cookie (the proxy header alone signs nobody in there) and
   `Sec-Fetch-Site: same-origin` or this server's `Origin`. A signed-out request goes through the
   sign-in in an `oauth_next` cookie and comes back to the local `/oauth/authorize` path only. The

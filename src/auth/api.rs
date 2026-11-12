@@ -6,7 +6,8 @@
 //! A grant is one connection: the account, the app's name and client id,
 //! its scopes, an optional course list, and when it was made, expires and
 //! was last used. Every grant expires (30 days, 90 or a year). Its tokens
-//! are 256 random bits behind the `skr_` prefix; only their SHA-256 is
+//! are 256 random bits behind the `skr_` prefix (an OAuth refresh token
+//! also ends with its grant's family, `family_of`); only their SHA-256 is
 //! stored (`auth::hash_token`, as for sessions), so a copy of the database
 //! holds no working token.
 //!
@@ -266,17 +267,52 @@ fn new_token() -> String {
 
 /// A new token of `kind` under `grant_id`, working until `expires_at` (never
 /// past the grant's own expiry, which `user_for_token` checks too). Only
-/// its hash is stored; the plain token is returned this once.
+/// its hash is stored; the plain token is returned this once. A refresh
+/// token is made with `mint_refresh`, which adds its family.
 pub fn mint(conn: &Connection, grant_id: i64, kind: Kind, expires_at: i64) -> rusqlite::Result<Result<String, Refused>> {
+    insert_token(conn, grant_id, kind, new_token(), expires_at)
+}
+
+fn insert_token(conn: &Connection, grant_id: i64, kind: Kind, token: String, expires_at: i64) -> rusqlite::Result<Result<String, Refused>> {
     if count(conn, "SELECT COUNT(*) FROM api_tokens", [])? >= MAX_API_TOKENS {
         return Ok(Err(Refused::Full));
     }
-    let token = new_token();
     conn.execute(
         "INSERT INTO api_tokens (grant_id, kind, token_hash, expires_at) VALUES (?1, ?2, ?3, ?4)",
         params![grant_id, kind.as_str(), hash_token(&token), expires_at],
     )?;
     Ok(Ok(token))
+}
+
+/// Hex characters of a refresh token's family (128 bits, #192).
+pub const FAMILY_HEX: usize = 32;
+
+/// A new refresh-token family: 128 random bits in hex. Every refresh token
+/// of one OAuth grant ends with it, so a refresh token that is no longer
+/// stored is still known as its grant's: presented again, it revokes the
+/// grant (`oauth_server::refresh`). The grant stores only the family's
+/// hash (`api_grants.refresh_family_hash`); the family itself is only ever
+/// in the tokens the app holds.
+pub fn new_family() -> String {
+    let mut f = super::generate_token();
+    f.truncate(FAMILY_HEX);
+    f
+}
+
+/// The family a refresh token carries: its last `FAMILY_HEX` characters,
+/// when the token has the refresh shape (`skr_`, 64 hex, the family).
+pub fn family_of(token: &str) -> Option<&str> {
+    let body = token.strip_prefix(TOKEN_PREFIX)?;
+    if body.len() != 64 + FAMILY_HEX || !body.bytes().all(|b| b.is_ascii_hexdigit()) {
+        return None;
+    }
+    body.get(64..)
+}
+
+/// A new refresh token under `grant_id`, of `family`: the prefix, 256 fresh
+/// random bits and the family, all in hex. Only its hash is stored.
+pub fn mint_refresh(conn: &Connection, grant_id: i64, family: &str, expires_at: i64) -> rusqlite::Result<Result<String, Refused>> {
+    insert_token(conn, grant_id, Kind::Refresh, format!("{}{family}", new_token()), expires_at)
 }
 
 /// Make a token on the profile: a grant named `name` and one personal token

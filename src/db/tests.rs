@@ -70,7 +70,7 @@ fn migrations_apply_once() {
     let db = Db::open_in_memory().unwrap();
     let v: i64 = db.with(|c| c.query_row("PRAGMA user_version", [], |r| r.get(0))).unwrap();
     assert_eq!(v, schema_version());
-    assert_eq!(v, 8, "v1 is the schema (#49), v2 drops Skrongle Cash, v3 names share links, v4 adds permissions (#138), v5 adds courses.error_kind, v6 adds connected apps (#167), v7 adds OAuth clients and codes (#169), v8 adds api_tokens.used_at (#184)");
+    assert_eq!(v, 9, "v1 is the schema (#49), v2 drops Skrongle Cash, v3 names share links, v4 adds permissions (#138), v5 adds courses.error_kind, v6 adds connected apps (#167), v7 adds OAuth clients and codes (#169), v8 adds api_tokens.used_at (#184), v9 swaps it for api_grants.refresh_family_hash (#192)");
     // Re-running is a no-op.
     db.with(migrate).unwrap();
 }
@@ -166,6 +166,7 @@ fn down_and_up_again_keeps_the_rows() {
 fn v8_down_drops_used_refresh_tokens_only() {
     let db = Db::open_in_memory().unwrap();
     db.with(|c| {
+        migrate_to(c, 8)?;
         let ann = crate::auth::create_user(c, "ann@example.org", "h")?;
         c.execute("INSERT INTO api_grants (id, user_id, client_id, client_name, scopes, created_at, expires_at) VALUES (1, ?1, 'c', 'App', 'courses:read', 1, 9999999999)", [ann])?;
         c.execute_batch(
@@ -175,9 +176,79 @@ fn v8_down_drops_used_refresh_tokens_only() {
         migrate_to(c, 7)?;
         let hashes: Vec<String> = c.prepare("SELECT token_hash FROM api_tokens ORDER BY token_hash")?.query_map([], |r| r.get(0))?.collect::<Result<_, _>>()?;
         assert_eq!(hashes, ["a", "r2"]);
-        migrate(c)?;
+        migrate_to(c, 8)?;
         let unused: i64 = c.query_row("SELECT COUNT(*) FROM api_tokens WHERE used_at IS NULL", [], |r| r.get(0))?;
         assert_eq!(unused, 2);
+        Ok(())
+    })
+    .unwrap();
+}
+
+fn token_hashes(c: &Connection) -> rusqlite::Result<Vec<String>> {
+    c.prepare("SELECT token_hash FROM api_tokens ORDER BY token_hash")?.query_map([], |r| r.get(0))?.collect()
+}
+
+/// v9's `up` deletes v8's used refresh tokens before it drops `used_at`:
+/// without the column, a v9 binary would take one for a working refresh
+/// token. Every token that works stays.
+#[test]
+fn v9_up_drops_used_refresh_tokens_first() {
+    let db = Db::open_in_memory().unwrap();
+    db.with(|c| {
+        migrate_to(c, 8)?;
+        let ann = crate::auth::create_user(c, "ann@example.org", "h")?;
+        c.execute("INSERT INTO api_grants (id, user_id, client_id, client_name, scopes, created_at, expires_at) VALUES (1, ?1, 'c', 'App', 'courses:read', 1, 9999999999)", [ann])?;
+        c.execute_batch(
+            "INSERT INTO api_tokens (grant_id, kind, token_hash, expires_at, used_at) VALUES
+                 (1, 'access', 'a', 9999999999, NULL), (1, 'refresh', 'r2', 9999999999, NULL), (1, 'refresh', 'r1', 9999999999, 5);",
+        )?;
+        migrate(c)?;
+        assert_eq!(token_hashes(c)?, ["a", "r2"]);
+        let family: Option<String> = c.query_row("SELECT refresh_family_hash FROM api_grants", [], |r| r.get(0))?;
+        assert_eq!(family, None, "the grant starts a family at its next refresh");
+        Ok(())
+    })
+    .unwrap();
+}
+
+/// v9's `down` restores v8's shape and leaves nothing a v8 binary would
+/// accept wrongly: v9 stores no earlier refresh token, so a grant's only
+/// refresh row is its newest one (which works there, as it should), every
+/// `used_at` is NULL, and the family's hash is gone with its column.
+#[test]
+fn v9_down_leaves_only_working_tokens() {
+    let db = Db::open_in_memory().unwrap();
+    db.with(|c| {
+        let ann = crate::perms::create_teacher(c, "ann@example.org", "h").unwrap();
+        crate::settings::set_apps_on(c, true).unwrap();
+        let now = 1_000_000;
+        let cb = "https://app.example/cb".to_string();
+        let id = crate::oauth_server::register(c, "App", std::slice::from_ref(&cb), now).unwrap().unwrap();
+        let client = crate::oauth_server::client(c, &id, now)?;
+        let p = crate::oauth_server::AuthorizeParams {
+            response_type: Some("code".into()),
+            client_id: Some(id.clone()),
+            redirect_uri: Some(cb.clone()),
+            code_challenge: Some(crate::oauth_server::s256("dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk")),
+            code_challenge_method: Some("S256".into()),
+            state: Some("s".into()),
+            resource: Some("https://learn.example.org".into()),
+            scope: None,
+        };
+        let a = crate::oauth_server::check_authorize(&p, client, "https://learn.example.org").unwrap();
+        let consent = crate::oauth_server::Consent { user_id: ann, courses: &[], lifetime: crate::auth::api::Lifetime::Days90 };
+        let code = crate::oauth_server::allow(c, &a, &consent, now)?.unwrap();
+        let x = crate::oauth_server::CodeExchange { code: &code, client_id: &id, redirect_uri: &cb, code_verifier: "dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk", resource: "https://learn.example.org" };
+        let first = crate::oauth_server::exchange_code(c, &x, now + 1)?.unwrap();
+        let second = crate::oauth_server::refresh(c, &first.refresh, &id, now + 2)?.unwrap();
+        let third = crate::oauth_server::refresh(c, &second.refresh, &id, now + 3)?.unwrap();
+        migrate_to(c, 8)?;
+        let refresh: Vec<String> = c.prepare("SELECT token_hash FROM api_tokens WHERE kind = 'refresh'")?.query_map([], |r| r.get(0))?.collect::<Result<_, _>>()?;
+        assert_eq!(refresh, [crate::auth::hash_token(&third.refresh)], "only the newest refresh token");
+        let used: i64 = c.query_row("SELECT COUNT(*) FROM api_tokens WHERE used_at IS NOT NULL", [], |r| r.get(0))?;
+        assert_eq!(used, 0);
+        let column: i64 = c.query_row("SELECT COUNT(*) FROM pragma_table_info('api_grants') WHERE name = 'refresh_family_hash'", [], |r| r.get(0))?;
+        assert_eq!(column, 0);
         Ok(())
     })
     .unwrap();

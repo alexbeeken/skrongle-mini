@@ -202,13 +202,17 @@ one grant (counted against the account's 4) and sends `code=…&state=…&iss=�
   `resource` if the app sends it). Only the client the grant was made for
   may use it; another client gets `invalid_grant` and changes nothing. The
   refresh token works once (rotation with reuse detection, RFC 9700
-  §4.14.2): a second use by its client answers `invalid_grant` and revokes
-  the grant and every token under it, the newest pair included, since one
-  of the two holders stole it. An honest client that retries a refresh
-  after losing the answer will be disconnected and the person has to
-  connect again. Only the previous refresh token is remembered as used; an
-  older one is simply `invalid_grant` ([Security: connected
-  apps](security-apps), "Accepted risks").
+  §4.14.2): any earlier refresh token of the grant presented again by its
+  client, the previous one or one from many refreshes back, answers
+  `invalid_grant` and revokes the grant and every token under it, the
+  newest pair included, since one of two holders stole it. An honest
+  client that retries a refresh after losing the answer will be
+  disconnected and the person has to connect again. A refresh token is
+  `skr_` and 96 lowercase hex characters (256 random bits, then the
+  grant's family, the same in every refresh token of the grant); an access
+  token is `skr_` and 64. Treat both as opaque: send them back as they
+  came. What is still not caught is in [Security: connected
+  apps](security-apps), "Accepted risks".
 
 200 is `{"access_token", "token_type": "Bearer", "expires_in": 3600,
 "refresh_token", "scope"}`: the access token works an hour (never past the

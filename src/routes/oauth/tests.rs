@@ -444,6 +444,33 @@ fn a_reused_refresh_token_disconnects_the_app() {
     assert!(profile.body.contains("data-testid=\"profile-apps-none\""));
 }
 
+/// #192 over HTTP: a thief refreshes twice with a stolen refresh token, then
+/// the real app's (now two generations old) is `invalid_grant` and revokes
+/// the connection; the thief's newest pair stops working.
+#[test]
+fn an_earlier_refresh_token_disconnects_the_app() {
+    let s = Site::start(true, None);
+    let (_, me) = s.account("ann@example.org");
+    let (flow, code) = s.connect(&me);
+    let app = s.trade(&flow, &code).json()["refresh_token"].as_str().unwrap().to_string();
+    let t1 = s.refresh(&flow.client_id, &app).json();
+    let t2 = s.refresh(&flow.client_id, t1["refresh_token"].as_str().unwrap()).json();
+    let (access, newest) = (t2["access_token"].as_str().unwrap().to_string(), t2["refresh_token"].as_str().unwrap().to_string());
+    assert_eq!(s.whoami(&access), 200);
+    let other = s.flow();
+    assert_eq!(s.refresh(&other.client_id, &app).json()["error"], "invalid_grant");
+    assert_eq!(s.grants(), 1, "another client's try revokes nothing");
+
+    let again = s.refresh(&flow.client_id, &app);
+    assert_eq!((again.status, again.json()["error"].as_str()), (400, Some("invalid_grant")));
+    assert_eq!(again.json().as_object().map(|o| o.len()), Some(1), "the error code only");
+    assert_eq!(s.grants(), 0, "the earlier token revoked the grant");
+    assert_eq!(s.whoami(&access), 401, "the thief's access token stops working");
+    assert_eq!(s.refresh(&flow.client_id, &newest).json()["error"], "invalid_grant", "and its refresh token");
+    let profile = s.get("/profile", &[("cookie", &me)]);
+    assert!(profile.body.contains("data-testid=\"profile-apps-none\""), "Connected apps no longer lists it");
+}
+
 /// The token request repeats the redirect address and the resource, with
 /// the right verifier; a wrong one revokes nothing.
 #[test]
@@ -1032,16 +1059,27 @@ fn trace_log_of_a_full_flow() {
     let refresh3 = s.trade(&flow2, &code2).json()["refresh_token"].as_str().unwrap().to_string();
     let refresh4 = s.refresh(&flow2.client_id, &refresh3).json()["refresh_token"].as_str().unwrap().to_string();
     s.refresh(&flow2.client_id, &refresh3);
+    // A third, its refresh token presented two generations late (#192).
+    let (flow3, code3) = s.connect(&me);
+    let refresh5 = s.trade(&flow3, &code3).json()["refresh_token"].as_str().unwrap().to_string();
+    let refresh6 = s.refresh(&flow3.client_id, &refresh5).json()["refresh_token"].as_str().unwrap().to_string();
+    let refresh7 = s.refresh(&flow3.client_id, &refresh6).json()["refresh_token"].as_str().unwrap().to_string();
+    s.refresh(&flow3.client_id, &refresh5);
 
     let log = String::from_utf8(buf.0.lock().unwrap().clone()).unwrap();
     assert!(log.contains("connected an OAuth app") && log.contains("code was used twice"), "the log was captured: {log}");
     assert!(log.contains("refresh token was used twice") && log.contains(&format!("of account {ann}")), "the reuse names the grant and account: {log}");
+    assert_eq!(log.matches("refresh token was used twice").count(), 2, "both reuses are logged, the earlier-generation one too: {log}");
     let sid = me.trim_start_matches("sid=").to_string();
     let challenge = s256(VERIFIER);
-    for secret in [&personal, &access, &refresh, &refresh2, &refresh3, &refresh4, &code, &code2, &sid] {
+    for secret in [&personal, &access, &refresh, &refresh2, &refresh3, &refresh4, &refresh5, &refresh6, &refresh7, &code, &code2, &code3, &sid] {
         let bare = secret.trim_start_matches("skr_");
         assert!(!log.contains(bare), "a token or code is in the log");
         assert!(!log.contains(&crate::auth::hash_token(secret)), "a hash is in the log");
+        if let Some(family) = crate::auth::api::family_of(secret) {
+            assert!(!log.contains(family), "a refresh token's family is in the log");
+            assert!(!log.contains(&crate::auth::hash_token(family)), "a family's hash is in the log");
+        }
     }
     assert!(!log.contains(VERIFIER) && !log.contains(&challenge), "the PKCE verifier or challenge is in the log");
 }
