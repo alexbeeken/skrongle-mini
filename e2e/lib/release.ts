@@ -154,7 +154,10 @@ export async function newLearner(browser: Browser, prefix: string, preset?: stri
   const p = await newPerson(browser);
   const account = newAccount(prefix);
   await registerWithLink(p.page, link, account);
-  if (preset) await givePreset(o.page, account.email, preset);
+  if (preset) {
+    await givePreset(o.page, account.email, preset);
+    await p.page.goto("/courses"); // the page it landed on was made before the preset
+  }
   await o.context.close();
   return { ...p, account };
 }
