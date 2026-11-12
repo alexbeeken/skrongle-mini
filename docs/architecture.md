@@ -905,7 +905,9 @@ writable path, and a release never touches the database.
   client, and any earlier one presented again by its client revokes its grant, known by the family hash on the grant (#184, #192). The consent page is framed by nothing and not cached, nothing is granted on GET, and its
   POST needs the session cookie (the proxy header alone signs nobody in there) and
   `Sec-Fetch-Site: same-origin` or this server's `Origin`. A signed-out request goes through the
-  sign-in in an `oauth_next` cookie and comes back to the local `/oauth/authorize` path only. The
+  sign-in in an `oauth_next` cookie (sealed with the vault, `secrets::seal_oauth_next`) and comes
+  back to the local `/oauth/authorize` path only; the sign-in pages name the waiting app from it
+  (`routes::oauth::signin_notice`, #190), checked again against the registry. The
   program endpoints read no cookie and skip the CSRF layer and the proxy sign-in. Registration: 20
   per address an hour, 4 KB, 5 addresses of 200 characters, 100 rows; refused token requests: 30 per
   address in ten minutes (`security::OAUTH_*`). No request ever leaves the server for a client.

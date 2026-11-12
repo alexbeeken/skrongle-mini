@@ -100,6 +100,8 @@ numbers work is in the README, "Versions".
   the app and where the answer goes, picks courses and how long, and
   clicks **Allow**. The connection then shows under Connected apps like a
   token made by hand. Without `SKRONGLE_PUBLIC_URL` none of this answers.
+  Signed out, the sign-in page (and the two-factor code page) says which
+  app is waiting and where its answer goes, before a password is typed.
   If any of an app's refresh tokens is ever used again, the latest or one
   from many refreshes back, the connection ends, as it could have been
   stolen: an app that retries a refresh after losing the answer is

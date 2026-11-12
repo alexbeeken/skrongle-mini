@@ -175,9 +175,11 @@ port may differ. A request that fails any check gets an error page here
 (`oauth-error`, the OAuth code and what is wrong) and is never sent back
 to the app. Signed out, the person goes through the normal sign-in
 (password, then two-factor) and comes back: the request waits in an
-`oauth_next` cookie (HttpOnly, SameSite=Lax, ten minutes) and the sign-in
-returns to `<base>/oauth/authorize?…` only, never to an address from the
-request. An account without **Create courses** gets a page saying to ask
+`oauth_next` cookie (HttpOnly, SameSite=Lax, ten minutes, sealed with the
+server's key so nothing else can make one) and the sign-in returns to
+`<base>/oauth/authorize?…` only, never to an address from the request.
+While it waits, the sign-in and two-factor pages name the app and the host
+the answer goes to, from its registration. An account without **Create courses** gets a page saying to ask
 the owner. Otherwise the consent page: the app's name, the host the answer
 goes to (from the registered address), the scopes in plain words, the
 account's own courses to limit it to (a grant limited to some courses

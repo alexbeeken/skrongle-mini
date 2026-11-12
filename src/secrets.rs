@@ -348,6 +348,25 @@ pub fn open_totp(vault: &Vault, user_id: i64, blob: &[u8]) -> Option<Vec<u8>> {
     vault.open(&totp_aad(user_id), blob)
 }
 
+// ---------- an app's authorization request waiting for a sign-in (routes::oauth) ----------
+
+/// Associated data of the `oauth_next` cookie: kept apart from every other
+/// use of the vault, so no other sealed value can stand in for it (#190).
+const OAUTH_NEXT_AAD: &[u8] = b"skrongle/oauth-next/v1";
+
+/// A checked authorization request's query, sealed for the sign-in round
+/// trip: the server alone can make one, and it stops opening at `expires`.
+pub fn seal_oauth_next(vault: &Vault, query: &str, expires: i64) -> Vec<u8> {
+    vault.seal(OAUTH_NEXT_AAD, format!("{expires}\n{query}").as_bytes())
+}
+
+/// The query back, if this server sealed it and it has not run out at `now`.
+pub fn open_oauth_next(vault: &Vault, blob: &[u8], now: i64) -> Option<String> {
+    let text = String::from_utf8(vault.open(OAUTH_NEXT_AAD, blob)?).ok()?;
+    let (expires, query) = text.split_once('\n')?;
+    (expires.parse::<i64>().ok()? > now).then(|| query.to_string())
+}
+
 // ---------- persistence (run inside Db::call) ----------
 
 /// Associated data of a key saved for the server (`server_api_keys`, #25).
@@ -537,6 +556,22 @@ mod tests {
 
     fn vault(seed: u8) -> Vault {
         Vault::from_master(&[seed; MASTER_LEN])
+    }
+
+    /// The sign-in round trip's cookie (#190): opens for the server that
+    /// sealed it until it runs out; not for another key, not tampered with,
+    /// and no other sealed value (a TOTP secret) stands in for it.
+    #[test]
+    fn oauth_next_opens_only_as_sealed() {
+        let v = vault(1);
+        let blob = seal_oauth_next(&v, "client_id=x&state=y", 100);
+        assert_eq!(open_oauth_next(&v, &blob, 99).as_deref(), Some("client_id=x&state=y"));
+        assert_eq!(open_oauth_next(&v, &blob, 100), None, "ran out");
+        assert_eq!(open_oauth_next(&vault(2), &blob, 99), None, "another server's key");
+        let mut bent = blob.clone();
+        *bent.last_mut().unwrap() ^= 1;
+        assert_eq!(open_oauth_next(&v, &bent, 99), None, "tampered with");
+        assert_eq!(open_oauth_next(&v, &seal_totp(&v, 1, b"100\nclient_id=x"), 99), None, "another use of the vault");
     }
 
     #[test]

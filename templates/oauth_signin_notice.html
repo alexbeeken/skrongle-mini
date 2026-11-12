@@ -1,0 +1,2 @@
+{# The sign-in pages while an app's checked request waits (#190, routes::oauth::signin_notice): which app, and the host its answer goes to. Both escaped text from the registry row. #}
+{% if let Some(n) = oauth %}<p class="alert" role="status" data-testid="login-oauth-notice">{{ crate::t1("oauth.signin.notice", "app", n.app.as_str()) }} {{ crate::t("oauth.consent.sends_to") }} <strong data-testid="login-oauth-host">{{ n.host }}</strong></p>{% endif %}
