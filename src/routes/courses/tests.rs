@@ -52,6 +52,195 @@ fn the_autosave_builds_off_the_database_lock() {
     assert!(state.db.with(|c| crate::courses::course(c, id)).unwrap().unwrap().error.is_none());
 }
 
+/// A test server with one starter course `id` of a new account whose
+/// language is `lang` (the owner, so it may do everything): the state, the server's address and the account's cookie.
+fn course_site(rt: &tokio::runtime::Runtime, id: &str, lang: &str) -> (Arc<AppState>, String, String) {
+    let state = crate::routes::test_state(false);
+    let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
+    state.db.with(|c| c.execute("UPDATE users SET lang = ?2, owner = 1 WHERE id = ?1", rusqlite::params![ann, lang])).unwrap();
+    let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
+    state.db.with(|c| courses::create_course(c, ann, id, "Held", &courses::starter_files(id, "Held"))).unwrap();
+    let app = crate::routes::router(state.clone());
+    let base = rt.block_on(async {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        tokio::spawn(async move { axum::serve(listener, app).await.unwrap() });
+        format!("http://{addr}")
+    });
+    (state, base, cookie)
+}
+
+/// One request a test sends: a form or JSON, to a path under the server.
+enum Req {
+    Form(String, Vec<(&'static str, String)>),
+    Json(String, serde_json::Value),
+}
+
+/// Send it with `cookie`: the status, and the redirect's target or else the body.
+fn send(base: &str, cookie: &str, req: Req) -> (u16, String) {
+    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
+    let mut r = match req {
+        Req::Form(path, form) => agent.post(&format!("{base}{path}")).header("cookie", cookie).send_form(form.iter().map(|(k, v)| (*k, v.as_str()))),
+        Req::Json(path, body) => agent.post(&format!("{base}{path}")).header("cookie", cookie).send_json(body),
+    }
+    .unwrap();
+    let to = r.headers().get("location").map(|v| v.to_str().unwrap().to_string());
+    (r.status().as_u16(), to.unwrap_or_else(|| r.body_mut().read_to_string().unwrap()))
+}
+
+/// Holds every build of course `id` (`courses::check`) until let go: each
+/// build sends the language it runs in first. Dropped, it lets go for good.
+struct Held {
+    id: String,
+    entered: std::sync::mpsc::Receiver<String>,
+    release: std::sync::mpsc::Sender<()>,
+}
+
+impl Held {
+    fn new(id: &str) -> Held {
+        use std::sync::{mpsc, Mutex};
+        let (entered_tx, entered) = mpsc::channel::<String>();
+        let (release, release_rx) = mpsc::channel::<()>();
+        let (entered_tx, release_rx) = (Mutex::new(entered_tx), Mutex::new(release_rx));
+        let hook: Arc<dyn Fn(&str) + Send + Sync> = Arc::new(move |_| {
+            let _ = entered_tx.lock().unwrap().send(crate::i18n::lang().to_string());
+            let _ = release_rx.lock().unwrap().recv();
+        });
+        courses::CHECK_HOOK.lock().unwrap().push((id.to_string(), hook));
+        Held { id: id.to_string(), entered, release }
+    }
+
+    /// Send `req` and, while its build is held, check that an unrelated
+    /// database call returns; then let the build go. The language the build
+    /// ran in, and what the request answered.
+    fn send(&self, state: &AppState, base: &str, cookie: &str, req: Req) -> (String, (u16, String)) {
+        let (base, cookie) = (base.to_string(), cookie.to_string());
+        let sending = std::thread::spawn(move || send(&base, &cookie, req));
+        let Ok(lang) = self.entered.recv_timeout(std::time::Duration::from_secs(20)) else {
+            panic!("the request did not reach its build: {:?}", sending.join());
+        };
+        assert!(db_is_free(state), "an unrelated database call returns while the build is held");
+        self.release.send(()).unwrap();
+        (lang, sending.join().unwrap())
+    }
+}
+
+impl Drop for Held {
+    fn drop(&mut self) {
+        courses::CHECK_HOOK.lock().unwrap().retain(|(i, _)| i != &self.id);
+    }
+}
+
+/// Whether an unrelated database call returns within 5 s.
+fn db_is_free(state: &AppState) -> bool {
+    let (done_tx, done_rx) = std::sync::mpsc::channel();
+    let db = state.db.clone();
+    std::thread::spawn(move || {
+        let _ = done_tx.send(db.with(|c| c.query_row("SELECT COUNT(*) FROM users", [], |r| r.get::<_, i64>(0))));
+    });
+    done_rx.recv_timeout(std::time::Duration::from_secs(5)).is_ok()
+}
+
+/// A second lesson for the starter course, `title` its name.
+fn second_lesson(title: &str) -> String {
+    json!({ "id": "u1-second", "slug": "second", "title": title, "unit": "1", "group": "basics", "order": 2, "content": "## One\n\nText." }).to_string()
+}
+
+/// #84 step 2: the editor's other writes (Upload, the file page's Save and
+/// Delete, Check the course, Undo, Redo, the review's Accept) build the
+/// course after they have let go of the database, in the request's
+/// language, and answer as they did when they built under it.
+#[test]
+fn the_editors_writes_build_off_the_database_lock() {
+    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+    let id = "writes-abc123";
+    let (state, base, cookie) = course_site(&rt, id, "es");
+    // An Undo step to undo and redo.
+    let (status, _) = send(&base, &cookie, Req::Json(format!("/api/courses/{id}/lessons"), json!({"lessons": [{"key": "u1-first-lesson", "unit": "1", "title": "Renamed"}], "session": "tab-a"})));
+    assert_eq!(status, 200);
+    let held = Held::new(id);
+    let path = "lessons/second.json".to_string();
+    let course = |p: &str| format!("/courses/{id}{p}");
+    let writes = [
+        ("Upload", Req::Json(format!("/api/courses/{id}/files"), json!({"files": [{"path": path, "content": second_lesson("Second")}]})), "\"error\":null"),
+        ("Save", Req::Form(course("/file"), vec![("path", path.clone()), ("content", second_lesson("Second, saved"))]), "notice=saved"),
+        ("Delete", Req::Form(course("/file/delete"), vec![("path", path.clone())]), "notice=file-deleted"),
+        ("Check the course", Req::Form(course("/publish"), vec![]), "notice=loads"),
+        ("Undo", Req::Form(course("/undo"), vec![]), "notice=undone"),
+        ("Redo", Req::Form(course("/redo"), vec![]), "notice=redone"),
+    ];
+    for (what, req, answer) in writes {
+        let (lang, (status, to)) = held.send(&state, &base, &cookie, req);
+        assert_eq!(lang, "es", "{what}: built in the request's language");
+        assert!(matches!(status, 200 | 303) && to.contains(answer), "{what}: {status} {to}");
+        assert!(state.db.with(|c| courses::course(c, id)).unwrap().unwrap().error.is_none(), "{what}: recorded as loading");
+    }
+    // The review of an AI run that added a lesson: Accept with it left out.
+    state
+        .db
+        .with(|c| {
+            let before = courses::load_files(c, id)?;
+            courses::write_file(c, id, &path, &second_lesson("Second, by AI"))?;
+            courses::record_ai_run(c, id, &before, "Added a lesson", "")
+        })
+        .unwrap();
+    let (lang, (status, to)) = held.send(&state, &base, &cookie, Req::Form(course("/review"), vec![("file", path.clone())]));
+    assert_eq!((lang.as_str(), status), ("es", 303), "{to}");
+    assert!(to.contains("notice=accepted-left-undo"), "{to}");
+    assert!(state.db.with(|c| courses::read_file(c, id, &path)).unwrap().is_none(), "the lesson left out is gone");
+}
+
+/// #84 step 2: a save that lands while a write's build runs wins: the
+/// build's result is not recorded over it, and the review, which builds
+/// before it writes, writes nothing and says the course changed.
+#[test]
+fn a_save_while_a_course_is_built_wins() {
+    use std::sync::{Arc, Mutex};
+    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+    let id = "wins-abc123";
+    let (state, base, cookie) = course_site(&rt, id, "en");
+    // The hook makes the save, as another tab would: on its own thread, so
+    // it waits for the database if the build holds it.
+    let saves: Arc<Mutex<Vec<bool>>> = Arc::new(Mutex::new(Vec::new()));
+    let (log, db) = (Arc::clone(&saves), state.db.clone());
+    let hook: Arc<dyn Fn(&str) + Send + Sync> = Arc::new(move |id| {
+        let (db, id) = (db.clone(), id.to_string());
+        let (tx, rx) = std::sync::mpsc::channel();
+        std::thread::spawn(move || {
+            let _ = tx.send(db.with(|c| {
+                courses::write_file(c, &id, "lessons/first-lesson.json", "{ not json")?;
+                courses::set_status(c, &id, None, Some("the newer save's error"))
+            }));
+        });
+        log.lock().unwrap().push(rx.recv_timeout(std::time::Duration::from_secs(5)).is_ok());
+    });
+    courses::CHECK_HOOK.lock().unwrap().push((id.to_string(), hook));
+    let (status, to) = send(&base, &cookie, Req::Form(format!("/courses/{id}/publish"), vec![]));
+    let row = state.db.with(|c| courses::course(c, id)).unwrap().unwrap();
+    // The review: an AI run that added a lesson, accepted with it left out.
+    let path = "lessons/second.json";
+    state
+        .db
+        .with(|c| {
+            courses::write_file(c, id, "lessons/first-lesson.json", &courses::starter_files(id, "Held")[1].content)?;
+            let before = courses::load_files(c, id)?;
+            courses::write_file(c, id, path, &second_lesson("Second, by AI"))?;
+            courses::record_ai_run(c, id, &before, "Added a lesson", "")
+        })
+        .unwrap();
+    let (review_status, page) = send(&base, &cookie, Req::Form(format!("/courses/{id}/review"), vec![("file", path.to_string())]));
+    courses::CHECK_HOOK.lock().unwrap().retain(|(i, _)| i != id);
+    assert_eq!(*saves.lock().unwrap(), vec![true, true], "each save got the database while the build ran");
+    // Check the course reports the files it built, and records nothing over the newer save.
+    assert_eq!(status, 303);
+    assert!(to.contains("notice=loads"), "{to}");
+    assert_eq!(row.error.as_deref(), Some("the newer save's error"));
+    // The review wrote nothing and says why.
+    assert_eq!(review_status, 200);
+    assert!(page.contains("changed somewhere else"), "{}", &page[page.find("error").unwrap_or(0)..][..400.min(page.len())]);
+    assert!(state.db.with(|c| courses::read_file(c, id, path)).unwrap().is_some(), "the lesson left out is still there");
+}
+
 /// The editor's autosave contract (#151, #190): saves of one page share
 /// an Undo step, a page that is behind or a busy course gets 409, a table
 /// the rules refuse gets 422 and stores nothing, no change is not an error.

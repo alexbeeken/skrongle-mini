@@ -37,22 +37,22 @@ pub async fn create(State(state): State<Arc<AppState>>, user: CurrentUser, Form(
     let files = courses::starter_files(&id, &title);
     let uid = user.id;
     let (cid, t) = (id.clone(), title.clone());
-    let registry = Arc::clone(&state.courses);
     let limits = state.courses.limits();
-    let refused = state
+    let stored = state
         .db
         .call(move |c| {
-            if let Some(p) = courses::room_for_course(c, uid, limits)? {
-                return Ok(Some(p));
+            if courses::room_for_course(c, uid, limits)?.is_some() {
+                return Ok(None);
             }
             courses::create_course(c, uid, &cid, &t, &files)?;
-            courses::revalidate(c, &registry, &cid)?;
-            Ok(None)
+            Ok(Some(files))
         })
         .await?;
-    if refused.is_some() {
+    let Some(files) = stored else {
         return Ok(courses_notice(&format!("course-count-{}", state.courses.limits().max_courses)));
-    }
+    };
+    // Built once the database is free (#84).
+    built(&state, &id, files).await?;
     tracing::info!("user {} created course {id}", user.id);
     Ok(Redirect::to(&crate::url(&format!("/courses/{id}?generate=1"))).into_response())
 }
@@ -109,12 +109,12 @@ async fn store_copy_as(
     let size = courses::size_of(&files);
     let limits = state.courses.limits();
     let (uid, cid, t) = (user_id, id.clone(), title.to_string());
-    let registry = Arc::clone(&state.courses);
-    let refused = state
+    let translating = translation.is_some();
+    let stored = state
         .db
         .call(move |c| {
             if let Some(p) = courses::room_for_course(c, uid, limits)? {
-                return Ok(Some(NoRoom { key: format!("course-count-{}", limits.max_courses), text: p.text }));
+                return Ok(Err(NoRoom { key: format!("course-count-{}", limits.max_courses), text: p.text }));
             }
             if let Some(p) = courses::room_for_copy(c, uid, size, limits)? {
                 let key = if size > limits.course_bytes {
@@ -122,22 +122,25 @@ async fn store_copy_as(
                 } else {
                     format!("copy-no-room-{}", limits.account_bytes)
                 };
-                return Ok(Some(NoRoom { key, text: p.text }));
+                return Ok(Err(NoRoom { key, text: p.text }));
             }
             courses::create_course(c, uid, &cid, &t, &files)?;
-            match &translation {
-                Some((job, plan)) => courses::start_translation(c, &cid, job, plan)?,
-                None => {
-                    courses::revalidate(c, &registry, &cid)?;
-                }
+            if let Some((job, plan)) = &translation {
+                courses::start_translation(c, &cid, job, plan)?;
             }
-            Ok(None)
+            Ok(Ok(files))
         })
         .await?;
-    Ok(match refused {
-        Some(no) => Err(no),
-        None => Ok(id),
-    })
+    let files = match stored {
+        Ok(files) => files,
+        Err(no) => return Ok(Err(no)),
+    };
+    // A plain copy is built once the database is free (#84); a translation
+    // is built by its job.
+    if !translating {
+        built(state, &id, files).await?;
+    }
+    Ok(Ok(id))
 }
 
 /// POST /courses/{id}/copy: "Copy" on a course card (#629). A new private

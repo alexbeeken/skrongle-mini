@@ -87,11 +87,12 @@ pub async fn file_save(
                 return Ok(Err(problem.file(&write[0].path).text)); // panic-ok: write is a one-element array
             }
             courses::write_file(c, &cid, &write[0].path, &write[0].content)?; // panic-ok: write is a one-element array
-            courses::revalidate(c, &registry, &cid).map(Ok)
+            registry.invalidate(&cid);
+            courses::load_files(c, &cid).map(Ok)
         })
         .await?;
     let error = match outcome {
-        Ok(error) => error,
+        Ok(files) => built(&state, &id, files).await?,
         Err(e) => return Ok(refuse(user, id, row.title, path, form.content, e)),
     };
     Ok(to_editor(&id, if error.is_none() { "saved" } else { "saved-broken" }))
@@ -121,13 +122,15 @@ pub async fn file_delete(
     }
     let (cid, p) = (id.clone(), form.path.clone());
     let registry = Arc::clone(&state.courses);
-    let error = state
+    let files = state
         .db
         .call(move |c| {
             courses::delete_file(c, &cid, &p)?;
-            courses::revalidate(c, &registry, &cid)
+            registry.invalidate(&cid);
+            courses::load_files(c, &cid)
         })
         .await?;
+    let error = built(&state, &id, files).await?;
     Ok(to_editor(&id, if error.is_none() { "file-deleted" } else { "file-deleted-broken" }))
 }
 
@@ -141,8 +144,8 @@ pub async fn publish(State(state): State<Arc<AppState>>, user: CurrentUser, Path
         return Ok(to_editor(&id, "too-many-writes"));
     }
     let cid = id.clone();
-    let registry = Arc::clone(&state.courses);
-    let error = state.db.call(move |c| courses::revalidate(c, &registry, &cid)).await?;
+    let files = state.db.call(move |c| courses::load_files(c, &cid)).await?;
+    let error = built(&state, &id, files).await?;
     Ok(to_editor(&id, if error.is_none() { "loads" } else { "broken" }))
 }
 
@@ -373,12 +376,18 @@ pub async fn upload(
     let outcome = state
         .db
         .call(move |c| match store_files(c, &cid, &good, limits)? {
-            Ok(()) => courses::revalidate(c, &registry, &cid).map(Ok),
+            Ok(()) => {
+                registry.invalidate(&cid);
+                courses::load_files(c, &cid).map(Ok)
+            }
             Err(refusal) => Ok(Err(refusal)),
         })
         .await?;
     match outcome {
-        Ok(error) => Ok(Json(UploadResponse { saved: paths, rejected, error })),
+        Ok(files) => {
+            let error = built(&state, &id, files).await?;
+            Ok(Json(UploadResponse { saved: paths, rejected, error }))
+        }
         Err(refusal) => {
             rejected.push(refusal);
             Ok(Json(UploadResponse { saved: Vec::new(), rejected, error: row.error }))

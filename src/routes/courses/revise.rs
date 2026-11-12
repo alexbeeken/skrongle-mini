@@ -162,6 +162,16 @@ pub async fn ai_start(
     }
 }
 
+/// What the review's first look at the course came to (`review_accept`).
+enum Review {
+    /// Not taken: why, in the request's language.
+    Refused(String),
+    /// The course stays as it is; the choices are stored.
+    Kept { all: bool, unedited: bool },
+    /// These files, made from the course at version `base`, once they are built.
+    Write { files: Vec<CourseFile>, base: String, excluded: Exclusions, edits: Edits },
+}
+
 /// POST /courses/{id}/review: Accept in the review of the latest AI run
 /// (#189). The course becomes what the AI wrote minus the lines and lessons
 /// left out (`file=<path>`, `lines=<path>:<key>,…`), with the lines edited
@@ -178,43 +188,65 @@ pub async fn review_accept(State(state): State<Arc<AppState>>, user: CurrentUser
     let sent = Exclusions::from_form(&form);
     let sent_edits = Edits::from_form(&form);
     let (uid, r, x, ed) = (user.id, row.clone(), sent.clone(), sent_edits.clone());
-    let registry = Arc::clone(&state.courses);
-    let outcome = state
+    let first = state
         .db
         .call(move |c| {
             crate::profile::set_review_quiet(c, uid, quiet)?;
-            let Some(run) = courses::ai_run(c, &r.id)? else { return Ok(Err(crate::t("courses.review.none_left"))) };
+            let Some(run) = courses::ai_run(c, &r.id)? else { return Ok(Review::Refused(crate::t("courses.review.none_left"))) };
             let (excluded, edits) = crate::review::known(&run, x, ed);
             let stored = (Exclusions::from_json(&run.excluded), Edits::from_json(&run.edits));
             let current = courses::load_files(c, &r.id)?;
             if crate::review::undone(&run, (&stored.0, &stored.1), &current) {
-                return Ok(Err(crate::t("courses.review.undone_refused")));
+                return Ok(Review::Refused(crate::t("courses.review.undone_refused")));
             }
-            let files = match crate::review::apply(&run, (&excluded, &edits), (&stored.0, &stored.1), &current) {
-                Ok(f) => f,
-                Err(e) => return Ok(Err(e)),
-            };
-            if let Some(files) = &files {
-                // Refused as the editor refuses a file (problems.rs): in plain words, placed.
-                if let Err(e) = ContentStore::from_files(files) {
-                    let why = crate::problems::Course::new(files).explain(&e).text;
-                    let what = if edits.is_empty() { crate::t("courses.review.with_parts_left_out") } else { crate::t("courses.review.with_changes") };
-                    return Ok(Err(crate::t2("courses.review.not_loading", "what", what, "why", why)));
+            Ok(match crate::review::apply(&run, (&excluded, &edits), (&stored.0, &stored.1), &current) {
+                Err(e) => Review::Refused(e),
+                Ok(None) => {
+                    courses::set_ai_run_excluded(c, &r.id, &excluded.to_json(), &edits.to_json())?;
+                    Review::Kept { all: excluded.is_empty(), unedited: edits.is_empty() }
                 }
-                let label = match (excluded.is_empty(), edits.is_empty()) {
-                    (true, true) => crate::t("courses.review.label_took_back"),
-                    (false, true) => crate::t("courses.review.label_left_out"),
-                    (true, false) => crate::t("courses.review.label_edited"),
-                    (false, false) => crate::t("courses.review.label_left_out_edited"),
-                };
-                let outline = crate::arrange::outline_for(r.outline.as_deref(), files);
-                courses::commit_revision(c, &r.id, files, &r.title, outline.as_deref(), &label)?;
-            }
-            courses::set_ai_run_excluded(c, &r.id, &excluded.to_json(), &edits.to_json())?;
-            let broken = if files.is_some() { courses::revalidate(c, &registry, &r.id)? } else { None };
-            Ok(Ok((files.is_some(), excluded.is_empty(), edits.is_empty(), broken)))
+                Ok(Some(files)) => Review::Write { files, base: courses::version_of(&current), excluded, edits },
+            })
         })
         .await?;
+    let outcome = match first {
+        Review::Refused(e) => Err(e),
+        Review::Kept { all, unedited } => Ok((false, all, unedited, None)),
+        Review::Write { files, base, excluded, edits } => {
+            // Built once the database is free (#84), and refused as the
+            // editor refuses a file (problems.rs): in plain words, placed.
+            let version = courses::version_of(&files);
+            match courses::check_off_lock(row.id.clone(), files.clone()).await {
+                courses::Checked::Failed(why) => {
+                    let what = if edits.is_empty() { crate::t("courses.review.with_parts_left_out") } else { crate::t("courses.review.with_changes") };
+                    Err(crate::t2("courses.review.not_loading", "what", what, "why", why))
+                }
+                checked => {
+                    let (r, registry) = (row.clone(), Arc::clone(&state.courses));
+                    state
+                        .db
+                        .call(move |c| {
+                            // Changed while it was built: nothing is written.
+                            if courses::version_of(&courses::load_files(c, &r.id)?) != base {
+                                return Ok(Err(crate::t("courses.editor.stale")));
+                            }
+                            let label = match (excluded.is_empty(), edits.is_empty()) {
+                                (true, true) => crate::t("courses.review.label_took_back"),
+                                (false, true) => crate::t("courses.review.label_left_out"),
+                                (true, false) => crate::t("courses.review.label_edited"),
+                                (false, false) => crate::t("courses.review.label_left_out_edited"),
+                            };
+                            let outline = crate::arrange::outline_for(r.outline.as_deref(), &files);
+                            courses::commit_revision(c, &r.id, &files, &r.title, outline.as_deref(), &label)?;
+                            courses::set_ai_run_excluded(c, &r.id, &excluded.to_json(), &edits.to_json())?;
+                            let broken = courses::record(c, &registry, &r.id, &version, checked)?;
+                            Ok(Ok((true, excluded.is_empty(), edits.is_empty(), broken)))
+                        })
+                        .await?
+                }
+            }
+        }
+    };
     let notice = match outcome {
         Err(e) => {
             // Refused: the review again, as it was sent, saying why.
@@ -281,17 +313,25 @@ async fn undo_or_redo(state: Arc<AppState>, user: CurrentUser, id: String, redo:
         .db
         .call(move |c| {
             let step = if redo { courses::redo_revision(c, &cid)? } else { courses::undo_revision(c, &cid)? };
-            let Some(label) = step else { return Ok(None) };
-            Ok(Some((label, courses::revalidate(c, &registry, &cid)?)))
+            if step.is_none() {
+                return Ok(None);
+            }
+            registry.invalidate(&cid);
+            courses::load_files(c, &cid).map(Some)
         })
         .await?;
+    // Built once the database is free (#84).
+    let outcome = match outcome {
+        Some(files) => Some(built(&state, &id, files).await?),
+        None => None,
+    };
     let notice = match (outcome, redo) {
         (None, false) => "no-undo",
         (None, true) => "no-redo",
-        (Some((_, None)), false) => "undone",
-        (Some((_, None)), true) => "redone",
-        (Some((_, Some(_))), false) => "undone-broken",
-        (Some((_, Some(_))), true) => "redone-broken",
+        (Some(None), false) => "undone",
+        (Some(None), true) => "redone",
+        (Some(Some(_)), false) => "undone-broken",
+        (Some(Some(_)), true) => "redone-broken",
     };
     tracing::info!("user {} {} the last revision of {id}", user.id, if redo { "redid" } else { "undid" });
     Ok(to_editor(&id, notice))
