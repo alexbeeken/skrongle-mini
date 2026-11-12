@@ -6,6 +6,9 @@ numbers work is in the README, "Versions".
 
 ## Unreleased
 
+- Other pages stay responsive while a big course is saved in the course
+  editor: the course is checked after the save has let go of the database,
+  so other people's pages no longer wait for it.
 - A new docs page, **Connect an AI assistant**, tells people how to let Claude
   Code, Claude or ChatGPT make courses for them: what a token is, what plain
   HTTP on a home network means, the exact steps for Claude Code, and what a

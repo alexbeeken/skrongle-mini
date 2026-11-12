@@ -197,10 +197,14 @@ request is served meanwhile. Saving is split the same way (#84):
 writes the outcome (`courses.error`, `title`, the cache) and skips it if the
 files changed since they were checked, because the newer save records its
 own. `courses::revalidate` is the two together and still builds while it
-holds the database. The editor's autosave (`routes/courses/lessons.rs`)
-commits the save, lets go of the database, builds with
-`courses::check_off_lock` (own thread, request language), then records in a
-second short `Db::call`. The other writers still use `revalidate`. Boot builds each built-in course once to check
+holds the database. Every handler in `routes/courses/` (the autosave,
+Upload, the file page, Check the course, Undo and Redo, Create, Copy)
+commits its write, lets go of the database, and calls `built`
+(`routes/courses/write.rs`): it builds with `courses::check_off_lock` (own
+thread, request language), then records in a second short `Db::call`. The
+review's Accept and the MCP tool `put_course_files` build first and write
+after, in one call that writes nothing if the course changed meanwhile. The
+AI job threads still use `revalidate`. Boot builds each built-in course once to check
 it and keeps the seed course (`dev::SEED_COURSE`, else the first) in the
 course cache, so the first request for it builds nothing; the others are
 built on first use (keeping them all costs about 4 MB).
