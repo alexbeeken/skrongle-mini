@@ -471,6 +471,14 @@ account in the *Permissions* dialog on the same page (an account that does not
 see the tutor lacks the first one). The secret key encrypts saved
 keys, so a database without its `.key` file can't use them.
 
+Below it is *Let apps connect*, off until you turn it on. On, an account
+that may create courses can make a token on its profile and give it to an
+AI assistant or another app, which can then work on that account's
+courses; you see every connection there and can revoke any of them. Off,
+no app can connect and every token stops working; turning it on again
+brings them back. It needs none of the AI keys above
+([features](features#connected-apps)).
+
 ## Reaching it from outside
 
 Don't forward a port on the router. Install [Tailscale](https://tailscale.com)

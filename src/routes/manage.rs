@@ -33,6 +33,7 @@ use crate::profile;
 use crate::secrets::{self, KeyStatus, Provider};
 use crate::AppState;
 
+pub mod apps;
 mod bulk;
 pub use bulk::set_permissions_bulk;
 
@@ -79,6 +80,10 @@ pub struct ManageTemplate {
     /// The saved presets (not Student and Teacher), listed under the
     /// accounts with Delete (#140).
     pub saved_presets: Vec<presets::SavedPreset>,
+    /// "Let apps connect" (`settings::APPS_ON`, #167), and every account's
+    /// grants in force (`manage/apps.rs`); owners only, empty for a superuser.
+    pub apps_on: bool,
+    pub grants: Vec<apps::OwnerGrantRow>,
 }
 
 pub struct AccountRow {
@@ -136,17 +141,18 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
     let now = crate::db::now();
     let vault = state.vault.clone();
     let is_owner = user.owner;
-    let (invites, accounts, (api_keys, ai_off, ollama_model), presets) = state
+    let (invites, accounts, (api_keys, ai_off, ollama_model), presets, (apps_on, grants)) = state
         .db
         .call(move |c| {
             let ai_off = crate::settings::ai_off(c)?;
-            let (invites, ai) = if is_owner {
+            let (invites, ai, apps) = if is_owner {
                 let model = crate::settings::get(c, crate::settings::OLLAMA_MODEL)?.unwrap_or_default();
-                (crate::signup::open_invites(c, now)?, (secrets::statuses(c, &vault)?, ai_off, model))
+                let apps = (crate::settings::apps_on(c)?, auth::api::all_grants(c, now)?);
+                (crate::signup::open_invites(c, now)?, (secrets::statuses(c, &vault)?, ai_off, model), apps)
             } else {
-                (Vec::new(), (Vec::new(), ai_off, String::new()))
+                (Vec::new(), (Vec::new(), ai_off, String::new()), (false, Vec::new()))
             };
-            Ok((invites, crate::signup::accounts(c)?, ai, perms::presets(c)?))
+            Ok((invites, crate::signup::accounts(c)?, ai, perms::presets(c)?, apps))
         })
         .await?;
     let total = accounts.len() as i64;
@@ -205,6 +211,8 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
             })
             .collect(),
         saved_presets,
+        apps_on,
+        grants: apps::rows(grants, now),
     })
 }
 
@@ -256,6 +264,9 @@ pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, Query(q
         }
         Some("ai-off") => t.notice = Some(crate::t("manage.ai.hidden_notice")),
         Some("ai-on") => t.notice = Some(crate::t("manage.ai.shown_notice")),
+        Some("apps-on") => t.notice = Some(crate::t("apps.manage_on_notice")),
+        Some("apps-off") => t.notice = Some(crate::t("apps.manage_off_notice")),
+        Some("app-revoked") => t.notice = Some(crate::t("apps.revoked")),
         Some(did) if did.starts_with("preset-") => presets::notice(&mut t, did),
         _ => {}
     }
@@ -378,8 +389,15 @@ pub async fn turn_off_two_factor(State(state): State<Arc<AppState>>, user: Curre
     let Some(target) = state.db.call(move |c| crate::owner::find(c, &e)).await? else {
         return Ok(done("unknown", &email));
     };
-    state.db.call(move |c| crate::owner::disable_two_factor(c, target)).await?;
-    tracing::info!("owner {} turned off two-factor sign-in for user {target}", user.id);
+    let apps = state
+        .db
+        .call(move |c| {
+            crate::owner::disable_two_factor(c, target)?;
+            // Whoever is locked out of the second step may have connected an app (#167).
+            crate::auth::api::revoke_all_for_user(c, target)
+        })
+        .await?;
+    tracing::info!("owner {} turned off two-factor sign-in for user {target} ({apps} connected apps revoked)", user.id);
     Ok(done("two-factor-off", &email))
 }
 

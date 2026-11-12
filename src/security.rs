@@ -175,6 +175,10 @@ pub enum WhenFull {
 
 /// Sign-in attempts from one address.
 pub const LOGIN_PER_IP: Limit = Limit { name: "login-ip", max: 30, window: 600, when_full: WhenFull::EvictLowest };
+/// Bad bearer tokens from one address (#167, `auth::api::ApiUser`): a
+/// missing, unknown, expired or revoked one. Past ten in ten minutes every
+/// API request from the address gets a 429 until the window ends.
+pub const API_BAD_TOKENS_PER_IP: Limit = Limit { name: "api-bad-tokens-ip", max: 10, window: 600, when_full: WhenFull::EvictLowest };
 /// Wrong passwords for one account (e-mail address), from anywhere.
 pub const LOGIN_FAILURES_PER_USER: Limit = Limit { name: "login-user", max: 10, window: 900, when_full: WhenFull::Refuse };
 /// Registration attempts from one address.

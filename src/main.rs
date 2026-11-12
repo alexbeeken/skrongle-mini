@@ -445,6 +445,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     // Give back the page cache and temp memory the migrations grew.
     db.with(|c| c.execute_batch("PRAGMA shrink_memory;"))?;
     let purged = db.with(|c| auth::purge_expired_sessions(c))?;
+    db.with(|c| auth::api::purge_expired(c, db::now()))?;
     tracing::info!("database ready at {} ({purged} expired sessions purged)", cfg.db_path.display());
     let retention = jobs::retention::Retention::from_env();
     let swept = db.with(|c| jobs::retention::apply_retention(c, &retention, db::now()))?;

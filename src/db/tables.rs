@@ -32,6 +32,8 @@ pub(crate) const USER_TABLES: &[(&str, &str)] = &[
     ("course_ai_run_files", "course_id IN (SELECT id FROM courses WHERE owner_id = ?1)"),
     ("course_shares", "course_id IN (SELECT id FROM courses WHERE owner_id = ?1) OR user_id = ?1"),
     ("signup_invites", "created_by = ?1 OR used_by = ?1"),
+    ("api_grants", "user_id = ?1"),
+    ("api_tokens", "grant_id IN (SELECT id FROM api_grants WHERE user_id = ?1)"),
 ];
 
 /// Tables that hold no learner's rows, only the server's:

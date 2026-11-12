@@ -27,7 +27,8 @@
 //! The request continues with the new session in its `Cookie` header, so
 //! every extractor downstream (`CurrentUser`, `MaybeUser`, `SessionToken`)
 //! sees the account without knowing about the proxy. `/dev/*` (dev mode's
-//! `/dev/login` among them), `/static/*` and `/logout` are left alone.
+//! `/dev/login` among them), `/static/*`, `/logout` and the bearer-token API
+//! `/api/v1/*` (#167) are left alone.
 
 use axum::extract::{ConnectInfo, Request, State};
 use axum::http::header::COOKIE;
@@ -190,6 +191,8 @@ fn app_path(req: &Request) -> &str {
 /// Paths the proxy's header never signs in on.
 fn left_alone(path: &str) -> bool {
     (cfg!(feature = "dev") && path.starts_with("/dev/")) || path.starts_with("/static/") || path == "/logout"
+        // The API takes a bearer token only: the header never stands in for one (#167).
+        || path.starts_with("/api/v1/")
 }
 
 /// What the header asks for.
