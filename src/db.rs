@@ -269,7 +269,7 @@ pub fn migrate_command(args: &[String]) -> i32 {
         eprintln!("usage: skrongle migrate <schema-version> [--service | --env-file FILE]\n\n{}", crate::USAGE);
         return 2;
     };
-    if let Err(code) = crate::doctor::apply_settings_args("migrate", &args[1..], &[]) {
+    if let Err(code) = crate::doctor::apply_settings_args("migrate", args.get(1..).unwrap_or_default(), &[]) {
         return code;
     }
     let path = crate::env("DB").unwrap_or_else(|| "learn.db".to_string());
