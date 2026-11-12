@@ -39,9 +39,19 @@ pub mod oauth;
 pub mod tutor;
 pub mod vocab;
 
-/// Everything under `static/` is compiled into the binary.
+/// Everything under `static/`, live from disk: a debug build (the dev server).
+#[cfg(all(debug_assertions, not(test)))]
 #[derive(RustEmbed)]
 #[folder = "static/"]
+struct StaticFiles;
+
+/// A release build embeds each file of `static/` once (#93): the files
+/// `build.rs` did not gzip (images, fonts) here, the rest only in `AssetsGz`,
+/// inflated by `static_asset` for a client without gzip. The tests read the
+/// same layout, so they check what a release serves.
+#[cfg(any(not(debug_assertions), test))]
+#[derive(RustEmbed)]
+#[folder = "$OUT_DIR/static_raw/"]
 struct StaticFiles;
 
 /// The dev pages' script and styles (`static-dev/`): dev builds only,
@@ -51,7 +61,8 @@ struct StaticFiles;
 #[folder = "static-dev/"]
 struct DevStaticFiles;
 
-/// The files served under `/static/`: `static/`, plus `static-dev/` in a dev build.
+/// The files served under `/static/` in their raw form: `static/` (in a
+/// release, only the files without a gzip form), plus `static-dev/` in a dev build.
 struct Assets;
 
 impl Assets {
@@ -68,14 +79,52 @@ impl Assets {
         let files = files.chain(DevStaticFiles::iter());
         files
     }
+
+    /// Every name served under `/static/`, raw or gzip-only, sorted.
+    fn names() -> Vec<String> {
+        let mut names: Vec<String> = Self::iter().map(|n| n.into_owned()).collect();
+        if GZIP_EMBEDDED {
+            names.extend(AssetsGz::iter().map(|n| n.into_owned()));
+        }
+        names.sort();
+        names.dedup();
+        names
+    }
+
+    /// The SHA-256 rust-embed stored at build time for `name`: of its gzip
+    /// form where there is one (a release has no other), else of the file.
+    /// ETags and `?v=` come from it; no file is read.
+    fn stored_hash(name: &str) -> Option<[u8; 32]> {
+        let gz = if GZIP_EMBEDDED { AssetsGz::get(name) } else { None };
+        gz.or_else(|| Self::get(name)).map(|f| f.metadata.sha256_hash())
+    }
 }
 
+/// Whether `AssetsGz` is served: a release build and the tests. A debug
+/// build reads `static/` live from disk, where the gzip form would go stale.
+const GZIP_EMBEDDED: bool = cfg!(any(not(debug_assertions), test));
+
 /// The gzip form of the files in `static/` that shrink when compressed,
-/// written by `build.rs` at the same relative paths. Release builds only
-/// serve it; debug builds read `static/` live from disk, so it would go stale.
+/// written by `build.rs` at the same relative paths.
 #[derive(RustEmbed)]
 #[folder = "$OUT_DIR/static_gz/"]
 struct AssetsGz;
+
+/// The largest raw size of a file in `AssetsGz` (from `build.rs`): inflating
+/// stops past it, so a bad gzip stream cannot allocate without bound.
+fn static_max_raw() -> usize {
+    env!("SKRONGLE_STATIC_MAX_RAW").parse().unwrap_or(0)
+}
+
+/// The raw bytes of a gzip-only file, for a client without gzip. `None` if
+/// the stream is broken or inflates past `static_max_raw()`.
+fn inflate_static(gz: &[u8]) -> Option<Vec<u8>> {
+    use std::io::Read;
+    let max = static_max_raw();
+    let mut out = Vec::new();
+    flate2::read::GzDecoder::new(gz).take(max as u64 + 1).read_to_end(&mut out).ok()?;
+    (out.len() <= max).then_some(out)
+}
 
 /// The Markdown documentation under `docs/`, served at `/docs`.
 #[derive(RustEmbed)]
@@ -464,13 +513,11 @@ static ASSET_VERSION: OnceLock<String> = OnceLock::new();
 /// from a browser's cache of the old one.
 pub fn asset_version() -> &'static str {
     ASSET_VERSION.get_or_init(|| {
-        let mut names: Vec<_> = Assets::iter().collect();
-        names.sort();
         let mut h: u64 = 0;
-        for name in names {
-            if let Some(f) = Assets::get(&name) {
+        for name in Assets::names() {
+            if let Some(hash) = Assets::stored_hash(&name) {
                 // The hash rust-embed stored at build time; the bytes are not read.
-                h ^= fnv1a(name.bytes().chain(f.metadata.sha256_hash()));
+                h ^= fnv1a(name.bytes().chain(hash));
                 h = h.rotate_left(17);
             }
         }
@@ -558,15 +605,15 @@ static ASSET_ETAGS: OnceLock<AssetEtags> = OnceLock::new();
 
 fn asset_etags() -> &'static AssetEtags {
     ASSET_ETAGS.get_or_init(|| {
-        Assets::iter()
+        Assets::names()
+            .into_iter()
             .filter_map(|name| {
-                let file = Assets::get(&name)?;
                 // First 8 bytes of the build-time SHA-256: no pass over the file.
-                let hash = file.metadata.sha256_hash();
+                let hash = Assets::stored_hash(&name)?;
                 let etag = format!("\"{}\"", hash.iter().take(8).map(|b| format!("{b:02x}")).collect::<String>());
-                let gz = (cfg!(any(not(debug_assertions), test)) && AssetsGz::get(&name).is_some())
+                let gz = (GZIP_EMBEDDED && AssetsGz::get(&name).is_some())
                     .then(|| format!("{}-gz\"", etag.trim_end_matches('"')));
-                Some((name.to_string(), (etag, gz)))
+                Some((name, (etag, gz)))
             })
             .collect()
     })
@@ -626,8 +673,22 @@ async fn static_asset(
         return res;
     }
     let gzipped = gz_file.is_some();
-    let Some(file) = gz_file.or_else(|| Assets::get(&path)) else {
-        return StatusCode::NOT_FOUND.into_response();
+    // Release builds hand out `&'static [u8]`: no copy. Debug reads from disk.
+    // A gzip-only file for a client without gzip is inflated (rare: every
+    // current browser takes gzip).
+    let body = match gz_file.or_else(|| Assets::get(&path)) {
+        Some(file) => match file.data {
+            std::borrow::Cow::Borrowed(b) => Body::from(b),
+            std::borrow::Cow::Owned(v) => Body::from(v),
+        },
+        None => match GZIP_EMBEDDED.then(|| AssetsGz::get(&path)).flatten().map(|gz| inflate_static(&gz.data)) {
+            Some(Some(raw)) => Body::from(raw),
+            None => return StatusCode::NOT_FOUND.into_response(),
+            Some(None) => {
+                tracing::error!("static file {path}: no raw form and its gzip form does not inflate");
+                return StatusCode::INTERNAL_SERVER_ERROR.into_response();
+            }
+        },
     };
     // Long-lived caching only for URLs carrying the current version (they change
     // with every build); everything else revalidates. Debug builds serve files
@@ -637,11 +698,6 @@ async fn static_asset(
         "public, max-age=31536000, immutable"
     } else {
         "no-cache"
-    };
-    // Release builds hand out `&'static [u8]`: no copy. Debug reads from disk.
-    let body = match file.data {
-        std::borrow::Cow::Borrowed(b) => Body::from(b),
-        std::borrow::Cow::Owned(v) => Body::from(v),
     };
     let mut res = Response::new(body);
     let h = res.headers_mut();

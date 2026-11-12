@@ -14,7 +14,7 @@ fn asset_urls_are_versioned() {
     assert_eq!(v.len(), 10);
     assert!(v.bytes().all(|b| b.is_ascii_hexdigit()));
     assert_eq!(super::asset_url("style.css"), format!("/static/style.css?v={v}"));
-    assert!(super::Assets::get("style.css").is_some());
+    assert!(super::asset_etags().contains_key("style.css"));
 }
 
 /// A comment opener plus a script tag would put the HTML tokenizer in
@@ -1652,7 +1652,7 @@ fn web_manifest_points_at_real_icons() {
     for icon in icons {
         let src = icon["src"].as_str().unwrap_or_default();
         let name = src.split("/static/").nth(1).and_then(|n| n.split('?').next()).unwrap_or_default();
-        assert!(super::Assets::get(name).is_some(), "missing icon {src}");
+        assert!(super::asset_etags().contains_key(name), "missing icon {src}");
     }
 }
 
@@ -1675,18 +1675,34 @@ fn fetch_static(path: &str, headers: &[(&str, &str)]) -> axum::response::Respons
     ))
 }
 
+/// The body of a response, read to the end.
+fn static_body(res: axum::response::Response) -> Vec<u8> {
+    let rt = tokio::runtime::Builder::new_current_thread().build().unwrap();
+    rt.block_on(axum::body::to_bytes(res.into_body(), usize::MAX)).unwrap().to_vec()
+}
+
 #[test]
 fn static_etag_is_stable_and_keeps_its_shape() {
-    let a = fetch_static("style.css", &[]);
-    let b = fetch_static("style.css", &[]);
-    let etag = a.headers()["etag"].to_str().unwrap().to_string();
-    assert_eq!(etag, b.headers()["etag"].to_str().unwrap());
-    // "<16 hex digits>", quoted, the first 8 bytes of the embedded SHA-256.
-    assert_eq!(etag.len(), 18);
-    assert!(etag.starts_with('"') && etag.ends_with('"'));
-    assert!(etag[1..17].bytes().all(|c| c.is_ascii_hexdigit()));
-    let raw = super::Assets::get("style.css").unwrap();
-    assert_eq!(etag, format!("\"{}\"", raw.metadata.sha256_hash().iter().take(8).map(|b| format!("{b:02x}")).collect::<String>()));
+    let v = super::asset_version();
+    for name in ["style.css", "icon-192.png"] {
+        let has_gz = super::AssetsGz::get(name).is_some();
+        for headers in [&[][..], &[("accept-encoding", "gzip")]] {
+            let a = fetch_static(name, headers);
+            let b = fetch_static(name, headers);
+            let etag = a.headers()["etag"].to_str().unwrap().to_string();
+            assert_eq!(etag, b.headers()["etag"].to_str().unwrap(), "{name}");
+            // "<16 hex digits>" (plus "-gz" for the gzip body), quoted: the
+            // first 8 bytes of the SHA-256 rust-embed stored.
+            assert!(etag.starts_with('"') && etag.ends_with('"'));
+            let hex = etag.trim_matches('"').trim_end_matches("-gz");
+            let stored = super::Assets::stored_hash(name).unwrap();
+            assert_eq!(hex, stored.iter().take(8).map(|b| format!("{b:02x}")).collect::<String>(), "{name}");
+            assert_eq!(etag.ends_with("-gz\""), has_gz && !headers.is_empty(), "{name} {headers:?}");
+        }
+    }
+    // `?v=` is one value for the build, however a file is asked for.
+    assert_eq!(super::asset_version(), v);
+    assert_eq!(v.len(), 10);
 }
 
 #[test]
@@ -1702,33 +1718,85 @@ fn static_answers_304_on_a_matching_etag() {
     assert_eq!(res.status(), axum::http::StatusCode::NOT_MODIFIED);
 }
 
+/// The tests embed what a release embeds (#93): a file that shrinks is in
+/// `AssetsGz` only, and a client without gzip gets it inflated, byte for
+/// byte the file in `static/`.
 #[test]
 fn static_serves_gzip_only_when_accepted() {
-    let rt = tokio::runtime::Builder::new_current_thread().build().unwrap();
-    let raw = super::Assets::get("style.css").unwrap().data.into_owned();
+    let raw = std::fs::read("static/style.css").unwrap();
+    assert!(super::Assets::get("style.css").is_none(), "a gzipped file is not embedded raw too");
 
     let gz = fetch_static("style.css", &[("accept-encoding", "br, gzip;q=0.8")]);
     assert_eq!(gz.headers()["content-encoding"], "gzip");
     assert_eq!(gz.headers()["vary"], "Accept-Encoding");
-    let gz_body = rt.block_on(axum::body::to_bytes(gz.into_body(), usize::MAX)).unwrap();
+    let gz_body = static_body(gz);
     assert!(gz_body.len() < raw.len());
-    assert_eq!(&gz_body[..2], &[0x1f, 0x8b]);
+    assert_eq!(gz_body, super::AssetsGz::get("style.css").unwrap().data.as_ref());
 
     for headers in [&[][..], &[("accept-encoding", "identity")], &[("accept-encoding", "gzip;q=0")]] {
         let plain = fetch_static("style.css", headers);
+        assert_eq!(plain.status(), axum::http::StatusCode::OK);
         assert!(plain.headers().get("content-encoding").is_none());
         assert_eq!(plain.headers()["vary"], "Accept-Encoding");
-        let body = rt.block_on(axum::body::to_bytes(plain.into_body(), usize::MAX)).unwrap();
-        assert_eq!(body.as_ref(), raw.as_slice());
+        assert_eq!(static_body(plain), raw);
     }
 
-    // Only files that shrink get a gzip form.
-    for name in super::Assets::iter() {
-        if let Some(g) = super::AssetsGz::get(&name) {
-            assert!(g.data.len() < super::Assets::get(&name).unwrap().data.len(), "{name}");
+    // An image comes out as the file either way. (Today's PNGs shrink a little
+    // under gzip, so they have a gzip form too; a file that does not shrink
+    // is embedded raw and served as is, which the loop below checks.)
+    let png = std::fs::read("static/icon-192.png").unwrap();
+    for headers in [&[][..], &[("accept-encoding", "gzip")]] {
+        let res = fetch_static("icon-192.png", headers);
+        assert_eq!(res.status(), axum::http::StatusCode::OK);
+        assert_eq!(res.headers()["content-type"], "image/png");
+        let gzipped = res.headers().get("content-encoding").is_some();
+        let body = static_body(res);
+        let body = if gzipped { super::inflate_static(&body).unwrap() } else { body };
+        assert_eq!(body, png, "{headers:?}");
+    }
+
+    // Each file of static/ is embedded once: gzipped if that shrinks it, else raw.
+    for path in walk_static(std::path::Path::new("static")) {
+        let name = path.strip_prefix("static").unwrap().to_string_lossy().replace('\\', "/");
+        let name = name.trim_start_matches('/');
+        let file = std::fs::read(&path).unwrap();
+        match (super::AssetsGz::get(name), super::Assets::get(name)) {
+            (Some(g), None) => {
+                assert!(g.data.len() < file.len(), "{name}");
+                assert!(file.len() <= super::static_max_raw(), "{name}");
+                assert_eq!(super::inflate_static(&g.data).as_deref(), Some(file.as_slice()), "{name}");
+            }
+            (None, Some(r)) => assert_eq!(r.data.as_ref(), file.as_slice(), "{name}"),
+            (g, r) => panic!("{name}: gzip form {}, raw form {}", g.is_some(), r.is_some()),
         }
     }
     assert_eq!(fetch_static("nope.css", &[]).status(), axum::http::StatusCode::NOT_FOUND);
+}
+
+/// Every file under `dir`, recursively.
+fn walk_static(dir: &std::path::Path) -> Vec<std::path::PathBuf> {
+    let mut out = Vec::new();
+    for entry in std::fs::read_dir(dir).unwrap().flatten() {
+        let path = entry.path();
+        if path.is_dir() {
+            out.extend(walk_static(&path));
+        } else {
+            out.push(path);
+        }
+    }
+    out
+}
+
+/// Inflating stops at the largest raw size: a stream that would grow past
+/// it, or a broken one, gives nothing.
+#[test]
+fn static_inflate_is_capped() {
+    use std::io::Write;
+    let mut enc = flate2::write::GzEncoder::new(Vec::new(), flate2::Compression::fast());
+    enc.write_all(&vec![b'a'; super::static_max_raw() + 1]).unwrap();
+    let too_big = enc.finish().unwrap();
+    assert!(super::inflate_static(&too_big).is_none());
+    assert!(super::inflate_static(b"not gzip").is_none());
 }
 
 /// More providers (#24): a DeepSeek key the owner saves on Manage Users,
