@@ -101,10 +101,12 @@ pub(super) fn edit_lesson(job: &Job, db: &Db, registry: &crate::courses::Courses
     after.sort_by(|a, b| a.path.cmp(&b.path));
     let outline = crate::arrange::outline_for(row.outline.as_deref(), &after);
     let (cid, label) = (course_id.clone(), courses::quoted("Edited with feedback:", request));
+    // Built before the commit, while the database is free (#84); recorded with it.
+    let (version, checked) = (courses::version_of(&after), courses::check(&course_id, &after));
     let err = db
         .with(move |c| {
             courses::commit_revision(c, &cid, &after, &title, outline.as_deref(), &label)?;
-            courses::revalidate(c, registry, &cid)
+            courses::record(c, registry, &cid, &version, checked)
         })
         .map_err(|e| format!("database: {e}"))?;
     if let Some(e) = err {

@@ -6,8 +6,8 @@ numbers work is in the README, "Versions".
 
 ## Unreleased
 
-- Other pages stay responsive while a big course is saved in the course
-  editor: the course is checked after the save has let go of the database,
+- Other pages stay responsive while a big course is saved, in the course
+  editor or by an AI job: the course is checked while the database is free,
   so other people's pages no longer wait for it.
 - A new docs page, **Connect an AI assistant**, tells people how to let Claude
   Code, Claude or ChatGPT make courses for them: what a token is, what plain

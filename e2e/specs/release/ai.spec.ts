@@ -91,7 +91,10 @@ test("AI on a release server, through the simulator: generate, learn, edit with 
     const radios = q.locator("input[type=radio]");
     if (await radios.count()) {
       const values = await radios.evaluateAll((els) => els.map((e) => (e as HTMLInputElement).value));
-      await radios.nth(values.indexOf(answer)).check();
+      // A true-false question shows "True"/"False" for the file's "true"/"false".
+      const at = values.findIndex((v) => v.toLowerCase() === answer.toLowerCase());
+      expect(at, `${qid}: ${answer} among ${values}`).toBeGreaterThanOrEqual(0);
+      await radios.nth(at).check();
     } else {
       await q.locator("input.fill").fill(answer);
     }
