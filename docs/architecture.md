@@ -49,6 +49,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 - Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`; its Connected apps section (#167): `routes/profile/apps.rs`.
 - Connected apps' API (#167): `routes/api.rs` (`/api/v1/…`, bearer token only); the owner's switch and list: `routes/manage/apps.rs`, the switch in `settings.rs` (`APPS_ON`).
 - The MCP server (#168, `docs/api.md`): `routes/mcp.rs` (the HTTP gate of `POST /mcp`: switch, `Origin`, method, content type, bearer, per-grant limit, body cap, scopes), `mcp.rs` (JSON-RPC: `initialize`, `ping`, `tools/list`, `tools/call`, batches of 10), `mcp/tools.rs` (the six course tools), `mcp/format.rs` (`get_course_format`: `docs/course-format.md` by heading, the test course embedded as the example). The tools write through the editor's own functions in `routes/courses/write.rs` (`own_course`, `check_file`, `course_write_refused`, `may_create_courses`, `store_files`) and `store_copy` in `routes/courses/create.rs`.
+- OAuth sign-in for apps that connect from the cloud (#169, `docs/api.md` "OAuth"): `oauth_server.rs` (the rules over a connection: redirect addresses, registration and its bounds, PKCE S256, the request's checks, Allow's grant and code, the code exchange, refresh rotation, revoke, the purge), `routes/oauth.rs` (the discovery documents, `/oauth/authorize` with the consent page, `/oauth/token`, `/oauth/register`, `/oauth/revoke`; the issuer from `SKRONGLE_PUBLIC_URL`; `resume` carries a signed-out request through the sign-in in `routes/auth.rs`), templates `oauth_consent.html`, `oauth_error.html`, `oauth_no_permission.html`; the dev build's test client: `routes/dev/oauth_client.rs`, `templates/dev_oauth_client.html`.
 - Data rights: `db/tables.rs` (the user-table list), `jobs/retention.rs` (retention rules), `signup.rs` (the age confirmation).
 - Permissions: `perms.rs` (`Perm`, `Perms`, the presets; #137), asked through `CurrentUser::can` / `require` / `require_api` in `auth.rs`; stored in `users.perms`, `users.preset_id` and table `permission_presets`.
 - Owner: `owner.rs`, `routes/manage.rs`, `static/manage.js`, `routes/password.rs` (temporary password gate); an account's permissions (`perms.rs`) and the Permissions dialog on Manage Users, which a superuser reaches too (#139, `POST /manage/permissions`); a learner's progress for an owner or a superuser, unless the account has Privacy (#147): `routes/manage/progress.rs`, `templates/manage_progress.html`; saved presets in `routes/manage/presets.rs` (#140, `POST /manage/presets/delete`); the server's AI API keys in `secrets.rs` and the hide-AI switch in `settings.rs`, both on Manage Users (#25).
@@ -57,7 +58,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 
 ### Dev builds only (the `dev` cargo feature)
 
-- `dev.rs` + `routes/dev.rs` (`/dev/login`, the dev authenticator; `routes/dev/jobs_page.rs` is `/dev/jobs`), `dev_ai.rs` + `routes/dev_ai.rs` (`/dev/ai`, fixtures in `data/test-fixtures/`), `static-dev/` (`devbox.js`, `devbox.css`, served under `/static/`).
+- `dev.rs` + `routes/dev.rs` (`/dev/login`, the dev authenticator; `routes/dev/jobs_page.rs` is `/dev/jobs`, `routes/dev/oauth_client.rs` is `/dev/oauth-client`, #169), `dev_ai.rs` + `routes/dev_ai.rs` (`/dev/ai`, fixtures in `data/test-fixtures/`), `static-dev/` (`devbox.js`, `devbox.css`, served under `/static/`).
 
 ### Elsewhere
 
@@ -159,6 +160,7 @@ src/
     profile/apps.rs  the profile's Connected apps section (#167; only while settings::APPS_ON is on and the account has Create courses, 404 otherwise): POST /profile/apps/token (Make a token: name, scope=…, course=…, lifetime 30|90|365, the password; the token shown once, no-store), POST /profile/apps/revoke (id)
     api.rs       GET /api/v1/whoami (#167): the probe of a bearer token (auth::api::ApiUser; never the session cookie): user_id, client_id, client_name, scopes, courses
     mcp.rs       /mcp (#168, docs/api.md): the MCP server's HTTP gate, every method (all but POST get 405); the protocol is src/mcp.rs, the tools src/mcp/tools.rs
+    oauth.rs     OAuth (#169, docs/api.md "OAuth"; 404 with the switch off or no SKRONGLE_PUBLIC_URL): GET /.well-known/oauth-authorization-server and /.well-known/openid-configuration (the same document), GET /.well-known/oauth-protected-resource and …/mcp, GET /oauth/authorize (the consent page; signed out: /login and back), POST /oauth/authorize (Allow or Deny; session cookie and same-origin only), POST /oauth/token, /oauth/register, /oauth/revoke (programs: no cookie, no CSRF check, no proxy sign-in); the rules are src/oauth_server.rs
     manage/apps.rs  the owner's Connected apps card (#167): POST /manage/apps (on=1|0, Let apps connect), POST /manage/apps/revoke (id, any account's grant); owners only, 404 otherwise
     pages.rs     / (landing for visitors, home: the three modes) /lessons /lessons/{slug} /history /mistakes, POST /api/lessons/{slug}/note (the lesson note, autosave)
     map.rs       /map
@@ -344,6 +346,17 @@ api_tokens     (id, grant_id, kind, token_hash UNIQUE, expires_at)
                 -- kind personal | access | refresh (the last two for OAuth, #169); token_hash is the SHA-256 of
                 -- the skr_ token (auth::hash_token), never the token; at most 800 rows; cascades from api_grants;
                 -- expired grants and tokens are purged with the sessions
+oauth_clients  (id, client_id UNIQUE, name, redirect_uris, created_at, last_grant_at)
+                -- apps registered for OAuth sign-in (#169, src/oauth_server.rs): name at most 60 characters,
+                -- redirect_uris newline-separated (at most 5 of 200 characters, https or loopback http);
+                -- at most 100 rows (caps::MAX_OAUTH_CLIENTS, the oldest with no grant goes first); one nobody
+                -- finished a grant for within a day is purged; no account's row
+oauth_codes    (id, code_hash UNIQUE, client_id, user_id, grant_id, redirect_uri, resource, code_challenge,
+                expires_at, used_at)
+                -- one-time authorization codes (#169): the SHA-256 of the code only; bound to the client, the
+                -- redirect address, the resource and the PKCE challenge; ten minutes; used_at set by the
+                -- exchange, a second exchange deletes the grant; at most 200 live (caps::MAX_OAUTH_CODES);
+                -- cascades from users and api_grants; expired rows purged with the sessions
                 -- server-wide settings (src/settings.rs): 'ai_off' = '1' hides every AI feature for
                 -- every account (no row: shown). The session query reads it, so auth/cache.rs watches it
 server_api_keys (provider PRIMARY KEY, ciphertext, set_at)  WITHOUT ROWID
@@ -415,7 +428,9 @@ The schema is `src/db/migrations/v001_schema.sql` plus the later
 migrations (`v002_no_skc.sql` drops `motivator_purchases` and turns a saved
 `skc` motivator into `xp`; `v003_share_links.sql` rebuilds `course_shares` with a
 `label` instead of an address; `v004_permissions.sql` adds `permission_presets`, `users.perms` and
-`users.preset_id`, and gives every existing account the Teacher set), which `src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
+`users.preset_id`, and gives every existing account the Teacher set; `v005_error_kind.sql` adds
+`courses.error_kind`; `v006_api_grants.sql` adds connected apps' `api_grants` and `api_tokens`;
+`v007_oauth.sql` adds OAuth's `oauth_clients` and `oauth_codes`), which `src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
 how many have run, and a later change appends its own entry with a
 `.down.sql` beside it that takes it back (`db::migrate_to`, behind `skrongle migrate <schema-version>`;
 `db::tests::every_down_restores_the_schema_before_it` holds each one to the schema before it). A database
@@ -866,6 +881,19 @@ writable path, and a release never touches the database.
   list, check files with the editor's `check_file`, write all or nothing through the editor's
   functions and count against `COURSE_WRITES_PER_USER`; a failure that is not the agent's is a
   fixed message.
+- OAuth (#169, `oauth_server.rs`, `routes/oauth.rs`): every route 404s with the switch off or no
+  `SKRONGLE_PUBLIC_URL`; the issuer and every address handed out come from that setting and the base
+  path, never `Host` or `X-Forwarded-*`. Public clients with PKCE S256 only; `state` and `resource`
+  required; redirect addresses match exactly (https, or loopback http where only the port may
+  differ); a request that fails a check gets an error page and is never redirected. A code works
+  once for ten minutes and a second use revokes its grant; refresh tokens rotate and belong to their
+  client. The consent page is framed by nothing and not cached, nothing is granted on GET, and its
+  POST needs the session cookie (the proxy header alone signs nobody in there) and
+  `Sec-Fetch-Site: same-origin` or this server's `Origin`. A signed-out request goes through the
+  sign-in in an `oauth_next` cookie and comes back to the local `/oauth/authorize` path only. The
+  program endpoints read no cookie and skip the CSRF layer and the proxy sign-in. Registration: 20
+  per address an hour, 4 KB, 5 addresses of 200 characters, 100 rows; refused token requests: 30 per
+  address in ten minutes (`security::OAUTH_*`). No request ever leaves the server for a client.
 - CSRF: the cookie is `SameSite=Lax`, the JSON API only accepts
   `Content-Type: application/json`, and every POST from another site is
   refused with a 403 before its handler runs (`security::csrf`: the

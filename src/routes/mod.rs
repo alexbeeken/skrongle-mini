@@ -35,6 +35,7 @@ pub mod quiz;
 pub mod password;
 pub mod manage;
 pub mod mcp;
+pub mod oauth;
 pub mod tutor;
 pub mod vocab;
 
@@ -290,6 +291,9 @@ pub fn router(state: Arc<AppState>) -> Router {
         // The MCP server (#168): every method reaches the handler, which
         // refuses all but POST itself, after the switch and the Origin check.
         .route("/mcp", axum::routing::any(mcp::endpoint))
+        // OAuth sign-in for apps that connect from the cloud (#169): the
+        // discovery documents, the consent page and the program endpoints.
+        .merge(oauth::routes())
         // owners (404 for anyone else); /superuser was its old address
         .route("/superuser", get(|q: RawQuery| moved("/manage", q)))
         .route("/manage", get(manage::show))

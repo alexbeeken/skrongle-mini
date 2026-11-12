@@ -255,6 +255,8 @@ pub async fn login(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
         tracing::warn!("sign-in rate limit hit from {ip}");
         return Ok(too_many(String::new(), None));
     }
+    // An app's sign-in request waiting for this one (#169, `routes::oauth`).
+    let oauth = crate::routes::oauth::resume(req.headers());
     let form: Credentials = match form_body(req).await {
         Ok(f) => f,
         Err(r) => return Ok(r),
@@ -308,7 +310,7 @@ pub async fn login(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
     };
 
     tracing::info!("user {user_id} gave the right password");
-    sign_in(&state, user_id, Vec::new(), share.as_ref()).await
+    sign_in(&state, user_id, Vec::new(), share.as_ref(), oauth.as_deref()).await
 }
 
 pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, headers: HeaderMap, req: axum::extract::Request) -> Result<Response, AppError> {
@@ -507,8 +509,16 @@ fn twofa_token(headers: &HeaderMap) -> Option<String> {
 /// sign-in on, ask for the authenticator's code at `/login/code`. `cookies` go
 /// out either way. `share`: the course's share link to land on instead of
 /// home; a sign-in that goes through its second step carries it in the
-/// share cookie (#1016).
-async fn sign_in(state: &AppState, user_id: i64, mut cookies: Vec<(axum::http::HeaderName, HeaderValue)>, share: Option<&ShareNotice>) -> Result<Response, AppError> {
+/// share cookie (#1016). `oauth`: an app's authorization request to go back
+/// to (`routes::oauth::resume`, a local path); its cookie outlives the
+/// second step, which reads it again.
+async fn sign_in(
+    state: &AppState,
+    user_id: i64,
+    mut cookies: Vec<(axum::http::HeaderName, HeaderValue)>,
+    share: Option<&ShareNotice>,
+    oauth: Option<&str>,
+) -> Result<Response, AppError> {
     let challenge = state.db.call(move |c| two_factor::start_login(c, user_id, now())).await?;
     let Some(ch) = challenge else {
         let token = state.db.call(move |c| auth::create_session(c, user_id)).await?;
@@ -516,6 +526,10 @@ async fn sign_in(state: &AppState, user_id: i64, mut cookies: Vec<(axum::http::H
         cookies.push(auth::set_session_cookie(&token, state.secure_cookies));
         if share.is_some() {
             cookies.push(named_cookie(SHARE_COOKIE, "", 0, state.secure_cookies));
+        }
+        if let Some(to) = oauth {
+            cookies.push(crate::routes::oauth::clear_next_cookie(state.secure_cookies));
+            return Ok((AppendHeaders(cookies), Redirect::to(to)).into_response());
         }
         return Ok((AppendHeaders(cookies), Redirect::to(&crate::url(&after_sign_in(share)))).into_response());
     };

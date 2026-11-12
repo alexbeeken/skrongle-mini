@@ -73,6 +73,15 @@ numbers work is in the README, "Versions".
   or ones shared with you, and starts no AI job. Nothing answers there while
   **Let apps connect** is off. *The MCP server* in the docs says how to try
   it.
+- **Apps in the cloud can sign in** (claude.ai, ChatGPT and others): with
+  **Let apps connect** on and `SKRONGLE_PUBLIC_URL` set to your HTTPS
+  address, such an app asks to connect and the person sees a page naming
+  the app and where the answer goes, picks courses and how long, and
+  clicks **Allow**. The connection then shows under Connected apps like a
+  token made by hand. Without `SKRONGLE_PUBLIC_URL` none of this answers.
+  Behind a path such as `/skrongle`, *Self-hosting* has two optional proxy
+  lines for apps that look only at the site's root. The database gets two
+  new tables (`oauth_clients`, `oauth_codes`); going back drops them.
 
 **What to do:** nothing to update. The update script no longer leaves a copy
 of the database behind, so if you relied on those as backups, make your own

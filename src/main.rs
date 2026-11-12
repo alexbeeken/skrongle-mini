@@ -32,6 +32,7 @@ mod mcp;
 mod measure;
 mod notation;
 mod notes;
+mod oauth_server;
 mod mastery;
 mod prices;
 mod motivators;

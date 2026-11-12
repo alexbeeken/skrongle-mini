@@ -64,7 +64,6 @@ impl Scope {
         }
     }
 
-    #[cfg_attr(not(test), allow(dead_code))] // OAuth parses the scopes asked for (#169)
     pub fn parse(s: &str) -> Option<Scope> {
         Scope::ALL.into_iter().find(|x| x.as_str() == s)
     }
@@ -137,9 +136,7 @@ impl Lifetime {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Kind {
     Personal,
-    #[cfg_attr(not(test), allow(dead_code))] // OAuth mints these (#169)
     Access,
-    #[cfg_attr(not(test), allow(dead_code))] // OAuth mints these (#169)
     Refresh,
 }
 
@@ -309,12 +306,13 @@ pub fn revoke_all_for_user(conn: &Connection, user_id: i64) -> rusqlite::Result<
     conn.execute("DELETE FROM api_grants WHERE user_id = ?1", [user_id])
 }
 
-/// Delete expired tokens and grants (with the sessions, in the hourly
-/// housekeeping and at startup).
+/// Delete expired tokens and grants, then OAuth's expired codes, untraded
+/// grants and unused registrations (`oauth_server::purge`); with the
+/// sessions, in the hourly housekeeping and at startup.
 pub fn purge_expired(conn: &Connection, now: i64) -> rusqlite::Result<usize> {
     let tokens = conn.execute("DELETE FROM api_tokens WHERE expires_at <= ?1", [now])?;
     let grants = conn.execute("DELETE FROM api_grants WHERE expires_at <= ?1", [now])?;
-    Ok(tokens + grants)
+    Ok(tokens + grants + crate::oauth_server::purge(conn, now)?)
 }
 
 /// What a token lookup found.

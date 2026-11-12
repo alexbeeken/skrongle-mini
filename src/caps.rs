@@ -56,3 +56,12 @@ pub const MAX_API_GRANTS: usize = MAX_ACCOUNTS * MAX_GRANTS_PER_ACCOUNT;
 /// row; an app that signs in with OAuth holds an access and a refresh token
 /// and, for an hour after refreshing, the access token it replaced.
 pub const MAX_API_TOKENS: usize = MAX_API_GRANTS * 4;
+
+/// Apps registered for OAuth sign-in (#169, `oauth_clients`): a new
+/// registration past it pushes out the oldest one with no grant. A
+/// registration nobody finished a grant for is purged after a day anyway.
+pub const MAX_OAUTH_CLIENTS: usize = 100;
+
+/// OAuth codes waiting to be traded at once (#169, `oauth_codes`): each
+/// lives ten minutes. Past it Allow says the server is busy.
+pub const MAX_OAUTH_CODES: usize = 200;

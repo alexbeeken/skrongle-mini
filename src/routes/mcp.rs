@@ -12,9 +12,13 @@
 //! 6. the body, capped while it is read at the course size limit plus a
 //!    small margin (413), then nesting depth and batch size (`mcp::parse`);
 //! 7. each message's scope (403 `insufficient_scope`).
+//!
+//! With a public address set, a 401 and a 403 name the protected-resource
+//! document in `WWW-Authenticate` (`resource_metadata`, RFC 9728 §5.1), so
+//! an app can find where to sign in (#169, `routes/oauth.rs`).
 
 use axum::extract::{FromRequestParts, Request, State};
-use axum::http::header::{ALLOW, CACHE_CONTROL, CONTENT_LENGTH, CONTENT_TYPE, ORIGIN};
+use axum::http::header::{ALLOW, CACHE_CONTROL, CONTENT_LENGTH, CONTENT_TYPE, ORIGIN, WWW_AUTHENTICATE};
 use axum::http::{HeaderMap, HeaderValue, Method, StatusCode};
 use axum::response::{IntoResponse, Response};
 use serde_json::{json, Value};
@@ -60,6 +64,19 @@ fn is_json(headers: &HeaderMap) -> bool {
         .is_some_and(|essence| essence.trim().eq_ignore_ascii_case("application/json"))
 }
 
+/// `e`'s answer, its `WWW-Authenticate` challenge naming the
+/// protected-resource document when there is a public address (#169).
+fn challenge(state: &AppState, e: ApiError) -> Response {
+    let mut r = e.into_response();
+    let Some(url) = crate::routes::oauth::resource_metadata_url(state) else { return r };
+    let Some(v) = r.headers().get(WWW_AUTHENTICATE).and_then(|v| v.to_str().ok()) else { return r };
+    let v = if v == "Bearer" { format!("Bearer resource_metadata=\"{url}\"") } else { format!("{v}, resource_metadata=\"{url}\"") };
+    if let Ok(v) = HeaderValue::from_str(&v) {
+        r.headers_mut().insert(WWW_AUTHENTICATE, v);
+    }
+    r
+}
+
 /// Every method on `/mcp`.
 pub async fn endpoint(State(state): State<Arc<AppState>>, req: Request) -> Response {
     let (mut parts, body) = req.into_parts();
@@ -81,7 +98,7 @@ pub async fn endpoint(State(state): State<Arc<AppState>>, req: Request) -> Respo
     }
     let user = match ApiUser::from_request_parts(&mut parts, &state).await {
         Ok(u) => u,
-        Err(e) => return e.into_response(),
+        Err(e) => return challenge(&state, e),
     };
     if let Some(v) = parts.headers.get("mcp-protocol-version").and_then(|v| v.to_str().ok()) {
         if !mcp::PROTOCOL_VERSIONS.contains(&v) {
@@ -108,7 +125,7 @@ pub async fn endpoint(State(state): State<Arc<AppState>>, req: Request) -> Respo
         if let Item::Request(m) = item {
             if let Some(scope) = mcp::needed_scope(m) {
                 if let Err(e) = user.require(scope) {
-                    return e.into_response();
+                    return challenge(&state, e);
                 }
             }
         }

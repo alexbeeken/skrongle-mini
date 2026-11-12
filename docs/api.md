@@ -40,7 +40,7 @@ checked in this order:
 | 405 `{"error": "method_not_allowed"}`, `Allow: POST` | any method but POST (`GET` too: there is no stream to open) |
 | 415 `{"error": "unsupported_media_type"}` | a body that is not `Content-Type: application/json` |
 | 400 `{"error": "invalid_request"}` | a token in the address (`?access_token=`, `?token=`), even beside a good header |
-| 401, empty, `WWW-Authenticate: Bearer` | no token, or one that is unknown, expired or revoked, or an account without **Create courses** or waiting behind a temporary password |
+| 401, empty, `WWW-Authenticate: Bearer` | no token, or one that is unknown, expired or revoked, or an account without **Create courses** or waiting behind a temporary password. With `SKRONGLE_PUBLIC_URL` set the header is `Bearer resource_metadata="<public address><base>/.well-known/oauth-protected-resource/mcp"`, where an app learns how to sign in (see "OAuth" below); the 403 below carries it too. |
 | 400 `{"error": "unsupported_protocol_version"}` | an `MCP-Protocol-Version` header this server does not speak |
 | 429, a JSON-RPC error (`-32000`) | more than 300 requests from one grant in ten minutes (`security::MCP_CALLS_PER_GRANT`); ten bad tokens from one address give a 429 too |
 | 413, a JSON-RPC error | a body larger than a course may be (`SKRONGLE_COURSE_BYTES`) plus 64 KiB, stopped while it is read |
@@ -122,3 +122,99 @@ curl -s -X POST http://<server>/mcp \
 
 Or run `npx @modelcontextprotocol/inspector`, choose *Streamable HTTP*, give
 the URL and the `Authorization` header, and click **Connect**.
+
+## OAuth
+
+An app that connects from a vendor's cloud (claude.ai, ChatGPT) cannot be
+handed a token: it signs in with OAuth 2.1, and Skrongle is its own small
+authorization server (#169). This only helps a server with a public HTTPS
+address; on a home network a token from the profile is the way in. The
+code is `src/oauth_server.rs` (the rules) and `src/routes/oauth.rs` (the
+HTTP side).
+
+Every route below answers 404 while *Let apps connect* is off, and while
+`SKRONGLE_PUBLIC_URL` is unset: an issuer must be a fixed address. The
+issuer is `SKRONGLE_PUBLIC_URL` plus the base path
+(`https://example.org/skrongle`), and every address in the documents is
+built from it, never from the request's `Host` or `X-Forwarded-*`. The
+routes answer on plain HTTP too, but a redirect address that is not on
+the person's own computer must be HTTPS.
+
+| Route | What |
+|---|---|
+| `GET <base>/.well-known/oauth-protected-resource/mcp` | RFC 9728 for `/mcp`: `resource` `<issuer>/mcp`, `authorization_servers` `[<issuer>]`, the two scopes. `/mcp`'s 401 names it. |
+| `GET <base>/.well-known/oauth-protected-resource` | the same for the site: `resource` `<issuer>` |
+| `GET <base>/.well-known/oauth-authorization-server` | RFC 8414: the four endpoints below, `code` only, `authorization_code` and `refresh_token`, `S256` only, `token_endpoint_auth_methods_supported: ["none"]`, the scopes, `authorization_response_iss_parameter_supported: true` |
+| `GET <base>/.well-known/openid-configuration` | the same document: the one place on the MCP spec's discovery list a server behind a path can answer itself ([Self-hosting](self-hosting), "Connected apps behind a path") |
+| `GET <base>/oauth/authorize` | the request; the consent page |
+| `POST <base>/oauth/authorize` | the consent page's answer (a form from the page, with the session cookie) |
+| `POST <base>/oauth/token` | a code or a refresh token for tokens |
+| `POST <base>/oauth/register` | RFC 7591 registration |
+| `POST <base>/oauth/revoke` | RFC 7009: the app disconnects itself |
+
+**Register** with JSON (at most 4 KB): `redirect_uris` (1 to 5, each at
+most 200 characters, `https://…` or `http://localhost`, `http://127.0.0.1`,
+`http://[::1]`; no fragment, no other scheme), `client_name` (at most 60
+characters, no control characters or markup; without one the app is
+named by its first address's host), and if given
+`token_endpoint_auth_method: "none"`, `grant_types` within
+`authorization_code` and `refresh_token`, `response_types: ["code"]`.
+Anything else is ignored and nothing named in it is fetched. 201 with
+`client_id`; 400 `invalid_redirect_uri` or `invalid_client_metadata`; 413
+over 4 KB; 429 past 20 from one address in an hour. The server keeps at
+most 100 registrations (`caps::MAX_OAUTH_CLIENTS`; past it the oldest with
+no grant goes) and drops one nobody finished a grant for within a day.
+
+**Authorize** takes `response_type=code`, `client_id`, `redirect_uri`,
+`code_challenge` (S256, 43 characters), `code_challenge_method=S256`,
+`state` (required, at most 500 characters), `resource` (required: the
+issuer or `<issuer>/mcp`) and optionally `scope` (both scopes without
+it). Each field at most once. The redirect address must be one the app
+registered, the same string; for `http://` on a loopback host only the
+port may differ. A request that fails any check gets an error page here
+(`oauth-error`, the OAuth code and what is wrong) and is never sent back
+to the app. Signed out, the person goes through the normal sign-in
+(password, then two-factor) and comes back: the request waits in an
+`oauth_next` cookie (HttpOnly, SameSite=Lax, ten minutes) and the sign-in
+returns to `<base>/oauth/authorize?…` only, never to an address from the
+request. An account without **Create courses** gets a page saying to ask
+the owner. Otherwise the consent page: the app's name, the host the answer
+goes to (from the registered address), the scopes in plain words, the
+account's own courses to limit it to (a grant limited to some courses
+cannot create one), how long it works (30 days, 90, a year), **Allow** and
+**Deny**. It is asked every time; nothing is granted on GET.
+
+**The answer** (POST, the same fields plus `decision=allow|deny`,
+`course` per course and `lifetime`) needs the session cookie (a proxy's
+sign-in header alone signs nobody in here) and `Sec-Fetch-Site:
+same-origin`, or for a browser without it an `Origin` that is the public
+address; anything else is a 403. The request is checked again. Deny sends
+`error=access_denied&state=…&iss=…` to the redirect address; Allow makes
+one grant (counted against the account's 4) and sends `code=…&state=…&iss=…`.
+
+**Token** (`application/x-www-form-urlencoded`, each field once):
+
+- `grant_type=authorization_code` with `code`, `client_id`,
+  `redirect_uri`, `code_verifier` and `resource`, all required and equal to
+  the request's. A code works once, for ten minutes; a second use deletes
+  the grant it made and every token under it.
+- `grant_type=refresh_token` with `refresh_token` and `client_id` (and
+  `resource` if the app sends it). The refresh token is used up: a second
+  use answers `invalid_grant`. Only the client the grant was made for may
+  use it.
+
+200 is `{"access_token", "token_type": "Bearer", "expires_in": 3600,
+"refresh_token", "scope"}`: the access token works an hour (never past the
+grant), the refresh token as long as the grant. Errors are RFC 6749 §5.2,
+the code only (`{"error": "invalid_grant"}`): `invalid_request`,
+`invalid_client` (401), `invalid_grant`, `unsupported_grant_type`,
+`invalid_target`. Every answer carries `Cache-Control: no-store`. 30
+refused requests from one address in ten minutes, then 429 until the
+window ends (`security::OAUTH_TOKEN_FAILURES_PER_IP`).
+
+**Revoke** (`token`, `client_id`): the grant behind the app's own access or
+refresh token goes, with every token under it. 200 for an unknown token
+too; `invalid_client` for an unknown client.
+
+**Try it** on the dev server with `/dev/oauth-client`, a public client that
+plays the whole flow ([Testing](testing), "The dev OAuth client").

@@ -302,7 +302,7 @@ Where a default says "unit", `skrongle.service` sets it.
 | `SKRONGLE_AI_JOB_BUDGET_SECS` | `3600` | How long one AI generation job may run in all. Raise it for a slow self-hosted model. |
 | `SKRONGLE_LOG` | `info` | One level: `error`, `warn`, `info`, `debug` or `trace`. Per-module filters like `skrongle=debug` are not supported; an unrecognised value logs one warning and runs at `info`. |
 | `SKRONGLE_SECURE_COOKIES` | off | `1` when the site is served over HTTPS (behind a TLS proxy). |
-| `SKRONGLE_PUBLIC_URL` | — | The address people use, e.g. `https://learn.example.org`. The owner link and invitation links start with it. |
+| `SKRONGLE_PUBLIC_URL` | — | The address people use, e.g. `https://learn.example.org`. The owner link and invitation links start with it. Apps that connect from the cloud (OAuth) need it: without it their sign-in routes answer 404. |
 | `SKRONGLE_BASE_PATH` | *(empty)* | A URL prefix when a proxy serves the app under a path, e.g. `/learn`. |
 | `SKRONGLE_MIN_AGE` | `14` | The minimum age the registration checkbox states. The owner's own account is not asked. |
 | `SKRONGLE_FAILED_COURSE_RETENTION_DAYS` | `30` | An AI course whose generation failed is deleted, with the notes it was given, after this many days without a resume or edit. `0` keeps them. |
@@ -478,6 +478,45 @@ courses; you see every connection there and can revoke any of them. Off,
 no app can connect and every token stops working; turning it on again
 brings them back. It needs none of the AI keys above
 ([features](features#connected-apps)).
+
+With `SKRONGLE_PUBLIC_URL` set, an app in a vendor's cloud (claude.ai,
+ChatGPT) can also sign in with OAuth instead of being given a token: the
+person sees a page naming the app and clicks **Allow**. For a cloud app
+the server needs a public HTTPS address; on a home network give the app a
+token instead ([api](api#oauth)).
+
+### Connected apps behind a path
+
+When Skrongle is at a path such as `https://example.org/skrongle`
+(`SKRONGLE_BASE_PATH=/skrongle`), its OAuth issuer is
+`https://example.org/skrongle`. The MCP authorization spec (draft of
+2026, "Authorization Server Discovery") has a client try, for an issuer
+with a path, in this order:
+
+1. `https://example.org/.well-known/oauth-authorization-server/skrongle`
+2. `https://example.org/.well-known/openid-configuration/skrongle`
+3. `https://example.org/skrongle/.well-known/openid-configuration`
+
+and find the MCP server's own document from the `resource_metadata` in
+`/mcp`'s 401 (Skrongle names
+`https://example.org/skrongle/.well-known/oauth-protected-resource/mcp`),
+else at `https://example.org/.well-known/oauth-protected-resource/skrongle/mcp`
+and then `https://example.org/.well-known/oauth-protected-resource`.
+
+Skrongle answers everything under its path: the third address above, and
+`/skrongle/.well-known/oauth-authorization-server` and
+`/skrongle/.well-known/oauth-protected-resource/mcp`. A client that follows
+the spec finds it with no change to the proxy. For clients that only try
+the addresses at the site's root, pass those two on in nginx:
+
+```nginx
+location = /.well-known/oauth-authorization-server/skrongle { proxy_pass http://127.0.0.1:7576/skrongle/.well-known/oauth-authorization-server; }
+location = /.well-known/oauth-protected-resource/skrongle/mcp { proxy_pass http://127.0.0.1:7576/skrongle/.well-known/oauth-protected-resource/mcp; }
+```
+
+(Caddy: `rewrite /.well-known/oauth-authorization-server/skrongle /skrongle/.well-known/oauth-authorization-server`
+and the same for the second, before the `reverse_proxy`.) At the site's
+root, with no base path, nothing is needed.
 
 ## Reaching it from outside
 

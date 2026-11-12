@@ -1,0 +1,138 @@
+{# Dev mode: a public OAuth client that plays the flow against this server (routes/dev/oauth_client.rs, #169). English only, like every /dev page. #}
+{% extends "base.html" %}
+{% block title %}Dev: OAuth test client{% endblock %}
+{% block content %}
+<section class="narrow card" data-testid="dev-oauth-client">
+  <h1 class="heading-with-info">Dev test client <button type="button" class="info-btn" data-show-dialog="dev-oauth-info" aria-haspopup="dialog" aria-label="About the dev test client" data-testid="dev-oauth-info"><span aria-hidden="true">i</span></button></h1>
+  <dialog class="modal" id="dev-oauth-info" aria-labelledby="dev-oauth-info-title">
+    <h2 id="dev-oauth-info-title">About the dev test client</h2>
+    <p>A public OAuth client, as an app in a vendor's cloud is: it reads the discovery documents, registers itself, asks for access with PKCE, trades the code for tokens and calls <code>/api/v1/whoami</code>. Its state lives in this tab. Needs <code>SKRONGLE_PUBLIC_URL</code> and Let apps connect.</p>
+    <form method="dialog" class="modal-actions"><button type="submit" class="btn">OK</button></form>
+  </dialog>
+  <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0">
+    <button type="button" class="btn small" data-act="connect" data-testid="dev-oauth-connect">Connect</button>
+    <button type="button" class="btn ghost small" data-act="whoami" data-testid="dev-oauth-whoami-btn">Call whoami</button>
+    <button type="button" class="btn ghost small" data-act="refresh" data-testid="dev-oauth-refresh">Refresh token</button>
+    <button type="button" class="btn ghost small" data-act="reuse" data-testid="dev-oauth-reuse">Use the old refresh token</button>
+    <button type="button" class="btn ghost small" data-act="replay" data-testid="dev-oauth-replay">Replay the code</button>
+    <button type="button" class="btn ghost small" data-act="disconnect" data-testid="dev-oauth-disconnect">Disconnect</button>
+    <button type="button" class="btn ghost small" data-act="forget" data-testid="dev-oauth-forget">Forget this client</button>
+  </div>
+  <dl class="small">
+    <dt>Issuer</dt><dd><code data-testid="dev-oauth-issuer">not read yet</code></dd>
+    <dt>Client id</dt><dd><code data-testid="dev-oauth-client-id">none yet</code></dd>
+    <dt>Last authorize address</dt><dd><code data-testid="dev-oauth-authorize-url" style="word-break: break-all">none yet</code></dd>
+    <dt>Answer</dt><dd><code data-testid="dev-oauth-answer">none yet</code></dd>
+    <dt>Token exchange</dt><dd><code data-testid="dev-oauth-token">none yet</code></dd>
+    <dt>Refresh token</dt><dd><code data-testid="dev-oauth-refresh-token" style="word-break: break-all">none yet</code></dd>
+    <dt>Old refresh token again</dt><dd><code data-testid="dev-oauth-reuse-result">not tried</code></dd>
+    <dt>Code again</dt><dd><code data-testid="dev-oauth-replay-result">not tried</code></dd>
+    <dt>whoami</dt><dd><code data-testid="dev-oauth-whoami" style="white-space: pre-wrap; word-break: break-all">not called</code></dd>
+  </dl>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+(function () {
+  "use strict";
+  var base = document.body.getAttribute("data-base") || "";
+  var store = sessionStorage;
+  function show(id, text) { document.querySelector('[data-testid="' + id + '"]').textContent = text; }
+  function get(k) { return store.getItem("dev-oauth-" + k) || ""; }
+  function put(k, v) { store.setItem("dev-oauth-" + k, v); }
+  function b64url(bytes) {
+    var s = ""; bytes.forEach(function (b) { s += String.fromCharCode(b); });
+    return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  }
+  function random() { return b64url(crypto.getRandomValues(new Uint8Array(32))); }
+  // The discovery documents, as an app reads them: the protected resource
+  // names the issuer, the issuer's metadata names the endpoints.
+  async function discover() {
+    var r = await fetch(base + "/.well-known/oauth-protected-resource/mcp", { credentials: "omit" });
+    if (!r.ok) { show("dev-oauth-issuer", "discovery answered " + r.status); return null; }
+    var prm = await r.json();
+    var m = await (await fetch(base + "/.well-known/oauth-authorization-server", { credentials: "omit" })).json();
+    put("resource", prm.resource); put("issuer", m.issuer);
+    put("token-endpoint", m.token_endpoint); put("revoke-endpoint", m.revocation_endpoint);
+    show("dev-oauth-issuer", m.issuer);
+    return m;
+  }
+  function redirect() { return get("issuer") + "/dev/oauth-client/callback"; }
+  async function form(url, fields) {
+    var r = await fetch(url, { method: "POST", credentials: "omit", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(fields) });
+    var text = await r.text();
+    var body = {}; try { body = text ? JSON.parse(text) : {}; } catch (e) { body = { raw: text }; }
+    return { status: r.status, body: body };
+  }
+  function tokens(t) {
+    put("access", t.access_token); put("old-refresh", get("refresh")); put("refresh", t.refresh_token);
+    show("dev-oauth-refresh-token", t.refresh_token);
+  }
+  async function whoami() {
+    var r = await fetch(base + "/api/v1/whoami", { headers: { Authorization: "Bearer " + get("access") }, credentials: "omit" });
+    show("dev-oauth-whoami", r.status + " " + (await r.text()));
+  }
+  async function connect() {
+    var m = await discover();
+    if (!m) return;
+    if (!get("client")) {
+      var r = await fetch(m.registration_endpoint, { method: "POST", credentials: "omit", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ client_name: "Dev test client", redirect_uris: [redirect()], token_endpoint_auth_method: "none" }) });
+      var reg = await r.json();
+      if (!r.ok) { show("dev-oauth-client-id", "registration failed: " + r.status + " " + JSON.stringify(reg)); return; }
+      put("client", reg.client_id);
+    }
+    show("dev-oauth-client-id", get("client"));
+    var verifier = random(), state = random();
+    var digest = new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(verifier)));
+    put("verifier", verifier); put("state", state);
+    var q = new URLSearchParams({ response_type: "code", client_id: get("client"), redirect_uri: redirect(), code_challenge: b64url(digest), code_challenge_method: "S256", state: state, resource: get("resource"), scope: "courses:read courses:write" });
+    var url = m.authorization_endpoint + "?" + q.toString();
+    put("authorize-url", url);
+    location.href = url;
+  }
+  async function callback() {
+    var q = new URLSearchParams(location.search);
+    history.replaceState(null, "", location.pathname);
+    if (q.get("iss") !== get("issuer")) { show("dev-oauth-answer", "iss does not match the issuer"); return; }
+    if (q.get("state") !== get("state")) { show("dev-oauth-answer", "state does not match"); return; }
+    if (q.get("error")) { show("dev-oauth-answer", q.get("error")); return; }
+    var code = q.get("code");
+    if (!code) return;
+    put("code", code);
+    show("dev-oauth-answer", "code received");
+    var r = await form(get("token-endpoint"), { grant_type: "authorization_code", code: code, redirect_uri: redirect(), code_verifier: get("verifier"), client_id: get("client"), resource: get("resource") });
+    show("dev-oauth-token", r.status === 200 ? "ok: " + r.body.scope : r.status + " " + JSON.stringify(r.body));
+    if (r.status === 200) { tokens(r.body); await whoami(); }
+  }
+  var acts = {
+    connect: connect,
+    whoami: whoami,
+    refresh: async function () {
+      var r = await form(get("token-endpoint"), { grant_type: "refresh_token", refresh_token: get("refresh"), client_id: get("client"), resource: get("resource") });
+      if (r.status === 200) tokens(r.body); else show("dev-oauth-refresh-token", r.status + " " + JSON.stringify(r.body));
+    },
+    reuse: async function () {
+      var r = await form(get("token-endpoint"), { grant_type: "refresh_token", refresh_token: get("old-refresh"), client_id: get("client") });
+      show("dev-oauth-reuse-result", r.status + " " + (r.body.error || "ok"));
+    },
+    replay: async function () {
+      var r = await form(get("token-endpoint"), { grant_type: "authorization_code", code: get("code"), redirect_uri: redirect(), code_verifier: get("verifier"), client_id: get("client"), resource: get("resource") });
+      show("dev-oauth-replay-result", r.status + " " + (r.body.error || "ok"));
+      await whoami();
+    },
+    disconnect: async function () {
+      var r = await form(get("revoke-endpoint"), { token: get("refresh"), token_type_hint: "refresh_token", client_id: get("client") });
+      show("dev-oauth-answer", "revoke answered " + r.status);
+      await whoami();
+    },
+    forget: function () { store.clear(); location.href = base + "/dev/oauth-client"; }
+  };
+  document.querySelectorAll("[data-act]").forEach(function (b) { b.addEventListener("click", function () { acts[b.getAttribute("data-act")](); }); });
+  if (get("issuer")) show("dev-oauth-issuer", get("issuer"));
+  if (get("client")) show("dev-oauth-client-id", get("client"));
+  if (get("authorize-url")) show("dev-oauth-authorize-url", get("authorize-url"));
+  if (get("refresh")) show("dev-oauth-refresh-token", get("refresh"));
+  if (location.pathname.endsWith("/callback")) callback();
+})();
+</script>
+{% endblock %}
