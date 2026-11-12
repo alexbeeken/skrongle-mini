@@ -15,16 +15,27 @@
 #   - the other direction: the older release's own binary, started on the
 #     database the candidate migrated, refuses it with exit status 78 and a
 #     message that names the newer schema, and leaves the file byte for byte
-#     as it was (checksum).
+#     as it was (checksum);
+#   - going back, the documented way: the candidate's `skrongle migrate
+#     <fixture's schema>` takes the migrated database back down (lines
+#     "back to vN"), PRAGMA user_version is the fixture's again, and the
+#     older release's own binary starts on it, migrates nothing, the owner
+#     and the learner sign in and the progress is what the fixture recorded.
+#     A step the candidate has no `down` half for is a `note`, not a FAIL.
+#
+# The last two need the older release's binary for this architecture; a
+# release never built for it (the 32-bit builds started with 0.2.0) is a
+# `note`. A fixture with the candidate's own schema has nothing to go back
+# across.
 #
 #   scripts/release-qa/upgrade-check.sh dist/skrongle-0.1.2-aarch64.tar.gz
 #   FIXTURES=/some/dir scripts/release-qa/upgrade-check.sh <tarball>
 #   ONLY=0.1.1 scripts/release-qa/upgrade-check.sh <tarball>     # one fixture
 #
-# Older releases' binaries (for the refusal check) are taken from the
+# Older releases' binaries (for the refusal and going back) are taken from the
 # directory the candidate is in, or downloaded from the GitHub release when
-# missing (OLD_TARBALLS=<dir> to say where to look; SKRONGLE_REPO to change
-# the repository). Run it on the Linux machine whose architecture the tarball
+# missing, with two retries RETRY_WAIT (5) seconds apart (OLD_TARBALLS=<dir>
+# to say where to look; SKRONGLE_REPO to change the repository). Run it on the Linux machine whose architecture the tarball
 # is for; scripts/release-qa/matrix.sh does that in a container per
 # architecture. POSIX sh, curl, tar, sha256sum, od. Prints one line per check
 # and exits non-zero on any FAIL. The fixtures hold test data only
@@ -106,19 +117,27 @@ digest() {
 # old_binary <version>: unpack that release's tarball (found beside the candidate, or downloaded) into $WORK/old-<version>.
 old_binary() {
   v="$1"; name="skrongle-$v-$ARCH.tar.gz"
+  [ ! -x "$WORK/old-$v/skrongle" ] || return 0
   if [ ! -f "$OLD_TARBALLS/$name" ]; then
     mkdir -p "$WORK/dl"
-    code=$(curl -sSL -o "$WORK/dl/$name" -w '%{http_code}' "https://github.com/$REPO/releases/download/v$v/$name") || return 1
-    if [ "$code" != 200 ]; then
+    # A download failed once and worked on the next run: two more tries, a
+    # short wait apart, before it counts.
+    try=0
+    while :; do
+      code=$(curl -sSL -o "$WORK/dl/$name" -w '%{http_code}' "https://github.com/$REPO/releases/download/v$v/$name") || code=000
+      [ "$code" = 200 ] && break
       rm -f "$WORK/dl/$name"
       # 2: the release is there but has no tarball for this architecture
       # (the 32-bit builds started with 0.2.0). Anything else is a failure.
       [ "$code" = 404 ] && curl -fsSL -o /dev/null "https://github.com/$REPO/releases/tag/v$v" && return 2
-      return 1
-    fi
-    unpack "$WORK/dl/$name" "$WORK/old-$v"
+      try=$((try + 1))
+      [ "$try" -le 2 ] || return 1
+      echo "  (download of $name answered $code; trying again in ${RETRY_WAIT:-5} s)"
+      sleep "${RETRY_WAIT:-5}"
+    done
+    unpack "$WORK/dl/$name" "$WORK/old-$v" || return 1
   else
-    unpack "$OLD_TARBALLS/$name" "$WORK/old-$v"
+    unpack "$OLD_TARBALLS/$name" "$WORK/old-$v" || return 1
   fi
 }
 
@@ -217,6 +236,38 @@ for DB in "$FIXTURES"/learn-*.db; do
   SUM_AFTER=$(sha256sum < "$NEWER/learn.db")
   if [ "$SUM_BEFORE" = "$SUM_AFTER" ]; then ok "learn.db is byte for byte what it was (checksum unchanged)"; else fail "skrongle $V changed learn.db"; fi
   if [ "$(user_version "$NEWER/learn.db")" = "$CAND_SCHEMA" ]; then ok "the schema is still v$CAND_SCHEMA"; else fail "the schema is no longer v$CAND_SCHEMA"; fi
+
+  # Going back the documented way (docs/self-hosting.md "Updating",
+  # docs/packaging.md "Upgrade" step 3): the candidate's own binary takes the
+  # schema back to the fixture's, then the older release runs on it.
+  BACK="$WORK/back-$V"; mkdir -p "$BACK"
+  cp "$STATE/learn.db" "$BACK/learn.db"; cp "$STATE/learn.db.key" "$BACK/learn.db.key"
+  OUT=$(cd "$CAND" && SKRONGLE_DB="$BACK/learn.db" ./skrongle migrate "$FROM" 2>&1); RC=$?
+  if [ "$RC" != 0 ]; then
+    case "$OUT" in
+      # rusqlite_migration's words for a step with no `down` half
+      # (src/db/migrations.rs): that step cannot be undone, by design.
+      *"cannot be reverted"*) note "back to v$FROM: $CAND_VERSION has no way back for a step between v$FROM and v$CAND_SCHEMA: $(printf '%s' "$OUT" | head -1)" ;;
+      *) fail "back to v$FROM: skrongle migrate $FROM exited $RC:"; printf '%s\n' "$OUT" | sed 's/^/       /' ;;
+    esac
+    continue
+  fi
+  case "$OUT" in *"schema v$CAND_SCHEMA -> v$FROM"*) ok "back to v$FROM: $CAND_VERSION's skrongle migrate $FROM says \"$(printf '%s' "$OUT" | tail -1 | sed 's|^.*/||')\"" ;; *) fail "back to v$FROM: skrongle migrate $FROM printed: $OUT" ;; esac
+  if [ "$(user_version "$BACK/learn.db")" = "$FROM" ]; then ok "back to v$FROM: PRAGMA user_version is $FROM"; else fail "back to v$FROM: PRAGMA user_version is $(user_version "$BACK/learn.db")"; fi
+  BACKLOG="$WORK/back-$V.log"; : > "$BACKLOG"
+  if start "$WORK/old-$V" "$BACK/learn.db" "$BACKLOG"; then ok "back to v$FROM: skrongle $V starts on it"; else fail "back to v$FROM: skrongle $V did not start; the log:"; sed 's/^/       /' "$BACKLOG" | tail -8; continue; fi
+  if grep -q 'migrating the schema' "$BACKLOG"; then fail "back to v$FROM: skrongle $V migrated it again"; else ok "back to v$FROM: skrongle $V migrates nothing"; fi
+  if grep -q 'Owner link' "$BACKLOG"; then fail "back to v$FROM: skrongle $V printed an owner link"; else ok "back to v$FROM: no owner link, the owner is there"; fi
+  rm -f "$WORK/owner" "$WORK/learner"
+  http owner POST /login --data-urlencode "email=$OWNER" --data-urlencode "password=$PW"
+  if [ "$CODE" = 303 ]; then ok "back to v$FROM: the owner signs in"; else fail "back to v$FROM: owner sign-in: $CODE"; fi
+  http learner POST /login --data-urlencode "email=$LEARNER" --data-urlencode "password=$PW"
+  if [ "$CODE" = 303 ]; then ok "back to v$FROM: the learner signs in"; else fail "back to v$FROM: learner sign-in: $CODE"; fi
+  digest learner > "$WORK/digest-back-$V"
+  if [ -s "$WORK/digest-back-$V" ] && cmp -s "$DIGEST" "$WORK/digest-back-$V"; then ok "back to v$FROM: the learner's progress is what the fixture recorded"; else fail "back to v$FROM: the learner's progress differs from $DIGEST:"; diff "$DIGEST" "$WORK/digest-back-$V" | head -6 | sed 's/^/       /'; fi
+  stop; RC=$?
+  if [ "$RC" = 0 ]; then ok "back to v$FROM: SIGTERM, a clean exit"; else fail "back to v$FROM: exit code $RC on SIGTERM"; fi
+  if grep -q panicked "$BACKLOG"; then fail "back to v$FROM: a panic in skrongle $V's log"; fi
 done
 
 if [ "$COUNT" = 0 ]; then echo "no fixture older than $CAND_VERSION in $FIXTURES"; fi

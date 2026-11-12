@@ -2,7 +2,11 @@
 
 One small database per published release, written by that release's own
 binary. `upgrade-check.sh` starts a newer release on each and checks that
-the upgrade works (`../README.md`, `docs/testing.md` "Releases").
+the upgrade works, and then that going back works: the newer release's
+`skrongle migrate` takes the database down to the fixture's own schema (the
+`SCHEMA=` line of its `.env`), and that release's binary starts on it with
+both accounts and the recorded progress intact (`../README.md`,
+`docs/testing.md` "Releases").
 
 **All of it is test data.** The accounts use made-up addresses on
 `example.org`, and the passwords below are throwaway; nothing here protects a
