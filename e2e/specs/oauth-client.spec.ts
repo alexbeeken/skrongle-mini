@@ -1,6 +1,7 @@
 // OAuth sign-in for apps (#169), end to end with the dev test client
 // (/dev/oauth-client): discovery names the endpoints; signed out, Connect
-// goes through the sign-in to the consent page; Deny sends access_denied
+// goes through the sign-in, which names the waiting app (#190), to the
+// consent page; Deny sends access_denied
 // back; Allow with one course trades a code for tokens that work; a refresh
 // token rotates and the old one used again revokes the app (#184); the code
 // replayed revokes the app; a request edited by
@@ -8,7 +9,7 @@
 // the owner. scripts/e2e.sh sets SKRONGLE_PUBLIC_URL to the server's address.
 import { expect, test, type Page } from "@playwright/test";
 import { devLogin } from "../lib/app";
-import { login, newAccount, signUp } from "../lib/learner";
+import { login, logout, newAccount, signUp } from "../lib/learner";
 
 async function setAppsOn(page: Page, on: boolean): Promise<void> {
   await page.goto("/manage#apps");
@@ -57,6 +58,16 @@ test("the dev client signs in, is denied, allowed, refreshes and is revoked by a
   await me.goto("/dev/oauth-client");
   await me.getByTestId("dev-oauth-connect").click();
   await me.waitForURL(/\/login(\?|$)/);
+  // The sign-in page names the waiting app and its host (#190), and keeps
+  // saying so after a wrong password.
+  const notice = me.getByTestId("login-oauth-notice");
+  await expect(notice).toContainText("Dev test client");
+  await expect(me.getByTestId("login-oauth-host")).toHaveText(new URL(base).hostname);
+  await me.getByTestId("login-email").fill(account.email);
+  await me.getByTestId("login-password").fill("not-the-password");
+  await me.getByTestId("login-submit").click();
+  await expect(me.getByTestId("login-error")).toBeVisible();
+  await expect(notice).toContainText("Dev test client");
   await login(me, account);
   await expect(me.getByTestId("oauth-consent")).toBeVisible();
   await expect(me.getByTestId("oauth-consent-app")).toHaveText("Dev test client");
@@ -70,6 +81,12 @@ test("the dev client signs in, is denied, allowed, refreshes and is revoked by a
   await expect(me.getByTestId("dev-oauth-answer")).toHaveText("access_denied");
   await me.goto("/profile#apps");
   await expect(me.getByTestId("profile-apps-none")).toBeVisible();
+
+  // Signed out again, an ordinary sign-in page says nothing of an app.
+  await logout(me);
+  await expect(me.getByTestId("login-form")).toBeVisible();
+  await expect(me.getByTestId("login-oauth-notice")).toHaveCount(0);
+  await login(me, account);
 
   // Allow with one course: the code is traded and whoami answers.
   await me.goto("/dev/oauth-client");

@@ -508,6 +508,80 @@ fn sign_in_comes_back_to_the_request_and_nowhere_else() {
     }
 }
 
+/// The sign-in pages name the waiting app (#190), only for a request this
+/// server checked and sealed into the cookie: the app's registered name,
+/// escaped, and the host its answer goes to. The notice stays through a
+/// wrong password and on the two-factor page, goes once the consent page
+/// shows, and never comes from a query, a made-up cookie (even one holding
+/// a valid request), a request that fails its checks now, or a server
+/// whose switch is off.
+#[test]
+fn the_sign_in_page_names_the_waiting_app() {
+    let s = Site::start(true, None);
+    s.account("ann@example.org");
+    let flow = s.flow();
+    let client_id = flow.client_id.clone();
+    // Registration refuses markup; a row that has some anyway is still text.
+    s.state.db.with(|c| c.execute("UPDATE oauth_clients SET name = 'Ann''s <b>Helper</b>' WHERE client_id = ?1", [&client_id])).unwrap();
+    let out = s.consent(None, &flow);
+    assert_eq!(out.status, 303);
+    let cookie = out.header("set-cookie").split(';').next().unwrap().to_string();
+    let notice = |a: &Answer| a.body.contains("data-testid=\"login-oauth-notice\"");
+
+    let page = s.get("/login", &[("cookie", &cookie)]);
+    assert!(notice(&page), "{}", page.body);
+    assert!(page.body.contains("let Ann&#39;s &#60;b&#62;Helper&#60;/b&#62; connect"), "the name, escaped: {}", page.body);
+    assert!(!page.body.contains("<b>Helper"));
+    assert!(page.body.contains("data-testid=\"login-oauth-host\">app.example</strong>"), "the host");
+    assert_eq!(page.header("cache-control"), "no-store");
+
+    let wrong = s.post_form("/login", &[("cookie", &cookie)], &[("email", "ann@example.org"), ("password", "wrong")]);
+    assert!(notice(&wrong), "kept through a wrong password");
+
+    // Never from anything a link or another site can set.
+    assert!(!notice(&s.get("/login", &[])), "no cookie");
+    assert!(!notice(&s.get(&format!("/login?{}", flow.query()), &[])), "a query");
+    assert!(!notice(&s.get(&format!("/login?app=Evil&client_id={client_id}"), &[])), "a query naming the app");
+    let plain: String = flow.query().bytes().map(|b| format!("{b:02x}")).collect();
+    assert!(!notice(&s.get("/login", &[("cookie", &format!("oauth_next={plain}"))])), "a made-up cookie with a valid request");
+    let mut bent = cookie.clone();
+    let last = bent.pop().unwrap();
+    bent.push(if last == '0' { '1' } else { '0' });
+    assert!(!notice(&s.get("/login", &[("cookie", &bent)])), "a sealed cookie tampered with");
+    let made_up = s.post_form("/login", &[("cookie", &format!("oauth_next={plain}"))], &[("email", "ann@example.org"), ("password", PASSWORD)]);
+    assert_eq!(made_up.header("location"), "/", "and a made-up cookie leads nowhere");
+
+    // Switched off, nothing; the request fails its checks now, nothing.
+    s.apps_on(false);
+    assert!(!notice(&s.get("/login", &[("cookie", &cookie)])));
+    s.apps_on(true);
+    s.state.db.with(|c| c.execute("DELETE FROM oauth_clients WHERE client_id = ?1", [&client_id])).unwrap();
+    assert!(!notice(&s.get("/login", &[("cookie", &cookie)])), "the app's registration is gone");
+
+    // The two-factor page shows it too, and a wrong code keeps it.
+    let (uid, _) = s.account("bo@example.org");
+    let flow = s.flow();
+    let cookie = s.consent(None, &flow).header("set-cookie").split(';').next().unwrap().to_string();
+    let (vault, t) = (s.state.vault.clone(), crate::db::now());
+    let key = s.state.db.with(|c| crate::two_factor::totp_start(c, &vault, uid, t).map(|r| r.unwrap())).unwrap();
+    assert!(s.state.db.with(|c| crate::two_factor::totp_confirm(c, &vault, uid, &key.code_at(t as u64), t)).unwrap());
+    let wrong = (0..).map(|i| format!("{:06}", 100_000 + i)).find(|c| (-2..=2).all(|d| key.code_at((t + d * 30) as u64) != *c)).unwrap();
+    let pw = s.post_form("/login", &[("cookie", &cookie)], &[("email", "bo@example.org"), ("password", PASSWORD)]);
+    assert_eq!(pw.header("location"), "/login/code");
+    let twofa = pw.header("set-cookie").split(';').next().unwrap().to_string();
+    let both = format!("{cookie}; {twofa}");
+    assert!(notice(&s.get("/login/code", &[("cookie", &both)])), "on the code page");
+    let bad = s.post_form("/login/code", &[("cookie", &both)], &[("code", wrong.as_str())]);
+    assert!(notice(&bad), "kept through a wrong code: {}", bad.body);
+    assert!(!notice(&s.get("/login/code", &[("cookie", &twofa)])), "not without the request");
+
+    // Landed on the consent page: the cookie goes.
+    let (_, sid) = s.account("cy@example.org");
+    let page = s.consent(Some(&format!("{sid}; {cookie}")), &flow);
+    assert_eq!(page.status, 200);
+    assert!(page.headers.iter().any(|(k, v)| k == "set-cookie" && v.starts_with("oauth_next=;")), "cleared");
+}
+
 /// An account without Create courses gets a page saying to ask the owner,
 /// and its Allow grants nothing.
 #[test]

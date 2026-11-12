@@ -3073,6 +3073,8 @@ oauth:
     courses_note: "Une app limitée à certains cours ne peut pas en créer de nouveaux."
     allow: "Autoriser"
     deny: "Refuser"
+  signin:
+    notice: "Connecte-toi pour permettre à {app} de se connecter à ton compte."
   error:
     title: "Cette app ne peut pas se connecter"
     info: "À propos de cette erreur"

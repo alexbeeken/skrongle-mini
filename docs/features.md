@@ -2180,7 +2180,10 @@ token they give it (#167, the first step of plan #166). The code is
   what it may do in plain words, an optional list of their own courses
   (one line says a limited app can't create a course), how long it works,
   **Allow** and **Deny**. Signed out, the normal sign-in comes first and
-  leads back to it. An account without Create courses gets a page saying
+  leads back to it; the sign-in and two-factor code pages say which app
+  is waiting and the host its answer goes to (`login-oauth-notice`, #190),
+  read from the app's registration for a request the server checked and
+  sealed into the `oauth_next` cookie, never from the link. An account without Create courses gets a page saying
   to ask the owner (`oauth-no-permission`); a request that fails a check
   gets an error page (`oauth-error`) and the app hears nothing. Allow makes
   one grant, listed under Connected apps with the app's name like a token

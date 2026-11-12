@@ -34,6 +34,9 @@ pub struct LoginTemplate {
     /// `share.rs`): the page says so, and signing in or registering goes
     /// on to the link.
     pub share: Option<ShareNotice>,
+    /// An app's checked authorization request waits for this sign-in
+    /// (`routes::oauth::signin_notice`, #190): the page names the app.
+    pub oauth: Option<crate::routes::oauth::SignInNotice>,
 }
 
 impl LoginTemplate {
@@ -196,7 +199,7 @@ pub struct Registration {
     pub invite: String,
 }
 
-pub async fn login_form(State(state): State<Arc<AppState>>, MaybeUser(user): MaybeUser, Query(q): Query<LoginQuery>) -> Result<Response, AppError> {
+pub async fn login_form(State(state): State<Arc<AppState>>, MaybeUser(user): MaybeUser, headers: HeaderMap, Query(q): Query<LoginQuery>) -> Result<Response, AppError> {
     let share = share_notice(&state, q.share.as_deref().unwrap_or("")).await?;
     if user.is_some() {
         return Ok(Redirect::to(&crate::url(&after_sign_in(share.as_ref()))).into_response());
@@ -204,7 +207,10 @@ pub async fn login_form(State(state): State<Arc<AppState>>, MaybeUser(user): May
     if state.proxy_auth.is_some() {
         return Ok(proxy_page(StatusCode::OK, false));
     }
-    Ok(Page(LoginTemplate { user: None, error: None, email: String::new(), dev: state.dev_mode(), share }).into_response())
+    let oauth = crate::routes::oauth::signin_notice(&state, &headers).await?;
+    let page = Page(LoginTemplate { user: None, error: None, email: String::new(), dev: state.dev_mode(), share, oauth }).into_response();
+    // The notice comes from a cookie: no cache may keep it for a later visit.
+    Ok(([(axum::http::header::CACHE_CONTROL, "no-store")], page).into_response())
 }
 
 pub async fn register_form(State(state): State<Arc<AppState>>, MaybeUser(user): MaybeUser, Query(q): Query<RegisterQuery>) -> Result<Response, AppError> {
@@ -247,16 +253,18 @@ pub async fn login(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
     if state.proxy_auth.is_some() {
         return Ok(proxy_page(StatusCode::FORBIDDEN, false));
     }
-    let too_many = |email: String, share: Option<_>| {
-        let page = LoginTemplate { user: None, error: Some(crate::t("auth.login.too_many_attempts")), email, dev: state.dev_mode(), share };
+    let too_many = |email: String, share: Option<_>, oauth: Option<_>| {
+        let page = LoginTemplate { user: None, error: Some(crate::t("auth.login.too_many_attempts")), email, dev: state.dev_mode(), share, oauth };
         (StatusCode::TOO_MANY_REQUESTS, Page(page)).into_response()
     };
     if state.limits.blocked(security::LOGIN_PER_IP, &ip, now()) {
         tracing::warn!("sign-in rate limit hit from {ip}");
-        return Ok(too_many(String::new(), None));
+        return Ok(too_many(String::new(), None, None));
     }
-    // An app's sign-in request waiting for this one (#169, `routes::oauth`).
-    let oauth = crate::routes::oauth::resume(req.headers());
+    // An app's sign-in request waiting for this one (#169, `routes::oauth`),
+    // and what the page says of it if this sign-in fails (#190).
+    let oauth = crate::routes::oauth::resume(&state, req.headers());
+    let notice = crate::routes::oauth::signin_notice(&state, req.headers()).await?;
     let form: Credentials = match form_body(req).await {
         Ok(f) => f,
         Err(r) => return Ok(r),
@@ -270,6 +278,7 @@ pub async fn login(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
             email: email.clone(),
             dev: state.dev_mode(),
             share: share.clone(),
+            oauth: notice.clone(),
         })
         .into_response()
     };
@@ -283,7 +292,7 @@ pub async fn login(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
     let t = now();
     if !state.limits.hit(security::LOGIN_PER_IP, &ip, t) || state.limits.blocked(security::LOGIN_FAILURES_PER_USER, &email, t) {
         tracing::warn!("sign-in rate limit hit for an account from {ip}");
-        return Ok(too_many(email, share));
+        return Ok(too_many(email, share, notice));
     }
 
     let e = email.clone();

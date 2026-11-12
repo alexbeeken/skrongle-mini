@@ -5,6 +5,7 @@
   <h1>{{ crate::t("auth.login.title") }}</h1>
   {% if let Some(e) = error %}<p class="alert error" role="alert" data-testid="login-error">{{ e }}</p>{% endif %}
   {% if let Some(s) = share %}<p class="alert" role="status" data-testid="login-share-notice" data-course-title="{{ s.title }}">{{ s.message }}</p>{% endif %}
+  {% include "oauth_signin_notice.html" %}
   <form method="post" action="{{ crate::base_path() }}/login" data-testid="login-form">
     {% if let Some(s) = share %}<input type="hidden" name="share" value="{{ s.token }}">{% endif %}
     <label>{{ crate::t("auth.login.email_label") }}

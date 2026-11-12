@@ -4,6 +4,7 @@
 <section class="narrow" data-testid="login-code">
   <h1>{{ crate::t("auth.code.title") }}</h1>
   {% if let Some(e) = error %}<p class="alert error" role="alert" data-testid="login-code-error">{{ e }}</p>{% endif %}
+  {% include "oauth_signin_notice.html" %}
   <p class="muted" data-testid="login-code-sent-to">{{ crate::t("auth.code.from_app") }}</p>
   <form method="post" action="{{ crate::url("/login/code") }}" data-testid="login-code-form">
     <label>{{ crate::t("auth.code.code_label") }}
