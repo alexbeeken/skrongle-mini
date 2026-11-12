@@ -86,7 +86,9 @@ pub async fn change(
         .db
         .call(move |c| {
             crate::profile::set_password_hash(c, uid, &hash)?;
-            auth::delete_other_sessions(c, uid, &keep)
+            auth::delete_other_sessions(c, uid, &keep)?;
+            // Whoever had the temporary password may have connected an app (#167).
+            auth::api::revoke_all_for_user(c, uid)
         })
         .await?;
     tracing::info!("user {uid} replaced a temporary password");

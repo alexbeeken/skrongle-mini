@@ -22,6 +22,8 @@ const STEPS: &[M<'static>] = &[
     M::up(include_str!("migrations/v004_permissions.sql")).down(include_str!("migrations/v004_permissions.down.sql")),
     // v5: courses.error_kind
     M::up(include_str!("migrations/v005_error_kind.sql")).down(include_str!("migrations/v005_error_kind.down.sql")),
+    // v6: connected apps (api_grants, api_tokens, #167)
+    M::up(include_str!("migrations/v006_api_grants.sql")).down(include_str!("migrations/v006_api_grants.down.sql")),
 ];
 
 /// Schema migrations, applied in order. `PRAGMA user_version` tracks which have run.

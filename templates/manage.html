@@ -189,12 +189,49 @@
     </div>
   </section>
 
+  <section class="card" id="apps" data-testid="manage-apps-card">
+    <h2 class="heading-with-info">{{ crate::t("apps.title") }} <button type="button" class="info-btn" data-opens="manage-apps-info" aria-haspopup="dialog" aria-label="{{ crate::t("apps.info") }}" data-testid="manage-apps-info"><span aria-hidden="true">i</span></button></h2>
+    <dialog class="modal" id="manage-apps-info" aria-labelledby="manage-apps-info-title" data-testid="manage-apps-info-dialog">
+      <h2 id="manage-apps-info-title">{{ crate::t("apps.title") }}</h2>
+      <p>{{ crate::t("apps.manage_about") }}</p>
+      <p>{{ crate::t("apps.manage_about_off") }}</p>
+      <div class="modal-actions"><button type="button" class="btn" data-closes>{{ crate::t("profile.ok") }}</button></div>
+    </dialog>
+    <div class="switch-row" data-testid="manage-apps" data-apps-on="{{ apps_on }}">
+      <span id="manage-apps-label">{{ crate::t("apps.manage_let") }}</span>
+      <form method="post" action="{{ crate::url("/manage/apps") }}" data-testid="manage-apps-form">
+        <input type="hidden" name="on" value="{% if apps_on %}0{% else %}1{% endif %}">
+        <button type="submit" class="switch" role="switch" aria-checked="{{ apps_on }}" aria-labelledby="manage-apps-label" data-testid="manage-apps-switch"><span class="switch-knob" aria-hidden="true"></span>{% if apps_on %}{{ crate::t("manage.ai.on") }}{% else %}{{ crate::t("manage.ai.off") }}{% endif %}</button>
+      </form>
+    </div>
+    {% if grants.is_empty() %}
+    <p class="muted small" data-testid="manage-apps-none">{{ crate::t("apps.manage_none") }}</p>
+    {% else %}
+    <ul class="app-list" data-testid="manage-apps-list">
+      {% for g in grants %}
+      <li class="app-row" data-testid="manage-app">
+        <div class="app-text">
+          <strong data-testid="manage-app-name">{{ g.name }}</strong>
+          <span class="small" data-testid="manage-app-account">{{ g.email }}</span>
+          <span class="small muted">{{ g.scopes.join(", ") }} · {{ crate::t1("apps.last_used", "when", g.last_used.as_str()) }} · {{ crate::t1("apps.expires_on", "date", g.expires.as_str()) }}</span>
+        </div>
+        <form method="post" action="{{ crate::url("/manage/apps/revoke") }}">
+          <input type="hidden" name="id" value="{{ g.id }}">
+          <button type="submit" class="btn ghost small" data-testid="manage-app-revoke">{{ crate::t("apps.revoke") }}</button>
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </section>
+
   <dialog class="modal" id="manage-password-dialog" aria-labelledby="manage-password-title" data-testid="manage-password-dialog">
     <form method="post" action="{{ crate::url("/manage/temp-password") }}" data-testid="manage-password-form">
       <h2 id="manage-password-title">{{ crate::t("manage.temp_password") }}</h2>
       <input type="hidden" name="email" value="" data-account-field>
       <p><strong data-account-name></strong></p>
       <p class="small">{{ crate::t("manage.temp_password_about") }}</p>
+      <p class="small">{{ crate::t("apps.manage_revoked_too") }}</p>
       <div class="modal-actions">
         <button type="button" class="btn ghost" data-closes>{{ crate::t("profile.password.cancel") }}</button>
         <button type="submit" class="btn" data-testid="manage-password-confirm">{{ crate::t("manage.temp_password_confirm") }}</button>
@@ -207,6 +244,7 @@
       <input type="hidden" name="email" value="" data-account-field>
       <p><strong data-account-name></strong></p>
       <p class="small">{{ crate::t("manage.two_factor_off_about") }}</p>
+      <p class="small">{{ crate::t("apps.manage_revoked_too") }}</p>
       <div class="modal-actions">
         <button type="button" class="btn ghost" data-closes>{{ crate::t("profile.password.cancel") }}</button>
         <button type="submit" class="btn danger" data-testid="manage-two-factor-confirm">{{ crate::t("manage.two_factor_off_confirm") }}</button>

@@ -31,6 +31,7 @@
     <li><a href="#personal" data-testid="profile-nav-link" data-section="personal">{{ crate::t("profile.nav.personal") }}</a></li>
     <li><a href="#account" data-testid="profile-nav-link" data-section="account">{{ crate::t("profile.nav.account") }}</a></li>
     <li><a href="#two-factor" data-testid="profile-nav-link" data-section="two-factor">{{ crate::t("profile.nav.two_factor") }}</a></li>
+    {% if apps.is_some() %}<li><a href="#apps" data-testid="profile-nav-link" data-section="apps">{{ crate::t("apps.title") }}</a></li>{% endif %}
   </ul>
 </nav>
 <section class="profile">
@@ -95,6 +96,7 @@
           </label>
         </div>
         <p id="password-rule" class="muted small field-note" data-testid="profile-password-rule">{{ crate::t("profile.password.rule") }}</p>
+        {% if apps.is_some() %}<p class="small" data-testid="profile-password-apps-note">{{ crate::t("apps.password_note") }}</p>{% endif %}
         <div class="modal-actions">
           <button type="button" class="btn ghost" data-closes data-testid="profile-password-cancel">{{ crate::t("profile.password.cancel") }}</button>
           <button type="submit" class="btn" data-testid="profile-password-submit">{{ crate::t("profile.password.save") }}</button>
@@ -192,10 +194,89 @@
     </dialog>
     {% endif %}
   </section>
+  {% if let Some(a) = apps %}
+  <section class="card" id="apps" data-testid="profile-apps">
+    <h2 class="heading-with-info">{{ crate::t("apps.title") }} <button type="button" class="info-btn" data-opens="apps-info" aria-haspopup="dialog" aria-label="{{ crate::t("apps.info") }}" data-testid="profile-apps-info">i</button></h2>
+    <dialog class="modal" id="apps-info" aria-labelledby="apps-info-title" data-testid="profile-apps-info-dialog">
+      <h2 id="apps-info-title">{{ crate::t("apps.title") }}</h2>
+      <p>{{ crate::t("apps.about") }}</p>
+      <p class="small">{{ crate::t("apps.about_revoke") }}</p>
+      <p class="small">{{ crate::t1("apps.at_most", "max", a.max) }}</p>
+      {% if !a.can_make %}<p class="small" data-testid="profile-apps-no-password">{{ crate::t("apps.no_password") }}</p>{% endif %}
+      <div class="modal-actions"><button type="button" class="btn" data-closes>{{ crate::t("profile.ok") }}</button></div>
+    </dialog>
+    {% if a.grants.is_empty() %}
+    <p class="muted" data-testid="profile-apps-none">{{ crate::t("apps.none") }}</p>
+    {% else %}
+    <ul class="app-list" data-testid="profile-apps-list">
+      {% for g in a.grants %}
+      <li class="app-row" data-testid="profile-app" data-used="{{ g.used }}">
+        <div class="app-text">
+          <strong data-testid="profile-app-name">{{ g.name }}</strong>
+          <span class="small" data-testid="profile-app-scopes">{{ g.scopes.join(", ") }}</span>
+          <span class="small muted" data-testid="profile-app-courses">{{ g.courses }}</span>
+          <span class="small muted">{{ crate::t1("apps.made_on", "date", g.created.as_str()) }} · <span data-testid="profile-app-expires">{{ crate::t1("apps.expires_on", "date", g.expires.as_str()) }}</span> · <span data-testid="profile-app-last-used">{{ crate::t1("apps.last_used", "when", g.last_used.as_str()) }}</span></span>
+        </div>
+        <form method="post" action="{{ crate::url("/profile/apps/revoke") }}">
+          <input type="hidden" name="id" value="{{ g.id }}">
+          <button type="submit" class="btn ghost small" data-testid="profile-app-revoke">{{ crate::t("apps.revoke") }}</button>
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% if a.can_make %}
+    <button type="button" class="btn" data-opens="apps-token-dialog" aria-haspopup="dialog" data-testid="profile-apps-make-open">{{ crate::t("apps.make") }}</button>
+    <dialog class="modal" id="apps-token-dialog" aria-labelledby="apps-token-title" data-testid="profile-apps-token-dialog"{% if a.error.is_some() %} open data-open-on-load{% endif %}>
+      <form method="post" action="{{ crate::url("/profile/apps/token") }}" class="profile-form" data-testid="profile-apps-token-form">
+        <h2 id="apps-token-title">{{ crate::t("apps.make") }}</h2>
+        {% if let Some(e) = a.error %}<p class="alert error" role="alert" data-testid="profile-apps-token-error">{{ e }}</p>{% endif %}
+        <label>{{ crate::t("apps.name") }}
+          <input type="text" name="name" required maxlength="{{ crate::auth::api::NAME_MAX }}" autocomplete="off" data-testid="profile-apps-token-name">
+        </label>
+        <fieldset class="app-checks">
+          <legend>{{ crate::t("apps.scopes") }}</legend>
+          {% for s in a.scopes %}<label><input type="checkbox" name="scope" value="{{ s.id }}"{% if s.checked %} checked{% endif %} data-testid="profile-apps-token-scope"> {{ s.label }}</label>{% endfor %}
+        </fieldset>
+        {% if !a.courses.is_empty() %}
+        <fieldset class="app-checks">
+          <legend>{{ crate::t("apps.courses") }}</legend>
+          <p class="small muted">{{ crate::t("apps.courses_hint") }}</p>
+          {% for c in a.courses %}<label><input type="checkbox" name="course" value="{{ c.id }}" data-testid="profile-apps-token-course"> {{ c.label }}</label>{% endfor %}
+        </fieldset>
+        {% endif %}
+        <label>{{ crate::t("apps.lifetime") }}
+          <select name="lifetime" data-testid="profile-apps-token-lifetime">
+            {% for l in a.lifetimes %}<option value="{{ l.id }}"{% if l.checked %} selected{% endif %}>{{ l.label }}</option>{% endfor %}
+          </select>
+        </label>
+        <label>{{ crate::t("apps.password") }}
+          <input type="password" name="password" required maxlength="{{ crate::auth::PASSWORD_MAX }}" autocomplete="current-password" data-testid="profile-apps-token-password">
+        </label>
+        <div class="modal-actions">
+          <button type="button" class="btn ghost" data-closes>{{ crate::t("profile.password.cancel") }}</button>
+          <button type="submit" class="btn" data-testid="profile-apps-token-submit">{{ crate::t("apps.make_submit") }}</button>
+        </div>
+      </form>
+    </dialog>
+    {% endif %}
+    {% if let Some(token) = a.new_token %}
+    <dialog class="modal" id="apps-new-token" open data-open-on-load aria-labelledby="apps-new-token-title" data-testid="profile-apps-new-token-dialog">
+      <h2 id="apps-new-token-title">{{ crate::t("apps.new_token_title") }}</h2>
+      <p class="invite-link">
+        <input type="text" id="apps-new-token-value" readonly value="{{ token }}" aria-label="{{ crate::t("apps.new_token_title") }}" data-testid="profile-apps-new-token">
+        <button type="button" class="btn ghost small" data-copy="apps-new-token-value" data-testid="profile-apps-new-token-copy">{{ crate::t("apps.copy") }}</button>
+      </p>
+      <p class="small">{{ crate::t("apps.new_token_once") }}</p>
+      <div class="modal-actions"><button type="button" class="btn" data-closes data-testid="profile-apps-new-token-close">{{ crate::t("profile.ok") }}</button></div>
+    </dialog>
+    {% endif %}
+  </section>
+  {% endif %}
 </section>
 </div>
 </div>
 {% endblock %}
-{% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("profile.js")|safe }});</script>
+{% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("profile.js")|safe }}, {{ crate::i18n::js_json("apps.js")|safe }});</script>
 <script src="{{ crate::routes::asset_url("autosave.js") }}" defer></script>
 <script src="{{ crate::routes::asset_url("profile.js") }}" defer></script>{% endblock %}

@@ -15,6 +15,7 @@ use crate::error::AppError;
 use crate::perms::{Perm, Perms};
 use crate::AppState;
 
+pub mod api;
 mod cache;
 pub use cache::SessionCache;
 
@@ -148,6 +149,9 @@ pub struct CurrentUser {
     /// refuse. It wins over the two AI permissions: ask through `ai_courses`
     /// / `ai_tutor` and their `require_…` forms (#145), not this field.
     pub ai_off: bool,
+    /// The server's "Let apps connect" switch (`settings::APPS_ON`, #167):
+    /// the profile shows Connected apps only while it is on.
+    pub apps_on: bool,
     /// `users.lang`: the language the app speaks to this account in
     /// (`i18n`), '' for "whatever the browser asks for".
     pub lang: String,
@@ -174,6 +178,7 @@ impl CurrentUser {
             owner: false,
             perms: Perms::TEACHER,
             ai_off: false,
+            apps_on: false,
             lang: String::new(),
             tz: 0,
         }
@@ -229,7 +234,13 @@ impl CurrentUser {
 
     /// May this account use `p`? An owner may use everything.
     pub fn can(&self, p: Perm) -> bool {
-        self.owner || self.perms.has(p)
+        allowed(self.owner, self.perms, p)
+    }
+
+    /// May this account connect apps (#167): the switch is on and it has
+    /// Create courses, the one thing an app can do for it.
+    pub fn connects_apps(&self) -> bool {
+        self.apps_on && self.can(Perm::CreateCourses)
     }
 
     /// May this account open Manage Users (`/manage`, #139)? An owner, who
@@ -261,6 +272,12 @@ impl CurrentUser {
         crate::profile::display_name(&self.first_name, &self.last_name)
     }
 
+}
+
+/// The one permission rule, for a session (`CurrentUser::can`) and a
+/// bearer token (`api::ApiUser`) alike: an owner may use everything.
+pub fn allowed(owner: bool, perms: Perms, p: Perm) -> bool {
+    owner || perms.has(p)
 }
 
 // ---------- DB helpers (run inside Db::call) ----------
@@ -373,11 +390,12 @@ fn session_sql() -> String {
     format!(
         "SELECT u.id, COALESCE(u.email, ''), u.active_course, c.title, u.first_name, u.last_name, NULL, NULL, {}, u.email_verified_at IS NOT NULL, u.owner,
                 COALESCE(p.start_unit, ''), NULL, u.lang, c.owner_id, u.must_change_password,
-                s.expires_at, u.perms
+                s.expires_at, u.perms, {}
          FROM sessions s JOIN users u ON u.id = s.user_id LEFT JOIN courses c ON c.id = u.active_course
          LEFT JOIN projects p ON p.user_id = u.id AND p.course_id = u.active_course
          WHERE s.session_token = ?1 AND s.expires_at > ?2",
-        crate::settings::AI_OFF_SQL
+        crate::settings::AI_OFF_SQL,
+        crate::settings::APPS_ON_SQL
     )
 }
 
@@ -398,6 +416,7 @@ fn read_session(conn: &Connection, hash: &str, now: i64) -> rusqlite::Result<Opt
                 last_name: r.get(5)?,
                 must_change_password: r.get(15)?,
                 ai_off: r.get(8)?,
+                apps_on: r.get(18)?,
                 email_verified: r.get(9)?,
                 owner: r.get(10)?,
                 perms: Perms::from_bits(r.get(17)?),

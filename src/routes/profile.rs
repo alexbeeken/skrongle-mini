@@ -19,6 +19,8 @@ use crate::error::AppError;
 use crate::profile::{self, Profile};
 use crate::AppState;
 
+pub mod apps;
+
 #[derive(Template)]
 #[template(path = "profile.html")]
 pub struct ProfileTemplate {
@@ -48,6 +50,9 @@ pub struct ProfileTemplate {
     pub confirm_on: bool,
     pub confirm_remove: bool,
     pub confirm_error: Option<String>,
+    /// The Connected apps section (#167, `profile/apps.rs`); `None` while
+    /// it is not shown (the switch is off, or no Create courses).
+    pub apps: Option<apps::Apps>,
 }
 
 impl ProfileTemplate {
@@ -141,7 +146,7 @@ async fn load_profile(state: &AppState, user: &CurrentUser) -> Result<Profile, A
     state.db.call(move |c| profile::load(c, user_id)).await?.ok_or(AppError::RedirectToLogin)
 }
 
-fn page(state: &AppState, user: CurrentUser, p: Profile) -> ProfileTemplate {
+fn page(state: &AppState, user: CurrentUser, p: Profile, apps: Option<apps::Apps>) -> ProfileTemplate {
     ProfileTemplate {
         display_name: profile::display_name(&p.first_name, &p.last_name),
         public_name: profile::public_name(&p.first_name, &p.last_name),
@@ -157,6 +162,7 @@ fn page(state: &AppState, user: CurrentUser, p: Profile) -> ProfileTemplate {
         confirm_on: false,
         confirm_remove: false,
         confirm_error: None,
+        apps,
         dev: state.dev_mode(),
     }
 }
@@ -168,9 +174,12 @@ pub async fn show(
     Query(q): Query<ShowQuery>,
 ) -> Result<Response, AppError> {
     let p = load_profile(&state, &user).await?;
-    let mut t = page(&state, user, p);
+    let apps = apps::load(&state, &user).await?;
+    let mut t = page(&state, user, p, apps);
     t.notice = match q.saved.as_deref() {
         Some("password") => Some(crate::t("profile.password.changed")),
+        Some("password-apps") => Some(crate::t("apps.password_changed")),
+        Some("app-revoked") => Some(crate::t("apps.revoked")),
         Some("two-factor") => Some(crate::t(if t.profile.two_factor.enabled { "profile.two_factor.is_on" } else { "profile.two_factor.is_off" })),
         Some("totp-removed") => Some(crate::t("profile.two_factor.totp_removed")),
         Some("signed-out") => Some(crate::t("profile.sessions.signed_out_notice")),
@@ -253,7 +262,8 @@ pub async fn save(
 /// The profile page again, with something to say (a refused code, …).
 async fn profile_with(state: &AppState, user: CurrentUser, status: StatusCode, f: impl FnOnce(&mut ProfileTemplate)) -> Result<Response, AppError> {
     let p = load_profile(state, &user).await?;
-    let mut t = page(state, user, p);
+    let apps = apps::load(state, &user).await?;
+    let mut t = page(state, user, p, apps);
     f(&mut t);
     Ok((status, Page(t)).into_response())
 }
@@ -468,8 +478,9 @@ pub async fn change_password(
     Form(form): Form<PasswordForm>,
 ) -> Result<Response, AppError> {
     let p = load_profile(&state, &user).await?;
+    let apps = apps::load(&state, &user).await?;
     let fail = |state: &AppState, user: CurrentUser, p: Profile, msg: &str| {
-        let mut t = page(state, user, p);
+        let mut t = page(state, user, p, apps);
         t.password_error = Some(msg.to_string());
         Page(t).into_response()
     };
@@ -495,16 +506,19 @@ pub async fn change_password(
     let uid = user.id;
     let new = form.new;
     let new_hash = auth::hash_password_async(new).await?;
-    // Every other session (another device, or whoever had the old password) ends.
-    let ended = state
+    // Every other session (another device, or whoever had the old password)
+    // ends, and every connected app is disconnected (#167).
+    let (ended, apps) = state
         .db
         .call(move |c| {
             profile::set_password_hash(c, uid, &new_hash)?;
-            auth::delete_other_sessions(c, uid, token.as_deref().unwrap_or(""))
+            let ended = auth::delete_other_sessions(c, uid, token.as_deref().unwrap_or(""))?;
+            Ok((ended, auth::api::revoke_all_for_user(c, uid)?))
         })
         .await?;
-    tracing::info!("user {} changed their password ({ended} other sessions signed out)", user.id);
-    Ok(Redirect::to(&crate::url("/profile?saved=password")).into_response())
+    tracing::info!("user {} changed their password ({ended} other sessions signed out, {apps} connected apps revoked)", user.id);
+    let saved = if apps > 0 { "password-apps" } else { "password" };
+    Ok(Redirect::to(&crate::url(&format!("/profile?saved={saved}"))).into_response())
 }
 
 /// POST /profile/sessions/end-others: "Sign out everywhere else" (#375).

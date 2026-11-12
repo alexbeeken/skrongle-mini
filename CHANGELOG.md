@@ -54,6 +54,17 @@ numbers work is in the README, "Versions".
 - A fresh `dietpi-install.sh` install no longer prints
   `stopping skrongle (none -> <version>)`, and a second run says
   `installing <version> again`.
+- **Connected apps** (first step of letting an AI assistant make courses):
+  a new switch on Manage Users, **Let apps connect**, off until you turn it
+  on. With it on, an account that may create courses gets a *Connected
+  apps* section on its profile, where it can **Make a token** (it asks for
+  the password, the token is shown once and works for 30 days, 90 days or
+  a year) and **Revoke** one. You see every account's connections on
+  Manage Users and can revoke any of them. Changing a password, setting a
+  temporary password and turning off an account's two-factor sign-in
+  disconnect its apps. Only a token's fingerprint (SHA-256) is stored. The
+  database gets two new tables (`api_grants`, `api_tokens`); going back to
+  an older version drops them.
 
 **What to do:** nothing to update. The update script no longer leaves a copy
 of the database behind, so if you relied on those as backups, make your own

@@ -14,6 +14,7 @@ use std::sync::{Arc, OnceLock};
 use crate::error::AppError;
 use crate::AppState;
 
+pub mod api;
 pub mod auth;
 pub mod courses;
 pub mod share;
@@ -281,6 +282,10 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/profile/two-factor", post(profile::set_two_factor))
         .route("/profile/two-factor/totp/confirm", post(profile::confirm_totp))
         .route("/profile/two-factor/totp/remove", post(profile::remove_totp))
+        .route("/profile/apps/token", post(profile::apps::make_token))
+        .route("/profile/apps/revoke", post(profile::apps::revoke))
+        // Connected apps (#167): bearer token only, never the session cookie.
+        .route("/api/v1/whoami", get(api::whoami))
         // owners (404 for anyone else); /superuser was its old address
         .route("/superuser", get(|q: RawQuery| moved("/manage", q)))
         .route("/manage", get(manage::show))
@@ -294,6 +299,8 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/manage/two-factor-off", post(manage::turn_off_two_factor))
         .route("/manage/api-keys/remove", post(manage::remove_key))
         .route("/manage/ai", post(manage::set_ai))
+        .route("/manage/apps", post(manage::apps::set_apps))
+        .route("/manage/apps/revoke", post(manage::apps::revoke))
         .route("/manage/presets/delete", post(manage::presets::delete))
         .route("/api/manage/keys", post(manage::save_keys))
         // api

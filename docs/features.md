@@ -2108,6 +2108,75 @@ comes back with the dialog shown as a form.
 - `/dev/login` skips the second step (it is the dev shortcut); the real
   `/login` never does.
 
+## Connected apps
+
+A person's AI assistant (or another app) can work on their courses with a
+token they give it (#167, the first step of plan #166). The code is
+`src/auth/api.rs`; the routes are `src/routes/api.rs`,
+`src/routes/profile/apps.rs` and `src/routes/manage/apps.rs`.
+
+- **The owner's switch.** *Let apps connect* on Manage Users
+  (`manage-apps-card`, `#apps`, `POST /manage/apps`, `on=1|0`,
+  `settings::APPS_ON`), off on a new and on an upgraded server. Off, every
+  `/api/v1/` route answers 404 with an empty body, every token stops
+  working at its next request, making a token and revoking answer 404, and
+  no profile has the section. On again, the grants that were there work
+  again. It is apart from *Hide AI features*: nothing here uses the
+  server's AI keys.
+- **Who.** An account with **Create courses** (`Perm::CreateCourses`, an
+  owner always) while the switch is on (`CurrentUser::connects_apps`). An
+  account that loses the permission keeps its grants, but every request
+  from them gets a 401 until it has it again; so does an account waiting
+  behind a temporary password.
+- **Grants.** One row of `api_grants` per connection: the account, the
+  app's name and client id (`personal` for a token made on the profile),
+  the scopes, an optional list of the account's own courses, made, expires
+  (30 days, 90, the default, or a year; never "until revoked") and last
+  used (written at most once a minute). At most 4 per account
+  (`caps::MAX_GRANTS_PER_ACCOUNT`; a fifth is refused with a message saying
+  to revoke one) and 200 rows on the server; `api_tokens` holds at most 800.
+- **Scopes.** `courses:read` (read your courses) and `courses:write`
+  (create and change them). Nothing else exists. A route asks
+  `ApiUser::require(scope)`; a missing scope is the one 403
+  (`{"error": "insufficient_scope", "scope": …}`). `ApiUser::allows_course`
+  applies the course list; anything not the account's own answers 404.
+- **Tokens.** `skr_` and 256 random bits in hex, shown once, stored only as
+  SHA-256 (`auth::hash_token`, as for sessions) and looked up by that hash.
+  A personal token lasts as long as its grant.
+- **Bearer only.** `ApiUser` reads `Authorization: Bearer …` and nothing
+  else. A session cookie on `/api/v1/whoami` gets 401; a token on a page
+  gets the sign-in redirect; the proxy sign-in header leaves `/api/v1/`
+  alone. A missing, unknown, expired or revoked token gets 401 with an
+  empty body and `WWW-Authenticate: Bearer`. A request with `access_token`
+  or `token` in its address is a 400, even with a good header. Ten bad
+  tokens from one address in ten minutes, then 429
+  (`security::API_BAD_TOKENS_PER_IP`; off in dev mode like every limit).
+- **`GET /api/v1/whoami`** is the probe: `{"user_id", "client_id",
+  "client_name", "scopes", "courses"}`.
+- **The profile's Connected apps** (`profile-apps`, `#apps`): each grant
+  (`profile-app`) with its name, scopes, courses, made, expires and last
+  used, and **Revoke** (`POST /profile/apps/revoke`, `id`). With none,
+  `profile-apps-none`. **Make a token** (`POST /profile/apps/token`: `name`,
+  `scope` once per scope, `course` once per course, none for all,
+  `lifetime` 30, 90 or 365, `password`) asks for the account's password
+  in the same form; a wrong one is counted like every proof of ownership
+  (`PASSWORD_PER_USER`). An account without a password (made by the proxy
+  sign-in) is not offered it. Made, the page shows the token once with
+  **Copy** (`Cache-Control: no-store`).
+- **The owner's list.** Manage Users lists every account's grants in force
+  (`manage-app`: the app's name, the account, scopes, last used, expires)
+  with **Revoke** (`POST /manage/apps/revoke`, `id`). Owners only; a
+  superuser sees neither the switch nor the list.
+- **Revoked by events.** Changing the password on the profile, replacing a
+  temporary password, the owner setting a temporary password (and
+  `skrongle reset-password`), and the owner turning off two-factor for the
+  account (and `skrongle disable-2fa`) delete every grant of the account in
+  the same database call. The password dialog and the owner's two dialogs
+  say so.
+- **Expiry.** Expired grants and tokens are purged with the sessions (the
+  hourly housekeeping and at startup). Deleting the account deletes both
+  tables' rows (`ON DELETE CASCADE`).
+
 ## Install as an app
 
 A phone or desktop browser can add Skrongle to the home screen ("Install

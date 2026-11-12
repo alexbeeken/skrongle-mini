@@ -41,6 +41,8 @@ pub fn find(conn: &Connection, email: &str) -> rusqlite::Result<Option<i64>> {
 /// `keep` (the session token of an owner resetting their own password).
 pub fn set_temporary_password(conn: &Connection, user_id: i64, hash: &str, keep: Option<&str>) -> rusqlite::Result<usize> {
     conn.execute("UPDATE users SET password_hash = ?2, must_change_password = 1 WHERE id = ?1", params![user_id, hash])?;
+    // Whoever had the old password may have connected an app (#167).
+    crate::auth::api::revoke_all_for_user(conn, user_id)?;
     crate::auth::delete_other_sessions(conn, user_id, keep.unwrap_or(""))
 }
 
@@ -203,6 +205,7 @@ pub fn run(conn: &Connection, name: &str, email: &str) -> rusqlite::Result<Resul
         }
         "disable-2fa" => {
             disable_two_factor(conn, id)?;
+            crate::auth::api::revoke_all_for_user(conn, id)?;
             format!("Two-factor sign-in is off for {email}.")
         }
         "make-owner" => {

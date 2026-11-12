@@ -37,6 +37,19 @@
     if (dialog.hasAttribute("data-open-on-load")) { dialog.removeAttribute("open"); dialog.showModal(); }
   });
 
+  // Copy the token just made (Connected apps, #167); without the clipboard
+  // API (http on a LAN address) the field is selected for the learner to copy.
+  document.querySelectorAll("[data-copy]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var field = document.getElementById(b.dataset.copy);
+      if (!field) return;
+      var done = function () { b.textContent = t("apps.js.copied"); };
+      var select = function () { field.focus(); field.select(); };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(field.value).then(done, select);
+      else select();
+    });
+  });
+
   // The privacy dialog shows the name other learners see, as it is typed:
   // the same rule as profile::public_name ("Ana L.", "Ana", or "Learner").
   var shown = document.querySelector("[data-testid=profile-public-name]");
