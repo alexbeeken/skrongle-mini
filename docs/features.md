@@ -1897,10 +1897,9 @@ stored as one integer, `users.perms`, one bit each:
 | `superuser` | 64 | Superuser | | See the accounts on Manage Users, set permissions and presets, see learners' progress |
 
 A permission whose needed one is off counts as off, and a set is always
-stored that way (`Perms::normalized`). So far the permissions are stored and
-edited; except for `superuser` opening Manage Users and `privacy` hiding an
-account's progress there, the features do not ask
-for them yet (the other issues of #137 do that).
+stored that way (`Perms::normalized`). Each feature asks for its permission
+(#143 to #147): an account without it is not shown the feature, and the
+feature's routes refuse it.
 
 `share_courses` is asked for (#144): without it an account makes no new
 invitation link; its links keep working and it can remove them

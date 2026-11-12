@@ -424,8 +424,8 @@ An account you give **Superuser** gets **Manage Users** in its menu and sees
 the accounts there, to set other people's permissions; it never sees the
 invitation links, the AI keys or the three actions above, and it cannot
 change an owner's permissions or its own. Owners always have every
-permission. For now the permissions are only stored and shown: apart from
-Superuser, they do not yet limit what an account can do.
+permission. An account without a permission is not shown that feature and
+is refused if it asks for it anyway.
 
 For a whole class, tick the box at the start of each account's row (or the
 one in the table's heading for all of them), choose a preset in the bar that
