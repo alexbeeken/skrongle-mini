@@ -517,7 +517,7 @@ mod tests {
             // Its permissions and the preset they came from (#139).
             use crate::perms::{self, Perm, Perms};
             let first = &list[0];
-            assert_eq!((first.perms, first.preset_id, first.preset_name.as_deref(), first.preset_builtin), (Perms::TEACHER, Some(perms::TEACHER_PRESET), Some("teacher"), true));
+            assert_eq!((first.perms, first.preset_id, first.preset_name.as_deref(), first.preset_builtin), (Perms::STUDENT, Some(perms::STUDENT_PRESET), Some("student"), true));
             perms::set_custom(c, first.id, Perms::STUDENT.with(Perm::AiTutor, true))?;
             let first = &accounts(c)?[0];
             assert_eq!((first.perms.bits(), first.preset_id, first.preset_name.as_deref(), first.preset_builtin), (4, None, None, false));

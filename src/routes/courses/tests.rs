@@ -147,6 +147,7 @@ fn course_writes_stop_at_the_limits() {
     Arc::get_mut(&mut state).unwrap().courses = Arc::new(courses::Courses::empty().with_limits(limits));
     let user = |email: &str| {
         let uid = state.db.with(|c| crate::auth::create_user(c, email, "x")).unwrap();
+        state.db.with(|c| crate::perms::apply_preset(c, uid, crate::perms::TEACHER_PRESET)).unwrap();
         (uid, format!("sid={}", state.db.with(|c| crate::auth::create_session(c, uid)).unwrap()))
     };
     let (ann, cookie) = user("ann@example.org");

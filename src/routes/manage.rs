@@ -79,6 +79,10 @@ pub struct ManageTemplate {
     /// The saved presets (not Student and Teacher), listed under the
     /// accounts with Delete (#140).
     pub saved_presets: Vec<presets::SavedPreset>,
+    /// "New accounts start as" (#142): the chosen preset's id, and the
+    /// presets it may be (none with Superuser).
+    pub default_preset: i64,
+    pub default_choices: Vec<PresetChoice>,
 }
 
 pub struct AccountRow {
@@ -136,7 +140,7 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
     let now = crate::db::now();
     let vault = state.vault.clone();
     let is_owner = user.owner;
-    let (invites, accounts, (api_keys, ai_off, ollama_model), presets) = state
+    let (invites, accounts, (api_keys, ai_off, ollama_model), presets, default_preset) = state
         .db
         .call(move |c| {
             let ai_off = crate::settings::ai_off(c)?;
@@ -146,7 +150,7 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
             } else {
                 (Vec::new(), (Vec::new(), ai_off, String::new()))
             };
-            Ok((invites, crate::signup::accounts(c)?, ai, perms::presets(c)?))
+            Ok((invites, crate::signup::accounts(c)?, ai, perms::presets(c)?, crate::settings::default_preset(c)?))
         })
         .await?;
     let total = accounts.len() as i64;
@@ -192,7 +196,7 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
         api_keys,
         ai_off,
         ollama_model,
-        presets: presets.into_iter().map(|p| PresetChoice { id: p.id, label: preset_label(&p.name, p.builtin), perms: p.perms.bits() }).collect(),
+        presets: presets.iter().map(|p| PresetChoice { id: p.id, label: preset_label(&p.name, p.builtin), perms: p.perms.bits() }).collect(),
         perms: Perm::ALL
             .into_iter()
             .map(|p| PermLine {
@@ -205,6 +209,8 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
             })
             .collect(),
         saved_presets,
+        default_preset,
+        default_choices: presets.iter().filter(|p| !p.perms.has(Perm::Superuser)).map(|p| PresetChoice { id: p.id, label: preset_label(&p.name, p.builtin), perms: p.perms.bits() }).collect(),
     })
 }
 
@@ -256,6 +262,13 @@ pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, Query(q
         }
         Some("ai-off") => t.notice = Some(crate::t("manage.ai.hidden_notice")),
         Some("ai-on") => t.notice = Some(crate::t("manage.ai.shown_notice")),
+        Some("preset-default") => {
+            let id = q.preset.as_deref().and_then(|v| v.parse::<i64>().ok());
+            if let Some(p) = t.presets.iter().find(|p| Some(p.id) == id) {
+                t.notice = Some(crate::t1("manage.default_preset_done", "name", &p.label));
+            }
+        }
+        Some("preset-default-superuser") => t.error = Some(crate::t("manage.default_preset_superuser")),
         Some(did) if did.starts_with("preset-") => presets::notice(&mut t, did),
         _ => {}
     }

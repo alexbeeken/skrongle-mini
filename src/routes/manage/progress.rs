@@ -164,6 +164,7 @@ mod tests {
                 let sue = crate::auth::create_user(c, "sue@example.org", "h")?;
                 perms::set_custom(c, sue, Perms::TEACHER.with(Perm::Superuser, true))?;
                 let tea = crate::auth::create_user(c, "tea@example.org", "h")?;
+                perms::apply_preset(c, tea, perms::TEACHER_PRESET)?;
                 let stu = crate::auth::create_user(c, "stu@example.org", "h")?;
                 perms::apply_preset(c, stu, perms::STUDENT_PRESET)?;
                 c.execute("UPDATE users SET first_name = 'Stu', last_name = 'Dent' WHERE id = ?1", [stu])?;

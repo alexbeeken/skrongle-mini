@@ -112,6 +112,7 @@ mod tests {
                 let sue = crate::auth::create_user(c, "sue@example.org", "h")?;
                 perms::set_custom(c, sue, Perms::TEACHER.with(Perm::Superuser, true))?;
                 let ann = crate::auth::create_user(c, "ann@example.org", "h")?;
+                perms::apply_preset(c, ann, perms::TEACHER_PRESET)?;
                 let bob = crate::auth::create_user(c, "bob@example.org", "h")?;
                 perms::set_custom(c, bob, Perms::STUDENT.with(Perm::AiTutor, true))?;
                 let stu = crate::auth::create_user(c, "stu@example.org", "h")?;

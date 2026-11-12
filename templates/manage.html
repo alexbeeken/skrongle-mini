@@ -54,6 +54,12 @@
 
   <section class="card" data-testid="manage-accounts-card">
     <h2>{{ crate::t("manage.accounts") }}</h2>
+    {# New accounts start as (#142): its own form, outside the accounts table's. #}
+    <form method="post" action="{{ crate::url("/manage/default-preset") }}" class="default-preset" data-testid="manage-default-form">
+      <label for="manage-default-preset">{{ crate::t("manage.default_preset") }}</label>
+      <select name="preset" id="manage-default-preset" data-testid="manage-default-preset">{% for p in default_choices %}<option value="{{ p.id }}"{% if p.id == default_preset %} selected{% endif %}>{{ p.label }}</option>{% endfor %}</select>
+      <button type="submit" class="btn small" data-testid="manage-default-save">{{ crate::t("manage.permissions_save") }}</button>
+    </form>
     {# The table is one form (#141): a row's checkbox names its account, the bar gives the ticked ones a preset. The row buttons only open dialogs, whose forms are outside this one. #}
     <form method="post" action="{{ crate::url("/manage/permissions/bulk") }}" id="manage-bulk-form" data-testid="manage-bulk-form">
     <div class="bulk-bar" data-testid="manage-bulk-bar">

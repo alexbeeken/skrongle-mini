@@ -28,7 +28,9 @@ A feature only appears when the course has the data for it. Date Dash needs a
 [Which field switches on what](course-structure#which-field-switches-on-what).
 
 **Why is there no *Create a course* button on my course list?**
-Making a course (creating one, copying one, copying and translating one)
+A new account starts as a Student, which has no extra permissions; the owner
+can change what new accounts start as under *Manage Users → New accounts
+start as*. Making a course (creating one, copying one, copying and translating one)
 needs the *Create courses* permission, and your account does not have it.
 Ask the person who runs your Skrongle, or whoever manages its accounts: they
 turn it on under *Manage Users → Permissions*. You can still learn from the
