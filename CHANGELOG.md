@@ -26,6 +26,11 @@ numbers work is in the README, "Versions".
   is not shown that feature, and its pages answer "Your account is not
   allowed to do this". *Hide AI features for everyone* still turns AI off
   for every account, whatever their permissions.
+- Manage Users: tick several accounts (or all of them with the box in the
+  table's heading), choose a preset and click **Apply to selected** to give
+  it to all of them in one step, after a confirmation. The page says how
+  many accounts were changed; owners and your own account are never changed
+  this way.
 
 ## 0.3.0 (2026-11-11)
 

@@ -370,6 +370,19 @@ manage:
   permissions_done: "Permissions saved for {email}."
   permissions_owner: "An owner's permissions cannot be changed: owners may do everything."
   permissions_self: "You cannot change your own permissions."
+  bulk_select: "Select {email}"
+  bulk_select_all: "Select all accounts"
+  bulk_preset: "Preset to give"
+  bulk_apply: "Apply to selected"
+  bulk_about: "Each account's own set of permissions is replaced by the preset's. Owners and your own account are never changed."
+  bulk_confirm: "Give the preset"
+  bulk_none: "Select at least one account first."
+  bulk_done:
+    one: "\"{preset}\" given to {n} account."
+    other: "\"{preset}\" given to {n} accounts."
+  bulk_skipped:
+    one: "{n} was left as it is (owners and your own account cannot be changed)."
+    other: "{n} were left as they are (owners and your own account cannot be changed)."
   permissions_ai_hidden: "AI features are hidden for everyone on this server."
   api_keys:
     title: AI API keys
@@ -398,6 +411,12 @@ manage:
     key_on_file: "✓ Set"
     ends_in: "ends in"
     paste_new_key: "Paste a new key to replace it"
+    bulk_selected:
+      one: "{n} selected"
+      other: "{n} selected"
+    bulk_confirm:
+      one: "Give \"{preset}\" to {n} account?"
+      other: "Give \"{preset}\" to {n} accounts?"
     perm_on: "Allowed"
     perm_off: "Not allowed"
   ai:

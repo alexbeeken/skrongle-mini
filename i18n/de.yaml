@@ -368,6 +368,19 @@ manage:
   permissions_done: "Berechtigungen für {email} gespeichert."
   permissions_owner: "Die Berechtigungen eines Eigentümers lassen sich nicht ändern: Eigentümer dürfen alles."
   permissions_self: "Du kannst deine eigenen Berechtigungen nicht ändern."
+  bulk_select: "{email} auswählen"
+  bulk_select_all: "Alle Konten auswählen"
+  bulk_preset: "Zu vergebende Vorlage"
+  bulk_apply: "Auf Auswahl anwenden"
+  bulk_about: "Die eigenen Berechtigungen jedes Kontos werden durch die der Vorlage ersetzt. Eigentümer und dein eigenes Konto werden nie geändert."
+  bulk_confirm: "Vorlage vergeben"
+  bulk_none: "Wähle zuerst mindestens ein Konto aus."
+  bulk_done:
+    one: "„{preset}“ an {n} Konto vergeben."
+    other: "„{preset}“ an {n} Konten vergeben."
+  bulk_skipped:
+    one: "{n} blieb unverändert (Eigentümer und dein eigenes Konto können nicht geändert werden)."
+    other: "{n} blieben unverändert (Eigentümer und dein eigenes Konto können nicht geändert werden)."
   permissions_ai_hidden: "KI-Funktionen sind auf diesem Server für alle ausgeblendet."
   api_keys:
     title: KI-API-Schlüssel
@@ -396,6 +409,12 @@ manage:
     key_on_file: "✓ Gesetzt"
     ends_in: "endet auf"
     paste_new_key: "Füge einen neuen Schlüssel ein, um ihn zu ersetzen"
+    bulk_selected:
+      one: "{n} ausgewählt"
+      other: "{n} ausgewählt"
+    bulk_confirm:
+      one: "„{preset}“ an {n} Konto vergeben?"
+      other: "„{preset}“ an {n} Konten vergeben?"
     perm_on: "Erlaubt"
     perm_off: "Nicht erlaubt"
   ai:

@@ -286,6 +286,7 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/manage", get(manage::show))
         .route("/manage/make-owner", post(manage::make_owner))
         .route("/manage/permissions", post(manage::set_permissions))
+        .route("/manage/permissions/bulk", post(manage::set_permissions_bulk))
         .route("/manage/invites", post(manage::make_invite))
         .route("/manage/invites/revoke", post(manage::revoke_invite))
         .route("/manage/temp-password", post(manage::set_temp_password))
