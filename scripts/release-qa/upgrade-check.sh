@@ -142,9 +142,8 @@ for DB in "$FIXTURES"/learn-*.db; do
   if [ "$FROM" = "$(env_of "$ENVF" SCHEMA)" ]; then ok "the fixture is at schema v$FROM, as its .env says"; else fail "the fixture is at v$FROM, its .env says v$(env_of "$ENVF" SCHEMA)"; fi
 
   if start "$CAND" "$STATE/learn.db" "$LOG"; then ok "starts on the $V database"; else fail "did not start on the $V database; the log:"; sed 's/^/       /' "$LOG"; continue; fi
-  WANT=$((CAND_SCHEMA - FROM))
-  GOT=$(grep -c 'applying schema migration' "$LOG")
-  if [ "$GOT" = "$WANT" ]; then ok "ran $GOT migration(s), v$FROM to v$CAND_SCHEMA"; else fail "ran $GOT migration(s), expected $WANT (v$FROM to v$CAND_SCHEMA)"; fi
+  # The server logs one line per start that migrates (src/db.rs, `migrate_to`).
+  if grep -q "migrating the schema from v$FROM to v$CAND_SCHEMA" "$LOG"; then ok "the log says it migrated v$FROM to v$CAND_SCHEMA"; else fail "the log has no \"migrating the schema from v$FROM to v$CAND_SCHEMA\""; fi
   if grep -q 'Owner link' "$LOG"; then fail "printed an owner link although the database has an owner"; else ok "no owner link: the owner is still there"; fi
 
   rm -f "$WORK/owner" "$WORK/learner"
@@ -182,7 +181,7 @@ for DB in "$FIXTURES"/learn-*.db; do
   SUM1=$(sha256sum < "$STATE/learn.db")
   LOG2="$WORK/server2-$V.log"; : > "$LOG2"
   if start "$CAND" "$STATE/learn.db" "$LOG2"; then ok "starts again on the migrated database"; else fail "second start failed; the log:"; sed 's/^/       /' "$LOG2"; continue; fi
-  if grep -q 'applying schema migration' "$LOG2"; then fail "the second start migrated again"; else ok "the second start migrates nothing"; fi
+  if grep -q 'migrating the schema' "$LOG2"; then fail "the second start migrated again"; else ok "the second start migrates nothing"; fi
   rm -f "$WORK/learner"
   http learner POST /login --data-urlencode "email=$LEARNER" --data-urlencode "password=$PW"
   if [ "$CODE" = 303 ]; then ok "the learner signs in again"; else fail "learner sign-in after the second start: $CODE"; fi
