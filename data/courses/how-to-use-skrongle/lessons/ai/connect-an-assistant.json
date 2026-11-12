@@ -1,0 +1,130 @@
+{
+  "id": "ai-connect",
+  "slug": "connect-an-assistant",
+  "title": "Connect an AI assistant",
+  "unit": "ai",
+  "group": "AI",
+  "order": 50,
+  "summary": "Let Claude Code, Claude or ChatGPT make courses for you, safely.",
+  "focus": "The switch, tokens, plain HTTP and the least access",
+  "content": "## Let an assistant make courses\n\nAn AI assistant you already use, such as Claude Code, Claude or ChatGPT, can make and change your courses. It writes the lessons; Skrongle checks them and adds the course to your list. It never sees your progress or anyone else's courses.\n\nThe owner first turns on **Let apps connect** on **Manage Users**. An account needs the **Create courses** permission, so a Student account cannot connect an app.\n\n## A token is a password\n\nOn your profile, under **Connected apps**, **Make a token** gives you a token. It is a password for making courses as you. It is shown once. Do not paste it into a chat, a screenshot or a shared file, and never put it in a web address. If in doubt, click **Revoke**.\n\n## Choose the least\n\nTick only one course if the assistant needs only one. Choose **Read your courses** if it only looks. Choose **30 days** for a try-out.\n\n## At home and through a domain\n\nOn a home network the address starts with http, so anyone who can read that network can copy a token. Do not use a token over public Wi-Fi. Claude and ChatGPT on the web connect from the internet, so they need a public https address and sign in with **Allow** instead of a token.\n\nThe docs page **Connect an AI assistant** has the steps.",
+  "vocabulary": [
+    {
+      "term": "token",
+      "meaning": "a password an app uses to make courses as you"
+    },
+    {
+      "term": "Let apps connect",
+      "meaning": "the owner's switch on Manage Users that allows connected apps"
+    },
+    {
+      "term": "Revoke",
+      "meaning": "the button that ends an app's access at once"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "ai-connect-01",
+      "prompt": "What is a token?",
+      "type": "multiple-choice",
+      "options": [
+        "A password for making courses as you",
+        "A kind of lesson",
+        "A game point",
+        "A public link to your course"
+      ],
+      "correct_answer": "A password for making courses as you",
+      "explanation": "Whoever holds it can change your courses, so keep it to yourself.",
+      "hints": [
+        "Think of what it lets someone do."
+      ]
+    },
+    {
+      "question_id": "ai-connect-02",
+      "prompt": "Where can you end an app's access?",
+      "type": "multiple-choice",
+      "options": [
+        "Revoke, under Connected apps on your profile",
+        "The Map",
+        "Word Match",
+        "Study mode"
+      ],
+      "correct_answer": "Revoke, under Connected apps on your profile",
+      "explanation": "Revoke stops the app at its next request.",
+      "hints": [
+        "It is on your profile."
+      ]
+    },
+    {
+      "question_id": "ai-connect-03",
+      "prompt": "It is fine to paste a token into a chat so the assistant can use it.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Never paste a token into a chat, a screenshot or a shared file, and never put it in a web address.",
+      "hints": [
+        "A token is a password."
+      ]
+    },
+    {
+      "question_id": "ai-connect-04",
+      "prompt": "A Student account can connect an app.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Connecting an app needs the Create courses permission, which a Student does not have.",
+      "hints": [
+        "Think of the permission it needs."
+      ]
+    },
+    {
+      "question_id": "ai-connect-05",
+      "prompt": "Which choice is the least access for a try-out that only needs to look at one course?",
+      "type": "multiple-choice",
+      "options": [
+        "One course, Read your courses, 30 days",
+        "All courses, create and change, a year",
+        "All courses, read, a year",
+        "No course ticked, create and change, 90 days"
+      ],
+      "correct_answer": "One course, Read your courses, 30 days",
+      "explanation": "Give an app the fewest courses, the fewest rights and the shortest time.",
+      "hints": [
+        "Choose the smallest of each."
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🔑",
+    "sorts": [
+      {
+        "title": "Safe or not?",
+        "buckets": [
+          "Safe",
+          "Not safe"
+        ],
+        "items": [
+          {
+            "text": "Revoke a token you are unsure about",
+            "bucket": 0
+          },
+          {
+            "text": "Paste a token into a chat",
+            "bucket": 1
+          },
+          {
+            "text": "Put a token in a web address",
+            "bucket": 1
+          },
+          {
+            "text": "Pick 30 days for a try-out",
+            "bucket": 0
+          },
+          {
+            "text": "Use a token over public Wi-Fi",
+            "bucket": 1
+          }
+        ],
+        "why": "Keep a token to yourself, give it the least access, and revoke it if in doubt."
+      }
+    ]
+  }
+}

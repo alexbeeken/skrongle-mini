@@ -39,7 +39,7 @@ fn md_of(slug: &str) -> Option<String> {
 /// User pages are listed by name; the last section also takes every page not
 /// named anywhere.
 pub const SECTIONS: &[(&str, &str, &[&str])] = &[
-    ("guides", "docs.section_guides", &["index", "getting-started", "course-structure", "making-courses", "faq"]),
+    ("guides", "docs.section_guides", &["index", "getting-started", "course-structure", "making-courses", "connect-an-assistant", "faq"]),
     (
         "self-hosting",
         "docs.section_self_hosting",

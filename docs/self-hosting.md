@@ -471,19 +471,33 @@ account in the *Permissions* dialog on the same page (an account that does not
 see the tutor lacks the first one). The secret key encrypts saved
 keys, so a database without its `.key` file can't use them.
 
-Below it is *Let apps connect*, off until you turn it on. On, an account
-that may create courses can make a token on its profile and give it to an
-AI assistant or another app, which can then work on that account's
-courses; you see every connection there and can revoke any of them. Off,
-no app can connect and every token stops working; turning it on again
-brings them back. It needs none of the AI keys above
-([features](features#connected-apps)).
+### Connected apps
+
+Below the AI card on **Manage Users** is the **Connected apps** card with
+**Let apps connect**, off until you turn it on. On, an account that has
+the **Create courses** permission can make a token on its profile and give it
+to an AI assistant or another app, which can then work on that account's
+courses. A Student has no permissions, so a Student cannot connect an app.
+You see every account's connections in the same card and can revoke any of
+them. Off, no app can connect and every token stops working; turning it on
+again brings them back. It needs none of the AI keys above
+([features](features#connected-apps)). People are told how in
+[Connect an AI assistant](connect-an-assistant); the endpoint is in the
+[MCP server reference](api).
+
+A token is a password for making courses as its owner, so tell people to
+guard it and to make it the least it needs (one course, read-only, 30 days).
+On a home network Skrongle is plain HTTP: anyone who can read that network
+can copy a token as it goes by. Tell people not to use one over public
+Wi-Fi, or through a forwarded port, without HTTPS.
 
 With `SKRONGLE_PUBLIC_URL` set, an app in a vendor's cloud (claude.ai,
 ChatGPT) can also sign in with OAuth instead of being given a token: the
 person sees a page naming the app and clicks **Allow**. For a cloud app
 the server needs a public HTTPS address; on a home network give the app a
-token instead ([api](api#oauth)).
+token instead ([api](api#oauth)). A server that faces the internet needs
+the care in the security page for connected apps (`security-apps`), the sign-up mode
+(`SKRONGLE_SIGNUP`, above) and two-factor sign-in.
 
 ### Connected apps behind a path
 

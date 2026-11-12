@@ -6,6 +6,12 @@ numbers work is in the README, "Versions".
 
 ## Unreleased
 
+- A new docs page, **Connect an AI assistant**, tells people how to let Claude
+  Code, Claude or ChatGPT make courses for them: what a token is, what plain
+  HTTP on a home network means, the exact steps for Claude Code, and what a
+  public address needs for claude.ai and ChatGPT. The FAQ and the
+  self-hosting page link to it, and the *How to Use Skrongle* course has a
+  lesson on it.
 - The **Create courses** permission now counts: an account without it (a
   Student, for example) has no *Create a course*, *Copy* or *Copy and
   translate* on its course list, and those actions are refused. It still

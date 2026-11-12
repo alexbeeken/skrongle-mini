@@ -13,7 +13,8 @@ To write a course: read the course format (it is complete and self-contained), w
 ## Optional
 
 - [Features]({base}/docs/features.md): what each part of the app does and which lesson fields it reads.
-- [The MCP server]({base}/docs/api.md): `POST /mcp` with a token from the profile, the course tools (read the format, list, read, validate, create, change files), scopes and errors.
+- [Connect an AI assistant]({base}/docs/connect-an-assistant.md): for people: turn it on, make a token, add the server to Claude Code, or connect claude.ai and ChatGPT through a public address.
+- [The MCP server]({base}/docs/api.md): `POST /mcp` with a token from the profile, the course tools (read the format, list, read, validate, create, change files), scopes and errors. An assistant connected to it should call `get_course_format` first.
 - [Progress across modes]({base}/docs/progress.md): the pass rule, and the API and brief for an AI agent that teaches the learner.
 - [Building and generating courses]({base}/docs/making-courses.md): the editor, the upload API, AI generation, fixing validation errors.
 - [Getting started]({base}/docs/getting-started.md): the modes and how "passed" works.

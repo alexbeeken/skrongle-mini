@@ -64,6 +64,15 @@ Yes. Give it [`/llms.txt`](/llms.txt) or paste the
 See [Write lessons with an LLM](making-courses#write-lessons-with-an-llm-you-already-use).
 
 
+**Can my AI assistant make courses for me?**
+Yes, if the owner has turned on *Let apps connect* on *Manage Users* and your
+account has the *Create courses* permission. Make a token under *Profile →
+Connected apps*, or sign in from claude.ai or ChatGPT if your Skrongle has a
+public address, and the assistant can read the course format, write the
+lessons and add the course to your list. It sees only your courses, never your
+progress. A token is a password for making courses as you: keep it to
+yourself. See [Connect an AI assistant](connect-an-assistant).
+
 **I forgot my password. How do I get back in?**
 Ask whoever runs your Skrongle. On the Superuser page they set a temporary
 password for your account and give it to you; you choose your own at the
