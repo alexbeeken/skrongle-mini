@@ -108,7 +108,14 @@ old_binary() {
   v="$1"; name="skrongle-$v-$ARCH.tar.gz"
   if [ ! -f "$OLD_TARBALLS/$name" ]; then
     mkdir -p "$WORK/dl"
-    curl -fsSL -o "$WORK/dl/$name" "https://github.com/$REPO/releases/download/v$v/$name" || return 1
+    code=$(curl -sSL -o "$WORK/dl/$name" -w '%{http_code}' "https://github.com/$REPO/releases/download/v$v/$name") || return 1
+    if [ "$code" != 200 ]; then
+      rm -f "$WORK/dl/$name"
+      # 2: the release is there but has no tarball for this architecture
+      # (the 32-bit builds started with 0.2.0). Anything else is a failure.
+      [ "$code" = 404 ] && curl -fsSL -o /dev/null "https://github.com/$REPO/releases/tag/v$v" && return 2
+      return 1
+    fi
     unpack "$WORK/dl/$name" "$WORK/old-$v"
   else
     unpack "$OLD_TARBALLS/$name" "$WORK/old-$v"
@@ -189,7 +196,9 @@ for DB in "$FIXTURES"/learn-*.db; do
     note "$V has the same schema (v$FROM) as $CAND_VERSION: no newer database for it to refuse"
     continue
   fi
-  if ! old_binary "$V"; then fail "no skrongle-$V-$ARCH.tar.gz in $OLD_TARBALLS and it cannot be downloaded"; continue; fi
+  old_binary "$V"; RC=$?
+  if [ "$RC" = 2 ]; then note "$V was never built for $ARCH: there is no older binary to refuse the database"; continue; fi
+  if [ "$RC" != 0 ]; then fail "no skrongle-$V-$ARCH.tar.gz in $OLD_TARBALLS and it cannot be downloaded"; continue; fi
   NEWER="$WORK/newer-$V"; mkdir -p "$NEWER"
   cp "$STATE/learn.db" "$NEWER/learn.db"; cp "$STATE/learn.db.key" "$NEWER/learn.db.key"
   SUM_BEFORE=$(sha256sum < "$NEWER/learn.db")
