@@ -4,6 +4,21 @@ What changed in each release, for the person running the server. Newest
 first. Each release's GitHub notes are its section here. How version
 numbers work is in the README, "Versions".
 
+## Unreleased
+
+- Running `dietpi-install.sh` a second time at the same version (or
+  uninstalling and installing again) replaced `learn.db.before-<version>`,
+  the copy of the database from before the upgrade, with the database as it
+  is now. The way back to the older version was gone. A copy that is there
+  is now replaced only when the installed version changes; otherwise the
+  script says `kept ... from an earlier run`. `FORCE=1 update.sh` at the
+  same version keeps it too.
+- A fresh `dietpi-install.sh` install no longer prints
+  `stopping skrongle (none -> <version>)`, and a second run says
+  `installing <version> again`.
+
+**What to do:** nothing.
+
 ## 0.3.0 (2026-11-11)
 
 Room for a class, a tutorial course, and fixes for the DietPi installer.

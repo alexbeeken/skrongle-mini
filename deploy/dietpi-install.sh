@@ -20,7 +20,9 @@
 #     The database lives there (learn.db, learn.db.key), so it must be on a
 #     local disk, not a network mount.
 #  7. If an install exists: stop the service and copy the database aside as
-#     learn.db.before-<version> (and its -wal file, if there is one).
+#     learn.db.before-<version> (and its -wal file, if there is one). A copy
+#     with that name is replaced only when the installed version changes, so
+#     a second run does not lose the database from before the upgrade.
 #  8. Put the new files in /opt/skrongle: replace the binary and data/
 #     (the old binary is kept as skrongle.previous). The database is not
 #     touched; the new binary migrates it when it starts.
@@ -182,16 +184,29 @@ chown -R skrongle:skrongle "$DATA"
 chmod 0750 "$DATA"
 
 if [ -n "$HAVE_SYSTEMCTL" ]; then
-  echo "stopping skrongle ($CURRENT -> $VERSION)"
+  case "$CURRENT" in
+    none) ;;
+    "$VERSION") echo "stopping skrongle (installing $VERSION again)" ;;
+    *) echo "stopping skrongle ($CURRENT -> $VERSION)" ;;
+  esac
   systemctl stop skrongle 2>/dev/null || true
 else
   skipped "stopping the service"
 fi
 DB="$DATA/learn.db"
+COPY="$DB.before-$VERSION"
 if [ -f "$DB" ]; then
-  cp -p "$DB" "$DB.before-$VERSION"
-  if [ -s "$DB-wal" ]; then cp -p "$DB-wal" "$DB.before-$VERSION-wal"; fi
-  echo "database copied to $DB.before-$VERSION"
+  # The copy is the way back from $VERSION. Once this version has run, the
+  # database is no longer the one from before it, so only a change of
+  # version replaces a copy (none: installed again after an uninstall).
+  if [ -f "$COPY" ] && { [ "$CURRENT" = "$VERSION" ] || [ "$CURRENT" = none ]; }; then
+    echo "kept $COPY from an earlier run"
+  else
+    rm -f "$COPY-wal"
+    cp -p "$DB" "$COPY"
+    if [ -s "$DB-wal" ]; then cp -p "$DB-wal" "$COPY-wal"; fi
+    echo "database copied to $COPY"
+  fi
 fi
 
 mkdir -p "$OPT"

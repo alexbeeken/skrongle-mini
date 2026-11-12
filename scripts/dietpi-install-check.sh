@@ -137,6 +137,10 @@ cat "$LOG"
 grep -q "^kept /etc/skrongle/env" "$LOG" && ok "second run keeps the env file" || fail "second run keeps the env file"
 grep -q "^kept /etc/systemd/system/skrongle.service" "$LOG" && ok "second run keeps the unit" || fail "second run keeps the unit"
 [ -f "$DATA/learn.db.before-$VERSION" ] && ok "learn.db.before-$VERSION exists" || fail "learn.db.before-$VERSION exists"
+grep -q "^stopping skrongle (installing $VERSION again)$" "$LOG" \
+  && ok "second run says it installs $VERSION again" || fail "second run says it installs $VERSION again"
+# Stand in for the copy an upgrade made: the next run must not replace it.
+echo "from before $VERSION" > "$DATA/learn.db.before-$VERSION"
 [ -x /opt/skrongle/skrongle.previous ] && ok "skrongle.previous kept" || fail "skrongle.previous kept"
 grep -q "^Skrongle $VERSION is installed and running\.$" "$LOG" \
   && ok "second run says installed and running" || fail "second run says installed and running"
@@ -157,6 +161,12 @@ if grep -q "^  http://example.test:$PORT/register?invite=" "$LOG"; then
   ok "with SKRONGLE_PUBLIC_URL the link starts with it"
 else
   cat "$LOG"; fail "with SKRONGLE_PUBLIC_URL the link starts with it"
+fi
+if grep -q "^kept $DATA/learn.db.before-$VERSION from an earlier run$" "$LOG" \
+  && [ "$(cat "$DATA/learn.db.before-$VERSION")" = "from before $VERSION" ]; then
+  ok "a run at the same version keeps the database copy that is there"
+else
+  cat "$LOG"; fail "a run at the same version keeps the database copy that is there"
 fi
 
 # 6. A failing owner-link is shown, not swallowed: the skrongle user cannot

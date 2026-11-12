@@ -200,6 +200,8 @@ Releases are tarballs, so an upgrade is a binary swap:
 2. Stop the service.
 3. Copy the database aside: `learn.db` to `learn.db.before-<version>` (and
    `learn.db-wal` if it is not empty, as `learn.db.before-<version>-wal`).
+   When the same version is installed again, keep the copy that is there:
+   it is the database from before that version, and the way back.
 4. Replace `/opt/skrongle/skrongle`, and delete and replace `/opt/skrongle/data/`.
    Never touch the data folder.
 5. Start the service. The new binary migrates the database as it starts.

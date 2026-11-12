@@ -79,14 +79,26 @@ tar -xzf "$TMP/$NAME" -C "$TMP/new"
 DB=$(systemctl show "$SERVICE" -p Environment --value 2>/dev/null | tr ' ' '\n' | sed -nE 's/^(SKRONGLE|LEARN)_DB=//p' | head -1)
 DB="${DB:-/var/lib/skrongle/learn.db}"
 
-echo "stopping $SERVICE ($CURRENT -> $VERSION)"
+if [ "$CURRENT" = "$VERSION" ]; then
+  echo "stopping $SERVICE (installing $VERSION again)"
+else
+  echo "stopping $SERVICE ($CURRENT -> $VERSION)"
+fi
 systemctl stop "$SERVICE" 2>/dev/null || true
+COPY="$DB.before-$VERSION"
 if [ -f "$DB" ]; then
-  cp -p "$DB" "$DB.before-$VERSION"
-  # A clean stop folds the WAL into learn.db; after a crash it still holds
-  # recent writes, and SQLite reads <file>-wal as that file's log.
-  if [ -s "$DB-wal" ]; then cp -p "$DB-wal" "$DB.before-$VERSION-wal"; fi
-  echo "database copied to $DB.before-$VERSION"
+  # The copy is the way back from $VERSION. Installing the same version
+  # again (FORCE=1) must not replace it with the database $VERSION changed.
+  if [ -f "$COPY" ] && [ "$CURRENT" = "$VERSION" ]; then
+    echo "kept $COPY from an earlier run"
+  else
+    rm -f "$COPY-wal"
+    cp -p "$DB" "$COPY"
+    # A clean stop folds the WAL into learn.db; after a crash it still holds
+    # recent writes, and SQLite reads <file>-wal as that file's log.
+    if [ -s "$DB-wal" ]; then cp -p "$DB-wal" "$COPY-wal"; fi
+    echo "database copied to $COPY"
+  fi
 fi
 [ -f "$DIR/skrongle" ] && cp -p "$DIR/skrongle" "$DIR/skrongle.previous"
 rm -rf "$DIR/data"
