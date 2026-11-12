@@ -91,7 +91,12 @@ test("AI on a release server, through the simulator: generate, learn, edit with 
     const radios = q.locator("input[type=radio]");
     if (await radios.count()) {
       const values = await radios.evaluateAll((els) => els.map((e) => (e as HTMLInputElement).value));
-      await radios.nth(values.indexOf(answer)).check();
+      // A true-false question says "true" in the file and is drawn as True / False
+      // (src/content.rs). An answer missing from the options fails here; nth(-1)
+      // would quietly pick the last option.
+      const i = values.findIndex((v) => v === answer || v.toLowerCase() === answer.toLowerCase());
+      expect(i, `${qid}: ${answer} among ${values.join(", ")}`).toBeGreaterThanOrEqual(0);
+      await radios.nth(i).check();
     } else {
       await q.locator("input.fill").fill(answer);
     }
