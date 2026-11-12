@@ -221,6 +221,8 @@ export async function saveApiKey(page: Page, key: string, provider = "anthropic"
 
 /** Remove one of the server's AI API keys on Manage Users (an owner's `page`). */
 export async function removeApiKey(page: Page, provider = "anthropic"): Promise<void> {
+  // From /manage#ai, going to it again only moves to the hash: reload, so the row shows its key (and Remove key).
+  if (/^\/manage$/.test(new URL(page.url()).pathname)) await page.reload();
   await page.goto("/manage#ai");
   const row = page.locator(`[data-testid="manage-api-key"][data-provider="${provider}"]`);
   if ((await row.getAttribute("data-key-set")) !== "true") return;
