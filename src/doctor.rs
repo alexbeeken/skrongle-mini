@@ -431,7 +431,7 @@ fn read_db(db: &Path) -> DbFacts {
 /// is never printed (it may hold a user name and password).
 fn apps_line(apps: &AppsFacts, public_url: Option<&str>) -> String {
     let mut s = format!(
-        "{} ({} grants, {} apps registered for sign-in)",
+        "{} (connections: {}, apps registered for sign-in: {})",
         if apps.on { "on: apps may connect" } else { "off" },
         apps.grants,
         apps.registered
@@ -722,8 +722,8 @@ mod tests {
     fn connected_apps_line_warns_about_plain_http_on_the_internet() {
         let on = AppsFacts { on: true, grants: 3, registered: 2 };
         let off = AppsFacts { on: false, grants: 3, registered: 2 };
-        assert_eq!(apps_line(&off, Some("http://203.0.113.9")), "off (3 grants, 2 apps registered for sign-in)");
-        assert_eq!(apps_line(&on, None), "on: apps may connect (3 grants, 2 apps registered for sign-in)");
+        assert_eq!(apps_line(&off, Some("http://203.0.113.9")), "off (connections: 3, apps registered for sign-in: 2)");
+        assert_eq!(apps_line(&on, None), "on: apps may connect (connections: 3, apps registered for sign-in: 2)");
         for public in ["http://203.0.113.9", "http://learn.example.org/skrongle", "HTTP://learn.example.org", "http://admin:hunter2@learn.example.org", "http://[2001:db8::1]:8080", "http://8.8.8.8:7576"] {
             let line = apps_line(&on, Some(public));
             assert!(line.contains("WARNING"), "{public}: {line}");
