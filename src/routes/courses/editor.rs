@@ -447,12 +447,8 @@ async fn lessons_view(state: &AppState, user: &CurrentUser, row: &CourseRow, loc
 /// Load the course row, refusing anyone but the owner, and the owner too
 /// while an owner has it taken down (#967).
 pub(in crate::routes) async fn owned(state: &AppState, user: &CurrentUser, id: &str) -> Result<CourseRow, AppError> {
-    let cid = id.to_string();
-    let row = state.db.call(move |c| courses::course(c, &cid)).await?.ok_or(AppError::NotFound)?;
-    if row.owner_id != user.id {
-        return Err(AppError::NotFound);
-    }
-    Ok(row)
+    let (cid, uid) = (id.to_string(), user.id);
+    state.db.call(move |c| own_course(c, uid, &cid)).await?.ok_or(AppError::NotFound)
 }
 
 /// Refuse changes while an AI job is writing or revising the course.
@@ -467,14 +463,7 @@ pub(super) fn not_while_generating(row: &CourseRow) -> Result<(), Response> {
 /// Count one write to course files by `user` (`security::COURSE_WRITES_PER_USER`);
 /// the refusal when that goes over the limit (#366).
 pub(super) fn too_many_writes(state: &AppState, user: &CurrentUser) -> Option<crate::problems::Problem> {
-    let limit = crate::security::COURSE_WRITES_PER_USER;
-    if state.limits.hit(limit, &user.id.to_string(), now()) {
-        return None;
-    }
-    Some(
-        crate::problems::Problem::refused(format!("You have changed courses {} times in {} minutes, the most an account may", limit.max, limit.window / 60))
-            .hint("wait a few minutes, then save again"),
-    )
+    course_write_refused(state, user.id)
 }
 
 /// GET /courses/{id}

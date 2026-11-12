@@ -406,7 +406,6 @@ pub struct ApiUser {
     pub courses: Vec<String>,
 }
 
-#[cfg_attr(not(test), allow(dead_code))] // the MCP tools ask these (#168)
 impl ApiUser {
     /// `Err(InsufficientScope)` (the one 403) when the grant lacks `scope`.
     pub fn require(&self, scope: Scope) -> Result<(), ApiError> {
@@ -458,10 +457,9 @@ pub enum ApiError {
     /// Too many bad tokens from this address: 429.
     TooManyRequests,
     /// The grant lacks this scope: 403 `insufficient_scope`.
-    #[cfg_attr(not(test), allow(dead_code))] // the MCP tools answer with it (#168)
     InsufficientScope(Scope),
     /// Not there, or not the account's own: 404.
-    #[allow(dead_code)] // the MCP tools answer with it (#168)
+    #[allow(dead_code)] // the MCP tools answer a missing course inside a tool result (#168), not with a status
     NotFound,
     Internal(AppError),
 }

@@ -28,6 +28,7 @@ mod jobs;
 mod lint;
 mod listening;
 mod mathcheck;
+mod mcp;
 mod measure;
 mod notation;
 mod notes;
