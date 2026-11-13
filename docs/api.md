@@ -42,7 +42,7 @@ checked in this order:
 | 400 `{"error": "invalid_request"}` | a token in the address (`?access_token=`, `?token=`), even beside a good header |
 | 401, empty, `WWW-Authenticate: Bearer` | no token, or one that is unknown, expired or revoked, or an account without **Create courses** or waiting behind a temporary password. With `SKRONGLE_PUBLIC_URL` set the header is `Bearer resource_metadata="<public address><base>/.well-known/oauth-protected-resource/mcp"`, where an app learns how to sign in (see "OAuth" below); the 403 below carries it too. |
 | 400 `{"error": "unsupported_protocol_version"}` | an `MCP-Protocol-Version` header this server does not speak |
-| 429, a JSON-RPC error (`-32000`) | more than 300 requests from one grant in ten minutes (`security::MCP_CALLS_PER_GRANT`); ten bad tokens from one address give a 429 too |
+| 429, a JSON-RPC error (`-32000`) | more than 300 requests from one grant in ten minutes (`security::MCP_CALLS_PER_GRANT`); a bad token from an address that sent ten bad tokens in ten minutes gets a 429 too; a good token is still served, and a request with no `Authorization` header is not counted |
 | 413, a JSON-RPC error | a body larger than a course may be (`SKRONGLE_COURSE_BYTES`) plus 64 KiB, stopped while it is read |
 | 400, a JSON-RPC error | not JSON (`-32700`), nested more than 32 deep (`-32700`), an empty batch or one of more than 10 (`-32600`) |
 | 403 `{"error": "insufficient_scope", "scope": "…"}` | a tool the grant's scopes do not allow; `WWW-Authenticate` names the scope. In a batch, nothing runs. |
@@ -175,9 +175,11 @@ port may differ. A request that fails any check gets an error page here
 (`oauth-error`, the OAuth code and what is wrong) and is never sent back
 to the app. Signed out, the person goes through the normal sign-in
 (password, then two-factor) and comes back: the request waits in an
-`oauth_next` cookie (HttpOnly, SameSite=Lax, ten minutes) and the sign-in
-returns to `<base>/oauth/authorize?…` only, never to an address from the
-request. An account without **Create courses** gets a page saying to ask
+`oauth_next` cookie (HttpOnly, SameSite=Lax, ten minutes, sealed with the
+server's key so nothing else can make one) and the sign-in returns to
+`<base>/oauth/authorize?…` only, never to an address from the request.
+While it waits, the sign-in and two-factor pages name the app and the host
+the answer goes to, from its registration. An account without **Create courses** gets a page saying to ask
 the owner. Otherwise the consent page: the app's name, the host the answer
 goes to (from the registered address), the scopes in plain words, the
 account's own courses to limit it to (a grant limited to some courses
@@ -202,13 +204,17 @@ one grant (counted against the account's 4) and sends `code=…&state=…&iss=�
   `resource` if the app sends it). Only the client the grant was made for
   may use it; another client gets `invalid_grant` and changes nothing. The
   refresh token works once (rotation with reuse detection, RFC 9700
-  §4.14.2): a second use by its client answers `invalid_grant` and revokes
-  the grant and every token under it, the newest pair included, since one
-  of the two holders stole it. An honest client that retries a refresh
-  after losing the answer will be disconnected and the person has to
-  connect again. Only the previous refresh token is remembered as used; an
-  older one is simply `invalid_grant` ([Security: connected
-  apps](security-apps), "Accepted risks").
+  §4.14.2): any earlier refresh token of the grant presented again by its
+  client, the previous one or one from many refreshes back, answers
+  `invalid_grant` and revokes the grant and every token under it, the
+  newest pair included, since one of two holders stole it. An honest
+  client that retries a refresh after losing the answer will be
+  disconnected and the person has to connect again. A refresh token is
+  `skr_` and 96 lowercase hex characters (256 random bits, then the
+  grant's family, the same in every refresh token of the grant); an access
+  token is `skr_` and 64. Treat both as opaque: send them back as they
+  came. What is still not caught is in [Security: connected
+  apps](security-apps), "Accepted risks".
 
 200 is `{"access_token", "token_type": "Bearer", "expires_in": 3600,
 "refresh_token", "scope"}`: the access token works an hour (never past the
@@ -216,8 +222,9 @@ grant), the refresh token as long as the grant. Errors are RFC 6749 §5.2,
 the code only (`{"error": "invalid_grant"}`): `invalid_request`,
 `invalid_client` (401), `invalid_grant`, `unsupported_grant_type`,
 `invalid_target`. Every answer carries `Cache-Control: no-store`. 30
-refused requests from one address in ten minutes, then 429 until the
-window ends (`security::OAUTH_TOKEN_FAILURES_PER_IP`).
+refused requests from one address in ten minutes, then a refused request
+is 429 until the window ends (`security::OAUTH_TOKEN_FAILURES_PER_IP`); a
+good code or refresh token from that address is still served.
 
 **Revoke** (`token`, `client_id`): the grant behind the app's own access or
 refresh token goes, with every token under it. 200 for an unknown token

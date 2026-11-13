@@ -2,6 +2,7 @@
 //! device (`two_factor.rs`). [`super::sign_in`] starts it.
 
 use super::*;
+use crate::routes::oauth::SignInNotice;
 
 #[derive(Template)]
 #[template(path = "login_code.html")]
@@ -11,6 +12,8 @@ pub struct LoginCodeTemplate {
     /// Dev mode (dev builds): the page floats the dev device for this sign-in
     /// (`/login/code/device`) at the bottom, so the code is a click away.
     pub dev: bool,
+    /// As on the login page: an app's checked request waits (#190).
+    pub oauth: Option<SignInNotice>,
 }
 
 #[cfg(feature = "dev")]
@@ -20,14 +23,14 @@ pub struct LoginCodeQuery {
     pub format: Option<String>,
 }
 
-fn code_page(state: &AppState, error: Option<String>) -> Response {
-    let page = Page(LoginCodeTemplate { user: None, error, dev: state.dev_mode() }).into_response();
+fn code_page(state: &AppState, error: Option<String>, oauth: Option<SignInNotice>) -> Response {
+    let page = Page(LoginCodeTemplate { user: None, error, dev: state.dev_mode(), oauth }).into_response();
     ([(axum::http::header::CACHE_CONTROL, "no-store")], page).into_response()
 }
 
 /// Back to the login form, saying why the second step ended.
-fn code_gone(state: &AppState, msg: &str) -> Response {
-    let page = Page(LoginTemplate { user: None, error: Some(msg.to_string()), email: String::new(), dev: state.dev_mode(), share: None });
+fn code_gone(state: &AppState, oauth: Option<SignInNotice>, msg: &str) -> Response {
+    let page = Page(LoginTemplate { user: None, error: Some(msg.to_string()), email: String::new(), dev: state.dev_mode(), share: None, oauth });
     ([twofa_cookie("", 0, state.secure_cookies)], page).into_response()
 }
 
@@ -118,9 +121,10 @@ pub async fn login_code_form(State(state): State<Arc<AppState>>, MaybeUser(user)
     if user.is_some() {
         return Ok(Redirect::to(&crate::url("/")).into_response());
     }
-    let Some(token) = twofa_token(&headers) else { return Ok(code_gone(&state, &code_gone_msg())) };
-    let Some(_) = state.db.call(move |c| two_factor::pending(c, &token, now())).await? else { return Ok(code_gone(&state, &code_gone_msg())) };
-    Ok(code_page(&state, None))
+    let oauth = crate::routes::oauth::signin_notice(&state, &headers).await?;
+    let Some(token) = twofa_token(&headers) else { return Ok(code_gone(&state, oauth.clone(), &code_gone_msg())) };
+    let Some(_) = state.db.call(move |c| two_factor::pending(c, &token, now())).await? else { return Ok(code_gone(&state, oauth.clone(), &code_gone_msg())) };
+    Ok(code_page(&state, None, oauth))
 }
 
 #[derive(Deserialize)]
@@ -133,18 +137,19 @@ pub struct CodeForm {
 /// many tries are left; the last wrong one ends the sign-in.
 pub async fn login_code(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, headers: HeaderMap, Form(form): Form<CodeForm>) -> Result<Response, AppError> {
     let t = now();
-    let Some(token) = twofa_token(&headers) else { return Ok(code_gone(&state, &code_gone_msg())) };
+    let oauth = crate::routes::oauth::signin_notice(&state, &headers).await?;
+    let Some(token) = twofa_token(&headers) else { return Ok(code_gone(&state, oauth.clone(), &code_gone_msg())) };
     if !state.limits.hit(security::LOGIN_PER_IP, &ip, t) {
         tracing::warn!("sign-in rate limit hit for a code from {ip}");
-        return Ok((StatusCode::TOO_MANY_REQUESTS, code_gone(&state, &crate::t("auth.login.too_many_attempts"))).into_response());
+        return Ok((StatusCode::TOO_MANY_REQUESTS, code_gone(&state, oauth.clone(), &crate::t("auth.login.too_many_attempts"))).into_response());
     }
     // Wrong codes count against the account like wrong passwords, and a
     // blocked account gets no more tries here either (#359).
     let tk = token.clone();
-    let Some(email) = state.db.call(move |c| two_factor::pending(c, &tk, t)).await?.map(|p| p.email) else { return Ok(code_gone(&state, &code_gone_msg())) };
+    let Some(email) = state.db.call(move |c| two_factor::pending(c, &tk, t)).await?.map(|p| p.email) else { return Ok(code_gone(&state, oauth.clone(), &code_gone_msg())) };
     if state.limits.blocked(security::LOGIN_FAILURES_PER_USER, &email, t) {
         tracing::warn!("sign-in code refused: the account is blocked for now");
-        return Ok((StatusCode::TOO_MANY_REQUESTS, code_gone(&state, &crate::t("auth.login.too_many_attempts"))).into_response());
+        return Ok((StatusCode::TOO_MANY_REQUESTS, code_gone(&state, oauth.clone(), &crate::t("auth.login.too_many_attempts"))).into_response());
     }
     let (tk, code, vault) = (token.clone(), form.code, state.vault.clone());
     let (checked, user_id) = state.db.call(move |c| two_factor::check_login(c, &vault, &tk, &code, t)).await?;
@@ -155,7 +160,7 @@ pub async fn login_code(State(state): State<Arc<AppState>>, ClientIp(ip): Client
             tracing::info!("user {user_id} logged in with a second step");
             let share = share_notice(&state, &hex_cookie(&headers, SHARE_COOKIE)).await?;
             // An app's sign-in request waiting for this one goes first (#169).
-            let to = crate::routes::oauth::resume(&headers).unwrap_or_else(|| crate::url(&after_sign_in(share.as_ref())));
+            let to = crate::routes::oauth::resume(&state, &headers).unwrap_or_else(|| crate::url(&after_sign_in(share.as_ref())));
             let cookies = [
                 twofa_cookie("", 0, state.secure_cookies),
                 auth::set_session_cookie(&session, state.secure_cookies),
@@ -167,9 +172,9 @@ pub async fn login_code(State(state): State<Arc<AppState>>, ClientIp(ip): Client
         two_factor::Checked::Wrong(left) => {
             tracing::info!("user {} typed a wrong sign-in code", user_id.unwrap_or_default());
             let _ = state.limits.hit(security::LOGIN_FAILURES_PER_USER, &email, t);
-            let Some(_) = state.db.call(move |c| two_factor::pending(c, &token, t)).await? else { return Ok(code_gone(&state, &code_gone_msg())) };
+            let Some(_) = state.db.call(move |c| two_factor::pending(c, &token, t)).await? else { return Ok(code_gone(&state, oauth.clone(), &code_gone_msg())) };
             let msg = crate::tn("auth.code.wrong", left);
-            Ok((StatusCode::UNPROCESSABLE_ENTITY, code_page(&state, Some(msg))).into_response())
+            Ok((StatusCode::UNPROCESSABLE_ENTITY, code_page(&state, Some(msg), oauth)).into_response())
         }
         two_factor::Checked::Gone => {
             // With a user id this was the last wrong code; it counts too.
@@ -177,7 +182,7 @@ pub async fn login_code(State(state): State<Arc<AppState>>, ClientIp(ip): Client
                 tracing::warn!("user {uid} used up the tries for a sign-in code");
                 let _ = state.limits.hit(security::LOGIN_FAILURES_PER_USER, &email, t);
             }
-            Ok(code_gone(&state, &crate::t("auth.code.too_many_wrong")))
+            Ok(code_gone(&state, oauth.clone(), &crate::t("auth.code.too_many_wrong")))
         }
     }
 }

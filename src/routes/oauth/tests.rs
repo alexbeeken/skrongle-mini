@@ -444,6 +444,33 @@ fn a_reused_refresh_token_disconnects_the_app() {
     assert!(profile.body.contains("data-testid=\"profile-apps-none\""));
 }
 
+/// #192 over HTTP: a thief refreshes twice with a stolen refresh token, then
+/// the real app's (now two generations old) is `invalid_grant` and revokes
+/// the connection; the thief's newest pair stops working.
+#[test]
+fn an_earlier_refresh_token_disconnects_the_app() {
+    let s = Site::start(true, None);
+    let (_, me) = s.account("ann@example.org");
+    let (flow, code) = s.connect(&me);
+    let app = s.trade(&flow, &code).json()["refresh_token"].as_str().unwrap().to_string();
+    let t1 = s.refresh(&flow.client_id, &app).json();
+    let t2 = s.refresh(&flow.client_id, t1["refresh_token"].as_str().unwrap()).json();
+    let (access, newest) = (t2["access_token"].as_str().unwrap().to_string(), t2["refresh_token"].as_str().unwrap().to_string());
+    assert_eq!(s.whoami(&access), 200);
+    let other = s.flow();
+    assert_eq!(s.refresh(&other.client_id, &app).json()["error"], "invalid_grant");
+    assert_eq!(s.grants(), 1, "another client's try revokes nothing");
+
+    let again = s.refresh(&flow.client_id, &app);
+    assert_eq!((again.status, again.json()["error"].as_str()), (400, Some("invalid_grant")));
+    assert_eq!(again.json().as_object().map(|o| o.len()), Some(1), "the error code only");
+    assert_eq!(s.grants(), 0, "the earlier token revoked the grant");
+    assert_eq!(s.whoami(&access), 401, "the thief's access token stops working");
+    assert_eq!(s.refresh(&flow.client_id, &newest).json()["error"], "invalid_grant", "and its refresh token");
+    let profile = s.get("/profile", &[("cookie", &me)]);
+    assert!(profile.body.contains("data-testid=\"profile-apps-none\""), "Connected apps no longer lists it");
+}
+
 /// The token request repeats the redirect address and the resource, with
 /// the right verifier; a wrong one revokes nothing.
 #[test]
@@ -506,6 +533,80 @@ fn sign_in_comes_back_to_the_request_and_nowhere_else() {
         let to = a.header("location");
         assert!(to == "/" || to.starts_with("/oauth/authorize?"), "{evil:?} led to {to}");
     }
+}
+
+/// The sign-in pages name the waiting app (#190), only for a request this
+/// server checked and sealed into the cookie: the app's registered name,
+/// escaped, and the host its answer goes to. The notice stays through a
+/// wrong password and on the two-factor page, goes once the consent page
+/// shows, and never comes from a query, a made-up cookie (even one holding
+/// a valid request), a request that fails its checks now, or a server
+/// whose switch is off.
+#[test]
+fn the_sign_in_page_names_the_waiting_app() {
+    let s = Site::start(true, None);
+    s.account("ann@example.org");
+    let flow = s.flow();
+    let client_id = flow.client_id.clone();
+    // Registration refuses markup; a row that has some anyway is still text.
+    s.state.db.with(|c| c.execute("UPDATE oauth_clients SET name = 'Ann''s <b>Helper</b>' WHERE client_id = ?1", [&client_id])).unwrap();
+    let out = s.consent(None, &flow);
+    assert_eq!(out.status, 303);
+    let cookie = out.header("set-cookie").split(';').next().unwrap().to_string();
+    let notice = |a: &Answer| a.body.contains("data-testid=\"login-oauth-notice\"");
+
+    let page = s.get("/login", &[("cookie", &cookie)]);
+    assert!(notice(&page), "{}", page.body);
+    assert!(page.body.contains("let Ann&#39;s &#60;b&#62;Helper&#60;/b&#62; connect"), "the name, escaped: {}", page.body);
+    assert!(!page.body.contains("<b>Helper"));
+    assert!(page.body.contains("data-testid=\"login-oauth-host\">app.example</strong>"), "the host");
+    assert_eq!(page.header("cache-control"), "no-store");
+
+    let wrong = s.post_form("/login", &[("cookie", &cookie)], &[("email", "ann@example.org"), ("password", "wrong")]);
+    assert!(notice(&wrong), "kept through a wrong password");
+
+    // Never from anything a link or another site can set.
+    assert!(!notice(&s.get("/login", &[])), "no cookie");
+    assert!(!notice(&s.get(&format!("/login?{}", flow.query()), &[])), "a query");
+    assert!(!notice(&s.get(&format!("/login?app=Evil&client_id={client_id}"), &[])), "a query naming the app");
+    let plain: String = flow.query().bytes().map(|b| format!("{b:02x}")).collect();
+    assert!(!notice(&s.get("/login", &[("cookie", &format!("oauth_next={plain}"))])), "a made-up cookie with a valid request");
+    let mut bent = cookie.clone();
+    let last = bent.pop().unwrap();
+    bent.push(if last == '0' { '1' } else { '0' });
+    assert!(!notice(&s.get("/login", &[("cookie", &bent)])), "a sealed cookie tampered with");
+    let made_up = s.post_form("/login", &[("cookie", &format!("oauth_next={plain}"))], &[("email", "ann@example.org"), ("password", PASSWORD)]);
+    assert_eq!(made_up.header("location"), "/", "and a made-up cookie leads nowhere");
+
+    // Switched off, nothing; the request fails its checks now, nothing.
+    s.apps_on(false);
+    assert!(!notice(&s.get("/login", &[("cookie", &cookie)])));
+    s.apps_on(true);
+    s.state.db.with(|c| c.execute("DELETE FROM oauth_clients WHERE client_id = ?1", [&client_id])).unwrap();
+    assert!(!notice(&s.get("/login", &[("cookie", &cookie)])), "the app's registration is gone");
+
+    // The two-factor page shows it too, and a wrong code keeps it.
+    let (uid, _) = s.account("bo@example.org");
+    let flow = s.flow();
+    let cookie = s.consent(None, &flow).header("set-cookie").split(';').next().unwrap().to_string();
+    let (vault, t) = (s.state.vault.clone(), crate::db::now());
+    let key = s.state.db.with(|c| crate::two_factor::totp_start(c, &vault, uid, t).map(|r| r.unwrap())).unwrap();
+    assert!(s.state.db.with(|c| crate::two_factor::totp_confirm(c, &vault, uid, &key.code_at(t as u64), t)).unwrap());
+    let wrong = (0..).map(|i| format!("{:06}", 100_000 + i)).find(|c| (-2..=2).all(|d| key.code_at((t + d * 30) as u64) != *c)).unwrap();
+    let pw = s.post_form("/login", &[("cookie", &cookie)], &[("email", "bo@example.org"), ("password", PASSWORD)]);
+    assert_eq!(pw.header("location"), "/login/code");
+    let twofa = pw.header("set-cookie").split(';').next().unwrap().to_string();
+    let both = format!("{cookie}; {twofa}");
+    assert!(notice(&s.get("/login/code", &[("cookie", &both)])), "on the code page");
+    let bad = s.post_form("/login/code", &[("cookie", &both)], &[("code", wrong.as_str())]);
+    assert!(notice(&bad), "kept through a wrong code: {}", bad.body);
+    assert!(!notice(&s.get("/login/code", &[("cookie", &twofa)])), "not without the request");
+
+    // Landed on the consent page: the cookie goes.
+    let (_, sid) = s.account("cy@example.org");
+    let page = s.consent(Some(&format!("{sid}; {cookie}")), &flow);
+    assert_eq!(page.status, 200);
+    assert!(page.headers.iter().any(|(k, v)| k == "set-cookie" && v.starts_with("oauth_next=;")), "cleared");
 }
 
 /// An account without Create courses gets a page saying to ask the owner,
@@ -597,15 +698,23 @@ fn registration_cannot_fill_the_box() {
     assert_eq!(reg(serde_json::json!({ "client_name": "App", "redirect_uris": [CB] })).status, 429);
 }
 
-/// 30 refused token requests from one address in ten minutes, then 429.
+/// 30 refused token requests from one address in ten minutes, then a
+/// refusal is 429. A good code or refresh token from that address is still
+/// served (#185): the neighbours' guesses do not lock a working app out.
 #[test]
 fn guessing_codes_is_rate_limited() {
     let s = Site::start(true, None);
-    let flow = s.flow();
+    let (_, me) = s.account("ann@example.org");
+    let (flow, code) = s.connect(&me);
     let guess = || s.post_form("/oauth/token", &[], &[("grant_type", "refresh_token"), ("refresh_token", "skr_guess"), ("client_id", &flow.client_id)]).status;
-    for _ in 0..30 {
+    for _ in 0..crate::security::OAUTH_TOKEN_FAILURES_PER_IP.max {
         assert_eq!(guess(), 400);
     }
+    let t = s.trade(&flow, &code);
+    assert_eq!(t.status, 200, "a good code over the limit: {}", t.body);
+    assert_eq!(guess(), 429);
+    let r = s.refresh(&flow.client_id, t.json()["refresh_token"].as_str().unwrap());
+    assert_eq!(r.status, 200, "a good refresh over the limit: {}", r.body);
     assert_eq!(guess(), 429);
 }
 
@@ -1032,16 +1141,27 @@ fn trace_log_of_a_full_flow() {
     let refresh3 = s.trade(&flow2, &code2).json()["refresh_token"].as_str().unwrap().to_string();
     let refresh4 = s.refresh(&flow2.client_id, &refresh3).json()["refresh_token"].as_str().unwrap().to_string();
     s.refresh(&flow2.client_id, &refresh3);
+    // A third, its refresh token presented two generations late (#192).
+    let (flow3, code3) = s.connect(&me);
+    let refresh5 = s.trade(&flow3, &code3).json()["refresh_token"].as_str().unwrap().to_string();
+    let refresh6 = s.refresh(&flow3.client_id, &refresh5).json()["refresh_token"].as_str().unwrap().to_string();
+    let refresh7 = s.refresh(&flow3.client_id, &refresh6).json()["refresh_token"].as_str().unwrap().to_string();
+    s.refresh(&flow3.client_id, &refresh5);
 
     let log = String::from_utf8(buf.0.lock().unwrap().clone()).unwrap();
     assert!(log.contains("connected an OAuth app") && log.contains("code was used twice"), "the log was captured: {log}");
     assert!(log.contains("refresh token was used twice") && log.contains(&format!("of account {ann}")), "the reuse names the grant and account: {log}");
+    assert_eq!(log.matches("refresh token was used twice").count(), 2, "both reuses are logged, the earlier-generation one too: {log}");
     let sid = me.trim_start_matches("sid=").to_string();
     let challenge = s256(VERIFIER);
-    for secret in [&personal, &access, &refresh, &refresh2, &refresh3, &refresh4, &code, &code2, &sid] {
+    for secret in [&personal, &access, &refresh, &refresh2, &refresh3, &refresh4, &refresh5, &refresh6, &refresh7, &code, &code2, &code3, &sid] {
         let bare = secret.trim_start_matches("skr_");
         assert!(!log.contains(bare), "a token or code is in the log");
         assert!(!log.contains(&crate::auth::hash_token(secret)), "a hash is in the log");
+        if let Some(family) = crate::auth::api::family_of(secret) {
+            assert!(!log.contains(family), "a refresh token's family is in the log");
+            assert!(!log.contains(&crate::auth::hash_token(family)), "a family's hash is in the log");
+        }
     }
     assert!(!log.contains(VERIFIER) && !log.contains(&challenge), "the PKCE verifier or challenge is in the log");
 }

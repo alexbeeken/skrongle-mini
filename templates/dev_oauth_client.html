@@ -7,7 +7,7 @@
   <dialog class="modal" id="dev-oauth-info" aria-labelledby="dev-oauth-info-title">
     <h2 id="dev-oauth-info-title">About the dev test client</h2>
     <p>A public OAuth client, as an app in a vendor's cloud is: it reads the discovery documents, registers itself, asks for access with PKCE, trades the code for tokens and calls <code>/api/v1/whoami</code>. Its state lives in this tab. Needs <code>SKRONGLE_PUBLIC_URL</code> and Let apps connect.</p>
-    <p>Using the old refresh token or replaying the code is refused and disconnects the app: whoami then answers 401, and Connect starts again.</p>
+    <p>Using the old refresh token, the oldest one (the first of this connection, however many refreshes ago) or replaying the code is refused and disconnects the app: whoami then answers 401, and Connect starts again.</p>
     <form method="dialog" class="modal-actions"><button type="submit" class="btn">OK</button></form>
   </dialog>
   <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0">
@@ -15,6 +15,7 @@
     <button type="button" class="btn ghost small" data-act="whoami" data-testid="dev-oauth-whoami-btn">Call whoami</button>
     <button type="button" class="btn ghost small" data-act="refresh" data-testid="dev-oauth-refresh">Refresh token</button>
     <button type="button" class="btn ghost small" data-act="reuse" data-testid="dev-oauth-reuse">Use the old refresh token</button>
+    <button type="button" class="btn ghost small" data-act="oldest" data-testid="dev-oauth-reuse-oldest">Use the oldest refresh token</button>
     <button type="button" class="btn ghost small" data-act="replay" data-testid="dev-oauth-replay">Replay the code</button>
     <button type="button" class="btn ghost small" data-act="disconnect" data-testid="dev-oauth-disconnect">Disconnect</button>
     <button type="button" class="btn ghost small" data-act="forget" data-testid="dev-oauth-forget">Forget this client</button>
@@ -27,6 +28,7 @@
     <dt>Token exchange</dt><dd><code data-testid="dev-oauth-token">none yet</code></dd>
     <dt>Refresh token</dt><dd><code data-testid="dev-oauth-refresh-token" style="word-break: break-all">none yet</code></dd>
     <dt>Old refresh token again</dt><dd><code data-testid="dev-oauth-reuse-result">not tried</code></dd>
+    <dt>Oldest refresh token again</dt><dd><code data-testid="dev-oauth-reuse-oldest-result">not tried</code></dd>
     <dt>Code again</dt><dd><code data-testid="dev-oauth-replay-result">not tried</code></dd>
     <dt>whoami</dt><dd><code data-testid="dev-oauth-whoami" style="white-space: pre-wrap; word-break: break-all">not called</code></dd>
   </dl>
@@ -103,7 +105,8 @@
     show("dev-oauth-answer", "code received");
     var r = await form(get("token-endpoint"), { grant_type: "authorization_code", code: code, redirect_uri: redirect(), code_verifier: get("verifier"), client_id: get("client"), resource: get("resource") });
     show("dev-oauth-token", r.status === 200 ? "ok: " + r.body.scope : r.status + " " + JSON.stringify(r.body));
-    if (r.status === 200) { tokens(r.body); await whoami(); }
+    // The connection's first refresh token, for "Use the oldest refresh token".
+    if (r.status === 200) { tokens(r.body); put("first-refresh", r.body.refresh_token); await whoami(); }
   }
   var acts = {
     connect: connect,
@@ -116,6 +119,12 @@
       var r = await form(get("token-endpoint"), { grant_type: "refresh_token", refresh_token: get("old-refresh"), client_id: get("client") });
       show("dev-oauth-reuse-result", r.status + " " + (r.body.error || "ok"));
       // A reused refresh token revokes the connection (#184): whoami says so.
+      await whoami();
+    },
+    oldest: async function () {
+      var r = await form(get("token-endpoint"), { grant_type: "refresh_token", refresh_token: get("first-refresh"), client_id: get("client") });
+      show("dev-oauth-reuse-oldest-result", r.status + " " + (r.body.error || "ok"));
+      // Any earlier refresh token of the connection revokes it (#192), not only the last one.
       await whoami();
     },
     replay: async function () {

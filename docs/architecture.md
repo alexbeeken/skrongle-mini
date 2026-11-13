@@ -175,7 +175,7 @@ src/
     dev.rs       /dev/login, /dev/reset, /dev/jobs, /dev/authenticator, /dev/boot (the --watch reload poll); all mounted only in dev mode and for local clients, see testing.md; the dev pages need no sign-in
     dev_ai.rs    /dev/ai: the dev AI provider's wire API (Anthropic Messages, OpenAI chat completions, Gemini's OpenAI endpoint; checked by API key; a held request waits for its reply file) and its page among the dev pages (log, limits, failures, Manual replies with the held requests and their reply forms, fixture editor)
 templates/       askama templates (compiled in)
-static/          CSS + dependency-free JS (compiled in); vendor/ holds the one third-party script, abcjs
+static/          CSS + dependency-free JS (compiled in); vendor/ holds the one third-party script, abcjs. A release embeds each file once: build.rs gzips it and only a file that does not shrink is kept raw; a client without gzip gets the file inflated (#93). Debug builds read static/ from disk
 docs/            this documentation (compiled in, served at /docs)
 data/courses/    built-in courses: <id>/course.json + lessons/**.json + pictures/**.svg
 data/test-courses/  courses for automated tests, loaded only with TEST_COURSE=1 (see testing.md, "The test course")
@@ -196,11 +196,18 @@ request is served meanwhile. Saving is split the same way (#84):
 `courses::check` builds the files with no connection, `courses::record`
 writes the outcome (`courses.error`, `title`, the cache) and skips it if the
 files changed since they were checked, because the newer save records its
-own. `courses::revalidate` is the two together and still builds while it
-holds the database. The editor's autosave (`routes/courses/lessons.rs`)
-commits the save, lets go of the database, builds with
-`courses::check_off_lock` (own thread, request language), then records in a
-second short `Db::call`. The other writers still use `revalidate`. Boot builds each built-in course once to check
+own. Nothing builds a course while it holds the database. Every handler in `routes/courses/` (the autosave,
+Upload, the file page, Check the course, Undo and Redo, Create, Copy)
+commits its write, lets go of the database, and calls `built`
+(`routes/courses/write.rs`): it builds with `courses::check_off_lock` (own
+thread, request language), then records in a second short `Db::call`. The
+review's Accept and the MCP tool `put_course_files` build first and write
+after, in one call that writes nothing if the course changed meanwhile. The
+AI job threads build on their own thread, in the job's language: a
+generation or translation ends with `courses::check_and_record` (read, build
+with the database free, record); a revision, an added lesson and an edit
+build their new files with `courses::check` before they commit them, then
+commit and `record` in one closure. Boot builds each built-in course once to check
 it and keeps the seed course (`dev::SEED_COURSE`, else the first) in the
 course cache, so the first request for it builds nothing; the others are
 built on first use (keeping them all costs about 4 MB).
@@ -337,16 +344,20 @@ permission_presets (id, name UNIQUE NOCASE, builtin, perms, created_at)
                 -- users.perms. Built in (builtin 1): id 1 'student' (0) and id 2 'teacher' (63), whose names the
                 -- screen translates
 settings       (name PRIMARY KEY, value)  WITHOUT ROWID
-api_grants     (id, user_id, client_id, client_name, scopes, courses, created_at, expires_at, last_used_at)
+api_grants     (id, user_id, client_id, client_name, scopes, courses, created_at, expires_at, last_used_at,
+                refresh_family_hash UNIQUE)
                 -- connected apps (#167, src/auth/api.rs): one row per connection; client_id 'personal' for a token made
                 -- on the profile; scopes space-separated (courses:read courses:write); courses space-separated ids,
                 -- '' = all of the account's own; expires_at always set (30, 90 or 365 days); last_used_at written at
-                -- most once a minute; at most 4 per account and 200 rows (caps.rs); cascades from users
-api_tokens     (id, grant_id, kind, token_hash UNIQUE, expires_at, used_at)
+                -- most once a minute; at most 4 per account and 200 rows (caps.rs); cascades from users;
+                -- refresh_family_hash (v9, #192) is the SHA-256 of the 128-bit family every refresh token of an
+                -- OAuth grant ends with, never the family: an earlier refresh token of the grant is known by it,
+                -- and presented again revokes the grant; NULL for a personal grant
+api_tokens     (id, grant_id, kind, token_hash UNIQUE, expires_at)
                 -- kind personal | access | refresh (the last two for OAuth, #169); token_hash is the SHA-256 of
-                -- the skr_ token (auth::hash_token), never the token; at most 800 rows; cascades from api_grants;
-                -- expired grants and tokens are purged with the sessions; used_at marks a used refresh token
-                -- (v8, #184): kept, one per grant, so that its reuse revokes the grant
+                -- the skr_ token (auth::hash_token), never the token; at most 600 rows (3 per grant: an access
+                -- token, the access token it replaced, a refresh token; a used refresh token is deleted, #192);
+                -- cascades from api_grants; expired grants and tokens are purged with the sessions
 oauth_clients  (id, client_id UNIQUE, name, redirect_uris, created_at, last_grant_at)
                 -- apps registered for OAuth sign-in (#169, src/oauth_server.rs): name at most 60 characters,
                 -- redirect_uris newline-separated (at most 5 of 200 characters, https or loopback http);
@@ -432,7 +443,8 @@ migrations (`v002_no_skc.sql` drops `motivator_purchases` and turns a saved
 `users.preset_id`, and gives every existing account the Teacher set; `v005_error_kind.sql` adds
 `courses.error_kind`; `v006_api_grants.sql` adds connected apps' `api_grants` and `api_tokens`;
 `v007_oauth.sql` adds OAuth's `oauth_clients` and `oauth_codes`; `v008_refresh_reuse.sql` adds
-`api_tokens.used_at`, so a reused refresh token revokes its grant), which `src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
+`api_tokens.used_at`, so a reused refresh token revokes its grant; `v009_refresh_family.sql` drops it again for
+`api_grants.refresh_family_hash`, so any earlier refresh token revokes its grant), which `src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
 how many have run, and a later change appends its own entry with a
 `.down.sql` beside it that takes it back (`db::migrate_to`, behind `skrongle migrate <schema-version>`;
 `db::tests::every_down_restores_the_schema_before_it` holds each one to the schema before it). A database
@@ -687,7 +699,7 @@ The three places:
   Each `Job` also holds a cancel flag and a deadline.
 
 A fourth place, the course content cache (`Courses`, `courses.rs:412`), is
-filled by `revalidate`; it comes up in window 8.
+filled by `courses::record` after a build (`check`); it comes up in window 8.
 
 How the writes are grouped:
 
@@ -711,7 +723,7 @@ How the writes are grouped:
 | Submit: translate a copy | New course: `create_course` (own transaction, `courses.rs:995`) then `start_translation` (`courses.rs:568`): `generating`, `source` `translate`, `job_id`, `notes` = plan. Both in one closure (`create.rs:115`-`117`). Resume of a stopped translation: `set_generating` (`create.rs:251`) | `submit` (`create.rs:274`); mode `translate`, `resume` false | Same `start` | The two course writes share one closure and mutex, not one transaction. Then separate from the jobs row and memory | Same readers. `gen_mode` (`generate.rs:216`) offers no Generate dialog for `source = translate` |
 | A lesson is written (generate, resume) | `write_file` per lesson (`ai.rs:569`): `course_files` only; `courses.state` and `job_id` untouched. The first request writes the manifest and the outline together (`ai.rs:487`-`491`: `write_file`, `set_outline`: one closure, no transaction) | Nothing. The heartbeat renews the lease separately, every 120 s (`queue.rs:320`) | `lessons_done` and a log line, after the write (`ai.rs:572`) | No. Files are written before memory is updated | Progress bar and list card: memory (`/api/generate`, `courses.js:1908`). A lesson written to the database is not visible to the page until the next poll |
 | A lesson is written (translate) | `write_file` plus `set_notes` (`ai.rs:1118`-`1121`, one closure, no transaction): file and plan progress | Nothing | `lessons_done` (`ai.rs:1127`) | Course writes share a closure; memory is separate | Same |
-| A lesson is written (revise, add, edit) | Nothing yet. Files are swapped once at the end: `commit_revision` (`courses.rs:661`, one transaction) then `revalidate` in the same closure (`ai.rs:904` revise, `ai.rs:1024` add, `edit.rs:322` edit, `edit_lesson.rs:108` one lesson). `state` stays `revising` until the thread's end sequence | Nothing | `lessons_done`: `edit.rs:137` (edit), `ai.rs:1017` (add). Revise: not traced | Commit and revalidate share a closure; commit is a transaction, revalidate is not | Progress: memory. Files on the page: the course row's files, already new while `state` is still `revising` (window 8) |
+| A lesson is written (revise, add, edit) | Nothing yet. Files are swapped once at the end: `commit_revision` (`courses.rs:661`, one transaction) then `record` in the same closure (`revise`, `add_lesson` in `ai.rs`, `edit.rs` edit, `edit_lesson.rs` one lesson); the new files are built with `courses::check` just before, with the database free (#84). `state` stays `revising` until the thread's end sequence | Nothing | `lessons_done`: `edit.rs:137` (edit), `ai.rs:1017` (add). Revise: not traced | Commit and record share a closure; commit is a transaction, record is not | Progress: memory. Files on the page: the course row's files, already new while `state` is still `revising` (window 8) |
 | End: success | Thread end sequence, `launch` closure (`queue.rs:252`-`305`), three separate `db.with` calls and one memory update, in this order: (1) `record_ai_run` (`queue.rs:276`, own transaction; skipped for translate); (2) generate/resume/translate: `finish_generation(None)` (`courses.rs:935`): `ready`, `error` kept as it was (`COALESCE`); revision kinds: `finish_revision` (`courses.rs:600`): `ready` only if `state = 'revising'`. Both at `queue.rs:288`-`292` | (3) `settle` (`queue.rs:403`, called at `queue.rs:294`): `done`, lease cleared, `finished_at`; only if the row is still `queued` or `running` | (4) `job.update` (`queue.rs:297`): `done`, `finished_at`, phase "Done". Then the closure ends and `LiveSlot::drop` (`queue.rs:84`) removes `live` and wakes the runner | No. Four steps, each its own lock hold. (3) runs only if (2) returned `Ok` (`finished.and_then`, `queue.rs:294`) | Editor: row first, then memory; `settled` (`editor.rs:120`) re-reads the row if the row is busy and the job is done. Course list card: row; the card script reloads once when memory says done and the card still says generating (`courses.js:1908`). Capacity: memory (`live`) |
 | End: failure | Same sequence. Generate/resume/translate: `finish_generation(Some(err))`: `failed`, `error` set; lessons and outline stay, so Resume works. Revision kinds: `finish_revision`: `ready`; the course is as before, unless the error came after `commit_revision` ("does not load ... Undo it", `edit_lesson.rs:113`), when the new files are in | `settle` with the error: `failed`, `last_error` | Phase "Stopped", `error` | Same as success | Editor: `stopped_redirect` (`editor.rs:520`) sends a `failed` course to the course list. `modal_job` shows a failed job's modal until closed |
 | Cancel a running job | Nothing | Nothing | `generate_cancel` (`generate.rs:625`) finds the job by `row.job_id` and `!done`, calls `ai::cancel` (`queue.rs:615`) which falls to `Job::cancel` (`ai.rs:322`): sets the flag, phase "Cancelling…", a log line. The thread sees it at the next `check_cancelled` (`ai.rs:329`) and ends as a failure with a "Cancelled" message | Flag and phase are memory only | Modal: memory. Row and jobs row change only when the thread ends (End: failure) |
@@ -796,7 +808,7 @@ I found.
    change with that work.
 8. **Files and cache ahead of the row.** A revision's files are swapped and
    the cache refreshed (`ai.rs:904` etc.) while the course still says
-   `revising`. A generation's final `revalidate` (`ai.rs:578`) puts the
+   `revising`. A generation's final `check_and_record` (`ai.rs`, `run`) puts the
    finished course into the content cache (`courses.rs:1267`) while the row
    still says `generating`; `Courses::get` answers from the cache without
    looking at the row (`courses.rs:416`). Whether any page asks for a course
@@ -871,8 +883,9 @@ writable path, and a release never touches the database.
   empty 401 there, a token on a page gets the sign-in redirect, and the proxy sign-in header does not
   touch `/api/v1/`. A token in the address (`?access_token=`, `?token=`) is a 400. Every request
   checks the switch, the token and grant and their expiry, Create courses and the temporary-password
-  gate; nothing is cached. Ten bad tokens per address in ten minutes, then 429
-  (`security::API_BAD_TOKENS_PER_IP`). A password change, a temporary password and the owner
+  gate; nothing is cached. Ten bad tokens per address in ten minutes, then a bad token is 429
+  (`security::API_BAD_TOKENS_PER_IP`); the token is looked up first, so a good one is served,
+  and a request with no `Authorization` header is not counted (#185). A password change, a temporary password and the owner
   turning off two-factor revoke every grant of the account.
 - The MCP server (#168, `routes/mcp.rs`, `docs/api.md`): any request to `/mcp` with an `Origin`
   header is a 403 whatever the origin (no web page reaches a box on a home network by DNS
@@ -889,10 +902,12 @@ writable path, and a release never touches the database.
   required; redirect addresses match exactly (https, or loopback http where only the port may
   differ); a request that fails a check gets an error page and is never redirected. A code works
   once for ten minutes and a second use revokes its grant; refresh tokens rotate and belong to their
-  client, and a used one presented again revokes its grant (#184). The consent page is framed by nothing and not cached, nothing is granted on GET, and its
+  client, and any earlier one presented again by its client revokes its grant, known by the family hash on the grant (#184, #192). The consent page is framed by nothing and not cached, nothing is granted on GET, and its
   POST needs the session cookie (the proxy header alone signs nobody in there) and
   `Sec-Fetch-Site: same-origin` or this server's `Origin`. A signed-out request goes through the
-  sign-in in an `oauth_next` cookie and comes back to the local `/oauth/authorize` path only. The
+  sign-in in an `oauth_next` cookie (sealed with the vault, `secrets::seal_oauth_next`) and comes
+  back to the local `/oauth/authorize` path only; the sign-in pages name the waiting app from it
+  (`routes::oauth::signin_notice`, #190), checked again against the registry. The
   program endpoints read no cookie and skip the CSRF layer and the proxy sign-in. Registration: 20
   per address an hour, 4 KB, 5 addresses of 200 characters, 100 rows; refused token requests: 30 per
   address in ten minutes (`security::OAUTH_*`). No request ever leaves the server for a client.

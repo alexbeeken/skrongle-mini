@@ -244,7 +244,7 @@ with the table, like any other change (the editor saves as you edit; see
   with the first run's wish and notes filled in). A save that still reaches a
   stopped run with its outline (a stale editor tab, the file form, the upload
   API, Undo) leaves it stopped, with its reason and Resume, even when the
-  files then load (`courses::revalidate`); Resume keeps the files that load,
+  files then load (`courses::record`); Resume keeps the files that load,
   edits included. Only a run that stopped before its outline becomes a course
   when its files are fixed by hand. When the run stops while
   its progress modal is open, the page goes straight to that dialog, with
@@ -2162,8 +2162,10 @@ token they give it (#167, the first step of plan #166). The code is
   alone. A missing, unknown, expired or revoked token gets 401 with an
   empty body and `WWW-Authenticate: Bearer`. A request with `access_token`
   or `token` in its address is a 400, even with a good header. Ten bad
-  tokens from one address in ten minutes, then 429
-  (`security::API_BAD_TOKENS_PER_IP`; off in dev mode like every limit).
+  tokens from one address in ten minutes, then a bad token is 429
+  (`security::API_BAD_TOKENS_PER_IP`; off in dev mode like every limit). A
+  good token is still served, and a request with no `Authorization` header
+  is not counted (#185).
 - **The MCP server** (#168): `POST /mcp` with the token, six course tools
   (`get_course_format`, `list_courses`, `get_course_files`,
   `validate_course`, `create_course`, `put_course_files`). Each is a thin
@@ -2180,13 +2182,17 @@ token they give it (#167, the first step of plan #166). The code is
   what it may do in plain words, an optional list of their own courses
   (one line says a limited app can't create a course), how long it works,
   **Allow** and **Deny**. Signed out, the normal sign-in comes first and
-  leads back to it. An account without Create courses gets a page saying
+  leads back to it; the sign-in and two-factor code pages say which app
+  is waiting and the host its answer goes to (`login-oauth-notice`, #190),
+  read from the app's registration for a request the server checked and
+  sealed into the `oauth_next` cookie, never from the link. An account without Create courses gets a page saying
   to ask the owner (`oauth-no-permission`); a request that fails a check
   gets an error page (`oauth-error`) and the app hears nothing. Allow makes
   one grant, listed under Connected apps with the app's name like a token
   made by hand, and the app trades the code for an access token (an hour)
-  and a refresh token that works once (used again, it ends the connection:
-  it may have been stolen). Revoke on the profile, the owner's
+  and a refresh token that works once (used again, it ends the connection,
+  and so does any earlier refresh token of that connection, #192: it may
+  have been stolen). Revoke on the profile, the owner's
   Revoke and the events below end it the same way.
 - **`GET /api/v1/whoami`** is the probe: `{"user_id", "client_id",
   "client_name", "scopes", "courses"}`.

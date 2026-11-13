@@ -202,9 +202,7 @@ pub async fn save_lessons(
     let (label, rows, paths, changed, version, warning) = match outcome {
         Saved::Done { label, rows, paths, changed, version, files } => {
             // Built off the database lock; a save that lands meanwhile records its own result.
-            let checked = courses::check_off_lock(id.clone(), files).await;
-            let (registry, recorded, v) = (Arc::clone(&state.courses), id.clone(), version.clone());
-            let warning = state.db.call(move |c| courses::record(c, &registry, &recorded, &v, checked)).await?;
+            let warning = built(&state, &id, files).await?;
             (label, rows, paths, changed, version, warning)
         }
         Saved::Unchanged { version } => {

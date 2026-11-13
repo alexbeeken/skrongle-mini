@@ -18,8 +18,9 @@
 //! - a code works once, for ten minutes; a second use revokes the grant it
 //!   made and every token under it;
 //! - a refresh token works once, and only for the client the grant was
-//!   made for: refreshing marks it used, and a used one presented again
-//!   revokes the grant and every token under it (#184);
+//!   made for; any earlier refresh token of a grant presented again by
+//!   that client revokes the grant and every token under it (#184, #192),
+//!   known by the family every refresh token of the grant carries;
 //! - registration is bounded: five redirect addresses of 200 characters, a
 //!   name of 60, `MAX_OAUTH_CLIENTS` rows (the oldest unused one goes
 //!   first), and a registration nobody finished a grant for within a day
@@ -515,12 +516,20 @@ fn create_courses_bit() -> i64 {
 }
 
 /// An access token (an hour, never past the grant) and a refresh token (as
-/// long as the grant) for `grant_id`.
-fn issue(conn: &Connection, grant_id: i64, grant_expires: i64, scopes: Vec<Scope>, now: i64) -> rusqlite::Result<Result<Tokens, TokenError>> {
+/// long as the grant, of the grant's `family`) for `grant_id`.
+fn issue(conn: &Connection, grant_id: i64, grant_expires: i64, scopes: Vec<Scope>, family: &str, now: i64) -> rusqlite::Result<Result<Tokens, TokenError>> {
     let access_until = (now + ACCESS_TTL_SECS).min(grant_expires);
     let Ok(access) = api::mint(conn, grant_id, Kind::Access, access_until)? else { return Ok(Err(TokenError::Unavailable)) };
-    let Ok(refresh) = api::mint(conn, grant_id, Kind::Refresh, grant_expires)? else { return Ok(Err(TokenError::Unavailable)) };
+    let Ok(refresh) = api::mint_refresh(conn, grant_id, family, grant_expires)? else { return Ok(Err(TokenError::Unavailable)) };
     Ok(Ok(Tokens { access, refresh, expires_in: access_until - now, scopes }))
+}
+
+/// Start a new refresh-token family for `grant_id`: the grant keeps only
+/// its hash; the family goes out in the refresh tokens.
+fn new_family(conn: &Connection, grant_id: i64) -> rusqlite::Result<String> {
+    let family = api::new_family();
+    conn.execute("UPDATE api_grants SET refresh_family_hash = ?2 WHERE id = ?1", params![grant_id, hash_token(&family)])?;
+    Ok(family)
 }
 
 /// Trade a code for its grant's first tokens. A code works once: a second
@@ -565,7 +574,8 @@ pub fn exchange_code(conn: &mut Connection, x: &CodeExchange, now: i64) -> rusql
         return Ok(Err(TokenError::InvalidTarget));
     }
     tx.execute("UPDATE oauth_codes SET used_at = ?2 WHERE code_hash = ?1", params![hash, now])?;
-    let tokens = match issue(&tx, grant_id, grant_expires, Scope::parse_list(&scopes), now)? {
+    let family = new_family(&tx, grant_id)?;
+    let tokens = match issue(&tx, grant_id, grant_expires, Scope::parse_list(&scopes), &family, now)? {
         Ok(t) => t,
         Err(e) => return Ok(Err(e)),
     };
@@ -574,62 +584,80 @@ pub fn exchange_code(conn: &mut Connection, x: &CodeExchange, now: i64) -> rusql
 }
 
 /// Trade a refresh token for a new pair (rotation with reuse detection,
-/// RFC 9700 §4.14.2, #184). Only the client the grant was made for may use
-/// it: another client's attempt is `invalid_grant` and changes nothing,
-/// whether the token is used or not. The token is then marked used, not
-/// deleted, so it is still recognised: presented again, it revokes the
-/// grant and every token under it (one of the two holders stole it), as a
-/// replayed code does. A grant keeps only its newest used refresh token,
-/// and of its access tokens only the newest, still working until its hour
-/// ends, so a client that refreshes in a loop cannot fill the token table:
-/// a grant holds at most four token rows.
+/// RFC 9700 §4.14.2, #184, #192). Only the client the grant was made for
+/// may use it: another client's attempt is `invalid_grant` and changes
+/// nothing, whatever the token. Refreshing deletes the token it was given,
+/// but every refresh token of a grant ends with the grant's family
+/// (`api::family_of`), whose hash the grant keeps: a token that is no
+/// longer stored but carries a live grant's family is an earlier one of
+/// that grant, however many refreshes ago. Presented again by the grant's
+/// client, it revokes the grant and every token under it (one of two
+/// holders stole it), as a replayed code does. Of its access tokens a grant
+/// keeps only the newest older one, still working until its hour ends, so
+/// a client that refreshes in a loop cannot fill the token table: a grant
+/// holds at most three token rows.
+///
+/// Every request does the same two indexed lookups, by the token's hash
+/// and by its family's hash (a hash no grant has when the token carries no
+/// family), so a refusal takes the same work whatever was presented.
 pub fn refresh(conn: &mut Connection, token: &str, client_id: &str, now: i64) -> rusqlite::Result<Result<Tokens, TokenError>> {
     let tx = conn.transaction()?;
     let sql = format!(
-        "SELECT t.grant_id, g.client_id, g.scopes, g.expires_at, t.used_at, g.user_id, {GRANT_LIVE}
+        "SELECT t.grant_id, g.client_id, g.scopes, g.expires_at, g.refresh_family_hash, {GRANT_LIVE}
          FROM api_tokens t JOIN api_grants g ON g.id = t.grant_id JOIN users u ON u.id = g.user_id
          WHERE t.token_hash = ?1 AND t.kind = 'refresh' AND t.expires_at > ?2"
     );
     let hash = hash_token(token);
-    let found = tx
+    let current = tx
         .query_row(&sql, params![hash, now, create_courses_bit()], |r| {
             Ok((
                 r.get::<_, i64>(0)?,
                 r.get::<_, String>(1)?,
                 r.get::<_, String>(2)?,
                 r.get::<_, i64>(3)?,
-                r.get::<_, Option<i64>>(4)?,
-                r.get::<_, i64>(5)?,
-                r.get::<_, bool>(6)?,
+                r.get::<_, Option<String>>(4)?,
+                r.get::<_, bool>(5)?,
             ))
         })
         .optional()?;
-    let Some((grant_id, owner, scopes, grant_expires, used_at, user_id, live)) = found else { return Ok(Err(TokenError::InvalidGrant)) };
+    let family_hash = hash_token(api::family_of(token).unwrap_or(""));
+    let earlier = tx
+        .query_row(
+            "SELECT id, client_id, user_id FROM api_grants WHERE refresh_family_hash = ?1 AND expires_at > ?2",
+            params![family_hash, now],
+            |r| Ok((r.get::<_, i64>(0)?, r.get::<_, String>(1)?, r.get::<_, i64>(2)?)),
+        )
+        .optional()?;
+    if let Some((grant_id, owner, scopes, grant_expires, stored_family, live)) = current {
+        if owner != client_id || !live {
+            return Ok(Err(TokenError::InvalidGrant));
+        }
+        tx.execute("DELETE FROM api_tokens WHERE token_hash = ?1", [&hash])?;
+        tx.execute(
+            "DELETE FROM api_tokens WHERE grant_id = ?1 AND kind = 'access'
+             AND id NOT IN (SELECT id FROM api_tokens WHERE grant_id = ?1 AND kind = 'access' ORDER BY id DESC LIMIT 1)",
+            [grant_id],
+        )?;
+        // The grant's family goes on; a token from before families (v8) starts one.
+        let family = match api::family_of(token) {
+            Some(f) if stored_family.as_deref() == Some(family_hash.as_str()) => f.to_string(),
+            _ => new_family(&tx, grant_id)?,
+        };
+        let tokens = match issue(&tx, grant_id, grant_expires, Scope::parse_list(&scopes), &family, now)? {
+            Ok(t) => t,
+            Err(e) => return Ok(Err(e)),
+        };
+        tx.commit()?;
+        return Ok(Ok(tokens));
+    }
+    let Some((grant_id, owner, user_id)) = earlier else { return Ok(Err(TokenError::InvalidGrant)) };
     if owner != client_id {
         return Ok(Err(TokenError::InvalidGrant));
     }
-    if used_at.is_some() {
-        tx.execute("DELETE FROM api_grants WHERE id = ?1", [grant_id])?;
-        tx.commit()?;
-        tracing::warn!("an OAuth refresh token was used twice: grant {grant_id} of account {user_id} and its tokens were revoked");
-        return Ok(Err(TokenError::InvalidGrant));
-    }
-    if !live {
-        return Ok(Err(TokenError::InvalidGrant));
-    }
-    tx.execute("DELETE FROM api_tokens WHERE grant_id = ?1 AND kind = 'refresh' AND used_at IS NOT NULL", [grant_id])?;
-    tx.execute("UPDATE api_tokens SET used_at = ?2 WHERE token_hash = ?1", params![hash, now])?;
-    tx.execute(
-        "DELETE FROM api_tokens WHERE grant_id = ?1 AND kind = 'access'
-         AND id NOT IN (SELECT id FROM api_tokens WHERE grant_id = ?1 AND kind = 'access' ORDER BY id DESC LIMIT 1)",
-        [grant_id],
-    )?;
-    let tokens = match issue(&tx, grant_id, grant_expires, Scope::parse_list(&scopes), now)? {
-        Ok(t) => t,
-        Err(e) => return Ok(Err(e)),
-    };
+    tx.execute("DELETE FROM api_grants WHERE id = ?1", [grant_id])?;
     tx.commit()?;
-    Ok(Ok(tokens))
+    tracing::warn!("an OAuth refresh token was used twice: grant {grant_id} of account {user_id} and its tokens were revoked");
+    Ok(Err(TokenError::InvalidGrant))
 }
 
 /// Revoke (RFC 7009): the app disconnects itself. The grant behind an

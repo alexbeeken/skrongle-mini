@@ -3073,6 +3073,8 @@ oauth:
     courses_note: "限定于部分课程的应用不能创建新课程。"
     allow: "允许"
     deny: "拒绝"
+  signin:
+    notice: "登录后即可让 {app} 连接到你的账户。"
   error:
     title: "此应用无法连接"
     info: "关于此错误"

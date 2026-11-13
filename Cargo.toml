@@ -1,6 +1,6 @@
 [package]
 name = "spanish-learning"
-version = "0.3.0"
+version = "0.4.0"
 edition = "2021"
 rust-version = "1.95"
 description = "Skrongle: lightweight self-hosted learning app driven by JSON courses (lessons, adaptive quizzes, guide, phone sessions, games)"
@@ -34,6 +34,9 @@ tower = { version = "0.5", default-features = false, features = ["util"] }
 # --- Templates / static assets (compiled into the binary) ---
 askama = { version = "0.16", default-features = false, features = ["std", "derive"] }
 rust-embed = { version = "8", features = ["interpolate-folder-path"] }
+# Inflating a gzip-only static file for the rare client without gzip (#93).
+# The same crate build.rs gzips with; pure Rust (miniz_oxide), nothing new in Cargo.lock.
+flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
 
 # --- Database (SQLite statically linked, no system libsqlite needed on the Pi) ---
 rusqlite = { version = "0.40", features = ["bundled", "functions"] }
@@ -70,7 +73,7 @@ rusqlite_migration = "2.6.0"
 [target.'cfg(unix)'.dependencies]
 libc = "0.2"
 
-# Build time only (build.rs pre-gzips static/); nothing here reaches the binary.
+# Build time (build.rs pre-gzips static/).
 [build-dependencies]
 flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
 

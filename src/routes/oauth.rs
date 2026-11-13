@@ -37,10 +37,13 @@ use crate::security::{ClientIp, OAUTH_REGISTRATIONS_PER_IP, OAUTH_TOKEN_FAILURES
 use crate::AppState;
 
 /// The cookie that carries a signed-out authorization request through the
-/// sign-in (password, then two-factor) and back (`resume`).
+/// sign-in (password, then two-factor) and back (`resume`). Its value is
+/// sealed with the server's key: the sign-in pages name the waiting app
+/// from it (`signin_notice`), so nothing but `authorize` may make one.
 pub const NEXT_COOKIE: &str = "oauth_next";
-/// Longest authorization query accepted (and so carried in the cookie, hex
-/// doubling it, under the 4 KB a cookie holds).
+/// Longest authorization query accepted (and so carried in the cookie:
+/// sealed, about 40 bytes more, and hex doubling it, under the 4 KB a
+/// cookie holds).
 pub const MAX_QUERY: usize = 1800;
 /// Largest token or revocation request body.
 const FORM_BODY_MAX: usize = 4 * 1024;
@@ -202,46 +205,75 @@ pub fn clear_next_cookie(secure: bool) -> (HeaderName, HeaderValue) {
     next_cookie("", 0, secure)
 }
 
-fn hex(s: &str) -> String {
-    s.bytes().fold(String::with_capacity(s.len() * 2), |mut out, b| {
+fn hex(bytes: &[u8]) -> String {
+    bytes.iter().fold(String::with_capacity(bytes.len() * 2), |mut out, b| {
         let _ = write!(out, "{b:02x}");
         out
     })
 }
 
-fn unhex(s: &str) -> Option<String> {
+fn unhex(s: &str) -> Option<Vec<u8>> {
     if !s.len().is_multiple_of(2) {
         return None;
     }
-    let bytes: Option<Vec<u8>> = (0..s.len()).step_by(2).map(|i| s.get(i..i + 2).and_then(|h| u8::from_str_radix(h, 16).ok())).collect();
-    String::from_utf8(bytes?).ok()
+    (0..s.len()).step_by(2).map(|i| s.get(i..i + 2).and_then(|h| u8::from_str_radix(h, 16).ok())).collect()
 }
 
-/// The query carried in the cookie, if it is one a request could have had:
-/// printable ASCII, no fragment, not too long.
-fn carried_query(headers: &HeaderMap) -> Option<String> {
+/// The cookie's value for a checked request's query: sealed with the
+/// server's key (`secrets::seal_oauth_next`, #190), so only `authorize`
+/// can make one, and it runs out with the cookie.
+fn sealed_query(state: &AppState, query: &str) -> String {
+    hex(&crate::secrets::seal_oauth_next(&state.vault, query, now() + server::CODE_TTL_SECS))
+}
+
+/// The query carried in the cookie, if this server sealed it there, it has
+/// not run out, and it is one a request could have had: printable ASCII,
+/// no fragment, not too long. A cookie made anywhere else is no request.
+fn carried_query(state: &AppState, headers: &HeaderMap) -> Option<String> {
     let value = headers.get_all(COOKIE).iter().find_map(|v| {
         v.to_str().ok()?.split(';').find_map(|pair| {
             let (k, v) = pair.trim().split_once('=')?;
             (k.trim() == NEXT_COOKIE).then(|| v.trim().to_string())
         })
     })?;
-    unhex(&value).filter(|q| !q.is_empty() && q.len() <= MAX_QUERY && q.bytes().all(|b| b.is_ascii_graphic() && b != b'#'))
+    let q = crate::secrets::open_oauth_next(&state.vault, &unhex(&value)?, now())?;
+    (!q.is_empty() && q.len() <= MAX_QUERY && q.bytes().all(|b| b.is_ascii_graphic() && b != b'#')).then_some(q)
 }
 
 /// After a sign-in: where an authorization request that waited for it goes
 /// on, `<base>/oauth/authorize?…`. Always that local path, whatever the
 /// cookie holds: the sign-in cannot be turned into a redirect elsewhere.
 /// The request is checked again there.
-pub fn resume(headers: &HeaderMap) -> Option<String> {
-    carried_query(headers).map(|q| crate::url(&format!("/oauth/authorize?{q}")))
+pub fn resume(state: &AppState, headers: &HeaderMap) -> Option<String> {
+    carried_query(state, headers).map(|q| crate::url(&format!("/oauth/authorize?{q}")))
+}
+
+/// What the sign-in pages say while an app's request waits (#190): the
+/// app's registered name and the host its answer goes to, as on the
+/// consent page. Both come from the registry row, never from the request.
+#[derive(Clone)]
+pub struct SignInNotice {
+    pub app: String,
+    pub host: String,
+}
+
+/// The notice for the sign-in pages, or `None`: only for a request this
+/// server sealed into the cookie (`authorize`, after its checks) that still
+/// passes them now. Nothing a link can set (a query, a made-up cookie)
+/// makes one; with the owner's switch off or no public address, none.
+pub async fn signin_notice(state: &AppState, headers: &HeaderMap) -> Result<Option<SignInNotice>, AppError> {
+    let Some(q) = carried_query(state, headers) else { return Ok(None) };
+    let Ok(issuer) = gate(state).await else { return Ok(None) };
+    let Ok(uri) = format!("/oauth/authorize?{q}").parse::<Uri>() else { return Ok(None) };
+    let Ok(Query(pairs)) = Query::<Vec<(String, String)>>::try_from_uri(&uri) else { return Ok(None) };
+    Ok(check(state, &pairs, &issuer).await?.ok().map(|a| SignInNotice { host: server::redirect_host(&a.registered_uri), app: a.client.name }))
 }
 
 /// GET /oauth/authorize: a request that fails a check gets a page that says
 /// which, and is never redirected. Signed out, the normal sign-in first and
 /// back here after; an account without Create courses gets a page saying to
 /// ask the owner; else the consent page. Nothing is granted on GET.
-pub async fn authorize(State(state): State<Arc<AppState>>, MaybeUser(user): MaybeUser, uri: Uri) -> Result<Response, AppError> {
+pub async fn authorize(State(state): State<Arc<AppState>>, MaybeUser(user): MaybeUser, headers: HeaderMap, uri: Uri) -> Result<Response, AppError> {
     let issuer = gate(&state).await?;
     let raw = uri.query().unwrap_or("");
     if raw.len() > MAX_QUERY {
@@ -256,7 +288,7 @@ pub async fn authorize(State(state): State<Arc<AppState>>, MaybeUser(user): Mayb
         Err(e) => return Ok(error_page(user, e)),
     };
     let Some(user) = user else {
-        let cookie = next_cookie(&hex(raw), server::CODE_TTL_SECS, state.secure_cookies);
+        let cookie = next_cookie(&sealed_query(&state, raw), server::CODE_TTL_SECS, state.secure_cookies);
         return Ok(([cookie], Redirect::to(&crate::url("/login"))).into_response());
     };
     if user.must_change_password {
@@ -276,7 +308,13 @@ pub async fn authorize(State(state): State<Arc<AppState>>, MaybeUser(user): Mayb
         fields: a.hidden_fields(),
         user: Some(user),
     };
-    Ok(([(CACHE_CONTROL, "no-store")], Page(page)).into_response())
+    let mut r = ([(CACHE_CONTROL, "no-store")], Page(page)).into_response();
+    // Landed: from here the sign-in pages say nothing of this request (#190).
+    if carried_query(&state, &headers).is_some() {
+        let (k, v) = clear_next_cookie(state.secure_cookies);
+        r.headers_mut().append(k, v);
+    }
+    Ok(r)
 }
 
 /// The scheme, host and port of an address: what a browser's `Origin` says.
@@ -455,12 +493,11 @@ async fn token_result(state: &AppState, issuer: &str, req: Request) -> Result<Re
 /// redirect address and the resource gives an access token (an hour) and a
 /// refresh token; a refresh token gives a new pair and stops working.
 /// Errors per RFC 6749 §5.2, the code only. Each refusal counts against
-/// `OAUTH_TOKEN_FAILURES_PER_IP`; past it, 429.
+/// `OAUTH_TOKEN_FAILURES_PER_IP`; past it, a refusal is 429. The request is
+/// checked first, so a good code or refresh token is served whatever its
+/// address's neighbours did (#185).
 pub async fn token(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, req: Request) -> Result<Response, AppError> {
     let issuer = gate(&state).await?;
-    if state.limits.blocked(OAUTH_TOKEN_FAILURES_PER_IP, &ip, now()) {
-        return Ok(too_many());
-    }
     Ok(match token_result(&state, &issuer, req).await? {
         Ok(t) => {
             state.issued.count(now());
@@ -475,10 +512,8 @@ pub async fn token(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
             }),
             )
         }
-        Err(e) => {
-            state.limits.hit(OAUTH_TOKEN_FAILURES_PER_IP, &ip, now());
-            token_error(e)
-        }
+        Err(_) if !state.limits.hit(OAUTH_TOKEN_FAILURES_PER_IP, &ip, now()) => too_many(),
+        Err(e) => token_error(e),
     })
 }
 

@@ -3076,6 +3076,8 @@ oauth:
     courses_note: "An app limited to some courses can't create new ones."
     allow: "Allow"
     deny: "Deny"
+  signin:
+    notice: "Sign in to let {app} connect to your account."
   error:
     title: "This app can't connect"
     info: "About this error"

@@ -138,22 +138,22 @@ fn generated_courses_have_a_lifecycle() {
         assert_eq!(row.title, "Algebra I");
         assert_eq!(load_ready_files(c, id)?.len(), 2);
         // Saving into it, even so it loads, keeps it stopped and resumable, with its reason (#81).
-        assert_eq!(revalidate(c, &registry, id)?, None);
+        assert_eq!(check_here(c, &registry, id)?, None);
         let row = course(c, id)?.unwrap();
         assert_eq!(row.state, CourseState::Failed);
         assert!(row.outline.is_some());
         assert!(row.error.unwrap().contains("restarted"));
         // A save that breaks it does not replace the reason either.
         write_file(c, id, "lessons/broken.json", "{}")?;
-        assert!(revalidate(c, &registry, id)?.is_some());
+        assert!(check_here(c, &registry, id)?.is_some());
         let row = course(c, id)?.unwrap();
         assert_eq!(row.state, CourseState::Failed);
         assert!(row.error.unwrap().contains("restarted"));
         assert!(delete_file(c, id, "lessons/broken.json")?);
-        assert_eq!(revalidate(c, &registry, id)?, None);
+        assert_eq!(check_here(c, &registry, id)?, None);
         // One that stopped before its outline, fixed by hand, is a course now.
         c.execute("UPDATE courses SET outline = NULL WHERE id = ?1", [id])?;
-        assert_eq!(revalidate(c, &registry, id)?, None);
+        assert_eq!(check_here(c, &registry, id)?, None);
         let row = course(c, id)?.unwrap();
         assert_eq!((row.state, row.error), (CourseState::Ready, None));
         set_outline(c, id, "Algebra I", "{}")?;
@@ -181,17 +181,17 @@ fn courses_round_trip_through_the_database() {
         assert!(course_exists(c, id)?);
         assert_eq!(courses_owned_by(c, uid)?.len(), 1);
         assert_eq!(file_count(c, id)?, 2);
-        assert_eq!(revalidate(c, &registry, id)?, None);
+        assert_eq!(check_here(c, &registry, id)?, None);
         // Break the manifest: the error is recorded and the cache dropped.
         write_file(c, id, "course.json", "{ not json")?;
-        let err = revalidate(c, &registry, id)?.unwrap();
+        let err = check_here(c, &registry, id)?.unwrap();
         assert!(err.starts_with("Not valid JSON in the course settings, line 1"), "{err}");
         assert!(course(c, id)?.unwrap().error.is_some());
         assert!(registry.lock().get(id).is_none());
         // Fix it again and open it as a project.
         let good = starter_files(id, "My course");
         write_file(c, id, "course.json", &good[0].content)?;
-        assert_eq!(revalidate(c, &registry, id)?, None);
+        assert_eq!(check_here(c, &registry, id)?, None);
         assert!(open_project(c, uid, id)?, "the first open");
         assert!(!open_project(c, uid, id)?, "opened before");
         assert_eq!(projects_of(c, uid)?[0].course_id, id);
@@ -516,7 +516,7 @@ fn a_course_claiming_another_id_does_not_open() {
         .with(|c| {
             let uid = crate::auth::create_user(c, "ann@example.org", "h")?;
             create_course(c, uid, id, "Mine", &starter_files("spanish", "Mine"))?;
-            revalidate(c, &registry, id)
+            check_here(c, &registry, id)
         })
         .unwrap();
     assert!(err.unwrap().contains("must be “mine-abc123”"));
@@ -692,4 +692,10 @@ fn the_check_runs_in_the_requests_language() {
     CHECK_HOOK.lock().unwrap().retain(|(id, _)| id != "lang-abc123");
     assert!(matches!(checked, Checked::Built(_)));
     assert_eq!(*seen.lock().unwrap(), vec!["es".to_string()]);
+}
+
+/// `check` and `record` in one go, on a connection the test already holds.
+fn check_here(c: &Connection, registry: &Courses, id: &str) -> rusqlite::Result<Option<String>> {
+    let files = load_files(c, id)?;
+    record(c, registry, id, &version_of(&files), check(id, &files))
 }

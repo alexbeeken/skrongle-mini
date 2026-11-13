@@ -73,8 +73,8 @@ pub(crate) fn check_file(path: &str, content: &str) -> Result<(), String> {
 /// Store `files` in course `course_id` (each replacing the file at its path,
 /// or added), within `MAX_FILES` and the course limits (`room_for`), all in
 /// one transaction: `Err(refusal)` when a limit says no, and then nothing
-/// is written. Call `courses::revalidate` (or `courses::record`) after it in
-/// the same `Db::call`.
+/// is written. Then build the course with `built` (or `courses::check` and
+/// `courses::record`), after the `Db::call` has let the database go.
 pub(crate) fn store_files(conn: &mut Connection, course_id: &str, files: &[CourseFile], limits: Limits) -> rusqlite::Result<Result<(), String>> {
     if courses::file_count(conn, course_id)? + files.len() > courses::MAX_FILES {
         return Ok(Err(Problem::refused(crate::t1("courses.editor.too_many_files", "max", courses::MAX_FILES)).text));
@@ -88,4 +88,17 @@ pub(crate) fn store_files(conn: &mut Connection, course_id: &str, files: &[Cours
     }
     tx.commit()?;
     Ok(Ok(()))
+}
+
+/// Build course `id` from `files`, what a handler's write left in it (read in
+/// the same `Db::call` as the write), on a thread of its own while the
+/// database is free, then record the outcome in a second short call (#84).
+/// The course's error, worded in the request's language, or `None` when it
+/// loads. A save that lands in between records its own result; this one's
+/// is still returned, for the reply.
+pub(crate) async fn built(state: &AppState, id: &str, files: Vec<CourseFile>) -> Result<Option<String>, crate::error::AppError> {
+    let version = courses::version_of(&files);
+    let checked = courses::check_off_lock(id.to_string(), files).await;
+    let (registry, cid) = (std::sync::Arc::clone(&state.courses), id.to_string());
+    state.db.call(move |c| courses::record(c, &registry, &cid, &version, checked)).await
 }

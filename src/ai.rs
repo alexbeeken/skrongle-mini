@@ -593,8 +593,8 @@ fn run(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Request) ->
     }
 
     // ---- 3. final check ----
-    let cid = course_id.clone();
-    let err = db.with(move |c| courses::revalidate(c, registry, &cid)).map_err(|e| format!("database: {e}"))?;
+    // Built while the database is free (#84).
+    let err = courses::check_and_record(db, registry, &course_id).map_err(|e| format!("database: {e}"))?;
     if let Some(e) = err {
         return Err(format!("the finished course does not load: {e}"));
     }
@@ -917,10 +917,12 @@ fn revise(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Request,
     }
     let outline = outline.to_string();
     let (cid, t, label) = (course_id.clone(), new_title.clone(), courses::quoted("Changed with feedback:", feedback));
+    // Built before the commit, while the database is free (#84); recorded with it.
+    let (version, checked) = (courses::version_of(&final_files), courses::check(&course_id, &final_files));
     let err = db
         .with(move |c| {
             courses::commit_revision(c, &cid, &final_files, &t, Some(&outline), &label)?;
-            courses::revalidate(c, registry, &cid)
+            courses::record(c, registry, &cid, &version, checked)
         })
         .map_err(|e| format!("database: {e}"))?;
     if let Some(e) = err {
@@ -1035,10 +1037,12 @@ fn add_lesson(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Requ
     job.log(format!("Lesson written: {lesson_title}"));
     let outline = crate::arrange::outline_for(row.outline.as_deref(), &final_files);
     let (cid, t, label) = (course_id.clone(), title.clone(), courses::quoted("Added with AI:", &lesson_title));
+    // Built before the commit, while the database is free (#84); recorded with it.
+    let (version, checked) = (courses::version_of(&final_files), courses::check(&course_id, &final_files));
     let err = db
         .with(move |c| {
             courses::commit_revision(c, &cid, &final_files, &t, outline.as_deref(), &label)?;
-            courses::revalidate(c, registry, &cid)
+            courses::record(c, registry, &cid, &version, checked)
         })
         .map_err(|e| format!("database: {e}"))?;
     if let Some(e) = err {
@@ -1143,8 +1147,8 @@ fn translate(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Reque
         done += 1;
         job.update(|s| s.lessons_done = done);
     }
-    let cid = course_id.clone();
-    let err = db.with(move |c| courses::revalidate(c, registry, &cid)).map_err(|e| format!("database: {e}"))?;
+    // Built while the database is free (#84).
+    let err = courses::check_and_record(db, registry, &course_id).map_err(|e| format!("database: {e}"))?;
     if let Some(e) = err {
         return Err(format!("the translated course does not load: {e}"));
     }
