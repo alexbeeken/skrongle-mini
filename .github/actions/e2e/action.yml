@@ -5,7 +5,7 @@ name: e2e shard
 description: Run one Playwright shard of a suite against a fresh server
 inputs:
   specs:
-    description: Spec files or folders, as scripts/e2e.sh takes them
+    description: The suite (--project exact or --project smoke), spec files or folders, as scripts/e2e.sh takes them
     required: true
   shard:
     description: This shard and the count, e.g. 1/3
