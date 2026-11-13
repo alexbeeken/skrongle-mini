@@ -71,7 +71,7 @@ Two exceptions: `SKRONGLE_SIGNUP` and `SKRONGLE_PROXY_AUTH_HEADER` /
 | `SKRONGLE_SECURE_COOKIES` | off | `1` or `true` when the site is served over HTTPS. The server warns at start if it listens on plain HTTP beyond loopback, or if the public URL is `https://` and this is off. It does not refuse to start. |
 | `SKRONGLE_BASE_PATH` | empty | URL prefix when a proxy serves the app under a path, such as `/learn`. |
 | `SKRONGLE_LOG` | `info` | One level: `error`, `warn`, `info`, `debug` or `trace`. Anything else logs one warning and runs at `info`. |
-| `SKRONGLE_MIN_AGE` | `14` | Age named by the register page's checkbox. A value that is not a whole number stops the server. The owner's own account is not asked. |
+| `SKRONGLE_MIN_AGE` | `14` | Age named by the register page's checkbox, shown only while new accounts start with a permission (not as Student, #206). A value that is not a whole number stops the server. The owner's own account is not asked. |
 | `SKRONGLE_PROXY_AUTH_HEADER`, `SKRONGLE_PROXY_AUTH_FROM` | unset | Sign people in by a reverse proxy: the header carrying the person's e-mail address, and the proxy's addresses (IPs or CIDRs, comma-separated). Both or neither; one alone stops the server. Bind to `127.0.0.1` so nobody reaches the app around the proxy. |
 | `SKRONGLE_COURSES_PER_USER` | `50` | Courses one account may make. |
 | `SKRONGLE_COURSE_BYTES` | `8388608` (8 MB) | Size of one made course's files. |

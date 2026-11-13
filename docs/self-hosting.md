@@ -310,7 +310,7 @@ Where a default says "unit", `skrongle.service` sets it.
 | `SKRONGLE_SECURE_COOKIES` | off | `1` when the site is served over HTTPS (behind a TLS proxy). |
 | `SKRONGLE_PUBLIC_URL` | — | The address people use, e.g. `https://learn.example.org`. The owner link and invitation links start with it. Apps that connect from the cloud (OAuth) need it: without it their sign-in routes answer 404. |
 | `SKRONGLE_BASE_PATH` | *(empty)* | A URL prefix when a proxy serves the app under a path, e.g. `/learn`. |
-| `SKRONGLE_MIN_AGE` | `14` | The minimum age the registration checkbox states. The owner's own account is not asked. |
+| `SKRONGLE_MIN_AGE` | `14` | The minimum age the registration checkbox states. The box is there only while new accounts start with a permission (Teacher, or a saved preset with one); as Student, and for the owner's own account, nobody is asked. See [Age at sign-up](#age-at-sign-up). |
 | `SKRONGLE_FAILED_COURSE_RETENTION_DAYS` | `30` | An AI course whose generation failed is deleted, with the notes it was given, after this many days without a resume or edit. `0` keeps them. |
 | `SKRONGLE_RETAIN_HISTORY_DAYS` | `730` | Answers and finished game rounds older than this many days are deleted, at start and hourly. `0` keeps them. |
 | `SKRONGLE_KEEP_NOTES` | off | `1` or `true` keeps an AI course's notes after it is ready, so a later revision sees the original material. Off, they are removed once it is ready. |
@@ -394,6 +394,22 @@ to `invite`:
 
 The same page lists the open invitations and the accounts (e-mail address,
 when it was made, last sign-in; 25 to a page).
+
+### Age at sign-up
+
+While **Manage Users → Accounts → New accounts start as** is **Student**
+(the default), Skrongle does not ask a person's age: the register form has
+no "I am at least 14 years old" box, and nothing about age is stored on the
+account. You are the one who knows who you invited. Whether inviting
+children needs a parent's consent where you live is your question to
+answer, not the app's.
+
+Set it to **Teacher**, or to a saved preset with any permission in it, and
+the form asks again: the box is required, it names `SKRONGLE_MIN_AGE`, and
+the account records the yes. Your own first account is never asked, and an
+account's later permissions change nothing: the box exists only at sign-up.
+An account a [signing-in proxy](#signing-in-at-the-proxy) makes is not
+asked either; the proxy decides who gets in.
 
 A Skrongle mini holds at most **50 accounts**: a class, or a household with
 room to spare. This is a fixed number, not a setting, in every sign-up mode. Past

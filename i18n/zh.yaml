@@ -371,6 +371,7 @@ manage:
   default_preset: "新账户的初始角色为"
   default_preset_done: "新账户现在的初始角色为 {name}。"
   default_preset_superuser: "新账户不能以超级用户身份开始。"
+  default_preset_age: "只有当新账户开始时带有权限，注册才会询问年龄。以学生身份开始时，不询问任何人。"
   permissions_owner: "无法更改所有者的权限：所有者可以做任何事。"
   permissions_self: "你不能更改自己的权限。"
   bulk_select: "选择 {email}"

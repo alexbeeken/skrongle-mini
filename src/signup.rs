@@ -343,8 +343,18 @@ pub fn min_age() -> u32 {
     MIN_AGE.get().copied().unwrap_or(DEFAULT_MIN_AGE)
 }
 
-/// The "I am at least N" confirmation at sign-up. Registration requires the
-/// box, so the gate is always on; N is `SKRONGLE_MIN_AGE` (`min_age`).
+/// Does the sign-up form ask a new account its age (#206)? Only when the
+/// preset new accounts start as (`perms::default_for_new`) grants at least
+/// one permission. A Student (nothing but learning) is not asked: the owner
+/// knows who they invited. The owner's own account is never asked (#126);
+/// the caller leaves that one out. `/register` reads this for the form and
+/// again in the transaction that makes the account, so the two agree.
+pub fn asks_age(conn: &Connection) -> rusqlite::Result<bool> {
+    Ok(crate::perms::default_for_new(conn)?.1.bits() != 0)
+}
+
+/// The "I am at least N" confirmation at sign-up, where the form asks it
+/// (`asks_age`); N is `SKRONGLE_MIN_AGE` (`min_age`).
 /// `check` refuses a sign-up without the box, and `record_age_confirmed`
 /// stores it on the new account.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -588,6 +598,27 @@ mod tests {
             assert!(!read());
             record_age_confirmed(c, id, true)?;
             assert!(read());
+            Ok(())
+        })
+        .unwrap();
+    }
+
+    /// The age is asked only when new accounts start with a permission
+    /// (#206): not as Student, as Teacher, and as a saved preset with one
+    /// permission in it.
+    #[test]
+    fn the_age_is_asked_only_when_new_accounts_start_with_a_permission() {
+        use crate::perms::{Perm, Perms};
+        let db = Db::open_in_memory().unwrap();
+        db.with(|c| {
+            assert!(!asks_age(c)?, "Student, the default");
+            crate::settings::set_default_preset(c, crate::perms::TEACHER_PRESET)?;
+            assert!(asks_age(c)?, "Teacher");
+            let skip = crate::perms::save_preset(c, "Skippers", Perms::STUDENT.with(Perm::SkipLevels, true))?.unwrap();
+            crate::settings::set_default_preset(c, skip)?;
+            assert!(asks_age(c)?, "a saved preset with one permission");
+            crate::settings::set_default_preset(c, crate::perms::STUDENT_PRESET)?;
+            assert!(!asks_age(c)?, "Student again");
             Ok(())
         })
         .unwrap();

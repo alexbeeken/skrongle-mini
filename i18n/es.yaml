@@ -721,6 +721,7 @@ manage:
   default_preset: "Las cuentas nuevas empiezan como"
   default_preset_done: "Las cuentas nuevas ahora empiezan como {name}."
   default_preset_superuser: "Las cuentas nuevas no pueden empezar como superusuarios."
+  default_preset_age: "El registro solo pregunta la edad cuando las cuentas nuevas empiezan con algún permiso. Como Estudiante, no se pregunta a nadie."
   permissions_owner: "Los permisos de un propietario no se pueden cambiar: los propietarios pueden hacerlo todo."
   permissions_self: "No puedes cambiar tus propios permisos."
   bulk_select: "Seleccionar {email}"
