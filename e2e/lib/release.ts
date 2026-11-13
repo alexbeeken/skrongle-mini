@@ -98,7 +98,8 @@ export function saveOwner(account: Account): void {
 export async function registerHere(page: Page, account: Account): Promise<void> {
   await page.getByTestId("register-email").fill(account.email);
   await page.getByTestId("register-password").fill(account.password);
-  // The owner's form has no age box (#126); everyone else's has.
+  // The owner's form has no age box (#126), nor has anyone's while new
+  // accounts start as Student, a release server's default (#206).
   const age = page.getByTestId("register-age");
   if (await age.count()) await age.check();
   await page.getByTestId("register-submit").click();

@@ -1854,17 +1854,35 @@ two or more keys are saved, and "Your messages are sent to Claude
 
 ## Age confirmation
 
-Registration has one required box, "I am at least [age] years old" (`age`;
+Registration asks "I am at least [age] years old" (`age`;
 `SKRONGLE_MIN_AGE`, default 14; `templates/age_check.html`, the sentence with
-a rounded check box on its right in the AI pill's style). The server refuses
-the form without it. The answer is stored as `users.age_confirmed` (a
-boolean, never a birth date).
+a rounded check box on its right in the AI pill's style) only while **New
+accounts start as** gives a permission (#206, `signup::asks_age`): Teacher,
+or a saved preset with at least one permission. Then the box is required,
+the server refuses the form without it, and the answer is stored as
+`users.age_confirmed` (a boolean, never a birth date).
 
-The first account on a server, the owner's, is not asked: the form that
+While new accounts start as **Student** (the default), nobody is asked: the
+form has no box, the server does not look for the field (a ticked one sent
+anyway is ignored), and the account's `age_confirmed` stays 0. Skrongle no
+longer asks a person's age then; the owner is the one who knows who they
+invited, and whether inviting children needs a parent's consent where they
+live is the owner's question, not the app's. Manage Users says so under
+the setting (`manage-default-age-note`).
+
+`/register` reads the setting when it draws the form and again in the
+transaction that makes the account (the same one `auth::create_user` reads
+the preset in): if the owner turned the box on in between and it was not
+ticked, nothing is made and the form comes back with the box. Invitation
+links are `/register` and follow the same rule. An account a signing-in
+proxy makes (`proxy_auth.rs`) is never asked, whatever the preset: there
+is no form, the proxy vouches for the person, and `age_confirmed` stays 0.
+
+The first account on a server, the owner's, is not asked either: the form that
 says the account is the owner's (`register-owner-note`; through the owner link
 under `SKRONGLE_SIGNUP=invite` or `closed`, or on an empty server under
-`open`) has no box, the server does not look for the field, and that
-account's `age_confirmed` stays 0. Every later account is asked.
+`open`) has no box, and that account's `age_confirmed` stays 0. An account's
+later permissions change nothing: the box exists only at sign-up.
 
 ## Registration
 

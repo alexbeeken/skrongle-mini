@@ -4,7 +4,7 @@
 // greyed out while that one is off. The server stores the set. An account
 // given Superuser gets Manage Users in its menu and, there, the accounts
 // only.
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 import { devLogin } from "../lib/app";
 import { newAccount, signUp } from "../lib/learner";
 
@@ -324,6 +324,49 @@ test("the owner chooses the preset new accounts start as", async ({ page, browse
     const preset = (email: string) => page.getByTestId("manage-account-row").filter({ hasText: email }).getByTestId("manage-account-preset");
     await expect(preset(teacher)).toHaveText("Teacher");
     await expect(preset(student)).toHaveText("Student");
+  } finally {
+    await chooseDefault("Teacher");
+  }
+});
+
+// The age box follows the preset new accounts start as (#206): as Student
+// the sign-up form does not ask a person's age; as Teacher it asks, and the
+// box is required. The spec puts the dev server's Teacher back.
+test("sign-up asks a person's age only when new accounts start with a permission", async ({ page, browser }) => {
+  await devLogin(page);
+  const chooseDefault = async (label: string) => {
+    await page.goto("/manage");
+    await page.getByTestId("manage-default-preset").selectOption({ label });
+    await page.getByTestId("manage-default-save").click();
+    await expect(page.getByTestId("manage-notice")).toContainText(`New accounts now start as ${label}.`);
+  };
+  // A fresh visitor's /register, filled in; `check` sees the form first.
+  const register = async (prefix: string, check: (p: Page) => Promise<void>) => {
+    const context = await browser.newContext();
+    const p = await context.newPage();
+    const a = newAccount(prefix);
+    await p.goto("/register");
+    await p.getByTestId("register-email").fill(a.email);
+    await p.getByTestId("register-password").fill(a.password);
+    await check(p);
+    await p.getByTestId("register-submit").click();
+    await expect(p.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", a.email);
+    await context.close();
+  };
+  try {
+    await chooseDefault("Student");
+    await expect(page.getByTestId("manage-default-age-note")).toContainText("As Student, nobody is asked.");
+    await register("age-s", async (p) => {
+      await expect(p.getByTestId("register-submit")).toBeVisible();
+      await expect(p.getByTestId("register-age")).toHaveCount(0);
+    });
+
+    await chooseDefault("Teacher");
+    await register("age-t", async (p) => {
+      await expect(p.getByTestId("register-age-row")).toContainText("I am at least 14 years old");
+      await expect(p.getByTestId("register-age")).toHaveAttribute("required", "");
+      await p.getByTestId("register-age").check();
+    });
   } finally {
     await chooseDefault("Teacher");
   }
