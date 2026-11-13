@@ -47,6 +47,7 @@ the Map and "current unit" all follow this structure.
     { "id": "A1", "title": "A1", "description": "Beginner" },
     { "id": "A2", "title": "A2", "description": "Elementary" }
   ],
+  "order": 1,                      // optional, built-in courses only: lowest comes first among the ready-made courses (see below)
   "levels": true,                  // optional: the units are levels a learner may start at (see "Starting level")
   "language_features": true,       // optional: the language features on or off (see below); unset = on when terms.lang differs from meanings.lang
   "music": { "note_names": "letters" },   // optional, a music course: how notes are named on screen (see "Music questions")
@@ -67,6 +68,13 @@ the Map and "current unit" all follow this structure.
   }
 }
 ```
+
+`order` means something only for a built-in course (a folder under
+`data/courses/`): it places the course among the ready-made courses on
+**Courses** and in the landing page's list, lowest first. Built-in courses
+without it come after those with one, in folder-name order. *How to Use
+Skrongle* has `0`, so it comes first. A whole number only; any other value
+is ignored. In a course made in the app the field is kept but does nothing.
 
 `levels` says the units are levels of the subject (CEFR A1, A2…;
 Beginner, Intermediate…) rather than chapters that build on each other.

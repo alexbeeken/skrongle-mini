@@ -4,6 +4,13 @@ What changed in each release, for the person running the server. Newest
 first. Each release's GitHub notes are its section here. How version
 numbers work is in the README, "Versions".
 
+## Unreleased
+
+- *How to Use Skrongle* is now the first of the ready-made courses on
+  **Courses** and on the front page, instead of sitting between French and
+  Spanish. A built-in course's `course.json` may say where it goes with
+  `"order"` (lowest first); the others keep their folder order after it.
+
 ## 0.4.0 (2026-11-12)
 
 Permissions that count, a Student default for new accounts, and a way for an
