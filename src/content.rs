@@ -250,6 +250,17 @@ pub struct Manifest {
     /// A music course: how notes are named on screen (`notation::Music`).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub music: Option<crate::notation::Music>,
+    /// Where a built-in course comes among the ready-made ones: lowest
+    /// first, courses without it after them in folder order (#207).
+    /// Nothing for a person's own course. Anything but a whole number is
+    /// ignored, so a course that had some other "order" still loads.
+    #[serde(default, deserialize_with = "lenient_order", skip_serializing_if = "Option::is_none")]
+    pub order: Option<i64>,
+}
+
+/// `Manifest::order`: a whole number, else nothing.
+fn lenient_order<'de, D: serde::Deserializer<'de>>(d: D) -> Result<Option<i64>, D::Error> {
+    Ok(serde_json::Value::deserialize(d)?.as_i64())
 }
 
 impl Manifest {

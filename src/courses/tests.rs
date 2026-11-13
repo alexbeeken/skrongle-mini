@@ -699,3 +699,48 @@ fn check_here(c: &Connection, registry: &Courses, id: &str) -> rusqlite::Result<
     let files = load_files(c, id)?;
     record(c, registry, id, &version_of(&files), check(id, &files))
 }
+
+/// #207: How to Use Skrongle is the first ready-made course; the others
+/// keep their folder order after it.
+#[test]
+fn the_tutorial_is_the_first_builtin_course() {
+    let registry = Courses::load_builtin(Path::new("data")).unwrap();
+    let ids: Vec<&str> = registry.builtin().iter().map(|c| c.id()).collect();
+    assert_eq!(ids.first(), Some(&"how-to-use-skrongle"), "{ids:?}");
+    let rest = ids[1..].to_vec();
+    let mut sorted = rest.clone();
+    sorted.sort();
+    assert_eq!(rest, sorted, "the courses without an order stay in folder order");
+    let with_test = Courses::load(Path::new("data"), true).unwrap();
+    let all: Vec<&str> = with_test.builtin().iter().map(|c| c.id()).collect();
+    assert_eq!(all[..ids.len()], ids[..], "test courses still come after the real ones");
+}
+
+/// #207: an `order` puts a course first, lowest first; the courses without
+/// one keep the order they came in; a value that is not a whole number is
+/// ignored, as an unknown field was before.
+#[test]
+fn builtin_order_by_the_manifest_field() {
+    let course = |id: &str, order: serde_json::Value| {
+        let mut m = serde_json::json!({ "id": id, "title": id.to_uppercase(), "units": [{ "id": "u", "title": "U" }] });
+        if !order.is_null() {
+            m["order"] = order;
+        }
+        let manifest: Manifest = serde_json::from_value(m).expect("the manifest parses");
+        BuiltinCourse { manifest, totals: (0, 0, 0), levels: Vec::new(), placement: false }
+    };
+    let mut courses = vec![
+        course("alpha", serde_json::Value::Null),
+        course("zulu", serde_json::Value::Null),
+        course("mike", 5.into()),
+        course("bravo", "first".into()),
+        course("tango", (-1).into()),
+        course("echo", 2.5.into()),
+    ];
+    sort_builtin(&mut courses);
+    let ids: Vec<&str> = courses.iter().map(|c| c.id()).collect();
+    assert_eq!(ids, ["tango", "mike", "alpha", "zulu", "bravo", "echo"]);
+    assert_eq!(courses[4].manifest().order, None, "a string is ignored");
+    let back = serde_json::to_value(courses[2].manifest()).unwrap();
+    assert!(back.get("order").is_none(), "no order is written back for a course without one");
+}

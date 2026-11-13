@@ -33,6 +33,7 @@
           }
         },
         "levels": { "type": "boolean", "description": "True when the units are levels (A1, A2…): a learner opening the course picks the one to start at, and the lessons below it are skipped (not passed). Default false: no picker." },
+        "order": { "type": "integer", "description": "Built-in courses only: where the course comes among the ready-made ones, lowest first; courses without it come after, in folder order. Means nothing for a course someone made in the app. Anything but a whole number is ignored." },
         "language_features": { "type": "boolean", "description": "Language features on or off: Listening, Sprint's listening exercises and sentence builds, read-aloud, Numbers by ear, and the translation fields in the lesson editor. Unset: on when terms.lang differs from meanings.lang. The editor's gear sets it." },
         "groups": {
           "type": "array",
