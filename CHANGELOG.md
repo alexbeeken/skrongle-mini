@@ -14,8 +14,6 @@ numbers work is in the README, "Versions".
   required as before, with `SKRONGLE_MIN_AGE`'s number. You are the one who
   knows who you invited; see "Age at sign-up" in the self-hosting guide.
 
-## Unreleased
-
 - *How to Use Skrongle* is now the first of the ready-made courses on
   **Courses** and on the front page, instead of sitting between French and
   Spanish. A built-in course's `course.json` may say where it goes with
