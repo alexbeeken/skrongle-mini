@@ -4,6 +4,7 @@
   "subject": "Using Skrongle",
   "description": "The tutorial for the app itself. Learn the ways to study, how to make and share your own course, how AI helps, and how to look after your account.",
   "icon": "🧭",
+  "order": 0,
   "terms": {
     "label": "Term",
     "lang": "en"

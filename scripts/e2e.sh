@@ -57,11 +57,12 @@ for _ in $(seq 1 100); do curl -fsS "$URL/healthz" >/dev/null 2>&1 && break; sle
 curl -fsS "$URL/healthz" >/dev/null || { echo "server did not start:"; cat "$LOG"; exit 1; }
 
 echo "==> e2e against $URL, seed $SEED"
-# The dev specs only: the release projects need a release server
-# (scripts/release-e2e.sh), and with no --project Playwright runs them all (#189).
+# The dev specs only (the exact and smoke projects): the release projects need
+# a release server (scripts/release-e2e.sh), and with no --project Playwright
+# runs them all (#189). CI runs one project per job (`--project exact`, #203).
 # Last: --project takes every word after it, so spec paths after it would be
 # read as project names.
-PROJECT=(--project chromium)
+PROJECT=(--project exact --project smoke)
 for a in "$@"; do case "$a" in --project | --project=*) PROJECT=() ;; esac; done
 STATUS=0
 (cd e2e && E2E_BASE_URL="$URL" E2E_SEED="$SEED" npx playwright test "$@" ${PROJECT[@]+"${PROJECT[@]}"}) || STATUS=$?
