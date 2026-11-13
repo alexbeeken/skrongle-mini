@@ -818,12 +818,18 @@ nothing from there is in the app binary or the Pi deploy. The first run
 installs `e2e/node_modules` and Chromium (network once); after that it runs
 offline. `npm --prefix e2e run typecheck` checks the TypeScript.
 
-CI does not run every spec here: the exact-spec job runs the files listed in
-`.github/workflows/smoke.yml` (`e2e-exact`), plus `specs/smoke`. A spec missing
-from that list is only ever run locally, so "it passes in CI" says nothing
-about it; check the list before comparing a local failure with CI (#189).
-`scripts/e2e.sh` runs the `chromium` project only (the dev specs); the
-release projects need a release server ([Release specs](#release-specs)).
+The dev specs are two Playwright projects, and CI runs both on every PR
+(#203): `exact` is every spec file in `e2e/specs/` outside `smoke/` and
+`release/`, `smoke` is `specs/smoke` ([Smoke specs](#smoke-specs)). A new
+spec file lands in one of them by the folder it is in; there is no list to
+add it to. `e2e/lib/suites.test.ts` (in `npm --prefix e2e run unit`, which CI
+runs before the browser tests of exact shard 3) asks Playwright for each
+project's files and fails when a spec file on disk is in neither project (a
+file with no test, or a `testIgnore` that drops it) or in both, or when the
+workflow stops running one of them. `scripts/e2e.sh` runs both projects
+(`--project exact --project smoke`), so a path like `specs/smoke` picks its
+files from them; pass `--project exact` to run one suite. The release
+projects need a release server ([Release specs](#release-specs)).
 
 A spec can pass alone and fail in the whole suite: the specs share one
 server and one dev user, and `SKRONGLE_RNG_SEED` makes the n-th draw of the
@@ -1014,8 +1020,8 @@ from the dev authenticator. `grep -r "/dev/" e2e/specs/release` finds nothing.
 
 The `release` project's `testMatch` is every spec in `specs/release` except
 first-run; the `release-open` project reaches into `e2e/specs/` for the specs
-audited below, so `testDir` for it is `./specs`, not `./specs/release`. The default
-`chromium` project ignores `specs/release`, so `scripts/e2e.sh` does not run these.
+audited below, so `testDir` for it is `./specs`, not `./specs/release`. The dev
+projects (`exact`, `smoke`) ignore `specs/release`, so `scripts/e2e.sh` does not run these.
 
 **Audit of the specs that never touch `/dev`.** Run one by one against a release
 build with `SKRONGLE_SIGNUP=open`, each on a fresh server:
@@ -1032,7 +1038,7 @@ build with `SKRONGLE_SIGNUP=open`, each on a fresh server:
 Only specs that fitted together under 8 accounts, the limit when this was written (50 since #133), are in `release-open` (`landing-try`,
 `mistakes`, `profile-nav`, `smoke/motivator`, `smoke/sprint-check-error`,
 `smoke/sprint-sort`); the other clean ones need a server of their own (run them
-by file with `--project chromium` and `E2E_BASE_URL` at a fresh open-signup release server). A
+by file with `--project exact` or `--project smoke` and `E2E_BASE_URL` at a fresh open-signup release server). A
 server over `SKRONGLE_SIGNUP=invite` refuses `signUp`, so none of these run in `release`.
 
 ## Smoke specs
@@ -1168,22 +1174,26 @@ CI runs on GitHub-hosted `ubuntu-latest` runners. The `release` and
 `release-qa` workflows' jobs (`build`, `qa`, `release`) run on GitHub-hosted
 runners too, never the laptop's: the QEMU handlers for 32-bit ARM that a
 laptop's Docker VM may lack are installed in the job. A PR's `checks` workflow
-(`.github/workflows/smoke.yml`) is eight jobs: `cargo test` (which checks
+(`.github/workflows/smoke.yml`) is nine jobs: `cargo test` (which checks
 that a build without the `dev` feature compiles, `cargo check
 --no-default-features`, lints with `cargo clippy --features dev --all-targets
 -- -D warnings` (lint levels are in `Cargo.toml` under `[lints.clippy]`; a
 warning fails the job), runs `cargo test --features dev` and then
-`scripts/smoke.sh`), three exact-spec shards and four smoke-spec shards.
+`scripts/smoke.sh`), four exact-spec shards and four smoke-spec shards.
 
 - **Shards**: the e2e specs run one at a time (they share the dev user), so
   each suite is split with Playwright's `--shard`, one job per shard with
   its own server (`.github/actions/e2e`). Playwright splits by spec file,
   so a file always runs whole, and files are dealt out in name order by test
   count, not time: after adding a long spec file, check the split with
-  `npx playwright test specs/smoke --list --shard 1/4` (in `e2e/`). The
-  specs' type check and unit tests run once, in exact shard 3. A failed
-  shard keeps its report as `playwright-report-<suite>-<n>`. To rerun one
-  shard locally: `scripts/e2e.sh specs/smoke --shard 2/3`. In CI a shard's
+  `E2E_BASE_URL=http://127.0.0.1:9 npx playwright test --project smoke --list --shard 1/4`
+  (in `e2e/`; `--list` never opens the address). The 18 files added to the
+  exact suite in #203 made it about 10 minutes of tests in one run, so it went
+  from three shards to four: 2.2 to 2.9 minutes of tests each on a Mac, about
+  what three shards were before. The specs' type check and unit tests run
+  once, in exact shard 3, the shortest. A failed shard keeps its report as
+  `playwright-report-<suite>-<n>`. To rerun one shard locally:
+  `scripts/e2e.sh --project exact --shard 2/4`. In CI a shard's
   database is in RAM (`E2E_DB=/dev/shm/e2e.db`).
 - **Gate jobs**: `e2e exact specs`, `e2e smoke specs` and `server smoke test
   (scripts/smoke.sh)` pass only when every shard (or smoke.sh) passed. They

@@ -47,8 +47,14 @@ export default defineConfig({
     screenshot: "only-on-failure",
   },
   projects: [
-    // The dev specs. The release specs need a server of their own (invite-only, an owner link), so scripts/e2e.sh does not run them.
-    { name: "chromium", testIgnore: "**/release/**", use: { browserName: "chromium" } },
+    // The dev specs, as two suites that CI runs in shards (#203): `exact` is
+    // every spec outside specs/smoke and specs/release, `smoke` is
+    // specs/smoke. scripts/e2e.sh runs both. A new spec file lands in one of
+    // them by where it is; lib/suites.test.ts fails if one is in neither.
+    // The release specs need a server of their own (invite-only, an owner
+    // link), so scripts/e2e.sh does not run them.
+    { name: "exact", testIgnore: ["**/release/**", "**/smoke/**"], use: { browserName: "chromium" } },
+    { name: "smoke", testDir: "./specs/smoke", use: { browserName: "chromium" } },
     // Release QA (#40): what a self-hoster has, against whatever E2E_BASE_URL points at.
     // `npx playwright test --project release`; scripts/release-e2e.sh starts a server for it.
     // The first-run spec makes the owner through the owner link, so it runs before the rest.
