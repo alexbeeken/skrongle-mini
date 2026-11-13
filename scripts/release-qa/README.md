@@ -186,12 +186,13 @@ The containers above do not run systemd. `vm.sh` does, in a Lima VM (Debian 12,
 runs the commands of `docs/self-hosting.md` in it: Install (the doc's code
 block, read from the file), `update.sh` (a candidate served from this machine
 through `SKRONGLE_RELEASE_BASE`, so the download and the SHA-256 check are the
-real ones), going back to the published release, `uninstall.sh` plain and with
+real ones), going back to the published release, then `upgrade-check.sh` on
+every fixture inside the guest, `uninstall.sh` plain and with
 `--purge`. `docs/testing.md`, "Release QA", "VMs" has the commands and what
 each checks.
 
 ```sh
-scripts/build-pi.sh aarch64 && scripts/package-release.sh 0.3.0-qa aarch64   # the candidate, in dist/
+scripts/build-pi.sh aarch64 && scripts/package-release.sh 0.4.1-qa aarch64   # the candidate, in dist/
 scripts/release-qa/vm.sh aarch64 up
 scripts/release-qa/vm.sh aarch64 install
 scripts/release-qa/vm.sh aarch64 update

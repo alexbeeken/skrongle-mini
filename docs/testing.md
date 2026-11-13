@@ -605,12 +605,21 @@ GitHub), checking the unit, `/healthz` and the owner's sign-in after each
 step. Updates make no copy of the database: going back to an older release
 takes the schema back with `skrongle migrate` first, which only releases that
 have it can do. When the candidate's schema is newer than the published
-release's (the candidate at v8, 0.3.0 at v5), `update` checks that
+release's (a candidate at v9 with `PUBLISHED=0.3.0`, which is at v5;
+0.4.0, the latest, is at v9 too, so without it there is no schema to cross), `update` checks that
 `update.sh` printed "taking the database back to schema v5" and the
 `migrate` line, that `skrongle doctor` then reads the database at v5, that
 no root-owned file is left in the state folder (the migrate step runs as
 root) and that the journal has no exit 78 (`BACK_TO=<version>` adds a step
-further back; with releases from before #165 that step is expected to fail). `uninstall` checks what stays
+further back; with releases from before #165 that step is expected to fail).
+It also checks that the update left no `learn.db.before-<version>` copy
+(updates made one before #165; going back is `skrongle migrate` now). Last,
+`update` copies the candidate tarball, `upgrade-check.sh` and the fixtures into
+the guest and runs the upgrade check there as the guest's own user, so the
+same up, refuse and back-down checks as the matrix run on the VM's Debian and
+kernel, for an architecture the matrix may not reach the same way (x86_64
+under QEMU). Its log is `results/release-qa/<version>/<arch>-vm.upgrade.log`;
+`UPGRADE_CHECK=0` leaves it out. `uninstall` checks what stays
 (the database, `/etc/skrongle`), that a reinstall brings the owner back, and
 that `--purge` leaves nothing.
 

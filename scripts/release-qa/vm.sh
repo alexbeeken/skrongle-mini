@@ -20,7 +20,10 @@
 #              the schema back with the installed binary's `skrongle migrate` when
 #              the published release's is older: checked, with the database's
 #              schema after each step); the server must start and the owner must
-#              still sign in at each step
+#              still sign in at each step. Last, upgrade-check.sh runs in the
+#              guest on the candidate tarball and every fixture (#43), its log
+#              in results/release-qa/<version>/<arch>-vm.upgrade.log
+#              (UPGRADE_CHECK=0 leaves it out)
 #   e2e        the Playwright projects `release-first-run` and `release` from this
 #              machine against the guest's forwarded port (a fresh database first)
 #   measure    results/release-qa/<version>/<arch>-vm.txt: the service's memory,
@@ -251,6 +254,9 @@ case "$CMD" in
     case "$out" in *"Skrongle $CAND is running"*status=0*) ok "update.sh: Skrongle $CAND is running" ;; *) fail "update.sh did not end well" ;; esac
     case "$out" in *"downloading skrongle-$CAND-$ARCH.tar.gz"*) ok "it downloaded from $BASE, not GitHub" ;; *) fail "no download line" ;; esac
     check "the previous binary is kept as skrongle.previous" '[ -x /opt/skrongle/skrongle.previous ]'
+    # Since #165 an update copies no database (docs/self-hosting.md "Updating");
+    # going back is `skrongle migrate`, checked below, not a learn.db.before-<version>.
+    check "update.sh made no copy of the database (no learn.db.before-*)" '! ls /var/lib/private/skrongle | grep -q "^learn.db.before"'
     post_install_checks "$CAND"
     signs_in "updated to $CAND"
     schema_cand=$(gout '/opt/skrongle/skrongle --schema-version')
@@ -286,6 +292,25 @@ case "$CMD" in
       case "$out" in *"Skrongle $BACK_TO is running"*status=0*) ok "update.sh $BACK_TO: Skrongle $BACK_TO is running" ;; *) fail "going back to $BACK_TO did not end well" ;; esac
       post_install_checks "$BACK_TO"
       signs_in "back on $BACK_TO"
+    fi
+    if [ "${UPGRADE_CHECK:-1}" != 0 ]; then
+      # The same upgrade check matrix.sh runs in a container, here on the VM's
+      # own Debian and kernel: the candidate on every fixture, up, the older
+      # release refusing it, and back down (it downloads the older releases).
+      # As the guest's user, not root, on a copy of the tarball and fixtures.
+      echo "==> upgrade-check.sh in the guest ($CAND on every fixture)"
+      gout 'rm -rf /tmp/qa-up && mkdir -p /tmp/qa-up/fixtures && chmod -R 777 /tmp/qa-up' >/dev/null
+      limactl copy "$TAR" "$HERE/upgrade-check.sh" "$NAME:/tmp/qa-up/" >/dev/null
+      limactl copy "$HERE"/fixtures/learn-* "$NAME:/tmp/qa-up/fixtures/" >/dev/null
+      ulog="$ROOT/results/release-qa/$CAND/$ARCH-vm.upgrade.log"
+      mkdir -p "$(dirname "$ulog")"
+      if limactl shell --workdir /tmp/qa-up "$NAME" sh ./upgrade-check.sh "./$(basename "$TAR")" > "$ulog" 2>&1; then
+        ok "upgrade-check.sh in the guest: $(tail -1 "$ulog")"
+      else
+        fail "upgrade-check.sh in the guest: $(tail -1 "$ulog") ($ulog)"
+        grep 'FAIL' "$ulog" | head -8 | sed 's/^/    | /'
+      fi
+      echo "    ($(grep -c '^  ok' "$ulog") ok, $(grep -c '^  FAIL' "$ulog") FAIL, $(grep -c '^  note' "$ulog") note; $(grep -c 'back to v' "$ulog") 'back to vN' lines)"
     fi
     finish
     ;;
