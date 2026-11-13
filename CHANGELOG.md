@@ -4,7 +4,22 @@ What changed in each release, for the person running the server. Newest
 first. Each release's GitHub notes are its section here. How version
 numbers work is in the README, "Versions".
 
-## Unreleased
+## 0.4.0 (2026-11-12)
+
+Permissions that count, a Student default for new accounts, and a way for an
+AI assistant to make courses for you.
+
+**This release changes the database** (schema v5 to v9) on its first start.
+No copy is made any more. Going back works with `update.sh 0.3.0`, which
+takes the database back first; what only this version stored (connected
+apps and their tokens) is dropped on the way.
+
+**New accounts now start as a Student.** If the people you invite should
+make courses, set *Manage Users → Accounts → New accounts start as* to
+Teacher after updating. Existing accounts keep what they have.
+
+**Nothing connects to your server unless you turn it on.** *Let apps
+connect* on Manage Users is off after the update.
 
 - Other pages stay responsive while a big course is saved, in the course
   editor or by an AI job: the course is checked while the database is free,
@@ -29,7 +44,6 @@ numbers work is in the README, "Versions".
   New accounts start as* (any preset; existing accounts keep theirs, and the
   first account of a server is still the owner with everything). If you
   relied on invited people making courses, choose Teacher there.
-
 - The **Create courses** permission now counts: an account without it (a
   Student, for example) has no *Create a course*, *Copy* or *Copy and
   translate* on its course list, and those actions are refused. It still
