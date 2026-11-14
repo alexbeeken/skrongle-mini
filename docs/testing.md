@@ -604,8 +604,22 @@ place first. Then it goes back with `update.sh <published version>` (from
 GitHub), checking the unit, `/healthz` and the owner's sign-in after each
 step. Updates make no copy of the database: going back to an older release
 takes the schema back with `skrongle migrate` first, which only releases that
-have it can do (`BACK_TO=<version>` adds a step further back; with releases
-from before #165 that step is expected to fail). `uninstall` checks what stays
+have it can do. When the candidate's schema is newer than the published
+release's (a candidate at v9 with `PUBLISHED=0.3.0`, which is at v5;
+0.4.0, the latest, is at v9 too, so without it there is no schema to cross), `update` checks that
+`update.sh` printed "taking the database back to schema v5" and the
+`migrate` line, that `skrongle doctor` then reads the database at v5, that
+no root-owned file is left in the state folder (the migrate step runs as
+root) and that the journal has no exit 78 (`BACK_TO=<version>` adds a step
+further back; with releases from before #165 that step is expected to fail).
+It also checks that the update left no `learn.db.before-<version>` copy
+(updates made one before #165; going back is `skrongle migrate` now). Last,
+`update` copies the candidate tarball, `upgrade-check.sh` and the fixtures into
+the guest and runs the upgrade check there as the guest's own user, so the
+same up, refuse and back-down checks as the matrix run on the VM's Debian and
+kernel, for an architecture the matrix may not reach the same way (x86_64
+under QEMU). Its log is `results/release-qa/<version>/<arch>-vm.upgrade.log`;
+`UPGRADE_CHECK=0` leaves it out. `uninstall` checks what stays
 (the database, `/etc/skrongle`), that a reinstall brings the owner back, and
 that `--purge` leaves nothing.
 
@@ -1151,7 +1165,13 @@ Before the tag, on the commit you will tag:
    #43): the tarball is started on the database every older release wrote
    (`scripts/release-qa/fixtures/`), and each older release's own binary
    must refuse the database the new one migrated, exit 78, file unchanged.
-   `SKIP_UPGRADE=1` leaves it out; `upgrade-check.sh <tarball>` runs it alone
+   Then it goes back the documented way: the new binary's `skrongle migrate
+   <the fixture's schema>` takes that database down again, and the older
+   release's binary must start on it, migrate nothing, sign in the owner and
+   the learner and show the progress the fixture recorded (the "back to vN"
+   lines; a step with no `.down.sql` fails the check). An older
+   tarball that is not beside the new one is downloaded from its GitHub
+   release, with two retries. `SKIP_UPGRADE=1` leaves it out; `upgrade-check.sh <tarball>` runs it alone
    on a Linux machine.
 4. After the release is published, add its fixture so the next release is
    checked against it: run `package-smoke.sh` on the published tarball with

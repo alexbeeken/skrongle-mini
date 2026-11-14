@@ -16,8 +16,14 @@
 #   update     start from nothing, install the newest published release, update to
 #              the candidate through update.sh's own download and checksum path
 #              (a bad checksum is refused first), then go back to the published
-#              release the documented way (`update.sh <version>`); the server must
-#              start and the owner must still sign in at each step
+#              release the documented way (`update.sh <version>`, which first takes
+#              the schema back with the installed binary's `skrongle migrate` when
+#              the published release's is older: checked, with the database's
+#              schema after each step); the server must start and the owner must
+#              still sign in at each step. Last, upgrade-check.sh runs in the
+#              guest on the candidate tarball and every fixture (#43), its log
+#              in results/release-qa/<version>/<arch>-vm.upgrade.log
+#              (UPGRADE_CHECK=0 leaves it out)
 #   e2e        the Playwright projects `release-first-run` and `release` from this
 #              machine against the guest's forwarded port (a fresh database first)
 #   measure    results/release-qa/<version>/<arch>-vm.txt: the service's memory,
@@ -176,6 +182,10 @@ post_install_checks() { # expected version, "fresh" on a database with no owner 
   check "/var/lib/skrongle leads to the state folder" '[ -d /var/lib/skrongle ] && [ -f /var/lib/skrongle/learn.db ]'
 }
 
+# The database's schema, as the installed binary's doctor reads it (through
+# the write-ahead log, which the file's own header may not show yet).
+DB_SCHEMA="/opt/skrongle/skrongle doctor --service | sed -n 's/^[[:space:]]*schema[:[:space:]]*v\([0-9][0-9]*\).*/\1/p' | head -1"
+
 signs_in() { # what
   if ensure_owner; then ok "$1: the owner signs in"; else fail "$1: the owner cannot sign in"; fi
 }
@@ -244,14 +254,33 @@ case "$CMD" in
     case "$out" in *"Skrongle $CAND is running"*status=0*) ok "update.sh: Skrongle $CAND is running" ;; *) fail "update.sh did not end well" ;; esac
     case "$out" in *"downloading skrongle-$CAND-$ARCH.tar.gz"*) ok "it downloaded from $BASE, not GitHub" ;; *) fail "no download line" ;; esac
     check "the previous binary is kept as skrongle.previous" '[ -x /opt/skrongle/skrongle.previous ]'
+    # Since #165 an update copies no database (docs/self-hosting.md "Updating");
+    # going back is `skrongle migrate`, checked below, not a learn.db.before-<version>.
+    check "update.sh made no copy of the database (no learn.db.before-*)" '! ls /var/lib/private/skrongle | grep -q "^learn.db.before"'
     post_install_checks "$CAND"
     signs_in "updated to $CAND"
     schema_cand=$(gout '/opt/skrongle/skrongle --schema-version')
     echo "    (schema $schema_pub -> $schema_cand)"
-    echo "==> going back: update.sh $PUB (GitHub; docs/self-hosting.md, Updating)"
+    db_schema=$(gout "$DB_SCHEMA")
+    if [ "$db_schema" = "$schema_cand" ]; then ok "the database is at schema v$db_schema"; else fail "the database is at schema v$db_schema, expected v$schema_cand"; fi
+    # Going back (docs/self-hosting.md "Updating"; docs/packaging.md "Upgrade"):
+    # `update.sh <older version>`. Across a schema change the installed
+    # binary first takes the database back (`skrongle migrate`), then the
+    # older release is put in place and started.
+    echo "==> going back: update.sh $PUB (GitHub; docs/self-hosting.md, Updating; schema v$schema_cand -> v$schema_pub)"
     out=$(gout "$force sh /opt/skrongle/update.sh $PUB; echo status=\$?") || true
     printf '%s\n' "$out" | sed 's/^/    | /' | grep -v '###\|%\|Ignoring unknown extended header' || true
     case "$out" in *"Skrongle $PUB is running"*status=0*) ok "update.sh $PUB: Skrongle $PUB is running" ;; *) fail "going back did not end well" ;; esac
+    if [ "$schema_pub" -lt "$schema_cand" ]; then
+      case "$out" in
+        *"taking the database back to schema v$schema_pub"*"schema v$schema_cand -> v$schema_pub"*) ok "update.sh took the database back first: skrongle migrate $schema_pub (v$schema_cand -> v$schema_pub)" ;;
+        *) fail "update.sh did not take the database back to v$schema_pub with skrongle migrate" ;;
+      esac
+    fi
+    db_schema=$(gout "$DB_SCHEMA")
+    if [ "$db_schema" = "$schema_pub" ]; then ok "the database is at schema v$db_schema, $PUB's"; else fail "the database is at schema v$db_schema, expected v$schema_pub"; fi
+    check "no root-owned file left beside the database" '! find /var/lib/private/skrongle -user root ! -path /var/lib/private/skrongle | grep -q .'
+    check "the journal has no refusal (exit 78) since going back" "! journalctl -u skrongle --no-pager --since '-2 min' | grep -q 'status=78'"
     post_install_checks "$PUB"
     signs_in "back on $PUB"
     if [ -n "${BACK_TO:-}" ]; then
@@ -263,6 +292,25 @@ case "$CMD" in
       case "$out" in *"Skrongle $BACK_TO is running"*status=0*) ok "update.sh $BACK_TO: Skrongle $BACK_TO is running" ;; *) fail "going back to $BACK_TO did not end well" ;; esac
       post_install_checks "$BACK_TO"
       signs_in "back on $BACK_TO"
+    fi
+    if [ "${UPGRADE_CHECK:-1}" != 0 ]; then
+      # The same upgrade check matrix.sh runs in a container, here on the VM's
+      # own Debian and kernel: the candidate on every fixture, up, the older
+      # release refusing it, and back down (it downloads the older releases).
+      # As the guest's user, not root, on a copy of the tarball and fixtures.
+      echo "==> upgrade-check.sh in the guest ($CAND on every fixture)"
+      gout 'rm -rf /tmp/qa-up && mkdir -p /tmp/qa-up/fixtures && chmod -R 777 /tmp/qa-up' >/dev/null
+      limactl copy "$TAR" "$HERE/upgrade-check.sh" "$NAME:/tmp/qa-up/" >/dev/null
+      limactl copy "$HERE"/fixtures/learn-* "$NAME:/tmp/qa-up/fixtures/" >/dev/null
+      ulog="$ROOT/results/release-qa/$CAND/$ARCH-vm.upgrade.log"
+      mkdir -p "$(dirname "$ulog")"
+      if limactl shell --workdir /tmp/qa-up "$NAME" sh ./upgrade-check.sh "./$(basename "$TAR")" > "$ulog" 2>&1; then
+        ok "upgrade-check.sh in the guest: $(tail -1 "$ulog")"
+      else
+        fail "upgrade-check.sh in the guest: $(tail -1 "$ulog") ($ulog)"
+        grep 'FAIL' "$ulog" | head -8 | sed 's/^/    | /'
+      fi
+      echo "    ($(grep -c '^  ok' "$ulog") ok, $(grep -c '^  FAIL' "$ulog") FAIL, $(grep -c '^  note' "$ulog") note; $(grep -c 'back to v' "$ulog") 'back to vN' lines)"
     fi
     finish
     ;;

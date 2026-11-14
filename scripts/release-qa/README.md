@@ -12,7 +12,7 @@ What is here:
 | File | What it is |
 |---|---|
 | `package-smoke.sh <tarball>` | Checks one tarball on the Linux machine it runs on: layout, checksum, the binary (version, `doctor`, what it links), then a first day over HTTP with curl: the owner link from the log, the owner, an invitation and a learner, the built-in course's pages, a copied course shared by link, a clean stop and a second start on the same database. POSIX sh + curl. No dev routes: it drives the binary self-hosters run. |
-| `upgrade-check.sh <tarball>` | The upgrade path (#43): the tarball started on the database each older release wrote (`fixtures/`), checking the migration ran, both accounts sign in, progress, the shared course and the unused invitation survived, a second start changes nothing, and the older release's binary refuses the migrated database (exit 78, file unchanged). `KEEP_DB=<path>.db` on `package-smoke.sh` writes a new fixture (`fixtures/README.md`). |
+| `upgrade-check.sh <tarball>` | The upgrade path (#43): the tarball started on the database each older release wrote (`fixtures/`), checking the migration ran, both accounts sign in, progress, the shared course and the unused invitation survived, a second start changes nothing, the older release's binary refuses the migrated database (exit 78, file unchanged), and going back works: the tarball's `skrongle migrate` takes it down to the fixture's schema and the older binary starts on it with both accounts and the progress. `KEEP_DB=<path>.db` on `package-smoke.sh` writes a new fixture (`fixtures/README.md`). |
 | `compose.yaml` | One service per architecture (`skrongle-aarch64` on port 8081, `skrongle-x86_64` on 8082; `skrongle-armv7l` on 8083 and `skrongle-armv6l` on 8084 behind the `arm32` profile until a release ships them, #21), plus `qa-<arch>` services that run `package-smoke.sh`, a `fetch` one-shot that downloads a release, and a `binfmt` one-shot for QEMU's handlers. |
 | `matrix.sh <version \| dir> [arch ...]` | Runs `qa-<arch>` (package-smoke.sh, then upgrade-check.sh; `SKIP_UPGRADE=1` leaves the second out) for each architecture and prints one table. Logs in `results/release-qa/<version>/`. |
 | `vm.sh <arch> <command>`, `lima/` | A full Debian 12 VM with systemd per architecture under Lima (#42): `up`, `install`, `update`, `e2e`, `measure`, `uninstall`, `down`, `shell`. See "VMs" below. |
@@ -186,12 +186,13 @@ The containers above do not run systemd. `vm.sh` does, in a Lima VM (Debian 12,
 runs the commands of `docs/self-hosting.md` in it: Install (the doc's code
 block, read from the file), `update.sh` (a candidate served from this machine
 through `SKRONGLE_RELEASE_BASE`, so the download and the SHA-256 check are the
-real ones), going back to the published release, `uninstall.sh` plain and with
+real ones), going back to the published release, then `upgrade-check.sh` on
+every fixture inside the guest, `uninstall.sh` plain and with
 `--purge`. `docs/testing.md`, "Release QA", "VMs" has the commands and what
 each checks.
 
 ```sh
-scripts/build-pi.sh aarch64 && scripts/package-release.sh 0.3.0-qa aarch64   # the candidate, in dist/
+scripts/build-pi.sh aarch64 && scripts/package-release.sh 0.4.1-qa aarch64   # the candidate, in dist/
 scripts/release-qa/vm.sh aarch64 up
 scripts/release-qa/vm.sh aarch64 install
 scripts/release-qa/vm.sh aarch64 update
