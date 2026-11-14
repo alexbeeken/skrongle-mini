@@ -373,6 +373,7 @@ manage:
   default_preset: "New accounts start as"
   default_preset_done: "New accounts now start as {name}."
   default_preset_superuser: "New accounts cannot start as superusers."
+  default_preset_age: "Sign-up asks a person's age only when new accounts start with a permission. As Student, nobody is asked."
   permissions_owner: "An owner's permissions cannot be changed: owners may do everything."
   permissions_self: "You cannot change your own permissions."
   bulk_select: "Select {email}"

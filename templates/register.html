@@ -16,7 +16,7 @@
       <input type="password" name="password" data-testid="register-password" maxlength="{{ crate::auth::PASSWORD_MAX }}" required minlength="8" autocomplete="new-password">
     </label>
     {#- The owner's own account is not asked (#126). -#}
-    {% if !owner_note %}{% let tid = "register" %}{% let inline = false %}{% include "age_check.html" %}{% endif %}
+    {% if ask_age %}{% let tid = "register" %}{% let inline = false %}{% include "age_check.html" %}{% endif %}
     <button type="submit" class="btn" data-testid="register-submit">{{ crate::t("auth.register.submit") }}</button>
   </form>
   {% let login_url = self.other_page_url("/login") %}

@@ -160,6 +160,9 @@ pub struct RegisterTemplate {
     pub invite: String,
     /// The server has no account yet and takes this one as its owner's.
     pub owner_note: bool,
+    /// The form has the age box: not the owner's account, and new accounts
+    /// start with a permission (`signup::asks_age`, #206).
+    pub ask_age: bool,
 }
 
 impl RegisterTemplate {
@@ -227,6 +230,8 @@ pub async fn register_form(State(state): State<Arc<AppState>>, MaybeUser(user): 
         Err(r) => return Ok(signup_refused(r, StatusCode::OK)),
     };
     let email = String::new();
+    let owner_note = matches!(admitted, Admit::Owner(_) | Admit::FirstOpen);
+    let ask_age = !owner_note && state.db.call(|c| signup::asks_age(c)).await?;
     Ok(Page(RegisterTemplate {
         user: None,
         error: None,
@@ -236,7 +241,8 @@ pub async fn register_form(State(state): State<Arc<AppState>>, MaybeUser(user): 
         age: false,
         share,
         invite: if matches!(admitted, Admit::Invited(_) | Admit::Owner(_)) { invite } else { String::new() },
-        owner_note: matches!(admitted, Admit::Owner(_) | Admit::FirstOpen),
+        owner_note,
+        ask_age,
     })
     .into_response())
 }
@@ -328,6 +334,7 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
     }
     if state.limits.blocked(security::REGISTER_PER_IP, &ip, now()) {
         tracing::warn!("registration rate limit hit from {ip}");
+        let ask_age = state.db.call(|c| signup::asks_age(c)).await?;
         let page = RegisterTemplate {
             user: None,
             error: Some(crate::t("auth.register.too_many_signups")),
@@ -335,9 +342,10 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
             dev: state.dev_mode(),
             min_age: crate::signup::min_age(),
             age: false,
-                share: None,
+            share: None,
             invite: String::new(),
             owner_note: false,
+            ask_age,
         };
         return Ok((StatusCode::TOO_MANY_REQUESTS, Page(page)).into_response());
     }
@@ -359,7 +367,9 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
     };
     // A form error on an empty server still says whose account this is (#665).
     let owner_note = matches!(admitted, Some(Admit::Owner(_) | Admit::FirstOpen));
-    let fail = |msg: String| {
+    // The age box, read as the form was drawn (#206); read again with the insert.
+    let ask_age = !owner_note && state.db.call(|c| signup::asks_age(c)).await?;
+    let page = |msg: String, ask_age: bool| {
         Page(RegisterTemplate {
             user: None,
             error: Some(msg),
@@ -370,18 +380,22 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
             share: share.clone(),
             invite: form.invite.trim().to_string(),
             owner_note,
+            ask_age,
         })
         .into_response()
     };
+    let fail = |msg: String| page(msg, ask_age);
 
     if !within_limit {
         tracing::warn!("registration rate limit hit from {ip}");
         return Ok((StatusCode::TOO_MANY_REQUESTS, fail(crate::t("auth.register.too_many_signups"))).into_response());
     }
 
-    // The owner's own account is not asked: its form has no box (#126).
-    if !owner_note {
-        if let Err(e) = crate::signup::AgeGate::current().check(!form.age.is_empty(), "register") {
+    // The owner's own account is not asked: its form has no box (#126);
+    // nor is anyone while new accounts start as Student (#206).
+    let ticked = !form.age.is_empty();
+    if ask_age {
+        if let Err(e) = crate::signup::AgeGate::current().check(ticked, "register") {
             return Ok(fail(e));
         }
     }
@@ -416,12 +430,18 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
             if profile::email_taken(&tx, &e, None)? {
                 return Ok(Signup::Taken);
             }
+            // Asked its age: not the owner (#126), and new accounts start
+            // with a permission (#206), read with the insert that gives it
+            // them. The owner may have changed that since the form was drawn.
+            let asked = !matches!(admitted, Admit::Owner(_) | Admit::FirstOpen) && signup::asks_age(&tx)?;
+            if asked && !ticked {
+                return Ok(Signup::AgeNeeded);
+            }
             let id = auth::create_user(&tx, &e, &hash)?;
-            // Only an account that was shown the age box has a yes to record (#126).
-            let asked = !matches!(admitted, Admit::Owner(_) | Admit::FirstOpen);
             if !signup::finish(&tx, admitted, id, t)? {
                 return Ok(Signup::Refused(Refusal::Used));
             }
+            // Only an account that was asked has a yes to record.
             if asked {
                 crate::signup::record_age_confirmed(&tx, id, true)?;
             }
@@ -439,6 +459,7 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
             Ok(([auth::set_session_cookie(&token, state.secure_cookies)], Redirect::to(&crate::url(&after_sign_in(share.as_ref())))).into_response())
         }
         Signup::Taken => Ok(fail(crate::t("auth.register.email_taken"))),
+        Signup::AgeNeeded => Ok(page(crate::signup::AgeGate::current().check(false, "register").err().unwrap_or_default(), true)),
         Signup::Refused(r) => Ok(signup_refused(r, StatusCode::FORBIDDEN)),
     }
 }
@@ -449,6 +470,9 @@ enum Signup {
     New(String),
     /// The address already has an account: nothing was made.
     Taken,
+    /// The owner turned the age box on after the form was drawn, and it
+    /// was not ticked: nothing was made (#206).
+    AgeNeeded,
     /// The sign-up mode said no (`signup.rs`).
     Refused(Refusal),
 }

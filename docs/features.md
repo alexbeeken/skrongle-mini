@@ -56,11 +56,11 @@ to the new ones with their query strings, so old bookmarks still work.
 
 | Feature | Route | What it is | Reads |
 |---|---|---|---|
-| Courses | `/courses`, `/courses/{id}/settings` | "What would you like to learn?": your projects (each shows a thin progress bar under its title, pale gold for lessons passed and full gold for lessons mastered, and under it two small chips with the same two numbers and the unit count; when you last opened it sits beside *Continue*. A chip turns from grey towards gold as more of the course is done, shows its name on hover, and opens a modal with the stat when clicked. The modal fetches what is next as it opens (`GET /courses/{id}/stat/{metric}`): for lessons passed, the next lesson to pass, the last one passed and each unit's count; for lessons mastered, up to three lessons to practise next, fading ones first. Each lesson named opens the course at it, and an (i) says what the stat counts. Each card has a gear for its settings: level and motivator), your own courses (private; greyed out while being generated), ready-made courses, Create a course | manifests |
+| Courses | `/courses`, `/courses/{id}/settings` | "What would you like to learn?": your projects (each shows a thin progress bar under its title, pale gold for lessons passed and full gold for lessons mastered, and under it two small chips with the same two numbers and the unit count; when you last opened it sits beside *Continue*. A chip turns from grey towards gold as more of the course is done, shows its name on hover, and opens a modal with the stat when clicked. The modal fetches what is next as it opens (`GET /courses/{id}/stat/{metric}`): for lessons passed, the next lesson to pass, the last one passed and each unit's count; for lessons mastered, up to three lessons to practise next, fading ones first. Each lesson named opens the course at it, and an (i) says what the stat counts. Each card has a gear for its settings: level and motivator), your own courses (private; greyed out while being generated), ready-made courses (the built-in ones not yet opened, by the manifest's `order`, lowest first, so *How to Use Skrongle* leads; those without one after, in folder order; #207), Create a course | manifests |
 | Generate with AI | the editor's *Generate the course* dialog (`POST /courses/{id}/generate`) and progress modal | Notes or homework in, a whole private course out, written with the server's API key; see [Your own courses](#your-own-courses) | everything (it writes it) |
 | Starting level | The course's settings: the level step at the end of its start wizard, then the gear on `/courses` | A course whose units are `levels` asks a learner who opens it for the first time which level to start at; the lessons below it are skipped; the level can be changed later without losing progress (see [Starting level](#starting-level)) | `levels`, units |
 | Home | `/` | Today's goal as a ring with the streak, lessons passed and terms collected, *Continue* where you left off, the current unit's progress, a "Words due" card on days collected words are due (#1360: the count, three of the words, an (i) with the ladder, and *Review N words*, which opens `/vocabulary/study?due=1`), then the four modes (Sprint, Study, Play, Guide) and AI tutoring, with one stat and one button each and an (i) explaining each | everything |
-| Landing | `/` (no session) | The sales page for visitors: what the app is, a twenty-second sample of each mode to play in place (Sprint, Study, Play and Guide tabs, each in Language, Maths and Music, each subject with its own kinds of question: listening and a typed word with accent near misses; shading a fraction, a number line, plotting a point, a formula graded by equivalence, graphs as options and pairs; a staff to read and to place a note on, a keyboard, intervals and chords played by a small synth. Several preview question types still in issues and PRs (#1218–#1234, #1330–#1359). `static/landing.js` holds the samples, `static/landing-kit.js` the drawing and sound; #1365), a lesson file next to the features it switches on, the three ways to get a course, the built-in courses with their unit and lesson counts, "What can I do with it?" (use cases), register / log in | manifests |
+| Landing | `/` (no session) | The sales page for visitors: what the app is, a twenty-second sample of each mode to play in place (Sprint, Study, Play and Guide tabs, each in Language, Maths and Music, each subject with its own kinds of question: listening and a typed word with accent near misses; shading a fraction, a number line, plotting a point, a formula graded by equivalence, graphs as options and pairs; a staff to read and to place a note on, a keyboard, intervals and chords played by a small synth. Several preview question types still in issues and PRs (#1218–#1234, #1330–#1359). `static/landing.js` holds the samples, `static/landing-kit.js` the drawing and sound; #1365), a lesson file next to the features it switches on, the three ways to get a course, the built-in courses with their unit and lesson counts (in the same order as on Courses), "What can I do with it?" (use cases), register / log in | manifests |
 | Lessons | `/lessons`, `/lessons/{slug}` | One unit at a time (#837): a tab per unit with its passed count and bar, 12 lessons a page with page links (`?unit=<id>&page=<n>`; without `?page=` the page holding the next lesson to do, without `?unit=` the unit holding it; `?unit=all` lists every unit on one page). A filter box searches every unit (every word typed must appear in a lesson's title, group or summary; a search that finds nothing says so; without script it is `?q=`); under the box, *Look up "…" in the words* opens `/lookup?q=` (#348): the words of the whole course whose term or meaning has a word starting with each word typed (accents and case ignored), and the forms of its paradigm tables (a form names its item, set and slots, and a form two verbs share is listed for both), at most 20, exact terms first; each with its meaning, the lessons that teach it (linked), *Collected* with the flashcard tally when you have it, and a 🔊 in a language course; a quiet header (#999): the breadcrumb with a small mastery ring, the status pills and an (i) on one line, then the title, the summary and one main button (I've read it, quiz me until the lesson is seen, then Practise; a lesson without `quiz` questions has no mastery ring, no Practise and no Test yourself, and its button just says I've read it, #1197) beside a "More ways" menu (Practise before the lesson is seen, Listen and type when the lesson has listening, Tutor when AI is on and the account may use the AI tutor, the Guide, a Sprint session). The (i) opens the mastery details, the focus and question counts and the pass rule; the footer has its button and the same (i); the lesson text (read as a page), vocabulary table (hover a term for its meaning, an example for its translation), paradigm tables, conversations (#989: each one as two characters talking, the role's name over its line, A on the left and B on the right; each line is a button, and tapping it reads the line aloud in the course's language (when the audio switch is on and there is a voice) and shows its meaning under it, which a second tap hides again (#1264); without JavaScript the meanings show from the start), a "My note" box (#336: the learner's own private note on the lesson, plain text up to 500 characters, saved as they type; its (i) says who can see it), and the two-question reading check that marks the lesson as read (once passed, its result offers *Recommended practice*, *Next lesson*, which opens the lesson the pager names as next and is left out on the last lesson, and *Back to the lessons*) | `content`, `vocabulary` (`example_meaning` for the hover hint), `conjugations`, `conversations`, `quiz` |
 | Quizzes | `/practice`, `/practice?lesson=` | Adaptive micro-quizzes: 5–10 questions from the lessons you have read, weighted towards weak topics; or one lesson on request (a lesson with no questions, reached by its URL, says so and links back to the lesson and its Sprint session) | `quiz` |
 | Listening | `/listening`, `/listening/play?lesson=` | Hear a sentence, type it, see it checked word by word; one lesson or a mixed round | `listening` |
@@ -1854,17 +1854,35 @@ two or more keys are saved, and "Your messages are sent to Claude
 
 ## Age confirmation
 
-Registration has one required box, "I am at least [age] years old" (`age`;
+Registration asks "I am at least [age] years old" (`age`;
 `SKRONGLE_MIN_AGE`, default 14; `templates/age_check.html`, the sentence with
-a rounded check box on its right in the AI pill's style). The server refuses
-the form without it. The answer is stored as `users.age_confirmed` (a
-boolean, never a birth date).
+a rounded check box on its right in the AI pill's style) only while **New
+accounts start as** gives a permission (#206, `signup::asks_age`): Teacher,
+or a saved preset with at least one permission. Then the box is required,
+the server refuses the form without it, and the answer is stored as
+`users.age_confirmed` (a boolean, never a birth date).
 
-The first account on a server, the owner's, is not asked: the form that
+While new accounts start as **Student** (the default), nobody is asked: the
+form has no box, the server does not look for the field (a ticked one sent
+anyway is ignored), and the account's `age_confirmed` stays 0. Skrongle no
+longer asks a person's age then; the owner is the one who knows who they
+invited, and whether inviting children needs a parent's consent where they
+live is the owner's question, not the app's. Manage Users says so under
+the setting (`manage-default-age-note`).
+
+`/register` reads the setting when it draws the form and again in the
+transaction that makes the account (the same one `auth::create_user` reads
+the preset in): if the owner turned the box on in between and it was not
+ticked, nothing is made and the form comes back with the box. Invitation
+links are `/register` and follow the same rule. An account a signing-in
+proxy makes (`proxy_auth.rs`) is never asked, whatever the preset: there
+is no form, the proxy vouches for the person, and `age_confirmed` stays 0.
+
+The first account on a server, the owner's, is not asked either: the form that
 says the account is the owner's (`register-owner-note`; through the owner link
 under `SKRONGLE_SIGNUP=invite` or `closed`, or on an empty server under
-`open`) has no box, the server does not look for the field, and that
-account's `age_confirmed` stays 0. Every later account is asked.
+`open`) has no box, and that account's `age_confirmed` stays 0. An account's
+later permissions change nothing: the box exists only at sign-up.
 
 ## Registration
 

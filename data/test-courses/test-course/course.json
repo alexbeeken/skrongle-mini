@@ -4,6 +4,7 @@
   "subject": "Every course feature",
   "description": "For automated tests only (loaded with TEST_COURSE=1): every question type, exercise, game and feature a course file can switch on, one lesson per feature.",
   "icon": "🧪",
+  "order": 0,
   "terms": {
     "label": "Español",
     "lang": "es"

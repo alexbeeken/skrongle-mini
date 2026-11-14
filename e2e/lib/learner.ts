@@ -41,10 +41,10 @@ export async function register(page: Page, account: Account, course: string): Pr
 
 /** Tick "I am at least N years old" on the /register form `page` shows, if
  * the form has it. The first account on a server (the owner's) is not asked
- * (#126). A dev-mode server makes the dev user when it starts, so against
- * scripts/e2e.sh or ./.dev-start a spec's account is never the first and
- * the box is shown; this only keeps the helpers working against a server
- * with no account yet. */
+ * (#126), nor is anyone while new accounts start as Student (#206). A
+ * dev-mode server makes the dev user when it starts and starts new accounts
+ * as Teacher, so against scripts/e2e.sh or ./.dev-start the box is shown;
+ * this keeps the helpers working on a server where it is not. */
 export async function tickAgeBox(page: Page): Promise<void> {
   await expect(page.getByTestId("register-submit")).toBeVisible();
   const box = page.getByTestId("register-age");

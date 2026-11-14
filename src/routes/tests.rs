@@ -281,7 +281,9 @@ fn account_forms_are_rate_limited() {
     let bea_change = post("/profile/password", &bea_sid, &[("current", "right-password"), ("new", "new-password-2"), ("confirm", "new-password-2")]);
     assert_eq!(bea_change, 429);
 
-    // Registration needs the age box, and records it.
+    // Registration needs the age box while new accounts start as Teacher
+    // (#206), and records it.
+    state.db.with(|c| crate::settings::set_default_preset(c, crate::perms::TEACHER_PRESET)).unwrap();
     let new_user = |email: &str| state.db.with(|c| crate::auth::find_user_credentials(c, email)).unwrap().map(|(id, _)| id);
     assert_eq!(post("/register", "", &[("email", "cy@example.org"), ("password", "long-enough-pw")]), 200);
     assert_eq!(new_user("cy@example.org"), None, "no account without the box");
@@ -623,12 +625,22 @@ fn signup_by_invitation() {
     assert!(!get("/manage", &owner).1.contains(&token), "the link is shown only when made");
     let (_, page) = get(&format!("/register?invite={token}"), "");
     assert!(page.contains(&format!(r#"name="invite" value="{token}""#)) && !page.contains("register-owner-note"), "{page}");
-    // An invited person is asked their age, and refused without the box.
+    // New accounts start as Student (the default): the invited person is
+    // not asked their age, and no yes is recorded (#206).
+    assert!(!page.contains("register-age"), "{page}");
+    let (status, _, _) = post("/register", "", &[("email", "kid@example.org"), ("password", "long-enough-pw"), ("invite", &token)]);
+    assert_eq!(status, 303);
+    assert!(!age_confirmed("kid@example.org"), "not asked, so no yes is recorded");
+    assert_eq!(users(), 2);
+    // As Teacher: an invited person is asked their age, and refused without the box.
+    state.db.with(|c| crate::settings::set_default_preset(c, crate::perms::TEACHER_PRESET)).unwrap();
+    let token = make();
+    let (_, page) = get(&format!("/register?invite={token}"), "");
     assert!(page.contains(r#"data-testid="register-age""#), "{page}");
     let (status, _, page) = post("/register", "", &[("email", "ann@example.org"), ("password", "long-enough-pw"), ("invite", &token)]);
     assert_eq!(status, 200);
     assert!(page.contains("register-error") && page.contains(r#"data-testid="register-age""#), "{page}");
-    assert_eq!(users(), 1, "no account without the box");
+    assert_eq!(users(), 2, "no account without the box");
     let (status, ann, _) = register("ann@example.org", &token);
     assert_eq!(status, 303);
     assert!(!has_flag("ann@example.org"));
@@ -636,7 +648,7 @@ fn signup_by_invitation() {
     let (_, page) = get(&format!("/register?invite={token}"), "");
     assert!(page.contains("already been used"), "{page}");
     assert_eq!(register("eve@example.org", &token).0, 403);
-    assert_eq!(users(), 2);
+    assert_eq!(users(), 3);
 
     // Expired.
     let late = make();
@@ -656,7 +668,7 @@ fn signup_by_invitation() {
     let (status, _, _) = post("/manage/invites/revoke", &owner, &[("id", &id.to_string())]);
     assert_eq!(status, 303);
     assert!(get(&format!("/register?invite={gone}"), "").1.contains("is not valid"));
-    assert_eq!(users(), 2);
+    assert_eq!(users(), 3);
 }
 
 /// `SKRONGLE_SIGNUP=closed`: the first account is still made, through
@@ -716,7 +728,10 @@ fn open_signup_makes_the_first_account_the_owner() {
     assert!(!age_confirmed("a@example.org"), "the owner was not asked, so no yes is recorded");
     let page = agent.get(&format!("{base}/register")).call().unwrap().body_mut().read_to_string().unwrap();
     assert!(!page.contains("register-owner-note"), "the note goes once an account exists");
-    // The second account is asked, and refused without the box.
+    // New accounts start as Teacher: the second account is asked, and
+    // refused without the box (as Student nobody is, #206).
+    state.db.with(|c| crate::settings::set_default_preset(c, crate::perms::TEACHER_PRESET)).unwrap();
+    let page = agent.get(&format!("{base}/register")).call().unwrap().body_mut().read_to_string().unwrap();
     assert!(page.contains(r#"data-testid="register-age""#), "{page}");
     assert_eq!(register(&[("email", "b@example.org"), ("password", "long-enough-pw")]), 200);
     assert_eq!(state.db.with(|c| c.query_row("SELECT COUNT(*) FROM users", [], |r| r.get::<_, i64>(0))).unwrap(), 1, "no account without the box");
@@ -727,6 +742,66 @@ fn open_signup_makes_the_first_account_the_owner() {
         .with(|c| c.prepare("SELECT email FROM users WHERE owner = 1")?.query_map([], |r| r.get(0))?.collect())
         .unwrap();
     assert_eq!(owners, ["a@example.org"]);
+}
+
+/// The age box follows the preset new accounts start as (#206): as
+/// Student the form has none and a sign-up without it is made, with no
+/// yes recorded; as Teacher, or a saved preset with a permission, the box
+/// is there and required, with `SKRONGLE_MIN_AGE`'s number.
+#[test]
+fn the_age_box_follows_the_preset_new_accounts_start_as() {
+    use crate::perms::{Perm, Perms};
+    let (_rt, state, base) = signup_server(crate::signup::Mode::Open);
+    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
+    let form = || agent.get(&format!("{base}/register")).call().unwrap().body_mut().read_to_string().unwrap();
+    let register = |email: &str, age: bool| {
+        let mut f = vec![("email", email), ("password", "long-enough-pw")];
+        if age {
+            f.push(("age", "on"));
+        }
+        let mut r = agent.post(&format!("{base}/register")).send_form(f).unwrap();
+        (r.status().as_u16(), r.body_mut().read_to_string().unwrap())
+    };
+    let made = |email: &'static str| state.db.with(|c| crate::auth::find_user_credentials(c, email)).unwrap().is_some();
+    let age_confirmed = |email: &'static str| state.db.with(|c| c.query_row("SELECT age_confirmed FROM users WHERE email = ?1", [email], |r| r.get::<_, bool>(0))).unwrap();
+    let preset = |id: i64| state.db.with(|c| crate::settings::set_default_preset(c, id)).unwrap();
+    // The owner first: never asked (#126).
+    assert_eq!(register("owner@example.org", false).0, 303);
+
+    // Student, the default: no box, made without it, nothing recorded.
+    let page = form();
+    assert!(page.contains("register-form") && !page.contains("register-age"), "{page}");
+    assert_eq!(register("kid@example.org", false).0, 303);
+    assert!(!age_confirmed("kid@example.org"), "not asked, so no yes is recorded");
+    // A ticked box sent anyway is not a yes to an unasked question.
+    assert_eq!(register("kid2@example.org", true).0, 303);
+    assert!(!age_confirmed("kid2@example.org"));
+
+    // Teacher: the box, required, recorded.
+    preset(crate::perms::TEACHER_PRESET);
+    let page = form();
+    assert!(page.contains(r#"data-testid="register-age""#) && page.contains("I am at least 14 years old"), "{page}");
+    let (status, page) = register("tea@example.org", false);
+    assert_eq!(status, 200);
+    assert!(page.contains("register-error") && page.contains("Confirm you are at least 14 to register.") && page.contains(r#"data-testid="register-age""#), "{page}");
+    assert!(!made("tea@example.org"));
+    assert_eq!(register("tea@example.org", true).0, 303);
+    assert!(age_confirmed("tea@example.org"));
+
+    // A saved preset with one permission in it: asked too.
+    let skip = state.db.with(|c| crate::perms::save_preset(c, "Skippers", Perms::STUDENT.with(Perm::SkipLevels, true))).unwrap().unwrap();
+    preset(skip);
+    assert!(form().contains(r#"data-testid="register-age""#));
+    assert_eq!(register("skip@example.org", false).0, 200);
+    assert!(!made("skip@example.org"));
+    assert_eq!(register("skip@example.org", true).0, 303);
+    assert!(age_confirmed("skip@example.org"));
+
+    // Back to Student: the box goes again.
+    preset(crate::perms::STUDENT_PRESET);
+    assert!(!form().contains("register-age"));
+    assert_eq!(register("kid3@example.org", false).0, 303);
+    assert!(!age_confirmed("kid3@example.org"));
 }
 
 /// A server whose proxy sign-in (#642) trusts `from` (`None`: off),

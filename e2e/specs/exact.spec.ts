@@ -424,7 +424,13 @@ test("a key the provider does not know is refused by the provider, not by the ap
 test("the course list fills a desktop row and stacks on a phone (#428)", async ({ page }) => {
   // A new learner with one course open: earlier specs leave the dev user many courses of its own.
   await page.context().clearCookies();
+  // How to Use Skrongle leads the built-in courses (#207): on the front page for a visitor…
+  await page.goto("/");
+  await expect(page.getByTestId("landing-course").first()).toContainText("How to Use Skrongle");
   await register(page, newAccount("courses-grid"), "spanish");
+  // …and among the ready-made courses on Courses.
+  await page.goto("/courses");
+  await expect(page.getByTestId("courses-builtin").getByTestId("courses-card").first()).toHaveAttribute("data-course-id", "how-to-use-skrongle");
   const tops = async () => {
     await page.goto("/courses");
     const cards = [page.getByTestId("courses-projects"), page.getByTestId("courses-builtin"), page.getByTestId("courses-make-section")];

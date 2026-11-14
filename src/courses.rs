@@ -225,6 +225,14 @@ async fn off_worker<T: Send + 'static>(f: impl FnOnce() -> T + Send + 'static) -
     rx.await.ok()
 }
 
+/// The ready-made courses' order (#207): those with an `order` in their
+/// manifest first, lowest first; the others after them as they came (folder
+/// order). A stable sort, so a course without the field does not move
+/// among the others.
+fn sort_builtin(courses: &mut [BuiltinCourse]) {
+    courses.sort_by_key(|c| c.manifest.order.map_or((1, 0), |o| (0, o)));
+}
+
 impl Courses {
     /// Check every `data/courses/*/course.json`. An empty or missing directory
     /// is fine (the app then only offers "build your own"). Each course is
@@ -252,6 +260,7 @@ impl Courses {
         let seed_shipped = roots.iter().any(|r| r.join(SEED_COURSE).join(MANIFEST_FILE).is_file());
         let mut kept: Option<ContentStore> = None;
         for root in roots.into_iter().filter(|r| r.is_dir()) {
+            let first = builtin.len();
             let mut dirs: Vec<_> = std::fs::read_dir(&root)
                 .map_err(|e| ContentError::Io(root.clone(), e))?
                 .filter_map(|e| e.ok().map(|e| e.path()))
@@ -278,6 +287,9 @@ impl Courses {
                 if keep {
                     kept = Some(store);
                 }
+            }
+            if let Some(this_root) = builtin.get_mut(first..) {
+                sort_builtin(this_root);
             }
         }
         let courses = Courses::with_builtin(builtin, builtin_dirs);
