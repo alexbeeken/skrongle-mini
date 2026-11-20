@@ -31,7 +31,7 @@ request, and the entry for the DietPi documentation, which starts at
 | Install | One release tarball per architecture, checked against the SHA-256 published beside it and unpacked to `/opt/skrongle`. [`deploy/dietpi-install.sh`](https://github.com/alexbeeken/skrongle-mini/blob/main/deploy/dietpi-install.sh) is the whole install, in twelve commented steps. Running it again updates |
 | Dependencies | `curl`, for the download. It needs no web server, database server or language runtime; SQLite is compiled in |
 | Architectures | ARMv6, ARMv7, ARMv8 and x86_64. There is no RISC-V build. On ARMv6 boards (Raspberry Pi 1, Zero, Zero W) sign-in is slow |
-| Port | 7576, TCP |
+| Port | 7576, TCP. 80 on a classroom box ([`deploy/classroom-install.sh`](https://github.com/alexbeeken/skrongle-mini/blob/main/deploy/classroom-install.sh) moves it; the Pi is then its own Wi-Fi, with `hostapd` and `dnsmasq`, which the package itself does not install) |
 | Service | `skrongle.service`, running as the system user `skrongle`, limited to 64 MB of memory (`MemoryMax`) and sandboxed by systemd |
 | Data | `/mnt/dietpi_userdata/skrongle` |
 | Settings | `/etc/skrongle/env`, optional |

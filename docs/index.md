@@ -38,6 +38,8 @@ all driven by JSON course files.
 - [Set up Skrongle on a new Raspberry Pi](setup-home-wifi): start here. The
   one install path, from a new Pi to a private Skrongle with your account,
   two-factor sign-in, invitations and a backup.
+- [Set up a classroom box](setup-classroom): a Pi that is its own Wi-Fi,
+  or joins a small access point, for a room with no router and no internet.
 - [Away from home with Tailscale](setup-tailscale): reach your Pi from
   anywhere over a private link.
 - [Self-hosting reference](self-hosting): every setting and

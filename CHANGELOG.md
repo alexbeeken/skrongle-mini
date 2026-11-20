@@ -6,6 +6,17 @@ numbers work is in the README, "Versions".
 
 ## Unreleased
 
+- **A classroom box with no router and no internet.** The new guide
+  [Set up a classroom box](docs/setup-classroom.md) and the script
+  `deploy/classroom-install.sh` turn a Pi with Skrongle on it into its own
+  Wi-Fi (a name and password you choose, the address `http://skrongle.lan`,
+  any other address sent to the sign-in page), or, for a full class, give it
+  a fixed name on a separate access point. The app and its settings are the
+  same. How many devices the Pi's own Wi-Fi takes is not measured yet; the
+  guide says to use a separate access point for a full class. Generating
+  courses, the AI tutor and connecting an assistant need the internet and do
+  not work in such a room.
+
 - **Sign-up no longer asks a person's age while new accounts start as
   Student** (the default). The "I am at least 14 years old" box is gone from
   the register form and invitation links, and nothing about age is stored

@@ -56,6 +56,15 @@ try `http://<ip>:7576` from the same Wi-Fi, where `<ip>` is the first
 address `hostname -I` prints; `.local` names don't work on every network or
 phone.
 
+**The classroom box's Wi-Fi does not show up, or the phones do not open the
+sign-in page.** See [Set up a classroom box](setup-classroom). On the Pi,
+`systemctl status skrongle-hostapd skrongle-dnsmasq` says which part is
+down; the Wi-Fi's country code is the usual cause (run
+`deploy/classroom-install.sh` again with the right one). `sudo sh
+/usr/local/lib/skrongle/classroom-install.sh --undo` and a reboot put the home Wi-Fi back.
+A `SKRONGLE_BIND` in `/etc/skrongle/env` overrides the port 80 the script sets, so
+the classroom address stops opening Skrongle; remove that line.
+
 **The log says the port is already in use.** Another program (or a second
 copy) has port 7576. Find it with `sudo ss -ltnp 'sport = :7576'`, or move
 Skrongle: put `SKRONGLE_BIND=0.0.0.0:8081` in `/etc/skrongle/env` and
