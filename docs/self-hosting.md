@@ -470,7 +470,7 @@ with Superuser); it does not change accounts that exist, and the first
 account of a server is the owner and has everything.
 
 Each account's row also has **Permissions**: choose **Student** (may do
-nothing extra), **Teacher** (everything but Superuser) or **Custom**, which shows a switch for each of the seven permissions.
+nothing extra), **Teacher** (everything but Superuser) or **Custom**, which shows a switch for each of the eight permissions.
 An account you give **Superuser** gets **Manage Users** in its menu and sees
 the accounts there, to set other people's permissions; it never sees the
 invitation links, the AI keys or the three actions above, and it cannot
