@@ -14,9 +14,9 @@
 # twenty times each; then the numbers are read. Then connected apps (#191):
 # the owner's account is made from the owner link in the log, Let apps
 # connect turned on and two tokens made, as on the real pages; RSS is read
-# before and after 300 MCP `list_courses` calls, again with users,
-# oauth_clients, api_grants and api_tokens filled to their caps
-# (src/caps.rs), and each growth is checked against a margin; the thread
+# before and after 300 MCP `list_courses` calls, again with users (and
+# the student accounts, #217), sessions, oauth_clients, api_grants and
+# api_tokens filled to their caps (src/caps.rs), and each growth is checked against a margin; the thread
 # count after both must be the idle one. Then the server is stopped.
 # On Linux they come from /proc/<pid>/status; on macOS from ps, so the script
 # runs locally too. A Mac's numbers differ from Linux's: its binary is
@@ -149,8 +149,11 @@ apps_after=$(rss_now)
 
 # The tables at their caps (src/caps.rs, read here so they cannot drift):
 # MAX_ACCOUNTS accounts, MAX_API_GRANTS grants (MAX_GRANTS_PER_ACCOUNT
-# each), MAX_API_TOKENS tokens and MAX_OAUTH_CLIENTS registered apps, the
-# rows written straight into the database (WAL, beside the running server).
+# each), MAX_API_TOKENS tokens and MAX_OAUTH_CLIENTS registered apps,
+# DEFAULT_STUDENT_LIMIT student accounts (#217, the owner's), and sessions
+# to Bounds::sessions (MAX_SESSIONS_PER_ACCOUNT per account,
+# MAX_SESSIONS_PER_STUDENT per student), the rows written straight into the
+# database (WAL, beside the running server).
 # The owner's two grants above count; its other two each hold one token
 # known here, stored as auth::hash_token stores it (SHA-256, hex), for
 # another warm-up and another 300 calls.
@@ -187,6 +190,15 @@ for n, u in enumerate(users):
             known.append(token(grant(u, "personal"), "personal"))
         else:
             grant(u, clients[(n * caps["MAX_GRANTS_PER_ACCOUNT"] + k) % len(clients)])
+# Student accounts (#217): the owner holds them all; no grants, no tokens.
+students = [db.execute("INSERT INTO users (password_hash, created_at, username, teacher_id, perms) VALUES ('', ?, ?, ?, 0)",
+                       (now, f"budget-student-{i}", owner)).lastrowid for i in range(caps["DEFAULT_STUDENT_LIMIT"])]
+# Every account's and student's sessions, to the most each keeps.
+for u, most in [(u, caps["MAX_SESSIONS_PER_ACCOUNT"]) for u in users] + [(s, caps["MAX_SESSIONS_PER_STUDENT"]) for s in students]:
+    have = db.execute("SELECT COUNT(*) FROM sessions WHERE user_id = ?", (u,)).fetchone()[0]
+    for _ in range(most - have):
+        db.execute("INSERT INTO sessions (user_id, session_token, created_at, expires_at) VALUES (?, ?, ?, ?)",
+                   (u, hashlib.sha256(secrets.token_bytes(32)).hexdigest(), now, later))
 grants = [r[0] for r in db.execute("SELECT id FROM api_grants ORDER BY id")]
 # An OAuth app's three rows (caps.rs): access, refresh and the access token
 # it replaced (a used refresh token is deleted, #192), until api_tokens is full.
@@ -195,8 +207,10 @@ i = 0
 while db.execute("SELECT COUNT(*) FROM api_tokens").fetchone()[0] < caps["MAX_API_TOKENS"]:
     token(grants[i % len(grants)], kinds[(i // len(grants)) % len(kinds)]); i += 1
 db.commit()
-counts = {t: db.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0] for t in ("users", "oauth_clients", "api_grants", "api_tokens")}
-want = {"users": caps["MAX_ACCOUNTS"], "oauth_clients": caps["MAX_OAUTH_CLIENTS"], "api_grants": caps["MAX_API_GRANTS"], "api_tokens": caps["MAX_API_TOKENS"]}
+counts = {t: db.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0] for t in ("users", "sessions", "oauth_clients", "api_grants", "api_tokens")}
+want = {"users": caps["MAX_ACCOUNTS"] + caps["DEFAULT_STUDENT_LIMIT"],
+        "sessions": caps["MAX_ACCOUNTS"] * caps["MAX_SESSIONS_PER_ACCOUNT"] + caps["DEFAULT_STUDENT_LIMIT"] * caps["MAX_SESSIONS_PER_STUDENT"],
+        "oauth_clients": caps["MAX_OAUTH_CLIENTS"], "api_grants": caps["MAX_API_GRANTS"], "api_tokens": caps["MAX_API_TOKENS"]}
 if counts != want or len(known) != 2:
     sys.exit(f"tables not at their caps: {counts}, want {want}")
 print(" ".join(known), " ".join(f"{t}={n}" for t, n in counts.items()))

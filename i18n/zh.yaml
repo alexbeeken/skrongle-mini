@@ -45,6 +45,8 @@ perms:
   ai_tutor_about: "使用 AI 导师。"
   share_courses: "分享课程"
   share_courses_about: "为自己的课程创建邀请链接。"
+  hold_students: "管理学生"
+  hold_students_about: "创建学生账户（用用户名和密码登录）并管理这些账户。"
   skip_levels: "跳过级别"
   skip_levels_about: "选择起始级别、更改级别、参加分级测试。"
   privacy: "隐私"
@@ -129,13 +131,14 @@ common:
 auth:
   login:
     title: 登录
-    email_label: 电子邮箱地址
+    email_label: "电子邮箱地址或用户名"
     password_label: 密码
     submit: 登录
     or: 或
     no_account_html: "还没有账户？<a href=\"{url}\" data-testid=\"login-register-link\">注册</a>。"
+    student_note: "学生忘记密码时，请向老师要一个新密码。"
     too_many_attempts: 登录尝试次数过多。请等待几分钟后再试。
-    incorrect: 电子邮箱地址或密码不正确。
+    incorrect: "电子邮箱地址、用户名或密码不正确。"
   register:
     age: "我至少 {min_age} 岁"
     title: 注册
@@ -234,6 +237,8 @@ profile:
     last_name: 姓氏
     email: 电子邮箱地址
     no_email: 尚未设置电子邮箱
+    username: "用户名"
+    student_note: "这个账户由你的老师管理：如需更改姓名或用户名，请找老师。"
     verified: 已验证
     language: 语言
     language_unavailable: 该语言暂不可用。
@@ -343,6 +348,10 @@ manage:
   mode_closed: "任何人都不能注册（SKRONGLE_SIGNUP=closed）。"
   invite_about: "创建一个邀请链接并发给一个人。它只能使用一次，有效期 7 天。链接只在创建时显示，请当时复制。撤销会让尚未使用的链接失效。"
   accounts_of: "{total} / {max} 个账户"
+  students_of: "{total} / {max} 个学生账户"
+  holds_students:
+    one: "管理 {n} 名学生"
+    other: "管理 {n} 名学生"
   invite_link: "邀请链接"
   copy: "复制"
   make_invite: "创建邀请链接"
@@ -3095,3 +3104,6 @@ oauth:
   no_permission:
     title: "此账户无法连接应用"
     text: "连接应用需要“创建课程”权限。请向此服务器的所有者申请。"
+
+students:
+  username_rule: "用户名为 {min} 到 {max} 个字符：a 到 z、0 到 9、点、短横线和下划线，并以字母或数字开头。"

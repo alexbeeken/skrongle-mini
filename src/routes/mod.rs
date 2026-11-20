@@ -379,6 +379,8 @@ pub fn router(state: Arc<AppState>) -> Router {
     let (dev, reload) = (state.dev.on, state.dev.on && crate::dev::reload_wanted());
     let app = app
         .fallback(|| async { AppError::NotFound })
+        // Student accounts (#217): `students::refused` answers a student 404.
+        .layer(axum::middleware::from_fn_with_state(state.clone(), crate::auth::student_gate))
         // Connected apps (#170): the owner's switch before any extractor.
         .layer(axum::middleware::from_fn_with_state(state.clone(), api::switch))
         .layer(axum::middleware::from_fn_with_state(state.clone(), crate::error::in_layout));

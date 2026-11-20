@@ -296,7 +296,11 @@ pub fn report(cfg: &Config, env: &dyn Fn(&str) -> Option<String>) -> Vec<Line> {
         Some(_) => "custom (SKRONGLE_OPENAI_BASE_URL is set)",
         None => "default",
     }));
-    out.push(Line::new("student limit", student_limit_line(env("STUDENT_LIMIT").as_deref())));
+    let students = match &facts {
+        DbFacts::Open { students, .. } => Some(*students),
+        _ => None,
+    };
+    out.push(Line::new("student limit", student_limit_line(env("STUDENT_LIMIT").as_deref(), students)));
     out.push(Line::new("public URL set", yes_no(env("PUBLIC_URL").is_some())));
     out.push(Line::new("secure cookies", yes_no(cfg.secure_cookies)));
     if !cfg.base_path.is_empty() {
@@ -312,15 +316,20 @@ pub fn report(cfg: &Config, env: &dyn Fn(&str) -> Option<String>) -> Vec<Line> {
     out
 }
 
-/// `SKRONGLE_STUDENT_LIMIT` as the server will read it (mini #216).
-fn student_limit_line(value: Option<&str>) -> String {
+/// `SKRONGLE_STUDENT_LIMIT` as the server will read it (mini #216), and
+/// how many student accounts the database holds (#217; `None` without one).
+fn student_limit_line(value: Option<&str>, students: Option<i64>) -> String {
     let measured = crate::caps::DEFAULT_STUDENT_LIMIT;
-    match (value, crate::caps::parse_student_limit(value)) {
+    let mut line = match (value, crate::caps::parse_student_limit(value)) {
         (_, Err(e)) => format!("PROBLEM: {e} (the server will not start)"),
         (None, Ok(n)) => format!("{n} (default)"),
         (Some(_), Ok(n)) if n > measured => format!("{n} (SKRONGLE_STUDENT_LIMIT; a Pi Zero 2 W is measured at {measured})"),
         (Some(_), Ok(n)) => format!("{n} (SKRONGLE_STUDENT_LIMIT)"),
+    };
+    if let Some(n) = students {
+        line.push_str(&format!("; {n} student account{} now", if n == 1 { "" } else { "s" }));
     }
+    line
 }
 
 pub fn render(lines: &[Line]) -> String {
@@ -407,7 +416,9 @@ fn db_size_line(db: &Path) -> String {
 enum DbFacts {
     Missing,
     Unreadable(String),
-    Open { version: i64, users: i64, saved_keys: i64, apps: AppsFacts },
+    /// `users`: normal accounts; `students`: student accounts (#217), 0 on
+    /// a database from before them.
+    Open { version: i64, users: i64, students: i64, saved_keys: i64, apps: AppsFacts },
 }
 
 /// Connected apps (#167, #169): the owner's switch, the grants and the apps
@@ -434,7 +445,9 @@ fn read_db(db: &Path) -> DbFacts {
     let count = |table: &str| conn.query_row(&format!("SELECT COUNT(*) FROM {table}"), [], |r| r.get::<_, i64>(0)).unwrap_or(0);
     let on = conn.query_row("SELECT value = '1' FROM settings WHERE name = ?1", [crate::settings::APPS_ON], |r| r.get::<_, bool>(0)).unwrap_or(false);
     let apps = AppsFacts { on, grants: count("api_grants"), registered: count("oauth_clients") };
-    DbFacts::Open { version, users: count("users"), saved_keys: count("server_api_keys"), apps }
+    // Before v10 (#217) there is no teacher_id: every row is a normal account.
+    let students = conn.query_row("SELECT COUNT(*) FROM users WHERE teacher_id IS NOT NULL", [], |r| r.get::<_, i64>(0)).unwrap_or(0);
+    DbFacts::Open { version, users: count("users") - students, students, saved_keys: count("server_api_keys"), apps }
 }
 
 /// Whether apps may connect, how many grants and registered apps there are,
@@ -595,10 +608,14 @@ mod tests {
 
     #[test]
     fn the_student_limit_line() {
-        assert_eq!(student_limit_line(None), "50 (default)");
-        assert_eq!(student_limit_line(Some("30")), "30 (SKRONGLE_STUDENT_LIMIT)");
-        assert!(student_limit_line(Some("120")).contains("Pi Zero 2 W is measured at 50"));
-        assert!(student_limit_line(Some("abc")).starts_with("PROBLEM: SKRONGLE_STUDENT_LIMIT must be"));
+        assert_eq!(student_limit_line(None, None), "50 (default)");
+        assert_eq!(student_limit_line(Some("30"), None), "30 (SKRONGLE_STUDENT_LIMIT)");
+        assert!(student_limit_line(Some("120"), None).contains("Pi Zero 2 W is measured at 50"));
+        assert!(student_limit_line(Some("abc"), None).starts_with("PROBLEM: SKRONGLE_STUDENT_LIMIT must be"));
+        // With a database: how many students it holds (#217).
+        assert_eq!(student_limit_line(None, Some(0)), "50 (default); 0 student accounts now");
+        assert_eq!(student_limit_line(Some("30"), Some(1)), "30 (SKRONGLE_STUDENT_LIMIT); 1 student account now");
+        assert_eq!(student_limit_line(None, Some(12)), "50 (default); 12 student accounts now");
     }
 
     #[test]

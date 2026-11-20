@@ -10,9 +10,9 @@
 //! or as an owner. The box holds at most `caps::student_limit()` of them,
 //! counted apart from the normal accounts (#216).
 //!
-//! What a student is refused is one list, [`refused`], which the
-//! `CurrentUser` and `MaybeUser` extractors (`auth.rs`) check for every page
-//! and API route: a refused path answers 404.
+//! What a student is refused is one list, [`refused`], which the router's
+//! `auth::student_gate` layer checks for every page and API route: a
+//! refused path answers a student 404.
 
 use rusqlite::{params, Connection, OptionalExtension};
 
@@ -290,8 +290,8 @@ pub fn sign_in_key(login: &str) -> String {
 /// placement test); the tutor and every AI feature; API keys, connected
 /// apps and the MCP server; two-factor sign-in; Manage Users. (Mini has no
 /// account deletion of its own.) `path` is the app path, without the base
-/// path. The `CurrentUser` and `MaybeUser` extractors check it, so a new
-/// route needs no check of its own: add its path here.
+/// path. The router's `auth::student_gate` layer checks it before any
+/// handler, so a new route needs no check of its own: add its path here.
 pub fn refused(path: &str) -> bool {
     const REFUSED: &[&str] = &[
         "/courses/new",

@@ -45,6 +45,8 @@ perms:
   ai_tutor_about: "Usar el tutor de IA."
   share_courses: "Compartir cursos"
   share_courses_about: "Crear enlaces de invitación para un curso propio."
+  hold_students: "Tener estudiantes"
+  hold_students_about: "Crear cuentas de estudiante, que entran con un nombre de usuario y una contraseña, y ocuparse de ellas."
   skip_levels: "Saltar niveles"
   skip_levels_about: "Elegir un nivel inicial, cambiar de nivel, hacer la prueba de nivel."
   privacy: "Privacidad"
@@ -129,13 +131,14 @@ common:
 auth:
   login:
     title: Iniciar sesión
-    email_label: Correo electrónico
+    email_label: "Correo electrónico o nombre de usuario"
     password_label: Contraseña
     submit: Iniciar sesión
     or: o
     no_account_html: "¿Aún no tienes cuenta? <a href=\"{url}\" data-testid=\"login-register-link\">Regístrate</a>."
+    student_note: "Si eres estudiante y olvidaste tu contraseña, pide una nueva a tu profesor."
     too_many_attempts: Demasiados intentos de inicio de sesión. Espera unos minutos e inténtalo de nuevo.
-    incorrect: Correo electrónico o contraseña incorrectos.
+    incorrect: "Correo electrónico, nombre de usuario o contraseña incorrectos."
   register:
     age: "Tengo al menos {min_age} años"
     title: Registrarse
@@ -584,6 +587,8 @@ profile:
     last_name: Apellidos
     email: Dirección de correo electrónico
     no_email: Sin correo electrónico registrado
+    username: "Nombre de usuario"
+    student_note: "Tu profesor se ocupa de esta cuenta: pídele que cambie tu nombre o tu nombre de usuario."
     verified: Verificado
     language: Idioma
     language_unavailable: Ese idioma no está disponible.
@@ -693,6 +698,10 @@ manage:
   mode_closed: "Nadie puede registrarse (SKRONGLE_SIGNUP=closed)."
   invite_about: "Crea un enlace de invitación y envíalo a una persona. Funciona una vez, durante 7 días. El enlace solo se muestra al crearlo, así que cópialo entonces. Revocar anula un enlace que nadie ha usado todavía."
   accounts_of: "{total} de {max} cuentas"
+  students_of: "{total} de {max} cuentas de estudiante"
+  holds_students:
+    one: "Tiene {n} estudiante"
+    other: "Tiene {n} estudiantes"
   invite_link: "Enlace de invitación"
   copy: "Copiar"
   make_invite: "Crear un enlace de invitación"
@@ -3096,3 +3105,6 @@ oauth:
   no_permission:
     title: "Esta cuenta no puede conectar apps"
     text: "Conectar una app requiere el permiso Crear cursos. Pídeselo al propietario de este servidor."
+
+students:
+  username_rule: "Un nombre de usuario tiene de {min} a {max} caracteres: de la a a la z, del 0 al 9, puntos, guiones y guiones bajos, y empieza por una letra o un número."

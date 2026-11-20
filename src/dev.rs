@@ -162,10 +162,10 @@ fn is_local_host(host: &str) -> bool {
     matches!(host, "localhost" | "127.0.0.1" | "::1")
 }
 
-/// Accounts in the database other than the dev user's.
+/// Accounts in the database other than the dev user's (students, #217, are their teacher's).
 pub fn other_accounts(conn: &Connection) -> rusqlite::Result<i64> {
     conn.query_row(
-        "SELECT COUNT(*) FROM users WHERE email IS NULL OR lower(email) <> lower(?1)",
+        "SELECT COUNT(*) FROM users WHERE teacher_id IS NULL AND (email IS NULL OR lower(email) <> lower(?1))",
         [DEV_EMAIL],
         |r| r.get(0),
     )

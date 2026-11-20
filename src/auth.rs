@@ -547,11 +547,7 @@ impl FromRequestParts<Arc<AppState>> for CurrentUser {
 
     async fn from_request_parts(parts: &mut Parts, state: &Arc<AppState>) -> Result<Self, Self::Rejection> {
         let api = parts.uri.path().starts_with("/api/");
-        let user = resolve_user(parts, state).await?;
-        if let Some((_, u)) = &user {
-            refuse_student(parts, u)?;
-        }
-        match user {
+        match resolve_user(parts, state).await? {
             // A temporary password (#635): a new one first, then the rest.
             Some((_, user)) if user.must_change_password && api => Err(AppError::ApiPasswordChangeRequired),
             Some((_, user)) if user.must_change_password => Err(AppError::PasswordChangeRequired(next_path(parts))),
@@ -562,14 +558,28 @@ impl FromRequestParts<Arc<AppState>> for CurrentUser {
     }
 }
 
-/// A student asking for a path it never reaches (`students::refused`,
-/// #217): a 404, as if the page did not exist. Every extractor of the
-/// signed-in user asks this, so a route needs no check of its own.
-fn refuse_student(parts: &Parts, user: &CurrentUser) -> Result<(), AppError> {
-    if user.student && crate::students::refused(app_path(parts)) {
-        return Err(AppError::NotFound);
+/// The router's layer for student accounts (#217): a signed-in student
+/// asking for a path in `students::refused` gets a 404, as if the page did
+/// not exist, page or API, whatever the handler extracts. The session is
+/// looked up only for a refused path, so other requests pay nothing.
+pub async fn student_gate(
+    axum::extract::State(state): axum::extract::State<Arc<AppState>>,
+    req: axum::extract::Request,
+    next: axum::middleware::Next,
+) -> axum::response::Response {
+    use axum::response::IntoResponse;
+    let path = req.uri().path();
+    let path = path.strip_prefix(crate::base_path()).filter(|p| p.starts_with('/')).unwrap_or(path);
+    if crate::students::refused(path) {
+        if let Some(token) = session_cookie_from_headers(req.headers()) {
+            match cached_user(&state, &token).await {
+                Ok(Some(u)) if u.student => return AppError::NotFound.into_response(),
+                Err(e) => return e.into_response(),
+                _ => {}
+            }
+        }
     }
-    Ok(())
+    next.run(req).await
 }
 
 /// The request's path inside the app (without the base path).
@@ -597,11 +607,7 @@ impl FromRequestParts<Arc<AppState>> for MaybeUser {
     type Rejection = AppError;
 
     async fn from_request_parts(parts: &mut Parts, state: &Arc<AppState>) -> Result<Self, Self::Rejection> {
-        let user = resolve_user(parts, state).await?.map(|(_, u)| u);
-        if let Some(u) = &user {
-            refuse_student(parts, u)?;
-        }
-        Ok(MaybeUser(user))
+        Ok(MaybeUser(resolve_user(parts, state).await?.map(|(_, u)| u)))
     }
 }
 

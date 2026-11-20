@@ -48,7 +48,7 @@ pub struct Settings {
 
 pub fn settings(conn: &Connection, user_id: i64) -> rusqlite::Result<Settings> {
     let mut s = conn.query_row(
-        "SELECT two_factor, email FROM users WHERE id = ?1",
+        "SELECT two_factor, COALESCE(email, '') FROM users WHERE id = ?1",
         [user_id],
         |r| {
             Ok(Settings {
@@ -135,7 +135,7 @@ fn stored_key(conn: &Connection, vault: &Vault, user_id: i64) -> rusqlite::Resul
     }
     let row = conn
         .query_row(
-            "SELECT k.secret, k.confirmed_at, k.last_step, u.email FROM totp_keys k JOIN users u ON u.id = k.user_id WHERE k.user_id = ?1",
+            "SELECT k.secret, k.confirmed_at, k.last_step, COALESCE(u.email, '') FROM totp_keys k JOIN users u ON u.id = k.user_id WHERE k.user_id = ?1",
             [user_id],
             |r| Ok(KeyRow { secret: r.get(0)?, confirmed_at: r.get(1)?, last_step: r.get(2)?, email: r.get(3)? }),
         )
@@ -214,7 +214,7 @@ pub fn pending(conn: &Connection, token: &str, now: i64) -> rusqlite::Result<Opt
         return Ok(None);
     }
     conn.query_row(
-        "SELECT c.id, c.user_id, u.email, c.attempts
+        "SELECT c.id, c.user_id, COALESCE(u.email, ''), c.attempts
          FROM two_factor_challenges c JOIN users u ON u.id = c.user_id
          WHERE c.token_hash = ?1 AND c.expires_at > ?2 AND c.attempts < ?3",
         params![crate::auth::hash_token(token), now, MAX_ATTEMPTS],
