@@ -47,6 +47,8 @@ perms:
   ai_tutor_about: "Use the AI tutor."
   share_courses: "Share courses"
   share_courses_about: "Make invitation links for one's own course."
+  hold_students: "Hold students"
+  hold_students_about: "Make student accounts, which sign in with a username and a password, and look after them."
   skip_levels: "Skip levels"
   skip_levels_about: "Choose a starting level, change level, take the placement test."
   privacy: "Privacy"
@@ -131,13 +133,14 @@ common:
 auth:
   login:
     title: Log in
-    email_label: E-mail address
+    email_label: "E-mail address or username"
     password_label: Password
     submit: Log in
     or: or
     no_account_html: "No account yet? <a href=\"{url}\" data-testid=\"login-register-link\">Register</a>."
+    student_note: "A student who forgot their password asks their teacher for a new one."
     too_many_attempts: Too many sign-in attempts. Wait a few minutes and try again.
-    incorrect: Incorrect e-mail address or password.
+    incorrect: "Incorrect e-mail address, username or password."
   register:
     age: "I am at least {min_age} years old"
     title: Register
@@ -236,6 +239,8 @@ profile:
     last_name: Last name
     email: E-mail address
     no_email: No e-mail on file
+    username: "Username"
+    student_note: "Your teacher looks after this account: ask them to change your name or username."
     verified: Verified
     language: Language
     language_unavailable: That language is not available.
@@ -345,6 +350,10 @@ manage:
   mode_closed: "Nobody may register (SKRONGLE_SIGNUP=closed)."
   invite_about: "Make an invitation link and send it to one person. It works once, for 7 days. The link is shown only when it is made, so copy it then. Revoke takes back a link nobody has used yet."
   accounts_of: "{total} of {max} accounts"
+  students_of: "{total} of {max} student accounts"
+  holds_students:
+    one: "Holds {n} student"
+    other: "Holds {n} students"
   invite_link: "Invitation link"
   copy: "Copy"
   make_invite: "Make an invitation link"
@@ -3098,3 +3107,6 @@ oauth:
   no_permission:
     title: "This account can't connect apps"
     text: "Connecting an app needs the Create courses permission. Ask the owner of this server for it."
+
+students:
+  username_rule: "A username has {min} to {max} characters: a to z, 0 to 9, dots, dashes and underscores, starting with a letter or a digit."

@@ -138,7 +138,7 @@ mod tests {
         };
         let before = (stored(root), stored(sue), stored(ann), stored(bob), stored(stu));
         let all = || (stored(root), stored(sue), stored(ann), stored(bob), stored(stu));
-        let teacher = (63, Some(perms::TEACHER_PRESET));
+        let teacher = (191, Some(perms::TEACHER_PRESET));
         let student = (0, Some(perms::STUDENT_PRESET));
         assert_eq!((before.2, before.3), (teacher, (4, None)));
 

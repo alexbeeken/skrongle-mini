@@ -56,9 +56,16 @@ const PREDATES_MESSAGE: &str = "this database predates the 1.0 schema; start fro
 /// A database made by a build from before the schema was squashed into v1
 /// (#49): its `users` table has a column only that history had
 /// (`username` in its first versions, `google_sub` after them). There is no
-/// upgrade path from it.
+/// upgrade path from it. v10 brought `username` back for student accounts
+/// (#217), always next to `teacher_id`, which that history never had.
 fn predates_schema(conn: &Connection) -> rusqlite::Result<bool> {
-    conn.query_row("SELECT EXISTS(SELECT 1 FROM pragma_table_info('users') WHERE name IN ('username', 'google_sub'))", [], |r| r.get(0))
+    conn.query_row(
+        "SELECT EXISTS(SELECT 1 FROM pragma_table_info('users') WHERE name = 'google_sub')
+             OR (EXISTS(SELECT 1 FROM pragma_table_info('users') WHERE name = 'username')
+                 AND NOT EXISTS(SELECT 1 FROM pragma_table_info('users') WHERE name = 'teacher_id'))",
+        [],
+        |r| r.get(0),
+    )
 }
 
 /// Refuses a database at `path` that this binary cannot use: one from

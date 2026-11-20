@@ -84,6 +84,49 @@ pub async fn login(State(state): State<Arc<AppState>>, Query(q): Query<LoginPara
     Ok(([auth::set_session_cookie(&token, state.secure_cookies)], Redirect::to(&landing(q.next.as_deref()))).into_response())
 }
 
+/// `/dev/student`: the student just made, with its password.
+#[derive(Template)]
+#[template(path = "dev_student.html")]
+pub struct DevStudentTemplate {
+    pub user: Option<CurrentUser>,
+    pub username: String,
+    pub password: &'static str,
+}
+
+/// GET /dev/student: make a student account (#217) for the signed-in
+/// account, `student-<id>-<n>` with the password `dev-password`, and name
+/// it on a page (`?format=json`: `{"id", "username", "password"}`). The
+/// account must be able to hold students (an owner, or Hold students);
+/// the dev server is never at its student limit.
+pub async fn student(State(state): State<Arc<AppState>>, user: CurrentUser, Query(q): Query<AuthenticatorParams>) -> Result<Response, AppError> {
+    let hash = auth::hash_password_async(dev::DEV_PASSWORD.to_string()).await?;
+    let teacher = user.id;
+    let made = state
+        .db
+        .call(move |c| {
+            let mut n = crate::students::count(c, teacher)? + 1;
+            let username = loop {
+                let name = format!("student-{teacher}-{n}");
+                if crate::auth::find_user_credentials(c, &name)?.is_none() {
+                    break name;
+                }
+                n += 1;
+            };
+            let new = crate::students::NewStudent { username: username.clone(), password_hash: hash, ..Default::default() };
+            Ok(crate::students::create(c, teacher, &[new], true)?.map(|ids| (ids.first().copied().unwrap_or_default(), username)))
+        })
+        .await?;
+    let (id, username) = match made {
+        Ok(m) => m,
+        Err(why) => return Err(AppError::BadRequest(format!("no student made: {why:?} (the signed-in account needs Hold students, or to be an owner)"))),
+    };
+    tracing::info!("dev: user {teacher} made student {id} '{username}'");
+    if q.format.as_deref() == Some("json") {
+        return Ok(Json(serde_json::json!({ "id": id, "username": username, "password": dev::DEV_PASSWORD })).into_response());
+    }
+    Ok(Page(DevStudentTemplate { user: Some(user), username, password: dev::DEV_PASSWORD }).into_response())
+}
+
 #[derive(Deserialize)]
 pub struct VocabBody {
     /// The lesson whose words to collect.
@@ -367,6 +410,7 @@ pub fn routes() -> axum::Router<Arc<AppState>> {
         .route("/login/code/device", get(super::auth::login_code_device))
         .route("/dev/reset", get(reset))
         .route("/dev/vocab", post(vocab))
+        .route("/dev/student", get(student))
         .merge(devbox)
         // The simulated providers' wire APIs: the app's own server-side
         // clients call them with an API key (checked there), no cookie.

@@ -159,6 +159,12 @@ pub struct CurrentUser {
     /// `sprint.js` sets; 0 without one): where this request's local day
     /// starts, for the daily goal, the streak and the earnings ledger.
     pub tz: i64,
+    /// A student account (#217, `students.rs`): `users.teacher_id` is set.
+    /// It has no permissions (`can` is false for every one), no AI and no
+    /// connected apps, and the paths in `students::refused` answer it 404.
+    pub student: bool,
+    /// `users.username`: what a student signs in with; '' for a normal account.
+    pub username: String,
 }
 
 impl CurrentUser {
@@ -181,6 +187,8 @@ impl CurrentUser {
             apps_on: false,
             lang: String::new(),
             tz: 0,
+            student: false,
+            username: String::new(),
         }
     }
 
@@ -232,9 +240,16 @@ impl CurrentUser {
         }
     }
 
-    /// May this account use `p`? An owner may use everything.
+    /// May this account use `p`? An owner may use everything; a student
+    /// nothing (#217).
     pub fn can(&self, p: Perm) -> bool {
-        allowed(self.owner, self.perms, p)
+        !self.student && allowed(self.owner, self.perms, p)
+    }
+
+    /// What the sign-in limits count this account under
+    /// (`students::sign_in_key`): its username for a student, else its address.
+    pub fn sign_in_key(&self) -> String {
+        if self.student { crate::students::sign_in_key(&self.username) } else { self.email.clone() }
     }
 
     /// May this account connect apps (#167): the switch is on and it has
@@ -319,15 +334,17 @@ pub fn create_user(conn: &Connection, email: &str, password_hash: &str) -> rusql
 /// address is written `lower(email) = lower(?)` so it matches that index.
 const CREDENTIALS_SQL: &str = "SELECT id, password_hash FROM users WHERE lower(email) = lower(?1) AND password_hash <> '' ORDER BY id LIMIT 1";
 
-/// The password account an e-mail address signs in to: (id, password hash).
-/// Accounts without a password are never found here.
-pub fn find_user_credentials(conn: &Connection, email: &str) -> rusqlite::Result<Option<(i64, String)>> {
-    conn.query_row(
-        CREDENTIALS_SQL,
-        [email],
-        |r| Ok((r.get(0)?, r.get(1)?)),
-    )
-    .optional()
+/// A student's username (#217), through `idx_users_username`: stored lower
+/// case, so it is found in any case.
+const USERNAME_CREDENTIALS_SQL: &str = "SELECT id, password_hash FROM users WHERE username = lower(?1) AND password_hash <> ''";
+
+/// The password account a sign-in name signs in to: (id, password hash).
+/// With an `@` it is an e-mail address; without, a student's username
+/// (`students.rs`), in any case. Accounts without a password are never
+/// found here.
+pub fn find_user_credentials(conn: &Connection, login: &str) -> rusqlite::Result<Option<(i64, String)>> {
+    let sql = if login.contains('@') { CREDENTIALS_SQL } else { USERNAME_CREDENTIALS_SQL };
+    conn.query_row(sql, [login.trim()], |r| Ok((r.get(0)?, r.get(1)?))).optional()
 }
 
 /// What `sessions.session_token` stores: the SHA-256 of the cookie's token,
@@ -347,7 +364,8 @@ pub fn hash_token(token: &str) -> String {
 /// Start a session; returns the token for the cookie (only its hash is stored).
 /// The only place a `sessions` row is inserted: it first ends the account's
 /// oldest sessions so that, with the new one, it holds at most
-/// [`MAX_SESSIONS_PER_ACCOUNT`] (#30). Two plain statements, no savepoint of
+/// [`MAX_SESSIONS_PER_ACCOUNT`] (#30), a student
+/// [`crate::caps::MAX_SESSIONS_PER_STUDENT`] (#216). Two plain statements, no savepoint of
 /// its own: the one connection sits behind a mutex, so nothing runs between
 /// them, and inside a caller's transaction they commit or roll back with it.
 pub fn create_session(conn: &Connection, user_id: i64) -> rusqlite::Result<String> {
@@ -355,8 +373,9 @@ pub fn create_session(conn: &Connection, user_id: i64) -> rusqlite::Result<Strin
     let t = now();
     conn.execute(
         "DELETE FROM sessions WHERE id IN \
-         (SELECT id FROM sessions WHERE user_id = ?1 ORDER BY created_at DESC, id DESC LIMIT -1 OFFSET ?2)",
-        params![user_id, MAX_SESSIONS_PER_ACCOUNT as i64 - 1],
+         (SELECT id FROM sessions WHERE user_id = ?1 ORDER BY created_at DESC, id DESC LIMIT -1 OFFSET \
+          (SELECT CASE WHEN teacher_id IS NULL THEN ?2 ELSE ?3 END FROM users WHERE id = ?1))",
+        params![user_id, MAX_SESSIONS_PER_ACCOUNT as i64 - 1, crate::caps::MAX_SESSIONS_PER_STUDENT as i64 - 1],
     )?;
     conn.execute(
         "INSERT INTO sessions (user_id, session_token, created_at, expires_at) VALUES (?1, ?2, ?3, ?4)",
@@ -392,7 +411,7 @@ fn session_sql() -> String {
     format!(
         "SELECT u.id, COALESCE(u.email, ''), u.active_course, c.title, u.first_name, u.last_name, NULL, NULL, {}, u.email_verified_at IS NOT NULL, u.owner,
                 COALESCE(p.start_unit, ''), NULL, u.lang, c.owner_id, u.must_change_password,
-                s.expires_at, u.perms, {}
+                s.expires_at, u.perms, {}, u.teacher_id IS NOT NULL, COALESCE(u.username, '')
          FROM sessions s JOIN users u ON u.id = s.user_id LEFT JOIN courses c ON c.id = u.active_course
          LEFT JOIN projects p ON p.user_id = u.id AND p.course_id = u.active_course
          WHERE s.session_token = ?1 AND s.expires_at > ?2",
@@ -408,6 +427,8 @@ fn read_session(conn: &Connection, hash: &str, now: i64) -> rusqlite::Result<Opt
         &session_sql(),
         params![hash, now],
         |r| {
+            // A student has no AI and no connected apps (#217), whatever the server's switches say.
+            let student: bool = r.get(19)?;
             let user = CurrentUser {
                 id: r.get(0)?,
                 email: r.get(1)?,
@@ -417,14 +438,16 @@ fn read_session(conn: &Connection, hash: &str, now: i64) -> rusqlite::Result<Opt
                 first_name: r.get(4)?,
                 last_name: r.get(5)?,
                 must_change_password: r.get(15)?,
-                ai_off: r.get(8)?,
-                apps_on: r.get(18)?,
+                ai_off: student || r.get::<_, bool>(8)?,
+                apps_on: !student && r.get::<_, bool>(18)?,
                 email_verified: r.get(9)?,
                 owner: r.get(10)?,
                 perms: Perms::from_bits(r.get(17)?),
                 start_unit: r.get(11)?,
                 lang: r.get(13)?,
                 tz: 0,
+                student,
+                username: r.get(20)?,
             };
             Ok((user, r.get(16)?))
         },
@@ -533,6 +556,30 @@ impl FromRequestParts<Arc<AppState>> for CurrentUser {
             None => Err(AppError::RedirectToLogin),
         }
     }
+}
+
+/// The router's layer for student accounts (#217): a signed-in student
+/// asking for a path in `students::refused` gets a 404, as if the page did
+/// not exist, page or API, whatever the handler extracts. The session is
+/// looked up only for a refused path, so other requests pay nothing.
+pub async fn student_gate(
+    axum::extract::State(state): axum::extract::State<Arc<AppState>>,
+    req: axum::extract::Request,
+    next: axum::middleware::Next,
+) -> axum::response::Response {
+    use axum::response::IntoResponse;
+    let path = req.uri().path();
+    let path = path.strip_prefix(crate::base_path()).filter(|p| p.starts_with('/')).unwrap_or(path);
+    if crate::students::refused(path) {
+        if let Some(token) = session_cookie_from_headers(req.headers()) {
+            match cached_user(&state, &token).await {
+                Ok(Some(u)) if u.student => return AppError::NotFound.into_response(),
+                Err(e) => return e.into_response(),
+                _ => {}
+            }
+        }
+    }
+    next.run(req).await
 }
 
 /// The request's path inside the app (without the base path).
@@ -818,6 +865,7 @@ mod tests {
         let db = crate::db::Db::open_in_memory().unwrap();
         db.with(|c| {
             assert_eq!(crate::db::table_scans(c, CREDENTIALS_SQL).unwrap(), Vec::<String>::new());
+            assert_eq!(crate::db::table_scans(c, USERNAME_CREDENTIALS_SQL).unwrap(), Vec::<String>::new(), "a username through its index (#217)");
             // One stored before addresses were lower-cased, one after.
             let ann = create_user(c, "Ann@Example.org", "h1")?;
             let bob = create_user(c, "bob@example.org", "h2")?;

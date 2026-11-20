@@ -275,7 +275,10 @@ pub async fn login(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
         Ok(f) => f,
         Err(r) => return Ok(r),
     };
+    // An e-mail address, or a student's username (#217): without an `@`.
     let email = form.email.trim().to_string();
+    // The sign-in limits count a username as they count an address, in any case.
+    let key = crate::students::sign_in_key(&email);
     let share = share_notice(&state, &form.share).await?;
     let fail = |msg: &str| {
         Page(LoginTemplate {
@@ -296,7 +299,7 @@ pub async fn login(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
     }
     // Before any hashing: a password-guessing run costs the Pi argon2 time too.
     let t = now();
-    if !state.limits.hit(security::LOGIN_PER_IP, &ip, t) || state.limits.blocked(security::LOGIN_FAILURES_PER_USER, &email, t) {
+    if !state.limits.hit(security::LOGIN_PER_IP, &ip, t) || state.limits.blocked(security::LOGIN_FAILURES_PER_USER, &key, t) {
         tracing::warn!("sign-in rate limit hit for an account from {ip}");
         return Ok(too_many(email, share, notice));
     }
@@ -319,12 +322,17 @@ pub async fn login(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
         // table; made-up addresses are already counted against the client's
         // address by LOGIN_PER_IP, and cannot fill the table (#89).
         if user_id.is_some() {
-            let _ = state.limits.hit(security::LOGIN_FAILURES_PER_USER, &email, t);
+            let _ = state.limits.hit(security::LOGIN_FAILURES_PER_USER, &key, t);
         }
         return Ok(fail(&crate::t("auth.login.incorrect")));
     };
 
     tracing::info!("user {user_id} gave the right password");
+    // A student opens no share link and connects no app (`students::refused`):
+    // it lands on its home.
+    if !email.contains('@') && state.db.call(move |c| crate::students::is_student(c, user_id)).await? {
+        return sign_in(&state, user_id, Vec::new(), None, None).await;
+    }
     sign_in(&state, user_id, Vec::new(), share.as_ref(), oauth.as_deref()).await
 }
 

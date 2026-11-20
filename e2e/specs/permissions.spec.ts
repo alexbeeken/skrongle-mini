@@ -37,9 +37,9 @@ test("the owner sets an account's permissions; a superuser sees only the account
   const line = (id: string) => dialog.locator(`[data-testid=manage-permission][data-perm="${id}"]`);
   const toggle = (id: string) => line(id).getByTestId("manage-permission-toggle");
   await expect(preset("2")).toBeChecked();
-  await expect(dialog.getByTestId("manage-permission")).toHaveCount(7);
+  await expect(dialog.getByTestId("manage-permission")).toHaveCount(8);
   await expect(dialog.getByTestId("manage-permission").first()).toContainText("Create courses");
-  for (const id of ["create_courses", "ai_courses", "ai_tutor", "share_courses", "skip_levels", "privacy", "superuser"]) {
+  for (const id of ["create_courses", "ai_courses", "ai_tutor", "share_courses", "hold_students", "skip_levels", "privacy", "superuser"]) {
     await expect(toggle(id)).toBeHidden();
     await expect(toggle(id)).toBeDisabled();
     await expect(line(id).getByTestId("manage-permission-mark")).toBeVisible();
@@ -79,8 +79,8 @@ test("the owner sets an account's permissions; a superuser sees only the account
   await expect(page.getByTestId("manage-notice")).toContainText(`Permissions saved for ${email}`);
   await expect(row.getByTestId("manage-account-preset")).toHaveText("Custom");
   await expect(row).toHaveAttribute("data-preset", "custom");
-  // ai_tutor 4 + skip_levels 16 + privacy 32.
-  await expect(row).toHaveAttribute("data-perms", "52");
+  // ai_tutor 4 + skip_levels 16 + privacy 32 + hold_students 128.
+  await expect(row).toHaveAttribute("data-perms", "180");
 
   // Reopened: Custom, with what was saved.
   await row.getByTestId("manage-account-permissions").click();
@@ -92,7 +92,7 @@ test("the owner sets an account's permissions; a superuser sees only the account
   await toggle("superuser").check();
   await dialog.getByTestId("manage-permissions-save").click();
   await expect(page.getByTestId("manage-notice")).toBeVisible();
-  await expect(row).toHaveAttribute("data-perms", "116");
+  await expect(row).toHaveAttribute("data-perms", "244");
 
   // That account: Manage Users in the menu; the page has the accounts and nothing of the owner's.
   await them.goto("/profile");
@@ -235,6 +235,7 @@ test("a custom set saved as a preset is offered to another account, then deleted
   // The AI tutor and Skip levels only: 4 + 16.
   await toggle("create_courses").uncheck();
   await toggle("privacy").uncheck();
+  await toggle("hold_students").uncheck();
   await saveAs.fill(name);
   await dialog.getByTestId("manage-permissions-save").click();
   await expect(page.getByTestId("manage-notice")).toContainText(`Permissions saved for ${emails[0]}`);
@@ -254,7 +255,7 @@ test("a custom set saved as a preset is offered to another account, then deleted
   await expect(radio).not.toBeChecked();
   await radio.check();
   await expect(saveAs).toBeHidden();
-  for (const id of ["create_courses", "ai_courses", "ai_tutor", "share_courses", "skip_levels", "privacy", "superuser"]) {
+  for (const id of ["create_courses", "ai_courses", "ai_tutor", "share_courses", "hold_students", "skip_levels", "privacy", "superuser"]) {
     await expect(toggle(id)).toBeHidden();
     await expect(line(id).getByTestId("manage-permission-mark")).toBeVisible();
     await expect(line(id)).toHaveAttribute("data-on", id === "ai_tutor" || id === "skip_levels" ? "true" : "false");

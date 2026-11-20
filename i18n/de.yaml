@@ -45,6 +45,8 @@ perms:
   ai_tutor_about: "Den KI-Tutor nutzen."
   share_courses: "Kurse teilen"
   share_courses_about: "Einladungslinks für den eigenen Kurs erstellen."
+  hold_students: "Schüler betreuen"
+  hold_students_about: "Schülerkonten anlegen, die sich mit Benutzername und Passwort anmelden, und sie betreuen."
   skip_levels: "Stufen überspringen"
   skip_levels_about: "Eine Anfangsstufe wählen, die Stufe wechseln, den Einstufungstest machen."
   privacy: "Privatsphäre"
@@ -129,13 +131,14 @@ common:
 auth:
   login:
     title: Anmelden
-    email_label: E-Mail-Adresse
+    email_label: "E-Mail-Adresse oder Benutzername"
     password_label: Passwort
     submit: Anmelden
     or: oder
     no_account_html: "Noch kein Konto? <a href=\"{url}\" data-testid=\"login-register-link\">Registrieren</a>."
+    student_note: "Wer als Schüler sein Passwort vergessen hat, bittet die Lehrkraft um ein neues."
     too_many_attempts: Zu viele Anmeldeversuche. Warte ein paar Minuten und versuch es erneut.
-    incorrect: E-Mail-Adresse oder Passwort sind falsch.
+    incorrect: "E-Mail-Adresse, Benutzername oder Passwort sind falsch."
   register:
     age: "Ich bin mindestens {min_age} Jahre alt"
     title: Registrieren
@@ -234,6 +237,8 @@ profile:
     last_name: Nachname
     email: E-Mail-Adresse
     no_email: Keine E-Mail-Adresse hinterlegt
+    username: "Benutzername"
+    student_note: "Deine Lehrkraft betreut dieses Konto: Bitte sie, deinen Namen oder Benutzernamen zu ändern."
     verified: Bestätigt
     language: Sprache
     language_unavailable: Diese Sprache ist nicht verfügbar.
@@ -343,6 +348,10 @@ manage:
   mode_closed: "Niemand kann sich registrieren (SKRONGLE_SIGNUP=closed)."
   invite_about: "Erstelle einen Einladungslink und schick ihn an eine Person. Er funktioniert einmal, 7 Tage lang. Der Link wird nur beim Erstellen angezeigt, kopiere ihn also gleich. Widerrufen macht einen noch nicht benutzten Link ungültig."
   accounts_of: "{total} von {max} Konten"
+  students_of: "{total} von {max} Schülerkonten"
+  holds_students:
+    one: "Betreut {n} Schüler"
+    other: "Betreut {n} Schüler"
   invite_link: "Einladungslink"
   copy: "Kopieren"
   make_invite: "Einladungslink erstellen"
@@ -3095,3 +3104,6 @@ oauth:
   no_permission:
     title: "Dieses Konto kann keine Apps verbinden"
     text: "Zum Verbinden einer App braucht es die Berechtigung Kurse erstellen. Bitte den Betreiber dieses Servers darum."
+
+students:
+  username_rule: "Ein Benutzername hat {min} bis {max} Zeichen: a bis z, 0 bis 9, Punkte, Bindestriche und Unterstriche, und beginnt mit einem Buchstaben oder einer Ziffer."

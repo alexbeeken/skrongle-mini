@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Dev: a student{% endblock %}
+{% block content %}
+<section class="narrow" data-testid="dev-student">
+  <h1>A new student</h1>
+  <p>Signs in on <a href="{{ crate::url("/login") }}">Log in</a> with:</p>
+  <dl class="facts">
+    <dt>Username</dt><dd><code data-testid="dev-student-username">{{ username }}</code></dd>
+    <dt>Password</dt><dd><code data-testid="dev-student-password">{{ password }}</code></dd>
+  </dl>
+  <p class="muted small">Made for this account (dev builds only, <code>/dev/student</code>). Open it again for another.</p>
+</section>
+{% endblock %}

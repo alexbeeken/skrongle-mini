@@ -45,6 +45,8 @@ perms:
   ai_tutor_about: "Usar o tutor de IA."
   share_courses: "Compartilhar cursos"
   share_courses_about: "Criar links de convite para um curso próprio."
+  hold_students: "Ter alunos"
+  hold_students_about: "Criar contas de aluno, que entram com um nome de usuário e uma senha, e cuidar delas."
   skip_levels: "Pular níveis"
   skip_levels_about: "Escolher um nível inicial, mudar de nível, fazer o teste de nivelamento."
   privacy: "Privacidade"
@@ -129,13 +131,14 @@ common:
 auth:
   login:
     title: Entrar
-    email_label: Endereço de e-mail
+    email_label: "Endereço de e-mail ou nome de usuário"
     password_label: Senha
     submit: Entrar
     or: ou
     no_account_html: "Ainda não tem conta? <a href=\"{url}\" data-testid=\"login-register-link\">Cadastre-se</a>."
+    student_note: "Se você é aluno e esqueceu a senha, peça uma nova ao seu professor."
     too_many_attempts: Muitas tentativas de entrar. Espere alguns minutos e tente de novo.
-    incorrect: Endereço de e-mail ou senha incorretos.
+    incorrect: "Endereço de e-mail, nome de usuário ou senha incorretos."
   register:
     age: "Tenho pelo menos {min_age} anos de idade"
     title: Cadastrar-se
@@ -234,6 +237,8 @@ profile:
     last_name: Sobrenome
     email: Endereço de e-mail
     no_email: Nenhum e-mail cadastrado
+    username: "Nome de usuário"
+    student_note: "Seu professor cuida desta conta: peça a ele para mudar seu nome ou nome de usuário."
     verified: Confirmado
     language: Idioma
     language_unavailable: Esse idioma não está disponível.
@@ -343,6 +348,10 @@ manage:
   mode_closed: "Ninguém pode se cadastrar (SKRONGLE_SIGNUP=closed)."
   invite_about: "Crie um link de convite e envie a uma pessoa. Ele funciona uma vez, por 7 dias. O link só aparece quando é criado, então copie-o nessa hora. Revogar cancela um link que ninguém usou ainda."
   accounts_of: "{total} de {max} contas"
+  students_of: "{total} de {max} contas de aluno"
+  holds_students:
+    one: "Tem {n} aluno"
+    other: "Tem {n} alunos"
   invite_link: "Link de convite"
   copy: "Copiar"
   make_invite: "Criar um link de convite"
@@ -3095,3 +3104,6 @@ oauth:
   no_permission:
     title: "Esta conta não pode conectar apps"
     text: "Conectar um app requer a permissão Criar cursos. Peça ao dono deste servidor."
+
+students:
+  username_rule: "Um nome de usuário tem de {min} a {max} caracteres: a a z, 0 a 9, pontos, hífens e sublinhados, e começa com uma letra ou um número."

@@ -30,7 +30,7 @@
   <ul>
     <li><a href="#personal" data-testid="profile-nav-link" data-section="personal">{{ crate::t("profile.nav.personal") }}</a></li>
     <li><a href="#account" data-testid="profile-nav-link" data-section="account">{{ crate::t("profile.nav.account") }}</a></li>
-    <li><a href="#two-factor" data-testid="profile-nav-link" data-section="two-factor">{{ crate::t("profile.nav.two_factor") }}</a></li>
+    {% if !is_student() %}<li><a href="#two-factor" data-testid="profile-nav-link" data-section="two-factor">{{ crate::t("profile.nav.two_factor") }}</a></li>{% endif %}
     {% if apps.is_some() %}<li><a href="#apps" data-testid="profile-nav-link" data-section="apps">{{ crate::t("apps.title") }}</a></li>{% endif %}
   </ul>
 </nav>
@@ -38,6 +38,14 @@
   {% if let Some(n) = notice %}<p class="alert ok-text" role="status" data-testid="profile-notice">✓ {{ n }}</p>{% endif %}
 
   <section class="card profile-form" id="personal" data-testid="profile-form">
+    {% if is_student() %}
+    <h2>{{ crate::t("profile.personal.title") }}</h2>
+    <div class="field">
+      <label for="profile-username">{{ crate::t("profile.personal.username") }}</label>
+      <input type="text" id="profile-username" value="{{ username() }}" data-testid="profile-username" readonly>
+      <span class="muted small field-note" data-testid="profile-student-note">{{ crate::t("profile.personal.student_note") }}</span>
+    </div>
+    {% else %}
     <h2 class="heading-with-info">{{ crate::t("profile.personal.title") }} <button type="button" class="info-btn" data-opens="privacy-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.privacy.info") }}" data-testid="profile-privacy-info">i</button></h2>
     <div class="two-col">
       <label>{{ crate::t("profile.personal.first_name") }}
@@ -56,6 +64,7 @@
         {% if profile.email.is_some() %}{% if let Some(u) = user %}{% if u.email_verified %}<span class="field-check" tabindex="0" role="img" aria-label="{{ crate::t("profile.personal.verified") }}" data-tip="{{ crate::t("profile.personal.verified") }}" data-testid="email-verified">✓</span>{% endif %}{% endif %}{% endif %}
       </span>
     </div>
+    {% endif %}
     {% let tf = profile.two_factor %}
     <div class="field">
       <label for="profile-lang" data-testid="profile-lang-label">{{ crate::t("profile.personal.language") }}</label>
@@ -120,6 +129,7 @@
     </div>
   </section>
 
+  {% if !is_student() %}
   <section class="card" id="two-factor" data-testid="profile-two-factor" data-on="{{ two_factor_on() }}">
     <h2 class="heading-with-info">{{ crate::t("profile.two_factor.title") }} <button type="button" class="info-btn" data-opens="two-factor-info" aria-haspopup="dialog" aria-label="{{ crate::t("profile.two_factor.info") }}" data-testid="profile-two-factor-info">i</button></h2>
     {% if let Some(e) = two_factor_error %}<p class="alert error" role="alert" data-testid="profile-two-factor-error">{{ e }}</p>{% endif %}
@@ -194,6 +204,7 @@
     </dialog>
     {% endif %}
   </section>
+  {% endif %}
   {% if let Some(a) = apps %}
   <section class="card" id="apps" data-testid="profile-apps">
     <h2 class="heading-with-info">{{ crate::t("apps.title") }} <button type="button" class="info-btn" data-opens="apps-info" aria-haspopup="dialog" aria-label="{{ crate::t("apps.info") }}" data-testid="profile-apps-info">i</button></h2>

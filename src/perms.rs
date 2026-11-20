@@ -18,6 +18,9 @@ pub enum Perm {
     AiTutor,
     /// Make invitation links for one's own course.
     ShareCourses,
+    /// Make and look after student accounts (#217, `students.rs`): accounts
+    /// that sign in with a username and belong to this one.
+    HoldStudents,
     /// Choose a starting level, change level, take the placement test.
     SkipLevels,
     /// The account's study progress and last sign-in are not shown on Manage Users.
@@ -29,11 +32,12 @@ pub enum Perm {
 
 impl Perm {
     /// Every permission, in the order the screen lists them.
-    pub const ALL: [Perm; 7] = [
+    pub const ALL: [Perm; 8] = [
         Perm::CreateCourses,
         Perm::AiCourses,
         Perm::AiTutor,
         Perm::ShareCourses,
+        Perm::HoldStudents,
         Perm::SkipLevels,
         Perm::Privacy,
         Perm::Superuser,
@@ -49,6 +53,7 @@ impl Perm {
             Perm::SkipLevels => 16,
             Perm::Privacy => 32,
             Perm::Superuser => 64,
+            Perm::HoldStudents => 128,
         }
     }
 
@@ -62,6 +67,7 @@ impl Perm {
             Perm::SkipLevels => "skip_levels",
             Perm::Privacy => "privacy",
             Perm::Superuser => "superuser",
+            Perm::HoldStudents => "hold_students",
         }
     }
 
@@ -96,9 +102,10 @@ pub struct Perms(i64);
 impl Perms {
     /// The built-in Student preset: nothing.
     pub const STUDENT: Perms = Perms(0);
-    /// The built-in Teacher preset: everything but `Superuser`.
-    pub const TEACHER: Perms = Perms(63);
-    pub const ALL: Perms = Perms(127);
+    /// The built-in Teacher preset: everything but `Superuser` (Hold
+    /// students since v10, #217; accounts given Teacher before keep 63).
+    pub const TEACHER: Perms = Perms(63 | 128);
+    pub const ALL: Perms = Perms(255);
 
     /// A stored set: unknown bits dropped, then normalised.
     pub fn from_bits(bits: i64) -> Perms {
@@ -258,17 +265,17 @@ mod tests {
 
     #[test]
     fn bits_ids_and_sets_round_trip() {
-        assert_eq!(Perm::ALL.map(Perm::bit), [1, 2, 4, 8, 16, 32, 64]);
+        assert_eq!(Perm::ALL.map(Perm::bit), [1, 2, 4, 8, 128, 16, 32, 64], "in the order the screen lists them");
         for p in Perm::ALL {
             assert_eq!(Perm::parse(p.id()), Some(p));
             assert_eq!(Perms::STUDENT.with(p, true).bits(), p.bit());
             assert!(!Perms::ALL.with(p, false).has(p));
         }
         assert_eq!(Perm::parse("owner"), None);
-        for bits in [0, 1, 3, 9, 63, 64, 116, 127] {
+        for bits in [0, 1, 3, 9, 63, 64, 116, 127, 128, 191, 255] {
             assert_eq!(Perms::from_bits(bits).bits(), bits);
         }
-        assert_eq!(Perms::from_bits(127 | 128 | 1024), Perms::ALL, "unknown bits are dropped");
+        assert_eq!(Perms::from_bits(255 | 256 | 1024), Perms::ALL, "unknown bits are dropped");
         assert_eq!(Perms::from_bits(-1), Perms::ALL);
         assert_eq!(Perms::ALL.bits(), Perm::ALL.iter().map(|p| p.bit()).sum::<i64>());
     }
@@ -282,7 +289,7 @@ mod tests {
         let no_create = Perms::ALL.with(Perm::CreateCourses, false);
         assert!(!no_create.has(Perm::AiCourses) && !no_create.has(Perm::ShareCourses), "off before it is normalised too");
         let n = no_create.normalized();
-        assert_eq!(n.bits(), 4 + 16 + 32 + 64, "ai_courses and share_courses cleared, the others left");
+        assert_eq!(n.bits(), 4 + 16 + 32 + 64 + 128, "ai_courses and share_courses cleared, the others left");
         assert_eq!(n.normalized(), n);
         assert_eq!(Perms::from_bits(2 | 8 | 4), Perms::STUDENT.with(Perm::AiTutor, true));
         // Toggles in any order: the dependent one first still counts once its need is on.
@@ -292,7 +299,7 @@ mod tests {
     }
 
     #[test]
-    fn teacher_has_the_first_six_and_student_none() {
+    fn teacher_has_all_but_superuser_and_student_none() {
         for p in Perm::ALL {
             assert_eq!(Perms::TEACHER.has(p), p != Perm::Superuser, "{p:?}");
             assert!(!Perms::STUDENT.has(p));
@@ -320,7 +327,7 @@ mod tests {
     fn the_built_in_presets_are_student_and_teacher() {
         let db = crate::db::Db::open_in_memory().unwrap();
         db.with(|c| {
-            c.execute("INSERT INTO permission_presets (name, builtin, perms, created_at) VALUES ('Helpers', 0, 5, 1), ('Aides', 0, 127, 1)", [])?;
+            c.execute("INSERT INTO permission_presets (name, builtin, perms, created_at) VALUES ('Helpers', 0, 5, 1), ('Aides', 0, 255, 1)", [])?;
             let all = presets(c)?;
             assert_eq!(all.iter().map(|p| p.name.as_str()).collect::<Vec<_>>(), ["student", "teacher", "Aides", "Helpers"]);
             assert_eq!(all[0], Preset { id: STUDENT_PRESET, name: "student".into(), builtin: true, perms: Perms::STUDENT });
@@ -342,7 +349,7 @@ mod tests {
             assert_eq!(stored(c, ann)?, (0, Some(STUDENT_PRESET)), "new accounts start as Student");
 
             assert!(apply_preset(c, ann, TEACHER_PRESET)?);
-            assert_eq!(stored(c, ann)?, (63, Some(TEACHER_PRESET)));
+            assert_eq!(stored(c, ann)?, (Perms::TEACHER.bits(), Some(TEACHER_PRESET)));
             assert!(apply_preset(c, ann, STUDENT_PRESET)?);
             assert_eq!(stored(c, ann)?, (0, Some(STUDENT_PRESET)));
             assert!(!apply_preset(c, ann, 99)?, "no such preset");
@@ -359,7 +366,7 @@ mod tests {
 
             assert!(apply_preset(c, ann, TEACHER_PRESET)?);
             set_custom(c, ann, Perms::ALL.with(Perm::CreateCourses, false))?;
-            assert_eq!(stored(c, ann)?, (4 + 16 + 32 + 64, None), "stored normalised, preset cleared");
+            assert_eq!(stored(c, ann)?, (4 + 16 + 32 + 64 + 128, None), "stored normalised, preset cleared");
             assert_eq!(stored(c, bob)?, (0, Some(STUDENT_PRESET)), "another account is untouched");
             Ok(())
         })
@@ -383,7 +390,7 @@ mod tests {
 
             // Saved trimmed and normalised.
             let id = save_preset(c, "  Helpers ", Perms::ALL.with(Perm::CreateCourses, false))?.unwrap();
-            assert_eq!(preset(c, id)?, Some(Preset { id, name: "Helpers".into(), builtin: false, perms: Perms::from_bits(4 + 16 + 32 + 64) }));
+            assert_eq!(preset(c, id)?, Some(Preset { id, name: "Helpers".into(), builtin: false, perms: Perms::from_bits(4 + 16 + 32 + 64 + 128) }));
             for taken in ["Helpers", "HELPERS", "helpers "] {
                 assert_eq!(save_preset(c, taken, Perms::STUDENT)?, Err(PresetError::NameTaken), "{taken:?}");
             }

@@ -50,7 +50,7 @@ fn superusers_see_the_accounts_and_set_permissions() {
     assert!(!get("/profile", &stu_c).1.contains("nav-manage"));
     assert_eq!(get("/manage", &stu_c).0, 404);
     assert_eq!(post("/manage/permissions", &stu_c, &[("email", "sue@example.org"), ("preset", "1")]).0, 404);
-    assert_eq!(stored(sue), (127, None));
+    assert_eq!(stored(sue), (255, None));
 
     // A superuser: the link, and the page with the accounts only.
     assert!(get("/profile", &sue_c).1.contains(r#"data-testid="nav-manage""#));
@@ -64,12 +64,12 @@ fn superusers_see_the_accounts_and_set_permissions() {
     let stu_row = row(&page, "stu@example.org");
     assert!(stu_row.contains(r#"data-preset="1" data-perms="0""#) && stu_row.contains(">Student</td>") && stu_row.contains("manage-account-permissions"), "{stu_row}");
     let sue_row = row(&page, "sue@example.org");
-    assert!(sue_row.contains(r#"data-preset="custom" data-perms="127""#) && sue_row.contains(">Custom</td>") && !sue_row.contains("manage-account-permissions"), "{sue_row}");
+    assert!(sue_row.contains(r#"data-preset="custom" data-perms="255""#) && sue_row.contains(">Custom</td>") && !sue_row.contains("manage-account-permissions"), "{sue_row}");
     let root_row = row(&page, "root@example.org");
     assert!(root_row.contains(r#"data-preset="owner""#) && root_row.contains(">Owner</td>") && !root_row.contains("manage-account-permissions"), "{root_row}");
-    // The dialog: the presets with their sets, then Custom; the seven
+    // The dialog: the presets with their sets, then Custom; the eight
     // permissions in order, the dependent ones naming what they need.
-    assert!(page.contains(r#"value="1" required data-preset="1" data-perms="0""#) && page.contains(r#"value="2" required data-preset="2" data-perms="63""#) && page.contains(r#"value="custom""#), "{page}");
+    assert!(page.contains(r#"value="1" required data-preset="1" data-perms="0""#) && page.contains(r#"value="2" required data-preset="2" data-perms="191""#) && page.contains(r#"value="custom""#), "{page}");
     let at = |id: &str| page.find(&format!(r#"data-perm="{id}""#)).unwrap_or_else(|| panic!("no line for {id}"));
     assert!(Perm::ALL.windows(2).all(|w| at(w[0].id()) < at(w[1].id())));
     assert!(page.contains(r#"data-perm="ai_courses" data-bit="2" data-needs="create_courses""#) && page.contains(r#"data-perm="share_courses" data-bit="8" data-needs="create_courses""#), "{page}");
@@ -95,12 +95,12 @@ fn superusers_see_the_accounts_and_set_permissions() {
 
     // A preset: its set is copied, the toggles sent with it ignored.
     assert_eq!(post("/manage/permissions", &sue_c, &[("email", "stu@example.org"), ("preset", "2"), ("perm_superuser", "on")]).0, 303);
-    assert_eq!(stored(stu), (63, Some(perms::TEACHER_PRESET)));
+    assert_eq!(stored(stu), (191, Some(perms::TEACHER_PRESET)));
     assert!(row(&get("/manage", &sue_c).1, "stu@example.org").contains(">Teacher</td>"));
     // No such preset, or none named: a 400 and nothing changed.
     assert_eq!(post("/manage/permissions", &sue_c, &[("email", "stu@example.org"), ("preset", "99")]).0, 400);
     assert_eq!(post("/manage/permissions", &sue_c, &[("email", "stu@example.org"), ("perm_superuser", "on")]).0, 400);
-    assert_eq!(stored(stu), (63, Some(perms::TEACHER_PRESET)));
+    assert_eq!(stored(stu), (191, Some(perms::TEACHER_PRESET)));
     // An address nobody has.
     let (_, loc) = post("/manage/permissions", &sue_c, &[("email", "nobody@example.org"), ("preset", "1")]);
     assert!(loc.starts_with("/manage?did=unknown"), "{loc}");
@@ -119,7 +119,7 @@ fn superusers_see_the_accounts_and_set_permissions() {
         assert_eq!((status, loc.as_str()), (303, "/manage?did=permissions-self&email=sue%40example.org"));
         assert!(get(&loc, &sue_c).1.contains(r#"data-testid="manage-error""#));
     }
-    assert_eq!(stored(sue), (127, None));
+    assert_eq!(stored(sue), (255, None));
 
     // An owner: the whole page as before, with the Permissions button on the others' rows.
     let (_, page) = get("/manage", &root_c);
@@ -205,7 +205,7 @@ fn a_custom_set_is_saved_as_a_preset_and_deleted() {
 
     // A name with a preset other than Custom is ignored, and so is an empty one with Custom.
     assert_eq!(post("/manage/permissions", &sue_c, &[("email", "stu@example.org"), ("preset", "2"), ("save_as", "Helpers")]).0, 303);
-    assert_eq!(stored(stu), (63, Some(perms::TEACHER_PRESET)));
+    assert_eq!(stored(stu), (191, Some(perms::TEACHER_PRESET)));
     assert_eq!(post("/manage/permissions", &sue_c, &[("email", "stu@example.org"), ("preset", "custom"), ("save_as", "   "), ("perm_skip_levels", "on")]).0, 303);
     assert_eq!(stored(stu), (16, None));
     assert!(saved().is_empty());
@@ -243,7 +243,7 @@ fn a_custom_set_is_saved_as_a_preset_and_deleted() {
     assert!(loc.starts_with("/manage?did=preset-bad-name"), "{loc}");
     assert!(get(&loc, &sue_c).1.contains("1 to 40 characters"));
     assert_eq!(saved().len(), 1);
-    assert_eq!(stored(ann), (63, Some(perms::TEACHER_PRESET)));
+    assert_eq!(stored(ann), (191, Some(perms::TEACHER_PRESET)));
 
     // Given like Student and Teacher; a set with no permission says so in the list.
     assert_eq!(post("/manage/permissions", &root_c, &[("email", "ann@example.org"), ("preset", &id.to_string())]).0, 303);
@@ -341,7 +341,7 @@ fn new_accounts_start_as_the_chosen_preset() {
     assert!(select.contains("Teacher") && !select.contains("Bosses"), "no preset with Superuser is offered: {select}");
     let made = state.db.with(|c| crate::auth::create_user(c, "new@example.org", "h")).unwrap();
     let stored = |u: i64| state.db.with(|c| c.query_row("SELECT perms, preset_id FROM users WHERE id = ?1", [u], |r| Ok((r.get::<_, i64>(0)?, r.get::<_, Option<i64>>(1)?)))).unwrap();
-    assert_eq!(stored(made), (63, Some(perms::TEACHER_PRESET)));
+    assert_eq!(stored(made), (191, Some(perms::TEACHER_PRESET)));
     assert_eq!(stored(stu), (0, Some(perms::STUDENT_PRESET)), "an existing account keeps its preset");
 
     // A saved preset can be the default; deleting it puts Student back.

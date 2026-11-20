@@ -70,7 +70,7 @@ fn migrations_apply_once() {
     let db = Db::open_in_memory().unwrap();
     let v: i64 = db.with(|c| c.query_row("PRAGMA user_version", [], |r| r.get(0))).unwrap();
     assert_eq!(v, schema_version());
-    assert_eq!(v, 9, "v1 is the schema (#49), v2 drops Skrongle Cash, v3 names share links, v4 adds permissions (#138), v5 adds courses.error_kind, v6 adds connected apps (#167), v7 adds OAuth clients and codes (#169), v8 adds api_tokens.used_at (#184), v9 swaps it for api_grants.refresh_family_hash (#192)");
+    assert_eq!(v, 10, "v1 is the schema (#49), v2 drops Skrongle Cash, v3 names share links, v4 adds permissions (#138), v5 adds courses.error_kind, v6 adds connected apps (#167), v7 adds OAuth clients and codes (#169), v8 adds api_tokens.used_at (#184), v9 swaps it for api_grants.refresh_family_hash (#192), v10 adds student accounts and Hold students (#217)");
     // Re-running is a no-op.
     db.with(migrate).unwrap();
 }
@@ -153,7 +153,7 @@ fn down_and_up_again_keeps_the_rows() {
         let links: Vec<(String, String)> = c.prepare("SELECT label, token_hash FROM course_shares ORDER BY id")?.query_map([], |r| Ok((r.get(0)?, r.get(1)?)))?.collect::<Result<_, _>>()?;
         assert_eq!(links, [("link 1", "t1"), ("link 2", "t2"), ("Bea", "t3"), ("Bea (4)", "t4"), ("Bea", "t5")].map(|(a, b)| (a.to_string(), b.to_string())));
         let (id, perms): (i64, i64) = c.query_row("SELECT id, perms FROM users WHERE email = 'ann@example.org'", [], |r| Ok((r.get(0)?, r.get(1)?)))?;
-        assert_eq!((id, perms), (ann, 63), "the account is kept; going up gives it the Teacher set again");
+        assert_eq!((id, perms), (ann, 63), "the account is kept; going up gives it the Teacher set of v4 again (v10 adds Hold students to the preset, not to accounts)");
         assert_eq!(c.query_row("SELECT count(*) FROM courses", [], |r| r.get::<_, i64>(0))?, 2);
         Ok(())
     })
@@ -392,12 +392,43 @@ fn v4_gives_every_account_the_teacher_permissions() {
             .prepare("SELECT id, name, builtin, perms FROM permission_presets ORDER BY id")?
             .query_map([], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?, r.get(3)?)))?
             .collect::<Result<_, _>>()?;
-        assert_eq!(presets, [(1, "student".to_string(), true, 0), (2, "teacher".to_string(), true, 63)]);
+        // v10 (#217) adds Hold students (128) to the Teacher preset, not to the accounts.
+        assert_eq!(presets, [(1, "student".to_string(), true, 0), (2, "teacher".to_string(), true, 63 | 128)]);
         Ok(())
     })
     .unwrap();
     drop(db);
     std::fs::remove_dir_all(&dir).unwrap();
+}
+
+/// v10 (#217): the built-in Teacher preset gains Hold students; accounts
+/// given Teacher before keep the set they had. Its `down` deletes the
+/// student accounts (a v9 binary has no place for them) with their rows,
+/// and clears the bit everywhere.
+#[test]
+fn v10_adds_hold_students_to_the_teacher_preset_only() {
+    let mut c = Connection::open_in_memory().unwrap();
+    c.execute_batch("PRAGMA foreign_keys = ON;").unwrap();
+    MIGRATIONS.to_version(&mut c, 9).unwrap();
+    c.execute_batch("INSERT INTO users (id, email, password_hash, created_at, perms, preset_id) VALUES (1, 'ann@example.org', 'h', 1, 63, 2);").unwrap();
+    migrate_to(&mut c, 10).unwrap();
+    let ann: (i64, Option<i64>) = c.query_row("SELECT perms, preset_id FROM users WHERE id = 1", [], |r| Ok((r.get(0)?, r.get(1)?))).unwrap();
+    assert_eq!(ann, (63, Some(2)), "an account given Teacher earlier keeps what it has");
+    let teacher: i64 = c.query_row("SELECT perms FROM permission_presets WHERE id = 2", [], |r| r.get(0)).unwrap();
+    assert_eq!(teacher, 63 | 128);
+
+    c.execute_batch(
+        "UPDATE users SET perms = 191 WHERE id = 1;
+         INSERT INTO users (id, password_hash, created_at, username, teacher_id) VALUES (2, 'h', 1, 'ana.garcia', 1);
+         INSERT INTO sessions (user_id, session_token, created_at, expires_at) VALUES (2, 't', 1, 9999999999);",
+    )
+    .unwrap();
+    migrate_to(&mut c, 9).unwrap();
+    let users: Vec<(i64, i64)> = c.prepare("SELECT id, perms FROM users ORDER BY id").unwrap().query_map([], |r| Ok((r.get(0)?, r.get(1)?))).unwrap().collect::<Result<_, _>>().unwrap();
+    assert_eq!(users, [(1, 63)], "the student is gone, the bit cleared");
+    assert_eq!(c.query_row("SELECT COUNT(*) FROM sessions", [], |r| r.get::<_, i64>(0)).unwrap(), 0, "with its sessions");
+    assert_eq!(c.query_row("SELECT perms FROM permission_presets WHERE id = 2", [], |r| r.get::<_, i64>(0)).unwrap(), 63);
+    assert!(!predates_schema(&c).unwrap());
 }
 
 /// Pins #94: the bundled SQLite is built without the full-text, R-tree,

@@ -332,9 +332,16 @@ in, not four (a shared classroom computer and one more).
 Everything that grows with accounts is sized from the limit when the server
 starts, so a box at any limit has a known size. A Pi Zero 2 W is measured at
 50 students. Above 50 the server writes one line in the log saying so, and
-the memory a class needs is yours to watch (`skrongle doctor` shows the limit
-and the memory left). Lowering the limit deletes nobody: no new student can
-be made until there are fewer than the limit.
+the memory a class needs is yours to watch (`skrongle doctor` shows the limit,
+how many student accounts there are and the memory left). Lowering the limit
+deletes nobody: no new student can be made until there are fewer than the
+limit.
+
+A student account belongs to a teacher (an account with the **Hold students**
+permission, or an owner): it signs in with a username and a password, has no
+e-mail address and no two-factor sign-in, and deleting the teacher's account
+deletes its students. Manage Users lists only the normal accounts and says how
+many students each teacher holds. See [Student accounts](features#student-accounts).
 
 ### Renamed settings
 
@@ -463,7 +470,7 @@ with Superuser); it does not change accounts that exist, and the first
 account of a server is the owner and has everything.
 
 Each account's row also has **Permissions**: choose **Student** (may do
-nothing extra), **Teacher** (everything but Superuser) or **Custom**, which shows a switch for each of the seven permissions.
+nothing extra), **Teacher** (everything but Superuser) or **Custom**, which shows a switch for each of the eight permissions.
 An account you give **Superuser** gets **Manage Users** in its menu and sees
 the accounts there, to set other people's permissions; it never sees the
 invitation links, the AI keys or the three actions above, and it cannot
