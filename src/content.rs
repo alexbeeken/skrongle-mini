@@ -799,9 +799,9 @@ impl ContentStore {
                 v.key = crate::quiz::normalize(&v.term);
             }
             lesson.sections = split_sections(&lesson.content);
-            document::check_lesson(&lesson, &manifest, &f.path)?;
             lesson.guide_steps =
                 build_guide(&lesson).map_err(|m| ContentError::Invalid(format!("{}: guide: {m}", f.path)))?;
+            document::check_lesson(&lesson, &manifest, &f.path)?;
             lessons.push((lesson, f.path.clone()));
         }
 
