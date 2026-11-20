@@ -37,6 +37,8 @@
           <a href="{{ crate::base_path() }}/sprint/play?lesson={{ lesson.slug }}" data-testid="lesson-sprint">{{ crate::t("study.lesson.sprint_session") }}</a>
         </div>
       </details>
+      <span class="read-aloud" data-read-aloud data-testid="read-aloud" hidden><button type="button" class="btn ghost" data-read-aloud-toggle aria-pressed="false" data-testid="read-aloud-listen">{{ crate::t("common.js.read_aloud_listen") }}</button>
+        <select data-read-aloud-speed aria-label="{{ crate::t("common.js.read_aloud_speed") }}" title="{{ crate::t("common.js.read_aloud_speed") }}" data-testid="read-aloud-speed"><option value="normal">{{ crate::t("common.js.read_aloud_normal") }}</option><option value="slow">{{ crate::t("common.js.read_aloud_slower") }}</option></select></span>
     </div>
   </header>
   {% if !prerequisites.is_empty() %}
@@ -223,7 +225,8 @@
   </dialog>
 </article>
 {% endblock %}
-{% block scripts %}<script src="{{ crate::routes::asset_url("autosave.js") }}" defer></script>
+{% block scripts %}{% include "read_aloud.html" %}
+<script src="{{ crate::routes::asset_url("autosave.js") }}" defer></script>
 <script src="{{ crate::routes::asset_url("lesson-note.js") }}" defer></script>
 {% if !conversations.is_empty() %}<script src="{{ crate::routes::asset_url("conversation.js") }}" defer></script>{% endif %}
         {% if !check.is_empty() %}<script>Object.assign(I18N, {{ crate::i18n::js_json("study.js")|safe }});</script>

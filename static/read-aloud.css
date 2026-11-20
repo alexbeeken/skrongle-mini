@@ -1,0 +1,15 @@
+/* Read aloud (#234, static/read-aloud.js): the Listen button, the sentence
+   being read, and the speaker beside a question. */
+.read-aloud { display: inline-flex; align-items: center; gap: .4rem; }
+.read-aloud[hidden] { display: none; }
+.read-aloud select { font: inherit; font-size: .9em; padding: .25rem .4rem; border-radius: 6px; }
+.ra-mark { background: #fff3cd; box-shadow: 0 0 0 2px #fff3cd; border-radius: 3px; }
+.ra-active .prose p, .ra-active .prose li, .ra-active .prose tr, .ra-active .vocab tr, .ra-active .lead { cursor: pointer; }
+.ra-say { border: 1px solid var(--line, #ccc); background: transparent; color: inherit; border-radius: 999px; font-size: .85em; line-height: 1; padding: .2em .4em; cursor: pointer; vertical-align: middle; }
+.ra-say.saying { border-color: var(--gold, #e3a21a); background: #fff3cd; }
+.prompt + .ra-say, .sprint-prompt + .ra-say { display: inline-block; margin: -.35rem 0 .75rem; }
+.ra-say[hidden] { display: none; }
+@media (prefers-color-scheme: dark) {
+  .ra-mark { background: #4a3a10; box-shadow: 0 0 0 2px #4a3a10; }
+  .ra-say.saying { background: #4a3a10; }
+}

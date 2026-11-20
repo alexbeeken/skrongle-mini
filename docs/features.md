@@ -1487,6 +1487,42 @@ them before every utterance), and a nested 🔊 button is not part of its
 card's text. *Italics* in lesson text are taken to be the course's language,
 so an English aside must not be italicised.
 
+## Read aloud
+
+In every course, not only language courses, and with no field in the
+course files (#234). `static/read-aloud.js`, loaded by the lesson, quiz,
+Guide stage and Sprint play pages through `templates/read_aloud.html`,
+speaks with `speech.js` like Tap to hear.
+
+- **Listen**, in the lesson's header beside *More ways*, reads the lesson
+  from the top: the title and summary, the lesson text, the vocabulary and
+  paradigm tables row by row, and the conversations' lines. Not the reading
+  check, the note, the menus, or music notation (skipped). It speaks one
+  sentence per utterance (split with `Intl.Segmenter`, or a plain pattern
+  where there is none) and marks the sentence being read with a span that
+  is removed again after it. Pressed again it pauses (*Resume* goes on from
+  that sentence); while it is reading or paused, tapping a paragraph or a
+  table row starts from there. A word that Tap to hear speaks keeps doing
+  that. Reading aloud does not mark the lesson as read.
+- A **🔊** right after the prompt of each question in Quizzes, the lesson's
+  reading check, the Guide and Sprint mode reads the question, then each
+  choice. Never on a question with something to play (`play`), a listening
+  exercise or a Sprint bite; nor in Listening. Answering (a choice, a key,
+  Check) stops it.
+- **Languages.** Explanations are read in `meanings.lang`. In a language
+  course the course's words are read in `terms.lang`: the words Tap to hear
+  marks in the lesson text, table cells and conversation lines with that
+  `lang`, choices, and words in quotes in a question's prompt ("What does
+  'el gato' mean?"). A choice is always read in `terms.lang` there, even
+  when it is a meaning: the page does not know which it is.
+- **Speed.** *Slower* or *Normal* beside Listen, kept per device in
+  `localStorage` (`speech:rate`, beside `speech:voice:<lang>`); it also sets
+  the speed of Tap to hear.
+- The buttons show only while the audio switch is on and the browser has a
+  voice for `meanings.lang` (and for `terms.lang` in a language course),
+  decided again when the voice list arrives or the switch changes. Speech
+  stops when the page is left.
+
 ## Listening (hear it, type it)
 
 Dictation, in Study mode. Each lesson carries `listening`
