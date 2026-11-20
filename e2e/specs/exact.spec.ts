@@ -1027,13 +1027,15 @@ test("a form-only URL opened by address is a 405 inside the normal layout, with 
   await anon.close();
   // The real POST still works: the Log out button signs out.
   await logout(page);
-  await expect(page.getByTestId("nav-login")).toBeVisible();
+  await expect(page.getByTestId("login-form")).toBeVisible();
 });
 
 test("the site installs as an app: every layout links a manifest that opens at the home page (#345)", async ({ page, browser }) => {
-  // No sign-in needed: the login page and the manifest are public.
+  // No sign-in needed: the register page and the manifest are public. (The
+  // sign-in page is in the light student frame, #219, which loads nothing
+  // but its stylesheet.)
   const anon = await browser.newPage();
-  await anon.goto("/login");
+  await anon.goto("/register");
   const href = (await anon.locator('link[rel="manifest"]').getAttribute("href"))!;
   expect(href).toMatch(/\/manifest\.webmanifest$/);
   await expect(anon.locator('link[rel="apple-touch-icon"]')).toHaveCount(1);

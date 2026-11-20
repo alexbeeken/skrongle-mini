@@ -2145,6 +2145,49 @@ build, by `/dev/student`.
   students: the dev user is an owner) and names it on a page
   (`?format=json` for scripts).
 
+## The student frame
+
+A classroom's computers may be 20 years old, so a student's own pages and
+the login page are served in a light frame of their own (#219,
+`templates/student_base.html`, `static/student.css`,
+`src/routes/student_frame.rs`), not in the app's normal layout:
+
+- **The rules**: one document and one stylesheet (`student.css`). No
+  `<script>`, no web font, no icon font, no picture but the course's own, no
+  web-app manifest (the icon link is an empty `data:` one, so the browser
+  asks for nothing else). Every action is a form post that comes back to a
+  page. The stylesheet uses no CSS variables and nothing that needs flexbox
+  or grid: tables and blocks, so the page reads top to bottom on a browser
+  that knows only basic CSS. It fits 800 by 600 and 320 wide without
+  sideways scroll; body text is 16px or more and buttons at least 44px high.
+- **The top bar** (`student-bar`): the page's title on the left (the app's
+  name until a page sets its own); on the right the student's name (its
+  username while it has none, `student-bar-name`) and three plain links:
+  **My subjects** (`student-my-subjects`, the student's home for now; its
+  own page comes with #220), **Change my password**
+  (`student-change-password`) and **Sign out** (`student-sign-out`, a
+  button in a form that posts `/logout`). Signed out (the login page) the
+  right side is empty.
+- **The login page** (`/login`) is in the frame for everyone: a student meets
+  it first. Its fields, notices and links are the ones described under
+  [Student accounts](#student-accounts) and [Sharing a course](#sharing-a-course);
+  the language picker changes the page at once with script and has a
+  **Change** button without it.
+- **Change my password** (`/password`, `student-password-form`): the current
+  password, the new one twice (8 to 128 characters). It is checked as on
+  Profile settings, on the same per-account sign-in counter; done, every
+  other session of the student ends and the page comes back with
+  *Your password is changed* (`student-password-saved`); refused, the form
+  comes back with the reason (`student-password-error`). A normal account
+  that opens `/password` goes to its Profile settings.
+- **Which pages are in it**: `routes::student_frame::FRAME_PAGES` lists
+  them (today `/login` and `/password`), and its test opens each as a
+  student and fails on a script, a second stylesheet, a font or a picture.
+  Until #220, #223 and #224 move or close them, a student still gets the
+  app's normal pages in the normal layout, with their scripts: the home
+  page, lessons, Study, Play, Sprint, Vocabulary, Profile settings and the
+  error pages.
+
 ## Two-factor sign-in
 
 After the password an account can be asked for
@@ -2312,8 +2355,9 @@ token they give it (#167, the first step of plan #166). The code is
 
 A phone or desktop browser can add Skrongle to the home screen ("Install
 app" in Chrome, "Add to Home Screen" in Safari). It then opens full-screen
-at the home page, with the Skrongle icon. Every page links
-`/manifest.webmanifest` (`web_manifest` in `src/routes/mod.rs`), which
+at the home page, with the Skrongle icon. Every page in the normal layout
+links `/manifest.webmanifest` (the pages in the
+[student frame](#the-student-frame), the login page among them, do not) (`web_manifest` in `src/routes/mod.rs`), which
 carries the base path in `start_url`, `scope` and the icon paths
 (`static/icon-192.png`, `static/icon-512.png`). A browser only offers it on an HTTPS page or localhost.
 
