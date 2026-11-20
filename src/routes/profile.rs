@@ -320,7 +320,7 @@ fn parse_on(v: &str) -> Result<bool, AppError> {
 /// code from its current second step instead, or without one nothing: the
 /// proxy vouches for it on every request. Every account change that a stolen session must not
 /// make goes through here. `Some((status, message))` refuses.
-async fn prove_owner(state: &AppState, user: &CurrentUser, password: &str, code: &str) -> Result<Option<(StatusCode, String)>, AppError> {
+pub(super) async fn prove_owner(state: &AppState, user: &CurrentUser, password: &str, code: &str) -> Result<Option<(StatusCode, String)>, AppError> {
     use crate::security::{LOGIN_FAILURES_PER_USER, PASSWORD_PER_USER};
     let (uid, now) = (user.id, crate::db::now());
     // The sign-in's per-account key: the address, or a student's username (#217).

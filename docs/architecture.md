@@ -45,6 +45,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 ### Accounts
 
 - Student accounts (#217): `students.rs` (made by a teacher: username, `create` all or none within the student limit, `rename`, `set_password`, `delete`, `suggest_username`, `make_password`, and `refused`, the one list of paths a student gets a 404 for, checked by the router's `auth::student_gate` layer); the dev build's `/dev/student` in `routes/dev.rs`, `templates/dev_student.html`.
+- The student frame (#219): `templates/student_base.html` + `static/student.css`, the light layout of a student's own pages and of the sign-in page (no script, one stylesheet, no font; works with JavaScript off on an old browser); `routes/student_frame.rs` (`FRAME_PAGES`, every route in the frame, which its test checks page by page, and **Change my password** at `/password`, `templates/student_password.html`).
 - Sign-in: `auth.rs` (sessions, CurrentUser, Project), `auth/cache.rs` (the signed-in users kept in memory by session, #37), `auth/api.rs` (connected apps, #167: grants, hashed bearer tokens, the `Scope`s, the `ApiUser` extractor), `routes/auth.rs`, `routes/auth/code.rs` (the two-factor step), `proxy_auth.rs` (proxy header), `signup.rs` (who may register), `urlenc.rs` (percent-encoding for the redirects they build).
 - Two-factor: `two_factor.rs`, `totp.rs`.
 - Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`; its Connected apps section (#167): `routes/profile/apps.rs`.

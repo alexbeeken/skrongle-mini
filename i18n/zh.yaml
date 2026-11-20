@@ -196,6 +196,18 @@ auth:
 
 
 
+# The student frame (#219): the top bar and Change my password.
+student:
+  frame:
+    my_subjects: "我的科目"
+    change_password: "修改我的密码"
+    sign_out: "退出登录"
+  password:
+    title: "修改我的密码"
+    submit: "修改我的密码"
+    saved: "你的密码已修改。下次登录时请用新密码。"
+    forgot: "忘记密码了？请向老师要一个新密码。"
+
 profile:
   title: 个人资料
   ok: 好

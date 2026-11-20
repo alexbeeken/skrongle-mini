@@ -1,0 +1,35 @@
+{#- The student frame (#219): the light layout of every page a student
+    account is served in it, and of the sign-in page. One document and one
+    stylesheet (static/student.css): no script, no font, no picture but the
+    course's own. It works with JavaScript off and with only basic CSS, so a
+    classroom's 20 year old computer can use it. A page that extends it sets
+    `user: Option<CurrentUser>` and fills these blocks:
+      title    the browser tab's title (before " · Skrongle")
+      bar      the top bar's left cell: the page's title (default: the app's name)
+      links    the top bar's right cell (default: the student's name, My
+               subjects, Change my password, Sign out; nothing signed out)
+      content  the page
+    The routes in this frame are listed in src/routes/student_frame.rs
+    (FRAME_PAGES), whose test checks each page for these rules. -#}
+<!doctype html>
+<html lang="{{ crate::i18n::lang() }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ crate::APP_NAME }}{% endblock %} · {{ crate::APP_NAME }}</title>
+<link rel="stylesheet" href="{{ crate::routes::asset_url("student.css") }}">
+<link rel="icon" href="data:,">
+</head>
+<body class="student-frame">
+<table class="bar" role="presentation" data-testid="student-bar"><tr>
+<td class="bar-title" data-testid="student-bar-title">{% block bar %}{{ crate::APP_NAME }}{% endblock %}</td>
+<td class="bar-links">{% block links %}{% if let Some(u) = user %}<span data-testid="student-bar-name">{% if u.first_name.trim().is_empty() && u.last_name.trim().is_empty() %}{{ u.username }}{% else %}{{ u.display_name() }}{% endif %}</span> &middot;
+<a href="{{ crate::url("/") }}" data-testid="student-my-subjects">{{ crate::t("student.frame.my_subjects") }}</a> &middot;
+<a href="{{ crate::url("/password") }}" data-testid="student-change-password">{{ crate::t("student.frame.change_password") }}</a> &middot;
+<form method="post" action="{{ crate::url("/logout") }}" class="inline"><button type="submit" class="link" data-testid="student-sign-out">{{ crate::t("student.frame.sign_out") }}</button></form>{% endif %}{% endblock %}</td>
+</tr></table>
+<div class="page" id="main">
+{% block content %}{% endblock %}
+</div>
+</body>
+</html>
