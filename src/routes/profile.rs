@@ -79,6 +79,17 @@ impl ProfileTemplate {
         }
     }
 
+    /// The signed-in account is a student (#217): the page shows its
+    /// username, its language and its password, and nothing else.
+    pub fn is_student(&self) -> bool {
+        self.user.as_ref().is_some_and(|u| u.student)
+    }
+
+    /// The student's username, '' for a normal account.
+    pub fn username(&self) -> &str {
+        self.user.as_ref().map_or("", |u| u.username.as_str())
+    }
+
     /// The second step is on.
     pub fn two_factor_on(&self) -> bool {
         self.profile.two_factor.enabled
@@ -223,8 +234,11 @@ pub async fn save(
             None
         }
     };
-    let first = changes.first_name.as_deref().and_then(|v| check("first_name", profile::validate_name(&crate::t("profile.personal.first_name"), v)));
-    let last = changes.last_name.as_deref().and_then(|v| check("last_name", profile::validate_name(&crate::t("profile.personal.last_name"), v)));
+    // A student changes its language and nothing else here (#217): its
+    // teacher looks after its names.
+    let name = |label: &str, v: &str| if user.student { Err(crate::t("profile.save.not_a_field")) } else { profile::validate_name(&crate::t(label), v) };
+    let first = changes.first_name.as_deref().and_then(|v| check("first_name", name("profile.personal.first_name", v)));
+    let last = changes.last_name.as_deref().and_then(|v| check("last_name", name("profile.personal.last_name", v)));
     for field in changes.other.keys() {
         check(field, Err(crate::t("profile.save.not_a_field")));
     }
@@ -309,7 +323,9 @@ fn parse_on(v: &str) -> Result<bool, AppError> {
 async fn prove_owner(state: &AppState, user: &CurrentUser, password: &str, code: &str) -> Result<Option<(StatusCode, String)>, AppError> {
     use crate::security::{LOGIN_FAILURES_PER_USER, PASSWORD_PER_USER};
     let (uid, now) = (user.id, crate::db::now());
-    if !state.limits.hit(PASSWORD_PER_USER, &uid.to_string(), now) || state.limits.blocked(LOGIN_FAILURES_PER_USER, &user.email, now) {
+    // The sign-in's per-account key: the address, or a student's username (#217).
+    let key = user.sign_in_key();
+    if !state.limits.hit(PASSWORD_PER_USER, &uid.to_string(), now) || state.limits.blocked(LOGIN_FAILURES_PER_USER, &key, now) {
         tracing::warn!("account change rate limit hit for user {uid}");
         return Ok(Some((StatusCode::TOO_MANY_REQUESTS, crate::t("profile.two_factor.too_many_attempts"))));
     }
@@ -322,7 +338,7 @@ async fn prove_owner(state: &AppState, user: &CurrentUser, password: &str, code:
             auth::verify_password_async(password.to_string(), hash).await?
         };
         if !ok {
-            let _ = state.limits.hit(LOGIN_FAILURES_PER_USER, &user.email, now);
+            let _ = state.limits.hit(LOGIN_FAILURES_PER_USER, &key, now);
             tracing::info!("user {uid} gave a wrong password to change their account");
             return Ok(Some((StatusCode::FORBIDDEN, crate::t("profile.two_factor.password_wrong"))));
         }
@@ -341,11 +357,11 @@ async fn prove_owner(state: &AppState, user: &CurrentUser, password: &str, code:
     Ok(match checked {
         Checked::Ok => None,
         Checked::Wrong(left) if left < crate::two_factor::MAX_ATTEMPTS => {
-            let _ = state.limits.hit(LOGIN_FAILURES_PER_USER, &user.email, now);
+            let _ = state.limits.hit(LOGIN_FAILURES_PER_USER, &key, now);
             Some((StatusCode::FORBIDDEN, crate::tn("profile.two_factor.code_wrong_tries", left)))
         }
         Checked::Wrong(_) => {
-            let _ = state.limits.hit(LOGIN_FAILURES_PER_USER, &user.email, now);
+            let _ = state.limits.hit(LOGIN_FAILURES_PER_USER, &key, now);
             Some((StatusCode::FORBIDDEN, crate::t("profile.two_factor.code_wrong_newest")))
         }
         Checked::Gone => Some((StatusCode::FORBIDDEN, crate::t("profile.two_factor.code_gone"))),

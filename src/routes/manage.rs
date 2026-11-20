@@ -64,6 +64,10 @@ pub struct ManageTemplate {
     pub total: i64,
     /// The most accounts this server holds (`caps::MAX_ACCOUNTS`).
     pub max_accounts: usize,
+    /// Student accounts on the server, every teacher's (#217), and the most
+    /// it holds (`caps::student_limit`). Students are not in `list`.
+    pub students: i64,
+    pub student_limit: usize,
     /// The server holds them all: no invitation form.
     pub full: bool,
     /// The server's AI API keys, one entry per provider; never the key itself.
@@ -75,7 +79,7 @@ pub struct ManageTemplate {
     /// The presets the Permissions dialog offers, the built-in ones first;
     /// Custom follows them in the template.
     pub presets: Vec<PresetChoice>,
-    /// The seven permissions, in the order the dialog lists them.
+    /// The eight permissions, in the order the dialog lists them.
     pub perms: Vec<PermLine>,
     /// The saved presets (not Student and Teacher), listed under the
     /// accounts with Delete (#140).
@@ -109,6 +113,8 @@ pub struct AccountRow {
     /// The viewer may set this account's permissions: not an owner's, and
     /// not their own.
     pub can_edit: bool,
+    /// The student accounts it holds (#217): said on its row.
+    pub students: i64,
     /// The account's progress page (`manage/progress.rs`, #147), for the
     /// row's Progress link; '' when there is none to open: an owner's, an
     /// account with Privacy, one without an address.
@@ -163,6 +169,7 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
             Ok((invites, crate::signup::accounts(c)?, ai, perms::presets(c)?, apps, crate::settings::default_preset(c)?))
         })
         .await?;
+    let students = state.db.call(|c| crate::students::count_all(c)).await?;
     let total = accounts.len() as i64;
     let viewer = user.id;
     let saved_presets = presets::saved(&presets, &accounts);
@@ -195,6 +202,7 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
                     Some(name) => preset_label(name, a.preset_builtin),
                     None => crate::t("perms.custom"),
                 },
+                students: a.students,
                 email: a.email,
                 created: profile::long_date(a.created_at),
                 owner: a.owner,
@@ -202,6 +210,8 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
             .collect(),
         total,
         max_accounts: crate::caps::MAX_ACCOUNTS,
+        students,
+        student_limit: crate::caps::student_limit(),
         full: crate::caps::accounts_full(total, state.dev_mode()),
         api_keys,
         ai_off,

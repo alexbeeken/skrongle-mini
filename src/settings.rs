@@ -146,7 +146,7 @@ mod tests {
             let b = crate::auth::create_user(c, "b@example.org", "h")?;
             let row = |id: i64| c.query_row("SELECT perms, preset_id FROM users WHERE id = ?1", [id], |r| Ok((r.get::<_, i64>(0)?, r.get::<_, Option<i64>>(1)?)));
             assert_eq!(row(a)?, (0, Some(crate::perms::STUDENT_PRESET)));
-            assert_eq!(row(b)?, (63, Some(crate::perms::TEACHER_PRESET)));
+            assert_eq!(row(b)?, (191, Some(crate::perms::TEACHER_PRESET)));
             // Deleting a saved default falls back to Student.
             c.execute("INSERT INTO permission_presets (id, name, builtin, perms, created_at) VALUES (7, 'Helpers', 0, 5, 1)", [])?;
             set_default_preset(c, 7)?;

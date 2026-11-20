@@ -54,6 +54,7 @@ mod settings;
 mod share;
 mod signup;
 mod startup;
+mod students;
 mod security;
 mod server;
 mod totp;

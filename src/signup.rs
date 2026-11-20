@@ -133,7 +133,8 @@ pub fn no_accounts(conn: &Connection) -> rusqlite::Result<bool> {
 /// Student accounts count apart, against [`crate::caps::students_full`];
 /// until they exist (#217) every row of `users` is a normal account.
 pub fn is_full(conn: &Connection, dev: bool) -> rusqlite::Result<bool> {
-    let n: i64 = conn.query_row("SELECT COUNT(*) FROM users", [], |r| r.get(0))?;
+    // Students are counted apart, against the student limit (#217, `students.rs`).
+    let n: i64 = conn.query_row("SELECT COUNT(*) FROM users WHERE teacher_id IS NULL", [], |r| r.get(0))?;
     Ok(crate::caps::accounts_full(n, dev))
 }
 
@@ -301,15 +302,18 @@ pub struct Account {
     /// That preset's stored name (`student` and `teacher` for the built-in ones).
     pub preset_name: Option<String>,
     pub preset_builtin: bool,
+    /// The student accounts it holds (#217, `students.rs`).
+    pub students: i64,
 }
 
-/// Every account, newest first. The server holds at most
-/// `caps::MAX_ACCOUNTS`, so there is no paging.
+/// Every normal account, newest first: not the students, which are their
+/// teacher's and counted on their teacher's row (#217). The server holds
+/// at most `caps::MAX_ACCOUNTS`, so there is no paging.
 pub fn accounts(conn: &Connection) -> rusqlite::Result<Vec<Account>> {
     let mut stmt = conn.prepare_cached(
         "SELECT COALESCE(u.email, ''), u.created_at, (SELECT MAX(s.created_at) FROM sessions s WHERE s.user_id = u.id), u.owner,
-                u.id, u.perms, p.id, p.name, COALESCE(p.builtin, 0)
-         FROM users u LEFT JOIN permission_presets p ON p.id = u.preset_id ORDER BY u.created_at DESC, u.id DESC",
+                u.id, u.perms, p.id, p.name, COALESCE(p.builtin, 0), (SELECT COUNT(*) FROM users s WHERE s.teacher_id = u.id)
+         FROM users u LEFT JOIN permission_presets p ON p.id = u.preset_id WHERE u.teacher_id IS NULL ORDER BY u.created_at DESC, u.id DESC",
     )?;
     let rows = stmt.query_map([], |r| {
         Ok(Account {
@@ -322,6 +326,7 @@ pub fn accounts(conn: &Connection) -> rusqlite::Result<Vec<Account>> {
             preset_id: r.get(6)?,
             preset_name: r.get(7)?,
             preset_builtin: r.get(8)?,
+            students: r.get(9)?,
         })
     })?;
     rows.collect()

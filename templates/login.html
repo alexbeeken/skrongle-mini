@@ -9,7 +9,7 @@
   <form method="post" action="{{ crate::base_path() }}/login" data-testid="login-form">
     {% if let Some(s) = share %}<input type="hidden" name="share" value="{{ s.token }}">{% endif %}
     <label>{{ crate::t("auth.login.email_label") }}
-      <input type="email" name="email" data-testid="login-email" value="{{ email }}" required autofocus maxlength="254" autocomplete="email" inputmode="email">
+      <input type="text" name="email" data-testid="login-email" value="{{ email }}" required autofocus maxlength="254" autocomplete="username" autocapitalize="none" spellcheck="false">
     </label>
     <label>{{ crate::t("auth.login.password_label") }}
       <input type="password" name="password" data-testid="login-password" maxlength="{{ crate::auth::PASSWORD_MAX }}" required autocomplete="current-password">
@@ -18,6 +18,7 @@
   </form>
   {% let register_url = self.other_page_url("/register") %}
   <p class="muted">{{ crate::t1("auth.login.no_account_html", "url", register_url)|safe }}</p>
+  <p class="muted small" data-testid="login-student-note">{{ crate::t("auth.login.student_note") }}</p>
   {% let lang_back = "/login" %}{% include "lang_picker.html" %}
   {% if cfg!(feature = "dev") && dev %}
   <section class="dev-panel" data-testid="login-dev">
