@@ -85,15 +85,15 @@ impl Reading {
 
     /// The value of one of `FIELDS` as the page shows it.
     pub fn value(&self, field: &str) -> &'static str {
-        let on = match field {
-            "read_size" => return FIELDS[0].1[usize::from(self.size.clamp(1, MAX_SIZE) - 1)],
-            "read_spacing" => self.wide,
-            "read_letters" => self.easy,
-            "read_contrast" => self.contrast,
-            "read_motion" => self.calm,
+        let i = match field {
+            "read_size" => usize::from(self.size.clamp(1, MAX_SIZE) - 1),
+            "read_spacing" => usize::from(self.wide),
+            "read_letters" => usize::from(self.easy),
+            "read_contrast" => usize::from(self.contrast),
+            "read_motion" => usize::from(self.calm),
             _ => return "",
         };
-        FIELDS.iter().find(|(f, _)| *f == field).map_or("", |(_, v)| v[usize::from(on)])
+        FIELDS.iter().find(|(f, _)| *f == field).and_then(|(_, v)| v.get(i)).copied().unwrap_or("")
     }
 
     /// Set one of `FIELDS` from what the page sent; `Err` for a field or
