@@ -632,6 +632,19 @@ answers root only) still takes a run on a real DietPi. Last it runs `deploy/unin
 log, unless one with that title is already open. Locally:
 `docker run --rm -v "$PWD:/repo:ro" -e SKRONGLE_VERSION=0.2.0 debian:bookworm-slim sh /repo/scripts/dietpi-install-check.sh amd64`.
 
+### Classroom box script
+
+`scripts/classroom-check.sh` (CI, in the `cargo test` job; no root, no
+Docker) runs `deploy/classroom-install.sh --dry-run <dir>`, which writes
+every file under `<dir>` and runs nothing else. It checks the Wi-Fi, name
+server and unit files, that `SKRONGLE_PUBLIC_URL` is set once, that
+`/etc/network/interfaces` loses only `wlan0`, that the redirect program
+answers any request with a 302 to `/login`, `--undo`, and the refusal of
+bad input; and runs `shellcheck`, `dnsmasq --test` and `systemd-analyze
+verify` where they are installed. It cannot show that the radio starts as an
+access point, how many devices join it, or that a phone opens the page by
+itself: those take a real Pi Zero 2 W.
+
 ## Panic check, file size lint and Pi budget
 
 Three tripwires run in CI and compare with a committed baseline, so raising
