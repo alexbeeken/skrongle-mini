@@ -32,7 +32,7 @@ pub enum Pace {
     /// No chip: every lesson is passed.
     None,
     /// The lessons a week needed, and the last weeks were at least that.
-    OnPace(i64),
+    Enough(i64),
     /// The lessons a week needed, more than lately.
     PerWeek(i64),
     /// The lessons a week needed, far more than lately ([`OUT_OF_REACH`]).
@@ -55,7 +55,7 @@ pub fn pace(left: i64, today: i64, goal: i64, recent: i64) -> Pace {
     let per_week = (left * 7 + days - 1) / days;
     let lately = recent as f64 * 7.0 / RECENT_DAYS as f64;
     if lately >= per_week as f64 {
-        Pace::OnPace(per_week)
+        Pace::Enough(per_week)
     } else if recent > 0 && per_week as f64 > OUT_OF_REACH * lately {
         // With nothing passed lately there is nothing to compare with: no
         // later date is suggested.
@@ -68,15 +68,15 @@ pub fn pace(left: i64, today: i64, goal: i64, recent: i64) -> Pace {
 /// The day number (days since 1970-01-01) of a `YYYY-MM-DD` date, as
 /// `<input type="date">` sends it; None for anything else.
 pub fn parse(s: &str) -> Option<i64> {
-    let b = s.as_bytes();
-    if b.len() != 10 || b[4] != b'-' || b[7] != b'-' {
+    let mut parts = s.split('-');
+    let mut num = |len: usize| -> Option<i64> {
+        let part = parts.next()?;
+        if part.len() == len && part.bytes().all(|c| c.is_ascii_digit()) { part.parse().ok() } else { None }
+    };
+    let (y, m, d) = (num(4)?, num(2)?, num(2)?);
+    if parts.next().is_some() {
         return None;
     }
-    let num = |r: std::ops::Range<usize>| -> Option<i64> {
-        let part = &s[r];
-        if part.bytes().all(|c| c.is_ascii_digit()) { part.parse().ok() } else { None }
-    };
-    let (y, m, d) = (num(0..4)?, num(5..7)?, num(8..10)?);
     if !(2000..=2999).contains(&y) || !(1..=12).contains(&m) || d < 1 {
         return None;
     }
@@ -149,7 +149,7 @@ pub fn chip(course_id: &str, goal_date: &str, left: i64, today: i64, recent: i64
     };
     let (label, line, passed) = match pace(left, today, goal, recent) {
         Pace::None => return None,
-        Pace::OnPace(n) => say(n, crate::t("goal_date.on_pace"), false),
+        Pace::Enough(n) => say(n, crate::t("goal_date.on_pace"), false),
         Pace::PerWeek(n) => say(n, crate::tn("goal_date.per_week", n), false),
         Pace::OutOfReach(n) => say(n, crate::tn("goal_date.per_week", n), true),
         Pace::Passed => (
@@ -195,7 +195,7 @@ mod tests {
     #[test]
     fn on_pace_compares_with_the_last_two_weeks() {
         // 5 a week needed; 10 passed in 14 days is 5 a week.
-        assert_eq!(pace(15, TODAY, TODAY + 21, 10), Pace::OnPace(5));
+        assert_eq!(pace(15, TODAY, TODAY + 21, 10), Pace::Enough(5));
         assert_eq!(pace(15, TODAY, TODAY + 21, 9), Pace::PerWeek(5));
     }
 
