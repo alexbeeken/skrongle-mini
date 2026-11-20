@@ -14,6 +14,8 @@ pub enum SubjectKind {
     Language,
     Math,
     General,
+    /// A course about one pasted document (#232, `document.rs`).
+    Document,
 }
 
 impl SubjectKind {
@@ -22,6 +24,7 @@ impl SubjectKind {
             "language" => SubjectKind::Language,
             "math" => SubjectKind::Math,
             "general" => SubjectKind::General,
+            "document" => SubjectKind::Document,
             _ => SubjectKind::Auto,
         }
     }
@@ -32,6 +35,7 @@ impl SubjectKind {
             SubjectKind::Language => "language",
             SubjectKind::Math => "math",
             SubjectKind::General => "general",
+            SubjectKind::Document => "document",
         }
     }
 
@@ -43,6 +47,7 @@ impl SubjectKind {
             SubjectKind::Language => "This is a language course: `terms` are the language being learnt (set its `lang`), `meanings` the learner's language. Follow the language-course rules.",
             SubjectKind::Math => "This is a maths or quantitative course: set both `lang` codes to the learner's language (or leave them empty) so no language games appear, and follow the maths rules: most questions are `numeric` or `expression`.",
             SubjectKind::General => "This is a general (non-language) course of facts and concepts: set both `lang` codes to the learner's language (or leave them empty), and follow the general-course rules.",
+            SubjectKind::Document => "This is a course about one document: follow the document-course rules.",
         }
     }
 
@@ -53,6 +58,7 @@ impl SubjectKind {
             SubjectKind::Language => LANGUAGE_RULES.to_string(),
             SubjectKind::Math => MATH_RULES.to_string(),
             SubjectKind::General => GENERAL_RULES.to_string(),
+            SubjectKind::Document => super::document::DOCUMENT_RULES.to_string(),
             SubjectKind::Auto => {
                 format!("Decide which kind of course this is and follow that kind's rules only.\n\n{LANGUAGE_RULES}\n\n{MATH_RULES}\n\n{GENERAL_RULES}")
             }
@@ -156,6 +162,7 @@ pub(super) fn lesson_line(kind: SubjectKind) -> &'static str {
         SubjectKind::Language => "\n\nThis is a language course: follow the language-course rules only.",
         SubjectKind::Math => "\n\nThis is a maths course: follow the maths-course rules only.",
         SubjectKind::General => "\n\nThis is a general course: follow the general-course rules only.",
+        SubjectKind::Document => "\n\nThis is a course about one document: follow the document-course rules only, and quote the document for every section and question.",
     }
 }
 

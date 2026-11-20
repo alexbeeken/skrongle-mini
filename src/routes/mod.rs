@@ -232,6 +232,8 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/courses", get(courses::picker))
         .route("/courses/open/{id}", post(courses::open))
         .route("/courses/new", get(courses::new_form).post(courses::create))
+        .route("/courses/document", big(post(courses::document_in)))
+        .route("/document", get(courses::document_page))
         .route("/courses/generate", get(courses::generate_form))
         .route("/courses/generate/{job}", get(courses::generate_status))
         .route("/api/generate/{job}", get(courses::generate_api))

@@ -44,6 +44,8 @@ mod check;
 pub use check::{notes_from_json, notes_to_json, LessonNote};
 mod edit_lesson;
 pub use edit_lesson::EditRun;
+mod document;
+pub use document::MAX_DOCUMENT_LESSONS;
 pub use budget::{job_tokens, Effort, JOB_PROMPT_TOKENS, LESSON_OUTPUT_TOKENS, OUTLINE_OUTPUT_TOKENS};
 
 /// The course format reference, embedded so the model gets exactly what the
@@ -391,6 +393,9 @@ fn job_budget() -> Duration {
 
 /// The learner's material, fenced so the model reads it as content.
 fn run(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Request) -> Result<(), String> {
+    if req.kind == SubjectKind::Document {
+        return document::run(job, db, registry, req);
+    }
     let system = if req.instructions.trim().is_empty() { DEFAULT_INSTRUCTIONS } else { req.instructions.as_str() };
     if system != DEFAULT_INSTRUCTIONS {
         job.log("Using your edited instructions.");

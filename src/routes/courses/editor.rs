@@ -585,7 +585,8 @@ async fn editor_template(
     }
     let sid = row.id.clone();
     let shares = state.db.call(move |c| crate::share::shares_of(c, &sid)).await?;
-    let can_share = user.can(crate::perms::Perm::ShareCourses);
+    // A course holding a private document is never shared (#232).
+    let can_share = user.can(crate::perms::Perm::ShareCourses) && !is_document_course(state, &row.id).await?;
     Ok(EditorTemplate {
         state: row.state.as_str(),
         user: Some(user),

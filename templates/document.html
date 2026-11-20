@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("courses.document.page_title") }}{% endblock %}
+{% block modenav %}{% let active = "lessons" %}{% include "nav_study.html" %}{% endblock %}
+{% block content %}
+{# The whole document of an "Understand a document" course (#232), as the learner pasted it. #}
+<article class="lesson document-page" data-testid="document-page">
+  <p class="crumbs"><a href="{{ crate::base_path() }}/lessons" data-testid="document-back">{{ crate::t("courses.document.page_back") }}</a></p>
+  <h1>{{ crate::t("courses.document.page_title") }} <span class="muted">· {{ title }}</span></h1>
+  <p class="alert" role="note" data-testid="document-line">{{ crate::t("courses.document.lesson_line") }}</p>
+  <div class="document-text" style="white-space: pre-wrap" data-testid="document-text">{{ document }}</div>
+</article>
+{% endblock %}

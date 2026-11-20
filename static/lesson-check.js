@@ -36,6 +36,7 @@
     if (res.note) html += "<p>" + esc(res.note) + "</p>";
     if (!res.correct) html += "<p class=\"answer-key\">" + t('study.js.correct_answer_html', { lang: esc(lang), answer: esc(res.correct_answer) }) + "</p>";
     html += "<p>" + esc(res.explanation) + "</p>";
+    if (res.source) html += '<blockquote class="document-quote" data-testid="feedback-source"><p><strong>' + esc(t('common.js.from_document')) + '</strong> <q lang="">' + esc(res.source) + "</q></p></blockquote>";
     if (res.new_words && res.new_words.length) {
       html += '<p class="new-words">' + esc(tn('study.js.new_terms_collected', res.new_words.length)) +
         res.new_words.map(function (w) { return '<strong lang="' + esc(lang) + '">' + esc(w.term) + "</strong> — " + esc(w.meaning); }).join(", ") + "</p>";

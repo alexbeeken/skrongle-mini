@@ -76,6 +76,10 @@ async fn copy_source(state: &AppState, user: &CurrentUser, id: &str) -> Result<R
     }
     let cid = id.to_string();
     let files = state.db.call(move |c| courses::load_files(c, &cid)).await?;
+    // It holds a private document (#232): no copy, translated or not.
+    if files.iter().any(|f| f.path == MANIFEST_FILE && is_document(&f.content)) {
+        return Ok(Err("copy-document"));
+    }
     Ok(Ok((files, row.title)))
 }
 

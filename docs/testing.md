@@ -370,6 +370,15 @@ generation is chosen by the learner's wish:
 (`ai::tests::generates_from_the_llm_fixtures`, `routes::simulated_provider`)
 and `scripts/smoke.sh` runs the default one over HTTP.
 
+#### Understand a document
+
+The fixtures `document-outline.json` and `document-lesson.json` write a
+two-lesson course about a medicine leaflet. Its quotes are only found in that
+leaflet: paste `_sample_document` from `document-outline.json` (all of it) into
+**Understand a document** on the course list. The first lesson's fourth
+question quotes a sentence the leaflet does not have, so the course opens with
+three questions there (`cargo test a_document_course` runs the same job).
+
 ### Manual replies: answer the model's requests yourself
 
 The **Manual replies** pill on `/dev/ai` (or `./.dev-start --llm capture`,

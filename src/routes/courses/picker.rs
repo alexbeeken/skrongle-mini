@@ -49,6 +49,9 @@ pub struct CourseCard {
     /// A copy being translated, or whose translation stopped (#630): its
     /// card resumes the translation rather than a generation.
     pub translation: bool,
+    /// It holds a private document (#232): never copied or translated, and
+    /// a stopped one has no Retry (Generate would write over the document).
+    pub document: bool,
 }
 
 /// A course's settings dialog (`course_settings.html`): the level (a course
@@ -207,6 +210,7 @@ fn card_of(m: &crate::content::Manifest, (lessons, questions, terms): (usize, us
         copyable: false,
         meanings_lang: m.meanings.lang.clone(),
         translation: false,
+        document: !m.document.trim().is_empty(),
     }
 }
 
@@ -294,6 +298,7 @@ fn broken_card(state: &AppState, row: &CourseRow) -> CourseCard {
         copyable: false,
         meanings_lang: String::new(),
         translation: row.source == "translate",
+        document: false,
     }
 }
 
@@ -328,6 +333,7 @@ pub(super) fn picker_notice(key: &str) -> Option<String> {
         "share-not-ready" => "courses.share.not_ready",
         "too-many-writes" => return Some(too_many_writes_text()),
         "copy-not-ready" => "courses.picker.copy_not_ready",
+        "copy-document" => "courses.document.private",
         "translate-same" => "courses.translate.same_language",
         "translate-no-plan" => "courses.translate.no_plan",
         _ => {
@@ -397,6 +403,7 @@ pub(super) fn editor_notice(key: &str, undo: Option<&UndoView>, error: Option<&s
         "share-full" => crate::t1("courses.share.too_many_course", "max", crate::share::MAX_PER_COURSE),
         "share-removed" => crate::t("courses.share.removed_notice"),
         "share-not-on-list" => crate::t("courses.share.not_on_list"),
+        "share-document" => crate::t("courses.document.private"),
         "too-many-writes" => too_many_writes_text(),
         _ => return None,
     })
@@ -491,7 +498,9 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
             continue;
         }
         if !opens {
-            my_cards.push(broken_card(state, row));
+            let mut c = broken_card(state, row);
+            c.document = row.state == courses::CourseState::Failed && is_document_course(state, &row.id).await?;
+            my_cards.push(c);
             continue;
         }
         match state.courses.get(&state.db, &row.id).await? {
@@ -519,6 +528,14 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
     let (mut project_cards, mut builtin, mut my_cards, mut shared_cards) = (project_cards, builtin, my_cards, shared_cards);
     for st in project_cards.iter_mut().chain(&mut builtin).chain(&mut my_cards).chain(&mut shared_cards).filter_map(|c| c.settings.as_mut()) {
         st.for_account(&user);
+    }
+    // A course holding a private document is not copied or translated (#232).
+    for c in project_cards.iter_mut().chain(&mut my_cards).filter(|c| c.document) {
+        c.copyable = false;
+        if let Some(st) = c.settings.as_mut() {
+            st.copyable = false;
+            st.translate = false;
+        }
     }
     Ok(Page(PickerTemplate { user: Some(user), can_create, projects: project_cards, builtin, mine: my_cards, shared: shared_cards, notice, generate, translate_providers }).into_response())
 }

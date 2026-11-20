@@ -1,0 +1,49 @@
+{
+  "_comment": "document-outline replies (#232, Understand a document). The key is a [fixture:NAME] token in the request (default: 'default'). The lessons in document-lesson.json quote _sample_document: paste exactly that text on the course list's Understand a document (docs/testing.md).",
+  "_sample_document": "Amoxicillin 500 mg capsules\n\nRead all of this leaflet carefully before you start taking this medicine.\n\nHow to take it\nTake one capsule three times a day, about eight hours apart.\nSwallow the capsules whole with a glass of water.\nKeep taking the capsules until the course is finished, even if you feel better.\nDo not take more than three capsules in 24 hours.\nIf you forget a dose, take it as soon as you remember. Do not take two doses at once.\n\nWarnings\nStop taking this medicine and see a doctor at once if you get a rash or swelling of the face.\nStore below 25 °C. Keep out of the sight and reach of children.",
+  "replies": {
+    "default": {
+      "reply": {
+        "course": {
+          "title": "Your amoxicillin leaflet",
+          "description": "What the leaflet says and what you have to do.",
+          "icon": "💊",
+          "units": [
+            {
+              "id": "1",
+              "title": "The leaflet"
+            }
+          ],
+          "groups": [
+            {
+              "id": "core",
+              "title": "Core"
+            }
+          ]
+        },
+        "lessons": [
+          {
+            "id": "doc-how-to-take",
+            "slug": "how-to-take",
+            "title": "How to take it",
+            "unit": "1",
+            "group": "core",
+            "summary": "How much, how often, for how long",
+            "focus": "the dose",
+            "prerequisites": []
+          },
+          {
+            "id": "doc-warnings",
+            "slug": "warnings",
+            "title": "Warnings and storing",
+            "unit": "1",
+            "group": "core",
+            "summary": "When to stop, and where to keep it",
+            "focus": "the warnings",
+            "prerequisites": []
+          }
+        ]
+      }
+    }
+  }
+}

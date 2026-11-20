@@ -58,6 +58,7 @@ pub fn squash(text: &str) -> String {
 
 /// Is `quote` in `document` word for word, whitespace aside? Both are
 /// squashed first. An empty quote is never found.
+#[cfg(test)]
 pub fn quote_found(document: &str, quote: &str) -> bool {
     found_in(&squash(document), &squash(quote))
 }
@@ -74,13 +75,13 @@ fn found_in(doc: &str, quote: &str) -> bool {
     while let Some(at) = doc.get(from..).and_then(|rest| rest.find(quote)) {
         let start = from + at;
         let end = start + quote.len();
-        let before = doc[..start].chars().next_back().is_some_and(word_char);
-        let after = doc[end..].chars().next().is_some_and(word_char);
+        let before = doc.get(..start).and_then(|s| s.chars().next_back()).is_some_and(word_char);
+        let after = doc.get(end..).and_then(|s| s.chars().next()).is_some_and(word_char);
         if !(first && before) && !(last && after) {
             return true;
         }
         // The next match may overlap this one: go on one character later.
-        from = start + doc[start..].chars().next().map_or(1, char::len_utf8);
+        from = start + doc.get(start..).and_then(|s| s.chars().next()).map_or(1, char::len_utf8);
     }
     false
 }
@@ -304,7 +305,7 @@ mod tests {
 
     #[test]
     fn the_cap_keeps_a_document_well_inside_a_course_file() {
-        assert!(MAX_DOCUMENT_CHARS * 6 < crate::courses::MAX_FILE_BYTES / 2);
+        const { assert!(MAX_DOCUMENT_CHARS * 6 < crate::courses::MAX_FILE_BYTES / 2) };
     }
 
     #[test]

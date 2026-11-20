@@ -300,7 +300,9 @@ impl Manifest {
 mod quiz_type;
 pub use quiz_type::QuizType;
 mod document;
-pub use document::{quote_found, quotes_for, keep_quoted, Source, MAX_DOCUMENT_CHARS};
+pub use document::{quotes_for, keep_quoted, Source, MAX_DOCUMENT_CHARS};
+#[cfg(test)]
+pub use document::quote_found;
 
 /// A single quiz question belonging to a lesson.
 #[derive(Debug, Clone, Serialize, Deserialize)]
