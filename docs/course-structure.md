@@ -114,6 +114,8 @@ and the lesson simply is not there. The complete table is
 - **Sprint sentence builds**: `conversations`, or `sprint.builds`.
 - **Sprint sort / spot-the-mistake / bites by hand**: `sprint`.
 - **Conjugation drill, Sprint ladders**: `conjugations` (needs `paradigm`).
+- **Printed worksheet** ([Paper mode](features#paper-mode)): `content`,
+  `vocabulary` and the `quiz` questions that work on paper.
 - **A Guide stage in your own order**: `guide`.
 
 ## Smallest valid course

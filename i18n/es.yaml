@@ -997,6 +997,18 @@ study:
     jump: Ir a una unidad
     jump_passed: "{n} de {total} superadas"
     to_top: "↑ Volver arriba"
+  paper:
+    print: "Imprimir"
+    print_unit: "Imprimir la unidad"
+    print_button: "Imprimir"
+    back_lesson: "Volver a la lección"
+    back_lessons: "Volver a las lecciones"
+    not_recorded: "El trabajo en papel no se registra: tu progreso no cambia."
+    questions: "Preguntas"
+    name: "Nombre"
+    date: "Fecha"
+    answers: "Respuestas"
+    also: "también vale: {answers}"
   panel:
     lessons: Lecciones
     noscript: Mover, renombrar y añadir lecciones requiere JavaScript; Editar abre el archivo de una lección.

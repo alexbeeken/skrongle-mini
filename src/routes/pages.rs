@@ -226,6 +226,9 @@ pub struct UnitGroup {
     pub unit: String,
     pub description: String,
     pub lessons: Vec<TopicRow>,
+    /// Print the unit (#236): its worksheet page; empty when no lesson of
+    /// the unit has a question that works on paper.
+    pub print_href: String,
 }
 
 /// One tab of a picker (a unit on /lessons, a set on the drill setup, #837):
@@ -451,6 +454,8 @@ pub struct LessonTemplate<'a> {
     /// The learner's own note on the lesson ("My note", #336); empty if none.
     pub note: String,
     pub note_max: usize,
+    /// Some question works on paper: the More ways menu offers Print (#236).
+    pub printable: bool,
 }
 
 pub struct HistoryView {
@@ -650,7 +655,12 @@ pub async fn lessons(State(state): State<Arc<AppState>>, p: Project, Query(lq): 
         if !lessons.is_empty() {
             let anchor = format!("unit-{}", unit.id.chars().map(|c| if c.is_ascii_alphanumeric() || c == '-' || c == '_' { c } else { '-' }).collect::<String>());
             let passed = lessons.iter().filter(|t| t.passed).count();
-            groups.push(UnitGroup { anchor, passed, unit: unit.title.clone(), description: unit.description.clone(), lessons });
+            let print_href = if super::paper::unit_printable(content, ui) {
+                crate::url(&format!("/lessons/print?unit={}", crate::urlenc::urlencode(&unit.id)))
+            } else {
+                String::new()
+            };
+            groups.push(UnitGroup { anchor, passed, unit: unit.title.clone(), description: unit.description.clone(), lessons, print_href });
             ids.push(unit.id.clone());
         }
     }
@@ -812,6 +822,7 @@ pub async fn lesson(
         reward,
         note,
         note_max: crate::notes::MAX_CHARS,
+        printable: super::paper::printable(lesson),
     };
     // Render inside the handler because the template borrows from the course.
     Ok(axum::response::Html(tpl.render()?).into_response())

@@ -1460,6 +1460,37 @@ same widget (`static/clock.js`). Play has no question games, so it has no
 clock. The clock has no words on it, only the numbers 1 to 12, so it suits
 any course; the prompt carries the language ("Son las seis y media").
 
+## Paper mode
+
+A lesson can be printed as a worksheet (#236), for a learner with no device
+to spare. **Print**, in a lesson's *More ways* menu, opens
+`/lessons/{slug}/print`: the lesson text, its vocabulary table, then its
+questions under a line for a name and a date, with a box by each option and a
+line to write on, and the answer key, which starts on a new sheet so it can
+be kept back. **Print the unit**, under each unit's heading on the Lessons
+tab, opens `/lessons/print?unit=<id>`: every lesson of the unit one after
+another, and one key at the end. The page's own **Print** button opens the
+browser's print dialog; the browser does the rest, on A4 or Letter.
+
+Only questions that work on paper are printed: `multiple-choice`,
+`true-false`, `fill-in-blank`, `numeric` and `expression` (the rule is
+`on_paper` in `src/routes/paper.rs`). A question that needs the screen is
+left out: `fill-bar`, `chord-spell`, `staff-note`, `keyboard`,
+`algebra-tiles`, `clock`, `measure`, and any question with `play` (sound),
+`abc` (a staff) or options drawn as staves. Music in the lesson text is left
+out too, since the page runs no drawing script. A lesson with no question
+left has no **Print**, and a unit with none has no **Print the unit**. The
+questions keep the lesson's own order (nothing is shuffled), so two prints
+match and one key fits both.
+
+The sheet is black on white whatever the screen's theme, and the app's
+navigation, the Print button and the back link are not printed
+(`static/print.css`, loaded by this page only). Sizes are relative, so the
+page follows the text size set for the app. Paper work records nothing:
+opening a print page is not reading the lesson, and the page says so in a
+line that is not printed. Entering paper results afterwards is not part of
+it.
+
 ## Tap to hear
 
 On every page of a language course (`language_features` in `course.json`,

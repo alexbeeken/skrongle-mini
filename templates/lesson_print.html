@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{# Paper mode (#236): a lesson or a unit laid out for printing. static/print.css
+   makes it black on white and hides the screen's navigation and the tools;
+   the only script is print.js, behind the Print button. #}
+{% block title %}{{ title }}{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ crate::routes::asset_url("print.css") }}">{% endblock %}
+{% block content %}
+<div class="paper-tools no-print" data-testid="paper-tools">
+  <button type="button" class="btn" data-print data-testid="paper-print">{{ crate::t("study.paper.print_button") }}</button>
+  <a href="{{ back_href }}" data-testid="paper-back">{{ back_label }}</a>
+  <p class="small muted" data-testid="paper-not-recorded">{{ crate::t("study.paper.not_recorded") }}</p>
+</div>
+<div class="paper" data-testid="paper">
+{% for pl in lessons %}
+{% let lesson = pl.lesson %}
+<section class="paper-lesson" data-testid="paper-lesson" data-lesson-id="{{ lesson.slug }}">
+  <h1>{{ lesson.title }}</h1>
+  {% if !lesson.summary.is_empty() %}<p class="lead">{{ lesson.summary }}</p>{% endif %}
+  <div class="prose" lang="{{ course.term_lang }}">
+    {{ lesson.html_content()|safe }}
+  </div>
+  {% if !lesson.vocabulary.is_empty() %}
+  <h2>{{ crate::t("study.lesson.vocabulary") }}</h2>
+  <table class="paper-vocab" data-testid="paper-vocabulary">
+    <thead><tr><th>{{ course.term_label }}</th><th>{{ course.meaning_label }}</th><th>{{ crate::t("study.lesson.example") }}</th></tr></thead>
+    <tbody>
+    {% for v in lesson.vocabulary %}
+      <tr><td lang="{{ course.term_lang }}">{{ v.term }}</td><td lang="{{ course.meaning_lang }}">{{ v.meaning }}</td><td lang="{{ course.term_lang }}">{% if let Some(ex) = v.example %}{{ ex }}{% endif %}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+  {% if !pl.questions.is_empty() %}
+  <section class="paper-questions" data-testid="paper-questions">
+    <h2>{{ crate::t("study.paper.questions") }}</h2>
+    <p class="paper-who" data-testid="paper-name-date"><span>{{ crate::t("study.paper.name") }}</span><span class="paper-blank wide"></span><span>{{ crate::t("study.paper.date") }}</span><span class="paper-blank"></span></p>
+    <ol class="paper-list">
+    {% for q in pl.questions %}
+      <li class="paper-q" data-testid="paper-question" data-question-id="{{ q.item.question_id }}">
+        <p class="paper-prompt" lang="{{ course.term_lang }}">{{ q.item.prompt }}</p>
+        {% if q.choice() %}
+        <ul class="paper-options">
+          {% for (letter, text) in q.options %}<li><span class="paper-box" aria-hidden="true"></span> {{ letter }}) <span lang="{{ course.term_lang }}">{{ text }}</span></li>{% endfor %}
+        </ul>
+        {% else %}
+        <p class="paper-write"><span class="paper-blank wide"></span>{% if !q.item.unit.is_empty() %} {{ q.item.unit }}{% endif %}</p>
+        {% endif %}
+      </li>
+    {% endfor %}
+    </ol>
+  </section>
+  {% endif %}
+</section>
+{% endfor %}
+{% if has_key() %}
+<section class="paper-key" data-testid="paper-key">
+  <h1>{{ crate::t("study.paper.answers") }} <span class="muted">· {{ title }}</span></h1>
+  {% for pl in lessons %}
+  {% if !pl.questions.is_empty() %}
+  <div class="paper-key-lesson" data-testid="paper-key-lesson" data-lesson-id="{{ pl.lesson.slug }}">
+    {% if lessons.len() > 1 %}<h2>{{ pl.lesson.title }}</h2>{% endif %}
+    <ol class="paper-list">
+    {% for q in pl.questions %}
+      <li data-testid="paper-answer" data-question-id="{{ q.item.question_id }}"><span lang="{{ course.term_lang }}">{{ q.answer }}</span>{% if !q.also.is_empty() %} <span class="muted">({{ crate::t1("study.paper.also", "answers", q.also) }})</span>{% endif %}</li>
+    {% endfor %}
+    </ol>
+  </div>
+  {% endif %}
+  {% endfor %}
+</section>
+{% endif %}
+</div>
+{% endblock %}
+{% block scripts %}<script src="{{ crate::routes::asset_url("print.js") }}" defer></script>{% endblock %}

@@ -776,6 +776,18 @@ study:
     jump: Jump to a unit
     jump_passed: "{n} of {total} passed"
     to_top: "↑ Back to top"
+  paper:
+    print: "Print"
+    print_unit: "Print the unit"
+    print_button: "Print"
+    back_lesson: "Back to the lesson"
+    back_lessons: "Back to the lessons"
+    not_recorded: "Work done on paper is not recorded: your progress stays as it is."
+    questions: "Questions"
+    name: "Name"
+    date: "Date"
+    answers: "Answers"
+    also: "also right: {answers}"
   panel:
     lessons: Lessons
     noscript: Moving, renaming and adding lessons need JavaScript; Edit opens a lesson's file.

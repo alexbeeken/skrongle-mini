@@ -1,0 +1,48 @@
+/* Paper mode (#236): the worksheet page only (templates/lesson_print.html).
+   The sheet is black on white whatever the screen's theme; printed, the
+   app's navigation and the tools above the sheet are left out. Sizes are in
+   rem and em, so the Reading settings' classes on <html> carry over. */
+.paper {
+  --text: #000; --muted: #444; --line: #777; --surface: #fff; --bg: #fff;
+  color-scheme: light;
+  color: #000; background: #fff;
+  padding: 1.5rem; border: 1px solid #ccc; max-width: 48rem;
+}
+.paper a { color: #000; }
+.paper h1 { font-size: 1.6rem; margin: 0 0 .4rem; }
+.paper h2 { font-size: 1.2rem; margin: 1.4rem 0 .5rem; }
+.paper .lead { margin-top: 0; }
+.paper .prose { max-width: none; }
+.paper .prose h2 { border-bottom-color: #777; }
+.paper .prose blockquote { border-left-color: #777; }
+/* Music in the text is drawn by a script the sheet does not run. */
+.paper .abc-staff, .paper .music-play { display: none; }
+.paper-lesson + .paper-lesson { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 2px solid #000; }
+.paper-vocab { border-collapse: collapse; width: 100%; margin: .6rem 0; font-size: .95rem; }
+.paper-vocab th, .paper-vocab td { border: 1px solid #777; padding: .35rem .55rem; text-align: left; vertical-align: top; }
+.paper-who { display: flex; align-items: baseline; gap: .5rem; margin: .4rem 0 1rem; }
+.paper-blank { display: inline-block; min-width: 8rem; border-bottom: 1px solid #000; height: 1.2em; }
+.paper-blank.wide { flex: 1; min-width: 14rem; }
+.paper-list { padding-left: 1.6rem; }
+.paper-q { margin: 0 0 1.1rem; }
+.paper-prompt { margin: 0 0 .4rem; }
+.paper-options { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .35rem 1.6rem; }
+.paper-box { display: inline-block; width: .85em; height: .85em; border: 1px solid #000; vertical-align: -.05em; }
+.paper-write { display: flex; align-items: baseline; gap: .4rem; margin: 1.2rem 0 0; }
+.paper-key { margin-top: 3rem; padding-top: 1.5rem; border-top: 2px dashed #000; }
+.paper-key-lesson h2 { font-size: 1.05rem; }
+.paper-key .paper-list li { margin: .2rem 0; }
+.paper-tools { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; margin-bottom: 1rem; }
+.paper-tools p { flex-basis: 100%; margin: 0; }
+
+@page { margin: 15mm; }
+@media print {
+  html, body { background: #fff !important; color: #000 !important; }
+  .topbar, .modebar, .site-footer, .skip-link, .no-print { display: none !important; }
+  main.container { max-width: none; padding: 0; margin: 0; }
+  .paper { border: 0; padding: 0; max-width: none; }
+  .paper h1, .paper h2, .paper h3 { break-after: avoid; }
+  .paper-q, .paper-vocab tr, .paper-who { break-inside: avoid; }
+  .paper-key { break-before: page; margin-top: 0; padding-top: 0; border-top: 0; }
+  .paper img, .paper svg { max-width: 100%; }
+}

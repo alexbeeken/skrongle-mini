@@ -29,6 +29,7 @@ pub mod guide;
 pub mod listening;
 pub mod map;
 pub mod pages;
+pub mod paper;
 pub mod profile;
 pub mod progress;
 pub mod quiz;
@@ -213,6 +214,9 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/lessons", get(pages::lessons))
         .route("/map", get(map::map))
         .route("/lessons/{slug}", get(pages::lesson))
+        // Paper mode (#236): a lesson or a unit as a worksheet; records nothing.
+        .route("/lessons/print", get(paper::unit))
+        .route("/lessons/{slug}/print", get(paper::lesson))
         .route("/lessons/{slug}/read", post(progress::read))
         .route("/api/lessons/{slug}/note", post(pages::save_note))
         .route("/api/practice/finish", post(progress::practice_finish))

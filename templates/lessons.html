@@ -19,6 +19,7 @@
 {% for g in groups %}
 <section id="{{ g.anchor }}" class="lessons-unit" data-testid="lessons-unit">
   <h2>{{ g.unit }} <span class="muted">{{ g.description }}</span></h2>
+  {% if !g.print_href.is_empty() %}<p class="small lessons-print"><a href="{{ g.print_href }}" data-testid="lessons-print-unit">{{ crate::t("study.paper.print_unit") }}</a></p>{% endif %}
   <ul class="topics" data-testid="lessons-list">
   {% for t in g.lessons %}
     <li data-testid="lessons-item" data-lesson-id="{{ t.slug }}" data-passed="{{ t.passed }}" data-read="{{ t.read }}" data-status="{{ t.status_css }}" data-search="{{ t.title }} {{ t.group }} {{ t.summary }}">
