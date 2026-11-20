@@ -341,7 +341,12 @@ A student account belongs to a teacher (an account with the **Hold students**
 permission, or an owner): it signs in with a username and a password, has no
 e-mail address and no two-factor sign-in, and deleting the teacher's account
 deletes its students. Manage Users lists only the normal accounts and says how
-many students each teacher holds. See [Student accounts](features#student-accounts).
+many students each teacher holds. The teacher makes them on the **Students**
+page (top bar): paste the class's names, check the usernames, and print the
+sign-in sheet, which shows each password once. At the limit that page says
+the box is full and names `SKRONGLE_STUDENT_LIMIT`. See
+[Student accounts](features#student-accounts) and
+[the Students page](features#the-students-page).
 
 ### Renamed settings
 
