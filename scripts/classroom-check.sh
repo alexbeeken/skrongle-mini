@@ -64,6 +64,45 @@ if command -v systemd-analyze >/dev/null 2>&1; then
   if systemd-analyze verify "$A"/etc/systemd/system/skrongle-*.service "$A"/etc/systemd/system/skrongle-portal.socket 2>&1 | grep -v 'Command .* is not executable\|Failed to prepare' | grep -qi 'unknown\|invalid\|bad'; then fail "$DESC"; else ok "$DESC"; fi
 fi
 
+# --- the way back with no ssh (fallback) ---
+FB="$A/usr/local/lib/skrongle/classroom-fallback.sh"
+DESC="setup A leaves a copy of itself, the fallback, and the timer and card units"
+[ -x "$FB" ] && [ -f "$A/usr/local/lib/skrongle/classroom-install.sh" ] && has "$A/etc/systemd/system/skrongle-wifi-fallback.timer" '^OnBootSec=5min$' \
+  && has "$A/etc/systemd/system/skrongle-card-undo.service" 'classroom-fallback.sh card' && ok "$DESC" || fail "$DESC"
+# stand-ins: systemctl (is-active answers by $W/hostapd-up, reboot is logged) and the undo
+cat > "$W/systemctl" <<EOF
+#!/bin/sh
+case "\$1" in
+  is-active) [ -e "$W/hostapd-up" ] ;;
+  reboot) echo reboot >> "$W/calls" ;;
+esac
+EOF
+cat > "$W/undo" <<EOF
+#!/bin/sh
+echo undo >> "$W/calls"
+[ ! -e "$W/undo-fails" ]
+EOF
+chmod +x "$W/systemctl" "$W/undo"
+fb() { STATE="$W/state" SYSTEMCTL="$W/systemctl" UNDO_CMD="$W/undo" CARD_DIRS="$W/card $W/card2" sh "$FB" "$@" >/dev/null 2>&1; }
+calls() { cat "$W/calls" 2>/dev/null | tr '\n' ' '; }
+: > "$W/hostapd-up"; rm -f "$W/calls"; fb late
+DESC="fallback: the Wi-Fi is up: nothing happens"; [ -z "$(calls)" ] && ok "$DESC" || fail "$DESC"
+rm -f "$W/hostapd-up"; fb late
+DESC="fallback: the Wi-Fi is not up: undo, then one reboot, flag left"; [ "$(calls)" = "undo reboot " ] && [ -e "$W/state/fallback-done" ] && ok "$DESC" || fail "$DESC ($(calls))"
+fb late; fb late
+DESC="fallback: it cannot loop (a second and third run do nothing)"; [ "$(calls)" = "undo reboot " ] && ok "$DESC" || fail "$DESC ($(calls))"
+rm -rf "$W/state" "$W/calls"; : > "$W/undo-fails"; fb late
+DESC="fallback: if undo fails, it does not reboot"; [ "$(calls)" = "undo " ] && ok "$DESC" || fail "$DESC ($(calls))"
+rm -rf "$W/state" "$W/calls" "$W/undo-fails"; mkdir -p "$W/card"; : > "$W/card/skrongle-undo"; : > "$W/hostapd-up"; fb card
+DESC="fallback: skrongle-undo on the card: undo, reboot, the file is removed"; [ "$(calls)" = "undo reboot " ] && [ ! -e "$W/card/skrongle-undo" ] && ok "$DESC" || fail "$DESC ($(calls))"
+rm -f "$W/calls"; fb card
+DESC="fallback: no file on the card: nothing happens"; [ -z "$(calls)" ] && ok "$DESC" || fail "$DESC"
+DESC="setup A records what --undo must undo (hostapd mask)"; [ -e "$A/var/lib/skrongle-classroom/masked-hostapd" ] && ok "$DESC" || fail "$DESC"
+
+# --join on top of setup A is refused, nothing changes
+DESC="--join after setup A is refused with the command to run"
+if OUT=$(sh "$SCRIPT" --dry-run "$A" --join 2>&1); then fail "$DESC"; else case "$OUT" in *"--undo"*) ok "$DESC" ;; *) fail "$DESC" ;; esac; fi
+
 # --- undo puts it back ---
 sh "$SCRIPT" --dry-run "$A" --undo >/dev/null 2>&1
 DESC="--undo removes the units, the drop-in and the configs"
@@ -71,7 +110,41 @@ DESC="--undo removes the units, the drop-in and the configs"
 DESC="--undo puts back /etc/network/interfaces"; has "$I" '^allow-hotplug wlan0$' && [ ! -e "$I.before-classroom" ] && ok "$DESC" || fail "$DESC"
 DESC="--undo removes the classroom address from the env file"; ! has "$E" 'skrongle.lan' && ! has "$E" 'classroom-install' && [ "$(grep -c '^SKRONGLE_PUBLIC_URL=' "$E")" = 1 ] && ok "$DESC" || fail "$DESC"
 
+DESC="--undo unmasks hostapd (the record is gone) and removes the fallback files"
+[ ! -e "$A/var/lib/skrongle-classroom/masked-hostapd" ] && [ ! -e "$FB" ] && ok "$DESC" || fail "$DESC"
+
+# --undo with the saved interfaces file missing: says so, exits non-zero
+M="$W/m"; mkroot "$M"
+sh "$SCRIPT" --dry-run "$M" --name x --password longenough --country US >/dev/null 2>&1
+rm -f "$M/etc/network/interfaces.before-classroom"
+DESC="--undo says plainly, and fails, when the saved interfaces file is missing"
+if OUT=$(sh "$SCRIPT" --dry-run "$M" --undo 2>&1); then fail "$DESC"; else case "$OUT" in *PROBLEM*"before-classroom"*) ok "$DESC" ;; *) fail "$DESC" ;; esac; fi
+
+# --- wlan0 managed some other way: stop, change nothing ---
+X="$W/x"; mkroot "$X"; mkdir -p "$X/etc/network/interfaces.d"
+printf 'allow-hotplug wlan0\niface wlan0 inet dhcp\n' > "$X/etc/network/interfaces.d/wifi"
+cp "$X/etc/network/interfaces" "$W/x-before"
+DESC="wlan0 set up in interfaces.d: refused, nothing changed"
+if OUT=$(sh "$SCRIPT" --dry-run "$X" --name x --password longenough --country US 2>&1); then fail "$DESC"; else
+  [ -z "$(ls -A "$X/etc/systemd/system")" ] && cmp -s "$X/etc/network/interfaces" "$W/x-before" && case "$OUT" in *"interfaces.d/wifi"*"--join"*) ok "$DESC" ;; *) fail "$DESC" ;; esac; fi
+Y="$W/y"; mkroot "$Y"
+printf '\nallow-hotplug eth0\niface eth0 inet dhcp\n   post-up ip link set wlan0 up\n' >> "$Y/etc/network/interfaces"
+cp "$Y/etc/network/interfaces" "$W/y-before"
+DESC="wlan0 still mentioned after the change: refused, the file put back"
+if OUT=$(sh "$SCRIPT" --dry-run "$Y" --name x --password longenough --country US 2>&1); then fail "$DESC"; else
+  cmp -s "$Y/etc/network/interfaces" "$W/y-before" && [ ! -e "$Y/etc/network/interfaces.before-classroom" ] && [ -z "$(ls -A "$Y/etc/systemd/system")" ] && ok "$DESC" || fail "$DESC"; fi
+
 # --- bad input is refused, nothing is written ---
+Z="$W/z"; mkroot "$Z"
+DESC="a non-ASCII password is refused"; ! sh "$SCRIPT" --dry-run "$Z" --name x --password 'pässword12' --country US >/dev/null 2>&1 && ok "$DESC" || fail "$DESC"
+DESC="a non-ASCII Wi-Fi name is refused"; ! sh "$SCRIPT" --dry-run "$Z" --name 'Klasse ä' --password longenough --country US >/dev/null 2>&1 && ok "$DESC" || fail "$DESC"
+DESC="a 64-byte password is refused, a 63-byte one is taken"
+P64=$(printf 'a%.0s' $(seq 1 64)); P63=$(printf 'a%.0s' $(seq 1 63))
+! sh "$SCRIPT" --dry-run "$Z" --name x --password "$P64" --country US >/dev/null 2>&1 && sh "$SCRIPT" --dry-run "$Z" --name x --password "$P63" --country US >/dev/null 2>&1 && ok "$DESC" || fail "$DESC"
+if command -v bash >/dev/null 2>&1; then
+  DESC="the same under bash: 32 two-byte letters (64 bytes) are refused"
+  ! bash "$SCRIPT" --dry-run "$Z" --name x --password "$(printf 'ä%.0s' $(seq 1 32))" --country US >/dev/null 2>&1 && ok "$DESC" || fail "$DESC"
+fi
 B="$W/b"; mkroot "$B"
 DESC="a password under 8 characters is refused"; ! sh "$SCRIPT" --dry-run "$B" --name x --password short --country US >/dev/null 2>&1 && ok "$DESC" || fail "$DESC"
 DESC="a country that is not two letters is refused"; ! sh "$SCRIPT" --dry-run "$B" --name x --password longenough --country USA >/dev/null 2>&1 && ok "$DESC" || fail "$DESC"
@@ -84,6 +157,8 @@ sh "$SCRIPT" --dry-run "$J" --join >/dev/null 2>&1 && ok "setup B runs" || fail 
 DESC="setup B: port 80 on every address, skrongle.local, no Wi-Fi of its own, wlan0 untouched"
 has "$J/etc/systemd/system/skrongle.service.d/classroom.conf" '^Environment=SKRONGLE_BIND=0.0.0.0:80$' && has "$J/etc/skrongle/env" '^SKRONGLE_PUBLIC_URL=http://skrongle.local$' \
   && [ ! -e "$J/etc/skrongle/classroom-hostapd.conf" ] && [ ! -e "$J/etc/systemd/system/skrongle-hostapd.service" ] && ! [ -e "$J/etc/network/interfaces.before-classroom" ] && ok "$DESC" || fail "$DESC"
+DESC="setup B records the Pi's name; --undo takes it back and succeeds"
+[ -f "$J/var/lib/skrongle-classroom/hostname-before" ] && sh "$SCRIPT" --dry-run "$J" --undo >/dev/null 2>&1 </dev/null && [ ! -e "$J/var/lib/skrongle-classroom/hostname-before" ] && [ ! -e "$J/etc/systemd/system/skrongle.service.d/classroom.conf" ] && ok "$DESC" || fail "$DESC"
 
 [ "$FAILED" = 0 ] && echo "classroom check: ok" || echo "classroom check: FAILED"
 exit "$FAILED"

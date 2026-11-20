@@ -639,8 +639,10 @@ Docker) runs `deploy/classroom-install.sh --dry-run <dir>`, which writes
 every file under `<dir>` and runs nothing else. It checks the Wi-Fi, name
 server and unit files, that `SKRONGLE_PUBLIC_URL` is set once, that
 `/etc/network/interfaces` loses only `wlan0`, that the redirect program
-answers any request with a 302 to `/login`, `--undo`, and the refusal of
-bad input; and runs `shellcheck`, `dnsmasq --test` and `systemd-analyze
+answers any request with a 302 to `/login`, `--undo`, the way back (the
+fallback and the card file, with stand-ins for systemctl and the undo, and
+that it cannot loop), the refusals (wlan0 set up another way, `--join`
+after setup A, non-ASCII or too long names and passwords); and runs `shellcheck`, `dnsmasq --test` and `systemd-analyze
 verify` where they are installed. It cannot show that the radio starts as an
 access point, how many devices join it, or that a phone opens the page by
 itself: those take a real Pi Zero 2 W.

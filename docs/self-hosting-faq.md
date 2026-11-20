@@ -61,7 +61,9 @@ sign-in page.** See [Set up a classroom box](setup-classroom). On the Pi,
 `systemctl status skrongle-hostapd skrongle-dnsmasq` says which part is
 down; the Wi-Fi's country code is the usual cause (run
 `deploy/classroom-install.sh` again with the right one). `sudo sh
-classroom-install.sh --undo` and a reboot put the home Wi-Fi back.
+/usr/local/lib/skrongle/classroom-install.sh --undo` and a reboot put the home Wi-Fi back.
+A `SKRONGLE_BIND` in `/etc/skrongle/env` overrides the port 80 the script sets, so
+the classroom address stops opening Skrongle; remove that line.
 
 **The log says the port is already in use.** Another program (or a second
 copy) has port 7576. Find it with `sudo ss -ltnp 'sport = :7576'`, or move

@@ -11,12 +11,12 @@ already runs on the Pi. You do that part at home, with internet, once.
 
 There are two ways to give the room a Wi-Fi.
 
-| | **A: the Pi is the Wi-Fi** | **B: a small access point, the Pi joins it** |
-|---|---|---|
-| What you buy | nothing more | a cheap access point or travel router |
-| How many devices | **not measured yet** | what the access point says it takes |
-| A phone opens the sign-in page by itself | yes, that is what the script sets up | no, students type the address |
-| The address | `http://skrongle.lan` | `http://skrongle.local` |
+- **A: the Pi is the Wi-Fi.** You buy nothing more. A phone that joins
+  opens the sign-in page by itself. The address is `http://skrongle.lan`.
+  How many devices it takes: **not measured yet**.
+- **B: a small access point, and the Pi joins it.** You buy a cheap access
+  point or travel router. Students type the address, `http://skrongle.local`.
+  It takes what the access point says it takes.
 
 **How many devices the Pi's own Wi-Fi takes has not been measured on a real
 Pi Zero 2 W yet.** Its chip is small, and it may not take a full class. Until it is measured, use **B for a full class**. Use A to try it,
@@ -58,16 +58,21 @@ never needs it again.
 
 ## Step 2, setup A: the Pi becomes the Wi-Fi
 
-Choose the Wi-Fi name and password the students will use. The password is
-8 to 63 characters. Also give your country as two letters (`US`, `GB`, `DE`,
+Choose the Wi-Fi name and password the students will use. Use English
+letters, digits and punctuation only (no accents). The password is 8 to 63
+characters. Also give your country as two letters (`US`, `GB`, `DE`,
 `CA` ...): it decides which radio channels are allowed.
 
 On the Pi (`ssh skrongle`, as in the home guide):
 
 ```sh
 curl -fsSLO https://raw.githubusercontent.com/alexbeeken/skrongle-mini/main/deploy/classroom-install.sh
-sudo sh classroom-install.sh --name "Room 12" --password "a long phrase" --country US
+sudo sh classroom-install.sh --name "Room 12" --country US
 ```
+
+It asks for the password and does not show what you type. Prefer that to
+putting `--password` on the command line, which stays in the shell's
+history for anyone who can read it.
 
 It installs what it needs, then prints the name, password and address. It
 changes nothing about the connection you are working over yet. When it
@@ -90,7 +95,15 @@ What the script set up, in a line each:
   This is what makes a phone open it by itself.
 
 To change the name or password, run the command again. To go back to the
-home Wi-Fi: `sudo sh classroom-install.sh --undo`, then `sudo reboot`.
+home Wi-Fi: `sudo sh /usr/local/lib/skrongle/classroom-install.sh --undo`,
+then `sudo reboot`.
+
+If the Wi-Fi does not start, the Pi does not stay lost. Five minutes after
+it boots, if the Wi-Fi is not running, it puts the home Wi-Fi back and
+restarts, once. See "If something is off" for the SD-card way.
+
+The script stops, and changes nothing, if the Pi's Wi-Fi is set up in a way
+it does not know. Use B then.
 
 ## Step 2, setup B: a separate access point
 
@@ -137,7 +150,14 @@ the address.
 ## If something is off
 
 - **The Wi-Fi does not show up.** Give the Pi a minute after power. In A,
-  check the country code is right for where you are.
+  check the country code is right for where you are. If it still is not
+  there after ten minutes, the Pi has put the home Wi-Fi back by itself:
+  look for it on your home network.
+- **The Pi is lost and you cannot ssh to it (A).** Switch it off and take
+  out the card. Put it in a computer. On the drive that shows up (called
+  `boot` or `bootfs`) make an empty file named `skrongle-undo`. Eject the
+  card, put it back, switch the Pi on. It puts the home Wi-Fi back and
+  restarts once.
 - **It shows up but a device cannot join.** Check the password. Then count
   the devices: in A the Pi's Wi-Fi has a limit, which is why a full class
   belongs on B.
