@@ -19,6 +19,10 @@
 //! (#589). Passes and units finished come from `lesson_passes`, one row per
 //! lesson of the course at most. [`Rates`] turns a tally into a motivator's
 //! own units.
+//!
+//! Rest days (#237) are the weekdays a learner does not study ([`Rest`],
+//! `users.rest_days`, every course alike): a rest day without activity
+//! keeps the streak going and is not counted in it ([`only_rest_between`]).
 
 use std::collections::HashMap;
 
@@ -190,6 +194,73 @@ pub fn day_of(tz: i64, at: i64) -> i64 {
     (at + tz).div_euclid(86_400)
 }
 
+/// The weekday of local day number `day`, 0 for Sunday: day 0
+/// (1970-01-01) was a Thursday.
+pub fn weekday(day: i64) -> u8 {
+    (day + 4).rem_euclid(7) as u8
+}
+
+/// The most rest days a week a learner may pick.
+pub const MAX_REST_DAYS: u32 = 2;
+
+/// Every day strictly between `from` and `to` is one of the weekdays in
+/// `rest` (bit [`weekday`] set); true when there is none. Stops at the
+/// first day that is not, so a long gap costs a few steps at most.
+pub fn only_rest_between(from: i64, to: i64, rest: u8) -> bool {
+    (from + 1..to).all(|d| rest & (1 << weekday(d)) != 0)
+}
+
+/// A learner's rest days (#237): `users.rest_days` and `rest_days_since`.
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
+pub struct Rest {
+    /// One bit a weekday ([`weekday`]), at most [`MAX_REST_DAYS`] set.
+    pub mask: u8,
+    /// The local day the mask was last changed on. No day before it ever
+    /// counts as a rest day: a change takes effect from that day on, and a
+    /// streak that had already ended stays ended ([`set_rest_days`]).
+    pub since: i64,
+}
+
+impl Rest {
+    /// The account's rest days (inside `Db::call`); none for an unknown one.
+    pub fn load(conn: &Connection, user_id: i64) -> rusqlite::Result<Rest> {
+        Ok(conn
+            .prepare_cached("SELECT rest_days, rest_days_since FROM users WHERE id = ?1")?
+            .query_row([user_id], |r| Ok(Rest { mask: r.get::<_, i64>(0)? as u8, since: r.get(1)? }))
+            .optional()?
+            .unwrap_or_default())
+    }
+
+    /// A streak active on day `from` carries on to day `to`: nothing lies
+    /// between, or only rest days on or after `since`.
+    pub fn bridges(&self, from: i64, to: i64) -> bool {
+        from + 1 >= to || (from + 1 >= self.since && only_rest_between(from, to, self.mask))
+    }
+
+    /// The weekdays set, Monday first, as numbers ([`weekday`]).
+    pub fn weekdays(&self) -> Vec<u8> {
+        [1, 2, 3, 4, 5, 6, 0].into_iter().filter(|w| self.mask & (1 << w) != 0).collect()
+    }
+
+    /// The weekdays set by name, Monday first, in the learner's language.
+    pub fn names(&self) -> Vec<String> {
+        self.weekdays().into_iter().map(day_name).collect()
+    }
+}
+
+/// The name of weekday `w` ([`weekday`]) in the learner's language.
+pub fn day_name(w: u8) -> String {
+    crate::t(match w {
+        0 => "rest.day.sun",
+        1 => "rest.day.mon",
+        2 => "rest.day.tue",
+        3 => "rest.day.wed",
+        4 => "rest.day.thu",
+        5 => "rest.day.fri",
+        _ => "rest.day.sat",
+    })
+}
+
 /// A learner's running totals in one course: the one `earnings` row (#589).
 /// Everything that would otherwise need the whole log is here.
 #[derive(Debug, Clone, Copy, Default, PartialEq)]
@@ -202,7 +273,8 @@ pub struct Ledger {
     pub day: Option<i64>,
     /// Effort points logged on `day`.
     pub day_points: f64,
-    /// Consecutive days active, ending on `day`.
+    /// Days active in a row, ending on `day`; rest days between them
+    /// without activity are skipped, not counted.
     pub streak: i64,
 }
 
@@ -238,16 +310,17 @@ impl Ledger {
         Ok(())
     }
 
-    /// Log `pts` effort points at `at`: the totals, the day's points (and
-    /// the goal if they reach it) and the streak move. Pure, for the tests.
-    pub fn add(&mut self, pts: f64, day: i64) {
+    /// Log `pts` effort points on `day`: the totals, the day's points (and
+    /// the goal if they reach it) and the streak move. The streak goes on
+    /// when only `rest` days lie between. Pure, for the tests.
+    pub fn add(&mut self, pts: f64, day: i64, rest: &Rest) {
         self.points += pts;
         match self.day {
             Some(d) if d == day => {}
             // A day from the future (the clock or the time zone moved back):
             // the points count, the day stays.
             Some(d) if d > day => return,
-            Some(d) if d == day - 1 => {
+            Some(d) if rest.bridges(d, day) => {
                 self.streak += 1;
                 self.day = Some(day);
                 self.day_points = 0.0;
@@ -266,13 +339,36 @@ impl Ledger {
     }
 
     /// The streak as of `today` (a day number) and whether today is in it:
-    /// the streak ends on `day`, so it is current while that is today or
-    /// yesterday and 0 otherwise.
-    pub fn streak_at(&self, today: i64) -> (i64, bool) {
+    /// the streak ends on `day`, so it is current while that is today, or
+    /// an earlier day with only `rest` days since, and 0 otherwise.
+    pub fn streak_at(&self, today: i64, rest: &Rest) -> (i64, bool) {
         match self.day {
             Some(d) if d == today => (self.streak, true),
-            Some(d) if d == today - 1 => (self.streak, false),
+            Some(d) if d < today && rest.bridges(d, today) => (self.streak, false),
             _ => (0, false),
+        }
+    }
+
+    /// How long the streak was, once it has ended (0 while it lasts, or
+    /// with none): the home page says so, and that a new one starts today.
+    pub fn ended_at(&self, today: i64, rest: &Rest) -> i64 {
+        match self.day {
+            Some(d) if d < today && self.streak_at(today, rest).0 == 0 => self.streak,
+            _ => 0,
+        }
+    }
+
+    /// The rest days are about to change on `today`: a streak still going
+    /// over the `old` ones moves its last day to yesterday (a rest day with
+    /// no points, so `day_points` is 0), so the days it has crossed are
+    /// never looked at again. One that has ended is left as it is;
+    /// [`Rest::since`] keeps it ended.
+    fn carry(&mut self, today: i64, old: &Rest) {
+        if let Some(d) = self.day {
+            if d < today - 1 && old.bridges(d, today) {
+                self.day = Some(today - 1);
+                self.day_points = 0.0;
+            }
         }
     }
 }
@@ -281,13 +377,43 @@ impl Ledger {
 /// (inside `Db::call`, from `activity::record`).
 pub fn log_effort(conn: &Connection, user_id: i64, course_id: &str, pts: f64, at: i64, tz: i64) -> rusqlite::Result<()> {
     let mut ledger = Ledger::load(conn, user_id, course_id, tz)?;
-    ledger.add(pts, day_of(tz, at));
+    ledger.add(pts, day_of(tz, at), &Rest::load(conn, user_id)?);
     ledger.save(conn, user_id, course_id)
 }
 
 /// The day streak and whether the learner practised today, from the ledger.
 pub fn streak(conn: &Connection, user_id: i64, course_id: &str, tz: i64, now: i64) -> rusqlite::Result<(i64, bool)> {
-    Ok(Ledger::load(conn, user_id, course_id, tz)?.streak_at(day_of(tz, now)))
+    Ok(Ledger::load(conn, user_id, course_id, tz)?.streak_at(day_of(tz, now), &Rest::load(conn, user_id)?))
+}
+
+/// How long the learner's last streak was, if it has ended ([`Ledger::ended_at`]).
+pub fn streak_ended(conn: &Connection, user_id: i64, course_id: &str, tz: i64, now: i64) -> rusqlite::Result<i64> {
+    Ok(Ledger::load(conn, user_id, course_id, tz)?.ended_at(day_of(tz, now), &Rest::load(conn, user_id)?))
+}
+
+/// Store new rest days for the account (inside `Db::call`; `mask` already
+/// checked). They take effect from today, the learner's day at `now`:
+/// first every course's streak still going over the old rest days is
+/// carried to yesterday ([`Ledger::carry`]), then `rest_days_since`
+/// becomes today, so no day before it ever counts as a rest day. A streak
+/// that had already ended can therefore never come back.
+pub fn set_rest_days(conn: &Connection, user_id: i64, mask: u8, tz: i64, now: i64) -> rusqlite::Result<()> {
+    let old = Rest::load(conn, user_id)?;
+    if old.mask == mask {
+        return Ok(());
+    }
+    let today = day_of(tz, now);
+    let courses: Vec<String> = conn
+        .prepare_cached("SELECT course_id FROM earnings WHERE user_id = ?1")?
+        .query_map([user_id], |r| r.get(0))?
+        .collect::<Result<_, _>>()?;
+    for course_id in courses {
+        let mut ledger = Ledger::load(conn, user_id, &course_id, tz)?;
+        ledger.carry(today, &old);
+        ledger.save(conn, user_id, &course_id)?;
+    }
+    conn.prepare_cached("UPDATE users SET rest_days = ?2, rest_days_since = ?3 WHERE id = ?1")?.execute(params![user_id, mask, today])?;
+    Ok(())
 }
 
 /// The day streak as the ledger has it on record, for someone else looking
@@ -295,15 +421,17 @@ pub fn streak(conn: &Connection, user_id: i64, course_id: &str, tz: i64, now: i6
 /// history and nothing is written, so a learner without a row has none.
 /// `tz` is the viewer's offset, which decides what "today" is. The ledger's
 /// days are the learner's, whose offset may be ahead of the viewer's: a
-/// streak that ends on the viewer's tomorrow is current too.
+/// streak that ends on the viewer's tomorrow is current too. The learner's
+/// rest days bridge a gap as on their own page.
 pub fn streak_on_record(conn: &Connection, user_id: i64, course_id: &str, tz: i64, now: i64) -> rusqlite::Result<i64> {
     let row: Option<(Option<i64>, i64)> = conn
         .prepare_cached("SELECT day, streak FROM earnings WHERE user_id = ?1 AND course_id = ?2")?
         .query_row(params![user_id, course_id], |r| Ok((r.get(0)?, r.get(1)?)))
         .optional()?;
     let today = day_of(tz, now);
+    let rest = Rest::load(conn, user_id)?;
     Ok(match row {
-        Some((Some(day), streak)) if (today - 1..=today + 1).contains(&day) => streak,
+        Some((Some(day), streak)) if day <= today + 1 && (day >= today - 1 || rest.bridges(day, today)) => streak,
         _ => 0,
     })
 }
@@ -312,7 +440,7 @@ pub fn streak_on_record(conn: &Connection, user_id: i64, course_id: &str, tz: i6
 /// read, for a learner from before #589 (nothing, for a new one). Points
 /// and goals come from `activity_log`; the days active, and so the streak,
 /// also from `quiz_history` and `game_activity`, which were all there was
-/// before #558.
+/// before #558. The learner's rest days bridge gaps as in [`Ledger::add`].
 fn backfill(conn: &Connection, user_id: i64, course_id: &str, tz: i64) -> rusqlite::Result<Ledger> {
     let mut stmt = conn.prepare_cached(
         "SELECT (at + ?3) / 86400, kind, SUM(n) FROM activity_log WHERE user_id = ?1 AND course_id = ?2 GROUP BY 1, 2",
@@ -334,7 +462,8 @@ fn backfill(conn: &Connection, user_id: i64, course_id: &str, tz: i64) -> rusqli
     )?;
     let active: Vec<i64> = stmt.query_map(params![user_id, course_id, tz], |r| r.get(0))?.collect::<Result<_, _>>()?;
     let day = active.first().copied();
-    let streak = active.iter().enumerate().take_while(|(i, d)| day.is_some_and(|last| last - *i as i64 == **d)).count() as i64;
+    let rest = Rest::load(conn, user_id)?;
+    let streak = if day.is_some() { 1 + active.windows(2).take_while(|w| rest.bridges(w[1], w[0])).count() as i64 } else { 0 };
     Ok(Ledger {
         points: days.values().sum(),
         goals: days.values().filter(|p| (p.floor() as i64) >= DAILY_GOAL).count() as i64,
@@ -386,25 +515,193 @@ mod tests {
 
     #[test]
     fn a_ledger_moves_with_each_days_effort() {
+        let none = Rest::default();
         let mut l = Ledger::default();
-        assert_eq!(l.streak_at(10), (0, false));
-        l.add(19.5, 10);
+        assert_eq!(l.streak_at(10, &none), (0, false));
+        l.add(19.5, 10, &none);
         assert_eq!((l.points, l.goals, l.day, l.day_points, l.streak), (19.5, 0, Some(10), 19.5, 1));
-        assert_eq!((l.streak_at(10), l.streak_at(11), l.streak_at(12)), ((1, true), (1, false), (0, false)));
+        assert_eq!((l.streak_at(10, &none), l.streak_at(11, &none), l.streak_at(12, &none)), ((1, true), (1, false), (0, false)));
         // The goal is reached the moment the day's points (rounded down) get there, once.
-        l.add(0.5, 10);
+        l.add(0.5, 10, &none);
         assert_eq!((l.goals, l.day_points), (1, 20.0));
-        l.add(30.0, 10);
+        l.add(30.0, 10, &none);
         assert_eq!(l.goals, 1);
         // The next day continues the streak; a day missed starts over.
-        l.add(1.0, 11);
+        l.add(1.0, 11, &none);
         assert_eq!((l.streak, l.day, l.day_points), (2, Some(11), 1.0));
-        l.add(25.0, 13);
+        l.add(25.0, 13, &none);
         assert_eq!((l.streak, l.day, l.goals), (1, Some(13), 2));
         // A day before the last one (the clock moved back): points only.
-        l.add(2.0, 12);
+        l.add(2.0, 12, &none);
         assert_eq!((l.streak, l.day, l.day_points, l.goals), (1, Some(13), 25.0, 2));
         assert!((l.points - 78.0).abs() < 1e-9);
+    }
+
+    // The days around 2026-11-19, a Thursday.
+    const THU: i64 = 20_776;
+    const WED: i64 = THU - 1;
+    const FRI: i64 = THU + 1;
+    const SAT: i64 = THU + 2;
+    const SUN: i64 = THU + 3;
+    const MON: i64 = THU + 4;
+
+    /// Rest on the weekdays of these days, from always.
+    fn rest(days: &[i64]) -> Rest {
+        Rest { mask: days.iter().fold(0, |m, &d| m | 1 << weekday(d)), since: 0 }
+    }
+
+    #[test]
+    fn the_weekday_of_a_known_date() {
+        // 2026-11-19 00:00 UTC is day 20776, a Thursday; 2000-01-01 (day
+        // 10957) was a Saturday; 1969-12-28 (day -4) a Sunday.
+        assert_eq!(day_of(0, 1_795_046_400), THU);
+        assert_eq!((weekday(THU), weekday(10_957), weekday(0), weekday(-4)), (4, 6, 4, 0));
+        assert_eq!(rest(&[SUN, MON]).weekdays(), vec![1, 0], "Monday first");
+    }
+
+    #[test]
+    fn only_rest_days_between_bridge_a_gap() {
+        let fri_sat = rest(&[FRI, SAT]).mask;
+        assert!(only_rest_between(THU, FRI, 0), "nothing lies between");
+        assert!(only_rest_between(THU, SUN, fri_sat));
+        assert!(!only_rest_between(THU, MON, fri_sat), "Sunday is not one");
+        assert!(!only_rest_between(THU, SAT, 0));
+        assert!(!only_rest_between(0, THU, fri_sat), "a long gap stops at its first study day");
+    }
+
+    #[test]
+    fn a_streak_crosses_one_rest_day() {
+        let r = rest(&[FRI]);
+        let mut l = Ledger::default();
+        l.add(5.0, THU, &r);
+        // Friday off: the streak holds over it and is not counted up.
+        assert_eq!((l.streak_at(FRI, &r), l.streak_at(SAT, &r)), ((1, false), (1, false)));
+        l.add(5.0, SAT, &r);
+        assert_eq!((l.streak, l.streak_at(SAT, &r)), (2, (2, true)));
+        // Without the rest day the same days start over.
+        let mut plain = Ledger::default();
+        plain.add(5.0, THU, &Rest::default());
+        plain.add(5.0, SAT, &Rest::default());
+        assert_eq!(plain.streak, 1);
+    }
+
+    #[test]
+    fn a_streak_crosses_two_rest_days_in_a_row() {
+        let r = rest(&[FRI, SAT]);
+        let mut l = Ledger::default();
+        l.add(5.0, THU, &r);
+        assert_eq!(l.streak_at(SUN, &r), (1, false));
+        assert_eq!(l.streak_at(MON, &r), (0, false), "Sunday was missed");
+        l.add(5.0, SUN, &r);
+        assert_eq!((l.streak, l.ended_at(SUN, &r)), (2, 0));
+    }
+
+    #[test]
+    fn a_rest_day_and_a_missed_day_end_the_streak() {
+        let r = rest(&[FRI]);
+        let mut l = Ledger::default();
+        l.add(5.0, WED, &r);
+        l.add(5.0, THU, &r);
+        // Friday is a rest day, Saturday was missed: it has ended, two days long.
+        assert_eq!((l.streak_at(SUN, &r), l.ended_at(SUN, &r)), ((0, false), 2));
+        l.add(5.0, SUN, &r);
+        assert_eq!((l.streak, l.ended_at(SUN, &r)), (1, 0), "a new one starts today");
+    }
+
+    #[test]
+    fn points_on_a_rest_day_count() {
+        let r = rest(&[FRI]);
+        let mut l = Ledger::default();
+        l.add(5.0, THU, &r);
+        l.add(20.0, FRI, &r);
+        assert_eq!((l.streak, l.goals, l.day, l.day_points), (2, 1, Some(FRI), 20.0), "an active rest day is a day of the streak");
+        l.add(1.0, SAT, &r);
+        assert_eq!(l.streak, 3);
+        assert!((l.points - 26.0).abs() < 1e-9);
+    }
+
+    /// A new account, with no rest days.
+    fn learner(c: &Connection) -> i64 {
+        crate::auth::create_user(c, "ann@example.org", "h").unwrap()
+    }
+
+    #[test]
+    fn changing_rest_days_never_brings_back_a_streak_that_ended() {
+        let db = Db::open_in_memory().unwrap();
+        db.with(|c| {
+            let uid = learner(c);
+            // Wednesday and Thursday, then Friday missed with no rest days.
+            log_effort(c, uid, "es", 5.0, WED * DAY + 100, 0)?;
+            log_effort(c, uid, "es", 5.0, THU * DAY + 100, 0)?;
+            let sat = SAT * DAY + 100;
+            assert_eq!((streak(c, uid, "es", 0, sat)?, streak_ended(c, uid, "es", 0, sat)?), ((0, false), 2));
+            // On Saturday Friday becomes a rest day: the streak stays ended,
+            // for the learner and for anyone looking at it.
+            set_rest_days(c, uid, rest(&[FRI]).mask, 0, sat)?;
+            assert_eq!(Rest::load(c, uid)?, Rest { mask: rest(&[FRI]).mask, since: SAT });
+            assert_eq!((streak(c, uid, "es", 0, sat)?, streak_ended(c, uid, "es", 0, sat)?), ((0, false), 2));
+            assert_eq!(streak_on_record(c, uid, "es", 0, sat)?, 0);
+            log_effort(c, uid, "es", 5.0, sat, 0)?;
+            assert_eq!(streak(c, uid, "es", 0, sat)?, (1, true), "a new one, not 3");
+            // From then on Friday is a rest day like any other.
+            log_effort(c, uid, "es", 5.0, (THU + 7) * DAY + 100, 0)?;
+            log_effort(c, uid, "es", 5.0, (SAT + 7) * DAY + 100, 0)?;
+            assert_eq!(streak(c, uid, "es", 0, (SAT + 7) * DAY + 200)?, (2, true));
+            Ok(())
+        })
+        .unwrap();
+    }
+
+    #[test]
+    fn changing_rest_days_mid_streak_takes_effect_from_today() {
+        let db = Db::open_in_memory().unwrap();
+        db.with(|c| {
+            let uid = learner(c);
+            set_rest_days(c, uid, rest(&[FRI]).mask, 0, (THU - 7) * DAY)?;
+            log_effort(c, uid, "es", 5.0, THU * DAY + 100, 0)?;
+            log_effort(c, uid, "fr", 5.0, WED * DAY + 100, 0)?;
+            // Saturday, Friday rested: the streak is going. Friday stops
+            // being a rest day; the Friday already behind it stays one, in
+            // every course.
+            let sat = SAT * DAY + 100;
+            assert_eq!(streak(c, uid, "es", 0, sat)?, (1, false));
+            set_rest_days(c, uid, rest(&[SUN]).mask, 0, sat)?;
+            assert_eq!(streak(c, uid, "es", 0, sat)?, (1, false));
+            assert_eq!(streak_on_record(c, uid, "es", 0, sat)?, 1, "others see the same");
+            assert_eq!(Ledger::load(c, uid, "es", 0)?.day, Some(FRI), "carried over the rest day it crossed");
+            assert_eq!(streak(c, uid, "fr", 0, sat)?, (0, false), "fr, last active Wednesday, had ended and stays ended");
+            // The new rest day, Sunday, counts from today on.
+            log_effort(c, uid, "es", 5.0, sat, 0)?;
+            log_effort(c, uid, "es", 5.0, MON * DAY + 100, 0)?;
+            assert_eq!(streak(c, uid, "es", 0, MON * DAY + 200)?, (3, true));
+            // Saving the same rest days again changes nothing.
+            set_rest_days(c, uid, rest(&[SUN]).mask, 0, MON * DAY + 300)?;
+            assert_eq!(Rest::load(c, uid)?.since, SAT);
+            Ok(())
+        })
+        .unwrap();
+    }
+
+    #[test]
+    fn the_weekday_is_the_learners_own_at_midnight() {
+        let db = Db::open_in_memory().unwrap();
+        db.with(|c| {
+            let uid = learner(c);
+            let tz = -5 * 3600;
+            set_rest_days(c, uid, rest(&[THU]).mask, tz, (THU - 7) * DAY)?;
+            // Wednesday 20:00 and Friday 21:00 where the learner is: Thursday
+            // and Saturday in UTC, with Friday (not a rest day) between.
+            let wed = WED * DAY + 20 * 3600 - tz;
+            let fri = FRI * DAY + 21 * 3600 - tz;
+            assert_eq!((day_of(tz, wed), day_of(0, wed), day_of(tz, fri), day_of(0, fri)), (WED, THU, FRI, SAT));
+            log_effort(c, uid, "es", 5.0, wed, tz)?;
+            // Friday 20:00 local, before studying: Thursday rested, still going.
+            assert_eq!(streak(c, uid, "es", tz, fri - 3600)?, (1, false));
+            log_effort(c, uid, "es", 5.0, fri, tz)?;
+            assert_eq!(streak(c, uid, "es", tz, fri)?, (2, true), "Thursday, the learner's rest day, bridged");
+            Ok(())
+        })
+        .unwrap();
     }
 
     #[test]

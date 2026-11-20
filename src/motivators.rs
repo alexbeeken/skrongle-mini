@@ -170,6 +170,10 @@ pub struct Progress {
     pub today: Today,
     pub practised_today: bool,
     pub streak: i64,
+    /// How long the streak was once it has ended, 0 otherwise (#237).
+    pub streak_ended: i64,
+    /// The learner's rest days by name, Monday first (#237), for the (i).
+    pub rest_days: Vec<String>,
     /// The lesson every mode resumes at: (slug, title, the URL that opens it
     /// in the mode last used). None once every lesson is passed.
     pub resume: Option<(String, String, String)>,
@@ -272,11 +276,12 @@ impl Reward for StatsReward {
 
 impl Hero for Stats {
     fn render(&self, course: &CourseView, p: &Progress) -> askama::Result<String> {
-        StatsTemplate { course, p, today: p.today, practised_today: p.practised_today, streak: p.streak }.render()
+        StatsTemplate { course, p, today: p.today, practised_today: p.practised_today, streak: p.streak, streak_ended: p.streak_ended }.render()
     }
 }
 
-/// `today`, `practised_today` and `streak` are what `goal_message.html` reads.
+/// `today`, `practised_today`, `streak` and `streak_ended` are what
+/// `goal_message.html` reads.
 #[derive(Template)]
 #[template(path = "motivators/stats.html")]
 struct StatsTemplate<'a> {
@@ -285,6 +290,7 @@ struct StatsTemplate<'a> {
     today: Today,
     practised_today: bool,
     streak: i64,
+    streak_ended: i64,
 }
 
 #[cfg(test)]

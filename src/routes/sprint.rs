@@ -77,6 +77,8 @@ pub struct HomeTemplate {
     pub course: std::sync::Arc<CourseView>,
     pub streak: i64,
     pub practised_today: bool,
+    /// How long the streak was once it has ended, 0 otherwise (#237).
+    pub streak_ended: i64,
     pub today: Today,
     pub words: i64,
     pub completed: usize,
@@ -116,14 +118,14 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
     let cid = content.id().to_string();
     let tz = tz_offset_secs(&headers);
     let day_start = sprint::local_day_start(tz, at);
-    let (progress, gprogress, passes, touched, streak, today, words) = state
+    let (progress, gprogress, passes, touched, (streak, streak_ended), today, words) = state
         .db
         .call(move |c| {
             let p = mastery::load_progress(c, uid, &cid)?;
             let j = guide::load_all(c, uid, &cid)?;
             let passes = progress::load_all(c, uid, &cid)?;
             let touched = activity::last_touched(c, uid, &cid)?;
-            let streak = sprint::day_streak(c, uid, &cid, tz, at)?;
+            let streak = (sprint::day_streak(c, uid, &cid, tz, at)?, crate::earnings::streak_ended(c, uid, &cid, tz, at)?);
             let today = Today::load(c, uid, &cid, day_start)?;
             let words = vocab::count(c, uid, &cid)?;
             Ok((p, j, passes, touched, streak, today, words))
@@ -180,6 +182,7 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
         course: content.view(),
         streak: streak.0,
         practised_today: streak.1,
+        streak_ended,
         today,
         words,
         completed,
@@ -407,6 +410,8 @@ pub struct FinishResponse {
     /// Today's effort points and the daily goal (`activity.rs`).
     pub today: i64,
     pub goal: i64,
+    /// The daily goal is reached: the last screen says the day is done (#237).
+    pub day_done: bool,
     /// Lesson sessions: what the session did for the lesson's pass.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pass: Option<progress::Outcome>,
@@ -475,6 +480,7 @@ pub async fn finish(
         streak,
         today: today.points,
         goal: today.goal,
+        day_done: today.done(),
         pass,
         reward: crate::motivators::reward_html(reward),
     }))

@@ -29,6 +29,7 @@
 <nav class="profile-nav" aria-label="{{ crate::t("profile.nav.label") }}" data-testid="profile-nav">
   <ul>
     <li><a href="#personal" data-testid="profile-nav-link" data-section="personal">{{ crate::t("profile.nav.personal") }}</a></li>
+    <li><a href="#rest-days" data-testid="profile-nav-link" data-section="rest-days">{{ crate::t("rest.title") }}</a></li>
     <li><a href="#account" data-testid="profile-nav-link" data-section="account">{{ crate::t("profile.nav.account") }}</a></li>
     <li><a href="#two-factor" data-testid="profile-nav-link" data-section="two-factor">{{ crate::t("profile.nav.two_factor") }}</a></li>
     {% if apps.is_some() %}<li><a href="#apps" data-testid="profile-nav-link" data-section="apps">{{ crate::t("apps.title") }}</a></li>{% endif %}
@@ -66,6 +67,18 @@
       </select>
       <span class="field-error" id="lang-error" data-testid="profile-lang-error" hidden></span>
     </div>
+  </section>
+
+  <section class="card" id="rest-days" data-testid="profile-rest-days">
+    <h2>{{ crate::t("rest.title") }}</h2>
+    <p class="muted small" id="rest-days-about">{{ crate::t("rest.about") }}</p>
+    <fieldset class="choice-chips" data-testid="profile-rest-days-choices" aria-describedby="rest-days-about rest_days-error">
+      <legend class="sr-only" data-testid="profile-rest-days-legend">{{ crate::t("rest.legend") }}</legend>
+      {% for (w, name, on) in rest_day_choices() %}
+      <label class="chip" data-testid="profile-rest-day" data-weekday="{{ w }}"><input type="checkbox" name="rest_day" value="{{ w }}" class="sr-only"{% if on %} checked{% endif %}> {{ name }}</label>
+      {% endfor %}
+    </fieldset>
+    <span class="field-error" id="rest_days-error" data-testid="profile-rest-days-error" hidden></span>
   </section>
 
   <section class="card" id="account">

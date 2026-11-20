@@ -1,4 +1,4 @@
-// Profile page. The names and the language save as they
+// Profile page. The names, the language and the rest days save as they
 // change (static/autosave.js, POST /api/profile); the circle by the heading
 // says whether everything is saved, and a green check on a field that its
 // change is.
@@ -140,6 +140,29 @@
         }, SEEN_MS);
       });
     })();
+  }
+  // Rest days (#237): the weekdays ticked save at once as one list of
+  // numbers (0 Sunday). With two ticked the others are off, as the server
+  // refuses a third; its check sits on the chip just changed.
+  var restBoxes = Array.prototype.slice.call(document.querySelectorAll("[data-testid=profile-rest-day] input"));
+  if (restBoxes.length) {
+    var restChanged = null;
+    var restLimit = function () {
+      var two = restBoxes.filter(function (b) { return b.checked; }).length >= 2;
+      restBoxes.forEach(function (b) { b.disabled = two && !b.checked; });
+    };
+    saver.track("rest_days", {
+      value: function () { return restBoxes.filter(function (b) { return b.checked; }).map(function (b) { return Number(b.value); }); },
+      mark: function () { return restChanged; },
+    });
+    restBoxes.forEach(function (b) {
+      b.addEventListener("change", function () {
+        restChanged = b.closest("label");
+        restLimit();
+        saver.change("rest_days", { now: true });
+      });
+    });
+    restLimit();
   }
   try {
     if (lang && sessionStorage.getItem(LANG_SAVED)) {

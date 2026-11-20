@@ -668,6 +668,11 @@ goal:
   day_away: "O dia {n} está a uma sessão de distância."
   five_minutes: "Tem cinco minutos?"
   any_mode: "Tudo o que você estuda, em qualquer modo, enche o anel."
+  day_done: "Por hoje está feito. Amanhã já está bom."
+  streak_was:
+    one: "Sua última sequência foi de {n} dia"
+    other: "Sua última sequência foi de {n} dias"
+  new_streak: "Hoje começa uma nova."
   continue: "Continuar: {title}"
   all_done: "Todas as lições aprovadas: mantenha-as afiadas"
   info_label: "O que conta para a meta diária"
@@ -684,6 +689,23 @@ goal:
     flashcard: "Um cartão de revisão"
     card: "Um cartão de uma etapa do guia"
     reading: "Ler uma lição até o fim"
+
+rest:
+  title: "Dias de descanso"
+  about: "Escolha até dois dias por semana em que você não estuda. Um dia de descanso sem pontos não quebra sua sequência, e os pontos ganhos em um deles contam do mesmo jeito. Uma mudança vale a partir de hoje."
+  legend: "Dias em que você não estuda"
+  too_many: "Escolha no máximo dois dias de descanso."
+  not_a_day: "Isso não é um dia da semana."
+  none: "Sem dias de descanso. Você pode escolher até dois no seu perfil."
+  some: "Seus dias de descanso: {days}. Um dia de descanso sem pontos não quebra sua sequência."
+  day:
+    mon: "segunda-feira"
+    tue: "terça-feira"
+    wed: "quarta-feira"
+    thu: "quinta-feira"
+    fri: "sexta-feira"
+    sat: "sábado"
+    sun: "domingo"
 
 study:
   correct: Certo!
@@ -1626,6 +1648,7 @@ sprint:
     best_streak: "Melhor sequência nesta sessão: {n} seguidas."
     goal_done: "Meta diária concluída: {n} / {goal} ✓"
     daily_ring: "Meta diária: {n} / {goal} pontos"
+    day_done: "Por hoje está feito. Amanhã já está bom."
     lesson_passed: "Lição concluída: esta parada fica completa no caminho em todos os modos."
     score_to_pass: "Faça {pct}% ou mais em uma sessão para concluir esta lição e desbloquear a próxima parada."
     save_failed: "Não foi possível salvar esta sessão ({error})."

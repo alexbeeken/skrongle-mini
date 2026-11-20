@@ -59,6 +59,23 @@ pub fn validate_email(raw: &str) -> Result<String, String> {
     Ok(v)
 }
 
+/// Rest days as the page sends them (weekday numbers, 0 for Sunday; #237):
+/// the mask stored in `users.rest_days`. At most
+/// `earnings::MAX_REST_DAYS` different days.
+pub fn validate_rest_days(days: &[i64]) -> Result<u8, String> {
+    let mut mask = 0u8;
+    for &d in days {
+        if !(0..7).contains(&d) {
+            return Err(crate::t("rest.not_a_day"));
+        }
+        mask |= 1 << d;
+    }
+    if mask.count_ones() > crate::earnings::MAX_REST_DAYS {
+        return Err(crate::t("rest.too_many"));
+    }
+    Ok(mask)
+}
+
 // ---------- persistence (run inside Db::call) ----------
 
 /// Everything the profile page shows about an account.
@@ -72,6 +89,8 @@ pub struct Profile {
     pub has_password: bool,
     /// The phone number and the second sign-in step (`two_factor.rs`).
     pub two_factor: crate::two_factor::Settings,
+    /// Rest days (#237): `users.rest_days`, one bit a weekday (`earnings::weekday`).
+    pub rest_days: u8,
 }
 
 pub fn load(conn: &Connection, user_id: i64) -> rusqlite::Result<Option<Profile>> {
@@ -81,7 +100,7 @@ pub fn load(conn: &Connection, user_id: i64) -> rusqlite::Result<Option<Profile>
     };
     conn.query_row(
         "SELECT first_name, last_name, NULLIF(email, ''),
-                password_hash != ''
+                password_hash != '', rest_days
          FROM users WHERE id = ?1",
         [user_id],
         |r| {
@@ -91,6 +110,7 @@ pub fn load(conn: &Connection, user_id: i64) -> rusqlite::Result<Option<Profile>
                 email: r.get(2)?,
                 has_password: r.get(3)?,
                 two_factor: two_factor.clone(),
+                rest_days: r.get::<_, i64>(4)? as u8,
             })
         },
     )

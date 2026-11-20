@@ -13,10 +13,11 @@
       </div>
       <div class="bar xp-bar" role="progressbar" aria-label="{{ crate::t1("motivator.xp.bar_label", "n", level.level + 1) }}" aria-valuemin="0" aria-valuemax="{{ level.need }}" aria-valuenow="{{ level.into }}" data-testid="xp-bar"><div class="fill" style="width:{{ level.pct() }}%"></div></div>
       <p class="xp-today{% if p.today.done() %} done{% endif %}" data-testid="xp-today" data-xp="{{ today_xp }}" data-goal="{{ goal_xp }}">{{ course.icons.goal }} {{ crate::t2("motivator.xp.today", "n", today_xp, "goal", goal_xp) }}</p>
+      {% if p.today.done() %}<p data-testid="goal-day-done">{{ crate::t("goal.day_done") }}</p>{% endif %}
       {% if let Some((slug, title, url)) = p.resume %}
-      <a class="btn big today-continue" href="{{ url }}" data-testid="home-continue" data-lesson-id="{{ slug }}">{{ crate::t1("goal.continue", "title", title) }} ›</a>
+      <a class="{% if p.today.done() %}today-continue quiet{% else %}btn big today-continue{% endif %}" href="{{ url }}" data-testid="home-continue" data-lesson-id="{{ slug }}">{{ crate::t1("goal.continue", "title", title) }} ›</a>
       {% else %}
-      <a class="btn big today-continue" href="{{ crate::base_path() }}/practice" data-testid="home-continue">{{ crate::t("goal.all_done") }} ›</a>
+      <a class="{% if p.today.done() %}today-continue quiet{% else %}btn big today-continue{% endif %}" href="{{ crate::base_path() }}/practice" data-testid="home-continue">{{ crate::t("goal.all_done") }} ›</a>
       {% endif %}
     </div>
   </div>

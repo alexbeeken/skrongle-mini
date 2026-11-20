@@ -668,6 +668,11 @@ goal:
   day_away: "第 {n} 天只差一节练习。"
   five_minutes: "有五分钟吗？"
   any_mode: "无论用哪种模式学习，都会填满圆环。"
+  day_done: "今天的学习完成了。明天再来就好。"
+  streak_was:
+    one: "上一段连续学习是 {n} 天"
+    other: "上一段连续学习是 {n} 天"
+  new_streak: "新的一段从今天开始。"
   continue: "继续：{title}"
   all_done: "所有课程都已通过：继续保持熟练"
   info_label: "哪些学习计入每日目标"
@@ -684,6 +689,23 @@ goal:
     flashcard: "一张单词卡"
     card: "指南阶段中的一张卡片"
     reading: "把一课读完"
+
+rest:
+  title: "休息日"
+  about: "每周最多选两天不学习。休息日没有得分不会中断连续天数，在休息日得的分照样算。更改从今天起生效。"
+  legend: "不学习的日子"
+  too_many: "最多选两个休息日。"
+  not_a_day: "这不是一周中的某一天。"
+  none: "没有休息日。你可以在个人资料中选最多两天。"
+  some: "你的休息日：{days}。休息日没有得分不会中断连续天数。"
+  day:
+    mon: "星期一"
+    tue: "星期二"
+    wed: "星期三"
+    thu: "星期四"
+    fri: "星期五"
+    sat: "星期六"
+    sun: "星期日"
 
 study:
   correct: 正确！
@@ -1626,6 +1648,7 @@ sprint:
     best_streak: "本次练习最长连续答对：{n} 次。"
     goal_done: "每日目标完成：{n} / {goal} ✓"
     daily_ring: "每日目标：{n} / {goal} 分"
+    day_done: "今天的学习完成了。明天再来就好。"
     lesson_passed: "课程已通过：此站在所有模式的路径上都已完成。"
     score_to_pass: "本次练习得分达到 {pct}% 或以上，即可通过此课并解锁下一站。"
     save_failed: "无法保存本次练习（{error}）。"

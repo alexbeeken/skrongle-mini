@@ -79,6 +79,12 @@ impl ProfileTemplate {
         }
     }
 
+    /// The Rest days card (#237): each weekday, Monday first, its name and
+    /// whether it is one.
+    pub fn rest_day_choices(&self) -> Vec<(u8, String, bool)> {
+        [1u8, 2, 3, 4, 5, 6, 0].into_iter().map(|w| (w, crate::earnings::day_name(w), self.profile.rest_days & (1 << w) != 0)).collect()
+    }
+
     /// The second step is on.
     pub fn two_factor_on(&self) -> bool {
         self.profile.two_factor.enabled
@@ -200,6 +206,8 @@ pub struct ProfileChanges {
     pub last_name: Option<String>,
     /// The language the app speaks to this account in (`i18n::languages`).
     pub lang: Option<String>,
+    /// Rest days (#237): weekday numbers, 0 for Sunday, at most two.
+    pub rest_days: Option<Vec<i64>>,
     /// Anything else (the AI API keys are the server's now, on Manage
     /// Users): refused, field by field.
     #[serde(flatten)]
@@ -232,12 +240,20 @@ pub async fn save(
         let ok = if crate::i18n::is_language(v) { Ok(v.to_string()) } else { Err(crate::t("profile.personal.language_unavailable")) };
         check("lang", ok)
     });
+    let rest_days = match changes.rest_days.as_deref().map(profile::validate_rest_days) {
+        Some(Err(e)) => {
+            errors.insert("rest_days".into(), e.into());
+            None
+        }
+        Some(Ok(mask)) => Some(mask),
+        None => None,
+    };
     if !errors.is_empty() {
         let body = serde_json::json!({ "errors": errors });
         return Ok((StatusCode::UNPROCESSABLE_ENTITY, Json(body)).into_response());
     }
 
-    let uid = user.id;
+    let (uid, tz) = (user.id, user.tz);
     let p = state
         .db
         .call(move |c| {
@@ -245,6 +261,9 @@ pub async fn save(
             profile::update(&tx, uid, first.as_deref(), last.as_deref())?;
             if let Some(l) = &lang {
                 profile::set_lang(&tx, uid, l)?;
+            }
+            if let Some(mask) = rest_days {
+                crate::earnings::set_rest_days(&tx, uid, mask, tz, crate::db::now())?;
             }
             let p = profile::load(&tx, uid)?;
             tx.commit()?;

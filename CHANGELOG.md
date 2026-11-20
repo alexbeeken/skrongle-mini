@@ -6,6 +6,14 @@ numbers work is in the README, "Versions".
 
 ## Unreleased
 
+- **Rest days, and a clear end to the day** (#237). On *Profile*, a learner
+  can pick up to two days a week they don't study. A rest day without points
+  no longer ends the day streak (points earned on one still count). Once the
+  daily ring is full, the home page and the end of a Sprint session say the
+  day is done, and *Continue* becomes a quiet link. A streak that has ended
+  says how long it was and that a new one starts today. The database gains
+  two columns on `users` (`rest_days`, `rest_days_since`).
+
 - **Sign-up no longer asks a person's age while new accounts start as
   Student** (the default). The "I am at least 14 years old" box is gone from
   the register form and invitation links, and nothing about age is stored

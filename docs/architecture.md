@@ -302,7 +302,7 @@ session JSON, never hard-coded.
 ```sql
 users          (id AUTOINCREMENT, email, password_hash, created_at, email_verified_at, first_name, last_name,
                 age_confirmed, owner, must_change_password, two_factor, active_course, lang, review_quiet,
-                ai_effort, delete_at, perms, preset_id)
+                ai_effort, delete_at, perms, preset_id, rest_days, rest_days_since)
                 -- id is never reused after a deletion (AUTOINCREMENT);
                 -- email is what a password account signs in with, set once and never changed;
                 -- password_hash is '' for accounts without one (proxy sign-in);
@@ -316,6 +316,8 @@ users          (id AUTOINCREMENT, email, password_hash, created_at, email_verifi
                 -- active_course: the course the account is in;
                 -- lang: the language the app speaks to this account in (i18n/<code>.yaml), '' = the browser's;
                 -- review_quiet 1: "Review AI changes" does not open by itself;
+                -- rest_days: weekdays without study, one bit a day (bit 0 Sunday, at most two; #237), and
+                -- rest_days_since: the local day they were last changed, before which no day is a rest day (src/earnings.rs);
                 -- ai_effort: the effort Generate the course last ran at: low | medium | high (Fast, Balanced, Thorough);
                 -- delete_at: unused, nothing reads or writes it; stays until the next schema change
                 -- perms: what the account may do, one bit a permission (src/perms.rs: create_courses 1, ai_courses 2,
@@ -444,7 +446,8 @@ migrations (`v002_no_skc.sql` drops `motivator_purchases` and turns a saved
 `courses.error_kind`; `v006_api_grants.sql` adds connected apps' `api_grants` and `api_tokens`;
 `v007_oauth.sql` adds OAuth's `oauth_clients` and `oauth_codes`; `v008_refresh_reuse.sql` adds
 `api_tokens.used_at`, so a reused refresh token revokes its grant; `v009_refresh_family.sql` drops it again for
-`api_grants.refresh_family_hash`, so any earlier refresh token revokes its grant), which `src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
+`api_grants.refresh_family_hash`, so any earlier refresh token revokes its grant; `v012_rest_days.sql` adds
+`users.rest_days` and `users.rest_days_since`, #237), which `src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
 how many have run, and a later change appends its own entry with a
 `.down.sql` beside it that takes it back (`db::migrate_to`, behind `skrongle migrate <schema-version>`;
 `db::tests::every_down_restores_the_schema_before_it` holds each one to the schema before it). A database

@@ -671,6 +671,11 @@ goal:
   day_away: "Day {n} is one session away."
   five_minutes: "Got five minutes?"
   any_mode: "Whatever you study, in any mode, fills the ring."
+  day_done: "That's today done. Tomorrow is soon enough."
+  streak_was:
+    one: "Your last streak was {n} day"
+    other: "Your last streak was {n} days"
+  new_streak: "A new one starts today."
   continue: "Continue: {title}"
   all_done: "Every lesson passed: keep them sharp"
   info_label: "What counts towards the daily goal"
@@ -687,6 +692,23 @@ goal:
     flashcard: "One flashcard"
     card: "One card of a Guide stage"
     reading: "Reading a lesson to the end"
+
+rest:
+  title: "Rest days"
+  about: "Pick up to two days a week you don't study. A rest day without points doesn't end your streak, and points earned on one still count. A change counts from today."
+  legend: "Days you don't study"
+  too_many: "Pick at most two rest days."
+  not_a_day: "That is not a day of the week."
+  none: "No rest days. You can pick up to two on your profile."
+  some: "Your rest days: {days}. A rest day without points doesn't end your streak."
+  day:
+    mon: "Monday"
+    tue: "Tuesday"
+    wed: "Wednesday"
+    thu: "Thursday"
+    fri: "Friday"
+    sat: "Saturday"
+    sun: "Sunday"
 
 study:
   correct: Correct!
@@ -1629,6 +1651,7 @@ sprint:
     best_streak: "Best streak in this session: {n} in a row."
     goal_done: "Daily goal done: {n} / {goal} ✓"
     daily_ring: "Daily goal: {n} / {goal} points"
+    day_done: "That's today done. Tomorrow is soon enough."
     lesson_passed: "Lesson passed: this stop is complete on the path in every mode."
     score_to_pass: "Score {pct}% or more in a session to pass this lesson and unlock the next stop."
     save_failed: "Could not save this session ({error})."

@@ -17,10 +17,11 @@
         <li class="today-chip"><a href="{{ crate::base_path() }}/vocabulary" data-testid="home-stat-words">{{ course.icons.words }} <strong>{{ p.words_learned }}</strong> <span>{{ crate::t("home.terms") }}</span></a></li>
         {% if p.skipped_count > 0 %}<li class="today-chip"><a href="{{ crate::base_path() }}/lessons" data-testid="home-skipped"><strong>{{ p.skipped_count }}</strong> <span>{{ crate::t("home.skipped") }}</span></a></li>{% endif %}
       </ul>
+      {# The day done (#237): Continue stays, as a quiet link. #}
       {% if let Some((slug, title, url)) = p.resume %}
-      <a class="btn big today-continue" href="{{ url }}" data-testid="home-continue" data-lesson-id="{{ slug }}">{{ crate::t1("goal.continue", "title", title) }} ›</a>
+      <a class="{% if today.done() %}today-continue quiet{% else %}btn big today-continue{% endif %}" href="{{ url }}" data-testid="home-continue" data-lesson-id="{{ slug }}">{{ crate::t1("goal.continue", "title", title) }} ›</a>
       {% else %}
-      <a class="btn big today-continue" href="{{ crate::base_path() }}/practice" data-testid="home-continue">{{ crate::t("goal.all_done") }} ›</a>
+      <a class="{% if today.done() %}today-continue quiet{% else %}btn big today-continue{% endif %}" href="{{ crate::base_path() }}/practice" data-testid="home-continue">{{ crate::t("goal.all_done") }} ›</a>
       {% endif %}
     </div>
   </div>
@@ -39,5 +40,6 @@
     <thead><tr><th scope="col">{{ crate::t("goal.col_activity") }}</th><th scope="col">{{ crate::t("goal.col_points") }}</th></tr></thead>
     <tbody>{% for (what, pts) in p.effort_table %}<tr><td>{{ what }}</td><td>{{ pts }}</td></tr>{% endfor %}</tbody>
   </table>
+  <p data-testid="home-info-rest-days">{% if p.rest_days.is_empty() %}{{ crate::t("rest.none") }}{% else %}{{ crate::t1("rest.some", "days", p.rest_days.join(", ")) }}{% endif %}</p>
   <div class="modal-actions"><button type="button" class="btn" commandfor="home-info-goal" command="close" data-closes data-testid="home-info-close">{{ crate::t("home.ok") }}</button></div>
 </dialog>

@@ -668,6 +668,11 @@ goal:
   day_away: "Le jour {n} n'est plus qu'une séance."
   five_minutes: "Vous avez cinq minutes ?"
   any_mode: "Tout ce que vous étudiez, dans n'importe quel mode, remplit l'anneau."
+  day_done: "C'est fini pour aujourd'hui. Demain, c'est bien assez tôt."
+  streak_was:
+    one: "Votre dernière série était de {n} jour"
+    other: "Votre dernière série était de {n} jours"
+  new_streak: "Une nouvelle commence aujourd'hui."
   continue: "Continuer : {title}"
   all_done: "Toutes les leçons réussies : entretenez-les"
   info_label: "Ce qui compte pour l'objectif du jour"
@@ -684,6 +689,23 @@ goal:
     flashcard: "Une carte mémoire"
     card: "Une carte d'une étape du guide"
     reading: "Lire une leçon jusqu'au bout"
+
+rest:
+  title: "Jours de repos"
+  about: "Choisissez jusqu'à deux jours par semaine où vous n'étudiez pas. Un jour de repos sans points n'interrompt pas votre série, et les points gagnés ce jour-là comptent quand même. Un changement compte à partir d'aujourd'hui."
+  legend: "Jours où vous n'étudiez pas"
+  too_many: "Choisissez au plus deux jours de repos."
+  not_a_day: "Ce n'est pas un jour de la semaine."
+  none: "Aucun jour de repos. Vous pouvez en choisir jusqu'à deux dans votre profil."
+  some: "Vos jours de repos : {days}. Un jour de repos sans points n'interrompt pas votre série."
+  day:
+    mon: "lundi"
+    tue: "mardi"
+    wed: "mercredi"
+    thu: "jeudi"
+    fri: "vendredi"
+    sat: "samedi"
+    sun: "dimanche"
 
 study:
   correct: "Bonne réponse !"
@@ -1626,6 +1648,7 @@ sprint:
     best_streak: "Meilleure série dans cette séance : {n} d'affilée."
     goal_done: "Objectif du jour atteint : {n} / {goal} ✓"
     daily_ring: "Objectif du jour : {n} / {goal} points"
+    day_done: "C'est fini pour aujourd'hui. Demain, c'est bien assez tôt."
     lesson_passed: "Leçon réussie : cette étape est terminée sur le parcours, dans tous les modes."
     score_to_pass: "Obtenez {pct} % ou plus dans une séance pour réussir cette leçon et débloquer l'étape suivante."
     save_failed: "Impossible d'enregistrer cette séance ({error})."
