@@ -169,8 +169,8 @@ pub fn replay(session: &MatchSession, attempts: &[(usize, usize)]) -> Option<Out
     Some(Outcome { elapsed_ms, wrong, penalty_ms, score_ms: elapsed_ms + penalty_ms })
 }
 
-/// Game sessions by token. One entry per account at most (so at most
-/// `caps::MAX_ACCOUNTS`): `start` drops expired sessions and the account's
+/// Game sessions by token. One entry per account or student at most (so at
+/// most `caps::bounds().learners`): `start` drops expired sessions and the account's
 /// earlier one before inserting (#42).
 #[derive(Default)]
 pub struct Sessions {

@@ -58,7 +58,8 @@ practice sessions, games and flashcards. Spanish,
 French and a tutorial course for the app are included. It is one program and one SQLite file, so no web
 server or database server is required.
 
-It holds up to 50 accounts, each signed in on up to 4 devices.
+It holds up to 50 accounts, each signed in on up to 4 devices, and, apart
+from them, 50 student accounts (`SKRONGLE_STUDENT_LIMIT`), each on up to 2.
 
 ### Access to the web interface
 
@@ -143,6 +144,7 @@ sudo systemctl restart skrongle
 | `SKRONGLE_PUBLIC_URL` | (none) | The address people use, for the links it shows |
 | `SKRONGLE_SIGNUP` | `invite` | Who may make an account |
 | `SKRONGLE_LOG` | `info` | `error`, `warn`, `info`, `debug` or `trace` |
+| `SKRONGLE_STUDENT_LIMIT` | `50` | Student accounts the box holds, 1 to 1000. A Pi Zero 2 W is measured at 50; more costs memory |
 
 The [self-hosting reference](https://github.com/alexbeeken/skrongle-mini/blob/main/docs/self-hosting.md#configuration)
 lists the rest.

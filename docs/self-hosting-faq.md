@@ -129,6 +129,13 @@ made through the owner link in the log; everyone else needs an invitation
 link from your **Manage Users** page, one per person, up to 50 accounts. See
 [Accounts and AI keys](self-hosting#accounts-and-ai-keys).
 
+**My class is bigger than 50.** Student accounts are counted apart from
+the 50 normal accounts, and a box holds 50 of them unless you set
+`SKRONGLE_STUDENT_LIMIT` (up to 1000) and restart. A Pi Zero 2 W is
+measured at 50; more students use more memory, so on a bigger class watch
+the memory line of `skrongle doctor`, or use a bigger computer. See
+[Student accounts](self-hosting#student-accounts).
+
 **I opened the page and it says the server has no owner yet.** Make your
 account with the owner link:
 `sudo /opt/skrongle/skrongle owner-link --service`, then open the link it

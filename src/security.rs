@@ -167,7 +167,7 @@ pub struct Limit {
     pub when_full: WhenFull,
 }
 
-/// What a limit's table does when it holds [`MAX_KEYS`] running windows and a
+/// What a limit's table does when it holds [`max_keys`] running windows and a
 /// new key arrives.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum WhenFull {
@@ -224,7 +224,10 @@ pub const MCP_CALLS_PER_GRANT: Limit = Limit { name: "mcp-calls-grant", max: 300
 /// Most keys kept per limit, so memory stays bounded on the Pi (#36). Each
 /// limit has its own table: a flood of one kind of key (fresh addresses)
 /// cannot crowd out another (the per-account counters).
-const MAX_KEYS: usize = crate::caps::MAX_RATE_LIMIT_KEYS;
+/// [`crate::caps::Bounds::rate_limit_keys`]: 8 per account or student.
+fn max_keys() -> usize {
+    crate::caps::bounds().rate_limit_keys
+}
 
 /// One limit's counters: its window length, `key -> (window start, hits)`,
 /// and when the "table is full" warning was last logged (once per window).
@@ -250,10 +253,10 @@ pub struct RateLimits {
 /// Is there room in `table` for one more key? Drops ended windows first.
 fn has_room(table: &mut Table, now: i64) -> bool {
     let (window, map, _) = table;
-    if map.len() >= MAX_KEYS {
+    if map.len() >= max_keys() {
         map.retain(|_, (start, _)| now - *start < *window);
     }
-    map.len() < MAX_KEYS
+    map.len() < max_keys()
 }
 
 /// Make room for a new key in `limit`'s `table`: `false` when the table is
@@ -438,10 +441,10 @@ mod tests {
     fn rate_limit_memory_is_bounded() {
         let l = RateLimits::new();
         let lim = Limit { name: "login-ip", max: 3, window: 600, when_full: WhenFull::Refuse };
-        for i in 0..(MAX_KEYS + 10) {
+        for i in 0..(max_keys() + 10) {
             let _ = l.hit(lim, &format!("k{i}"), i as i64 / 100);
         }
-        assert!(l.windows.lock().unwrap()["login-ip"].1.len() <= MAX_KEYS);
+        assert!(l.windows.lock().unwrap()["login-ip"].1.len() <= max_keys());
         // Once the first windows have ended, new keys fit again.
         assert!(l.hit(lim, "late", 10_000));
     }
@@ -456,7 +459,7 @@ mod tests {
         }
         assert!(l.blocked(user, "ana@example.org", 1000));
         // Fresh addresses fill their own table, not the accounts'.
-        for i in 0..(MAX_KEYS + 50) {
+        for i in 0..(max_keys() + 50) {
             let _ = l.hit(ip, &format!("10.{}.{}.{}", i >> 16, (i >> 8) & 255, i & 255), 1001);
         }
         assert!(l.blocked(user, "ana@example.org", 1002), "the account is still blocked");
@@ -466,7 +469,7 @@ mod tests {
         assert!(l.blocked(ip, "192.0.2.1", 1002));
         assert!(l.hit(ip, "10.0.0.1", 1002), "keys already in the table still count normally");
         // Fill the accounts' table too: the blocked account stays blocked.
-        for i in 0..MAX_KEYS {
+        for i in 0..max_keys() {
             let _ = l.hit(user, &format!("u{i}@example.org"), 1003);
         }
         assert!(l.blocked(user, "ana@example.org", 1004));
@@ -481,12 +484,12 @@ mod tests {
         let l = RateLimits::new();
         let now = 1000;
         for limit in [LOGIN_PER_IP, REGISTER_PER_IP] {
-            for i in 0..MAX_KEYS {
+            for i in 0..max_keys() {
                 assert!(l.hit(limit, &format!("10.0.0.{i}"), now));
             }
             assert!(!l.blocked(limit, "192.0.2.1", now), "{} refuses a new address", limit.name);
             assert!(l.hit(limit, "192.0.2.1", now), "{} counts a new address", limit.name);
-            assert!(l.windows.lock().unwrap()[limit.name].1.len() <= MAX_KEYS);
+            assert!(l.windows.lock().unwrap()[limit.name].1.len() <= max_keys());
         }
     }
 
@@ -498,19 +501,19 @@ mod tests {
             assert!(l.hit(LOGIN_PER_IP, "203.0.113.9", now));
         }
         assert!(!l.hit(LOGIN_PER_IP, "203.0.113.9", now));
-        for i in 0..(MAX_KEYS * 3) {
+        for i in 0..(max_keys() * 3) {
             let _ = l.hit(LOGIN_PER_IP, &format!("10.1.{}.{}", i >> 8, i & 255), now + 1);
         }
         assert!(l.blocked(LOGIN_PER_IP, "203.0.113.9", now + 2), "the busy address was not evicted");
         assert!(!l.blocked(LOGIN_PER_IP, "192.0.2.77", now + 2));
-        assert!(l.windows.lock().unwrap()["login-ip"].1.len() <= MAX_KEYS);
+        assert!(l.windows.lock().unwrap()["login-ip"].1.len() <= max_keys());
     }
 
     #[test]
     fn the_lowest_hit_count_goes_first_then_the_oldest_window() {
         let l = RateLimits::new();
         let lim = Limit { name: "evict-test", max: 5, window: 600, when_full: WhenFull::EvictLowest };
-        for i in 0..MAX_KEYS {
+        for i in 0..max_keys() {
             let _ = l.hit(lim, &format!("k{i}"), 1000 + i as i64);
         }
         let _ = l.hit(lim, "k0", 1100); // k0 now has two hits

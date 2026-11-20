@@ -311,6 +311,7 @@ Where a default says "unit", `skrongle.service` sets it.
 | `SKRONGLE_PUBLIC_URL` | — | The address people use, e.g. `https://learn.example.org`. The owner link and invitation links start with it. Apps that connect from the cloud (OAuth) need it: without it their sign-in routes answer 404. |
 | `SKRONGLE_BASE_PATH` | *(empty)* | A URL prefix when a proxy serves the app under a path, e.g. `/learn`. |
 | `SKRONGLE_MIN_AGE` | `14` | The minimum age the registration checkbox states. The box is there only while new accounts start with a permission (Teacher, or a saved preset with one); as Student, and for the owner's own account, nobody is asked. See [Age at sign-up](#age-at-sign-up). |
+| `SKRONGLE_STUDENT_LIMIT` | `50` | Student accounts the box holds, a whole number from 1 to 1000; any other value stops the server at startup with a message naming it. Students are counted apart from the 50 normal accounts. Raising it costs memory: each student adds up to two sessions, rate-limit counters and one learner's progress kept in memory, and a Pi Zero 2 W is only measured at 50. See [Student accounts](#student-accounts). |
 | `SKRONGLE_FAILED_COURSE_RETENTION_DAYS` | `30` | An AI course whose generation failed is deleted, with the notes it was given, after this many days without a resume or edit. `0` keeps them. |
 | `SKRONGLE_RETAIN_HISTORY_DAYS` | `730` | Answers and finished game rounds older than this many days are deleted, at start and hourly. `0` keeps them. |
 | `SKRONGLE_KEEP_NOTES` | off | `1` or `true` keeps an AI course's notes after it is ready, so a later revision sees the original material. Off, they are removed once it is ready. |
@@ -320,6 +321,20 @@ Where a default says "unit", `skrongle.service` sets it.
 
 [Architecture](architecture) lists the rest (developer
 settings).
+
+### Student accounts
+
+Besides its 50 normal accounts, a box holds **50 student accounts**, or the
+number `SKRONGLE_STUDENT_LIMIT` sets (1 to 1000). One teacher can hold all of
+them; a second teacher holds what is left. A student keeps two devices signed
+in, not four (a shared classroom computer and one more).
+
+Everything that grows with accounts is sized from the limit when the server
+starts, so a box at any limit has a known size. A Pi Zero 2 W is measured at
+50 students. Above 50 the server writes one line in the log saying so, and
+the memory a class needs is yours to watch (`skrongle doctor` shows the limit
+and the memory left). Lowering the limit deletes nobody: no new student can
+be made until there are fewer than the limit.
 
 ### Renamed settings
 
@@ -417,8 +432,9 @@ it the register form, invitation links and the proxy sign-in's account
 creation all say "This Skrongle has all the accounts it can hold", and the
 Manage Users page shows "50 of 50 accounts" and hides the invitation form. The
 Pi Zero 2 W has little memory, and one known size is what lets the rest of
-the server (sessions, rate limits, connections) bound what it keeps. The
-other values of the setting:
+the server (sessions, rate limits, connections) bound what it keeps.
+Student accounts are counted apart; see [Student accounts](#student-accounts).
+The other values of the setting:
 
 | `SKRONGLE_SIGNUP` | Who may register |
 |---|---|

@@ -66,7 +66,7 @@ pub(super) struct JobTable {
 }
 
 /// Every AI job by id. One entry per account at most (so at most
-/// `caps::MAX_ACCOUNTS`): starting a job drops expired jobs and the
+/// `caps::MAX_ACCOUNTS`; students have no AI): starting a job drops expired jobs and the
 /// account's earlier finished ones first (#42), and capacity allows one
 /// running or waiting job per account.
 #[derive(Default)]

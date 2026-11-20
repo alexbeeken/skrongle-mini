@@ -218,6 +218,13 @@ pub fn env(name: &str) -> Option<String> {
     env_from(name, &|key| std::env::var(key).ok())
 }
 
+/// `SKRONGLE_STUDENT_LIMIT` over any lookup: the default when unset, an
+/// error naming the setting (which stops startup) when it is not a whole
+/// number from 1 to 1000 (mini #216).
+fn student_limit_from(get: &dyn Fn(&str) -> Option<String>) -> Result<usize, String> {
+    caps::parse_student_limit(env_from("STUDENT_LIMIT", get).as_deref())
+}
+
 /// `env` over any lookup (a map in tests).
 fn env_from(name: &str, get: &dyn Fn(&str) -> Option<String>) -> Option<String> {
     ENV_PREFIXES.iter().find_map(|prefix| get(&format!("{prefix}{name}")).filter(|v| !v.is_empty()))
@@ -415,6 +422,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         None => None,
     };
     signup::init_min_age(min_age);
+    caps::init_student_limit(student_limit_from(&|key| std::env::var(key).ok())?);
     #[cfg(feature = "dev")]
     let test_course = cfg.dev.test_course(&cfg.data_dir);
     #[cfg(not(feature = "dev"))]
@@ -613,7 +621,7 @@ fn release_boot_memory() {
 
 #[cfg(test)]
 mod tests {
-    use super::{env_from, old_prefix_warning};
+    use super::{env_from, old_prefix_warning, student_limit_from};
 
     fn lookup(vars: &[(&str, &str)]) -> impl Fn(&str) -> Option<String> {
         let vars: Vec<(String, String)> = vars.iter().map(|(k, v)| (k.to_string(), v.to_string())).collect();
@@ -622,6 +630,18 @@ mod tests {
 
     fn owned(vars: &[(&str, &str)]) -> Vec<(String, String)> {
         vars.iter().map(|(k, v)| (k.to_string(), v.to_string())).collect()
+    }
+
+    /// A bad `SKRONGLE_STUDENT_LIMIT` stops startup with a message naming
+    /// it, as a bad `SKRONGLE_MIN_AGE` does (`run` returns the error).
+    #[test]
+    fn a_bad_student_limit_stops_startup() {
+        assert_eq!(student_limit_from(&lookup(&[])), Ok(50));
+        assert_eq!(student_limit_from(&lookup(&[("SKRONGLE_STUDENT_LIMIT", "120")])), Ok(120));
+        for bad in ["abc", "0", "1001"] {
+            let e = student_limit_from(&lookup(&[("SKRONGLE_STUDENT_LIMIT", bad)])).unwrap_err();
+            assert!(e.starts_with("SKRONGLE_STUDENT_LIMIT must be"), "{e}");
+        }
     }
 
     #[test]

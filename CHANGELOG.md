@@ -6,6 +6,14 @@ numbers work is in the README, "Versions".
 
 ## Unreleased
 
+- **New setting `SKRONGLE_STUDENT_LIMIT`** (default 50, from 1 to 1000):
+  how many student accounts the box holds, counted apart from its 50
+  normal accounts. Nothing changes on any page yet; this makes room for
+  the student accounts a teacher will make. Leave it unset on a Pi Zero 2 W,
+  which is measured at 50. Above 50 the log says so at startup; a value
+  that is not a whole number in range stops the server with a message
+  naming the setting. `skrongle doctor` shows the limit.
+
 - **Sign-up no longer asks a person's age while new accounts start as
   Student** (the default). The "I am at least 14 years old" box is gone from
   the register form and invitation links, and nothing about age is stored
