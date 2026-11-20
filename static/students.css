@@ -1,0 +1,24 @@
+/* The Students page (#218): the list, the rows to add, the sign-in sheet. */
+.students .students-head { display: flex; align-items: baseline; gap: .8rem; flex-wrap: wrap; }
+.students .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.3rem; margin: 1.2rem 0; }
+.students .card h2 { margin: 0 0 .6rem; font-size: 1.15rem; }
+.students .students-bar, .students .students-sheet-actions { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; margin: .8rem 0; }
+.students textarea, .students input[type="text"] { width: 100%; max-width: 28rem; box-sizing: border-box; }
+.students .students-rows input[type="text"] { min-width: 10rem; }
+
+/* The slips: one box per student, to cut out. */
+.slips { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: .8rem; margin: 1rem 0; }
+.slip { border: 2px dashed var(--line); border-radius: var(--radius); padding: .8rem 1rem; break-inside: avoid; page-break-inside: avoid; }
+.slip dl { display: grid; grid-template-columns: auto 1fr; gap: .2rem .7rem; margin: .5rem 0 0; }
+.slip dt { color: var(--muted); }
+.slip dd { margin: 0; overflow-wrap: anywhere; }
+.slip code { font-size: 1.1rem; }
+
+/* Printed: black on white, no pictures, only the slips. */
+@media print {
+  .topbar, .site-footer, .skip-link, .no-print { display: none !important; }
+  html, body, main, .students, .slip, .slip dt, .slip dd, .slip code { background: #fff !important; color: #000 !important; }
+  .slips { grid-template-columns: 1fr 1fr; gap: 0; margin: 0; }
+  .slip { border: 1px dashed #000; border-radius: 0; }
+  img, svg { display: none !important; }
+}

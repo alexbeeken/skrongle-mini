@@ -2086,9 +2086,8 @@ with **Hold students** (`hold_students`), or an owner. The teacher makes it;
 nobody registers as a student, and it never turns into a normal account. It
 signs in with a username and a password, and has no e-mail address
 (`users.email` is `NULL`), no two-factor sign-in, no permissions and no AI.
-The Students page where a teacher makes and looks after them is #218; until
-then a student is made by `students::create` (the tests) and, in a dev
-build, by `/dev/student`.
+A teacher makes and looks after them on
+[the Students page](#the-students-page); a dev build also has `/dev/student`.
 
 - **Where it is stored**: `users.username` (unique, stored lower case) and
   `users.teacher_id` (the teacher; deleting the teacher's account deletes its
@@ -2144,6 +2143,75 @@ build, by `/dev/student`.
   password `dev-password` for the signed-in account (which must hold
   students: the dev user is an owner) and names it on a page
   (`?format=json` for scripts).
+
+### The Students page
+
+`/students` (#218, `src/routes/students.rs`) is where a teacher makes and
+looks after its student accounts. The top bar has a **Students** link
+(`nav-students`) for an account that may hold students (Hold students, or an
+owner). Anyone else gets a 404 on every `/students` address: a student
+through `students::refused`, an account without the permission from the
+handlers. Every control is a plain form that changes one thing and comes
+back, so the page works with JavaScript off.
+
+- **The list** (`students-list`): every student of this teacher on one page,
+  by username, with no paging whatever the limit. Each row has a tick box
+  (`students-pick`), the name (a link to the student's page; the username
+  when it has no name), the username, **Lessons passed** (passes in every
+  course, the rule of [Progress](progress)) and **Last studied** (*Today*,
+  *Yesterday*, *9 days ago* or *Never*, in the teacher's local days, from
+  the latest lesson touch or first sight of a lesson, as Manage Users'
+  progress page counts it). A student quiet for 7 days or more has its
+  last studied in bold (`data-quiet`). Both come from
+  `students::progress`, two grouped queries for the class. A student has no
+  Privacy permission, so its teacher always sees them. By the title,
+  `students-count` says *37 of 50*: the teacher's students against the
+  box's student limit (`SKRONGLE_STUDENT_LIMIT`).
+- **New passwords** and **Delete picked** (`students-new-passwords`,
+  `students-delete-picked`) post the ticked students
+  (`POST /students/passwords`, `POST /students/delete`, `id` per student).
+  Each shows a confirm page first (`students-confirm`) naming them; its
+  button posts again with `confirm=1`. New passwords are made and shown on
+  a sign-in sheet; deleted students go with everything in them, and the
+  list says how many. Nothing ticked: the list again with *Tick at least
+  one student first.* Ids that are not the teacher's students are left out.
+- **Adding** (`students-add-form`): paste names, one per line, under
+  **Add students** (*You can add 13 more.*, the room left on the box) and
+  click **Next: usernames and passwords** (`POST /students/add`). Nothing is
+  made yet: a row per name with its suggested username
+  (`students::suggest_username`, free on the server and within the batch)
+  and an empty password field. **Save and show the sign-in sheet**
+  (`POST /students/sheet`) makes every account or none: a bad or taken
+  username, a typed password under 8 characters or a batch over the limit
+  shows the rows again with why, and nothing is made
+  (`students::check` asks before any password is hashed). An empty password
+  is made (`students::make_password`). A pasted name's first word is the
+  first name, the rest the last name. More names than the room left are
+  refused on the list, with the names kept. At the limit the add form is
+  replaced by `students-full`, which says the box is full and names
+  `SKRONGLE_STUDENT_LIMIT` for whoever runs it (the dev server is never
+  full).
+- **The sign-in sheet** (`students-sheet`): one slip per student
+  (`students-slip`) with the name, the address in the teacher's browser
+  (`routes::public_base`: `SKRONGLE_PUBLIC_URL`, else the host asked for),
+  the username and the password, and **Print** (the browser's print; the
+  button shows only with JavaScript, the browser's own Print does the
+  same). A print stylesheet (`static/students.css`) leaves only the slips,
+  black on white, dashed boxes to cut out, no pictures.
+- **Passwords are shown once.** They are only in the answer to the POST
+  that set them (adding, New passwords, a student's new password), sent
+  with `Cache-Control: no-store`, as Manage Users shows a temporary password
+  and an invitation link. Only their hashes are stored; nothing else keeps
+  them. `GET /students/sheet` (the sheet's address opened again) says they
+  were shown once (`students-sheet-gone`) and how to make new ones.
+- **A student's page** (`/students/{id}`, `students-one`): lessons passed
+  and last studied; **Name and username** (username, first name, last name;
+  `POST /students/{id}`: a taken or bad username, or a name too long, comes
+  back with why and nothing saved); **New password** (`POST
+  /students/{id}/password`: typed, at least 8 characters, or made when
+  empty; the student's sessions end and the sheet shows it once); **Delete
+  this student** (`POST /students/{id}/delete` shows the confirm page). Another
+  teacher's student, or no student, is a 404.
 
 ## Two-factor sign-in
 

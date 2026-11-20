@@ -3107,3 +3107,77 @@ oauth:
 
 students:
   username_rule: "Un nom d'utilisateur compte de {min} à {max} caractères : a à z, 0 à 9, points, tirets et tirets bas, et commence par une lettre ou un chiffre."
+
+# The Students page (#218): a teacher's list, adding, the sign-in sheet.
+students_page:
+  nav: Élèves
+  title: Élèves
+  count: "{n} sur {max}"
+  empty: "Pas encore d'élèves. Ajoute ta classe ci-dessous."
+  with_picked: "Élèves cochés :"
+  new_passwords: Nouveaux mots de passe
+  delete_picked: Supprimer les cochés
+  pick_all: Cocher tous les élèves
+  pick: "Cocher {name}"
+  name: Nom
+  username: "Nom d'utilisateur"
+  password: Mot de passe
+  passed: Leçons réussies
+  last_studied: Dernière étude
+  never: Jamais
+  today: "Aujourd'hui"
+  yesterday: Hier
+  days_ago:
+    one: "il y a {n} jour"
+    other: "il y a {n} jours"
+  add_title: Ajouter des élèves
+  paste: "Colle les noms, un par ligne. Tu peux en ajouter encore {n}."
+  next: "Suivant : noms d'utilisateur et mots de passe"
+  no_names: "Colle au moins un nom, un par ligne."
+  too_many:
+    one: "Trop de noms : la box accepte encore {n} élève."
+    other: "Trop de noms : la box accepte encore {n} élèves."
+  full: "La box contient {max} comptes d'élèves, sa limite."
+  full_setting: "La personne qui gère la box peut relever la limite avec le réglage SKRONGLE_STUDENT_LIMIT."
+  rows_about: "Vérifie les noms d'utilisateur, puis enregistre. Un mot de passe laissé vide est créé."
+  room:
+    one: "Encore {n} place."
+    other: "Encore {n} places."
+  username_of: "Nom d'utilisateur de {name}"
+  password_of: "Mot de passe de {name}"
+  password_made: "Vide : il est créé"
+  password_rule: "Un mot de passe que tu tapes a au moins 8 caractères. Un mot de passe créé compte huit lettres et chiffres difficiles à confondre."
+  save_rows: Enregistrer et voir la feuille de connexion
+  taken: "Le nom d'utilisateur {username} est déjà pris. Choisis-en un autre."
+  added:
+    one: "{n} élève ajouté."
+    other: "{n} élèves ajoutés."
+  sheet_title: Feuille de connexion
+  sheet_once: "C'est la seule fois que ces mots de passe sont affichés. Imprime la feuille ou note-les avant de quitter cette page."
+  sheet_gone: "Les mots de passe d'une feuille de connexion ne sont affichés qu'une fois et ne sont pas gardés. Pour en donner de nouveaux, coche des élèves sur la page Élèves et clique sur Nouveaux mots de passe."
+  sheet_about: "Chaque case est un coupon à découper. La feuille s'imprime en noir sur blanc, sans images. Les mots de passe créés comptent huit lettres et chiffres difficiles à confondre : pas de 0, o, 1, l ni i."
+  print: Imprimer
+  back: Retour aux élèves
+  address: Adresse
+  new_passwords_question:
+    one: "Donner un nouveau mot de passe à {n} élève ?"
+    other: "Donner de nouveaux mots de passe à {n} élèves ?"
+  new_passwords_done:
+    one: "Nouveau mot de passe pour {n} élève."
+    other: "Nouveaux mots de passe pour {n} élèves."
+  new_password_about: "L'ancien mot de passe ne marche plus et l'élève est déconnecté. Le nouveau est affiché une fois, sur une feuille de connexion."
+  delete_question:
+    one: "Supprimer {n} élève ?"
+    other: "Supprimer {n} élèves ?"
+  delete_about: "Le compte part avec tout ce qu'il contient : sa progression et ses réponses. C'est définitif."
+  deleted:
+    one: "{n} élève supprimé."
+    other: "{n} élèves supprimés."
+  none_picked: "Coche d'abord au moins un élève."
+  details: "Nom et nom d'utilisateur"
+  save: Enregistrer
+  saved: Enregistré.
+  new_password: Nouveau mot de passe
+  set_password: Définir le mot de passe
+  delete: Supprimer cet élève
+  cancel: Annuler

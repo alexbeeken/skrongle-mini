@@ -3108,3 +3108,77 @@ oauth:
 
 students:
   username_rule: "Un nombre de usuario tiene de {min} a {max} caracteres: de la a a la z, del 0 al 9, puntos, guiones y guiones bajos, y empieza por una letra o un número."
+
+# The Students page (#218): a teacher's list, adding, the sign-in sheet.
+students_page:
+  nav: Alumnos
+  title: Alumnos
+  count: "{n} de {max}"
+  empty: "Aún no hay alumnos. Añade tu clase abajo."
+  with_picked: "Alumnos marcados:"
+  new_passwords: Contraseñas nuevas
+  delete_picked: Eliminar marcados
+  pick_all: Marcar a todos los alumnos
+  pick: "Marcar a {name}"
+  name: Nombre
+  username: Nombre de usuario
+  password: Contraseña
+  passed: Lecciones superadas
+  last_studied: Último estudio
+  never: Nunca
+  today: Hoy
+  yesterday: Ayer
+  days_ago:
+    one: "hace {n} día"
+    other: "hace {n} días"
+  add_title: Añadir alumnos
+  paste: "Pega los nombres, uno por línea. Puedes añadir {n} más."
+  next: "Siguiente: nombres de usuario y contraseñas"
+  no_names: "Pega al menos un nombre, uno por línea."
+  too_many:
+    one: "Demasiados nombres: la caja admite {n} alumno más."
+    other: "Demasiados nombres: la caja admite {n} alumnos más."
+  full: "La caja tiene {max} cuentas de alumno, su límite."
+  full_setting: "Quien administra la caja puede subir el límite con el ajuste SKRONGLE_STUDENT_LIMIT."
+  rows_about: "Revisa los nombres de usuario y guarda. Si dejas una contraseña vacía, se crea una."
+  room:
+    one: "Cabe {n} más."
+    other: "Caben {n} más."
+  username_of: "Nombre de usuario de {name}"
+  password_of: "Contraseña de {name}"
+  password_made: "Vacía: se crea una"
+  password_rule: "Una contraseña que escribes tiene al menos 8 caracteres. Una creada son ocho letras y cifras difíciles de confundir."
+  save_rows: Guardar y ver la hoja de acceso
+  taken: "El nombre de usuario {username} ya existe. Elige otro."
+  added:
+    one: "{n} alumno añadido."
+    other: "{n} alumnos añadidos."
+  sheet_title: Hoja de acceso
+  sheet_once: "Es la única vez que se muestran estas contraseñas. Imprime la hoja o anótalas antes de salir de esta página."
+  sheet_gone: "Las contraseñas de una hoja de acceso se muestran una sola vez y no se guardan. Para dar otras nuevas, marca alumnos en la página Alumnos y pulsa Contraseñas nuevas."
+  sheet_about: "Cada recuadro es una tira para recortar. La hoja se imprime en negro sobre blanco y sin imágenes. Las contraseñas creadas son ocho letras y cifras difíciles de confundir: sin 0, o, 1, l ni i."
+  print: Imprimir
+  back: Volver a Alumnos
+  address: Dirección
+  new_passwords_question:
+    one: "¿Dar una contraseña nueva a {n} alumno?"
+    other: "¿Dar contraseñas nuevas a {n} alumnos?"
+  new_passwords_done:
+    one: "Contraseña nueva para {n} alumno."
+    other: "Contraseñas nuevas para {n} alumnos."
+  new_password_about: "La contraseña anterior deja de funcionar y se cierra la sesión del alumno. La nueva se muestra una vez, en una hoja de acceso."
+  delete_question:
+    one: "¿Eliminar {n} alumno?"
+    other: "¿Eliminar {n} alumnos?"
+  delete_about: "La cuenta se elimina con todo lo que contiene: su progreso y sus respuestas. No se puede deshacer."
+  deleted:
+    one: "{n} alumno eliminado."
+    other: "{n} alumnos eliminados."
+  none_picked: "Marca primero al menos un alumno."
+  details: Nombre y nombre de usuario
+  save: Guardar
+  saved: Guardado.
+  new_password: Contraseña nueva
+  set_password: Poner la contraseña
+  delete: Eliminar este alumno
+  cancel: Cancelar

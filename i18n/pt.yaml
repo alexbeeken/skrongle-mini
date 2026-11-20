@@ -3107,3 +3107,77 @@ oauth:
 
 students:
   username_rule: "Um nome de usuário tem de {min} a {max} caracteres: a a z, 0 a 9, pontos, hífens e sublinhados, e começa com uma letra ou um número."
+
+# The Students page (#218): a teacher's list, adding, the sign-in sheet.
+students_page:
+  nav: Alunos
+  title: Alunos
+  count: "{n} de {max}"
+  empty: "Ainda não há alunos. Adicione sua turma abaixo."
+  with_picked: "Alunos marcados:"
+  new_passwords: Novas senhas
+  delete_picked: Excluir marcados
+  pick_all: Marcar todos os alunos
+  pick: "Marcar {name}"
+  name: Nome
+  username: Nome de usuário
+  password: Senha
+  passed: Lições concluídas
+  last_studied: Último estudo
+  never: Nunca
+  today: Hoje
+  yesterday: Ontem
+  days_ago:
+    one: "há {n} dia"
+    other: "há {n} dias"
+  add_title: Adicionar alunos
+  paste: "Cole os nomes, um por linha. Você pode adicionar mais {n}."
+  next: "Próximo: nomes de usuário e senhas"
+  no_names: "Cole pelo menos um nome, um por linha."
+  too_many:
+    one: "Nomes demais: a caixa aceita mais {n} aluno."
+    other: "Nomes demais: a caixa aceita mais {n} alunos."
+  full: "A caixa tem {max} contas de aluno, o seu limite."
+  full_setting: "Quem administra a caixa pode aumentar o limite com a configuração SKRONGLE_STUDENT_LIMIT."
+  rows_about: "Confira os nomes de usuário e salve. Se deixar uma senha vazia, uma é criada."
+  room:
+    one: "Cabe mais {n}."
+    other: "Cabem mais {n}."
+  username_of: "Nome de usuário de {name}"
+  password_of: "Senha de {name}"
+  password_made: "Vazia: uma é criada"
+  password_rule: "Uma senha digitada tem pelo menos 8 caracteres. Uma criada tem oito letras e dígitos difíceis de confundir."
+  save_rows: Salvar e ver a folha de acesso
+  taken: "O nome de usuário {username} já existe. Escolha outro."
+  added:
+    one: "{n} aluno adicionado."
+    other: "{n} alunos adicionados."
+  sheet_title: Folha de acesso
+  sheet_once: "Esta é a única vez que estas senhas aparecem. Imprima a folha ou anote-as antes de sair desta página."
+  sheet_gone: "As senhas de uma folha de acesso aparecem só uma vez e não são guardadas. Para dar novas, marque alunos na página Alunos e clique em Novas senhas."
+  sheet_about: "Cada quadro é uma tira para recortar. A folha sai impressa em preto no branco, sem imagens. Senhas criadas têm oito letras e dígitos difíceis de confundir: sem 0, o, 1, l ou i."
+  print: Imprimir
+  back: Voltar para Alunos
+  address: Endereço
+  new_passwords_question:
+    one: "Dar uma senha nova a {n} aluno?"
+    other: "Dar senhas novas a {n} alunos?"
+  new_passwords_done:
+    one: "Senha nova para {n} aluno."
+    other: "Senhas novas para {n} alunos."
+  new_password_about: "A senha antiga deixa de funcionar e o aluno é desconectado. A nova aparece uma vez, numa folha de acesso."
+  delete_question:
+    one: "Excluir {n} aluno?"
+    other: "Excluir {n} alunos?"
+  delete_about: "A conta é excluída com tudo o que tem: o progresso e as respostas. Não dá para desfazer."
+  deleted:
+    one: "{n} aluno excluído."
+    other: "{n} alunos excluídos."
+  none_picked: "Marque primeiro pelo menos um aluno."
+  details: Nome e nome de usuário
+  save: Salvar
+  saved: Salvo.
+  new_password: Nova senha
+  set_password: Definir a senha
+  delete: Excluir este aluno
+  cancel: Cancelar

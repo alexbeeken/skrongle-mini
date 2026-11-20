@@ -6,12 +6,23 @@ numbers work is in the README, "Versions".
 
 ## Unreleased
 
+- **Students page.** An account that may hold students (Hold students, or
+  an owner) has a **Students** link in the top bar. It lists every student
+  with their username, lessons passed and when they last studied, and
+  "37 of 50" against the box's student limit. A teacher adds a class by
+  pasting names, one per line, checks the suggested usernames, and gets a
+  sign-in sheet to print: one slip per student with the address, the
+  username and the password, shown only that once. A student's own page
+  changes its username and name, sets a new password, or deletes it; ticked
+  students get new passwords or are deleted together. It all works with
+  JavaScript off. Students and other accounts get "not found" there.
+
 - **Student accounts** (schema v10). A teacher can hold student accounts:
   they sign in with a username and a password, have no e-mail address and
   no two-factor sign-in, and are refused making, sharing or generating
   courses, the tutor and every AI feature, connected apps and Manage Users.
-  Nobody registers as a student; the page where a teacher makes them comes
-  in a later release. The login field now takes an e-mail address or a
+  Nobody registers as a student; a teacher makes them on the Students page
+  (above). The login field now takes an e-mail address or a
   username, and says a student asks their teacher for a new password.
   A new permission, **Hold students**, lets an account hold students: the
   built-in Teacher preset has it from now on, and an owner always does.

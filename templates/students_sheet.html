@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("students_page.sheet_title") }}{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ crate::routes::asset_url("students.css") }}">{% endblock %}
+{% block content %}
+<section class="students students-sheet" data-testid="students-sheet">
+  <p class="small no-print"><a href="{{ crate::url("/students") }}">{{ crate::t("students_page.title") }}</a> /</p>
+  <h1 class="no-print">{{ crate::t("students_page.sheet_title") }}</h1>
+  {% if slips.is_empty() %}
+  <p data-testid="students-sheet-gone">{{ crate::t("students_page.sheet_gone") }}</p>
+  <p><a class="btn ghost" href="{{ crate::url("/students") }}" data-testid="students-sheet-back">{{ crate::t("students_page.back") }}</a></p>
+  {% else %}
+  <p class="no-print" data-testid="students-sheet-done"><strong>{{ done }}</strong> {{ crate::t("students_page.sheet_once") }}</p>
+  <p class="no-print students-sheet-actions">
+    <button type="button" class="btn" hidden data-testid="students-print">{{ crate::t("students_page.print") }}</button>
+    <a class="btn ghost" href="{{ crate::url("/students") }}" data-testid="students-sheet-back">{{ crate::t("students_page.back") }}</a>
+  </p>
+  <div class="slips" data-testid="students-slips">{% for s in slips %}
+    <div class="slip" data-testid="students-slip" data-username="{{ s.username }}">
+      <strong data-testid="students-slip-name">{{ s.name }}</strong>
+      <dl>
+        <dt>{{ crate::t("students_page.address") }}</dt><dd data-testid="students-slip-address">{{ address }}</dd>
+        <dt>{{ crate::t("students_page.username") }}</dt><dd><code data-testid="students-slip-username">{{ s.username }}</code></dd>
+        <dt>{{ crate::t("students_page.password") }}</dt><dd><code data-testid="students-slip-password">{{ s.password }}</code></dd>
+      </dl>
+    </div>{% endfor %}
+  </div>
+  <p class="muted small no-print">{{ crate::t("students_page.sheet_about") }}</p>
+  {% endif %}
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+// Print: the browser's own print, for which the page has a black-on-white
+// stylesheet. Without JavaScript the button stays hidden; the browser's
+// Print prints the same sheet.
+(function () {
+  var b = document.querySelector('[data-testid="students-print"]');
+  if (!b) return;
+  b.hidden = false;
+  b.addEventListener('click', function () { window.print(); });
+})();
+</script>
+{% endblock %}

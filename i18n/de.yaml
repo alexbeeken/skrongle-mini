@@ -3107,3 +3107,77 @@ oauth:
 
 students:
   username_rule: "Ein Benutzername hat {min} bis {max} Zeichen: a bis z, 0 bis 9, Punkte, Bindestriche und Unterstriche, und beginnt mit einem Buchstaben oder einer Ziffer."
+
+# The Students page (#218): a teacher's list, adding, the sign-in sheet.
+students_page:
+  nav: Schüler
+  title: Schüler
+  count: "{n} von {max}"
+  empty: "Noch keine Schüler. Füge deine Klasse unten hinzu."
+  with_picked: "Angekreuzte Schüler:"
+  new_passwords: Neue Passwörter
+  delete_picked: Angekreuzte löschen
+  pick_all: Alle Schüler ankreuzen
+  pick: "{name} ankreuzen"
+  name: Name
+  username: Benutzername
+  password: Passwort
+  passed: Bestandene Lektionen
+  last_studied: Zuletzt gelernt
+  never: Nie
+  today: Heute
+  yesterday: Gestern
+  days_ago:
+    one: "vor {n} Tag"
+    other: "vor {n} Tagen"
+  add_title: Schüler hinzufügen
+  paste: "Namen einfügen, einen pro Zeile. Du kannst noch {n} hinzufügen."
+  next: "Weiter: Benutzernamen und Passwörter"
+  no_names: "Füge mindestens einen Namen ein, einen pro Zeile."
+  too_many:
+    one: "Zu viele Namen: Die Box nimmt noch {n} Schüler auf."
+    other: "Zu viele Namen: Die Box nimmt noch {n} Schüler auf."
+  full: "Die Box hat {max} Schülerkonten, ihre Grenze."
+  full_setting: "Wer die Box betreibt, kann die Grenze mit der Einstellung SKRONGLE_STUDENT_LIMIT erhöhen."
+  rows_about: "Prüfe die Benutzernamen und speichere. Bleibt ein Passwort leer, wird eines erzeugt."
+  room:
+    one: "{n} passt noch."
+    other: "{n} passen noch."
+  username_of: "Benutzername für {name}"
+  password_of: "Passwort für {name}"
+  password_made: "Leer: wird erzeugt"
+  password_rule: "Ein selbst eingegebenes Passwort hat mindestens 8 Zeichen. Ein erzeugtes besteht aus acht Buchstaben und Ziffern, die man nicht verwechselt."
+  save_rows: Speichern und Anmeldeblatt zeigen
+  taken: "Der Benutzername {username} ist vergeben. Wähle einen anderen."
+  added:
+    one: "{n} Schüler hinzugefügt."
+    other: "{n} Schüler hinzugefügt."
+  sheet_title: Anmeldeblatt
+  sheet_once: "Nur jetzt werden diese Passwörter gezeigt. Drucke das Blatt oder schreibe sie auf, bevor du die Seite verlässt."
+  sheet_gone: "Die Passwörter eines Anmeldeblatts werden nur einmal gezeigt und nicht gespeichert. Für neue kreuze auf der Seite Schüler Schüler an und klicke auf Neue Passwörter."
+  sheet_about: "Jedes Kästchen ist ein Zettel zum Ausschneiden. Das Blatt wird schwarz auf weiß und ohne Bilder gedruckt. Erzeugte Passwörter sind acht Buchstaben und Ziffern, die man nicht verwechselt: kein 0, o, 1, l oder i."
+  print: Drucken
+  back: Zurück zu Schüler
+  address: Adresse
+  new_passwords_question:
+    one: "{n} Schüler ein neues Passwort geben?"
+    other: "{n} Schülern neue Passwörter geben?"
+  new_passwords_done:
+    one: "Neues Passwort für {n} Schüler."
+    other: "Neue Passwörter für {n} Schüler."
+  new_password_about: "Das alte Passwort gilt nicht mehr und der Schüler wird abgemeldet. Das neue wird einmal auf einem Anmeldeblatt gezeigt."
+  delete_question:
+    one: "{n} Schüler löschen?"
+    other: "{n} Schüler löschen?"
+  delete_about: "Das Konto geht mit allem, was darin ist: Fortschritt und Antworten. Das lässt sich nicht rückgängig machen."
+  deleted:
+    one: "{n} Schüler gelöscht."
+    other: "{n} Schüler gelöscht."
+  none_picked: "Kreuze zuerst mindestens einen Schüler an."
+  details: Name und Benutzername
+  save: Speichern
+  saved: Gespeichert.
+  new_password: Neues Passwort
+  set_password: Passwort setzen
+  delete: Diesen Schüler löschen
+  cancel: Abbrechen

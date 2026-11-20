@@ -34,6 +34,7 @@ pub mod progress;
 pub mod quiz;
 pub mod password;
 pub mod manage;
+pub mod students;
 pub mod mcp;
 pub mod oauth;
 pub mod tutor;
@@ -361,6 +362,15 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/manage/apps/revoke", post(manage::apps::revoke))
         .route("/manage/presets/delete", post(manage::presets::delete))
         .route("/api/manage/keys", post(manage::save_keys))
+        // The Students page (#218): a teacher's (404 for anyone else).
+        .route("/students", get(students::list))
+        .route("/students/add", get(students::add_page).post(students::add))
+        .route("/students/sheet", get(students::sheet_again).post(students::make))
+        .route("/students/passwords", post(students::passwords))
+        .route("/students/delete", post(students::delete))
+        .route("/students/{id}", get(students::show).post(students::save))
+        .route("/students/{id}/password", post(students::set_password))
+        .route("/students/{id}/delete", post(students::delete_one))
         // api
         .route("/api/answer", post(quiz::answer))
         .route("/api/lesson-check", post(quiz::lesson_check))

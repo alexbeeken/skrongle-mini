@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("students_page.title") }}{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ crate::routes::asset_url("students.css") }}">{% endblock %}
+{% block content %}
+<section class="students" data-testid="students-page">
+  <div class="students-head">
+    <h1>{{ crate::t("students_page.title") }}</h1>
+    <span class="muted" data-testid="students-count" data-count="{{ rows.len() }}" data-limit="{{ limit }}">{{ crate::t2("students_page.count", "n", rows.len(), "max", limit) }}</span>
+  </div>
+  {% if let Some(n) = notice %}<p class="alert ok-text" role="status" data-testid="students-notice">✓ {{ n }}</p>{% endif %}
+  {% if let Some(e) = error %}<p class="alert error" role="alert" data-testid="students-error">{{ e }}</p>{% endif %}
+
+  {% if rows.is_empty() %}
+  <p data-testid="students-empty">{{ crate::t("students_page.empty") }}</p>
+  {% else %}
+  {# One form: a row's tick box names its student; each button posts the ticked ones to its own address, which asks to confirm first. #}
+  <form method="post" action="{{ crate::url("/students/passwords") }}" data-testid="students-picked-form">
+    <div class="students-bar">
+      <span>{{ crate::t("students_page.with_picked") }}</span>
+      <button type="submit" class="btn small ghost" formaction="{{ crate::url("/students/passwords") }}" data-testid="students-new-passwords">{{ crate::t("students_page.new_passwords") }}</button>
+      <button type="submit" class="btn small ghost" formaction="{{ crate::url("/students/delete") }}" data-testid="students-delete-picked">{{ crate::t("students_page.delete_picked") }}</button>
+    </div>
+    <div class="table-scroll"><table class="small" data-testid="students-list">
+      <thead><tr>
+        <th><input type="checkbox" hidden aria-label="{{ crate::t("students_page.pick_all") }}" data-testid="students-pick-all"></th>
+        <th>{{ crate::t("students_page.name") }}</th>
+        <th>{{ crate::t("students_page.username") }}</th>
+        <th>{{ crate::t("students_page.passed") }}</th>
+        <th>{{ crate::t("students_page.last_studied") }}</th>
+      </tr></thead>
+      <tbody>{% for r in rows %}
+        <tr data-testid="students-row" data-id="{{ r.id }}" data-username="{{ r.username }}">
+          <td><input type="checkbox" name="id" value="{{ r.id }}" aria-label="{{ crate::t1("students_page.pick", "name", r.name) }}" data-testid="students-pick"></td>
+          <td><a href="{{ crate::url("/students/") }}{{ r.id }}" data-testid="students-name">{{ r.name }}</a></td>
+          <td data-testid="students-username">{{ r.username }}</td>
+          <td data-testid="students-passed">{{ r.passed }}</td>
+          <td data-testid="students-last-studied" data-quiet="{{ r.quiet }}">{% if r.quiet %}<strong>{{ r.last_studied }}</strong>{% else if r.never %}<span class="muted">{{ r.last_studied }}</span>{% else %}{{ r.last_studied }}{% endif %}</td>
+        </tr>{% endfor %}
+      </tbody>
+    </table></div>
+  </form>
+  {% endif %}
+
+  {% if full %}
+  <section class="card" data-testid="students-full">
+    <h2>{{ crate::t("students_page.add_title") }}</h2>
+    <p>{{ crate::t1("students_page.full", "max", limit) }}</p>
+    <p class="muted small">{{ crate::t("students_page.full_setting") }}</p>
+  </section>
+  {% else %}
+  <form method="post" action="{{ crate::url("/students/add") }}" class="card" data-testid="students-add-form">
+    <h2>{{ crate::t("students_page.add_title") }}</h2>
+    <label for="students-names">{{ crate::t1("students_page.paste", "n", room) }}</label>
+    <textarea id="students-names" name="names" rows="6" data-testid="students-names">{{ names }}</textarea>
+    <p><button type="submit" class="btn" data-testid="students-add-next">{{ crate::t("students_page.next") }}</button></p>
+  </form>
+  {% endif %}
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+// Pick every student at once: a nicety with JavaScript on; without it the box stays hidden.
+(function () {
+  var all = document.querySelector('[data-testid="students-pick-all"]');
+  if (!all) return;
+  all.hidden = false;
+  all.addEventListener('change', function () {
+    document.querySelectorAll('[data-testid="students-pick"]').forEach(function (b) { b.checked = all.checked; });
+  });
+})();
+</script>
+{% endblock %}
