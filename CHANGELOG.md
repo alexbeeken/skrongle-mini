@@ -6,6 +6,18 @@ numbers work is in the README, "Versions".
 
 ## Unreleased
 
+- **Understand a document.** On **Courses**, a second way to start beside
+  *Create a course*: paste a letter, a medicine leaflet or a contract (up to
+  30,000 characters), pick the language to explain it in, and the AI writes a
+  short private course that explains it and checks you understood it, ending
+  with **Questions to ask** about what it leaves open. Every explanation and
+  question shows *From your document:* with the sentence it comes from, and
+  the server, not the AI, checks that each sentence is in what you pasted,
+  word for word: an item whose quote is not found is left out. The document
+  stays with the course and is deleted with it; such a course cannot be
+  shared, copied or translated. Course files may use the new `document`,
+  `sources` and `source` fields (`docs/course-format.md`).
+
 - **Sign-up no longer asks a person's age while new accounts start as
   Student** (the default). The "I am at least 14 years old" box is gone from
   the register form and invitation links, and nothing about age is stored

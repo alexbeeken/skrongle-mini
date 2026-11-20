@@ -80,6 +80,7 @@ common:
       one: "há {n} ano"
       other: "há {n} anos"
   js:
+    from_document: "Do seu documento:"
     close: Fechar
     notation_label: Notação musical
     music_play: "Tocar"
@@ -1768,6 +1769,29 @@ courses:
     heading_stopped: "A tradução parou"
     phase_start: "Traduzindo"
     phase_file: "Traduzindo {file} ({n} de {total})"
+  # Understand a document (#232)
+  document:
+    card_text: "Cole uma carta, uma bula ou um contrato. A IA transforma-o num curso curto que o explica em palavras simples e verifica se você o entendeu. Cada explicação e cada pergunta mostra a frase do seu documento de onde vem."
+    button: "Entender um documento"
+    title: "Entender um documento"
+    text_label: "O texto do documento"
+    text_hint: "Cole o próprio texto, até {max} caracteres (cerca de doze páginas). Fotos de uma página não são lidas."
+    lang_label: "Explicar em"
+    provider: "IA"
+    disclosure: "Ao começar, o texto vai para {provider}, a IA por trás da chave deste servidor. O documento fica guardado neste servidor com o curso e é apagado com ele."
+    disclosure_any: "Ao começar, o texto vai para a IA que você escolher, com a chave deste servidor. O documento fica guardado neste servidor com o curso e é apagado com ele."
+    start: "Criar o curso"
+    close: "Cancelar"
+    provisional_title: "Entender um documento"
+    too_short: "Cole o texto do documento: pelo menos {min} caracteres."
+    too_long: "O documento tem mais de {max} caracteres. Cole a parte que você precisa entender."
+    pick_language: "Escolha o idioma em que o documento será explicado."
+    too_little: "A lição {n} citou o seu documento de forma errada vezes demais: menos de {min} das suas perguntas trazem uma frase encontrada palavra por palavra no seu documento, por isso o curso não foi aberto. Apague-o e tente de novo."
+    private: "Este curso contém um documento privado: não pode ser partilhado, copiado nem traduzido."
+    lesson_line: "Este curso ajuda você a entender o seu documento. Não substitui a pessoa que o entregou a você: pergunte a ela tudo o que não estiver claro."
+    read_whole: "Ler o documento inteiro"
+    page_title: "O seu documento"
+    page_back: "Voltar às lições"
   ai_run:
     failure:
       key: "A escrita do seu curso parou. O provedor de IA não aceitou a chave de API do servidor. Quem é dono do servidor pode conferi-la em Gerenciar usuários; depois tente novamente."

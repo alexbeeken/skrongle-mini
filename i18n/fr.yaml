@@ -80,6 +80,7 @@ common:
       one: "il y a {n} an"
       other: "il y a {n} ans"
   js:
+    from_document: "Dans ton document :"
     close: Fermer
     notation_label: Notation musicale
     music_play: "Écouter"
@@ -1768,6 +1769,29 @@ courses:
     heading_stopped: "La traduction s’est arrêtée"
     phase_start: "Traduction"
     phase_file: "Traduction de {file} ({n} sur {total})"
+  # Understand a document (#232)
+  document:
+    card_text: "Colle une lettre, une notice ou un contrat. L’IA en fait un court cours qui l’explique avec des mots simples et vérifie que tu l’as compris. Chaque explication et chaque question montre la phrase de ton document dont elle vient."
+    button: "Comprendre un document"
+    title: "Comprendre un document"
+    text_label: "Le texte du document"
+    text_hint: "Colle le texte lui-même, jusqu’à {max} caractères (une douzaine de pages). Les photos d’une page ne sont pas lues."
+    lang_label: "L’expliquer en"
+    provider: "IA"
+    disclosure: "Au démarrage, le texte est envoyé à {provider}, l’IA derrière la clé de ce serveur. Le document est gardé sur ce serveur avec le cours et supprimé avec lui."
+    disclosure_any: "Au démarrage, le texte est envoyé à l’IA que tu choisis, avec la clé de ce serveur. Le document est gardé sur ce serveur avec le cours et supprimé avec lui."
+    start: "Créer le cours"
+    close: "Annuler"
+    provisional_title: "Comprendre un document"
+    too_short: "Colle le texte du document : au moins {min} caractères."
+    too_long: "Le document dépasse {max} caractères. Colle la partie que tu dois comprendre."
+    pick_language: "Choisis la langue dans laquelle expliquer le document."
+    too_little: "La leçon {n} a trop souvent mal cité ton document : moins de {min} de ses questions s’appuient sur une phrase trouvée mot pour mot dans ton document, donc le cours n’a pas été ouvert. Supprime-le et réessaie."
+    private: "Ce cours contient un document privé : il ne peut pas être partagé, copié ni traduit."
+    lesson_line: "Ce cours t’aide à comprendre ton document. Il ne remplace pas la personne qui te l’a donné : pose-lui tes questions sur tout ce qui n’est pas clair."
+    read_whole: "Lire tout le document"
+    page_title: "Ton document"
+    page_back: "Retour aux leçons"
   ai_run:
     failure:
       key: "L’écriture de ton cours s’est arrêtée. Le fournisseur d’IA n’a pas accepté la clé d’API du serveur. Le propriétaire peut la vérifier dans Gérer les utilisateurs ; réessaie ensuite."

@@ -923,6 +923,49 @@ reason and **Resume translation**, which opens the same dialog without the
 language and translates the files not done yet. Keeping the copy in step
 with its original is up to the learner.
 
+### Understanding a document
+
+**Understand a document** (#232) is the second card under *Make your own*
+on the course list (with **Create courses** and AI on): paste a letter, a
+medicine leaflet or a contract, pick the language to explain it in (the
+app's languages) and **Make the course** (`POST /courses/document`,
+`src/routes/courses/document.rs`). The dialog says the text goes to the AI
+behind the server's key, and that the document is stored on the box with
+the course and deleted with it. Pasted text only (photos of a page are not
+read), at most 30,000 characters, about twelve pages
+(`content::MAX_DOCUMENT_CHARS`, far below a course file's 1 MB).
+
+It makes a new private course whose `course.json` holds the text as
+`document` ([format](course-format#a-course-about-a-document)), so export
+and delete carry it; it is never kept in `courses.notes`. An AI job of the
+kind `document` (`src/ai/document.rs`) then plans one to three lessons and
+writes each: what the document says and what the learner has to do and by
+when, with multiple-choice and true-false questions, and a last section
+**Questions to ask** listing what the document leaves open, worded to ask
+whoever wrote it. The model is told to explain only what the document says.
+It is a generation in every other way: the same slot, quotas, progress
+modal, Cancel and restart; its calls carry the purposes `document-outline`
+and `document-lesson` (the slug as the key).
+
+Every section and question carries a quote, and code checks it, not the
+model: the course loader (`src/content/document.rs`) refuses a quote that
+is not in the document word for word (whitespace aside, on word edges, so
+"0 mg" is not found in "10 mg"). The job drops such items before anything
+is saved (`content::keep_quoted`); a lesson left with fewer than three
+questions, or no quoted section, is asked for again, and after the third
+try the job stops with a sentence saying so and the course does not open.
+Hand edits, *Use AI* and the connected apps meet the same check.
+
+Each lesson of such a course shows a fixed line (it helps you understand
+the document and does not replace the person who gave it to you) with a
+link to the whole document (`/document`), and *From your document:* with
+the quote under each section; Practice, the reading check and the Guide
+show a question's quote with its answer (`source` in `/api/answer`).
+Passing works as everywhere else. Such a course has no Share button and no
+copy or translate icon (`POST /courses/{id}/share`, `/copy` and
+`/translate` refuse it with a notice), and a stopped one has no Retry:
+delete it and paste again.
+
 ## A course's settings
 
 **A course's settings** (#565, #574, #587): the **level** to start at (a

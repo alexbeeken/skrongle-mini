@@ -47,9 +47,20 @@
   </p>
   {% endif %}
 
+  {% if doc_sections.is_empty() %}
   <div class="prose" data-testid="lesson-content" lang="{{ course.term_lang }}">
     {{ lesson.html_content()|safe }}
   </div>
+  {% else %}
+  {# A course about one document (#232): the fixed line, the whole document a click away, and the document's words under each section. #}
+  <p class="alert" role="note" data-testid="lesson-document-line">{{ crate::t("courses.document.lesson_line") }} <a href="{{ crate::base_path() }}/document" data-testid="lesson-document-link">{{ crate::t("courses.document.read_whole") }}</a></p>
+  <div class="prose" data-testid="lesson-content" lang="{{ course.term_lang }}">
+    {% for s in doc_sections %}<h2>{{ s.heading }}</h2>
+    {{ s.html|safe }}
+    {% for q in s.quotes %}<blockquote class="document-quote" data-testid="lesson-document-quote"><p><strong>{{ crate::t("common.js.from_document") }}</strong> <q lang="">{{ q }}</q></p></blockquote>{% endfor %}
+    {% endfor %}
+  </div>
+  {% endif %}
 
   {% if !lesson.vocabulary.is_empty() %}
   <h2>{{ crate::t("study.lesson.vocabulary") }}</h2>

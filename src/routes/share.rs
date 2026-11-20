@@ -54,6 +54,9 @@ pub async fn invite(
 ) -> Result<Response, AppError> {
     user.require(Perm::ShareCourses)?;
     super::courses::owned(&state, &user, &id).await?;
+    if super::courses::is_document_course(&state, &id).await? {
+        return Ok(back(&id, "share-document"));
+    }
     let label = share::clean_label(&form.label);
     let cid = id.clone();
     let existing = state.db.call(move |c| share::shares_of(c, &cid)).await?.len();

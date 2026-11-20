@@ -849,6 +849,7 @@ mod tests {
                 correct_answer: item.correct_answer.clone(),
                 key: String::new(),
                 explanation: "Because.".into(),
+                source: String::new(),
                 lesson_id: lesson.id.clone(),
                 lesson_slug: lesson.slug.clone(),
                 lesson_title: lesson.title.clone(),

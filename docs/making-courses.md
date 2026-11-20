@@ -97,6 +97,22 @@ the modal goes and the course's lessons are there.
   (or **Retry** when not even the outline was saved).
 - To start a generated course over, delete it and create a new one.
 
+## Understand a document
+
+For a letter, a medicine leaflet or a contract you have to act on, use
+**Understand a document** on the course list: paste its text (up to 30,000
+characters; photos are not read), pick the language to explain it in and
+press **Make the course**. The AI writes one to three short lessons about
+what it says and what you have to do, with questions, and ends with
+**Questions to ask**: what the document leaves open. Every part shows
+*From your document:* and the sentence it comes from; the server checks
+each sentence is in what you pasted, word for word, and leaves out anything
+whose sentence is not. Each lesson links to the whole document. The course
+helps you understand the document; it does not replace the person who gave
+it to you. It stays private: no sharing, copying or translating, and deleting
+it deletes the document. The details are in
+[Features](features#understanding-a-document).
+
 ## Change a course with AI
 
 **Use AI**, under the lesson table, uses the server's first API key (it

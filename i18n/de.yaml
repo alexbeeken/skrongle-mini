@@ -80,6 +80,7 @@ common:
       one: "vor {n} Jahr"
       other: "vor {n} Jahren"
   js:
+    from_document: "Aus deinem Dokument:"
     close: Schließen
     notation_label: Notenschrift
     music_play: "Abspielen"
@@ -1768,6 +1769,29 @@ courses:
     heading_stopped: "Übersetzung angehalten"
     phase_start: "Wird übersetzt"
     phase_file: "{file} wird übersetzt ({n} von {total})"
+  # Understand a document (#232)
+  document:
+    card_text: "Füge einen Brief, einen Beipackzettel oder einen Vertrag ein. Die KI macht daraus einen kurzen Kurs, der ihn in einfachen Worten erklärt und prüft, ob du ihn verstanden hast. Jede Erklärung und jede Frage zeigt den Satz deines Dokuments, aus dem sie stammt."
+    button: "Ein Dokument verstehen"
+    title: "Ein Dokument verstehen"
+    text_label: "Der Text des Dokuments"
+    text_hint: "Füge den Text selbst ein, bis zu {max} Zeichen (etwa zwölf Seiten). Fotos einer Seite werden nicht gelesen."
+    lang_label: "Erklären auf"
+    provider: "KI"
+    disclosure: "Wenn du startest, geht der Text an {provider}, die KI hinter dem Schlüssel dieses Servers. Das Dokument wird auf diesem Server mit dem Kurs gespeichert und mit ihm gelöscht."
+    disclosure_any: "Wenn du startest, geht der Text an die KI, die du wählst, über den Schlüssel dieses Servers. Das Dokument wird auf diesem Server mit dem Kurs gespeichert und mit ihm gelöscht."
+    start: "Kurs erstellen"
+    close: "Abbrechen"
+    provisional_title: "Ein Dokument verstehen"
+    too_short: "Füge den Text des Dokuments ein: mindestens {min} Zeichen."
+    too_long: "Das Dokument ist länger als {max} Zeichen. Füge den Teil ein, den du verstehen musst."
+    pick_language: "Wähle die Sprache, in der das Dokument erklärt wird."
+    too_little: "Lektion {n} hat dein Dokument zu oft falsch zitiert: Weniger als {min} ihrer Fragen haben einen Satz, der wörtlich in deinem Dokument steht, deshalb wurde der Kurs nicht geöffnet. Lösche ihn und versuche es noch einmal."
+    private: "Dieser Kurs enthält ein privates Dokument: Er kann nicht geteilt, kopiert oder übersetzt werden."
+    lesson_line: "Dieser Kurs hilft dir, dein Dokument zu verstehen. Er ersetzt nicht die Person, die es dir gegeben hat: Frag sie nach allem, was unklar ist."
+    read_whole: "Das ganze Dokument lesen"
+    page_title: "Dein Dokument"
+    page_back: "Zurück zu den Lektionen"
   ai_run:
     failure:
       key: "Dein Kurs wurde nicht fertig geschrieben. Der KI-Anbieter hat den API-Schlüssel des Servers nicht akzeptiert. Die Besitzerin oder der Besitzer kann ihn unter Benutzer verwalten prüfen; dann versuche es erneut."

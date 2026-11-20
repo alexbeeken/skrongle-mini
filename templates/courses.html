@@ -102,6 +102,7 @@
           {% if c.stopped %}
             {% if let Some(u) = user %}{% if u.ai_courses() %}
             {% if c.translation %}{% let tr_id = c.id.as_str() %}{% let tr_title = c.title.as_str() %}{% let tr_lang = c.meanings_lang.as_str() %}{% let tr_resume = true %}{% let tr_providers = translate_providers %}{% include "course_translate.html" %}
+            {% else if c.document %}
             {% else if c.resumable %}<a class="btn" href="{{ crate::base_path() }}/courses?generate={{ c.id }}" data-testid="courses-resume">{{ crate::t("courses.picker.resume") }}</a>
             {% else %}<a class="btn" href="{{ crate::base_path() }}/courses?generate={{ c.id }}" data-testid="courses-retry">{{ crate::t("courses.picker.retry") }}</a>{% endif %}
             {% endif %}{% endif %}
@@ -140,7 +141,7 @@
 
 {# Only for an account that may make a course (the Create courses permission, #143). #}
 {% if can_create %}
-<section data-testid="courses-make-section" style="--n: 1">
+<section data-testid="courses-make-section" style="--n: {% if let Some(u) = user %}{% if u.ai_courses() %}2{% else %}1{% endif %}{% else %}1{% endif %}">
   <h2 data-testid="courses-make">{{ crate::t("courses.picker.make_heading") }}</h2>
   <div class="course-grid">
     <article class="course-card">
@@ -151,6 +152,7 @@
       </div>
       <div class="course-actions"><form method="post" action="{{ crate::base_path() }}/courses/new" class="inline" data-testid="courses-create-form"><button type="submit" class="btn" data-testid="courses-create">{{ crate::t("courses.picker.create_button") }}</button></form></div>
     </article>
+    {% if let Some(u) = user %}{% if u.ai_courses() %}{% include "document_form.html" %}{% endif %}{% endif %}
   </div>
 </section>
 {% endif %}

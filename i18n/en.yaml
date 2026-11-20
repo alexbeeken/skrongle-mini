@@ -82,6 +82,7 @@ common:
       one: "{n} year ago"
       other: "{n} years ago"
   js:
+    from_document: "From your document:"
     close: Close
     notation_label: Music notation
     music_play: "Play"
@@ -1771,6 +1772,29 @@ courses:
     heading_stopped: "Translation stopped"
     phase_start: "Translating"
     phase_file: "Translating {file} ({n} of {total})"
+  # Understand a document (#232)
+  document:
+    card_text: "Paste a letter, a leaflet or a contract. The AI turns it into a short course that explains it in plain words and checks you understood it. Every explanation and question shows the sentence of your document it comes from."
+    button: "Understand a document"
+    title: "Understand a document"
+    text_label: "The text of the document"
+    text_hint: "Paste the text itself, up to {max} characters (about twelve pages). Photos of a page are not read."
+    lang_label: "Explain it in"
+    provider: "AI"
+    disclosure: "When you start, the text goes to {provider}, the AI behind this server's key. The document is kept on this server with the course and is deleted with it."
+    disclosure_any: "When you start, the text goes to the AI you pick, through this server's key. The document is kept on this server with the course and is deleted with it."
+    start: "Make the course"
+    close: "Cancel"
+    provisional_title: "Understanding a document"
+    too_short: "Paste the text of the document: at least {min} characters."
+    too_long: "The document is longer than {max} characters. Paste the part you need to understand."
+    pick_language: "Pick the language to explain the document in."
+    too_little: "Lesson {n} quoted your document wrongly too often: fewer than {min} of its questions come with a sentence found word for word in your document, so the course was not opened. Delete it and try again."
+    private: "This course holds a private document: it cannot be shared, copied or translated."
+    lesson_line: "This course helps you understand your document. It does not replace the person who gave it to you: ask them about anything that is unclear."
+    read_whole: "Read the whole document"
+    page_title: "Your document"
+    page_back: "Back to the lessons"
   ai_run:
     failure:
       key: "Writing your course stopped. The AI provider didn't accept the server's API key. The owner can check it on Manage Users; then try again."

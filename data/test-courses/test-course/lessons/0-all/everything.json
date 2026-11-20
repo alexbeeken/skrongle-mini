@@ -62,6 +62,7 @@
       "hints": [
         "It is the first word of the lesson."
       ],
+      "source": "Say hola when you arrive.",
       "teaches": [
         "hola"
       ]
@@ -270,5 +271,11 @@
         ]
       }
     ]
-  }
+  },
+  "sources": [
+    {
+      "section": "Greetings",
+      "quote": "Say hola when you arrive."
+    }
+  ]
 }

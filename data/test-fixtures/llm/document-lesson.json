@@ -1,0 +1,149 @@
+{
+  "_comment": "document-lesson replies (#232). The key is the lesson slug from document-outline.json. how-to-take has one question whose source is invented (doc-how-04): the job drops it and keeps the rest.",
+  "replies": {
+    "how-to-take": {
+      "reply": {
+        "id": "ignored",
+        "slug": "how-to-take",
+        "title": "ignored",
+        "content": "## How much and how often\n\nOne capsule, three times a day. Leave about eight hours between them.\n\n## How long\n\nKeep going until the pack is finished, even when you feel better.\n\n## A missed dose\n\nTake it as soon as you remember, but never two at once.",
+        "sources": [
+          {
+            "section": "How much and how often",
+            "quote": "Take one capsule three times a day, about eight hours apart."
+          },
+          {
+            "section": "How long",
+            "quote": "Keep taking the capsules until the course is finished, even if you feel better."
+          },
+          {
+            "section": "A missed dose",
+            "quote": "If you forget a dose, take it as soon as you remember."
+          }
+        ],
+        "quiz": [
+          {
+            "question_id": "doc-how-01",
+            "prompt": "How many capsules may you take in 24 hours at most?",
+            "type": "multiple-choice",
+            "options": [
+              "Two",
+              "Three",
+              "Six"
+            ],
+            "correct_answer": "Three",
+            "explanation": "The leaflet says no more than three in 24 hours.",
+            "hints": [
+              "Count the doses in one day."
+            ],
+            "source": "Do not take more than three capsules in 24 hours."
+          },
+          {
+            "question_id": "doc-how-02",
+            "prompt": "You may stop taking the capsules once you feel better.",
+            "type": "true-false",
+            "correct_answer": "false",
+            "explanation": "Keep going until the course is finished, even if you feel better.",
+            "hints": [
+              "What does the leaflet say about feeling better?"
+            ],
+            "source": "Keep taking the capsules until the course is finished, even if you feel better."
+          },
+          {
+            "question_id": "doc-how-03",
+            "prompt": "You forgot a dose. What do you do?",
+            "type": "multiple-choice",
+            "options": [
+              "Take it as soon as you remember",
+              "Take two next time",
+              "Skip the rest of the day"
+            ],
+            "correct_answer": "Take it as soon as you remember",
+            "explanation": "Take it when you remember, and never two doses at once.",
+            "hints": [
+              "Never two at once."
+            ],
+            "source": "If you forget a dose, take it as soon as you remember."
+          },
+          {
+            "question_id": "doc-how-04",
+            "prompt": "When do you take a capsule?",
+            "type": "multiple-choice",
+            "options": [
+              "With every meal",
+              "At bedtime only"
+            ],
+            "correct_answer": "With every meal",
+            "explanation": "This quote is invented: it is not in the leaflet, so the app leaves the question out.",
+            "hints": [
+              "A made-up question."
+            ],
+            "source": "Take two capsules with every meal."
+          }
+        ]
+      }
+    },
+    "warnings": {
+      "reply": {
+        "id": "ignored",
+        "slug": "warnings",
+        "title": "ignored",
+        "content": "## When to stop\n\nA rash, or a swollen face, means: stop taking it and see a doctor at once.\n\n## Keeping it\n\nKeep it below 25 °C, where children cannot see or reach it.\n\n## Questions to ask\n\n- Can I drink alcohol while I take it?\n- Can I take it with my other medicines?\n- What should I do if I feel sick after a dose?",
+        "sources": [
+          {
+            "section": "When to stop",
+            "quote": "Stop taking this medicine and see a doctor at once if you get a rash or swelling of the face."
+          },
+          {
+            "section": "Keeping it",
+            "quote": "Store below 25 °C. Keep out of the sight and reach of children."
+          }
+        ],
+        "quiz": [
+          {
+            "question_id": "doc-warn-01",
+            "prompt": "You get a rash. You keep taking the capsules and wait.",
+            "type": "true-false",
+            "correct_answer": "false",
+            "explanation": "Stop, and see a doctor at once.",
+            "hints": [
+              "What does a rash mean here?"
+            ],
+            "source": "Stop taking this medicine and see a doctor at once if you get a rash or swelling of the face."
+          },
+          {
+            "question_id": "doc-warn-02",
+            "prompt": "Where do you keep the capsules?",
+            "type": "multiple-choice",
+            "options": [
+              "Below 25 °C, out of children's sight and reach",
+              "Anywhere warm and dry"
+            ],
+            "correct_answer": "Below 25 °C, out of children's sight and reach",
+            "explanation": "Below 25 °C, out of the sight and reach of children.",
+            "hints": [
+              "Think of the temperature and of children."
+            ],
+            "source": "Store below 25 °C. Keep out of the sight and reach of children."
+          },
+          {
+            "question_id": "doc-warn-03",
+            "prompt": "Your face swells. What do you do?",
+            "type": "multiple-choice",
+            "options": [
+              "See a doctor at once",
+              "Take another capsule",
+              "Wait a day"
+            ],
+            "correct_answer": "See a doctor at once",
+            "explanation": "Stop the medicine and see a doctor at once.",
+            "hints": [
+              "It is a warning sign."
+            ],
+            "source": "Stop taking this medicine and see a doctor at once if you get a rash or swelling of the face."
+          }
+        ]
+      }
+    }
+  }
+}

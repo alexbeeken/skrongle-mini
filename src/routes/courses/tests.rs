@@ -818,3 +818,70 @@ fn making_a_course_needs_the_create_courses_permission() {
     assert_eq!(count(), 5);
     assert!(get("/courses", &root_c).1.contains(r#"data-testid="courses-create""#));
 }
+
+/// A course about a document (#232): its lessons show the fixed line, the
+/// link to the whole document and each section's quote; an answer comes
+/// with its question's quote; it is never shared, copied or translated.
+#[test]
+fn a_document_course_quotes_its_document_and_stays_private() {
+    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+    let (state, base, cookie) = course_site(&rt, "plain", "en");
+    let ann = state.db.with(|c| c.query_row("SELECT id FROM users", [], |r| r.get::<_, i64>(0))).unwrap();
+    let id = "leaflet";
+    let document = "Take one capsule three times a day.\nDo not take more than three capsules in 24 hours.";
+    let manifest = json!({ "id": id, "title": "Your leaflet", "units": [{ "id": "1", "title": "One" }], "document": document });
+    let lesson = json!({
+        "id": "l1", "slug": "how-to-take", "title": "How to take it", "unit": "1",
+        "content": "## How much\n\nOne capsule, three times a day.",
+        "sources": [{ "section": "How much", "quote": "Take one capsule three times a day." }],
+        "quiz": [{ "question_id": "q1", "prompt": "How many a day at most?", "type": "multiple-choice", "options": ["Three", "Six"],
+                   "correct_answer": "Three", "explanation": "No more than three.", "source": "Do not take more than three capsules in 24 hours." }]
+    });
+    let files = vec![
+        CourseFile { path: MANIFEST_FILE.into(), content: manifest.to_string() },
+        CourseFile { path: "lessons/how-to-take.json".into(), content: lesson.to_string() },
+    ];
+    state.db.with(|c| {
+        courses::create_course(c, ann, id, "Your leaflet", &files)?;
+        courses::open_project(c, ann, id)?;
+        Ok(())
+    })
+    .unwrap();
+    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
+    let get = |path: &str| {
+        let mut r = agent.get(&format!("{base}{path}")).header("cookie", &cookie).call().unwrap();
+        (r.status().as_u16(), r.body_mut().read_to_string().unwrap())
+    };
+
+    let (status, page) = get("/lessons/how-to-take");
+    assert_eq!(status, 200, "{page}");
+    assert!(page.contains(r#"data-testid="lesson-document-line""#) && page.contains(r#"data-testid="lesson-document-link""#), "{page}");
+    assert!(page.contains("Take one capsule three times a day.</q>"), "{page}");
+    let (status, page) = get("/document");
+    assert_eq!(status, 200);
+    assert!(page.contains("Do not take more than three capsules in 24 hours."), "{page}");
+    let (status, answer) = send(&base, &cookie, Req::Json("/api/answer".into(), json!({ "question_id": "q1", "answer": "Six" })));
+    assert_eq!(status, 200, "{answer}");
+    let answer: serde_json::Value = serde_json::from_str(&answer).unwrap();
+    assert_eq!(answer["source"], "Do not take more than three capsules in 24 hours.");
+
+    // Never shared, copied or translated; the course list offers neither.
+    let shares = || state.db.with(|c| crate::share::shares_of(c, id)).unwrap().len();
+    assert_eq!(send(&base, &cookie, Req::Form(format!("/courses/{id}/share"), vec![("label", "Bob".into())])), (303, format!("/courses/{id}?share=1&notice=share-document")));
+    assert_eq!(shares(), 0);
+    assert!(!get(&format!("/courses/{id}")).1.contains(r#"data-testid="course-edit-share""#));
+    let count = || state.db.with(|c| c.query_row("SELECT COUNT(*) FROM courses", [], |r| r.get::<_, i64>(0))).unwrap();
+    let before = count();
+    assert_eq!(send(&base, &cookie, Req::Form(format!("/courses/{id}/copy"), vec![])), (303, "/courses?notice=copy-document".to_string()));
+    assert_eq!(send(&base, &cookie, Req::Form(format!("/courses/{id}/translate"), vec![("lang", "fr".into())])), (303, "/courses?notice=copy-document".to_string()));
+    assert_eq!(count(), before, "no copy was made");
+    let (_, list) = get("/courses");
+    let card = &list[list.find(&format!(r#"data-course-id="{id}""#)).unwrap()..];
+    let card = &card[..card.find("</article>").unwrap()];
+    assert!(!card.contains("courses-copy") && !card.contains("courses-translate"), "{card}");
+
+    // Any other course has no document page and its lessons look as they always did.
+    state.db.with(|c| courses::open_project(c, ann, "plain")).unwrap();
+    assert_eq!(get("/document").0, 404);
+    assert!(!get("/lessons/first-lesson").1.contains("lesson-document-line"));
+}

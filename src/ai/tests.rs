@@ -1938,3 +1938,70 @@ fn ai_jobs_build_off_the_database_lock() {
     let row = db.with(|c| crate::courses::course(c, id)).unwrap().unwrap();
     assert!(row.error.is_none());
 }
+
+/// Understand a document (#232) on the dev fixtures: the first lesson has
+/// one question whose quote is invented. That question is dropped, the rest
+/// is saved and the course loads. A reply whose quotes are all invented
+/// leaves too little: the job stops with a sentence and nothing opens.
+#[test]
+fn a_document_course_keeps_only_what_the_document_says() {
+    let fixture = |purpose: &str| -> serde_json::Value {
+        serde_json::from_str(&std::fs::read_to_string(format!("data/test-fixtures/llm/{purpose}.json")).unwrap()).unwrap()
+    };
+    let (outline, lessons) = (fixture("document-outline"), fixture("document-lesson"));
+    let leaflet = outline["_sample_document"].as_str().unwrap().to_string();
+    let replies = move |invent: bool| {
+        let (outline, lessons) = (outline.clone(), lessons.clone());
+        move |prompt: &str| {
+            if prompt.contains("Plan a short course") {
+                return outline["replies"]["default"]["reply"].to_string();
+            }
+            for slug in ["how-to-take", "warnings"] {
+                if prompt.contains(&format!("\"slug\": \"{slug}\"")) {
+                    let mut reply = lessons["replies"][slug]["reply"].clone();
+                    if invent {
+                        for q in reply["quiz"].as_array_mut().unwrap() {
+                            q["source"] = "Take ten capsules at once.".into();
+                        }
+                    }
+                    return reply.to_string();
+                }
+            }
+            "no fixture".into()
+        }
+    };
+    let db = Db::open_in_memory().unwrap();
+    let registry = crate::courses::Courses::empty();
+    let start = |user: &str, id: &str, invent: bool| {
+        let mut req = generating(&db, user, id, scripted_llm(replies(invent), Arc::new(AtomicBool::new(false))));
+        req.kind = SubjectKind::Document;
+        let manifest = serde_json::json!({ "id": id, "title": "Understanding a document", "units": [{ "id": "1", "title": "One" }],
+            "terms": { "label": "Term", "lang": "en" }, "meanings": { "label": "Meaning", "lang": "en" }, "document": leaflet });
+        db.with(|c| crate::courses::write_file(c, id, MANIFEST_FILE, &manifest.to_string())).unwrap();
+        let job = test_job(id);
+        (run(&job, &db, &registry, &req), job)
+    };
+
+    let (done, job) = start("ann", "leaflet", false);
+    done.unwrap();
+    let store = ContentStore::from_files(&db.with(|c| crate::courses::load_files(c, "leaflet")).unwrap()).unwrap();
+    assert_eq!(store.title(), "Your amoxicillin leaflet");
+    assert_eq!(store.manifest().document, leaflet, "the document stays with the course");
+    assert!(!store.manifest().is_language());
+    let first = store.lesson_by_slug("how-to-take").unwrap();
+    let ids: Vec<&str> = first.quiz.iter().map(|q| q.question_id.as_str()).collect();
+    assert_eq!(ids, ["doc-how-01", "doc-how-02", "doc-how-03"], "the invented quote's question is gone");
+    let mut quotes = store.lessons().iter().flat_map(|l| l.quiz.iter().map(|q| q.source.clone()).chain(l.sources.iter().map(|s| s.quote.clone())));
+    assert!(quotes.all(|q| crate::content::quote_found(&leaflet, &q)));
+    let last = store.lesson_by_slug("warnings").unwrap();
+    assert_eq!(last.sections.last().unwrap().heading, "Questions to ask", "the last section needs no quote");
+    let log = job.snapshot().log.join("\n");
+    assert!(log.contains("left out 1 questions and 0 sections"), "{log}");
+    let row = db.with(|c| crate::courses::course(c, "leaflet")).unwrap().unwrap();
+    assert_eq!(SubjectKind::of_course(row.outline.as_deref(), "{}"), SubjectKind::Document, "a revision follows the document rules");
+
+    let (stopped, _) = start("bob", "invented", true);
+    let err = stopped.unwrap_err();
+    assert_eq!(err, crate::t2("courses.document.too_little", "n", 1, "min", crate::progress::MIN_ANSWERS));
+    assert_eq!(db.with(|c| crate::courses::file_count(c, "invented")).unwrap(), 1, "only course.json: no lesson was saved");
+}

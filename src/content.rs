@@ -256,6 +256,9 @@ pub struct Manifest {
     /// ignored, so a course that had some other "order" still loads.
     #[serde(default, deserialize_with = "lenient_order", skip_serializing_if = "Option::is_none")]
     pub order: Option<i64>,
+    /// The pasted text an "Understand a document" course explains (#232, `document.rs`): every quote is checked against it.
+    #[serde(default, skip_serializing_if = "String::is_empty")]
+    pub document: String,
 }
 
 /// `Manifest::order`: a whole number, else nothing.
@@ -296,6 +299,10 @@ impl Manifest {
 
 mod quiz_type;
 pub use quiz_type::QuizType;
+mod document;
+pub use document::{quotes_for, keep_quoted, Source, MAX_DOCUMENT_CHARS};
+#[cfg(test)]
+pub use document::quote_found;
 
 /// A single quiz question belonging to a lesson.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -346,6 +353,9 @@ pub struct QuizItem {
     /// are collected automatically.
     #[serde(default)]
     pub teaches: Vec<String>,
+    /// The sentence of the course's `document` this question comes from (#232).
+    #[serde(default, skip_serializing_if = "String::is_empty")]
+    pub source: String,
 }
 
 /// A paradigm table for one item (a verb in one tense, a noun in one case…).
@@ -643,6 +653,9 @@ pub struct Lesson {
     /// Sentences for listening practice (hear it, type it); needs a language course.
     #[serde(default)]
     pub listening: Vec<ListeningItem>,
+    /// The `document`'s words behind each `## ` section (#232).
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub sources: Vec<Source>,
 
     /// Position of `unit` in the manifest (not part of the JSON).
     #[serde(skip)]
@@ -769,6 +782,7 @@ impl ContentStore {
         let manifest_src = files.iter().find(|f| f.path == MANIFEST_FILE).ok_or_else(|| ContentError::Invalid(format!("the course has no {MANIFEST_FILE}")))?;
         let manifest: Manifest = serde_json::from_str(&manifest_src.content).map_err(|e| ContentError::Parse(MANIFEST_FILE.into(), e))?;
         validate_manifest(&manifest)?;
+        document::check_manifest(&manifest)?;
 
         let assets: HashMap<String, String> = files.iter().filter(|f| is_picture_path(&f.path)).map(|f| (f.path.clone(), f.content.clone())).collect();
         let mut lessons = Vec::new();
@@ -787,6 +801,7 @@ impl ContentStore {
             lesson.sections = split_sections(&lesson.content);
             lesson.guide_steps =
                 build_guide(&lesson).map_err(|m| ContentError::Invalid(format!("{}: guide: {m}", f.path)))?;
+            document::check_lesson(&lesson, &manifest, &f.path)?;
             lessons.push((lesson, f.path.clone()));
         }
 

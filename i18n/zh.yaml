@@ -80,6 +80,7 @@ common:
       one: "{n} 年前"
       other: "{n} 年前"
   js:
+    from_document: "出自你的文件："
     close: 关闭
     notation_label: 乐谱
     music_play: "播放"
@@ -1768,6 +1769,29 @@ courses:
     heading_stopped: "翻译已停止"
     phase_start: "正在翻译"
     phase_file: "正在翻译 {file}（第 {n} 个，共 {total} 个）"
+  # Understand a document (#232)
+  document:
+    card_text: "粘贴一封信、一份说明书或一份合同。AI 会把它变成一门简短的课程，用浅显的话解释它，并检查你是否看懂了。每条解释和每道题都会显示它出自你文件中的哪一句。"
+    button: "读懂一份文件"
+    title: "读懂一份文件"
+    text_label: "文件的文字"
+    text_hint: "粘贴文字本身，最多 {max} 个字符（大约十二页）。不会读取页面的照片。"
+    lang_label: "用这种语言解释"
+    provider: "AI"
+    disclosure: "开始后，文字会发送给 {provider}，即本服务器密钥背后的 AI。文件会和课程一起保存在本服务器上，并随课程一起删除。"
+    disclosure_any: "开始后，文字会通过本服务器的密钥发送给你选择的 AI。文件会和课程一起保存在本服务器上，并随课程一起删除。"
+    start: "生成课程"
+    close: "取消"
+    provisional_title: "读懂一份文件"
+    too_short: "请粘贴文件的文字：至少 {min} 个字符。"
+    too_long: "文件超过 {max} 个字符。请粘贴你需要读懂的那部分。"
+    pick_language: "请选择用来解释文件的语言。"
+    too_little: "第 {n} 课引用你的文件出错太多：只有不到 {min} 道题附有在你文件中逐字找到的句子，所以课程没有打开。请删除它后再试一次。"
+    private: "这门课程包含一份私人文件：不能分享、复制或翻译。"
+    lesson_line: "这门课程帮助你读懂你的文件。它不能代替把文件交给你的人：有任何不清楚的地方，请问他们。"
+    read_whole: "阅读整份文件"
+    page_title: "你的文件"
+    page_back: "返回课程"
   ai_run:
     failure:
       key: "课程的编写已停止。AI 服务商不接受服务器的 API 密钥。所有者可以在“管理用户”中检查密钥，然后再试一次。"

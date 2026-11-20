@@ -375,6 +375,24 @@ pub struct ConvLine {
     pub meaning: String,
 }
 
+/// A section of a document course's lesson (#232): its text and the
+/// document's words behind it.
+pub struct DocSection {
+    pub heading: String,
+    pub html: std::sync::Arc<str>,
+    pub quotes: Vec<String>,
+}
+
+/// The lesson's sections with their quotes, in a course with a document;
+/// empty in any other course (the page shows the lesson as it always did).
+fn doc_sections(content: &ContentStore, lesson: &Lesson) -> Vec<DocSection> {
+    if content.manifest().document.trim().is_empty() {
+        return Vec::new();
+    }
+    let quotes = |h: &str| crate::content::quotes_for(lesson, h).into_iter().map(String::from).collect();
+    lesson.sections.iter().map(|s| DocSection { heading: s.heading.clone(), html: s.html.clone(), quotes: quotes(&s.heading) }).collect()
+}
+
 /// A lesson conversation drawn as two characters talking (#989).
 pub struct ConvView {
     pub id: String,
@@ -441,6 +459,8 @@ pub struct LessonTemplate<'a> {
     pub conjugations: Vec<ConjRow>,
     /// The lesson's conversations, as two characters talking (#989).
     pub conversations: Vec<ConvView>,
+    /// A course with a document (#232): the text section by section, each with its quotes.
+    pub doc_sections: Vec<DocSection>,
     /// Questions for the reading check at the bottom (empty once read, or
     /// when the lesson has no quiz).
     pub check: Vec<QuestionView>,
@@ -807,6 +827,7 @@ pub async fn lesson(
         slot_labels,
         conjugations,
         conversations: conversation_views(lesson),
+        doc_sections: doc_sections(content, lesson),
         check,
         read_when,
         reward,

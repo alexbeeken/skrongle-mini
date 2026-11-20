@@ -57,6 +57,7 @@ the Map and "current unit" all follow this structure.
   ],
   "paradigm": { ... },             // optional, see "Paradigm tables"
   "chars": ["á", "é", "í", "ó", "ú", "ñ", "ü", "¿", "¡"],   // optional tap-to-insert characters for text answers
+  "document": "…",                 // optional: the one document the course explains (see "A course about a document")
   "calendar": {                    // optional, see "Calendar"
     "days": ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"],
     "months": ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"],
@@ -208,7 +209,8 @@ with any [starting level](features#starting-level).
   "conversations": [ ... ],         // dialogues; Sprint mode builds sentences from their lines
   "listening": [ ... ],             // hear it, type it (language courses)
   "guide": [ ... ],                 // optional hand-ordered Guide steps
-  "sprint": { ... }                 // optional phone-session extras
+  "sprint": { ... },                // optional phone-session extras
+  "sources": [ ... ]                // a course about a document: its words behind each section
 }
 ```
 
@@ -278,7 +280,8 @@ Vocabulary page) and after a Sprint mode vocabulary exercise.
     "accepted_answers": ["ella es"],       // fill-in-blank, numeric, expression, clock: other answers that count as right
     "explanation": "Occupation takes ser.",
     "hints": ["Is a profession an identity or a state?"],
-    "teaches": ["ser"]                     // vocabulary terms (of this lesson) collected on a correct answer
+    "teaches": ["ser"],                    // vocabulary terms (of this lesson) collected on a correct answer
+    "source": "…"                          // a course about a document: the sentence of it the question comes from
   }
 ]
 ```
@@ -774,6 +777,30 @@ statement false ("Exiles protect the system from pain": wrong `Exiles`, fix
 `Managers`), never for grammar, spelling or an everyday word.
 
 
+## A course about a document
+
+A course made with **Understand a document** explains one document (a
+letter, a medicine leaflet, a contract) and keeps it in `course.json` as
+`document` (the pasted text, at most 30,000 characters). Its lessons quote it:
+
+```jsonc
+"sources": [ { "section": "How much to take", "quote": "Take one capsule three times a day." } ],
+"quiz": [ { "question_id": "…", "prompt": "…", "type": "multiple-choice", "options": ["…"], "correct_answer": "…",
+            "source": "Do not take more than three capsules in 24 hours." } ]
+```
+
+- `sources[].section` names a `## ` heading of the lesson as a Guide step does
+  (the start of it, any case); `quote` is the document's own words.
+- `quiz[].source` is the sentence of the document a question comes from.
+- With a `document`, every quote must be found in it **word for word**:
+  copied character for character in the document's own language, never
+  translated or shortened inside. Whitespace and line breaks do not count;
+  case, spelling and punctuation do, and a quote may not start or end in the
+  middle of a word or number. A quote that is not found is a validation error.
+- The lesson page shows each section's quotes under it and a question's
+  `source` with its answer. Without a `document` these fields are ignored.
+- Such a course cannot be shared, copied or translated.
+
 ## Field aliases
 
 Older Spanish-specific spellings still load, so existing files keep working:
@@ -807,6 +834,7 @@ the canonical names shown above.
 | `guide` | Hand-ordered Guide steps |
 | `sprint` | Sprint mode bites and sort / spot / build exercises |
 | `prerequisites`, `unit`, `order` | Lesson order, quiz weighting, Map, Guide stage order |
+| `sources`, `quiz[].source` (+ `document` in `course.json`) | *From your document:* under a section on the lesson page, and with the answer in Practice, the reading check and the Guide |
 
 `placement.json` (course-level) is read by the start wizard's placement
 test; its `random_per_unit` draws from the lessons' multiple-choice `quiz`.

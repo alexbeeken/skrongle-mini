@@ -22,6 +22,7 @@ use crate::error::AppError;
 use crate::AppState;
 
 mod create;
+mod document;
 mod editor;
 mod files;
 mod generate;
@@ -33,6 +34,7 @@ mod stat;
 mod write;
 
 pub use create::*;
+pub use document::*;
 pub use editor::*;
 pub use files::*;
 pub use generate::*;

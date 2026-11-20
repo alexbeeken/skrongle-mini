@@ -347,6 +347,9 @@ pub struct AnswerResponse {
     #[serde(skip_serializing_if = "String::is_empty")]
     pub key: String,
     pub explanation: String,
+    /// A course with a document (#232): the sentence of it the question comes from.
+    #[serde(skip_serializing_if = "String::is_empty")]
+    pub source: String,
     pub lesson_id: String,
     pub lesson_slug: String,
     pub lesson_title: String,
@@ -424,6 +427,7 @@ pub async fn grade_and_record(state: &AppState, p: &Project, question_id: &str, 
         correct_answer: item.correct_answer.clone(),
         key: crate::notation::keyboard::key(item),
         explanation: item.explanation.clone(),
+        source: if content.manifest().document.is_empty() { String::new() } else { item.source.clone() },
         lesson_id: lesson.id.clone(),
         lesson_slug: lesson.slug.clone(),
         lesson_title: lesson.title.clone(),

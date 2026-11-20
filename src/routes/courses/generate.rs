@@ -218,6 +218,10 @@ pub(super) async fn gen_mode(state: &AppState, row: &CourseRow) -> Result<Option
     if row.source == "translate" {
         return Ok(None);
     }
+    // A stopped "Understand a document" course (#232): Generate would empty its files, document and all.
+    if row.state == courses::CourseState::Failed && is_document_course(state, &row.id).await? {
+        return Ok(None);
+    }
     Ok(match row.state {
         courses::CourseState::Failed if row.outline.is_some() => Some(GenMode::Resume),
         courses::CourseState::Failed => Some(GenMode::Fresh(courses::Draft::default())),
@@ -304,7 +308,7 @@ pub struct GenerateForm {
 }
 
 /// The effort this account last generated a course at (`users.ai_effort`).
-async fn effort_of(state: &AppState, user_id: i64) -> Result<ai::Effort, AppError> {
+pub(super) async fn effort_of(state: &AppState, user_id: i64) -> Result<ai::Effort, AppError> {
     let id: Option<String> = state.db.call(move |c| rusqlite::OptionalExtension::optional(c.query_row("SELECT ai_effort FROM users WHERE id = ?1", [user_id], |r| r.get(0)))).await?;
     Ok(id.as_deref().and_then(ai::Effort::parse).unwrap_or_default())
 }
