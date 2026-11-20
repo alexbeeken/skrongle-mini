@@ -226,6 +226,7 @@ profile:
   nav:
     label: Profilbereiche
     personal: Persönliche Angaben
+    reading: "Lesen"
     account: Konto
     two_factor: Zwei-Faktor-Authentifizierung
   personal:
@@ -237,6 +238,29 @@ profile:
     verified: Bestätigt
     language: Sprache
     language_unavailable: Diese Sprache ist nicht verfügbar.
+  reading:
+    title: "Lesen"
+    intro: "Diese Einstellungen gelten für dein Konto in jedem Kurs und auf jedem Gerät, auf dem du dich anmeldest."
+    size: "Textgröße"
+    size_1: "Standard"
+    size_2: "Groß"
+    size_3: "Größer"
+    size_4: "Am größten"
+    standard: "Standard"
+    spacing: "Abstände"
+    wider: "Weiter"
+    spacing_hint: "Mehr Platz zwischen Zeilen, Wörtern und Buchstaben."
+    letters: "Buchstaben"
+    easier: "Leichter zu unterscheiden"
+    letters_hint: "Eine Schrift, in der I, l und 1 oder b und d schwerer zu verwechseln sind."
+    contrast: "Kontrast"
+    stronger: "Stärker"
+    contrast_hint: "Dunklerer Text, kräftigere Rahmen, unterstrichene Links."
+    motion: "Bewegung"
+    less: "Weniger"
+    motion_hint: "Schaltet Aufploppen, Gleiten und Konfetti ab. Schon aus, wenn dein Gerät weniger Bewegung wünscht."
+    reset: "Zurück zum Standard"
+    unknown: "Diese Auswahl gibt es nicht."
   account:
     title: Konto
     sign_in: Anmeldung

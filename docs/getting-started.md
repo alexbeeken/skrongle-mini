@@ -70,7 +70,9 @@ Full rule: [Progress across modes](progress). Every feature in detail:
 
 The badge in the top-right corner opens the menu: profile, switch course,
 documentation, log out. It shows a gear. On the profile you
-set your name and the app's language. A course's
+set your name and the app's language, and under *Reading* a larger text
+size, wider spacing, easier letters, stronger contrast or less movement for
+every page you see ([Features](features#profile)). A course's
 motivator belongs to the course: the gear on its card on
 `/courses`.
 Changes save as you make them; there is no Save button. The AI API keys and

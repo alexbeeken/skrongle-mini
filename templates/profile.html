@@ -29,6 +29,7 @@
 <nav class="profile-nav" aria-label="{{ crate::t("profile.nav.label") }}" data-testid="profile-nav">
   <ul>
     <li><a href="#personal" data-testid="profile-nav-link" data-section="personal">{{ crate::t("profile.nav.personal") }}</a></li>
+    <li><a href="#reading" data-testid="profile-nav-link" data-section="reading">{{ crate::t("profile.nav.reading") }}</a></li>
     <li><a href="#account" data-testid="profile-nav-link" data-section="account">{{ crate::t("profile.nav.account") }}</a></li>
     <li><a href="#two-factor" data-testid="profile-nav-link" data-section="two-factor">{{ crate::t("profile.nav.two_factor") }}</a></li>
     {% if apps.is_some() %}<li><a href="#apps" data-testid="profile-nav-link" data-section="apps">{{ crate::t("apps.title") }}</a></li>{% endif %}
@@ -66,6 +67,37 @@
       </select>
       <span class="field-error" id="lang-error" data-testid="profile-lang-error" hidden></span>
     </div>
+  </section>
+
+  {# Reading settings (#233, src/reading.rs): each choice saves at once and the page takes it on at once (static/profile.js). #}
+  {% let reading = crate::reading::current() %}
+  <section class="card reading-card" id="reading" data-testid="profile-reading">
+    <h2>{{ crate::t("profile.reading.title") }}</h2>
+    <p class="muted small">{{ crate::t("profile.reading.intro") }}</p>
+    <fieldset class="reading-group">
+      <legend data-testid="profile-reading-legend" data-field="read_size">{{ crate::t("profile.reading.size") }}</legend>
+      <div class="choice-chips">
+        {% for (v, key) in [("1", "profile.reading.size_1"), ("2", "profile.reading.size_2"), ("3", "profile.reading.size_3"), ("4", "profile.reading.size_4")] %}
+        <label class="chip" data-testid="profile-reading-choice" data-field="read_size" data-value="{{ v }}"><input type="radio" name="read_size" value="{{ v }}" class="sr-only"{% if reading.value("read_size") == *v %} checked{% endif %}><span class="reading-size-{{ v }}" aria-hidden="true">A</span><span class="sr-only">{{ crate::t(key) }}</span></label>
+        {% endfor %}
+      </div>
+    </fieldset>
+    {% for (field, legend, other, other_label, hint) in [
+      ("read_spacing", "profile.reading.spacing", "wider", "profile.reading.wider", "profile.reading.spacing_hint"),
+      ("read_letters", "profile.reading.letters", "easier", "profile.reading.easier", "profile.reading.letters_hint"),
+      ("read_contrast", "profile.reading.contrast", "stronger", "profile.reading.stronger", "profile.reading.contrast_hint"),
+      ("read_motion", "profile.reading.motion", "less", "profile.reading.less", "profile.reading.motion_hint"),
+    ] %}
+    <fieldset class="reading-group" aria-describedby="{{ field }}-hint">
+      <legend data-testid="profile-reading-legend" data-field="{{ field }}">{{ crate::t(legend) }}</legend>
+      <div class="choice-chips">
+        <label class="chip" data-testid="profile-reading-choice" data-field="{{ field }}" data-value="standard"><input type="radio" name="{{ field }}" value="standard" class="sr-only"{% if reading.value(field) == "standard" %} checked{% endif %}> {{ crate::t("profile.reading.standard") }}</label>
+        <label class="chip" data-testid="profile-reading-choice" data-field="{{ field }}" data-value="{{ other }}"><input type="radio" name="{{ field }}" value="{{ other }}" class="sr-only"{% if reading.value(field) == *other %} checked{% endif %}> <span{% if *field == "read_letters" %} class="reading-easy-face"{% endif %}>{{ crate::t(other_label) }}</span></label>
+      </div>
+      <p class="muted small field-note" id="{{ field }}-hint">{{ crate::t(hint) }}</p>
+    </fieldset>
+    {% endfor %}
+    <p><button type="button" class="link-btn" data-testid="profile-reading-reset">{{ crate::t("profile.reading.reset") }}</button></p>
   </section>
 
   <section class="card" id="account">

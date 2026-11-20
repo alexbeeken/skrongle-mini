@@ -1105,7 +1105,7 @@
       // A step still moving ends where it was going first.
       stepping.forEach(function (a) { a.finish(); });
       stepping = [];
-      if (!list.animate || (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) return null;
+      if (!list.animate || window.lessMotion()) return null;
       return { at: stepPlaces(), height: list.offsetHeight };
     }
     function stepEnd(step) {
@@ -1256,9 +1256,7 @@
   }
   // Smooth unless the learner asked for less motion (OS or the app's switch).
   function scrollBehavior() {
-    var reduce = document.documentElement.classList.contains("reduce-motion") ||
-      (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-    return reduce ? "auto" : "smooth";
+    return window.lessMotion() ? "auto" : "smooth";
   }
 
   // ---------- editor: the "Generate the course" dialog ----------

@@ -200,6 +200,13 @@ pub struct ProfileChanges {
     pub last_name: Option<String>,
     /// The language the app speaks to this account in (`i18n::languages`).
     pub lang: Option<String>,
+    /// The reading settings (#233, `reading::FIELDS`): each one its own
+    /// field, as its buttons send it.
+    pub read_size: Option<String>,
+    pub read_spacing: Option<String>,
+    pub read_letters: Option<String>,
+    pub read_contrast: Option<String>,
+    pub read_motion: Option<String>,
     /// Anything else (the AI API keys are the server's now, on Manage
     /// Users): refused, field by field.
     #[serde(flatten)]
@@ -232,6 +239,22 @@ pub async fn save(
         let ok = if crate::i18n::is_language(v) { Ok(v.to_string()) } else { Err(crate::t("profile.personal.language_unavailable")) };
         check("lang", ok)
     });
+    // Checked here; applied to the stored settings in the transaction below.
+    let reading: Vec<(&'static str, String)> = [
+        ("read_size", changes.read_size),
+        ("read_spacing", changes.read_spacing),
+        ("read_letters", changes.read_letters),
+        ("read_contrast", changes.read_contrast),
+        ("read_motion", changes.read_motion),
+    ]
+    .into_iter()
+    .filter_map(|(f, v)| v.map(|v| (f, v.trim().to_string())))
+    .collect();
+    for (field, v) in &reading {
+        if crate::reading::Reading::default().set(field, v).is_err() {
+            check(field, Err(crate::t("profile.reading.unknown")));
+        }
+    }
     if !errors.is_empty() {
         let body = serde_json::json!({ "errors": errors });
         return Ok((StatusCode::UNPROCESSABLE_ENTITY, Json(body)).into_response());
@@ -246,15 +269,24 @@ pub async fn save(
             if let Some(l) = &lang {
                 profile::set_lang(&tx, uid, l)?;
             }
+            if !reading.is_empty() {
+                let mut r = crate::reading::load(&tx, uid)?;
+                for (field, v) in &reading {
+                    let _ = r.set(field, v);
+                }
+                crate::reading::save(&tx, uid, &r)?;
+            }
             let p = profile::load(&tx, uid)?;
+            let r = crate::reading::load(&tx, uid)?;
             tx.commit()?;
-            Ok(p)
+            Ok(p.map(|p| (p, r)))
         })
         .await?;
-    let p = p.ok_or(AppError::Unauthorized)?;
+    let (p, r) = p.ok_or(AppError::Unauthorized)?;
     tracing::info!("user {uid} updated their profile");
 
-    Ok(Json(serde_json::json!({ "display_name": profile::display_name(&p.first_name, &p.last_name) })).into_response())
+    // The reading classes as stored, for the page to put on its <html> at once.
+    Ok(Json(serde_json::json!({ "display_name": profile::display_name(&p.first_name, &p.last_name), "reading": r.classes() })).into_response())
 }
 
 // ---------- two-factor sign-in (two_factor.rs) ----------

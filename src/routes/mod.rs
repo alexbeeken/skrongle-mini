@@ -416,6 +416,7 @@ pub fn router(state: Arc<AppState>) -> Router {
     app.layer(axum::middleware::from_fn(crate::security::csrf))
         .layer(axum::middleware::from_fn(read_small_body))
         .layer(axum::middleware::from_fn(crate::i18n::middleware))
+        .layer(axum::middleware::from_fn(crate::reading::middleware))
         .layer(axum::middleware::from_fn(move |req, next| crate::security::headers(secure, req, next)))
         // Applied first, so a route's own `big` limit (set later, inside) wins.
         .layer(axum::extract::DefaultBodyLimit::max(BODY_LIMIT))

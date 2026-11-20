@@ -1676,6 +1676,32 @@ after a jump and while scrolling.
 shown in (the same picker the login and register pages have); it saves at
 once and the page reloads in the new language. See [i18n](i18n).
 
+**Reading** (#233). A card of five choices, each a row of buttons that saves
+at once (`POST /api/profile`, fields `read_size` `1`–`4`, `read_spacing`
+`standard`|`wider`, `read_letters` `standard`|`easier`, `read_contrast`
+`standard`|`stronger`, `read_motion` `standard`|`less`; any other value is
+refused) and changes the page at once, with no reload:
+
+- **Text size**: four steps (100, 112.5, 125 and 150 % of the page's own
+  size), the buttons drawn at their own size.
+- **Spacing**: Wider puts more room between lines, words and letters.
+- **Letters**: *Easier to tell apart* uses Atkinson Hyperlegible (regular
+  and bold, about 34 KB of `woff2` in the binary, under its SIL Open Font
+  Licence in `static/vendor/`), fetched only by a page that uses it.
+- **Contrast**: Stronger darkens text and borders and underlines links, in
+  light and dark.
+- **Movement**: Less turns off what a device asking for reduced motion turns
+  off (pops, slides, confetti, smooth scrolling); that device gets it with no
+  setting touched. Scripts ask `window.lessMotion()`.
+- **Back to standard** puts all five back.
+
+The choices are the account's (`users.reading`, `src/reading.rs`): the
+server writes them as classes on every page's `<html>` (`read-size-2`…`4`,
+`read-wide`, `read-easy`, `read-contrast`, `read-calm`;
+`static/reading.css`), so a page never shows the standard look first, on
+every page of every course and every device the account signs in on.
+Signed-out pages (login, the front page) stay standard.
+
 **Saving as you edit.** The names and the language
 have no Save button: each change posts to
 `POST /api/profile` (only the fields that changed; all or nothing, a refused

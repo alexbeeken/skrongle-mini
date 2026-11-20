@@ -155,6 +155,9 @@ pub struct CurrentUser {
     /// `users.lang`: the language the app speaks to this account in
     /// (`i18n`), '' for "whatever the browser asks for".
     pub lang: String,
+    /// `users.reading`: the account's reading settings (#233, `reading.rs`),
+    /// written on every page's `<html>`.
+    pub reading: crate::reading::Reading,
     /// The browser's offset from UTC in seconds (the `tz` cookie
     /// `sprint.js` sets; 0 without one): where this request's local day
     /// starts, for the daily goal, the streak and the earnings ledger.
@@ -180,6 +183,7 @@ impl CurrentUser {
             ai_off: false,
             apps_on: false,
             lang: String::new(),
+            reading: crate::reading::Reading::default(),
             tz: 0,
         }
     }
@@ -392,7 +396,7 @@ fn session_sql() -> String {
     format!(
         "SELECT u.id, COALESCE(u.email, ''), u.active_course, c.title, u.first_name, u.last_name, NULL, NULL, {}, u.email_verified_at IS NOT NULL, u.owner,
                 COALESCE(p.start_unit, ''), NULL, u.lang, c.owner_id, u.must_change_password,
-                s.expires_at, u.perms, {}
+                s.expires_at, u.perms, {}, u.reading
          FROM sessions s JOIN users u ON u.id = s.user_id LEFT JOIN courses c ON c.id = u.active_course
          LEFT JOIN projects p ON p.user_id = u.id AND p.course_id = u.active_course
          WHERE s.session_token = ?1 AND s.expires_at > ?2",
@@ -424,6 +428,7 @@ fn read_session(conn: &Connection, hash: &str, now: i64) -> rusqlite::Result<Opt
                 perms: Perms::from_bits(r.get(17)?),
                 start_unit: r.get(11)?,
                 lang: r.get(13)?,
+                reading: crate::reading::Reading::parse(&r.get::<_, String>(19)?),
                 tz: 0,
             };
             Ok((user, r.get(16)?))
@@ -502,6 +507,7 @@ async fn resolve_user(parts: &Parts, state: &AppState) -> Result<Option<(String,
         u.tz = crate::routes::sprint::tz_offset_secs(&parts.headers);
         // The account's language wins over the cookie and the browser's.
         crate::i18n::set_current(&u.lang);
+        crate::reading::set_current(u.reading);
         if u.course_title.is_none() {
             u.course_title = u.course_id.as_deref().and_then(|id| state.courses.builtin_by_id(id)).map(|c| c.title().to_string());
         }

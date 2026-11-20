@@ -228,6 +228,7 @@ profile:
   nav:
     label: Profile sections
     personal: Personal information
+    reading: "Reading"
     account: Account
     two_factor: Two-factor authentication
   personal:
@@ -239,6 +240,29 @@ profile:
     verified: Verified
     language: Language
     language_unavailable: That language is not available.
+  reading:
+    title: "Reading"
+    intro: "These choices follow your account into every course, on every device you sign in on."
+    size: "Text size"
+    size_1: "Standard"
+    size_2: "Large"
+    size_3: "Larger"
+    size_4: "Largest"
+    standard: "Standard"
+    spacing: "Spacing"
+    wider: "Wider"
+    spacing_hint: "More room between lines, words and letters."
+    letters: "Letters"
+    easier: "Easier to tell apart"
+    letters_hint: "A typeface where I, l and 1, or b and d, are harder to mix up."
+    contrast: "Contrast"
+    stronger: "Stronger"
+    contrast_hint: "Darker text, firmer borders, underlined links."
+    motion: "Movement"
+    less: "Less"
+    motion_hint: "Turns off pops, slides and confetti. Already off when your device asks for less motion."
+    reset: "Back to standard"
+    unknown: "That choice is not available."
   account:
     title: Account
     sign_in: Sign-in

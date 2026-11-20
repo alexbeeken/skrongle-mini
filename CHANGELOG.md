@@ -6,6 +6,12 @@ numbers work is in the README, "Versions".
 
 ## Unreleased
 
+- **Reading settings on Profile.** A new *Reading* card lets each person
+  pick a larger text size, wider spacing, letters that are easier to tell
+  apart, stronger contrast and less movement. The choices follow the account
+  onto every page and device. **This release changes the database**: it adds
+  one column, `users.reading` (schema v10).
+
 - **Sign-up no longer asks a person's age while new accounts start as
   Student** (the default). The "I am at least 14 years old" box is gone from
   the register form and invitation links, and nothing about age is stored

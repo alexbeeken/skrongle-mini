@@ -1,0 +1,4 @@
+{# In every page's <head>, after its own stylesheet (#233): the reading settings' CSS (static/reading.css; the server writes its classes on <html>, crate::reading::classes), ?reduce-motion=1 for tests and screenshots, and lessMotion(), the one question a script asks before it moves anything: Less movement on Profile, ?reduce-motion=1, or the device asking for reduced motion. #}
+<link rel="stylesheet" href="{{ crate::routes::asset_url("reading.css") }}">
+<script>if (/[?&]reduce-motion=1\b/.test(location.search)) document.documentElement.classList.add('reduce-motion');
+window.lessMotion = function () { var c = document.documentElement.classList; return c.contains("read-calm") || c.contains("reduce-motion") || !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches); };</script>

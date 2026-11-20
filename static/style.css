@@ -33,7 +33,7 @@
 :root { --ok-text: #1d7444; }
 @media (prefers-color-scheme: dark) { :root { --ok-text: #4cba78; } }
 * { box-sizing: border-box; }
-html { font-family: var(--font); font-size: 100%; line-height: 1.55; color: var(--text); background: var(--bg); }
+html { font-family: var(--font); font-size: calc(100% * var(--read-scale, 1)); /* --read-scale: the Text size reading setting, static/reading.css */ line-height: 1.55; color: var(--text); background: var(--bg); }
 /* With a % root size, Chrome shrinks a lone `monospace` to 13/16; the doubled name keeps code at its size (#342). */
 code, kbd, samp, pre { font-family: monospace, monospace; }
 /* The page is a column at least as tall as the screen: header, the content
@@ -324,6 +324,9 @@ input[type="file"] { max-width: 100%; }
   .start-level, .start-level::after { transition: none; }
   .start-level:has(input:checked), .start-level:active, .start-level:has(input:checked):active { transform: none; }
 }
+/* Less movement on Profile (#233) does the same. */
+html.read-calm .start-level, html.read-calm .start-level::after { transition: none; }
+html.read-calm .start-level:has(input:checked), html.read-calm .start-level:active, html.read-calm .start-level:has(input:checked):active { transform: none; }
 
 /* Lesson */
 .crumbs { font-size: .85rem; color: var(--muted); margin: 0; }
@@ -1279,6 +1282,9 @@ html.reduce-motion *, html.reduce-motion *::before, html.reduce-motion *::after 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+/* Less movement on Profile (#233, static/reading.css) does the same; this
+   rule covers every smaller prefers-reduced-motion rule in this file too. */
+html.read-calm *, html.read-calm *::before, html.read-calm *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 /* The editor's "Add content with AI" modal (ai_job_modal.html). */
 .modal-backdrop { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 1rem; background: rgba(0, 0, 0, .45); }
 .modal { width: 100%; max-width: 480px; max-height: calc(100vh - 2rem); overflow: auto; background: var(--surface); color: var(--text); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.2rem 1.4rem; box-shadow: 0 10px 40px rgba(0, 0, 0, .25); }

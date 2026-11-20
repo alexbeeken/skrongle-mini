@@ -46,7 +46,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 
 - Sign-in: `auth.rs` (sessions, CurrentUser, Project), `auth/cache.rs` (the signed-in users kept in memory by session, #37), `auth/api.rs` (connected apps, #167: grants, hashed bearer tokens, the `Scope`s, the `ApiUser` extractor), `routes/auth.rs`, `routes/auth/code.rs` (the two-factor step), `proxy_auth.rs` (proxy header), `signup.rs` (who may register), `urlenc.rs` (percent-encoding for the redirects they build).
 - Two-factor: `two_factor.rs`, `totp.rs`.
-- Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`; its Connected apps section (#167): `routes/profile/apps.rs`.
+- Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`; its Connected apps section (#167): `routes/profile/apps.rs`; its Reading card (#233): `reading.rs` (`users.reading`, the classes every page writes on `<html>`), `static/reading.css` (with the Atkinson Hyperlegible fonts in `static/vendor/`), `templates/reading_head.html` (in every page's head, with `lessMotion()`, the one question scripts ask before they move anything).
 - Connected apps' API (#167): `routes/api.rs` (`/api/v1/…`, bearer token only); the owner's switch and list: `routes/manage/apps.rs`, the switch in `settings.rs` (`APPS_ON`).
 - The MCP server (#168, `docs/api.md`): `routes/mcp.rs` (the HTTP gate of `POST /mcp`: switch, `Origin`, method, content type, bearer, per-grant limit, body cap, scopes), `mcp.rs` (JSON-RPC: `initialize`, `ping`, `tools/list`, `tools/call`, batches of 10), `mcp/tools.rs` (the six course tools), `mcp/format.rs` (`get_course_format`: `docs/course-format.md` by heading, the test course embedded as the example). The tools write through the editor's own functions in `routes/courses/write.rs` (`own_course`, `check_file`, `course_write_refused`, `may_create_courses`, `store_files`) and `store_copy` in `routes/courses/create.rs`.
 - OAuth sign-in for apps that connect from the cloud (#169, `docs/api.md` "OAuth"): `oauth_server.rs` (the rules over a connection: redirect addresses, registration and its bounds, PKCE S256, the request's checks, Allow's grant and code, the code exchange, refresh rotation, revoke, the purge), `routes/oauth.rs` (the discovery documents, `/oauth/authorize` with the consent page, `/oauth/token`, `/oauth/register`, `/oauth/revoke`; the issuer from `SKRONGLE_PUBLIC_URL`; `resume` carries a signed-out request through the sign-in in `routes/auth.rs`), templates `oauth_consent.html`, `oauth_error.html`, `oauth_no_permission.html`; the dev build's test client: `routes/dev/oauth_client.rs`, `templates/dev_oauth_client.html`.
@@ -95,6 +95,7 @@ src/
   totp.rs        time-based one-time passwords: RFC 6238 TOTP over RFC 4226 HOTP (SHA-1 written out, SHA-256/512 via sha2), base32, the otpauth://totp/ Key Uri Format and its QR code as inline SVG (the qrcode crate, no image feature); the dev authenticator (/dev/authenticator) reads its keys with it
   two_factor.rs  two-factor sign-in: on or off, the authenticator app's enrolment, sign-in challenges, the proof for turning it off (tables totp_keys, two_factor_challenges)
   profile.rs     user profiles: name/e-mail validation, profile persistence
+  reading.rs     reading settings (#233): users.reading parsed in one place, the request's classes for <html>
   secrets.rs     the server's AI API keys (#25, table server_api_keys; the owner's, set on /manage, used by every account): master secret, ChaCha20-Poly1305 sealing
   settings.rs    server-wide settings the owner changes on /manage (table settings, #25): ai_off, the switch that hides every AI feature for every account (read into CurrentUser::ai_off by the session query)
   prices.rs      the price table behind the Generate dialog's cost estimate (SKRONGLE_AI_PRICES)
@@ -247,7 +248,7 @@ them all), the session expires or a minute passes. Before that, an account signe
 (`users.must_change_password`, #635) is sent to `/password/change?next=<path>`
 the same way (`/api/*`: 403); that page takes `MaybeUser`.
 `MaybeUser` (pages that work logged out) does not check. Both set the
-request's language to the account's `users.lang` (see [i18n](i18n)); before
+request's language to the account's `users.lang` (see [i18n](i18n)), and its reading settings to `users.reading` (`reading::set_current`, which every page's `<html>` reads; a signed-out request stays standard); before
 them, the `i18n::middleware` layer picked one from the `lang` cookie or
 `Accept-Language`. `Project` adds the active
 course: `users.active_course` → the registry (`Courses::get`) → an
@@ -302,7 +303,7 @@ session JSON, never hard-coded.
 ```sql
 users          (id AUTOINCREMENT, email, password_hash, created_at, email_verified_at, first_name, last_name,
                 age_confirmed, owner, must_change_password, two_factor, active_course, lang, review_quiet,
-                ai_effort, delete_at, perms, preset_id)
+                ai_effort, delete_at, perms, preset_id, reading)
                 -- id is never reused after a deletion (AUTOINCREMENT);
                 -- email is what a password account signs in with, set once and never changed;
                 -- password_hash is '' for accounts without one (proxy sign-in);
@@ -315,6 +316,7 @@ users          (id AUTOINCREMENT, email, password_hash, created_at, email_verifi
                 -- two_factor: the second sign-in step, '' (off) | 'totp' (src/two_factor.rs);
                 -- active_course: the course the account is in;
                 -- lang: the language the app speaks to this account in (i18n/<code>.yaml), '' = the browser's;
+                -- reading: the reading settings (#233, src/reading.rs), words like "size-3 wide easy contrast calm", '' = all standard;
                 -- review_quiet 1: "Review AI changes" does not open by itself;
                 -- ai_effort: the effort Generate the course last ran at: low | medium | high (Fast, Balanced, Thorough);
                 -- delete_at: unused, nothing reads or writes it; stays until the next schema change
@@ -444,7 +446,7 @@ migrations (`v002_no_skc.sql` drops `motivator_purchases` and turns a saved
 `courses.error_kind`; `v006_api_grants.sql` adds connected apps' `api_grants` and `api_tokens`;
 `v007_oauth.sql` adds OAuth's `oauth_clients` and `oauth_codes`; `v008_refresh_reuse.sql` adds
 `api_tokens.used_at`, so a reused refresh token revokes its grant; `v009_refresh_family.sql` drops it again for
-`api_grants.refresh_family_hash`, so any earlier refresh token revokes its grant), which `src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
+`api_grants.refresh_family_hash`, so any earlier refresh token revokes its grant; `v010_reading.sql` adds `users.reading`, the reading settings), which `src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
 how many have run, and a later change appends its own entry with a
 `.down.sql` beside it that takes it back (`db::migrate_to`, behind `skrongle migrate <schema-version>`;
 `db::tests::every_down_restores_the_schema_before_it` holds each one to the schema before it). A database

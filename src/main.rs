@@ -46,6 +46,7 @@ mod progress;
 mod proxy_auth;
 mod quiz;
 mod random;
+mod reading;
 mod report;
 mod review;
 mod routes;

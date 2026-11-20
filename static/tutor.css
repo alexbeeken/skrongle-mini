@@ -11,7 +11,7 @@
     --tutor-bg: #2b2440; --ok-bg: #16331f; --bad-bg: #3a1c19; }
 }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html { font-family: var(--font); font-size: 100%; line-height: 1.5; color: var(--text); background: var(--bg); }
+html { font-family: var(--font); font-size: calc(100% * var(--read-scale, 1)); /* --read-scale: static/reading.css */ line-height: 1.5; color: var(--text); background: var(--bg); }
 body { margin: 0; background: var(--bg); overscroll-behavior-y: contain; }
 a { color: var(--accent); text-decoration: none; }
 button, textarea, select { font: inherit; color: inherit; }
@@ -99,3 +99,5 @@ button, textarea, select { font: inherit; color: inherit; }
 
 /* The system's "reduce motion" setting stops the typing dots (#342). */
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+/* Less movement on Profile (#233, static/reading.css) does the same. */
+html.read-calm *, html.read-calm *::before, html.read-calm *::after { animation: none !important; transition: none !important; }
