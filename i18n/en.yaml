@@ -3110,3 +3110,77 @@ oauth:
 
 students:
   username_rule: "A username has {min} to {max} characters: a to z, 0 to 9, dots, dashes and underscores, starting with a letter or a digit."
+
+# The Students page (#218): a teacher's list, adding, the sign-in sheet.
+students_page:
+  nav: Students
+  title: Students
+  count: "{n} of {max}"
+  empty: "No students yet. Add your class below."
+  with_picked: "Ticked students:"
+  new_passwords: New passwords
+  delete_picked: Delete picked
+  pick_all: Pick every student
+  pick: "Pick {name}"
+  name: Name
+  username: Username
+  password: Password
+  passed: Lessons passed
+  last_studied: Last studied
+  never: Never
+  today: Today
+  yesterday: Yesterday
+  days_ago:
+    one: "{n} day ago"
+    other: "{n} days ago"
+  add_title: Add students
+  paste: "Paste names, one per line. You can add {n} more."
+  next: "Next: usernames and passwords"
+  no_names: "Paste at least one name, one per line."
+  too_many:
+    one: "Too many names: the box takes {n} more student."
+    other: "Too many names: the box takes {n} more students."
+  full: "The box holds {max} student accounts, its limit."
+  full_setting: "Whoever runs the box can raise the limit with the setting SKRONGLE_STUDENT_LIMIT."
+  rows_about: "Check the usernames, then save. Leave a password empty and one is made."
+  room:
+    one: "{n} more fits."
+    other: "{n} more fit."
+  username_of: "Username for {name}"
+  password_of: "Password for {name}"
+  password_made: "Empty: one is made"
+  password_rule: "A password you type has at least 8 characters. A made one is eight letters and digits that are hard to mix up."
+  save_rows: Save and show the sign-in sheet
+  taken: "The username {username} is taken. Choose another."
+  added:
+    one: "{n} student added."
+    other: "{n} students added."
+  sheet_title: Sign-in sheet
+  sheet_once: "This is the only time these passwords are shown. Print the sheet or write them down before you leave this page."
+  sheet_gone: "The passwords on a sign-in sheet are shown only once, and are not kept. To hand out new ones, tick students on the Students page and click New passwords."
+  sheet_about: "Each box is one slip to cut out. The sheet prints in black on white with no pictures. Made passwords are eight letters and digits that are hard to mix up: no 0, o, 1, l or i."
+  print: Print
+  back: Back to Students
+  address: Address
+  new_passwords_question:
+    one: "Give {n} student a new password?"
+    other: "Give {n} students new passwords?"
+  new_passwords_done:
+    one: "New password for {n} student."
+    other: "New passwords for {n} students."
+  new_password_about: "The old password stops working and the student is signed out. The new one is shown once, on a sign-in sheet."
+  delete_question:
+    one: "Delete {n} student?"
+    other: "Delete {n} students?"
+  delete_about: "The account goes with everything in it: its progress and its answers. This cannot be undone."
+  deleted:
+    one: "{n} student deleted."
+    other: "{n} students deleted."
+  none_picked: "Tick at least one student first."
+  details: Name and username
+  save: Save
+  saved: Saved.
+  new_password: New password
+  set_password: Set the password
+  delete: Delete this student
+  cancel: Cancel

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("students_page.add_title") }}{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ crate::routes::asset_url("students.css") }}">{% endblock %}
+{% block content %}
+<section class="students" data-testid="students-add-page">
+  <p class="small"><a href="{{ crate::url("/students") }}" data-testid="students-back">← {{ crate::t("students_page.title") }}</a></p>
+  <h1>{{ crate::t("students_page.add_title") }}</h1>
+  <p>{{ crate::t("students_page.rows_about") }} <span class="muted" data-testid="students-room">{{ crate::tn("students_page.room", room) }}</span></p>
+  {% if let Some(e) = error %}<p class="alert error" role="alert" data-testid="students-error">{{ e }}</p>{% endif %}
+  <form method="post" action="{{ crate::url("/students/sheet") }}" data-testid="students-rows-form">
+    <div class="table-scroll"><table class="small students-rows" data-testid="students-rows">
+      <thead><tr>
+        <th>{{ crate::t("students_page.name") }}</th>
+        <th>{{ crate::t("students_page.username") }}</th>
+        <th>{{ crate::t("students_page.password") }}</th>
+      </tr></thead>
+      <tbody>{% for r in rows %}
+        <tr data-testid="students-add-row">
+          <td><input type="hidden" name="name" value="{{ r.name }}"><span data-testid="students-add-name">{{ r.name }}</span></td>
+          <td><input type="text" name="username" value="{{ r.username }}" autocomplete="off" autocapitalize="none" spellcheck="false" aria-label="{{ crate::t1("students_page.username_of", "name", r.name) }}" data-testid="students-add-username"></td>
+          <td><input type="text" name="password" value="{{ r.password }}" autocomplete="off" spellcheck="false" placeholder="{{ crate::t("students_page.password_made") }}" aria-label="{{ crate::t1("students_page.password_of", "name", r.name) }}" data-testid="students-add-password"></td>
+        </tr>{% endfor %}
+      </tbody>
+    </table></div>
+    <p class="muted small">{{ crate::t("students_page.password_rule") }}</p>
+    <p><button type="submit" class="btn" data-testid="students-add-save">{{ crate::t("students_page.save_rows") }}</button></p>
+  </form>
+</section>
+{% endblock %}

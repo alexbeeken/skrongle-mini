@@ -218,15 +218,15 @@ fn manage_users_counts_students_on_their_teachers_row() {
 
 // ---------- the routes ----------
 
-struct Server {
-    rt: tokio::runtime::Runtime,
-    base: String,
-    agent: ureq::Agent,
-    state: std::sync::Arc<crate::AppState>,
+pub(crate) struct Server {
+    pub(crate) rt: tokio::runtime::Runtime,
+    pub(crate) base: String,
+    pub(crate) agent: ureq::Agent,
+    pub(crate) state: std::sync::Arc<crate::AppState>,
 }
 
 impl Server {
-    fn start() -> Server {
+    pub(crate) fn start() -> Server {
         let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
         let state = crate::routes::test_state(false);
         let app = crate::routes::router(state.clone());
@@ -248,19 +248,19 @@ impl Server {
         (r.status().as_u16(), location, cookie, r.body_mut().read_to_string().unwrap_or_default())
     }
 
-    fn get(&self, path: &str, cookie: &str) -> (u16, String, String, String) {
+    pub(crate) fn get(&self, path: &str, cookie: &str) -> (u16, String, String, String) {
         Self::send(self.agent.get(&format!("{}{path}", self.base)).header("cookie", cookie).call())
     }
 
-    fn post(&self, path: &str, cookie: &str, form: &[(&str, &str)]) -> (u16, String, String, String) {
+    pub(crate) fn post(&self, path: &str, cookie: &str, form: &[(&str, &str)]) -> (u16, String, String, String) {
         Self::send(self.agent.post(&format!("{}{path}", self.base)).header("cookie", cookie).send_form(form.iter().copied()))
     }
 
-    fn post_json(&self, path: &str, cookie: &str, body: &str) -> (u16, String, String, String) {
+    pub(crate) fn post_json(&self, path: &str, cookie: &str, body: &str) -> (u16, String, String, String) {
         Self::send(self.agent.post(&format!("{}{path}", self.base)).header("cookie", cookie).header("content-type", "application/json").send(body))
     }
 
-    fn login(&self, name: &str, password: &str) -> (u16, String, String, String) {
+    pub(crate) fn login(&self, name: &str, password: &str) -> (u16, String, String, String) {
         self.post("/login", "", &[("email", name), ("password", password)])
     }
 }

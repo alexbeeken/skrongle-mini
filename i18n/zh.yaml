@@ -3107,3 +3107,77 @@ oauth:
 
 students:
   username_rule: "用户名为 {min} 到 {max} 个字符：a 到 z、0 到 9、点、短横线和下划线，并以字母或数字开头。"
+
+# The Students page (#218): a teacher's list, adding, the sign-in sheet.
+students_page:
+  nav: 学生
+  title: 学生
+  count: "{n} / {max}"
+  empty: "还没有学生。在下方添加你的班级。"
+  with_picked: "勾选的学生："
+  new_passwords: 新密码
+  delete_picked: 删除勾选的
+  pick_all: 勾选全部学生
+  pick: "勾选 {name}"
+  name: 姓名
+  username: 用户名
+  password: 密码
+  passed: 已通过课程
+  last_studied: 最近学习
+  never: 从未
+  today: 今天
+  yesterday: 昨天
+  days_ago:
+    one: "{n} 天前"
+    other: "{n} 天前"
+  add_title: 添加学生
+  paste: "粘贴姓名，每行一个。你还可以添加 {n} 个。"
+  next: "下一步：用户名和密码"
+  no_names: "请至少粘贴一个姓名，每行一个。"
+  too_many:
+    one: "姓名太多：这台设备还能容纳 {n} 名学生。"
+    other: "姓名太多：这台设备还能容纳 {n} 名学生。"
+  full: "这台设备已有 {max} 个学生账户，达到上限。"
+  full_setting: "设备的管理者可以通过设置 SKRONGLE_STUDENT_LIMIT 提高上限。"
+  rows_about: "检查用户名，然后保存。密码留空会自动生成。"
+  room:
+    one: "还能添加 {n} 个。"
+    other: "还能添加 {n} 个。"
+  username_of: "{name} 的用户名"
+  password_of: "{name} 的密码"
+  password_made: "留空：自动生成"
+  password_rule: "自己输入的密码至少 8 个字符。自动生成的密码由八个不易混淆的字母和数字组成。"
+  save_rows: 保存并显示登录单
+  taken: "用户名 {username} 已被使用。请换一个。"
+  added:
+    one: "已添加 {n} 名学生。"
+    other: "已添加 {n} 名学生。"
+  sheet_title: 登录单
+  sheet_once: "这些密码只显示这一次。离开此页面前请打印或记下来。"
+  sheet_gone: "登录单上的密码只显示一次，且不会保存。要发放新密码，请在“学生”页面勾选学生并点击“新密码”。"
+  sheet_about: "每个方框是一张可剪下的纸条。登录单以白底黑字打印，不含图片。自动生成的密码由八个不易混淆的字母和数字组成：没有 0、o、1、l 或 i。"
+  print: 打印
+  back: 返回学生
+  address: 地址
+  new_passwords_question:
+    one: "给 {n} 名学生设置新密码？"
+    other: "给 {n} 名学生设置新密码？"
+  new_passwords_done:
+    one: "已为 {n} 名学生设置新密码。"
+    other: "已为 {n} 名学生设置新密码。"
+  new_password_about: "旧密码将失效，学生会被登出。新密码只在登录单上显示一次。"
+  delete_question:
+    one: "删除 {n} 名学生？"
+    other: "删除 {n} 名学生？"
+  delete_about: "账户及其中的一切都会被删除：学习进度和答案。此操作无法撤销。"
+  deleted:
+    one: "已删除 {n} 名学生。"
+    other: "已删除 {n} 名学生。"
+  none_picked: "请先勾选至少一名学生。"
+  details: 姓名和用户名
+  save: 保存
+  saved: 已保存。
+  new_password: 新密码
+  set_password: 设置密码
+  delete: 删除此学生
+  cancel: 取消

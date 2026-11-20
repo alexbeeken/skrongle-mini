@@ -36,7 +36,6 @@ pub fn normalize_username(raw: &str) -> Result<String, String> {
 
 /// One student account to make: the username as typed (checked by
 /// [`create`]), the hash of its first password, and its names.
-#[cfg_attr(not(any(test, feature = "dev")), allow(dead_code))] // made by /dev/student and the tests until the Students page (#218)
 #[derive(Debug, Clone, Default)]
 pub struct NewStudent {
     pub username: String,
@@ -46,7 +45,6 @@ pub struct NewStudent {
 }
 
 /// Why no student account was made.
-#[cfg_attr(not(any(test, feature = "dev")), allow(dead_code))] // made by /dev/student and the tests until the Students page (#218)
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Refused {
     /// The account may not hold students: no Hold students permission and
@@ -63,7 +61,6 @@ pub enum Refused {
 
 /// May this account hold students? An owner may, a normal account with
 /// Hold students may; a student never does.
-#[cfg_attr(not(any(test, feature = "dev")), allow(dead_code))] // made by /dev/student and the tests until the Students page (#218)
 pub fn may_hold(conn: &Connection, user_id: i64) -> rusqlite::Result<bool> {
     let row: Option<(bool, i64, bool)> = conn
         .query_row("SELECT owner, perms, teacher_id IS NOT NULL FROM users WHERE id = ?1", [user_id], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?)))
@@ -76,7 +73,7 @@ pub fn is_student(conn: &Connection, user_id: i64) -> rusqlite::Result<bool> {
 }
 
 /// How many student accounts this teacher holds.
-#[cfg_attr(not(test), allow(dead_code))] // the Students page (#218) calls it
+#[cfg_attr(not(any(test, feature = "dev")), allow(dead_code))] // /dev/student and the tests; the Students page counts its list
 pub fn count(conn: &Connection, teacher_id: i64) -> rusqlite::Result<i64> {
     conn.query_row("SELECT COUNT(*) FROM users WHERE teacher_id = ?1", [teacher_id], |r| r.get(0))
 }
@@ -90,33 +87,44 @@ fn username_taken(conn: &Connection, username: &str) -> rusqlite::Result<bool> {
     conn.query_row("SELECT EXISTS(SELECT 1 FROM users WHERE username = ?1)", [username], |r| r.get(0))
 }
 
-/// Make student accounts for `teacher_id`: every one of `students`, or none.
-/// Each username is checked and stored as [`normalize_username`] gives it;
-/// the box may not go over its student limit (`caps::students_full`; the
-/// dev server is never full). The new accounts' ids, in order.
-#[cfg_attr(not(any(test, feature = "dev")), allow(dead_code))] // made by /dev/student and the tests until the Students page (#218)
-pub fn create(conn: &Connection, teacher_id: i64, students: &[NewStudent], dev: bool) -> rusqlite::Result<Result<Vec<i64>, Refused>> {
+/// Would [`create`] take these usernames for `teacher_id`? The usernames as
+/// stored, or the refusal `create` would give, with nothing written: the
+/// Students page asks before it hashes any password.
+pub fn check(conn: &Connection, teacher_id: i64, usernames: &[&str], dev: bool) -> rusqlite::Result<Result<Vec<String>, Refused>> {
     if !may_hold(conn, teacher_id)? {
         return Ok(Err(Refused::NotTeacher));
     }
-    if students.is_empty() {
-        return Ok(Ok(Vec::new()));
-    }
     // `students_full(n)` is "n is at the limit": the last new one must still
     // find room, so the count before it is what is asked.
-    if crate::caps::students_full(count_all(conn)? + students.len() as i64 - 1, dev) {
+    if !usernames.is_empty() && crate::caps::students_full(count_all(conn)? + usernames.len() as i64 - 1, dev) {
         return Ok(Err(Refused::Full));
     }
-    let mut names: Vec<String> = Vec::with_capacity(students.len());
-    for s in students {
-        let name = match normalize_username(&s.username) {
+    let mut names: Vec<String> = Vec::with_capacity(usernames.len());
+    for raw in usernames {
+        let name = match normalize_username(raw) {
             Ok(n) => n,
-            Err(why) => return Ok(Err(Refused::BadUsername(s.username.clone(), why))),
+            Err(why) => return Ok(Err(Refused::BadUsername(raw.to_string(), why))),
         };
         if names.contains(&name) || username_taken(conn, &name)? {
             return Ok(Err(Refused::Taken(name)));
         }
         names.push(name);
+    }
+    Ok(Ok(names))
+}
+
+/// Make student accounts for `teacher_id`: every one of `students`, or none.
+/// Each username is checked and stored as [`normalize_username`] gives it;
+/// the box may not go over its student limit (`caps::students_full`; the
+/// dev server is never full). The new accounts' ids, in order.
+pub fn create(conn: &Connection, teacher_id: i64, students: &[NewStudent], dev: bool) -> rusqlite::Result<Result<Vec<i64>, Refused>> {
+    let usernames: Vec<&str> = students.iter().map(|s| s.username.as_str()).collect();
+    let names = match check(conn, teacher_id, &usernames, dev)? {
+        Ok(names) => names,
+        Err(why) => return Ok(Err(why)),
+    };
+    if students.is_empty() {
+        return Ok(Ok(Vec::new()));
     }
     // All or none: a savepoint works inside a caller's transaction too.
     conn.execute_batch("SAVEPOINT students_create")?;
@@ -147,7 +155,6 @@ pub fn create(conn: &Connection, teacher_id: i64, students: &[NewStudent], dev: 
 
 /// The teacher changes a student's username. `Ok(false)` when the student
 /// is not theirs.
-#[cfg_attr(not(test), allow(dead_code))] // the Students page (#218) calls it
 pub fn rename(conn: &Connection, teacher_id: i64, student_id: i64, raw: &str) -> rusqlite::Result<Result<bool, Refused>> {
     let name = match normalize_username(raw) {
         Ok(n) => n,
@@ -165,7 +172,6 @@ pub fn rename(conn: &Connection, teacher_id: i64, student_id: i64, raw: &str) ->
 /// and every open session of the student ends. False when the student is
 /// not theirs. Two plain statements, as `auth::create_session`: inside a
 /// caller's transaction they commit or roll back with it.
-#[cfg_attr(not(test), allow(dead_code))] // the Students page (#218) calls it
 pub fn set_password(conn: &Connection, teacher_id: i64, student_id: i64, password_hash: &str) -> rusqlite::Result<bool> {
     let n = conn.execute("UPDATE users SET password_hash = ?3 WHERE id = ?2 AND teacher_id = ?1", params![teacher_id, student_id, password_hash])?;
     if n > 0 {
@@ -177,7 +183,6 @@ pub fn set_password(conn: &Connection, teacher_id: i64, student_id: i64, passwor
 /// The teacher deletes students: each account goes with its progress and
 /// sessions (every user table cascades from `users`). Ids that are not the
 /// teacher's students are left alone. How many went.
-#[cfg_attr(not(test), allow(dead_code))] // the Students page (#218) calls it
 pub fn delete(conn: &Connection, teacher_id: i64, student_ids: &[i64]) -> rusqlite::Result<usize> {
     let mut n = 0;
     for id in student_ids {
@@ -188,7 +193,6 @@ pub fn delete(conn: &Connection, teacher_id: i64, student_ids: &[i64]) -> rusqli
 
 /// One of the teacher's students, as a list shows it.
 #[derive(Debug, Clone, PartialEq, Eq)]
-#[cfg_attr(not(test), allow(dead_code))] // the Students page (#218) reads it
 pub struct Student {
     pub id: i64,
     pub username: String,
@@ -197,17 +201,70 @@ pub struct Student {
 }
 
 /// The teacher's students, by username.
-#[cfg_attr(not(test), allow(dead_code))] // the Students page (#218) calls it
 pub fn list(conn: &Connection, teacher_id: i64) -> rusqlite::Result<Vec<Student>> {
     let mut stmt = conn.prepare_cached("SELECT id, COALESCE(username, ''), first_name, last_name FROM users WHERE teacher_id = ?1 ORDER BY username")?;
     let rows = stmt.query_map([teacher_id], |r| Ok(Student { id: r.get(0)?, username: r.get(1)?, first_name: r.get(2)?, last_name: r.get(3)? }))?;
     rows.collect()
 }
 
+/// One of the teacher's students, or `None` when the id is not theirs.
+pub fn find(conn: &Connection, teacher_id: i64, student_id: i64) -> rusqlite::Result<Option<Student>> {
+    conn.query_row(
+        "SELECT id, COALESCE(username, ''), first_name, last_name FROM users WHERE id = ?2 AND teacher_id = ?1",
+        params![teacher_id, student_id],
+        |r| Ok(Student { id: r.get(0)?, username: r.get(1)?, first_name: r.get(2)?, last_name: r.get(3)? }),
+    )
+    .optional()
+}
+
+/// The teacher changes a student's first and last name (already checked
+/// with `profile::validate_name`). False when the student is not theirs.
+pub fn set_names(conn: &Connection, teacher_id: i64, student_id: i64, first_name: &str, last_name: &str) -> rusqlite::Result<bool> {
+    let n = conn.execute("UPDATE users SET first_name = ?3, last_name = ?4 WHERE id = ?2 AND teacher_id = ?1", params![teacher_id, student_id, first_name, last_name])?;
+    Ok(n > 0)
+}
+
+/// How a student is getting on, as the Students page shows it.
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
+pub struct Progress {
+    /// Lessons passed, in every course (`lesson_passes.passed_at`, the one
+    /// rule of `progress.rs`, as `progress::passed_by_course` counts them).
+    pub passed: i64,
+    /// When it last worked on a lesson, in any mode or course (the latest of
+    /// `activity::last_touched`'s times); `None` for never.
+    pub last_studied: Option<i64>,
+}
+
+/// Every student of the teacher's progress, by student id: two grouped
+/// queries for the whole class, not two per student. A student with no
+/// row has done nothing yet (`Progress::default()`).
+pub fn progress(conn: &Connection, teacher_id: i64) -> rusqlite::Result<std::collections::HashMap<i64, Progress>> {
+    let mut out: std::collections::HashMap<i64, Progress> = std::collections::HashMap::new();
+    let mut stmt = conn.prepare_cached(
+        "SELECT p.user_id, COUNT(*) FROM lesson_passes p JOIN users u ON u.id = p.user_id
+         WHERE u.teacher_id = ?1 AND p.passed_at IS NOT NULL GROUP BY p.user_id",
+    )?;
+    for row in stmt.query_map([teacher_id], |r| Ok((r.get::<_, i64>(0)?, r.get::<_, i64>(1)?)))? {
+        let (id, n) = row?;
+        out.entry(id).or_default().passed = n;
+    }
+    let mut stmt = conn.prepare_cached(
+        "SELECT user_id, MAX(at) FROM (
+           SELECT t.user_id, t.at FROM lesson_touches t JOIN users u ON u.id = t.user_id WHERE u.teacher_id = ?1
+           UNION ALL
+           SELECT p.user_id, p.seen_at FROM lesson_passes p JOIN users u ON u.id = p.user_id WHERE u.teacher_id = ?1 AND p.seen_at IS NOT NULL
+         ) GROUP BY user_id",
+    )?;
+    for row in stmt.query_map([teacher_id], |r| Ok((r.get::<_, i64>(0)?, r.get::<_, i64>(1)?)))? {
+        let (id, at) = row?;
+        out.entry(id).or_default().last_studied = Some(at);
+    }
+    Ok(out)
+}
+
 /// A username made from a name (`Ana García` gives `ana.garcia`), in use
 /// by nobody on the server and not in `also_taken` (the other rows of the
 /// same batch): a number goes on the end until it is free.
-#[cfg_attr(not(test), allow(dead_code))] // the Students page (#218) calls it
 pub fn suggest_username(conn: &Connection, name: &str, also_taken: &[String]) -> rusqlite::Result<String> {
     let words: Vec<String> = name.split_whitespace().map(fold).filter(|w| !w.is_empty()).collect();
     let mut base = words.join(".");
@@ -254,7 +311,6 @@ pub const PASSWORD_CHARS: &[u8] = b"abcdefghjkmnpqrstuvwxyz23456789";
 
 /// A first password to hand to a student: eight of [`PASSWORD_CHARS`].
 /// Only its hash is kept.
-#[cfg_attr(not(test), allow(dead_code))] // the Students page (#218) calls it
 pub fn make_password() -> String {
     let mut bytes = [0u8; 8];
     crate::random::fill(&mut bytes);
