@@ -1702,8 +1702,9 @@ keys). The password dialog keeps its explicit buttons. The page needs JavaScript
   last initial ("Ana L."). An (i) button by the "Personal information" heading opens a
   dialog that says so, with the learner's own "Ana L." (updated as they type),
   and that the address is private.
-- **E-mail address**: what the account signs in with (there are no
-  usernames). Asked for at registration and
+- **E-mail address**: what the account signs in with (only a
+  [student account](#student-accounts) has a username instead, and its
+  profile shows that). Asked for at registration and
   fixed from then on. The profile shows it read-only ("No e-mail on file"
   for an account from before addresses were asked for).
 - **Account**: how the account signs in, and for password accounts a
@@ -1901,7 +1902,7 @@ learner changes at the next sign-in.
 
 ## Permissions
 
-What an account may do is a set of seven permissions (#137, `src/perms.rs`),
+What an account may do is a set of eight permissions (#137, `src/perms.rs`),
 stored as one integer, `users.perms`, one bit each:
 
 | id | bit | Name on screen | Needs | What it allows |
@@ -1910,6 +1911,7 @@ stored as one integer, `users.perms`, one bit each:
 | `ai_courses` | 2 | Use AI in courses | `create_courses` | Generate a course, Use AI / Add content, Edit with AI, Copy and translate |
 | `ai_tutor` | 4 | Use the AI tutor | | The AI tutor (`/tutor`) |
 | `share_courses` | 8 | Share courses | `create_courses` | Make invitation links for one's own course |
+| `hold_students` | 128 | Hold students | | Make student accounts, which sign in with a username and a password, and look after them ([Student accounts](#student-accounts), #217) |
 | `skip_levels` | 16 | Skip levels | | Choose a starting level, change level, take the placement test |
 | `privacy` | 32 | Privacy | | The account's study progress and last sign-in are not shown on Manage Users |
 | `superuser` | 64 | Superuser | | See the accounts on Manage Users, set permissions and presets, see learners' progress |
@@ -1923,8 +1925,8 @@ feature's routes refuse it.
 invitation link; its links keep working and it can remove them
 ([Sharing a course](#sharing-a-course)).
 
-- **Presets**: **Student** is no permission (0), **Teacher** the first six
-  (63, not `superuser`); both are rows of `permission_presets`
+- **Presets**: **Student** is no permission (0), **Teacher** every one but
+  `superuser` (191); both are rows of `permission_presets`
   (`builtin = 1`, ids 1 and 2). An account has its own set and the preset it
   was given (`users.preset_id`, `NULL` = **Custom**). Giving a preset copies
   the preset's set onto the account. A new account is given the
@@ -1960,7 +1962,7 @@ invitation link; its links keep working and it can remove them
   the row's `data-preset` and `data-perms` by `static/manage.js`): the
   account's address, the radios **Student**, **Teacher** (every row of
   `permission_presets`, each carrying its set in `data-perms`) and
-  **Custom**, then the seven permissions, one line each with its name and
+  **Custom**, then the eight permissions, one line each with its name and
   one sentence (`perms.<id>_about`). With a preset chosen the lines are a
   read-only list (✓ or –, no switch). With **Custom** each line has a switch
   (a checkbox named `perm_<id>`), starting from what was shown. While
@@ -2076,6 +2078,72 @@ invitation link; its links keep working and it can remove them
   (`users.preset_id` is set `NULL` by the foreign key). A `default_preset`
   setting naming it is removed too. A saved preset cannot be edited: save a
   new one and delete the old.
+
+## Student accounts
+
+A student account (#217, `src/students.rs`) belongs to a teacher: an account
+with **Hold students** (`hold_students`), or an owner. The teacher makes it;
+nobody registers as a student, and it never turns into a normal account. It
+signs in with a username and a password, and has no e-mail address
+(`users.email` is `NULL`), no two-factor sign-in, no permissions and no AI.
+The Students page where a teacher makes and looks after them is #218; until
+then a student is made by `students::create` (the tests) and, in a dev
+build, by `/dev/student`.
+
+- **Where it is stored**: `users.username` (unique, stored lower case) and
+  `users.teacher_id` (the teacher; deleting the teacher's account deletes its
+  students with everything in them). A student's `perms` is 0 and it has no
+  preset. The session reads `CurrentUser::student` and `username`; `can` is
+  false for every permission, and `ai_off` is always set.
+- **How many**: the box holds `caps::student_limit()` student accounts
+  (`SKRONGLE_STUDENT_LIMIT`, 50 by default; see
+  [Self-hosting](self-hosting#student-accounts)), every teacher's together,
+  counted apart from the 50 normal accounts (`signup::is_full` leaves them
+  out). `students::create` makes a batch whole or not at all, and refuses a
+  batch that would go over the limit (`Refused::Full`; the dev server is never
+  full). A student keeps two live sessions (`caps::MAX_SESSIONS_PER_STUDENT`):
+  a third sign-in ends the oldest.
+- **Usernames**: 3 to 32 characters of `a`-`z`, `0`-`9`, `.`, `_` and `-`,
+  starting with a letter or digit (`students::normalize_username`; never an
+  `@`). `students::suggest_username` makes one from a name: `Ana García`
+  gives `ana.garcia`, with a number on the end when it is taken
+  (`ana.garcia2`). The teacher can change it (`students::rename`).
+- **Passwords**: a made password (`students::make_password`) is eight
+  letters and digits that are hard to mix up (no `0`, `o`, `1`, `l`, `i`).
+  Only the hash is kept. A new password from the teacher
+  (`students::set_password`) ends every open session of the student.
+- **Signing in**: the login page's field takes an address or a username
+  (`login-email`, *E-mail address or username*). Without an `@` it is looked
+  up as a username, in any case. The sign-in limits count a username as they
+  count an address (`students::sign_in_key`). There is no "forgot password"
+  for a student: the login page says a student asks their teacher for a new
+  one (`login-student-note`). A student lands on its home; a share link or an
+  app's sign-in it came with is dropped.
+- **The profile**: the username (`profile-username`, read only, with the note
+  that the teacher looks after the account), the language and **Change
+  password** (which asks for the current one). No name fields, no e-mail, no
+  two-factor and no connected apps; `/api/profile` refuses the names.
+- **What a student is refused**: every path in `students::refused` answers a
+  student 404, page or API, whatever the handler (the router's
+  `auth::student_gate` layer): making, copying, editing, sharing or
+  generating a course (`/courses/new`, `/courses/generate`, a course's
+  editor and every `/courses/{id}/…` page but its settings, stat and
+  placement test, `/api/courses/…`, `/api/generate/…`), opening an
+  invitation link (`/courses/shared/…`), the tutor (`/tutor`,
+  `/api/tutor/…`), connected apps and API keys (`/profile/apps/…`,
+  `/oauth/…`, `/mcp`, `/api/v1/…`), two-factor sign-in
+  (`/profile/two-factor/…`), Manage Users (`/manage`, `/api/manage/…`) and
+  the Students page (`/students`). Mini has no deletion of one's own account.
+  A later route a student must not reach is added to that list.
+- **Manage Users** lists normal accounts only. A teacher's row says how many
+  students it holds (`manage-account-students`), and the (i) dialog has the
+  count of every student account against the limit
+  (`manage-student-count`). `skrongle doctor` names the count on its
+  `student limit` line.
+- **Dev mode**: `/dev/student` makes a student `student-<id>-<n>` with the
+  password `dev-password` for the signed-in account (which must hold
+  students: the dev user is an owner) and names it on a page
+  (`?format=json` for scripts).
 
 ## Two-factor sign-in
 

@@ -6,6 +6,21 @@ numbers work is in the README, "Versions".
 
 ## Unreleased
 
+- **Student accounts** (schema v10). A teacher can hold student accounts:
+  they sign in with a username and a password, have no e-mail address and
+  no two-factor sign-in, and are refused making, sharing or generating
+  courses, the tutor and every AI feature, connected apps and Manage Users.
+  Nobody registers as a student; the page where a teacher makes them comes
+  in a later release. The login field now takes an e-mail address or a
+  username, and says a student asks their teacher for a new password.
+  A new permission, **Hold students**, lets an account hold students: the
+  built-in Teacher preset has it from now on, and an owner always does.
+  Accounts you gave Teacher before keep exactly what they had; give them
+  Teacher again (or tick Hold students under Custom) to add it. Manage
+  Users lists normal accounts only and says how many students a teacher
+  holds; `skrongle doctor` counts the student accounts. Going back to an
+  older release deletes every student account.
+
 - **New setting `SKRONGLE_STUDENT_LIMIT`** (default 50, from 1 to 1000):
   how many student accounts the box holds, counted apart from its 50
   normal accounts. Nothing changes on any page yet; this makes room for

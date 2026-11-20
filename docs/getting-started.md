@@ -5,8 +5,10 @@ of the app practises the same lessons.
 
 ## First steps
 
-1. Register with your e-mail address. There are no usernames. Registering
-   signs you in. A new account starts as a **Student**: it can learn from
+1. Register with your e-mail address. Registering signs you in. (A student
+   whose teacher made their account signs in with the username and password
+   the teacher gave them instead, and registers nothing; see
+   [Student accounts](features#student-accounts).) A new account starts as a **Student**: it can learn from
    the courses it is given, and the person who runs the server raises it
    (Manage Users, *Permissions*) to let you create or share courses or use AI.
 2. On *What would you like to learn?* (`/courses`) pick a ready-made course

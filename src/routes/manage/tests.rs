@@ -50,7 +50,7 @@ fn superusers_see_the_accounts_and_set_permissions() {
     assert!(!get("/profile", &stu_c).1.contains("nav-manage"));
     assert_eq!(get("/manage", &stu_c).0, 404);
     assert_eq!(post("/manage/permissions", &stu_c, &[("email", "sue@example.org"), ("preset", "1")]).0, 404);
-    assert_eq!(stored(sue), (127, None));
+    assert_eq!(stored(sue), (255, None));
 
     // A superuser: the link, and the page with the accounts only.
     assert!(get("/profile", &sue_c).1.contains(r#"data-testid="nav-manage""#));
@@ -119,7 +119,7 @@ fn superusers_see_the_accounts_and_set_permissions() {
         assert_eq!((status, loc.as_str()), (303, "/manage?did=permissions-self&email=sue%40example.org"));
         assert!(get(&loc, &sue_c).1.contains(r#"data-testid="manage-error""#));
     }
-    assert_eq!(stored(sue), (127, None));
+    assert_eq!(stored(sue), (255, None));
 
     // An owner: the whole page as before, with the Permissions button on the others' rows.
     let (_, page) = get("/manage", &root_c);

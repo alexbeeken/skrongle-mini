@@ -327,7 +327,7 @@ mod tests {
     fn the_built_in_presets_are_student_and_teacher() {
         let db = crate::db::Db::open_in_memory().unwrap();
         db.with(|c| {
-            c.execute("INSERT INTO permission_presets (name, builtin, perms, created_at) VALUES ('Helpers', 0, 5, 1), ('Aides', 0, 127, 1)", [])?;
+            c.execute("INSERT INTO permission_presets (name, builtin, perms, created_at) VALUES ('Helpers', 0, 5, 1), ('Aides', 0, 255, 1)", [])?;
             let all = presets(c)?;
             assert_eq!(all.iter().map(|p| p.name.as_str()).collect::<Vec<_>>(), ["student", "teacher", "Aides", "Helpers"]);
             assert_eq!(all[0], Preset { id: STUDENT_PRESET, name: "student".into(), builtin: true, perms: Perms::STUDENT });

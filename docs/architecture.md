@@ -44,6 +44,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 
 ### Accounts
 
+- Student accounts (#217): `students.rs` (made by a teacher: username, `create` all or none within the student limit, `rename`, `set_password`, `delete`, `suggest_username`, `make_password`, and `refused`, the one list of paths a student gets a 404 for, checked by the router's `auth::student_gate` layer); the dev build's `/dev/student` in `routes/dev.rs`, `templates/dev_student.html`.
 - Sign-in: `auth.rs` (sessions, CurrentUser, Project), `auth/cache.rs` (the signed-in users kept in memory by session, #37), `auth/api.rs` (connected apps, #167: grants, hashed bearer tokens, the `Scope`s, the `ApiUser` extractor), `routes/auth.rs`, `routes/auth/code.rs` (the two-factor step), `proxy_auth.rs` (proxy header), `signup.rs` (who may register), `urlenc.rs` (percent-encoding for the redirects they build).
 - Two-factor: `two_factor.rs`, `totp.rs`.
 - Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`; its Connected apps section (#167): `routes/profile/apps.rs`.
@@ -110,7 +111,8 @@ src/
   progress.rs    lesson passes shared by every mode: the rule (seen + a run of >= 70 %), the RULES text for tutors and agents, table lesson_passes
   quiz.rs        adaptive question selection, answer normalisation/checking, tiny PRNG
   problems.rs    what the editor and the file page say when a course file is refused: kind, lesson, field, line, message, fix hint (every ContentError and arrange.rs refusal)
-  perms.rs       per-account permissions (#137, #138): Perm (seven, one bit each), Perms (the set in users.perms, normalised: a permission whose needed one is off is off), the presets (table permission_presets; Student and Teacher built in), set_custom / apply_preset. Asked through CurrentUser::can / require / require_api; an owner may do everything
+  students.rs    student accounts (#217): made by a teacher with Hold students (or an owner), a username and a password and no address; create (all or none, within caps::student_limit), rename, set_password (ends its sessions), delete, suggest_username, make_password; `refused`, the paths a student gets a 404 for (auth::student_gate, a router layer)
+  perms.rs       per-account permissions (#137, #138): Perm (eight, one bit each), Perms (the set in users.perms, normalised: a permission whose needed one is off is off), the presets (table permission_presets; Student and Teacher built in), set_custom / apply_preset. Asked through CurrentUser::can / require / require_api; an owner may do everything
   owner.rs       what the owner does to an account with no message sent (#635): a temporary password (users.must_change_password), two-factor off, make an owner; the binary's commands (owner-link, reset-password, disable-2fa, make-owner, help)
   db/tables.rs   USER_TABLES and SHARED_TABLES: which tables hold a learner's rows, and the test that every table is listed (docs/data-inventory.md)
   jobs/retention.rs  the retention rules the hourly housekeeping applies (old answers, finished notes, failed AI courses)
@@ -302,7 +304,7 @@ session JSON, never hard-coded.
 ```sql
 users          (id AUTOINCREMENT, email, password_hash, created_at, email_verified_at, first_name, last_name,
                 age_confirmed, owner, must_change_password, two_factor, active_course, lang, review_quiet,
-                ai_effort, delete_at, perms, preset_id)
+                ai_effort, delete_at, perms, preset_id, username UNIQUE, teacher_id)
                 -- id is never reused after a deletion (AUTOINCREMENT);
                 -- email is what a password account signs in with, set once and never changed;
                 -- password_hash is '' for accounts without one (proxy sign-in);
@@ -319,11 +321,15 @@ users          (id AUTOINCREMENT, email, password_hash, created_at, email_verifi
                 -- ai_effort: the effort Generate the course last ran at: low | medium | high (Fast, Balanced, Thorough);
                 -- delete_at: unused, nothing reads or writes it; stays until the next schema change
                 -- perms: what the account may do, one bit a permission (src/perms.rs: create_courses 1, ai_courses 2,
-                -- ai_tutor 4, share_courses 8, skip_levels 16, privacy 32, superuser 64), stored normalised; a new
-                -- account gets 63 (Teacher). The session query reads it into CurrentUser::perms; an owner may do
-                -- everything whatever it says;
+                -- ai_tutor 4, share_courses 8, skip_levels 16, privacy 32, superuser 64, hold_students 128), stored
+                -- normalised; a new account gets the default preset's set (Student, 0, unless the owner chose).
+                -- The session query reads it into CurrentUser::perms; an owner may do everything whatever it says;
                 -- preset_id: the preset the set was copied from (permission_presets, SET NULL when it is deleted),
-                -- NULL = a custom set; nothing is enforced from it
+                -- NULL = a custom set; nothing is enforced from it;
+                -- username: a student account's sign-in name (#217, src/students.rs), lower case, unique, NULL for
+                -- a normal account; teacher_id: the account that holds the student, NULL for a normal account,
+                -- ON DELETE CASCADE (deleting the teacher deletes its students). A student has no email (NULL),
+                -- perms 0, no preset, and CurrentUser::student set
 sessions       (id, user_id, session_token UNIQUE, created_at, expires_at)
                 -- session_token is the SHA-256 (hex) of the cookie's token (auth::hash_token), never the token
 totp_keys      (user_id PRIMARY KEY, secret, created_at, confirmed_at, last_step)
@@ -341,8 +347,8 @@ signup_invites (id, token_hash UNIQUE, created_by, created_at, expires_at, used_
                 -- gone 30 days after expiry
 permission_presets (id, name UNIQUE NOCASE, builtin, perms, created_at)
                 -- named permission sets an account can be given (src/perms.rs); giving one copies perms onto
-                -- users.perms. Built in (builtin 1): id 1 'student' (0) and id 2 'teacher' (63), whose names the
-                -- screen translates
+                -- users.perms. Built in (builtin 1): id 1 'student' (0) and id 2 'teacher' (191: 63, and
+                -- hold_students since v10; accounts given it before keep 63), whose names the screen translates
 settings       (name PRIMARY KEY, value)  WITHOUT ROWID
 api_grants     (id, user_id, client_id, client_name, scopes, courses, created_at, expires_at, last_used_at,
                 refresh_family_hash UNIQUE)
