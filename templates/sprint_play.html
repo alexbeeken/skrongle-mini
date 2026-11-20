@@ -70,6 +70,7 @@ window.t = function (key, args) {
 window.tn = function (key, n) { return t(key + (n === 1 ? '.one' : '.other'), { n: n }); };
 </script>
 <script src="{{ crate::routes::asset_url("speech.js") }}" defer></script>
+{% include "read_aloud.html" %}
 {% if notation %}<script src="{{ crate::routes::asset_url("vendor/abcjs-basic-min.js") }}" defer></script><script src="{{ crate::routes::asset_url("notation.js") }}" defer></script><script src="{{ crate::routes::asset_url("wrong-note.js") }}" defer></script>{% endif %}
 {% if sound %}<script src="{{ crate::routes::asset_url("music-sound.js") }}" defer></script>{% endif %}
 {% if notation %}<script src="{{ crate::routes::asset_url("fill-bar.js") }}" defer></script>{% endif %}

@@ -1,0 +1,2 @@
+{# Read aloud (#234): the Listen button's player and the speakers beside questions. The tag carries the course's languages (static/read-aloud.js). #}
+<link rel="stylesheet" href="{{ crate::routes::asset_url("read-aloud.css") }}"><script src="{{ crate::routes::asset_url("read-aloud.js") }}" data-lang="{{ course.meaning_lang }}" data-term-lang="{{ course.say_lang }}" defer></script>

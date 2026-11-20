@@ -1275,6 +1275,7 @@
     stage.dataset.exerciseId = e.id || "";
     stage.dataset.pos = i;
     current = r(e);
+    if (window.ReadAloud) window.ReadAloud.sprint(stage, e); // the question's speaker (#234), never on a listening exercise
   }
 
   // Listening exercises are skipped while audio is off (or the browser has

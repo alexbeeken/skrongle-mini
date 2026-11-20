@@ -19,6 +19,15 @@ numbers work is in the README, "Versions".
   Spanish. A built-in course's `course.json` may say where it goes with
   `"order"` (lowest first); the others keep their folder order after it.
 
+- **Read aloud, in every course.** A lesson has a **Listen** button that
+  reads it out a sentence at a time and marks the sentence being read;
+  press it again to pause, tap a paragraph to start there, and choose
+  Slower beside it. Questions in Quizzes, the reading check, the Guide and
+  Sprint mode get a 🔊 that reads the question and its choices. The
+  browser's own voices speak, so there is nothing to set up; with the audio
+  switch off, or no voice for the course's languages, the buttons are not
+  there. Listening exercises never get one.
+
 ## 0.4.0 (2026-11-12)
 
 Permissions that count, a Student default for new accounts, and a way for an

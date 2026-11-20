@@ -298,14 +298,25 @@ window.LearnSpeech = (function () {
       return !(until && Date.now() < until);
     } catch (e) { return true; }
   }
+  // Pages that show speaker buttons only while audio is on (read-aloud.js) hear of a change.
+  function audioChanged() { try { window.dispatchEvent(new Event("learnspeech:audio")); } catch (e) { /* old browser */ } }
   function setAudio(on) {
     try { localStorage.setItem("speech:audio", on ? "1" : "0"); localStorage.removeItem("speech:audio-off-until"); } catch (e) { /* private mode */ }
     if (!on) hush();
+    audioChanged();
   }
   function muteFor(ms) {
     try { localStorage.setItem("speech:audio-off-until", String(Date.now() + ms)); } catch (e) { /* private mode */ }
     hush();
+    audioChanged();
   }
+
+  // The reading speed (#234), one choice per device like the voice: 0.95
+  // (normal) unless the learner chose slower beside the Listen button.
+  function rate() {
+    try { var r = parseFloat(localStorage.getItem("speech:rate") || ""); return r > 0 && r <= 2 ? r : 0.95; } catch (e) { return 0.95; }
+  }
+  function setRate(r) { try { localStorage.setItem("speech:rate", String(r)); } catch (e) { /* private mode */ } }
 
   // The voice to use for `lang`: the one remembered by the games' voice
   // pickers, else the best installed one.
@@ -323,7 +334,7 @@ window.LearnSpeech = (function () {
     // "cansado / cansada" (a term with alternatives) is said as both, with a pause.
     text = stripEmoji(text).replace(/\s\/\s/g, ", ").trim();
     if (!supported || !text || (!opts.force && !audioOn())) return false;
-    var how = opts.slow ? { rate: 0.6, chunk: 2, gap: 350 } : { rate: opts.rate || 0.95 };
+    var how = opts.slow ? { rate: 0.6, chunk: 2, gap: 350 } : { rate: opts.rate || rate() };
     speak(text, { voice: bestVoice(lang), lang: lang, rate: how.rate, chunk: how.chunk, gap: how.gap,
       onstart: opts.onstart, onend: opts.onend, onerror: opts.onerror });
     return true;
@@ -331,7 +342,8 @@ window.LearnSpeech = (function () {
 
   return { supported: supported, voicesFor: voicesFor, anyVoices: anyVoices, onVoices: onVoices, voiceByURI: voiceByURI,
     bindSelect: bindSelect, speak: speak, hush: hush, chunks: chunks, stripEmoji: stripEmoji,
-    audioOn: audioOn, setAudio: setAudio, muteFor: muteFor, bestVoice: bestVoice, hasVoice: hasVoice, say: say };
+    audioOn: audioOn, setAudio: setAudio, muteFor: muteFor, bestVoice: bestVoice, hasVoice: hasVoice, say: say,
+    rate: rate, setRate: setRate };
 })();
 
 // ---- scripts/core-src/say.js ----
