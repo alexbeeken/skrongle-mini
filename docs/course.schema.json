@@ -34,6 +34,7 @@
         },
         "levels": { "type": "boolean", "description": "True when the units are levels (A1, A2…): a learner opening the course picks the one to start at, and the lessons below it are skipped (not passed). Default false: no picker." },
         "order": { "type": "integer", "description": "Built-in courses only: where the course comes among the ready-made ones, lowest first; courses without it come after, in folder order. Means nothing for a course someone made in the app. Anything but a whole number is ignored." },
+        "document": { "type": "string", "maxLength": 30000, "description": "An \"Understand a document\" course: the pasted text it explains. Every sources[].quote and quiz source must be found in it word for word (whitespace aside). Such a course cannot be shared, copied or translated." },
         "language_features": { "type": "boolean", "description": "Language features on or off: Listening, Sprint's listening exercises and sentence builds, read-aloud, Numbers by ear, and the translation fields in the lesson editor. Unset: on when terms.lang differs from meanings.lang. The editor's gear sets it." },
         "groups": {
           "type": "array",
@@ -138,7 +139,8 @@
         "any_octave": { "type": "boolean", "description": "staff-note only: the note counts in any octave." },
         "octave": { "type": "boolean", "default": false, "description": "keyboard only: only the exact key counts, not the same note in another octave." },
         "octaves": { "type": "integer", "enum": [1, 2], "default": 1, "description": "keyboard only: how many octaves of keys, from middle C." },
-        "teaches": { "type": "array", "items": { "type": "string" }, "description": "Terms of this lesson's vocabulary." }
+        "teaches": { "type": "array", "items": { "type": "string" }, "description": "Terms of this lesson's vocabulary." },
+        "source": { "type": "string", "description": "A course with a document: the sentence of the document this question comes from, word for word; shown with the answer." }
       },
       "required": ["question_id", "prompt", "type"],
       "if": { "properties": { "type": { "not": { "const": "fill-bar" } } } },
@@ -318,7 +320,16 @@
         "conversations": { "type": "array", "items": { "$ref": "#/$defs/conversation" } },
         "listening": { "type": "array", "items": { "$ref": "#/$defs/listening_item" } },
         "guide": { "type": "array", "items": { "$ref": "#/$defs/guide_step" } },
-        "sprint": { "$ref": "#/$defs/sprint" }
+        "sprint": { "$ref": "#/$defs/sprint" },
+        "sources": {
+          "type": "array",
+          "description": "A course with a document: the document's words behind each '## ' section, shown under it.",
+          "items": {
+            "type": "object",
+            "properties": { "section": { "type": "string", "minLength": 1, "description": "The start of a '## ' heading of this lesson (any case)." }, "quote": { "type": "string", "minLength": 1, "description": "The document's own words, found in it word for word (whitespace aside)." } },
+            "required": ["section", "quote"]
+          }
+        }
       },
       "required": ["id", "slug", "title", "unit", "content"]
     }

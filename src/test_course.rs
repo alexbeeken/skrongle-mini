@@ -149,6 +149,9 @@ fn uses_every_field_and_enum_value_of_the_schema() {
     for (r, values) in &seen {
         unused(deref(&root, r), values, r.trim_start_matches("#/$defs/"), &mut missing);
     }
+    // A course with a document (#232) cannot be copied, and the browser
+    // tests copy the test course: `document` is tested in content/document.rs.
+    missing.retain(|m| m != "manifest.document");
     assert!(
         missing.is_empty(),
         "the test course does not use these parts of docs/course.schema.json; add them to data/test-courses/{ID}/ \

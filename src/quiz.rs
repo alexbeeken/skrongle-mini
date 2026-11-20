@@ -410,6 +410,7 @@ mod tests {
             form: String::new(),
             step_minutes: None,
             measure: Default::default(),
+            source: String::new(),
         }
     }
 

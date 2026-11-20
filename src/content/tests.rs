@@ -259,6 +259,7 @@ fn splits_sections_and_builds_guide() {
         form: String::new(),
         step_minutes: None,
         measure: Default::default(),
+        source: String::new(),
     };
     let mut lesson: Lesson = serde_json::from_str(
         r#"{"id":"l","slug":"l","title":"L","unit":"A1","content":"","vocabulary":[{"term":"hola","meaning":"hello"}]}"#,
