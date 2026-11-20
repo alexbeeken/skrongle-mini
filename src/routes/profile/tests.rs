@@ -127,6 +127,65 @@ fn profile_fields_save_as_they_change() {
     assert_eq!(stored().first_name, "Ana");
 }
 
+/// Reading settings (#233): each saves on its own and is written on the
+/// <html> of the next page, signed-out pages stay standard, an unknown
+/// value or field stores nothing, and Back to standard clears them all.
+#[test]
+fn reading_settings_save_and_reach_every_page() {
+    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+    let state = crate::routes::test_state(false);
+    let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
+    let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
+    let app = crate::routes::router(state.clone());
+    let base = rt.block_on(async {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        tokio::spawn(async move { axum::serve(listener, app).await.unwrap() });
+        format!("http://{addr}")
+    });
+    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
+    let save = |body: serde_json::Value| {
+        let mut r = agent.post(&format!("{base}/api/profile")).header("cookie", &cookie).send_json(body).unwrap();
+        let status = r.status().as_u16();
+        (status, serde_json::from_str::<serde_json::Value>(&r.body_mut().read_to_string().unwrap()).unwrap_or_default())
+    };
+    let html_tag = |path: &str, c: &str| {
+        let mut r = agent.get(&format!("{base}{path}")).header("cookie", c).call().unwrap();
+        let body = r.body_mut().read_to_string().unwrap();
+        body[body.find("<html").unwrap()..].split('>').next().unwrap().to_string()
+    };
+    let stored = || state.db.with(|c| c.query_row("SELECT reading FROM users WHERE id = ?1", [ann], |r| r.get::<_, String>(0))).unwrap();
+
+    assert!(!html_tag("/profile", &cookie).contains("class="), "standard: no classes");
+    // The page is read once and cached (#37): the save must reach the next page anyway.
+    let (status, body) = save(serde_json::json!({"read_size": "4"}));
+    assert_eq!((status, body["reading"].as_str()), (200, Some("read-size-4")), "{body}");
+    for (field, value) in [("read_spacing", "wider"), ("read_letters", "easier"), ("read_contrast", "stronger"), ("read_motion", "less")] {
+        assert_eq!(save(serde_json::json!({ field: value })).0, 200, "{field}");
+    }
+    assert_eq!(stored(), "size-4 wide easy contrast calm");
+    let all = r#"class="read-size-4 read-wide read-easy read-contrast read-calm""#;
+    assert!(html_tag("/profile", &cookie).contains(all), "{}", html_tag("/profile", &cookie));
+    assert!(html_tag("/courses", &cookie).contains(all));
+    // Signed out: the standard look, whoever used the browser before.
+    assert!(!html_tag("/login", "").contains("class="));
+
+    // An unknown value, or a field that is not one: refused, nothing stored.
+    for body in [serde_json::json!({"read_size": "5", "read_motion": "standard"}), serde_json::json!({"read_spacing": "huge"}), serde_json::json!({"read_colour": "standard"})] {
+        let (status, refused) = save(body.clone());
+        assert_eq!(status, 422, "{body}");
+        let field = body.as_object().unwrap().keys().find(|k| *k != "read_motion").unwrap().clone();
+        assert!(refused["errors"][&field].is_string(), "{refused}");
+    }
+    assert_eq!(stored(), "size-4 wide easy contrast calm");
+
+    // Back to standard: all five at once.
+    let (status, body) = save(serde_json::json!({"read_size": "1", "read_spacing": "standard", "read_letters": "standard", "read_contrast": "standard", "read_motion": "standard"}));
+    assert_eq!((status, body["reading"].as_str()), (200, Some("")));
+    assert_eq!(stored(), "");
+    assert!(!html_tag("/profile", &cookie).contains("class="));
+}
+
 /// The AI features are the server's (#25): only an owner sees, saves and
 /// removes the API keys, on Manage Users, and every account uses them; the
 /// owner's "Hide AI features for everyone" hides the tutor, generation and

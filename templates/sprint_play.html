@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="{{ crate::i18n::lang() }}">
+<html lang="{{ crate::i18n::lang() }}"{% let reading_classes = crate::reading::classes() %}{% if !reading_classes.is_empty() %} class="{{ reading_classes }}"{% endif %}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <meta name="theme-color" content="#c0392b">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>{{ title }} · {{ crate::t("sprint.mode_name") }} · {{ course_title }}</title>
-<script>if (/[?&]reduce-motion=1\b/.test(location.search)) document.documentElement.classList.add('reduce-motion');</script>
 <link rel="stylesheet" href="{{ crate::routes::asset_url("sprint.css") }}">
+{% include "reading_head.html" %}
 <link rel="icon" href="{{ crate::routes::asset_url("favicon.png") }}" type="image/png" sizes="32x32">
 <link rel="manifest" href="{{ crate::url("/manifest.webmanifest") }}">
 </head>

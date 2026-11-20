@@ -226,6 +226,7 @@ profile:
   nav:
     label: Seções do perfil
     personal: Informações pessoais
+    reading: "Leitura"
     account: Conta
     two_factor: Autenticação em duas etapas
   personal:
@@ -237,6 +238,29 @@ profile:
     verified: Confirmado
     language: Idioma
     language_unavailable: Esse idioma não está disponível.
+  reading:
+    title: "Leitura"
+    intro: "Estas escolhas acompanham a tua conta em todos os cursos, em todos os dispositivos onde entras."
+    size: "Tamanho do texto"
+    size_1: "Padrão"
+    size_2: "Grande"
+    size_3: "Maior"
+    size_4: "O maior"
+    standard: "Padrão"
+    spacing: "Espaçamento"
+    wider: "Mais largo"
+    spacing_hint: "Mais espaço entre linhas, palavras e letras."
+    letters: "Letras"
+    easier: "Mais fáceis de distinguir"
+    letters_hint: "Um tipo de letra em que I, l e 1, ou b e d, se confundem menos."
+    contrast: "Contraste"
+    stronger: "Mais forte"
+    contrast_hint: "Texto mais escuro, contornos mais firmes, links sublinhados."
+    motion: "Movimento"
+    less: "Menos"
+    motion_hint: "Desliga saltos, deslizes e confetes. Já desligados quando o teu dispositivo pede menos movimento."
+    reset: "Voltar ao padrão"
+    unknown: "Essa opção não está disponível."
   account:
     title: Conta
     sign_in: Login

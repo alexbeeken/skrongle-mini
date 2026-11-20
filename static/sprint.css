@@ -27,7 +27,7 @@
   }
 }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html { font-family: var(--font); font-size: 106.25%; /* 17px at the browser's default text size */ line-height: 1.45; color: var(--text); background: var(--bg); }
+html { font-family: var(--font); font-size: calc(106.25% * var(--read-scale, 1)); /* 17px at the browser's default text size; --read-scale is the Text size reading setting, static/reading.css */ line-height: 1.45; color: var(--text); background: var(--bg); }
 body { margin: 0; background: var(--bg); overscroll-behavior-y: contain; }
 body.sprint { min-height: 100dvh; }
 a { color: var(--accent); text-decoration: none; }
@@ -349,6 +349,8 @@ b, strong { font-weight: 700; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+/* Less movement on Profile (#233, static/reading.css) does the same. */
+html.read-calm *, html.read-calm *::before, html.read-calm *::after { animation: none !important; transition: none !important; }
 
 /* ?reduce-motion=1 (as on every other page, see style.css): no animation, for tests and screenshots. */
 html.reduce-motion *, html.reduce-motion *::before, html.reduce-motion *::after { animation: none !important; transition: none !important; }

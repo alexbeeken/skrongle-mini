@@ -119,6 +119,47 @@
   var lang = document.querySelector("[data-testid=profile-lang]");
   var langLabel = document.querySelector("[data-testid=profile-lang-label]");
   if (lang) saver.watch(lang, { field: "lang", immediate: true, mark: function () { return langLabel; } });
+  // Reading settings (#233): each group of buttons saves as soon as one is
+  // picked, and the page takes the look on at once (the classes the server
+  // writes on <html>, src/reading.rs). Back to standard picks every first
+  // button. Its check sits on the button picked.
+  var reading = document.querySelector("[data-testid=profile-reading]");
+  if (reading) {
+    var FIELDS = ["read_size", "read_spacing", "read_letters", "read_contrast", "read_motion"];
+    var picked = function (f) { return reading.querySelector('input[name="' + f + '"]:checked'); };
+    var applyReading = function () {
+      var html = document.documentElement;
+      Array.prototype.slice.call(html.classList).forEach(function (c) { if (c.indexOf("read-") === 0) html.classList.remove(c); });
+      var on = function (f) { var p = picked(f); return p && p.value !== "standard" ? p.value : ""; };
+      var size = on("read_size");
+      if (size && size !== "1") html.classList.add("read-size-" + size);
+      if (on("read_spacing")) html.classList.add("read-wide");
+      if (on("read_letters")) html.classList.add("read-easy");
+      if (on("read_contrast")) html.classList.add("read-contrast");
+      if (on("read_motion")) html.classList.add("read-calm");
+    };
+    FIELDS.forEach(function (f) {
+      saver.track(f, {
+        value: function () { var p = picked(f); return p ? p.value : ""; },
+        mark: function () { var p = picked(f); return p ? p.closest("label") : null; },
+      });
+    });
+    reading.addEventListener("change", function (e) {
+      if (FIELDS.indexOf(e.target.name) < 0) return;
+      applyReading();
+      saver.change(e.target.name, { now: true });
+    });
+    var resetBtn = reading.querySelector("[data-testid=profile-reading-reset]");
+    if (resetBtn) resetBtn.addEventListener("click", function () {
+      FIELDS.forEach(function (f) {
+        var first = reading.querySelector('input[name="' + f + '"]');
+        if (!first || first.checked) return;
+        first.checked = true;
+        saver.change(f, { now: true });
+      });
+      applyReading();
+    });
+  }
   // Reload when everything is saved and the green has been on screen for a
   // moment (SEEN_MS: longer than the save takes to settle); another edit made
   // meanwhile is saved first, so the reload never asks about unsaved changes.

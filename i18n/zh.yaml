@@ -226,6 +226,7 @@ profile:
   nav:
     label: 个人资料各部分
     personal: 个人信息
+    reading: "阅读"
     account: 账户
     two_factor: 两步验证
   personal:
@@ -237,6 +238,29 @@ profile:
     verified: 已验证
     language: 语言
     language_unavailable: 该语言暂不可用。
+  reading:
+    title: "阅读"
+    intro: "这些选择跟随你的账户，在每门课程、你登录的每台设备上都有效。"
+    size: "文字大小"
+    size_1: "标准"
+    size_2: "大"
+    size_3: "更大"
+    size_4: "最大"
+    standard: "标准"
+    spacing: "间距"
+    wider: "更宽"
+    spacing_hint: "行、词和字母之间留出更多空间。"
+    letters: "字母"
+    easier: "更易区分"
+    letters_hint: "一种让 I、l 和 1，或 b 和 d 更不易混淆的字体。"
+    contrast: "对比度"
+    stronger: "更强"
+    contrast_hint: "文字更深，边框更清楚，链接带下划线。"
+    motion: "动效"
+    less: "更少"
+    motion_hint: "关闭弹出、滑动和彩纸效果。如果你的设备要求减少动效，这些已经关闭。"
+    reset: "恢复标准"
+    unknown: "没有这个选项。"
   account:
     title: 账户
     sign_in: 登录方式

@@ -133,7 +133,7 @@
     var nodes = Array.prototype.slice.call(document.querySelectorAll(".sprint-node"));
     // A sheet slides shut the way the profile's AI-only sections do
     // (static/profile.js): height, spacing and opacity to zero, 280 ms.
-    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var reduce = window.lessMotion();
     var edges = function (el, cs, open) {
       return {
         height: open ? el.offsetHeight + "px" : "0px", opacity: open ? 1 : 0,

@@ -226,6 +226,7 @@ profile:
   nav:
     label: Sections du profil
     personal: Informations personnelles
+    reading: "Lecture"
     account: Compte
     two_factor: Double authentification
   personal:
@@ -237,6 +238,29 @@ profile:
     verified: Vérifiée
     language: Langue
     language_unavailable: Cette langue n'est pas disponible.
+  reading:
+    title: "Lecture"
+    intro: "Ces choix suivent ton compte dans tous les cours, sur chaque appareil où tu te connectes."
+    size: "Taille du texte"
+    size_1: "Standard"
+    size_2: "Grand"
+    size_3: "Plus grand"
+    size_4: "Le plus grand"
+    standard: "Standard"
+    spacing: "Espacement"
+    wider: "Plus large"
+    spacing_hint: "Plus d’espace entre les lignes, les mots et les lettres."
+    letters: "Lettres"
+    easier: "Plus faciles à distinguer"
+    letters_hint: "Une police où I, l et 1, ou b et d, se confondent moins."
+    contrast: "Contraste"
+    stronger: "Plus fort"
+    contrast_hint: "Texte plus foncé, bordures plus nettes, liens soulignés."
+    motion: "Mouvement"
+    less: "Moins"
+    motion_hint: "Supprime les rebonds, glissements et confettis. Déjà supprimés si ton appareil demande moins de mouvement."
+    reset: "Revenir au standard"
+    unknown: "Ce choix n’est pas disponible."
   account:
     title: Compte
     sign_in: Connexion

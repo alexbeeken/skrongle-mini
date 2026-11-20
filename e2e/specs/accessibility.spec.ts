@@ -2,7 +2,8 @@
 // the system's reduce-motion setting, the skip link, /sprint's heading and
 // the status pills' contrast.
 import { expect, test, type Page } from "@playwright/test";
-import { devLogin } from "../lib/app";
+import { devLogin, playSprintSession } from "../lib/app";
+import { newAccount, register } from "../lib/learner";
 
 /** How far the page scrolls sideways, in CSS pixels. */
 async function sidewaysScroll(page: Page): Promise<number> {
@@ -19,6 +20,86 @@ test("pages fit a phone at 200 % text size (#342)", async ({ page }) => {
     await page.addStyleTag({ content: "html { font-size: 200% !important; }" });
     expect(await sidewaysScroll(page), `${path} scrolls sideways at 200 % text`).toBeLessThanOrEqual(1);
   }
+});
+
+test("the largest text with wider spacing fits a phone, a Sprint session too (#233)", async ({ page }) => {
+  test.setTimeout(180_000);
+  await page.setViewportSize({ width: 390, height: 844 });
+  // An account of its own: the reading settings are the account's, and the dev user is shared.
+  await register(page, newAccount("reading"), "spanish");
+  await page.goto("/profile");
+  const choice = (field: string, value: string) =>
+    page.locator(`[data-testid="profile-reading-choice"][data-field="${field}"][data-value="${value}"]`);
+  // Everything on. Less movement also keeps the Sprint stage from sliding in
+  // (24 px from the right) while it is measured.
+  await choice("read_size", "4").click();
+  await choice("read_spacing", "wider").click();
+  await choice("read_letters", "easier").click();
+  await choice("read_contrast", "stronger").click();
+  await choice("read_motion", "less").click();
+  await expect(page.locator("html")).toHaveClass("read-size-4 read-wide read-easy read-contrast read-calm");
+  await expect(page.getByTestId("profile-save-status")).toHaveAttribute("data-state", "saved");
+  await page.goto("/lessons?unit=all");
+  const lesson = await page.locator('a[href*="/lessons/"]').first().getAttribute("href");
+  expect(lesson).toBeTruthy();
+  for (const path of ["/profile", "/", "/lessons", lesson!, "/sprint", "/play", "/play/numbers", "/play/dates", "/courses", "/guide", "/tutor"]) {
+    await page.goto(path);
+    // Written by the server on <html>, not added by a script afterwards.
+    await expect(page.locator("html"), path).toHaveClass(/\bread-size-4\b.*\bread-wide\b/);
+    expect(await sidewaysScroll(page), `${path} scrolls sideways at the largest text with wider spacing`).toBeLessThanOrEqual(1);
+  }
+  await page.goto("/sprint");
+  await page.getByTestId("sprint-continue").first().click();
+  await expect(page.locator("html")).toHaveClass(/\bread-calm\b/);
+  const wide: string[] = [];
+  await playSprintSession(page, 300, async () => {
+    const over = await sidewaysScroll(page);
+    if (over > 1) wide.push(`${page.url()} ${over}px`);
+  });
+  await expect(page.getByTestId("sprint-play-done")).toBeVisible();
+  expect(wide, "Sprint steps that scroll sideways").toEqual([]);
+});
+
+test("the reading settings change the page at once, follow the account and go back to standard (#233)", async ({ page }) => {
+  await register(page, newAccount("reading2"), "spanish");
+  await page.goto("/profile#reading");
+  const html = page.locator("html");
+  const choice = (field: string, value: string) =>
+    page.locator(`[data-testid="profile-reading-choice"][data-field="${field}"][data-value="${value}"]`);
+  const rootPx = () => page.evaluate(() => parseFloat(getComputedStyle(document.documentElement).fontSize));
+  const before = await rootPx();
+  await choice("read_size", "3").click();
+  await expect.poll(rootPx).toBeCloseTo(before * 1.25, 1);
+  await choice("read_letters", "easier").click();
+  await choice("read_contrast", "stronger").click();
+  await choice("read_motion", "less").click();
+  await expect(html).toHaveClass("read-size-3 read-easy read-contrast read-calm");
+  await expect(page.getByTestId("profile-save-status")).toHaveAttribute("data-state", "saved");
+  expect(await page.evaluate(() => getComputedStyle(document.body).fontFamily)).toContain("Atkinson Hyperlegible");
+  expect(await page.evaluate(() => (window as unknown as { lessMotion: () => boolean }).lessMotion())).toBe(true);
+  // A new page, as the server draws it.
+  await page.goto("/lessons");
+  await expect(html).toHaveClass("read-size-3 read-easy read-contrast read-calm");
+  // Less movement stops what the device's reduced-motion setting stops.
+  const moving = await page.evaluate(() =>
+    [...document.querySelectorAll("*")].filter((e) => {
+      const s = getComputedStyle(e);
+      const secs = (v: string) => Math.max(...v.split(",").map((d) => parseFloat(d) || 0));
+      return (s.animationName !== "none" && secs(s.animationDuration) > 0) || secs(s.transitionDuration) > 0;
+    }).length,
+  );
+  expect(moving).toBe(0);
+  // The font is the one in the binary.
+  const font = await page.request.get("/static/vendor/atkinson-hyperlegible-400-latin.woff2");
+  expect(font.headers()["content-type"]).toBe("font/woff2");
+
+  await page.goto("/profile#reading");
+  await page.getByTestId("profile-reading-reset").click();
+  await expect(html).not.toHaveClass(/read-/);
+  await expect(page.getByTestId("profile-save-status")).toHaveAttribute("data-state", "saved");
+  await page.reload();
+  await expect(html).not.toHaveClass(/read-/);
+  await expect(choice("read_size", "1").locator("input")).toBeChecked();
 });
 
 test("the root font size follows the browser's text size (#342)", async ({ page }) => {

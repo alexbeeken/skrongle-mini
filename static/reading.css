@@ -1,0 +1,60 @@
+/* Reading settings (#233), chosen on Profile and written by the server as
+   classes on <html> (src/reading.rs), so a page is drawn in them from the
+   start. Loaded after the page's own stylesheet (style.css, sprint.css or
+   tutor.css: templates/reading_head.html); all three size text in rem from
+   html, whose font-size multiplies by --read-scale. Less movement
+   (read-calm) sits beside each prefers-reduced-motion rule in those files. */
+
+/* Text size: four steps, 1 is standard. */
+html.read-size-2 { --read-scale: 1.125; }
+html.read-size-3 { --read-scale: 1.25; }
+html.read-size-4 { --read-scale: 1.5; }
+
+/* Spacing: more room between lines, words and letters. Zero specificity on
+   the letters and words, so a component that sets its own keeps it. */
+html.read-wide { line-height: 1.95; }
+:where(html.read-wide) body, :where(html.read-wide) body * { letter-spacing: .035em; word-spacing: .14em; }
+:where(html.read-wide) :is(p, li, dd, td, th, label, blockquote) { line-height: 1.95; }
+
+/* Letters: Atkinson Hyperlegible (Braille Institute, SIL Open Font Licence,
+   static/vendor/atkinson-hyperlegible-OFL.txt), regular and bold, in the
+   binary: the box has no internet to fetch a font from. Only fetched by a
+   page that uses it. */
+@font-face { font-family: "Atkinson Hyperlegible"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url(vendor/atkinson-hyperlegible-400-latin.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Atkinson Hyperlegible"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url(vendor/atkinson-hyperlegible-400-latin-ext.woff2) format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Atkinson Hyperlegible"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url(vendor/atkinson-hyperlegible-700-latin.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Atkinson Hyperlegible"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url(vendor/atkinson-hyperlegible-700-latin-ext.woff2) format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+html.read-easy { --font: "Atkinson Hyperlegible", Verdana, system-ui, sans-serif; }
+/* The Letters button shows its own face. */
+.reading-easy-face { font-family: "Atkinson Hyperlegible", Verdana, system-ui, sans-serif; }
+
+/* Contrast: darker text, firmer borders, underlined links. The accent stays
+   dark enough for white text on buttons, and --line, a background too (pills),
+   light enough for text on it: 3:1 against the page, 6:1 under the text.
+   Links in the text are underlined; menus, tabs, cards and buttons keep
+   their own look. */
+html.read-contrast { --text: #000000; --muted: #1f2328; --line: #8f897d; --accent: #8f1d12; --accent-dark: #6d150d; --surface: #ffffff; }
+@media (prefers-color-scheme: dark) {
+  html.read-contrast { --bg: #000000; --surface: #0b0c0e; --text: #ffffff; --muted: #e8e6e1; --line: #5a5f66; --accent: #d9473a; --accent-dark: #b8372b; }
+}
+:where(html.read-contrast) main a:not([class]) { text-decoration: underline; }
+
+/* The Reading card on Profile (templates/profile.html). */
+.reading-group { border: 0; padding: 0; margin: 0 0 1rem; min-width: 0; }
+.reading-group legend { font-weight: 600; padding: 0; margin-bottom: .4rem; }
+.reading-group .choice-chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+.reading-group .chip { min-height: 2.6rem; }
+.reading-group .field-note { margin: .4rem 0 0; }
+/* The Text size buttons are drawn at their own size. */
+.reading-size-1 { font-size: .9rem; }
+.reading-size-2 { font-size: 1.05rem; }
+.reading-size-3 { font-size: 1.25rem; }
+.reading-size-4 { font-size: 1.5rem; }
