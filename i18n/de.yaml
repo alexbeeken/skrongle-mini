@@ -196,6 +196,18 @@ auth:
 
 
 
+# The student frame (#219): the top bar and Change my password.
+student:
+  frame:
+    my_subjects: "Meine Fächer"
+    change_password: "Mein Passwort ändern"
+    sign_out: "Abmelden"
+  password:
+    title: "Mein Passwort ändern"
+    submit: "Mein Passwort ändern"
+    saved: "Dein Passwort ist geändert. Nimm das neue, wenn du dich das nächste Mal anmeldest."
+    forgot: "Passwort vergessen? Bitte deine Lehrkraft um ein neues."
+
 profile:
   title: Profil
   ok: "OK"

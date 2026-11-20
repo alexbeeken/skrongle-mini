@@ -33,6 +33,7 @@ pub mod profile;
 pub mod progress;
 pub mod quiz;
 pub mod password;
+pub mod student_frame;
 pub mod manage;
 pub mod students;
 pub mod mcp;
@@ -273,6 +274,8 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/llms.txt", get(docs::llms_txt))
         .route("/docs/{page}", get(docs::page))
         .route("/password/change", get(password::change_form).post(password::change))
+        // the student frame (#219): a student's own pages, light and without script
+        .route("/password", get(student_frame::password_form).post(student_frame::change_password))
         // the modes' old paths (/d, /k, /g, /games), for bookmarks and open tabs
         .route("/d", get(|q: RawQuery| moved("/sprint", q)))
         .route("/d/{*rest}", get(|Path(rest): Path<String>, q: RawQuery| async move { moved(&format!("/sprint/{rest}"), q).await }))

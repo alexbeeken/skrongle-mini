@@ -17,6 +17,16 @@ numbers work is in the README, "Versions".
   students get new passwords or are deleted together. It all works with
   JavaScript off. Students and other accounts get "not found" there.
 
+- **A light frame for student pages, and a plainer login page.** The login
+  page and a student's new **Change my password** page (`/password`) load
+  one small stylesheet and no script, font or picture, so they work with
+  JavaScript off on a classroom's old computers, at 800 by 600 and on a
+  phone. The login page looks plainer than before for everyone, and no
+  longer offers to install the app (every other page still does). A
+  student's top bar has **My subjects**, **Change my password** and
+  **Sign out**; the rest of a student's pages move into this frame in later
+  releases.
+
 - **Student accounts** (schema v10). A teacher can hold student accounts:
   they sign in with a username and a password, have no e-mail address and
   no two-factor sign-in, and are refused making, sharing or generating

@@ -546,6 +546,18 @@ landing:
     major_minor: "¿Mayor o menor?"
     near_miss: "¡Bien! Ojo con la tilde: {answer}"
 
+# The student frame (#219): the top bar and Change my password.
+student:
+  frame:
+    my_subjects: "Mis asignaturas"
+    change_password: "Cambiar mi contraseña"
+    sign_out: "Cerrar sesión"
+  password:
+    title: "Cambiar mi contraseña"
+    submit: "Cambiar mi contraseña"
+    saved: "Tu contraseña ha cambiado. Usa la nueva la próxima vez que inicies sesión."
+    forgot: "¿Olvidaste tu contraseña? Pide una nueva a tu profesor."
+
 profile:
   title: Perfil
   ok: Aceptar
