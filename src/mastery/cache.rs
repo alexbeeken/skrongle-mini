@@ -1,12 +1,13 @@
 //! Each learner's `user_progress` rows for the course they are on, kept in
 //! memory (#38). Quiz picking, the lesson pages and the home page read a
 //! learner's whole map many times a day; a map is one small row per lesson
-//! and there are at most [`caps::MAX_ACCOUNTS`](crate::caps::MAX_ACCOUNTS)
-//! of them, so they stay here instead of being read again each time.
+//! and there are at most [`caps::Bounds::learners`](crate::caps::Bounds::learners)
+//! of them (accounts and students, #216), so they stay here instead of
+//! being read again each time.
 //!
 //! - One entry per user: the course last read. Reading another course
-//!   replaces it, and when the cache holds `MAX_ACCOUNTS` users a new one
-//!   drops any other.
+//!   replaces it, and when the cache holds `caps::bounds().learners` users
+//!   a new one drops any other.
 //! - [`super::save`], the one function that writes a `user_progress` row,
 //!   updates the entry after the write. Inside a transaction, which may
 //!   still roll back, it drops the learner's entry instead;
@@ -64,7 +65,7 @@ impl ProgressCache {
     /// other course; when full, a new learner drops any other one.
     pub fn fill(&self, user_id: i64, course_id: &str, map: Arc<ProgressMap>) {
         let mut entries = self.entries();
-        if !entries.contains_key(&user_id) && entries.len() >= crate::caps::MAX_ACCOUNTS {
+        if !entries.contains_key(&user_id) && entries.len() >= crate::caps::bounds().learners {
             if let Some(&any) = entries.keys().next() {
                 entries.remove(&any);
             }
@@ -218,11 +219,11 @@ mod tests {
             load_progress(c, uid, "es")?;
             assert_eq!(db.progress_cache().len(), 1);
             assert_eq!(reads(&db), 3, "switching course drops the old one");
-            for i in 0..crate::caps::MAX_ACCOUNTS + 2 {
+            for i in 0..crate::caps::bounds().learners + 2 {
                 let other = crate::auth::create_user(c, &format!("u{i}@example.org"), "h")?;
                 load_progress(c, other, "es")?;
             }
-            assert_eq!(db.progress_cache().len(), crate::caps::MAX_ACCOUNTS);
+            assert_eq!(db.progress_cache().len(), crate::caps::bounds().learners);
             Ok(())
         })
         .unwrap();

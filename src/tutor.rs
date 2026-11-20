@@ -225,7 +225,7 @@ impl Drop for Claim<'_> {
 }
 
 /// Tutor chats by id. One entry per account at most (so at most
-/// `caps::MAX_ACCOUNTS`): `start` drops idle-expired chats and the
+/// `caps::MAX_ACCOUNTS`; students have no tutor): `start` drops idle-expired chats and the
 /// account's earlier one before inserting (#42).
 #[derive(Default)]
 pub struct Sessions {

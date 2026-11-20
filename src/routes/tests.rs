@@ -210,7 +210,7 @@ fn made_up_addresses_do_not_fill_the_per_account_table() {
     let login = |from: &str, email: &str, pw: &str| {
         agent.post(&format!("{base}/login")).header("x-forwarded-for", from).send_form([("email", email), ("password", pw)]).unwrap().status().as_u16()
     };
-    for i in 0..(crate::caps::MAX_RATE_LIMIT_KEYS + 6) {
+    for i in 0..(crate::caps::bounds().rate_limit_keys + 6) {
         let from = format!("198.51.100.{}", i % 250 + 1);
         assert_eq!(login(&from, &format!("nobody{i}@example.org"), "guess"), 200);
     }

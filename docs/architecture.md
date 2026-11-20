@@ -17,7 +17,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 
 ### Server and plumbing
 
-- Start-up: `main.rs` (env config, commands), `caps.rs` (the fixed limits of a mini, `MAX_ACCOUNTS`, #29), `startup.rs` (start-up errors), `doctor.rs` (`skrongle doctor`), `server.rs` (listener limits).
+- Start-up: `main.rs` (env config, commands), `caps.rs` (the limits of a mini: `MAX_ACCOUNTS`, #29, and the student limit with the `Bounds` sized from it, #216), `startup.rs` (start-up errors), `doctor.rs` (`skrongle doctor`), `server.rs` (listener limits).
 - HTTP: `routes/mod.rs` (Router, embedded static files and docs, CourseView), `error.rs` (AppError to responses), `security.rs` (headers, CSRF, rate limits).
 - Database: `db.rs` (connection, `Db::call`), `db/migrations.rs` (`MIGRATIONS`: each step's `up` and `down` SQL, run through `rusqlite_migration`; the schema in `db/migrations/v001_schema.sql`); described in "SQLite schema" below; background jobs (the hourly housekeeping) in `jobs.rs`.
 - App text: `i18n.rs` reads `i18n/<code>.yaml` (`docs/i18n.md`). Randomness: `random.rs` (OS bytes), `quiz.rs` has the small PRNG.
@@ -101,7 +101,7 @@ src/
   server.rs      the listener: header and body timeouts, a connection cap (axum::serve plus limits)
   security.rs    security headers and the cross-site (CSRF) check on every request, client address, rate limits
   tutor.rs       AI tutoring: in-memory chat sessions, exercise picking, prompts, the reply markers ([[ask]], [[skip]], [[answer: …]]), the model call thread
-  mastery.rs     mastery score update + decay, progress/history persistence (per course); mastery/cache.rs holds each learner's user_progress rows for the course they are on (one entry per account, at most MAX_ACCOUNTS), updated by `save`, the one write (#38)
+  mastery.rs     mastery score update + decay, progress/history persistence (per course); mastery/cache.rs holds each learner's user_progress rows for the course they are on (one entry per account or student, at most `caps::bounds().learners`), updated by `save`, the one write (#38)
   activity.rs    activity from every mode (#558): the daily goal's effort points per kind (tables activity_log), the lesson every mode resumes at (lesson_touches)
   notes.rs       a learner's own note on a lesson (#336): "My note" on the lesson page, POST /api/lessons/{slug}/note (table lesson_notes)
   earnings.rs    what a learner earned in a course: a window's tally from the log (a run, today), the running totals and the day streak as one `earnings` row per course (#589) that activity::record moves; priced by the motivators' rates
@@ -560,6 +560,7 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_KEEP_NOTES` | `0` | `1`: keep the notes of an AI course once it is ready (revisions then see them). Default: emptied within the hour |
 | `SKRONGLE_FAILED_COURSE_RETENTION_DAYS` | `30` | Delete an AI course whose generation failed (with its notes and files) once it has gone this many days without a resume or edit (at startup and hourly, `jobs::retention::apply_retention`). `0`: keep them |
 | `SKRONGLE_MIN_AGE` | `14` | The age the sign-up forms' age checkbox names (#976) |
+| `SKRONGLE_STUDENT_LIMIT` | `50` | Student accounts the box holds, 1 to 1000; anything else stops startup (`caps::parse_student_limit`). Read once at startup (`caps::init_student_limit`); above 50 it logs one line. Students count apart from `MAX_ACCOUNTS`. `caps::bounds()` sizes what grows with learners from it: sessions (4 per account, 2 per student: 300 at the defaults; the session cache), rate-limit keys (8 per learner: 800) and the per-learner caches (progress maps, game sessions: 100). API grants and tokens, the tutor and AI jobs follow `MAX_ACCOUNTS` alone (students have none). The pi budget is checked at the default (#216) |
 | `SKRONGLE_LOG` | `info` | One level: `error`, `warn`, `info`, `debug` or `trace`. Per-module filters like `skrongle=debug` are not supported; an unrecognised value logs one warning and runs at `info`. |
 | `SKRONGLE_SECURE_COOKIES` | `0` | Set `1` behind a TLS proxy to add `Secure` to cookies. Outside mini and dev mode the server warns at start if it listens on plain HTTP beyond loopback, or if the public URL is `https://` and this is off; it does not refuse to start |
 | `SKRONGLE_BASE_PATH` | *(empty)* | URL prefix when mounted behind a reverse proxy, e.g. `/spanish` |
@@ -931,7 +932,7 @@ writable path, and a release never touches the database.
   codes count against sign-in, and a blocked sign-in blocks it). The address is the peer, or
   the last `X-Forwarded-For` entry when the peer is a proxy on loopback;
   an IPv6 address counts by its /64. Each limit keeps its own table of at
-  most 400 keys (`caps::MAX_RATE_LIMIT_KEYS`); a full table drops ended
+  most 8 keys per account or student (`caps::Bounds::rate_limit_keys`, 800 at the default student limit); a full table drops ended
   windows first, and then depends on the limit (`security::WhenFull`).
   The per-account limits refuse a new key (as over the limit) rather than
   evict a running window, so a flood cannot reset an account's

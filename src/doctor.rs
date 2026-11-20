@@ -296,6 +296,7 @@ pub fn report(cfg: &Config, env: &dyn Fn(&str) -> Option<String>) -> Vec<Line> {
         Some(_) => "custom (SKRONGLE_OPENAI_BASE_URL is set)",
         None => "default",
     }));
+    out.push(Line::new("student limit", student_limit_line(env("STUDENT_LIMIT").as_deref())));
     out.push(Line::new("public URL set", yes_no(env("PUBLIC_URL").is_some())));
     out.push(Line::new("secure cookies", yes_no(cfg.secure_cookies)));
     if !cfg.base_path.is_empty() {
@@ -309,6 +310,17 @@ pub fn report(cfg: &Config, env: &dyn Fn(&str) -> Option<String>) -> Vec<Line> {
     out.push(Line::new("free disk", disk_line(&startup::db_dir(db))));
     out.push(Line::new("memory", memory_line()));
     out
+}
+
+/// `SKRONGLE_STUDENT_LIMIT` as the server will read it (mini #216).
+fn student_limit_line(value: Option<&str>) -> String {
+    let measured = crate::caps::DEFAULT_STUDENT_LIMIT;
+    match (value, crate::caps::parse_student_limit(value)) {
+        (_, Err(e)) => format!("PROBLEM: {e} (the server will not start)"),
+        (None, Ok(n)) => format!("{n} (default)"),
+        (Some(_), Ok(n)) if n > measured => format!("{n} (SKRONGLE_STUDENT_LIMIT; a Pi Zero 2 W is measured at {measured})"),
+        (Some(_), Ok(n)) => format!("{n} (SKRONGLE_STUDENT_LIMIT)"),
+    }
 }
 
 pub fn render(lines: &[Line]) -> String {
@@ -579,6 +591,14 @@ mod tests {
         let _ = std::fs::remove_dir_all(&dir);
         std::fs::create_dir_all(&dir).unwrap();
         dir.join("learn.db")
+    }
+
+    #[test]
+    fn the_student_limit_line() {
+        assert_eq!(student_limit_line(None), "50 (default)");
+        assert_eq!(student_limit_line(Some("30")), "30 (SKRONGLE_STUDENT_LIMIT)");
+        assert!(student_limit_line(Some("120")).contains("Pi Zero 2 W is measured at 50"));
+        assert!(student_limit_line(Some("abc")).starts_with("PROBLEM: SKRONGLE_STUDENT_LIMIT must be"));
     }
 
     #[test]

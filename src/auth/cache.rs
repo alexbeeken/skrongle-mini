@@ -2,7 +2,7 @@
 //! the first finds its user without the session query (`user_for_session`:
 //! a join of `sessions`, `users`, `courses` and `projects` plus the
 //! terms subquery). The working set is a few dozen `CurrentUser`s: at most
-//! `MAX_ACCOUNTS * MAX_SESSIONS_PER_ACCOUNT` sessions exist.
+//! `caps::bounds().sessions` sessions exist (accounts and students, #216).
 //!
 //! Kept true by the connection, not by each write path: `Db` creates
 //! temporary triggers ([`SessionCache::triggers_sql`]) that forget every
@@ -19,14 +19,16 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Mutex;
 
 use super::CurrentUser;
-use crate::caps::{MAX_ACCOUNTS, MAX_SESSIONS_PER_ACCOUNT};
 
 /// The tables `user_for_session` reads. A write to any of them forgets the
 /// whole cache (it is tiny and refills on the next request).
 pub const WATCHED: &[&str] = &["sessions", "users", "courses", "projects", "settings"];
 
-/// Entries the cache holds: one per session that can exist.
-pub const CAPACITY: usize = MAX_ACCOUNTS * MAX_SESSIONS_PER_ACCOUNT;
+/// Entries the cache holds: one per session that can exist
+/// ([`crate::caps::Bounds::sessions`], set once at startup).
+pub fn capacity() -> usize {
+    crate::caps::bounds().sessions
+}
 
 /// The longest an entry is used before the database is asked again.
 pub const MAX_AGE_SECS: i64 = 60;
@@ -71,7 +73,7 @@ impl SessionCache {
     pub fn put(&self, hash: String, user: CurrentUser, now: i64, expires_at: i64) {
         self.reads.fetch_add(1, Ordering::Relaxed);
         let mut entries = self.entries();
-        if entries.len() >= CAPACITY && !entries.contains_key(&hash) {
+        if entries.len() >= capacity() && !entries.contains_key(&hash) {
             entries.clear();
         }
         entries.insert(hash, Entry { user, until: expires_at.min(now + MAX_AGE_SECS) });
@@ -129,9 +131,10 @@ mod tests {
         cache.put("b".into(), CurrentUser::test(2), 100, i64::MAX);
         assert!(cache.get("b", 100 + MAX_AGE_SECS - 1).is_some());
         assert!(cache.get("b", 100 + MAX_AGE_SECS).is_none(), "read again after a while");
-        for i in 0..CAPACITY + 1 {
+        assert_eq!(capacity(), 300, "accounts' 200 sessions and students' 100 at the default limit");
+        for i in 0..capacity() + 1 {
             cache.put(format!("s{i}"), CurrentUser::test(3), 0, i64::MAX);
-            assert!(cache.len() <= CAPACITY);
+            assert!(cache.len() <= capacity());
         }
     }
 

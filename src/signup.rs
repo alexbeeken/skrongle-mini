@@ -130,6 +130,8 @@ pub fn no_accounts(conn: &Connection) -> rusqlite::Result<bool> {
 }
 
 /// Does the server hold [`crate::caps::MAX_ACCOUNTS`] accounts already?
+/// Student accounts count apart, against [`crate::caps::students_full`];
+/// until they exist (#217) every row of `users` is a normal account.
 pub fn is_full(conn: &Connection, dev: bool) -> rusqlite::Result<bool> {
     let n: i64 = conn.query_row("SELECT COUNT(*) FROM users", [], |r| r.get(0))?;
     Ok(crate::caps::accounts_full(n, dev))
