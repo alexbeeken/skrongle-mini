@@ -773,6 +773,18 @@ study:
     jump: "Aller à une unité"
     jump_passed: "{n} sur {total} réussies"
     to_top: "↑ Retour en haut"
+  paper:
+    print: "Imprimer"
+    print_unit: "Imprimer l'unité"
+    print_button: "Imprimer"
+    back_lesson: "Retour à la leçon"
+    back_lessons: "Retour aux leçons"
+    not_recorded: "Le travail sur papier n'est pas enregistré : votre progression ne change pas."
+    questions: "Questions"
+    name: "Nom"
+    date: "Date"
+    answers: "Réponses"
+    also: "aussi juste : {answers}"
   panel:
     lessons: Leçons
     noscript: "Déplacer, renommer et ajouter des leçons nécessitent JavaScript ; Modifier ouvre le fichier d'une leçon."

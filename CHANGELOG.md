@@ -19,6 +19,12 @@ numbers work is in the README, "Versions".
   Spanish. A built-in course's `course.json` may say where it goes with
   `"order"` (lowest first); the others keep their folder order after it.
 
+- **Print a lesson or a unit as a worksheet.** *More ways → Print* on a
+  lesson, or *Print the unit* on the Lessons tab, opens a page laid out for
+  paper: the lesson, its vocabulary, its questions with room to write and a
+  line for a name and a date, and an answer key on its own sheet. Only
+  questions that work on paper are printed; printing records no progress.
+
 ## 0.4.0 (2026-11-12)
 
 Permissions that count, a Student default for new accounts, and a way for an

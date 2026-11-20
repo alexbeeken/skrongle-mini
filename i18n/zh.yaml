@@ -773,6 +773,18 @@ study:
     jump: "跳转到单元"
     jump_passed: "已通过 {n}/{total}"
     to_top: "↑ 返回顶部"
+  paper:
+    print: "打印"
+    print_unit: "打印本单元"
+    print_button: "打印"
+    back_lesson: "返回课程"
+    back_lessons: "返回课程列表"
+    not_recorded: "纸上完成的练习不会被记录：你的进度保持不变。"
+    questions: "题目"
+    name: "姓名"
+    date: "日期"
+    answers: "答案"
+    also: "也正确：{answers}"
   panel:
     lessons: 课节
     noscript: 移动、重命名和添加课节需要 JavaScript；“编辑”会打开课节的文件。

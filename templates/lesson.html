@@ -35,6 +35,7 @@
           {% if let Some(u) = user %}{% if u.ai_tutor() %}<a href="{{ crate::base_path() }}/tutor?lesson={{ lesson.slug }}" data-testid="lesson-tutor">{{ crate::t("study.lesson.tutor_me") }}</a>{% endif %}{% endif %}
           <a href="{{ crate::base_path() }}/guide/{{ lesson.slug }}" data-testid="lesson-guide">{{ crate::t("study.lesson.play_guide") }}</a>
           <a href="{{ crate::base_path() }}/sprint/play?lesson={{ lesson.slug }}" data-testid="lesson-sprint">{{ crate::t("study.lesson.sprint_session") }}</a>
+          {% if printable %}<a href="{{ crate::base_path() }}/lessons/{{ lesson.slug }}/print" data-testid="lesson-print">{{ crate::t("study.paper.print") }}</a>{% endif %}
         </div>
       </details>
     </div>

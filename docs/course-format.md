@@ -799,6 +799,7 @@ the canonical names shown above.
 | `quiz[].clef`, `quiz[].any_octave` (`staff-note`) | Place the note in Practice, the reading check, Sprint mode, the Guide and the editor's preview |
 | `sprint.scales` | Sprint mode's Build the scale ladder; the scale on a staff with a speaker on the lesson page |
 | `quiz` | Practice quizzes, lesson quiz, Guide quick checks, Sprint mode, mastery scores |
+| `content`, `vocabulary`, `quiz` (`multiple-choice`, `true-false`, `fill-in-blank`, `numeric`, `expression`, without `play`, `abc` or `option_kind`) | Printed worksheet and answer key ([Paper mode](features#paper-mode)); a lesson with none of those questions has no Print |
 | `quiz[].teaches` + `vocabulary` | Vocabulary collection and flashcards |
 | `vocabulary` | Guide flashcard hands, Vocabulary page, Word Match, Sprint mode pick/match and its listening exercises (what do you hear, select the matching audio, listen and match) |
 | `conjugations` | Lesson table, Conjugation Drill, Sprint mode ladders |
