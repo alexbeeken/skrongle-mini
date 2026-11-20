@@ -463,7 +463,7 @@ fn backfill(conn: &Connection, user_id: i64, course_id: &str, tz: i64) -> rusqli
     let active: Vec<i64> = stmt.query_map(params![user_id, course_id, tz], |r| r.get(0))?.collect::<Result<_, _>>()?;
     let day = active.first().copied();
     let rest = Rest::load(conn, user_id)?;
-    let streak = if day.is_some() { 1 + active.windows(2).take_while(|w| rest.bridges(w[1], w[0])).count() as i64 } else { 0 };
+    let streak = if day.is_some() { 1 + active.windows(2).take_while(|w| matches!(w, [newer, older] if rest.bridges(*older, *newer))).count() as i64 } else { 0 };
     Ok(Ledger {
         points: days.values().sum(),
         goals: days.values().filter(|p| (p.floor() as i64) >= DAILY_GOAL).count() as i64,
