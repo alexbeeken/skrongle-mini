@@ -3095,3 +3095,28 @@ oauth:
   no_permission:
     title: "此账户无法连接应用"
     text: "连接应用需要“创建课程”权限。请向此服务器的所有者申请。"
+goal_date:
+  setting: 目标日期
+  optional: 可选
+  note: "有考试或旅行要来？设好日期，这门课程的首页会多一个小标签，显示能按时到达的节奏。只有你能看到。"
+  clear: 移除
+  date: "{month}{day}日"
+  on_pace: 节奏正好
+  per_week:
+    one: "每周约 {n} 课"
+    other: "每周约 {n} 课"
+  passed: 日期已过
+  left:
+    one: "到{date}还要通过 {n} 课。"
+    other: "到{date}还要通过 {n} 课。"
+  need: "每周约 {n} 课就能到达。"
+  lately: "过去两周你通过了 {n} 课。"
+  later: 换一个晚一点的日期，会更贴合你一直以来的学习节奏。
+  passed_line: "你的目标日期是{date}。可以选一个新日期，也可以不设日期继续学。"
+  still:
+    one: "还有 {n} 课要通过。"
+    other: "还有 {n} 课要通过。"
+  change: 更改日期
+  remove: 移除
+  not_a_date: "这不是一个日期。"
+  chip_label: "目标日期：查看节奏"

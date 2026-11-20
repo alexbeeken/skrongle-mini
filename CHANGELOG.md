@@ -6,6 +6,14 @@ numbers work is in the README, "Versions".
 
 ## Unreleased
 
+- **A date to aim for** (#235). A course's settings (the gear on
+  **Courses**) have an optional date. With one set, the course's home page
+  shows one quiet chip with the date and either "on pace" or about how many
+  lessons a week get there; press it for the arithmetic, **Change the
+  date** or **Remove it**. It is off until a learner sets it and changes
+  nothing else. **This changes the database**: `projects.goal_date` is
+  added on first start.
+
 - **Sign-up no longer asks a person's age while new accounts start as
   Student** (the default). The "I am at least 14 years old" box is gone from
   the register form and invitation links, and nothing about age is stored

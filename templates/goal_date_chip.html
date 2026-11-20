@@ -1,0 +1,14 @@
+{# A date to aim for (#235, goal_date.rs): one quiet chip in the home page's chip row
+   (motivators/stats.html) and, on a row of its own under it, the two lines the chip opens
+   (static/home.js): lessons left and the pace, then Change the date / Remove it. Grey once the
+   date has passed; never red, no countdown. Nothing here without a date. #}
+{% if let Some(g) = p.goal %}
+<li class="today-chip goal-chip{% if g.passed %} passed{% endif %}" data-testid="home-goal-date" data-passed="{{ g.passed }}"><button type="button" aria-expanded="false" aria-controls="home-goal-date-more" title="{{ crate::t("goal_date.chip_label") }}" data-testid="home-goal-date-chip">📅 {% if !g.date.is_empty() %}<strong>{{ g.date }}</strong> {% endif %}<span>{{ g.label }}</span></button></li>
+<li class="goal-more" id="home-goal-date-more" hidden data-testid="home-goal-date-more">
+  <p data-testid="home-goal-date-line">{{ g.line }}</p>
+  <div class="goal-more-actions">
+    <a href="{{ g.change_url }}" data-testid="home-goal-date-change">{{ crate::t("goal_date.change") }}</a>
+    <form method="post" action="{{ g.remove_action }}"><input type="hidden" name="goal_date" value=""><input type="hidden" name="next" value="home"><button type="submit" class="link-btn" data-testid="home-goal-date-remove">{{ crate::t("goal_date.remove") }}</button></form>
+  </div>
+</li>
+{% endif %}

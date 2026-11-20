@@ -1,7 +1,8 @@
 // A course's settings: two dialogs, one script.
 //
 // The gear's settings (templates/course_settings.html, #565, #576) are one
-// sheet: level and motivator. The level's note follows the pick, Save posts
+// sheet: level, motivator and a date to aim for (#235). A link to
+// /courses#course-settings-<id> (the home page's date chip) opens it. The level's note follows the pick, Save posts
 // the form in place, the dialog closes and the card nods (`.accepted`).
 // Closing without Save puts the saved settings back.
 //
@@ -40,12 +41,22 @@
     var x = dlg.querySelector("[data-testid=courses-settings-close]");
     if (x) x.addEventListener("click", function (ev) { ev.preventDefault(); dlg.close(); });
 
-    var state = function () { return { level: value("start_unit", null), motivator: value("motivator", "") }; };
-    var same = function (a, b) { return a.level === b.level && a.motivator === b.motivator; };
+    // A date to aim for (#235): the gear's sheet only; null in the wizard.
+    var date = form.querySelector("input[name=goal_date]");
+    var clear = form.querySelector("[data-goal-date-clear]");
+    var showClear = function () { if (clear) clear.hidden = !date.value; };
+    if (date) {
+      date.addEventListener("input", showClear);
+      if (clear) clear.addEventListener("click", function () { date.value = ""; showClear(); date.focus(); });
+      showClear();
+    }
+    var state = function () { return { level: value("start_unit", null), motivator: value("motivator", ""), goal: date ? date.value : null }; };
+    var same = function (a, b) { return a.level === b.level && a.motivator === b.motivator && a.goal === b.goal; };
     // Puts the settings `s` back on the form.
     var restore = function (s) {
       if (s.level !== null) check("start_unit", s.level);
       check("motivator", s.motivator);
+      if (date && s.goal !== null) { date.value = s.goal; showClear(); }
     };
     return { form: form, value: value, check: check, state: state, same: same, restore: restore };
   }
@@ -57,6 +68,7 @@
     if (button) button.disabled = true;
     var body = new URLSearchParams({ motivator: now.motivator });
     if (now.level !== null) body.set("start_unit", now.level);
+    if (now.goal !== null) body.set("goal_date", now.goal);
     return fetch(s.form.action, { method: "POST", body: body, credentials: "same-origin" })
       .then(function (r) { if (!r.ok) throw new Error(r.status); then(); })
       .catch(function () { s.form.submit(); })
@@ -175,6 +187,14 @@
   document.querySelectorAll("[data-testid=courses-settings-dialog]").forEach(function (dlg) {
     if (dlg.hasAttribute("data-wizard")) initWizard(dlg); else initForm(dlg);
   });
+  // /courses#course-settings-<id>: that course's sheet opens on its date (#235).
+  var target = window.location.hash.length > 1 && document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+  if (target && target.matches("[data-testid=courses-settings-dialog]:not([data-wizard])") && target.showModal && !target.open) {
+    target.showModal();
+    var field = target.querySelector("input[name=goal_date]");
+    if (field) field.focus();
+    target.addEventListener("close", function () { window.history.replaceState(null, "", window.location.pathname + window.location.search); }, { once: true });
+  }
   document.addEventListener("animationend", function (ev) {
     if (ev.animationName === "card-accepted") ev.target.classList.remove("accepted");
   });

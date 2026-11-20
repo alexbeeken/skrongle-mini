@@ -3098,3 +3098,28 @@ oauth:
   no_permission:
     title: "This account can't connect apps"
     text: "Connecting an app needs the Create courses permission. Ask the owner of this server for it."
+goal_date:
+  setting: A date to aim for
+  optional: optional
+  note: "Have a test or a trip coming? Set its date and this course's home page shows one chip with a pace that gets you there. Only you see it."
+  clear: Remove
+  date: "{day} {month}"
+  on_pace: on pace
+  per_week:
+    one: "about {n} lesson a week"
+    other: "about {n} lessons a week"
+  passed: Date passed
+  left:
+    one: "{n} lesson to pass by {date}."
+    other: "{n} lessons to pass by {date}."
+  need: "About {n} a week gets you there."
+  lately: "In the last two weeks you passed {n}."
+  later: A later date would fit how you have been learning.
+  passed_line: "You were aiming for {date}. Pick a new date, or carry on without one."
+  still:
+    one: "{n} lesson is still to pass."
+    other: "{n} lessons are still to pass."
+  change: Change the date
+  remove: Remove it
+  not_a_date: "That is not a date."
+  chip_label: "A date to aim for: show the pace"

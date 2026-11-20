@@ -818,3 +818,86 @@ fn making_a_course_needs_the_create_courses_permission() {
     assert_eq!(count(), 5);
     assert!(get("/courses", &root_c).1.contains(r#"data-testid="courses-create""#));
 }
+
+/// A date to aim for (#235): set, changed and removed in a course's
+/// settings, per course; a field left out keeps it, a date that is not one
+/// is a 400 and the wizard does not take one. The course home shows one
+/// chip while lessons are left; with every lesson passed it is forgotten.
+#[test]
+fn a_date_to_aim_for_is_set_changed_and_cleared_per_course() {
+    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+    let state = crate::routes::test_state(false);
+    let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
+    state.db.with(|c| crate::perms::apply_preset(c, ann, crate::perms::TEACHER_PRESET)).unwrap();
+    let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
+    let app = crate::routes::router(state.clone());
+    let base = rt.block_on(async {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        tokio::spawn(async move { axum::serve(listener, app).await.unwrap() });
+        format!("http://{addr}")
+    });
+    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
+    let get = |path: &str| agent.get(&format!("{base}{path}")).header("cookie", &cookie).call().unwrap().body_mut().read_to_string().unwrap();
+    let post = |path: &str, form: &[(&str, &str)]| agent.post(&format!("{base}{path}")).header("cookie", &cookie).send_form(form.iter().copied()).unwrap().status().as_u16();
+    let goal = |id: &str| state.db.with(|c| courses::project(c, ann, id)).unwrap().map(|p| p.goal_date);
+    // Days from today (UTC: the test sends no time zone), as <input type="date"> sends them.
+    let iso = |days: i64| {
+        let (y, m, d) = crate::profile::civil(crate::db::now() + days * 86_400);
+        format!("{y:04}-{m:02}-{d:02}")
+    };
+    let chip = r#"data-testid="home-goal-date""#;
+    let settings = "/courses/spanish/settings";
+
+    // The wizard does not take a date.
+    assert_eq!(post("/courses/open/spanish", &[("wizard", "1"), ("motivator", "stats"), ("goal_date", &iso(21))]), 303);
+    assert_eq!(goal("spanish").as_deref(), Some(""));
+    let home = get("/");
+    assert!(home.contains(r#"data-testid="home-stats""#) && !home.contains(chip), "no date, no chip");
+
+    // Set three weeks out: one chip with the date, and the gear's form shows it.
+    let in3 = iso(21);
+    assert_eq!(post(settings, &[("goal_date", &in3)]), 303);
+    assert_eq!(goal("spanish"), Some(in3.clone()));
+    let home = get("/");
+    assert_eq!(home.matches(chip).count(), 1, "{home}");
+    assert!(home.contains(r#"action="/courses/spanish/settings""#) && home.contains("/courses#course-settings-spanish"), "{home}");
+    assert!(get("/courses").contains(&format!(r#"name="goal_date" value="{in3}""#)));
+    // Saving other settings keeps it; a date that is not one is a 400 and keeps it too.
+    assert_eq!(post(settings, &[("motivator", "stats")]), 303);
+    assert_eq!(post(settings, &[("goal_date", "2026-02-30")]), 400);
+    assert_eq!(post(settings, &[("goal_date", "soon")]), 400);
+    assert_eq!(goal("spanish"), Some(in3.clone()));
+    // Changed to yesterday: the chip says the date has passed.
+    assert_eq!(post(settings, &[("goal_date", &iso(-1))]), 303);
+    assert!(get("/").contains(r#"data-passed="true""#));
+    // Another course has no date.
+    assert_eq!(post("/courses/open/french", &[("wizard", "1")]), 303);
+    assert_eq!(goal("french").as_deref(), Some(""));
+    assert!(!get("/").contains(chip));
+    // Removed: the chip goes, the setting is empty.
+    assert_eq!(post("/courses/open/spanish", &[]), 303);
+    assert_eq!(post(settings, &[("goal_date", ""), ("next", "home")]), 303);
+    assert_eq!(goal("spanish").as_deref(), Some(""));
+    assert!(!get("/").contains(chip));
+
+    // Every lesson passed: no chip, and the date is cleared.
+    let id = "aim-abc123";
+    state.db.with(|c| courses::create_course(c, ann, id, "Aim", &courses::starter_files(id, "Aim"))).unwrap();
+    assert_eq!(post(&format!("/courses/open/{id}"), &[("wizard", "1")]), 303);
+    assert_eq!(post(&format!("/courses/{id}/settings"), &[("goal_date", &in3)]), 303);
+    assert!(get("/").contains(chip));
+    let content = rt.block_on(state.courses.get(&state.db, id)).unwrap().unwrap();
+    state
+        .db
+        .with(|c| {
+            for l in content.lessons() {
+                crate::progress::mark_seen(c, ann, id, l, crate::progress::VIA_STUDY)?;
+                crate::progress::record_run(c, ann, id, l, crate::progress::VIA_STUDY, 3, 3)?;
+            }
+            Ok(())
+        })
+        .unwrap();
+    assert!(!get("/").contains(chip));
+    assert_eq!(goal(id).as_deref(), Some(""));
+}

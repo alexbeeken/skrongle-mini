@@ -85,6 +85,9 @@ pub struct CourseSettings {
     pub translate: bool,
     pub meanings_lang: String,
     pub translate_providers: Vec<ProviderChoice>,
+    /// A date to aim for (#235), `YYYY-MM-DD` or '': the form's date field.
+    /// The wizard does not show it.
+    pub goal_date: String,
 }
 
 impl CourseSettings {
@@ -144,6 +147,7 @@ fn settings_view_with(pr: &courses::ProjectRow, title: &str, levels: Vec<super::
         translate: false,
         meanings_lang: String::new(),
         translate_providers: Vec::new(),
+        goal_date: pr.goal_date.clone(),
     }
 }
 

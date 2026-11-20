@@ -1,7 +1,8 @@
 {# A course's settings behind its card's gear (`st`, routes::courses::CourseSettings, #565, #576): one
    sheet, every choice in view. The header is the title and the corner tools: the editor's pencil, the
    copy icon (#629) and the X. Under it one row a setting, label left and the picks right: the level as
-   a joined ladder (a course with levels) and the motivator as chips, then Save. The first visit's
+   a joined ladder (a course with levels) and the motivator as chips, an optional date to aim for
+   (#235), then Save. The first visit's
    wizard is course_wizard.html, a separate dialog. course-settings.js runs both; without a script the
    form just posts. #}
 {% let id = st.course_id.as_str() %}
@@ -39,6 +40,14 @@
           {%- for m in st.motivators %}
           <label class="chip" data-testid="courses-settings-motivator" data-motivator-id="{{ m.id }}" title="{{ m.about }}"><input type="radio" name="motivator" value="{{ m.id }}" class="sr-only"{% if m.active %} checked{% endif %}> {{ m.icon }} {{ m.title }}</label>
           {%- endfor %}
+        </div>
+      </div>
+      {# A date to aim for (#235): optional, here only (the wizard does not ask). The course home shows it as one chip. #}
+      <div class="cs-row" data-testid="courses-settings-row" data-row="goal-date">
+        <div class="cs-label"><label for="course-settings-{{ id }}-goal-date">{{ crate::t("goal_date.setting") }}</label> <span class="muted">{{ crate::t("goal_date.optional") }}</span></div>
+        <div class="cs-field">
+          <div class="cs-date"><input type="date" id="course-settings-{{ id }}-goal-date" name="goal_date" value="{{ st.goal_date }}" data-testid="courses-settings-goal-date"> <button type="button" class="link-btn" hidden data-goal-date-clear data-testid="courses-settings-goal-date-clear">{{ crate::t("goal_date.clear") }}</button></div>
+          <p class="cs-note">{{ crate::t("goal_date.note") }}</p>
         </div>
       </div>
     </div>

@@ -9,6 +9,9 @@ pub struct SettingsForm {
     /// The level to start at, for a course with levels: a unit id of
     /// `pages::level_options`, '' for the beginning (#587).
     pub start_unit: Option<String>,
+    /// A date to aim for (#235), `YYYY-MM-DD` from `<input type="date">`;
+    /// '' removes it, no field keeps it. Not in the first visit's wizard.
+    pub goal_date: Option<String>,
     /// `home` from the first visit's wizard on the course home, which it
     /// goes back to; the course list otherwise.
     #[serde(default)]
@@ -38,6 +41,13 @@ fn settings_change(content: &ContentStore, form: &SettingsForm) -> Result<course
             return Err(AppError::BadRequest(crate::t1("study.start.no_such_level", "unit", unit)));
         }
         change.start_unit = Some(unit.clone());
+    }
+    if let Some(date) = &form.goal_date {
+        let date = date.trim();
+        if !date.is_empty() && crate::goal_date::parse(date).is_none() {
+            return Err(AppError::BadRequest(crate::t("goal_date.not_a_date")));
+        }
+        change.goal_date = Some(date.to_string());
     }
     Ok(change)
 }
@@ -81,7 +91,8 @@ async fn save_settings(state: &AppState, user_id: i64, content: &ContentStore, c
 
 /// POST /courses/{id}/settings: a course's settings (#565, #574, #587),
 /// from its dialog on the course list or the wizard of its first visit:
-/// the level and the motivator worn in it. A field left out keeps its value; any save, even of nothing
+/// the level, the motivator worn in it and a date to aim for (#235, gear
+/// only). A field left out keeps its value; any save, even of nothing
 /// (the wizard closed), counts the course as set up. A choice that is not
 /// one is a 400 (`settings_change`); a course they never opened a 404; a
 /// new level from an account that may not skip levels a 403
@@ -134,7 +145,8 @@ pub async fn open(
     let Some(content) = state.courses.get(&state.db, &id).await? else {
         return Ok(Redirect::to(&crate::url(&format!("/courses/{id}"))).into_response());
     };
-    let change = if form.wizard == "1" { Some(settings_change(&content, &form)?) } else { None };
+    // The wizard does not ask for a date to aim for (#235).
+    let change = if form.wizard == "1" { Some(courses::SettingsChange { goal_date: None, ..settings_change(&content, &form)? }) } else { None };
     // Refused before the course is opened: a 403 opens nothing.
     if let Some(change) = &change {
         may_change_level(&state, &user, &content, change).await?;

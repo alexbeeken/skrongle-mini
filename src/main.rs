@@ -22,6 +22,7 @@ mod earnings;
 mod sprint;
 mod error;
 mod games;
+mod goal_date;
 mod guide;
 mod i18n;
 mod jobs;

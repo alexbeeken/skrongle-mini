@@ -1385,6 +1385,8 @@ pub struct ProjectRow {
     pub set_up: bool,
     /// The level the learner chose (`projects.start_unit`), '' for the beginning.
     pub start_unit: String,
+    /// A date to aim for (#235), `YYYY-MM-DD`, '' for none (`goal_date.rs`).
+    pub goal_date: String,
 }
 
 /// Open a course for the user: upsert the project row and make it active.
@@ -1418,6 +1420,7 @@ pub fn fresh_project(conn: &Connection, user_id: i64, course_id: &str) -> rusqli
             motivator: String::new(),
             set_up: false,
             start_unit: String::new(),
+            goal_date: String::new(),
         })
     })
 }
@@ -1431,6 +1434,8 @@ pub struct SettingsChange {
     /// The level started at (#587): a unit id, '' for the beginning
     /// (`ContentStore::start_index` turns it into a unit index).
     pub start_unit: Option<String>,
+    /// A date to aim for (#235): `YYYY-MM-DD`, '' to remove it.
+    pub goal_date: Option<String>,
 }
 
 /// Save a course's settings, for a course the user opened. Any save, even
@@ -1440,9 +1445,10 @@ pub fn set_project_settings(conn: &Connection, user_id: i64, course_id: &str, ch
     let n = conn.execute(
         "UPDATE projects SET set_up = 1,
                 motivator = COALESCE(?3, motivator),
-                start_unit = COALESCE(?4, start_unit)
+                start_unit = COALESCE(?4, start_unit),
+                goal_date = COALESCE(?5, goal_date)
          WHERE user_id = ?1 AND course_id = ?2",
-        params![user_id, course_id, change.motivator, change.start_unit],
+        params![user_id, course_id, change.motivator, change.start_unit, change.goal_date],
     )?;
     Ok(n > 0)
 }
@@ -1454,7 +1460,7 @@ pub fn clear_active(conn: &Connection, user_id: i64) -> rusqlite::Result<()> {
 
 pub fn projects_of(conn: &Connection, user_id: i64) -> rusqlite::Result<Vec<ProjectRow>> {
     let mut stmt = conn.prepare_cached(
-        "SELECT course_id, last_opened_at, motivator, set_up, start_unit FROM projects WHERE user_id = ?1 ORDER BY last_opened_at DESC",
+        "SELECT course_id, last_opened_at, motivator, set_up, start_unit, goal_date FROM projects WHERE user_id = ?1 ORDER BY last_opened_at DESC",
     )?;
     let rows = stmt.query_map([user_id], project_row)?;
     rows.collect()
@@ -1471,7 +1477,7 @@ const HAS_PROJECT: &str = "SELECT 1 FROM projects WHERE user_id = ?1 AND course_
 /// The user's project in one course, if they opened it.
 pub fn project(conn: &Connection, user_id: i64, course_id: &str) -> rusqlite::Result<Option<ProjectRow>> {
     conn.query_row(
-        "SELECT course_id, last_opened_at, motivator, set_up, start_unit FROM projects WHERE user_id = ?1 AND course_id = ?2",
+        "SELECT course_id, last_opened_at, motivator, set_up, start_unit, goal_date FROM projects WHERE user_id = ?1 AND course_id = ?2",
         params![user_id, course_id],
         project_row,
     )
@@ -1485,6 +1491,7 @@ fn project_row(r: &rusqlite::Row) -> rusqlite::Result<ProjectRow> {
         motivator: r.get(2)?,
         set_up: r.get(3)?,
         start_unit: r.get(4)?,
+        goal_date: r.get(5)?,
     })
 }
 

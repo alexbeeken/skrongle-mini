@@ -189,6 +189,9 @@ pub struct Progress {
     pub unit_passed: usize,
     pub unit_total: usize,
     pub unit_percent: usize,
+    /// A date to aim for (#235): its one chip in the chip row, if the
+    /// learner set one and lessons are left (`goal_date.rs`).
+    pub goal: Option<crate::goal_date::Chip>,
 }
 
 /// The motivator with this id; an unknown or empty id is the default one.

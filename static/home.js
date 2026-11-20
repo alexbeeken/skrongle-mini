@@ -4,12 +4,21 @@
 // for the ones without. A modal drawn with data-open-on-load
 // opens as the page does; the server may draw it `open` so it
 // shows without script too (#926), and this turns it into a real modal.
+// A date to aim for's chip (#235) opens the two lines under the chip row.
 (function () {
   "use strict";
   document.querySelectorAll("dialog.modal[data-open-on-load]").forEach(function (d) {
     if (!d.showModal) return;
     if (d.open) d.removeAttribute("open");
     d.showModal();
+  });
+  // A date to aim for (#235): its chip opens and closes the lines under the chip row.
+  document.querySelectorAll("[aria-controls=home-goal-date-more]").forEach(function (b) {
+    var more = document.getElementById("home-goal-date-more");
+    if (more) b.addEventListener("click", function () {
+      more.hidden = !more.hidden;
+      b.setAttribute("aria-expanded", String(!more.hidden));
+    });
   });
   if ("commandForElement" in HTMLButtonElement.prototype) return;
   document.querySelectorAll("[data-opens]").forEach(function (b) {

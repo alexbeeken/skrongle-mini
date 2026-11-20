@@ -102,6 +102,19 @@ from the whole log (#589). The table is `activity::Kind::points`
 and `activity::DAILY_GOAL` in `src/activity.rs`. XP, which only
 Sprint mode and the Guide used to give, is gone.
 
+## A date to aim for
+
+A learner may set **a date to aim for** in a course's settings (#235,
+`src/goal_date.rs`). It reads passes and changes nothing: the daily goal,
+the streak and passing work the same with or without it. The pace it shows
+is the lessons not passed yet (skipped ones left out), divided by the weeks
+left to the date, rounded up; with under a week left it counts one week.
+It is *on pace* when the lessons passed in the last 14 days, halved, are at
+least that; when the pace needed is more than 2.5 times that weekly number
+(and something was passed lately) the opened chip suggests a later date
+(`RECENT_DAYS`, `OUT_OF_REACH`). Days are the learner's local days, like
+the daily goal. Once every lesson is passed the date is cleared.
+
 ## Where you left off
 
 Every mode resumes at the same lesson: the home page's *Continue*, the

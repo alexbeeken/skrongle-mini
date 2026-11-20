@@ -126,6 +126,12 @@ main.container:has(> .workspace) { max-width: 1240px; }
 .today-chip .muted { font-weight: 600; font-size: .85rem; }
 .today-chip.streak.lit { color: #d35400; border-color: #f5b041; background: #fff1dc; }
 @media (prefers-color-scheme: dark) { .today-chip.streak.lit { background: #3d2a12; } }
+/* A date to aim for (#235, goal_date_chip.html): a chip that opens a row under the chips; grey once passed, never red. */
+.goal-chip button { display: inline-flex; align-items: center; gap: .3rem; padding: 0; border: 0; background: none; font: inherit; color: var(--text); cursor: pointer; }
+.goal-chip button span { color: var(--muted); font-size: .82rem; } .goal-chip button:hover span { text-decoration: underline; } .goal-chip.passed button { color: var(--muted); }
+.goal-more { flex-basis: 100%; display: flex; flex-direction: column; gap: .4rem; font-size: .92rem; } .goal-more[hidden] { display: none; } .goal-more p { margin: 0; }
+.goal-more-actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; } .goal-more-actions form { margin: 0; } .goal-more-actions a, .goal-more-actions .link-btn { color: var(--muted); text-decoration: underline; }
+.cs-label .muted { font-weight: 400; } .cs-date { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; } .cs-date input { font: inherit; }
 .today-continue { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .today-unit { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--line); }
 .today-unit p { margin: 0; }

@@ -3095,3 +3095,28 @@ oauth:
   no_permission:
     title: "Esta conta não pode conectar apps"
     text: "Conectar um app requer a permissão Criar cursos. Peça ao dono deste servidor."
+goal_date:
+  setting: Uma data como meta
+  optional: opcional
+  note: "Tem uma prova ou uma viagem chegando? Defina a data e a página inicial deste curso mostra uma etiqueta com o ritmo que leva você até lá. Só você a vê."
+  clear: Remover
+  date: "{day} de {month}"
+  on_pace: no ritmo
+  per_week:
+    one: "cerca de {n} lição por semana"
+    other: "cerca de {n} lições por semana"
+  passed: Data passada
+  left:
+    one: "{n} lição para passar até {date}."
+    other: "{n} lições para passar até {date}."
+  need: "Cerca de {n} por semana levam você até lá."
+  lately: "Nas últimas duas semanas você passou em {n}."
+  later: Uma data mais adiante combinaria com o seu jeito de aprender.
+  passed_line: "Sua meta era {date}. Escolha uma nova data ou continue sem uma."
+  still:
+    one: "Ainda falta {n} lição para passar."
+    other: "Ainda faltam {n} lições para passar."
+  change: Mudar a data
+  remove: Remover
+  not_a_date: "Isso não é uma data."
+  chip_label: "Uma data como meta: ver o ritmo"
