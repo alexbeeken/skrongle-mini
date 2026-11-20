@@ -16,6 +16,7 @@
         <li class="today-chip" data-testid="home-stat-passed">✓ <strong>{{ p.passed_count }}<span class="muted"> / {{ p.total_lessons }}</span></strong> <span>{{ crate::t("home.lessons_passed") }}</span></li>
         <li class="today-chip"><a href="{{ crate::base_path() }}/vocabulary" data-testid="home-stat-words">{{ course.icons.words }} <strong>{{ p.words_learned }}</strong> <span>{{ crate::t("home.terms") }}</span></a></li>
         {% if p.skipped_count > 0 %}<li class="today-chip"><a href="{{ crate::base_path() }}/lessons" data-testid="home-skipped"><strong>{{ p.skipped_count }}</strong> <span>{{ crate::t("home.skipped") }}</span></a></li>{% endif %}
+        {% include "goal_date_chip.html" %}
       </ul>
       {% if let Some((slug, title, url)) = p.resume %}
       <a class="btn big today-continue" href="{{ url }}" data-testid="home-continue" data-lesson-id="{{ slug }}">{{ crate::t1("goal.continue", "title", title) }} ›</a>

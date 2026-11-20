@@ -931,7 +931,7 @@ test("Start asks for a course's settings before it opens, then keeps them behind
   await expect(dialog).toBeVisible();
   await expect(prev).toHaveCount(0);
   await expect(dialog.getByTestId("courses-settings-step")).toHaveCount(0);
-  await expect(dialog.getByTestId("courses-settings-row")).toHaveCount(2); // the level and the motivator
+  await expect(dialog.getByTestId("courses-settings-row")).toHaveCount(3); // the level, the motivator and a date to aim for (#235)
   // The level is a ladder with a note on the one chosen.
   await expect(dialog.getByTestId("courses-settings-level-note")).toContainText("From the beginning");
   await dialog.locator('[data-testid="courses-settings-level"][data-unit="B1"]').click();

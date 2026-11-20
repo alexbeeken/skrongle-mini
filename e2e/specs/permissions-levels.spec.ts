@@ -58,11 +58,11 @@ test("without Skip levels a course starts at the beginning; with it the level ca
   await expect(dialog).toHaveCount(0);
   expect((await (await them.request.get("/api/progress")).json()).start_unit).toBe("");
 
-  // The gear: the motivator row only.
+  // The gear: the motivator row and a date to aim for (#235), no level.
   await them.goto("/courses");
   await gear.click();
   await expect(dialog).toBeVisible();
-  await expect(dialog.getByTestId("courses-settings-row")).toHaveCount(1);
+  await expect(dialog.getByTestId("courses-settings-row")).toHaveCount(2);
   await expect(dialog.locator('[data-testid="courses-settings-row"][data-row="level"]')).toHaveCount(0);
   await expect(levels).toHaveCount(0);
 
@@ -77,7 +77,7 @@ test("without Skip levels a course starts at the beginning; with it the level ca
   // The level row is there, the beginning chosen; A2 saves.
   await them.goto("/courses");
   await gear.click();
-  await expect(dialog.getByTestId("courses-settings-row")).toHaveCount(2);
+  await expect(dialog.getByTestId("courses-settings-row")).toHaveCount(3);
   await expect(dialog.locator('[data-testid="courses-settings-level"][data-unit=""] input')).toBeChecked();
   await dialog.locator('[data-testid="courses-settings-level"][data-unit="A2"]').click();
   await save.click();

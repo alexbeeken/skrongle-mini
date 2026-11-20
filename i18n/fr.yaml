@@ -3095,3 +3095,28 @@ oauth:
   no_permission:
     title: "Ce compte ne peut pas connecter d'apps"
     text: "Connecter une app nécessite la permission Créer des cours. Demande-la au propriétaire de ce serveur."
+goal_date:
+  setting: Une date à viser
+  optional: facultatif
+  note: "Un examen ou un voyage en vue ? Indiquez sa date et la page d'accueil de ce cours affiche une pastille avec le rythme qui vous y mène. Vous seul la voyez."
+  clear: Retirer
+  date: "{day} {month}"
+  on_pace: dans le rythme
+  per_week:
+    one: "environ {n} leçon par semaine"
+    other: "environ {n} leçons par semaine"
+  passed: Date passée
+  left:
+    one: "{n} leçon à réussir d'ici le {date}."
+    other: "{n} leçons à réussir d'ici le {date}."
+  need: "Environ {n} par semaine vous y mènent."
+  lately: "Ces deux dernières semaines, vous en avez réussi {n}."
+  later: Une date plus tardive irait mieux avec votre façon d'apprendre.
+  passed_line: "Vous visiez le {date}. Choisissez une nouvelle date, ou continuez sans."
+  still:
+    one: "Il reste {n} leçon à réussir."
+    other: "Il reste {n} leçons à réussir."
+  change: Changer la date
+  remove: La retirer
+  not_a_date: "Ce n'est pas une date."
+  chip_label: "Une date à viser : voir le rythme"

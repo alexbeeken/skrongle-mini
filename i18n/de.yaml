@@ -3095,3 +3095,28 @@ oauth:
   no_permission:
     title: "Dieses Konto kann keine Apps verbinden"
     text: "Zum Verbinden einer App braucht es die Berechtigung Kurse erstellen. Bitte den Betreiber dieses Servers darum."
+goal_date:
+  setting: Ein Datum als Ziel
+  optional: optional
+  note: "Steht ein Test oder eine Reise an? Trag das Datum ein, und die Startseite dieses Kurses zeigt einen Chip mit dem Tempo, das dich hinbringt. Nur du siehst ihn."
+  clear: Entfernen
+  date: "{day}. {month}"
+  on_pace: im Plan
+  per_week:
+    one: "etwa {n} Lektion pro Woche"
+    other: "etwa {n} Lektionen pro Woche"
+  passed: Datum vorbei
+  left:
+    one: "{n} Lektion zu bestehen bis zum {date}."
+    other: "{n} Lektionen zu bestehen bis zum {date}."
+  need: "Etwa {n} pro Woche bringen dich hin."
+  lately: "In den letzten zwei Wochen hast du {n} bestanden."
+  later: Ein späteres Datum würde zu deinem bisherigen Lerntempo passen.
+  passed_line: "Dein Ziel war der {date}. Wähl ein neues Datum oder lern ohne eins weiter."
+  still:
+    one: "{n} Lektion ist noch zu bestehen."
+    other: "{n} Lektionen sind noch zu bestehen."
+  change: Datum ändern
+  remove: Entfernen
+  not_a_date: "Das ist kein Datum."
+  chip_label: "Ein Datum als Ziel: das Tempo zeigen"

@@ -196,7 +196,7 @@ pub fn long_date(t: i64) -> String {
 }
 
 /// The name of month `m` (1–12) in the learner's language.
-fn month_name(m: usize) -> String {
+pub(crate) fn month_name(m: usize) -> String {
     crate::t(match m {
         1 => "profile.month.january",
         2 => "profile.month.february",

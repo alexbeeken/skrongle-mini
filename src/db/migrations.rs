@@ -30,6 +30,8 @@ const STEPS: &[M<'static>] = &[
     M::up(include_str!("migrations/v008_refresh_reuse.sql")).down(include_str!("migrations/v008_refresh_reuse.down.sql")),
     // v9: api_grants.refresh_family_hash, any earlier refresh token revokes its grant (#192)
     M::up(include_str!("migrations/v009_refresh_family.sql")).down(include_str!("migrations/v009_refresh_family.down.sql")),
+    // v11: projects.goal_date, a date to aim for (#235)
+    M::up(include_str!("migrations/v011_goal_date.sql")).down(include_str!("migrations/v011_goal_date.down.sql")),
 ];
 
 /// Schema migrations, applied in order. `PRAGMA user_version` tracks which have run.

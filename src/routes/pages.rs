@@ -568,6 +568,17 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
     let guide_completed = stages.iter().filter(|(_, s)| *s == super::guide::StageState::Complete).count();
     let guide_next = stages.iter().find(|(c, _)| c.is_current).map(|(c, _)| (c.slug.clone(), c.title.clone()));
     let tutor_blocked = ai_tutor && tutor_provider.is_none();
+    // A date to aim for (#235): one chip while lessons are left; with every
+    // lesson passed the date is forgotten.
+    let total_lessons = content.lessons().len() - skipped_count;
+    let goal_date = project.as_ref().map(|pr| pr.goal_date.clone()).unwrap_or_default();
+    let left = total_lessons.saturating_sub(passed_count) as i64;
+    let day = crate::earnings::day_of(tz, at);
+    let goal = crate::goal_date::chip(content.id(), &goal_date, left, day, crate::goal_date::recent(content, &passes, tz, day));
+    if !goal_date.is_empty() && left == 0 {
+        let cid = content.id().to_string();
+        state.db.call(move |c| crate::goal_date::clear(c, uid, &cid)).await?;
+    }
     let measures = crate::motivators::Progress {
         today,
         practised_today,
@@ -575,7 +586,7 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
         resume: resume.map(|r| (r.lesson.slug.clone(), r.lesson.title.clone(), r.mode.continue_url(&r.lesson.slug))),
         effort_table: activity::table(),
         passed_count,
-        total_lessons: content.lessons().len() - skipped_count,
+        total_lessons,
         skipped_count,
         words_learned,
         current_unit: content.unit(current).title.clone(),
@@ -584,6 +595,7 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
         unit_passed,
         unit_total,
         unit_percent: (unit_passed * 100).checked_div(unit_total).unwrap_or(0),
+        goal,
     };
     let (due_count, due) = super::vocab::due_cards(&state, &p, 3).await?;
     let course = content.view();
