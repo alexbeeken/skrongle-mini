@@ -36,10 +36,10 @@ test("without Share courses an account keeps and removes its links but makes no 
   const link = await makeShareLink(them, "Friend");
   await expect(shareRow(them, "Friend")).toBeVisible();
 
-  // The owner turns Share courses off for it: Teacher (63) minus 8.
+  // The owner turns Share courses off for it: Teacher (191, with Hold students) minus 8.
   await devLogin(page);
   await setPermission(page, email, "share_courses", false);
-  await expect(page.getByTestId("manage-account-row").filter({ hasText: email })).toHaveAttribute("data-perms", "55");
+  await expect(page.getByTestId("manage-account-row").filter({ hasText: email })).toHaveAttribute("data-perms", "183");
 
   // Its course page still has Share; the dialog lists the link with Remove, and no form.
   await them.goto(`/courses/${id}`);
