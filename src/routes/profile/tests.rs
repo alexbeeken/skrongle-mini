@@ -122,6 +122,17 @@ fn profile_fields_save_as_they_change() {
     // The motivator is a course's setting now (#574): the profile refuses it.
     let (status, refused) = save(&cookie, serde_json::json!({"motivator": crate::motivators::DEFAULT}));
     assert!(status == 422 && refused["errors"]["motivator"].is_string(), "{refused}");
+    // Rest days (#237): weekday numbers, at most two; a third, or a day
+    // that is not one, is refused and nothing changes.
+    assert_eq!(save(&cookie, serde_json::json!({"rest_days": [0, 6]})).0, 200);
+    assert_eq!(stored().rest_days, 0b100_0001);
+    let (status, refused) = save(&cookie, serde_json::json!({"rest_days": [1, 2, 3]}));
+    assert!(status == 422 && refused["errors"]["rest_days"].as_str().unwrap().contains("at most two"), "{refused}");
+    let (status, refused) = save(&cookie, serde_json::json!({"rest_days": [7]}));
+    assert!(status == 422 && refused["errors"]["rest_days"].is_string(), "{refused}");
+    assert_eq!(stored().rest_days, 0b100_0001);
+    assert_eq!(save(&cookie, serde_json::json!({"rest_days": []})).0, 200);
+    assert_eq!(stored().rest_days, 0);
     // Signed out: refused, as JSON.
     assert_eq!(save("", serde_json::json!({"first_name": "Eve"})).0, 401);
     assert_eq!(stored().first_name, "Ana");

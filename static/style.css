@@ -127,6 +127,7 @@ main.container:has(> .workspace) { max-width: 1240px; }
 .today-chip.streak.lit { color: #d35400; border-color: #f5b041; background: #fff1dc; }
 @media (prefers-color-scheme: dark) { .today-chip.streak.lit { background: #3d2a12; } }
 .today-continue { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.today-continue.quiet { display: inline-block; margin-top: .4rem; color: var(--muted); font-size: .95rem; }
 .today-unit { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--line); }
 .today-unit p { margin: 0; }
 .today-unit-where { font-size: .95rem; margin-bottom: .45rem !important; }

@@ -668,6 +668,11 @@ goal:
   day_away: "Tag {n} ist nur eine Sitzung entfernt."
   five_minutes: "Hast du fünf Minuten?"
   any_mode: "Was du auch lernst, in jedem Modus füllt es den Ring."
+  day_done: "Für heute bist du fertig. Morgen ist früh genug."
+  streak_was:
+    one: "Deine letzte Serie war {n} Tag lang"
+    other: "Deine letzte Serie war {n} Tage lang"
+  new_streak: "Heute beginnt eine neue."
   continue: "Weiter: {title}"
   all_done: "Alle Lektionen bestanden: halte sie frisch"
   info_label: "Was für das Tagesziel zählt"
@@ -684,6 +689,23 @@ goal:
     flashcard: "Eine Karteikarte"
     card: "Eine Karte einer Guide-Stufe"
     reading: "Eine Lektion bis zum Ende lesen"
+
+rest:
+  title: "Ruhetage"
+  about: "Wähle bis zu zwei Tage pro Woche, an denen du nicht lernst. Ein Ruhetag ohne Punkte beendet deine Serie nicht, und Punkte an einem Ruhetag zählen trotzdem. Eine Änderung gilt ab heute."
+  legend: "Tage, an denen du nicht lernst"
+  too_many: "Wähle höchstens zwei Ruhetage."
+  not_a_day: "Das ist kein Wochentag."
+  none: "Keine Ruhetage. In deinem Profil kannst du bis zu zwei wählen."
+  some: "Deine Ruhetage: {days}. Ein Ruhetag ohne Punkte beendet deine Serie nicht."
+  day:
+    mon: "Montag"
+    tue: "Dienstag"
+    wed: "Mittwoch"
+    thu: "Donnerstag"
+    fri: "Freitag"
+    sat: "Samstag"
+    sun: "Sonntag"
 
 study:
   correct: "Richtig!"
@@ -1626,6 +1648,7 @@ sprint:
     best_streak: "Beste Serie in dieser Sitzung: {n} hintereinander."
     goal_done: "Tagesziel erreicht: {n} / {goal} ✓"
     daily_ring: "Tagesziel: {n} / {goal} Punkte"
+    day_done: "Für heute bist du fertig. Morgen ist früh genug."
     lesson_passed: "Lektion bestanden: Diese Station ist im Pfad in jedem Modus abgeschlossen."
     score_to_pass: "Erziele in einer Sitzung {pct} % oder mehr, um diese Lektion zu bestehen und die nächste Station freizuschalten."
     save_failed: "Diese Sitzung konnte nicht gespeichert werden ({error})."

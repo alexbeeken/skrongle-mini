@@ -1667,6 +1667,64 @@ fn every_mode_shares_the_daily_goal_and_where_you_left_off() {
     }
 }
 
+/// #237: a streak that ended says how long it was; rest days are set on the
+/// profile and named in the Today card's (i), and never bring back a streak
+/// that ended; a full ring says the day is done, with Continue as a quiet link.
+#[test]
+fn rest_days_and_a_day_that_is_done_on_the_home_page() {
+    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+    let state = super::test_state(false);
+    let today = crate::earnings::day_of(0, crate::db::now());
+    let ann = state
+        .db
+        .with(|c| {
+            let ann = crate::auth::create_user(c, "ann@example.org", "h")?;
+            crate::courses::open_project(c, ann, "spanish")?;
+            crate::courses::set_project_settings(c, ann, "spanish", &crate::courses::SettingsChange::default())?;
+            // A five-day streak whose last day was three days ago.
+            c.execute(
+                "INSERT INTO earnings (user_id, course_id, points, goals, day, day_points, streak) VALUES (?1, 'spanish', 50, 1, ?2, 5, 5)",
+                rusqlite::params![ann, today - 3],
+            )?;
+            Ok(ann)
+        })
+        .unwrap();
+    let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
+    let app = super::router(state.clone());
+    let base = rt.block_on(async {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        tokio::spawn(async move { axum::serve(listener, app).await.unwrap() });
+        format!("http://{addr}")
+    });
+    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
+    let get = |path: &str| agent.get(&format!("{base}{path}")).header("cookie", &cookie).call().unwrap().body_mut().read_to_string().unwrap();
+    let post = |path: &str, body: serde_json::Value| agent.post(&format!("{base}{path}")).header("cookie", &cookie).send_json(body).unwrap().status().as_u16();
+
+    let home = get("/");
+    assert!(home.contains(r#"data-testid="goal-streak-ended" data-days="5">Your last streak was 5 days</h2>"#), "{home}");
+    assert!(home.contains("A new one starts today."));
+    assert!(home.contains(r#"data-testid="home-info-rest-days">No rest days."#), "{home}");
+    assert!(home.contains(r#"class="btn big today-continue""#) && !home.contains("goal-day-done"));
+
+    // The two days missed become rest days: too late, the streak stays ended.
+    let missed: Vec<i64> = [today - 2, today - 1].iter().map(|&d| i64::from(crate::earnings::weekday(d))).collect();
+    assert_eq!(post("/api/profile", serde_json::json!({ "rest_days": missed })), 200);
+    let home = get("/");
+    assert!(home.contains(r#"data-testid="goal-streak-ended" data-days="5""#), "{home}");
+    let names = crate::earnings::Rest { mask: missed.iter().fold(0, |m, &w| m | 1 << w), since: 0 }.names().join(", ");
+    assert!(home.contains(&format!(r#"data-testid="home-info-rest-days">Your rest days: {names}."#)), "{home}");
+    assert!(get("/profile").contains(r#"data-testid="profile-rest-day" data-weekday=""#));
+
+    // Today's goal reached: the day is done, here and in Sprint mode.
+    state.db.with(|c| crate::activity::record(c, ann, "spanish", crate::activity::Kind::Answer, 20, 0)).unwrap();
+    let home = get("/");
+    assert!(home.contains(r#"<p data-testid="goal-day-done">That&#39;s today done. Tomorrow is soon enough.</p>"#), "{home}");
+    assert!(home.contains(r#"class="today-continue quiet""#) && !home.contains("btn big today-continue"), "{home}");
+    assert!(!home.contains("goal-streak-ended"), "a new streak started today");
+    assert!(get("/sprint").contains("goal-day-done"));
+}
+
 /// #1063: a POST answered without reading its form (here a 404) keeps its
 /// connection, even when the form arrives after the headers. Before, hyper
 /// closed the connection over the unread bytes and the client got a reset,

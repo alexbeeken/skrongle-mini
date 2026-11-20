@@ -1335,6 +1335,13 @@
       var goal = document.getElementById("done-goal");
       goal.dataset.points = res.today; // for tests: today's points as the server counts them
       goal.textContent = res.today >= res.goal ? t('sprint.js.goal_done', { n: res.today, goal: res.goal }) : t('sprint.js.daily_ring', { n: res.today, goal: res.goal });
+      // The ring is full (#237): the day is done, and Continue becomes a quiet link.
+      if (res.day_done) {
+        var day = document.getElementById("done-day");
+        day.textContent = t('sprint.js.day_done');
+        day.hidden = false;
+        document.getElementById("done-home").className = "quiet";
+      }
       // The worn motivator's line (#568), drawn by the server; none if the session earned nothing.
       if (res.reward) note.insertAdjacentHTML("afterend", res.reward);
       if (S.mode === "lesson") {

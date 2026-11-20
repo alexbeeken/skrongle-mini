@@ -70,7 +70,7 @@ fn migrations_apply_once() {
     let db = Db::open_in_memory().unwrap();
     let v: i64 = db.with(|c| c.query_row("PRAGMA user_version", [], |r| r.get(0))).unwrap();
     assert_eq!(v, schema_version());
-    assert_eq!(v, 9, "v1 is the schema (#49), v2 drops Skrongle Cash, v3 names share links, v4 adds permissions (#138), v5 adds courses.error_kind, v6 adds connected apps (#167), v7 adds OAuth clients and codes (#169), v8 adds api_tokens.used_at (#184), v9 swaps it for api_grants.refresh_family_hash (#192)");
+    assert_eq!(v, 10, "v1 is the schema (#49), v2 drops Skrongle Cash, v3 names share links, v4 adds permissions (#138), v5 adds courses.error_kind, v6 adds connected apps (#167), v7 adds OAuth clients and codes (#169), v8 adds api_tokens.used_at (#184), v9 swaps it for api_grants.refresh_family_hash (#192), then v12 adds users.rest_days (#237; v10 and v11 are other open PRs)");
     // Re-running is a no-op.
     db.with(migrate).unwrap();
 }

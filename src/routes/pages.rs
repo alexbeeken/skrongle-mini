@@ -518,7 +518,7 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
     let vault = state.vault.clone();
     let ai_tutor = p.user.ai_tutor();
     let store = p.course.clone();
-    let (progress, (streak, practised_today), today, week, words_learned, games_week, tutor_provider, stage_progress, passes, touched, hero, project) = state
+    let (progress, (streak, practised_today), today, week, words_learned, games_week, tutor_provider, stage_progress, passes, touched, hero, project, (streak_ended, rest)) = state
         .db
         .call(move |c| {
             let hero = crate::motivators::worn(c, uid, &cid)?.load(c, uid, &store, tz)?;
@@ -539,7 +539,8 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
             let stages = crate::guide::load_all(c, uid, &cid)?;
             let passes = progress::load_all(c, uid, &cid)?;
             let touched = activity::last_touched(c, uid, &cid)?;
-            Ok((progress, streak, today, week, words, games.games, tutor, stages, passes, touched, hero, project))
+            let rest = (crate::earnings::streak_ended(c, uid, &cid, tz, at)?, crate::earnings::Rest::load(c, uid)?);
+            Ok((progress, streak, today, week, words, games.games, tutor, stages, passes, touched, hero, project, rest))
         })
         .await?;
     let resume = activity::resume(content, &passes, &touched, p.start);
@@ -572,6 +573,8 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
         today,
         practised_today,
         streak,
+        streak_ended,
+        rest_days: rest.names(),
         resume: resume.map(|r| (r.lesson.slug.clone(), r.lesson.title.clone(), r.mode.continue_url(&r.lesson.slug))),
         effort_table: activity::table(),
         passed_count,

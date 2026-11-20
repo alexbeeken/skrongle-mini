@@ -336,6 +336,8 @@ b, strong { font-weight: 700; }
 .sprint-done-stat span { font-size: .7rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
 .sprint-done-goal { font-weight: 700; color: var(--ok-dark); margin: .4rem 0; }
 .sprint-done-note { color: var(--muted); font-size: .9rem; min-height: 1.4rem; }
+.sprint-done-day { margin: .2rem 0; }
+.sprint-done-actions a.quiet { color: var(--muted); text-align: center; }
 .sprint-done-actions { display: grid; gap: .6rem; margin-top: 1rem; }
 .confetti { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .confetti i { position: absolute; top: -12px; width: 9px; height: 14px; border-radius: 2px; opacity: .9; animation: fall 3s linear forwards; }

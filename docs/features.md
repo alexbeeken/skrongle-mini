@@ -15,7 +15,12 @@ mode's ring, large, filled by the effort points earned today in any mode
 behind its (i)), a line about the day, chips for the day streak, lessons
 passed of the total, terms collected and the skipped lessons when there are
 any, and *Continue: <lesson>*, which opens the lesson every mode resumes at
-in the mode last used ("Where you left off"). Under it, in the same card, the
+in the mode last used ("Where you left off"). Once the ring is full the line
+also says the day is done and tomorrow is soon enough, and *Continue* is a
+quiet link instead of the big button (#237; the end of a Sprint session
+says the same, from `day_done` in its finish answer). After a streak has
+ended the line says only how long it was and that a new one starts today.
+The (i) also names the learner's rest days (Profile). Under it, in the same card, the
 unit of that lesson ("Unit n of m" and a bar of its lessons passed; the map
 itself is the Study nav's *Map*). Then come four modes plus AI tutoring. Each
 mode card shows its name, a one-line tag, one stat and a big button. It has
@@ -1675,6 +1680,18 @@ after a jump and while scrolling.
 **Language.** The Personal information card has the language the app is
 shown in (the same picker the login and register pages have); it saves at
 once and the page reloads in the new language. See [i18n](i18n).
+
+**Rest days** (#237). The Rest days card has a chip for each weekday,
+Monday first: the days the learner does not study, none by default, at most
+two (with two picked the others are off, and the server refuses a third).
+A pick saves at once (`rest_days` through `POST /api/profile`, the weekday
+numbers with 0 for Sunday; stored as the mask `users.rest_days`). They
+apply to every course: a rest day without points does not end the day
+streak and is not counted in it, and points earned on one count as on any
+day. A change takes effect from that day (`users.rest_days_since`) and
+never brings back a streak that had already ended; the rule is in
+[Progress across modes](progress), "The daily goal". The home page's Today
+card names them behind its (i).
 
 **Saving as you edit.** The names and the language
 have no Save button: each change posts to

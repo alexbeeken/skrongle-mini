@@ -44,6 +44,7 @@
         <div class="sprint-done-stat"><b id="done-streak">0</b><span>{{ crate::t("sprint.play.day_streak") }}</span></div>
       </div>
       <p class="sprint-done-goal" id="done-goal"></p>
+      <p class="sprint-done-day" id="done-day" data-testid="sprint-play-day-done" hidden></p>
       <p class="sprint-done-note" id="done-note"></p>
       <div class="sprint-done-actions">
         <a class="sprint-btn big" href="{{ crate::base_path() }}/sprint" id="done-home" data-testid="sprint-play-done-home">{{ crate::t("sprint.play.continue") }}</a>

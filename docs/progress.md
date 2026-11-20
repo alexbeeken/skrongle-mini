@@ -98,7 +98,22 @@ The goal is 20 points a day, in the learner's time zone, per course. Any of
 these keeps the day streak going too. One running row per course (`earnings`,
 `src/earnings.rs`) holds the streak, the days whose goal was reached and the
 points ever logged. Each activity updates it, and the app never adds it up
-from the whole log (#589). The table is `activity::Kind::points`
+from the whole log (#589).
+
+The streak counts days with any activity, not days the goal was reached.
+A day without activity ends it, unless it is one of the learner's rest
+days (#237, at most two weekdays, picked on Profile and the same in every
+course): a rest day without activity is skipped over and not counted, and
+points earned on one count as on any other day. The weekday is the
+learner's own, in their time zone. A gap is bridged when every day in it is
+a rest day (`earnings::only_rest_between`). Changing the rest days takes
+effect from that day: a streak still going is carried over the rest days it
+has already crossed, and no day before the change counts as a rest day
+(`users.rest_days_since`), so a streak that had ended never comes back.
+When the ring is full the home page and the end of a Sprint session say the
+day is done; nothing ever reminds or warns about the streak.
+
+The table is `activity::Kind::points`
 and `activity::DAILY_GOAL` in `src/activity.rs`. XP, which only
 Sprint mode and the Guide used to give, is gone.
 
