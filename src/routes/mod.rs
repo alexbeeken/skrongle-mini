@@ -232,7 +232,7 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/api/listening/finish", post(listening::finish))
         // courses: picking one, building one, generating one
         .route("/courses", get(courses::picker))
-        .route("/courses/open/{id}", post(courses::open))
+        .route("/courses/open/{id}", get(courses::open_link).post(courses::open))
         .route("/courses/new", get(courses::new_form).post(courses::create))
         .route("/courses/generate", get(courses::generate_form))
         .route("/courses/generate/{job}", get(courses::generate_status))
@@ -371,9 +371,11 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/students/sheet", get(students::sheet_again).post(students::make))
         .route("/students/passwords", post(students::passwords))
         .route("/students/delete", post(students::delete))
+        .route("/students/give", post(students::give))
         .route("/students/{id}", get(students::show).post(students::save))
         .route("/students/{id}/password", post(students::set_password))
         .route("/students/{id}/delete", post(students::delete_one))
+        .route("/students/{id}/courses", post(students::save_courses))
         // api
         .route("/api/answer", post(quiz::answer))
         .route("/api/lesson-check", post(quiz::lesson_check))

@@ -95,5 +95,6 @@ test("the frame's pages fit 320 wide with JavaScript off", async ({ page, browse
   await kid.getByTestId("login-submit").click();
   await expect(kid).not.toHaveURL(/\/login/);
   await expectLight(kid, "/password", 320);
+  await expectLight(kid, "/courses?pick=1", 320);
   await kid.context().close();
 });

@@ -24,7 +24,7 @@
 <table class="bar" role="presentation" data-testid="student-bar"><tr>
 <td class="bar-title" data-testid="student-bar-title">{% block bar %}{{ crate::APP_NAME }}{% endblock %}</td>
 <td class="bar-links">{% block links %}{% if let Some(u) = user %}<span data-testid="student-bar-name">{% if u.first_name.trim().is_empty() && u.last_name.trim().is_empty() %}{{ u.username }}{% else %}{{ u.display_name() }}{% endif %}</span> &middot;
-<a href="{{ crate::url("/") }}" data-testid="student-my-subjects">{{ crate::t("student.frame.my_subjects") }}</a> &middot;
+<a href="{{ crate::url("/courses?pick=1") }}" data-testid="student-my-subjects">{{ crate::t("student.frame.my_subjects") }}</a> &middot;
 <a href="{{ crate::url("/password") }}" data-testid="student-change-password">{{ crate::t("student.frame.change_password") }}</a> &middot;
 <form method="post" action="{{ crate::url("/logout") }}" class="inline"><button type="submit" class="link" data-testid="student-sign-out">{{ crate::t("student.frame.sign_out") }}</button></form>{% endif %}{% endblock %}</td>
 </tr></table>

@@ -264,3 +264,65 @@ fn the_list_shows_passes_and_last_studied() {
     assert_eq!(quiet, ["fals", "true", "fals"]);
     assert!(page.contains("<strong>9 days ago</strong>"), "{page}");
 }
+
+/// Give course (#220): tick students, pick a course, Give; the Courses
+/// column names it; the Share dialog does not list the students; a
+/// student's page ticks and unticks its courses. Only the teacher's own
+/// course that loads can be given.
+#[test]
+fn a_teacher_gives_courses_from_the_list_and_a_students_page() {
+    let s = Server::start();
+    let (t, kids, tc) = teacher(&s, "t@example.org", "kid", 3);
+    let (a, b) = (kids[0].to_string(), kids[1].to_string());
+    let page = s.get("/students", &tc).3;
+    assert!(page.contains(r#"data-testid="students-no-givable""#) && !page.contains(r#"data-testid="students-give""#), "no course of its own yet");
+    assert_eq!(texts(&page, "students-courses").len(), 3);
+
+    s.state
+        .db
+        .with(|c| {
+            crate::students::tests::course_of(c, t, "maths-1", "Maths")?;
+            crate::students::tests::course_of(c, t, "art-1", "Art")?;
+            let other = crate::auth::create_user(c, "o@example.org", "h")?;
+            crate::students::tests::course_of(c, other, "theirs-1", "Theirs")
+        })
+        .unwrap();
+    let (_, _, _, page) = s.get("/students", &tc);
+    assert!(page.contains(r#"<option value="art-1">Art</option><option value="maths-1">Maths</option>"#), "{page}");
+    assert!(!page.contains("theirs-1"), "another account's course is not offered");
+
+    let (status, location, _, _) = s.post("/students/give", &tc, &[("id", &a), ("id", &b), ("course", "maths-1")]);
+    assert_eq!((status, location.as_str()), (303, "/students?did=given&n=2&course=maths-1"));
+    let (_, _, _, page) = s.get(&location, &tc);
+    assert!(texts(&page, "students-notice")[0].contains("Given Maths to the ticked students (2)."), "{page}");
+    let courses = texts(&page, "students-courses");
+    assert_eq!(courses[..2], ["Maths", "Maths"]);
+    assert!(page.contains("None yet"), "the third has none");
+    assert_eq!(s.post("/students/give", &tc, &[("id", &a), ("course", "art-1")]).0, 303);
+    assert_eq!(texts(&s.get("/students", &tc).3, "students-courses")[0], "Art · Maths");
+
+    // Refused: nothing ticked, no course, another's course, a ready-made one.
+    assert_eq!(s.post("/students/give", &tc, &[("course", "maths-1")]).1, "/students?did=none-picked&n=0");
+    assert_eq!(s.post("/students/give", &tc, &[("id", &a)]).1, "/students?did=no-course&n=0");
+    assert_eq!(s.post("/students/give", &tc, &[("id", &a), ("course", "theirs-1")]).0, 404);
+    assert_eq!(s.post("/students/give", &tc, &[("id", &a), ("course", "spanish")]).0, 404);
+
+    // The Share dialog lists links only, not the students.
+    let (status, _, _, editor) = s.get("/courses/maths-1?share=1", &tc);
+    assert_eq!(status, 200);
+    assert!(!editor.contains(r#"data-testid="course-share-row""#), "{editor}");
+
+    // The student's page: both courses, ticked as given; untick one.
+    let (_, _, _, one) = s.get(&format!("/students/{a}"), &tc);
+    assert!(one.contains(r#"value="art-1" checked data-testid="students-course""#) && one.contains(r#"value="maths-1" checked"#), "{one}");
+    let (status, location, _, _) = s.post(&format!("/students/{a}/courses"), &tc, &[("course", "art-1")]);
+    assert_eq!((status, location), (303, format!("/students/{a}?did=courses")));
+    let have: Vec<String> = s.state.db.with(|c| students::subjects(c, kids[0])).unwrap().into_iter().map(|g| g.course_id).collect();
+    assert_eq!(have, ["art-1"]);
+    let (_, _, _, one) = s.get(&format!("/students/{a}?did=courses"), &tc);
+    assert!(one.contains("Courses saved.") && one.contains(r#"value="maths-1" data-testid="students-course""#), "{one}");
+    // Another teacher's student: a 404.
+    let (_, others, oc) = teacher(&s, "t2@example.org", "oth", 1);
+    assert_eq!(s.post(&format!("/students/{a}/courses"), &oc, &[("course", "art-1")]).0, 404);
+    assert_eq!(s.post("/students/give", &oc, &[("id", &others[0].to_string()), ("course", "art-1")]).0, 404);
+}

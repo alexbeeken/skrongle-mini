@@ -12,6 +12,25 @@ pub(crate) fn teacher_with_students(c: &Connection, email: &str, prefix: &str, n
     Ok((teacher, ids))
 }
 
+/// A course of the teacher's, `id`, titled `title`, made from the starter
+/// files, so it loads (#220).
+pub(crate) fn course_of(c: &mut Connection, teacher: i64, id: &str, title: &str) -> rusqlite::Result<()> {
+    let files = crate::courses::starter_files(id, title);
+    crate::courses::create_course(c, teacher, id, title, &files)
+}
+
+/// A teacher with `n` students (as `teacher_with_students`) who all have
+/// the teacher's course `course_id` (titled `title`), given (#220): (teacher
+/// id, student ids). For the tests of #221, #226 and #227 too.
+pub(crate) fn class_with_course(c: &mut Connection, email: &str, prefix: &str, n: usize, hash: &str, course_id: &str, title: &str) -> rusqlite::Result<(i64, Vec<i64>)> {
+    let (teacher, ids) = teacher_with_students(c, email, prefix, n, hash)?;
+    course_of(c, teacher, course_id, title)?;
+    for id in &ids {
+        assert!(give(c, teacher, *id, course_id)?, "the course is given");
+    }
+    Ok((teacher, ids))
+}
+
 fn new(username: &str) -> NewStudent {
     NewStudent { username: username.into(), password_hash: "h".into(), first_name: "Ana".into(), last_name: "García".into() }
 }
@@ -281,7 +300,7 @@ fn a_student_signs_in_with_its_username() {
     assert!(page.contains(r#"type="text" name="email""#), "the field takes a username");
 
     let (status, location, cookie, _) = s.login("ANA.GARCIA1", "right-password");
-    assert_eq!((status, location.as_str()), (303, "/"));
+    assert_eq!((status, location.as_str()), (303, "/courses"), "a student lands on its subjects (#220)");
     assert!(cookie.starts_with("sid="));
     let (status, _, _, profile) = s.get("/profile", &cookie);
     assert_eq!(status, 200);
@@ -348,4 +367,86 @@ fn a_student_is_refused_what_is_not_for_it() {
     assert_eq!(status, 422, "{body}");
     assert_eq!(s.post_json("/api/profile", &kc, r#"{"lang": "es"}"#).0, 200);
     assert_eq!(s.post_json("/api/profile", &tc, r#"{"first_name": "Tia"}"#).0, 200, "a teacher still names itself");
+}
+
+/// Giving (#220): only the teacher's own course, that loads, to its own
+/// student; once per student; the student has it as a shared course and as
+/// a subject; it is not a link (not in the Share dialog, not counted).
+#[test]
+fn a_teacher_gives_its_own_course_to_its_own_students() {
+    let db = Db::open_in_memory().unwrap();
+    db.with(|c| {
+        let (t, kids) = class_with_course(c, "t@example.org", "kid", 2, "h", "maths-1", "Maths")?;
+        let (other, theirs) = teacher_with_students(c, "o@example.org", "oth", 1, "h")?;
+        course_of(c, other, "art-1", "Art")?;
+        course_of(c, t, "broken-1", "Broken")?;
+        c.execute("UPDATE courses SET error = 'no' WHERE id = 'broken-1'", [])?;
+        assert!(!give(c, t, theirs[0], "maths-1")?, "another teacher's student");
+        assert!(!give(c, t, kids[0], "art-1")?, "another teacher's course");
+        assert!(!give(c, t, kids[0], "broken-1")?, "a course that does not load");
+        assert!(!give(c, t, kids[0], "spanish")?, "a ready-made course");
+        assert!(give(c, t, kids[0], "maths-1")?, "given again: no change, still true");
+        assert_eq!(givable(c, t)?, vec![("maths-1".to_string(), "Maths".to_string())]);
+
+        let all = given(c, t)?;
+        assert_eq!(all.iter().map(|g| g.student_id).collect::<Vec<_>>(), kids, "one row per student");
+        assert!(all.iter().all(|g| g.course_id == "maths-1" && g.title == "Maths"));
+        assert!(given(c, other)?.is_empty());
+        for kid in &kids {
+            assert!(crate::share::can_open(c, *kid, "maths-1")?);
+            let mine = subjects(c, *kid)?;
+            assert_eq!(mine.len(), 1);
+            assert_eq!((mine[0].course_id.as_str(), mine[0].owner.as_str()), ("maths-1", "t@example.org"), "no name: the address");
+        }
+        c.execute("UPDATE users SET first_name = 'Tia', last_name = 'Ruiz' WHERE id = ?1", [t])?;
+        assert_eq!(subjects(c, kids[0])?[0].owner, "Tia Ruiz");
+        assert!(subjects(c, theirs[0])?.is_empty());
+
+        // Not a link: the Share dialog and the 50-link count leave it out,
+        // and a link's Remove cannot take it.
+        assert!(crate::share::shares_of(c, "maths-1")?.is_empty());
+        let row: i64 = c.query_row("SELECT id FROM course_shares WHERE user_id = ?1", [kids[0]], |r| r.get(0))?;
+        assert!(!crate::share::remove(c, "maths-1", row)?);
+        for i in 0..crate::share::MAX_PER_COURSE {
+            crate::share::invite(c, "maths-1", &format!("link {i}"), 1)?;
+        }
+        assert_eq!(crate::share::shares_of(c, "maths-1")?.len(), crate::share::MAX_PER_COURSE, "only the links count");
+        Ok::<(), rusqlite::Error>(())
+    })
+    .unwrap();
+}
+
+/// Taking a course away (#220): it leaves the student's subjects and is no
+/// longer its active course; its progress rows stay. Deleting a student
+/// takes its given rows with it.
+#[test]
+fn taking_a_course_away_keeps_the_progress() {
+    let db = Db::open_in_memory().unwrap();
+    db.with(|c| {
+        let (t, kids) = class_with_course(c, "t@example.org", "kid", 2, "h", "maths-1", "Maths")?;
+        let kid = kids[0];
+        crate::courses::open_project(c, kid, "maths-1")?;
+        c.execute(
+            "INSERT INTO lesson_passes (user_id, course_id, lesson_id, seen_at, best_pct, passed_at, runs, updated_at) VALUES (?1, 'maths-1', 'l1', 1, 90, 2, 1, 2)",
+            [kid],
+        )?;
+        let (other, _) = teacher_with_students(c, "o@example.org", "oth", 0, "h")?;
+        assert!(!take_away(c, other, kid, "maths-1")?, "not the other teacher's to take");
+        assert!(take_away(c, t, kid, "maths-1")?);
+        assert!(!take_away(c, t, kid, "maths-1")?, "already gone");
+        assert!(subjects(c, kid)?.is_empty() && !crate::share::can_open(c, kid, "maths-1")?);
+        let active: Option<String> = c.query_row("SELECT active_course FROM users WHERE id = ?1", [kid], |r| r.get(0))?;
+        assert_eq!(active, None, "no longer its active course");
+        assert_eq!(progress(c, t)?.get(&kid).map(|p| p.passed), Some(1), "the progress stays");
+        assert_eq!(given(c, t)?.len(), 1, "the other student keeps it");
+        // Given again: the progress is there.
+        assert!(give(c, t, kid, "maths-1")?);
+        assert_eq!(subjects(c, kid)?.len(), 1);
+
+        assert_eq!(delete(c, t, &kids)?, 2);
+        let left: i64 = c.query_row("SELECT COUNT(*) FROM course_shares", [], |r| r.get(0))?;
+        assert_eq!(left, 0, "the given rows went with the students");
+        Ok::<(), rusqlite::Error>(())
+    })
+    .unwrap();
 }

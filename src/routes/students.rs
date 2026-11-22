@@ -132,6 +132,8 @@ pub struct Row {
     /// Quiet for `QUIET_DAYS` or more: bold.
     pub quiet: bool,
     pub never: bool,
+    /// The titles of the courses given to it (#220), by title.
+    pub courses: Vec<String>,
 }
 
 #[derive(Template)]
@@ -149,27 +151,45 @@ pub struct ListTemplate {
     pub error: Option<String>,
     /// The names pasted, kept when they could not be taken.
     pub names: String,
+    /// The courses the teacher can give (`givable`): `(id, title)`.
+    pub givable: Vec<(String, String)>,
+}
+
+/// The teacher's courses it can give now: its own, ready, that load
+/// (`students::givable`, then each course loaded).
+async fn givable(state: &AppState, teacher_id: i64) -> Result<Vec<(String, String)>, AppError> {
+    let mut out = Vec::new();
+    for (id, title) in state.db.call(move |c| students::givable(c, teacher_id)).await? {
+        if state.courses.get(&state.db, &id).await?.is_some() {
+            out.push((id, title));
+        }
+    }
+    Ok(out)
 }
 
 async fn load_list(state: &AppState, user: CurrentUser) -> Result<ListTemplate, AppError> {
     let (teacher, tz, now) = (user.id, user.tz, crate::db::now());
-    let (list, progress) = state.db.call(move |c| Ok((students::list(c, teacher)?, students::progress(c, teacher)?))).await?;
+    let (list, progress, given) = state.db.call(move |c| Ok((students::list(c, teacher)?, students::progress(c, teacher)?, students::given(c, teacher)?))).await?;
     let (room, full) = room(state).await?;
+    let givable = givable(state, teacher).await?;
     let rows = list
         .iter()
         .map(|s| {
             let p = progress.get(&s.id).copied().unwrap_or_default();
             let (last, quiet) = last_studied(p.last_studied, tz, now);
-            Row { id: s.id, name: shown_name(s), username: s.username.clone(), passed: p.passed, last_studied: last, quiet, never: p.last_studied.is_none() }
+            let courses = given.iter().filter(|g| g.student_id == s.id).map(|g| g.title.clone()).collect();
+            Row { id: s.id, name: shown_name(s), username: s.username.clone(), passed: p.passed, last_studied: last, quiet, never: p.last_studied.is_none(), courses }
         })
         .collect();
-    Ok(ListTemplate { user: Some(user), rows, limit: crate::caps::student_limit(), room, full, notice: None, error: None, names: String::new() })
+    Ok(ListTemplate { user: Some(user), rows, limit: crate::caps::student_limit(), room, full, notice: None, error: None, names: String::new(), givable })
 }
 
 #[derive(Deserialize)]
 pub struct ListQuery {
     pub did: Option<String>,
     pub n: Option<usize>,
+    /// The course given (`did=given`), named in the notice.
+    pub course: Option<String>,
 }
 
 /// GET /students
@@ -180,6 +200,14 @@ pub async fn list(State(state): State<Arc<AppState>>, user: CurrentUser, Query(q
     match q.did.as_deref() {
         Some("deleted") => t.notice = Some(crate::tn("students_page.deleted", n as i64)),
         Some("none-picked") => t.error = Some(crate::t("students_page.none_picked")),
+        Some("no-course") => t.error = Some(crate::t("students_page.no_course")),
+        Some("given") => {
+            // The title comes from the teacher's own courses, never the URL.
+            let title = q.course.as_deref().and_then(|id| t.givable.iter().find(|(c, _)| c == id)).map(|(_, title)| title.clone());
+            if let Some(title) = title {
+                t.notice = Some(crate::t2("students_page.given", "course", title, "n", n));
+            }
+        }
         _ => {}
     }
     Ok(Page(t).into_response())
@@ -438,6 +466,37 @@ pub async fn delete(State(state): State<Arc<AppState>>, user: CurrentUser, Form(
     Ok(back("deleted", n))
 }
 
+/// POST /students/give (id=… per ticked student, course): the course goes
+/// to every ticked student that does not have it yet. Only a course the
+/// teacher made, that loads, can be given; anything else is a 404.
+pub async fn give(State(state): State<Arc<AppState>>, user: CurrentUser, Form(form): Form<Vec<(String, String)>>) -> Result<Response, AppError> {
+    teacher(&user)?;
+    let course = one(&form, "course").to_string();
+    let picked = theirs(&state, user.id, picked(&form)).await?;
+    if picked.is_empty() {
+        return Ok(back("none-picked", 0));
+    }
+    if course.is_empty() {
+        return Ok(back("no-course", 0));
+    }
+    if !givable(&state, user.id).await?.iter().any(|(id, _)| *id == course) {
+        return Err(AppError::NotFound);
+    }
+    let (teacher_id, ids, cid) = (user.id, picked.iter().map(|s| s.id).collect::<Vec<_>>(), course.clone());
+    let n = state
+        .db
+        .call(move |c| {
+            let mut n = 0;
+            for id in ids {
+                n += usize::from(students::give(c, teacher_id, id, &cid)?);
+            }
+            Ok(n)
+        })
+        .await?;
+    tracing::info!("user {teacher_id} gave course {course} to {n} students");
+    Ok(Redirect::to(&crate::url(&format!("/students?did=given&n={n}&course={}", crate::urlenc::urlencode(&course)))).into_response())
+}
+
 // ---------- one student ----------
 
 #[derive(Template)]
@@ -450,6 +509,23 @@ pub struct OneTemplate {
     pub last_studied: String,
     pub notice: Option<String>,
     pub error: Option<String>,
+    /// The courses on its page (#220): every one the teacher can give, and
+    /// any given that no longer can: `(id, title, given)`, by title.
+    pub courses: Vec<(String, String, bool)>,
+}
+
+/// A student's courses for its page: the teacher's givable ones, and the
+/// given ones too, ticked.
+async fn courses_of(state: &AppState, teacher_id: i64, student_id: i64) -> Result<Vec<(String, String, bool)>, AppError> {
+    let mut courses: Vec<(String, String, bool)> = givable(state, teacher_id).await?.into_iter().map(|(id, title)| (id, title, false)).collect();
+    for g in state.db.call(move |c| students::given(c, teacher_id)).await?.into_iter().filter(|g| g.student_id == student_id) {
+        match courses.iter_mut().find(|c| c.0 == g.course_id) {
+            Some(c) => c.2 = true,
+            None => courses.push((g.course_id, g.title, true)),
+        }
+    }
+    courses.sort_by_key(|c| c.1.to_lowercase());
+    Ok(courses)
 }
 
 async fn load_one(state: &AppState, user: CurrentUser, id: i64) -> Result<OneTemplate, AppError> {
@@ -459,7 +535,8 @@ async fn load_one(state: &AppState, user: CurrentUser, id: i64) -> Result<OneTem
         return Err(AppError::NotFound);
     };
     let p = progress?.get(&id).copied().unwrap_or_default();
-    Ok(OneTemplate { user: Some(user), name: shown_name(&student), student, passed: p.passed, last_studied: last_studied(p.last_studied, tz, now).0, notice: None, error: None })
+    let courses = courses_of(state, teacher_id, id).await?;
+    Ok(OneTemplate { user: Some(user), name: shown_name(&student), student, passed: p.passed, last_studied: last_studied(p.last_studied, tz, now).0, notice: None, error: None, courses })
 }
 
 #[derive(Deserialize)]
@@ -471,8 +548,10 @@ pub struct OneQuery {
 pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, Path(id): Path<i64>, Query(q): Query<OneQuery>) -> Result<Response, AppError> {
     teacher(&user)?;
     let mut t = load_one(&state, user, id).await?;
-    if q.did.as_deref() == Some("saved") {
-        t.notice = Some(crate::t("students_page.saved"));
+    match q.did.as_deref() {
+        Some("saved") => t.notice = Some(crate::t("students_page.saved")),
+        Some("courses") => t.notice = Some(crate::t("students_page.courses_saved")),
+        _ => {}
     }
     Ok(Page(t).into_response())
 }
@@ -531,6 +610,37 @@ pub async fn save(State(state): State<Arc<AppState>>, user: CurrentUser, Path(id
             Ok(Page(t).into_response())
         }
     }
+}
+
+/// POST /students/{id}/courses (course=… per ticked course): the student
+/// has the ticked courses from now on. A course ticked that it did not have
+/// is given (if the teacher can give it); one it had that is not ticked is
+/// taken away, its progress kept.
+pub async fn save_courses(State(state): State<Arc<AppState>>, user: CurrentUser, Path(id): Path<i64>, Form(form): Form<Vec<(String, String)>>) -> Result<Response, AppError> {
+    teacher(&user)?;
+    let teacher_id = user.id;
+    if state.db.call(move |c| students::find(c, teacher_id, id)).await?.is_none() {
+        return Err(AppError::NotFound);
+    }
+    let ticked: Vec<String> = all(&form, "course").into_iter().map(str::to_string).collect();
+    let courses = courses_of(&state, teacher_id, id).await?;
+    let (gave, took) = state
+        .db
+        .call(move |c| {
+            let (mut gave, mut took) = (0, 0);
+            for (cid, _, has) in &courses {
+                let tick = ticked.contains(cid);
+                if tick && !has {
+                    gave += usize::from(students::give(c, teacher_id, id, cid)?);
+                } else if !tick && *has {
+                    took += usize::from(students::take_away(c, teacher_id, id, cid)?);
+                }
+            }
+            Ok((gave, took))
+        })
+        .await?;
+    tracing::info!("user {teacher_id} gave student {id} {gave} courses and took {took} away");
+    Ok(Redirect::to(&crate::url(&format!("/students/{id}?did=courses"))).into_response())
 }
 
 #[derive(Deserialize)]

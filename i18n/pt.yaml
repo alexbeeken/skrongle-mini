@@ -207,6 +207,10 @@ student:
     submit: "Mudar minha senha"
     saved: "Sua senha foi mudada. Use a nova da próxima vez que entrar."
     forgot: "Esqueceu a senha? Peça uma nova ao seu professor."
+  subjects:
+    hi: "Olá, {name}"
+    none: "Seu professor ainda não lhe deu nenhuma matéria."
+    pick: "Escolha uma matéria para começar."
 
 profile:
   title: Perfil
@@ -3193,3 +3197,12 @@ students_page:
   set_password: Definir a senha
   delete: Excluir este aluno
   cancel: Cancelar
+  courses: Cursos
+  none_yet: Nenhum ainda
+  give_course: Dar curso
+  give: Dar
+  given: "{course} dado aos alunos marcados ({n})."
+  no_course: "Escolha primeiro um curso para dar."
+  no_givable: "Para dar um curso, crie primeiro um seu em Cursos."
+  courses_about: "Marque os cursos que este aluno tem. Tirar um mantém o progresso do aluno nele."
+  courses_saved: "Cursos salvos."

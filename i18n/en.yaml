@@ -209,6 +209,10 @@ student:
     submit: "Change my password"
     saved: "Your password is changed. Use the new one the next time you sign in."
     forgot: "Forgot your password? Ask your teacher for a new one."
+  subjects:
+    hi: "Hi, {name}"
+    none: "Your teacher has not given you a subject yet."
+    pick: "Pick a subject to start."
 
 profile:
   title: Profile
@@ -3196,3 +3200,12 @@ students_page:
   set_password: Set the password
   delete: Delete this student
   cancel: Cancel
+  courses: Courses
+  none_yet: None yet
+  give_course: Give course
+  give: Give
+  given: "Given {course} to the ticked students ({n})."
+  no_course: "Pick a course to give first."
+  no_givable: "To give a course, make one of your own on Courses first."
+  courses_about: "Tick the courses this student has. Taking one away keeps the student's progress in it."
+  courses_saved: "Courses saved."

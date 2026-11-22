@@ -61,6 +61,12 @@ table.list { width: 100%; border-collapse: collapse; background: #ffffff; border
 .list .num { width: 30px; color: #5b6370; }
 .list .end { text-align: right; }
 
+/* My subjects: one card per subject, the whole card one link. */
+a.subject { display: block; margin: 0 0 12px; padding: 16px; color: #1f2328; background: #ffffff; border: 2px solid #b9b3a6; text-decoration: none; }
+a.subject:hover, a.subject:focus { color: #1f2328; border-color: #962d22; background: #fff6d6; }
+.subject-title { display: block; font-size: 20px; font-weight: bold; color: #962d22; text-decoration: underline; }
+.subject-teacher { display: block; color: #5b6370; }
+
 /* The sign-in page's language picker and the dev server's panel. */
 .lang-picker { margin: 16px 0 0; }
 .lang-picker label { display: block; }

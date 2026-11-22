@@ -186,6 +186,12 @@ pub fn set_password(conn: &Connection, teacher_id: i64, student_id: i64, passwor
 pub fn delete(conn: &Connection, teacher_id: i64, student_ids: &[i64]) -> rusqlite::Result<usize> {
     let mut n = 0;
     for id in student_ids {
+        // The courses given to it go with it (`course_shares.user_id` is
+        // only set to NULL when an account goes, which would leave the rows).
+        conn.execute(
+            "DELETE FROM course_shares WHERE given = 1 AND user_id = ?2 AND EXISTS(SELECT 1 FROM users WHERE id = ?2 AND teacher_id = ?1)",
+            params![teacher_id, id],
+        )?;
         n += conn.execute("DELETE FROM users WHERE id = ?2 AND teacher_id = ?1", params![teacher_id, id])?;
     }
     Ok(n)
@@ -260,6 +266,108 @@ pub fn progress(conn: &Connection, teacher_id: i64) -> rusqlite::Result<std::col
         out.entry(id).or_default().last_studied = Some(at);
     }
     Ok(out)
+}
+
+// ---------- courses given to students (#220) ----------
+//
+// A given course is a `course_shares` row with the student already in it
+// (`user_id`, `opened_at`) and `given = 1` (schema v11). Everything a
+// shared course does works for it unchanged: read only for the student,
+// its own progress, the teacher's later changes reaching it at once. Its
+// token is random and never shown, so no link leads to it; the Share
+// dialog leaves it out and it does not count toward a course's links
+// (`share::shares_of`). A student has no Privacy permission, so its
+// teacher sees its progress (`progress`) without asking.
+
+/// One course given to one of the teacher's students.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct Given {
+    pub student_id: i64,
+    pub course_id: String,
+    /// The course's title (`courses.title`).
+    pub title: String,
+}
+
+/// The SQL test of a course the teacher may give: their own, not being
+/// made or failed, and loading (no stored load error). `?1` is the
+/// teacher, `?2` the course. The caller also checks it loads now.
+const GIVABLE_SQL: &str = "SELECT EXISTS(SELECT 1 FROM courses WHERE id = ?2 AND owner_id = ?1 AND state IN ('ready', 'revising') AND error IS NULL)";
+
+/// The teacher's own courses it may give, `(id, title)`, by title. The
+/// routes leave out the ones that do not load now (`ContentStore`).
+pub fn givable(conn: &Connection, teacher_id: i64) -> rusqlite::Result<Vec<(String, String)>> {
+    let mut courses: Vec<(String, String)> = crate::courses::courses_owned_by(conn, teacher_id)?
+        .into_iter()
+        .filter(|c| matches!(c.state, crate::courses::CourseState::Ready | crate::courses::CourseState::Revising) && c.error.is_none())
+        .map(|c| (c.id, c.title))
+        .collect();
+    courses.sort_by_key(|c| c.1.to_lowercase());
+    Ok(courses)
+}
+
+/// The teacher gives one of its own courses to one of its students: from
+/// now on it is one of the student's subjects. Giving it again changes
+/// nothing. False when the student is not the teacher's or the course is
+/// not one it may give.
+pub fn give(conn: &Connection, teacher_id: i64, student_id: i64, course_id: &str) -> rusqlite::Result<bool> {
+    let student: bool = conn.query_row("SELECT EXISTS(SELECT 1 FROM users WHERE id = ?2 AND teacher_id = ?1)", params![teacher_id, student_id], |r| r.get(0))?;
+    let course: bool = conn.query_row(GIVABLE_SQL, params![teacher_id, course_id], |r| r.get(0))?;
+    if !student || !course {
+        return Ok(false);
+    }
+    let now = crate::db::now();
+    conn.execute(
+        "INSERT OR IGNORE INTO course_shares (course_id, label, token_hash, user_id, created_at, opened_at, given)
+         VALUES (?1, '', ?2, ?3, ?4, ?4, 1)",
+        params![course_id, crate::share::hash_token(&crate::auth::generate_token()), student_id, now],
+    )?;
+    Ok(true)
+}
+
+/// The teacher takes a given course away from its student: it leaves the
+/// student's subjects (and is no longer its active course). The student's
+/// progress rows stay, for the day it is given again. False when it was
+/// not given to the teacher's student.
+pub fn take_away(conn: &Connection, teacher_id: i64, student_id: i64, course_id: &str) -> rusqlite::Result<bool> {
+    let n = conn.execute(
+        "DELETE FROM course_shares WHERE given = 1 AND course_id = ?3 AND user_id = ?2
+           AND EXISTS(SELECT 1 FROM users WHERE id = ?2 AND teacher_id = ?1)
+           AND EXISTS(SELECT 1 FROM courses WHERE id = ?3 AND owner_id = ?1)",
+        params![teacher_id, student_id, course_id],
+    )?;
+    if n > 0 {
+        crate::share::forget(conn, course_id, Some(student_id))?;
+    }
+    Ok(n > 0)
+}
+
+/// Every course the teacher gave to its students, one row per student and
+/// course, by course title. The students a course is given to, or the
+/// courses a student has: filter on `course_id` or `student_id`.
+pub fn given(conn: &Connection, teacher_id: i64) -> rusqlite::Result<Vec<Given>> {
+    let mut stmt = conn.prepare_cached(
+        "SELECT s.user_id, c.id, c.title FROM users u
+           JOIN course_shares s ON s.user_id = u.id AND s.given = 1
+           JOIN courses c ON c.id = s.course_id AND c.owner_id = ?1
+         WHERE u.teacher_id = ?1 ORDER BY c.title COLLATE NOCASE, c.id",
+    )?;
+    let rows = stmt.query_map([teacher_id], |r| Ok(Given { student_id: r.get(0)?, course_id: r.get(1)?, title: r.get(2)? }))?;
+    rows.collect()
+}
+
+/// The courses given to this student (its subjects), each with its
+/// teacher's name (`share::owner_label`), oldest given first. The caller
+/// leaves out the ones that do not load.
+pub fn subjects(conn: &Connection, student_id: i64) -> rusqlite::Result<Vec<crate::share::SharedCourse>> {
+    let mut stmt = conn.prepare_cached(
+        "SELECT s.course_id, o.first_name, o.last_name, COALESCE(o.email, '')
+         FROM course_shares s JOIN courses c ON c.id = s.course_id JOIN users o ON o.id = c.owner_id
+         WHERE s.user_id = ?1 AND s.given = 1 AND c.state != 'generating' ORDER BY s.id",
+    )?;
+    let rows = stmt.query_map([student_id], |r| {
+        Ok(crate::share::SharedCourse { course_id: r.get(0)?, owner: crate::share::owner_label(r.get(1)?, r.get(2)?, r.get(3)?) })
+    })?;
+    rows.collect()
 }
 
 /// A username made from a name (`Ana García` gives `ana.garcia`), in use

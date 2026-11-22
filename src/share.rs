@@ -72,9 +72,11 @@ const SHARE_SELECT: &str = "SELECT s.id, s.course_id, s.label, s.user_id, s.crea
             COALESCE(u.first_name, ''), COALESCE(u.last_name, ''), COALESCE(u.email, '')
          FROM course_shares s LEFT JOIN users u ON u.id = s.user_id";
 
-/// Every link of a course, oldest first.
+/// Every link of a course, oldest first: what the Share dialog lists and
+/// what counts toward `MAX_PER_COURSE`. A course given to a student
+/// (`given = 1`, `students::give`) is not a link and is left out.
 pub fn shares_of(conn: &Connection, course_id: &str) -> rusqlite::Result<Vec<Share>> {
-    let mut stmt = conn.prepare_cached(&format!("{SHARE_SELECT} WHERE s.course_id = ?1 ORDER BY s.id"))?;
+    let mut stmt = conn.prepare_cached(&format!("{SHARE_SELECT} WHERE s.course_id = ?1 AND s.given = 0 ORDER BY s.id"))?;
     let rows = stmt.query_map([course_id], share_row)?;
     rows.collect()
 }
@@ -93,14 +95,22 @@ pub fn invite(conn: &Connection, course_id: &str, label: &str, now: i64) -> rusq
 /// Take the link `share_id` of the course away: the row goes, and so does
 /// the recipient's project in it (the course leaves their list; their
 /// progress rows stay for the day it is shared again). True when there was
-/// such a link.
+/// such a link. A course given to a student is not a link: only
+/// `students::take_away` takes it.
 pub fn remove(conn: &Connection, course_id: &str, share_id: i64) -> rusqlite::Result<bool> {
     let row: Option<(i64, Option<i64>)> = conn
-        .query_row("SELECT id, user_id FROM course_shares WHERE course_id = ?1 AND id = ?2", params![course_id, share_id], |r| Ok((r.get(0)?, r.get(1)?)))
+        .query_row("SELECT id, user_id FROM course_shares WHERE course_id = ?1 AND id = ?2 AND given = 0", params![course_id, share_id], |r| Ok((r.get(0)?, r.get(1)?)))
         .optional()?;
     let Some((id, user_id)) = row else { return Ok(false) };
     conn.execute("DELETE FROM course_shares WHERE id = ?1", [id])?;
-    // Whoever the link let in, unless another link of theirs still does.
+    forget(conn, course_id, user_id)?;
+    Ok(true)
+}
+
+/// After a share row of `user_id` went: unless another row still lets them
+/// in, the course leaves their list (their project in it goes, and it is no
+/// longer their active course). Their progress rows stay.
+pub(crate) fn forget(conn: &Connection, course_id: &str, user_id: Option<i64>) -> rusqlite::Result<()> {
     let still: bool = conn.query_row(
         "SELECT EXISTS(SELECT 1 FROM course_shares WHERE course_id = ?1 AND user_id = ?2)",
         params![course_id, user_id],
@@ -110,7 +120,7 @@ pub fn remove(conn: &Connection, course_id: &str, share_id: i64) -> rusqlite::Re
         conn.execute(REMOVE_PROJECTS_SQL, params![course_id, user_id])?;
         conn.execute(REMOVE_ACTIVE_SQL, params![course_id, user_id])?;
     }
-    Ok(true)
+    Ok(())
 }
 
 // The account a share let in, found by id (#622), never by a scan of `users`.

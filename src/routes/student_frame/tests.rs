@@ -110,6 +110,74 @@ fn every_page_in_the_frame_is_light() {
     assert_light("/login (refused)", &page);
 }
 
+/// My subjects (#220): none says the teacher has not given one; one opens
+/// straight away (and on sign-in) unless My subjects asks for the page; two
+/// are two cards, each a link with the title and the teacher's name. A
+/// student is offered no ready-made course and nothing to make or join.
+#[test]
+fn a_student_has_its_subjects() {
+    let s = Server::start();
+    s.with_student();
+    let (teacher, kid_id) = s
+        .state
+        .db
+        .with(|c| {
+            let t: i64 = c.query_row("SELECT id FROM users WHERE email = 't@example.org'", [], |r| r.get(0))?;
+            let kid: i64 = c.query_row("SELECT id FROM users WHERE username = 'kid1'", [], |r| r.get(0))?;
+            c.execute("UPDATE users SET first_name = 'Tia', last_name = 'Ruiz' WHERE id = ?1", [t])?;
+            c.execute("UPDATE users SET first_name = 'Ana' WHERE id = ?1", [kid])?;
+            crate::students::tests::course_of(c, t, "maths-1", "Maths")?;
+            crate::students::tests::course_of(c, t, "art-1", "Art")?;
+            Ok((t, kid))
+        })
+        .unwrap();
+    let kid = s.login("kid1", PASSWORD);
+
+    // None.
+    let (status, _, _, page) = s.get("/courses", &kid);
+    assert_eq!(status, 200);
+    assert_light("/courses (none)", &page);
+    assert!(page.contains("Hi, Ana") && page.contains(r#"data-testid="student-subjects-none""#), "{page}");
+    assert!(page.contains("has not given you a subject yet"));
+    assert!(!page.contains("data-testid=\"student-subject\""));
+    // What the student reads: the text outside the tags.
+    let text: String = page.split('<').map(|part| part.split_once('>').map_or(part, |(_, t)| t)).collect();
+    for word in ["Spanish", "course", "Course"] {
+        assert!(!text.contains(word), "a student reads no `{word}`: {text}");
+    }
+
+    // One: it opens, on sign-in too; My subjects shows the page anyway.
+    s.state.db.with(|c| crate::students::give(c, teacher, kid_id, "maths-1")).unwrap();
+    let (status, location, _, _) = s.get("/courses", &kid);
+    assert_eq!((status, location.as_str()), (303, "/"));
+    let active: Option<String> = s.state.db.with(|c| c.query_row("SELECT active_course FROM users WHERE id = ?1", [kid_id], |r| r.get(0))).unwrap();
+    assert_eq!(active.as_deref(), Some("maths-1"), "opening a subject makes it the active course");
+    let (status, location, _, _) = s.post("/login", "", &[("email", "kid1"), ("password", PASSWORD)]);
+    assert_eq!((status, location.as_str()), (303, "/courses"), "sign-in lands on the subjects");
+    let (_, _, _, page) = s.get("/courses?pick=1", &kid);
+    assert_light("/courses?pick=1 (one)", &page);
+    assert_eq!(page.matches(r#"data-testid="student-subject""#).count(), 1);
+    assert!(page.contains(r#"href="/courses?pick=1" data-testid="student-my-subjects""#), "My subjects shows the page");
+
+    // Two: two cards, by title, each one link with the teacher's name.
+    s.state.db.with(|c| crate::students::give(c, teacher, kid_id, "art-1")).unwrap();
+    let (status, _, _, page) = s.get("/courses", &kid);
+    assert_eq!(status, 200);
+    assert_light("/courses (two)", &page);
+    assert_eq!(page.matches(r#"data-testid="student-subject""#).count(), 2);
+    let art = page.find(r#"href="/courses/open/art-1""#).expect("Art's card is a link");
+    let maths = page.find(r#"href="/courses/open/maths-1""#).expect("Maths' card is a link");
+    assert!(art < maths, "by title");
+    assert_eq!(page.matches(r#"data-testid="student-subject-teacher">Tia Ruiz<"#).count(), 2);
+    let (status, location, _, _) = s.get("/courses/open/art-1", &kid);
+    assert_eq!((status, location.as_str()), (303, "/"));
+    assert_eq!(s.get("/courses/open/spanish", &kid).0, 404, "no ready-made course for a student");
+
+    // Taken away: back to one, which opens.
+    s.state.db.with(|c| crate::students::take_away(c, teacher, kid_id, "art-1")).unwrap();
+    assert_eq!(s.get("/courses", &kid).1, "/");
+}
+
 /// The top bar: the student's name (its username while it has none) and
 /// the three plain links; Sign out is a form post.
 #[test]

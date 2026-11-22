@@ -329,9 +329,10 @@ pub async fn login(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
 
     tracing::info!("user {user_id} gave the right password");
     // A student opens no share link and connects no app (`students::refused`):
-    // it lands on its home.
+    // it lands on its subjects (#220), which open the one it has straight
+    // away. (The `next` slot is the OAuth one: a student has none to resume.)
     if !email.contains('@') && state.db.call(move |c| crate::students::is_student(c, user_id)).await? {
-        return sign_in(&state, user_id, Vec::new(), None, None).await;
+        return sign_in(&state, user_id, Vec::new(), None, Some(&crate::url("/courses"))).await;
     }
     sign_in(&state, user_id, Vec::new(), share.as_ref(), oauth.as_deref()).await
 }

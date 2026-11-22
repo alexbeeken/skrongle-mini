@@ -151,6 +151,18 @@ pub async fn open(
     Ok(Redirect::to(&crate::url(&then)).into_response())
 }
 
+/// GET /courses/open/{id}: open a course from a plain link, a subject's
+/// card on a student's **My subjects** (#220): the course made active, on
+/// to its home, as the button does without the wizard. A student is not
+/// offered ready-made courses, so it opens none this way.
+pub async fn open_link(State(state): State<Arc<AppState>>, user: CurrentUser, Path(id): Path<String>) -> Result<Response, AppError> {
+    if !accessible(&state, &user, &id).await? || (user.student && state.courses.is_builtin(&id)) {
+        return Err(AppError::NotFound);
+    }
+    let broken = if user.student { "/courses?pick=1".to_string() } else { format!("/courses/{id}") };
+    open_for(&state, &user, &id, &broken, "/").await
+}
+
 /// Open a course the user may open (checked by the caller): their project
 /// in it, made active, then on to `then`, where a course opened for the
 /// first time shows its settings wizard (`pages::home`). A course that does

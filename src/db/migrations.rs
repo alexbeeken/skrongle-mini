@@ -32,6 +32,8 @@ const STEPS: &[M<'static>] = &[
     M::up(include_str!("migrations/v009_refresh_family.sql")).down(include_str!("migrations/v009_refresh_family.down.sql")),
     // v10: student accounts (users.username, users.teacher_id) and the Hold students permission (#217)
     M::up(include_str!("migrations/v010_students.sql")).down(include_str!("migrations/v010_students.down.sql")),
+    // v11: course_shares.given, a course a teacher gave a student (#220)
+    M::up(include_str!("migrations/v011_given_courses.sql")).down(include_str!("migrations/v011_given_courses.down.sql")),
 ];
 
 /// Schema migrations, applied in order. `PRAGMA user_version` tracks which have run.

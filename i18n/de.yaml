@@ -207,6 +207,10 @@ student:
     submit: "Mein Passwort ändern"
     saved: "Dein Passwort ist geändert. Nimm das neue, wenn du dich das nächste Mal anmeldest."
     forgot: "Passwort vergessen? Bitte deine Lehrkraft um ein neues."
+  subjects:
+    hi: "Hallo, {name}"
+    none: "Deine Lehrkraft hat dir noch kein Fach gegeben."
+    pick: "Wähle ein Fach, um anzufangen."
 
 profile:
   title: Profil
@@ -3193,3 +3197,12 @@ students_page:
   set_password: Passwort setzen
   delete: Diesen Schüler löschen
   cancel: Abbrechen
+  courses: Kurse
+  none_yet: Noch keiner
+  give_course: Kurs geben
+  give: Geben
+  given: "{course} an die angekreuzten Schüler gegeben ({n})."
+  no_course: "Wähle zuerst einen Kurs aus."
+  no_givable: "Um einen Kurs zu geben, erstelle zuerst einen eigenen unter Kurse."
+  courses_about: "Kreuze die Kurse an, die dieser Schüler hat. Nimmst du einen weg, bleibt sein Fortschritt darin erhalten."
+  courses_saved: "Kurse gespeichert."

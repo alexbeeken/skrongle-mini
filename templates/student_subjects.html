@@ -1,0 +1,19 @@
+{% extends "student_base.html" %}
+{#- My subjects (#220, routes::student_frame::subjects): a student's
+    `/courses`, one card per course its teacher gave it. Each whole card is
+    one link that opens the subject. #}
+{% block title %}{{ crate::t("student.frame.my_subjects") }}{% endblock %}
+{% block bar %}{{ crate::t("student.frame.my_subjects") }}{% endblock %}
+{% block content %}
+<div data-testid="student-subjects">
+  <h1 data-testid="student-subjects-hi">{{ crate::t1("student.subjects.hi", "name", name) }}</h1>
+  {% if subjects.is_empty() %}
+  <p class="notice info" data-testid="student-subjects-none">{{ crate::t("student.subjects.none") }}</p>
+  {% else %}
+  <p class="note">{{ crate::t("student.subjects.pick") }}</p>
+  {% for s in subjects %}
+  <a class="subject" href="{{ crate::url("/courses/open/") }}{{ s.id }}" data-testid="student-subject" data-course="{{ s.id }}"><span class="subject-title" data-testid="student-subject-title">{{ s.title }}</span><span class="subject-teacher" data-testid="student-subject-teacher">{{ s.teacher }}</span></a>
+  {% endfor %}
+  {% endif %}
+</div>
+{% endblock %}

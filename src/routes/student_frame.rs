@@ -26,7 +26,48 @@ use crate::AppState;
 /// has a script, a second stylesheet, a font or a picture. A later page in
 /// the frame adds its path here.
 #[cfg_attr(not(test), allow(dead_code))]
-pub const FRAME_PAGES: &[&str] = &["/login", "/password"];
+pub const FRAME_PAGES: &[&str] = &["/login", "/password", "/courses?pick=1"];
+
+/// One of the student's subjects, as its card shows it.
+pub struct Subject {
+    pub id: String,
+    pub title: String,
+    /// The teacher's name (`share::owner_label`).
+    pub teacher: String,
+}
+
+#[derive(Template)]
+#[template(path = "student_subjects.html")]
+pub struct SubjectsTemplate {
+    pub user: Option<CurrentUser>,
+    /// "Hi" and this: the first name, else the username.
+    pub name: String,
+    pub subjects: Vec<Subject>,
+}
+
+/// GET /courses for a student (#220): its subjects, the courses its
+/// teacher gave it (`students::subjects`) that load, one card each, the
+/// whole card a link that opens it (`GET /courses/open/{id}`). Exactly one
+/// subject skips the page and opens it, unless `pick` (`?pick=1`, the top
+/// bar's **My subjects**) asks for the page. Ready-made courses are not
+/// offered, and there is nothing to make or join.
+pub async fn subjects(state: &AppState, user: CurrentUser, pick: bool) -> Result<Response, AppError> {
+    let uid = user.id;
+    let given = state.db.call(move |c| crate::students::subjects(c, uid)).await?;
+    let mut subjects = Vec::with_capacity(given.len());
+    for g in given {
+        let Some(content) = state.courses.get(&state.db, &g.course_id).await? else { continue };
+        subjects.push(Subject { id: g.course_id, title: content.title().to_string(), teacher: g.owner });
+    }
+    subjects.sort_by_key(|s| s.title.to_lowercase());
+    if let [only] = subjects.as_slice() {
+        if !pick {
+            return super::courses::open_for(state, &user, &only.id, "/courses?pick=1", "/").await;
+        }
+    }
+    let name = if user.first_name.trim().is_empty() { user.username.clone() } else { user.first_name.trim().to_string() };
+    Ok(Page(SubjectsTemplate { user: Some(user), name, subjects }).into_response())
+}
 
 #[derive(Template)]
 #[template(path = "student_password.html")]
