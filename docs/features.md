@@ -2279,6 +2279,59 @@ A student reads "subject", never "course".
 - Ready-made courses are not offered (`GET /courses/open/{id}` is a 404 for
   a student on one), and there is nothing to make or join.
 
+### The Class box page
+
+One page about the box itself (#227, `/class-box`,
+`src/routes/class_box.rs`, `templates/class_box.html`), for an account
+that may hold students (Hold students, or an owner): a **Class box** link in
+the top bar (`nav-class-box`), next to **Students**. A student gets a 404
+(`students::refused`), and so does any other account. It is a page of
+cards (`class-box-…`), each counted or read when the page opens; nothing
+polls.
+
+- **How students join** (`class-box-join`): three steps: connect to the same
+  network as the box, open the address, sign in with the username and
+  password on the slip. The address (`class-box-address`, large) is the one
+  the teacher's browser is using for this page (its host, or the proxy's
+  `X-Forwarded-Host`, and the base path), not `SKRONGLE_PUBLIC_URL`: what
+  works for the teacher in the room works for the class. The server does not
+  know the Wi-Fi's name, so the card names no network. **Print this as a
+  poster** (`class-box-poster`) opens `/class-box/poster`: the same card
+  alone, in large type, with a **Print** button (script; the browser's own
+  print without it) and a print style that leaves out everything else.
+- **Right now** (`class-box-now`): how many students signed in or studied
+  in the last 10 minutes, of how many (`class-box-on-now`, `data-n`,
+  `data-of`); how many studied today (`class-box-today`); the courses on the
+  box, ready-made and made (`class-box-courses`); the space left on the disk
+  that holds the database (`class-box-space`). A teacher counts its own
+  students, an owner every student. Nothing records when a session was last
+  used, and a write on every request is not worth one number, so "signed in
+  or studied" is a session made, an answer (`quiz_history`) or a lesson
+  opened (`lesson_touches`) since then (`class_box::counts`); "today" is an
+  answer or a lesson since midnight in the teacher's time zone (the `tz`
+  cookie). How many finished today's work comes with the class's progress
+  table (#225).
+- **Backup** (`class-box-backup`), an owner's only: what the file holds, in
+  one sentence that it holds every account and the secret key; *Last
+  backup: today* (or *yesterday*, *N days ago*; in bold red when it is a
+  week old or none was made: `data-stale`). **Download a backup**
+  (`class-box-backup-download`, `POST /class-box/backup`) asks for the
+  owner's password first (`class-box-backup-password`; checked as Profile
+  settings checks it, `profile::prove_owner`: a wrong one counts against
+  sign-in, and an owner with two-factor sign-in is asked only for the
+  password; an owner without a password, signed in by a proxy, gives a code
+  from the authenticator app if it has one). Refused, the page comes back
+  with why (`class-box-backup-error`). Then the answer is the file itself,
+  `skrongle-backup-<date>.tar.gz`; see
+  [Backup and restore](self-hosting#backup-and-restore) for what is in it
+  and how it is made. When `SKRONGLE_SECRET_KEY` holds the key instead of a
+  file, the card says to keep that value too (`class-box-key-outside`). One
+  backup is made at a time; a second one meanwhile is told to wait a
+  minute. Putting a backup back stays the documented command.
+- **Courses by file** (`class-box-files`): a course made elsewhere comes in
+  on **Courses** (a course made there, its files put in the editor); the
+  card links there.
+
 ## The student frame
 
 A classroom's computers may be 20 years old, so a student's own pages and

@@ -125,8 +125,9 @@ else works.
 The data directory holds `learn.db` (accounts, progress, courses made in the
 app, and the saved AI keys, encrypted), its `-wal` and `-shm` files, and
 `learn.db.key`, the key that decrypts the saved AI keys. Back up the whole
-directory with the service stopped, or use `sqlite3`'s `.backup` for the
-database. It must be on a local disk; SQLite does not work safely on an NFS
+directory with the service stopped, use `sqlite3`'s `.backup` for the
+database, or, as the owner, **Download a backup** on the app's **Class box**
+page. It must be on a local disk; SQLite does not work safely on an NFS
 or SMB mount.
 
 ### Configuration
