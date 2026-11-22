@@ -537,19 +537,33 @@ fn secret_opens_saved_keys(env_value: Option<&str>, db: &Path) -> bool {
     }
 }
 
-/// Free and total space on the file system holding `dir`.
+/// (free, total) bytes on the file system holding `dir`, free as an
+/// unprivileged process sees it; also the Class box page's "space left" (#227).
 #[cfg(unix)]
-fn disk_line(dir: &Path) -> String {
+pub fn disk_space(dir: &Path) -> std::io::Result<(u64, u64)> {
     use std::os::unix::ffi::OsStrExt;
-    let Ok(c) = std::ffi::CString::new(dir.as_os_str().as_bytes()) else { return "unknown".into() };
+    let c = std::ffi::CString::new(dir.as_os_str().as_bytes()).map_err(|e| std::io::Error::new(std::io::ErrorKind::InvalidInput, e))?;
     let mut st: libc::statvfs = unsafe { std::mem::zeroed() };
     // SAFETY: `c` is NUL-terminated and `st` is a valid out-pointer.
     if unsafe { libc::statvfs(c.as_ptr(), &mut st) } != 0 {
-        return format!("unknown ({})", std::io::Error::last_os_error());
+        return Err(std::io::Error::last_os_error());
     }
     let frsize = st.f_frsize as u64;
-    let free = st.f_bavail as u64 * frsize;
-    let total = st.f_blocks as u64 * frsize;
+    Ok((st.f_bavail as u64 * frsize, st.f_blocks as u64 * frsize))
+}
+
+#[cfg(not(unix))]
+pub fn disk_space(_dir: &Path) -> std::io::Result<(u64, u64)> {
+    Err(std::io::Error::other("not measured on this system"))
+}
+
+/// Free and total space on the file system holding `dir`.
+#[cfg(unix)]
+fn disk_line(dir: &Path) -> String {
+    let (free, total) = match disk_space(dir) {
+        Ok(space) => space,
+        Err(e) => return format!("unknown ({e})"),
+    };
     let warn = if free < 100 << 20 { " (PROBLEM: under 100 MB left)" } else { "" };
     format!("{} free of {} (at {}){warn}", mb(free), mb(total), dir.display())
 }
