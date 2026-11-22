@@ -46,6 +46,8 @@ under `static/`, `templates/` or `data/` is missing from this list.
 
 - Student accounts (#217): `students.rs` (made by a teacher: username, `create` all or none within the student limit, `rename`, `set_password`, `delete`, `suggest_username`, `make_password`, and `refused`, the one list of paths a student gets a 404 for, checked by the router's `auth::student_gate` layer); the dev build's `/dev/student` in `routes/dev.rs`, `templates/dev_student.html`.
 - The Students page (#218): `routes/students.rs` (`/students`: the list, adding by pasting names, the sign-in sheet shown once, a student's page, the confirms; route tests in `routes/students/tests.rs`), templates `students.html`, `students_add.html`, `students_sheet.html`, `students_one.html`, `students_confirm.html`, and `static/students.css` (the tables and the print sheet); the class's progress for the list in `students::progress`.
+- The student frame (#219): `templates/student_base.html` + `static/student.css`, the light layout of a student's own pages and of the sign-in page (no script, one stylesheet, no font; works with JavaScript off on an old browser); `routes/student_frame.rs` (`FRAME_PAGES`, every route in the frame, which its test checks page by page, and **Change my password** at `/password`, `templates/student_password.html`).
+- Giving a course (#220): `students.rs` (`give`, `take_away`, `given`, `givable`, `subjects`: a given course is a `course_shares` row with `given = 1`, left out of the Share dialog by `share::shares_of`); the Students list's **Courses** column and **Give course** (`POST /students/give`) and a student's courses (`POST /students/{id}/courses`) in `routes/students.rs`; a student's **My subjects** (its `/courses`, `routes::student_frame::subjects`, `templates/student_subjects.html`), whose cards open a subject with `GET /courses/open/{id}` (`courses::open_link`).
 - Sign-in: `auth.rs` (sessions, CurrentUser, Project), `auth/cache.rs` (the signed-in users kept in memory by session, #37), `auth/api.rs` (connected apps, #167: grants, hashed bearer tokens, the `Scope`s, the `ApiUser` extractor), `routes/auth.rs`, `routes/auth/code.rs` (the two-factor step), `proxy_auth.rs` (proxy header), `signup.rs` (who may register), `urlenc.rs` (percent-encoding for the redirects they build).
 - Two-factor: `two_factor.rs`, `totp.rs`.
 - Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`; its Connected apps section (#167): `routes/profile/apps.rs`.
@@ -407,11 +409,14 @@ course_ai_run_files (course_id, side, path, content)  PRIMARY KEY (course_id, si
                 -- `edits`: the review's own text for lines the AI wrote (JSON `review::Edits`:
                 -- path → row key → text, '' for none); `why`: the run's why and check lines per
                 -- lesson (JSON `ai::LessonNote`s, '' for none)
-course_shares  (id, course_id, label, token_hash UNIQUE, user_id, created_at, opened_at)
+course_shares  (id, course_id, label, token_hash UNIQUE, user_id, created_at, opened_at, given)
                 -- a course shared by link (src/share.rs): token_hash is the SHA-256 of the
                 -- link's token; user_id the account that opened the link (NULL until then, or when
                 -- that account is deleted; the share stays and can be opened again). The course is
-                -- open to that account only; `label` is a name the owner gave the link, or ''
+                -- open to that account only; `label` is a name the owner gave the link, or ''.
+                -- given = 1 (v11, #220): a course a teacher gave its student (students::give), opened
+                -- at once, its token never shown; not a link, so the Share dialog and the 50-link
+                -- count leave it out (share::shares_of). Once per (course_id, user_id).
 projects       (user_id, course_id, created_at, last_opened_at, start_unit, motivator, set_up)  PRIMARY KEY (user_id, course_id)
                -- a course the learner opened; motivator: the course's setting, '' = the default;
                -- set_up: 0 until the first visit's settings wizard is left
@@ -451,7 +456,9 @@ migrations (`v002_no_skc.sql` drops `motivator_purchases` and turns a saved
 `courses.error_kind`; `v006_api_grants.sql` adds connected apps' `api_grants` and `api_tokens`;
 `v007_oauth.sql` adds OAuth's `oauth_clients` and `oauth_codes`; `v008_refresh_reuse.sql` adds
 `api_tokens.used_at`, so a reused refresh token revokes its grant; `v009_refresh_family.sql` drops it again for
-`api_grants.refresh_family_hash`, so any earlier refresh token revokes its grant), which `src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
+`api_grants.refresh_family_hash`, so any earlier refresh token revokes its grant; `v010_students.sql` adds
+`users.username` and `users.teacher_id` for student accounts; `v011_given_courses.sql` adds
+`course_shares.given`, a course a teacher gave a student), which `src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
 how many have run, and a later change appends its own entry with a
 `.down.sql` beside it that takes it back (`db::migrate_to`, behind `skrongle migrate <schema-version>`;
 `db::tests::every_down_restores_the_schema_before_it` holds each one to the schema before it). A database

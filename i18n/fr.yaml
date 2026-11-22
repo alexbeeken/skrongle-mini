@@ -196,6 +196,23 @@ auth:
 
 
 
+# The student frame (#219): the top bar and Change my password.
+student:
+  frame:
+    my_subjects: "Mes matières"
+    change_password: "Changer mon mot de passe"
+    sign_out: "Se déconnecter"
+  password:
+    title: "Changer mon mot de passe"
+    submit: "Changer mon mot de passe"
+    saved: "Ton mot de passe est changé. Utilise le nouveau la prochaine fois que tu te connectes."
+    forgot: "Mot de passe oublié ? Demande-en un nouveau à ton enseignant."
+  subjects:
+    hi: "Bonjour, {name}"
+    none: "Ton enseignant ne t'a pas encore donné de matière."
+    pick: "Choisis une matière pour commencer."
+    your_teacher: "Ton enseignant"
+
 profile:
   title: Profil
   ok: OK
@@ -3181,3 +3198,12 @@ students_page:
   set_password: Définir le mot de passe
   delete: Supprimer cet élève
   cancel: Annuler
+  courses: Cours
+  none_yet: Aucun pour l'instant
+  give_course: Donner le cours
+  give: Donner
+  given: "{course} donné aux élèves cochés ({n})."
+  no_course: "Choisis d'abord un cours à donner."
+  no_givable: "Pour donner un cours, crée d'abord le tien dans Cours."
+  courses_about: "Coche les cours de cet élève. En retirer un garde sa progression dans ce cours."
+  courses_saved: "Cours enregistrés."

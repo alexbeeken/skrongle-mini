@@ -172,6 +172,8 @@ pub struct PickerTemplate {
 pub struct PickerParams {
     pub notice: Option<String>,
     pub generate: Option<String>,
+    /// A student's **My subjects** (#220): the page even with one subject.
+    pub pick: Option<String>,
 }
 
 fn card(content: &ContentStore, editable: bool) -> CourseCard {
@@ -297,12 +299,16 @@ fn broken_card(state: &AppState, row: &CourseRow) -> CourseCard {
     }
 }
 
-/// GET /courses[?generate=<stopped course>]
+/// GET /courses[?generate=<stopped course>]. For a student, its subjects
+/// instead (`student_frame::subjects`, #220).
 pub async fn picker(
     State(state): State<Arc<AppState>>,
     user: CurrentUser,
     Query(q): Query<PickerParams>,
 ) -> Result<Response, AppError> {
+    if user.student {
+        return crate::routes::student_frame::subjects(&state, user, q.pick.is_some()).await;
+    }
     let generate = match q.generate.filter(|g| !g.is_empty()) {
         Some(id) => match owned(&state, &user, &id).await {
             Ok(row) if row.state == courses::CourseState::Failed => generate_view(&state, &user, &row, true).await?,

@@ -196,6 +196,23 @@ auth:
 
 
 
+# The student frame (#219): the top bar and Change my password.
+student:
+  frame:
+    my_subjects: "我的科目"
+    change_password: "修改我的密码"
+    sign_out: "退出登录"
+  password:
+    title: "修改我的密码"
+    submit: "修改我的密码"
+    saved: "你的密码已修改。下次登录时请用新密码。"
+    forgot: "忘记密码了？请向老师要一个新密码。"
+  subjects:
+    hi: "你好，{name}"
+    none: "老师还没有给你任何科目。"
+    pick: "选一个科目开始。"
+    your_teacher: "你的老师"
+
 profile:
   title: 个人资料
   ok: 好
@@ -3181,3 +3198,12 @@ students_page:
   set_password: 设置密码
   delete: 删除此学生
   cancel: 取消
+  courses: 课程
+  none_yet: 还没有
+  give_course: 分配课程
+  give: 分配
+  given: "已把{course}分配给勾选的学生（{n}）。"
+  no_course: "请先选一门要分配的课程。"
+  no_givable: "要分配课程，请先在“课程”里创建一门自己的课程。"
+  courses_about: "勾选这个学生拥有的课程。取消一门课程会保留学生在其中的进度。"
+  courses_saved: "课程已保存。"

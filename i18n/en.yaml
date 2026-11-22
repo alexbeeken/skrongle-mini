@@ -198,6 +198,23 @@ auth:
 
 
 
+# The student frame (#219): the top bar and Change my password.
+student:
+  frame:
+    my_subjects: "My subjects"
+    change_password: "Change my password"
+    sign_out: "Sign out"
+  password:
+    title: "Change my password"
+    submit: "Change my password"
+    saved: "Your password is changed. Use the new one the next time you sign in."
+    forgot: "Forgot your password? Ask your teacher for a new one."
+  subjects:
+    hi: "Hi, {name}"
+    none: "Your teacher has not given you a subject yet."
+    pick: "Pick a subject to start."
+    your_teacher: "Your teacher"
+
 profile:
   title: Profile
   ok: OK
@@ -3184,3 +3201,12 @@ students_page:
   set_password: Set the password
   delete: Delete this student
   cancel: Cancel
+  courses: Courses
+  none_yet: None yet
+  give_course: Give course
+  give: Give
+  given: "Given {course} to the ticked students ({n})."
+  no_course: "Pick a course to give first."
+  no_givable: "To give a course, make one of your own on Courses first."
+  courses_about: "Tick the courses this student has. Taking one away keeps the student's progress in it."
+  courses_saved: "Courses saved."

@@ -6,6 +6,18 @@ numbers work is in the README, "Versions".
 
 ## Unreleased
 
+- **Give a course to students, and My subjects** (schema v11). On
+  **Students** a teacher ticks students, picks one of its own courses beside
+  **Give course** and clicks **Give**; a **Courses** column names what each
+  student has, and a student's page ticks and unticks its courses. Taking a
+  course away keeps the student's progress. A given course is not a link:
+  the Share dialog does not list it and it does not count toward the 50
+  links. A student now signs in to **My subjects**: "Hi" and its name, one
+  card per subject with the teacher's name; with one subject it opens
+  straight away, with none the page says the teacher has not given one yet.
+  A student can open only the courses it was given, not a ready-made one.
+  Going back to v10 (`skrongle migrate 10`) takes the given courses away.
+
 - **Students page.** An account that may hold students (Hold students, or
   an owner) has a **Students** link in the top bar. It lists every student
   with their username, lessons passed and when they last studied, and
@@ -16,6 +28,16 @@ numbers work is in the README, "Versions".
   changes its username and name, sets a new password, or deletes it; ticked
   students get new passwords or are deleted together. It all works with
   JavaScript off. Students and other accounts get "not found" there.
+
+- **A light frame for student pages, and a plainer login page.** The login
+  page and a student's new **Change my password** page (`/password`) load
+  one small stylesheet and no script, font or picture, so they work with
+  JavaScript off on a classroom's old computers, at 800 by 600 and on a
+  phone. The login page looks plainer than before for everyone, and no
+  longer offers to install the app (every other page still does). A
+  student's top bar has **My subjects**, **Change my password** and
+  **Sign out**; the rest of a student's pages move into this frame in later
+  releases.
 
 - **Student accounts** (schema v10). A teacher can hold student accounts:
   they sign in with a username and a password, have no e-mail address and

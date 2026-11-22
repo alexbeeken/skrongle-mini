@@ -798,7 +798,9 @@ Nothing is mailed (#10, #16): the page that comes back shows the new link
 (`/courses/shared/<token>`, `course-share-link`) with *Copy*
 (`course-share-link-copy`), once, since only the token's hash is stored,
 and the owner passes it on however they like. A course can have up to 50
-links. The dialog lists every link (`course-share-row`, with `data-id`,
+links; a course given to a student
+([Giving a course](#giving-a-course-and-my-subjects)) is not a link and
+counts for nothing here. The dialog lists every link (`course-share-row`, with `data-id`,
 `data-label` and `data-opened`) with its name (*Invitation link* when it
 has none), *not opened yet* or *opened by <name>* (the account's name, or
 its address), and a *Remove* button (`course-share-remove`, by the row's
@@ -2116,8 +2118,10 @@ A teacher makes and looks after them on
   up as a username, in any case. The sign-in limits count a username as they
   count an address (`students::sign_in_key`). There is no "forgot password"
   for a student: the login page says a student asks their teacher for a new
-  one (`login-student-note`). A student lands on its home; a share link or an
-  app's sign-in it came with is dropped.
+  one (`login-student-note`). A student lands on
+  [My subjects](#giving-a-course-and-my-subjects) (`/courses`), which opens
+  its one subject straight away; a share link or an app's sign-in it came
+  with is dropped.
 - **The profile**: the username (`profile-username`, read only, with the note
   that the teacher looks after the account), the language and **Change
   password** (which asks for the current one). No name fields, no e-mail, no
@@ -2157,7 +2161,9 @@ back, so the page works with JavaScript off.
 - **The list** (`students-list`): every student of this teacher on one page,
   by username, with no paging whatever the limit. Each row has a tick box
   (`students-pick`), the name (a link to the student's page; the username
-  when it has no name), the username, **Lessons passed** (passes in every
+  when it has no name), the username, **Courses** (`students-courses`: the
+  titles of the courses given to it, by title, or *None yet*; see
+  [Giving a course](#giving-a-course-and-my-subjects)), **Lessons passed** (passes in every
   course, the rule of [Progress](progress)) and **Last studied** (*Today*,
   *Yesterday*, *9 days ago* or *Never*, in the teacher's local days, from
   the latest lesson touch or first sight of a lesson, as Manage Users'
@@ -2205,13 +2211,123 @@ back, so the page works with JavaScript off.
   them. `GET /students/sheet` (the sheet's address opened again) says they
   were shown once (`students-sheet-gone`) and how to make new ones.
 - **A student's page** (`/students/{id}`, `students-one`): lessons passed
-  and last studied; **Name and username** (username, first name, last name;
+  and last studied; **Courses** (`students-courses-form`: a tick box per
+  course, see [Giving a course](#giving-a-course-and-my-subjects));
+  **Name and username** (username, first name, last name;
   `POST /students/{id}`: a taken or bad username, or a name too long, comes
   back with why and nothing saved); **New password** (`POST
   /students/{id}/password`: typed, at least 8 characters, or made when
   empty; the student's sessions end and the sheet shows it once); **Delete
   this student** (`POST /students/{id}/delete` shows the confirm page). Another
   teacher's student, or no student, is a 404.
+
+### Giving a course and My subjects
+
+A teacher gives one of its own courses to its students by account (#220,
+`students::give`): no link is passed around. One course goes to many
+students, or many courses to one.
+
+- **Which courses**: only a course the teacher made that loads (ready or
+  being revised, no load error; `students::givable`, then loaded). Not a
+  ready-made course, and not another account's. Anything else posted is a
+  404.
+- **On the list**: tick students, pick the course beside **Give course**
+  (`students-give-course`) and click **Give** (`students-give`, `POST
+  /students/give`, `id` per student and `course`). The list comes back with
+  *Given Maths to the ticked students (2).* and the **Courses** column names
+  it. Nothing ticked, or no course, says so. With no course to give, the
+  bar says to make one on **Courses** first (`students-no-givable`).
+- **On a student's page**: **Courses** lists every course the teacher can
+  give, and any given one, ticked when the student has it
+  (`students-course`, `data-course`). **Save** (`students-courses-save`,
+  `POST /students/{id}/courses`, `course` per tick) gives the newly ticked
+  ones and takes away the unticked ones: *Courses saved.*
+- **What it is**: a `course_shares` row with the student already in it
+  (`user_id`, `opened_at`) and `given = 1` (schema v11), once per student
+  and course. Everything a [shared course](#sharing-a-course) does works for
+  it: read only for the student, with its own progress; the teacher's later
+  changes reach it at once. Its token is random and never shown, so no link
+  leads to it. It is not a link: the Share dialog does not list it and it
+  does not count toward the course's 50 links (`share::shares_of`), and a
+  link's *Remove* cannot take it.
+- **Progress**: a student has no Privacy permission, so the teacher sees its
+  progress without asking (the list's **Lessons passed** and **Last
+  studied**).
+- **Taking it away** (`students::take_away`) removes the row: the course
+  leaves the student's subjects and stops being its active course. The
+  student's progress rows stay, for the day it is given again. Deleting a
+  student deletes its given rows; deleting the course deletes them too.
+
+**My subjects** is a student's `/courses` (`routes::student_frame::subjects`,
+`templates/student_subjects.html`), in [the student frame](#the-student-frame).
+A student reads "subject", never "course".
+
+- It says *Hi, Ana* (the first name, else the username), then one card per
+  subject (`student-subject`, `data-course`), by title: the subject's title
+  (`student-subject-title`) and the teacher's name
+  (`student-subject-teacher`: its name, else *Your teacher*; a student is
+  never shown an address). The whole card is
+  one link, `GET /courses/open/{id}`, which opens the subject the way
+  opening any shared course does (the student's project in it, made its
+  active course) and goes on to its home. A subject that does not load is
+  left out.
+- With **exactly one** subject the page is skipped: `/courses` opens it.
+  Signing in lands on `/courses`, so a student with one subject goes
+  straight to it. **My subjects** in the top bar links `/courses?pick=1`,
+  which shows the page anyway.
+- With **none**, the page says *Your teacher has not given you a subject
+  yet.* (`student-subjects-none`).
+- A student opens and studies **only a course it was given**, one rule
+  (`students::may_study`): `routes::courses::accessible` asks it for
+  opening (`GET` and `POST /courses/open/{id}`), a course's settings, its
+  stat pages and its placement test (each a 404 otherwise), and the
+  `Project` extractor asks it of the active course on every learning page,
+  so a ready-made course, another teacher's course or one of its teacher's
+  it was not given is never its active course (one that was is dropped,
+  and the page goes to My subjects). There is nothing to make or join.
+
+## The student frame
+
+A classroom's computers may be 20 years old, so a student's own pages and
+the login page are served in a light frame of their own (#219,
+`templates/student_base.html`, `static/student.css`,
+`src/routes/student_frame.rs`), not in the app's normal layout:
+
+- **The rules**: one document and one stylesheet (`student.css`). No
+  `<script>`, no web font, no icon font, no picture but the course's own, no
+  web-app manifest (the icon link is an empty `data:` one, so the browser
+  asks for nothing else). Every action is a form post that comes back to a
+  page. The stylesheet uses no CSS variables and nothing that needs flexbox
+  or grid: tables and blocks, so the page reads top to bottom on a browser
+  that knows only basic CSS. It fits 800 by 600 and 320 wide without
+  sideways scroll; body text is 16px or more and buttons at least 44px high.
+- **The top bar** (`student-bar`): the page's title on the left (the app's
+  name until a page sets its own); on the right the student's name (its
+  username while it has none, `student-bar-name`) and three plain links:
+  **My subjects** (`student-my-subjects`, `/courses?pick=1`: the student's
+  [subjects page](#giving-a-course-and-my-subjects)), **Change my password**
+  (`student-change-password`) and **Sign out** (`student-sign-out`, a
+  button in a form that posts `/logout`). Signed out (the login page) the
+  right side is empty.
+- **The login page** (`/login`) is in the frame for everyone: a student meets
+  it first. Its fields, notices and links are the ones described under
+  [Student accounts](#student-accounts) and [Sharing a course](#sharing-a-course);
+  the language picker changes the page at once with script and has a
+  **Change** button without it.
+- **Change my password** (`/password`, `student-password-form`): the current
+  password, the new one twice (8 to 128 characters). It is checked as on
+  Profile settings, on the same per-account sign-in counter; done, every
+  other session of the student ends and the page comes back with
+  *Your password is changed* (`student-password-saved`); refused, the form
+  comes back with the reason (`student-password-error`). A normal account
+  that opens `/password` goes to its Profile settings.
+- **Which pages are in it**: `routes::student_frame::FRAME_PAGES` lists
+  them (today `/login`, `/password` and My subjects, `/courses?pick=1`), and
+  its test opens each as a student and fails on a script, a second
+  stylesheet, a font or a picture. Until #223 and #224 move or close them, a
+  student still gets the app's normal pages in the normal layout, with their
+  scripts: a subject's home page, lessons, Study, Play, Sprint, Vocabulary, Profile settings and the
+  error pages.
 
 ## Two-factor sign-in
 
@@ -2380,8 +2496,9 @@ token they give it (#167, the first step of plan #166). The code is
 
 A phone or desktop browser can add Skrongle to the home screen ("Install
 app" in Chrome, "Add to Home Screen" in Safari). It then opens full-screen
-at the home page, with the Skrongle icon. Every page links
-`/manifest.webmanifest` (`web_manifest` in `src/routes/mod.rs`), which
+at the home page, with the Skrongle icon. Every page in the normal layout
+links `/manifest.webmanifest` (the pages in the
+[student frame](#the-student-frame), the login page among them, do not) (`web_manifest` in `src/routes/mod.rs`), which
 carries the base path in `start_url`, `scope` and the icon paths
 (`static/icon-192.png`, `static/icon-512.png`). A browser only offers it on an HTTPS page or localhost.
 

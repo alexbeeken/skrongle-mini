@@ -1,0 +1,82 @@
+/* The student frame (#219): the one stylesheet of a student's pages and of
+   the sign-in page (templates/student_base.html). For a classroom's old
+   computers: no CSS variables, no web font, no picture, nothing that needs
+   flexbox or grid (tables and blocks read top to bottom without them), and
+   readable at 800 by 600 and at 320 wide with nothing scrolling sideways.
+   Body text is 16px or more, buttons at least 44px high. The test in
+   src/routes/student_frame/tests.rs checks the rules it can and the size. */
+
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.5; color: #1f2328; background: #fbfaf7; word-wrap: break-word; overflow-wrap: break-word; }
+a { color: #962d22; text-decoration: underline; }
+a:hover, a:focus { color: #6f2019; }
+h1 { margin: 0 0 16px; font-size: 24px; line-height: 1.3; }
+h2 { margin: 24px 0 8px; font-size: 20px; line-height: 1.3; }
+p { margin: 0 0 12px; }
+img { max-width: 100%; height: auto; border: 0; }
+code { font-family: "Courier New", Courier, monospace; font-size: 16px; }
+form { margin: 0 0 16px; }
+.inline { display: inline; margin: 0; }
+
+/* The top bar: the page's title on the left, the student's name and links on the right. */
+table.bar { width: 100%; border-collapse: collapse; background: #ffffff; border-bottom: 1px solid #b9b3a6; }
+.bar td { padding: 10px 16px; vertical-align: middle; }
+.bar .bar-title { font-size: 18px; font-weight: bold; }
+.bar .bar-links { text-align: right; }
+
+/* The page: one column, never wider than the screen. */
+.page { max-width: 760px; margin: 0 auto; padding: 18px 16px 32px; }
+.box { max-width: 420px; margin: 32px auto 0; padding: 24px; background: #ffffff; border: 1px solid #b9b3a6; }
+.note { color: #3d444d; }
+.muted { color: #5b6370; }
+
+/* Form fields: the label on its own line, the field under it, full width. */
+label.field { display: block; margin: 0 0 4px; font-weight: bold; }
+input[type="text"], input[type="password"], input[type="number"], select, textarea {
+  box-sizing: border-box; width: 100%; margin: 0 0 16px; padding: 6px 8px; font-family: inherit; font-size: 18px;
+  color: #1f2328; background: #ffffff; border: 2px solid #6b7280; border-radius: 0;
+}
+input[type="text"], input[type="password"], input[type="number"], select { height: 44px; }
+input:focus, select:focus, textarea:focus { border-color: #962d22; outline: 2px solid #962d22; }
+
+/* Buttons: .btn is the page's main action, .btn.plain (or .ghost) a second one,
+   .wide fills its line; button.link looks like a link (Sign out). */
+.btn { display: inline-block; box-sizing: border-box; min-height: 48px; margin: 0; padding: 12px 24px; font-family: inherit; font-size: 18px; font-weight: bold; line-height: 20px; color: #ffffff; background: #962d22; border: 2px solid #6f2019; border-radius: 0; text-decoration: none; text-align: center; cursor: pointer; }
+.btn:hover, .btn:focus { color: #ffffff; background: #6f2019; }
+.btn.plain, .btn.ghost { color: #1f2328; background: #ffffff; border-color: #6b7280; }
+.btn.plain:hover, .btn.plain:focus, .btn.ghost:hover, .btn.ghost:focus { color: #1f2328; background: #f1eee7; }
+.btn.wide { display: block; width: 100%; }
+button.link { margin: 0; padding: 0; font-family: inherit; font-size: inherit; color: #962d22; background: transparent; border: 0; text-decoration: underline; cursor: pointer; }
+button.link:hover, button.link:focus { color: #6f2019; }
+
+/* Notices: done (green), .error (red), .info (yellow). .alert is the same, for shared bits. */
+.notice, .alert { margin: 0 0 16px; padding: 8px 12px; color: #1c5433; background: #e7f5ec; border: 1px solid #2e8b57; }
+.notice.error, .alert.error { color: #6f2019; background: #fbe9e7; border-color: #962d22; }
+.notice.info, .alert { color: #1f2328; background: #fff6d6; border-color: #b9a35a; }
+
+/* A list of things as a table: one row each, the current one highlighted. */
+table.list { width: 100%; border-collapse: collapse; background: #ffffff; border: 1px solid #b9b3a6; }
+.list th, .list td { padding: 12px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #b9b3a6; }
+.list tr.current { background: #fff6d6; }
+.list .num { width: 30px; color: #5b6370; }
+.list .end { text-align: right; }
+
+/* My subjects: one card per subject, the whole card one link. */
+a.subject { display: block; margin: 0 0 12px; padding: 16px; color: #1f2328; background: #ffffff; border: 2px solid #b9b3a6; text-decoration: none; }
+a.subject:hover, a.subject:focus { color: #1f2328; border-color: #962d22; background: #fff6d6; }
+.subject-title { display: block; font-size: 20px; font-weight: bold; color: #962d22; text-decoration: underline; }
+.subject-teacher { display: block; color: #5b6370; }
+
+/* The sign-in page's language picker and the dev server's panel. */
+.lang-picker { margin: 16px 0 0; }
+.lang-picker label { display: block; }
+.dev-panel { margin: 24px 0 0; padding: 12px; border: 1px dashed #b9b3a6; }
+.dev-panel h2 { margin-top: 0; }
+
+/* A narrow screen: the top bar's two cells one under the other, less padding. */
+@media (max-width: 600px) {
+  .bar td { display: block; padding: 8px 12px; }
+  .bar .bar-links { text-align: left; padding-top: 0; }
+  .page { padding: 12px 12px 24px; }
+  .box { margin-top: 8px; padding: 16px; }
+}

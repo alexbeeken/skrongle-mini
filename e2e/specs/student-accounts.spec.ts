@@ -22,7 +22,8 @@ test("a student signs in with its username and is refused what is not a student'
   await kid.getByTestId("login-password").fill(password);
   await kid.getByTestId("login-submit").click();
   await expect(kid).not.toHaveURL(/\/login/);
-  await expect(kid.getByTestId("nav-account-toggle")).toBeVisible();
+  // No subject yet: its subjects page, in the student frame (#220).
+  await expect(kid.getByTestId("student-subjects-none")).toBeVisible();
 
   for (const path of ["/courses/new", "/tutor", "/manage"]) {
     const res = await kid.goto(path);

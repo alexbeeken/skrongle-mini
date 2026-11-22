@@ -5,6 +5,9 @@
 .students .students-bar, .students .students-sheet-actions { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; margin: .8rem 0; }
 .students textarea, .students input[type="text"] { width: 100%; max-width: 28rem; box-sizing: border-box; }
 .students .students-rows input[type="text"] { min-width: 10rem; }
+.students .students-course { display: block; margin: .3rem 0; }
+/* The Courses cell wraps, so long titles keep Lessons passed and Last studied on screen. */
+.students .table-scroll > table.small td.students-courses { white-space: normal; min-width: 8rem; max-width: 16rem; overflow-wrap: anywhere; }
 
 /* The slips: one box per student, to cut out. */
 .slips { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: .8rem; margin: 1rem 0; }

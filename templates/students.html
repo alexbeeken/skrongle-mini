@@ -17,6 +17,13 @@
   <form method="post" action="{{ crate::url("/students/passwords") }}" data-testid="students-picked-form">
     <div class="students-bar">
       <span>{{ crate::t("students_page.with_picked") }}</span>
+      {% if givable.is_empty() %}
+      <span class="muted small" data-testid="students-no-givable">{{ crate::t("students_page.no_givable") }}</span>
+      {% else %}
+      <label for="students-give-course">{{ crate::t("students_page.give_course") }}</label>
+      <select id="students-give-course" name="course" data-testid="students-give-course">{% for (id, title) in givable %}<option value="{{ id }}">{{ title }}</option>{% endfor %}</select>
+      <button type="submit" class="btn small" formaction="{{ crate::url("/students/give") }}" data-testid="students-give">{{ crate::t("students_page.give") }}</button>
+      {% endif %}
       <button type="submit" class="btn small ghost" formaction="{{ crate::url("/students/passwords") }}" data-testid="students-new-passwords">{{ crate::t("students_page.new_passwords") }}</button>
       <button type="submit" class="btn small ghost" formaction="{{ crate::url("/students/delete") }}" data-testid="students-delete-picked">{{ crate::t("students_page.delete_picked") }}</button>
     </div>
@@ -25,6 +32,7 @@
         <th><input type="checkbox" hidden aria-label="{{ crate::t("students_page.pick_all") }}" data-testid="students-pick-all"></th>
         <th>{{ crate::t("students_page.name") }}</th>
         <th>{{ crate::t("students_page.username") }}</th>
+        <th>{{ crate::t("students_page.courses") }}</th>
         <th>{{ crate::t("students_page.passed") }}</th>
         <th>{{ crate::t("students_page.last_studied") }}</th>
       </tr></thead>
@@ -33,6 +41,7 @@
           <td><input type="checkbox" name="id" value="{{ r.id }}" aria-label="{{ crate::t1("students_page.pick", "name", r.name) }}" data-testid="students-pick"></td>
           <td><a href="{{ crate::url("/students/") }}{{ r.id }}" data-testid="students-name">{{ r.name }}</a></td>
           <td data-testid="students-username">{{ r.username }}</td>
+          <td class="students-courses" data-testid="students-courses">{% if r.courses.is_empty() %}<span class="muted">{{ crate::t("students_page.none_yet") }}</span>{% else %}{{ r.courses.join(" · ") }}{% endif %}</td>
           <td data-testid="students-passed">{{ r.passed }}</td>
           <td data-testid="students-last-studied" data-quiet="{{ r.quiet }}">{% if r.quiet %}<strong>{{ r.last_studied }}</strong>{% else if r.never %}<span class="muted">{{ r.last_studied }}</span>{% else %}{{ r.last_studied }}{% endif %}</td>
         </tr>{% endfor %}
