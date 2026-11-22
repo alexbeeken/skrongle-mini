@@ -87,6 +87,9 @@ async fn save_settings(state: &AppState, user_id: i64, content: &ContentStore, c
 /// new level from an account that may not skip levels a 403
 /// (`may_change_level`).
 pub async fn set_settings(State(state): State<Arc<AppState>>, user: CurrentUser, Path(id): Path<String>, Form(form): Form<SettingsForm>) -> Result<Response, AppError> {
+    if !accessible(&state, &user, &id).await? {
+        return Err(AppError::NotFound);
+    }
     let Some(content) = state.courses.get(&state.db, &id).await? else { return Err(AppError::NotFound) };
     let change = settings_change(&content, &form)?;
     may_change_level(&state, &user, &content, &change).await?;
@@ -98,7 +101,13 @@ pub async fn set_settings(State(state): State<Arc<AppState>>, user: CurrentUser,
 }
 
 /// Is this course one the user may open: built-in, their own, or shared with them?
+/// A student may open only a course its teacher gave it
+/// (`students::may_study`, #220): no ready-made course.
 pub(super) async fn accessible(state: &AppState, user: &CurrentUser, id: &str) -> Result<bool, AppError> {
+    if user.student {
+        let (uid, cid) = (user.id, id.to_string());
+        return state.db.call(move |c| crate::students::may_study(c, uid, &cid)).await;
+    }
     if state.courses.is_builtin(id) {
         return Ok(true);
     }
@@ -153,10 +162,10 @@ pub async fn open(
 
 /// GET /courses/open/{id}: open a course from a plain link, a subject's
 /// card on a student's **My subjects** (#220): the course made active, on
-/// to its home, as the button does without the wizard. A student is not
-/// offered ready-made courses, so it opens none this way.
+/// to its home, as the button does without the wizard. A student opens
+/// only a course it was given (`accessible`).
 pub async fn open_link(State(state): State<Arc<AppState>>, user: CurrentUser, Path(id): Path<String>) -> Result<Response, AppError> {
-    if !accessible(&state, &user, &id).await? || (user.student && state.courses.is_builtin(&id)) {
+    if !accessible(&state, &user, &id).await? {
         return Err(AppError::NotFound);
     }
     let broken = if user.student { "/courses?pick=1".to_string() } else { format!("/courses/{id}") };

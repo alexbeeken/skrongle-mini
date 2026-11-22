@@ -396,7 +396,7 @@ fn a_teacher_gives_its_own_course_to_its_own_students() {
             assert!(crate::share::can_open(c, *kid, "maths-1")?);
             let mine = subjects(c, *kid)?;
             assert_eq!(mine.len(), 1);
-            assert_eq!((mine[0].course_id.as_str(), mine[0].owner.as_str()), ("maths-1", "t@example.org"), "no name: the address");
+            assert_eq!((mine[0].course_id.as_str(), mine[0].owner.as_str()), ("maths-1", ""), "no name: never the address");
         }
         c.execute("UPDATE users SET first_name = 'Tia', last_name = 'Ruiz' WHERE id = ?1", [t])?;
         assert_eq!(subjects(c, kids[0])?[0].owner, "Tia Ruiz");

@@ -32,7 +32,7 @@ pub const FRAME_PAGES: &[&str] = &["/login", "/password", "/courses?pick=1"];
 pub struct Subject {
     pub id: String,
     pub title: String,
-    /// The teacher's name (`share::owner_label`).
+    /// The teacher's name, or "Your teacher" when it has none.
     pub teacher: String,
 }
 
@@ -57,7 +57,9 @@ pub async fn subjects(state: &AppState, user: CurrentUser, pick: bool) -> Result
     let mut subjects = Vec::with_capacity(given.len());
     for g in given {
         let Some(content) = state.courses.get(&state.db, &g.course_id).await? else { continue };
-        subjects.push(Subject { id: g.course_id, title: content.title().to_string(), teacher: g.owner });
+        // A teacher with no name is "Your teacher": a student is never shown an address.
+        let teacher = if g.owner.is_empty() { crate::t("student.subjects.your_teacher") } else { g.owner };
+        subjects.push(Subject { id: g.course_id, title: content.title().to_string(), teacher });
     }
     subjects.sort_by_key(|s| s.title.to_lowercase());
     if let [only] = subjects.as_slice() {

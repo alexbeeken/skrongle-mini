@@ -641,9 +641,16 @@ impl FromRequestParts<Arc<AppState>> for Project {
         // A user-made course opens for its owner, or for a learner it is
         // shared with (#451), whatever wrote `users.active_course` (#383);
         // otherwise it is dropped as active.
-        let allowed = state.courses.is_builtin(&id) || user.course_owner == Some(user.id) || {
+        // A student studies only a course its teacher gave it (#220,
+        // `students::may_study`): never a ready-made one.
+        let allowed = if user.student {
+            let (uid, cid) = (user.id, id.clone());
+            state.db.call(move |c| crate::students::may_study(c, uid, &cid)).await?
+        } else {
+            state.courses.is_builtin(&id) || user.course_owner == Some(user.id) || {
             let (uid, cid) = (user.id, id.clone());
             user.course_owner.is_some() && state.db.call(move |c| crate::share::can_open(c, uid, &cid)).await?
+            }
         };
         let course = if allowed {
             state.courses.get(&state.db, &id).await?

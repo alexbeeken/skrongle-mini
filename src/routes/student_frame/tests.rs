@@ -169,6 +169,11 @@ fn a_student_has_its_subjects() {
     let maths = page.find(r#"href="/courses/open/maths-1""#).expect("Maths' card is a link");
     assert!(art < maths, "by title");
     assert_eq!(page.matches(r#"data-testid="student-subject-teacher">Tia Ruiz<"#).count(), 2);
+    // A teacher with no name: "Your teacher", never its address.
+    s.state.db.with(|c| c.execute("UPDATE users SET first_name = '', last_name = '' WHERE id = ?1", [teacher])).unwrap();
+    let (_, _, _, page) = s.get("/courses", &kid);
+    assert_eq!(page.matches(r#"data-testid="student-subject-teacher">Your teacher<"#).count(), 2, "{page}");
+    assert!(!page.contains("t@example.org"));
     let (status, location, _, _) = s.get("/courses/open/art-1", &kid);
     assert_eq!((status, location.as_str()), (303, "/"));
     assert_eq!(s.get("/courses/open/spanish", &kid).0, 404, "no ready-made course for a student");
@@ -176,6 +181,60 @@ fn a_student_has_its_subjects() {
     // Taken away: back to one, which opens.
     s.state.db.with(|c| crate::students::take_away(c, teacher, kid_id, "art-1")).unwrap();
     assert_eq!(s.get("/courses", &kid).1, "/");
+}
+
+/// A student opens and studies only a course it was given (#220,
+/// `students::may_study`): every ready-made course, another teacher's
+/// course and a course of its own teacher it was not given are refused by
+/// every route that takes a course id, and its active course stays; an
+/// active course it may not study is dropped on its next page. A given
+/// course opens.
+#[test]
+fn a_student_opens_only_a_course_it_was_given() {
+    let s = Server::start();
+    s.with_student();
+    let builtin: Vec<String> = s.state.courses.builtin().iter().map(|c| c.id().to_string()).collect();
+    assert!(builtin.iter().any(|id| id == "spanish") && builtin.len() > 1, "{builtin:?}");
+    let (teacher, kid_id) = s
+        .state
+        .db
+        .with(|c| {
+            let t: i64 = c.query_row("SELECT id FROM users WHERE email = 't@example.org'", [], |r| r.get(0))?;
+            let kid: i64 = c.query_row("SELECT id FROM users WHERE username = 'kid1'", [], |r| r.get(0))?;
+            crate::students::tests::course_of(c, t, "maths-1", "Maths")?;
+            crate::students::tests::course_of(c, t, "art-1", "Art")?;
+            let other = crate::auth::create_user(c, "o@example.org", "h")?;
+            crate::students::tests::course_of(c, other, "theirs-1", "Theirs")?;
+            // Made active before this change, or by any other way: dropped.
+            c.execute("UPDATE users SET active_course = 'spanish' WHERE id = ?1", [kid])?;
+            Ok((t, kid))
+        })
+        .unwrap();
+    let active = || -> Option<String> { s.state.db.with(|c| c.query_row("SELECT active_course FROM users WHERE id = ?1", [kid_id], |r| r.get(0))).unwrap() };
+    let kid = s.login("kid1", PASSWORD);
+    let (status, location, _, _) = s.get("/", &kid);
+    assert_eq!((status, location.as_str()), (303, "/courses"), "a ready-made active course is not studied");
+    assert_eq!(active(), None, "and is dropped");
+
+    s.state.db.with(|c| crate::students::give(c, teacher, kid_id, "maths-1")).unwrap();
+    let (status, location, _, _) = s.post("/courses/open/maths-1", &kid, &[]);
+    assert_eq!((status, location.as_str()), (303, "/"), "a given course opens");
+    assert_eq!(active().as_deref(), Some("maths-1"));
+    assert_eq!(s.get("/", &kid).0, 200);
+
+    let refused: Vec<String> = builtin.iter().cloned().chain(["art-1".to_string(), "theirs-1".to_string()]).collect();
+    for id in &refused {
+        assert_eq!(s.post(&format!("/courses/open/{id}"), &kid, &[]).0, 404, "POST open {id}");
+        assert_eq!(s.get(&format!("/courses/open/{id}"), &kid).0, 404, "GET open {id}");
+        assert_eq!(s.post(&format!("/courses/{id}/settings"), &kid, &[("wizard", "1")]).0, 404, "settings {id}");
+        assert!(matches!(s.get(&format!("/courses/{id}/placement"), &kid).0, 403 | 404), "placement {id}: refused (a student may not skip levels either)");
+        assert_eq!(s.get(&format!("/courses/{id}/stat/passed"), &kid).0, 404, "stat {id}");
+        assert_eq!(active().as_deref(), Some("maths-1"), "{id}: the active course stays");
+    }
+    // Taken away: no longer opens, and is no longer the active course.
+    s.state.db.with(|c| crate::students::take_away(c, teacher, kid_id, "maths-1")).unwrap();
+    assert_eq!(s.post("/courses/open/maths-1", &kid, &[]).0, 404);
+    assert_eq!(s.get("/", &kid).0, 303);
 }
 
 /// The top bar: the student's name (its username while it has none) and
