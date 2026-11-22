@@ -10,6 +10,9 @@
 //! or as an owner. The box holds at most `caps::student_limit()` of them,
 //! counted apart from the normal accounts (#216).
 //!
+//! A teacher gives its own courses to its students (#220, `give`,
+//! `take_away`, `given`, `subjects`): a `course_shares` row with `given = 1`.
+//!
 //! What a student is refused is one list, [`refused`], which the router's
 //! `auth::student_gate` layer checks for every page and API route: a
 //! refused path answers a student 404.

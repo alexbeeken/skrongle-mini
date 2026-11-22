@@ -6,6 +6,17 @@ numbers work is in the README, "Versions".
 
 ## Unreleased
 
+- **Give a course to students, and My subjects** (schema v11). On
+  **Students** a teacher ticks students, picks one of its own courses beside
+  **Give course** and clicks **Give**; a **Courses** column names what each
+  student has, and a student's page ticks and unticks its courses. Taking a
+  course away keeps the student's progress. A given course is not a link:
+  the Share dialog does not list it and it does not count toward the 50
+  links. A student now signs in to **My subjects**: "Hi" and its name, one
+  card per subject with the teacher's name; with one subject it opens
+  straight away, with none the page says the teacher has not given one yet.
+  Going back to v10 (`skrongle migrate 10`) takes the given courses away.
+
 - **Students page.** An account that may hold students (Hold students, or
   an owner) has a **Students** link in the top bar. It lists every student
   with their username, lessons passed and when they last studied, and
