@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("class_box.join_title") }}{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ crate::routes::asset_url("class-box.css") }}">{% endblock %}
+{% block content %}
+{# How students join alone, in large type: the page the browser prints (#227). #}
+<section class="class-box class-box-poster" data-testid="class-box-poster-page">
+  <p class="small no-print"><a href="{{ crate::url("/class-box") }}">{{ crate::t("class_box.title") }}</a> /</p>
+  <p class="no-print"><button type="button" class="btn" hidden data-testid="class-box-print">{{ crate::t("class_box.print") }}</button></p>
+  <section class="card" data-testid="class-box-join">
+    {% include "class_box_join.html" %}
+  </section>
+</section>
+<script>
+// Print: the browser's own print, for which the page is black on white with only the card.
+(function () {
+  var b = document.querySelector('[data-testid="class-box-print"]');
+  if (!b) return;
+  b.hidden = false;
+  b.addEventListener('click', function () { window.print(); });
+})();
+</script>
+{% endblock %}

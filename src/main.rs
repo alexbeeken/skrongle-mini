@@ -7,6 +7,7 @@ mod algebra_tiles;
 mod ai;
 mod arrange;
 mod auth;
+mod backup;
 mod caps;
 mod clock;
 mod conjugation;
@@ -168,6 +169,9 @@ pub struct AppState {
     /// Tokens handed out in the last day, for the owner's Connected apps
     /// card (in memory, #170).
     pub issued: auth::api::Issued,
+    /// `SKRONGLE_DB`: where the database lives. The Class box page's backup
+    /// (#227, `backup.rs`) writes its snapshot beside it and adds its key file.
+    pub db_path: std::path::PathBuf,
 }
 
 impl AppState {
@@ -539,6 +543,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         signup,
         proxy_auth,
         issued: Default::default(),
+        db_path: cfg.db_path.clone(),
     });
 
     // Background jobs: the hourly housekeeping (one job per purge, each queuing its

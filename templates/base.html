@@ -25,7 +25,8 @@
       {% else %}
       <li><a href="{{ crate::base_path() }}/courses" data-testid="nav-courses">{{ crate::t("nav.courses") }}</a></li>
       {% endif %}
-      {% if u.can(crate::perms::Perm::HoldStudents) %}<li><a href="{{ crate::base_path() }}/students" data-testid="nav-students">{{ crate::t("students_page.nav") }}</a></li>{% endif %}
+      {% if u.can(crate::perms::Perm::HoldStudents) %}<li><a href="{{ crate::base_path() }}/students" data-testid="nav-students">{{ crate::t("students_page.nav") }}</a></li>
+      <li><a href="{{ crate::base_path() }}/class-box" data-testid="nav-class-box">{{ crate::t("class_box.nav") }}</a></li>{% endif %}
       <li class="account">
         <details class="account-menu" id="account-menu" data-testid="nav-account-menu">
           <summary data-testid="nav-account-toggle" data-email="{{ u.email }}" title="{{ u.display_name() }}" aria-label="{{ crate::t1("nav.account_menu_for", "name", u.display_name()) }}">

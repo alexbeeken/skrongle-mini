@@ -478,6 +478,7 @@ pub fn refused(path: &str) -> bool {
         "/api/manage",
         "/superuser",
         "/students",
+        "/class-box",
     ];
     if REFUSED.iter().any(|p| path == *p || path.strip_prefix(p).is_some_and(|rest| rest.starts_with('/'))) {
         return true;

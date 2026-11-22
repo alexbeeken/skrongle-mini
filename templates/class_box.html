@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("class_box.title") }}{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ crate::routes::asset_url("class-box.css") }}">{% endblock %}
+{% block content %}
+{# The Class box page (#227). One card per <section class="card">; a card is added by a field on BoxTemplate and a section here. #}
+<section class="class-box" data-testid="class-box-page">
+  <h1>{{ crate::t("class_box.title") }}</h1>
+  <div class="class-box-cards">
+
+    <section class="card" data-testid="class-box-join">
+      {% include "class_box_join.html" %}
+      <p class="no-print"><a class="btn ghost" href="{{ crate::url("/class-box/poster") }}" data-testid="class-box-poster">{{ crate::t("class_box.poster") }}</a></p>
+    </section>
+
+    <section class="card" data-testid="class-box-now">
+      <h2>{{ crate::t("class_box.now_title") }}</h2>
+      <p data-testid="class-box-on-now" data-n="{{ counts.on_now }}" data-of="{{ counts.students }}">{% if all_students %}{{ crate::t2("class_box.on_now_all", "n", counts.on_now, "of", counts.students) }}{% else %}{{ crate::t2("class_box.on_now_mine", "n", counts.on_now, "of", counts.students) }}{% endif %}</p>
+      <p data-testid="class-box-today" data-n="{{ counts.studied_today }}">{{ crate::tn("class_box.studied_today", counts.studied_today) }}</p>
+      <p data-testid="class-box-courses" data-n="{{ courses }}">{{ crate::t1("class_box.courses", "n", courses) }}</p>
+      <p data-testid="class-box-space">{% if let Some(s) = space_left %}{{ crate::t1("class_box.space", "size", s) }}{% else %}{{ crate::t("class_box.space_unknown") }}{% endif %}</p>
+      <p class="muted small">{{ crate::t("class_box.now_note") }}</p>
+    </section>
+
+    {% if let Some(b) = backup %}
+    <section class="card" data-testid="class-box-backup">
+      <h2>{{ crate::t("class_box.backup_title") }}</h2>
+      <p>{{ crate::t("class_box.backup_about") }}</p>
+      <p>{{ crate::t("class_box.backup_secret") }}</p>
+      {% if b.key_outside %}<p class="muted small" data-testid="class-box-key-outside">{{ crate::t("class_box.backup_key_outside") }}</p>{% endif %}
+      <p data-testid="class-box-last-backup" data-stale="{{ b.stale }}">{% if b.stale %}<strong class="class-box-stale">{{ b.last }}</strong>{% else %}{{ b.last }}{% endif %}</p>
+      {% if let Some(e) = b.error %}<p class="alert error" role="alert" data-testid="class-box-backup-error">{{ e }}</p>{% endif %}
+      <form method="post" action="{{ crate::url("/class-box/backup") }}" data-testid="class-box-backup-form">
+        {% if b.proof == "password" %}
+        <label>{{ crate::t("class_box.backup_password") }}
+          <input type="password" name="password" autocomplete="current-password" required data-testid="class-box-backup-password">
+        </label>
+        {% else if b.proof == "code" %}
+        <label>{{ crate::t("class_box.backup_code") }}
+          <input type="text" name="code" inputmode="numeric" autocomplete="one-time-code" required data-testid="class-box-backup-code">
+        </label>
+        {% endif %}
+        <button type="submit" class="btn" data-testid="class-box-backup-download">{{ crate::t("class_box.backup_download") }}</button>
+      </form>
+      <p class="muted small">{{ crate::t("class_box.backup_reload") }}</p>
+    </section>
+    {% endif %}
+
+    <section class="card" data-testid="class-box-files">
+      <h2>{{ crate::t("class_box.files_title") }}</h2>
+      <p>{{ crate::t("class_box.files_about") }}</p>
+      <p><a class="btn ghost" href="{{ crate::url("/courses") }}" data-testid="class-box-courses-link">{{ crate::t("nav.courses") }}</a></p>
+    </section>
+
+  </div>
+</section>
+{% endblock %}
