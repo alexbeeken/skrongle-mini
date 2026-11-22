@@ -213,6 +213,7 @@ student:
     hi: "Hi, {name}"
     none: "Your teacher has not given you a subject yet."
     pick: "Pick a subject to start."
+    your_teacher: "Your teacher"
 
 profile:
   title: Profile

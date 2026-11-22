@@ -41,7 +41,7 @@
           <td><input type="checkbox" name="id" value="{{ r.id }}" aria-label="{{ crate::t1("students_page.pick", "name", r.name) }}" data-testid="students-pick"></td>
           <td><a href="{{ crate::url("/students/") }}{{ r.id }}" data-testid="students-name">{{ r.name }}</a></td>
           <td data-testid="students-username">{{ r.username }}</td>
-          <td data-testid="students-courses">{% if r.courses.is_empty() %}<span class="muted">{{ crate::t("students_page.none_yet") }}</span>{% else %}{{ r.courses.join(" · ") }}{% endif %}</td>
+          <td class="students-courses" data-testid="students-courses">{% if r.courses.is_empty() %}<span class="muted">{{ crate::t("students_page.none_yet") }}</span>{% else %}{{ r.courses.join(" · ") }}{% endif %}</td>
           <td data-testid="students-passed">{{ r.passed }}</td>
           <td data-testid="students-last-studied" data-quiet="{{ r.quiet }}">{% if r.quiet %}<strong>{{ r.last_studied }}</strong>{% else if r.never %}<span class="muted">{{ r.last_studied }}</span>{% else %}{{ r.last_studied }}{% endif %}</td>
         </tr>{% endfor %}

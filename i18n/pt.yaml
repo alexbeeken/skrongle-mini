@@ -211,6 +211,7 @@ student:
     hi: "Olá, {name}"
     none: "Seu professor ainda não lhe deu nenhuma matéria."
     pick: "Escolha uma matéria para começar."
+    your_teacher: "Seu professor"
 
 profile:
   title: Perfil

@@ -211,6 +211,7 @@ student:
     hi: "你好，{name}"
     none: "老师还没有给你任何科目。"
     pick: "选一个科目开始。"
+    your_teacher: "你的老师"
 
 profile:
   title: 个人资料

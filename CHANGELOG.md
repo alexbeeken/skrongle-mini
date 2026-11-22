@@ -24,6 +24,7 @@ numbers work is in the README, "Versions".
   links. A student now signs in to **My subjects**: "Hi" and its name, one
   card per subject with the teacher's name; with one subject it opens
   straight away, with none the page says the teacher has not given one yet.
+  A student can open only the courses it was given, not a ready-made one.
   Going back to v10 (`skrongle migrate 10`) takes the given courses away.
 
 - **Students page.** An account that may hold students (Hold students, or

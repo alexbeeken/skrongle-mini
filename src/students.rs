@@ -358,17 +358,33 @@ pub fn given(conn: &Connection, teacher_id: i64) -> rusqlite::Result<Vec<Given>>
     rows.collect()
 }
 
+/// The one rule of what a student may open or study (#220): a course its
+/// teacher gave it, and nothing else: no ready-made course, no other
+/// course. Every way into a course checks it for a student
+/// (`routes::courses::accessible`, which opening, the settings, the stat
+/// pages and the placement test call, and the `Project` extractor, which
+/// guards the active course on every learning page).
+pub fn may_study(conn: &Connection, student_id: i64, course_id: &str) -> rusqlite::Result<bool> {
+    conn.query_row(
+        "SELECT EXISTS(SELECT 1 FROM course_shares s JOIN courses c ON c.id = s.course_id
+           WHERE s.user_id = ?1 AND s.course_id = ?2 AND s.given = 1 AND c.state != 'generating')",
+        params![student_id, course_id],
+        |r| r.get(0),
+    )
+}
+
 /// The courses given to this student (its subjects), each with its
-/// teacher's name (`share::owner_label`), oldest given first. The caller
-/// leaves out the ones that do not load.
+/// teacher's name: "First Last", or "" when the teacher has no name (a
+/// student is never shown an address; the page says "Your teacher"),
+/// oldest given first. The caller leaves out the ones that do not load.
 pub fn subjects(conn: &Connection, student_id: i64) -> rusqlite::Result<Vec<crate::share::SharedCourse>> {
     let mut stmt = conn.prepare_cached(
-        "SELECT s.course_id, o.first_name, o.last_name, COALESCE(o.email, '')
+        "SELECT s.course_id, o.first_name, o.last_name
          FROM course_shares s JOIN courses c ON c.id = s.course_id JOIN users o ON o.id = c.owner_id
          WHERE s.user_id = ?1 AND s.given = 1 AND c.state != 'generating' ORDER BY s.id",
     )?;
     let rows = stmt.query_map([student_id], |r| {
-        Ok(crate::share::SharedCourse { course_id: r.get(0)?, owner: crate::share::owner_label(r.get(1)?, r.get(2)?, r.get(3)?) })
+        Ok(crate::share::SharedCourse { course_id: r.get(0)?, owner: crate::share::owner_label(r.get(1)?, r.get(2)?, String::new()) })
     })?;
     rows.collect()
 }

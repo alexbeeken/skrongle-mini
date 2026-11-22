@@ -2265,7 +2265,8 @@ A student reads "subject", never "course".
 - It says *Hi, Ana* (the first name, else the username), then one card per
   subject (`student-subject`, `data-course`), by title: the subject's title
   (`student-subject-title`) and the teacher's name
-  (`student-subject-teacher`: its name, else its address). The whole card is
+  (`student-subject-teacher`: its name, else *Your teacher*; a student is
+  never shown an address). The whole card is
   one link, `GET /courses/open/{id}`, which opens the subject the way
   opening any shared course does (the student's project in it, made its
   active course) and goes on to its home. A subject that does not load is
@@ -2276,8 +2277,14 @@ A student reads "subject", never "course".
   which shows the page anyway.
 - With **none**, the page says *Your teacher has not given you a subject
   yet.* (`student-subjects-none`).
-- Ready-made courses are not offered (`GET /courses/open/{id}` is a 404 for
-  a student on one), and there is nothing to make or join.
+- A student opens and studies **only a course it was given**, one rule
+  (`students::may_study`): `routes::courses::accessible` asks it for
+  opening (`GET` and `POST /courses/open/{id}`), a course's settings, its
+  stat pages and its placement test (each a 404 otherwise), and the
+  `Project` extractor asks it of the active course on every learning page,
+  so a ready-made course, another teacher's course or one of its teacher's
+  it was not given is never its active course (one that was is dropped,
+  and the page goes to My subjects). There is nothing to make or join.
 
 ## The student frame
 
