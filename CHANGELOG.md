@@ -6,6 +6,15 @@ numbers work is in the README, "Versions".
 
 ## Unreleased
 
+- **Daily work: the data, no page yet** (schema v12). The tables and rules
+  for a teacher's day plans (a study, a review or a play over lessons of a
+  course given to students, done in order) come in this release; the pages
+  that use them follow. Nothing changes on any page. "Today" for plans is
+  one clock for the whole box, set later from a teacher's Plan page (UTC
+  until then). Plans older than 90 days are deleted by the hourly
+  housekeeping. Going back to v11 (`skrongle migrate 11`) deletes every
+  plan and the class clock.
+
 - **Give a course to students, and My subjects** (schema v11). On
   **Students** a teacher ticks students, picks one of its own courses beside
   **Give course** and clicks **Give**; a **Courses** column names what each
