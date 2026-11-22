@@ -483,7 +483,7 @@ impl Runner {
 /// sessions and connected apps (#167), abandoned games, old generation jobs, idle tutor chats,
 /// rate-limit windows, the retention rules
 /// (`jobs/retention.rs`), old two-factor challenges and invitation links, old job
-/// rows, the query planner's statistics (`PRAGMA optimize`), and last a WAL checkpoint so the -wal file doesn't grow on
+/// rows, daily-work plans past `caps::DAILY_KEEP_DAYS` (`daily::prune`), the query planner's statistics (`PRAGMA optimize`), and last a WAL checkpoint so the -wal file doesn't grow on
 /// the SD card. Each step logs its count; a step that fails is logged and the
 /// next still runs, and the job fails only when every step did (#45).
 pub fn housekeeping(runner: Runner, state: &Arc<crate::AppState>, retention: retention::Retention) -> Runner {
@@ -522,6 +522,7 @@ pub fn housekeeping(runner: Runner, state: &Arc<crate::AppState>, retention: ret
                 }),
             ),
             ("jobs", Box::new(|| sql(db, |c, now| purge(c, now).map(|n| note(n, "old job rows deleted"))))),
+            ("daily_plans", Box::new(|| sql(db, |c, now| crate::daily::prune(c, now).map(|n| note(n, "old daily work plans deleted"))))),
             // Before the checkpoint, so what it writes is checkpointed in this run.
             ("optimize", Box::new(|| sql(db, |c, _| c.execute_batch("PRAGMA optimize;").map(|()| String::new())))),
             ("wal_checkpoint", Box::new(|| sql(db, |c, _| c.execute_batch("PRAGMA wal_checkpoint(TRUNCATE);").map(|()| String::new())))),

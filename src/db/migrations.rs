@@ -34,6 +34,8 @@ const STEPS: &[M<'static>] = &[
     M::up(include_str!("migrations/v010_students.sql")).down(include_str!("migrations/v010_students.down.sql")),
     // v11: course_shares.given, a course a teacher gave a student (#220)
     M::up(include_str!("migrations/v011_given_courses.sql")).down(include_str!("migrations/v011_given_courses.down.sql")),
+    // v12: daily work (daily_plans, daily_activities, daily_done, #221)
+    M::up(include_str!("migrations/v012_daily_work.sql")).down(include_str!("migrations/v012_daily_work.down.sql")),
 ];
 
 /// Schema migrations, applied in order. `PRAGMA user_version` tracks which have run.
