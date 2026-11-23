@@ -3,7 +3,7 @@ The Skrongle entry for DietPi-Docs, kept here until DietPi takes the title.
 `aSOFTWARE_DOCS` will point at its anchor, #skrongle.
 
 To put it into DietPi-Docs, copy everything from "## Skrongle" to the end into
-the category page the maintainers choose, then make four changes so it matches
+the category page the maintainers choose, then make three changes so it matches
 its neighbours there:
 
 1. Each `###` section becomes a tab: `=== "Access to the web interface"`, with
@@ -14,7 +14,6 @@ its neighbours there:
 3. Add a screenshot of the course home under the description, as
    `../assets/images/dietpi-software-<category>-skrongle.png`, with the
    `{: width="…" height="…" loading="lazy"}` attributes the other entries use.
-4. Replace `<id>` with the software ID DietPi assigns.
 -->
 
 # Skrongle on DietPi
@@ -177,7 +176,7 @@ You can update Skrongle by reinstalling it. Your data and settings are
 preserved by this:
 
 ```sh
-dietpi-software reinstall <id>
+dietpi-software reinstall skrongle
 ```
 
 Read the release's section in the
@@ -192,7 +191,7 @@ first.
 ### Uninstall
 
 ```sh
-dietpi-software uninstall <id>
+dietpi-software uninstall skrongle
 ```
 
 This stops the service and removes `/opt/skrongle`, the unit and the
