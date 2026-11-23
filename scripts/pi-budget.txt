@@ -32,4 +32,8 @@ apps_rss_growth_max_kib 256
 # 14505032 bytes (was 17141096), so the baseline drops to it and the 2.5 MB
 # given back is not silently spent.
 binary_slack_percent 5
-binary_baseline linux-x86_64 14505032
+# 2026-11-23 (#222): the teacher's pages of #215 (student accounts, the
+# Students page, the student frame, giving a course, daily work and its Plan
+# tab) grew it to 15281192 bytes on the CI runner, 5.4 % over; accepted as
+# the new baseline. No dependency was added.
+binary_baseline linux-x86_64 15281192

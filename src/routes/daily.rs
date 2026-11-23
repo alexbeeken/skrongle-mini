@@ -56,14 +56,14 @@ const MONTHS: [&str; 12] = ["january", "february", "march", "april", "may", "jun
 /// "Mon 16", in the teacher's language.
 pub fn short_day(day: i64) -> String {
     let (_, _, d, wd) = daily::civil(day);
-    crate::t2("daily_plan.day_short", "weekday", crate::t(&format!("daily_plan.short.{}", SHORT[wd as usize])), "day", d)
+    crate::t2("daily_plan.day_short", "weekday", crate::t(&format!("daily_plan.short.{}", SHORT.get(wd as usize).unwrap_or(&"mon"))), "day", d)
 }
 
 /// "Thursday 19 November", in the teacher's language.
 pub fn long_day(day: i64) -> String {
     let (_, m, d, wd) = daily::civil(day);
-    let weekday = crate::t(&format!("daily_plan.long.{}", LONG[wd as usize]));
-    let month = crate::t(&format!("profile.month.{}", MONTHS[(m - 1) as usize]));
+    let weekday = crate::t(&format!("daily_plan.long.{}", LONG.get(wd as usize).unwrap_or(&"monday")));
+    let month = crate::t(&format!("profile.month.{}", MONTHS.get((m - 1) as usize).unwrap_or(&"january")));
     crate::i18n::fill(&crate::t("daily_plan.day_long"), &[("weekday", &weekday), ("day", &d), ("month", &month)])
 }
 
