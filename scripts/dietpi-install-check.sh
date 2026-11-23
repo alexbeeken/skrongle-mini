@@ -24,7 +24,7 @@ HERE=$(cd "$(dirname "$0")" && pwd)
 INSTALL="$HERE/../deploy/dietpi-install.sh"
 DATA=/mnt/dietpi_userdata/skrongle
 PORT=7576
-WAIT="${HEALTH_WAIT:-600}" # seconds; QEMU's first start is slow
+WAIT="${HEALTH_WAIT:-600}" # seconds; a ceiling: a start measured 1.3-7 s under QEMU (docs/testing.md, #260)
 FAILED=0
 PID=
 LOG=$(mktemp)
@@ -114,8 +114,8 @@ case "${1:-}" in
   restart)
     stop
     su -s /bin/sh skrongle -c "echo \$\$ >$DATA/server.pid; cd /opt/skrongle && exec env $(unit_env) /opt/skrongle/skrongle >>$DATA/server.log 2>&1" >/dev/null 2>&1 &
-    # systemd would not wait, but under QEMU a start can take longer than
-    # the 20 s the install script allows.
+    # systemd would not wait, and a start measured 1.3-7 s under QEMU on a
+    # laptop (docs/testing.md, #260); a slow CI runner could pass 20 s.
     i=0
     while [ "$i" -lt "${HEALTH_WAIT:-600}" ]; do
       if curl -fsS -o /dev/null http://127.0.0.1:7576/healthz 2>/dev/null; then break; fi

@@ -38,6 +38,7 @@ request, and the entry for the DietPi documentation, which starts at
 | Size on a Raspberry Pi Zero 2 W | A binary of about 15 MB. About 16 MB of memory idle and about 21 MB in use |
 | Outside services | None needed. The AI features are optional and use provider keys the owner supplies |
 | Uninstall | Removes the program, the unit and the user. Data and settings stay unless purged |
+| First start | Measured on v0.4.0: the port answers 0.2 to 0.3 s after the process starts on a native arm64 container, 1.3 to 1.8 s under QEMU for amd64 and armv7, and 1.9 to 2.4 s for armv6; one armv7 run took 7.0 s on a busy host. A second start takes about the same: the time is in start-up work, not in a one-off first-run step. These are on a fast laptop, so a slower CI runner needs a larger margin |
 | Licence | AGPL-3.0 |
 
 What a release may change for a packager, and what it will not, is in the
