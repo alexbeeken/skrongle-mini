@@ -47,6 +47,18 @@ of editing (or the last AI change) and put it back, up to ten steps.
 **Download all files**, at the bottom of the page, exports the course as one
 JSON file.
 
+## Add a course from a file
+
+A course that was downloaded with **Download all files** (from another box,
+a USB stick or a phone) comes back in on **Courses**: under *Make your own*,
+*Add a course from a file*. Choose the file and press *Add the course*, or
+paste what is in the file into the box. The file may be up to 2 MB. The whole
+course is checked as a save checks it; if it would not load, nothing is made
+and the page says why. The new course is your own: it keeps the file's title
+(a title already in use is fine), and it can be edited, given to students and
+downloaded again. It counts toward the limit on courses per account. You need
+the *Create courses* permission.
+
 The format: [How a course is built](course-structure), and every field in the
 [course format](course-format).
 

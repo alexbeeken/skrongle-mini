@@ -1861,6 +1861,20 @@ courses:
     copy_too_big: "这门课程太大，无法复制：一门课程最多只能占用 {max}。"
     copy_no_room: "没有空间放副本：一个账户的所有课程加起来最多只能占用 {max}。请删除一门不再需要的课程。"
     dev_reset: 开发用户已重置。
+  import:
+    title: "从文件添加课程"
+    lead: "选择用“下载全部文件”生成的文件，或粘贴其内容。文件最大 {max}。"
+    file: "选择文件"
+    paste: "或粘贴文件内容"
+    button: "添加课程"
+    empty: "请先选择文件或粘贴其内容。"
+    too_big: "该文件超过 {max}。"
+    not_json: "这不是课程文件。{why}"
+    not_object: "这不是课程文件：它应是一个 JSON 对象，就像“下载全部文件”生成的那样。"
+    version: "此文件的版本是“{version}”，本应用只能读取版本“{known}”。"
+    no_version: "这不是课程文件：它没有“version”。"
+    no_manifest: "该课程文件没有 course.json。"
+    not_loaded: "课程未添加。它无法加载：{why}"
   editor:
     title: "编辑：{title}"
     crumb_courses: 课程

@@ -818,3 +818,110 @@ fn making_a_course_needs_the_create_courses_permission() {
     assert_eq!(count(), 5);
     assert!(get("/courses", &root_c).1.contains(r#"data-testid="courses-create""#));
 }
+
+/// "Add a course from a file" (#252): what Download all files makes comes
+/// back as a new course with the same files; anything that would not load,
+/// has an unknown version or a path outside the course, or is over a limit
+/// makes nothing and the page says why; Create courses is needed.
+#[test]
+fn a_course_is_added_from_its_download() {
+    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+    let mut state = crate::routes::test_state(false);
+    let limits = courses::Limits { max_courses: 3, ..courses::Limits::default() };
+    Arc::get_mut(&mut state).unwrap().courses = Arc::new(courses::Courses::empty().with_limits(limits));
+    let user = |email: &str, owner: bool| {
+        let uid = state.db.with(|c| crate::auth::create_user(c, email, "x")).unwrap();
+        state.db.with(|c| c.execute("UPDATE users SET owner = ?2 WHERE id = ?1", rusqlite::params![uid, owner])).unwrap();
+        (uid, format!("sid={}", state.db.with(|c| crate::auth::create_session(c, uid)).unwrap()))
+    };
+    let (ann, cookie) = user("ann@example.org", true);
+    let (_stu, stu_c) = user("stu@example.org", false);
+    let src = "src-abc123";
+    state.db.with(|c| courses::create_course(c, ann, src, "Round trip", &courses::starter_files(src, "Round trip"))).unwrap();
+    let app = crate::routes::router(state.clone());
+    let base = rt.block_on(async {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        tokio::spawn(async move { axum::serve(listener, app).await.unwrap() });
+        format!("http://{addr}")
+    });
+    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
+    let export = |id: &str| -> serde_json::Value {
+        let mut r = agent.get(&format!("{base}/courses/{id}/export.json")).header("cookie", &cookie).call().unwrap();
+        serde_json::from_str(&r.body_mut().read_to_string().unwrap()).unwrap()
+    };
+    // (status, redirect target or page body)
+    let import = |cookie: &str, content: &str| {
+        let mut r = agent.post(&format!("{base}/courses/import")).header("cookie", cookie).send_form([("content", content)]).unwrap();
+        let to = r.headers().get("location").map(|v| v.to_str().unwrap().to_string());
+        (r.status().as_u16(), to.unwrap_or_else(|| r.body_mut().read_to_string().unwrap()))
+    };
+    let count = || state.db.with(|c| courses::courses_owned_by(c, ann)).unwrap().len();
+    // The page escapes quotes; compare on the text up to the first quote.
+    let page_says = |body: &str, text: &str| {
+        let head = text.split(|c| c == '"' || c == '\'').next().unwrap();
+        assert!(body.contains(head), "{head:?} not in {body}");
+    };
+
+    // Round trip: the new course's download is the same files (its manifest's id is its own).
+    let file = export(src);
+    assert_eq!(file["version"], "1.0");
+    let (status, to) = import(&cookie, &file.to_string());
+    assert_eq!(status, 303, "{to}");
+    let new_id = to.strip_prefix("/courses/").unwrap().to_string();
+    assert_eq!(count(), 2);
+    let (mut a, mut b) = (file.clone(), export(&new_id));
+    assert_eq!(b["course.json"]["id"], json!(new_id));
+    assert_eq!(b["course.json"]["title"], "Round trip");
+    for v in [&mut a, &mut b] {
+        v["course.json"].as_object_mut().unwrap().remove("id");
+    }
+    assert_eq!(a, b);
+    assert!(state.db.with(|c| courses::course(c, &new_id)).unwrap().unwrap().error.is_none());
+
+    // Not made: not JSON, empty, not an object, an unknown or missing version, a path outside the course, a lesson that does not load.
+    let mut bad_lesson = file.clone();
+    let lesson_path = file.as_object().unwrap().keys().find(|k| k.starts_with("lessons/")).unwrap().clone();
+    bad_lesson[&lesson_path].as_object_mut().unwrap().remove("id");
+    let mut bad_path = file.clone();
+    bad_path["../outside.json"] = json!({});
+    let mut bad_version = file.clone();
+    bad_version["version"] = json!("9.0");
+    let mut no_version = file.clone();
+    no_version.as_object_mut().unwrap().remove("version");
+    let mut no_manifest = file.clone();
+    no_manifest.as_object_mut().unwrap().remove("course.json");
+    let big = format!("{{\"version\":\"1.0\",\"x\":\"{}\"}}", "y".repeat(MAX_IMPORT_BYTES));
+    let cases: Vec<(String, String)> = vec![
+        ("this is not json".into(), crate::t1("courses.import.not_json", "why", "")),
+        ("   ".into(), crate::t("courses.import.empty")),
+        ("[1]".into(), crate::t("courses.import.not_object")),
+        (bad_version.to_string(), crate::t2("courses.import.version", "version", "9.0", "known", "1.0")),
+        (no_version.to_string(), crate::t("courses.import.no_version")),
+        (no_manifest.to_string(), crate::t("courses.import.no_manifest")),
+        (bad_path.to_string(), crate::t1("courses.file.bad_path", "path", "../outside.json")),
+        (bad_lesson.to_string(), crate::t1("courses.import.not_loaded", "why", "")),
+        (big, crate::t1("courses.import.too_big", "max", "2 MB")),
+    ];
+    for (content, says) in &cases {
+        let (status, body) = import(&cookie, content);
+        assert_eq!(status, 200, "{content:.80}: {body:.300}");
+        page_says(&body, says);
+        assert_eq!(count(), 2, "{content:.80}");
+    }
+
+    // The course limit, with the course list's notice.
+    assert_eq!(import(&cookie, &file.to_string()).0, 303);
+    assert_eq!(count(), 3);
+    let (status, to) = import(&cookie, &file.to_string());
+    assert_eq!((status, to.as_str()), (303, "/courses?notice=course-count-3"));
+    assert_eq!(count(), 3);
+
+    // Without Create courses: refused, and nothing is made.
+    assert_eq!(import(&stu_c, &file.to_string()).0, 403);
+    assert_eq!(state.db.with(|c| c.query_row("SELECT COUNT(*) FROM courses", [], |r| r.get::<_, i64>(0))).unwrap(), 3);
+    // The form is on Courses for an account that may create, and not for one that may not.
+    let get = |c: &str| agent.get(&format!("{base}/courses")).header("cookie", c).call().unwrap().body_mut().read_to_string().unwrap();
+    assert!(get(&cookie).contains(r#"data-testid="courses-import-form""#));
+    assert!(!get(&stu_c).contains("courses-import"));
+}

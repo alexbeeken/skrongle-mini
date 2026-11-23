@@ -6,6 +6,13 @@ numbers work is in the README, "Versions".
 
 ## Unreleased
 
+- **Add a course from a file.** A course downloaded with *Download all
+  files* can now be added to another box: on **Courses**, *Add a course
+  from a file*, choose the file (up to 2 MB) and press *Add the course*.
+  The whole course is checked first; if it would not load, nothing is made
+  and the page says why. It works without JavaScript by pasting the file's
+  contents into the box. You need the *Create courses* permission.
+
 - **Sign-up no longer asks a person's age while new accounts start as
   Student** (the default). The "I am at least 14 years old" box is gone from
   the register form and invitation links, and nothing about age is stored

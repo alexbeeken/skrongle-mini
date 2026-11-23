@@ -142,7 +142,7 @@ src/
       create.rs    POST /courses/new (a draft), /courses/{id}/copy, /courses/{id}/translate (copy and translate with AI)
       editor.rs    GET /courses/{id}: the editor (lesson table, Use AI form, review modal, Undo/Redo, Share links), `owned`
       write.rs     what the editor and the MCP tools (#168) share: own_course (whose course), check_file (a file's path and text), course_write_refused (COURSE_WRITES_PER_USER), may_create_courses, store_files (MAX_FILES, room_for, one transaction)
-      files.rs     GET/POST /courses/{id}/file, file/delete, publish, delete, export.json; GET/POST /api/courses/{id}/files, GET /api/courses/{id}/file, POST /api/courses/{id}/preview-answer, POST /api/courses/{id}/answer-key
+      files.rs     GET/POST /courses/{id}/file, file/delete, publish, delete, export.json, POST /courses/import; GET/POST /api/courses/{id}/files, GET /api/courses/{id}/file, POST /api/courses/{id}/preview-answer, POST /api/courses/{id}/answer-key
       generate.rs  POST /courses/{id}/generate (its Generate dialog) and /cancel, provider and quota checks, GET /api/generate/{job}
       revise.rs    POST /courses/{id}/ai (add, edit or revise with AI)|undo|redo|review (Accept in the review: what is left out), POST /api/review-quiet
       lessons.rs   POST /courses/{id}/lessons (JSON: the whole table) and /api/courses/{id}/lessons (the same, the editor's autosave: `session` + `base` version, 409 when behind or busy, 422 refused)
