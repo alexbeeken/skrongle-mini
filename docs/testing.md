@@ -632,6 +632,18 @@ answers root only) still takes a run on a real DietPi. Last it runs `deploy/unin
 log, unless one with that title is already open. Locally:
 `docker run --rm -v "$PWD:/repo:ro" -e SKRONGLE_VERSION=0.2.0 debian:bookworm-slim sh /repo/scripts/dietpi-install-check.sh amd64`.
 
+The script waits up to 600 s for `/healthz` (`HEALTH_WAIT`). That is a
+ceiling, not what a start takes. Measured on v0.4.0 in Debian containers on
+an arm64 laptop (#260), seconds from process start to `/healthz` answering,
+empty database / second start: native arm64 0.2-0.3 / 0.2; QEMU amd64
+1.5-1.7 / 1.3-1.8; QEMU armv7 1.5-7.0 / 1.3-4.7; QEMU armv6 (ARM1176) 2.1-2.4
+/ 1.9-2.0. Under emulation the time goes on loading the three built-in
+courses (about 0.6-0.8 s, every start), the schema migration (0.2 s, first
+start only), and the argon2 hash made at start-up (about 0.3-0.7 s, every
+start). These are figures from a fast laptop; a CI runner several times
+slower would still be well under 600 s, but could pass a short wait such as
+20 s, so the `aDELAY` for the CI entry should leave room for that.
+
 ## Panic check, file size lint and Pi budget
 
 Three tripwires run in CI and compare with a committed baseline, so raising
