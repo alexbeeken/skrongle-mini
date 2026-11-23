@@ -617,7 +617,19 @@ armv7l has no Debian cloud image Lima can boot, so it stays in the containers.
 The DietPi install block has its own check (#31). The `dietpi-install`
 workflow runs `scripts/dietpi-install-check.sh` after each release is
 published and every Monday against the latest one, in a Debian container for
-amd64 and for arm64 (under QEMU): it runs `deploy/dietpi-install.sh`, starts
+each of nine cells: amd64, arm64 and 32-bit ARM (`arm32v7`, the `armv7l`
+tarball), each on bookworm, trixie and forky (the last two are what DietPi's
+own test installs use; #259). arm64 and arm32v7 run under QEMU on an x86_64
+runner, where `uname -m` in the 32-bit container prints `armv7l`, which is what
+`deploy/dietpi-install.sh` reads to pick the tarball (no override needed). Under colima on an Apple
+Silicon Mac it prints `armv7l` too; a native 32-bit container on a 64-bit ARM
+kernel can print `armv8l`, which the script rejects. There is no ARMv6 cell: Debian's
+`armhf` is ARMv7, so no Debian container of that architecture exists, and
+forcing `uname -m` to `armv6l` in an ARMv7 container would install the ARMv6
+tarball and run it on ARMv7 userland, which is not an ARMv6 run. The ARMv6
+binary is checked on Raspbian's C library under QEMU's ARM1176 CPU by
+`scripts/qemu-smoke.sh` and the `release-qa` workflow, but the install script
+is not run there. Each cell runs `deploy/dietpi-install.sh`, starts
 the installed binary by hand (a container has no systemd), checks `/healthz`
 and `owner-link`, then runs the script again and checks that it keeps the env
 file and unit and does not copy the database. For those later runs it puts a
@@ -630,7 +642,20 @@ every user, so what real systemd refuses (#124: `systemctl` without D-Bus
 answers root only) still takes a run on a real DietPi. Last it runs `deploy/uninstall.sh`
 (the data folder stays) and `uninstall.sh --purge` (it is gone). A failure opens an issue with the
 log, unless one with that title is already open. Locally:
-`docker run --rm -v "$PWD:/repo:ro" -e SKRONGLE_VERSION=0.2.0 debian:bookworm-slim sh /repo/scripts/dietpi-install-check.sh amd64`.
+`docker run --rm -v "$PWD:/repo:ro" -e SKRONGLE_VERSION=0.2.0 debian:bookworm-slim sh /repo/scripts/dietpi-install-check.sh amd64`;
+for a 32-bit cell add `--platform linux/arm/v7` and use `arm32v7/debian:trixie-slim`.
+
+The script waits up to 600 s for `/healthz` (`HEALTH_WAIT`). That is a
+ceiling, not what a start takes. Measured on v0.4.0 in Debian containers on
+an arm64 laptop (#260), seconds from process start to `/healthz` answering,
+empty database / second start: native arm64 0.2-0.3 / 0.2; QEMU amd64
+1.5-1.7 / 1.3-1.8; QEMU armv7 1.5-7.0 / 1.3-4.7; QEMU armv6 (ARM1176) 2.1-2.4
+/ 1.9-2.0. Under emulation the time goes on loading the three built-in
+courses (about 0.6-0.8 s, every start), the schema migration (0.2 s, first
+start only), and the argon2 hash made at start-up (about 0.3-0.7 s, every
+start). These are figures from a fast laptop; a CI runner several times
+slower would still be well under 600 s, but could pass a short wait such as
+20 s, so the `aDELAY` for the CI entry should leave room for that.
 
 ## Panic check, file size lint and Pi budget
 

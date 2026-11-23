@@ -1,11 +1,12 @@
 # The DietPi install block (deploy/dietpi-install.sh) against a published
 # release (#31): after each release is published, and once a week against
-# the latest one. In a stock Debian container per architecture (arm64
-# under QEMU) it installs, starts the binary by hand (no systemd in a
+# the latest one. In a stock Debian container per architecture and Debian
+# suite (bookworm, trixie, forky; arm64 and 32-bit ARM under QEMU) it installs, starts the binary by hand (no systemd in a
 # container), checks /healthz and `owner-link`, runs the script again, and
 # uninstalls without and with --purge.
 # A failure opens an issue (one per version and architecture while it is
-# open). scripts/dietpi-install-check.sh holds the steps; docs/testing.md,
+# open). No ARMv6 cell: there is no Debian ARMv6 container (docs/testing.md,
+# "Release QA"). scripts/dietpi-install-check.sh holds the steps; docs/testing.md,
 # "Release QA", says what this does and does not cover.
 name: dietpi-install
 
@@ -28,7 +29,7 @@ permissions:
 
 jobs:
   install:
-    name: install on ${{ matrix.arch }}
+    name: install on ${{ matrix.name }}
     # A release run that failed, or was only a manual test build, has
     # nothing new to install.
     if: >-
@@ -40,9 +41,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # platform is the Docker platform; the install script picks the
+        # tarball from `uname -m` (armv7l under QEMU on an x86_64 runner).
         include:
-          - { arch: amd64, image: "debian:bookworm-slim" }
-          - { arch: arm64, image: "arm64v8/debian:bookworm-slim" }
+          - { name: "amd64 bookworm", platform: linux/amd64, image: "debian:bookworm-slim" }
+          - { name: "amd64 trixie", platform: linux/amd64, image: "debian:trixie-slim" }
+          - { name: "amd64 forky", platform: linux/amd64, image: "debian:forky-slim" }
+          - { name: "arm64 bookworm", platform: linux/arm64, image: "arm64v8/debian:bookworm-slim" }
+          - { name: "arm64 trixie", platform: linux/arm64, image: "arm64v8/debian:trixie-slim" }
+          - { name: "arm64 forky", platform: linux/arm64, image: "arm64v8/debian:forky-slim" }
+          - { name: "armv7l bookworm", platform: linux/arm/v7, image: "arm32v7/debian:bookworm-slim" }
+          - { name: "armv7l trixie", platform: linux/arm/v7, image: "arm32v7/debian:trixie-slim" }
+          - { name: "armv7l forky", platform: linux/arm/v7, image: "arm32v7/debian:forky-slim" }
     env:
       # The tag of the release run, the dispatch input, or empty (latest).
       TAG: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_branch || inputs.version || '' }}
@@ -60,8 +70,8 @@ jobs:
           ref: ${{ steps.v.outputs.version && format('v{0}', steps.v.outputs.version) || '' }}
 
       - name: QEMU handlers
-        if: matrix.arch == 'arm64'
-        run: docker run --rm --privileged tonistiigi/binfmt --install arm64
+        if: matrix.platform != 'linux/amd64'
+        run: docker run --rm --privileged tonistiigi/binfmt --install arm64,arm
 
       - name: Install, start, check, update
         id: check
@@ -69,9 +79,9 @@ jobs:
           SKRONGLE_VERSION: ${{ steps.v.outputs.version }}
         run: |
           set -o pipefail
-          docker run --rm --platform linux/${{ matrix.arch }} \
+          docker run --rm --platform ${{ matrix.platform }} \
             -v "$PWD:/repo:ro" -e SKRONGLE_VERSION \
-            ${{ matrix.image }} sh /repo/scripts/dietpi-install-check.sh ${{ matrix.arch }} \
+            ${{ matrix.image }} sh /repo/scripts/dietpi-install-check.sh "${{ matrix.name }}" \
             2>&1 | tee check.log
 
       - name: Open an issue
@@ -80,7 +90,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           LABEL: ${{ steps.v.outputs.label }}
         run: |
-          title="DietPi install check failed for $LABEL on ${{ matrix.arch }}"
+          title="DietPi install check failed for $LABEL on ${{ matrix.name }}"
           open=$(gh issue list --state open --search "\"$title\" in:title" --json title --jq "[.[] | select(.title == \"$title\")] | length")
           if [ "$open" != 0 ]; then
             echo "an open issue already has this title; not opening another"
@@ -90,7 +100,7 @@ jobs:
             echo "The DietPi install check failed."
             echo
             echo "Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
-            echo "Version: $LABEL, architecture: ${{ matrix.arch }}"
+            echo "Version: $LABEL, architecture: ${{ matrix.name }}"
             echo
             echo "Last 60 log lines:"
             echo

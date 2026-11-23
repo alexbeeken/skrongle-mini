@@ -33,8 +33,8 @@ repository.
 
 ## Supported versions
 
-Only the latest commit on `main` is supported. Self-hosters should update to
-it; the app has no other release channel yet.
+The latest release is the supported version. Fixes ship in a new release,
+and a self-hoster gets it with `sudo /opt/skrongle/update.sh`.
 
 ## Scope notes
 
