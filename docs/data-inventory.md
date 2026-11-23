@@ -60,6 +60,13 @@ the server see more (Manage Users, `/manage`):
 Student accounts (#217) are not on Manage Users: a teacher's row says only
 how many students it holds.
 
+The Class box page (#227, `/class-box`) shows an account that may hold
+students counts only: how many of its students (an owner: of every
+student) signed in or studied in the last 10 minutes (a `sessions` row made,
+an answer in `quiz_history`, a lesson in `lesson_touches`), and how many
+studied today. No names. Its Backup card, an owner's, reads one `settings`
+row, `last_backup_at` (when the last backup made there was downloaded).
+
 The progress page (`GET /manage/progress`, #147,
 `src/routes/manage/progress.rs`) shows the account's address and name
 (`users.first_name`, `last_name`) and, per course it has opened (`projects`):
@@ -78,6 +85,11 @@ itself, whatever the permissions say.
 SQLite's own `sqlite_*` tables (`sqlite_stat1`, `sqlite_stat4`, written by the hourly `PRAGMA optimize`) hold query-planner statistics, no user data, and are not listed above.
 
 ## On disk besides the database
+
+- While an owner downloads a backup from the Class box page (#227), a copy
+  of the database, `.learn.db.backup-<random>.tmp`, sits beside it. It is
+  deleted when the download ends, fails or is stopped; one left by a crash
+  is deleted by the next backup.
 
 ## In memory only
 
@@ -122,3 +134,9 @@ access log, which records IPs.
 
 Backups hold the database as it was when they were made. The operator makes
 them and decides how long they are kept.
+
+**Download a backup** on the Class box page (#227) sends the owner one file
+with the database and the key file that decrypts its saved AI keys and
+authenticator secrets: every account, every course and all progress. It is
+sent once, to the owner's browser, after the owner's password; the server
+keeps only the time (`settings.last_backup_at`).

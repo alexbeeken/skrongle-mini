@@ -790,6 +790,18 @@ sudo sqlite3 /var/lib/skrongle/learn.db ".backup /root/learn.db"
 sudo cp /var/lib/skrongle/learn.db.key /root/
 ```
 
+An owner can also make one from the browser: **Class box** in the top bar,
+then **Download a backup** and the owner's password. The file,
+`skrongle-backup-<date>.tar.gz`, holds the same two files, `learn.db` and
+`learn.db.key` (named after `SKRONGLE_DB`; the key only when it is a file,
+not `SKRONGLE_SECRET_KEY`), and restores with the command below. The server
+does not stop: SQLite writes a consistent copy of the database
+(`VACUUM INTO`) next to it in `/var/lib/skrongle`, so the disk needs room
+for one more copy of `learn.db` for a moment. While it copies, the app
+waits for it (a second or two for a class's database on a Pi); then the
+archive is gzipped and sent as it is read, a few 64 KB pieces at a time,
+and the copy is deleted. The page shows when the last one was made.
+
 To restore, on the same machine or a fresh install:
 
 ```sh

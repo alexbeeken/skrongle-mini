@@ -36,6 +36,7 @@ pub mod password;
 pub mod student_frame;
 pub mod manage;
 pub mod students;
+pub mod class_box;
 pub mod mcp;
 pub mod oauth;
 pub mod tutor;
@@ -142,6 +143,13 @@ pub fn public_base(state: &AppState, headers: &HeaderMap) -> String {
     if let Some(u) = state.public_url.as_deref() {
         return u.trim_end_matches('/').to_string();
     }
+    request_base(state, headers)
+}
+
+/// The address this request was made to, as the browser shows it (scheme,
+/// host, base path), whatever `SKRONGLE_PUBLIC_URL` says: the Class box's
+/// "How students join" card (#227) shows the address the teacher is using.
+pub fn request_base(state: &AppState, headers: &HeaderMap) -> String {
     let get = |name: &str| headers.get(name).and_then(|v| v.to_str().ok()).map(|v| v.split(',').next().unwrap_or("").trim().to_string());
     let valid = |h: &String| !h.is_empty() && h.bytes().all(|b| b.is_ascii_graphic() && !b"/\\?#@".contains(&b));
     let host = get("x-forwarded-host").filter(valid).or_else(|| get("host").filter(valid)).unwrap_or_else(|| "localhost".into());
@@ -376,6 +384,10 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/students/{id}/password", post(students::set_password))
         .route("/students/{id}/delete", post(students::delete_one))
         .route("/students/{id}/courses", post(students::save_courses))
+        // The Class box page (#227): a teacher's; its backup an owner's (404 for anyone else).
+        .route("/class-box", get(class_box::show))
+        .route("/class-box/poster", get(class_box::poster))
+        .route("/class-box/backup", post(class_box::backup))
         // api
         .route("/api/answer", post(quiz::answer))
         .route("/api/lesson-check", post(quiz::lesson_check))
@@ -825,6 +837,7 @@ pub(crate) fn test_state(dev: bool) -> Arc<AppState> {
         signup: Default::default(),
         proxy_auth: None,
         issued: Default::default(),
+        db_path: std::path::PathBuf::from("unused.db"),
     })
 }
 

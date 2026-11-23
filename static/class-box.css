@@ -1,0 +1,21 @@
+/* The Class box page (#227): its cards, and the poster of How students join. */
+.class-box-cards { display: flex; flex-wrap: wrap; gap: 1rem; }
+.class-box .card { flex: 1 1 20rem; min-width: 0; box-sizing: border-box; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.3rem; }
+.class-box .card h2 { margin: 0 0 .6rem; font-size: 1.2rem; }
+.class-box .card p { margin: 0 0 .6rem; }
+.class-box-steps { margin: 0 0 .8rem; padding-left: 1.4rem; line-height: 1.6; }
+.class-box-address { display: block; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 1.4rem; font-weight: 700; overflow-wrap: anywhere; }
+.class-box-stale { color: var(--bad); }
+.class-box input[type="password"], .class-box input[type="text"] { display: block; width: 100%; max-width: 20rem; box-sizing: border-box; margin-top: .3rem; }
+
+/* The poster: the same card, large. */
+.class-box-poster .card { max-width: 46rem; margin: 1rem auto; font-size: 1.6rem; }
+.class-box-poster .card h2 { font-size: 2.2rem; }
+.class-box-poster .class-box-address { font-size: 2.4rem; }
+
+/* Printed: black on white, only the card. */
+@media print {
+  .topbar, .site-footer, .skip-link, .no-print { display: none !important; }
+  html, body, main, .class-box, .class-box .card { background: #fff !important; color: #000 !important; }
+  .class-box-poster .card { border: 2px solid #000; margin: 0 auto; }
+}

@@ -246,8 +246,12 @@ pub(crate) struct Server {
 
 impl Server {
     pub(crate) fn start() -> Server {
+        Server::start_with(crate::routes::test_state(false))
+    }
+
+    /// The router over a state of the test's own (a database on disk, #227).
+    pub(crate) fn start_with(state: std::sync::Arc<crate::AppState>) -> Server {
         let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-        let state = crate::routes::test_state(false);
         let app = crate::routes::router(state.clone());
         let base = rt.block_on(async {
             let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();

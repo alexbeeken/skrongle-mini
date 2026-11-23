@@ -6,6 +6,16 @@ numbers work is in the README, "Versions".
 
 ## Unreleased
 
+- **Class box page.** An account that may hold students has a **Class box**
+  link in the top bar. **How students join** shows the address you are using
+  in large type and the three steps; **Print this as a poster** prints that
+  card alone. **Right now** counts the students who signed in or studied in
+  the last 10 minutes and today, the courses on the box and the space left
+  on its disk. An owner also gets **Backup**: **Download a backup** asks for
+  your password and sends one `.tar.gz` with the database and its key file,
+  made while the class keeps working, that restores with the command in
+  "Backup and restore". The card says when the last one was made.
+
 - **Give a course to students, and My subjects** (schema v11). On
   **Students** a teacher ticks students, picks one of its own courses beside
   **Give course** and clicks **Give**; a **Courses** column names what each

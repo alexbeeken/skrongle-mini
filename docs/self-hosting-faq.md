@@ -104,7 +104,8 @@ replace; the new version migrates it when it starts (a database from
 before the 1.0 schema is not upgraded: the server says so and stops). The update script
 still copies it aside first.
 
-**How do I back up?** Copy `learn.db` and `learn.db.key` from
+**How do I back up?** From the browser, as the owner: **Class box**, then
+**Download a backup**. Or copy `learn.db` and `learn.db.key` from
 `/var/lib/skrongle`, together, while the service is stopped. Commands for
 backing up and restoring: [Backup and restore](self-hosting#backup-and-restore).
 
