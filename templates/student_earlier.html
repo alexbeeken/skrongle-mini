@@ -1,0 +1,23 @@
+{% extends "student_base.html" %}
+{#- Earlier days (#223, routes::today::earlier): every earlier assigned day
+    of the subject, newest first, with what is left; each opens its list. #}
+{% block title %}{{ crate::t("student.today.earlier_title") }}{% endblock %}
+{% block bar %}{{ subject }}{% endblock %}
+{% block content %}
+<div data-testid="student-earlier">
+  <h1>{{ crate::t("student.today.earlier_title") }}</h1>
+  {% if days.is_empty() %}
+  <p class="notice info" data-testid="student-earlier-none">{{ crate::t("student.today.earlier_none") }}</p>
+  {% else %}
+  <table class="list">
+    {% for d in days %}
+    <tr data-testid="student-earlier-day" data-day="{{ d.day }}">
+      <td><a href="{{ crate::url("/today/day/") }}{{ d.day }}" data-testid="student-earlier-open">{{ d.date }}</a></td>
+      <td class="end{% if d.done %} muted{% endif %}" data-testid="student-earlier-left">{{ d.left }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+  <p class="actions"><a href="{{ crate::url("/") }}" data-testid="student-today-back">{{ crate::t("student.today.back_today") }}</a></p>
+</div>
+{% endblock %}

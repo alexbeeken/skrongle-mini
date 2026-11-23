@@ -1,0 +1,33 @@
+{% extends "student_base.html" %}
+{#- Today's work (#223, routes::today): a student's `/` in a subject, and an
+    earlier day's list (`/today/day/{day}`). Fed by `today::day_view`: one
+    row per activity (number, kind, lessons, one word), one line above it
+    and one main button. No row is a link. #}
+{% block title %}{{ view.heading }}{% endblock %}
+{% block bar %}{{ subject }}{% endblock %}
+{% block content %}
+<div data-testid="student-today">
+  {% if let Some(n) = view.notice %}<p class="notice" role="status" data-testid="student-today-done">{{ n }}</p>{% endif %}
+  <h1 data-testid="student-today-heading">{{ view.heading }}</h1>
+  {% if !view.line.is_empty() %}<p class="note" data-testid="student-today-line">{{ view.line }}</p>{% endif %}
+  {% if view.nothing %}
+  <p class="notice info" data-testid="student-today-nothing">{{ crate::t("student.today.nothing") }}</p>
+  {% else %}
+  <table class="list" data-testid="student-today-list">
+    {% for r in view.rows %}
+    <tr class="{{ r.state }}{% if r.state == "next" %} current{% endif %}" data-testid="student-today-row" data-state="{{ r.state }}">
+      <td class="num">{{ r.num }}</td>
+      <td><b data-testid="student-today-kind">{{ r.kind }}</b>{% if !r.lessons.is_empty() %}<br><span class="note" data-testid="student-today-lessons">{{ r.lessons }}</span>{% endif %}{% if !r.extra.is_empty() %}<br><span class="muted">{{ r.extra }}</span>{% endif %}</td>
+      <td class="end" data-testid="student-today-word">{{ r.word }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% if view.all_done %}<p class="notice" data-testid="student-today-all-done">{% if view.past %}{{ crate::t("student.today.all_done_day") }}{% else %}{{ crate::t("student.today.all_done") }}{% endif %}</p>{% endif %}
+  {% endif %}
+  <p class="actions">
+    {% if let Some((label, href)) = view.button %}<a class="btn" href="{{ crate::url(href) }}" data-testid="student-today-go">{{ label }}</a>{% endif %}
+    {% if let Some((label, href)) = view.earlier %}<a class="aside" href="{{ crate::url(href) }}" data-testid="student-today-earlier">{{ label }}</a>{% endif %}
+    {% if view.past %}<a class="aside" href="{{ crate::url("/today/earlier") }}" data-testid="student-today-earlier-all">{{ crate::t("student.today.earlier_title") }}</a> <a class="aside" href="{{ crate::url("/") }}" data-testid="student-today-back">{{ crate::t("student.today.back_today") }}</a>{% endif %}
+  </p>
+</div>
+{% endblock %}

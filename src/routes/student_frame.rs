@@ -34,6 +34,9 @@ pub struct Subject {
     pub title: String,
     /// The teacher's name, or "Your teacher" when it has none.
     pub teacher: String,
+    /// How much of today's work is left ("2 things left today", "Done for
+    /// today"); empty when nothing is assigned today (#223).
+    pub today: String,
 }
 
 #[derive(Template)]
@@ -53,13 +56,22 @@ pub struct SubjectsTemplate {
 /// offered, and there is nothing to make or join.
 pub async fn subjects(state: &AppState, user: CurrentUser, pick: bool) -> Result<Response, AppError> {
     let uid = user.id;
-    let given = state.db.call(move |c| crate::students::subjects(c, uid)).await?;
+    let (given, left) = state
+        .db
+        .call(move |c| Ok((crate::students::subjects(c, uid)?, crate::daily::left_today(c, uid, crate::db::now())?)))
+        .await?;
+    let left: std::collections::HashMap<String, i64> = left.into_iter().collect();
     let mut subjects = Vec::with_capacity(given.len());
     for g in given {
         let Some(content) = state.courses.get(&state.db, &g.course_id).await? else { continue };
         // A teacher with no name is "Your teacher": a student is never shown an address.
         let teacher = if g.owner.is_empty() { crate::t("student.subjects.your_teacher") } else { g.owner };
-        subjects.push(Subject { id: g.course_id, title: content.title().to_string(), teacher });
+        let today = match left.get(&g.course_id) {
+            Some(0) => crate::t("student.subjects.done_today"),
+            Some(n) => crate::tn("student.subjects.left", *n),
+            None => String::new(),
+        };
+        subjects.push(Subject { id: g.course_id, title: content.title().to_string(), teacher, today });
     }
     subjects.sort_by_key(|s| s.title.to_lowercase());
     if let [only] = subjects.as_slice() {

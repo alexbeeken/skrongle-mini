@@ -212,6 +212,76 @@ student:
     none: "Deine Lehrkraft hat dir noch kein Fach gegeben."
     pick: "Wähle ein Fach, um anzufangen."
     your_teacher: "Deine Lehrkraft"
+    left:
+      one: "Heute noch {n} Aufgabe"
+      other: "Heute noch {n} Aufgaben"
+    done_today: "Für heute fertig"
+  # Today's work and its stops (#223).
+  today:
+    title: "Heutige Aufgaben"
+    date: "{weekday}, {date}"
+    weekday:
+      sunday: "Sonntag"
+      monday: "Montag"
+      tuesday: "Dienstag"
+      wednesday: "Mittwoch"
+      thursday: "Donnerstag"
+      friday: "Freitag"
+      saturday: "Samstag"
+    done_of: "{done} von {total} erledigt"
+    streak:
+      one: "{n} Tag in Folge"
+      other: "{n} Tage in Folge"
+    kind:
+      study: "Lernen"
+      review: "Wiederholen"
+      play: "Spielen"
+    word:
+      done: "Erledigt"
+      next: "Als Nächstes"
+      after: "Nach {kind}"
+    get_started: "Los geht's"
+    keep_going: "Weitermachen"
+    next_activity: "Zur nächsten Aufgabe"
+    nothing: "Für heute ist nichts geplant. Deine Lehrkraft trägt hier Aufgaben ein."
+    all_done: "Du hast alles für heute erledigt. Gut gemacht!"
+    all_done_day: "Du hast alles für diesen Tag erledigt."
+    done_notice: "Erledigt: {kind}, {lessons}."
+    earlier_link:
+      one: "Frühere Tage · {n} offen"
+      other: "Frühere Tage · {n} offen"
+    earlier_title: "Frühere Tage"
+    earlier_none: "Es gibt keine früheren Tage mit Aufgaben."
+    day_title: "Aufgaben für {date}"
+    left:
+      one: "{n} offen"
+      other: "{n} offen"
+    back_today: "Zurück zu den heutigen Aufgaben"
+    times:
+      one: "{n} Durchgang"
+      other: "{n} Durchgänge"
+    game:
+      matching: "Wortpaare"
+      flashcards: "Karteikarten"
+  stop:
+    back: "Aufhören und zurück zu heute"
+    lesson_gone: "Diese Lektion ist nicht mehr im Fach"
+    missed: "Noch nicht ganz. Lies die Lektion noch einmal und beantworte dann die neuen Fragen unten."
+    right: "Richtig."
+    your_answer: "Deine Antwort: {answer}."
+    the_answer: "Die Antwort: {answer}."
+    read_h2: "Fertig gelesen?"
+    read_it: "Ich habe es gelesen"
+    try_again: "Zwei neue Fragen"
+    intro_one: "Beantworte sie, um diese Aufgabe abzuschließen."
+    intro_two: "Beantworte beide, um diese Aufgabe abzuschließen."
+    chars: "Buchstaben, die du brauchen könntest:"
+    coming: "Diese Aufgabe bekommt bald eine eigene Seite. Drück vorerst auf den Knopf."
+    times_left:
+      one: "Noch {n} Mal"
+      other: "Noch {n} Mal"
+    played: "Einmal gespielt"
+    finish: "Fertig"
 
 profile:
   title: Profil

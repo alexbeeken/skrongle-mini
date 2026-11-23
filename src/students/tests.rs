@@ -202,13 +202,18 @@ fn the_refused_paths() {
         "/courses/mine/share", "/courses/mine/ai", "/courses/mine/export.json", "/api/courses/mine/files", "/api/generate/1", "/api/review-quiet",
         "/tutor", "/api/tutor/start", "/oauth/authorize", "/mcp", "/api/v1/whoami", "/profile/apps/token", "/profile/two-factor",
         "/profile/two-factor/totp/confirm", "/manage", "/manage/permissions", "/api/manage/keys", "/superuser", "/students", "/students/3",
+        // Study mode's own pages (#223): a lesson is read through a Study stop.
+        "/lessons", "/lessons/first", "/lessons/first/read", "/api/lessons/first/note", "/api/lesson-check", "/study", "/map", "/history",
+        "/mistakes", "/practice", "/api/practice/finish", "/listening", "/listening/play", "/api/listening/check", "/guide", "/guide/first",
+        "/api/guide/step", "/lookup", "/vocabulary", "/vocabulary/", "/api/vocabulary/due",
     ] {
         assert!(refused(p), "{p}");
     }
     for p in [
         "/", "/courses", "/courses/open/spanish", "/courses/spanish/settings", "/courses/spanish/placement", "/courses/spanish/stat/xp",
-        "/lessons", "/api/answer", "/profile", "/api/profile", "/profile/password", "/profile/sessions/end-others", "/logout", "/play",
-        "/sprint", "/guide", "/vocabulary", "/tutorial", "/managed", "/coursesx",
+        "/api/answer", "/profile", "/api/profile", "/profile/password", "/profile/sessions/end-others", "/logout", "/play",
+        "/sprint", "/tutorial", "/managed", "/coursesx", "/lessonsx", "/guides", "/today/earlier", "/today/day/3", "/today/stop/4",
+        "/vocabulary/study", "/api/vocabulary/review", "/play/matching", "/api/games/matching/start", "/api/progress",
     ] {
         assert!(!refused(p), "{p}");
     }

@@ -1,0 +1,18 @@
+{% extends "student_base.html" %}
+{#- A Review or Play stop until #224 (routes::today::simple): its kind,
+    lessons and one button that finishes it (a play with rounds: one time
+    through per click). #}
+{% block title %}{{ kind }}{% endblock %}
+{% block bar %}{{ subject }}{% endblock %}
+{% block links %}{% if let Some(u) = user %}<span data-testid="student-bar-name">{% if u.first_name.trim().is_empty() && u.last_name.trim().is_empty() %}{{ u.username }}{% else %}{{ u.display_name() }}{% endif %}</span> &middot; {% endif %}<a href="{{ back }}" data-testid="student-stop-back">{{ crate::t("student.stop.back") }}</a>{% endblock %}
+{% block content %}
+<div data-testid="student-stop" data-kind="{{ kind_key }}">
+  <h1>{{ kind }}</h1>
+  {% if !lessons.is_empty() %}<p class="note" data-testid="student-stop-lessons">{{ lessons }}</p>{% endif %}
+  <p>{{ crate::t("student.stop.coming") }}</p>
+  {% if left > 0 %}<p class="notice info" data-testid="student-stop-left">{{ crate::tn("student.stop.times_left", left) }}</p>{% endif %}
+  <form method="post" action="{{ action }}">
+    <button type="submit" class="btn" data-testid="student-stop-finish">{% if left > 1 %}{{ crate::t("student.stop.played") }}{% else %}{{ crate::t("student.stop.finish") }}{% endif %}</button>
+  </form>
+</div>
+{% endblock %}

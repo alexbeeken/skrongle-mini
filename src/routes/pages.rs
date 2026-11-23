@@ -105,7 +105,8 @@ pub fn landing_courses(courses: &crate::courses::Courses) -> Vec<LandingCourse> 
         .collect()
 }
 
-/// `/`: the landing page for visitors, the study home for signed-in users.
+/// `/`: the landing page for visitors, the study home for signed-in users,
+/// today's work for a student (`today::home`).
 pub async fn root(
     State(state): State<Arc<AppState>>,
     MaybeUser(user): MaybeUser,
@@ -118,6 +119,11 @@ pub async fn root(
     }
     let (mut parts, _) = req.into_parts();
     let p = <Project as axum::extract::FromRequestParts<Arc<AppState>>>::from_request_parts(&mut parts, &state).await?;
+    // A student's subject opens on today's work (#223).
+    if p.user.student {
+        let q = Query::<super::today::DoneQuery>::try_from_uri(&parts.uri).map(|q| q.0).unwrap_or_default();
+        return super::today::home(&state, p, q).await;
+    }
     home(State(state), p, headers).await
 }
 

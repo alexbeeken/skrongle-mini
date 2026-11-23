@@ -214,6 +214,76 @@ student:
     none: "Your teacher has not given you a subject yet."
     pick: "Pick a subject to start."
     your_teacher: "Your teacher"
+    left:
+      one: "{n} thing left today"
+      other: "{n} things left today"
+    done_today: "Done for today"
+  # Today's work and its stops (#223).
+  today:
+    title: "Today's work"
+    date: "{weekday} {date}"
+    weekday:
+      sunday: "Sunday"
+      monday: "Monday"
+      tuesday: "Tuesday"
+      wednesday: "Wednesday"
+      thursday: "Thursday"
+      friday: "Friday"
+      saturday: "Saturday"
+    done_of: "{done} of {total} done"
+    streak:
+      one: "{n} day in a row"
+      other: "{n} days in a row"
+    kind:
+      study: "Study"
+      review: "Review"
+      play: "Play"
+    word:
+      done: "Done"
+      next: "Next"
+      after: "After {kind}"
+    get_started: "Get started"
+    keep_going: "Keep going"
+    next_activity: "Go to the next activity"
+    nothing: "Nothing is planned for today. Your teacher will add work here."
+    all_done: "You have done everything for today. Well done!"
+    all_done_day: "You have done everything for this day."
+    done_notice: "Done: {kind}, {lessons}."
+    earlier_link:
+      one: "Earlier days · {n} left"
+      other: "Earlier days · {n} left"
+    earlier_title: "Earlier days"
+    earlier_none: "There are no earlier days with work."
+    day_title: "Work for {date}"
+    left:
+      one: "{n} left"
+      other: "{n} left"
+    back_today: "Back to today's work"
+    times:
+      one: "{n} time through"
+      other: "{n} times through"
+    game:
+      matching: "Word Match"
+      flashcards: "Flashcards"
+  stop:
+    back: "Stop and go back to today"
+    lesson_gone: "This lesson is no longer in the subject"
+    missed: "Not quite. Read the lesson again, then answer the new questions below."
+    right: "Right."
+    your_answer: "Your answer: {answer}."
+    the_answer: "The answer: {answer}."
+    read_h2: "Done reading?"
+    read_it: "I've read it"
+    try_again: "Two new questions"
+    intro_one: "Answer it to finish this activity."
+    intro_two: "Answer both to finish this activity."
+    chars: "Letters you may need:"
+    coming: "This activity will soon have its own page. For now, press the button."
+    times_left:
+      one: "{n} more time to go"
+      other: "{n} more times to go"
+    played: "I played it once"
+    finish: "Finish"
 
 profile:
   title: Profile

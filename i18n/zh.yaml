@@ -212,6 +212,76 @@ student:
     none: "老师还没有给你任何科目。"
     pick: "选一个科目开始。"
     your_teacher: "你的老师"
+    left:
+      one: "今天还剩 {n} 项"
+      other: "今天还剩 {n} 项"
+    done_today: "今天已完成"
+  # Today's work and its stops (#223).
+  today:
+    title: "今天的任务"
+    date: "{date} {weekday}"
+    weekday:
+      sunday: "星期日"
+      monday: "星期一"
+      tuesday: "星期二"
+      wednesday: "星期三"
+      thursday: "星期四"
+      friday: "星期五"
+      saturday: "星期六"
+    done_of: "已完成 {done}/{total}"
+    streak:
+      one: "连续 {n} 天"
+      other: "连续 {n} 天"
+    kind:
+      study: "学习"
+      review: "复习"
+      play: "游戏"
+    word:
+      done: "已完成"
+      next: "下一个"
+      after: "在{kind}之后"
+    get_started: "开始"
+    keep_going: "继续"
+    next_activity: "去下一个任务"
+    nothing: "今天没有安排任务。老师会在这里布置任务。"
+    all_done: "今天的任务都完成了。做得好！"
+    all_done_day: "这一天的任务都完成了。"
+    done_notice: "已完成：{kind}，{lessons}。"
+    earlier_link:
+      one: "之前的日子 · 还剩 {n} 项"
+      other: "之前的日子 · 还剩 {n} 项"
+    earlier_title: "之前的日子"
+    earlier_none: "之前没有布置任务的日子。"
+    day_title: "{date}的任务"
+    left:
+      one: "还剩 {n} 项"
+      other: "还剩 {n} 项"
+    back_today: "回到今天的任务"
+    times:
+      one: "{n} 遍"
+      other: "{n} 遍"
+    game:
+      matching: "单词配对"
+      flashcards: "单词卡"
+  stop:
+    back: "停下，回到今天"
+    lesson_gone: "这一课已不在这个科目里"
+    missed: "还不太对。再读一遍这一课，然后回答下面的新问题。"
+    right: "对了。"
+    your_answer: "你的答案：{answer}。"
+    the_answer: "正确答案：{answer}。"
+    read_h2: "读完了吗？"
+    read_it: "我读完了"
+    try_again: "两个新问题"
+    intro_one: "回答它来完成这个任务。"
+    intro_two: "两个都回答来完成这个任务。"
+    chars: "可能用到的字母："
+    coming: "这个任务很快会有自己的页面。现在请先按下按钮。"
+    times_left:
+      one: "还要 {n} 遍"
+      other: "还要 {n} 遍"
+    played: "我玩了一遍"
+    finish: "完成"
 
 profile:
   title: 个人资料

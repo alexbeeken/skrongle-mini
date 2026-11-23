@@ -212,6 +212,76 @@ student:
     none: "Ton enseignant ne t'a pas encore donné de matière."
     pick: "Choisis une matière pour commencer."
     your_teacher: "Ton enseignant"
+    left:
+      one: "Encore {n} activité aujourd'hui"
+      other: "Encore {n} activités aujourd'hui"
+    done_today: "Fini pour aujourd'hui"
+  # Today's work and its stops (#223).
+  today:
+    title: "Le travail du jour"
+    date: "{weekday} {date}"
+    weekday:
+      sunday: "dimanche"
+      monday: "lundi"
+      tuesday: "mardi"
+      wednesday: "mercredi"
+      thursday: "jeudi"
+      friday: "vendredi"
+      saturday: "samedi"
+    done_of: "{done} sur {total} faites"
+    streak:
+      one: "{n} jour d'affilée"
+      other: "{n} jours d'affilée"
+    kind:
+      study: "Étudier"
+      review: "Réviser"
+      play: "Jouer"
+    word:
+      done: "Fait"
+      next: "Suivant"
+      after: "Après {kind}"
+    get_started: "Commencer"
+    keep_going: "Continuer"
+    next_activity: "Passer à l'activité suivante"
+    nothing: "Rien n'est prévu pour aujourd'hui. Ton enseignant ajoutera du travail ici."
+    all_done: "Tu as tout fait pour aujourd'hui. Bravo !"
+    all_done_day: "Tu as tout fait pour ce jour."
+    done_notice: "Fait : {kind}, {lessons}."
+    earlier_link:
+      one: "Jours précédents · encore {n}"
+      other: "Jours précédents · encore {n}"
+    earlier_title: "Jours précédents"
+    earlier_none: "Aucun jour précédent n'a de travail."
+    day_title: "Travail du {date}"
+    left:
+      one: "Encore {n}"
+      other: "Encore {n}"
+    back_today: "Retour au travail du jour"
+    times:
+      one: "{n} fois"
+      other: "{n} fois"
+    game:
+      matching: "Paires de mots"
+      flashcards: "Cartes"
+  stop:
+    back: "Arrêter et revenir à aujourd'hui"
+    lesson_gone: "Cette leçon n'est plus dans la matière"
+    missed: "Pas tout à fait. Relis la leçon, puis réponds aux nouvelles questions ci-dessous."
+    right: "Juste."
+    your_answer: "Ta réponse : {answer}."
+    the_answer: "La réponse : {answer}."
+    read_h2: "Fini de lire ?"
+    read_it: "Je l'ai lu"
+    try_again: "Deux nouvelles questions"
+    intro_one: "Réponds-y pour finir cette activité."
+    intro_two: "Réponds aux deux pour finir cette activité."
+    chars: "Lettres utiles :"
+    coming: "Cette activité aura bientôt sa propre page. Pour l'instant, appuie sur le bouton."
+    times_left:
+      one: "Encore {n} fois"
+      other: "Encore {n} fois"
+    played: "J'ai joué une fois"
+    finish: "Terminer"
 
 profile:
   title: Profil

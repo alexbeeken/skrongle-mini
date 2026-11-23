@@ -67,6 +67,19 @@ a.subject:hover, a.subject:focus { color: #1f2328; border-color: #962d22; backgr
 .subject-title { display: block; font-size: 20px; font-weight: bold; color: #962d22; text-decoration: underline; }
 .subject-teacher { display: block; color: #5b6370; }
 
+/* Today's work and its stops (#223): the row's word, the button and the link beside it, the questions. */
+.list tr.done .end { color: #1c5433; font-weight: bold; }
+.list tr.next .end, .list tr.next .num { font-weight: bold; color: #1f2328; }
+.list tr.locked td { color: #5b6370; }
+.actions { margin: 16px 0; }
+.actions .aside { display: inline-block; margin: 8px 16px 8px 0; }
+.actions .btn { margin-right: 16px; }
+.prose table { border-collapse: collapse; margin: 0 0 12px; }
+.prose th, .prose td { padding: 4px 8px; border: 1px solid #b9b3a6; }
+fieldset.question { margin: 0 0 16px; padding: 12px; background: #ffffff; border: 1px solid #b9b3a6; }
+label.option { display: block; padding: 6px 0; }
+.verdict { margin: 0 0 12px; padding: 8px 12px; background: #ffffff; border-left: 4px solid #962d22; }
+
 /* The sign-in page's language picker and the dev server's panel. */
 .lang-picker { margin: 16px 0 0; }
 .lang-picker label { display: block; }
