@@ -28,7 +28,10 @@ Each holds: the owner and one invited learner; the learner has passed one
 lesson (`a1-greetings`, 5 of 5) and seen another (`a1-subject-pronouns`);
 the owner's copy of the Spanish course, shared by link and opened by the
 learner (0.1.1 had no sharing, so its copy is not shared); a second
-invitation link that nobody used.
+invitation link that nobody used. A link works for 7 days, so a week after
+a fixture is made its link has expired: `upgrade-check.sh` then checks that
+the server still knows it as an expired, unused link, and registers nobody
+with it.
 
 Each database is about 2.6 MB because the copied course is stored in it
 (about 0.5 MB compressed).
