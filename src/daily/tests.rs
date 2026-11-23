@@ -640,6 +640,28 @@ fn a_lesson_comes_out_of_todays_and_later_plans_only() {
 }
 
 #[test]
+fn a_play_that_loses_a_lesson_loses_the_games_it_no_longer_allows() {
+    let db = Db::open_in_memory().unwrap();
+    db.with(|c| {
+        let k = k(c);
+        // A play of u1-a (3 words) and u1-c (1 word): Word Match and Flashcards.
+        let play = add_over(c, &k, DAY, Kind::Play, &["u1-a", "u1-c"]);
+        let other = add_over(c, &k, DAY, Kind::Play, &["u1-b", "u1-c"]);
+        assert!(set_game(c, &k.course, COURSE, DAY, other, "flashcards", false, NOW)?);
+        let games = |c: &Connection, id: i64| plan(c, COURSE, DAY).unwrap().unwrap().activities.into_iter().find(|a| a.id == id).unwrap().games;
+        assert_eq!(games(c, play), s(&["matching", "flashcards"]));
+        assert_eq!(remove_lesson(c, COURSE, "u1-a", NOW)?, 1);
+        assert_eq!(games(c, play), s(&["flashcards"]), "u1-c alone has too few words for Word Match");
+        assert_eq!(games(c, other), s(&["matching"]), "a play that keeps its lessons keeps its games");
+        assert_eq!(remove_lesson(c, COURSE, "u1-c", NOW)?, 1);
+        assert!(plan(c, COURSE, DAY)?.unwrap().activities.iter().all(|a| a.id != play), "its last lesson gone, the play goes");
+        assert_eq!(games(c, other), s(&["matching"]), "u1-b still allows Word Match");
+        Ok(())
+    })
+    .unwrap();
+}
+
+#[test]
 fn plans_go_28_days_ahead_and_a_past_day_is_never_changed() {
     let db = Db::open_in_memory().unwrap();
     db.with(|c| {
@@ -738,6 +760,45 @@ fn only_the_class_sees_the_plan() {
         assert_eq!(done_count(c, first), 1);
         assert!(crate::students::give(c, k.teacher, kid, COURSE)?);
         assert_eq!(states(c, kid, DAY), vec![StopState::Done, StopState::Next, StopState::Locked]);
+        Ok(())
+    })
+    .unwrap();
+}
+
+#[test]
+fn a_course_taken_away_records_nothing_more() {
+    let db = Db::open_in_memory().unwrap();
+    db.with(|c| {
+        let (k, p) = class_with_plan(c, "t@example.org", "kid-", COURSE, NOW)?;
+        let (study, review, play) = (p.activities[0].id, p.activities[1].id, p.activities[2].id);
+        let (ana, cy, zed) = (k.kids[1], k.kids[0], k.kids[2]);
+        // Ana has started the study, Cy the review, Zed the play (rounds 2, so it counts).
+        assert!(start(c, ana, COURSE, DAY, study, NOW)?);
+        do_stop(c, cy, COURSE, DAY, study, NOW);
+        assert!(start(c, cy, COURSE, DAY, review, NOW)?);
+        do_stop(c, zed, COURSE, DAY, study, NOW);
+        do_stop(c, zed, COURSE, DAY, review, NOW);
+        assert!(add(c, &k.course, COURSE, DAY, Kind::Review, None, NOW)?);
+        assert!(set_rounds(c, COURSE, DAY, play, 2, NOW)?);
+        assert!(start(c, zed, COURSE, DAY, play, NOW)?);
+        assert_eq!(add_play(c, zed, play)?, 1);
+        assert!(open_study_on(c, ana, COURSE, "u1-a")?);
+        for kid in [ana, cy, zed] {
+            assert!(crate::students::take_away(c, k.teacher, kid, COURSE)?);
+        }
+        assert!(!mark_studied(c, ana, study)?, "study: not marked");
+        assert!(!open_study_on(c, ana, COURSE, "u1-a")?, "and the lesson not opened");
+        assert!(!mark_reviewed(c, cy, review)?, "review: not marked");
+        assert_eq!(add_play(c, zed, play)?, 1, "play: not counted");
+        let marks: i64 = c.query_row("SELECT COUNT(*) FROM daily_done WHERE mark != 0 AND done_at IS NULL", [], |r| r.get(0))?;
+        assert_eq!(marks, 0);
+        // Given back, the same rows go on.
+        for kid in [ana, cy, zed] {
+            assert!(crate::students::give(c, k.teacher, kid, COURSE)?);
+        }
+        assert!(open_study_on(c, ana, COURSE, "u1-a")?);
+        assert!(mark_studied(c, ana, study)? && mark_reviewed(c, cy, review)?);
+        assert_eq!(add_play(c, zed, play)?, 2);
         Ok(())
     })
     .unwrap();

@@ -370,6 +370,29 @@ fn has_course(conn: &Connection, user_id: i64, course_id: &str) -> rusqlite::Res
     )
 }
 
+/// The activity's course is given to the user ([`has_course`]): the check
+/// every student function makes before it reads or records a stop.
+fn has_activity(conn: &Connection, user_id: i64, activity_id: i64) -> rusqlite::Result<bool> {
+    let course: Option<String> = conn
+        .query_row(
+            "SELECT p.course_id FROM daily_activities a JOIN daily_plans p ON p.id = a.plan_id WHERE a.id = ?1",
+            [activity_id],
+            |r| r.get(0),
+        )
+        .optional()?;
+    match course {
+        Some(course_id) => has_course(conn, user_id, &course_id),
+        None => Ok(false),
+    }
+}
+
+/// The games of `games` that `lessons` still allow ([`games_for`]), in
+/// their stored order.
+fn games_kept(course: &ContentStore, lessons: &[String], games: &[String]) -> Vec<String> {
+    let allowed = games_for(course, lessons);
+    games.iter().filter(|g| allowed.contains(&g.as_str())).cloned().collect()
+}
+
 // --------------------------------------------------------------------
 // The teacher's plan
 // --------------------------------------------------------------------
@@ -531,8 +554,7 @@ pub fn set_lessons(
     if !fits {
         return Ok(false);
     }
-    let allowed = games_for(course, &ordered);
-    let games: Vec<String> = a.games.iter().filter(|g| allowed.contains(&g.as_str())).cloned().collect();
+    let games = games_kept(course, &ordered, &a.games);
     conn.execute("UPDATE daily_activities SET lessons = ?2, games = ?3 WHERE id = ?1", params![activity_id, to_json(&ordered), to_json(&games)])?;
     touch(conn, p.id)?;
     Ok(true)
@@ -677,11 +699,14 @@ pub fn lesson_days(conn: &Connection, course_id: &str, lesson_id: &str, now: i64
 /// Takes `lesson_id` out of every plan [`lesson_days`] lists, in one
 /// transaction. An activity whose only lesson it is goes, with everyone's
 /// progress on it (as [`remove`]); one with other lessons loses just this
-/// lesson and keeps its progress. Days before today are never touched.
-/// Returns the number of plans changed.
+/// lesson and keeps its progress; a `play` also loses the games its other
+/// lessons no longer allow, as with [`set_lessons`] (the course is read from
+/// its files for that; when they do not load, the games stay). Days before
+/// today are never touched. Returns the number of plans changed.
 pub fn remove_lesson(conn: &Connection, course_id: &str, lesson_id: &str, now: i64) -> rusqlite::Result<usize> {
     in_tx(conn, |conn| {
         let mut changed = 0;
+        let mut course: Option<Option<ContentStore>> = None;
         for p in plans_from_today(conn, course_id, now)? {
             if !p.activities.iter().any(|a| a.lessons.iter().any(|l| l == lesson_id)) {
                 continue;
@@ -696,7 +721,18 @@ pub fn remove_lesson(conn: &Connection, course_id: &str, lesson_id: &str, now: i
                 if rest.is_empty() {
                     conn.execute("DELETE FROM daily_activities WHERE id = ?1", [a.id])?;
                 } else {
-                    conn.execute("UPDATE daily_activities SET lessons = ?2 WHERE id = ?1", params![a.id, to_json(&rest)])?;
+                    let store = match &mut course {
+                        Some(store) => store,
+                        None => course.insert(ContentStore::from_files(&crate::courses::load_files(conn, course_id)?).ok()),
+                    };
+                    let games = match store {
+                        Some(store) => games_kept(store, &rest, &a.games),
+                        None => a.games.clone(),
+                    };
+                    conn.execute(
+                        "UPDATE daily_activities SET lessons = ?2, games = ?3 WHERE id = ?1",
+                        params![a.id, to_json(&rest), to_json(&games)],
+                    )?;
                     keep.push(a.id);
                 }
             }
@@ -800,6 +836,9 @@ pub fn start(conn: &Connection, user_id: i64, course_id: &str, day: i64, activit
 }
 
 fn set_mark(conn: &Connection, user_id: i64, activity_id: i64, kind: Kind, mark: i64) -> rusqlite::Result<bool> {
+    if !has_activity(conn, user_id, activity_id)? {
+        return Ok(false);
+    }
     Ok(conn.execute(
         "UPDATE daily_done SET mark = ?3 WHERE activity_id = ?1 AND user_id = ?2 AND done_at IS NULL
            AND EXISTS (SELECT 1 FROM daily_activities WHERE id = ?1 AND kind = ?4)",
@@ -809,22 +848,26 @@ fn set_mark(conn: &Connection, user_id: i64, activity_id: i64, kind: Kind, mark:
 
 /// Records that the student read a started, unfinished `study`'s lesson
 /// through its stop ([`STUDIED`]); then it may be finished. False when there
-/// is no such row.
+/// is no such row or the course is no longer given to them.
 pub fn mark_studied(conn: &Connection, user_id: i64, activity_id: i64) -> rusqlite::Result<bool> {
     set_mark(conn, user_id, activity_id, Kind::Study, STUDIED)
 }
 
 /// Records that the student finished a started, unfinished `review`'s round
 /// ([`REVIEWED`]); then it may be finished. A review with nothing to answer
-/// is marked by its page at once. False when there is no such row.
+/// is marked by its page at once. False when there is no such row or the
+/// course is no longer given to them.
 pub fn mark_reviewed(conn: &Connection, user_id: i64, activity_id: i64) -> rusqlite::Result<bool> {
     set_mark(conn, user_id, activity_id, Kind::Review, REVIEWED)
 }
 
 /// The student has a started, unfinished `study` over `lesson_id` in an
-/// assigned plan of the course, on any day (the lesson's page may let them
-/// read it).
+/// assigned plan of the course, on any day, and the course is still given
+/// to them (the lesson's page may let them read it).
 pub fn open_study_on(conn: &Connection, user_id: i64, course_id: &str, lesson_id: &str) -> rusqlite::Result<bool> {
+    if !has_course(conn, user_id, course_id)? {
+        return Ok(false);
+    }
     let mut stmt = conn.prepare_cached(
         "SELECT a.lessons FROM daily_done d JOIN daily_activities a ON a.id = d.activity_id JOIN daily_plans p ON p.id = a.plan_id
          WHERE d.user_id = ?1 AND d.done_at IS NULL AND a.kind = 'study' AND p.course_id = ?2 AND p.assigned_at IS NOT NULL",
@@ -840,8 +883,9 @@ pub fn open_study_on(conn: &Connection, user_id: i64, course_id: &str, lesson_id
 
 /// One more time through a started, unfinished `play` (a finished game of
 /// it). A limited play ([`play_limited`]) counts no further once it is at
-/// its rounds; a count already above them is kept, never lowered. Returns
-/// the count after it (unchanged when there was nothing to count).
+/// its rounds; a count already above them is kept, never lowered; nothing
+/// counts once the course is no longer given to the student. Returns the
+/// count after it (unchanged when there was nothing to count).
 pub fn add_play(conn: &Connection, user_id: i64, activity_id: i64) -> rusqlite::Result<i64> {
     let row: Option<(bool, i64)> = conn
         .query_row(
@@ -851,6 +895,9 @@ pub fn add_play(conn: &Connection, user_id: i64, activity_id: i64) -> rusqlite::
         )
         .optional()?;
     let Some((done, plays)) = row else { return Ok(0) };
+    if !has_activity(conn, user_id, activity_id)? {
+        return Ok(plays);
+    }
     let Some(p) = plan_of_activity(conn, activity_id)? else { return Ok(plays) };
     let Some(a) = p.activities.iter().find(|a| a.id == activity_id) else { return Ok(plays) };
     if done || a.kind != Kind::Play || (play_limited(&p, a) && plays >= a.rounds) {
