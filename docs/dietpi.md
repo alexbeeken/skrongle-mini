@@ -1,8 +1,8 @@
 <!--
 The Skrongle entry for DietPi-Docs, kept here until DietPi takes the title.
-`aSOFTWARE_DOCS` will point at its anchor, #skrongle.
+`aSOFTWARE_DOCS` will point at its anchor, #skrongle-mini.
 
-To put it into DietPi-Docs, copy everything from "## Skrongle" to the end into
+To put it into DietPi-Docs, copy everything from "## Skrongle mini" to the end into
 the category page the maintainers choose, then make four changes so it matches
 its neighbours there:
 
@@ -21,14 +21,14 @@ its neighbours there:
 
 This page holds two things: the facts a DietPi maintainer needs to judge the
 request, and the entry for the DietPi documentation, which starts at
-[Skrongle](#skrongle).
+[Skrongle mini](#skrongle-mini).
 
 ## For DietPi maintainers
 
 | | |
 |---|---|
 | What it is | A learning web app for a household or a class: lessons, quizzes, short practice sessions, games and flashcards. Spanish, French and a tutorial course for the app are included, and people can write or upload their own |
-| Install | One release tarball per architecture, checked against the SHA-256 published beside it and unpacked to `/opt/skrongle`. [`deploy/dietpi-install.sh`](https://github.com/alexbeeken/skrongle-mini/blob/main/deploy/dietpi-install.sh) is the whole install, in twelve commented steps. Running it again updates |
+| Install | One release tarball per architecture, checked against the SHA-256 published beside it and unpacked to `/opt/skrongle`. [`deploy/dietpi-install.sh`](https://github.com/alexbeeken/skrongle-mini/blob/main/deploy/dietpi-install.sh) is the whole install, in twelve commented steps. Running it again updates. The same install written as a `dietpi-software` block, with the edits it needs in DietPi's other files, is in [`deploy/dietpi-software/`](https://github.com/alexbeeken/skrongle-mini/tree/main/deploy/dietpi-software) (it uses DietPi's own download, which has no checksum step) |
 | Dependencies | `curl`, for the download. It needs no web server, database server or language runtime; SQLite is compiled in |
 | Architectures | ARMv6, ARMv7, ARMv8 and x86_64. There is no RISC-V build. On ARMv6 boards (Raspberry Pi 1, Zero, Zero W) sign-in is slow |
 | Port | 7576, TCP |
@@ -37,7 +37,7 @@ request, and the entry for the DietPi documentation, which starts at
 | Settings | `/etc/skrongle/env`, optional |
 | Size on a Raspberry Pi Zero 2 W | A binary of about 15 MB. About 16 MB of memory idle and about 21 MB in use |
 | Outside services | None needed. The AI features are optional and use provider keys the owner supplies |
-| Uninstall | Removes the program, the unit and the user. Data and settings stay unless purged |
+| Uninstall | Removes the program, the unit, the user, the data folder and the settings |
 | Licence | AGPL-3.0 |
 
 What a release may change for a packager, and what it will not, is in the
@@ -50,7 +50,7 @@ sudo sh dietpi-install.sh
 
 `sudo sh dietpi-install.sh --uninstall` removes it again and keeps the data.
 
-## Skrongle
+## Skrongle mini
 
 A learning app for a household or a class, with a web interface. It teaches
 from courses written as JSON files: lessons, adaptive quizzes, five-minute
@@ -71,22 +71,16 @@ The web interface is accessible via TCP port **7576**:
 ### First run setup
 
 Skrongle sends no e-mail, so it cannot send a sign-up link. The first account
-is the owner's, and you make it with a one-time owner link. The install ends
-by printing it:
+is the owner's, and you make it with a one-time owner link. Once the install
+has finished and the service is running, print it:
 
-```
-Skrongle 0.2.1 is installed and running.
-
-  Make your account (the owner's) by opening this link:
-
-  http://<your.IP>:7576/register?invite=<token>
-
-  It works once. For a new one: sudo /opt/skrongle/skrongle owner-link --service
+```sh
+sudo /opt/skrongle/skrongle owner-link --service
 ```
 
 Open the link in a browser on another computer. Until you do, `/register`
 only says that the server has no owner yet. If the link is lost, print a new
-one (the earlier one stops working):
+one the same way (the earlier one stops working):
 
 ```sh
 sudo /opt/skrongle/skrongle owner-link --service
@@ -195,15 +189,10 @@ first.
 dietpi-software uninstall <id>
 ```
 
-This stops the service and removes `/opt/skrongle`, the unit and the
-`skrongle` user. `/mnt/dietpi_userdata/skrongle` and `/etc/skrongle` are
-kept, so a later install finds the accounts and progress as they were.
-Skrongle's own uninstaller removes those as well. Back up first, because it
-cannot be undone:
-
-```sh
-sudo /opt/skrongle/uninstall.sh --purge
-```
+This stops the service and removes `/opt/skrongle`, the unit, the `skrongle`
+user, `/mnt/dietpi_userdata/skrongle` (the accounts, progress and saved AI
+keys) and `/etc/skrongle`. It cannot be undone, so back up the data directory
+first if you may want it again.
 
 ***
 
