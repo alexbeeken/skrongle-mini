@@ -143,7 +143,10 @@ for DB in "$FIXTURES"/learn-*.db; do
 
   if start "$CAND" "$STATE/learn.db" "$LOG"; then ok "starts on the $V database"; else fail "did not start on the $V database; the log:"; sed 's/^/       /' "$LOG"; continue; fi
   # The server logs one line per start that migrates (src/db.rs, `migrate_to`).
-  if grep -q "migrating the schema from v$FROM to v$CAND_SCHEMA" "$LOG"; then ok "the log says it migrated v$FROM to v$CAND_SCHEMA"; else fail "the log has no \"migrating the schema from v$FROM to v$CAND_SCHEMA\""; fi
+  if [ "$FROM" = "$CAND_SCHEMA" ]; then
+    # A release that did not change the database: nothing to migrate.
+    if grep -q 'migrating the schema' "$LOG"; then fail "migrated although $V is already at schema v$CAND_SCHEMA"; else ok "$V is already at schema v$CAND_SCHEMA: nothing migrated"; fi
+  elif grep -q "migrating the schema from v$FROM to v$CAND_SCHEMA" "$LOG"; then ok "the log says it migrated v$FROM to v$CAND_SCHEMA"; else fail "the log has no \"migrating the schema from v$FROM to v$CAND_SCHEMA\""; fi
   if grep -q 'Owner link' "$LOG"; then fail "printed an owner link although the database has an owner"; else ok "no owner link: the owner is still there"; fi
 
   rm -f "$WORK/owner" "$WORK/learner"
@@ -167,9 +170,18 @@ for DB in "$FIXTURES"/learn-*.db; do
   fi
 
   http none POST /register --data-urlencode "email=upgrade-$V@example.org" --data-urlencode "password=$PW" --data "age=on" --data "invite=$SPARE"
-  if [ "$CODE" = 303 ]; then ok "the invitation link nobody used still registers an account"; else fail "the unused invitation answered $CODE"; fi
-  http none POST /register --data-urlencode "email=twice-$V@example.org" --data-urlencode "password=$PW" --data "age=on" --data "invite=$SPARE"
-  if [ "$CODE" = 403 ]; then ok "and then it is used up ($CODE)"; else fail "the used invitation answered $CODE, expected 403"; fi
+  # A link works for 7 days, so a fixture older than that holds an expired
+  # one. The server says "expired" only of a link it knows and nobody used
+  # (src/signup.rs), so that answer still shows the row survived.
+  if [ "$CODE" = 303 ]; then
+    ok "the invitation link nobody used still registers an account"
+    http none POST /register --data-urlencode "email=twice-$V@example.org" --data-urlencode "password=$PW" --data "age=on" --data "invite=$SPARE"
+    if [ "$CODE" = 403 ]; then ok "and then it is used up ($CODE)"; else fail "the used invitation answered $CODE, expected 403"; fi
+  elif [ "$CODE" = 403 ] && grep -q 'invitation link has expired' "$WORK/body"; then
+    ok "the invitation link nobody used is still known; it has expired since the fixture was made"
+  else
+    fail "the unused invitation answered $CODE"
+  fi
 
   stop; RC=$?
   if [ "$RC" = 0 ]; then ok "SIGTERM: a clean exit"; else fail "exit code $RC on SIGTERM"; fi
