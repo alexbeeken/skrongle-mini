@@ -6,6 +6,19 @@ numbers work is in the README, "Versions".
 
 ## Unreleased
 
+- **Plan tab: plan the class's day with buttons.** A teacher (Hold
+  students, or an owner) now has a tab row on its own course's page,
+  **Editor** and **Plan**. Plan shows the week, Monday to Sunday, with what
+  each day holds, and the open day's activities: add a Study, a Review or a
+  Play, change their lessons, move them up and down, remove them, pick a
+  play's games and times through, plan the recommended day, **Plan my week
+  for me**, **Assign** and **Clear the day**. Each button makes one change,
+  so it works on a phone and with JavaScript off. Plans go 28 days ahead;
+  days gone by have no buttons. The page also sets the class time zone:
+  from the teacher's browser on the first visit when it can, else it asks.
+  A student's page on **Students** links each given course's plan. Owners
+  without Hold students see the course page as before.
+
 - **Daily work: the data, no page yet** (schema v12). The tables and rules
   for a teacher's day plans (a study, a review or a play over lessons of a
   course given to students, done in order) come in this release; the pages

@@ -2333,9 +2333,9 @@ the login page are served in a light frame of their own (#219,
 
 A teacher plans what the class does in one of its courses on one day, and
 each student works through it in order (#221; port of the parent's daily
-work, made smaller). This release has the data and the rules only, in
-`src/daily.rs`: no page shows them yet. The teacher's **Plan** tab (#222),
-the student's day and its stops (#223, #224) and the progress table (#225)
+work, made smaller). The data and the rules are in `src/daily.rs`; the
+teacher plans on the course's **Plan** tab ([below](#the-plan-tab), #222).
+The student's day and its stops (#223, #224) and the progress table (#225)
 build on it. There is no switch: an account that holds students has it.
 
 **The class.** The students of a plan are the student accounts the
@@ -2375,10 +2375,13 @@ day before today or after the 28th is refused, with nothing changed.
 
 **The class clock.** "Today" is the box's date in one stored time zone, the
 same for every teacher and every student: `settings::class_tz`, an offset
-from UTC in half hours (12 hours behind to 14 ahead). Until a teacher's
-first visit to a Plan page sets it from the browser (`daily::half_hours_of`
-rounds the browser's offset to the nearest half hour), the clock is UTC's.
-It is a fixed offset, so it is changed by hand when the clocks change. It
+from UTC in half hours (12 hours behind to 14 ahead). Until it is set the
+clock is UTC's. A teacher's first visit to a Plan tab sets it from the
+browser when the browser has sent its offset (the `tz` cookie;
+`daily::half_hours_of` rounds it to the nearest half hour); otherwise the
+page asks the teacher to pick it from a list. The Plan tab shows it and
+changes it. It is a fixed offset, so it is changed by hand when the clocks
+change. It
 is apart from the learner's own day: a streak, the daily goal and "words
 due" go by each browser's `tz` cookie (`CurrentUser::tz`), the class day
 never does.
@@ -2423,6 +2426,56 @@ student, `daily::left_today` says per subject how much of today is left.
 activities and progress; so a student can go back 90 days, and a course
 holds at most 119 plans (`caps::DAILY_PLANS_PER_COURSE`). The tables are in
 the [data inventory](data-inventory).
+
+### The Plan tab
+
+The page where a teacher plans the class's days (#222, `src/routes/daily.rs`,
+`templates/daily.html`, `static/daily.css`), at `/courses/{id}/daily`. It is
+built from plain forms: every button posts one change to
+`POST /courses/{id}/daily` (`do` names it) and comes back to the page, so it
+works with JavaScript off, with the keyboard and on a phone. There is no
+dragging. A change the rules refuse comes back with one error line
+(`daily-error`); the rules are `daily.rs`'s, the page only calls them.
+
+**Who sees it.** The course's owner, when it may hold students
+(`Perm::HoldStudents`, or an owner of the box). The course page then has a
+tab row under its title, **Editor** and **Plan** (`course_tabs.html`,
+`routes::courses::CourseTabs`); an owner who may not hold students sees the
+course page as before, with no row. Anyone else gets a 404 on the page and
+its form. A student's page on **Students** has a **Plan** link beside each
+course given to it.
+
+**The week row** (`daily_week.html`, `routes::daily::week_row`): Monday to
+Sunday of the open day's week, from `daily::week`, each saying *Nothing
+planned*, *Not assigned yet*, how many activities, or for a day gone by
+*32 of 37 finished*. Today is outlined; a day more than 28 days ahead is
+greyed out. ‹ and › go a week earlier or later (back as far as plans are
+kept, forward to the week of the 28th day). `?day=YYYY-MM-DD` opens a day;
+without it, today on the class clock.
+
+**The open day.** Its date, *Assigned to N students* (the students given the
+course) or *Not assigned yet*, and its activities in order. Each row has its
+number, its kind, its lessons, **Change lesson** (a study) or **Change
+lessons**, **Up** (off on the first row), **Down** (off on the last) and
+**Remove**. **Change lesson** opens the course's lessons in place
+(`&change=<activity>`): one to pick for a study, one or more for a review
+or a play, then **Save**. A play's row also has its games (Word Match and
+Flashcards, those its lessons allow) and its times through (no limit, or 1
+to 5), saved together.
+
+Under the list: **+ Study**, **+ Review** and **+ Play** add at the end over
+the next lesson; **Plan my week for me** (`daily::auto_week`) fills and
+assigns the free school days of the next 7 and names them; **Assign** shows
+the plan to the students (off for an empty day; an assigned plan stays
+editable); **Clear the day** (asks first with JavaScript on) deletes it. An
+empty day offers one button, **Plan the recommended day**: a Study, a
+Review and a Play over the next lesson. A day before today shows its plan
+with no buttons; a day more than 28 days ahead says it cannot be planned
+yet.
+
+**The class time zone** is at the bottom of the page (`daily-tz-form`), with
+a list from UTC-12:00 to UTC+14:00 and **Change**. Not set yet, it is a line
+at the top instead (`daily-tz-ask`).
 
 ## Two-factor sign-in
 
