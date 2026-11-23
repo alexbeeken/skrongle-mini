@@ -859,7 +859,7 @@ fn a_course_is_added_from_its_download() {
     let count = || state.db.with(|c| courses::courses_owned_by(c, ann)).unwrap().len();
     // The page escapes quotes; compare on the text up to the first quote.
     let page_says = |body: &str, text: &str| {
-        let head = text.split(|c| c == '"' || c == '\'').next().unwrap();
+        let head = text.split(['"', '\'']).next().unwrap();
         assert!(body.contains(head), "{head:?} not in {body}");
     };
 
