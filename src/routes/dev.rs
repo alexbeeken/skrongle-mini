@@ -128,6 +128,55 @@ pub async fn student(State(state): State<Arc<AppState>>, user: CurrentUser, Quer
 }
 
 #[derive(Deserialize)]
+pub struct StudentTodayParams {
+    /// Days from today on the class clock: -1 is yesterday, 0 today.
+    #[serde(default)]
+    pub day: i64,
+    /// One of the given courses, instead of the first.
+    pub course: Option<String>,
+    pub format: Option<String>,
+}
+
+/// GET /dev/student/today?day=-1[&course=id][&format=json] (#223): give
+/// the signed-in teacher's first given course (by title; `course` names
+/// another of them) the recommended day
+/// (`daily::recommended`) on the day `day` days from today, and assign it,
+/// as if it were that day, so earlier days can be tried without waiting. A
+/// day that already has activities is just assigned. Says what it did
+/// (`?format=json`: `{"course_id", "day", "activities", "assigned"}`).
+pub async fn student_today(State(state): State<Arc<AppState>>, user: CurrentUser, Query(q): Query<StudentTodayParams>) -> Result<Response, AppError> {
+    let teacher = user.id;
+    let given = state.db.call(move |c| crate::students::given(c, teacher)).await?;
+    let pick = given.iter().find(|g| q.course.as_deref().is_none_or(|c| c == g.course_id));
+    let Some(course_id) = pick.map(|g| g.course_id.clone()) else {
+        return Err(AppError::BadRequest("no course given to a student of the signed-in account: give one on Students first".into()));
+    };
+    let Some(course) = state.courses.get(&state.db, &course_id).await? else {
+        return Err(AppError::BadRequest(format!("the course '{course_id}' does not load")));
+    };
+    let (cid, offset) = (course_id.clone(), q.day);
+    let (day, activities, assigned) = state
+        .db
+        .call(move |c| {
+            let tz = crate::settings::class_tz_secs(c)?;
+            let day = crate::daily::today(c, crate::db::now())? + offset;
+            // Noon of that day on the class clock: the day is plannable then.
+            let then = day * 86_400 + 12 * 3600 - tz;
+            crate::daily::recommended(c, &course, &cid, day, then)?;
+            let assigned = crate::daily::assign(c, &cid, day, then)?;
+            let n = crate::daily::plan(c, &cid, day)?.map_or(0, |p| p.activities.len());
+            Ok((day, n, assigned))
+        })
+        .await?;
+    tracing::info!("dev: user {teacher} assigned day {day} of '{course_id}' ({activities} activities)");
+    if q.format.as_deref() == Some("json") {
+        return Ok(Json(serde_json::json!({ "course_id": course_id, "day": day, "activities": activities, "assigned": assigned })).into_response());
+    }
+    let what = if assigned { "assigned" } else { "not assigned (the course has no lessons?)" };
+    Ok(format!("Day {day} ({}) of '{course_id}': {activities} activities, {what}.\n", super::today::date_of(day)).into_response())
+}
+
+#[derive(Deserialize)]
 pub struct VocabBody {
     /// The lesson whose words to collect.
     pub lesson: String,
@@ -411,6 +460,7 @@ pub fn routes() -> axum::Router<Arc<AppState>> {
         .route("/dev/reset", get(reset))
         .route("/dev/vocab", post(vocab))
         .route("/dev/student", get(student))
+        .route("/dev/student/today", get(student_today))
         .merge(devbox)
         // The simulated providers' wire APIs: the app's own server-side
         // clients call them with an API key (checked there), no cookie.

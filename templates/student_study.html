@@ -1,0 +1,98 @@
+{% extends "student_base.html" %}
+{#- A Study stop (#223, routes::today::study): the lesson's text as the
+    lesson page renders it, its words, tables and conversations, then two
+    reading-check questions as one plain form (or **I've read it**). After
+    a miss, how each answer went above two fresh questions. No script: a
+    choice is radio buttons, a typed answer a text box. #}
+{% block title %}{{ title }}{% endblock %}
+{% block bar %}{{ subject }}{% endblock %}
+{% block links %}{% if let Some(u) = user %}<span data-testid="student-bar-name">{% if u.first_name.trim().is_empty() && u.last_name.trim().is_empty() %}{{ u.username }}{% else %}{{ u.display_name() }}{% endif %}</span> &middot; {% endif %}<a href="{{ back }}" data-testid="student-stop-back">{{ crate::t("student.stop.back") }}</a>{% endblock %}
+{% block content %}
+<div data-testid="student-study" data-kind="study">
+  <p class="muted">{{ crate::t("student.today.kind.study") }}</p>
+  <h1 data-testid="student-study-title">{{ title }}</h1>
+  {% if !summary.is_empty() %}<p class="note">{{ summary }}</p>{% endif %}
+  <div class="prose" data-testid="student-study-text" lang="{{ course.term_lang }}">
+    {{ html|safe }}
+  </div>
+
+  {% if !words.is_empty() %}
+  <h2>{{ crate::t("study.lesson.vocabulary") }}</h2>
+  <table class="list" data-testid="student-study-words">
+    <tr><th>{{ course.term_label }}</th><th>{{ course.meaning_label }}</th><th>{{ crate::t("study.lesson.example") }}</th></tr>
+    {% for w in words %}
+    <tr><td lang="{{ course.term_lang }}">{{ w.term }}</td><td lang="{{ course.meaning_lang }}">{{ w.meaning }}</td><td lang="{{ course.term_lang }}">{{ w.example }}</td></tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+
+  {% if !conjugations.is_empty() %}
+  <h2>{{ course.paradigm_label }}</h2>
+  <table class="list" data-testid="student-study-conjugations">
+    <tr><th>{{ course.item_label }}</th><th>{{ crate::t("study.lesson.set") }}</th>{% for s in slot_labels %}<th>{{ s }}</th>{% endfor %}</tr>
+    {% for k in conjugations %}
+    <tr lang="{{ course.term_lang }}"><td><b>{{ k.item }}</b><br><span class="muted" lang="{{ course.meaning_lang }}">{{ k.meaning }}</span></td><td>{{ k.set }}</td>{% for f in k.forms %}<td>{{ f }}</td>{% endfor %}</tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+
+  {% for c in conversations %}
+  <h2>{{ c.title }}</h2>
+  {% if !c.scenario.is_empty() %}<p class="muted">{{ c.scenario }}</p>{% endif %}
+  <table class="list" data-testid="student-study-conversation">
+    {% for (who, text, meaning) in c.lines %}
+    <tr><td><b>{{ who }}</b></td><td><span lang="{{ course.term_lang }}">{{ text }}</span>{% if !meaning.is_empty() %}<br><span class="muted" lang="{{ course.meaning_lang }}">{{ meaning }}</span>{% endif %}</td></tr>
+    {% endfor %}
+  </table>
+  {% endfor %}
+
+  <div class="check" id="check" data-testid="student-study-check">
+  {% if !missed.is_empty() %}
+  <p class="notice error" role="alert" data-testid="student-study-missed">{{ crate::t("student.stop.missed") }}</p>
+  {% for v in missed %}
+  <div class="verdict" data-testid="student-study-verdict" data-right="{{ v.right }}">
+    <p><b>{{ v.prompt }}</b></p>
+    <p>{% if v.right %}{{ crate::t("student.stop.right") }}{% else %}{{ crate::t1("student.stop.your_answer", "answer", v.given) }} {{ crate::t1("student.stop.the_answer", "answer", v.answer) }}{% endif %}</p>
+    {% if !v.note.is_empty() %}<p class="note">{{ v.note }}</p>{% endif %}
+    {% if !v.explanation.is_empty() %}<p class="note">{{ v.explanation }}</p>{% endif %}
+  </div>
+  {% endfor %}
+  {% endif %}
+
+  {% if questions.is_empty() %}
+  <h2>{{ crate::t("student.stop.read_h2") }}</h2>
+  <form method="post" action="{{ action }}" data-testid="student-study-read-form">
+    <input type="hidden" name="read" value="1">
+    <button type="submit" class="btn" data-testid="student-study-read">{{ crate::t("student.stop.read_it") }}</button>
+  </form>
+  {% else %}
+  <h2>{% if missed.is_empty() %}{{ crate::t("study.lesson.check_h2") }}{% else %}{{ crate::t("student.stop.try_again") }}{% endif %}</h2>
+  <p class="note">{% if questions.len() == 1 %}{{ crate::t("student.stop.intro_one") }}{% else %}{{ crate::t("student.stop.intro_two") }}{% endif %}</p>
+  <form method="post" action="{{ action }}" data-testid="student-study-form">
+    {% for q in questions %}
+    {% let qn = loop.index %}
+    <fieldset class="question" data-testid="student-study-question" data-qid="{{ q.question_id }}" data-kind="{{ q.kind }}">
+      <legend class="muted">{{ crate::t2("study.lesson.question_n_of", "n", qn, "total", questions.len()) }}</legend>
+      <input type="hidden" name="q{{ qn }}" value="{{ q.question_id }}">
+      <p class="prompt" lang="{{ course.term_lang }}"><b>{{ q.prompt }}</b></p>
+      {% if q.choice %}
+        {% for opt in q.options %}
+        <label class="option"><input type="radio" name="a{{ qn }}" value="{{ opt }}" required data-testid="student-study-option"> <span lang="{{ course.term_lang }}">{{ opt }}</span></label>
+        {% endfor %}
+      {% else %}
+        <label class="field" for="answer-{{ qn }}">{{ crate::t1("study.lesson.answer_to", "n", qn) }}</label>
+        <input type="text" id="answer-{{ qn }}" name="a{{ qn }}" maxlength="200" required autocomplete="off" autocapitalize="off" spellcheck="false" lang="{{ course.term_lang }}" placeholder="{{ q.placeholder }}" data-testid="student-study-answer">
+        {% if !q.answer_unit.is_empty() %}<p class="note">{{ q.answer_unit }}</p>{% endif %}
+        {% if !course.chars.is_empty() && !q.math %}<p class="note">{{ crate::t("student.stop.chars") }} {% for ch in course.chars %}<code>{{ ch }}</code> {% endfor %}</p>{% endif %}
+      {% endif %}
+      {% if !q.hints.is_empty() %}
+      <details class="hints"><summary>{{ crate::t("study.lesson.hint") }}</summary><ul>{% for h in q.hints %}<li>{{ h }}</li>{% endfor %}</ul></details>
+      {% endif %}
+    </fieldset>
+    {% endfor %}
+    <button type="submit" class="btn" data-testid="student-study-submit">{{ crate::t("study.lesson.check_answers") }}</button>
+  </form>
+  {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -36,6 +36,7 @@ pub mod password;
 pub mod student_frame;
 pub mod manage;
 pub mod students;
+pub mod today;
 pub mod mcp;
 pub mod oauth;
 pub mod tutor;
@@ -376,6 +377,11 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/students/{id}/password", post(students::set_password))
         .route("/students/{id}/delete", post(students::delete_one))
         .route("/students/{id}/courses", post(students::save_courses))
+        // Today's work (#223): a student's day in a subject and its stops
+        // (`/` itself is the list, from `pages::root`).
+        .route("/today/earlier", get(today::earlier))
+        .route("/today/day/{day}", get(today::day))
+        .route("/today/stop/{id}", get(today::stop).post(today::stop_post))
         // api
         .route("/api/answer", post(quiz::answer))
         .route("/api/lesson-check", post(quiz::lesson_check))

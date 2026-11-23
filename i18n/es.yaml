@@ -562,6 +562,76 @@ student:
     none: "Tu profesor todavía no te ha dado ninguna asignatura."
     pick: "Elige una asignatura para empezar."
     your_teacher: "Tu profesor"
+    left:
+      one: "Te queda {n} tarea hoy"
+      other: "Te quedan {n} tareas hoy"
+    done_today: "Terminado por hoy"
+  # Today's work and its stops (#223).
+  today:
+    title: "El trabajo de hoy"
+    date: "{weekday} {date}"
+    weekday:
+      sunday: "domingo"
+      monday: "lunes"
+      tuesday: "martes"
+      wednesday: "miércoles"
+      thursday: "jueves"
+      friday: "viernes"
+      saturday: "sábado"
+    done_of: "{done} de {total} hechas"
+    streak:
+      one: "{n} día seguido"
+      other: "{n} días seguidos"
+    kind:
+      study: "Estudiar"
+      review: "Repasar"
+      play: "Jugar"
+    word:
+      done: "Hecho"
+      next: "Siguiente"
+      after: "Después de {kind}"
+    get_started: "Empezar"
+    keep_going: "Seguir"
+    next_activity: "Ir a la siguiente actividad"
+    nothing: "No hay nada planeado para hoy. Tu profesor pondrá trabajo aquí."
+    all_done: "Has hecho todo lo de hoy. ¡Muy bien!"
+    all_done_day: "Has hecho todo lo de este día."
+    done_notice: "Hecho: {kind}, {lessons}."
+    earlier_link:
+      one: "Días anteriores · queda {n}"
+      other: "Días anteriores · quedan {n}"
+    earlier_title: "Días anteriores"
+    earlier_none: "No hay días anteriores con trabajo."
+    day_title: "Trabajo del {date}"
+    left:
+      one: "Queda {n}"
+      other: "Quedan {n}"
+    back_today: "Volver al trabajo de hoy"
+    times:
+      one: "{n} vez"
+      other: "{n} veces"
+    game:
+      matching: "Parejas de palabras"
+      flashcards: "Tarjetas"
+  stop:
+    back: "Parar y volver a hoy"
+    lesson_gone: "Esta lección ya no está en la asignatura"
+    missed: "Casi. Vuelve a leer la lección y responde a las preguntas nuevas de abajo."
+    right: "Correcto."
+    your_answer: "Tu respuesta: {answer}."
+    the_answer: "La respuesta: {answer}."
+    read_h2: "¿Has terminado de leer?"
+    read_it: "Ya lo he leído"
+    try_again: "Dos preguntas nuevas"
+    intro_one: "Respóndela para terminar esta actividad."
+    intro_two: "Responde a las dos para terminar esta actividad."
+    chars: "Letras que puedes necesitar:"
+    coming: "Esta actividad tendrá pronto su propia página. Por ahora, pulsa el botón."
+    times_left:
+      one: "Falta {n} vez"
+      other: "Faltan {n} veces"
+    played: "Lo he jugado una vez"
+    finish: "Terminar"
 
 profile:
   title: Perfil

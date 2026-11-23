@@ -6,6 +6,18 @@ numbers work is in the README, "Versions".
 
 ## Unreleased
 
+- **Today's work for students.** A student who opens a subject now sees
+  that day's assigned work as a numbered list with one button (**Get
+  started**, **Keep going**, **Go to the next activity**), the date, how
+  many are done and the days in a row; with nothing assigned the page says
+  so. A Study activity shows the lesson and asks two of its questions as
+  one plain form; both right finishes it, a miss explains and asks two
+  new ones. It works with JavaScript off. Review and Play activities are a
+  single button for now. **Earlier days · N left** lets a student finish
+  an earlier day. My subjects says how much of today is left. Students no
+  longer open Lessons, Practice, Listening, the Map, History, Mistakes or
+  the Guide: they read lessons through their day's work.
+
 - **Daily work: the data, no page yet** (schema v12). The tables and rules
   for a teacher's day plans (a study, a review or a play over lessons of a
   course given to students, done in order) come in this release; the pages

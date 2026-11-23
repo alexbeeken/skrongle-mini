@@ -12,7 +12,7 @@
   {% else %}
   <p class="note">{{ crate::t("student.subjects.pick") }}</p>
   {% for s in subjects %}
-  <a class="subject" href="{{ crate::url("/courses/open/") }}{{ s.id }}" data-testid="student-subject" data-course="{{ s.id }}"><span class="subject-title" data-testid="student-subject-title">{{ s.title }}</span><span class="subject-teacher" data-testid="student-subject-teacher">{{ s.teacher }}</span></a>
+  <a class="subject" href="{{ crate::url("/courses/open/") }}{{ s.id }}" data-testid="student-subject" data-course="{{ s.id }}"><span class="subject-title" data-testid="student-subject-title">{{ s.title }}</span><span class="subject-teacher" data-testid="student-subject-teacher">{{ s.teacher }}</span>{% if !s.today.is_empty() %}<span class="subject-teacher" data-testid="student-subject-today">{{ s.today }}</span>{% endif %}</a>
   {% endfor %}
   {% endif %}
 </div>

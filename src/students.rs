@@ -475,7 +475,37 @@ pub fn sign_in_key(login: &str) -> String {
 /// account deletion of its own.) `path` is the app path, without the base
 /// path. The router's `auth::student_gate` layer checks it before any
 /// handler, so a new route needs no check of its own: add its path here.
+///
+/// Daily work (#223): a student reads a lesson only through a Study stop
+/// of its day (`/today/stop/{id}`), so Study mode's own pages are closed
+/// too (`STUDY`): the lesson list and pages, Practice, Listening, the Map,
+/// History, Mistakes, the Guide, the word list and its lookups. The
+/// vocabulary list `/vocabulary` is refused as an exact path, so
+/// Flashcards (`/vocabulary/study`, `/api/vocabulary/review`) stay open,
+/// as do Play and Sprint.
 pub fn refused(path: &str) -> bool {
+    const STUDY: &[&str] = &[
+        "/study",
+        "/k",
+        "/lessons",
+        "/api/lessons",
+        "/api/lesson-check",
+        "/map",
+        "/history",
+        "/mistakes",
+        "/practice",
+        "/api/practice",
+        "/listening",
+        "/api/listening",
+        "/guide",
+        "/api/guide",
+        "/lookup",
+        "/api/vocabulary/due",
+    ];
+    let under = |p: &&str| path == *p || path.strip_prefix(*p).is_some_and(|rest| rest.starts_with('/'));
+    if STUDY.iter().any(under) || matches!(path, "/vocabulary" | "/vocabulary/") {
+        return true;
+    }
     const REFUSED: &[&str] = &[
         "/courses/new",
         "/courses/generate",

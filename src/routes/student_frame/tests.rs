@@ -17,8 +17,21 @@ const PASSWORD: &str = "right-password";
 /// empty icon that keeps the browser from asking for `/favicon.ico`. A test
 /// of a page in the frame calls this on what it fetched.
 pub(crate) fn assert_light(path: &str, html: &str) {
+    light(path, html, false)
+}
+
+/// [`assert_light`] for a page that shows a lesson's text (a Study stop,
+/// #223): a course's own pictures (`<img`) are allowed there, on purpose.
+pub(crate) fn assert_light_with_pictures(path: &str, html: &str) {
+    light(path, html, true)
+}
+
+fn light(path: &str, html: &str, pictures: bool) {
     let low = html.to_ascii_lowercase();
     for bad in ["<script", "<style", " style=", "<img", "<svg", "<iframe", "<object", "<embed", "<video", "<audio", "@font-face", ".woff", ".ttf", ".otf", "manifest"] {
+        if pictures && bad == "<img" {
+            continue;
+        }
         assert!(!low.contains(bad), "{path} has `{bad}`:\n{html}");
     }
     let links: Vec<&str> = low

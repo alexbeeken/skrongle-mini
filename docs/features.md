@@ -2324,17 +2324,19 @@ the login page are served in a light frame of their own (#219,
 - **Which pages are in it**: `routes::student_frame::FRAME_PAGES` lists
   them (today `/login`, `/password` and My subjects, `/courses?pick=1`), and
   its test opens each as a student and fails on a script, a second
-  stylesheet, a font or a picture. Until #223 and #224 move or close them, a
-  student still gets the app's normal pages in the normal layout, with their
-  scripts: a subject's home page, lessons, Study, Play, Sprint, Vocabulary, Profile settings and the
-  error pages.
+  stylesheet, a font or a picture. [Today's work](#todays-work) and its
+  stops are in the frame too (their tests check each page the same way; a
+  Study stop may show the course's own pictures). Until #224 moves or closes
+  them, a student still gets these normal pages in the normal layout, with
+  their scripts: Play, Sprint, Flashcards, Profile settings and the error
+  pages.
 
 ## Daily work
 
 A teacher plans what the class does in one of its courses on one day, and
 each student works through it in order (#221; port of the parent's daily
-work, made smaller). This release has the data and the rules only, in
-`src/daily.rs`: no page shows them yet. The teacher's **Plan** tab (#222),
+work, made smaller). The data and the rules are in `src/daily.rs`; a
+student's side is [Today's work](#todays-work). The teacher's **Plan** tab (#222),
 the student's day and its stops (#223, #224) and the progress table (#225)
 build on it. There is no switch: an account that holds students has it.
 
@@ -2423,6 +2425,79 @@ student, `daily::left_today` says per subject how much of today is left.
 activities and progress; so a student can go back 90 days, and a course
 holds at most 119 plans (`caps::DAILY_PLANS_PER_COURSE`). The tables are in
 the [data inventory](data-inventory).
+
+## Today's work
+
+A student's `/` in a subject is that subject's day (#223,
+`src/routes/today.rs`, `templates/student_today.html`), in
+[the student frame](#the-student-frame): no script, and every step is a
+plain link or form post, so a classroom's old computer can do a whole day
+with JavaScript off. Every rule is `daily`'s ([Daily work](#daily-work));
+the pages ask it and draw the answer.
+
+- **The list** (`student-today`): *Today's work*, then one line with the
+  date, how many are done and the days in a row (the course's streak, as
+  on the home page; no XP, no Cash), then one row per activity of today's
+  assigned plan (`student-today-row[data-state]`: `done`, `next` or
+  `locked`): its number, its kind (*Study*, *Review*, *Play*), its lessons
+  and one word: **Done**, **Next** or what it comes after (*After Study*).
+  A play also says its games and times through. The next row is
+  highlighted. No row is a link.
+- **One button** (`student-today-go`) opens the next stop: **Get started**
+  (nothing done yet), **Keep going** (the next stop is started) or **Go to
+  the next activity**. With nothing assigned today the page says so
+  (`student-today-nothing`) and has no button; with every activity done it
+  says so (`student-today-all-done`) and has none either.
+- **A stop** is `/today/stop/{id}`. It opens only when it is in an assigned
+  plan of the active subject for today or an earlier day and is the
+  student's next one there (`daily::stops`); opening it starts it
+  (`daily::start`). Anything else (locked, done, another subject's, a later
+  day's, not assigned) goes back to the list. Finishing one goes back to
+  the list, which says so: *Done: Study, Lesson a.* (`student-today-done`).
+  A normal account has no stop pages.
+- **A Study stop** (`today/study.rs`, `templates/student_study.html`): the
+  lesson's text as the lesson page renders it (its words, conjugation
+  table and conversations as plain tables; a course's own pictures show),
+  then two of its questions as one form, **Check my answers**. Only
+  questions a plain form can answer are asked: `multiple-choice`,
+  `true-false` (radio buttons), `fill-in-blank`, `numeric` and `expression`
+  (a text box), without music; recently right ones are asked last, as in
+  the reading check. Each answer is graded and recorded as the reading
+  check's are (`quiz::grade_and_record`: mastery and history move the
+  same). Both right: the lesson is seen (`progress::mark_seen`, as
+  `POST /api/lesson-check` marks it), the stop is studied
+  (`daily::mark_studied`) and finished. A miss: the page says what each
+  answer should have been, with its explanation, and asks two fresh
+  questions. A lesson with no such question has one **I've read it**
+  button, which marks it seen and finishes the stop. The Guide is not
+  used.
+- **A Review or Play stop** is, until #224 builds them, the stop's kind
+  and lessons and one button (`student-stop-finish`): a review is marked
+  reviewed and finished; a play that asks for rounds counts one time
+  through per click and says how many are left, then finishes.
+- **Earlier days.** When an earlier assigned day has work left, the list
+  has **Earlier days · 3 left** (`student-today-earlier`), which opens
+  `/today/earlier`: every earlier assigned day, newest first, with what is
+  left (`student-earlier-day`). Each opens `/today/day/{day}`, the same
+  list for that day (no button when it is all done); its stops come back
+  to it.
+- **My subjects** says per subject how much of today is left
+  (`student-subject-today`: *2 things left today*, *Done for today*;
+  nothing when nothing is assigned, `daily::left_today`).
+- **Study pages are closed.** A student reads a lesson only through a
+  Study stop, so these answer a student 404 (`students::refused`): the
+  lessons and a lesson's page (`/lessons`, `/study`, `/api/lessons`,
+  `/api/lesson-check`), Practice, Listening, the Map, History, Mistakes,
+  the Guide (`/guide`, `/api/guide`), the word list (`/vocabulary` itself
+  and `/lookup`, `/api/vocabulary/due`). Flashcards
+  (`/vocabulary/study`), Play and Sprint stay open (#224 uses Play's
+  games).
+- **Dev mode**: `/dev/student/today?day=-1` gives the signed-in teacher's
+  first given course (by title) the recommended day on the day that many
+  days from today (`day=0` is today) and assigns it, as if it were that
+  day, so earlier days can be tried without waiting; `&course=<id>` picks
+  another given course, `?format=json` says
+  `{course_id, day, activities, assigned}`.
 
 ## Two-factor sign-in
 
