@@ -12,6 +12,7 @@ mod clock;
 mod conjugation;
 mod content;
 mod courses;
+mod daily;
 mod db;
 #[cfg(feature = "dev")]
 mod dev;

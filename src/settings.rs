@@ -1,7 +1,8 @@
 //! Server-wide settings the owner changes on the Manage Users page (table
 //! `settings`, one row per name, #25): [`AI_OFF`], the switch that hides
-//! every AI feature for every account, and [`OLLAMA_MODEL`]. A name with no
-//! row has its default.
+//! every AI feature for every account, and [`OLLAMA_MODEL`]; also the class
+//! clock, [`CLASS_TZ`], which a teacher sets from the Plan page (mini #221).
+//! A name with no row has its default.
 
 use rusqlite::{params, Connection, OptionalExtension};
 
@@ -24,6 +25,15 @@ pub const OLLAMA_MODEL: &str = "ollama_model";
 /// id with no preset (a deleted saved preset): Student. Read it with
 /// [`default_preset`], in the `Db::call` that inserts the account.
 pub const DEFAULT_PRESET: &str = "default_preset";
+
+/// The class clock (mini #221, daily work): the box's one time zone, as an
+/// offset from UTC in half hours (`-24` to `28`, 12 hours behind to 14
+/// ahead). "Today" for every plan, teacher and student is the date on this
+/// clock (`daily::today`). No row: not set yet, and the clock is UTC's.
+pub const CLASS_TZ: &str = "class_tz";
+
+/// The class clock's range in half hours: 12 hours behind UTC to 14 ahead.
+pub const CLASS_TZ_RANGE: std::ops::RangeInclusive<i64> = -24..=28;
 
 /// The stored value of a setting; `None` when it was never set.
 pub fn get(conn: &Connection, name: &str) -> rusqlite::Result<Option<String>> {
@@ -79,6 +89,35 @@ pub fn set_default_preset(conn: &Connection, id: i64) -> rusqlite::Result<()> {
     set(conn, DEFAULT_PRESET, &id.to_string())
 }
 
+/// The class clock in half hours east of UTC; `None` until it is set. A
+/// stored value outside [`CLASS_TZ_RANGE`] reads as not set.
+pub fn class_tz(conn: &Connection) -> rusqlite::Result<Option<i64>> {
+    Ok(get(conn, CLASS_TZ)?.and_then(|v| v.trim().parse::<i64>().ok()).filter(|h| CLASS_TZ_RANGE.contains(h)))
+}
+
+/// Has the class clock been set (by a teacher's first visit to a Plan page)?
+#[cfg_attr(not(test), allow(dead_code))] // the Plan page (#222) asks
+pub fn class_tz_set(conn: &Connection) -> rusqlite::Result<bool> {
+    Ok(class_tz(conn)?.is_some())
+}
+
+/// Set the class clock, in half hours east of UTC. False, with nothing
+/// stored, outside [`CLASS_TZ_RANGE`].
+#[cfg_attr(not(test), allow(dead_code))] // the Plan page (#222) sets it
+pub fn set_class_tz(conn: &Connection, half_hours: i64) -> rusqlite::Result<bool> {
+    if !CLASS_TZ_RANGE.contains(&half_hours) {
+        return Ok(false);
+    }
+    set(conn, CLASS_TZ, &half_hours.to_string())?;
+    Ok(true)
+}
+
+/// The class clock in seconds east of UTC, as `earnings::day_of` takes it:
+/// 0 (UTC) until it is set.
+pub fn class_tz_secs(conn: &Connection) -> rusqlite::Result<i64> {
+    Ok(class_tz(conn)?.unwrap_or(0) * 1800)
+}
+
 /// [`ai_off`] as SQL, for the session query (`auth::session_sql`); the
 /// session cache watches `settings`, so flipping the switch reaches every
 /// signed-in account at its next request.
@@ -116,6 +155,29 @@ mod tests {
             assert!(apps_on(c)? && sql(c)?);
             set_apps_on(c, false)?;
             assert!(!apps_on(c)? && !sql(c)?);
+            Ok(())
+        })
+        .unwrap();
+    }
+
+    #[test]
+    fn the_class_clock_is_utc_until_set_and_takes_half_hours() {
+        let db = crate::db::Db::open_in_memory().unwrap();
+        db.with(|c| {
+            assert_eq!(class_tz(c)?, None);
+            assert!(!class_tz_set(c)?);
+            assert_eq!(class_tz_secs(c)?, 0, "UTC until set");
+            for bad in [-25, 29, 100] {
+                assert!(!set_class_tz(c, bad)?, "{bad}");
+            }
+            assert!(!class_tz_set(c)?, "nothing stored");
+            assert!(set_class_tz(c, 11)?, "India, 5 hours 30");
+            assert_eq!((class_tz(c)?, class_tz_secs(c)?), (Some(11), 19_800));
+            assert!(class_tz_set(c)?);
+            assert!(set_class_tz(c, -24)? && set_class_tz(c, 28)?, "both ends");
+            assert_eq!(class_tz_secs(c)?, 14 * 3600);
+            set(c, CLASS_TZ, "junk")?;
+            assert_eq!(class_tz(c)?, None, "junk reads as not set");
             Ok(())
         })
         .unwrap();

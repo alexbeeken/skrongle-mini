@@ -48,6 +48,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 - The Students page (#218): `routes/students.rs` (`/students`: the list, adding by pasting names, the sign-in sheet shown once, a student's page, the confirms; route tests in `routes/students/tests.rs`), templates `students.html`, `students_add.html`, `students_sheet.html`, `students_one.html`, `students_confirm.html`, and `static/students.css` (the tables and the print sheet); the class's progress for the list in `students::progress`.
 - The student frame (#219): `templates/student_base.html` + `static/student.css`, the light layout of a student's own pages and of the sign-in page (no script, one stylesheet, no font; works with JavaScript off on an old browser); `routes/student_frame.rs` (`FRAME_PAGES`, every route in the frame, which its test checks page by page, and **Change my password** at `/password`, `templates/student_password.html`).
 - Giving a course (#220): `students.rs` (`give`, `take_away`, `given`, `givable`, `subjects`: a given course is a `course_shares` row with `given = 1`, left out of the Share dialog by `share::shares_of`); the Students list's **Courses** column and **Give course** (`POST /students/give`) and a student's courses (`POST /students/{id}/courses`) in `routes/students.rs`; a student's **My subjects** (its `/courses`, `routes::student_frame::subjects`, `templates/student_subjects.html`), whose cards open a subject with `GET /courses/open/{id}` (`courses::open_link`).
+- Daily work (#221): `daily.rs` (plans of a course for a day, their activities and each student's progress: the rules, the class clock's `today`, the queries the Plan tab, the student's day and the progress table read; no page yet), the class clock in `settings.rs` (`CLASS_TZ`), `caps::DAILY_KEEP_DAYS` (old plans deleted by the hourly housekeeping, `jobs.rs`); tests and the helpers that build a class with a plan in `daily/tests.rs`.
 - Sign-in: `auth.rs` (sessions, CurrentUser, Project), `auth/cache.rs` (the signed-in users kept in memory by session, #37), `auth/api.rs` (connected apps, #167: grants, hashed bearer tokens, the `Scope`s, the `ApiUser` extractor), `routes/auth.rs`, `routes/auth/code.rs` (the two-factor step), `proxy_auth.rs` (proxy header), `signup.rs` (who may register), `urlenc.rs` (percent-encoding for the redirects they build).
 - Two-factor: `two_factor.rs`, `totp.rs`.
 - Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`; its Connected apps section (#167): `routes/profile/apps.rs`.
@@ -100,7 +101,7 @@ src/
   two_factor.rs  two-factor sign-in: on or off, the authenticator app's enrolment, sign-in challenges, the proof for turning it off (tables totp_keys, two_factor_challenges)
   profile.rs     user profiles: name/e-mail validation, profile persistence
   secrets.rs     the server's AI API keys (#25, table server_api_keys; the owner's, set on /manage, used by every account): master secret, ChaCha20-Poly1305 sealing
-  settings.rs    server-wide settings the owner changes on /manage (table settings, #25): ai_off, the switch that hides every AI feature for every account (read into CurrentUser::ai_off by the session query)
+  settings.rs    server-wide settings the owner changes on /manage (table settings, #25): ai_off, the switch that hides every AI feature for every account (read into CurrentUser::ai_off by the session query); class_tz, the class clock of daily work (#221)
   prices.rs      the price table behind the Generate dialog's cost estimate (SKRONGLE_AI_PRICES)
   server.rs      the listener: header and body timeouts, a connection cap (axum::serve plus limits)
   security.rs    security headers and the cross-site (CSRF) check on every request, client address, rate limits
@@ -114,6 +115,7 @@ src/
   progress.rs    lesson passes shared by every mode: the rule (seen + a run of >= 70 %), the RULES text for tutors and agents, table lesson_passes
   quiz.rs        adaptive question selection, answer normalisation/checking, tiny PRNG
   problems.rs    what the editor and the file page say when a course file is refused: kind, lesson, field, line, message, fix hint (every ContentError and arrange.rs refusal)
+  daily.rs       daily work (#221): a teacher's plan of a course for one day (study, review, play), each student's way through it in order (tables daily_plans, daily_activities, daily_done), "today" on the class clock (settings class_tz)
   students.rs    student accounts (#217): made by a teacher with Hold students (or an owner), a username and a password and no address; check and create (all or none, within caps::student_limit), find, rename, set_names, progress (lessons passed and last studied for the Students page, #218), set_password (ends its sessions), delete, suggest_username, make_password; `refused`, the paths a student gets a 404 for (auth::student_gate, a router layer)
   perms.rs       per-account permissions (#137, #138): Perm (eight, one bit each), Perms (the set in users.perms, normalised: a permission whose needed one is off is off), the presets (table permission_presets; Student and Teacher built in), set_custom / apply_preset. Asked through CurrentUser::can / require / require_api; an owner may do everything
   owner.rs       what the owner does to an account with no message sent (#635): a temporary password (users.must_change_password), two-factor off, make an owner; the binary's commands (owner-link, reset-password, disable-2fa, make-owner, help)
@@ -231,7 +233,7 @@ or when the next row is due, at least once a minute, and reaches SQLite
 through `Db::with`. The first user is the hourly housekeeping, one kind
 (`housekeeping`, #45) that runs every purge as a step in turn (sessions, the
 game, AI job and tutor maps, rate limits, retention,
-links, old job rows, `PRAGMA optimize` for the planner's statistics, then the WAL checkpoint); each step logs its
+links, old job rows, daily-work plans older than `caps::DAILY_KEEP_DAYS` (`daily::prune`, #221), `PRAGMA optimize` for the planner's statistics, then the WAL checkpoint); each step logs its
 count, a failing step is logged and the next still runs. At
 boot it gets a row due now if it has none, so a server restarted more
 often than hourly still cleans up. AI generation still has its own thread. `/dev/jobs` lists the job rows in dev mode.
@@ -380,6 +382,7 @@ oauth_codes    (id, code_hash UNIQUE, client_id, user_id, grant_id, redirect_uri
                 -- cascades from users and api_grants; expired rows purged with the sessions
                 -- server-wide settings (src/settings.rs): 'ai_off' = '1' hides every AI feature for
                 -- every account (no row: shown). The session query reads it, so auth/cache.rs watches it
+                -- 'class_tz': the class clock of daily work (#221), half hours east of UTC, -24 to 28; no row: UTC
 server_api_keys (provider PRIMARY KEY, ciphertext, set_at)  WITHOUT ROWID
                 -- the server's AI API keys, the owner's, set on /manage; provider is secrets::Provider::id;
                 -- ciphertext is sealed by src/secrets.rs with the provider as associated data
@@ -446,6 +449,17 @@ game_activity  (id, user_id, course_id, game, board, label, duration_ms, total, 
                 -- every finished game round or Sprint session
 game_rounds    (user_id, course_id, game, rounds)  PRIMARY KEY (user_id, course_id, game)
                 -- rounds finished per game, moved by games::record_activity_at: "rounds played" reads this
+daily_plans    (id, course_id, day, assigned_at, updated_at)  UNIQUE (course_id, day)
+                -- daily work (v12, #221, src/daily.rs): a teacher's plan of one course for one day (days since
+                -- 1970 on the class clock); assigned_at NULL = a draft; cascades from courses; plans older than
+                -- caps::DAILY_KEEP_DAYS are deleted hourly (daily::prune)
+daily_activities (id, plan_id, position, kind, lessons, games, rounds)
+                -- a plan's activities in order (at most daily::MAX_ACTIVITIES): kind study | review | play,
+                -- lessons and games JSON arrays of ids, rounds a play's times through (0 = no limit). AUTOINCREMENT:
+                -- an id is a student's stop and is never reused
+daily_done     (activity_id, user_id, started_at, mark, plays, done_at)  PRIMARY KEY (activity_id, user_id)
+                -- a student's progress on one activity: mark daily::STUDIED / REVIEWED once the kind's work is
+                -- done, plays a play's games finished, done_at when finished; cascades from both
 ```
 
 The schema is `src/db/migrations/v001_schema.sql` plus the later
@@ -458,7 +472,8 @@ migrations (`v002_no_skc.sql` drops `motivator_purchases` and turns a saved
 `api_tokens.used_at`, so a reused refresh token revokes its grant; `v009_refresh_family.sql` drops it again for
 `api_grants.refresh_family_hash`, so any earlier refresh token revokes its grant; `v010_students.sql` adds
 `users.username` and `users.teacher_id` for student accounts; `v011_given_courses.sql` adds
-`course_shares.given`, a course a teacher gave a student), which `src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
+`course_shares.given`, a course a teacher gave a student; `v012_daily_work.sql` adds daily work's
+`daily_plans`, `daily_activities` and `daily_done`), which `src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
 how many have run, and a later change appends its own entry with a
 `.down.sql` beside it that takes it back (`db::migrate_to`, behind `skrongle migrate <schema-version>`;
 `db::tests::every_down_restores_the_schema_before_it` holds each one to the schema before it). A database

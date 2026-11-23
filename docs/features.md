@@ -2329,6 +2329,101 @@ the login page are served in a light frame of their own (#219,
   scripts: a subject's home page, lessons, Study, Play, Sprint, Vocabulary, Profile settings and the
   error pages.
 
+## Daily work
+
+A teacher plans what the class does in one of its courses on one day, and
+each student works through it in order (#221; port of the parent's daily
+work, made smaller). This release has the data and the rules only, in
+`src/daily.rs`: no page shows them yet. The teacher's **Plan** tab (#222),
+the student's day and its stops (#223, #224) and the progress table (#225)
+build on it. There is no switch: an account that holds students has it.
+
+**The class.** The students of a plan are the student accounts the
+course's owner gave the course to ([Giving a course](#giving-a-course-and-my-subjects),
+`daily::students_of`). A student who is not given the course, the teacher
+and every other account see nothing of it.
+
+**A plan.** One course, one day, an ordered list of up to 20 activities
+(`daily::MAX_ACTIVITIES`). It is a draft until the teacher assigns it;
+students see only assigned plans. Clearing a day deletes its plan, its
+activities and everyone's progress on them.
+
+| Kind | Lessons | Also |
+|---|---|---|
+| `study` | exactly one | |
+| `review` | one or more | |
+| `play` | one or more | its games, Word Match (a lesson with at least 2 words) and Flashcards (a lesson with words), and its rounds: the times through, 0 (no limit) to 5 |
+
+There are no custom games and no goals. Lessons are kept in the course's
+order, without duplicates; a play loses a game its lessons no longer allow.
+
+**The next lesson.** A new activity takes the first lesson, in the course's
+order, that no study of this course on that day or an earlier one has
+(`daily::fresh_lesson`); when every lesson has had one, the first lesson
+again. The **recommended day** fills an empty day with a study, a review
+and a play over that lesson.
+
+**Plan my week** (`daily::auto_week`, one transaction): of the 7 days from
+today, each Monday to Friday with no plan at all gets the recommended day
+and is assigned, in date order, so each takes the lesson after the one
+before. It stops when every lesson has had a study; a day with a plan, even
+an empty draft, is left alone.
+
+**28 days ahead.** A plan can be made or changed from today up to 28 days
+after it (`daily::PLAN_AHEAD_DAYS`, `daily::plannable`). Every change to a
+day before today or after the 28th is refused, with nothing changed.
+
+**The class clock.** "Today" is the box's date in one stored time zone, the
+same for every teacher and every student: `settings::class_tz`, an offset
+from UTC in half hours (12 hours behind to 14 ahead). Until a teacher's
+first visit to a Plan page sets it from the browser (`daily::half_hours_of`
+rounds the browser's offset to the nearest half hour), the clock is UTC's.
+It is a fixed offset, so it is changed by hand when the clocks change. It
+is apart from the learner's own day: a streak, the daily goal and "words
+due" go by each browser's `tz` cookie (`CurrentUser::tz`), the class day
+never does.
+
+**In order.** A student's next activity is the first one of the day's
+assigned plan they have not finished; everything after it is locked. They
+start it and finish it; a finished one stays finished. A plan of a later
+day cannot be started before the class clock reaches it. What finishes each
+kind:
+
+- a **study** once its lesson was read through the stop
+  (`daily::mark_studied`);
+- a **review** once its Review round was finished (`daily::mark_reviewed`;
+  a review with nothing to answer is marked by its page at once);
+- a **play** after its rounds (`daily::add_play` counts one finished game).
+  A play with rounds that is not the plan's last activity and has a game
+  switched on must be played that many times, and its count stops there;
+  a play with no rounds, no game, or last in the plan can be finished at
+  once, and its count keeps going.
+
+**Changing an assigned plan** keeps progress per activity: moving an
+activity, or changing its lessons, keeps every student's progress on it.
+Removing an activity removes everyone's progress on it.
+
+**Earlier days.** A student can finish what is left of any earlier assigned
+day, in order, with no penalty (`daily::earlier_days`,
+`daily::unfinished_before`). A plan never assigned is not listed.
+
+**A lesson's plans.** `daily::lesson_days` lists every day from today on
+whose plan uses a lesson; `daily::remove_lesson` takes it out of all of
+them (an activity whose only lesson it is goes, with its progress). Days
+before today are never touched.
+
+**What the teacher sees.** For a week (`daily::week`), each day says nothing
+planned, not assigned yet, how many activities or, for a day gone by, how
+many students finished everything. For one day (`daily::progress`), each
+student's state on each activity: done, doing now or not started. For a
+student, `daily::left_today` says per subject how much of today is left.
+
+**How long it is kept.** Plans more than 90 days old
+(`caps::DAILY_KEEP_DAYS`) are deleted by the hourly housekeeping, with their
+activities and progress; so a student can go back 90 days, and a course
+holds at most 119 plans (`caps::DAILY_PLANS_PER_COURSE`). The tables are in
+the [data inventory](data-inventory).
+
 ## Two-factor sign-in
 
 After the password an account can be asked for

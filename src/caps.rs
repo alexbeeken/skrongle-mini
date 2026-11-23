@@ -174,6 +174,21 @@ pub const MAX_OAUTH_CLIENTS: usize = 100;
 /// lives ten minutes. Past it Allow says the server is busy.
 pub const MAX_OAUTH_CODES: usize = 200;
 
+/// Days a daily-work plan is kept after its day (mini #221, `daily::prune`,
+/// hourly): about a school term. A student can go back to finish an earlier
+/// day that far, and the teacher's progress table reaches back as far.
+pub const DAILY_KEEP_DAYS: i64 = 90;
+
+/// Plans one course holds at most: the [`DAILY_KEEP_DAYS`] kept, today, and
+/// the `daily::PLAN_AHEAD_DAYS` (28) a plan may be made ahead: 119. With
+/// `daily::MAX_ACTIVITIES` (20) each, a course holds at most 2,380
+/// activities, and `daily_done` one row per activity and student of the
+/// class (at most the student limit): 119,000 rows for a course given to
+/// 50 students, about 6 MB. A class doing three activities a day keeps
+/// about 18,000.
+#[cfg_attr(not(test), allow(dead_code))] // the tests hold the bound to it
+pub const DAILY_PLANS_PER_COURSE: i64 = DAILY_KEEP_DAYS + 1 + crate::daily::PLAN_AHEAD_DAYS;
+
 #[cfg(test)]
 mod tests {
     use super::*;

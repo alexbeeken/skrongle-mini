@@ -35,6 +35,9 @@ pub(crate) const USER_TABLES: &[(&str, &str)] = &[
     ("api_grants", "user_id = ?1"),
     ("api_tokens", "grant_id IN (SELECT id FROM api_grants WHERE user_id = ?1)"),
     ("oauth_codes", "user_id = ?1"),
+    ("daily_plans", "course_id IN (SELECT id FROM courses WHERE owner_id = ?1)"),
+    ("daily_activities", "plan_id IN (SELECT p.id FROM daily_plans p JOIN courses c ON c.id = p.course_id WHERE c.owner_id = ?1)"),
+    ("daily_done", "user_id = ?1 OR activity_id IN (SELECT a.id FROM daily_activities a JOIN daily_plans p ON p.id = a.plan_id JOIN courses c ON c.id = p.course_id WHERE c.owner_id = ?1)"),
 ];
 
 /// Tables that hold no learner's rows, only the server's:
