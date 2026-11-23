@@ -195,6 +195,99 @@ pub async fn export(State(state): State<Arc<AppState>>, user: CurrentUser, Path(
         .into_response())
 }
 
+/// The most text a course file added from a download may hold (2 MiB): the
+/// page states it, and the route's body limit is three times that, for the
+/// escaping a form adds.
+pub const MAX_IMPORT_BYTES: usize = 2 * 1024 * 1024;
+
+#[derive(Deserialize)]
+pub struct ImportForm {
+    /// The downloaded file's text: pasted, or put in by the page's script from the chosen file.
+    #[serde(default)]
+    pub content: String,
+}
+
+/// The files of a download (`export`), or why it is not one: the words the page shows.
+fn import_files(text: &str) -> Result<Vec<CourseFile>, String> {
+    let text = text.trim();
+    if text.is_empty() {
+        return Err(crate::t("courses.import.empty"));
+    }
+    if text.len() > MAX_IMPORT_BYTES {
+        return Err(crate::t1("courses.import.too_big", "max", courses::megabytes(MAX_IMPORT_BYTES)));
+    }
+    let value: serde_json::Value =
+        serde_json::from_str(text).map_err(|e| crate::t1("courses.import.not_json", "why", crate::problems::Problem::from_serde(&e, Some(text)).text))?;
+    let serde_json::Value::Object(map) = value else {
+        return Err(crate::t("courses.import.not_object"));
+    };
+    match map.get("version").and_then(|v| v.as_str()) {
+        Some(EXPORT_VERSION) => {}
+        Some(other) => return Err(crate::t2("courses.import.version", "version", other, "known", EXPORT_VERSION)),
+        None => return Err(crate::t("courses.import.no_version")),
+    }
+    if map.len() - 1 > courses::MAX_FILES {
+        return Err(crate::problems::Problem::refused(crate::t1("courses.editor.too_many_files", "max", courses::MAX_FILES)).text);
+    }
+    let mut files = Vec::with_capacity(map.len());
+    for (path, v) in map {
+        if path == "version" {
+            continue;
+        }
+        let content = match (&v, crate::content::is_picture_path(&path)) {
+            (serde_json::Value::String(s), true) => s.clone(),
+            (_, true) => String::new(), // check_file says it is not a picture
+            _ => serde_json::to_string_pretty(&v).map_err(|e| e.to_string())? + "\n",
+        };
+        check_file(&path, &content)?;
+        files.push(CourseFile { path, content });
+    }
+    Ok(files)
+}
+
+/// POST /courses/import: "Add a course from a file". A new private course
+/// of the account's own from what **Download all files** made (`export`).
+/// Every file is checked as the editor checks a file, then the whole course
+/// as a save checks it; if it would not load nothing is made and the page
+/// says why. The title is the file's; the id is new, as with Copy. Needs
+/// Create courses, like Copy. The text is a form field, not a multipart
+/// upload: the page puts the chosen file's text in it (or the owner
+/// pastes it), so it works without script and adds no dependency.
+pub async fn import(State(state): State<Arc<AppState>>, user: CurrentUser, Form(form): Form<ImportForm>) -> Result<Response, AppError> {
+    user.require(crate::perms::Perm::CreateCourses)?;
+    let files = match import_files(&form.content) {
+        Ok(f) => f,
+        Err(e) => return picker_page(&state, user, Some(e), None).await,
+    };
+    let title = files
+        .iter()
+        .find(|f| f.path == MANIFEST_FILE)
+        .and_then(|f| serde_json::from_str::<serde_json::Value>(&f.content).ok())
+        .and_then(|m| m.get("title").and_then(|t| t.as_str()).map(courses::short_title))
+        .filter(|t| !t.is_empty())
+        .unwrap_or_else(courses::untitled);
+    // The whole course, as a save checks it (under a trial id, as a copy is re-identified).
+    let trial = courses::new_course_id(&title);
+    let made = match courses::copied_files(&files, &trial, &title) {
+        Ok(f) => f,
+        Err(_) => return picker_page(&state, user, Some(crate::t("courses.import.no_manifest")), None).await,
+    };
+    if let courses::Checked::Failed(msg) = courses::check_off_lock(trial, made).await {
+        return picker_page(&state, user, Some(crate::t1("courses.import.not_loaded", "why", msg)), None).await;
+    }
+    if too_many_writes(&state, &user).is_some() {
+        return Ok(Redirect::to(&crate::url("/courses?notice=too-many-writes")).into_response());
+    }
+    match store_copy(&state, user.id, &files, &title).await? {
+        Ok(new_id) => {
+            tracing::info!("user {} added course {new_id} from a file", user.id);
+            Ok(Redirect::to(&crate::url(&format!("/courses/{new_id}"))).into_response())
+        }
+        Err(no) if no.key.starts_with("course-count-") => Ok(Redirect::to(&crate::url(&format!("/courses?notice={}", no.key))).into_response()),
+        Err(no) => picker_page(&state, user, Some(no.text), None).await,
+    }
+}
+
 #[derive(Deserialize)]
 pub struct UploadFile {
     pub path: String,

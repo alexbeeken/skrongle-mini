@@ -17,6 +17,11 @@ courses* for generating a course, *Use AI* in the editor and *Copy and
 translate*. The owner (or a superuser) sets these per account under *Manage
 Users → Permissions*.
 
+**How do I move a course to another box?**
+Open the course, press *Download all files*, and carry the file over (a USB
+stick or a phone will do). On the other box, go to **Courses** and use *Add a
+course from a file* ([Making courses](making-courses)).
+
 **I passed a lesson in Sprint. Why does Study mode still say "in progress" or "needs practice"?**
 Passing and mastery are different. A pass is a milestone that stays. Mastery
 is a score that rises with practice and fades with time. See

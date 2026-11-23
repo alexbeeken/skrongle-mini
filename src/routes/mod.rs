@@ -251,6 +251,7 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/api/review-quiet", post(courses::review_quiet))
         .route("/courses/{id}/lessons", big(post(courses::save_lessons)))
         .route("/courses/{id}/export.json", get(courses::export))
+        .route("/courses/import", post(courses::import).layer(axum::extract::DefaultBodyLimit::max(courses::MAX_IMPORT_BYTES * 3)))
         .route("/courses/{id}/settings", post(courses::set_settings))
         .route("/courses/{id}/stat/{metric}", get(courses::stat_detail))
         .route("/courses/{id}/placement", get(courses::placement).post(courses::mark_placement))

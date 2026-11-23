@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}{{ crate::t("courses.picker.title") }}{% endblock %}
-{% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("courses.js")|safe }});</script><script src="{{ crate::routes::asset_url("json-problems.js") }}" defer></script><script src="{{ crate::routes::asset_url("courses.js") }}" defer></script><script src="{{ crate::routes::asset_url("gen-estimate.js") }}" defer></script><script src="{{ crate::routes::asset_url("course-settings.js") }}" defer></script><script src="{{ crate::routes::asset_url("course-stat.js") }}" defer></script><script src="{{ crate::routes::asset_url("placement.js") }}" defer></script>{% endblock %}
+{% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("courses.js")|safe }});</script><script src="{{ crate::routes::asset_url("json-problems.js") }}" defer></script><script src="{{ crate::routes::asset_url("courses.js") }}" defer></script><script src="{{ crate::routes::asset_url("gen-estimate.js") }}" defer></script><script src="{{ crate::routes::asset_url("course-settings.js") }}" defer></script><script src="{{ crate::routes::asset_url("course-stat.js") }}" defer></script><script src="{{ crate::routes::asset_url("placement.js") }}" defer></script><script src="{{ crate::routes::asset_url("course-import.js") }}" defer></script>{% endblock %}
 {% block content %}
 <section class="hero courses-hero">
   <div>
@@ -150,6 +150,19 @@
         <p class="small">{% if let Some(u) = user %}{% if u.ai_courses() %}{{ crate::t1("courses.picker.create_ai_html", "url", crate::url("/docs/course-format"))|safe }}{% else %}{{ crate::t1("courses.picker.create_ai_off_html", "url", crate::url("/docs/course-format"))|safe }}{% endif %}{% endif %} {{ crate::t("courses.picker.create_private") }}</p>
       </div>
       <div class="course-actions"><form method="post" action="{{ crate::base_path() }}/courses/new" class="inline" data-testid="courses-create-form"><button type="submit" class="btn" data-testid="courses-create">{{ crate::t("courses.picker.create_button") }}</button></form></div>
+    </article>
+    {# A course arrives as a file (what Download all files makes). The text goes in the box: pasted, or put there by courses.js from the chosen file, so it works without script. #}
+    <article class="course-card" data-testid="courses-import">
+      <div class="course-icon">📥</div>
+      <div class="course-body">
+        <h3>{{ crate::t("courses.import.title") }}</h3>
+        <p class="small">{{ crate::t1("courses.import.lead", "max", crate::courses::megabytes(crate::routes::courses::MAX_IMPORT_BYTES)) }}</p>
+        <form method="post" action="{{ crate::base_path() }}/courses/import" data-testid="courses-import-form">
+          <p hidden data-import-pick><label>{{ crate::t("courses.import.file") }} <input type="file" accept=".json,application/json" data-testid="courses-import-file"></label></p>
+          <p><label>{{ crate::t("courses.import.paste") }}<textarea name="content" rows="4" spellcheck="false" autocapitalize="off" required data-testid="courses-import-text"></textarea></label></p>
+          <button type="submit" class="btn" data-testid="courses-import-button">{{ crate::t("courses.import.button") }}</button>
+        </form>
+      </div>
     </article>
   </div>
 </section>

@@ -369,6 +369,18 @@ with the table, like any other change (the editor saves as you edit; see
   yet. Edits across many lessons still go through *Edit* in the Use AI box.
   *Download all files* (`/courses/{id}/export.json`) is one JSON
   object: `"version": "1.0"` first, then every file by its path.
+  **Add a course from a file** (#252) takes it back: a card under *Make your
+  own* on `/courses` with one form, `POST /courses/import` (field `content`,
+  the file's text; 403 without Create courses). It is a plain urlencoded form
+  so it adds no multipart code: `static/course-import.js` puts the chosen file's text into
+  the box, and without script the owner pastes it. At most
+  `MAX_IMPORT_BYTES` (`routes/courses/files.rs`) (2 MB) of text; the route's body limit is three
+  times that for form escaping. Each file goes through `check_file` (path,
+  size, JSON), the manifest gets a new id (`courses::copied_files`), the
+  whole course is built as a save builds it (`courses::check_off_lock`), and
+  only then stored with `store_copy`, so the course limits and notices are
+  Copy's. A `version` other than `"1.0"` is refused. A file that does not
+  load makes nothing and the Courses page shows the reason.
 - **The lesson table.** Every course of your own (made by hand or with AI)
   that loads shows its lessons as a table on its page (`/courses/{id}`):
   number, name and delete, no file names (without JavaScript, an *Edit*
@@ -1947,7 +1959,7 @@ invitation link; its links keep working and it can remove them
   Users. Invitation links, temporary passwords, two-factor off, Make owner,
   the AI keys and "Hide AI features" stay the owner's.
 - **Create courses** is asked for (#143): without it the course list offers
-  no Create a course, Copy or Copy and translate, and their three routes
+  no Create a course, Copy, Copy and translate or Add a course from a file, and their routes
   answer 403 (see [Your own courses](#your-own-courses)).
 - **Who may edit whom**: an owner or a superuser sets the permissions of any
   account that is not an owner, except, for a superuser, their own. Rows

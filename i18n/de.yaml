@@ -1861,6 +1861,20 @@ courses:
     copy_too_big: "Dieser Kurs ist zu groß zum Kopieren: Ein Kurs darf höchstens {max} belegen."
     copy_no_room: "Kein Platz für eine Kopie: Alle Kurse eines Kontos zusammen dürfen höchstens {max} belegen. Lösche einen Kurs, den du nicht mehr brauchst."
     dev_reset: "Dev-Benutzer zurückgesetzt."
+  import:
+    title: "Einen Kurs aus einer Datei hinzufügen"
+    lead: "Wähle eine Datei, die mit „Alle Dateien herunterladen“ erstellt wurde, oder füge ihren Inhalt ein. Sie darf bis zu {max} groß sein."
+    file: "Datei auswählen"
+    paste: "Oder füge den Inhalt der Datei ein"
+    button: "Kurs hinzufügen"
+    empty: "Wähle zuerst eine Datei oder füge ihren Inhalt ein."
+    too_big: "Diese Datei ist größer als {max}."
+    not_json: "Das ist keine Kursdatei. {why}"
+    not_object: "Das ist keine Kursdatei: Sie muss ein einzelnes JSON-Objekt sein, wie es „Alle Dateien herunterladen“ erstellt."
+    version: "Diese Datei hat die Version „{version}“, diese App liest nur Version „{known}“."
+    no_version: "Das ist keine Kursdatei: Sie hat keine „version“."
+    no_manifest: "Dieser Kursdatei fehlt course.json."
+    not_loaded: "Der Kurs wurde nicht hinzugefügt. Er lässt sich nicht laden: {why}"
   editor:
     title: "Bearbeiten: {title}"
     crumb_courses: Kurse

@@ -1864,6 +1864,20 @@ courses:
     copy_too_big: "This course is too big to copy: a course may take at most {max}."
     copy_no_room: "There is no room for a copy: all of an account's courses together may take at most {max}. Delete a course you no longer need."
     dev_reset: Dev user reset.
+  import:
+    title: "Add a course from a file"
+    lead: "Choose a file made by Download all files, or paste what is in it. It may hold up to {max}."
+    file: "Choose the file"
+    paste: "Or paste the file's contents"
+    button: "Add the course"
+    empty: "Choose a file or paste its contents first."
+    too_big: "That file is larger than {max}."
+    not_json: "That is not a course file. {why}"
+    not_object: "That is not a course file: it should be one JSON object, as Download all files makes."
+    version: "This file has version \"{version}\" and this app only reads version \"{known}\"."
+    no_version: "That is not a course file: it has no \"version\"."
+    no_manifest: "That course file has no course.json."
+    not_loaded: "The course was not added. It does not load: {why}"
   editor:
     title: "Edit: {title}"
     crumb_courses: Courses

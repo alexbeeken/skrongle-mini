@@ -1862,6 +1862,20 @@ courses:
     copy_too_big: "Este curso es demasiado grande para copiarlo: un curso puede ocupar como máximo {max}."
     copy_no_room: "No hay espacio para una copia: todos los cursos de una cuenta juntos pueden ocupar como máximo {max}. Elimina un curso que ya no necesites."
     dev_reset: Usuario de desarrollo restablecido.
+  import:
+    title: "Añadir un curso desde un archivo"
+    lead: "Elige un archivo creado con Descargar todos los archivos, o pega su contenido. Puede tener hasta {max}."
+    file: "Elegir el archivo"
+    paste: "O pega el contenido del archivo"
+    button: "Añadir el curso"
+    empty: "Elige primero un archivo o pega su contenido."
+    too_big: "Ese archivo es mayor de {max}."
+    not_json: "Ese no es un archivo de curso. {why}"
+    not_object: "Ese no es un archivo de curso: debe ser un único objeto JSON, como el que crea Descargar todos los archivos."
+    version: "Este archivo tiene la versión «{version}» y esta aplicación solo lee la versión «{known}»."
+    no_version: "Ese no es un archivo de curso: no tiene «version»."
+    no_manifest: "Ese archivo de curso no tiene course.json."
+    not_loaded: "No se añadió el curso. No se puede cargar: {why}"
   editor:
     title: "Editar: {title}"
     crumb_courses: Cursos
