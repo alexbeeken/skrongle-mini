@@ -4,7 +4,13 @@ What changed in each release, for the person running the server. Newest
 first. Each release's GitHub notes are its section here. How version
 numbers work is in the README, "Versions".
 
-## Unreleased
+## 0.5.0 (2026-11-23)
+
+A shorter sign-up for Students, and *How to Use Skrongle* comes first.
+
+**Nothing to back up for this one.** The database, the settings in
+`/etc/skrongle/env` and the systemd unit are the same as in 0.4.0, so
+`update.sh 0.4.0` goes back without taking anything with it.
 
 - **Sign-up no longer asks a person's age while new accounts start as
   Student** (the default). The "I am at least 14 years old" box is gone from
