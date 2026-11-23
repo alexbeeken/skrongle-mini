@@ -1,4 +1,4 @@
-# Packaging Skrongle
+# Packaging Skrongle mini
 
 For people who package Skrongle mini for a distribution or an image (DietPi,
 a Debian package, an appliance image). It lists what the program reads, writes

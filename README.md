@@ -1,6 +1,6 @@
 <img src="static/icon-192.png" alt="" width="72" height="72">
 
-# Skrongle
+# Skrongle mini
 
 <img width="1009" height="938" alt="Screenshot 2026-11-09 at 10 05 07 PM" src="https://github.com/user-attachments/assets/db7e7b9d-d8c1-4de5-a67b-2d670609b706" />
 
@@ -8,7 +8,7 @@
 
 https://github.com/user-attachments/assets/0f80e7ae-db51-4e85-b1c9-dac56d8edcd3
 
-Skrongle is one small binary that teaches from courses made of JSON files:
+Skrongle mini is one small binary that teaches from courses made of JSON files:
 lessons, adaptive quizzes, five-minute practice sessions, games, flashcards
 and an AI tutor. Spanish and French courses ship with it, and so does
 *How to Use Skrongle*, a tutorial for the app itself; any subject that
