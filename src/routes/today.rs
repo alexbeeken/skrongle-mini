@@ -72,7 +72,8 @@ pub struct DayView {
 /// The date of a class-clock day: "Thursday 19 November 2026".
 pub fn date_of(day: i64) -> String {
     let (_, _, _, weekday) = daily::civil(day);
-    let key = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"][weekday as usize];
+    let names = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+    let key = names.get(weekday as usize).copied().unwrap_or("sunday");
     crate::i18n::fill(
         &crate::t("student.today.date"),
         &[("weekday", &crate::t(&format!("student.today.weekday.{key}"))), ("date", &crate::profile::long_date(day * 86_400))],
@@ -130,7 +131,7 @@ pub fn day_view(course: &ContentStore, stops: &[Stop], day: i64, today: i64, str
                 StopState::Done => (crate::t("student.today.word.done"), "done"),
                 StopState::Next => (crate::t("student.today.word.next"), "next"),
                 StopState::Locked => {
-                    let before = i.checked_sub(1).map(|j| kind_label(stops[j].activity.kind)).unwrap_or_default();
+                    let before = i.checked_sub(1).and_then(|j| stops.get(j)).map(|b| kind_label(b.activity.kind)).unwrap_or_default();
                     (crate::t1("student.today.word.after", "kind", before), "locked")
                 }
             };
