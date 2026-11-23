@@ -31,5 +31,10 @@ apps_rss_growth_max_kib 256
 # 2026-11-12 (#93): static files embedded once, gzipped; the CI runner measured
 # 14505032 bytes (was 17141096), so the baseline drops to it and the 2.5 MB
 # given back is not silently spent.
+# 2026-11-22 (#227): the teacher features of #215 (students, the student
+# frame, giving courses, the Class box page with its streamed backup) grew it
+# to 15234696 bytes, 4.4 KB past the 5 % slack; the backup's gzip writer is
+# about 16 KB of that, the rest pages, routes and their text in six
+# languages. The baseline moves to that size.
 binary_slack_percent 5
-binary_baseline linux-x86_64 14505032
+binary_baseline linux-x86_64 15234696
