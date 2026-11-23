@@ -1,0 +1,37 @@
+/* The Plan tab (#222, daily.html) and the week row (daily_week.html, shared with #225's progress page). */
+.daily-week { display: flex; flex-wrap: wrap; gap: .4rem; align-items: stretch; margin: .4rem 0 1rem; }
+.daily-day { flex: 1 1 0; min-width: 6.5rem; display: flex; flex-direction: column; gap: .1rem; padding: .5rem .6rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--text); text-decoration: none; font-size: .85rem; }
+.daily-day b { font-size: .95rem; }
+.daily-day span { color: var(--muted); }
+.daily-day.today { border: 2px solid var(--accent-dark); }
+.daily-day.open { background: var(--ok-bg); }
+.daily-day.ahead { opacity: .5; }
+.daily-step { flex: 0 0 2.6rem; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; text-decoration: none; color: var(--text); border: 1px solid var(--line); border-radius: var(--radius); }
+.daily-step.off { opacity: .3; }
+
+.daily-head { display: flex; flex-wrap: wrap; gap: .6rem; align-items: baseline; margin: 1.2rem 0 .6rem; }
+.daily-head h2 { margin: 0; font-size: 1.25rem; }
+.daily-badge { font-size: .85rem; font-weight: 700; padding: .15rem .5rem; border-radius: 4px; background: var(--warn-bg); }
+.daily-badge.ok { background: var(--ok-bg); color: var(--ok); }
+
+.daily-acts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .5rem; }
+.daily-act { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: .5rem .7rem; }
+.daily-act-main { display: flex; flex-wrap: wrap; gap: .4rem .6rem; align-items: center; }
+.daily-num { color: var(--muted); min-width: 1.2rem; }
+.daily-kind { font-size: .8rem; font-weight: 700; padding: .1rem .5rem; border-radius: 4px; background: var(--bg); }
+.daily-kind.study { background: #e3eeff; color: #123f85; }
+.daily-kind.review { background: #fff6d6; color: #6b4a00; }
+.daily-kind.play { background: #e7f5ec; color: #1c5433; }
+.daily-lessons { flex: 1 1 14rem; }
+.daily-moves { display: inline-flex; flex-wrap: wrap; gap: .3rem; }
+.daily-remove { color: var(--bad); }
+.daily-play, .daily-picker { display: flex; flex-wrap: wrap; gap: .4rem .9rem; align-items: center; margin: .5rem 0 .1rem 1.8rem; font-size: .9rem; }
+.daily-picker fieldset { border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .2rem; flex-basis: 100%; }
+.daily-picker legend { font-weight: 600; margin-bottom: .2rem; }
+
+.daily-bar { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin: 1rem 0 .4rem; }
+.daily-gap { flex: 1 1 1rem; }
+.daily-recommended { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin: .6rem 0; }
+.daily-clear { margin: .3rem 0; }
+.daily-tz, .daily-tz-ask { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin: 1rem 0; font-size: .9rem; }
+.daily-about { max-width: 46rem; margin-top: 1.2rem; }

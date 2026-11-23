@@ -3207,3 +3207,102 @@ students_page:
   no_givable: "Um einen Kurs zu geben, erstelle zuerst einen eigenen unter Kurse."
   courses_about: "Kreuze die Kurse an, die dieser Schüler hat. Nimmst du einen weg, bleibt sein Fortschritt darin erhalten."
   courses_saved: "Kurse gespeichert."
+
+# The Plan tab of a course (#222, routes/daily.rs) and the course page's tab row.
+daily_plan:
+  tabs_label: Kursseiten
+  tab_editor: Editor
+  tab_plan: Plan
+  title: "Plan: {title}"
+  week_label: Die Woche
+  earlier: Eine Woche früher
+  later: Eine Woche später
+  short:
+    mon: Mo
+    tue: Di
+    wed: Mi
+    thu: Do
+    fri: Fr
+    sat: Sa
+    sun: So
+  long:
+    monday: Montag
+    tuesday: Dienstag
+    wednesday: Mittwoch
+    thursday: Donnerstag
+    friday: Freitag
+    saturday: Samstag
+    sunday: Sonntag
+  day_short: "{weekday} {day}."
+  day_long: "{weekday}, {day}. {month}"
+  today: "{day} · heute"
+  nothing: Nichts geplant
+  draft: Noch nicht zugewiesen
+  activities:
+    one: "{n} Aktivität"
+    other: "{n} Aktivitäten"
+  finished: "{finished} von {students} fertig"
+  assigned_to:
+    one: "{n} Schüler zugewiesen"
+    other: "{n} Schülern zugewiesen"
+  kind_study: Lernen
+  kind_review: Wiederholung
+  kind_play: Spielen
+  change_lesson: Lektion ändern
+  change_lessons: Lektionen ändern
+  up: Hoch
+  down: Runter
+  remove: Entfernen
+  up_label: "Aktivität {n} nach oben"
+  down_label: "Aktivität {n} nach unten"
+  remove_label: "Aktivität {n} entfernen"
+  pick_lesson: "Die Lektion zum Lernen:"
+  pick_lessons: "Die Lektionen, eine oder mehrere:"
+  save: Speichern
+  cancel: Abbrechen
+  game_matching: Wortpaare
+  game_flashcards: Karteikarten
+  no_game: Kein Spiel
+  no_games: "Diese Lektionen haben keine Wörter für ein Spiel."
+  rounds: "Durchgänge:"
+  no_limit: Ohne Grenze
+  times:
+    one: "{n} Durchgang"
+    other: "{n} Durchgänge"
+  empty: "Für diesen Tag ist nichts geplant."
+  recommended: Den empfohlenen Tag planen
+  recommended_about: "Lernen, Wiederholung und Spielen zur nächsten Lektion."
+  add_at_end: "Am Ende hinzufügen:"
+  add_study: "+ Lernen"
+  add_review: "+ Wiederholung"
+  add_play: "+ Spielen"
+  auto_week: Meine Woche für mich planen
+  assign: Zuweisen
+  clear: Den Tag leeren
+  clear_confirm: "Diesen Tag leeren? Seine Aktivitäten und der Fortschritt aller Schüler darin werden gelöscht."
+  past_day: "Dieser Tag ist vorbei. Er wird gezeigt, wie er war, ohne Knöpfe."
+  too_far:
+    one: "Pläne reichen {n} Tag voraus: Dieser Tag kann noch nicht geplant werden."
+    other: "Pläne reichen {n} Tage voraus: Dieser Tag kann noch nicht geplant werden."
+  broken: "Dieser Kurs lädt nicht und kann deshalb nicht geplant werden. Behebe das im Reiter Editor."
+  week_done: "Geplant und zugewiesen: {days}."
+  week_none: "In den nächsten 7 Tagen war kein Schultag frei zum Planen."
+  week_stopped: "Hier war Schluss: Jede Lektion hat schon ein Lernen."
+  refused: "Diese Änderung wurde nicht gemacht."
+  refused_closed: "Dieser Tag kann nicht mehr geändert werden: Pläne gehen von heute bis 28 Tage voraus."
+  refused_lessons: "Nicht gespeichert: Lernen braucht genau eine Lektion, Wiederholung oder Spielen eine oder mehrere."
+  refused_full:
+    one: "Ein Tag hat höchstens {n} Aktivität."
+    other: "Ein Tag hat höchstens {n} Aktivitäten."
+  refused_empty: "Füge eine Aktivität hinzu, bevor du den Tag zuweist."
+  refused_tz: "Wähle eine Zeitzone aus der Liste."
+  tz_ask: "Wähle die Zeitzone der Klasse, damit heute im Plan der heutige Tag der Klasse ist:"
+  tz_save: Speichern
+  tz_label: "Zeitzone der Klasse:"
+  tz_change: Ändern
+  tz_saved: "Die Zeitzone der Klasse ist jetzt {zone}."
+  tz_from_browser: "Die Zeitzone der Klasse wurde aus diesem Browser übernommen: {zone}. Du kannst sie unten auf der Seite ändern."
+  about:
+    one: "Jeder Knopf macht eine Änderung und kommt auf diese Seite zurück. Pläne reichen {n} Tag voraus; vergangene Tage haben keine Knöpfe."
+    other: "Jeder Knopf macht eine Änderung und kommt auf diese Seite zurück. Pläne reichen {n} Tage voraus; vergangene Tage haben keine Knöpfe."
+  plan_link: Plan

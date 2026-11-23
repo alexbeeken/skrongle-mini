@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{# The Plan tab (#222, routes::daily): the week row, the open day's activities and one form per change.
+   Every button posts one change to /courses/{id}/daily and comes back; no script is needed. #}
+{% block title %}{{ crate::t1("daily_plan.title", "title", tabs.title) }}{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ crate::routes::asset_url("daily.css") }}">{% endblock %}
+{% block content %}
+<section class="daily" data-testid="daily-page" data-day="{{ date }}" data-editable="{{ editable }}">
+{% include "course_header.html" %}
+
+{% if let Some(n) = notice %}<p class="alert ok-text" role="status" data-testid="daily-notice">✓ {{ n }}</p>{% endif %}
+{% if let Some(e) = error %}<p class="alert error" role="alert" data-testid="daily-error">{{ e }}</p>{% endif %}
+
+{% if !tz_set %}
+<form method="post" action="{{ action }}" class="alert daily-tz-ask" data-testid="daily-tz-ask">
+  <input type="hidden" name="do" value="tz"><input type="hidden" name="day" value="{{ date }}">
+  <label for="daily-tz">{{ crate::t("daily_plan.tz_ask") }}</label>
+  <select id="daily-tz" name="tz" data-testid="daily-tz">{% for (h, name) in tz_options %}<option value="{{ h }}"{% if *h == tz %} selected{% endif %}>{{ name }}</option>{% endfor %}</select>
+  <button type="submit" class="btn small" data-testid="daily-tz-save">{{ crate::t("daily_plan.tz_save") }}</button>
+</form>
+{% endif %}
+
+{% include "daily_week.html" %}
+
+<div class="daily-head">
+  <h2 data-testid="daily-day-title">{{ day_title }}</h2>
+  {% if assigned %}<span class="daily-badge ok" data-testid="daily-assigned">{{ crate::tn("daily_plan.assigned_to", students) }}</span>
+  {% else if !rows.is_empty() %}<span class="daily-badge" data-testid="daily-draft">{{ crate::t("daily_plan.draft") }}</span>{% endif %}
+</div>
+
+{% if broken %}<p class="alert error" data-testid="daily-broken">{{ crate::t("daily_plan.broken") }}</p>
+{% else if past %}<p class="muted" data-testid="daily-past">{{ crate::t("daily_plan.past_day") }}</p>
+{% else if ahead %}<p class="muted" data-testid="daily-ahead">{{ crate::tn("daily_plan.too_far", crate::daily::PLAN_AHEAD_DAYS) }}</p>{% endif %}
+
+{% if rows.is_empty() %}
+<p data-testid="daily-empty">{{ crate::t("daily_plan.empty") }}</p>
+{% if editable %}
+<form method="post" action="{{ action }}" class="daily-recommended" data-testid="daily-recommended-form">
+  <input type="hidden" name="do" value="recommended"><input type="hidden" name="day" value="{{ date }}">
+  <button type="submit" class="btn" data-testid="daily-recommended">{{ crate::t("daily_plan.recommended") }}</button>
+  <span class="muted small">{{ crate::t("daily_plan.recommended_about") }}</span>
+</form>
+{% endif %}
+{% else %}
+<ol class="daily-acts" data-testid="daily-activities">
+  {% for r in rows %}
+  <li class="daily-act" id="act-{{ r.id }}" data-testid="daily-activity" data-kind="{{ r.kind }}" data-id="{{ r.id }}">
+    <div class="daily-act-main">
+      <span class="daily-num" data-testid="daily-activity-number">{{ r.number }}</span>
+      <span class="daily-kind {{ r.kind }}" data-testid="daily-activity-kind">{{ r.kind_label }}</span>
+      <span class="daily-lessons"><span data-testid="daily-activity-lessons">{{ r.lessons }}</span>{% if r.kind == "play" %} · <span data-testid="daily-activity-play">{{ r.play_summary }}</span>{% endif %}</span>
+      {% if editable %}
+      <a class="btn small ghost" href="{{ action }}?day={{ date }}&amp;change={{ r.id }}#act-{{ r.id }}" data-testid="daily-change">{{ r.change_label }}</a>
+      <form method="post" action="{{ action }}" class="inline daily-moves">
+        <input type="hidden" name="day" value="{{ date }}"><input type="hidden" name="activity" value="{{ r.id }}">
+        <button type="submit" name="do" value="up" class="btn small ghost"{% if r.first %} disabled{% endif %} aria-label="{{ crate::t1("daily_plan.up_label", "n", r.number) }}" data-testid="daily-up">{{ crate::t("daily_plan.up") }}</button>
+        <button type="submit" name="do" value="down" class="btn small ghost"{% if r.last %} disabled{% endif %} aria-label="{{ crate::t1("daily_plan.down_label", "n", r.number) }}" data-testid="daily-down">{{ crate::t("daily_plan.down") }}</button>
+        <button type="submit" name="do" value="remove" class="btn small ghost daily-remove" aria-label="{{ crate::t1("daily_plan.remove_label", "n", r.number) }}" data-testid="daily-remove">{{ crate::t("daily_plan.remove") }}</button>
+      </form>
+      {% endif %}
+    </div>
+    {% if editable && r.kind == "play" %}
+    <form method="post" action="{{ action }}" class="daily-play" data-testid="daily-play-form">
+      <input type="hidden" name="do" value="play"><input type="hidden" name="day" value="{{ date }}"><input type="hidden" name="activity" value="{{ r.id }}">
+      {% for g in r.games %}<label><input type="checkbox" name="game" value="{{ g.name }}"{% if g.on %} checked{% endif %} data-testid="daily-game" data-game="{{ g.name }}"> {{ g.label }}</label>{% endfor %}
+      {% if r.games.is_empty() %}<span class="muted small" data-testid="daily-no-games">{{ crate::t("daily_plan.no_games") }}</span>{% endif %}
+      <label>{{ crate::t("daily_plan.rounds") }} <select name="rounds" data-testid="daily-rounds">{% for n in 0..=crate::daily::MAX_ROUNDS %}<option value="{{ n }}"{% if n == r.rounds %} selected{% endif %}>{% if n == 0 %}{{ crate::t("daily_plan.no_limit") }}{% else %}{{ n }}{% endif %}</option>{% endfor %}</select></label>
+      <button type="submit" class="btn small" data-testid="daily-play-save">{{ crate::t("daily_plan.save") }}</button>
+    </form>
+    {% endif %}
+    {% if editable %}{% if let Some(pick) = r.picker %}
+    <form method="post" action="{{ action }}" class="daily-picker" data-testid="daily-picker">
+      <input type="hidden" name="do" value="lessons"><input type="hidden" name="day" value="{{ date }}"><input type="hidden" name="activity" value="{{ r.id }}">
+      <fieldset>
+        <legend>{% if r.kind == "study" %}{{ crate::t("daily_plan.pick_lesson") }}{% else %}{{ crate::t("daily_plan.pick_lessons") }}{% endif %}</legend>
+        {% for l in pick %}<label><input type="{% if r.kind == "study" %}radio{% else %}checkbox{% endif %}" name="lesson" value="{{ l.id }}"{% if l.picked %} checked{% endif %} data-testid="daily-pick-lesson" data-lesson="{{ l.id }}"> {{ l.title }}</label>{% endfor %}
+      </fieldset>
+      <button type="submit" class="btn small" data-testid="daily-picker-save">{{ crate::t("daily_plan.save") }}</button>
+      <a href="{{ action }}?day={{ date }}#act-{{ r.id }}" data-testid="daily-picker-cancel">{{ crate::t("daily_plan.cancel") }}</a>
+    </form>
+    {% endif %}{% endif %}
+  </li>
+  {% endfor %}
+</ol>
+{% endif %}
+
+{% if editable %}
+<form method="post" action="{{ action }}" class="daily-bar" data-testid="daily-bar">
+  <input type="hidden" name="day" value="{{ date }}">
+  <span>{{ crate::t("daily_plan.add_at_end") }}</span>
+  <button type="submit" name="do" value="add-study" class="btn small" data-testid="daily-add-study">{{ crate::t("daily_plan.add_study") }}</button>
+  <button type="submit" name="do" value="add-review" class="btn small" data-testid="daily-add-review">{{ crate::t("daily_plan.add_review") }}</button>
+  <button type="submit" name="do" value="add-play" class="btn small" data-testid="daily-add-play">{{ crate::t("daily_plan.add_play") }}</button>
+  <span class="daily-gap"></span>
+  <button type="submit" name="do" value="week" class="btn small ghost" data-testid="daily-week-auto">{{ crate::t("daily_plan.auto_week") }}</button>
+  {% if !assigned %}<button type="submit" name="do" value="assign" class="btn small"{% if rows.is_empty() %} disabled{% endif %} data-testid="daily-assign">{{ crate::t("daily_plan.assign") }}</button>{% endif %}
+</form>
+{% if has_plan %}
+<form method="post" action="{{ action }}" class="daily-clear" data-confirm="{{ crate::t("daily_plan.clear_confirm") }}" data-testid="daily-clear-form">
+  <input type="hidden" name="do" value="clear"><input type="hidden" name="day" value="{{ date }}">
+  <button type="submit" class="btn small ghost daily-remove" data-testid="daily-clear">{{ crate::t("daily_plan.clear") }}</button>
+</form>
+{% endif %}
+{% endif %}
+
+{% if tz_set %}
+<form method="post" action="{{ action }}" class="daily-tz" data-testid="daily-tz-form">
+  <input type="hidden" name="do" value="tz"><input type="hidden" name="day" value="{{ date }}">
+  <label for="daily-tz">{{ crate::t("daily_plan.tz_label") }}</label>
+  <select id="daily-tz" name="tz" data-testid="daily-tz" data-zone="{{ tz_name }}">{% for (h, name) in tz_options %}<option value="{{ h }}"{% if *h == tz %} selected{% endif %}>{{ name }}</option>{% endfor %}</select>
+  <button type="submit" class="btn small ghost" data-testid="daily-tz-save">{{ crate::t("daily_plan.tz_change") }}</button>
+</form>
+{% endif %}
+
+<p class="muted small daily-about">{{ crate::tn("daily_plan.about", crate::daily::PLAN_AHEAD_DAYS) }}</p>
+</section>
+{% endblock %}
+{% block scripts %}
+{% if !tz_set %}
+<script>
+// A nicety with JavaScript on: the time-zone list starts at this browser's offset.
+(function () {
+  var s = document.getElementById('daily-tz');
+  if (!s) return;
+  var h = Math.round(-new Date().getTimezoneOffset() / 30);
+  for (var i = 0; i < s.options.length; i++) if (+s.options[i].value === h) s.selectedIndex = i;
+})();
+</script>
+{% endif %}
+{% endblock %}

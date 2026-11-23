@@ -30,6 +30,7 @@ mod picker;
 mod revise;
 mod settings;
 mod stat;
+mod tabs;
 mod write;
 
 pub use create::*;
@@ -41,6 +42,7 @@ pub use picker::*;
 pub use revise::*;
 pub use settings::*;
 pub use stat::*;
+pub use tabs::*;
 pub(crate) use write::*;
 
 #[cfg(test)]

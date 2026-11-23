@@ -1,0 +1,10 @@
+{# The week row of daily work (#222): Monday to Sunday with ‹ and ›, each day a link to `week.href?day=`.
+   Takes `week` (routes::daily::WeekRow, built by routes::daily::week_row); the Plan page and the progress
+   page (#225) draw the same row. Styles: static/daily.css. #}
+<nav class="daily-week" aria-label="{{ crate::t("daily_plan.week_label") }}" data-testid="daily-week">
+  {% if let Some(p) = week.prev %}<a class="daily-step" href="{{ week.href }}?day={{ p }}" aria-label="{{ crate::t("daily_plan.earlier") }}" data-testid="daily-week-prev">‹</a>{% else %}<span class="daily-step off" aria-hidden="true">‹</span>{% endif %}
+  {% for d in week.days %}
+  <a class="daily-day{% if d.today %} today{% endif %}{% if d.open %} open{% endif %}{% if d.ahead %} ahead{% endif %}" href="{{ week.href }}?day={{ d.date }}"{% if d.open %} aria-current="date"{% endif %} data-testid="daily-day" data-day="{{ d.date }}" data-state="{{ d.kind }}"{% if d.today %} data-today="1"{% endif %}><b>{{ d.label }}</b> <span data-testid="daily-day-state">{{ d.state }}</span></a>
+  {% endfor %}
+  {% if let Some(n) = week.next %}<a class="daily-step" href="{{ week.href }}?day={{ n }}" aria-label="{{ crate::t("daily_plan.later") }}" data-testid="daily-week-next">›</a>{% else %}<span class="daily-step off" aria-hidden="true">›</span>{% endif %}
+</nav>

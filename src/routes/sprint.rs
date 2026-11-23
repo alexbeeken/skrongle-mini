@@ -92,6 +92,13 @@ pub struct HomeTemplate {
 
 /// Minutes east of UTC, from the `tz` cookie the player sets (default UTC).
 pub(crate) fn tz_offset_secs(headers: &HeaderMap) -> i64 {
+    tz_cookie_secs(headers).unwrap_or(0)
+}
+
+/// The `tz` cookie's offset in seconds east of UTC; `None` without one (or
+/// with one out of range): the Plan page (#222) sets the class clock only
+/// from a browser that said where it is.
+pub(crate) fn tz_cookie_secs(headers: &HeaderMap) -> Option<i64> {
     headers
         .get_all(header::COOKIE)
         .iter()
@@ -105,7 +112,6 @@ pub(crate) fn tz_offset_secs(headers: &HeaderMap) -> i64 {
             let minutes: i64 = v.trim().parse().ok()?;
             (-14 * 60..=14 * 60).contains(&minutes).then_some(minutes * 60)
         })
-        .unwrap_or(0)
 }
 
 /// GET /sprint

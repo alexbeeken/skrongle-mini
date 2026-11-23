@@ -3210,3 +3210,102 @@ students_page:
   no_givable: "To give a course, make one of your own on Courses first."
   courses_about: "Tick the courses this student has. Taking one away keeps the student's progress in it."
   courses_saved: "Courses saved."
+
+# The Plan tab of a course (#222, routes/daily.rs) and the course page's tab row.
+daily_plan:
+  tabs_label: Course pages
+  tab_editor: Editor
+  tab_plan: Plan
+  title: "Plan: {title}"
+  week_label: The week
+  earlier: A week earlier
+  later: A week later
+  short:
+    mon: Mon
+    tue: Tue
+    wed: Wed
+    thu: Thu
+    fri: Fri
+    sat: Sat
+    sun: Sun
+  long:
+    monday: Monday
+    tuesday: Tuesday
+    wednesday: Wednesday
+    thursday: Thursday
+    friday: Friday
+    saturday: Saturday
+    sunday: Sunday
+  day_short: "{weekday} {day}"
+  day_long: "{weekday} {day} {month}"
+  today: "{day} · today"
+  nothing: Nothing planned
+  draft: Not assigned yet
+  activities:
+    one: "{n} activity"
+    other: "{n} activities"
+  finished: "{finished} of {students} finished"
+  assigned_to:
+    one: "Assigned to {n} student"
+    other: "Assigned to {n} students"
+  kind_study: Study
+  kind_review: Review
+  kind_play: Play
+  change_lesson: Change lesson
+  change_lessons: Change lessons
+  up: Up
+  down: Down
+  remove: Remove
+  up_label: "Move activity {n} up"
+  down_label: "Move activity {n} down"
+  remove_label: "Remove activity {n}"
+  pick_lesson: "The lesson to study:"
+  pick_lessons: "The lessons, one or more:"
+  save: Save
+  cancel: Cancel
+  game_matching: Word Match
+  game_flashcards: Flashcards
+  no_game: No game
+  no_games: "These lessons have no words for a game."
+  rounds: "Times through:"
+  no_limit: No limit
+  times:
+    one: "{n} time through"
+    other: "{n} times through"
+  empty: "Nothing is planned for this day."
+  recommended: Plan the recommended day
+  recommended_about: "A Study, a Review and a Play over the next lesson."
+  add_at_end: "Add at the end:"
+  add_study: "+ Study"
+  add_review: "+ Review"
+  add_play: "+ Play"
+  auto_week: Plan my week for me
+  assign: Assign
+  clear: Clear the day
+  clear_confirm: "Clear this day? Its activities and every student's progress on them are deleted."
+  past_day: "This day has gone by. It is shown as it was, with no buttons."
+  too_far:
+    one: "Plans go {n} day ahead: this day cannot be planned yet."
+    other: "Plans go {n} days ahead: this day cannot be planned yet."
+  broken: "This course does not load, so it cannot be planned. Fix it on the Editor tab."
+  week_done: "Planned and assigned: {days}."
+  week_none: "No school day in the next 7 days was free to plan."
+  week_stopped: "It stopped there: every lesson already has a Study."
+  refused: "That change was not made."
+  refused_closed: "That day can no longer be changed: plans go from today to 28 days ahead."
+  refused_lessons: "Not saved: a Study takes exactly one lesson, a Review or a Play one or more."
+  refused_full:
+    one: "A day holds at most {n} activity."
+    other: "A day holds at most {n} activities."
+  refused_empty: "Add an activity before assigning the day."
+  refused_tz: "Pick a time zone from the list."
+  tz_ask: "Pick the class's time zone, so that today on the plan is the class's today:"
+  tz_save: Save
+  tz_label: "Class time zone:"
+  tz_change: Change
+  tz_saved: "The class time zone is now {zone}."
+  tz_from_browser: "The class time zone was set from this browser: {zone}. You can change it at the bottom of the page."
+  about:
+    one: "Every button makes one change and comes back to this page. Plans go {n} day ahead; days gone by have no buttons."
+    other: "Every button makes one change and comes back to this page. Plans go {n} days ahead; days gone by have no buttons."
+  plan_link: Plan

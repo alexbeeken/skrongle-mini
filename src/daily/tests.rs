@@ -982,6 +982,18 @@ fn civil_turns_a_day_number_into_a_date() {
 }
 
 #[test]
+fn from_civil_turns_a_date_back_into_its_day_number() {
+    for day in [-800, -1, 0, 1, 11_016, DAY, MONDAY, 20_413, 40_000] {
+        let (y, m, d, _) = civil(day);
+        assert_eq!(from_civil(y, m, d), Some(day), "{y}-{m}-{d}");
+    }
+    assert_eq!(from_civil(2000, 2, 29), Some(11_016), "a leap day");
+    for (y, m, d) in [(2026, 4, 31), (2026, 2, 29), (1900, 2, 29), (2026, 13, 1), (2026, 0, 1), (2026, 1, 0), (2026, 1, 32)] {
+        assert_eq!(from_civil(y, m, d), None, "{y}-{m}-{d} does not exist");
+    }
+}
+
+#[test]
 fn school_days_are_monday_to_friday() {
     let got: Vec<bool> = (MONDAY..MONDAY + 7).map(school_day).collect();
     assert_eq!(got, vec![true, true, true, true, true, false, false]);

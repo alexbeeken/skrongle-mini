@@ -1,0 +1,6 @@
+{# The course page's tab row (#222, routes::courses::CourseTabs as `tabs`): Editor | Plan, for the course's owner
+   when it may hold students. A new tab is one more link here, current when `tabs.tab` is its name. #}
+<nav class="course-tabs" aria-label="{{ crate::t("daily_plan.tabs_label") }}" data-testid="course-tabs" data-tab="{{ tabs.tab }}">
+  <a href="{{ crate::url("/courses/") }}{{ tabs.course_id }}"{% if tabs.tab == "editor" %} aria-current="page"{% endif %} data-testid="course-tab-editor">{{ crate::t("daily_plan.tab_editor") }}</a>
+  <a href="{{ crate::url("/courses/") }}{{ tabs.course_id }}/daily"{% if tabs.tab == "plan" %} aria-current="page"{% endif %} data-testid="course-tab-plan">{{ crate::t("daily_plan.tab_plan") }}</a>
+</nav>

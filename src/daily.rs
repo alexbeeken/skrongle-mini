@@ -260,6 +260,24 @@ pub fn week_start(day: i64) -> i64 {
     day - (day + 3).rem_euclid(7)
 }
 
+/// The day number of a date (the inverse of [`civil`]); `None` for a date
+/// that does not exist, such as 31 April (#222: the Plan page's `?day=`).
+pub fn from_civil(year: i64, month: i64, day: i64) -> Option<i64> {
+    if !(1..=12).contains(&month) || !(1..=31).contains(&day) || !(-9999..=9999).contains(&year) {
+        return None;
+    }
+    // Days-from-civil (Howard Hinnant's algorithm).
+    let y = if month <= 2 { year - 1 } else { year };
+    let era = y.div_euclid(400);
+    let yoe = y.rem_euclid(400);
+    let mp = (month + 9) % 12;
+    let doy = (153 * mp + 2) / 5 + day - 1;
+    let doe = yoe * 365 + yoe / 4 - yoe / 100 + doy;
+    let n = era * 146_097 + doe - 719_468;
+    let (y2, m2, d2, _) = civil(n);
+    (y2 == year && m2 == month && d2 == day).then_some(n)
+}
+
 // --------------------------------------------------------------------
 // Reading plans
 // --------------------------------------------------------------------
