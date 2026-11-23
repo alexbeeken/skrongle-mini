@@ -45,6 +45,8 @@ pub struct EditorTemplate {
     /// The links just made, one per new address, each with a Copy button
     /// (they are stored only hashed: shown this once).
     pub share_links: Vec<ShareLink>,
+    /// The tab row, Editor current (#222): the owner, when it may hold students.
+    pub tabs: Option<CourseTabs>,
 }
 
 /// An invitation link, for the owner to pass on.
@@ -586,6 +588,7 @@ async fn editor_template(
     let sid = row.id.clone();
     let shares = state.db.call(move |c| crate::share::shares_of(c, &sid)).await?;
     let can_share = user.can(crate::perms::Perm::ShareCourses);
+    let tabs = CourseTabs::of(&user, &row, "editor");
     Ok(EditorTemplate {
         state: row.state.as_str(),
         user: Some(user),
@@ -605,5 +608,6 @@ async fn editor_template(
         can_share,
         share_open,
         share_links: Vec::new(),
+        tabs,
     })
 }

@@ -27,6 +27,7 @@
     {% endif %}
   </div>
 </section>
+{% if let Some(tabs) = tabs %}{% include "course_tabs.html" %}{% endif %}
 
 {% if arrange.is_some() %}<p class="alert error save-error" role="alert" data-testid="course-edit-save-error" hidden></p>{% endif %}
 {% if let Some(n) = notice %}<p class="alert" role="status" data-testid="course-edit-notice">{{ n }}</p>{% endif %}

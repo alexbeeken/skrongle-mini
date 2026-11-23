@@ -1,0 +1,7 @@
+{# The header of a course page other than the editor (#222): "Courses /", the course's title and its tab row
+   (`course_tabs.html`). Takes `tabs` (routes::courses::CourseTabs). #}
+<header class="course-header" data-testid="course-header" data-course-id="{{ tabs.course_id }}">
+  <p class="crumbs"><a href="{{ crate::url("/courses") }}" data-testid="course-header-crumb">{{ crate::t("courses.editor.crumb_courses") }}</a> /</p>
+  <h1 data-testid="course-header-title">{{ tabs.title }}</h1>
+  {% include "course_tabs.html" %}
+</header>
