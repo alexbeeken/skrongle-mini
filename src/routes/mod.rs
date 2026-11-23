@@ -17,6 +17,7 @@ use crate::AppState;
 pub mod api;
 pub mod auth;
 pub mod courses;
+pub mod daily;
 pub mod share;
 #[cfg(feature = "dev")]
 pub mod dev;
@@ -376,6 +377,8 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/students/{id}/password", post(students::set_password))
         .route("/students/{id}/delete", post(students::delete_one))
         .route("/students/{id}/courses", post(students::save_courses))
+        // The Plan tab (#222): a teacher's own course (404 for anyone else).
+        .route("/courses/{id}/daily", get(daily::page).post(daily::change))
         // api
         .route("/api/answer", post(quiz::answer))
         .route("/api/lesson-check", post(quiz::lesson_check))

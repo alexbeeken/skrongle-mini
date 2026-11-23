@@ -3207,3 +3207,102 @@ students_page:
   no_givable: "要分配课程，请先在“课程”里创建一门自己的课程。"
   courses_about: "勾选这个学生拥有的课程。取消一门课程会保留学生在其中的进度。"
   courses_saved: "课程已保存。"
+
+# The Plan tab of a course (#222, routes/daily.rs) and the course page's tab row.
+daily_plan:
+  tabs_label: 课程页面
+  tab_editor: 编辑器
+  tab_plan: 计划
+  title: "计划：{title}"
+  week_label: 本周
+  earlier: 上一周
+  later: 下一周
+  short:
+    mon: 周一
+    tue: 周二
+    wed: 周三
+    thu: 周四
+    fri: 周五
+    sat: 周六
+    sun: 周日
+  long:
+    monday: 星期一
+    tuesday: 星期二
+    wednesday: 星期三
+    thursday: 星期四
+    friday: 星期五
+    saturday: 星期六
+    sunday: 星期日
+  day_short: "{weekday} {day}日"
+  day_long: "{month}{day}日 {weekday}"
+  today: "{day} · 今天"
+  nothing: 未安排
+  draft: 尚未布置
+  activities:
+    one: "{n} 项活动"
+    other: "{n} 项活动"
+  finished: "{students} 人中 {finished} 人完成"
+  assigned_to:
+    one: "已布置给 {n} 名学生"
+    other: "已布置给 {n} 名学生"
+  kind_study: 学习
+  kind_review: 复习
+  kind_play: 游戏
+  change_lesson: 更换课程
+  change_lessons: 更换课程
+  up: 上移
+  down: 下移
+  remove: 删除
+  up_label: "上移第 {n} 项活动"
+  down_label: "下移第 {n} 项活动"
+  remove_label: "删除第 {n} 项活动"
+  pick_lesson: "要学习的课："
+  pick_lessons: "课程（一节或多节）："
+  save: 保存
+  cancel: 取消
+  game_matching: 单词配对
+  game_flashcards: 单词卡
+  no_game: 无游戏
+  no_games: "这些课没有可用于游戏的单词。"
+  rounds: "遍数："
+  no_limit: 不限
+  times:
+    one: "{n} 遍"
+    other: "{n} 遍"
+  empty: "这一天没有安排。"
+  recommended: 安排推荐的一天
+  recommended_about: "围绕下一课的一次学习、一次复习和一次游戏。"
+  add_at_end: "在末尾添加："
+  add_study: "+ 学习"
+  add_review: "+ 复习"
+  add_play: "+ 游戏"
+  auto_week: 帮我安排这一周
+  assign: 布置
+  clear: 清空这一天
+  clear_confirm: "清空这一天？它的活动和每个学生在其中的进度都会被删除。"
+  past_day: "这一天已经过去。按原样显示，没有按钮。"
+  too_far:
+    one: "计划最多提前 {n} 天：这一天还不能安排。"
+    other: "计划最多提前 {n} 天：这一天还不能安排。"
+  broken: "这门课程无法加载，因此不能安排。请在“编辑器”标签页中修复。"
+  week_done: "已安排并布置：{days}。"
+  week_none: "接下来 7 天里没有空着的上课日可以安排。"
+  week_stopped: "到此为止：每一课都已经有一次学习。"
+  refused: "这个更改没有完成。"
+  refused_closed: "这一天不能再更改：计划只能从今天起最多提前 28 天。"
+  refused_lessons: "没有保存：学习只能选一课，复习或游戏选一课或多课。"
+  refused_full:
+    one: "一天最多 {n} 项活动。"
+    other: "一天最多 {n} 项活动。"
+  refused_empty: "布置之前请先添加一项活动。"
+  refused_tz: "请从列表中选择一个时区。"
+  tz_ask: "请选择班级的时区，让计划里的“今天”就是班级的今天："
+  tz_save: 保存
+  tz_label: "班级时区："
+  tz_change: 更改
+  tz_saved: "班级时区现在是 {zone}。"
+  tz_from_browser: "班级时区已按此浏览器设置：{zone}。可以在页面底部更改。"
+  about:
+    one: "每个按钮做一次更改并回到本页。计划最多提前 {n} 天；过去的日子没有按钮。"
+    other: "每个按钮做一次更改并回到本页。计划最多提前 {n} 天；过去的日子没有按钮。"
+  plan_link: 计划

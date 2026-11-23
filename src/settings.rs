@@ -96,14 +96,12 @@ pub fn class_tz(conn: &Connection) -> rusqlite::Result<Option<i64>> {
 }
 
 /// Has the class clock been set (by a teacher's first visit to a Plan page)?
-#[cfg_attr(not(test), allow(dead_code))] // the Plan page (#222) asks
 pub fn class_tz_set(conn: &Connection) -> rusqlite::Result<bool> {
     Ok(class_tz(conn)?.is_some())
 }
 
 /// Set the class clock, in half hours east of UTC. False, with nothing
 /// stored, outside [`CLASS_TZ_RANGE`].
-#[cfg_attr(not(test), allow(dead_code))] // the Plan page (#222) sets it
 pub fn set_class_tz(conn: &Connection, half_hours: i64) -> rusqlite::Result<bool> {
     if !CLASS_TZ_RANGE.contains(&half_hours) {
         return Ok(false);

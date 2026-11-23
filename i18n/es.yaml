@@ -3208,3 +3208,102 @@ students_page:
   no_givable: "Para dar un curso, crea primero uno propio en Cursos."
   courses_about: "Marca los cursos que tiene este alumno. Si le quitas uno, su progreso en él se conserva."
   courses_saved: "Cursos guardados."
+
+# The Plan tab of a course (#222, routes/daily.rs) and the course page's tab row.
+daily_plan:
+  tabs_label: Páginas del curso
+  tab_editor: Editor
+  tab_plan: Plan
+  title: "Plan: {title}"
+  week_label: La semana
+  earlier: Una semana antes
+  later: Una semana después
+  short:
+    mon: lun
+    tue: mar
+    wed: mié
+    thu: jue
+    fri: vie
+    sat: sáb
+    sun: dom
+  long:
+    monday: lunes
+    tuesday: martes
+    wednesday: miércoles
+    thursday: jueves
+    friday: viernes
+    saturday: sábado
+    sunday: domingo
+  day_short: "{weekday} {day}"
+  day_long: "{weekday} {day} de {month}"
+  today: "{day} · hoy"
+  nothing: Nada planeado
+  draft: Sin asignar todavía
+  activities:
+    one: "{n} actividad"
+    other: "{n} actividades"
+  finished: "{finished} de {students} terminaron"
+  assigned_to:
+    one: "Asignado a {n} estudiante"
+    other: "Asignado a {n} estudiantes"
+  kind_study: Estudio
+  kind_review: Repaso
+  kind_play: Juego
+  change_lesson: Cambiar lección
+  change_lessons: Cambiar lecciones
+  up: Subir
+  down: Bajar
+  remove: Quitar
+  up_label: "Subir la actividad {n}"
+  down_label: "Bajar la actividad {n}"
+  remove_label: "Quitar la actividad {n}"
+  pick_lesson: "La lección que estudiar:"
+  pick_lessons: "Las lecciones, una o más:"
+  save: Guardar
+  cancel: Cancelar
+  game_matching: Parejas de palabras
+  game_flashcards: Tarjetas
+  no_game: Sin juego
+  no_games: "Estas lecciones no tienen palabras para un juego."
+  rounds: "Vueltas:"
+  no_limit: Sin límite
+  times:
+    one: "{n} vuelta"
+    other: "{n} vueltas"
+  empty: "No hay nada planeado para este día."
+  recommended: Planear el día recomendado
+  recommended_about: "Un Estudio, un Repaso y un Juego sobre la siguiente lección."
+  add_at_end: "Añadir al final:"
+  add_study: "+ Estudio"
+  add_review: "+ Repaso"
+  add_play: "+ Juego"
+  auto_week: Planear mi semana por mí
+  assign: Asignar
+  clear: Vaciar el día
+  clear_confirm: "¿Vaciar este día? Se borran sus actividades y el progreso de cada estudiante en ellas."
+  past_day: "Este día ya pasó. Se muestra como fue, sin botones."
+  too_far:
+    one: "Los planes llegan a {n} día vista: este día aún no se puede planear."
+    other: "Los planes llegan a {n} días vista: este día aún no se puede planear."
+  broken: "Este curso no carga, así que no se puede planear. Arréglalo en la pestaña Editor."
+  week_done: "Planeado y asignado: {days}."
+  week_none: "Ningún día de clase de los próximos 7 estaba libre para planear."
+  week_stopped: "Se detuvo ahí: cada lección ya tiene un Estudio."
+  refused: "Ese cambio no se hizo."
+  refused_closed: "Ese día ya no se puede cambiar: los planes van de hoy a 28 días vista."
+  refused_lessons: "No se guardó: un Estudio lleva exactamente una lección; un Repaso o un Juego, una o más."
+  refused_full:
+    one: "Un día tiene como mucho {n} actividad."
+    other: "Un día tiene como mucho {n} actividades."
+  refused_empty: "Añade una actividad antes de asignar el día."
+  refused_tz: "Elige una zona horaria de la lista."
+  tz_ask: "Elige la zona horaria de la clase, para que el hoy del plan sea el hoy de la clase:"
+  tz_save: Guardar
+  tz_label: "Zona horaria de la clase:"
+  tz_change: Cambiar
+  tz_saved: "La zona horaria de la clase es ahora {zone}."
+  tz_from_browser: "La zona horaria de la clase se tomó de este navegador: {zone}. Puedes cambiarla al final de la página."
+  about:
+    one: "Cada botón hace un cambio y vuelve a esta página. Los planes llegan a {n} día vista; los días pasados no tienen botones."
+    other: "Cada botón hace un cambio y vuelve a esta página. Los planes llegan a {n} días vista; los días pasados no tienen botones."
+  plan_link: Plan

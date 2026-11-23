@@ -3207,3 +3207,102 @@ students_page:
   no_givable: "Pour donner un cours, crée d'abord le tien dans Cours."
   courses_about: "Coche les cours de cet élève. En retirer un garde sa progression dans ce cours."
   courses_saved: "Cours enregistrés."
+
+# The Plan tab of a course (#222, routes/daily.rs) and the course page's tab row.
+daily_plan:
+  tabs_label: Pages du cours
+  tab_editor: Éditeur
+  tab_plan: Plan
+  title: "Plan : {title}"
+  week_label: La semaine
+  earlier: Une semaine plus tôt
+  later: Une semaine plus tard
+  short:
+    mon: lun.
+    tue: mar.
+    wed: mer.
+    thu: jeu.
+    fri: ven.
+    sat: sam.
+    sun: dim.
+  long:
+    monday: lundi
+    tuesday: mardi
+    wednesday: mercredi
+    thursday: jeudi
+    friday: vendredi
+    saturday: samedi
+    sunday: dimanche
+  day_short: "{weekday} {day}"
+  day_long: "{weekday} {day} {month}"
+  today: "{day} · aujourd'hui"
+  nothing: Rien de prévu
+  draft: Pas encore attribué
+  activities:
+    one: "{n} activité"
+    other: "{n} activités"
+  finished: "{finished} sur {students} ont fini"
+  assigned_to:
+    one: "Attribué à {n} élève"
+    other: "Attribué à {n} élèves"
+  kind_study: Étude
+  kind_review: Révision
+  kind_play: Jeu
+  change_lesson: Changer la leçon
+  change_lessons: Changer les leçons
+  up: Monter
+  down: Descendre
+  remove: Retirer
+  up_label: "Monter l'activité {n}"
+  down_label: "Descendre l'activité {n}"
+  remove_label: "Retirer l'activité {n}"
+  pick_lesson: "La leçon à étudier :"
+  pick_lessons: "Les leçons, une ou plusieurs :"
+  save: Enregistrer
+  cancel: Annuler
+  game_matching: Paires de mots
+  game_flashcards: Cartes
+  no_game: Pas de jeu
+  no_games: "Ces leçons n'ont pas de mots pour un jeu."
+  rounds: "Tours :"
+  no_limit: Sans limite
+  times:
+    one: "{n} tour"
+    other: "{n} tours"
+  empty: "Rien n'est prévu pour ce jour."
+  recommended: Planifier la journée recommandée
+  recommended_about: "Une Étude, une Révision et un Jeu sur la leçon suivante."
+  add_at_end: "Ajouter à la fin :"
+  add_study: "+ Étude"
+  add_review: "+ Révision"
+  add_play: "+ Jeu"
+  auto_week: Planifier ma semaine pour moi
+  assign: Attribuer
+  clear: Vider la journée
+  clear_confirm: "Vider cette journée ? Ses activités et la progression de chaque élève sont supprimées."
+  past_day: "Cette journée est passée. Elle est montrée telle quelle, sans boutons."
+  too_far:
+    one: "Les plans vont jusqu'à {n} jour à l'avance : ce jour ne peut pas encore être planifié."
+    other: "Les plans vont jusqu'à {n} jours à l'avance : ce jour ne peut pas encore être planifié."
+  broken: "Ce cours ne se charge pas, il ne peut donc pas être planifié. Corrigez-le dans l'onglet Éditeur."
+  week_done: "Planifié et attribué : {days}."
+  week_none: "Aucun jour de classe des 7 prochains jours n'était libre."
+  week_stopped: "Arrêté là : chaque leçon a déjà une Étude."
+  refused: "Ce changement n'a pas été fait."
+  refused_closed: "Ce jour ne peut plus être modifié : les plans vont d'aujourd'hui à 28 jours à l'avance."
+  refused_lessons: "Non enregistré : une Étude prend exactement une leçon, une Révision ou un Jeu une ou plusieurs."
+  refused_full:
+    one: "Une journée a au plus {n} activité."
+    other: "Une journée a au plus {n} activités."
+  refused_empty: "Ajoutez une activité avant d'attribuer la journée."
+  refused_tz: "Choisissez un fuseau horaire dans la liste."
+  tz_ask: "Choisissez le fuseau horaire de la classe, pour que l'aujourd'hui du plan soit celui de la classe :"
+  tz_save: Enregistrer
+  tz_label: "Fuseau horaire de la classe :"
+  tz_change: Changer
+  tz_saved: "Le fuseau horaire de la classe est maintenant {zone}."
+  tz_from_browser: "Le fuseau horaire de la classe a été pris de ce navigateur : {zone}. Vous pouvez le changer en bas de la page."
+  about:
+    one: "Chaque bouton fait un changement et revient sur cette page. Les plans vont jusqu'à {n} jour à l'avance ; les jours passés n'ont pas de boutons."
+    other: "Chaque bouton fait un changement et revient sur cette page. Les plans vont jusqu'à {n} jours à l'avance ; les jours passés n'ont pas de boutons."
+  plan_link: Plan

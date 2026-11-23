@@ -16,7 +16,7 @@
     {% else %}
     <p class="muted small">{{ crate::t("students_page.courses_about") }}</p>
     {% for (id, title, has) in courses %}
-    <label class="students-course"><input type="checkbox" name="course" value="{{ id }}"{% if has %} checked{% endif %} data-testid="students-course" data-course="{{ id }}"> {{ title }}</label>
+    <div class="students-course"><label><input type="checkbox" name="course" value="{{ id }}"{% if has %} checked{% endif %} data-testid="students-course" data-course="{{ id }}"> {{ title }}</label>{% if has %} · <a class="small" href="{{ crate::url("/courses/") }}{{ id }}/daily" data-testid="students-course-plan" data-course="{{ id }}">{{ crate::t("daily_plan.plan_link") }}</a>{% endif %}</div>
     {% endfor %}
     <p><button type="submit" class="btn" data-testid="students-courses-save">{{ crate::t("students_page.save") }}</button></p>
     {% endif %}
