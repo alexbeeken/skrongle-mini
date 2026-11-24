@@ -273,3 +273,14 @@ fn seed_and_reset_the_dev_user() {
     .unwrap();
     assert!(db.with(owner).unwrap(), "a reset keeps the account an owner");
 }
+
+#[test]
+fn base_url_hosts_parse() {
+    assert_eq!(url_host_port("https://api.example.org/v1"), Some(("api.example.org".into(), 443)));
+    assert_eq!(url_host_port("http://Example.org:8080"), Some(("example.org".into(), 8080)));
+    assert_eq!(url_host_port("http://[::1]:11434/v1"), Some(("::1".into(), 11434)));
+    assert_eq!(url_host_port("http://user:pw@example.org/"), None);
+    assert_eq!(url_host_port("ftp://example.org"), None);
+    assert_eq!(url_host_port("http://"), None);
+    assert_eq!(url_host_port("http://example.org:notaport"), None);
+}

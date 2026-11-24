@@ -212,7 +212,6 @@ test("saving into a stopped run keeps it resumable, and Resume keeps the edit (#
   const up = await (await page.request.post(`/api/courses/${id}/files`, { data: { files: [{ path, content: JSON.stringify(lesson, null, 2) }] } })).json();
   expect(up.saved).toEqual([path]);
   expect(up.error).toBeNull();
-  await page.request.post(`/courses/${id}/publish`, { maxRedirects: 0 });
   await page.goto("/courses");
   await expect(card(page, id).getByTestId("courses-resume")).toBeVisible();
   // The card: a red ! with the reason behind it, and nothing else about the error.

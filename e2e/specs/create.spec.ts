@@ -165,13 +165,6 @@ test("the effort beside Generate opens its own dialog and the account keeps the 
   await expect(page.getByTestId("generate-effort-thorough")).toBeChecked();
 });
 
-test("the old pages lead to the new flow", async ({ page }) => {
-  await page.goto("/courses/new");
-  await expect(page).toHaveURL(/\/courses$/);
-  await page.goto("/courses/generate");
-  await expect(page).toHaveURL(/\/courses$/);
-});
-
 test("the dialog asks which provider only when the server has two or more keys", async ({ page }) => {
   // keys=fake saves the simulated provider's key for each of the three
   // providers: the dialog asks, Anthropic first, and says where the notes go.
@@ -344,17 +337,6 @@ test("a stopped course's red ! tip stays on a phone screen while it shows (#864)
   expect(tip.content).toContain("An error occurred during generation.");
   const { sw, cw } = await page.evaluate(() => ({ sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth }));
   expect(sw).toBeLessThanOrEqual(cw);
-});
-
-test("the old status page leads to the editor", async ({ page }) => {
-  const id = await createCourse(page);
-  await page.getByTestId("generate-wish").fill("Fractions via the old page");
-  await page.getByTestId("generate-submit").click();
-  expect(await generationEnds(page)).toBe("done");
-  const job = new URL(page.url()).searchParams.get("job");
-  await page.goto(`/courses/generate/${job}`);
-  await expect(page).toHaveURL(new RegExp(`/courses/${id}\\?job=${job}$`));
-  await expect(progress(page)).toHaveCount(0);
 });
 
 test("the dialog shows the lesson count, the time and the cost before generating (#443)", async ({ page }) => {

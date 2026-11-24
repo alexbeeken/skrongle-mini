@@ -79,7 +79,7 @@ enum Saved {
     Refused(crate::problems::Problem),
 }
 
-/// POST /courses/{id}/lessons and POST /api/courses/{id}/lessons
+/// POST /api/courses/{id}/lessons
 /// {lessons: [{key, unit, title, content?}], manifest?, placement?, title?, session?, base?}:
 /// the lesson table as it stands. The course title, settings, order, units,
 /// names, deletions, new lessons and edited JSON go in as one revision, so
@@ -91,8 +91,8 @@ enum Saved {
 /// `409 {"error"}`; a table the course rules refuse gets
 /// `422 {"errors": {"table": text}, "problems": [Problem]}` (`problems.rs`:
 /// kind, file, row, lesson, field, line, message, hint) and nothing is stored; a table that
-/// changes nothing is `200` with `saved: false`. Without `session` (an older
-/// page, a script) every refusal is `400 {"error"}`, as before.
+/// changes nothing is `200` with `saved: false`. Without `session` (a
+/// script) every refusal is `400 {"error"}`.
 pub async fn save_lessons(
     State(state): State<Arc<AppState>>,
     user: CurrentUser,

@@ -1,4 +1,4 @@
-25 src/ai.rs
+7 src/ai.rs
 9 src/arrange.rs
 3 src/auth.rs
 5 src/conjugation.rs

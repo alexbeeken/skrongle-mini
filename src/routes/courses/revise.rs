@@ -106,7 +106,7 @@ pub async fn ai_start(
     };
     // The first saved key.
     let provider = match saved_provider(&state).await? {
-        Some(saved) => match ai_provider(&state, &user, saved.id(), "", "", "").await? {
+        Some(saved) => match ai_provider(&state, saved.id()).await? {
             Ok(p) => p,
             Err(e) => return refuse(e).await,
         },
@@ -141,7 +141,7 @@ pub async fn ai_start(
         i18n: crate::i18n::snapshot(),
         named: Default::default(),
     };
-    match ai::submit(&state, req, job.clone(), false).await {
+    match ai::submit(&state, req, job.clone()).await {
         Ok(job) => {
             count_ai_job(&state, user.id);
             let doing = match mode {

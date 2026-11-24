@@ -43,7 +43,7 @@ async function table(page: Page, id: string): Promise<Row[]> {
 
 /** Save a table straight to the server: status and the error or notice. */
 async function save(page: Page, id: string, lessons: Row[]) {
-  const r = await page.request.post(`/courses/${id}/lessons`, { data: { lessons } });
+  const r = await page.request.post(`/api/courses/${id}/lessons`, { data: { lessons } });
   const body = await r.json().catch(() => ({}));
   return { status: r.status(), error: (body.error ?? "") as string, notice: (body.notice ?? "") as string };
 }

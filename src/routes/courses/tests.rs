@@ -147,7 +147,7 @@ fn second_lesson(title: &str) -> String {
 }
 
 /// #84 step 2: the editor's other writes (Upload, the file page's Save and
-/// Delete, Check the course, Undo, Redo, the review's Accept) build the
+/// Delete, Undo, Redo, the review's Accept) build the
 /// course after they have let go of the database, in the request's
 /// language, and answer as they did when they built under it.
 #[test]
@@ -165,7 +165,6 @@ fn the_editors_writes_build_off_the_database_lock() {
         ("Upload", Req::Json(format!("/api/courses/{id}/files"), json!({"files": [{"path": path, "content": second_lesson("Second")}]})), "\"error\":null"),
         ("Save", Req::Form(course("/file"), vec![("path", path.clone()), ("content", second_lesson("Second, saved"))]), "notice=saved"),
         ("Delete", Req::Form(course("/file/delete"), vec![("path", path.clone())]), "notice=file-deleted"),
-        ("Check the course", Req::Form(course("/publish"), vec![]), "notice=loads"),
         ("Undo", Req::Form(course("/undo"), vec![]), "notice=undone"),
         ("Redo", Req::Form(course("/redo"), vec![]), "notice=redone"),
     ];
@@ -215,7 +214,8 @@ fn a_save_while_a_course_is_built_wins() {
         log.lock().unwrap().push(rx.recv_timeout(std::time::Duration::from_secs(5)).is_ok());
     });
     courses::CHECK_HOOK.lock().unwrap().push((id.to_string(), hook));
-    let (status, to) = send(&base, &cookie, Req::Form(format!("/courses/{id}/publish"), vec![]));
+    let first = courses::starter_files(id, "Held")[1].content.clone();
+    let (status, to) = send(&base, &cookie, Req::Form(format!("/courses/{id}/file"), vec![("path", "lessons/first-lesson.json".to_string()), ("content", first)]));
     let row = state.db.with(|c| courses::course(c, id)).unwrap().unwrap();
     // The review: an AI run that added a lesson, accepted with it left out.
     let path = "lessons/second.json";
@@ -231,9 +231,9 @@ fn a_save_while_a_course_is_built_wins() {
     let (review_status, page) = send(&base, &cookie, Req::Form(format!("/courses/{id}/review"), vec![("file", path.to_string())]));
     courses::CHECK_HOOK.lock().unwrap().retain(|(i, _)| i != id);
     assert_eq!(*saves.lock().unwrap(), vec![true, true], "each save got the database while the build ran");
-    // Check the course reports the files it built, and records nothing over the newer save.
+    // The file page's Save reports the files it built, and records nothing over the newer save.
     assert_eq!(status, 303);
-    assert!(to.contains("notice=loads"), "{to}");
+    assert!(to.contains("notice=saved") && !to.contains("broken"), "{to}");
     assert_eq!(row.error.as_deref(), Some("the newer save's error"));
     // The review wrote nothing and says why.
     assert_eq!(review_status, 200);
@@ -548,13 +548,9 @@ fn notices_are_keys_not_text() {
     let page = get(&format!("/courses/{id}?notice=Visit%20evil.example"));
     assert!(!page.contains("evil.example") && !page.contains("course-edit-notice"), "{page}");
 
-    // Publish redirects with a key, which the editor turns into its text.
-    let mut r = agent.post(&format!("{base}/courses/{id}/publish")).header("cookie", &cookie).send_empty().unwrap();
-    let _ = r.body_mut().read_to_string();
-    let loc = r.headers().get("location").unwrap().to_str().unwrap().to_string();
-    assert!(loc.ends_with(&format!("/courses/{id}?notice=loads")) || loc.ends_with(&format!("/courses/{id}?notice=broken")), "{loc}");
-    let page = get(&loc);
-    assert!(page.contains(r#"data-testid="course-edit-notice">The course"#), "{page}");
+    // A key the editor knows becomes its text.
+    let page = get(&format!("/courses/{id}?notice=saved"));
+    assert!(page.contains(r#"data-testid="course-edit-notice">File saved."#), "{page}");
 
     assert!(!page.contains("onsubmit"), "no inline submit handler: {page}");
     assert!(page.contains(r#"data-testid="course-edit-delete-form" data-confirm="Delete this course?"#), "{page}");

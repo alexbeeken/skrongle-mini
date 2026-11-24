@@ -68,8 +68,7 @@ if [ "${RELEASE_E2E_DEV:-0}" != 1 ]; then
   if [ -n "$SIM_PID" ]; then
     echo "==> AI simulator on $SIM_URL (dev-feature build, fixtures)"
     # A release build reads SKRONGLE_ANTHROPIC_BASE_URL and SKRONGLE_OPENAI_BASE_URL too (ai.spec.ts uses Anthropic's
-    # format, ai-formats.spec.ts OpenAI's). They are the operator's settings, not a custom base URL typed into a form,
-    # so the private-address rule (SKRONGLE_ALLOW_PRIVATE_AI_URLS, which the server runs without) does not apply.
+    # format, ai-formats.spec.ts OpenAI's).
     # Ollama's needs no variable: the owner types the simulator's /dev/ai/ollama on Manage Users.
     AI_ENV=(SKRONGLE_ANTHROPIC_BASE_URL="$SIM_URL/dev/ai/anthropic" SKRONGLE_OPENAI_BASE_URL="$SIM_URL/dev/ai/openai/v1")
     SIM_ENV=(E2E_AI_SIM_URL="$SIM_URL")

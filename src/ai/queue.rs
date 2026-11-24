@@ -353,8 +353,8 @@ pub struct Payload {
     pub user: i64,
     /// "generate", "revise" or "translate".
     pub mode: String,
-    /// A generation whose key can be had again (a saved key): it goes on
-    /// by itself after a restart.
+    /// A generation: its request can be built again from the course row and
+    /// the owner's saved key, so it goes on by itself after a restart.
     pub resume: bool,
     pub provider: String,
     pub model: String,
@@ -370,8 +370,8 @@ pub struct Payload {
     pub named: Vec<String>,
 }
 
-/// The row for `req`. `saved_key`: its own key is the one saved on the profile.
-pub fn payload(req: &Request, id: &str, saved_key: bool) -> Payload {
+/// The row for `req`.
+pub fn payload(req: &Request, id: &str) -> Payload {
     let mode = match (req.changes_a_course(), &req.translate) {
         (true, _) => "revise",
         (false, None) => "generate",
@@ -382,7 +382,7 @@ pub fn payload(req: &Request, id: &str, saved_key: bool) -> Payload {
         course: req.course_id.clone(),
         user: req.user_id,
         mode: mode.into(),
-        resume: mode == "generate" && saved_key,
+        resume: mode == "generate",
         provider: req.provider.kind.id().into(),
         model: req.provider.model.clone(),
         effort: req.provider.effort.map(|e| e.id().to_string()).unwrap_or_default(),
@@ -605,11 +605,9 @@ fn rebuild(state: &crate::AppState, db: &Db, p: &Payload) -> Result<Request, Str
 
 // ---------- the routes' side ----------
 
-/// Take a job for a route: its row, then [`start`]. `saved_key`: the
-/// learner's own key is the one saved on the profile (not one pasted into
-/// the form), so a generation can go on by itself after a restart.
-pub async fn submit(state: &crate::AppState, req: Request, id: String, saved_key: bool) -> Result<String, String> {
-    let p = payload(&req, &id, saved_key);
+/// Take a job for a route: its row, then [`start`].
+pub async fn submit(state: &crate::AppState, req: Request, id: String) -> Result<String, String> {
+    let p = payload(&req, &id);
     let now = crate::db::now();
     let row = state.db.call(move |c| hold(c, &p, now)).await.map_err(|e| e.to_string())?;
     if let Err(e) = start(&state.jobs, state.db.clone(), Arc::clone(&state.courses), req, id.clone(), row) {

@@ -304,7 +304,6 @@ Where a default says "unit", `skrongle.service` sets it.
 | `SKRONGLE_SECRET_KEY` | (from `<db>.key`) | 64 hex characters; encrypts saved AI keys. Set it to keep the secret out of the data folder. |
 | `SKRONGLE_NEW_SECRET_KEY` | off | `1` only when the secret key is lost for good: see [Backup and restore](#backup-and-restore). |
 | `SKRONGLE_OPENAI_BASE_URL` | `https://api.openai.com` | Point the OpenAI provider at any OpenAI-compatible server, e.g. Ollama on another machine. |
-| `SKRONGLE_ALLOW_PRIVATE_AI_URLS` | off | `1` lets learners type a base URL on your own network (e.g. `http://192.168.1.20:11434`) into the AI forms. Off, the server refuses to call private, loopback and link-local addresses for them, and ports other than 443 and 80. |
 | `SKRONGLE_AI_JOB_BUDGET_SECS` | `3600` | How long one AI generation job may run in all. Raise it for a slow self-hosted model. |
 | `SKRONGLE_LOG` | `info` | One level: `error`, `warn`, `info`, `debug` or `trace`. Per-module filters like `skrongle=debug` are not supported; an unrecognised value logs one warning and runs at `info`. |
 | `SKRONGLE_SECURE_COOKIES` | off | `1` when the site is served over HTTPS (behind a TLS proxy). |

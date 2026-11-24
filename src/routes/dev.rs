@@ -371,11 +371,8 @@ pub fn routes() -> axum::Router<Arc<AppState>> {
         // The simulated providers' wire APIs: the app's own server-side
         // clients call them with an API key (checked there), no cookie.
         .route("/dev/ai/anthropic/v1/messages", post(super::dev_ai::anthropic_messages))
-        .route("/dev/ai/anthropic/v1/models", get(super::dev_ai::anthropic_models))
         .route("/dev/ai/openai/v1/chat/completions", post(super::dev_ai::openai_chat))
-        .route("/dev/ai/openai/v1/models", get(super::dev_ai::openai_models))
         .route("/dev/ai/google/v1beta/openai/chat/completions", post(super::dev_ai::google_chat))
-        .route("/dev/ai/google/v1beta/openai/models", get(super::dev_ai::google_models))
         .route("/dev/ai/deepseek/v1/chat/completions", post(super::dev_ai::compatible_chat))
         .route("/dev/ai/mistral/v1/chat/completions", post(super::dev_ai::compatible_chat))
         .route("/dev/ai/xai/v1/chat/completions", post(super::dev_ai::compatible_chat))

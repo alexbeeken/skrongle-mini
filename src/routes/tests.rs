@@ -527,9 +527,6 @@ fn owners_reset_passwords_two_factor_and_make_owners() {
     let page = get(&loc, &root).2;
     assert!(page.contains("bob@example.org is an owner now") && !page.contains(r#"data-testid="manage-account-make-owner""#), "{page}");
 
-    // The old address of the page redirects, query and all.
-    assert_eq!(get("/superuser?did=x", &root), (308, "/manage?did=x".to_string(), String::new()));
-
     // An address nobody has.
     let (_, _, loc, _, _) = post("/manage/temp-password", &root, &[("email", "nobody@example.org")]);
     assert!(get(&loc, &root).2.contains(r#"data-testid="manage-error""#), "{loc}");
@@ -1143,17 +1140,10 @@ fn ai_features_with_saved_keys_answered_by_the_simulator() {
     let (id, page) = draft(&dev_c);
     assert_eq!(page.matches(r#"data-testid="generate-provider""#).count(), 3, "a choice of the three saved keys");
     assert!(page.contains(" open data-open-on-load>") && !page.contains("generate-no-key"), "{page}");
-    // A saved key never goes to a custom base URL (#372), and a custom
-    // base URL uses only the web ports (#373). Neither reaches the network.
-    let wish = ("wish", "Volcanoes and how they erupt");
-    let (status, _, body) = post(&format!("/courses/{id}/generate"), &dev_c, &[("provider", "anthropic"), wish, ("base_url", "https://8.8.8.8/v1")]);
-    assert_eq!(status, 200);
-    assert!(body.contains("A custom base URL needs its own API key"), "{body}");
-    let custom = [("provider", "anthropic"), wish, ("base_url", "https://8.8.8.8:8443/v1"), ("api_key", "sk-pasted-for-that-server")];
-    let (status, _, body) = post(&format!("/courses/{id}/generate"), &dev_c, &custom);
-    assert_eq!(status, 200);
-    assert!(body.contains("may only use port 443 (https) or 80 (http), not 8443"), "{body}");
-    let (status, loc, body) = post(&format!("/courses/{id}/generate"), &dev_c, &[("provider", "anthropic"), ("wish", "Volcanoes and how they erupt"), ("lessons", "6")]);
+    // A key, base URL or model in the form changes nothing: the job goes to
+    // the saved key's provider (here the simulator), which answers it.
+    let form = [("provider", "anthropic"), ("wish", "Volcanoes and how they erupt"), ("lessons", "6"), ("base_url", "http://127.0.0.1:9/v1"), ("api_key", "sk-pasted"), ("model", "no-such-model")];
+    let (status, loc, body) = post(&format!("/courses/{id}/generate"), &dev_c, &form);
     assert_eq!(status, 303, "{body}");
     // To the editor, whose modal follows the job.
     let job = loc.strip_prefix(&format!("/courses/{id}?job=")).expect("to the editor's progress modal").to_string();
@@ -1172,7 +1162,6 @@ fn ai_features_with_saved_keys_answered_by_the_simulator() {
     // Generated: the modal just closes, no more Generate dialog, and it can't be posted again.
     let page = get(&loc, &dev_c).1;
     assert!(!page.contains("course-ai-modal") && !page.contains(r#"id="gen-dialog""#), "{page}");
-    assert_eq!(get(&format!("/courses/generate/{job}"), &dev_c).0, 303, "the old status page leads to the editor");
     let (status, loc, _) = post(&format!("/courses/{id}/generate"), &dev_c, &[("provider", "anthropic"), ("wish", "Volcanoes and how they erupt")]);
     assert!(status == 303 && loc.starts_with(&format!("/courses/{id}?notice=")), "{loc}");
     let (status, body) = tutor(&dev_c);
@@ -1221,8 +1210,7 @@ fn ai_features_with_saved_keys_answered_by_the_simulator() {
             assert!(page.contains(r#"data-testid="course-review-why-line""#) && page.contains(r#"data-testid="course-review-left-alone""#), "{page}");
             assert!(page.contains("is a habit, not a rule"), "the Check line: {page}");
         }
-        // The old status page sends this job to the editor; without ?job= the job is over and no modal shows.
-        assert_eq!(get(&format!("/courses/generate/{job}"), &dev_c).0, 303);
+        // Without ?job= the job is over and no modal shows.
         assert!(!get(&format!("/courses/{course}"), &dev_c).1.contains("course-ai-modal"));
     }
 
@@ -1410,9 +1398,6 @@ fn a_shared_course_is_on_the_recipients_list_read_only() {
     let id = loc.strip_prefix("/courses/").and_then(|l| l.strip_suffix("?generate=1")).expect("the editor").to_string();
     assert!(get(&format!("/courses/{id}"), &ann).2.contains(r#"data-testid="course-edit-share""#));
 
-    // The POST target opened as a page goes back to the dialog, not a 405 (#667).
-    let (status, loc, _) = get(&format!("/courses/{id}/share"), &ann);
-    assert!(status == 303 && loc.ends_with(&format!("/courses/{id}?share=1")), "{status} {loc}");
     assert_eq!(shares(), 0);
     // Making links: one per click, named or not, shown once.
     let (status, page) = share_post(&format!("/courses/{id}/share"), &ann, " Bob ");
@@ -2038,7 +2023,6 @@ fn the_two_ai_permissions_refuse_their_own_routes_only() {
         let (status, _, body) = post(&path, &no_ai_courses, &[("provider", "anthropic"), ("lang", "fr")]);
         assert!(status == 403 && body.contains(not_allowed), "{path}: {status} {body}");
     }
-    assert_eq!(get("/courses/generate/nope", &no_ai_courses).0, 403);
     let (status, body) = get("/api/generate/nope", &no_ai_courses);
     assert!(status == 403 && body.contains(not_allowed), "{status} {body}");
     let courses = get("/courses", &no_ai_courses).1;

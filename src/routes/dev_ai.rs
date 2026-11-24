@@ -264,29 +264,6 @@ pub async fn google_chat(State(state): State<Arc<AppState>>, headers: HeaderMap,
     serve(&state, Format::Google, &headers, &body).await
 }
 
-async fn models(format: Format, headers: HeaderMap) -> Response {
-    if dev_ai::who(&api_key(format, &headers)).is_none() {
-        let kind = if format == Format::Anthropic { "authentication_error" } else { "invalid_request_error" };
-        return wire_json(format, 401, dev_ai::error_body(format, kind, "invalid x-api-key", 0), 0, false);
-    }
-    wire_json(format, 200, dev_ai::models_body(format), 0, false)
-}
-
-/// GET /dev/ai/anthropic/v1/models
-pub async fn anthropic_models(headers: HeaderMap) -> Response {
-    models(Format::Anthropic, headers).await
-}
-
-/// GET /dev/ai/openai/v1/models
-pub async fn openai_models(headers: HeaderMap) -> Response {
-    models(Format::OpenAi, headers).await
-}
-
-/// GET /dev/ai/google/v1beta/openai/models
-pub async fn google_models(headers: HeaderMap) -> Response {
-    models(Format::Google, headers).await
-}
-
 // ---------- the dev pages' AI section ----------
 
 /// One row of the call log (`dev_ai_rows.html`).
@@ -504,7 +481,7 @@ fn fixtures() -> Vec<FixtureView> {
 pub struct AiTemplate {
     pub user: Option<CurrentUser>,
     pub mode: String,
-    /// (format, base URL) a custom base URL can name.
+    /// (format, base URL) a `SKRONGLE_*_BASE_URL` or the Ollama row can name.
     pub bases: Vec<(&'static str, String)>,
     pub timeout: String,
     pub profiles: Vec<ProfileView>,

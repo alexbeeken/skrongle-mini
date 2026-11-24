@@ -4,7 +4,7 @@
 //! `/dev/ai/openai/v1/chat/completions` (`routes::dev_ai`), so the app's own
 //! clients in `ai` call it exactly as they call the providers: the app only
 //! sees a base URL (dev mode points the defaults here, unless
-//! `SKRONGLE_LLM_MODE=live`; any custom base URL may too) and a key.
+//! `SKRONGLE_LLM_MODE=live`; a `SKRONGLE_*_BASE_URL` may too) and a key.
 //!
 //! It answers from the LLM fixtures (`data/test-fixtures/llm/<purpose>.json`,
 //! picked by the call's purpose and a `[fixture:NAME]` token in the prompt),
@@ -24,7 +24,6 @@ use std::path::Path;
 use std::sync::Mutex;
 use std::time::Duration;
 
-use crate::ai::ProviderKind;
 use crate::secrets::Provider;
 
 /// The learner's own keys the seed and `/dev/login?keys=dev` store: one
@@ -782,24 +781,6 @@ pub fn error_body(format: Format, kind: &str, message: &str, id: i64) -> serde_j
         return serde_json::json!({ "error": { "message": message, "type": kind, "param": null, "code": code } });
     }
     serde_json::json!({ "type": "error", "error": { "type": kind, "message": message }, "request_id": format!("req_dev_{id}") })
-}
-
-/// The models list (`GET …/v1/models`), for clients that look first.
-pub fn models_body(format: Format) -> serde_json::Value {
-    let names: Vec<&str> = match format {
-        Format::Anthropic => vec![ProviderKind::Anthropic.default_model(), "claude-sonnet-5-5", "claude-haiku-4-5"],
-        Format::OpenAi => vec![ProviderKind::OpenAi.default_model(), "gpt-5-mini"],
-        Format::Google => vec![ProviderKind::Google.default_model()],
-    };
-    if format.openai_like() {
-        return serde_json::json!({ "object": "list", "data": names.iter().map(|n| serde_json::json!({ "id": n, "object": "model", "created": 0, "owned_by": "dev-simulator" })).collect::<Vec<_>>() });
-    }
-    serde_json::json!({
-        "data": names.iter().map(|n| serde_json::json!({ "type": "model", "id": n, "display_name": n, "created_at": "2026-01-01T00:00:00Z" })).collect::<Vec<_>>(),
-        "has_more": false,
-        "first_id": names.first(),
-        "last_id": names.last(),
-    })
 }
 
 /// The text of a message's `content`: a string, or the text blocks of an array.

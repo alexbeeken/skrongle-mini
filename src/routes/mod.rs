@@ -2,9 +2,9 @@
 
 use askama::Template;
 use axum::body::Body;
-use axum::extract::{Path, Query, RawQuery};
+use axum::extract::{Path, Query};
 use axum::http::{header, HeaderMap, HeaderValue, StatusCode};
-use axum::response::{Html, IntoResponse, Redirect, Response};
+use axum::response::{Html, IntoResponse, Response};
 use axum::routing::{get, post};
 use axum::Router;
 use rust_embed::RustEmbed;
@@ -152,17 +152,6 @@ pub fn public_base(state: &AppState, headers: &HeaderMap) -> String {
     format!("{scheme}://{host}{}", crate::base_path())
 }
 
-/// A permanent redirect to `to` with the request's query string, for a path
-/// that moved (the modes used to live at /d, /k and /games). A 308, so a
-/// POST stays a POST.
-async fn moved(to: &str, RawQuery(query): RawQuery) -> Redirect {
-    let url = crate::url(to);
-    Redirect::permanent(&match query {
-        Some(q) => format!("{url}?{q}"),
-        None => url,
-    })
-}
-
 
 /// The body limit of every request (#370): forms and JSON from the pages are
 /// a few KB. Larger bodies only go to `big` routes.
@@ -208,8 +197,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         // pages (all inside the active course)
         .route("/", get(pages::root))
         // Study mode (short study lessons with quizzes): overview, lessons, practice, map, vocabulary, history
-        // Study mode opens at its lessons; the overview it had is gone.
-        .route("/study", get(|q: RawQuery| moved("/lessons", q)))
         .route("/lessons", get(pages::lessons))
         .route("/map", get(map::map))
         .route("/lessons/{slug}", get(pages::lesson))
@@ -231,14 +218,11 @@ pub fn router(state: Arc<AppState>) -> Router {
         // courses: picking one, building one, generating one
         .route("/courses", get(courses::picker))
         .route("/courses/open/{id}", post(courses::open))
-        .route("/courses/new", get(courses::new_form).post(courses::create))
-        .route("/courses/generate", get(courses::generate_form))
-        .route("/courses/generate/{job}", get(courses::generate_status))
+        .route("/courses/new", post(courses::create))
         .route("/api/generate/{job}", get(courses::generate_api))
         .route("/courses/{id}", get(courses::editor))
         .route("/courses/{id}/file", get(courses::file_form).merge(big(post(courses::file_save))))
         .route("/courses/{id}/file/delete", post(courses::file_delete))
-        .route("/courses/{id}/publish", post(courses::publish))
         .route("/courses/{id}/delete", post(courses::delete))
         .route("/courses/{id}/copy", post(courses::copy))
         .route("/courses/{id}/translate", post(courses::translate))
@@ -249,14 +233,13 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/courses/{id}/redo", post(courses::redo))
         .route("/courses/{id}/review", big(post(courses::review_accept)))
         .route("/api/review-quiet", post(courses::review_quiet))
-        .route("/courses/{id}/lessons", big(post(courses::save_lessons)))
         .route("/courses/{id}/export.json", get(courses::export))
         .route("/courses/{id}/settings", post(courses::set_settings))
         .route("/courses/{id}/stat/{metric}", get(courses::stat_detail))
         .route("/courses/{id}/placement", get(courses::placement).post(courses::mark_placement))
         // sharing a course with other learners (#451)
         .route("/courses/shared/{token}", get(share::open_link))
-        .route("/courses/{id}/share", get(share::to_course).post(share::invite))
+        .route("/courses/{id}/share", post(share::invite))
         .route("/courses/{id}/share/remove", post(share::remove))
         .route("/api/courses/{id}/files", get(courses::files_api).merge(big(post(courses::upload))))
         .route("/api/courses/{id}/file", get(courses::file_api))
@@ -272,14 +255,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/llms.txt", get(docs::llms_txt))
         .route("/docs/{page}", get(docs::page))
         .route("/password/change", get(password::change_form).post(password::change))
-        // the modes' old paths (/d, /k, /g, /games), for bookmarks and open tabs
-        .route("/d", get(|q: RawQuery| moved("/sprint", q)))
-        .route("/d/{*rest}", get(|Path(rest): Path<String>, q: RawQuery| async move { moved(&format!("/sprint/{rest}"), q).await }))
-        .route("/api/d/{*rest}", post(|Path(rest): Path<String>, q: RawQuery| async move { moved(&format!("/api/sprint/{rest}"), q).await }))
-        .route("/k", get(|q: RawQuery| moved("/lessons", q)))
-        .route("/g", get(|q: RawQuery| moved("/play", q)))
-        .route("/games", get(|q: RawQuery| moved("/play", q)))
-        .route("/games/{*rest}", get(|Path(rest): Path<String>, q: RawQuery| async move { moved(&format!("/play/{rest}"), q).await }))
         // Sprint mode (phone-first sessions)
         .route("/sprint", get(sprint::home))
         .route("/sprint/play", get(sprint::play))
@@ -343,8 +318,7 @@ pub fn router(state: Arc<AppState>) -> Router {
         // OAuth sign-in for apps that connect from the cloud (#169): the
         // discovery documents, the consent page and the program endpoints.
         .merge(oauth::routes())
-        // owners (404 for anyone else); /superuser was its old address
-        .route("/superuser", get(|q: RawQuery| moved("/manage", q)))
+        // owners (404 for anyone else)
         .route("/manage", get(manage::show))
         .route("/manage/progress", get(manage::progress::show))
         .route("/manage/make-owner", post(manage::make_owner))

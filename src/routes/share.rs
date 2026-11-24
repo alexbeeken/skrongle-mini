@@ -36,12 +36,6 @@ fn back(id: &str, key: &str) -> Response {
     Redirect::to(&crate::url(&format!("/courses/{id}?share=1&notice={key}"))).into_response()
 }
 
-/// GET /courses/{id}/share: the address the links page was drawn
-/// at, opened again (from the address bar, say). Back to the Share dialog (#667).
-pub async fn to_course(Path(id): Path<String>) -> Response {
-    Redirect::to(&crate::url(&format!("/courses/{id}?share=1"))).into_response()
-}
-
 /// POST /courses/{id}/share (label): one new invitation link, shown once.
 /// Needs the Share courses permission (#144); removing a link and opening
 /// one do not.

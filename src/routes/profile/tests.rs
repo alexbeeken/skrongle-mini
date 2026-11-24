@@ -224,11 +224,9 @@ fn the_ai_keys_and_the_hide_ai_switch_are_the_owners_over_http() {
     let editor = get(&format!("/courses/{bob_course}?generate=1"), &bob).2;
     assert!(editor.contains(r#"data-testid="course-edit""#) && !editor.contains(r#"data-testid="generate""#) && !editor.contains(r#"data-testid="course-ai""#), "{editor}");
     // The routes refuse: a page says so with a 403, JSON gets a 403.
-    for path in ["/tutor", "/courses/generate/nope"] {
-        let (status, _, body) = get(path, &bob);
-        assert_eq!(status, 403, "{path}");
-        assert!(body.contains("turned off on this server"), "{body}");
-    }
+    let (status, _, body) = get("/tutor", &bob);
+    assert_eq!(status, 403);
+    assert!(body.contains("turned off on this server"), "{body}");
     assert_eq!(post(&format!("/courses/{bob_course}/generate"), &bob, &[("provider", "anthropic"), ("wish", "x")]).0, 403);
     assert_eq!(post("/courses/spanish/ai", &bob, &[("text", "add a lesson"), ("mode", "add")]).0, 403);
     for path in ["/api/tutor/session?id=x", "/api/generate/nope"] {
