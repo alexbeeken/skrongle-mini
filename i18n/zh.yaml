@@ -1896,8 +1896,6 @@ courses:
     ai_finished_notice: AI 已完成。在“使用 AI”下的“查看更改”中可以看到它做了什么。
     too_many_files: "一门课程最多只能有 {max} 个文件"
     manifest_undeletable: course.json 无法删除；请改为编辑它。
-    loads_notice: 课程已可加载。请从课程列表中打开它。
-    not_loading_notice: "课程尚无法加载：{error}"
     gone: 此课程已不存在（可能已在其他标签页中删除），因此这些更改无法保存。
     busy_generating: 课程仍在生成中
     busy_revising: 课程正在修改中
@@ -2297,8 +2295,6 @@ courses:
     own_write: 或关闭此窗口，自己编写课节；起始课节会展示格式。在你编辑某节课的内容之前，都可以从“使用 AI”回到这里。
     your_provider: 你的服务提供商
     choose_provider: 请选择服务提供商。
-    base_url: 基础 URL 必须以 http:// 或 https:// 开头。
-    bad_key: 这看起来不像 API 密钥。
     paste_key: "本服务器没有设置 {provider} 密钥。"
     wish_too_long: "“你想学什么”请控制在 {max} 个字符以内；更长的材料请放入笔记框。"
     notes_too_long: "你的材料请控制在 {max} 个字符以内；请删减，或将课程拆分为两门。"

@@ -142,17 +142,17 @@ src/
       create.rs    POST /courses/new (a draft), /courses/{id}/copy, /courses/{id}/translate (copy and translate with AI)
       editor.rs    GET /courses/{id}: the editor (lesson table, Use AI form, review modal, Undo/Redo, Share links), `owned`
       write.rs     what the editor and the MCP tools (#168) share: own_course (whose course), check_file (a file's path and text), course_write_refused (COURSE_WRITES_PER_USER), may_create_courses, store_files (MAX_FILES, room_for, one transaction)
-      files.rs     GET/POST /courses/{id}/file, file/delete, publish, delete, export.json; GET/POST /api/courses/{id}/files, GET /api/courses/{id}/file, POST /api/courses/{id}/preview-answer, POST /api/courses/{id}/answer-key
+      files.rs     GET/POST /courses/{id}/file, file/delete, delete, export.json; GET/POST /api/courses/{id}/files, GET /api/courses/{id}/file, POST /api/courses/{id}/preview-answer, POST /api/courses/{id}/answer-key
       generate.rs  POST /courses/{id}/generate (its Generate dialog) and /cancel, provider and quota checks, GET /api/generate/{job}
       revise.rs    POST /courses/{id}/ai (add, edit or revise with AI)|undo|redo|review (Accept in the review: what is left out), POST /api/review-quiet
-      lessons.rs   POST /courses/{id}/lessons (JSON: the whole table) and /api/courses/{id}/lessons (the same, the editor's autosave: `session` + `base` version, 409 when behind or busy, 422 refused)
+      lessons.rs   POST /api/courses/{id}/lessons (JSON: the whole table; the editor's autosave sends `session` + `base` version: 409 when behind or busy, 422 refused)
       tests.rs     the editor autosave, notices, write limits, prompt boxes and preview-answer tests
     share.rs     POST /courses/{id}/share (make a named link) and /courses/{id}/share/remove (by id, owner only); GET /courses/shared/{token} (the invitation's link: signed in, the course joins the list and opens; signed out, /login?share=<token>)
     docs.rs      /docs (sidebar sections: SECTIONS), /llms.txt (docs/llms.txt)
     auth.rs      /login /register (signs the new account in; a taken address is refused on the form) /logout
     auth/code.rs /login/code… (the two-factor step: code form, resend, cancel, status, dev device)
     password.rs  /password/change (the gate after signing in with a temporary password: the new one twice, no old one)
-    manage.rs    /manage, the Manage Users page (owners; a superuser, CurrentUser::manages_users, gets the accounts and POST /manage/permissions only; 404 otherwise; /superuser redirects here): every account on one page with its permissions (the Permissions dialog: a preset or Custom, POST /manage/permissions, #139) and, for owners, Temporary password, Turn off two-factor and Make owner per row; invitation links under SKRONGLE_SIGNUP=invite; and the AI section (#25): the server's AI API keys (autosaved, POST /api/manage/keys) and Hide AI features for everyone. POST /manage/make-owner|invites|invites/revoke|temp-password|two-factor-off|api-keys/remove|ai
+    manage.rs    /manage, the Manage Users page (owners; a superuser, CurrentUser::manages_users, gets the accounts and POST /manage/permissions only; 404 otherwise): every account on one page with its permissions (the Permissions dialog: a preset or Custom, POST /manage/permissions, #139) and, for owners, Temporary password, Turn off two-factor and Make owner per row; invitation links under SKRONGLE_SIGNUP=invite; and the AI section (#25): the server's AI API keys (autosaved, POST /api/manage/keys) and Hide AI features for everyone. POST /manage/make-owner|invites|invites/revoke|temp-password|two-factor-off|api-keys/remove|ai
     manage/bulk.rs POST /manage/permissions/bulk (#141: email=… once per ticked account, preset=<id>; an owner or a superuser, 404 otherwise): the preset is copied onto every account named, in one transaction; owners, the signed-in account and unknown addresses are skipped; back to /manage?did=bulk&n=…&skipped=…&preset=…
     manage/progress.rs  GET /manage/progress?email=… (#147): one account's progress for an owner or a superuser, a row per course it opened (lessons passed from lesson_passes, last studied, day streak), counts and dates only, read in one Db::call and without building a course (a built-in course's summary, a made one's courses row); a 404 for an owner's account, one with Perm::Privacy (but a superuser's own), an unknown address, and any viewer who manages nothing. `hidden` is the one rule, which manage.rs applies to each row's Progress link, Private mark and (for a superuser) last sign-in. templates/manage_progress.html
     manage/presets.rs  saved presets (#140): the Custom branch of POST /manage/permissions with a `save_as` name (the set becomes a row of permission_presets and the account is given it, one transaction), the list of saved presets under the accounts, and POST /manage/presets/delete (id; an owner or a superuser, 404 otherwise; a built-in preset is a 400; its accounts keep their permissions and become Custom)
@@ -170,7 +170,7 @@ src/
     guide.rs     /guide, /guide/{slug}, POST /api/guide/step|restart
     listening.rs /listening, /listening/play, POST /api/listening/check|finish
     vocab.rs     /vocabulary, /vocabulary/study, /lookup, POST /api/vocabulary/review
-    games.rs     /play (Play mode hub; /g and /games redirect here), /play/matching…, /play/conjugation…, /play/numbers, /play/dates, their APIs
+    games.rs     /play (Play mode hub), /play/matching…, /play/conjugation…, /play/numbers, /play/dates, their APIs
     sprint.rs     /sprint, /sprint/play, POST /api/sprint/check|finish
     dev.rs       /dev/login, /dev/reset, /dev/jobs, /dev/authenticator, /dev/boot (the --watch reload poll); all mounted only in dev mode and for local clients, see testing.md; the dev pages need no sign-in
     dev_ai.rs    /dev/ai: the dev AI provider's wire API (Anthropic Messages, OpenAI chat completions, Gemini's OpenAI endpoint; checked by API key; a held request waits for its reply file) and its page among the dev pages (log, limits, failures, Manual replies with the held requests and their reply forms, fixture editor)
@@ -197,7 +197,7 @@ request is served meanwhile. Saving is split the same way (#84):
 writes the outcome (`courses.error`, `title`, the cache) and skips it if the
 files changed since they were checked, because the newer save records its
 own. Nothing builds a course while it holds the database. Every handler in `routes/courses/` (the autosave,
-Upload, the file page, Check the course, Undo and Redo, Create, Copy)
+Upload, the file page, Undo and Redo, Create, Copy)
 commits its write, lets go of the database, and calls `built`
 (`routes/courses/write.rs`): it builds with `courses::check_off_lock` (own
 thread, request language), then records in a second short `Db::call`. The
@@ -461,8 +461,7 @@ updated_at)`, `courses(state) WHERE notes <> ''`, `projects(course_id)` and
 `db::tables::USER_TABLES` (a test checks every table in the schema).
 
 **Model calls.** Every call site (`POST /courses/{id}/generate`,
-`POST /courses/{id}/ai`, the tutor) uses the server's key (or a pasted one on the
-generate form) and the provider's base URL; nothing in the app knows
+`POST /courses/{id}/ai`, the tutor) uses the server's key and the provider's base URL; nothing in the app knows
 whether the other end is real. There is no mock provider and no stub in
 `ai::complete` (#298): in dev mode the default base URLs
 (`ai::ProviderKind::default_base_url`, through `dev::provider_base_url`)
@@ -498,7 +497,6 @@ Allow changes job's still following (`AiJobModal::follows`), so the reload
 opens the review (unless `users.review_quiet`: then a notice says the AI
 has finished, and *Review changes* opens it). `courses.js` polls
 `/api/generate/{job}` and reloads with `?job=` when it is done.
-`/courses/generate/{job}`, the old status page, redirects there.
 
 **Accepting the review.** The AI's changes are in the course as soon as the
 job ends; the review lets the learner take parts back out. Its form posts
@@ -571,7 +569,6 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_DEEPSEEK_BASE_URL`, `SKRONGLE_MISTRAL_BASE_URL`, `SKRONGLE_XAI_BASE_URL`, `SKRONGLE_OPENROUTER_BASE_URL` | `https://api.deepseek.com`, `https://api.mistral.ai`, `https://api.x.ai`, `https://openrouter.ai/api/v1` | Where those providers send requests (#24). An Ollama-compatible server has no variable: its base URL is the one the owner saves on Manage Users |
 | `SKRONGLE_AI_TIMEOUT_SECS` | — | How long one model request may take, in place of 900 s for generation and 120 s for a chat turn (`scripts/e2e.sh` sets 8) |
 | `SKRONGLE_AI_JOB_BUDGET_SECS` | `3600` | How long one AI job (a generation, Only add, Edit lessons, Allow overall changes) may run in all; past it the job stops before its next request, and no request runs past it |
-| `SKRONGLE_ALLOW_PRIVATE_AI_URLS` | `0` | `1`: a base URL typed into an AI form may point at loopback, private or link-local addresses (a self-hosted Ollama on the LAN), on any port. Off, such URLs are refused, and only ports 443 and 80 are allowed, so learners cannot make the server call its own network (dev mode always allows them). `SKRONGLE_OPENAI_BASE_URL` is never checked |
 | `SKRONGLE_SECRET_KEY` | *(generated)* | 64 hex characters; encrypts stored API keys. Unset: read from or created at `<SKRONGLE_DB>.key` (mode 0600) |
 | `SKRONGLE_NEW_SECRET_KEY` | `0` | `1`: the secret key is lost for good; create a new one, delete the saved API keys it cannot read, and turn off the authenticator apps it cannot read (two-factor off for those accounts, #1068). Without it the server refuses to start when the database has saved keys but neither `SKRONGLE_SECRET_KEY` nor `<SKRONGLE_DB>.key` is there, or the key there opens none of them |
 
@@ -608,9 +605,8 @@ once ("a course is already being generated; try again when it finishes")
 and leaves no row waiting. That holds for generations, revisions, added
 lessons and translations alike. One heartbeat thread renews the lease of
 the running row every two minutes, and the generator thread marks its row
-done or failed. At boot `ai::at_boot` queues a generation with the
-server's key or a saved key again; the runner (`jobs.rs`) hands it to a
-new generator thread (`Step::Handed`) and it resumes by itself; any other unfinished job (a pasted key, a revision, a
+done or failed. At boot `ai::at_boot` queues a generation again; the runner (`jobs.rs`) hands it to a
+new generator thread (`Step::Handed`) and it resumes by itself; any other unfinished job (a revision, a
 translation) is failed, and `fail_interrupted` marks its course `failed`,
 as before. A failed run resumes from the saved outline and notes, writing only the
 lessons that are missing. Cancelling sets a flag the job checks before each
@@ -717,7 +713,7 @@ How the writes are grouped:
 
 | Event | Course row | Jobs row | Memory | Same transaction or lock? | Who reads it |
 |---|---|---|---|---|---|
-| Submit: generate (fresh) | `restart_generation` (`courses.rs:1565`, own transaction: deletes files and undo steps, clears outline and error), called at `generate.rs:582`. Then `set_generating` (`courses.rs:582`, called at `generate.rs:590`): `generating`, `job_id`, `error` NULL | `ai::submit` (`queue.rs:601`) calls `hold` (`queue.rs:395`): `enqueue`, then `UPDATE` to `running`, lease now + 600 s, `attempts` 1. `payload.resume` is true only if no key was pasted (`generate.rs:533`) | `start` (`queue.rs:236`), under one memory lock: `capacity`, `make_room`, insert into `map` and `live`. Then `launch` (`queue.rs:250`): phase "Starting", heartbeat thread (first time), generator thread | No. Four separate steps in this order: `restart_generation`, `set_generating`, `hold`, `start`. `hold`'s two statements share one closure but no transaction | Editor: `modal_job` (`editor.rs:102`) reads row `state`/`job_id` and memory. Course list: `broken_card` (`picker.rs:236`), row and memory. Capacity: `check_capacity` (`queue.rs:197`), memory only. Progress polling: `generate_api` (`generate.rs:660`), memory only |
+| Submit: generate (fresh) | `restart_generation` (`courses.rs:1565`, own transaction: deletes files and undo steps, clears outline and error), called at `generate.rs:582`. Then `set_generating` (`courses.rs:582`, called at `generate.rs:590`): `generating`, `job_id`, `error` NULL | `ai::submit` (`queue.rs:601`) calls `hold` (`queue.rs:395`): `enqueue`, then `UPDATE` to `running`, lease now + 600 s, `attempts` 1. `payload.resume` is true for a generation | `start` (`queue.rs:236`), under one memory lock: `capacity`, `make_room`, insert into `map` and `live`. Then `launch` (`queue.rs:250`): phase "Starting", heartbeat thread (first time), generator thread | No. Four separate steps in this order: `restart_generation`, `set_generating`, `hold`, `start`. `hold`'s two statements share one closure but no transaction | Editor: `modal_job` (`editor.rs:102`) reads row `state`/`job_id` and memory. Course list: `broken_card` (`picker.rs:236`), row and memory. Capacity: `check_capacity` (`queue.rs:197`), memory only. Progress polling: `generate_api` (`generate.rs:660`), memory only |
 | Submit: resume a stopped generation | No `restart_generation` (`generate.rs:568`). `set_generating` (`generate.rs:590`) clears `error`; files, outline and notes stay | Same as above | Same as above; the request carries the saved outline | Same as above | Same as above |
 | Submit: add a lesson, edit, edit one lesson, revise | `set_revising` (`courses.rs:593`, called at `revise.rs:123`): `UPDATE ... WHERE state = 'ready'`, so only one request wins. `error` is not touched | Same `submit` (`revise.rs:143`). Payload mode is `revise` for all four (`queue.rs:369`), `resume` false | Same `start` | No. Two steps: `set_revising`, then `submit` | Same readers. Editor locks writes while `is_busy()` (`editor.rs:306`, `files.rs:259`) |
 | Submit: translate a copy | New course: `create_course` (own transaction, `courses.rs:995`) then `start_translation` (`courses.rs:568`): `generating`, `source` `translate`, `job_id`, `notes` = plan. Both in one closure (`create.rs:115`-`117`). Resume of a stopped translation: `set_generating` (`create.rs:251`) | `submit` (`create.rs:274`); mode `translate`, `resume` false | Same `start` | The two course writes share one closure and mutex, not one transaction. Then separate from the jobs row and memory | Same readers. `gen_mode` (`generate.rs:216`) offers no Generate dialog for `source = translate` |
@@ -732,8 +728,7 @@ How the writes are grouped:
 | Job time budget reached | As End: failure | As End: failure | `check_cancelled` (`ai.rs:329`) returns the "took longer than N minutes" error before the next request; `llm` (`ai.rs:359`) also cuts the request timeout to the time left. Budget set in `new_job` (`queue.rs:205`), reset in `launch` (`queue.rs:251`) | As End: failure | As End: failure |
 | Server stops mid-job | Left as it was: `generating` or `revising`, `job_id` set | Left `running`, `locked_until` in the future, `locked_by` this server's pid. Whether shutdown waits for the generator thread: not traced | Lost | n/a | Nobody until the next boot |
 | Server starts again | `fail_interrupted` (`courses.rs:948`, `main.rs:460`): every `revising` course becomes `ready`; a `generating` course with no `queued`/`running` jobs row for it becomes `failed` with "interrupted". A course whose row was kept `queued` stays `generating` | `at_boot` (`queue.rs:434`, `main.rs:456`, before `fail_interrupted`): `payload.resume` rows become `queued`, run now; all other `queued` or `running` rows are settled `failed` with "interrupted" | `adopt` (`queue.rs:449`, `main.rs:527`): the `queued` rows go into `map` (phase "Waiting") and `waiting` | No. Three steps, three `db.with` or memory calls, in the order `at_boot`, `fail_interrupted`, `adopt`. Each is safe to run again | Course list and editor: `generating` plus a "Waiting" job |
-| Server starts again, key saved on the server (resume true) | Stays `generating` until the runner reaches the row | The runner's gate (`slot_free`, `queue.rs:486`) opens; `claim` (`jobs.rs:154`) sets `running`, `attempts` + 1. `handler` (`queue.rs:492`) rebuilds the request with `rebuild` (`queue.rs:564`): the row must still name this job and be `generating`, and `server_provider` (`queue.rs:574`) must still give a key. If so: `launch`. Otherwise `give_up` (`queue.rs:538`) | Job moves from `waiting` to `live` (`queue.rs:512`, `527`-`528`); a new generator thread resumes from the lessons written | `give_up`: course and jobs row in one closure, not one transaction; memory after. Past `max_attempts` (3) claims the handler gives up without rebuilding (`queue.rs:519`) | Course list and editor follow the job again |
-| Server starts again, key pasted (resume false) | `failed` with "interrupted" (via `fail_interrupted`); keeps its Resume button | `failed`, `last_error` "interrupted" (`at_boot`) | Nothing | Separate | Course list |
+| Server starts again, a generation (resume true) | Stays `generating` until the runner reaches the row | The runner's gate (`slot_free`, `queue.rs:486`) opens; `claim` (`jobs.rs:154`) sets `running`, `attempts` + 1. `handler` (`queue.rs:492`) rebuilds the request with `rebuild` (`queue.rs:564`): the row must still name this job and be `generating`, and `server_provider` (`queue.rs:574`) must still give a key. If so: `launch`. Otherwise `give_up` (`queue.rs:538`) | Job moves from `waiting` to `live` (`queue.rs:512`, `527`-`528`); a new generator thread resumes from the lessons written | `give_up`: course and jobs row in one closure, not one transaction; memory after. Past `max_attempts` (3) claims the handler gives up without rebuilding (`queue.rs:519`) | Course list and editor follow the job again |
 | Account deleted while its job runs | No code that deletes an account was found in `src/` (searched `DELETE FROM users`; only a test, `db/tests.rs:85`). The schema would cascade the courses and files away (`v001_schema.sql:105`, `:122`; foreign keys on, `db.rs:31`) | No foreign key; the row is not touched | `Jobs::drop_user` (`queue.rs:177`) sets the cancel flag, drops the user's jobs from `map` and `waiting`; the thread keeps its `live` entry until it exits. It has no caller outside a test (`ai/tests.rs:233`). What the thread does when its course is gone: not traced | n/a | n/a |
 | Lease expires while the thread is alive | Nothing | `locked_until` passes. `renew` (`queue.rs:412`) every 120 s should prevent it; if the update fails it is logged only (`queue.rs:330`) | Nothing | n/a | Nobody reads it while the thread lives: `slot_free` is false, so the runner does not claim `generate_course` rows (`jobs.rs:389`, `main.rs:531`). `handler`'s "still running here" branch (`queue.rs:497`) is the only code that looks at the case; no path to it was found |
 
@@ -820,9 +815,10 @@ I found.
    no panic could be made in the job path (an SQL function that panics is
    caught by rusqlite and becomes an ordinary job failure), so the thread
    dying alone was not reproduced. Tested instead: the state such a death
-   would leave (course busy, row `running`, nothing in memory) is ended by
-   the next boot, `at_boot` then `fail_interrupted`
-   (`window_9_what_a_job_that_died_without_its_end_sequence_leaves_is_ended_at_boot`,
+   would leave (course busy, row `running`, nothing in memory) is taken up
+   by the next boot, `at_boot`, `fail_interrupted`, then `adopt`: the row
+   waits for the runner again
+   (`window_9_what_a_job_that_died_without_its_end_sequence_leaves_waits_again_at_boot`,
    #85). Nothing to fix. The lease path (the runner claiming the row after
    600 s, `handler`, `give_up`) is still not tested.
 10. **Cancel racing the end of the job.** `generate_cancel` checks `!done`
@@ -985,8 +981,7 @@ writable path, and a release never touches the database.
   Users is built without the last sign-in of owners and private accounts
   (`load()` leaves it out; the template has nothing to hide). The page is
   counts and dates: no answers, notes or history of single questions.
-- API keys pasted into the course generator are used for that job only and
-  never stored. The server's keys, which an owner saves on Manage Users
+- The server's keys, which an owner saves on Manage Users
   (`src/secrets.rs`, #25), are sealed with ChaCha20-Poly1305 under a key
   derived (SHA-256, labelled) from the master secret, with the provider as
   associated data, so a row cannot be read from a copy of the database alone

@@ -1,8 +1,7 @@
 // The owner as help desk (#635): from the Manage Users page (/manage,
 // owners only), a temporary password (shown once; the learner must
 // choose a new one at the next sign-in) and "Turn off two-factor". The dev
-// user is an owner; "Make owner" makes another (#16), and the old
-// /superuser address redirects to the page.
+// user is an owner; "Make owner" makes another (#16).
 import { expect, test } from "@playwright/test";
 import { devLogin } from "../lib/app";
 import { newAccount, signUp } from "../lib/learner";
@@ -94,14 +93,13 @@ test("an owner turns off another account's two-factor; others get 404", async ({
   await expect(page.getByTestId("manage-notice")).toContainText(`Two-factor sign-in is off for ${a.email.toLowerCase()}`);
 });
 
-test("an owner makes another account an owner; the old /superuser address leads to the page", async ({ page, browser }) => {
+test("an owner makes another account an owner", async ({ page, browser }) => {
   const them = await (await browser.newContext()).newPage();
   const a = newAccount("make-owner");
   await signUp(them, a);
 
   await devLogin(page);
-  await page.goto("/superuser");
-  await expect(page).toHaveURL(/\/manage$/);
+  await page.goto("/manage");
   const row = page.getByTestId("manage-account-row").filter({ hasText: a.email.toLowerCase() });
   await expect(row).toHaveAttribute("data-owner", "false");
   await row.getByTestId("manage-account-make-owner").click();

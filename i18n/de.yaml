@@ -1896,8 +1896,6 @@ courses:
     ai_finished_notice: Die KI ist fertig. Änderungen prüfen (unter KI verwenden) zeigt, was sie getan hat.
     too_many_files: "ein Kurs darf höchstens {max} Dateien haben"
     manifest_undeletable: course.json kann nicht gelöscht werden; bearbeite es stattdessen
-    loads_notice: Der Kurs lässt sich laden. Öffne ihn aus der Kursliste.
-    not_loading_notice: "Der Kurs lässt sich noch nicht laden: {error}"
     gone: Dieser Kurs ist weg (gelöscht, vielleicht in einem anderen Tab), daher können diese Änderungen nicht gespeichert werden.
     busy_generating: Der Kurs wird noch erstellt
     busy_revising: Der Kurs wird gerade überarbeitet
@@ -2297,8 +2295,6 @@ courses:
     own_write: Oder schließe das und schreibe die Lektionen selbst; die Startlektion zeigt das Format. Du kannst von „KI verwenden“ aus hierher zurückkommen, bis du den Inhalt einer Lektion bearbeitest.
     your_provider: dein Anbieter
     choose_provider: Wähle einen Anbieter.
-    base_url: Die Basis-URL muss mit http:// oder https:// beginnen.
-    bad_key: Das sieht nicht nach einem API-Schlüssel aus.
     paste_key: "Auf diesem Server ist kein Schlüssel für {provider} eingerichtet."
     wish_too_long: "Halte das, was du lernen willst, auf höchstens {max} Zeichen; längeres Material gehört ins Notizfeld."
     notes_too_long: "Halte dein Material auf höchstens {max} Zeichen; kürze es oder teile den Kurs in zwei."

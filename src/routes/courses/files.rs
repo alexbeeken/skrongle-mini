@@ -134,21 +134,6 @@ pub async fn file_delete(
     Ok(to_editor(&id, if error.is_none() { "file-deleted" } else { "file-deleted-broken" }))
 }
 
-/// POST /courses/{id}/publish  -> validate again (after uploads) and report
-pub async fn publish(State(state): State<Arc<AppState>>, user: CurrentUser, Path(id): Path<String>) -> Result<Response, AppError> {
-    let row = owned(&state, &user, &id).await?;
-    if let Err(r) = not_while_generating(&row) {
-        return Ok(r);
-    }
-    if too_many_writes(&state, &user).is_some() {
-        return Ok(to_editor(&id, "too-many-writes"));
-    }
-    let cid = id.clone();
-    let files = state.db.call(move |c| courses::load_files(c, &cid)).await?;
-    let error = built(&state, &id, files).await?;
-    Ok(to_editor(&id, if error.is_none() { "loads" } else { "broken" }))
-}
-
 /// POST /courses/{id}/delete
 pub async fn delete(State(state): State<Arc<AppState>>, user: CurrentUser, Path(id): Path<String>) -> Result<Response, AppError> {
     let row = owned(&state, &user, &id).await?;

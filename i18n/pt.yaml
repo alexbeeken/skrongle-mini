@@ -1896,8 +1896,6 @@ courses:
     ai_finished_notice: A IA terminou. Revisar alterações (em Usar IA) mostra o que ela fez.
     too_many_files: "um curso pode ter no máximo {max} arquivos"
     manifest_undeletable: course.json não pode ser excluído; edite-o em vez disso
-    loads_notice: O curso carrega. Abra-o na lista de cursos.
-    not_loading_notice: "O curso ainda não carrega: {error}"
     gone: Este curso não existe mais (foi excluído, talvez em outra aba), então essas alterações não podem ser salvas.
     busy_generating: O curso ainda está sendo gerado
     busy_revising: O curso está sendo revisado
@@ -2297,8 +2295,6 @@ courses:
     own_write: Ou feche e escreva as lições você mesmo; a lição inicial mostra o formato. Você pode voltar aqui pelo Usar IA até editar o conteúdo de uma lição.
     your_provider: seu provedor
     choose_provider: Escolha um provedor.
-    base_url: A URL base deve começar com http:// ou https://.
-    bad_key: Isso não parece uma chave de API.
     paste_key: "Não há nenhuma chave de {provider} configurada neste servidor."
     wish_too_long: "Mantenha o que você quer aprender em até {max} caracteres; coloque material mais longo na caixa de anotações."
     notes_too_long: "Mantenha seu material em até {max} caracteres; corte ou divida o curso em dois."

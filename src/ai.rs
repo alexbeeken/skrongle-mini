@@ -1053,7 +1053,7 @@ fn add_lesson(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Requ
 }
 
 /// An outline may plan at most `MAX_LESSONS` lessons, as the form asks for
-/// (the model, or whatever answers at a custom base URL, may list more).
+/// (the model may list more).
 /// Translate a copied course in place (#630): the manifest, then each
 /// lesson, one request a file, skipping the files `plan.done` lists (a
 /// resumed job). Each file is validated with the rest of the course before
@@ -1216,131 +1216,6 @@ pub fn parse_json(text: &str) -> Result<serde_json::Value, String> {
 /// own message (a quota, a bad model name) instead of only the code.
 fn agent(timeout: Duration) -> ureq::Agent {
     ureq::Agent::config_builder().timeout_global(Some(timeout)).max_redirects(0).http_status_as_error(false).build().into()
-}
-
-// ---------- custom base URLs (SSRF) ----------
-
-/// May a learner point the AI at a server on this machine or its network?
-/// Only in dev mode or when the operator says so
-/// (`SKRONGLE_ALLOW_PRIVATE_AI_URLS=1`, for a self-hosted Ollama on the LAN);
-/// otherwise anyone with an account could make the server call its own
-/// loopback, the LAN or a cloud metadata address and read the reply. The
-/// same switch allows ports other than 443 and 80.
-pub fn private_urls_allowed(dev: bool) -> bool {
-    dev || crate::env("ALLOW_PRIVATE_AI_URLS").is_some_and(|v| v == "1" || v == "true")
-}
-
-/// Scheme, host and port of an `http(s)://` URL. `None` when it is not one,
-/// or carries credentials (`user@host`).
-pub fn url_host_port(url: &str) -> Option<(String, u16)> {
-    let (scheme, rest) = url.split_once("://")?;
-    let default_port = match scheme.to_ascii_lowercase().as_str() {
-        "http" => 80,
-        "https" => 443,
-        _ => return None,
-    };
-    let authority = rest.split(['/', '?', '#']).next()?;
-    if authority.is_empty() || authority.contains('@') {
-        return None;
-    }
-    let (host, port) = if let Some(v6) = authority.strip_prefix('[') {
-        let (h, after) = v6.split_once(']')?;
-        let port = match after.strip_prefix(':') {
-            Some(p) => p.parse().ok()?,
-            None if after.is_empty() => default_port,
-            None => return None,
-        };
-        (h.to_string(), port)
-    } else {
-        match authority.rsplit_once(':') {
-            Some((h, p)) => (h.to_string(), p.parse().ok()?),
-            None => (authority.to_string(), default_port),
-        }
-    };
-    (!host.is_empty()).then_some((host.to_ascii_lowercase(), port))
-}
-
-/// Addresses no learner-supplied URL may reach: loopback, private,
-/// link-local (cloud metadata), carrier-grade NAT, unspecified, multicast,
-/// reserved, and IPv6 forms that embed one of those.
-pub fn is_internal_ip(ip: std::net::IpAddr) -> bool {
-    use std::net::IpAddr;
-    match ip {
-        IpAddr::V4(v4) => {
-            let o = v4.octets();
-            v4.is_loopback()
-                || v4.is_private()
-                || v4.is_link_local()
-                || v4.is_unspecified()
-                || v4.is_broadcast()
-                || v4.is_multicast()
-                || v4.is_documentation()
-                || o[0] == 0
-                || (o[0] == 100 && (64..128).contains(&o[1])) // 100.64.0.0/10
-                || (o[0] == 192 && o[1] == 0 && o[2] == 0) // 192.0.0.0/24
-                || (o[0] == 198 && (o[1] == 18 || o[1] == 19)) // 198.18.0.0/15
-                || o[0] >= 240 // 240.0.0.0/4
-        }
-        IpAddr::V6(v6) => {
-            if let Some(v4) = v6.to_ipv4_mapped() {
-                return is_internal_ip(IpAddr::V4(v4));
-            }
-            let s = v6.segments();
-            // NAT64 (64:ff9b::/96) carries an IPv4 address in its last 32 bits.
-            if s[0] == 0x64 && s[1] == 0xff9b && s[2..6] == [0, 0, 0, 0] {
-                let v4 = std::net::Ipv4Addr::new((s[6] >> 8) as u8, s[6] as u8, (s[7] >> 8) as u8, s[7] as u8);
-                return is_internal_ip(IpAddr::V4(v4));
-            }
-            v6.is_loopback()
-                || v6.is_unspecified()
-                || v6.is_multicast()
-                || (s[0] & 0xfe00) == 0xfc00 // unique local fc00::/7
-                || (s[0] & 0xffc0) == 0xfe80 // link-local fe80::/10
-                || (s[0] & 0xffc0) == 0xfec0 // site-local fec0::/10
-                || s[..6] == [0, 0, 0, 0, 0, 0] // IPv4-compatible ::a.b.c.d
-        }
-    }
-}
-
-/// Check a learner's custom base URL before any request goes to it: an
-/// `http(s)://` URL on port 443 or 80 whose host resolves only to public
-/// addresses (unless `allow_private`, which also allows any port, e.g.
-/// Ollama's 11434). `Err` is a sentence for the form.
-///
-/// Known gap: the host is resolved again when the request is made, so a DNS
-/// server that answers differently the second time (rebinding) can still
-/// reach an internal address.
-pub async fn check_base_url(url: &str, allow_private: bool) -> Result<(), String> {
-    let Some((host, port)) = url_host_port(url) else {
-        return Err("The base URL must be an http:// or https:// address, without a user name or password.".into());
-    };
-    if allow_private {
-        return Ok(());
-    }
-    // Only the web ports: otherwise any account could have the server post
-    // to any service on any public host and read the start of its reply.
-    if port != 443 && port != 80 {
-        return Err(format!(
-            "The base URL may only use port 443 (https) or 80 (http), not {port} (the server's operator can allow others with SKRONGLE_ALLOW_PRIVATE_AI_URLS=1)."
-        ));
-    }
-    let refuse =|| {
-        Err("That base URL points at this server or a private network, which this site does not allow. Use a public address (the server's operator can allow private ones with SKRONGLE_ALLOW_PRIVATE_AI_URLS=1).".to_string())
-    };
-    if host == "localhost" || host.ends_with(".localhost") {
-        return refuse();
-    }
-    let addrs: Vec<std::net::SocketAddr> = match tokio::net::lookup_host((host.as_str(), port)).await {
-        Ok(a) => a.collect(),
-        Err(_) => return Err(format!("The base URL's server name {host:?} could not be found.")),
-    };
-    if addrs.is_empty() {
-        return Err(format!("The base URL's server name {host:?} could not be found."));
-    }
-    if addrs.iter().any(|a| is_internal_ip(a.ip())) {
-        return refuse();
-    }
-    Ok(())
 }
 
 /// Generation: minutes of waiting per lesson. Chat: a reply or an error soon.

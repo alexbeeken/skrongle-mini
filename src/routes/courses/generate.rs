@@ -279,14 +279,6 @@ pub(super) async fn generate_view(state: &AppState, user: &CurrentUser, row: &Co
 #[derive(Deserialize)]
 pub struct GenerateForm {
     pub provider: String,
-    /// A key for a custom `base_url`, used for this job only and never
-    /// stored: the server's keys are the owner's to set (#25).
-    #[serde(default)]
-    pub api_key: String,
-    #[serde(default)]
-    pub model: String,
-    #[serde(default)]
-    pub base_url: String,
     #[serde(default)]
     pub wish: String,
     #[serde(default)]
@@ -309,11 +301,6 @@ async fn effort_of(state: &AppState, user_id: i64) -> Result<ai::Effort, AppErro
     Ok(id.as_deref().and_then(ai::Effort::parse).unwrap_or_default())
 }
 
-#[derive(Deserialize)]
-pub struct GenerateParams {
-    pub resume: Option<String>,
-}
-
 async fn provider_choices(state: &AppState) -> Result<Vec<ProviderChoice>, AppError> {
     let vault = state.vault.clone();
     let statuses = state.db.call(move |c| crate::secrets::statuses(c, &vault)).await?;
@@ -325,16 +312,6 @@ async fn provider_choices(state: &AppState) -> Result<Vec<ProviderChoice>, AppEr
             saved_hint: statuses.iter().find(|k| k.provider == p).and_then(|k| k.hint.clone()),
         })
         .collect())
-}
-
-/// GET /courses/generate[?resume=<course id>]: the old form page. Courses
-/// are generated from the editor's dialog now.
-pub async fn generate_form(Query(q): Query<GenerateParams>) -> Response {
-    let to = match q.resume.filter(|s| !s.is_empty()) {
-        Some(id) => format!("/courses/{}?generate=1", crate::urlenc::urlencode(&id)),
-        None => "/courses".into(),
-    };
-    Redirect::to(&crate::url(&to)).into_response()
 }
 
 /// Why this account may not start another AI job yet, if it may not: its
@@ -357,68 +334,15 @@ pub(super) fn count_ai_job(state: &AppState, user_id: i64) {
     let _ = state.limits.hit(crate::security::AI_JOBS_PER_USER_DAY, &key, now);
 }
 
-/// The model to call, from the provider fields both AI forms send. The key
-/// is the pasted one (checked like Manage Users checks it, unless a custom
-/// base URL points at another server; kept in memory for the job only) or
-/// the server's, which only goes to the provider's own address: a custom
-/// base URL needs a pasted key. `Ok(Err(msg))` is a mistake to show on the form.
-pub(super) async fn ai_provider(
-    state: &AppState,
-    _user: &CurrentUser,
-    provider: &str,
-    api_key: &str,
-    model: &str,
-    base_url: &str,
-) -> Result<Result<ai::Provider, String>, AppError> {
+/// The model to call for the `provider` a form names: the key, model and
+/// address the owner saved for it on Manage Users, and nothing from the
+/// request. `Ok(Err(msg))` is a mistake to show on the form.
+pub(super) async fn ai_provider(state: &AppState, provider: &str) -> Result<Result<ai::Provider, String>, AppError> {
     let Some(secret_provider) = crate::secrets::Provider::parse(provider) else { return Ok(Err(crate::t("courses.generate.choose_provider"))) };
     let kind = ai::ProviderKind::from_secret(secret_provider);
-    let base_url = base_url.trim().trim_end_matches('/').to_string();
-    if !base_url.is_empty() && !(base_url.starts_with("https://") || base_url.starts_with("http://")) {
-        return Ok(Err(crate::t("courses.generate.base_url")));
-    }
-    // The server, not the browser, calls this URL: keep it off internal addresses.
-    if !base_url.is_empty() {
-        if let Err(e) = ai::check_base_url(&base_url, ai::private_urls_allowed(state.dev_mode())).await {
-            return Ok(Err(e));
-        }
-    }
-    let pasted = api_key.trim().to_string();
-    // A saved key only ever goes to its provider's own address: a custom
-    // base URL gets the key pasted with it, never the profile's.
-    if pasted.is_empty() && !base_url.is_empty() {
-        return Ok(Err("A custom base URL needs its own API key: paste the key for that server. Saved keys are only sent to the provider's own address.".into()));
-    }
-    let model = model.trim().to_string();
-    if pasted.is_empty() {
-        // The server's: its key, or Ollama's base URL and model (#24).
-        let vault = state.vault.clone();
-        let Some(mut p) = state.db.call(move |c| ai::server_provider(c, &vault, kind, false)).await? else {
-            return Ok(Err(crate::t1("courses.generate.paste_key", "provider", secret_provider.label())));
-        };
-        if !model.is_empty() {
-            p.model = model;
-        }
-        return Ok(Ok(p));
-    }
-    let api_key = {
-        if base_url.is_empty() {
-            match crate::secrets::validate_key(secret_provider, &pasted) {
-                Ok(k) => k,
-                Err(e) => return Ok(Err(e)),
-            }
-        } else if pasted.len() > crate::secrets::KEY_MAX || pasted.chars().any(char::is_whitespace) {
-            return Ok(Err(crate::t("courses.generate.bad_key")));
-        } else {
-            pasted
-        }
-    };
-    Ok(Ok(ai::Provider {
-        kind,
-        base_url: if base_url.is_empty() { kind.default_base_url() } else { base_url },
-        api_key,
-        model: if model.is_empty() { kind.default_model().to_string() } else { model },
-        effort: None,
-    }))
+    let vault = state.vault.clone();
+    let saved = state.db.call(move |c| ai::server_provider(c, &vault, kind, false)).await?;
+    Ok(saved.ok_or_else(|| crate::t1("courses.generate.paste_key", "provider", secret_provider.label())))
 }
 
 /// The Generate dialog's refusal of a wish over `ai::MAX_WISH` (its script says the same).
@@ -528,10 +452,7 @@ pub async fn generate_in(
             return editor_page_with(&state, user.clone(), row, None, Refill::default(), None, Some(view), None, false).await;
         }};
     }
-    // A key pasted into the form lives only in memory: after a restart that
-    // job keeps its Resume button rather than going on by itself (#874).
-    let saved_key = form.api_key.trim().is_empty();
-    let mut provider = match ai_provider(&state, &user, &form.provider, &form.api_key, &form.model, &form.base_url).await? {
+    let mut provider = match ai_provider(&state, &form.provider).await? {
         Ok(p) => p,
         Err(e) => fail!(e),
     };
@@ -618,7 +539,7 @@ pub async fn generate_in(
         i18n: crate::i18n::snapshot(),
         named: named.clone(),
     };
-    match ai::submit(&state, req, job.clone(), saved_key).await {
+    match ai::submit(&state, req, job.clone()).await {
         Ok(job) => {
             count_ai_job(&state, user.id);
             tracing::info!("user {} started course generation {job} for {course_id}", user.id);
@@ -657,14 +578,6 @@ fn job_of(state: &AppState, user: &CurrentUser, id: &str) -> Result<Arc<ai::Job>
         return Err(AppError::NotFound);
     }
     Ok(job)
-}
-
-/// GET /courses/generate/{job}: the old status page. Every job is followed
-/// in the editor's modal now.
-pub async fn generate_status(State(state): State<Arc<AppState>>, user: CurrentUser, Path(job): Path<String>) -> Result<Response, AppError> {
-    user.require_ai_courses()?;
-    let j = job_of(&state, &user, &job)?;
-    Ok(Redirect::to(&crate::url(&format!("/courses/{}?job={job}", j.course_id))).into_response())
 }
 
 /// GET /api/generate/{job}

@@ -101,7 +101,7 @@ SQLite's own `sqlite_*` tables (`sqlite_stat1`, `sqlite_stat4`, written by the h
 
 | To | What | When |
 |---|---|---|
-| Anthropic, OpenAI or Google (Gemini), or a custom OpenAI-compatible base URL | the learner's key, the system prompt, their notes/brief/feedback, course files, tutor transcripts, their first name (tutor prompt) | only when the learner uses an AI feature with their key. The forms say so (`data-testid="ai-disclosure"`) |
+| Anthropic, OpenAI or Google (Gemini), or the OpenAI-compatible server the owner set | the server's key, the system prompt, their notes/brief/feedback, course files, tutor transcripts, their first name (tutor prompt) | only when the learner uses an AI feature. The forms say so (`data-testid="ai-disclosure"`) |
 | Hosting | everything above, at rest | always: on the operator's own server |
 
 ## Logs

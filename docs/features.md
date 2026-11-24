@@ -26,7 +26,7 @@ only carries the course switcher and the account links.
 - **Sprint mode** (`/sprint`): phone-first five-minute sessions with the daily
   goal's ring and a streak. Its page offers the path, the review mix and the
   lightning round; its home card names the next stop (the lesson to resume at).
-- **Study mode** (`/study` opens its Lessons tab): read the lessons and test
+- **Study mode** (`/lessons`): read the lessons and test
   yourself. Lessons, Practice, Listening, Map, Vocabulary, History, Mistakes.
 
 In a language course, every word that matters can be tapped to hear it (see
@@ -50,9 +50,6 @@ In a language course, every word that matters can be tapped to hear it (see
   runs on the server's API key (the owner's, on Manage Users). Same exercises and progress as Practice,
   but the tutor teaches first and sets them when you are ready. Its prompt
   carries the lesson, the exercise and the pass rule, and no topic rules.
-
-The modes' old paths (`/d`, `/d/…`, `/k`, `/g`, `/games`, `/games/…`) redirect
-to the new ones with their query strings, so old bookmarks still work.
 
 | Feature | Route | What it is | Reads |
 |---|---|---|---|
@@ -158,13 +155,9 @@ with the table, like any other change (the editor saves as you edit; see
      out (every field and *Generate* disabled) under a line that links an
      owner to the keys on Manage Users and tells anyone else to ask the
      owner, so nobody writes a prompt only to be stopped at
-     the end. Keys are added on Manage Users only; the server still takes a
-     pasted `api_key` (with `model` and `base_url`) from API clients. A
-     `base_url` needs a pasted key: a saved key only goes to its provider's
-     own address. That URL must use port 443 or 80 and resolve to public
-     addresses only, unless the operator sets
-     `SKRONGLE_ALLOW_PRIVATE_AI_URLS=1` (dev mode allows it too); redirects
-     are never followed.
+     the end. Keys are added on Manage Users only: the form names a
+     provider, and the key, the model and the address are what the owner
+     saved for it. Redirects are never followed.
      Under *How much to write*, an estimate: "6 lessons · about 5 minutes ·
      roughly CA$1.48" (#443). It counts an outline request and one request
      per lesson (the depth's expected count: 6, or 1 for a Preview), each carrying the format reference and the material
@@ -279,8 +272,7 @@ with the table, like any other change (the editor saves as you edit; see
   plain words (a cancel, a reply that could not be used, a refused Only
   add) with *Close*. The course page shows the modal again whenever the
   course is being revised, so coming back to it finds the job still running.
-  The old status page's address (`/courses/generate/{job}`) leads to
-  the course page too, for any job. It uses the learner's first
+  It uses the learner's first
   provider key the server has (Manage Users, *AI features*); it never asks for a key or a
   model, and names it only when the server has two or more. Without a key it shows only a red line (linking an owner to Manage Users),
   and the server refuses the same way. A three-way choice, *Add* / *Edit* /
@@ -1979,8 +1971,7 @@ invitation link; its links keep working and it can remove them
   courses**: the Generate dialog and *Use AI* in the editor, *Watch*,
   *Resume* and *Retry* on a course card, the translate control, the
   wording on `/courses` that offers AI, and `POST
-  /courses/{id}/generate|ai|review|translate`, `/courses/generate/{job}`
-  and `/api/generate/{job}`. Each works without the other; a tutor chat
+  /courses/{id}/generate|ai|review|translate` and `/api/generate/{job}`. Each works without the other; a tutor chat
   under way when the permission is taken away is refused at its next
   request.
 - **`POST /manage/permissions`** (`email`, `preset` = a preset's id or

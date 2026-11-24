@@ -1899,8 +1899,6 @@ courses:
     ai_finished_notice: The AI has finished. Review changes (under Use AI) shows what it did.
     too_many_files: "a course may have at most {max} files"
     manifest_undeletable: course.json cannot be deleted; edit it instead
-    loads_notice: The course loads. Open it from the course list.
-    not_loading_notice: "The course does not load yet: {error}"
     gone: This course is gone (deleted, perhaps in another tab), so these changes cannot be saved.
     busy_generating: The course is still being generated
     busy_revising: The course is being revised
@@ -2300,8 +2298,6 @@ courses:
     own_write: Or close this and write the lessons yourself; the starter lesson shows the format. You can come back here from Use AI until you edit a lesson's content.
     your_provider: your provider
     choose_provider: Choose a provider.
-    base_url: The base URL must start with http:// or https://.
-    bad_key: That does not look like an API key.
     paste_key: "No {provider} key is set up on this server."
     wish_too_long: "Keep what you want to learn to {max} characters at most; put longer material in the notes box."
     notes_too_long: "Keep your material to {max} characters at most; trim it or split the course in two."

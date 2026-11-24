@@ -7,11 +7,8 @@
 // generates the fixture course, one tutor turn. The simulator's call log says
 // which format, model and key each request came with.
 //
-// Ollama's row and the private-address rule: the row takes any http(s) URL,
-// loopback and any port included, with SKRONGLE_ALLOW_PRIVATE_AI_URLS unset
+// Ollama's row takes any http(s) URL, loopback and any port included
 // (secrets::validate_key: only the owner sets it, and it is their own server).
-// The rule (ai::check_base_url) guards only the generate form's `base_url`
-// field, which no page offers, so a page cannot show it; cargo tests cover it.
 import type { Page } from "@playwright/test";
 import { removeApiKey, saveApiKey } from "../../lib/learner.ts";
 import { callsSince, GENERATION, generateFixtureCourse, lastCallId, NO_SIM, SIM } from "../../lib/release-ai.ts";
@@ -73,8 +70,7 @@ test("Ollama's row: a loopback base URL and a model typed on Manage Users; the g
     "A base URL starts with http:// or https:// and a host, for example http://localhost:11434.",
   );
   await expect(row).toHaveAttribute("data-key-set", "false");
-  // The simulator's Ollama route: 127.0.0.1 on a port other than 80 or 443. The server runs without
-  // SKRONGLE_ALLOW_PRIVATE_AI_URLS, and the owner's row takes it all the same.
+  // The simulator's Ollama route: 127.0.0.1 on a port other than 80 or 443, which the owner's row takes.
   const url = `${SIM}/dev/ai/ollama`;
   await input.fill(url);
   await expect(row).toHaveAttribute("data-key-set", "true");

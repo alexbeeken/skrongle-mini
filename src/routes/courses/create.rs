@@ -12,11 +12,6 @@ pub struct NewForm {
     pub title: String,
 }
 
-/// GET /courses/new: the old title page. Creating is a POST from /courses.
-pub async fn new_form(_user: CurrentUser) -> Response {
-    Redirect::to(&crate::url("/courses")).into_response()
-}
-
 /// POST /courses/new: "Create a course". A starter course straight away,
 /// then the editor with the "Generate the course" dialog open. Like Copy
 /// and Copy and translate below, it needs the Create courses permission
@@ -237,7 +232,7 @@ pub async fn translate(State(state): State<Arc<AppState>>, user: CurrentUser, Pa
         }
     };
     // The same checks as Generate, before anything is made.
-    let provider = match ai_provider(&state, &user, &form.provider, "", "", "").await? {
+    let provider = match ai_provider(&state, &form.provider).await? {
         Ok(p) => p,
         Err(e) => return picker_page(&state, user, Some(e), None).await,
     };
@@ -291,7 +286,7 @@ pub async fn translate(State(state): State<Arc<AppState>>, user: CurrentUser, Pa
         named: courses::Draft::default(),
         i18n: crate::i18n::snapshot(),
     };
-    match ai::submit(&state, req, job.clone(), false).await {
+    match ai::submit(&state, req, job.clone()).await {
         Ok(job) => {
             count_ai_job(&state, user.id);
             tracing::info!("user {} started translation {job} of {id} as {course_id}", user.id);

@@ -226,8 +226,4 @@ test("sharing shows the link once, and a reload goes back to the dialog without 
   await expect(page.getByTestId("course-share-link")).toHaveCount(0);
   await expect(page.getByTestId("course-share-row")).toHaveCount(1);
   await expect(page.locator('[data-testid="course-share-row"][data-label="A friend"]')).toHaveAttribute("data-opened", "false");
-  // The POST target opened by hand is a redirect to the dialog, not a 405.
-  const res = await page.request.get(`/courses/${id}/share`, { maxRedirects: 0 });
-  expect(res.status()).toBe(303);
-  expect(res.headers()["location"]).toMatch(new RegExp(`/courses/${id}\\?share=1$`));
 });

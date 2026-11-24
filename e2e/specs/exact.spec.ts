@@ -342,7 +342,7 @@ test("a course someone makes stays private to them", async ({ page, browser }) =
   await expect(them.locator('[data-testid="courses-card"][data-course-id="spanish"]')).toHaveCount(1);
 
   // Every way in answers as if the course did not exist.
-  for (const url of [`/courses/${id}`, `/courses/${id}/file?path=course.json`, `/courses/${id}/export.json`, `/courses/generate/${job}`]) {
+  for (const url of [`/courses/${id}`, `/courses/${id}/file?path=course.json`, `/courses/${id}/export.json`]) {
     expect((await them.request.get(url)).status(), url).toBe(404);
   }
   expect((await them.request.post(`/courses/open/${id}`, { maxRedirects: 0 })).status()).toBe(404);
@@ -354,11 +354,11 @@ test("a course someone makes stays private to them", async ({ page, browser }) =
   }
   const write = await them.request.post(`/api/courses/${id}/files`, { data: { files: [{ path: "course.json", content: "{}" }] } });
   expect(write.status()).toBe(400);
-  for (const action of ["file", "file/delete", "delete", "publish", "cancel", "revise", "undo", "lessons/add"]) {
+  for (const action of ["file", "file/delete", "delete", "cancel", "revise", "undo", "lessons/add"]) {
     const r = await them.request.post(`/courses/${id}/${action}`, { form: { path: "course.json", content: "{}" }, maxRedirects: 0 });
     expect(r.status(), action).toBe(404);
   }
-  const table = await them.request.post(`/courses/${id}/lessons`, { data: { lessons: [] } });
+  const table = await them.request.post(`/api/courses/${id}/lessons`, { data: { lessons: [] } });
   expect(table.status()).toBe(400);
   expect(await table.text()).not.toContain("Private fractions, step by step");
   await other.close();
@@ -729,29 +729,7 @@ test("on a phone the Study and Play mode bars take two rows and scroll sideways 
   }
 });
 
-test("the modes' old paths redirect, keeping the query string", async ({ page }) => {
-  for (const [from, to] of [
-    ["/d?reduce-motion=1", "/sprint?reduce-motion=1"],
-    ["/d/play?mode=review", "/sprint/play?mode=review"],
-    ["/k", "/lessons"],
-    ["/study?x=1", "/lessons?x=1"],
-    ["/g", "/play"],
-    ["/games", "/play"],
-    ["/games/matching", "/play/matching"],
-  ]) {
-    const res = await page.request.get(from, { maxRedirects: 0 });
-    expect(res.status(), from).toBe(308);
-    const to_ = new URL(res.headers()["location"], "http://x");
-    expect(to_.pathname + to_.search, from).toBe(to);
-  }
-  const res = await page.request.post("/api/d/finish", { maxRedirects: 0 });
-  expect(res.status()).toBe(308);
-  expect(res.headers()["location"]).toMatch(/\/api\/sprint\/finish$/);
-  await page.goto("/k");
-  await expect(page.getByTestId("nav-study")).toBeVisible();
-});
-
-test("the mode bars link to Study's Lessons, not to the /study redirect", async ({ page }) => {
+test("the mode bars link to Study's Lessons, not to /study or /k", async ({ page }) => {
   for (const path of ["/", "/lessons", "/play", "/guide", "/sprint"]) {
     await page.goto(path);
     const hrefs = await page.locator("a[href]").evaluateAll((as) => as.map((a) => new URL((a as HTMLAnchorElement).href).pathname));

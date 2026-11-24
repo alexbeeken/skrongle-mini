@@ -81,8 +81,7 @@ Two exceptions: `SKRONGLE_SIGNUP` and `SKRONGLE_PROXY_AUTH_HEADER` /
 | `SKRONGLE_KEEP_NOTES` | off | `1` or `true` keeps the notes of an AI course after it is ready. |
 | `SKRONGLE_AI_JOB_BUDGET_SECS` | `3600` | How long one AI generation job may run in all. |
 | `SKRONGLE_AI_TIMEOUT_SECS` | 900 for generation, 120 for a chat turn | How long one model request may take. |
-| `SKRONGLE_ALLOW_PRIVATE_AI_URLS` | off | `1` or `true` lets a base URL typed into an AI form point at a private or loopback address and any port. Off, only public addresses on ports 443 and 80 are allowed. |
-| `SKRONGLE_OPENAI_BASE_URL` | `https://api.openai.com` | Where the OpenAI provider sends requests: any OpenAI-compatible server. Never checked against the private-address rule. |
+| `SKRONGLE_OPENAI_BASE_URL` | `https://api.openai.com` | Where the OpenAI provider sends requests: any OpenAI-compatible server. |
 | `SKRONGLE_ANTHROPIC_BASE_URL`, `SKRONGLE_GOOGLE_BASE_URL`, `SKRONGLE_DEEPSEEK_BASE_URL`, `SKRONGLE_MISTRAL_BASE_URL`, `SKRONGLE_XAI_BASE_URL`, `SKRONGLE_OPENROUTER_BASE_URL` | the provider's public API | Same for the other providers. Ollama has no variable: its URL is saved on the Manage Users page. |
 | `SKRONGLE_AI_PRICES` | built-in table | `model=in/out[/cached],…` in dollars per million tokens, for the cost estimate. A malformed value stops the server. |
 

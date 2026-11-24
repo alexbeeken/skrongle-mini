@@ -1,73 +1,6 @@
 use super::*;
 use std::sync::Arc;
 
-#[test]
-fn internal_addresses_are_recognised() {
-    let internal = [
-        "127.0.0.1", "10.1.2.3", "172.16.0.1", "192.168.1.42", "169.254.169.254", "100.64.0.1", "0.0.0.0", "255.255.255.255",
-        "224.0.0.1", "240.0.0.1", "::1", "::", "fd00::1", "fe80::1", "::ffff:127.0.0.1", "::ffff:169.254.169.254", "64:ff9b::a9fe:a9fe",
-        "::127.0.0.1",
-    ];
-    for ip in internal {
-        assert!(is_internal_ip(ip.parse().unwrap()), "{ip} should be internal");
-    }
-    for ip in ["8.8.8.8", "1.1.1.1", "160.79.104.10", "2606:4700::1111", "::ffff:8.8.8.8"] {
-        assert!(!is_internal_ip(ip.parse().unwrap()), "{ip} should be public");
-    }
-}
-
-#[test]
-fn base_url_hosts_parse() {
-    assert_eq!(url_host_port("https://api.example.org/v1"), Some(("api.example.org".into(), 443)));
-    assert_eq!(url_host_port("http://Example.org:8080"), Some(("example.org".into(), 8080)));
-    assert_eq!(url_host_port("http://[::1]:11434/v1"), Some(("::1".into(), 11434)));
-    assert_eq!(url_host_port("http://user:pw@example.org/"), None);
-    assert_eq!(url_host_port("ftp://example.org"), None);
-    assert_eq!(url_host_port("http://"), None);
-    assert_eq!(url_host_port("http://example.org:notaport"), None);
-}
-
-/// A learner's base URL cannot point the server at itself or its network
-/// (SSRF), unless the operator allows it.
-#[test]
-fn custom_base_urls_must_be_public() {
-    let rt = tokio::runtime::Builder::new_current_thread().enable_all().build().unwrap();
-    for url in [
-        "http://127.0.0.1:8080",
-        "http://localhost:11434",
-        "http://api.localhost",
-        "http://[::1]/v1",
-        "http://169.254.169.254/latest",
-        "http://10.0.0.5",
-        "http://192.168.1.1:80/v1",
-        "http://2130706433/",
-        "http://0x7f000001/",
-        "http://u@example.org",
-    ] {
-        assert!(rt.block_on(check_base_url(url, false)).is_err(), "{url} should be refused");
-    }
-    assert!(rt.block_on(check_base_url("http://127.0.0.1:11434", true)).is_ok());
-    assert!(rt.block_on(check_base_url("http://localhost:11434", true)).is_ok());
-    // A public IP literal needs no DNS.
-    assert!(rt.block_on(check_base_url("https://8.8.8.8/v1", false)).is_ok());
-}
-
-/// A custom base URL may use only the web ports (#373), unless private
-/// URLs are allowed (dev mode, a self-hosted Ollama on 11434).
-#[test]
-fn custom_base_urls_use_only_web_ports() {
-    let rt = tokio::runtime::Builder::new_current_thread().enable_all().build().unwrap();
-    for url in ["https://8.8.8.8:8443/v1", "http://8.8.8.8:22", "http://8.8.8.8:11434/v1", "https://[2606:4700::1111]:25"] {
-        let err = rt.block_on(check_base_url(url, false)).unwrap_err();
-        assert!(err.contains("port 443 (https) or 80 (http)"), "{url}: {err}");
-    }
-    for url in ["https://8.8.8.8:443/v1", "http://8.8.8.8:80/v1", "http://8.8.8.8/v1"] {
-        assert!(rt.block_on(check_base_url(url, false)).is_ok(), "{url}");
-    }
-    assert!(rt.block_on(check_base_url("http://127.0.0.1:11434/v1", true)).is_ok());
-    assert!(rt.block_on(check_base_url("https://8.8.8.8:8443/v1", true)).is_ok());
-}
-
 /// An OpenAI-compatible server that answers every request with
 /// `reply(prompt)` as the message content, or holds every request open
 /// while `hold` is set. Returns its base URL.
@@ -253,30 +186,28 @@ fn ai_job_slots_are_taken_atomically_and_held_until_the_thread_exits() {
     assert!(err.contains("took longer than") && err.contains("resume"), "{err}");
 }
 
-/// After a restart (#874): a generation with the server's or a saved key
-/// waits in line again and its course stays 'generating'; one with a pasted
-/// key, and any revision, stops as before (Resume). The rows never hold a key.
+/// After a restart (#874): a generation waits in line again and its course
+/// stays 'generating'; a revision stops (Resume). The rows never hold a key.
 #[test]
-fn interrupted_generations_wait_again_unless_the_key_was_pasted() {
+fn interrupted_generations_wait_again_and_revisions_stop() {
     let db = Db::open_in_memory().unwrap();
     let url = "http://127.0.0.1:9".to_string();
     let saved = generating(&db, "saved", "saved-course", url.clone());
-    let pasted = generating(&db, "pasted", "pasted-course", url.clone());
     let mut revising = generating(&db, "rev", "rev-course", url);
     revising.revise = Some("shorter".into());
     let now = crate::db::now();
-    let row = |req: &Request, id: &str, saved_key: bool| db.with(|c| hold(c, &payload(req, id, saved_key), now)).unwrap();
-    let (a, b, c) = (row(&saved, "j", true), row(&pasted, "j", false), row(&revising, "j", true));
+    let row = |req: &Request, id: &str| db.with(|c| hold(c, &payload(req, id), now)).unwrap();
+    let (a, b) = (row(&saved, "j"), row(&revising, "j"));
     let json: Vec<String> = db.with(|c| c.prepare("SELECT payload_json FROM jobs")?.query_map([], |r| r.get(0))?.collect()).unwrap();
     assert!(json.iter().all(|p| !p.contains("\"k\"")), "no key in a row: {json:?}");
 
     assert_eq!(db.with(|c| at_boot(c, now)).unwrap(), 1);
     let state_of = |id: i64| db.with(|c| c.query_row("SELECT state FROM jobs WHERE id = ?1", [id], |r| r.get::<_, String>(0))).unwrap();
-    assert_eq!((state_of(a).as_str(), state_of(b).as_str(), state_of(c).as_str()), ("queued", "failed", "failed"));
-    assert_eq!(db.with(|c| crate::courses::fail_interrupted(c)).unwrap(), 2, "the pasted-key and revision courses stop");
+    assert_eq!((state_of(a).as_str(), state_of(b).as_str()), ("queued", "failed"));
+    assert_eq!(db.with(|c| crate::courses::fail_interrupted(c)).unwrap(), 1, "the revision's course stops");
     let course = |id: &str| db.with(|c| crate::courses::course(c, id)).unwrap().unwrap();
     assert!(course("saved-course").is_generating());
-    assert_eq!(course("pasted-course").state, crate::courses::CourseState::Failed);
+    assert_eq!(course("rev-course").state, crate::courses::CourseState::Failed);
 
     // Back in the table, waiting, so the learner's page follows it.
     let jobs = Jobs::default();
@@ -1625,7 +1556,7 @@ fn wait_for_slots(jobs: &Jobs) {
 
 /// `hold` for a job id, as `submit` does.
 fn hold_row(c: &rusqlite::Connection, req: &Request, id: &str) -> rusqlite::Result<i64> {
-    hold(c, &payload(req, id, false), crate::db::now())
+    hold(c, &payload(req, id), crate::db::now())
 }
 
 /// Window 3 of the audit in `docs/architecture.md` (#85): two Generate posts
@@ -1719,9 +1650,10 @@ fn window_7_a_failed_end_of_job_write_leaves_the_course_busy() {
 /// that panics is caught by rusqlite and becomes an ordinary job failure, and
 /// no other code in the job path panics. So this test builds the state a dead
 /// thread leaves (course busy, row running, nothing in memory) and shows that
-/// the next boot ends it (`at_boot`, then `fail_interrupted`, as `main` does).
+/// the next boot takes it up again (`at_boot`, `fail_interrupted`, then
+/// `adopt`, as `main` does): the row waits for the runner, the course stays busy.
 #[test]
-fn window_9_what_a_job_that_died_without_its_end_sequence_leaves_is_ended_at_boot() {
+fn window_9_what_a_job_that_died_without_its_end_sequence_leaves_waits_again_at_boot() {
     let db = Db::open_in_memory().unwrap();
     let jobs = Jobs::default();
     let req = generating(&db, "win9", "win9-course", "http://127.0.0.1:1/v1".into());
@@ -1729,13 +1661,12 @@ fn window_9_what_a_job_that_died_without_its_end_sequence_leaves_is_ended_at_boo
     // As the pages see it before the boot: busy course, running row, no job in memory.
     assert_eq!(records(&db, &jobs, "win9-course", row, "j9"), ("generating".into(), Some("j".into()), "running".into(), None));
 
-    // A pasted key (`hold_row` passes `saved_key = false`): not resumable, so it stops.
-    db.with(|c| at_boot(c, crate::db::now())).unwrap();
-    db.with(|c| crate::courses::fail_interrupted(c)).unwrap();
-    let (state, job_id, row_state, _) = records(&db, &jobs, "win9-course", row, "j9");
-    assert_eq!((state.as_str(), job_id.as_deref(), row_state.as_str()), ("failed", Some("j"), "failed"));
-    let error = db.with(|c| crate::courses::course(c, "win9-course")).unwrap().unwrap().error;
-    assert!(error.is_some_and(|e| e.contains("interrupted")));
+    assert_eq!(db.with(|c| at_boot(c, crate::db::now())).unwrap(), 1);
+    assert_eq!(db.with(|c| crate::courses::fail_interrupted(c)).unwrap(), 0);
+    assert_eq!(adopt(&jobs, &db).unwrap(), 1);
+    let (state, job_id, row_state, done) = records(&db, &jobs, "win9-course", row, "j9");
+    assert_eq!((state.as_str(), job_id.as_deref(), row_state.as_str(), done), ("generating", Some("j"), "queued", Some(false)));
+    assert_eq!(db.with(|c| crate::courses::course(c, "win9-course")).unwrap().unwrap().error, None);
 }
 
 /// A fake provider that answers every request with `status` and `body`.

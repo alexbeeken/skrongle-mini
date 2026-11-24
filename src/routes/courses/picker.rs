@@ -381,8 +381,6 @@ pub(super) fn editor_notice(key: &str, undo: Option<&UndoView>, error: Option<&s
         "saved-broken" => crate::t1("courses.file.saved_broken_notice", "error", error),
         "file-deleted" => crate::t("courses.file.deleted_notice"),
         "file-deleted-broken" => crate::t1("courses.file.deleted_broken_notice", "error", error),
-        "loads" => crate::t("courses.editor.loads_notice"),
-        "broken" => crate::t1("courses.editor.not_loading_notice", "error", error),
         "busy" => crate::t("courses.generate.busy"),
         "has-content" => crate::t("courses.generate.has_content"),
         "cancel-revision" => crate::t("courses.generate.cancelling_revision"),

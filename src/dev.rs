@@ -152,7 +152,7 @@ pub fn resolve(requested: bool, bind: SocketAddr, secure_cookies: bool, public_u
         return Err("SKRONGLE_DEV=1 ignored: SKRONGLE_SECURE_COOKIES=1 means this is a deploy".into());
     }
     // Deploys bind loopback too (behind nginx or Caddy) and set a public URL.
-    if let Some(url) = public_url.filter(|u| !is_local_host(crate::ai::url_host_port(u).map(|(h, _)| h).as_deref().unwrap_or(""))) {
+    if let Some(url) = public_url.filter(|u| !is_local_host(url_host_port(u).map(|(h, _)| h).as_deref().unwrap_or(""))) {
         return Err(format!("SKRONGLE_DEV=1 ignored: SKRONGLE_PUBLIC_URL={url} means this is a deploy"));
     }
     Ok(true)
@@ -183,11 +183,41 @@ pub fn check_accounts(others: i64, force: bool) -> Result<(), String> {
     Ok(())
 }
 
+/// Scheme, host and port of an `http(s)://` URL. `None` when it is not one,
+/// or carries credentials (`user@host`).
+fn url_host_port(url: &str) -> Option<(String, u16)> {
+    let (scheme, rest) = url.split_once("://")?;
+    let default_port = match scheme.to_ascii_lowercase().as_str() {
+        "http" => 80,
+        "https" => 443,
+        _ => return None,
+    };
+    let authority = rest.split(['/', '?', '#']).next()?;
+    if authority.is_empty() || authority.contains('@') {
+        return None;
+    }
+    let (host, port) = if let Some(v6) = authority.strip_prefix('[') {
+        let (h, after) = v6.split_once(']')?;
+        let port = match after.strip_prefix(':') {
+            Some(p) => p.parse().ok()?,
+            None if after.is_empty() => default_port,
+            None => return None,
+        };
+        (h.to_string(), port)
+    } else {
+        match authority.rsplit_once(':') {
+            Some((h, p)) => (h.to_string(), p.parse().ok()?),
+            None => (authority.to_string(), default_port),
+        }
+    };
+    (!host.is_empty()).then_some((host.to_ascii_lowercase(), port))
+}
+
 /// The host a request was made to (`Host`, else the URI's authority),
 /// lowercased and without the port; empty when there is none.
 fn request_host(req: &axum::extract::Request) -> String {
     let host = req.headers().get(axum::http::header::HOST).and_then(|v| v.to_str().ok()).or_else(|| req.uri().authority().map(|a| a.as_str())).unwrap_or("");
-    crate::ai::url_host_port(&format!("http://{host}")).map(|(h, _)| h).unwrap_or_default()
+    url_host_port(&format!("http://{host}")).map(|(h, _)| h).unwrap_or_default()
 }
 
 /// Layer on every route in dev mode (#388): a request made to any host but
@@ -299,7 +329,7 @@ pub fn provider_base_url(kind: crate::ai::ProviderKind) -> Option<String> {
 
 /// The base URL of the simulated provider for `kind` under `root`
 /// (`http://127.0.0.1:8123/dev/ai`): what dev mode uses by default, and
-/// what a learner would type as a custom base URL to reach it.
+/// what a `SKRONGLE_*_BASE_URL` of another server names to reach it.
 pub fn simulator_base_url(root: &str, kind: crate::ai::ProviderKind) -> String {
     use crate::ai::ProviderKind;
     match kind {
