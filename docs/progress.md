@@ -164,7 +164,7 @@ All requests and replies are JSON. A lesson can be named by its `id` or its
 `rules.min_answers`), the course, and every lesson in course order with
 `id`, `slug`, `title`, `unit`, `focus`, `summary`, `quiz_questions`,
 `required_answers`, `seen`, `passed`, `status` (in words), `passed_via`
-(`sprint`, `study`, `play`, `tutor`, `agent` or `legacy`),
+(`sprint`, `study`, `play`, `tutor` or `agent`),
 `best_pct`, `mastery` (0–100), `mastery_status` and `skipped` (below the
 level the learner is at; see above), plus `start_unit`, the level they
 chose ('' for the beginning). Start here to choose what to teach. Usually

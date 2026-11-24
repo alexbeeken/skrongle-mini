@@ -175,6 +175,7 @@ impl Jobs {
     /// fail once the course row is gone; one adopted after a restart leaves the
     /// table (its row stops when the runner reaches it). A thread keeps its slot until
     /// it has exited.
+    #[cfg(test)]
     pub fn drop_user(&self, user_id: i64) {
         let mut table = self.lock();
         for j in table.map.values().filter(|j| j.user_id == user_id) {

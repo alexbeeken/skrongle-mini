@@ -167,7 +167,7 @@ mod tests {
         assert_eq!(g.note.as_deref(), Some("6 of 8 notes right"));
         assert_eq!(g.correct_answer, "D E F♯ G A B C♯ D");
         assert!(check(&c, &id, &serde_json::json!(["E"]), 0).is_err(), "seven notes or none");
-        assert_eq!(history_answer(&c, &id, "6/8"), "6 of 8 notes right");
+        assert_eq!(history_answer(&id, "6/8"), "6 of 8 notes right");
         let (_, prompt, answer) = describe(&c, &id).unwrap();
         assert_eq!((prompt.as_str(), answer.as_str()), ("Build the scale: D major", "D E F♯ G A B C♯ D"));
     }

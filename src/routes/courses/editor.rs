@@ -517,10 +517,10 @@ pub(super) fn stopped_redirect(row: &CourseRow, from_job: bool) -> Option<Respon
     })
 }
 
-pub(super) async fn editor_page(state: &AppState, user: CurrentUser, row: CourseRow, notice: Option<String>, refill: Refill) -> Result<Response, AppError> {
+pub(super) async fn editor_page(state: &AppState, user: CurrentUser, row: CourseRow, refill: Refill) -> Result<Response, AppError> {
     let (row, modal) = settled(state, &user, row, None).await?;
     let generate = generate_view(state, &user, &row, false).await?;
-    editor_page_with(state, user, row, notice, refill, modal, generate, None, false).await
+    editor_page_with(state, user, row, None, refill, modal, generate, None, false).await
 }
 
 #[allow(clippy::too_many_arguments)]

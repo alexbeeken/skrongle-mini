@@ -17,7 +17,6 @@ pub const LESSON_OUTPUT_TOKENS: u64 = 6_000;
 /// The tokens a job is expected to use: `lessons` lesson requests, plus an
 /// outline or plan request when `plan`. Retries are not counted; a job that
 /// runs past its estimate goes on while the learner has allowance left.
-/// Thorough thinks longer: [`Effort::output_tokens`] scales the output.
 pub fn job_tokens(lessons: usize, plan: bool, notes_chars: usize) -> (u64, u64) {
     let per_request = (FORMAT_DOC.len() + notes_chars).div_ceil(4) as u64 + JOB_PROMPT_TOKENS;
     let requests = lessons as u64 + u64::from(plan);
@@ -65,12 +64,6 @@ impl Effort {
     /// it on Anthropic, so it gets room for a lesson after the thinking.
     pub fn max_tokens(self) -> u32 {
         if self == Effort::Thorough { GENERATE_MAX_TOKENS * 2 } else { GENERATE_MAX_TOKENS }
-    }
-
-    /// A job's expected output at this level, from [`job_tokens`]'s: Thorough
-    /// reserves twice as much, so it does not run past what it held.
-    pub fn output_tokens(self, output: u64) -> u64 {
-        if self == Effort::Thorough { output * 2 } else { output }
     }
 }
 

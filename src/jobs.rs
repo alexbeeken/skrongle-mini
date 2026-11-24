@@ -322,6 +322,7 @@ impl Queue {
     }
 
     /// Wake the runner: a job was queued or made due.
+    #[cfg(feature = "dev")]
     pub fn notify(&self) {
         let _ = self.wake.lock().unwrap_or_else(|p| p.into_inner()).send(());
     }

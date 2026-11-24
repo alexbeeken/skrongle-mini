@@ -1007,7 +1007,7 @@ the end of a lesson or session in every mode. The learner picks one per
 course in [the course's settings](#a-courses-settings) (the wizard of its first visit,
 then the gear on its card; the (i) says what each one does), stored in
 `projects.motivator` ('' for the default; #574). A new course starts with
-the default. A course that saved the removed Skrongle Cash (`skc`) wears XP (the v2 migration rewrites it, and `motivators::worn` reads it as XP). Motivators are app-level code, not course data: a course
+the default. A course that saved the removed Skrongle Cash (`skc`) wears XP (the v2 migration rewrites it). Motivators are app-level code, not course data: a course
 file cannot switch one on.
 
 | Motivator | id | What the home page leads with | Reward line |

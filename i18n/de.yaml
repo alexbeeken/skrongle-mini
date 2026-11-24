@@ -80,7 +80,6 @@ common:
       one: "vor {n} Jahr"
       other: "vor {n} Jahren"
   js:
-    close: Schließen
     notation_label: Notenschrift
     music_play: "Abspielen"
     music_no_sound: "Kein Ton? Ein Handy im Lautlos-Modus schaltet ihn stumm."
@@ -132,7 +131,6 @@ auth:
     email_label: E-Mail-Adresse
     password_label: Passwort
     submit: Anmelden
-    or: oder
     no_account_html: "Noch kein Konto? <a href=\"{url}\" data-testid=\"login-register-link\">Registrieren</a>."
     too_many_attempts: Zu viele Anmeldeversuche. Warte ein paar Minuten und versuch es erneut.
     incorrect: E-Mail-Adresse oder Passwort sind falsch.
@@ -145,7 +143,6 @@ auth:
     password_label: Passwort
     password_note: (mindestens 8 Zeichen)
     submit: Registrieren
-    or: oder
     have_account_html: "Schon registriert? <a href=\"{url}\" data-testid=\"register-login-link\">Anmelden</a>."
     too_many_signups: Zu viele Registrierungen aus deinem Netzwerk. Versuch es in einer Stunde noch einmal.
     email_taken: Für diese E-Mail-Adresse gibt es bereits ein Konto.
@@ -241,7 +238,6 @@ profile:
     title: Konto
     sign_in: Anmeldung
     password: Passwort
-    and: und
     no_password: Dieses Konto hat kein Passwort, das man ändern könnte.
   sessions:
     sign_out_others: "Überall sonst abmelden"
@@ -261,7 +257,6 @@ profile:
     changed: Passwort geändert.
     mismatch: Die neuen Passwörter stimmen nicht überein.
     none: Dieses Konto hat kein Passwort.
-    too_many: Zu viele Versuche. Warte ein paar Minuten und versuche es erneut.
     current_wrong: Das aktuelle Passwort stimmt nicht.
   two_factor:
     title: Zwei-Faktor-Authentifizierung
@@ -489,7 +484,6 @@ landing:
     one: "{n} Lektion"
     other: "{n} Lektionen"
   every_way_h2: "Ein Kurs, jede Art zu lernen"
-  every_way_lead: "Jede Funktion liest dieselben Dateien. Du schreibst nichts zweimal."
   feat_sprint_h: "Sprint"
   feat_sprint_p: "Fünfminütige Sitzungen, für das Handy gemacht: Wortkacheln, Sortieren, Finden, Bauen, Leiter, Zuordnen, Hörübungen, ein Tagesziel und eine Serie."
   feat_study_h: "Lernen"
@@ -502,15 +496,6 @@ landing:
   feat_hear_p: "In einem Sprachkurs kann jedes wichtige Wort angetippt und vom Browser mit seinen eigenen Stimmen vorgelesen werden."
   feat_mastery_h: "Beherrschung, die nachlässt"
   feat_mastery_p: "Richtige Antworten bauen eine Wertung mit abnehmendem Zuwachs auf, falsche nehmen einen Happen davon, und eine Pause von einem Monat lässt sie wieder in Richtung Übung sinken."
-  small_h2: "Klein genug für einen Raspberry Pi"
-  spec_binary_h: "Eine Binärdatei"
-  spec_binary_p: "Vorlagen, CSS, Skripte und Dokumentation sind eingebaut; die mitgelieferten Kurse sind einfache Dateien daneben. SQLite ist die ganze Datenbank."
-  spec_footprint_h: "Winziger Fußabdruck"
-  spec_footprint_p: "Für einen Pi Zero 2 W bemessen: ein paar Megabyte auf der Platte, Dutzende Megabyte im Speicher, zwei asynchrone Worker."
-  spec_data_h: "Deine Daten bleiben deine"
-  spec_data_p: "Läuft auf deinem eigenen Rechner oder im LAN. Optionaler TLS-Proxy, keine Skripte von Drittanbietern, kein Tracking."
-  spec_docs_h: "Dokumentation inklusive"
-  spec_docs_p: "Das Format, die Funktionen und die Architektur werden von der App selbst ausgeliefert, als Seiten oder als reines Markdown für ein LLM."
   final_h2: "Registrier dich, dann beantworte eine Frage: Was möchtest du lernen?"
   browse_docs: "Dokumentation durchstöbern"
   feat_guide_h: "Guide"
@@ -704,7 +689,6 @@ study:
     play: "Spielmodus"
     tutor: "KI-Nachhilfe"
     agent: "einem KI-Agenten"
-    legacy: "einer früheren Sitzung"
     other: "einem anderen Modus"
   pass:
     passed_in: "Bestanden in {via}"
@@ -715,18 +699,15 @@ study:
     best_run: "Bester Durchgang {n} %"
     not_started: "Noch nicht begonnen"
   counts:
-    n_mastered: "{n} beherrscht"
     n_in_progress:
       one: "{n} in Arbeit"
       other: "{n} in Arbeit"
-    n_weak: "{n} schwach"
     n_need_practice:
       one: "{n} braucht Übung"
       other: "{n} brauchen Übung"
     n_not_started:
       one: "{n} noch nicht begonnen"
       other: "{n} noch nicht begonnen"
-    n_of_m_passed: "{n} von {total} bestanden"
     n_skipped:
       one: "{n} übersprungen"
       other: "{n} übersprungen"
@@ -969,16 +950,11 @@ study:
 
 docs:
   title_suffix: Doku
-  documentation: Dokumentation
   raw: "Roh:"
   section_guides: Anleitungen
   section_self_hosting: "Selbst hosten"
   section_reference: Referenz
   section_dev: Entwickler
-  js:
-    copied: Kopiert ✓
-    copy: Kopieren
-    selected: Ausgewählt
 quiz:
   page:
     recommended_title: Empfohlenes Üben
@@ -1533,7 +1509,6 @@ sprint:
       other: "{n} Paare brauchten mehr als einen Versuch."
   history:
     sorted: "{right} von {n} richtig sortiert"
-    sorted_wrongly: Einige in der falschen Gruppe
     forms_right: "{right} von {n} Formen richtig"
     notes_right: "{right} von {n} Tönen richtig"
     wrong_taps:
@@ -1548,7 +1523,6 @@ sprint:
     build: "Baue: {meaning}"
     ladder: "Leiter: {item} ({set})"
     hear_build: Tippe, was du hörst
-    hear_type: Tippe, was du hörst
     hear_meaning: "Was bedeutet das: {text}"
     hear_gap: "Fülle die Lücke aus dem, was du hörst: {text}"
   js:
@@ -2614,8 +2588,6 @@ editor:
     move_next_bucket: "In das nächste Fach verschieben"
     right_answer: "Die richtige Antwort"
     option_n: "Option {n}"
-    answer_true: "Wahr"
-    answer_false: "Falsch"
     optional: "optional"
     ids_note: "IDs, Slug, Einheit und Reihenfolge legt die Lektionstabelle fest; bearbeite sie als JSON."
     lesson_head: "Die Lektion"

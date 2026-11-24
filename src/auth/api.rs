@@ -173,13 +173,10 @@ impl Kind {
 
 /// One grant, as the profile and Manage Users list it.
 #[derive(Clone, Debug)]
-#[allow(dead_code)] // `user_id` and `client_id` are read by OAuth and the owner's review (#169, #170)
 pub struct Grant {
     pub id: i64,
-    pub user_id: i64,
     /// The account's address (Manage Users names whose it is).
     pub email: String,
-    pub client_id: String,
     pub client_name: String,
     pub scopes: Vec<Scope>,
     /// The course ids it may reach; empty for all of the account's own.
@@ -326,20 +323,18 @@ pub fn make_personal(conn: &Connection, user_id: i64, g: &NewGrant, now: i64) ->
     mint(conn, grant, Kind::Personal, now + g.lifetime.secs())
 }
 
-const GRANT_COLS: &str = "g.id, g.user_id, COALESCE(u.email, ''), g.client_id, g.client_name, g.scopes, g.courses, g.created_at, g.expires_at, g.last_used_at";
+const GRANT_COLS: &str = "g.id, COALESCE(u.email, ''), g.client_name, g.scopes, g.courses, g.created_at, g.expires_at, g.last_used_at";
 
 fn grant_row(r: &rusqlite::Row) -> rusqlite::Result<Grant> {
     Ok(Grant {
         id: r.get(0)?,
-        user_id: r.get(1)?,
-        email: r.get(2)?,
-        client_id: r.get(3)?,
-        client_name: r.get(4)?,
-        scopes: Scope::parse_list(&r.get::<_, String>(5)?),
-        courses: r.get::<_, String>(6)?.split_whitespace().map(str::to_string).collect(),
-        created_at: r.get(7)?,
-        expires_at: r.get(8)?,
-        last_used_at: r.get(9)?,
+        email: r.get(1)?,
+        client_name: r.get(2)?,
+        scopes: Scope::parse_list(&r.get::<_, String>(3)?),
+        courses: r.get::<_, String>(4)?.split_whitespace().map(str::to_string).collect(),
+        created_at: r.get(5)?,
+        expires_at: r.get(6)?,
+        last_used_at: r.get(7)?,
     })
 }
 
@@ -559,9 +554,6 @@ pub enum ApiError {
     TooManyRequests,
     /// The grant lacks this scope: 403 `insufficient_scope`.
     InsufficientScope(Scope),
-    /// Not there, or not the account's own: 404.
-    #[allow(dead_code)] // the MCP tools answer a missing course inside a tool result (#168), not with a status
-    NotFound,
     Internal(AppError),
 }
 
@@ -583,7 +575,7 @@ impl IntoResponse for ApiError {
                 r
             }
             ApiError::TokenInAddress => json(StatusCode::BAD_REQUEST, serde_json::json!({ "error": "invalid_request" })),
-            ApiError::Off | ApiError::NotFound => StatusCode::NOT_FOUND.into_response(),
+            ApiError::Off => StatusCode::NOT_FOUND.into_response(),
             ApiError::TooManyRequests => json(StatusCode::TOO_MANY_REQUESTS, serde_json::json!({ "error": "too_many_requests" })),
             ApiError::InsufficientScope(scope) => {
                 let mut r = json(StatusCode::FORBIDDEN, serde_json::json!({ "error": "insufficient_scope", "scope": scope.as_str() }));

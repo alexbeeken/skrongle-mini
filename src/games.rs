@@ -230,11 +230,6 @@ impl Sessions {
         before - map.len()
     }
 
-    /// Forget every game of `user_id` (their account is being deleted).
-    pub fn drop_user(&self, user_id: i64) {
-        self.lock().retain(|_, s| s.user_id != user_id);
-    }
-
     fn lock(&self) -> std::sync::MutexGuard<'_, HashMap<String, MatchSession>> {
         self.inner.lock().unwrap_or_else(|p| p.into_inner())
     }
@@ -269,12 +264,13 @@ pub fn save_score(
     Ok(conn.last_insert_rowid())
 }
 
-pub fn leaderboard(conn: &Connection, course_id: &str, game: &str, board: &str, limit: i64) -> rusqlite::Result<Vec<ScoreRow>> {
+/// The ten best times on a board, fastest first.
+pub fn leaderboard(conn: &Connection, course_id: &str, game: &str, board: &str) -> rusqlite::Result<Vec<ScoreRow>> {
     let mut stmt = conn.prepare_cached(
         "SELECT u.id, u.first_name, u.last_name, s.score_ms, s.wrong, s.played_at FROM game_scores s JOIN users u ON u.id = s.user_id
-         WHERE s.course_id = ?1 AND s.game = ?2 AND s.board = ?3 ORDER BY s.score_ms ASC, s.played_at ASC LIMIT ?4",
+         WHERE s.course_id = ?1 AND s.game = ?2 AND s.board = ?3 ORDER BY s.score_ms ASC, s.played_at ASC LIMIT 10",
     )?;
-    let rows = stmt.query_map(params![course_id, game, board, limit], |r| {
+    let rows = stmt.query_map(params![course_id, game, board], |r| {
         let name = crate::profile::public_name(&r.get::<_, String>(1)?, &r.get::<_, String>(2)?);
         Ok(ScoreRow { rank: 0, user_id: r.get(0)?, name, score_ms: r.get(3)?, wrong: r.get(4)?, played_at: r.get(5)? })
     })?;
@@ -675,8 +671,7 @@ mod tests {
         sessions.lock().get_mut(&t4).unwrap().started = Instant::now() - std::time::Duration::from_secs(SESSION_TTL_SECS + 1);
         sessions.start(2, "c", "b", pairs(2), vec![]);
         assert_eq!(sessions.lock().len(), 1, "expired entry gone after the next insert");
-        sessions.drop_user(1);
-        sessions.drop_user(2);
+        sessions.lock().clear();
 
         // finish(): rejected submissions keep the session; too-fast finishes are refused.
         let t3 = sessions.start(1, "c", "b", pairs(2), vec![]);
@@ -700,7 +695,7 @@ mod tests {
             save_score(c, ann, "es", GAME_MATCHING, "l1", 15_000, 3)?;
             save_score(c, ann, "es", GAME_MATCHING, BOARD_ALL, 40_000, 0)?;
             save_score(c, ann, "fr", GAME_MATCHING, "l1", 1_000, 0)?;
-            let lb = leaderboard(c, "es", GAME_MATCHING, "l1", 10)?;
+            let lb = leaderboard(c, "es", GAME_MATCHING, "l1")?;
             assert_eq!(lb.len(), 3);
             assert_eq!((lb[0].rank, lb[0].user_id, lb[0].name.as_str(), lb[0].score_ms), (1, bob, "Bob S.", 9_500));
             assert_eq!(personal_best(c, ann, "es", GAME_MATCHING, "l1")?, Some(12_000));

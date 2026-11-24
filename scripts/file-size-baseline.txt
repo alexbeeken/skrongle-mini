@@ -1,5 +1,4 @@
-1570 src/ai.rs
-2187 src/content.rs
-1508 src/sprint.rs
-2045 static/courses.js
-2165 static/style.css
+1517 src/ai.rs
+1557 src/content.rs
+2041 static/courses.js
+1951 static/style.css

@@ -50,13 +50,12 @@ pub fn via_label(via: &str) -> String {
         VIA_PLAY => "study.via.play",
         "tutor" => "study.via.tutor",
         "agent" => "study.via.agent",
-        "legacy" => "study.via.legacy",
         _ => "study.via.other",
     })
 }
 
 /// A stored `via` as the progress API gives it: the mode's name (`sprint`,
-/// `study`, `play`), or the value itself (`tutor`, `agent`, `legacy`).
+/// `study`, `play`), or the value itself (`tutor`, `agent`).
 pub fn via_id(via: &str) -> &str {
     match via {
         VIA_SPRINT => "sprint",

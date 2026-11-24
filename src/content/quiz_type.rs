@@ -54,11 +54,6 @@ impl QuizType {
         }
     }
 
-    /// Answered by typing (everything but a choice of options, the keyboard and the clock).
-    pub fn is_typed(self) -> bool {
-        !matches!(self, QuizType::MultipleChoice | QuizType::TrueFalse | QuizType::Keyboard | QuizType::Clock)
-    }
-
     /// Answered with a number or a formula: the app checks it by value,
     /// so word tiles and accent hints do not apply.
     pub fn is_math(self) -> bool {

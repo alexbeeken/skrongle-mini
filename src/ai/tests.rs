@@ -1216,8 +1216,6 @@ fn effort_goes_out_per_provider() {
     assert_eq!(Effort::default(), Effort::Balanced);
     let thorough = Provider { effort: Some(Effort::Thorough), ..a.clone() };
     assert_eq!(budget::max_tokens(&thorough), 2 * budget::max_tokens(&a));
-    assert_eq!(Effort::Thorough.output_tokens(6_000), 12_000);
-    assert_eq!(Effort::Fast.output_tokens(6_000), 6_000);
 }
 
 /// A server that echoes the key back (in a reply that is not JSON, or in

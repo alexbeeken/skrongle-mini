@@ -534,17 +534,13 @@ fn gap_word(lesson: &Lesson, words: &[String], rng: &mut Rng) -> Option<usize> {
         .or_else(|| pick(&|k| !k.is_empty(), rng))
 }
 
-/// Fill the gap from what you hear: `listening[n]` with word `gap` (chosen
-/// here when `None`) to pick from four tiles: the word, its accent-less
+/// Fill the gap from what you hear: `listening[n]` with one word (chosen
+/// here) to pick from four tiles: the word, its accent-less
 /// spelling and words from the lesson's other sentences of a similar length.
-pub fn hear_gap(lesson: &Lesson, n: usize, gap: Option<usize>, rng: &mut Rng) -> Option<Exercise> {
+pub fn hear_gap(lesson: &Lesson, n: usize, rng: &mut Rng) -> Option<Exercise> {
     let item = lesson.listening.get(n)?;
     let words = words_of(&item.text);
-    let gap = match gap {
-        Some(g) if g < words.len() => g,
-        Some(_) => return None,
-        None => gap_word(lesson, &words, rng)?,
-    };
+    let gap = gap_word(lesson, &words, rng)?;
     let word = bare(&words[gap]);
     let mut tiles = Vec::new();
     let mut seen = HashSet::new();
@@ -697,7 +693,7 @@ pub fn listening_exercises(content: &ContentStore, lesson: &Lesson, rng: &mut Rn
     let mut words = words.into_iter();
     let build_first = rng.below(2) == 0;
     if let Some(n) = sentences.next() {
-        out.extend(if build_first { hear_build(lesson, n, rng) } else { hear_gap(lesson, n, None, rng) });
+        out.extend(if build_first { hear_build(lesson, n, rng) } else { hear_gap(lesson, n, rng) });
     }
     if let Some(i) = words.next() {
         out.extend(if rng.below(2) == 0 { hear_pick(lesson, i, rng) } else { hear_which(lesson, i, rng) });
@@ -712,7 +708,7 @@ pub fn listening_exercises(content: &ContentStore, lesson: &Lesson, rng: &mut Rn
     }
     // The other sentence family, so a session has both when it has two.
     if let Some(n) = sentences.next() {
-        out.extend(if build_first { hear_gap(lesson, n, None, rng) } else { hear_build(lesson, n, rng) });
+        out.extend(if build_first { hear_gap(lesson, n, rng) } else { hear_build(lesson, n, rng) });
     }
     rng.shuffle(&mut out);
     out
@@ -1197,31 +1193,6 @@ pub fn check(content: &ContentStore, id: &str, answer: &serde_json::Value, mista
                 effect: Effect::Mastery { lesson_id: lesson.id.clone(), selected: given.trim().to_string() },
             })
         }
-        // No longer dealt (typing a sentence from audio alone was too hard for
-        // a phone session), still graded for sessions already open.
-        "htype" => {
-            let lesson = lesson_of(1)?;
-            let item = lesson.listening.get(index_of(2)?).ok_or("unknown sentence")?;
-            let given = answer.as_str().ok_or("expected the typed sentence")?;
-            if given.chars().count() > 300 {
-                return Err("answer too long".into());
-            }
-            let v = crate::listening::check(&item.text, given);
-            let note = if v.correct {
-                None
-            } else if v.accents_only {
-                Some(crate::t("sprint.check.accents"))
-            } else {
-                Some(crate::t2("sprint.check.words_right", "n", v.words_right, "total", v.expected.len()))
-            };
-            Ok(Graded {
-                correct: v.correct,
-                correct_answer: item.text.clone(),
-                explanation: crate::t1("sprint.check.means", "meaning", &item.meaning),
-                note,
-                effect: Effect::Mastery { lesson_id: lesson.id.clone(), selected: given.trim().to_string() },
-            })
-        }
         "hgap" => {
             let lesson = lesson_of(1)?;
             let item = lesson.listening.get(index_of(2)?).ok_or("unknown sentence")?;
@@ -1360,12 +1331,11 @@ pub fn describe<'a>(content: &'a ContentStore, id: &str) -> Option<(&'a Lesson, 
             Some((l, crate::t2("sprint.describe.ladder", "item", parts.get(2)?, "set", set), String::new()))
         }
         "scale" => content.lesson_by_id(parts.get(1)?).and_then(|l| scale::describe(content, l, idx(2)?).map(|(p, a)| (l, p, a))),
-        "hbuild" | "htype" | "hmean" | "hgap" => {
+        "hbuild" | "hmean" | "hgap" => {
             let l = content.lesson_by_id(parts.get(1)?)?;
             let item = l.listening.get(idx(2)?)?;
             Some(match parts[0] {
                 "hbuild" => (l, crate::t("sprint.describe.hear_build"), item.text.clone()),
-                "htype" => (l, crate::t("sprint.describe.hear_type"), item.text.clone()),
                 "hmean" => (l, crate::t1("sprint.describe.hear_meaning", "text", &item.text), item.meaning.clone()),
                 _ => {
                     let words = words_of(&item.text);
@@ -1380,10 +1350,9 @@ pub fn describe<'a>(content: &'a ContentStore, id: &str) -> Option<(&'a Lesson, 
 
 /// The "your answer" text of a History row for a Sprint exercise graded as a
 /// whole (Sort it, ladders), whose stored answer is a count: `right/total`, plus
-/// ` +wrong taps` for a sort with wrong taps (and old ladder rows). Older wording
-/// ("sorted with 5 slip(s)", "sorted wrongly", "6/6 rungs right") reads the same.
+/// ` +wrong taps` for a sort with wrong taps (and old ladder rows).
 /// Other answers pass through.
-pub fn history_answer(content: &ContentStore, id: &str, selected: &str) -> String {
+pub fn history_answer(id: &str, selected: &str) -> String {
     let kind = id.split(':').next().unwrap_or("");
     if !matches!(kind, "sort" | "ladder" | "scale") {
         return selected.to_string();
@@ -1396,16 +1365,7 @@ pub fn history_answer(content: &ContentStore, id: &str, selected: &str) -> Strin
         let (r, n) = score.split_once('/')?;
         Some((r.parse().ok()?, n.parse().ok()?, taps))
     };
-    let legacy_slips = selected.strip_prefix("sorted with ").and_then(|r| r.strip_suffix(" slip(s)")).and_then(|m| m.parse::<usize>().ok());
-    let (right, n, taps) = if let Some(c) = parse(selected).or_else(|| selected.strip_suffix(" rungs right").and_then(parse)) {
-        c
-    } else if let (Some(m), Some(n)) = (legacy_slips, sort_size(content, id)) {
-        (n, n, m)
-    } else if selected == "sorted wrongly" {
-        return crate::t("sprint.history.sorted_wrongly");
-    } else {
-        return selected.to_string();
-    };
+    let Some((right, n, taps)) = parse(selected) else { return selected.to_string() };
     // Wrong taps: a sort judges each tap at once (#1148), and ladder rows stored
     // before #640 did too. Such a row was marked ✗, so it never leads with
     // "3 of 3 right": the taps come first ("1 wrong tap, then all 3 sorted correctly").
@@ -1420,13 +1380,6 @@ pub fn history_answer(content: &ContentStore, id: &str, selected: &str) -> Strin
         text.push_str(&crate::tn("sprint.history.wrong_taps", taps));
     }
     text
-}
-
-/// How many items the Sort it exercise `sort:<lesson>:<i>` has.
-fn sort_size(content: &ContentStore, id: &str) -> Option<usize> {
-    let parts: Vec<&str> = id.split(':').collect();
-    let l = content.lesson_by_id(parts.get(1)?)?;
-    Some(l.sprint.sorts.get(parts.get(2)?.parse::<usize>().ok()?)?.items.len())
 }
 
 // ---------- streaks & stats ----------

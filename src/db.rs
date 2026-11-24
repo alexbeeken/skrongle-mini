@@ -80,6 +80,7 @@ pub fn check_not_newer(path: &Path) -> Result<(), String> {
 }
 
 mod migrations;
+#[cfg(test)]
 mod tables;
 use migrations::{COUNT, MIGRATIONS, REBUILDS};
 

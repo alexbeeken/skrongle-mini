@@ -49,6 +49,7 @@ impl Rng {
         Rng(seed)
     }
 
+    #[cfg(any(test, feature = "dev"))]
     pub fn seeded(seed: u64) -> Rng {
         Rng(if seed == 0 { 1 } else { seed })
     }

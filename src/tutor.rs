@@ -314,11 +314,6 @@ impl Sessions {
         before - map.len()
     }
 
-    /// Forget every chat of `user_id` (their account is being deleted).
-    pub fn drop_user(&self, user_id: i64) {
-        self.lock().retain(|_, s| s.user_id != user_id);
-    }
-
     /// Forget every chat (the owner just hid the AI features, #25).
     pub fn drop_all(&self) {
         self.lock().clear();

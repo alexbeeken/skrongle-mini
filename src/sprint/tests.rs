@@ -155,7 +155,7 @@ fn lesson_session_listens_in_language_courses() {
         if let Some(Exercise::HearBuild { text, tiles, .. }) = hear_build(l, n, &mut rng) {
             assert!(tiles.len() > words_of(&text).len(), "distractors added");
         }
-        if let Some(Exercise::HearGap { text, gap, tiles, .. }) = hear_gap(l, n, None, &mut rng) {
+        if let Some(Exercise::HearGap { text, gap, tiles, .. }) = hear_gap(l, n, &mut rng) {
             let word = bare(&words_of(&text)[gap]);
             assert!(tiles.iter().any(|t| normalize(t) == normalize(&word)));
             assert!(tiles.len() >= 2 && tiles.len() <= 4);
@@ -231,15 +231,6 @@ fn grades_listening_exercises() {
     let g = check(&c, &format!("hbuild:{}:0", l.id), &serde_json::json!("nada"), 0).unwrap();
     assert!(!g.correct && g.correct_answer == item.text);
 
-    let g = check(&c, &format!("htype:{}:0", l.id), &serde_json::json!(item.text.to_uppercase()), 0).unwrap();
-    assert!(g.correct);
-    let g = check(&c, &format!("htype:{}:0", l.id), &serde_json::json!(strip_accents(&item.text)), 0).unwrap();
-    if strip_accents(&item.text) != item.text {
-        assert!(!g.correct && g.note.as_deref() == Some("Almost! Check the accents."));
-    }
-    let g = check(&c, &format!("htype:{}:0", l.id), &serde_json::json!("hola"), 0).unwrap();
-    assert!(!g.correct && g.note.unwrap().contains("words right"));
-
     let words = words_of(&item.text);
     let g = check(&c, &format!("hgap:{}:0:0", l.id), &serde_json::json!(bare(&words[0])), 0).unwrap();
     assert!(g.correct && g.correct_answer == bare(&words[0]));
@@ -265,8 +256,8 @@ fn grades_listening_exercises() {
     let (dl, prompt, answer) = describe(&c, &format!("hgap:{}:0:0", l.id)).unwrap();
     assert_eq!(dl.id, l.id);
     assert!(prompt.starts_with("Fill the gap") && answer == bare(&words[0]));
-    assert!(describe(&c, &format!("htype:{}:0", l.id)).is_some());
-    assert!(describe(&c, &format!("htype:{}:99", l.id)).is_none());
+    assert!(describe(&c, &format!("hbuild:{}:0", l.id)).is_some());
+    assert!(describe(&c, &format!("hbuild:{}:99", l.id)).is_none());
 }
 
 #[test]
@@ -467,20 +458,16 @@ fn history_rows_for_sorts_and_ladders_read_as_a_score() {
     let g = check(&c, &id, &serde_json::json!(all), 2).unwrap();
     let Effect::Mastery { selected, .. } = g.effect else { panic!("mastery effect") };
     assert_eq!(selected, format!("{n}/{n} +2"));
-    assert_eq!(history_answer(&c, &id, &selected), format!("2 wrong taps, then all {n} sorted correctly"));
-    assert_eq!(history_answer(&c, &id, "3/8"), "Sorted 3 of 8 correctly");
-    // Rows stored before: the old wording reads the same way, taps first when all ended right.
-    assert_eq!(history_answer(&c, &id, "sorted with 1 slip(s)"), format!("1 wrong tap, then all {n} sorted correctly"));
-    assert_eq!(history_answer(&c, &id, "sorted wrongly"), "Some in the wrong group");
-    assert_eq!(history_answer(&c, "ladder:x:ser:present", "5/6 rungs right"), "5 of 6 forms right");
+    assert_eq!(history_answer(&id, &selected), format!("2 wrong taps, then all {n} sorted correctly"));
+    assert_eq!(history_answer(&id, "3/8"), "Sorted 3 of 8 correctly");
     // Ladders graded at Check (#640) store a plain score; rows from before keep their taps.
-    assert_eq!(history_answer(&c, "ladder:x:comer:present", "2/3"), "2 of 3 forms right");
-    assert_eq!(history_answer(&c, "ladder:x:comer:present", "3/3"), "3 of 3 forms right");
-    assert_eq!(history_answer(&c, "ladder:x:comer:present", "3/3 +1"), "1 wrong tap, then all 3 forms right");
-    assert_eq!(history_answer(&c, "ladder:x:comer:present", "6/6 +2"), "2 wrong taps, then all 6 forms right");
-    assert_eq!(history_answer(&c, "ladder:x:comer:present", "2/3 +1"), "2 of 3 forms right · 1 wrong tap");
-    assert_eq!(history_answer(&c, "ladder:x:ser:present", "6/6 rungs right"), "6 of 6 forms right");
-    assert_eq!(history_answer(&c, "spot:x:0", "casa"), "casa");
+    assert_eq!(history_answer("ladder:x:comer:present", "2/3"), "2 of 3 forms right");
+    assert_eq!(history_answer("ladder:x:comer:present", "3/3"), "3 of 3 forms right");
+    assert_eq!(history_answer("ladder:x:comer:present", "3/3 +1"), "1 wrong tap, then all 3 forms right");
+    assert_eq!(history_answer("ladder:x:comer:present", "6/6 +2"), "2 wrong taps, then all 6 forms right");
+    assert_eq!(history_answer("ladder:x:comer:present", "2/3 +1"), "2 of 3 forms right · 1 wrong tap");
+    assert_eq!(history_answer("ladder:x:ser:present", "not a score"), "not a score");
+    assert_eq!(history_answer("spot:x:0", "casa"), "casa");
 }
 
 #[test]

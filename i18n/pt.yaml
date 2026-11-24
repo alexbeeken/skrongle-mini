@@ -80,7 +80,6 @@ common:
       one: "há {n} ano"
       other: "há {n} anos"
   js:
-    close: Fechar
     notation_label: Notação musical
     music_play: "Tocar"
     music_no_sound: "Sem som? Um celular no silencioso o desliga."
@@ -132,7 +131,6 @@ auth:
     email_label: Endereço de e-mail
     password_label: Senha
     submit: Entrar
-    or: ou
     no_account_html: "Ainda não tem conta? <a href=\"{url}\" data-testid=\"login-register-link\">Cadastre-se</a>."
     too_many_attempts: Muitas tentativas de entrar. Espere alguns minutos e tente de novo.
     incorrect: Endereço de e-mail ou senha incorretos.
@@ -145,7 +143,6 @@ auth:
     password_label: Senha
     password_note: (pelo menos 8 caracteres)
     submit: Cadastrar-se
-    or: ou
     have_account_html: "Já tem cadastro? <a href=\"{url}\" data-testid=\"register-login-link\">Entre</a>."
     too_many_signups: Muitos cadastros da sua rede. Tente de novo em uma hora.
     email_taken: Já existe uma conta com esse endereço de e-mail.
@@ -241,7 +238,6 @@ profile:
     title: Conta
     sign_in: Login
     password: Senha
-    and: e
     no_password: Esta conta não tem senha para trocar.
   sessions:
     sign_out_others: "Sair de todos os outros lugares"
@@ -261,7 +257,6 @@ profile:
     changed: Senha alterada.
     mismatch: As novas senhas não coincidem.
     none: Esta conta não tem senha.
-    too_many: Muitas tentativas. Aguarde alguns minutos e tente novamente.
     current_wrong: A senha atual não está correta.
   two_factor:
     title: Autenticação em duas etapas
@@ -489,7 +484,6 @@ landing:
     one: "{n} lição"
     other: "{n} lições"
   every_way_h2: Um curso, todas as formas de estudá-lo
-  every_way_lead: Cada recurso lê os mesmos arquivos. Você não escreve nada duas vezes.
   feat_sprint_h: Sprint
   feat_sprint_p: "Sessões de cinco minutos pensadas para o celular: blocos de palavras, ordenação, identificação, montagem, escada, pares, exercícios de escuta, uma meta diária e uma sequência."
   feat_study_h: Estudo
@@ -502,15 +496,6 @@ landing:
   feat_hear_p: Em um curso de idioma, toda palavra importante pode ser tocada e lida em voz alta pelas vozes do próprio navegador.
   feat_mastery_h: Domínio que decai
   feat_mastery_p: Respostas certas formam uma pontuação com retornos decrescentes, as erradas tiram um pedaço dela, e um mês longe a faz voltar em direção à prática.
-  small_h2: Pequeno o bastante para um Raspberry Pi
-  spec_binary_h: Um binário
-  spec_binary_p: Modelos, CSS, scripts e documentação são compilados junto; os cursos prontos são arquivos simples ao lado dele. SQLite é o banco de dados inteiro.
-  spec_footprint_h: Pegada mínima
-  spec_footprint_p: "Dimensionado para um Pi Zero 2 W: alguns megabytes em disco, dezenas de megabytes na memória, dois workers assíncronos."
-  spec_data_h: Seus dados continuam seus
-  spec_data_p: Roda na sua própria máquina ou na rede local. Proxy TLS opcional, sem scripts de terceiros, sem rastreamento.
-  spec_docs_h: Documentação incluída
-  spec_docs_p: O formato, os recursos e a arquitetura são servidos pelo próprio aplicativo, como páginas ou como Markdown puro para um LLM.
   final_h2: "Cadastre-se e responda uma pergunta: o que você gostaria de aprender?"
   browse_docs: Explore a documentação
   feat_guide_h: "Guia"
@@ -704,7 +689,6 @@ study:
     play: modo Jogo
     tutor: tutoria com IA
     agent: um agente de IA
-    legacy: uma sessão anterior
     other: outro modo
   pass:
     passed_in: "Concluída em {via}"
@@ -715,18 +699,15 @@ study:
     best_run: "Melhor tentativa {n}%"
     not_started: Não iniciada
   counts:
-    n_mastered: "{n} dominadas"
     n_in_progress:
       one: "{n} em andamento"
       other: "{n} em andamento"
-    n_weak: "{n} fracas"
     n_need_practice:
       one: "{n} precisa de prática"
       other: "{n} precisam de prática"
     n_not_started:
       one: "{n} não iniciada"
       other: "{n} não iniciadas"
-    n_of_m_passed: "{n} de {total} aprovadas"
     n_skipped:
       one: "{n} pulada"
       other: "{n} puladas"
@@ -969,16 +950,11 @@ study:
 
 docs:
   title_suffix: Documentação
-  documentation: Documentação
   raw: "Original:"
   section_guides: Guias
   section_self_hosting: "Hospedagem própria"
   section_reference: Referência
   section_dev: Desenvolvedores
-  js:
-    copied: "Copiado ✓"
-    copy: Copiar
-    selected: Selecionado
 quiz:
   page:
     recommended_title: Prática recomendada
@@ -1533,7 +1509,6 @@ sprint:
       other: "{n} pares precisaram de mais de uma tentativa."
   history:
     sorted: "{right} de {n} organizados corretamente"
-    sorted_wrongly: Alguns no grupo errado
     forms_right: "{right} de {n} formas certas"
     notes_right: "{right} de {n} notas certas"
     wrong_taps:
@@ -1548,7 +1523,6 @@ sprint:
     build: "Monte: {meaning}"
     ladder: "Escada: {item} ({set})"
     hear_build: Toque no que você ouvir
-    hear_type: Digite o que você ouvir
     hear_meaning: "O que significa: {text}"
     hear_gap: "Preencha a lacuna com o que você ouvir: {text}"
   js:
@@ -2614,8 +2588,6 @@ editor:
     move_next_bucket: Mover para o próximo grupo
     right_answer: A resposta certa
     option_n: "Opção {n}"
-    answer_true: "Verdadeiro"
-    answer_false: "Falso"
     optional: opcional
     ids_note: "Os ids, o slug, a unidade e a ordem são definidos pela tabela de lições; edite-os como JSON."
     lesson_head: A lição

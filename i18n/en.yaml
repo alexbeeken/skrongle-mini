@@ -82,7 +82,6 @@ common:
       one: "{n} year ago"
       other: "{n} years ago"
   js:
-    close: Close
     notation_label: Music notation
     music_play: "Play"
     music_no_sound: "No sound? A phone on silent mutes it."
@@ -134,7 +133,6 @@ auth:
     email_label: E-mail address
     password_label: Password
     submit: Log in
-    or: or
     no_account_html: "No account yet? <a href=\"{url}\" data-testid=\"login-register-link\">Register</a>."
     too_many_attempts: Too many sign-in attempts. Wait a few minutes and try again.
     incorrect: Incorrect e-mail address or password.
@@ -147,7 +145,6 @@ auth:
     password_label: Password
     password_note: (at least 8 characters)
     submit: Register
-    or: or
     have_account_html: "Already registered? <a href=\"{url}\" data-testid=\"register-login-link\">Log in</a>."
     too_many_signups: Too many sign-ups from your network. Try again in an hour.
     email_taken: An account with that e-mail address already exists.
@@ -243,7 +240,6 @@ profile:
     title: Account
     sign_in: Sign-in
     password: Password
-    and: and
     no_password: This account has no password to change.
   sessions:
     sign_out_others: Sign out everywhere else
@@ -263,7 +259,6 @@ profile:
     changed: Password changed.
     mismatch: The new passwords do not match.
     none: This account has no password.
-    too_many: Too many attempts. Wait a few minutes and try again.
     current_wrong: The current password is not right.
   two_factor:
     title: Two-factor authentication
@@ -491,7 +486,6 @@ landing:
     one: "{n} lesson"
     other: "{n} lessons"
   every_way_h2: One course, every way to study it
-  every_way_lead: Each feature reads the same files. You do not write anything twice.
   feat_sprint_h: Sprint
   feat_sprint_p: "Phone-first five-minute sessions: word tiles, sort, spot, build, ladder, match, listening exercises, a daily goal and a streak."
   feat_study_h: Study
@@ -504,16 +498,6 @@ landing:
   feat_hear_p: In a language course every word that matters can be tapped and read aloud by the browser's own voices.
   feat_mastery_h: Mastery that decays
   feat_mastery_p: Right answers build a score with diminishing returns, wrong ones take a bite out of it, and a month away drifts it back towards practice.
-  # small_h2 and spec_*: the parked "Small enough for a Raspberry Pi" section of the landing page; templates/landing.html says when it returns.
-  small_h2: Small enough for a Raspberry Pi
-  spec_binary_h: One binary
-  spec_binary_p: Templates, CSS, scripts and docs are compiled in; the built-in courses are plain files next to it. SQLite is the whole database.
-  spec_footprint_h: Tiny footprint
-  spec_footprint_p: "Sized for a Pi Zero 2 W: a few megabytes on disk, tens of megabytes in memory, two async workers."
-  spec_data_h: Your data stays yours
-  spec_data_p: Runs on your own machine or LAN. Optional TLS proxy, no third-party scripts, no tracking.
-  spec_docs_h: Documentation inside
-  spec_docs_p: The format, the features and the architecture are served from the app itself, as pages or as raw Markdown for an LLM.
   final_h2: "Register, then answer one question: what would you like to learn?"
   browse_docs: Browse the documentation
   feat_guide_h: "Guide"
@@ -707,7 +691,6 @@ study:
     play: Play mode
     tutor: AI tutoring
     agent: an AI agent
-    legacy: an earlier session
     other: another mode
   pass:
     passed_in: "Passed in {via}"
@@ -718,18 +701,15 @@ study:
     best_run: "Best run {n}%"
     not_started: Not started
   counts:
-    n_mastered: "{n} mastered"
     n_in_progress:
       one: "{n} in progress"
       other: "{n} in progress"
-    n_weak: "{n} weak"
     n_need_practice:
       one: "{n} needs practice"
       other: "{n} need practice"
     n_not_started:
       one: "{n} not started"
       other: "{n} not started"
-    n_of_m_passed: "{n} of {total} passed"
     n_skipped:
       one: "{n} skipped"
       other: "{n} skipped"
@@ -972,16 +952,11 @@ study:
 
 docs:
   title_suffix: Docs
-  documentation: Documentation
   raw: "Raw:"
   section_guides: Guides
   section_self_hosting: "Self-hosting"
   section_reference: Reference
   section_dev: Developers
-  js:
-    copied: Copied ✓
-    copy: Copy
-    selected: Selected
 quiz:
   page:
     recommended_title: Recommended practice
@@ -1536,7 +1511,6 @@ sprint:
       other: "{n} pairs took more than one try."
   history:
     sorted: "Sorted {right} of {n} correctly"
-    sorted_wrongly: Some in the wrong group
     forms_right: "{right} of {n} forms right"
     notes_right: "{right} of {n} notes right"
     wrong_taps:
@@ -1551,7 +1525,6 @@ sprint:
     build: "Build: {meaning}"
     ladder: "Ladder: {item} ({set})"
     hear_build: Tap what you hear
-    hear_type: Type what you hear
     hear_meaning: "What does it mean: {text}"
     hear_gap: "Fill the gap from what you hear: {text}"
   js:
@@ -2617,8 +2590,6 @@ editor:
     move_next_bucket: Move to the next bucket
     right_answer: The right answer
     option_n: "Option {n}"
-    answer_true: "True"
-    answer_false: "False"
     optional: optional
     ids_note: "Ids, the slug, the unit and the order are set by the lesson table; edit them as JSON."
     lesson_head: The lesson

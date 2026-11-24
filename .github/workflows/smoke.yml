@@ -47,9 +47,12 @@ jobs:
       - run: scripts/panic-check.sh
       # No source file grows past 1,500 non-test lines, or its baseline (#908).
       - run: scripts/file-size-lint.sh
+      # static/core.js is generated and checked in: it matches its sources.
+      - run: scripts/bundle-core.sh --check
       # A release build has no dev feature (the /dev pages, the simulated
-      # provider, the test course): it must still compile.
-      - run: cargo check --no-default-features
+      # provider, the test course): it must still compile, and without a
+      # warning, so code only the tests or the dev pages use is gated or gone.
+      - run: cargo clippy --no-default-features -- -D warnings
       # Lint levels live in Cargo.toml ([lints.clippy]); a new warning fails the job.
       - run: cargo clippy --features dev --all-targets -- -D warnings
       - run: cargo test --features dev
