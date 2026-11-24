@@ -466,7 +466,8 @@ fn run(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Request) ->
             let call = Call::new("generate-outline").course(&course_id).job(&job_id);
             let text = job.llm(req, &call, system, &prompt::with_reference(&req.kind.rules(), &outline_prompt))?;
             let outline: serde_json::Value = parse_json(&text)?;
-            let mut manifest = outline.get("course").cloned().ok_or("the outline has no \"course\" object")?;
+            // An object, or the two inserts below would panic.
+            let mut manifest = outline.get("course").filter(|c| c.is_object()).cloned().ok_or("the outline has no \"course\" object")?;
             let mut entries = outline
                 .get("lessons")
                 .and_then(|l| l.as_array())

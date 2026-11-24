@@ -26,16 +26,23 @@ fn gcd(a: i64, b: i64) -> i64 {
 }
 
 impl Len {
+    /// `d` is never zero in a `Len`: what divides by it relies on that. A
+    /// length over zero (`B/0`) is no length.
     fn new(n: i64, d: i64) -> Len {
+        if d == 0 {
+            return Len::ZERO;
+        }
         let g = gcd(n, d);
         Len { n: n / g, d: d / g }
     }
     const ZERO: Len = Len { n: 0, d: 1 };
-    fn add(self, o: Len) -> Len {
-        Len::new(self.n * o.d + o.n * self.d, self.d * o.d)
+    /// None when the sum does not fit: course text chooses the numbers.
+    fn add(self, o: Len) -> Option<Len> {
+        let n = self.n.checked_mul(o.d)?.checked_add(o.n.checked_mul(self.d)?)?;
+        Some(Len::new(n, self.d.checked_mul(o.d)?))
     }
-    fn mul(self, o: Len) -> Len {
-        Len::new(self.n * o.n, self.d * o.d)
+    fn mul(self, o: Len) -> Option<Len> {
+        Some(Len::new(self.n.checked_mul(o.n)?, self.d.checked_mul(o.d)?))
     }
 }
 
@@ -65,16 +72,18 @@ pub fn length(s: &str) -> Result<Len, String> {
     let (mut i, mut total) = (0, Len::ZERO);
     // A tuplet in progress: notes left in it and the factor of each.
     let mut tuplet: Option<(u32, Len)> = None;
-    let note = |len: Len, tuplet: &mut Option<(u32, Len)>, total: &mut Len| {
+    let too_long = || format!("'{s}': the lengths are too large to add up");
+    let note = |len: Option<Len>, tuplet: &mut Option<(u32, Len)>, total: &mut Len| -> Result<(), String> {
         let mut len = len;
         if let Some((left, f)) = tuplet {
-            len = len.mul(*f);
+            len = len.and_then(|l| l.mul(*f));
             *left -= 1;
             if *left == 0 {
                 *tuplet = None;
             }
         }
-        *total = total.add(len);
+        *total = len.and_then(|l| total.add(l)).ok_or_else(too_long)?;
+        Ok(())
     };
     let skip_to = |i: usize, end: u8| b.get(i + 1..).and_then(|r| r.iter().position(|&c| c == end)).map(|p| i + p + 2);
     // One pitch (accidentals, letter, octave marks) at `i`: where it ends.
@@ -119,13 +128,13 @@ pub fn length(s: &str) -> Result<Len, String> {
                 }
                 let first = first.filter(|_| b.get(j) == Some(&b']')).ok_or_else(|| format!("'{s}': a chord must be notes in [ ]"))?;
                 let (len, used) = suffix(b.get(j + 1..).unwrap_or_default());
-                note(first.mul(len), &mut tuplet, &mut total);
+                note(first.mul(len), &mut tuplet, &mut total)?;
                 i = j + 1 + used;
             }
             _ => {
                 let end = pitch(i).ok_or_else(|| format!("'{s}': '{}' is not a note", s.get(i..).and_then(|r| r.chars().next()).unwrap_or(' ')))?;
                 let (len, used) = suffix(b.get(end..).unwrap_or_default());
-                note(len, &mut tuplet, &mut total);
+                note(Some(len), &mut tuplet, &mut total)?;
                 i = end + used;
             }
         }
@@ -156,10 +165,10 @@ pub fn bar(abc: &str) -> Result<Bar, String> {
     };
     let unit = match (field("L:").and_then(frac), meter) {
         (Some((n, d)), _) => Len::new(n, d),
-        (None, Some((a, b))) if a * 4 < b * 3 => Len::new(1, 16),
+        (None, Some((a, b))) if a.saturating_mul(4) < b.saturating_mul(3) => Len::new(1, 16),
         _ => Len::new(1, 8),
     };
-    let beat = unit.mul(Len::new(meter.map_or(4, |m| m.1), 1));
+    let beat = unit.mul(Len::new(meter.map_or(4, |m| m.1), 1)).ok_or("the M: and L: numbers are too large")?;
     let body = lines.get(k + 1..).unwrap_or_default().join("\n");
     let b = body.as_bytes();
     let (mut i, mut gaps) = (0, Vec::new());
@@ -190,7 +199,7 @@ pub fn bar(abc: &str) -> Result<Bar, String> {
 
 /// A length in beats, as a learner reads it: 2, 1.5, 0.333.
 fn beats(len: Len, beat: Len) -> String {
-    let b = len.mul(beat);
+    let b = len.mul(beat).unwrap_or(Len::ZERO);
     let s = format!("{:.3}", b.n as f64 / b.d as f64);
     s.trim_end_matches('0').trim_end_matches('.').to_string()
 }
@@ -202,7 +211,7 @@ fn read(tiles: &[String], answer: &str) -> Option<(Vec<String>, Len)> {
     let mut total = Len::ZERO;
     for p in &parts {
         tiles.iter().find(|t| *t == p)?;
-        total = total.add(length(p).ok()?);
+        total = total.add(length(p).ok()?)?;
     }
     Some((parts, total))
 }
@@ -210,9 +219,11 @@ fn read(tiles: &[String], answer: &str) -> Option<(Vec<String>, Len)> {
 /// The fewest tiles (each as often as needed) that fill the gap exactly.
 fn fewest(tiles: &[String], gap: Len) -> Option<String> {
     let lens: Vec<Len> = tiles.iter().filter_map(|t| length(t).ok()).collect();
-    let den = lens.iter().fold(gap.d, |d, l| d / gcd(d, l.d) * l.d);
-    let target = usize::try_from(gap.n * (den / gap.d)).ok().filter(|t| *t <= 4096)?;
-    let steps: Vec<usize> = lens.iter().map(|l| usize::try_from(l.n * (den / l.d)).unwrap_or(0)).collect();
+    // Every length in units of 1/den; None when that does not fit.
+    let den = lens.iter().try_fold(gap.d, |d, l| d.checked_div(gcd(d, l.d))?.checked_mul(l.d))?;
+    let units = |l: &Len| den.checked_div(l.d)?.checked_mul(l.n);
+    let target = units(&gap).and_then(|t| usize::try_from(t).ok()).filter(|t| *t <= 4096)?;
+    let steps: Vec<usize> = lens.iter().map(|l| units(l).and_then(|u| usize::try_from(u).ok()).unwrap_or(0)).collect();
     // best[s]: the fewest tiles that last s, and the last of them.
     let mut best: Vec<Option<(usize, usize)>> = vec![None; target + 1];
     if let Some(b) = best.first_mut() {
@@ -310,6 +321,22 @@ mod tests {
         serde_json::from_value(v).unwrap()
     }
     const ABC: &str = "X:1\nM:4/4\nL:1/4\nK:C\nB B x2|";
+
+    /// A length over zero is no length, and numbers too large to add up are
+    /// refused: neither divides by zero (that once aborted the server).
+    #[test]
+    fn a_zero_or_huge_length_is_refused_not_divided_by() {
+        assert_eq!(length("B/0").unwrap(), Len::ZERO);
+        assert!(check(&item("X:1\nL:1/8\nK:C\nC2 x2 |", &["B/0", "B2"], serde_json::json!({}))).unwrap_err().contains("has no length"));
+        assert!(check(&item("X:1\nL:1/8\nK:C\nC2 x2/0 |", &["B", "B2"], serde_json::json!({}))).is_err());
+        assert_eq!(fewest(&["B/0".to_string(), "B2".to_string()], Len::new(2, 1)), Some("B2".to_string()));
+        let mut q = vec![item("X:1\nL:1/8\nK:C\nC2 x2/0 |", &["B/0", "B2"], serde_json::json!({}))];
+        answer_missing(&mut q);
+        assert_eq!(q[0].correct_answer, "");
+        let long = "B/9973/9967/9949/9941/9931/9929/9923/9907".repeat(8);
+        assert!(length(&long).is_err());
+        assert!(bar(&format!("X:1\nM:4/{}\nL:{}/1\nK:C\nx2|", i64::MAX, i64::MAX)).is_err());
+    }
 
     #[test]
     fn note_lengths_add_up() {

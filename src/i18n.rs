@@ -234,6 +234,9 @@ fn cookie(headers: &HeaderMap) -> Option<String> {
     })
 }
 
+/// Entries of an `Accept-Language` value that are read; a browser sends a handful.
+const MAX_ACCEPT_LANGUAGES: usize = 16;
+
 /// The first language of an `Accept-Language` value (by its `q`) that is
 /// shipped, matching on the primary subtag (`es-MX` finds `es`).
 pub fn negotiate(accept: &str) -> Option<&'static str> {
@@ -245,14 +248,16 @@ pub fn negotiate(accept: &str) -> Option<&'static str> {
             if tag.is_empty() {
                 return None;
             }
-            let q = it
-                .find_map(|p| p.trim().strip_prefix("q="))
-                .and_then(|q| q.trim().parse::<f32>().ok())
-                .unwrap_or(1.0);
+            let q = match it.find_map(|p| p.trim().strip_prefix("q=")) {
+                // "NaN" and "inf" parse as an f32; a weight is 0 to 1.
+                Some(q) => q.trim().parse::<f32>().ok().filter(|q| (0.0..=1.0).contains(q))?,
+                None => 1.0,
+            };
             Some((q, tag))
         })
+        .take(MAX_ACCEPT_LANGUAGES)
         .collect();
-    wanted.sort_by(|a, b| b.0.partial_cmp(&a.0).unwrap_or(std::cmp::Ordering::Equal));
+    wanted.sort_by(|a, b| b.0.total_cmp(&a.0));
     wanted.into_iter().filter(|(q, _)| *q > 0.0).find_map(|(_, tag)| {
         let primary = tag.split('-').next()?.to_ascii_lowercase();
         languages().iter().find(|l| l.code == primary).map(|l| l.code.as_str())
@@ -643,6 +648,19 @@ mod tests {
         assert_eq!(negotiate("xx, yy"), None);
         assert_eq!(negotiate("*"), None);
         assert_eq!(negotiate("en;q=0"), None);
+    }
+
+    /// A weight that is not a number from 0 to 1 drops its entry, and a
+    /// long list of them does not upset the sort (it once aborted the server).
+    #[test]
+    fn a_bad_weight_drops_its_language() {
+        assert_eq!(negotiate("es;q=NaN, en;q=0.5"), Some("en"));
+        assert_eq!(negotiate("es;q=inf, en;q=0.5"), Some("en"));
+        assert_eq!(negotiate("es;q=-1, en;q=0.5"), Some("en"));
+        let many: Vec<String> = (0..200).map(|i| if i % 3 == 0 { "xx;q=NaN".to_string() } else { format!("xx;q=0.{}", (i * 37) % 1000) }).collect();
+        assert_eq!(negotiate(&many.join(",")), None);
+        let late = format!("{},es", vec!["xx"; MAX_ACCEPT_LANGUAGES].join(","));
+        assert_eq!(negotiate(&late), None, "only the first entries are read");
     }
 
     #[test]
