@@ -4,6 +4,15 @@ What changed in each release, for the person running the server. Newest
 first. Each release's GitHub notes are its section here. How version
 numbers work is in the README, "Versions".
 
+## Unreleased
+
+- **Security: three ways to stop the server are closed.** A web request
+  with a malformed `Accept-Language` header stopped it, and that needed no
+  account. So did a music lesson with a tile length over zero (`B/0`), from
+  an account that may create courses, and an AI reply whose outline had no
+  proper `course` part. systemd started the server again each time, but
+  whatever was running (an AI job, a tutor chat) was lost. Update.
+
 ## 0.5.0 (2026-11-23)
 
 A shorter sign-up for Students, and *How to Use Skrongle* comes first.

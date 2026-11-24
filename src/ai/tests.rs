@@ -193,6 +193,18 @@ fn ai_generation_keeps_to_the_course_caps() {
     assert!(check_file_caps(&many).unwrap_err().contains("at most"));
 }
 
+/// An outline whose `course` is not an object fails the job in words; it
+/// once aborted the server.
+#[test]
+fn an_outline_without_a_course_object_fails_the_job() {
+    let db = Db::open_in_memory().unwrap();
+    let registry = crate::courses::Courses::empty();
+    let url = scripted_llm(|_| r#"{"course": "x", "lessons": [{}]}"#.to_string(), Arc::new(AtomicBool::new(false)));
+    let req = generating(&db, "odd", "odd-outline", url);
+    let err = run(&test_job("odd-outline"), &db, &registry, &req).unwrap_err();
+    assert!(err.contains("no \"course\" object"), "{err}");
+}
+
 /// The generation slots (#368, #874): taken under one lock, so two requests
 /// at once cannot both get one; held until the generator thread exits, even
 /// after the job is dropped with its account; a second job while one runs is
