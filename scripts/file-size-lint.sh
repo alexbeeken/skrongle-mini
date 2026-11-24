@@ -6,9 +6,12 @@
 #
 # Counted: .rs, .js, .ts, .html and .css files under src/, static/,
 # templates/ and e2e/ (tracked or new, not ignored). In a .rs file only the
-# lines before the first `#[cfg(test)]` at the start of a line count, and a
-# file named tests.rs is test code and does not count at all. Other files
-# count whole. The i18n/*.yaml files are not counted.
+# lines before the test module count: a `#[cfg(test)]` at the start of a line
+# with a `mod` on the next line, the same rule as scripts/panic-check.sh. A
+# `#[cfg(test)]` on anything else (a helper function, a static) is counted
+# and the count goes on. A file named tests.rs is test code and does not
+# count at all. Other files count whole. The i18n/*.yaml files are not
+# counted.
 #
 # The files that were already over the limit are listed in
 # scripts/file-size-baseline.txt with their size then. A listed file may
@@ -27,7 +30,14 @@ baseline=scripts/file-size-baseline.txt
 count() {
   case "$1" in
     tests.rs | */tests.rs) echo 0 ;;
-    *.rs) awk '/^#\[cfg\(test\)\]/ { exit } { n++ } END { print n + 0 }' "$1" ;;
+    *.rs)
+      awk '
+        /^#\[cfg\(test\)\]/ { pending = 1; held++; next }
+        pending && /^(pub(\(crate\))? )?mod / { exit }
+        { pending = 0; n += held + 1; held = 0 }
+        END { print n + 0 }
+      ' "$1"
+      ;;
     *) awk 'END { print NR }' "$1" ;;
   esac
 }
