@@ -114,6 +114,7 @@
     <dialog class="modal" id="sign-out-others-info" aria-labelledby="sign-out-others-title" data-testid="profile-sign-out-others-info-dialog">
       <h2 id="sign-out-others-title">{{ crate::t("profile.sessions.sign_out_others") }}</h2>
       <p>{{ crate::t("profile.sessions.text") }}</p>
+      {% if apps.is_some() %}<p data-testid="profile-sign-out-others-apps-note">{{ crate::t("profile.sessions.text_apps") }}</p>{% endif %}
       <p>{{ crate::t("profile.sessions.text_same") }}</p>
       <div class="modal-actions"><button type="button" class="btn" data-closes data-testid="profile-sign-out-others-info-close">{{ crate::t("profile.sessions.ok") }}</button></div>
     </dialog>

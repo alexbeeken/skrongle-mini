@@ -21,8 +21,14 @@
 //! (`SKRONGLE_SIGNUP`, `signup.rs`): `open` makes an account with no
 //! password, its address confirmed (the proxy vouched for it), and the Terms
 //! gate asks for acceptance as for any account; `invite` and `closed` answer
-//! with the closed page. The same header from any other peer is ignored and
-//! logged (at most once an hour per address).
+//! with the closed page. On a server with no account the first address the
+//! proxy names is let in as the owner in every mode: `/register` has no form
+//! behind the proxy, so the owner's link could not be used. The same header
+//! from any other peer is ignored and logged (at most once an hour per
+//! address). A trusted request that carries the header more than once is
+//! refused with a 400 and logged (at most once an hour): a proxy that adds
+//! its header to the client's instead of replacing it would let the client
+//! choose the account.
 //!
 //! The request continues with the new session in its `Cookie` header, so
 //! every extractor downstream (`CurrentUser`, `MaybeUser`, `SessionToken`)
@@ -40,6 +46,7 @@ use axum::response::{IntoResponse, Response};
 use rusqlite::{params, Connection, OptionalExtension};
 use std::collections::HashMap;
 use std::net::{IpAddr, SocketAddr};
+use std::sync::atomic::{AtomicI64, Ordering};
 use std::sync::{Arc, Mutex};
 
 use crate::signup::{self, Refusal};
@@ -119,6 +126,8 @@ pub struct Config {
     pub from: Vec<Net>,
     /// When each untrusted address carrying the header was last logged.
     warned: Mutex<HashMap<IpAddr, i64>>,
+    /// When a repeated header from the proxy was last logged.
+    repeated_logged: AtomicI64,
 }
 
 impl Config {
@@ -139,7 +148,7 @@ impl Config {
         if from.is_empty() {
             return Err(format!("{FROM_VAR} names no address"));
         }
-        Ok(Some(Config { header, from, warned: Mutex::new(HashMap::new()) }))
+        Ok(Some(Config { header, from, warned: Mutex::new(HashMap::new()), repeated_logged: AtomicI64::new(i64::MIN) }))
     }
 
     /// From the environment.
@@ -180,6 +189,21 @@ impl Config {
         seen.insert(key, now);
         let who = ip.map_or_else(|| "an unknown address".to_string(), |ip| ip.to_string());
         tracing::warn!("ignored the {} header from {who}: not in {FROM_VAR} (logged once an hour per address)", self.header);
+        true
+    }
+
+    /// Log a request from the proxy that carried the header more than once,
+    /// unless one was logged within the hour. `true` when logged. The values
+    /// stay out of the log: one of them is whatever the client sent.
+    fn warn_repeated(&self, now: i64) -> bool {
+        if now.saturating_sub(self.repeated_logged.load(Ordering::Relaxed)) < WARN_EVERY_SECS {
+            return false;
+        }
+        self.repeated_logged.store(now, Ordering::Relaxed);
+        tracing::warn!(
+            "refused a request from the proxy that carries the {} header more than once: the proxy must replace the header, not add to one the client sent (logged once an hour)",
+            self.header
+        );
         true
     }
 }
@@ -254,6 +278,10 @@ fn resolve(conn: &mut Connection, value: &str, session: Option<&str>, mode: sign
                 tx.commit()?;
                 return Ok(Outcome::NotAnAddress);
             };
+            // `/register` has no form behind the proxy, so the owner's link
+            // cannot make the first account: the proxy's word does, as in
+            // `open` mode.
+            let mode = if signup::no_accounts(&tx)? { signup::Mode::Open } else { mode };
             let admitted = match signup::admit(&tx, mode, "", Some(&email), now, dev)? {
                 Ok(a) => a,
                 Err(r) => {
@@ -306,11 +334,17 @@ pub async fn middleware(State(state): State<Arc<AppState>>, mut req: Request, ne
     if left_alone(app_path(&req)) || needs_its_session(&req) {
         return next.run(req).await;
     }
-    let Some(value) = req.headers().get(&cfg.header) else { return next.run(req).await };
+    let mut values = req.headers().get_all(&cfg.header).iter();
+    let Some(value) = values.next() else { return next.run(req).await };
+    let repeated = values.next().is_some();
     let peer = req.extensions().get::<ConnectInfo<SocketAddr>>().map(|c| c.0.ip());
     if !peer.is_some_and(|ip| cfg.trusts(ip)) {
         cfg.warn_untrusted(peer, crate::db::now());
         return next.run(req).await;
+    }
+    if repeated {
+        cfg.warn_repeated(crate::db::now());
+        return crate::error::AppError::BadRequest(crate::t("auth.proxy.repeated_header")).into_response();
     }
     let value = value.to_str().unwrap_or_default().trim().to_string();
     if value.is_empty() {
@@ -390,6 +424,39 @@ mod tests {
             Ok(())
         })
         .unwrap();
+    }
+
+    /// On a server with no account the first address the proxy names is
+    /// the owner's, whatever the sign-up mode; the next one follows the mode.
+    #[test]
+    fn the_first_account_through_the_proxy_is_the_owner_in_every_mode() {
+        for mode in [signup::Mode::Invite, signup::Mode::Closed, signup::Mode::Open] {
+            let db = crate::db::Db::open_in_memory().unwrap();
+            db.with(|c| {
+                assert!(matches!(resolve(c, "not an address", None, mode, 100, false)?, Outcome::NotAnAddress));
+                let Outcome::Created(id, _) = resolve(c, "first@example.org", None, mode, 100, false)? else { panic!("{mode:?}: the first one is let in") };
+                assert!(c.query_row("SELECT owner FROM users WHERE id = ?1", [id], |r| r.get::<_, bool>(0))?, "{mode:?}");
+                let next = resolve(c, "second@example.org", None, mode, 100, false)?;
+                match mode {
+                    signup::Mode::Open => {
+                        let Outcome::Created(id, _) = next else { panic!("open makes the second too") };
+                        assert!(!c.query_row("SELECT owner FROM users WHERE id = ?1", [id], |r| r.get::<_, bool>(0))?);
+                    }
+                    _ => assert!(matches!(next, Outcome::Refused(Refusal::Closed)), "{mode:?}"),
+                }
+                assert!(matches!(resolve(c, "FIRST@example.org", None, mode, 100, false)?, Outcome::SignedIn(..)));
+                Ok(())
+            })
+            .unwrap();
+        }
+    }
+
+    #[test]
+    fn a_repeated_header_is_logged_once_an_hour() {
+        let c = Config::parse(Some("Remote-Email"), Some("10.0.0.1")).unwrap().unwrap();
+        assert!(c.warn_repeated(1000));
+        assert!(!c.warn_repeated(1000 + WARN_EVERY_SECS - 1));
+        assert!(c.warn_repeated(1000 + WARN_EVERY_SECS));
     }
 
     #[test]

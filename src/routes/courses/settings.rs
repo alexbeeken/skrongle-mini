@@ -83,10 +83,14 @@ async fn save_settings(state: &AppState, user_id: i64, content: &ContentStore, c
 /// from its dialog on the course list or the wizard of its first visit:
 /// the level and the motivator worn in it. A field left out keeps its value; any save, even of nothing
 /// (the wizard closed), counts the course as set up. A choice that is not
-/// one is a 400 (`settings_change`); a course they never opened a 404; a
-/// new level from an account that may not skip levels a 403
-/// (`may_change_level`).
+/// one is a 400 (`settings_change`); a course they never opened, or may
+/// not open, a 404; a new level from an account that may not skip levels a
+/// 403 (`may_change_level`).
 pub async fn set_settings(State(state): State<Arc<AppState>>, user: CurrentUser, Path(id): Path<String>, Form(form): Form<SettingsForm>) -> Result<Response, AppError> {
+    // Before the build: a 400 from it would tell a stranger the course exists.
+    if !accessible(&state, &user, &id).await? {
+        return Err(AppError::NotFound);
+    }
     let Some(content) = state.courses.get(&state.db, &id).await? else { return Err(AppError::NotFound) };
     let change = settings_change(&content, &form)?;
     may_change_level(&state, &user, &content, &change).await?;

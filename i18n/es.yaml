@@ -164,6 +164,7 @@ auth:
     note: "Este servidor te identifica a través del proxy que tiene delante: ábrelo desde esa dirección y ya habrás iniciado sesión."
     signed_out: "Has cerrado la sesión. La próxima página que abras a través del proxy volverá a iniciarla."
     open: "Continuar"
+    repeated_header: "El proxy envió su cabecera de acceso más de una vez, así que no se inició ninguna sesión. Quien administra este servidor tiene que hacer que el proxy sustituya esa cabecera."
   password:
     too_short: La contraseña debe tener al menos 8 caracteres.
     too_long: "La contraseña es demasiado larga (máximo {max} caracteres)."
@@ -598,6 +599,7 @@ profile:
     info_label: Sobre cerrar sesión en todos los demás sitios
     text: "Cierra todas las demás sesiones de esta cuenta: otros navegadores, teléfonos y ordenadores, y cualquiera que no deba tener la sesión iniciada. Este navegador sigue con la sesión iniciada."
     text_same: Cambiar tu contraseña o la verificación en dos pasos hace lo mismo.
+    text_apps: "Tus apps conectadas también se desconectan: hay que volver a conectar cada una."
     ok: Aceptar
     signed_out_notice: Se cerró la sesión en todos los demás sitios.
   password:
@@ -3010,7 +3012,7 @@ apps:
   title: "Apps conectadas"
   info: "Sobre las apps conectadas"
   about: "Una app conectada, como un asistente de IA, puede leer y crear tus cursos en este servidor con un token que tú le das. No ve tu progreso, tus notas ni los cursos de otras personas."
-  about_revoke: "Revocar termina el acceso de una app en su siguiente petición. Cambiar la contraseña desconecta todas las apps."
+  about_revoke: "Revocar termina el acceso de una app en su siguiente petición. Cambiar la contraseña o la verificación en dos pasos, o cerrar sesión en todos los demás sitios, desconecta todas las apps."
   at_most: "Una cuenta tiene como máximo {max} apps conectadas."
   none: "No hay ninguna app conectada."
   made_on: "Creado el {date}"
@@ -3045,6 +3047,7 @@ apps:
   name_too_long: "El nombre es demasiado largo (máximo {max} caracteres)."
   password_changed: "Contraseña cambiada. Tus apps conectadas se han desconectado."
   password_note: "Tus apps conectadas también se desconectan."
+  also_disconnected: "Tus apps conectadas se han desconectado."
   manage_let: "Permitir conectar apps"
   manage_about: "Activado, una cuenta con «Crear cursos» puede conectar un asistente de IA u otra app para crear sus cursos. Cada conexión caduca y aquí puedes revocar cualquiera."
   manage_about_off: "Desactivado, ninguna app puede conectarse y todos los tokens dejan de funcionar. Al activarlo de nuevo, las conexiones vuelven."

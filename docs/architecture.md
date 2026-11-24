@@ -156,7 +156,7 @@ src/
     manage/bulk.rs POST /manage/permissions/bulk (#141: email=… once per ticked account, preset=<id>; an owner or a superuser, 404 otherwise): the preset is copied onto every account named, in one transaction; owners, the signed-in account and unknown addresses are skipped; back to /manage?did=bulk&n=…&skipped=…&preset=…
     manage/progress.rs  GET /manage/progress?email=… (#147): one account's progress for an owner or a superuser, a row per course it opened (lessons passed from lesson_passes, last studied, day streak), counts and dates only, read in one Db::call and without building a course (a built-in course's summary, a made one's courses row); a 404 for an owner's account, one with Perm::Privacy (but a superuser's own), an unknown address, and any viewer who manages nothing. `hidden` is the one rule, which manage.rs applies to each row's Progress link, Private mark and (for a superuser) last sign-in. templates/manage_progress.html
     manage/presets.rs  saved presets (#140): the Custom branch of POST /manage/permissions with a `save_as` name (the set becomes a row of permission_presets and the account is given it, one transaction), the list of saved presets under the accounts, and POST /manage/presets/delete (id; an owner or a superuser, 404 otherwise; a built-in preset is a 400; its accounts keep their permissions and become Custom)
-    profile.rs   /profile (personal information, account), POST /api/profile (autosave), POST /profile/password (also revokes every connected app)
+    profile.rs   /profile (personal information, account), POST /api/profile (autosave), POST /profile/password, POST /profile/sessions/end-others and the two-factor changes (each also revokes every connected app)
     profile/apps.rs  the profile's Connected apps section (#167; only while settings::APPS_ON is on and the account has Create courses, 404 otherwise): POST /profile/apps/token (Make a token: name, scope=…, course=…, lifetime 30|90|365, the password; the token shown once, no-store), POST /profile/apps/revoke (id)
     api.rs       GET /api/v1/whoami (#167): the probe of a bearer token (auth::api::ApiUser; never the session cookie): user_id, client_id, client_name, scopes, courses
     mcp.rs       /mcp (#168, docs/api.md): the MCP server's HTTP gate, every method (all but POST get 405); the protocol is src/mcp.rs, the tools src/mcp/tools.rs
@@ -550,7 +550,7 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 |---|---|---|
 | `SKRONGLE_BIND` | `0.0.0.0:7576` | Listen address; a bare port (`9000`) means every interface. A value that doesn't parse stops the server |
 | `SKRONGLE_SIGNUP` | `open` (*mini:* `invite`) | Who may make an account (`src/signup.rs`, #634): `open` (anyone), `invite` (only through a link an owner makes on `/manage`) or `closed`. Under `invite` and `closed` the first account on a server with none is made only through the owner link the server logs at startup (a new one each start), and is made an owner. Read as is, with no older spelling; any other value stops startup. `deploy/skrongle.service` sets `invite`, `deploy/aws` nothing |
-| `SKRONGLE_PROXY_AUTH_HEADER`, `SKRONGLE_PROXY_AUTH_FROM` | unset | Sign-in by a reverse proxy (`src/proxy_auth.rs`, #642): the header holding the person's e-mail address, and the proxy's addresses (IPs or CIDRs, comma-separated) it is trusted from, judged by the TCP peer, never `X-Forwarded-For`. Both or neither (one alone stops startup). A trusted request with the header is signed in without password, two-factor or rate limit; an unknown address follows `SKRONGLE_SIGNUP` (`open` makes a password-less account with its address confirmed). `/login` and `/register` only say the proxy signs in. Read as is, no older spelling. |
+| `SKRONGLE_PROXY_AUTH_HEADER`, `SKRONGLE_PROXY_AUTH_FROM` | unset | Sign-in by a reverse proxy (`src/proxy_auth.rs`, #642): the header holding the person's e-mail address, and the proxy's addresses (IPs or CIDRs, comma-separated) it is trusted from, judged by the TCP peer, never `X-Forwarded-For`. Both or neither (one alone stops startup). A trusted request with the header is signed in without password, two-factor or rate limit; an unknown address follows `SKRONGLE_SIGNUP` (`open` makes a password-less account with its address confirmed; on a server with no account the first one is the owner in every mode); the header sent more than once is a 400. `/login` and `/register` only say the proxy signs in. Read as is, no older spelling. |
 | `SKRONGLE_DATA_DIR` | `data` | Directory containing `courses/` |
 | `SKRONGLE_DB` | `learn.db` | SQLite file (WAL + SHM files are created next to it) |
 | `SKRONGLE_COURSES_PER_USER` | `50` | Courses one account may make (no limit in dev mode unless set) |
@@ -885,7 +885,7 @@ writable path, and a release never touches the database.
   checks the switch, the token and grant and their expiry, Create courses and the temporary-password
   gate; nothing is cached. Ten bad tokens per address in ten minutes, then a bad token is 429
   (`security::API_BAD_TOKENS_PER_IP`); the token is looked up first, so a good one is served,
-  and a request with no `Authorization` header is not counted (#185). A password change, a temporary password and the owner
+  and a request with no `Authorization` header is not counted (#185). A password change, *Sign out everywhere else*, a two-factor change, a temporary password and the owner
   turning off two-factor revoke every grant of the account.
 - The MCP server (#168, `routes/mcp.rs`, `docs/api.md`): any request to `/mcp` with an `Origin`
   header is a 403 whatever the origin (no web page reaches a box on a home network by DNS
@@ -944,7 +944,8 @@ writable path, and a release never touches the database.
   address at its limit, having the most hits, stays blocked. A full table
   logs a warning at most once per window.
   Changing the password or two-factor sign-in
-  and *Sign out everywhere else* sign out the account's other sessions; the
+  and *Sign out everywhere else* sign out the account's other sessions and
+  revoke its connected apps (`end_other_access` in `routes/profile.rs`); the
   owner's temporary password signs out all of them.
 - Two-factor sign-in (`src/two_factor.rs`, [features](features#two-factor-sign-in)):
   with a method on, the password only leaves a challenge named

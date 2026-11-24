@@ -1715,8 +1715,9 @@ keys). The password dialog keeps its explicit buttons. The page needs JavaScript
   and closes both dialogs.)
   *Sign out everywhere else*
   (`profile-sign-out-others`, `POST /profile/sessions/end-others`, #375,
-  explained behind its (i)) ends every other session; changing the
-  password or two-factor sign-in does the same.
+  explained behind its (i)) ends every other session and disconnects the
+  account's [connected apps](#connected-apps); changing the
+  password or two-factor sign-in does the same. The session in use stays.
 - **Proof that it is the owner** (`prove_owner` in `src/routes/profile.rs`):
   every change a stolen session must not make asks for it: the password
   (checked like `/login`: 10 per account per 15 minutes, a wrong one
@@ -2228,12 +2229,16 @@ token they give it (#167, the first step of plan #166). The code is
   (`manage-app`: the app's name, the account, scopes, last used, expires)
   with **Revoke** (`POST /manage/apps/revoke`, `id`). Owners only; a
   superuser sees neither the switch nor the list.
-- **Revoked by events.** Changing the password on the profile, replacing a
+- **Revoked by events.** Changing the password on the profile, *Sign out
+  everywhere else*, a change of two-factor sign-in on the profile (on, off,
+  the authenticator app removed while it is the second step), replacing a
   temporary password, the owner setting a temporary password (and
   `skrongle reset-password`), and the owner turning off two-factor for the
   account (and `skrongle disable-2fa`) delete every grant of the account in
-  the same database call. The password dialog and the owner's two dialogs
-  say so.
+  the same database call: whoever held a session may have connected an app,
+  and the grant would outlive the session. The password dialog, the (i) of
+  *Sign out everywhere else*, the notice after each and the owner's two
+  dialogs say so.
 - **Expiry.** Expired grants and tokens are purged with the sessions (the
   hourly housekeeping and at startup), with OAuth's expired codes, grants
   whose code was never traded, and registrations nobody finished a grant

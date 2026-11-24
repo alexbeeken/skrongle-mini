@@ -965,6 +965,51 @@ fn proxy_header_for_an_unknown_address_follows_the_signup_rule() {
     assert_eq!(users, 1);
 }
 
+/// On a server with no account the first address the proxy names is let
+/// in as the owner even when sign-ups are by invitation or closed
+/// (`/register` has no form here); the next unknown address is refused.
+#[test]
+fn proxy_header_makes_the_first_account_the_owner() {
+    for mode in [crate::signup::Mode::Invite, crate::signup::Mode::Closed] {
+        let (_rt, state, base) = proxy_server(mode, Some("127.0.0.1"));
+        let (status, _, sid, page) = proxied(&base, "GET", "/profile", "", Some("first@example.org"));
+        assert_eq!(status, 200, "{mode:?}: {page}");
+        assert!(!sid.is_empty() && page.contains("first@example.org"));
+        let owner: bool = state.db.with(|c| c.query_row("SELECT owner FROM users WHERE email = 'first@example.org'", [], |r| r.get(0))).unwrap();
+        assert!(owner, "{mode:?}");
+        let (status, _, sid, page) = proxied(&base, "GET", "/", "", Some("second@example.org"));
+        assert_eq!(status, 403, "{mode:?}");
+        assert!(page.contains("register-closed") && sid.is_empty(), "{page}");
+        let users: i64 = state.db.with(|c| c.query_row("SELECT COUNT(*) FROM users", [], |r| r.get(0))).unwrap();
+        assert_eq!(users, 1);
+    }
+}
+
+/// A request from the proxy that carries the identity header twice (a
+/// proxy that adds its value to the client's) signs nobody in, whichever
+/// value comes first, and an existing session does not get it through.
+#[test]
+fn proxy_header_sent_twice_is_refused() {
+    let (_rt, state, base) = proxy_server(crate::signup::Mode::Open, Some("127.0.0.1"));
+    let ann = member(&state, "ann@example.org");
+    let bob = member(&state, "bob@example.org");
+    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
+    let twice = |first: &str, second: &str, cookie: &str| {
+        let mut r = agent.get(&format!("{base}/profile")).header("cookie", cookie).header("remote-email", first).header("remote-email", second).call().unwrap();
+        let set_cookie = r.headers().get("set-cookie").is_some();
+        (r.status().as_u16(), set_cookie, r.body_mut().read_to_string().unwrap())
+    };
+    let bob_sid = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, bob)).unwrap());
+    for (first, second, cookie) in [("ann@example.org", "bob@example.org", ""), ("bob@example.org", "ann@example.org", ""), ("ann@example.org", "ann@example.org", ""), ("ann@example.org", "bob@example.org", bob_sid.as_str())] {
+        let (status, set_cookie, page) = twice(first, second, cookie);
+        assert_eq!(status, 400, "{first} {second}");
+        assert!(!set_cookie && page.contains(&crate::t("auth.proxy.repeated_header")), "{page}");
+    }
+    assert_eq!((sessions_of(&state, ann), sessions_of(&state, bob)), (0, 1), "nobody was signed in, Bob's session was not ended");
+    // Once is as before.
+    assert_eq!(proxied(&base, "GET", "/profile", "", Some("ann@example.org")).0, 200);
+}
+
 /// A course's first visit (#574): its home shows the settings as a
 /// wizard until the learner saves them, even saving nothing (the wizard
 /// closed); the motivator chosen there is worn in that course only, and

@@ -11,7 +11,9 @@
 //! makes a new one and writes it to the log ([`owner_link`]), so only
 //! someone who can read the server's log can claim the server. Whoever
 //! reaches `/register` first gets the closed page. With the setting unset
-//! nothing changes.
+//! nothing changes. Behind a signing-in proxy (`proxy_auth.rs`) there is no
+//! register form and so no use for the link: the first person the proxy
+//! names is the owner.
 //!
 //! Table `signup_invites`: one row per link; the owner's link is the row
 //! with no `created_by`. The token is stored as its SHA-256 only, like

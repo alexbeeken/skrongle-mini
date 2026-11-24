@@ -164,6 +164,7 @@ auth:
     note: "Ce serveur vous connecte par le proxy placé devant lui : ouvrez-le par cette adresse et vous êtes connecté."
     signed_out: "Vous êtes déconnecté. La prochaine page ouverte par le proxy vous reconnecte."
     open: "Continuer"
+    repeated_header: "Le proxy a envoyé son en-tête de connexion plusieurs fois, donc personne n'a été connecté. La personne qui gère ce serveur doit faire en sorte que le proxy remplace cet en-tête."
   password:
     too_short: Le mot de passe doit comporter au moins 8 caractères.
     too_long: "Le mot de passe est trop long (max {max} caractères)."
@@ -248,6 +249,7 @@ profile:
     info_label: À propos de la déconnexion partout ailleurs
     text: "Met fin à toutes les autres sessions de ce compte : autres navigateurs, téléphones et ordinateurs, et toute personne qui ne devrait pas être connectée. Ce navigateur reste connecté."
     text_same: Modifier votre mot de passe ou la connexion en deux étapes fait de même.
+    text_apps: "Vos applications connectées sont déconnectées aussi : il faut reconnecter chacune d'elles."
     ok: OK
     signed_out_notice: Déconnecté partout ailleurs.
   password:
@@ -3009,7 +3011,7 @@ apps:
   title: "Applications connectées"
   info: "À propos des applications connectées"
   about: "Une application connectée, comme un assistant IA, peut lire et créer tes cours sur ce serveur avec un jeton que tu lui donnes. Elle ne voit ni ta progression, ni tes notes, ni les cours des autres."
-  about_revoke: "Révoquer coupe l'accès d'une application à sa prochaine requête. Changer ton mot de passe déconnecte toutes les applications."
+  about_revoke: "Révoquer coupe l'accès d'une application à sa prochaine requête. Changer ton mot de passe ou la connexion en deux étapes, ou te déconnecter partout ailleurs, déconnecte toutes les applications."
   at_most: "Un compte a au plus {max} applications connectées."
   none: "Aucune application n'est connectée."
   made_on: "Créé le {date}"
@@ -3044,6 +3046,7 @@ apps:
   name_too_long: "Le nom est trop long ({max} caractères au plus)."
   password_changed: "Mot de passe changé. Tes applications connectées ont été déconnectées."
   password_note: "Tes applications connectées sont déconnectées aussi."
+  also_disconnected: "Tes applications connectées ont été déconnectées."
   manage_let: "Autoriser les applications"
   manage_about: "Activé, un compte qui peut créer des cours peut connecter un assistant IA ou une autre application pour créer ses cours. Chaque connexion expire, et tu peux révoquer chacune ici."
   manage_about_off: "Désactivé, aucune application ne peut se connecter et tous les jetons cessent de fonctionner. En le réactivant, les connexions reviennent."

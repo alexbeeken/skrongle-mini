@@ -127,6 +127,8 @@ impl ProfileTemplate {
 #[derive(Deserialize)]
 pub struct ShowQuery {
     pub saved: Option<String>,
+    /// Set when the change also disconnected the account's apps.
+    pub apps: Option<String>,
     /// `enrol`: an authenticator app's enrolment just started.
     pub totp: Option<String>,
 }
@@ -185,6 +187,9 @@ pub async fn show(
         Some("signed-out") => Some(crate::t("profile.sessions.signed_out_notice")),
         _ => None,
     };
+    if q.apps.is_some() && matches!(q.saved.as_deref(), Some("two-factor" | "totp-removed" | "signed-out")) {
+        t.notice = t.notice.map(|n| format!("{n} {}", crate::t("apps.also_disconnected")));
+    }
     if q.totp.as_deref() == Some("enrol") && t.profile.two_factor.totp_pending {
         t.totp_key = pending_totp_key(&state, user_id(&t)).await?;
         t.totp_open = t.totp_key.is_some();
@@ -363,17 +368,35 @@ async fn confirm_again(state: &AppState, user: CurrentUser, status: StatusCode, 
     .await
 }
 
-/// After two-factor sign-in changed (#374, #375): every other session ends.
-async fn two_factor_changed(state: &AppState, user: &CurrentUser, keep: Option<String>) -> Result<(), AppError> {
-    let (uid, keep) = (user.id, keep.unwrap_or_default());
-    let ended = state.db.call(move |c| auth::delete_other_sessions(c, uid, &keep)).await?;
-    tracing::info!("user {uid}: two-factor sign-in changed, {ended} other sessions signed out");
-    Ok(())
+/// Everything but the session `keep` that lets someone act as the account
+/// ends: its other sessions and its connected apps. Whoever held a session
+/// may have connected an app, which would outlive the session. Returns how
+/// many of each.
+async fn end_other_access(state: &AppState, uid: i64, keep: Option<String>) -> Result<(usize, usize), AppError> {
+    let keep = keep.unwrap_or_default();
+    state.db.call(move |c| Ok((auth::delete_other_sessions(c, uid, &keep)?, auth::api::revoke_all_for_user(c, uid)?))).await
+}
+
+/// The profile after such a change: `saved` names the notice, `anchor` the
+/// section, and `apps` (how many were disconnected) adds that to the notice.
+fn saved_redirect(saved: &str, apps: usize, anchor: &str) -> Response {
+    let apps = if apps > 0 { "&apps=off" } else { "" };
+    Redirect::to(&crate::url(&format!("/profile?saved={saved}{apps}#{anchor}"))).into_response()
+}
+
+/// After two-factor sign-in changed (#374, #375): every other session ends
+/// and every connected app is disconnected. Returns how many apps.
+async fn two_factor_changed(state: &AppState, user: &CurrentUser, keep: Option<String>) -> Result<usize, AppError> {
+    let uid = user.id;
+    let (ended, apps) = end_other_access(state, uid, keep).await?;
+    tracing::info!("user {uid}: two-factor sign-in changed, {ended} other sessions signed out, {apps} connected apps revoked");
+    Ok(apps)
 }
 
 /// POST /profile/two-factor (two_factor = on | off, password | code): the second sign-in
 /// step. Every change, turning it on too, needs proof that
-/// it is the owner (`prove_owner`, #374), then signs out the other devices.
+/// it is the owner (`prove_owner`, #374), then signs out the other devices
+/// and disconnects the account's apps.
 /// Turning it on, until an app is set up,
 /// starts its enrolment instead (the dialog with its key opens).
 pub async fn set_two_factor(
@@ -401,8 +424,8 @@ pub async fn set_two_factor(
     // On with the app already set up, or off.
     state.db.call(move |c| two_factor::set_enabled(c, uid, on)).await?;
     tracing::info!("user {uid} set two-factor sign-in {}", if on { "on" } else { "off" });
-    two_factor_changed(&state, &user, token).await?;
-    Ok(Redirect::to(&crate::url("/profile?saved=two-factor#two-factor")).into_response())
+    let apps = two_factor_changed(&state, &user, token).await?;
+    Ok(saved_redirect("two-factor", apps, "two-factor"))
 }
 
 /// POST /profile/two-factor/totp/confirm (code): the app's first code
@@ -427,8 +450,8 @@ pub async fn confirm_totp(
     let (code, vault) = (f.code, state.vault.clone());
     if state.db.call(move |c| crate::two_factor::totp_confirm(c, &vault, uid, &code, crate::db::now())).await? {
         tracing::info!("user {uid} set up an authenticator app");
-        two_factor_changed(&state, &user, token).await?;
-        return Ok(Redirect::to(&crate::url("/profile?saved=two-factor#two-factor")).into_response());
+        let apps = two_factor_changed(&state, &user, token).await?;
+        return Ok(saved_redirect("two-factor", apps, "two-factor"));
     }
     let key = pending_totp_key(&state, uid).await?;
     profile_with(&state, user, StatusCode::UNPROCESSABLE_ENTITY, |t| {
@@ -464,10 +487,8 @@ pub async fn remove_totp(
     }
     state.db.call(move |c| crate::two_factor::totp_remove(c, uid)).await?;
     tracing::info!("user {uid} removed their authenticator app");
-    if in_use {
-        two_factor_changed(&state, &user, token).await?;
-    }
-    Ok(Redirect::to(&crate::url("/profile?saved=totp-removed#two-factor")).into_response())
+    let apps = if in_use { two_factor_changed(&state, &user, token).await? } else { 0 };
+    Ok(saved_redirect("totp-removed", apps, "two-factor"))
 }
 
 /// POST /profile/password
@@ -522,13 +543,13 @@ pub async fn change_password(
 }
 
 /// POST /profile/sessions/end-others: "Sign out everywhere else" (#375).
-/// Every other session of the account ends; this one stays. Needs no
-/// proof: it only takes access away.
+/// Every other session of the account ends and every connected app is
+/// disconnected; this one stays. Needs no proof: it only takes access away.
 pub async fn end_other_sessions(State(state): State<Arc<AppState>>, user: CurrentUser, auth::SessionToken(token): auth::SessionToken) -> Result<Response, AppError> {
-    let (uid, keep) = (user.id, token.unwrap_or_default());
-    let ended = state.db.call(move |c| auth::delete_other_sessions(c, uid, &keep)).await?;
-    tracing::info!("user {uid} signed out everywhere else ({ended} sessions)");
-    Ok(Redirect::to(&crate::url("/profile?saved=signed-out#account")).into_response())
+    let uid = user.id;
+    let (ended, apps) = end_other_access(&state, uid, token).await?;
+    tracing::info!("user {uid} signed out everywhere else ({ended} sessions, {apps} connected apps revoked)");
+    Ok(saved_redirect("signed-out", apps, "account"))
 }
 
 

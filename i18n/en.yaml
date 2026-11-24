@@ -166,6 +166,7 @@ auth:
     note: "This server signs you in through the proxy in front of it: open it through that address and you are signed in."
     signed_out: "You are signed out. The next page you open through the proxy signs you in again."
     open: "Continue"
+    repeated_header: "The proxy sent its sign-in header more than once, so nobody was signed in. Whoever runs this server has to make the proxy replace that header."
   password:
     too_short: Password must be at least 8 characters.
     too_long: "Password is too long (max {max} characters)."
@@ -250,6 +251,7 @@ profile:
     info_label: About signing out everywhere else
     text: "Ends every other session of this account: other browsers, phones and computers, and anyone who should not be signed in. This browser stays signed in."
     text_same: Changing your password or two-factor sign-in does the same.
+    text_apps: "Your connected apps are disconnected too: each one has to be connected again."
     ok: OK
     signed_out_notice: Signed out everywhere else.
   password:
@@ -3012,7 +3014,7 @@ apps:
   title: "Connected apps"
   info: "About connected apps"
   about: "A connected app, such as an AI assistant, can read and make your courses on this server with a token you give it. It can't see your progress, your notes or anyone else's courses."
-  about_revoke: "Revoke ends an app's access at its next request. Changing your password disconnects every app."
+  about_revoke: "Revoke ends an app's access at its next request. Changing your password or two-factor sign-in, or signing out everywhere else, disconnects every app."
   at_most: "An account keeps at most {max} connected apps."
   none: "No app is connected."
   made_on: "Made {date}"
@@ -3047,6 +3049,7 @@ apps:
   name_too_long: "The name is too long (max {max} characters)."
   password_changed: "Password changed. Your connected apps were disconnected."
   password_note: "Your connected apps are disconnected too."
+  also_disconnected: "Your connected apps were disconnected."
   manage_let: "Let apps connect"
   manage_about: "On, an account with Create courses can connect an AI assistant or another app to make its courses. Every connection expires, and you can revoke any of them here."
   manage_about_off: "Off, no app can connect and every token stops working. Turning it on again brings the connections back."

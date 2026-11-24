@@ -55,7 +55,9 @@ signing in.
 - Give it only to the one app it is for.
 - If you are in doubt where it went, open your profile, find the app under
   **Connected apps** and click **Revoke**. It stops working at once.
-- Changing your password also disconnects every app.
+- Changing your password or your two-factor sign-in, or clicking **Sign out
+  everywhere else** on your profile, also disconnects every app. Connect
+  the ones you use again afterwards.
 
 Never put a token in a web address. Every example on this page sends it in a
 header, where it is not written into logs and browser history.
