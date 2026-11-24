@@ -1,0 +1,87 @@
+# cargo audit: the locked dependencies (Cargo.lock) against the RustSec
+# advisory database. Fails on an advisory. Weekly, because an advisory can
+# appear for a crate nobody touched; and on pull requests that change the
+# dependencies. The weekly run opens an issue when it fails (or rewrites the
+# one already open), so a new advisory is not only a red badge.
+#
+# Not a required check: an advisory in an untouched crate must not block
+# unrelated PRs. See docs/testing.md, "Releases (maintainers)".
+name: audit
+
+on:
+  schedule:
+    - cron: "17 6 * * 1" # Mondays 06:17 UTC
+  pull_request:
+    paths:
+      - Cargo.lock
+      - Cargo.toml
+      - .github/workflows/audit.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: cargo audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      audit: ${{ steps.audit.outcome }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      # A prebuilt binary; building cargo-audit from source takes minutes.
+      - uses: taiki-e/install-action@b80e2bb2635f28eb98b9fce1e2f0887e1535c6b2 # v2
+        with:
+          tool: cargo-audit
+      - name: cargo audit
+        id: audit
+        run: |
+          set -o pipefail
+          cargo audit 2>&1 | tee audit.log
+      - name: Keep the output for the issue
+        if: failure() && steps.audit.outcome == 'failure' && github.event_name == 'schedule'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: audit-log
+          path: audit.log
+          retention-days: 7
+
+  # A job of its own so that only the weekly run's report can write issues.
+  report:
+    name: open an issue
+    needs: audit
+    if: failure() && needs.audit.outputs.audit == 'failure' && github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: audit-log
+      - name: Open or update the issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          title="cargo audit: advisory in a locked dependency"
+          {
+            echo "The weekly \`cargo audit\` found an advisory in a version in \`Cargo.lock\`."
+            echo
+            echo "Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            echo
+            echo "To fix: \`cargo update -p <crate>\` to the version each advisory names, then \`cargo audit\` until it is clean. The weekly run rewrites this issue while it stays open."
+            echo
+            echo '```'
+            head -c 50000 audit.log
+            echo
+            echo '```'
+          } > body.md
+          number=$(gh issue list --state open --search "\"$title\" in:title" --json number,title \
+            --jq "[.[] | select(.title == \"$title\")][0].number // empty")
+          if [ -n "$number" ]; then
+            gh issue edit "$number" --body-file body.md
+          else
+            gh issue create --title "$title" --label review --body-file body.md
+          fi

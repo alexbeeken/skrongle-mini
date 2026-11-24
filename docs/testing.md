@@ -665,8 +665,11 @@ one is a visible line in the PR. `scripts/panic-check.sh` (a step of the
 against `scripts/panic-baseline.txt` (#389). `scripts/file-size-lint.sh`
 (also a step of the `cargo test` job, #908) counts the non-test lines of
 every `.rs`, `.js`, `.ts`, `.html` and `.css` file under `src/`, `static/`,
-`templates/` and `e2e/`. A `.rs` file counts up to its first `#[cfg(test)]`
-line, a file named `tests.rs` counts nothing, and other files count whole.
+`templates/` and `e2e/`. A `.rs` file counts up to its test module (a
+`#[cfg(test)]` at the start of a line with a `mod` on the next line, the
+rule `panic-check.sh` uses; a `#[cfg(test)]` on a single helper is counted
+and does not end the count), a file named `tests.rs` counts nothing, and
+other files count whole.
 A file may have at most 1,500. The files that were over it when the lint
 came in are listed in `scripts/file-size-baseline.txt`; they may shrink, not
 grow. A file that passes its limit gets split. If it has to grow, say why in
@@ -1178,7 +1181,8 @@ Before the tag, on the commit you will tag:
    must refuse the database the new one migrated, exit 78, file unchanged.
    `SKIP_UPGRADE=1` leaves it out; `upgrade-check.sh <tarball>` runs it alone
    on a Linux machine.
-4. After the release is published, add its fixture so the next release is
+4. `cargo audit` is clean before the tag (the `audit` workflow, `.github/workflows/audit.yml`, runs it weekly and on PRs that change `Cargo.lock` or `Cargo.toml`).
+5. After the release is published, add its fixture so the next release is
    checked against it: run `package-smoke.sh` on the published tarball with
    `KEEP_DB=scripts/release-qa/fixtures/learn-<version>.db`, and commit the
    four files it writes (`.db`, `.db.key`, `.env`, `.progress.txt`). The exact
