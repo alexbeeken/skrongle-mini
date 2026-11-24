@@ -499,8 +499,13 @@ pub async fn set_lang(
         let lang = f.lang.clone();
         state.db.call(move |c| profile::set_lang(c, u.id, &lang)).await?;
     }
-    let back = if f.back.starts_with('/') && !f.back.starts_with("//") { crate::url(&f.back) } else { crate::url("/") };
-    Ok(([crate::i18n::set_cookie(&f.lang, state.secure_cookies)], Redirect::to(&back)).into_response())
+    Ok(([crate::i18n::set_cookie(&f.lang, state.secure_cookies)], Redirect::to(&lang_back(&f.back))).into_response())
+}
+
+/// Where the language picker goes back to: the page it was on when that is
+/// a path of this app, else the home page.
+fn lang_back(back: &str) -> String {
+    crate::url(if super::password::is_app_path(back) { back } else { "/" })
 }
 
 pub async fn logout(
@@ -603,4 +608,17 @@ fn hex_cookie(headers: &HeaderMap, name: &str) -> String {
             })
         })
         .unwrap_or_default()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::lang_back;
+
+    #[test]
+    fn the_language_picker_goes_back_inside_the_app() {
+        assert_eq!(lang_back("/lessons?unit=2"), crate::url("/lessons?unit=2"));
+        for elsewhere in ["/\\evil.example", "/\t/evil.example", "//evil.example", "https://evil.example", ""] {
+            assert_eq!(lang_back(elsewhere), crate::url("/"), "{elsewhere:?}");
+        }
+    }
 }

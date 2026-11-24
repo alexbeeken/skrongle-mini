@@ -818,3 +818,40 @@ fn making_a_course_needs_the_create_courses_permission() {
     assert_eq!(count(), 5);
     assert!(get("/courses", &root_c).1.contains(r#"data-testid="courses-create""#));
 }
+
+/// Settings posted for a course the account may not open are a 404 before
+/// anything is built: the answer is the same whatever the form holds, so it
+/// tells nothing about the course, and the course stays out of the cache.
+#[test]
+fn settings_of_a_course_one_may_not_open_are_a_404_and_build_nothing() {
+    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+    let state = crate::routes::test_state(false);
+    let (ann, bob) = state.db.with(|c| Ok((crate::auth::create_user(c, "ann@example.org", "x")?, crate::auth::create_user(c, "bob@example.org", "x")?))).unwrap();
+    let cookie = |u| format!("sid={}", state.db.with(|c| crate::auth::create_session(c, u)).unwrap());
+    let (ann_c, bob_c) = (cookie(ann), cookie(bob));
+    let id = "private-abc123";
+    state.db.with(|c| crate::courses::create_course(c, ann, id, "Private", &crate::courses::starter_files(id, "Private"))).unwrap();
+    let app = crate::routes::router(state.clone());
+    let base = rt.block_on(async {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        tokio::spawn(async move { axum::serve(listener, app).await.unwrap() });
+        format!("http://{addr}")
+    });
+    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
+    let post = |path: &str, cookie: &str, form: &[(&str, &str)]| agent.post(&format!("{base}{path}")).header("cookie", cookie).send_form(form.iter().copied()).unwrap().status().as_u16();
+    let settings = format!("/courses/{id}/settings");
+
+    // A level the course does not have is a 400 to someone who may open it.
+    for form in [&[("start_unit", "no-such-unit")][..], &[("next", "home")][..]] {
+        assert_eq!(post(&settings, &bob_c, form), 404, "{form:?}");
+        assert_eq!(post("/courses/no-such-course/settings", &bob_c, form), 404, "{form:?}");
+    }
+    assert!(!state.courses.is_cached(id), "nothing was built for Bob");
+
+    // Its owner, once it is opened, saves them as before.
+    assert_eq!(post(&format!("/courses/open/{id}"), &ann_c, &[]), 303);
+    assert_eq!(post(&settings, &ann_c, &[("start_unit", "no-such-unit")]), 400);
+    assert_eq!(post(&settings, &ann_c, &[("next", "home")]), 303);
+    assert!(state.courses.is_cached(id));
+}

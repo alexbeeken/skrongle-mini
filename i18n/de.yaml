@@ -164,6 +164,7 @@ auth:
     note: "Dieser Server meldet dich über den vorgeschalteten Proxy an: Öffne ihn über diese Adresse, und du bist angemeldet."
     signed_out: "Du bist abgemeldet. Die nächste Seite, die du über den Proxy öffnest, meldet dich wieder an."
     open: "Weiter"
+    repeated_header: "Der Proxy hat seinen Anmelde-Header mehrfach gesendet, deshalb wurde niemand angemeldet. Wer diesen Server betreibt, muss den Proxy so einstellen, dass er diesen Header ersetzt."
   password:
     too_short: Das Passwort muss mindestens 8 Zeichen lang sein.
     too_long: "Das Passwort ist zu lang (maximal {max} Zeichen)."
@@ -248,6 +249,7 @@ profile:
     info_label: "Über das Abmelden überall sonst"
     text: "Beendet jede andere Sitzung dieses Kontos: andere Browser, Handys und Computer sowie alle, die nicht angemeldet sein sollten. Dieser Browser bleibt angemeldet."
     text_same: "Das Ändern deines Passworts oder der Zwei-Faktor-Anmeldung macht dasselbe."
+    text_apps: "Auch deine verbundenen Apps werden getrennt: Jede muss neu verbunden werden."
     ok: "OK"
     signed_out_notice: "Überall sonst abgemeldet."
   password:
@@ -3009,7 +3011,7 @@ apps:
   title: "Verbundene Apps"
   info: "Über verbundene Apps"
   about: "Eine verbundene App, etwa ein KI-Assistent, kann mit einem Token, das du ihr gibst, deine Kurse auf diesem Server lesen und erstellen. Sie sieht weder deinen Fortschritt noch deine Notizen noch die Kurse anderer."
-  about_revoke: "Widerrufen beendet den Zugang einer App bei ihrer nächsten Anfrage. Wenn du dein Passwort änderst, werden alle Apps getrennt."
+  about_revoke: "Widerrufen beendet den Zugang einer App bei ihrer nächsten Anfrage. Wenn du dein Passwort oder die Zwei-Faktor-Anmeldung änderst oder dich überall sonst abmeldest, werden alle Apps getrennt."
   at_most: "Ein Konto hat höchstens {max} verbundene Apps."
   none: "Keine App ist verbunden."
   made_on: "Erstellt am {date}"
@@ -3044,6 +3046,7 @@ apps:
   name_too_long: "Der Name ist zu lang (höchstens {max} Zeichen)."
   password_changed: "Passwort geändert. Deine verbundenen Apps wurden getrennt."
   password_note: "Deine verbundenen Apps werden dabei auch getrennt."
+  also_disconnected: "Deine verbundenen Apps wurden getrennt."
   manage_let: "Apps verbinden lassen"
   manage_about: "Eingeschaltet kann ein Konto mit „Kurse erstellen“ einen KI-Assistenten oder eine andere App verbinden, die seine Kurse erstellt. Jede Verbindung läuft ab, und du kannst jede hier widerrufen."
   manage_about_off: "Ausgeschaltet kann sich keine App verbinden, und jedes Token hört auf zu funktionieren. Schaltest du es wieder ein, kommen die Verbindungen zurück."

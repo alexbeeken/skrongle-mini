@@ -456,6 +456,12 @@ impl Courses {
         }
     }
 
+    /// Is a built course of this id kept right now?
+    #[cfg(test)]
+    pub fn is_cached(&self, id: &str) -> bool {
+        self.lock().entries.contains_key(id)
+    }
+
     /// Forget a cached course (after an edit).
     pub fn invalidate(&self, id: &str) {
         self.lock().remove(id);

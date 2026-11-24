@@ -164,6 +164,7 @@ auth:
     note: "Este servidor inicia a sua sessão através do proxy à frente dele: abra-o por esse endereço e a sessão fica iniciada."
     signed_out: "Terminou a sessão. A próxima página que abrir através do proxy volta a iniciá-la."
     open: "Continuar"
+    repeated_header: "O proxy enviou o seu cabeçalho de início de sessão mais de uma vez, por isso nenhuma sessão foi iniciada. Quem gere este servidor tem de fazer com que o proxy substitua esse cabeçalho."
   password:
     too_short: A senha precisa ter pelo menos 8 caracteres.
     too_long: "A senha é longa demais (máximo de {max} caracteres)."
@@ -248,6 +249,7 @@ profile:
     info_label: "Sobre sair de todos os outros lugares"
     text: "Encerra todas as outras sessões desta conta: outros navegadores, celulares e computadores, e quem não deveria estar conectado. Este navegador continua conectado."
     text_same: "Trocar a senha ou a verificação em duas etapas faz o mesmo."
+    text_apps: "As apps ligadas também são desligadas: é preciso ligar cada uma de novo."
     ok: "OK"
     signed_out_notice: "Saiu de todos os outros lugares."
   password:
@@ -3009,7 +3011,7 @@ apps:
   title: "Apps ligadas"
   info: "Sobre as apps ligadas"
   about: "Uma app ligada, como um assistente de IA, pode ler e criar os teus cursos neste servidor com um token que lhe dás. Não vê o teu progresso, as tuas notas nem os cursos de outras pessoas."
-  about_revoke: "Revogar acaba com o acesso de uma app no pedido seguinte. Mudar a palavra-passe desliga todas as apps."
+  about_revoke: "Revogar acaba com o acesso de uma app no pedido seguinte. Mudar a palavra-passe ou a verificação em duas etapas, ou sair de todos os outros lugares, desliga todas as apps."
   at_most: "Uma conta tem no máximo {max} apps ligadas."
   none: "Nenhuma app está ligada."
   made_on: "Criado a {date}"
@@ -3044,6 +3046,7 @@ apps:
   name_too_long: "O nome é demasiado longo (máximo {max} caracteres)."
   password_changed: "Palavra-passe alterada. As tuas apps ligadas foram desligadas."
   password_note: "As tuas apps ligadas também são desligadas."
+  also_disconnected: "As tuas apps ligadas foram desligadas."
   manage_let: "Deixar as apps ligar-se"
   manage_about: "Ligado, uma conta com «Criar cursos» pode ligar um assistente de IA ou outra app para criar os seus cursos. Cada ligação expira, e podes revogar qualquer uma aqui."
   manage_about_off: "Desligado, nenhuma app se pode ligar e todos os tokens deixam de funcionar. Ao voltar a ligar, as ligações regressam."

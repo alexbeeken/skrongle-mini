@@ -603,8 +603,11 @@ What happens then:
   is no two-factor step: the proxy did that. If the browser was signed in
   as someone else, that session ends.
 - No account with that address: `SKRONGLE_SIGNUP` decides. `open` makes one
-  with no password, its address already confirmed. `invite` and `closed` show the "sign-ups are closed" page
-  (on an empty server the first one is still let in, as the owner).
+  with no password, its address already confirmed. `invite` and `closed` show the "sign-ups are closed" page.
+  On a server with no account yet, the first person the proxy signs in is
+  let in as the owner in every mode, with no owner link: so open the server
+  yourself, through the proxy, before anyone else does. The log says so at
+  startup instead of printing an owner link.
   Invitation links don't help here, since `/register` has no form. When the
   proxy only lets your own people through, set `SKRONGLE_SIGNUP=open`: the
   proxy already decides who gets in.
@@ -616,6 +619,10 @@ What happens then:
   `127.0.0.1` (or firewall it) so nobody reaches it around the proxy, and
   make the proxy **overwrite** the header, never pass on one the browser
   sent.
+- A request from the proxy that carries the header **more than once** is
+  refused (400, "The proxy sent its sign-in header more than once") and
+  logged once an hour, without the values. It means the proxy adds its
+  header to one the browser sent instead of replacing it; fix the proxy.
 
 **Run the proxy on the same machine, or reach Skrongle over a VPN.** The
 address check proves only which machine a connection came from. If the

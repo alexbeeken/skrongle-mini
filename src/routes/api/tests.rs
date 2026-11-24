@@ -313,6 +313,56 @@ fn password_and_two_factor_events_revoke_every_grant() {
     assert!(stored_hashes(&s.state).is_empty());
 }
 
+/// "Sign out everywhere else" and a change of two-factor sign-in take away
+/// what a stolen session could have set up: every grant of the account goes
+/// with its other sessions, the session in use stays, and the page says so.
+/// Another account's grants are not touched.
+#[test]
+fn signing_out_everywhere_else_and_a_two_factor_change_revoke_every_grant() {
+    let s = Server::start(None);
+    let (ann, me) = s.account("ann@example.org");
+    let (_, bea) = s.account("bea@example.org");
+    s.apps_on(true);
+    let bea_token = s.make_token(&bea, "Bea's", PASSWORD).1.unwrap();
+    let signed_in = |cookie: &str| s.get("/profile", &[("cookie", cookie)]).status == 200;
+
+    // Sign out everywhere else.
+    let token = s.make_token(&me, "Test", PASSWORD).1.unwrap();
+    let other = s.cookie(ann);
+    assert!(signed_in(&other) && s.whoami(&token).status == 200);
+    assert!(s.get("/profile", &[("cookie", &me)]).body.contains("profile-sign-out-others-apps-note"), "its (i) says so");
+    let r = s.post("/profile/sessions/end-others", &me, &[]);
+    assert_eq!((r.status, r.location.as_str()), (303, "/profile?saved=signed-out&apps=off#account"));
+    assert!(s.get("/profile?saved=signed-out&apps=off", &[("cookie", &me)]).body.contains(&crate::t("apps.also_disconnected")));
+    assert_eq!(s.whoami(&token).status, 401);
+    assert!(signed_in(&me) && !signed_in(&other), "this session stays, the other one ended");
+    // With no app connected the notice is the plain one.
+    assert_eq!(s.post("/profile/sessions/end-others", &me, &[]).location, "/profile?saved=signed-out#account");
+    assert!(!s.get("/profile?saved=signed-out", &[("cookie", &me)]).body.contains(&crate::t("apps.also_disconnected")));
+
+    // Turning two-factor on: the app's first code finishes it, and revokes.
+    let token = s.make_token(&me, "Test", PASSWORD).1.unwrap();
+    let other = s.cookie(ann);
+    assert_eq!(s.post("/profile/two-factor", &me, &[("two_factor", "on"), ("password", PASSWORD)]).status, 303);
+    assert_eq!(s.whoami(&token).status, 200, "nothing changed yet");
+    let key = s.state.db.with(|c| crate::two_factor::pending_key(c, &s.state.vault, ann)).unwrap().unwrap();
+    let r = s.post("/profile/two-factor/totp/confirm", &me, &[("code", &key.code_at(crate::db::now() as u64))]);
+    assert_eq!((r.status, r.location.as_str()), (303, "/profile?saved=two-factor&apps=off#two-factor"));
+    assert!(s.get("/profile?saved=two-factor&apps=off", &[("cookie", &me)]).body.contains(&crate::t("apps.also_disconnected")));
+    assert_eq!(s.whoami(&token).status, 401);
+    assert!(signed_in(&me) && !signed_in(&other));
+
+    // Turning it off.
+    let token = s.make_token(&me, "Test", PASSWORD).1.unwrap();
+    assert_eq!(s.whoami(&token).status, 200);
+    let r = s.post("/profile/two-factor", &me, &[("two_factor", "off"), ("password", PASSWORD)]);
+    assert_eq!((r.status, r.location.as_str()), (303, "/profile?saved=two-factor&apps=off#two-factor"));
+    assert_eq!(s.whoami(&token).status, 401);
+    assert!(signed_in(&me));
+
+    assert_eq!(s.whoami(&bea_token).status, 200, "Bea's app is still connected");
+}
+
 /// Making a token is a sensitive action: counted by `PASSWORD_PER_USER`
 /// (past it even the right password is refused with a 429), and not offered
 /// to an account without a password (signed in through the proxy header).

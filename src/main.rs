@@ -552,7 +552,12 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     // No account yet: the owner's account is made only through this link,
     // so only someone who can read this log can claim the server.
     if state.signup != signup::Mode::Open {
-        if let Some(token) = state.db.with(|c| signup::owner_link(c, db::now()))? {
+        if state.proxy_auth.is_some() {
+            // `/register` has no form behind the proxy: its word makes the owner.
+            if state.db.with(|c| signup::no_accounts(c))? {
+                tracing::warn!("no account yet. The first person the proxy signs in becomes the owner");
+            }
+        } else if let Some(token) = state.db.with(|c| signup::owner_link(c, db::now()))? {
             let link = signup::owner_link_url(state.public_url.as_deref(), cfg.bind, &token);
             tracing::warn!("no account yet. Owner link, to make your own account (the owner's): {link}");
         }
