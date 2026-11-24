@@ -251,15 +251,8 @@ impl CurrentUser {
     }
 
     /// The same for a page route: `Err(AppError::NoPermission)`.
-    #[cfg_attr(not(test), allow(dead_code))] // asked from #139 on
     pub fn require(&self, p: Perm) -> Result<(), AppError> {
         if self.can(p) { Ok(()) } else { Err(AppError::NoPermission) }
-    }
-
-    /// The same for a JSON route: `Err(AppError::ApiNoPermission)`.
-    #[cfg_attr(not(test), allow(dead_code))] // asked from #139 on
-    pub fn require_api(&self, p: Perm) -> Result<(), AppError> {
-        if self.can(p) { Ok(()) } else { Err(AppError::ApiNoPermission) }
     }
 
     /// First name if known, else "Learner": for greetings and the top bar.
@@ -749,10 +742,9 @@ mod tests {
         assert_eq!(teacher.perms, Perms::TEACHER);
         for p in Perm::ALL {
             assert!(owner.can(p), "owner {p:?}");
-            assert!(owner.require(p).is_ok() && owner.require_api(p).is_ok());
+            assert!(owner.require(p).is_ok());
             assert!(!student.can(p), "student {p:?}");
             assert!(matches!(student.require(p), Err(AppError::NoPermission)));
-            assert!(matches!(student.require_api(p), Err(AppError::ApiNoPermission)));
             assert_eq!(teacher.can(p), p != Perm::Superuser, "teacher {p:?}");
         }
         // A dependent permission is off when the one it needs is off.

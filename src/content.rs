@@ -664,6 +664,7 @@ impl Lesson {
         self.html.get_or_init(|| render_markdown(&self.content))
     }
     /// Whether `html_content()` has been rendered yet.
+    #[cfg(test)]
     pub fn html_rendered(&self) -> bool {
         self.html.get().is_some()
     }
@@ -989,6 +990,7 @@ impl ContentStore {
     }
 
     /// Does any lesson carry a paradigm table?
+    #[cfg(test)]
     pub fn has_conjugations(&self) -> bool {
         self.paradigm().is_some() && self.lessons.iter().any(|l| !l.conjugations.is_empty())
     }

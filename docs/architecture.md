@@ -51,7 +51,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 - The MCP server (#168, `docs/api.md`): `routes/mcp.rs` (the HTTP gate of `POST /mcp`: switch, `Origin`, method, content type, bearer, per-grant limit, body cap, scopes), `mcp.rs` (JSON-RPC: `initialize`, `ping`, `tools/list`, `tools/call`, batches of 10), `mcp/tools.rs` (the six course tools), `mcp/format.rs` (`get_course_format`: `docs/course-format.md` by heading, the test course embedded as the example). The tools write through the editor's own functions in `routes/courses/write.rs` (`own_course`, `check_file`, `course_write_refused`, `may_create_courses`, `store_files`) and `store_copy` in `routes/courses/create.rs`.
 - OAuth sign-in for apps that connect from the cloud (#169, `docs/api.md` "OAuth"): `oauth_server.rs` (the rules over a connection: redirect addresses, registration and its bounds, PKCE S256, the request's checks, Allow's grant and code, the code exchange, refresh rotation, revoke, the purge), `routes/oauth.rs` (the discovery documents, `/oauth/authorize` with the consent page, `/oauth/token`, `/oauth/register`, `/oauth/revoke`; the issuer from `SKRONGLE_PUBLIC_URL`; `resume` carries a signed-out request through the sign-in in `routes/auth.rs`), templates `oauth_consent.html`, `oauth_error.html`, `oauth_no_permission.html`; the dev build's test client: `routes/dev/oauth_client.rs`, `templates/dev_oauth_client.html`.
 - Data rights: `db/tables.rs` (the user-table list), `jobs/retention.rs` (retention rules), `signup.rs` (the age confirmation).
-- Permissions: `perms.rs` (`Perm`, `Perms`, the presets; #137), asked through `CurrentUser::can` / `require` / `require_api` in `auth.rs`; stored in `users.perms`, `users.preset_id` and table `permission_presets`.
+- Permissions: `perms.rs` (`Perm`, `Perms`, the presets; #137), asked through `CurrentUser::can` / `require` in `auth.rs`; stored in `users.perms`, `users.preset_id` and table `permission_presets`.
 - Owner: `owner.rs`, `routes/manage.rs`, `static/manage.js`, `routes/password.rs` (temporary password gate); an account's permissions (`perms.rs`) and the Permissions dialog on Manage Users, which a superuser reaches too (#139, `POST /manage/permissions`); a learner's progress for an owner or a superuser, unless the account has Privacy (#147): `routes/manage/progress.rs`, `templates/manage_progress.html`; saved presets in `routes/manage/presets.rs` (#140, `POST /manage/presets/delete`); the server's AI API keys in `secrets.rs` and the hide-AI switch in `settings.rs`, both on Manage Users (#25).
 - One preset for several accounts (#141): `routes/manage/bulk.rs` (`POST /manage/permissions/bulk`, and the notice after it); the checkboxes, the bar and the confirm dialog are in `templates/manage.html` and `static/manage.js`.
 - Docs pages: `routes/docs.rs` (`/docs` sidebar `SECTIONS`, `/llms.txt`).
@@ -112,7 +112,7 @@ src/
   problems.rs    what the editor and the file page say when a course file is refused: kind, lesson, field, line, message, fix hint (every ContentError and arrange.rs refusal)
   perms.rs       per-account permissions (#137, #138): Perm (seven, one bit each), Perms (the set in users.perms, normalised: a permission whose needed one is off is off), the presets (table permission_presets; Student and Teacher built in), set_custom / apply_preset. Asked through CurrentUser::can / require / require_api; an owner may do everything
   owner.rs       what the owner does to an account with no message sent (#635): a temporary password (users.must_change_password), two-factor off, make an owner; the binary's commands (owner-link, reset-password, disable-2fa, make-owner, help)
-  db/tables.rs   USER_TABLES and SHARED_TABLES: which tables hold a learner's rows, and the test that every table is listed (docs/data-inventory.md)
+  db/tables.rs   test only: USER_TABLES and SHARED_TABLES, which tables hold a learner's rows, and the test that every table is listed (docs/data-inventory.md)
   jobs/retention.rs  the retention rules the hourly housekeeping applies (old answers, finished notes, failed AI courses)
   jobs.rs        background jobs (table jobs, #872): enqueue, the one-statement claim with a lease, retries with per-kind delays, periodic kinds that queue their next run; the `jobs` runner thread; the hourly housekeeping as one job with a step per purge
   mathcheck.rs   numeric and expression answers: a small parser/evaluator, numbers in every spelling, equivalence by sampling
@@ -414,7 +414,7 @@ user_progress  (user_id, course_id, lesson_id, mastery_score, times_tested, time
 lesson_passes  (user_id, course_id, lesson_id, seen_at, seen_via, best_pct, best_via, passed_at, passed_via, runs,
                 evidence, updated_at)  PRIMARY KEY (user_id, course_id, lesson_id)
                 -- via is 'k' | 'd' | 'g' (Study, Sprint, Play: the modes' old letters, progress::VIA_*)
-                -- | 'tutor' | 'agent' | 'legacy'; best_pct -1 = no counted run yet
+                -- | 'tutor' | 'agent'; best_pct -1 = no counted run yet
 quiz_history   (id, user_id, course_id, lesson_id, question_id, selected_answer, was_correct, answered_at)
 journey_progress (user_id, course_id, lesson_id, step, completed, best_stars, run_correct, run_answered,
                 updated_at)  PRIMARY KEY (user_id, course_id, lesson_id)      -- the Guide

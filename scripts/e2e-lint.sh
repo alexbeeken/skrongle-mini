@@ -3,7 +3,7 @@
 # is absent. Jev (the AI judge, #58) is asked to confirm a positive statement;
 # absence is checked exactly with expect(...).not.toMatch or a locator count of 0.
 #
-#   scripts/e2e-lint.sh               # scan e2e/specs, e2e/lib, e2e/journeys.ts
+#   scripts/e2e-lint.sh               # scan e2e/specs, e2e/lib
 #   scripts/e2e-lint.sh --self-test   # prove the check flags a bad statement and nothing else
 #
 # Flags a judge(...) or judgeMany(...) call whose statement (its first string
@@ -60,8 +60,6 @@ if [ "${1:-}" = "--self-test" ]; then
 fi
 
 FILES=$(find e2e/specs e2e/lib -name '*.ts' -type f | sort)
-[ -f e2e/journeys.ts ] && FILES="$FILES
-e2e/journeys.ts"
 
 HITS=""
 if [ -n "$FILES" ]; then

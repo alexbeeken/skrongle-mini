@@ -80,7 +80,6 @@ common:
       one: "{n} 年前"
       other: "{n} 年前"
   js:
-    close: 关闭
     notation_label: 乐谱
     music_play: "播放"
     music_no_sound: "没有声音？手机静音时会听不到。"
@@ -132,7 +131,6 @@ auth:
     email_label: 电子邮箱地址
     password_label: 密码
     submit: 登录
-    or: 或
     no_account_html: "还没有账户？<a href=\"{url}\" data-testid=\"login-register-link\">注册</a>。"
     too_many_attempts: 登录尝试次数过多。请等待几分钟后再试。
     incorrect: 电子邮箱地址或密码不正确。
@@ -145,7 +143,6 @@ auth:
     password_label: 密码
     password_note: （至少 8 个字符）
     submit: 注册
-    or: 或
     have_account_html: "已经注册过？<a href=\"{url}\" data-testid=\"register-login-link\">登录</a>。"
     too_many_signups: 你的网络注册次数过多。请一小时后再试。
     email_taken: 该电子邮箱地址已有账户。
@@ -241,7 +238,6 @@ profile:
     title: 账户
     sign_in: 登录方式
     password: 密码
-    and: 和
     no_password: 此账户没有可更改的密码。
   sessions:
     sign_out_others: 退出其他所有设备
@@ -261,7 +257,6 @@ profile:
     changed: 密码已更改。
     mismatch: 两次输入的新密码不一致。
     none: 此账户没有密码。
-    too_many: 尝试次数过多。请稍等几分钟后再试。
     current_wrong: 当前密码不正确。
   two_factor:
     title: 两步验证
@@ -489,7 +484,6 @@ landing:
     one: "{n} 节课"
     other: "{n} 节课"
   every_way_h2: 一门课程，多种学习方式
-  every_way_lead: 每个功能读取的都是同一组文件，你无需重复编写任何内容。
   feat_sprint_h: 冲刺模式
   feat_sprint_p: "专为手机设计的五分钟课程：词块、分类、辨认、组句、阶梯、配对、听力练习，以及每日目标和连续天数。"
   feat_study_h: 学习模式
@@ -502,15 +496,6 @@ landing:
   feat_hear_p: 在语言课程中，每个重要的词都可以点击，并由浏览器自带的语音朗读出来。
   feat_mastery_h: 会衰减的掌握度
   feat_mastery_p: 正确答案会累积分数，但收益递减；错误答案会扣掉一部分；一个月不练，分数会慢慢回落。
-  small_h2: 小到能在树莓派上运行
-  spec_binary_h: 单个二进制文件
-  spec_binary_p: 模板、CSS、脚本和文档都已编译进去；内置课程是放在旁边的普通文件。SQLite 就是整个数据库。
-  spec_footprint_h: 占用极小
-  spec_footprint_p: "为 Pi Zero 2 W 设计：磁盘占用几兆字节，内存占用几十兆字节，两个异步工作线程。"
-  spec_data_h: 你的数据归你所有
-  spec_data_p: 运行在你自己的机器或局域网上。可选的 TLS 代理，没有第三方脚本，没有追踪。
-  spec_docs_h: 内置文档
-  spec_docs_p: 格式、功能和架构都直接由应用提供，既可以是网页，也可以是供 LLM 使用的原始 Markdown。
   final_h2: "注册，然后回答一个问题：你想学什么？"
   browse_docs: 浏览文档
   feat_guide_h: "引导"
@@ -704,7 +689,6 @@ study:
     play: 游戏模式
     tutor: AI 辅导
     agent: AI 代理
-    legacy: 早前的一次练习
     other: 其他模式
   pass:
     passed_in: "在{via}中已通过"
@@ -715,18 +699,15 @@ study:
     best_run: "最佳一轮 {n}%"
     not_started: 未开始
   counts:
-    n_mastered: "{n} 个已掌握"
     n_in_progress:
       one: "{n} 个进行中"
       other: "{n} 个进行中"
-    n_weak: "{n} 个薄弱"
     n_need_practice:
       one: "{n} 个需要练习"
       other: "{n} 个需要练习"
     n_not_started:
       one: "{n} 个未开始"
       other: "{n} 个未开始"
-    n_of_m_passed: "已通过 {n}/{total}"
     n_skipped:
       one: "{n} 个已跳过"
       other: "{n} 个已跳过"
@@ -969,16 +950,11 @@ study:
 
 docs:
   title_suffix: 文档
-  documentation: 文档
   raw: 原始：
   section_guides: 指南
   section_self_hosting: "自行托管"
   section_reference: 参考
   section_dev: 开发者
-  js:
-    copied: 已复制 ✓
-    copy: 复制
-    selected: 已选择
 quiz:
   page:
     recommended_title: 推荐练习
@@ -1533,7 +1509,6 @@ sprint:
       other: "{n} 对配对尝试了不止一次。"
   history:
     sorted: "{n} 项中正确分类 {right} 项"
-    sorted_wrongly: 有些分错了组
     forms_right: "{n} 个形式中答对 {right} 个"
     notes_right: "{n} 个音中答对 {right} 个"
     wrong_taps:
@@ -1548,7 +1523,6 @@ sprint:
     build: "组句：{meaning}"
     ladder: "阶梯：{item}（{set}）"
     hear_build: 点选你听到的内容
-    hear_type: 输入你听到的内容
     hear_meaning: "这是什么意思：{text}"
     hear_gap: "根据听到的内容填空：{text}"
   js:
@@ -2614,8 +2588,6 @@ editor:
     move_next_bucket: 移到后一个分组
     right_answer: 正确答案
     option_n: "选项 {n}"
-    answer_true: "正确"
-    answer_false: "错误"
     optional: 可选
     ids_note: "ID、slug、单元和顺序由课节表设定；请以 JSON 形式编辑。"
     lesson_head: 课节

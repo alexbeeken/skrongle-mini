@@ -207,9 +207,7 @@ pub fn worn(conn: &Connection, user_id: i64, course_id: &str) -> rusqlite::Resul
     let id: Option<String> = conn
         .query_row("SELECT motivator FROM projects WHERE user_id = ?1 AND course_id = ?2", params![user_id, course_id], |r| r.get(0))
         .optional()?;
-    // Skrongle Cash is gone: an account that saved it wears XP.
-    let id = id.as_deref().map(|s| if s == "skc" { "xp" } else { s });
-    Ok(get(id.unwrap_or("")))
+    Ok(get(id.as_deref().unwrap_or("")))
 }
 
 /// Open the course for the user and wear a motivator in it (tests; the app
@@ -357,8 +355,6 @@ mod tests {
             // Each course wears its own (#574).
             set(c, uid, "fr", "xp")?;
             assert_eq!((worn(c, uid, "es")?.id(), worn(c, uid, "fr")?.id()), (DEFAULT, "xp"));
-            set(c, uid, "fr", "skc")?;
-            assert_eq!(worn(c, uid, "fr")?.id(), "xp", "the removed Skrongle Cash reads as XP");
             Ok(())
         })
         .unwrap();

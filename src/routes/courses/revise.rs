@@ -81,7 +81,7 @@ pub async fn ai_start(
     let outline = depth == ai::Depth::Outline;
     let text = form.text.replace("\r\n", "\n").trim().to_string();
     let lesson_refill = lesson_path.clone();
-    let refuse = |msg: String| editor_page(&state, user.clone(), row.clone(), None, Refill { text: text.clone(), mode, outline, error: Some(msg), lesson: lesson_refill.clone() });
+    let refuse = |msg: String| editor_page(&state, user.clone(), row.clone(), Refill { text: text.clone(), mode, outline, error: Some(msg), lesson: lesson_refill.clone() });
     if row.error.is_some() {
         return refuse(crate::t("courses.ai.not_loading")).await;
     }
@@ -157,7 +157,7 @@ pub async fn ai_start(
             let cid = id.clone();
             state.db.call(move |c| courses::finish_revision(c, &cid)).await?;
             let row = owned(&state, &user, &id).await?;
-            editor_page(&state, user, row, None, Refill { text, mode, outline, error: Some(e), lesson: lesson_path }).await
+            editor_page(&state, user, row, Refill { text, mode, outline, error: Some(e), lesson: lesson_path }).await
         }
     }
 }

@@ -215,7 +215,7 @@ pub async fn play(
     let b = board.clone();
     let (rows, best) = state
         .db
-        .call(move |c| Ok((games::leaderboard(c, &cid, GAME_MATCHING, &b, 10)?, games::personal_best(c, uid, &cid, GAME_MATCHING, &b)?)))
+        .call(move |c| Ok((games::leaderboard(c, &cid, GAME_MATCHING, &b)?, games::personal_best(c, uid, &cid, GAME_MATCHING, &b)?)))
         .await?;
     let tpl = MatchingTemplate {
         course: content.view(),
@@ -342,7 +342,7 @@ pub async fn finish(
             let id = games::save_score(c, uid, &cid, GAME_MATCHING, &board, score_ms, wrong)?;
             let rank = games::rank_of(c, &cid, GAME_MATCHING, &board, score_ms, id)?;
             games::record_activity(c, uid, &cid, GAME_MATCHING, &board, &label, elapsed_ms, pairs, pairs, Some(score_ms))?;
-            Ok((rank, previous, games::leaderboard(c, &cid, GAME_MATCHING, &board, 10)?))
+            Ok((rank, previous, games::leaderboard(c, &cid, GAME_MATCHING, &board)?))
         })
         .await?;
     tracing::info!("user {} finished matching/{} in {} (rank {rank})", p.user.id, session.board, games::fmt_ms(score_ms));

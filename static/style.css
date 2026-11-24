@@ -520,7 +520,6 @@ input.fill { font-size: 1.1rem; }
 .study-card .face { display: flex; flex-direction: column; gap: .4rem; }
 .study-card .face + .face { margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed var(--line); }
 .study-card .word { font-size: 1.8rem; font-weight: 700; }
-.study-card .face-en .word { color: var(--gold); font-size: 1.4rem; }
 .study-card .example { color: var(--muted); font-style: italic; }
 .study-actions { justify-content: center; margin-top: 1rem; }
 @media (max-width: 720px) {
@@ -689,7 +688,6 @@ table.conj td, table.conj th { font-size: .9rem; }
 @keyframes card-accepted { 0% { transform: scale(1); } 45% { transform: scale(1.035); } 100% { transform: scale(1); } }
 .course-card.accepted { animation: card-accepted .3s ease; }
 @media (prefers-reduced-motion: reduce) {
-  .course-card.theming::before { animation: none; }
   .course-card.accepted { animation: none; }
 }
 .course-card .course-actions .btn { width: 100%; padding: .55rem .9rem; font-size: 1rem; text-align: center; }
@@ -958,11 +956,7 @@ dialog.report-dialog:not([open]):target { display: block; position: fixed; inset
 }
 .profile-actions { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; }
 .profile-actions .inline-actions { margin: 0; }
-/* Deleting the account sits apart from the text above it, under a line. */
-.profile-delete { margin-top: 1.6rem; padding-top: .2rem; border-top: 1px solid var(--line); }
-.profile .card .profile-delete h3 { margin-top: 1rem; }
 .profile .card .key-row h3 { margin: 0; }
-.profile-delete input { max-width: 22rem; }
 .profile .card h3 { margin: 1.4rem 0 .4rem; font-size: 1rem; }
 .profile input:disabled { background: var(--bg); color: var(--muted); cursor: not-allowed; }
 .field-note { display: block; font-weight: 400; margin-top: .3rem; }
@@ -974,27 +968,13 @@ dialog.report-dialog:not([open]):target { display: block; position: fixed; inset
 .info-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 .field-with-icon { position: relative; display: block; margin-top: .3rem; }
 .field-with-icon input { margin-top: 0; padding-right: 2.2rem; }
-/* A fixed part of the value sitting in the field's left edge, before what is
-   typed: the phone number's +1 (#496). It is the field's description, so a
-   screen reader reads it with the label; clicks go through to the field. */
-.field-with-icon.has-prefix input { padding-left: 2.5rem; }
-.field-prefix { position: absolute; left: .75rem; top: 50%; transform: translateY(-50%); color: var(--muted); font-weight: 600; pointer-events: none; }
 .field-check { position: absolute; right: .7rem; top: 50%; transform: translateY(-50%); color: var(--ok-text, var(--ok)); font-weight: 700; cursor: default; }
 /* Hidden until hover or focus. A tooltip at opacity 0 still takes up width and made the page scroll sideways on a phone (#675). */
 .field-check::after { content: attr(data-tip); display: none; position: absolute; right: -.4rem; bottom: calc(100% + .4rem); padding: .2rem .5rem; border-radius: var(--radius); background: var(--text); color: var(--surface); font-size: .78rem; font-weight: 600; white-space: nowrap; pointer-events: none; }
 .field-check:hover::after, .field-check:focus-visible::after { display: block; }
 .field-check:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 50%; }
 button.field-check { padding: 0; border: 0; background: none; font: inherit; font-weight: 700; }
-.field-with-icon .field-info { position: absolute; right: .7rem; top: 50%; transform: translateY(-50%); }
 .field-check.bad { display: grid; place-items: center; width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--bad); color: #fff; font-size: .8rem; cursor: pointer; }
-/* A field that says what is wrong with what is in it, in its own corner
-   (the phone number, #496): the red ! takes the place of whatever the
-   corner says about the value on file, and fades in rather than appearing
-   mid-keystroke. static/profile.js holds it back until typing stops. */
-.field-with-icon[data-invalid] .field-check:not(.field-problem) { display: none; }
-.field-check.field-problem { animation: field-problem-in .5s ease both; }
-@keyframes field-problem-in { from { opacity: 0; } to { opacity: 1; } }
-@media (prefers-reduced-motion: reduce) { .field-check.field-problem { animation: none; } }
 /* The same red ! in running text (a course card's title): the tip opens to the right. */
 .field-check.inline { position: relative; right: auto; top: auto; transform: none; display: inline-grid; vertical-align: middle; margin-left: .4rem; }
 .field-check.inline::after { right: auto; left: -.4rem; }
@@ -1209,9 +1189,6 @@ td.can-say:hover { background: var(--surface); }
 .land-feature.play { border-left-color: var(--gold); }
 .land-feature.ai { border-left-color: var(--tutor); }
 .land-feature p { margin: 0; font-size: .93rem; color: var(--muted); }
-.land-small { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 2.2rem 2.4rem; }
-.land-specs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 1.4rem; }
-.land-specs p { margin: 0; font-size: .9rem; color: var(--muted); }
 .land-final { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 2rem; padding: 2.5rem 0 0; border-top: 2px solid var(--text); }
 .land-final h2 { margin: 0; max-width: 30rem; }
 .land-final .land-cta { margin: 0; }
@@ -1220,15 +1197,12 @@ td.can-say:hover { background: var(--surface); }
   .land-hero { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; margin-top: 1rem; }
   .land-quiz { right: .8rem; }
   .land-fields { grid-template-columns: 1fr; }
-  .land-specs { grid-template-columns: repeat(2, 1fr); }
   .land-ways, .land-features { grid-template-columns: 1fr; gap: 1.8rem; }
   .land-final { grid-template-columns: 1fr; }
   .land-final .land-cta { margin-top: 1.2rem; }
 }
 @media (max-width: 520px) {
   .land-fields > div { grid-template-columns: 1fr; gap: .2rem; }
-  .land-specs { grid-template-columns: 1fr; }
-  .land-small { padding: 1.6rem 1.2rem; }
   .land-quiz { position: relative; right: auto; width: auto; margin: -2.5rem .8rem 0; }
   .land-demo { padding-bottom: 0; }
 }
@@ -1417,19 +1391,6 @@ td.rv-editing .rv-nice, td.rv-editing .rv-raw { display: none !important; }
 .check-row.invalid a { color: inherit; text-decoration: underline; }
 .check-row.invalid .check-box { border-color: var(--bad); box-shadow: 0 0 0 1px var(--bad); }
 .check-row .field-error { font-weight: 400; }
-/* "Hide all AI features" on the sign-up forms (ai_switch.html): the profile's
-   pill and info dot, but a checkbox (no_ai) underneath. The input sits
-   invisibly over the pill so a click or tap lands on it; the dot's
-   explanation shows on hover or focus. */
-.ai-row { margin: .9rem 0; font-weight: 500; }
-.ai-row .switch-ctl { position: relative; display: inline-flex; margin: 0 0 0 auto; font-weight: inherit; }
-.ai-row .switch-input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; z-index: 1; }
-.ai-row .switch .when-on, .ai-row .switch-input:checked + .switch .when-off { display: none; }
-.ai-row .switch-input:checked + .switch .when-on { display: inline; }
-.ai-row .switch-input:checked + .switch { color: var(--text); }
-.ai-row .switch-input:checked + .switch .switch-knob { background: var(--accent); }
-.ai-row .switch-input:checked + .switch .switch-knob::after { transform: translateX(.8rem); }
-.ai-row .switch-input:focus-visible + .switch { outline: 2px solid var(--gold); outline-offset: 2px; }
 .info-tip { position: relative; display: inline-flex; }
 .info-tip .tip { display: none; position: absolute; left: -.6rem; bottom: calc(100% + .5rem); width: min(20rem, calc(100vw - 2rem)); padding: .6rem .8rem; background: var(--surface); color: var(--text); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 6px 24px rgba(0, 0, 0, .18); font-size: .85rem; font-weight: 400; line-height: 1.4; z-index: 5; pointer-events: none; }
 .info-tip:hover .tip, .info-tip:focus-within .tip { display: block; }
@@ -1544,10 +1505,6 @@ details.info-tip { position: static; }
 /* Two-factor sign-in (#292): the profile's method chips and the code page. */
 .chip:has(input:disabled) { opacity: .5; cursor: not-allowed; }
 #two-factor .choice-chips { align-items: center; }
-.chip-alert { display: inline-flex; align-items: center; gap: .3rem; }
-.chip-alert .field-check.inline { margin-left: 0; }
-/* No hover tip by the chips: it would run off a phone's edge (the dialog says it all). */
-.chip-alert .field-check::after { display: none; }
 .totp-qr { width: min(14rem, 100%); margin: 0 auto .5rem; }
 .totp-qr svg { display: block; width: 100%; height: auto; border-radius: 6px; }
 /* The setup key: one row whatever the width (39 monospace characters; the font shrinks on narrow phones rather than wrapping). */
@@ -1940,12 +1897,6 @@ button.le-check.warn { background: #e8a317; color: #2e1f00; } button.le-check.ba
   .le-line input:nth-of-type(2) { grid-column: 2; }
   .le-phone { border-width: 1px; border-color: var(--line); border-radius: 12px; box-shadow: none; width: auto; min-height: 0; }
 }
-
-/* Content reports (#968): the report form's reasons, the Manage Users page's report rows. */
-.content-report-fields { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: .1rem .8rem; margin: .3rem 0; }
-.content-report-fields dd { margin: 0; overflow-wrap: anywhere; }
-.content-report-details { white-space: pre-wrap; overflow-wrap: anywhere; }
-.content-report-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .4rem; }
 
 /* Course card progress chips (#684): one per metric, quiet. The tint moves from
    the line colour to gold as the share of the course grows (--share). The chip

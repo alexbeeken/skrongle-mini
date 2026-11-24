@@ -25,7 +25,6 @@ pub const MAX_LABEL: usize = 60;
 
 /// One invitation link of a course.
 #[derive(Debug, Clone)]
-#[allow(dead_code)] // created_at is for the dialog's "made … ago" to come
 pub struct Share {
     pub id: i64,
     pub course_id: String,
@@ -33,7 +32,6 @@ pub struct Share {
     pub label: String,
     /// The account that opened the link (NULL until then).
     pub user_id: Option<i64>,
-    pub created_at: i64,
     pub opened_at: Option<i64>,
     /// Who opened it, for the owner: that account's name, or its address.
     pub opened_by: Option<String>,
@@ -61,14 +59,14 @@ pub fn hash_token(token: &str) -> String {
 fn share_row(r: &rusqlite::Row<'_>) -> rusqlite::Result<Share> {
     let user_id: Option<i64> = r.get(3)?;
     let opened_by = match user_id {
-        Some(_) => Some(owner_label(r.get(6)?, r.get(7)?, r.get(8)?)),
+        Some(_) => Some(owner_label(r.get(5)?, r.get(6)?, r.get(7)?)),
         None => None,
     };
-    Ok(Share { id: r.get(0)?, course_id: r.get(1)?, label: r.get(2)?, user_id, created_at: r.get(4)?, opened_at: r.get(5)?, opened_by })
+    Ok(Share { id: r.get(0)?, course_id: r.get(1)?, label: r.get(2)?, user_id, opened_at: r.get(4)?, opened_by })
 }
 
 /// A share with the account that opened it (`u.*` NULL until then).
-const SHARE_SELECT: &str = "SELECT s.id, s.course_id, s.label, s.user_id, s.created_at, s.opened_at,
+const SHARE_SELECT: &str = "SELECT s.id, s.course_id, s.label, s.user_id, s.opened_at,
             COALESCE(u.first_name, ''), COALESCE(u.last_name, ''), COALESCE(u.email, '')
          FROM course_shares s LEFT JOIN users u ON u.id = s.user_id";
 

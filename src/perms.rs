@@ -97,6 +97,7 @@ impl Perms {
     /// The built-in Student preset: nothing.
     pub const STUDENT: Perms = Perms(0);
     /// The built-in Teacher preset: everything but `Superuser`.
+    #[cfg(test)]
     pub const TEACHER: Perms = Perms(63);
     pub const ALL: Perms = Perms(127);
 
@@ -134,9 +135,9 @@ impl Perms {
 }
 
 /// `permission_presets.id` of the built-in Student preset.
-#[cfg_attr(not(test), allow(dead_code))] // only the tests name it so far
 pub const STUDENT_PRESET: i64 = 1;
 /// `permission_presets.id` of the built-in Teacher preset.
+#[cfg(any(test, feature = "dev"))]
 pub const TEACHER_PRESET: i64 = 2;
 
 /// A row of `permission_presets`. A built-in one is named `student` or

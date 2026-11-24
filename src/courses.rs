@@ -242,6 +242,7 @@ impl Courses {
     /// shipped courses built adds about 4 MB of RSS, too much on a Pi for
     /// a course nobody may open.
     /// `get` builds one on first use, off the worker (#32).
+    #[cfg(test)]
     pub fn load_builtin(data_dir: &Path) -> Result<Courses, ContentError> {
         Courses::load(data_dir, false)
     }
@@ -353,6 +354,7 @@ impl Courses {
     /// the calling thread: for start-up, commands and tests, never on a
     /// request (`get` builds off the worker). `None` for any other id, or
     /// when its files no longer load (they did at boot).
+    #[cfg(any(test, feature = "dev"))]
     pub fn builtin_store(&self, id: &str) -> Option<Arc<ContentStore>> {
         let dir = self.builtin_dirs.get(id)?;
         if let Some(c) = self.lock().get(id) {
@@ -502,13 +504,10 @@ impl CourseState {
 }
 
 #[derive(Debug, Clone)]
-#[allow(dead_code)] // created_at/updated_at are read by the editor page in templates to come
 pub struct CourseRow {
     pub id: String,
     pub owner_id: i64,
     pub title: String,
-    pub created_at: i64,
-    pub updated_at: i64,
     /// Last validation error, if the course does not currently load.
     pub error: Option<String>,
     pub state: CourseState,
@@ -547,19 +546,17 @@ fn course_row(r: &rusqlite::Row<'_>) -> rusqlite::Result<CourseRow> {
         id: r.get(0)?,
         owner_id: r.get(1)?,
         title: r.get(2)?,
-        created_at: r.get(3)?,
-        updated_at: r.get(4)?,
-        error: r.get(5)?,
-        state: CourseState::parse(&r.get::<_, String>(6)?),
-        source: r.get(7)?,
-        job_id: r.get(8)?,
-        brief: r.get(9)?,
-        outline: r.get(10)?,
-        error_kind: r.get(11)?,
+        error: r.get(3)?,
+        state: CourseState::parse(&r.get::<_, String>(4)?),
+        source: r.get(5)?,
+        job_id: r.get(6)?,
+        brief: r.get(7)?,
+        outline: r.get(8)?,
+        error_kind: r.get(9)?,
     })
 }
 
-const COURSE_COLS: &str = "id, owner_id, title, created_at, updated_at, error, state, source, job_id, brief, outline, error_kind";
+const COURSE_COLS: &str = "id, owner_id, title, error, state, source, job_id, brief, outline, error_kind";
 
 /// Register a course an AI job is about to write: no files yet, greyed out
 /// in the course list until the job finishes. (The app makes a draft with

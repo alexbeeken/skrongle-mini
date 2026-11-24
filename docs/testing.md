@@ -918,8 +918,7 @@ The rule:
 - Check what must be absent with an exact check: `expect(...).not.toMatch`
   or a locator count of 0. Do not ask Jev to prove a negative.
 
-`scripts/e2e-lint.sh` enforces this. It scans `e2e/specs`, `e2e/lib` and
-`e2e/journeys.ts` for a `judge(` or `judgeMany(` call whose statement starts
+`scripts/e2e-lint.sh` enforces this. It scans `e2e/specs` and `e2e/lib` for a `judge(` or `judgeMany(` call whose statement starts
 with "No", "Nothing" or "Never", or contains " not " or "n't". It prints the
 file, the line and what to use instead, and exits 1. `scripts/e2e.sh` runs it
 before the browser specs. `scripts/e2e-lint.sh --self-test` checks the rule on
@@ -1200,10 +1199,11 @@ CI runs on GitHub-hosted `ubuntu-latest` runners. The `release` and
 runners too, never the laptop's: the QEMU handlers for 32-bit ARM that a
 laptop's Docker VM may lack are installed in the job. A PR's `checks` workflow
 (`.github/workflows/smoke.yml`) is nine jobs: `cargo test` (which checks
-that a build without the `dev` feature compiles, `cargo check
---no-default-features`, lints with `cargo clippy --features dev --all-targets
--- -D warnings` (lint levels are in `Cargo.toml` under `[lints.clippy]`; a
-warning fails the job), runs `cargo test --features dev` and then
+that `static/core.js` is not stale, `scripts/bundle-core.sh --check`, and
+that a build without the `dev` feature compiles with no warning, `cargo clippy
+--no-default-features -- -D warnings`, lints with `cargo clippy --features dev
+--all-targets -- -D warnings` (lint levels are in `Cargo.toml` under
+`[lints.clippy]`; a warning fails either), runs `cargo test --features dev` and then
 `scripts/smoke.sh`), four exact-spec shards and four smoke-spec shards.
 
 - **Shards**: the e2e specs run one at a time (they share the dev user), so

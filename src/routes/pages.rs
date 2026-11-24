@@ -874,7 +874,7 @@ pub async fn history(State(state): State<Arc<AppState>>, p: Project) -> Result<R
                 lesson_slug: slug,
                 lesson_title: title,
                 prompt,
-                selected: crate::sprint::history_answer(content, &h.question_id, &h.selected_answer),
+                selected: crate::sprint::history_answer(&h.question_id, &h.selected_answer),
                 correct_answer: answer,
                 was_correct: h.was_correct,
             }

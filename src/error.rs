@@ -33,10 +33,8 @@ pub enum AppError {
     ApiAiOff,
     /// The account lacks the permission the route needs
     /// (`CurrentUser::require`, `perms.rs`, #138): a 403 page that says so.
-    #[cfg_attr(not(test), allow(dead_code))] // answered from #139 on
     NoPermission,
     /// The same on an API route: a 403 JSON body.
-    #[cfg_attr(not(test), allow(dead_code))] // answered from #139 on
     ApiNoPermission,
     /// Over a rate limit on a JSON API (`security::RateLimits`): a 429 with
     /// `{"error": "..."}`.

@@ -389,7 +389,6 @@ pub fn router(state: Arc<AppState>) -> Router {
     } else {
         app
     };
-    // A blocked address (#967) is refused before any session lookup.
     let app = app.with_state(state);
 
     let base = crate::base_path();
