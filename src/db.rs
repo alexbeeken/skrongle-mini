@@ -123,7 +123,7 @@ impl Db {
         // housekeeping runs the plain form after that.
         conn.execute_batch("PRAGMA optimize=0x10002;")?;
         #[cfg(feature = "dev")]
-        sql_trace::start(&conn);
+        sql_trace::start(&mut conn);
         Db::new(conn)
     }
 
@@ -204,12 +204,14 @@ mod sql_trace {
     /// sorts) and the SQL with its values filled in. A dev aid for checking that
     /// a page's queries stay bounded as the tables grow (docs/testing.md, "Query
     /// trace"); dev builds only, and nothing runs when the variable is unset.
-    pub fn start(conn: &Connection) {
+    pub fn start(conn: &mut Connection) {
         let Some(path) = crate::env("SQL_TRACE") else { return };
         match std::fs::OpenOptions::new().create(true).append(true).open(&path) {
             Ok(file) => {
                 if TRACE_FILE.set(Mutex::new(file)).is_ok() {
-                    conn.trace_v2(TraceEventCodes::SQLITE_TRACE_STMT | TraceEventCodes::SQLITE_TRACE_PROFILE, Some(trace_statement));
+                    if let Err(e) = conn.trace_v2(TraceEventCodes::SQLITE_TRACE_STMT | TraceEventCodes::SQLITE_TRACE_PROFILE, Some(trace_statement)) {
+                        eprintln!("SKRONGLE_SQL_TRACE={path}: {e}");
+                    }
                 }
             }
             Err(e) => eprintln!("SKRONGLE_SQL_TRACE={path}: {e}"),

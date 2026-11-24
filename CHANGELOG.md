@@ -4,6 +4,13 @@ What changed in each release, for the person running the server. Newest
 first. Each release's GitHub notes are its section here. How version
 numbers work is in the README, "Versions".
 
+## Unreleased
+
+- The libraries Skrongle is built from are up to date. That brings in
+  security fixes for the built-in SQLite, the Markdown reader and three
+  smaller libraries. Nothing you can see changes, and the database layout
+  stays the same.
+
 ## 0.5.0 (2026-11-23)
 
 A shorter sign-up for Students, and *How to Use Skrongle* comes first.

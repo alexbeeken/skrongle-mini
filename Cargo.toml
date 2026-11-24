@@ -39,7 +39,7 @@ rust-embed = { version = "8", features = ["interpolate-folder-path"] }
 flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
 
 # --- Database (SQLite statically linked, no system libsqlite needed on the Pi) ---
-rusqlite = { version = "0.40", features = ["bundled", "functions"] }
+rusqlite = { version = "0.43", features = ["bundled", "functions"] }
 
 # --- Content ---
 serde = { version = "1", features = ["derive"] }
@@ -65,8 +65,8 @@ futures-core = { version = "0.3", default-features = false }
 chacha20poly1305 = { version = "0.11", default-features = false, features = ["alloc"] }
 
 # --- Two-factor sign-in (src/totp.rs): the QR code an authenticator app scans, drawn as SVG by hand; no image crate ---
-qrcode = { version = "0.14", default-features = false }
-rusqlite_migration = "2.6.0"
+qrcode = { version = "0.15", default-features = false }
+rusqlite_migration = "2.9.0"
 
 # --- Diagnostics (`skrongle doctor`, startup checks): statvfs, access, geteuid.
 # Already in the tree through tokio and getrandom; no new code is pulled in.
