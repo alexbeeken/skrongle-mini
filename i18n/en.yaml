@@ -7,6 +7,11 @@ meta:
   name: English
 
 nav:
+  today: "Today"
+  study: "Study"
+  review: "Review"
+  play: "Play"
+  tutor: "Tutor"
   skip_to_content: "Skip to content"
   courses: Courses
   switch_course: Switch course
@@ -3098,3 +3103,43 @@ oauth:
   no_permission:
     title: "This account can't connect apps"
     text: "Connecting an app needs the Create courses permission. Ask the owner of this server for it."
+# The learner path: the course home's list of what to do next (src/path.rs, #318).
+path:
+  todays_goal: "Today's goal"
+  points: "{n} of {goal} points"
+  all_done: "Every lesson is passed and nothing is due today."
+  list_label: "What to do next"
+  up_next: "Up next"
+  then: "Then"
+  done_today: "Done today"
+  progress: "Progress"
+  start: "Start"
+  whole_course: "Whole course"
+  back_home: "Back to {course}"
+  hidden: "Hidden ({n})"
+  hide: "Hide"
+  hide_label: "Hide {kind}: {title}"
+  bring_back: "Bring back"
+  bring_back_label: "Bring back {kind}: {title}"
+  empty: "Nothing is due. Come back tomorrow."
+  kind:
+    study: "Study"
+    review: "Review"
+    play: "Play"
+  steps:
+    one: "{n} step"
+    other: "{n} steps"
+  step_of: "Step {n} of {total}"
+  clean_reviews: "Clean reviews: {n} of {total}"
+  mastered_check:
+    one: "Mastered. A check after {n} day"
+    other: "Mastered. A check after {n} days"
+  back_in:
+    one: "Back in {n} day"
+    other: "Back in {n} days"
+  points_today: "{n} of {goal} points today"
+  goal_met: "Today's goal is met"
+  day_streak:
+    one: "{n} day streak"
+    other: "{n} day streak"
+  unit_passed: "{passed} of {total} lessons passed"

@@ -5,6 +5,11 @@ meta:
   name: Deutsch
 
 nav:
+  today: "Heute"
+  study: "Lernen"
+  review: "Wiederholen"
+  play: "Spielen"
+  tutor: "Tutor"
   skip_to_content: "Zum Inhalt springen"
   courses: Kurse
   switch_course: Kurs wechseln
@@ -3095,3 +3100,43 @@ oauth:
   no_permission:
     title: "Dieses Konto kann keine Apps verbinden"
     text: "Zum Verbinden einer App braucht es die Berechtigung Kurse erstellen. Bitte den Betreiber dieses Servers darum."
+# The learner path: the course home's list of what to do next (src/path.rs, #318).
+path:
+  todays_goal: "Tagesziel"
+  points: "{n} von {goal} Punkten"
+  all_done: "Jede Lektion ist bestanden und heute ist nichts fällig."
+  list_label: "Was als Nächstes kommt"
+  up_next: "Als Nächstes"
+  then: "Danach"
+  done_today: "Heute erledigt"
+  progress: "Fortschritt"
+  start: "Starten"
+  whole_course: "Ganzer Kurs"
+  back_home: "Zurück zu {course}"
+  hidden: "Ausgeblendet ({n})"
+  hide: "Ausblenden"
+  hide_label: "{kind} ausblenden: {title}"
+  bring_back: "Zurückholen"
+  bring_back_label: "{kind} zurückholen: {title}"
+  empty: "Gerade ist nichts fällig. Komm morgen wieder."
+  kind:
+    study: "Lernen"
+    review: "Wiederholen"
+    play: "Spielen"
+  steps:
+    one: "{n} Schritt"
+    other: "{n} Schritte"
+  step_of: "Schritt {n} von {total}"
+  clean_reviews: "Fehlerfreie Wiederholungen: {n} von {total}"
+  mastered_check:
+    one: "Gemeistert. Eine Prüfung in {n} Tag"
+    other: "Gemeistert. Eine Prüfung in {n} Tagen"
+  back_in:
+    one: "Wieder in {n} Tag"
+    other: "Wieder in {n} Tagen"
+  points_today: "{n} von {goal} Punkten heute"
+  goal_met: "Tagesziel erreicht"
+  day_streak:
+    one: "{n} Tag in Folge"
+    other: "{n} Tage in Folge"
+  unit_passed: "{passed} von {total} Lektionen bestanden"

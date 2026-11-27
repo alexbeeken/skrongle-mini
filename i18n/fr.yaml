@@ -5,6 +5,11 @@ meta:
   name: Français
 
 nav:
+  today: "Aujourd'hui"
+  study: "Étudier"
+  review: "Réviser"
+  play: "Jouer"
+  tutor: "Tuteur"
   skip_to_content: "Aller au contenu"
   courses: Cours
   switch_course: Changer de cours
@@ -3095,3 +3100,43 @@ oauth:
   no_permission:
     title: "Ce compte ne peut pas connecter d'apps"
     text: "Connecter une app nécessite la permission Créer des cours. Demande-la au propriétaire de ce serveur."
+# The learner path: the course home's list of what to do next (src/path.rs, #318).
+path:
+  todays_goal: "Objectif du jour"
+  points: "{n} sur {goal} points"
+  all_done: "Toutes les leçons sont réussies et rien n'est à faire aujourd'hui."
+  list_label: "Quoi faire maintenant"
+  up_next: "À suivre"
+  then: "Ensuite"
+  done_today: "Fait aujourd'hui"
+  progress: "Progrès"
+  start: "Commencer"
+  whole_course: "Tout le cours"
+  back_home: "Retour à {course}"
+  hidden: "Masquées ({n})"
+  hide: "Masquer"
+  hide_label: "Masquer {kind} : {title}"
+  bring_back: "Remettre"
+  bring_back_label: "Remettre {kind} : {title}"
+  empty: "Rien à faire pour l'instant. Revenez demain."
+  kind:
+    study: "Étudier"
+    review: "Réviser"
+    play: "Jouer"
+  steps:
+    one: "{n} étape"
+    other: "{n} étapes"
+  step_of: "Étape {n} sur {total}"
+  clean_reviews: "Révisions sans faute : {n} sur {total}"
+  mastered_check:
+    one: "Maîtrisée. Une vérification dans {n} jour"
+    other: "Maîtrisée. Une vérification dans {n} jours"
+  back_in:
+    one: "De retour dans {n} jour"
+    other: "De retour dans {n} jours"
+  points_today: "{n} sur {goal} points aujourd'hui"
+  goal_met: "Objectif du jour atteint"
+  day_streak:
+    one: "{n} jour de suite"
+    other: "{n} jours de suite"
+  unit_passed: "{passed} sur {total} leçons réussies"

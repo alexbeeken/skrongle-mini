@@ -332,8 +332,11 @@ pub async fn finish(
         .db
         .call(move |c| {
             // Word Match on one lesson's terms is a run of that lesson (Play mode):
-            // every pair is an answer, every wrong try a miss.
+            // every pair is an answer, every wrong try a miss. It is also one Play
+            // on the learner path.
             if let Some(l) = course.lesson_by_id(&board) {
+                let pct = crate::progress::pct(pairs, pairs + wrong);
+                crate::path::record(c, uid, &cid, &l.id, crate::path::Kind::Play, pct, crate::db::now())?;
                 crate::progress::record_run(c, uid, &cid, l, crate::progress::VIA_PLAY, pairs, pairs + wrong)?;
                 crate::activity::touch(c, uid, &cid, &l.id, crate::activity::Mode::Play)?;
             }

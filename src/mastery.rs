@@ -411,16 +411,6 @@ pub fn recent_mistakes(conn: &Connection, user_id: i64, course_id: &str, limit: 
     rows.collect()
 }
 
-/// (answered, correct) counts since `since`.
-pub fn stats_since(conn: &Connection, user_id: i64, course_id: &str, since: i64) -> rusqlite::Result<(i64, i64)> {
-    conn.query_row_cached(
-        "SELECT COUNT(*), COALESCE(SUM(was_correct), 0) FROM quiz_history
-         WHERE user_id = ?1 AND course_id = ?2 AND answered_at >= ?3",
-        params![user_id, course_id, since],
-        |r| Ok((r.get(0)?, r.get(1)?)),
-    )
-}
-
 /// Lessons with any progress and how many are mastered, per course the user
 /// has touched: course_id -> (lessons tested, lessons mastered).
 pub fn summary_by_course(conn: &Connection, user_id: i64, at: i64) -> rusqlite::Result<HashMap<String, (usize, usize)>> {
@@ -527,7 +517,6 @@ mod tests {
             assert_eq!(hist.len(), 2);
             assert_eq!(hist[0].question_id, "q2");
             assert_eq!(recently_correct(c, uid, "spanish", 3600)?, vec!["q1".to_string()]);
-            assert_eq!(stats_since(c, uid, "spanish", 0)?, (2, 1));
             let summary = summary_by_course(c, uid, now())?;
             assert_eq!(summary["spanish"], (1, 0));
             assert_eq!(summary["other"], (1, 0));

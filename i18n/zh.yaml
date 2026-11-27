@@ -5,6 +5,11 @@ meta:
   name: 简体中文
 
 nav:
+  today: "今天"
+  study: "学习"
+  review: "复习"
+  play: "游戏"
+  tutor: "导师"
   skip_to_content: "跳到主要内容"
   courses: 课程
   switch_course: 切换课程
@@ -3095,3 +3100,43 @@ oauth:
   no_permission:
     title: "此账户无法连接应用"
     text: "连接应用需要“创建课程”权限。请向此服务器的所有者申请。"
+# The learner path: the course home's list of what to do next (src/path.rs, #318).
+path:
+  todays_goal: "今日目标"
+  points: "{n} / {goal} 分"
+  all_done: "所有课程都已通过，今天没有到期的内容。"
+  list_label: "接下来做什么"
+  up_next: "下一项"
+  then: "之后"
+  done_today: "今天完成"
+  progress: "进度"
+  start: "开始"
+  whole_course: "整个课程"
+  back_home: "返回{course}"
+  hidden: "已隐藏（{n}）"
+  hide: "隐藏"
+  hide_label: "隐藏{kind}：{title}"
+  bring_back: "恢复"
+  bring_back_label: "恢复{kind}：{title}"
+  empty: "现在没有要做的。明天再来。"
+  kind:
+    study: "学习"
+    review: "复习"
+    play: "游戏"
+  steps:
+    one: "{n} 步"
+    other: "{n} 步"
+  step_of: "第 {n} 步，共 {total} 步"
+  clean_reviews: "全对复习：{n} / {total}"
+  mastered_check:
+    one: "已掌握。{n} 天后检查"
+    other: "已掌握。{n} 天后检查"
+  back_in:
+    one: "{n} 天后回来"
+    other: "{n} 天后回来"
+  points_today: "今天 {n} / {goal} 分"
+  goal_met: "今天的目标已达成"
+  day_streak:
+    one: "连续 {n} 天"
+    other: "连续 {n} 天"
+  unit_passed: "已通过 {passed} / {total} 课"

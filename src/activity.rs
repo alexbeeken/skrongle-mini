@@ -269,9 +269,6 @@ pub fn last_touched(conn: &Connection, user_id: i64, course_id: &str) -> rusqlit
 #[derive(Debug, Clone)]
 pub struct Resume<'a> {
     pub lesson: &'a Lesson,
-    /// The mode the learner last worked in (Study mode before anything):
-    /// "Continue" opens the lesson there.
-    pub mode: Mode,
 }
 
 /// The lesson every mode resumes at: the one last worked on, in any mode,
@@ -292,14 +289,13 @@ pub fn resume<'a>(
     };
     let last = touched
         .iter()
-        .filter_map(|(id, (at, mode))| Some((lessons.iter().position(|l| &l.id == id)?, *at, *mode)))
-        .max_by_key(|(pos, at, _)| (*at, *pos));
-    let mode = last.map_or(Mode::Study, |(_, _, m)| m);
+        .filter_map(|(id, (at, _))| Some((lessons.iter().position(|l| &l.id == id)?, *at)))
+        .max_by_key(|(pos, at)| (*at, *pos));
     let from = match last {
-        Some((pos, _, _)) => {
+        Some((pos, _)) => {
             let lesson = lessons.get(pos)?;
             if open(lesson) {
-                return Some(Resume { lesson, mode });
+                return Some(Resume { lesson });
             }
             pos + 1
         }
@@ -307,7 +303,7 @@ pub fn resume<'a>(
     };
     let after = lessons.get(from..).unwrap_or_default().iter();
     let before = lessons.get(..from).unwrap_or_default().iter();
-    after.chain(before).find(|l| open(l)).map(|lesson| Resume { lesson, mode })
+    after.chain(before).find(|l| open(l)).map(|lesson| Resume { lesson })
 }
 
 #[cfg(test)]
@@ -378,13 +374,13 @@ mod tests {
         touched.insert(a.id.clone(), (10, Mode::Study));
         touched.insert(c.id.clone(), (20, Mode::Sprint));
         let r = resume(&content, &passes, &touched, 0).unwrap();
-        assert_eq!((r.lesson.id.as_str(), r.mode), (c.id.as_str(), Mode::Sprint));
+        assert_eq!(r.lesson.id.as_str(), c.id.as_str());
 
         // Passed: the next lesson after it that is not, still in Sprint mode.
         let passed = |id: &str| LessonPass { lesson_id: id.into(), seen_at: Some(1), passed_at: Some(2), ..Default::default() };
         passes.insert(c.id.clone(), passed(&c.id));
         let r = resume(&content, &passes, &touched, 0).unwrap();
-        assert_eq!((r.lesson.id.as_str(), r.mode), (lessons[6].id.as_str(), Mode::Sprint));
+        assert_eq!(r.lesson.id.as_str(), lessons[6].id.as_str());
 
         // Every lesson after it passed: back to the first one that is not.
         for l in &lessons[5..] {
@@ -409,7 +405,7 @@ mod tests {
         let first = &content.lessons()[0];
         let touched = HashMap::from([(first.id.clone(), (5, Mode::Guide))]);
         let r = resume(&content, &none, &touched, 1).unwrap();
-        assert_eq!((r.lesson.id.as_str(), r.mode), (first.id.as_str(), Mode::Guide));
+        assert_eq!(r.lesson.id.as_str(), first.id.as_str());
     }
 
     #[test]
@@ -425,7 +421,7 @@ mod tests {
             let t = last_touched(c, uid, "es")?;
             assert_eq!(t.get("l0"), Some(&(far + 1, Mode::Guide)));
             let r = resume(&content, &HashMap::new(), &t, 0).unwrap();
-            assert_eq!((r.lesson.id.as_str(), r.mode), ("l0", Mode::Guide));
+            assert_eq!(r.lesson.id.as_str(), "l0");
             Ok(())
         })
         .unwrap();

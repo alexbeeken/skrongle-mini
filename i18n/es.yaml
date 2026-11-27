@@ -5,6 +5,11 @@ meta:
   name: Español
 
 nav:
+  today: "Hoy"
+  study: "Estudiar"
+  review: "Repasar"
+  play: "Jugar"
+  tutor: "Tutor"
   skip_to_content: "Saltar al contenido"
   courses: Cursos
   switch_course: Cambiar de curso
@@ -3096,3 +3101,43 @@ oauth:
   no_permission:
     title: "Esta cuenta no puede conectar apps"
     text: "Conectar una app requiere el permiso Crear cursos. Pídeselo al propietario de este servidor."
+# The learner path: the course home's list of what to do next (src/path.rs, #318).
+path:
+  todays_goal: "Meta de hoy"
+  points: "{n} de {goal} puntos"
+  all_done: "Todas las lecciones están aprobadas y hoy no toca nada."
+  list_label: "Qué hacer ahora"
+  up_next: "Lo siguiente"
+  then: "Después"
+  done_today: "Hecho hoy"
+  progress: "Progreso"
+  start: "Empezar"
+  whole_course: "Todo el curso"
+  back_home: "Volver a {course}"
+  hidden: "Ocultas ({n})"
+  hide: "Ocultar"
+  hide_label: "Ocultar {kind}: {title}"
+  bring_back: "Recuperar"
+  bring_back_label: "Recuperar {kind}: {title}"
+  empty: "No hay nada pendiente. Vuelve mañana."
+  kind:
+    study: "Estudiar"
+    review: "Repasar"
+    play: "Jugar"
+  steps:
+    one: "{n} paso"
+    other: "{n} pasos"
+  step_of: "Paso {n} de {total}"
+  clean_reviews: "Repasos limpios: {n} de {total}"
+  mastered_check:
+    one: "Dominada. Un repaso dentro de {n} día"
+    other: "Dominada. Un repaso dentro de {n} días"
+  back_in:
+    one: "Vuelve en {n} día"
+    other: "Vuelve en {n} días"
+  points_today: "{n} de {goal} puntos hoy"
+  goal_met: "Meta de hoy cumplida"
+  day_streak:
+    one: "Racha de {n} día"
+    other: "Racha de {n} días"
+  unit_passed: "{passed} de {total} lecciones aprobadas"

@@ -157,7 +157,7 @@ pub fn reward_html(line: Option<RewardLine>) -> Option<String> {
     line.and_then(|l| l.html())
 }
 
-/// What a motivator shows at the top of the course home page.
+/// What a motivator shows in the Progress panel of the course home page.
 pub trait Hero: Send {
     fn render(&self, course: &CourseView, progress: &Progress) -> askama::Result<String>;
 }
@@ -170,9 +170,6 @@ pub struct Progress {
     pub today: Today,
     pub practised_today: bool,
     pub streak: i64,
-    /// The lesson every mode resumes at: (slug, title, the URL that opens it
-    /// in the mode last used). None once every lesson is passed.
-    pub resume: Option<(String, String, String)>,
     /// The daily goal's (i): what earns how many points.
     pub effort_table: Vec<(String, String)>,
     /// Lessons passed in any mode, and lessons of the course less the skipped ones.

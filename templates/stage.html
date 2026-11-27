@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}{{ crate::t2("guide.play.title", "n", number, "title", lesson.title.as_str()) }}{% endblock %}
-{% block modenav %}{% let active = "stages" %}{% include "nav_play.html" %}{% endblock %}
+{% block modenav %}{% let active = "stages" %}{% include "nav_study.html" %}{% endblock %}
 {% block content %}
 <section class="stage-play" id="stage" data-testid="stage" data-lesson-id="{{ lesson.slug }}" data-lesson="{{ lesson.id }}" data-slug="{{ lesson.slug }}"
          data-start="{{ start_step }}" data-total="{{ steps.len() }}" data-praise="{{ course.praise_line() }}" data-lang="{{ course.term_lang }}">

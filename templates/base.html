@@ -18,11 +18,20 @@
 <header class="topbar">
   <nav class="container">
     <a class="brand" data-testid="nav-home" href="{{ crate::url("/") }}"><img class="brand-mark" src="{{ crate::routes::asset_url("logo-mark.png") }}" width="22" height="22" alt="">{{ crate::APP_NAME }}</a>
-    <ul>
+    {% if let Some(u) = user %}{% if let Some(ct) = u.course_title %}
+    <a class="course-switch" data-testid="nav-course-switch" data-course-id="{% if let Some(cid) = u.course_id %}{{ cid }}{% endif %}" href="{{ crate::base_path() }}/courses" aria-label="{{ crate::t1("nav.switch_course_now", "course", ct) }}" title="{{ crate::t1("nav.switch_course_now", "course", ct) }}"><strong>{{ ct }}</strong><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a>
+    {# The four places of a course (#318): a row in the bar, a bar at the bottom of a phone. The script below marks the one you are in. #}
+    <ul class="topnav" data-testid="nav-main">
+      <li><a href="{{ crate::url("/") }}" data-testid="nav-today" data-nav="today"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg>{{ crate::t("nav.today") }}</a></li>
+      <li><a href="{{ crate::base_path() }}/guide" data-testid="nav-study" data-nav="study"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V5a1 1 0 0 1 1-1h12v14H7a2 2 0 0 0 0 4h11"/></svg>{{ crate::t("nav.study") }}</a></li>
+      <li><a href="{{ crate::base_path() }}/sprint" data-testid="nav-review" data-nav="review"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15"/><path d="M4 20v-5h5"/></svg>{{ crate::t("nav.review") }}</a></li>
+      <li><a href="{{ crate::base_path() }}/play" data-testid="nav-play-link" data-nav="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg>{{ crate::t("nav.play") }}</a></li>
+      {% if u.ai_tutor() %}<li><a href="{{ crate::base_path() }}/tutor" data-testid="nav-tutor" data-nav="tutor"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v10H10l-5 4z"/></svg>{{ crate::t("nav.tutor") }}</a></li>{% endif %}
+    </ul>
+    {% endif %}{% endif %}
+    <ul class="topbar-end">
     {% if let Some(u) = user %}
-      {% if let Some(ct) = u.course_title %}
-      <li><a class="course-switch" data-testid="nav-course-switch" data-course-id="{% if let Some(cid) = u.course_id %}{{ cid }}{% endif %}" href="{{ crate::base_path() }}/courses" aria-label="{{ crate::t1("nav.switch_course_now", "course", ct) }}" title="{{ crate::t1("nav.switch_course_now", "course", ct) }}"><strong>{{ ct }}</strong></a></li>
-      {% else %}
+      {% if u.course_title.is_none() %}
       <li><a href="{{ crate::base_path() }}/courses" data-testid="nav-courses">{{ crate::t("nav.courses") }}</a></li>
       {% endif %}
       <li class="account">
@@ -69,6 +78,14 @@
   document.querySelectorAll('a[href]:not([aria-current])').forEach(function (a) {
     if (a.origin === location.origin && !a.hash && a.pathname.replace(/\/$/, '') + a.search === here) a.setAttribute('aria-current', 'page');
   });
+})();
+// The top bar's place (#318): a page under a mode bar is in that bar's place;
+// the tutor's pages are the tutor's.
+(function () {
+  var bar = document.querySelector('.modebar');
+  var place = bar ? (bar.classList.contains('play') ? 'play' : 'study') : (/\/tutor(\/|$)/.test(location.pathname) ? 'tutor' : '');
+  var a = place && document.querySelector('.topnav a[data-nav="' + place + '"]');
+  if (a && !a.hasAttribute('aria-current')) a.setAttribute('aria-current', 'true');
 })();
 (function () {
   var m = document.getElementById('account-menu');

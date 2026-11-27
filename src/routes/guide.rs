@@ -445,9 +445,14 @@ pub async fn complete_step(
             if r.counted && !is_question {
                 activity::record(c, uid, &cid, activity::Kind::Card, 1, tz)?;
             }
-            // A finished stage taught the lesson (its cards) and is one run of it.
+            // A finished stage taught the lesson (its cards) and is one run of it,
+            // and one Study on the learner path, scored by its quick checks.
             let pass = match (r.finished, lesson_arc.lesson_by_id(&lesson_id)) {
-                (true, Some(l)) => Some(progress::record_taught_run(c, uid, &cid, l, progress::VIA_PLAY, r.progress.run_correct, r.progress.run_answered)?),
+                (true, Some(l)) => {
+                    let (right, answered) = (r.progress.run_correct, r.progress.run_answered);
+                    crate::path::record(c, uid, &cid, &l.id, crate::path::Kind::Study, progress::pct(right, answered), crate::db::now())?;
+                    Some(progress::record_taught_run(c, uid, &cid, l, progress::VIA_PLAY, right, answered)?)
+                }
                 _ => None,
             };
             Ok((r, pass))

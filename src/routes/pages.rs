@@ -1,4 +1,4 @@
-//! Home menu, Study mode overview (dashboard), lesson list, lesson viewer, history.
+//! The landing page, lesson list, lesson viewer, history and mistakes (the course home is `home.rs`).
 //! All inside the active course.
 
 use askama::Template;
@@ -10,14 +10,13 @@ use std::sync::Arc;
 
 use super::quiz::QuestionView;
 use super::{time_ago, CourseView, Page};
-use crate::activity::{self, Today};
 use crate::auth::{CurrentUser, MaybeUser, Project};
 use crate::content::{ContentStore, Lesson};
 use crate::db::now;
 use crate::error::AppError;
 use crate::mastery::{self, Progress, Status};
 use crate::progress::{self, LessonPass};
-use crate::quiz::{check_questions, current_unit, Rng};
+use crate::quiz::{check_questions, Rng};
 use crate::AppState;
 
 // ---------- view models ----------
@@ -118,46 +117,7 @@ pub async fn root(
     }
     let (mut parts, _) = req.into_parts();
     let p = <Project as axum::extract::FromRequestParts<Arc<AppState>>>::from_request_parts(&mut parts, &state).await?;
-    home(State(state), p, headers).await
-}
-
-/// The course home: today's goal as a ring with the streak, lessons passed,
-/// terms collected and "Continue" where the learner left off (#558), the
-/// unit they are in, then the four modes (Sprint, Study, Play, Guide) and AI
-/// tutoring, with one stat each and their submenus.
-#[derive(Template)]
-#[template(path = "home.html")]
-pub struct HomeTemplate {
-    pub user: Option<CurrentUser>,
-    pub course: std::sync::Arc<CourseView>,
-    /// The top of the page, drawn by the motivator worn (`motivators.rs`).
-    pub hero: String,
-    /// The shared measures the motivator decorated; the mode cards read some too.
-    pub progress: crate::motivators::Progress,
-    pub weak_count: usize,
-    pub week_answered: i64,
-    pub games_week: i64,
-    /// Label of the AI provider whose key is on file, if any (the tutor uses it).
-    pub tutor_provider: Option<String>,
-    /// The tutor has nothing to run on: no usable key of their own. The card shows a red ! and "Start a conversation"
-    /// opens the tutor's "add an API key" page in a modal instead (#283).
-    pub tutor_blocked: bool,
-    /// Guide stages complete, of the stages not skipped.
-    pub guide_completed: usize,
-    pub guide_total: usize,
-    /// The stage "Continue the guide" opens (none when every stage is done),
-    /// and whether any stage has been begun (Start vs Continue).
-    pub guide_next: Option<(String, String)>,
-    pub guide_begun: bool,
-    /// The course's first visit (#574): its settings as a wizard over the
-    /// page, until the learner gets started or closes it.
-    pub settings: Option<super::courses::CourseSettings>,
-    /// The "Words due" card (#1360): how many words are due today and the
-    /// first three of them. No card when nothing is due.
-    pub due_count: i64,
-    pub due_words: Vec<String>,
-    /// How many the card's button reviews: `vocab::DUE_CAP` at most.
-    pub due_round: i64,
+    super::home::home(State(state), p, headers).await
 }
 
 pub struct GameRow {
@@ -506,112 +466,6 @@ pub async fn load_progress(state: &AppState, user_id: i64, course_id: &str) -> R
 pub async fn load_passes(state: &AppState, user_id: i64, course_id: &str) -> Result<HashMap<String, LessonPass>, AppError> {
     let cid = course_id.to_string();
     state.db.call(move |c| progress::load_all(c, user_id, &cid)).await
-}
-
-pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: HeaderMap) -> Result<Response, AppError> {
-    let at = now();
-    let content = &p.course;
-    let uid = p.user.id;
-    let cid = content.id().to_string();
-    let tz = super::sprint::tz_offset_secs(&headers);
-    let day_start = crate::sprint::local_day_start(tz, at);
-    let vault = state.vault.clone();
-    let ai_tutor = p.user.ai_tutor();
-    let store = p.course.clone();
-    let (progress, (streak, practised_today), today, week, words_learned, games_week, tutor_provider, stage_progress, passes, touched, hero, project) = state
-        .db
-        .call(move |c| {
-            let hero = crate::motivators::worn(c, uid, &cid)?.load(c, uid, &store, tz)?;
-            let project = crate::courses::project(c, uid, &cid)?;
-            let progress = mastery::load_progress(c, uid, &cid)?;
-            let streak = crate::sprint::day_streak(c, uid, &cid, tz, at)?;
-            let today = Today::load(c, uid, &cid, day_start)?;
-            let (week, _) = mastery::stats_since(c, uid, &cid, at - 7 * 86_400)?;
-            let words = crate::vocab::count(c, uid, &cid)?;
-            let games = crate::games::activity_stats(c, uid, &cid, at - 7 * 86_400)?;
-            // The AI tutoring card is not drawn while the owner hides the AI
-            // features, nor for an account without "Use the AI tutor" (#145).
-            let tutor = if ai_tutor {
-                crate::secrets::usable(c, &vault)?.into_iter().next().map(|p| p.label().to_string())
-            } else {
-                None
-            };
-            let stages = crate::guide::load_all(c, uid, &cid)?;
-            let passes = progress::load_all(c, uid, &cid)?;
-            let touched = activity::last_touched(c, uid, &cid)?;
-            Ok((progress, streak, today, week, words, games.games, tutor, stages, passes, touched, hero, project))
-        })
-        .await?;
-    let resume = activity::resume(content, &passes, &touched, p.start);
-    let mut weak_count = 0;
-    let mut skipped_count = 0;
-    // The unit shown is the one of the lesson to resume at; with every lesson
-    // passed, the one mastery says the learner is working on.
-    let current = resume.as_ref().map_or_else(|| current_unit(content, &progress, p.start, at), |r| r.lesson.unit_index);
-    let (mut unit_passed, mut unit_total, mut passed_count) = (0, 0, 0);
-    for lesson in content.lessons() {
-        let status = Status::of_lesson(progress.get(&lesson.id), at, lesson, p.start);
-        match status {
-            Status::NeedsPractice => weak_count += 1,
-            Status::Skipped => skipped_count += 1,
-            _ => {}
-        }
-        let passed = passes.get(&lesson.id).is_some_and(LessonPass::passed);
-        passed_count += usize::from(passed);
-        if lesson.unit_index == current && !matches!(status, Status::Skipped) {
-            unit_total += 1;
-            unit_passed += usize::from(passed);
-        }
-    }
-    let stages = super::guide::stages(content, &stage_progress, &passes, &touched, p.start);
-    let guide_total = stages.iter().filter(|(_, s)| *s != super::guide::StageState::Skipped).count();
-    let guide_completed = stages.iter().filter(|(_, s)| *s == super::guide::StageState::Complete).count();
-    let guide_next = stages.iter().find(|(c, _)| c.is_current).map(|(c, _)| (c.slug.clone(), c.title.clone()));
-    let tutor_blocked = ai_tutor && tutor_provider.is_none();
-    let measures = crate::motivators::Progress {
-        today,
-        practised_today,
-        streak,
-        resume: resume.map(|r| (r.lesson.slug.clone(), r.lesson.title.clone(), r.mode.continue_url(&r.lesson.slug))),
-        effort_table: activity::table(),
-        passed_count,
-        total_lessons: content.lessons().len() - skipped_count,
-        skipped_count,
-        words_learned,
-        current_unit: content.unit(current).title.clone(),
-        unit_number: current + 1,
-        unit_count: content.units().len(),
-        unit_passed,
-        unit_total,
-        unit_percent: (unit_passed * 100).checked_div(unit_total).unwrap_or(0),
-    };
-    let (due_count, due) = super::vocab::due_cards(&state, &p, 3).await?;
-    let course = content.view();
-    let settings = project.filter(|pr| !pr.set_up).map(|pr| {
-        let mut st = super::courses::settings_view(&pr, content, true);
-        st.for_account(&p.user);
-        st
-    });
-    Ok(Page(HomeTemplate {
-        settings,
-        hero: hero.render(&course, &measures)?,
-        course,
-        user: Some(p.user),
-        progress: measures,
-        weak_count,
-        week_answered: week,
-        games_week,
-        tutor_provider,
-        tutor_blocked,
-        guide_completed,
-        guide_total,
-        guide_begun: guide_completed > 0 || !stage_progress.is_empty(),
-        guide_next,
-        due_count,
-        due_round: due_count.min(crate::vocab::DUE_CAP as i64),
-        due_words: due.into_iter().map(|c| c.term).collect(),
-    })
-    .into_response())
 }
 
 /// Lessons a page of /lessons lists (#837).

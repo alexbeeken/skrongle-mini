@@ -457,9 +457,15 @@ pub async fn finish(
                 Some(id) => Some(guide::record_run(c, uid, &cid, id, correct, answered)?),
                 None => None,
             };
-            // A lesson session opens with the lesson's bites (seen) and is one run of it.
+            // A lesson session opens with the lesson's bites (seen) and is one run of
+            // it, and, with something answered, one Review on the learner path.
             let pass = match lesson_id.as_deref().and_then(|id| course.lesson_by_id(id)) {
-                Some(l) => Some(progress::record_taught_run(c, uid, &cid, l, progress::VIA_SPRINT, correct, answered)?),
+                Some(l) => {
+                    if answered > 0 {
+                        crate::path::record(c, uid, &cid, &l.id, crate::path::Kind::Review, progress::pct(correct, answered), at)?;
+                    }
+                    Some(progress::record_taught_run(c, uid, &cid, l, progress::VIA_SPRINT, correct, answered)?)
+                }
                 None => None,
             };
             games::record_activity(c, uid, &cid, sprint::GAME, &board, &label, duration, answered, correct, None)?;

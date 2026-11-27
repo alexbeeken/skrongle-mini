@@ -26,9 +26,11 @@ pub mod sprint;
 pub mod docs;
 pub mod games;
 pub mod guide;
+pub mod home;
 pub mod listening;
 pub mod map;
 pub mod pages;
+pub mod path;
 pub mod profile;
 pub mod progress;
 pub mod quiz;
@@ -207,6 +209,8 @@ pub fn router(state: Arc<AppState>) -> Router {
     let mut app = Router::new()
         // pages (all inside the active course)
         .route("/", get(pages::root))
+        .route("/path/hide", post(path::hide))
+        .route("/path/unhide", post(path::unhide))
         // Study mode (short study lessons with quizzes): overview, lessons, practice, map, vocabulary, history
         // Study mode opens at its lessons; the overview it had is gone.
         .route("/study", get(|q: RawQuery| moved("/lessons", q)))
