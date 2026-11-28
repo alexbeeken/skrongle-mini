@@ -140,7 +140,7 @@ page owner / 'nav-account-toggle'
 page owner /lessons 'href="/lessons/'
 LESSON=$(grep -o 'href="/lessons/[a-z0-9-]*"' "$WORK/body" | head -1 | sed 's/href="//; s/"$//')
 [ -n "$LESSON" ] && page owner "$LESSON"
-for p in /practice /sprint /map /profile /manage /docs /docs/self-hosting /docs/getting-started; do page owner "$p"; done
+for p in /practice /review /study /map /profile /manage /docs /docs/self-hosting /docs/getting-started; do page owner "$p"; done
 page owner /healthz
 
 echo "==> an invitation and a learner"

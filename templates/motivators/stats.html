@@ -12,10 +12,10 @@
   <div class="hp-bar" role="progressbar" aria-label="{{ crate::t1("home.unit_bar_label", "unit", p.current_unit) }}" aria-valuemin="0" aria-valuemax="{{ p.unit_total }}" aria-valuenow="{{ p.unit_passed }}"><i style="width:{{ p.unit_percent }}%"></i></div>
 </div>
 <ul class="hp-nums" data-testid="home-stats">
-  <li class="{% if practised_today %}lit{% endif %}" data-testid="home-stat-streak" data-streak="{{ streak }}"><b>{{ course.icons.streak }} {{ streak }}</b><span>{{ crate::t("home.day_streak") }}</span></li>
-  <li data-testid="home-stat-passed"><b>{{ p.passed_count }}<span class="muted"> / {{ p.total_lessons }}</span></b><span>{{ crate::t("home.lessons_passed") }}</span></li>
-  <li><a href="{{ crate::base_path() }}/vocabulary" data-testid="home-stat-words"><b>{{ p.words_learned }}</b><span>{{ crate::t("home.terms") }}</span></a></li>
-  {% if p.skipped_count > 0 %}<li><a href="{{ crate::base_path() }}/lessons" data-testid="home-skipped"><b>{{ p.skipped_count }}</b><span>{{ crate::t("home.skipped") }}</span></a></li>{% endif %}
+  <li class="{% if practised_today %}lit{% endif %}" data-testid="home-stat-streak" data-streak="{{ streak }}"><b>{{ course.icons.streak }} {{ streak }}</b> <span>{{ crate::t("home.day_streak") }}</span></li>
+  <li data-testid="home-stat-passed"><b>{{ p.passed_count }}<span class="muted"> / {{ p.total_lessons }}</span></b> <span>{{ crate::t("home.lessons_passed") }}</span></li>
+  <li><a href="{{ crate::base_path() }}/vocabulary" data-testid="home-stat-words"><b>{{ p.words_learned }}</b> <span>{{ crate::t("home.terms") }}</span></a></li>
+  {% if p.skipped_count > 0 %}<li><a href="{{ crate::base_path() }}/lessons" data-testid="home-skipped"><b>{{ p.skipped_count }}</b> <span>{{ crate::t("home.skipped") }}</span></a></li>{% endif %}
 </ul>
 
 <dialog class="modal" id="home-info-goal" aria-labelledby="home-info-goal-title" data-testid="home-info-goal-dialog">
