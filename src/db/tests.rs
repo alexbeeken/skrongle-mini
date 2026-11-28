@@ -70,7 +70,7 @@ fn migrations_apply_once() {
     let db = Db::open_in_memory().unwrap();
     let v: i64 = db.with(|c| c.query_row("PRAGMA user_version", [], |r| r.get(0))).unwrap();
     assert_eq!(v, schema_version());
-    assert_eq!(v, 9, "v1 is the schema (#49), v2 drops Skrongle Cash, v3 names share links, v4 adds permissions (#138), v5 adds courses.error_kind, v6 adds connected apps (#167), v7 adds OAuth clients and codes (#169), v8 adds api_tokens.used_at (#184), v9 swaps it for api_grants.refresh_family_hash (#192)");
+    assert_eq!(v, 10, "v1 is the schema (#49), v2 drops Skrongle Cash, v3 names share links, v4 adds permissions (#138), v5 adds courses.error_kind, v6 adds connected apps (#167), v7 adds OAuth clients and codes (#169), v8 adds api_tokens.used_at (#184), v9 swaps it for api_grants.refresh_family_hash (#192), v10 adds the learner path (#318)");
     // Re-running is a no-op.
     db.with(migrate).unwrap();
 }
@@ -155,6 +155,51 @@ fn down_and_up_again_keeps_the_rows() {
         let (id, perms): (i64, i64) = c.query_row("SELECT id, perms FROM users WHERE email = 'ann@example.org'", [], |r| Ok((r.get(0)?, r.get(1)?)))?;
         assert_eq!((id, perms), (ann, 63), "the account is kept; going up gives it the Teacher set again");
         assert_eq!(c.query_row("SELECT count(*) FROM courses", [], |r| r.get::<_, i64>(0))?, 2);
+        Ok(())
+    })
+    .unwrap();
+}
+
+/// v10 counts earlier progress on the learner path once: a lesson whose
+/// Study was walked to the end, or that is passed, has a Study tried; a
+/// passed lesson also has a Review tried and mastered, last tried at the
+/// migration. Its `down` drops both tables and keeps the passes.
+#[test]
+fn v10_counts_finished_studies_and_passed_lessons_on_the_learner_path() {
+    let db = Db::open_in_memory().unwrap();
+    db.with(|c| {
+        crate::auth::create_user(c, "ann@example.org", "h")?;
+        migrate_to(c, 9)?;
+        // Passed (and walked), a Study walked to the end, a Study half done.
+        for (lesson, step, completed) in [("passed", 0, 1), ("walked", 0, 1), ("half", 2, 0)] {
+            c.execute(
+                "INSERT INTO journey_progress (user_id, course_id, lesson_id, step, completed, run_correct, run_answered, updated_at)
+                     VALUES (1, 'c', ?1, ?2, ?3, 1, 2, 7)",
+                rusqlite::params![lesson, step, completed],
+            )?;
+        }
+        c.execute(
+            "INSERT INTO lesson_passes (user_id, course_id, lesson_id, seen_at, best_pct, passed_at, runs, updated_at)
+                 VALUES (1, 'c', 'passed', 3, 85, 5, 2, 5), (1, 'c', 'half', 3, -1, NULL, 0, 3)",
+            [],
+        )?;
+        let before = crate::db::now();
+        migrate(c)?;
+        let rows: Vec<(String, String, i64, i64, i64, i64)> = c
+            .prepare("SELECT lesson_id, kind, first_at, last_pct, streak, attempts FROM path_activity ORDER BY lesson_id, kind")?
+            .query_map([], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?, r.get(3)?, r.get(4)?, r.get(5)?)))?
+            .collect::<Result<_, _>>()?;
+        let master = i64::from(crate::path::master_steps(&crate::path::SETTINGS));
+        let row = |l: &str, k: &str, first: i64, pct: i64, streak: i64, attempts: i64| (l.to_string(), k.to_string(), first, pct, streak, attempts);
+        assert_eq!(rows, vec![row("passed", "review", 5, 85, master, 2), row("passed", "study", 5, 85, 0, 1), row("walked", "study", 7, 100, 0, 1)]);
+        let last = |l: &str, k: &str| -> rusqlite::Result<i64> {
+            c.query_row("SELECT last_at FROM path_activity WHERE lesson_id = ?1 AND kind = ?2", [l, k], |r| r.get(0))
+        };
+        assert!(last("passed", "review")? >= before, "a passed lesson's Review was last tried at the migration");
+        assert_eq!((last("passed", "study")?, last("walked", "study")?), (5, 7));
+        migrate_to(c, 9)?;
+        assert_eq!(c.query_row("SELECT count(*) FROM sqlite_master WHERE name IN ('path_activity', 'path_hidden')", [], |r| r.get::<_, i64>(0))?, 0);
+        assert_eq!(c.query_row("SELECT count(*) FROM lesson_passes", [], |r| r.get::<_, i64>(0))?, 2);
         Ok(())
     })
     .unwrap();

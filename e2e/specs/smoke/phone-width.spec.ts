@@ -19,14 +19,14 @@ test("the main pages and a lesson in each mode fit a 390 px phone", async ({ pag
   await devLogin(page);
   const [first] = await apiProgress(page);
   for (const path of [
-    "/sprint?reduce-motion=1",
-    `/sprint/play?lesson=${first.slug}&reduce-motion=1`,
+    "/review?reduce-motion=1",
+    `/review/play?lesson=${first.slug}&reduce-motion=1`,
     "/lessons",
     `/lessons/${first.slug}`,
     `/practice?lesson=${first.slug}`,
     "/map",
-    "/guide",
-    `/guide/${first.slug}`,
+    "/study",
+    `/study/${first.slug}`,
     "/play",
     "/courses",
     "/profile",

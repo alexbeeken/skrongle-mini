@@ -4,6 +4,50 @@ What changed in each release, for the person running the server. Newest
 first. Each release's GitHub notes are its section here. How version
 numbers work is in the README, "Versions".
 
+## Unreleased
+
+**This release changes the database** (schema v9 to v10) on its first
+start. Going back works with `update.sh 0.5.0`, which takes the database
+back first: `down` drops the two new tables, and with them each activity's
+review streak and the list of hidden activities. Passes, mastery, words and
+history stay.
+
+- **A course's home is now a list of what to do next.** *Up next* is one
+  activity with a *Start* button: a lesson's Study, its Review or its Play.
+  *Then* lists the three after it and *Done today* what was finished. A
+  finished activity ends with *Back to* and the course's name, which opens
+  the list again. A review comes back after a day, then two, then two weeks
+  once it is mastered (two clean reviews), and a missed one starts over. A
+  Play shows only once the day's goal is met. The eye beside an activity
+  hides it; *Hidden (n)* brings it back. The five mode cards, the big goal
+  ring, *Continue* and the separate "Words due" card are gone: today's
+  goal, the streak and the words due are in the Progress panel beside the
+  list. On the first start, lessons already passed count as studied and
+  mastered, so their reviews come back in two weeks. See "The learner
+  path" in the docs.
+
+- **Three names changed.** The Guide is now **Study** (`/study`), Sprint is
+  **Review** (`/review`) and the old Study mode is **Lessons** (`/lessons`,
+  as before). `/guide…` and `/sprint…` redirect permanently, with their
+  query strings, so bookmarks keep working. A course file's icon keys
+  (`mode_guide`, `mode_sprint`, `mode_study`) keep their names; the default
+  icons are now 🔁 for Review, 📖 for Study and 📚 for Lessons.
+
+- **One bar at the top of every page of a course**: the course switcher,
+  then Today, Study, Review, Play and, for an account that may use the
+  tutor, Tutor. On a phone the places are a bar at the bottom of the
+  screen. The bars under it lost the mode's name and the "Switch" links;
+  Study's first tab is *Whole course*.
+
+- **A flatter look.** One filled button per screen for the main action,
+  outlined buttons for the rest, plain links. No gradients and no drop
+  shadows on cards, and Review's screens have the same ground as the rest.
+  System fonts only, as before.
+
+- On **Courses**, each course you have started has a line about today:
+  points against the goal (or "✓ today"), the day streak and the words due.
+  Only the open course's button is filled.
+
 ## 0.5.0 (2026-11-23)
 
 A shorter sign-up for Students, and *How to Use Skrongle* comes first.

@@ -63,7 +63,11 @@ pub trait Motivator: Sync {
     /// What it says about a run that earned something (inside `Db::call`;
     /// [`reward`] never asks about a run that earned nothing). The line is
     /// drawn on the request's own task, like the hero. `None` says nothing.
-    fn reward(&self, conn: &Connection, user_id: i64, course: &ContentStore, run: &RunOutcome) -> rusqlite::Result<Option<Box<dyn Reward>>>;
+    fn reward(&self, conn: &Connection, user_id: i64, course: &ContentStore, run: &RunOutcome) -> rusqlite::Result<Option<Box<dyn Reward>>>;    /// Its Progress panel shows the learner's day streak. The course list's
+    /// line about today names the streak only where the home does.
+    fn shows_streak(&self) -> bool {
+        false
+    }
 }
 
 /// The motivator's line at the end of a lesson or session.
@@ -157,7 +161,7 @@ pub fn reward_html(line: Option<RewardLine>) -> Option<String> {
     line.and_then(|l| l.html())
 }
 
-/// What a motivator shows at the top of the course home page.
+/// What a motivator shows in the Progress panel of the course home page.
 pub trait Hero: Send {
     fn render(&self, course: &CourseView, progress: &Progress) -> askama::Result<String>;
 }
@@ -170,9 +174,6 @@ pub struct Progress {
     pub today: Today,
     pub practised_today: bool,
     pub streak: i64,
-    /// The lesson every mode resumes at: (slug, title, the URL that opens it
-    /// in the mode last used). None once every lesson is passed.
-    pub resume: Option<(String, String, String)>,
     /// The daily goal's (i): what earns how many points.
     pub effort_table: Vec<(String, String)>,
     /// Lessons passed in any mode, and lessons of the course less the skipped ones.
@@ -239,6 +240,9 @@ impl Motivator for Stats {
     fn reward(&self, _: &Connection, _: i64, _: &ContentStore, run: &RunOutcome) -> rusqlite::Result<Option<Box<dyn Reward>>> {
         let icons = crate::content::Icons::default();
         Ok(Some(Box::new(StatsReward { run: run.clone(), streak_icon: icons.streak, goal_icon: icons.goal })))
+    }
+    fn shows_streak(&self) -> bool {
+        true
     }
 }
 

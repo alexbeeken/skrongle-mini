@@ -60,7 +60,7 @@ test("a Student is offered no way to make a course and still learns from a built
   // The built-in course still opens.
   await spanish.getByTestId("courses-open").click();
   await expect(them).toHaveURL(/\/$/);
-  await expect(them.getByTestId("home-mode").first()).toBeVisible();
+  await expect(them.getByTestId("path-home")).toBeVisible();
 
   // A Teacher again: it is all back.
   await givePreset(page, email, "2");

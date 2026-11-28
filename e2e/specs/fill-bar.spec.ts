@@ -121,7 +121,7 @@ test("the reading check, Sprint mode and the Guide take any tiles that fill the 
   await expect(page.getByTestId("lesson-check-result")).toHaveAttribute("data-state", "passed");
 
   // Sprint mode: past the bites; the first is right with two quarter notes, the exact one wrong with them.
-  await page.goto("/sprint/play?lesson=fill-bar");
+  await page.goto("/review/play?lesson=fill-bar");
   const stage = page.getByTestId("sprint-play-stage");
   const check = page.getByTestId("sprint-play-check");
   const result = page.getByTestId("sprint-play-result");
@@ -148,7 +148,7 @@ test("the reading check, Sprint mode and the Guide take any tiles that fill the 
   }
 
   // The Guide: through the cards to the first quick check, filled right.
-  await page.goto("/guide/fill-bar");
+  await page.goto("/study/fill-bar");
   const step = page.locator('[data-testid="stage-step"][data-kind="question"]').first();
   const index = Number(await step.getAttribute("data-index"));
   for (let i = 0; i < index; i++) {
@@ -165,7 +165,7 @@ test("the reading check, Sprint mode and the Guide take any tiles that fill the 
 });
 
 test("a lesson without a fill-bar question loads no fill-bar script", async ({ page }) => {
-  for (const path of ["/practice?lesson=multiple-choice", "/lessons/multiple-choice", "/guide/multiple-choice", "/sprint/play?lesson=multiple-choice"]) {
+  for (const path of ["/practice?lesson=multiple-choice", "/lessons/multiple-choice", "/study/multiple-choice", "/review/play?lesson=multiple-choice"]) {
     await page.goto(path);
     await expect(page.locator("main, .sprint-play-main").first()).toBeVisible();
     await expect(page.locator('script[src*="fill-bar"]'), path).toHaveCount(0);

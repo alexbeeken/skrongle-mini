@@ -5,6 +5,11 @@ meta:
   name: Deutsch
 
 nav:
+  today: "Heute"
+  study: "Lernen"
+  review: "Wiederholen"
+  play: "Spielen"
+  tutor: "Tutor"
   skip_to_content: "Zum Inhalt springen"
   courses: Kurse
   switch_course: Kurs wechseln
@@ -467,12 +472,12 @@ landing:
   have_account_html: "Du hast schon ein Konto? <a href=\"{url}\" data-testid=\"landing-login\">Anmelden</a>."
   two_files_h2: "Ein Kurs besteht aus zwei Dateien. Alles andere ist optional."
   two_files_lead_html: "Eine <code>course.json</code> benennt die Einheiten und die beiden Seiten jeder Karteikarte. Jede Lektion ist eine Datei. Füg ein Feld hinzu, und eine Funktion wird aktiv; lass es weg, und diese Funktion erscheint für diese Lektion einfach nicht. Nichts bricht, nichts nervt."
-  field_content_html: "Markdown. Jeder <code>##</code>-Abschnitt wird zu einer Lektionskarte, einem Leitfaden-Schritt und einem Happen im Sprint-Modus."
+  field_content_html: "Markdown. Jeder <code>##</code>-Abschnitt wird zu einer Lektionskarte, einem Schritt in Lernen und einem Happen in Wiederholen."
   field_vocabulary: "Karteikarten, Antippen zum Anhören, Wortpaare und die Zuordnungsübungen auf dem Handy."
   field_quiz: "Adaptives Üben mit einer Beherrschungswertung pro Lektion, die wächst, abnimmt und steuert, was als Nächstes kommt."
   field_listening: "Hör einen Satz, tipp ihn ab und sieh Wort für Wort, ob er stimmt. Der Browser spricht, also gibt es keine Audiodateien zu hosten."
   field_conjugations: "Paradigmen-Tabellen in jeder Form: Verbformen, Deklinationen, Skalen. Eine Paradigmen-Übung und eine Leiter-Übung kommen dazu."
-  field_conversations: "Ein vorgeschriebener Dialog mit seiner Übersetzung auf der Lektionsseite und eine Satzbau-Übung im Sprint-Modus."
+  field_conversations: "Ein vorgeschriebener Dialog mit seiner Übersetzung auf der Lektionsseite und eine Satzbau-Übung in Wiederholen."
   field_sprint_guide: "Handgeschriebene Übungen und Schrittfolgen, wenn die abgeleiteten nicht reichen."
   reference_html: "Die vollständige Referenz mit jedem Feld und jeder Regel, die der Validator prüft, steht unter <a href=\"{url}\">/docs/course-format</a>. Es gibt auch ein JSON-Schema."
   three_ways_h2: "Drei Wege zu einem Kurs"
@@ -490,12 +495,12 @@ landing:
     other: "{n} Lektionen"
   every_way_h2: "Ein Kurs, jede Art zu lernen"
   every_way_lead: "Jede Funktion liest dieselben Dateien. Du schreibst nichts zweimal."
-  feat_sprint_h: "Sprint"
+  feat_sprint_h: "Wiederholen"
   feat_sprint_p: "Fünfminütige Sitzungen, für das Handy gemacht: Wortkacheln, Sortieren, Finden, Bauen, Leiter, Zuordnen, Hörübungen, ein Tagesziel und eine Serie."
-  feat_study_h: "Lernen"
+  feat_study_h: "Lektionen"
   feat_study_p: "Lies die Lektionen richtig durch und mach dann Quizze, die sich auf das konzentrieren, was du falsch machst. Eine Karte jeder Einheit zeigt deine Beherrschung."
   feat_play_h: "Spielen"
-  feat_play_p: "Wortpaare mit einer gemeinsamen Bestenliste, eine Paradigmen-Übung, Zahlen nach Gehör, das Datums-Rennen, Karteikarten und der Leitfaden."
+  feat_play_p: "Wortpaare mit einer gemeinsamen Bestenliste, eine Paradigmen-Übung, Zahlen nach Gehör, das Datums-Rennen, Karteikarten und Lernen."
   feat_ai_h: "KI-Nachhilfe"
   feat_ai_p: "Ein Tutor im Chat, der dir einzeln hilft: Er erklärt die Lektion, prüft, ob du folgst, und stellt das Quiz, wenn du bereit bist. Läuft mit deinem eigenen Schlüssel."
   feat_hear_h: "Antippen zum Anhören"
@@ -513,8 +518,8 @@ landing:
   spec_docs_p: "Das Format, die Funktionen und die Architektur werden von der App selbst ausgeliefert, als Seiten oder als reines Markdown für ein LLM."
   final_h2: "Registrier dich, dann beantworte eine Frage: Was möchtest du lernen?"
   browse_docs: "Dokumentation durchstöbern"
-  feat_guide_h: "Guide"
-  feat_guide_p: "Jede Lektion als Etappe aus kleinen Schritten: Karten, kurze Checks, Karteikarten und Tipps, mit Sternen am Ende."
+  feat_guide_h: "Lernen"
+  feat_guide_p: "Jede Lektion in kleinen Schritten: Karten, kurze Checks, Karteikarten und Tipps, mit Sternen am Ende."
   try_lead: "Zwanzig Sekunden von jedem Modus. Wähle einen und probier ihn aus."
   try_noscript: "Schalte JavaScript ein, um jeden Modus hier auszuprobieren."
   uses_h2: "Was kann ich damit machen?"
@@ -527,7 +532,7 @@ landing:
   use_fresh_h: "Wichtiges frisch halten"
   use_fresh_p: "Wissen verblasst, wenn du wegbleibst, und das Üben holt zuerst zurück, was verblasst."
   use_mood_h: "Lernen, wie es dir passt"
-  use_mood_p: "Sprint im Bus, Lesen am Schreibtisch, ein Spiel, wenn du müde bist. Der Fortschritt ist derselbe."
+  use_mood_p: "Wiederholen im Bus, Lesen am Schreibtisch, ein Spiel, wenn du müde bist. Der Fortschritt ist derselbe."
   use_exam_h: "Für eine Prüfung lernen"
   use_exam_p: "Die Quizze setzen auf das, was du falsch machst, damit die Lernzeit dorthin geht, wo sie nötig ist."
   use_trip_h: "Sich auf eine Reise vorbereiten"
@@ -567,7 +572,7 @@ landing:
     answer_false: "Falsch"
     guide_flip: "Tippe die Karte an, um sie umzudrehen"
     got_it: "Verstanden"
-    guide_done: "Etappe geschafft"
+    guide_done: "Lektion geschafft"
     sprint_listen: "Was hörst du?"
     listen: "Anhören"
     tap_to_hear: "Antippen zum Anhören"
@@ -589,75 +594,23 @@ home:
   due:
     title: "Fällige Wörter"
     about: "Über fällige Wörter"
+    info_ladder: "Ein gesammeltes Wort kommt am nächsten Tag wieder. Jedes Mal, wenn du es weißt, wird die Pause länger: 1, 3, 7, 16, 35, 75, dann 150 Tage."
+    info_miss: "Weißt du es nicht, kommt es morgen wieder. Eine Runde wiederholt höchstens 20 Wörter, die am längsten wartenden zuerst."
     count_html:
       one: "<strong>{n}</strong> Wort fällig"
       other: "<strong>{n}</strong> Wörter fällig"
     review_n:
       one: "1 Wort wiederholen"
       other: "{n} Wörter wiederholen"
-    info_ladder: "Ein gesammeltes Wort kommt am nächsten Tag wieder. Jedes Mal, wenn du es weißt, wird die Pause länger: 1, 3, 7, 16, 35, 75, dann 150 Tage."
-    info_miss: "Weißt du es nicht, kommt es morgen wieder. Eine Runde wiederholt höchstens 20 Wörter, die am längsten wartenden zuerst."
-  your_progress: "Dein Fortschritt"
   lessons_passed: "Lektionen bestanden"
   terms: "Begriffe"
   day_streak: "Tage in Folge"
   skipped: "übersprungen"
   unit_of: "Einheit {n} von {total}"
   unit_bar_label: "Lektionen von {unit} bestanden"
-  unit_passed_html: "<strong>{passed}</strong> von {total} Lektionen in dieser Einheit bestanden"
-  sprint: "Sprint"
-  open_sprint: "Sprint-Modus öffnen"
-  sprint_tag: "Interaktiv, für das Handy geeignet."
-  about_sprint: "Über den Sprint-Modus"
-  start_session: "Sitzung starten"
-  study: "Lernen"
-  open_study: "Lernmodus öffnen"
-  study_tag: "Kurze Lektionen mit Quizzen."
-  about_study: "Über den Lernmodus"
-  need_practice_html:
-    one: "<strong>{n}</strong> Lektion braucht Übung"
-    other: "<strong>{n}</strong> Lektionen brauchen Übung"
-  answers_week_html: "<strong>{n}</strong> Antworten diese Woche"
-  start_practice: "Empfohlene Übung starten"
   play: "Spielen"
-  open_play: "Spielmodus öffnen"
-  play_tag: "Spiele und einmalige Übungen"
-  about_play: "Über den Spielmodus"
-  games_week_html:
-    one: "<strong>{n}</strong> Spiel diese Woche"
-    other: "<strong>{n}</strong> Spiele diese Woche"
-  terms_collected_html: "<strong>{n}</strong> Begriffe gesammelt"
-  browse_games: "Spiele durchstöbern"
-  guide: "Leitfaden"
-  open_guide: "Leitfaden öffnen"
-  guide_tag: "Geführte Lektionen, eine Stufe nach der anderen."
-  about_guide: "Über den Leitfaden"
-  guide_stat_html: "<strong>{done}</strong> / {total} Stufen abgeschlossen"
-  next_stage: "Als Nächstes: {title}"
-  continue_guide: "Leitfaden fortsetzen"
-  start_guide: "Leitfaden starten"
-  see_stages: "Deine Stufen ansehen"
-  ai: "KI-Nachhilfe"
-  open_ai: "KI-Nachhilfe öffnen"
-  ai_tag: "Im Chat mit einem Tutor"
-  about_ai: "Über die KI-Nachhilfe"
-  using_key_html: "Mit dem Schlüssel von <strong>{provider}</strong>"
-  needs_key_html: "Braucht einen API-Schlüssel · <a href=\"{url}\" data-testid=\"home-ai-add-key\">unter „Benutzer verwalten“ hinzufügen</a>"
-  start_conversation: "Ein Gespräch beginnen"
-  no_ai_keys: Keine KI-Schlüssel hinterlegt
-  info_sprint_p: "Kurze Sitzungen zum Antippen und Wischen: Wortkacheln, Sortieren, Zuordnen und schnelle Quizrunden. Eine Serie und das Tagesziel bringen dich zurück."
-  info_study_p: "Lies die Lektionen richtig durch und mach dann adaptive Quizze, die auf das zielen, was du falsch machst. Beobachte, wie die Beherrschung Einheit für Einheit auf der Lernkarte wächst."
-  info_study_listening_p: "Lies die Lektionen richtig durch und mach dann adaptive Quizze, die auf das zielen, was du falsch machst, und schule dein Ohr, indem du tippst, was du hörst. Beobachte, wie die Beherrschung Einheit für Einheit auf der Lernkarte wächst."
-  info_play_intro: "Wähl etwas aus und spiel es: ein zeitgesteuertes Wortpaar-Spiel, "
-  info_play_drill: "die {item}-Übung, "
-  info_play_numbers: "Zahlen nach Gehör, "
-  info_play_dates: "ein Datums-Rennen, "
-  info_play_end: "oder ein Stapel Karteikarten."
-  info_guide_p: "Die Lektionen der Reihe nach, ein kleiner Schritt nach dem anderen: eine Karte oder zwei, dann eine kurze Prüfung. Schließ eine Stufe ab, um die nächste freizuschalten, und verdiene auf jeder bis zu drei Sterne."
-  info_ai_p: "Eine Einzelstunde im Chat: Der Tutor erklärt, prüft, ob du folgen kannst, stellt eine Übung, wenn du so weit bist, und bespricht deine Antwort mit dir. Dieselben Fragen, derselbe Lernstand, nur als Gespräch. Läuft mit dem API-Schlüssel dieses Servers."
+  guide: "Lernen"
   ok: "OK"
-  needs_key_ask: "Braucht einen API-Schlüssel, den der Eigentümer dieses Servers hinzufügt"
-
 goal:
   ring_label: "Tagesziel: {n} von {goal} Punkten"
   smashed: "Ziel geschafft {icon}"
@@ -668,8 +621,6 @@ goal:
   day_away: "Tag {n} ist nur eine Sitzung entfernt."
   five_minutes: "Hast du fünf Minuten?"
   any_mode: "Was du auch lernst, in jedem Modus füllt es den Ring."
-  continue: "Weiter: {title}"
-  all_done: "Alle Lektionen bestanden: halte sie frisch"
   info_label: "Was für das Tagesziel zählt"
   info_title: "Das Tagesziel"
   info_p: "Alles, was du in diesem Kurs tust, in jedem Modus, bringt Punkte für die {goal} des Tages. Was länger dauert, bringt mehr:"
@@ -678,11 +629,11 @@ goal:
   kind:
     answer: "Eine Quizfrage, in jedem Modus"
     tutor: "Eine Frage des KI-Tutors"
-    exercise: "Eine Sprint-Übung (Kacheln, Sortieren, Bauen …)"
+    exercise: "Eine Übung in Wiederholen (Kacheln, Sortieren, Bauen …)"
     game: "Ein Teil eines Spiels (ein Paar, eine Zahl, ein Datum)"
     listening: "Ein Satz einer Hörrunde"
     flashcard: "Eine Karteikarte"
-    card: "Eine Karte einer Guide-Stufe"
+    card: "Eine Karte einer Lektion in Lernen"
     reading: "Eine Lektion bis zum Ende lesen"
 
 study:
@@ -699,8 +650,8 @@ study:
     needs_practice: "Braucht Übung"
     skipped: "Übersprungen"
   via:
-    study: "Lernmodus"
-    sprint: "Sprint-Modus"
+    study: "Lektionen"
+    sprint: "Wiederholen"
     play: "Spielmodus"
     tutor: "KI-Nachhilfe"
     agent: "einem KI-Agenten"
@@ -739,14 +690,13 @@ study:
     numbers: "Zahlen nach Gehör"
     date_dash: "Datums-Rennen"
     listening: "Hören"
-    sprint: "Sprint-Modus"
+    sprint: "Wiederholen"
     drill: "{item}-Übung"
     drill_plain: "Übung"
     result: "{correct} / {total} richtig · {time}"
   nav:
-    study_mode: "Lernmodus"
-    study_mode_desc: "Lernmodus: kurze Lektionen mit Quizzen"
-    study: "Lernen"
+    study_mode: "Lektionen"
+    study: "Lektionen"
     practice: "Üben"
     listening: "Hören"
     lessons: "Lektionen"
@@ -754,15 +704,6 @@ study:
     vocabulary: "Wortschatz"
     history: "Verlauf"
     mistakes: Fehler
-    switch: "Wechseln:"
-    to_sprint: "Zum Sprint-Modus wechseln"
-    sprint_desc: "Sprint-Modus: interaktiv, für das Handy geeignet"
-    sprint: "Sprint"
-    to_play: "Zum Spielmodus wechseln"
-    play_desc: "Spielmodus: Spiele und einmalige Übungen"
-    play: "Spielen"
-    all_modes: "Alle Modi (Startseite)"
-    menu: "Menü"
   lessons:
     title: "Lektionen"
     find: "Eine Lektion finden"
@@ -805,7 +746,7 @@ study:
     language_features_desc: "Hören, Satzbau und Übersetzungsfelder."
     language_features_info: "Über die Sprachfunktionen"
     language_features_what: "Manche Teile einer Lektion haben nur Sinn, wenn der Kurs eine Sprache lehrt: Hörsätze, Gespräche, Satzbau und die Übersetzung neben einem Beispiel oder einer Dialogzeile."
-    language_features_off: "Ausgeschaltet blendet der Editor diese Teile aus, solange sie leer sind, damit ein Kurs, der Begriffe in deiner eigenen Sprache erklärt, nicht nach Übersetzungen fragt. Ein Teil mit Inhalt bleibt. Lernende verlieren die passenden Übungen: Hören, Zahlen nach Gehör, Antippen zum Anhören sowie die Hör- und Satzbau-Übungen in Sprint. JSON zeigt in jedem Fall alle Felder."
+    language_features_off: "Ausgeschaltet blendet der Editor diese Teile aus, solange sie leer sind, damit ein Kurs, der Begriffe in deiner eigenen Sprache erklärt, nicht nach Übersetzungen fragt. Ein Teil mit Inhalt bleibt. Lernende verlieren die passenden Übungen: Hören, Zahlen nach Gehör, Antippen zum Anhören sowie die Hör- und Satzbau-Übungen in Wiederholen. JSON zeigt in jedem Fall alle Felder."
     language_features_saved: "Wird in den Kurseinstellungen als language_features gespeichert, für alle, die den Kurs bearbeiten. Solange du es nicht festlegst, sind die Funktionen an, wenn die Begriffe in einer anderen Sprache stehen als die Bedeutungen."
     levels: "Stufen"
     levels_info: "Was Stufen sind"
@@ -879,14 +820,14 @@ study:
     focus: "Schwerpunkt: {focus}"
     quiz_questions: "{n} Quizfragen"
     listening_sentences: "{n} Hörsätze"
-    play_guide: "Spiel sie im Leitfaden"
-    sprint_session: "Sitzung im Sprint-Modus"
+    play_guide: "Spiel sie in Lernen"
+    sprint_session: "Sitzung in Wiederholen"
     counts_complete: "Sie zählt in jedem Modus als abgeschlossen."
     pass_rule: "Erreiche {pct} % oder mehr in einem Durchgang, um die Lektion zu bestehen, hier oder in jedem Modus."
     pass_rule_min: "Erreiche {pct} % oder mehr bei mindestens {n} Fragen in einem Durchgang, um die Lektion zu bestehen, hier oder in jedem Modus."
     read_to_end: "Lies sie bis zum Ende, um sie als gelesen zu zählen."
-    sprint_same_guide: "Eine Sitzung im Sprint-Modus oder eine Stufe des Leitfadens zählt genauso."
-    sprint_same_ai: "Eine Sitzung im Sprint-Modus, eine Stufe des Leitfadens oder die KI-Nachhilfe zählen genauso."
+    sprint_same_guide: "Eine Sitzung in Wiederholen oder eine Lektion in Lernen zählt genauso."
+    sprint_same_ai: "Eine Sitzung in Wiederholen, eine Lektion in Lernen oder die KI-Nachhilfe zählen genauso."
     read_it: "Ich habe sie gelesen"
     to_pass_check: "Um die Lektion zu bestehen: Bestehe oben die Leseprüfung und erreiche dann {pct} % oder mehr in einem Durchgang."
     to_pass_check_min: "Um die Lektion zu bestehen: Bestehe oben die Leseprüfung und erreiche dann {pct} % oder mehr bei mindestens {n} Fragen in einem Durchgang."
@@ -1058,7 +999,7 @@ vocab:
     lead: Jeder Begriff, den du durch richtig beantwortete Quizfragen gesammelt hast.
     lead_count_html: "<strong>{learned}</strong> von {total} Begriffen bisher."
     study_all: Alle lernen (zufällig)
-    empty_html: "Noch keine Begriffe. Beantworte Fragen im <a href=\"{practice_url}\">Üben</a> oder im <a href=\"{guide_url}\">Leitfaden</a>; jede richtige Antwort fügt die darin verwendeten Begriffe deiner Sammlung hinzu."
+    empty_html: "Noch keine Begriffe. Beantworte Fragen im <a href=\"{practice_url}\">Üben</a> oder in <a href=\"{guide_url}\">Lernen</a>; jede richtige Antwort fügt die darin verwendeten Begriffe deiner Sammlung hinzu."
     show_all_lessons: "Alle Lektionen anzeigen ({n})"
     nothing_yet:
       one: "{n} Lektion ohne gesammelte Begriffe"
@@ -1212,22 +1153,10 @@ play:
       other: "{n} Runden gespielt"
   nav:
     aria: Spielmodus
-    mode_title: "Spielmodus: Spiele und einzelne Übungen"
-    play: Spielen
     all: Alle
     numbers: Zahlen
     dates: Daten
     flashcards: Karteikarten
-    stages: Stufen
-    switch: "Wechseln: "
-    to_sprint: Zum Sprint-Modus wechseln
-    sprint_title: "Sprint-Modus: interaktiv, handyfreundlich"
-    sprint: Sprint
-    to_study: Zum Lernmodus wechseln
-    study_title: "Lernmodus: kurze Lektionen mit Quizzen"
-    study: Lernen
-    menu_aria: Alle Modi (Startseite)
-    menu: Menü
   hub:
     title: Spiele
     heading: Spielen
@@ -1244,10 +1173,10 @@ play:
     flashcards_desc: "Ein Stapel der Begriffe, die du gesammelt hast, {term} auf der einen und {meaning} auf der anderen Seite. Markiere jede als gewusst oder nicht; die Statistik begleitet dich."
     terms_collected: "{n} Begriffe bisher gesammelt"
     study: Lernen
-    stages: Stufen
-    stages_desc: "Eine Lektion als Stufe aus kleinen Schritten: eine oder zwei Karten, eine kurze Prüfung, ein Karteikartenstapel, ein Tipp. Beende sie für Sterne; wer eine Stufe beendet, schaltet außerdem ihre {unlocks} frei."
+    stages: "Lernen"
+    stages_desc: "Eine Lektion in kleinen Schritten: eine oder zwei Karten, eine kurze Prüfung, ein Karteikartenstapel, ein Tipp. Beende sie für Sterne; wer eine Lektion beendet, schaltet außerdem ihre {unlocks} frei."
     stages_unlocks_drill: "{item}s für die Übung"
-    stages_unlocks_next: nächste Stufe
+    stages_unlocks_next: "nächste Lektion"
     lessons_passed: "{done} von {total} Lektionen bestanden"
     open: Öffnen
   matching:
@@ -1286,7 +1215,7 @@ play:
     page_title: "{item}-Übung: {set}"
     lead: "Du siehst ein Bild für das {item} und ein Bild für den Platz; tippe die richtige Form. Wähle eine Gruppe und die {item}s, die du üben willst."
     no_lessons: "Noch keine Lektion behandelt {paradigm}."
-    locked_html: "Einträge werden freigeschaltet, wenn du ihre Lektion abschließt: beende deren <a href=\"{guide_url}\">Leitfaden</a>-Stufe oder erreiche „gemeistert“ bei <a href=\"{practice_url}\">Üben</a>. Noch ist nichts freigeschaltet."
+    locked_html: "Einträge werden freigeschaltet, wenn du ihre Lektion abschließt: beende sie in <a href=\"{guide_url}\">Lernen</a> oder erreiche „gemeistert“ bei <a href=\"{practice_url}\">Üben</a>. Noch ist nichts freigeschaltet."
     unlocked_count: "{n} von {total} freigeschaltet"
     choose_set: "Gruppe wählen"
     locked_head: "Gesperrt, bis du die Lektion bestanden hast"
@@ -1453,7 +1382,7 @@ play:
       seconds: Sekunden
       prompts: Aufgaben
 sprint:
-  mode_name: Sprint-Modus
+  mode_name: "Wiederholen"
   sound_toggle: Soundeffekte ein/aus
   home:
     exit: Zurück zur ganzen Seite
@@ -1480,7 +1409,7 @@ sprint:
     start: Start · 5 Min.
     read: Lektion lesen
     foot_note: Dieselben Lektionen, derselbe Fortschritt wie auf der ganzen Seite.
-    guide: Leitfaden
+    guide: "Lernen"
     map: Karte
     switch_course: Kurs wechseln
   tabs:
@@ -1632,20 +1561,20 @@ sprint:
     nothing_yet: Hier gibt es noch nichts zu üben.
 
 guide:
-  title: Leitfaden
-  heading: Der Leitfaden
-  lead: "Die Lektionen, ein kleiner Schritt nach dem anderen: eine Karte oder zwei, dann eine kurze Prüfung. Schließe eine Stufe ab, um die nächste freizuschalten. Für kurze Aufmerksamkeitsspannen."
+  title: "Lernen"
+  heading: "Lernen"
+  lead: "Die Lektionen, ein kleiner Schritt nach dem anderen: eine Karte oder zwei, dann eine kurze Prüfung. Schließe eine Lektion ab, um die nächste freizuschalten. Für kurze Aufmerksamkeitsspannen."
   continue: "Weiter: {title}"
   stats:
-    complete: abgeschlossene Stufen
-    three_star: Stufen mit 3 Sternen
+    complete: "abgeschlossene Lektionen"
+    three_star: "Lektionen mit 3 Sternen"
   stars_label: "{n} von 3 Sternen"
   locked_count:
-    one: "{n} gesperrte Stufe"
-    other: "{n} gesperrte Stufen"
+    one: "{n} gesperrte Lektion"
+    other: "{n} gesperrte Lektionen"
   stage:
     steps_checks: "{steps} Schritte, {checks} kurze Prüfungen"
-    locked: Jede Stufe wird freigeschaltet, sobald du die Lektion davor bestehst, in einem beliebigen Modus.
+    locked: "Jede Lektion wird freigeschaltet, sobald du die Lektion davor bestehst, in einem beliebigen Modus."
     continue_step: "Weiter (Schritt {step} von {steps})"
     try_again: Nochmal versuchen
     skipped: "Übersprungen: unter deinem Startniveau."
@@ -1653,9 +1582,9 @@ guide:
     play_again: Nochmal spielen
     start: Start
   play:
-    title: "Stufe {n}: {title}"
-    crumb_guide: Leitfaden
-    stage_n: "Stufe {n}"
+    title: "Lektion {n}: {title}"
+    crumb_guide: "Lernen"
+    stage_n: "Lektion {n}"
     full_lesson: ganze Lektion
     best_result: bestes Ergebnis
     concept: Konzept
@@ -1674,23 +1603,23 @@ guide:
     type_char: "{ch} tippen"
     hint: Tipp
     check: Prüfen
-    stage_complete: "Stufe {n} abgeschlossen"
+    stage_complete: "Lektion {n} abgeschlossen"
     done_line_html: "<span id=\"done-correct\">0</span> / <span id=\"done-answered\">0</span> kurze Prüfungen richtig"
-    next_stage: "Nächste Stufe: {title}"
-    finished_all: Du hast den ganzen Leitfaden abgeschlossen!
+    next_stage: "Nächste Lektion: {title}"
+    finished_all: "Du hast alle Lektionen in Lernen abgeschlossen!"
     play_again: Nochmal spielen
     back_to_map: Zurück zur Karte
   js:
     correct: Richtig!
     passed_now: Lektion bestanden! Sie zählt jetzt in jedem Modus als abgeschlossen.
     already_passed: Du hattest diese Lektion schon bestanden.
-    not_passed: "Noch nicht bestanden: Beantworte mindestens 70 % der kurzen Prüfungen richtig, um die Lektion zu bestehen und die nächste Stufe freizuschalten."
+    not_passed: "Noch nicht bestanden: Beantworte mindestens 70 % der kurzen Prüfungen richtig, um die Lektion zu bestehen und die nächste freizuschalten."
     not_quite: Nicht ganz.
     correct_answer_html: "Richtige Antwort: <strong lang=\"{lang}\">{answer}</strong>"
     new_terms:
       one: "✦ Neuer Begriff gesammelt:"
       other: "✦ Neue Begriffe gesammelt:"
-    finish_stage: Stufe abschließen
+    finish_stage: "Lektion abschließen"
     next: Weiter
     check_failed: "Konnte deine Antwort nicht prüfen ({error}). Bitte versuche es erneut."
 
@@ -1825,6 +1754,14 @@ courses:
     stat_passed: "Bestandene Lektionen"
     stat_mastered: "Beherrschte Lektionen"
     stat_of: "{n} von {total}"
+    today_goal: "{n} von {goal} heute"
+    today_done: "✓ heute"
+    today_streak:
+      one: "{n} Tag in Folge"
+      other: "{n} Tage in Folge"
+    today_due:
+      one: "{n} Wort fällig"
+      other: "{n} Wörter fällig"
     stat_label: "{name}: {value}"
     opened: "geöffnet {when}"
     continue: Weiter
@@ -1947,7 +1884,7 @@ courses:
       other: "Sie hat {n} Fragen, also lässt eine falsche Antwort den Durchgang scheitern. Ab vier Fragen ist ein Fehler erlaubt."
     answer_in_prompt: "Diese Frage verrät ihre Antwort schon im Text: {prompt}"
     one_spelling: "Die Lücke “{answer}” hat mehrere Wörter und lässt nur eine Schreibweise zu. Trag weitere in accepted_answers ein."
-    sprint_reading_only: Ihre Sprint-Runde ist nur zum Lesen. Sie hat keine Fragen, Wörter oder Übungen.
+    sprint_reading_only: "Ihre Runde in Wiederholen ist nur zum Lesen. Sie hat keine Fragen, Wörter oder Übungen."
     repeated_term: "Sie lehrt “{term}” noch einmal, nach {lessons}."
     quoted: "“{title}”"
     other_language: "Ihr Text liest sich wie {found}, aber der Kurs erklärt auf {expected}."
@@ -2000,9 +1937,9 @@ courses:
       conjugations: Paradigmentabellen
       conversations: Gespräche
       listening: Hörsätze
-      guide: Von Hand geordnete Leitfaden-Schritte
-      sprint_icon: Sprint-Symbol
-      bites: Sprint-Happen
+      guide: "Von Hand geordnete Schritte für Lernen"
+      sprint_icon: "Symbol für Wiederholen"
+      bites: "Happen für Wiederholen"
       sorts: Sortieraufgaben
       spots: Fehler finden
       builds: Satzbau
@@ -2061,9 +1998,9 @@ courses:
       vocabulary: Wörter
       term: Wort
       conjugations: Konjugationstabellen
-      guide: Guide-Schritte
+      guide: "Schritte für Lernen"
       vocab: Karteikarten
-      sprint: Sprint-Modus
+      sprint: "Wiederholen"
       role_a: Sprecher A
       role_b: Sprecher B
       markdown: Text
@@ -2124,12 +2061,12 @@ courses:
       one: Hörsatz
       other: Hörsätze
     name_guide:
-      one: Leitfaden-Schritt
-      other: Leitfaden-Schritte
+      one: "Schritt für Lernen"
+      other: "Schritte für Lernen"
     name_unit:
       one: Einheit
       other: Einheiten
-    name_sprint: das Sprint-Modus-Material
+    name_sprint: "das Material für Wiederholen"
     name_place: sein Platz im Kurs
     count: "{n} {noun}"
     the_list: "die {name}"
@@ -2218,7 +2155,7 @@ courses:
     example_check_facts: Prüfe die Fakten in jeder Lektion und korrigiere, was falsch ist.
     example_add_lesson: "Füge eine Lektion über ... hinzu"
     example_add_questions: Füge Lektion 4 drei Multiple-Choice-Fragen hinzu.
-    example_add_sort: Füge jeder Lektion ohne eine solche eine Sprint-Sortierübung hinzu.
+    example_add_sort: "Füge jeder Lektion ohne eine solche eine Sortierübung für Wiederholen hinzu."
     example_add_listening: Füge jeder Lektion mit Vokabeln, aber ohne Hörübung, Hörsätze hinzu.
     example_add_conversation: Füge Lektion 2 ein Gespräch hinzu.
     example_simpler: Verwende einfachere Wörter in den Erklärungen.
@@ -2441,7 +2378,7 @@ courses:
     form_remove_key: "{key} entfernen"
     form_key: Schlüssel
     delete_item_confirm: "Diesen Eintrag löschen? Mit Rückgängig kommt er zurück."
-    guide_derive_confirm: "Die von Hand geordneten Schritte verwerfen und vom Guide neu ableiten lassen? Hier geschriebene Tipps und Konzeptkarten gehen verloren (Rückgängig bringt sie zurück)."
+    guide_derive_confirm: "Die von Hand geordneten Schritte verwerfen und von Lernen neu ableiten lassen? Hier geschriebene Tipps und Konzeptkarten gehen verloren (Rückgängig bringt sie zurück)."
     form_key_to_add: Hinzuzufügender Schlüssel
     form_add_key: Schlüssel hinzufügen
     form_kind: Art
@@ -2577,10 +2514,10 @@ editor:
     sec_vocabulary: "Vokabeln"
     sec_quiz: "Quiz"
     sec_listening: "Hören"
-    sec_sprint: "Sprint"
+    sec_sprint: "Wiederholen"
     sec_conversations: "Gespräche"
     sec_conjugations: "Konjugationen"
-    sec_guide: "Guide"
+    sec_guide: "Lernen"
     add_vocab: "+ Wort"
     add_quiz: "+ Frage"
     add_listening: "+ Satz"
@@ -2648,8 +2585,8 @@ editor:
     f_example: "Beispiel"
     f_example_meaning: "Bedeutung des Beispiels"
     grp_used: "Verwendet von"
-    used_by_questions: "Die Fragen {list} vermitteln es (über den Namen oder die Antwort); Karteikarten, Wortpaare und Sprint nutzen jedes Wort."
-    used_by_none: "Noch keine Frage vermittelt es; Karteikarten, Wortpaare und Sprint nutzen jedes Wort."
+    used_by_questions: "Die Fragen {list} vermitteln es (über den Namen oder die Antwort); Karteikarten, Wortpaare und Wiederholen nutzen jedes Wort."
+    used_by_none: "Noch keine Frage vermittelt es; Karteikarten, Wortpaare und Wiederholen nutzen jedes Wort."
     question_n_of: "Frage {n} von {total}"
     type_multiple-choice: "Multiple Choice"
     type_fill-in-blank: "Lückentext"
@@ -2676,7 +2613,7 @@ editor:
     f_prompt: "Aufgabe"
     f_statement: "Aussage"
     h_statement: "Die Lernenden sagen, ob sie wahr oder falsch ist."
-    h_prompt_blank: "Schreibe ___ dorthin, wo die Antwort hingehört. Sprint füllt sie aus Wortkacheln; Study lässt die Lernenden tippen."
+    h_prompt_blank: "Schreibe ___ dorthin, wo die Antwort hingehört. Wiederholen füllt sie aus Wortkacheln; Lektionen lässt die Lernenden tippen."
     h_prompt_math: "Schreibe Mathe als einfachen Text oder Unicode (x², √2, π), nicht als LaTeX."
     f_options: "Optionen"
     f_options_aside: "wähle die richtige"
@@ -2763,7 +2700,7 @@ editor:
     grp_art_aside: "optionales ASCII-Bild, höchstens 8 Zeilen à 24 Zeichen"
     f_art: "Bild"
     icon_head: "Pfad-Symbol"
-    icon_sub: "der Halt der Lektion auf dem Sprint-Pfad"
+    icon_sub: "der Halt der Lektion auf dem Pfad von Wiederholen"
     grp_icon: "Symbol"
     f_icon: "Emoji"
     h_icon: "Ein Emoji, anders als bei jeder anderen Lektion."
@@ -2811,10 +2748,10 @@ editor:
     f_from_text: "Aus dem Text"
     f_distractors: "Ablenker"
     h_distractors: "Falsche Kacheln, die unter den Vorrat gemischt werden."
-    guide_head: "Guide"
+    guide_head: "Lernen"
     guide_sub: "die Reihenfolge, in der die Lektion abläuft"
     guide_auto: "abgeleitet"
-    guide_derived: "Keine von Hand geordneten Schritte: Der Guide erstellt sie aus den Karten des Textes, Fünferpaketen von Wörtern und den Fragen ab der dritten Karte."
+    guide_derived: "Keine von Hand geordneten Schritte: Lernen erstellt sie aus den Karten des Textes, Fünferpaketen von Wörtern und den Fragen ab der dritten Karte."
     guide_order_by_hand: "Schritte von Hand ordnen"
     guide_back_to_derived: "Zurück zu abgeleiteten Schritten"
     steps:
@@ -2835,7 +2772,7 @@ editor:
     guide_add_concept: "+ Konzeptkarte"
     guide_vocab_n: "Die nächsten {n} Wörter als Karteikarten"
     step_n_kind: "Schritt {n} · {kind}"
-    guide_step_unknown: "Diesen Schritt kennt der Guide nicht; bearbeite ihn als JSON."
+    guide_step_unknown: "Diesen Schritt kennt Lernen nicht; bearbeite ihn als JSON."
     f_section: "Abschnitt"
     h_section: "Eine Überschrift des Textes, erkannt an ihrem Anfang."
     f_question: "Frage"
@@ -2845,7 +2782,7 @@ editor:
     f_markdown: "Kartentext"
     check_prompt_empty: "Die Aufgabe ist leer"
     check_blank_ok: "Hat eine Lücke"
-    check_blank_missing: "Kein ___ in der Aufgabe: Die Lernenden tippen die ganze Antwort, und Sprint zeigt keinen Platz"
+    check_blank_missing: "Kein ___ in der Aufgabe: Die Lernenden tippen die ganze Antwort, und Wiederholen zeigt keinen Platz"
     check_type: "Wähle einen Typ"
     check_options_two: "Braucht mindestens 2 Optionen"
     check_options_right: "Wähle, welche Option richtig ist"
@@ -2877,7 +2814,7 @@ editor:
     check_conv_two: "Braucht mindestens 2 Zeilen"
     check_conv_both: "Beide Rollen müssen etwas sagen"
     check_conv_empty: "Eine Zeile hat keinen Text"
-    check_conv_ok: "beide Rollen sprechen · {n} Zeilen mit 3–9 Wörtern und einer Bedeutung werden zu Sprint-Bauaufgaben"
+    check_conv_ok: "beide Rollen sprechen · {n} Zeilen mit 3–9 Wörtern und einer Bedeutung werden zu Bauaufgaben in Wiederholen"
     check_conj_both: "Braucht einen Eintrag und eine Bedeutung"
     check_conj_no_paradigm: "Die Kurseinstellungen definieren kein Paradigma, deshalb lässt sich diese Tabelle nicht anzeigen"
     check_conj_set: "Wähle einen Satz des Paradigmas: {sets}"
@@ -2904,7 +2841,7 @@ editor:
     check_scale_note: "Jeder muss eine Note in ABC sein, etwa F, ^C oder _B: {note}"
     check_scale_decoy: "Der Köder {note} ist ein Ton der Tonleiter"
     check_scale_ok: "8 Töne"
-    check_guide_step: "Ein Schritt, den der Guide nicht kennt"
+    check_guide_step: "Ein Schritt, den Lernen nicht kennt"
     check_guide_section: "Keine Überschrift beginnt mit „{name}“. Wähle eine Überschrift oder entferne den Schritt"
     check_guide_question: "Keine Frage „{id}“ in dieser Lektion. Wähle eine Frage oder entferne den Schritt"
     check_guide_vocab: "Eine ganze Zahl von Wörtern, mindestens 1"
@@ -2913,9 +2850,9 @@ editor:
     check_title: "Die Lektion braucht einen Titel"
     check_content: "Die Lektion braucht etwas Text"
     live_preview: "Live-Vorschau"
-    mode_study: "Study"
-    mode_sprint: "Sprint"
-    mode_guide: "Guide"
+    mode_study: "Lektionen"
+    mode_sprint: "Wiederholen"
+    mode_guide: "Lernen"
     no_preview: "Hier gibt es nichts zur Vorschau."
     preview_failed: "Die Vorschau konnte nicht erstellt werden: {error}"
     check: "Prüfen"
@@ -2951,13 +2888,13 @@ editor:
     course_language: "die Sprache des Kurses"
     listen_status: "Hör zu und tippe dann, was du gehört hast."
     replay: "Nochmal abspielen"
-    conv_no_build: "Noch keine Zeile mit 3 bis 9 Wörtern und einer Bedeutung: Sprint baut aus diesem Gespräch nichts."
+    conv_no_build: "Noch keine Zeile mit 3 bis 9 Wörtern und einer Bedeutung: Wiederholen baut aus diesem Gespräch nichts."
     ladder: "Leiter"
     wrong_rungs:
       one: "{n} Sprosse falsch"
       other: "{n} Sprossen falsch"
     path_stop: "Der Pfad"
-    path_stop_note: "Das ist der Halt der Lektion auf dem Sprint-Pfad."
+    path_stop_note: "Das ist der Halt der Lektion auf dem Pfad von Wiederholen."
     quick_bite: "Kleines Häppchen"
     got_it: "Verstanden"
     sort_it: "Sortiere es"
@@ -2969,30 +2906,30 @@ editor:
     spot_mistake: "Finde den Fehler"
     one_word_wrong: "Ein Wort ist falsch. Tippe es an."
     one_note_wrong: "Eine Note ist falsch. Tippe sie an und wähle dann die Korrektur."
-    spot_note_preview: "Im Sprint-Modus tippt man Note {n} an und wählt {fix} aus drei Kacheln."
+    spot_note_preview: "In Wiederholen tippt man Note {n} an und wählt {fix} aus drei Kacheln."
     build_sentence: "Baue den Satz"
     tap_tiles_in_order: "Tippe die Kacheln der Reihe nach an"
     concept: "Konzept"
     tip: "Tipp"
-    guide_derived_preview: "Der Guide leitet die Schritte dieser Lektion ab; ordne sie von Hand, um jeden einzeln anzusehen."
+    guide_derived_preview: "Lernen leitet die Schritte dieser Lektion ab; ordne sie von Hand, um jeden einzeln anzusehen."
     hand_empty: "Keine Wörter mehr für dieses Paket."
     question_missing: "Keine Frage „{id}“ in dieser Lektion."
-    note_quiz: "Wie in Study und Practice. Prüfen bewertet mit dem Prüfer des Kurses; nichts wird gespeichert."
-    note_quiz_sprint: "Wie in einer Sprint-Runde. Die Kacheln sind die Antwort unter Wörtern der Lektion."
-    note_vocab: "Die Karteikarte des Guides; tippe, um sie umzudrehen."
-    note_vocab_sprint: "Eine Sprint-Auswahlaufgabe, bei der andere Wörter der Lektion die falschen Optionen sind."
+    note_quiz: "Wie in Lektionen und Üben. Prüfen bewertet mit dem Prüfer des Kurses; nichts wird gespeichert."
+    note_quiz_sprint: "Wie in einer Runde Wiederholen. Die Kacheln sind die Antwort unter Wörtern der Lektion."
+    note_vocab: "Die Karteikarte in Lernen; tippe, um sie umzudrehen."
+    note_vocab_sprint: "Eine Auswahlaufgabe in Wiederholen, bei der andere Wörter der Lektion die falschen Optionen sind."
     note_listening: "Der Browser liest den Text in der Sprache des Kurses vor."
-    note_conversation: "Sprint baut Sätze aus Zeilen mit 3 bis 9 Wörtern und einer Bedeutung; das ist die erste."
+    note_conversation: "Wiederholen baut Sätze aus Zeilen mit 3 bis 9 Wörtern und einer Bedeutung; das ist die erste."
     note_conjugation: "Die Tabelle, wie die Lektionsseite sie zeigt."
-    note_ladder: "Die Sprint-Leiterübung für diese Tabelle."
-    note_sort: "Das Sortierspiel, wie Sprint es spielt."
-    note_spot: "Das Fehlersuche-Spiel, wie Sprint es spielt."
-    note_build: "Das Bauspiel, wie Sprint es spielt."
-    note_scale: "Die Tonleiter-Leiter, wie Sprint sie spielt."
+    note_ladder: "Die Leiterübung in Wiederholen für diese Tabelle."
+    note_sort: "Das Sortierspiel, wie Wiederholen es spielt."
+    note_spot: "Das Fehlersuche-Spiel, wie Wiederholen es spielt."
+    note_build: "Das Bauspiel, wie Wiederholen es spielt."
+    note_scale: "Die Tonleiter-Leiter, wie Wiederholen sie spielt."
     scale_kicker: "Baue die Tonleiter"
-    scale_preview: "Im Sprint-Modus ist die erste Sprosse gefüllt; man tippt die anderen 7 Töne aus {n} Kacheln an."
+    scale_preview: "In Wiederholen ist die erste Sprosse gefüllt; man tippt die anderen 7 Töne aus {n} Kacheln an."
     note_bite: "Ein Häppchen eröffnet die Runde; nichts zu beantworten."
-    note_guide: "Der Guide bei diesem Schritt."
+    note_guide: "Lernen bei diesem Schritt."
     note_content: "Der Text der Lektionsseite."
     advice_title: "Zu prüfen"
     advice_count:
@@ -3095,3 +3032,38 @@ oauth:
   no_permission:
     title: "Dieses Konto kann keine Apps verbinden"
     text: "Zum Verbinden einer App braucht es die Berechtigung Kurse erstellen. Bitte den Betreiber dieses Servers darum."
+# The learner path: the course home's list of what to do next (src/path.rs, #318).
+path:
+  todays_goal: "Tagesziel"
+  points: "{n} von {goal} Punkten"
+  all_done: "Jede Lektion ist bestanden und heute ist nichts fällig."
+  list_label: "Was als Nächstes kommt"
+  up_next: "Als Nächstes"
+  then: "Danach"
+  done_today: "Heute erledigt"
+  progress: "Fortschritt"
+  start: "Starten"
+  whole_course: "Ganzer Kurs"
+  back_home: "Zurück zu {course}"
+  hidden: "Ausgeblendet ({n})"
+  hide: "Ausblenden"
+  hide_label: "{kind} ausblenden: {title}"
+  bring_back: "Zurückholen"
+  bring_back_label: "{kind} zurückholen: {title}"
+  empty: "Gerade ist nichts fällig. Komm morgen wieder."
+  kind:
+    study: "Lernen"
+    review: "Wiederholen"
+    play: "Spielen"
+  steps:
+    one: "{n} Schritt"
+    other: "{n} Schritte"
+  step_of: "Schritt {n} von {total}"
+  clean_reviews: "Fehlerfreie Wiederholungen: {n} von {total}"
+  mastered_check:
+    one: "Gemeistert. Eine Prüfung in {n} Tag"
+    other: "Gemeistert. Eine Prüfung in {n} Tagen"
+  back_in:
+    one: "Wieder in {n} Tag"
+    other: "Wieder in {n} Tagen"
+  unit_passed: "{passed} von {total} Lektionen bestanden"

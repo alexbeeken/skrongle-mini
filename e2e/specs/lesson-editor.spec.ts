@@ -66,10 +66,10 @@ test("the outline lists every section of the lesson, opens its items, and the pr
   await expect(form.getByTestId("course-item")).toHaveAttribute("data-idx", "2");
   await expect(items.nth(2)).toHaveAttribute("aria-pressed", "true");
   // A quiz question shows in Study, Sprint and the Guide; a sort only in Sprint.
-  await expect(form.getByTestId("course-form-mode").locator(".le-seg-btn")).toHaveText(["Study", "Sprint", "Guide"]);
+  await expect(form.getByTestId("course-form-mode").locator(".le-seg-btn")).toHaveText(["Lessons", "Review", "Study"]);
   await openSection(form, "sprint");
   await item(form, "sprint", 0, "sorts").click();
-  await expect(form.getByTestId("course-form-mode").locator(".le-seg-btn")).toHaveText(["Sprint"]);
+  await expect(form.getByTestId("course-form-mode").locator(".le-seg-btn")).toHaveText(["Review"]);
   await expect(form.getByTestId("course-preview-phone")).toHaveAttribute("data-mode", "sprint");
   // Previous / Next walk a section.
   await openSection(form, "quiz");

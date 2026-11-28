@@ -129,7 +129,7 @@ test("the reading check, Sprint mode and the Guide take the note", async ({ page
   await expect(page.getByTestId("lesson-check-result")).toHaveAttribute("data-state", "passed");
 
   // Sprint mode: past the bites; the first note a step off, the second right.
-  await page.goto("/sprint/play?lesson=staff-note");
+  await page.goto("/review/play?lesson=staff-note");
   const stage = page.getByTestId("sprint-play-stage");
   const check = page.getByTestId("sprint-play-check");
   const result = page.getByTestId("sprint-play-result");
@@ -155,7 +155,7 @@ test("the reading check, Sprint mode and the Guide take the note", async ({ page
   }
 
   // The Guide: through the cards to the first quick check, placed right.
-  await page.goto("/guide/staff-note");
+  await page.goto("/study/staff-note");
   const step = page.locator('[data-testid="stage-step"][data-kind="question"]').first();
   const index = Number(await step.getAttribute("data-index"));
   for (let i = 0; i < index; i++) {
@@ -171,7 +171,7 @@ test("the reading check, Sprint mode and the Guide take the note", async ({ page
 });
 
 test("a lesson without a staff-note question loads no staff-note script", async ({ page }) => {
-  for (const path of ["/practice?lesson=multiple-choice", "/lessons/multiple-choice", "/guide/multiple-choice", "/sprint/play?lesson=multiple-choice"]) {
+  for (const path of ["/practice?lesson=multiple-choice", "/lessons/multiple-choice", "/study/multiple-choice", "/review/play?lesson=multiple-choice"]) {
     await page.goto(path);
     await expect(page.locator("main, .sprint-play-main").first()).toBeVisible();
     await expect(page.locator('script[src*="staff-note"]'), path).toHaveCount(0);

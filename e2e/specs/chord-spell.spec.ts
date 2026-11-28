@@ -112,7 +112,7 @@ test("the reading check, Sprint mode and the Guide take the chord in any order",
   await expect(page.getByTestId("lesson-check-result")).toHaveAttribute("data-state", "passed");
 
   // Sprint mode: past the bites; D major spelled with G flat is the near miss, the others right.
-  await page.goto("/sprint/play?lesson=chord-spell");
+  await page.goto("/review/play?lesson=chord-spell");
   const stage = page.getByTestId("sprint-play-stage");
   const check = page.getByTestId("sprint-play-check");
   const result = page.getByTestId("sprint-play-result");
@@ -139,7 +139,7 @@ test("the reading check, Sprint mode and the Guide take the chord in any order",
   }
 
   // The Guide: through the cards to the first quick check, spelled right.
-  await page.goto("/guide/chord-spell");
+  await page.goto("/study/chord-spell");
   const step = page.locator('[data-testid="stage-step"][data-kind="question"]').first();
   const index = Number(await step.getAttribute("data-index"));
   for (let i = 0; i < index; i++) {
@@ -157,7 +157,7 @@ test("the reading check, Sprint mode and the Guide take the chord in any order",
 });
 
 test("a lesson without a chord-spell question loads no chord-spell script", async ({ page }) => {
-  for (const path of ["/practice?lesson=multiple-choice", "/lessons/multiple-choice", "/guide/multiple-choice", "/sprint/play?lesson=multiple-choice"]) {
+  for (const path of ["/practice?lesson=multiple-choice", "/lessons/multiple-choice", "/study/multiple-choice", "/review/play?lesson=multiple-choice"]) {
     await page.goto(path);
     await expect(page.locator("main, .sprint-play-main").first()).toBeVisible();
     await expect(page.locator('script[src*="chord-spell"]'), path).toHaveCount(0);

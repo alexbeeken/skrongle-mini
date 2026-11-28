@@ -655,6 +655,17 @@ mod tests {
         assert_eq!(from_headers(&h), "en");
     }
 
+    /// The modes are Study, Review, Lessons and Play (#318): no English text
+    /// names one by its old name, "Guide" or "Sprint". The capitalised whole
+    /// word is the mode; "a setup guide" is a word.
+    #[test]
+    fn no_english_text_names_a_mode_guide_or_sprint() {
+        let en = &languages()[0];
+        let old = |v: &str| v.split(|c: char| !c.is_alphanumeric()).any(|w| w == "Sprint" || w == "Guide" || w == "Sprints");
+        let found: Vec<String> = en.keys().filter(|k| old(en.get(k))).map(|k| format!("{k}: {}", en.get(k))).collect();
+        assert!(found.is_empty(), "i18n/en.yaml names a mode Guide or Sprint:\n{}", found.join("\n"));
+    }
+
     #[test]
     fn every_language_has_every_key_of_the_default() {
         let en = &languages()[0];

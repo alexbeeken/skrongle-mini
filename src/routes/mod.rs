@@ -26,9 +26,11 @@ pub mod sprint;
 pub mod docs;
 pub mod games;
 pub mod guide;
+pub mod home;
 pub mod listening;
 pub mod map;
 pub mod pages;
+pub mod path;
 pub mod profile;
 pub mod progress;
 pub mod quiz;
@@ -207,9 +209,9 @@ pub fn router(state: Arc<AppState>) -> Router {
     let mut app = Router::new()
         // pages (all inside the active course)
         .route("/", get(pages::root))
-        // Study mode (short study lessons with quizzes): overview, lessons, practice, map, vocabulary, history
-        // Study mode opens at its lessons; the overview it had is gone.
-        .route("/study", get(|q: RawQuery| moved("/lessons", q)))
+        .route("/path/hide", post(path::hide))
+        .route("/path/unhide", post(path::unhide))
+        // Lessons mode (lessons to read, with quizzes): lessons, practice, map, vocabulary, history
         .route("/lessons", get(pages::lessons))
         .route("/map", get(map::map))
         .route("/lessons/{slug}", get(pages::lesson))
@@ -273,16 +275,21 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/docs/{page}", get(docs::page))
         .route("/password/change", get(password::change_form).post(password::change))
         // the modes' old paths (/d, /k, /g, /games), for bookmarks and open tabs
-        .route("/d", get(|q: RawQuery| moved("/sprint", q)))
-        .route("/d/{*rest}", get(|Path(rest): Path<String>, q: RawQuery| async move { moved(&format!("/sprint/{rest}"), q).await }))
+        .route("/d", get(|q: RawQuery| moved("/review", q)))
+        .route("/d/{*rest}", get(|Path(rest): Path<String>, q: RawQuery| async move { moved(&format!("/review/{rest}"), q).await }))
         .route("/api/d/{*rest}", post(|Path(rest): Path<String>, q: RawQuery| async move { moved(&format!("/api/sprint/{rest}"), q).await }))
         .route("/k", get(|q: RawQuery| moved("/lessons", q)))
         .route("/g", get(|q: RawQuery| moved("/play", q)))
         .route("/games", get(|q: RawQuery| moved("/play", q)))
         .route("/games/{*rest}", get(|Path(rest): Path<String>, q: RawQuery| async move { moved(&format!("/play/{rest}"), q).await }))
-        // Sprint mode (phone-first sessions)
-        .route("/sprint", get(sprint::home))
-        .route("/sprint/play", get(sprint::play))
+        // Review (phone-first sessions; the module keeps its old name, sprint)
+        // Study's and Review's old addresses (/guide, /sprint), for bookmarks
+        .route("/guide", get(|q: RawQuery| moved("/study", q)))
+        .route("/guide/{*rest}", get(|Path(rest): Path<String>, q: RawQuery| async move { moved(&format!("/study/{rest}"), q).await }))
+        .route("/sprint", get(|q: RawQuery| moved("/review", q)))
+        .route("/sprint/{*rest}", get(|Path(rest): Path<String>, q: RawQuery| async move { moved(&format!("/review/{rest}"), q).await }))
+        .route("/review", get(sprint::home))
+        .route("/review/play", get(sprint::play))
         .route("/api/sprint/check", post(sprint::check))
         .route("/api/sprint/finish", post(sprint::finish))
         // AI tutoring (chat; the learner's own API key)
@@ -291,9 +298,9 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/api/tutor/start", post(tutor::start))
         .route("/api/tutor/turn", post(tutor::turn))
         .route("/api/tutor/cancel", post(tutor::cancel))
-        // guide
-        .route("/guide", get(guide::map))
-        .route("/guide/{slug}", get(guide::stage))
+        // Study (the module keeps its old name, guide)
+        .route("/study", get(guide::map))
+        .route("/study/{slug}", get(guide::stage))
         .route("/api/guide/step", post(guide::complete_step))
         .route("/api/guide/restart", post(guide::restart))
         // Play mode (games and one-off exercises)

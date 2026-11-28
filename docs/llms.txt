@@ -1,6 +1,6 @@
 # Skrongle
 
-> A learning app driven by JSON courses: a `course.json` manifest plus one JSON file per lesson. Every mode (Sprint, Study, Play, Guide, AI tutoring) reads the same files.
+> A learning app driven by JSON courses: a `course.json` manifest plus one JSON file per lesson. Every mode (Study, Review, Play, Lessons, AI tutoring) reads the same files.
 
 To write a course: read the course format (it is complete and self-contained), write `course.json` first, then one lesson file at a time, and reply with JSON only. Check files against the JSON Schema. In the app, add them on the course page (`/courses/<id>`); every save validates the whole course and the error names the file and field.
 
@@ -13,6 +13,7 @@ To write a course: read the course format (it is complete and self-contained), w
 ## Optional
 
 - [Features]({base}/docs/features.md): what each part of the app does and which lesson fields it reads.
+- [The learner path]({base}/docs/features-learner-path.md): the course home's list of what to do next, the rule that orders a lesson's Study, Review and Play, and its settings.
 - [Connect an AI assistant]({base}/docs/connect-an-assistant.md): for people: turn it on, make a token, add the server to Claude Code, or connect claude.ai and ChatGPT through a public address.
 - [The MCP server]({base}/docs/api.md): `POST /mcp` with a token from the profile, the course tools (read the format, list, read, validate, create, change files), scopes and errors. An assistant connected to it should call `get_course_format` first.
 - [Progress across modes]({base}/docs/progress.md): the pass rule, and the API and brief for an AI agent that teaches the learner.

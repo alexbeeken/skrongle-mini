@@ -1,7 +1,7 @@
 // Words due (#1360): collected words come back on a schedule. When some
-// are due, the course home shows a "Words due" card; its button opens a
-// flashcard round of the due words. A missed card comes back once at the
-// end, the summary says what comes back tomorrow, and the card goes away.
+// are due, the course home's Progress panel says how many; its button opens
+// a flashcard round of the due words. A missed card comes back once at the
+// end, the summary says what comes back tomorrow, and the line goes away.
 // The words are collected through POST /dev/vocab, backdated so they are due.
 import { expect, test } from "@playwright/test";
 import { newAccount, register } from "../lib/learner.ts";
@@ -11,7 +11,7 @@ test("due words show on the course home, a due round reviews them, and the card 
 
   // Nothing collected: the home page has no card.
   await page.goto("/");
-  await expect(page.getByTestId("home-mode").first()).toBeVisible();
+  await expect(page.getByTestId("path-home")).toBeVisible();
   await expect(page.getByTestId("home-due")).toHaveCount(0);
 
   // Collected today: due tomorrow, still no card.
@@ -27,7 +27,6 @@ test("due words show on the course home, a due round reviews them, and the card 
   const card = page.getByTestId("home-due");
   await expect(card).toHaveAttribute("data-due", "12");
   await expect(card.getByTestId("home-due-count")).toHaveText("12 words due");
-  await expect(card.getByTestId("home-due-word")).toHaveCount(3);
   await expect(card.getByTestId("home-due-review")).toHaveText("Review 12 words");
 
   // The (i) explains the ladder.
@@ -64,23 +63,21 @@ test("due words show on the course home, a due round reviews them, and the card 
 
   // Nothing due any more: the card is gone.
   await done.getByTestId("flashcards-due-home").click();
-  await expect(page.getByTestId("home-mode").first()).toBeVisible();
+  await expect(page.getByTestId("path-home")).toBeVisible();
   await expect(page.getByTestId("home-due")).toHaveCount(0);
   // And the due round has nothing to deal.
   await page.goto("/vocabulary/study?due=1");
   await expect(page).toHaveURL(/\/vocabulary$/);
 });
 
-test("on a phone the card stacks: the button runs the full width under the words (#1360)", async ({ page }) => {
+test("on a phone the words-due line fits the screen (#1360)", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 800 });
   await register(page, newAccount("words-due-phone"), "spanish");
   await page.request.post("/dev/vocab", { data: { lesson: "asking-questions", days_ago: 3 } });
   await page.goto("/");
-  const card = page.getByTestId("home-due");
-  const box = (await card.boundingBox())!;
-  const btn = (await card.getByTestId("home-due-review").boundingBox())!;
-  const count = (await card.getByTestId("home-due-count").boundingBox())!;
-  expect(btn.y).toBeGreaterThan(count.y + count.height - 1);
-  expect(btn.width).toBeGreaterThan(box.width * 0.8);
+  const line = page.getByTestId("home-due");
+  await expect(line.getByTestId("home-due-count")).toHaveText("12 words due");
+  const btn = (await line.getByTestId("home-due-review").boundingBox())!;
+  expect(btn.x + btn.width).toBeLessThanOrEqual(375);
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(375);
 });

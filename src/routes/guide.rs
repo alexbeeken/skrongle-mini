@@ -42,7 +42,7 @@ pub struct StageCard {
     pub stars: i64,
     pub state: &'static str,
     pub is_current: bool,
-    /// The lesson's pass status in words ("Passed in Study mode", …).
+    /// The lesson's pass status in words ("Passed in Lessons", …).
     pub pass: String,
     /// A run was scored (a finished Guide run, or a run in any mode): the
     /// button says "Try again" rather than "Start" (#417).
@@ -224,7 +224,7 @@ pub(crate) fn stages(
     out
 }
 
-/// GET /guide
+/// GET /study
 pub async fn map(State(state): State<Arc<AppState>>, p: Project) -> Result<Response, AppError> {
     let uid = p.user.id;
     let content = &p.course;
@@ -272,7 +272,7 @@ pub async fn stage(
         .map(|(c, s)| (c.number, *s))
         .ok_or(AppError::NotFound)?;
     if st == StageState::Locked {
-        return Ok(Redirect::to(&crate::url("/guide")).into_response());
+        return Ok(Redirect::to(&crate::url("/study")).into_response());
     }
     let (cid, lid) = (content.id().to_string(), lesson.id.clone());
     state.db.call(move |c| activity::touch(c, uid, &cid, &lid, activity::Mode::Guide)).await?;
@@ -445,9 +445,14 @@ pub async fn complete_step(
             if r.counted && !is_question {
                 activity::record(c, uid, &cid, activity::Kind::Card, 1, tz)?;
             }
-            // A finished stage taught the lesson (its cards) and is one run of it.
+            // A finished stage taught the lesson (its cards) and is one run of it,
+            // and one Study on the learner path, scored by its quick checks.
             let pass = match (r.finished, lesson_arc.lesson_by_id(&lesson_id)) {
-                (true, Some(l)) => Some(progress::record_taught_run(c, uid, &cid, l, progress::VIA_PLAY, r.progress.run_correct, r.progress.run_answered)?),
+                (true, Some(l)) => {
+                    let (right, answered) = (r.progress.run_correct, r.progress.run_answered);
+                    crate::path::record(c, uid, &cid, &l.id, crate::path::Kind::Study, progress::pct(right, answered), crate::db::now())?;
+                    Some(progress::record_taught_run(c, uid, &cid, l, progress::VIA_PLAY, right, answered)?)
+                }
                 _ => None,
             };
             Ok((r, pass))

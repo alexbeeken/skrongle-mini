@@ -154,7 +154,7 @@ export async function progressOf(page: Page, slug: string): Promise<ApiLesson> {
 }
 
 /** Pages that list lessons with data-lesson-id and data-passed. */
-export const PROGRESS_PAGES = ["/sprint", "/guide", "/lessons?unit=all", "/map"];
+export const PROGRESS_PAGES = ["/review", "/study", "/lessons?unit=all", "/map"];
 
 /**
  * Where a page disagrees with /api/progress (`truth`) on what is passed: one
@@ -196,7 +196,7 @@ export async function lockedNext(page: Page, index: string, item: string, truth:
 export async function expectProgressAgrees(page: Page): Promise<ApiLesson[]> {
   const truth = await apiProgress(page);
   const problems = (await progressMismatches(page, truth)).map((p) => p.what);
-  for (const [index, item] of [["/sprint?reduce-motion=1", "sprint-lesson"], ["/guide", "guide-stage"], ["/lessons?unit=all", "lessons-item"]]) {
+  for (const [index, item] of [["/review?reduce-motion=1", "sprint-lesson"], ["/study", "guide-stage"], ["/lessons?unit=all", "lessons-item"]]) {
     const p = await lockedNext(page, index, item, truth);
     if (p) problems.push(p);
   }

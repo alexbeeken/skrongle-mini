@@ -531,11 +531,13 @@ pub fn save_dev_keys(conn: &Connection, vault: &crate::secrets::Vault) -> rusqli
 }
 
 /// Every progress table, keyed by user.
-const PROGRESS_TABLES: [&str; 12] = [
+const PROGRESS_TABLES: [&str; 14] = [
     "lesson_passes",
     "user_progress",
     "quiz_history",
     "journey_progress",
+    "path_activity",
+    "path_hidden",
     "user_vocab",
     "game_scores",
     "game_activity",
@@ -586,6 +588,10 @@ pub fn seed(db: &Db, courses: &crate::courses::Courses, keys: Option<&crate::sec
             if i < 2 {
                 let n = crate::progress::required_answers(lesson);
                 crate::progress::record_taught_run(c, uid, &cid, lesson, crate::progress::VIA_STUDY, n, n)?;
+                // On the learner path: its Study done and its Review tried yesterday, so the Review is due today.
+                let yesterday = crate::db::now() - 86_400;
+                crate::path::record(c, uid, &cid, &lesson.id, crate::path::Kind::Study, 100, yesterday)?;
+                crate::path::record(c, uid, &cid, &lesson.id, crate::path::Kind::Review, 100, yesterday)?;
             } else {
                 crate::progress::mark_seen(c, uid, &cid, lesson, crate::progress::VIA_STUDY)?;
             }

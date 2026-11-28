@@ -464,19 +464,6 @@ pub fn recent_activity(conn: &Connection, user_id: i64, course_id: &str, limit: 
     Ok(rows.into_iter().filter(|a| !REMOVED_GAMES.contains(&a.game.as_str())).collect())
 }
 
-/// Games played since `since` (the course home's Play card).
-pub struct ActivityStats {
-    pub games: i64,
-}
-
-pub fn activity_stats(conn: &Connection, user_id: i64, course_id: &str, since: i64) -> rusqlite::Result<ActivityStats> {
-    conn.query_row(
-        "SELECT COUNT(*) FROM game_activity WHERE user_id = ?1 AND course_id = ?2 AND played_at >= ?3",
-        params![user_id, course_id, since],
-        |r| Ok(ActivityStats { games: r.get(0)? }),
-    )
-}
-
 /// Format milliseconds as seconds with two decimals, or m:ss.xx over a minute.
 pub fn fmt_ms(ms: i64) -> String {
     let secs = ms as f64 / 1000.0;
@@ -841,9 +828,6 @@ mod tests {
             let recent = recent_activity(c, ann, "es", 10)?;
             assert_eq!(recent.len(), 2);
             assert_eq!(recent[0].game, "conjugation");
-            let s = activity_stats(c, ann, "es", 0)?;
-            assert_eq!(s.games, 2);
-            assert_eq!(activity_stats(c, ann, "es", i64::MAX)?.games, 0);
             Ok(())
         })
         .unwrap();

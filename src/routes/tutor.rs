@@ -488,12 +488,8 @@ mod tests {
             let get = |p: &str| agent.get(&url(p)).header("cookie", &cookie).call().unwrap().body_mut().read_to_string().unwrap();
             let tutor = get("/tutor");
             assert!(tutor.contains(r#"data-testid="tutor-no-key""#), "{tutor}");
-            // The home page's tutor card: a red ! saying so, and "Start a
-            // conversation" opens that page as a modal instead of going there.
-            let home = get("/");
-            assert!(home.contains(r#"data-tip="No AI keys set" data-testid="home-ai-blocked""#) && !home.contains(r#"data-testid="home-info-ai""#), "the ! replaces the (i): {home}");
-            assert!(home.contains(r#"<button type="button" class="btn big tutor" data-testid="home-start-tutor" commandfor="home-tutor-gate""#), "{home}");
-            assert!(home.contains(r#"data-testid="home-tutor-gate""#), "{home}");
+            // The top bar's Tutor link goes to that page.
+            assert!(get("/").contains(r#"href="/tutor" data-testid="topnav-tutor""#));
             let start = agent.post(&url("/api/tutor/start")).header("cookie", &cookie).send_json(json!({ "provider": "anthropic" })).unwrap();
             assert_eq!(start.status().as_u16(), 400);
             let made = agent.post(&url("/courses/new")).header("cookie", &cookie).send_form([("title", "")]).unwrap();

@@ -83,7 +83,7 @@ test("no sound a second after the tap: the speaker says so", async ({ page }) =>
     (window as unknown as { AudioContext: unknown }).AudioContext = Stuck;
   });
   await devLogin(page, "open=" + TEST_COURSE);
-  await page.goto("/guide/ear");
+  await page.goto("/study/ear");
   const step = page.locator('[data-testid="stage-step"][data-kind="question"]').first();
   const index = Number(await step.getAttribute("data-index"));
   for (let i = 0; i < index; i++) {
@@ -114,7 +114,7 @@ test("Can't listen now: off for an hour, the notes to read instead, and a tap tu
   const until = Number(await page.evaluate(() => localStorage.getItem("speech:audio-off-until")));
   expect(until - Date.now()).toBeGreaterThan(59 * 60 * 1000);
   // Still off on the next page: Sprint mode skips the exercises that need sound.
-  await page.goto("/sprint/play?lesson=ear");
+  await page.goto("/review/play?lesson=ear");
   const stage = page.getByTestId("sprint-play-stage");
   const seen: string[] = [];
   for (let i = 0; i < 20 && !(await page.getByTestId("sprint-play-done").isVisible()); i++) {
@@ -140,7 +140,7 @@ test("Can't listen now: off for an hour, the notes to read instead, and a tap tu
 test("Sprint mode: the speaker, staves as options and speaker tiles in Sort it", async ({ page }) => {
   await page.setViewportSize(PHONE);
   await devLogin(page, "open=" + TEST_COURSE);
-  await page.goto("/sprint/play?lesson=ear");
+  await page.goto("/review/play?lesson=ear");
   const stage = page.getByTestId("sprint-play-stage");
   const bucketOf = new Map([["[CEG]2", 0], ["[A,CE]2", 1], ["[GBd]2", 0], ["[DFA]2", 1]]);
   const did = new Set<string>();
@@ -233,7 +233,7 @@ test("a wrong melody: the answer line shows the right one as a staff, not as ABC
   await page.getByTestId("lesson-check-submit").click();
   await expect(check.getByTestId("lesson-check-feedback")).toHaveAttribute("data-state", "wrong");
   await staffNotABC(check.getByTestId("lesson-check-feedback"));
-  await page.goto("/sprint/play?lesson=ear&reduce-motion=1");
+  await page.goto("/review/play?lesson=ear&reduce-motion=1");
   const stage = page.getByTestId("sprint-play-stage");
   const result = page.getByTestId("sprint-play-result");
   for (let i = 0; i < 30 && !(await page.getByTestId("sprint-play-done").isVisible()); i++) {
@@ -269,7 +269,7 @@ test("a wrong melody: the answer line shows the right one as a staff, not as ABC
 
 test("a lesson without play loads no sound code", async ({ page }) => {
   await devLogin(page, "open=" + TEST_COURSE);
-  for (const path of ["/lessons/notation", "/practice?lesson=notation", "/sprint/play?lesson=notation", "/guide/notation"]) {
+  for (const path of ["/lessons/notation", "/practice?lesson=notation", "/review/play?lesson=notation", "/study/notation"]) {
     await page.goto(path);
     await expect(page.locator("main, .sprint-play-main").first()).toBeVisible();
     await expect(page.locator('script[src*="music-sound.js"]'), path).toHaveCount(0);
@@ -314,7 +314,7 @@ test.describe("Which one did you hear? (#1224)", () => {
     // Opening the lesson makes it the current stage, so the Guide opens it
     // even when the lessons before it are not passed.
     await page.goto("/lessons/ear");
-    await page.goto("/guide/ear");
+    await page.goto("/study/ear");
     const steps = page.getByTestId("stage-step");
     const total = await steps.count();
     let step: Locator | null = null;
@@ -356,7 +356,7 @@ test.describe("#1223 Major or minor? in Sort it", () => {
   test("speaker tiles, a wrong tap keeps the chord on the pile to hear again, each placed chord replays", async ({ page }) => {
     await page.setViewportSize(PHONE);
     await devLogin(page, "open=" + TEST_COURSE);
-    await page.goto("/sprint/play?lesson=ear");
+    await page.goto("/review/play?lesson=ear");
     const stage = page.getByTestId("sprint-play-stage");
     const bucketOf = new Map([["[CEG]2", 0], ["[A,CE]2", 1], ["[GBd]2", 0], ["[DFA]2", 1]]);
     let sorted = false;

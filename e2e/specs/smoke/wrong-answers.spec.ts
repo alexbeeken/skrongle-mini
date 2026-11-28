@@ -73,20 +73,14 @@ test("K: every question type, answered wrong, is marked wrong and doesn't pass",
   }
 });
 
-test("K: one lesson answered wrong reads as \"1 lesson needs practice\" on the course home and map", async ({ page }) => {
+test("K: one lesson answered wrong reads as \"1 lesson needs practice\" on the course map", async ({ page }) => {
   await register(page, newAccount("wrong-home"), TEST_COURSE);
   const slug = "multiple-choice";
   await read(page, slug);
   await page.goto(`/practice?lesson=${slug}`);
   const [right] = await playPractice(page, key, { wrong: () => true });
   expect(right).toBe(0);
-  await page.goto("/");
-  const stat = page.getByTestId("home-study-stat");
-  await expect(stat).toHaveAttribute("data-weak", "1");
-  // The singular form (#957): "1 lesson needs practice", not "1 lesson need practice".
-  await expect(stat).toContainText("1 lesson needs practice");
-
-  // The course map's count line under the unit heading, the same slip (#990).
+  // The singular form (#957, #990) on the course map's count line under the unit heading.
   await page.goto("/map");
   const counts = page.getByTestId("map-unit")
     .filter({ has: page.locator(`[data-testid="map-lesson"][data-lesson-id="${slug}"]`) })
@@ -190,7 +184,7 @@ test("D: every exercise kind, answered wrong, is marked wrong, and no lesson pas
   };
 
   for (const l of await apiProgress(page)) {
-    const run = await play(`/sprint/play?lesson=${l.slug}&reduce-motion=1`, l.slug);
+    const run = await play(`/review/play?lesson=${l.slug}&reduce-motion=1`, l.slug);
     if (l.slug === "sort" || l.slug === "conjugations") {
       // History reads a sort or a ladder as a score (#425), not "slip(s)" or a count in the answer's place.
       await page.goto("/history");
@@ -217,7 +211,7 @@ test("D: every exercise kind, answered wrong, is marked wrong, and no lesson pas
   // Which kinds a seeded session draws depends on every draw the shard's server made
   // before, so a kind can hide for a few rounds; eight rounds have always shown them all.
   for (let n = 0; n < 8 && GRADED_KINDS.some((k) => !wrongKinds.has(k)); n++) {
-    await play(`/sprint/play?mode=review&reduce-motion=1`, `review ${n + 1}`);
+    await play(`/review/play?mode=review&reduce-motion=1`, `review ${n + 1}`);
   }
 
   expect(takenRight, "wrong answers the app marked right").toEqual([]);
@@ -231,7 +225,7 @@ test("D: the session's score is the answers given, on the screen, in History and
   await page.setViewportSize({ width: 390, height: 844 });
   await register(page, newAccount("wrong-dmix"), TEST_COURSE);
   const slug = "fill-in-blank";
-  await page.goto(`/sprint/play?lesson=${slug}&reduce-motion=1`);
+  await page.goto(`/review/play?lesson=${slug}&reduce-motion=1`);
   const run = await playSprint(page, key, { wrong: (n) => n % 2 === 1 });
   expect(run.takenRight, "wrong answers the app marked right").toEqual([]);
   expect(run.wrong, "right answers the app marked wrong").toEqual([]);
@@ -241,7 +235,7 @@ test("D: the session's score is the answers given, on the screen, in History and
   await expect(done).toHaveAttribute("data-saved", "true");
   await expect(done).toHaveAttribute("data-correct", String(run.right));
   await expect(done).toHaveAttribute("data-answered", String(run.answered));
-  expect(await lastHistory(page, "Sprint mode"), "History's Sprint mode row").toEqual({ correct: run.right, total: run.answered });
+  expect(await lastHistory(page, "Review"), "History's Review row").toEqual({ correct: run.right, total: run.answered });
   const l = await progressOf(page, slug);
   expect(l.best_pct, "the run as saved").toBe(pct(run.right, run.answered));
   expect(l.passed).toBe(pct(run.right, run.answered) >= PASS_PCT);

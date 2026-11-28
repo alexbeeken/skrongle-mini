@@ -31,7 +31,7 @@ test("a learner reads, practises and sprints the first Spanish lesson, and every
   expect(right, "every practice answer right").toBe(total);
 
   // Sprint.
-  await page.goto(`/sprint/play?lesson=${first}&reduce-motion=1`);
+  await page.goto(`/review/play?lesson=${first}&reduce-motion=1`);
   const run = await playSprintRight(page, key);
   expect(run.wrong, "answers the app marked wrong").toEqual([]);
   await expect(page.getByTestId("sprint-play-done")).toHaveAttribute("data-saved", "true");

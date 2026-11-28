@@ -95,7 +95,7 @@ their definitions; set `lang` to `""` or the page language. `lang` is a BCP 47
 tag used for `lang=` attributes and spell-checking.
 
 `language_features` switches the language features on or off: Listening,
-Sprint mode's listening exercises and sentence builds, tap to hear, Numbers
+Review's listening exercises and sentence builds, tap to hear, Numbers
 by ear, and in the lesson editor the translation fields (a word's example
 meaning, a conversation line's meaning) and the sections only a language
 course fills. Leave it out and they are on exactly when `terms.lang` differs
@@ -112,7 +112,7 @@ course (one with `music`), which keep them.
 Optional. A paradigm is a table shape shared by the whole course: for Spanish
 it is the six persons (rows, "slots") × tenses (columns, "sets"). Lessons can
 then carry `conjugations`, which power the Conjugation Drill game and the
-"ladder" exercise in Sprint mode. Without a paradigm those features are hidden.
+"ladder" exercise in Review. Without a paradigm those features are hidden.
 
 ```jsonc
 "paradigm": {
@@ -205,9 +205,9 @@ with any [starting level](features#starting-level).
   "vocabulary": [ ... ],            // see below
   "quiz": [ ... ],                  // see below
   "conjugations": [ ... ],          // needs manifest.paradigm
-  "conversations": [ ... ],         // dialogues; Sprint mode builds sentences from their lines
+  "conversations": [ ... ],         // dialogues; Review builds sentences from their lines
   "listening": [ ... ],             // hear it, type it (language courses)
-  "guide": [ ... ],                 // optional hand-ordered Guide steps
+  "guide": [ ... ],                 // optional hand-ordered Study steps
   "sprint": { ... }                 // optional phone-session extras
 }
 ```
@@ -219,15 +219,15 @@ supported. Raw HTML is not: it is shown as text. Links may use relative,
 `http(s)://` or `mailto:` URLs only; any other scheme points nowhere. Images
 load only from a relative URL or a `data:image/…` URL; an image from another
 host is shown as a plain link. Every `## ` heading starts a new *section*; text
-before the first heading becomes an "Introduction" section. Sections are the cards of the Guide
-and the "bites" of Sprint mode when none are written by hand, so keep each one
+before the first heading becomes an "Introduction" section. Sections are the cards of Study
+and the "bites" of Review when none are written by hand, so keep each one
 short and about one thing. Three to five sections is a good lesson.
 
 #### Music notation
 
 A fenced code block marked `abc` is music notation, written in
 [ABC notation](https://abcnotation.com/wiki/abc:standard:v2.1) (plain text,
-a few header lines and then the notes). The lesson page and the Guide draw it as
+a few header lines and then the notes). The lesson page and Study draw it as
 a staff where the block stands; other modes show the ABC text as a code block.
 
 ````markdown
@@ -251,7 +251,7 @@ A lesson without an `abc` block looks as it always did.
 
 The terminology of the lesson. Entries are collected by the learner when they
 answer a question that teaches them, then studied as flashcards, played in
-Word Match and in Sprint mode.
+Word Match and in Review.
 
 ```jsonc
 "vocabulary": [
@@ -263,7 +263,7 @@ Word Match and in Sprint mode.
 Terms must be unique within a lesson. An `example` should come with its
 `example_meaning` in the meaning language: it is shown as a hint when the
 learner hovers the example (on the lesson page, the flashcards and the
-Vocabulary page) and after a Sprint mode vocabulary exercise.
+Vocabulary page) and after a Review vocabulary exercise.
 
 ### Quiz
 
@@ -289,8 +289,8 @@ Six question types, chosen to fit the subject:
 |---|---|---|---|
 | `multiple-choice` | taps one of `options` | one of the options | exactly |
 | `true-false` | taps True or False | `"true"` or `"false"` | exactly (served as a two-option choice; no `options` needed) |
-| `fill-in-blank` | types a word or phrase (Sprint mode offers word tiles) | the text | ignoring case, surrounding punctuation and extra spaces; a missing accent is a near miss |
-| `numeric` | types a number (Sprint mode offers number tiles) | a number | by value, see below |
+| `fill-in-blank` | types a word or phrase (Review offers word tiles) | the text | ignoring case, surrounding punctuation and extra spaces; a missing accent is a near miss |
+| `numeric` | types a number (Review offers number tiles) | a number | by value, see below |
 | `expression` | types a formula | an algebraic expression | by equivalence, see below |
 | `fill-bar` | taps note-value `tiles` into the gap of a bar of music | optional: tiles that fill the gap | by length, see "Music questions" below |
 | `chord-spell` | taps note `tiles` into slots to spell a chord | the chord's notes in ABC, separated by spaces | as a set, spelling counts; see "Music questions" below |
@@ -298,12 +298,12 @@ Six question types, chosen to fit the subject:
 | `keyboard` | taps a key of a piano keyboard | one ABC note | by pitch, see "Music notation" below |
 | `algebra-tiles` | lays out `tiles` as a rectangle, then types its two sides | the sides multiplied, `(x + 2)(x + 3)` | by equivalence, and it must be two sides, see below |
 | `clock` | drags the minute hand of a clock face; with `options`, reads a clock and taps its time | a time, `H:MM` | as the same time on the clock face, see below |
-| `measure` | measures a drawn angle with a protractor and types the number (Study and the Guide only) | a number | like `numeric`, see below |
+| `measure` | measures a drawn angle with a protractor and types the number (Lessons and Study only) | a number | like `numeric`, see below |
 
 Fill-in-blank answers are checked case-insensitively, ignoring surrounding
 punctuation and extra spaces. A vocabulary term equal to an accepted answer is
 collected automatically; `teaches` lists any others. Write `___` in the prompt
-where the answer goes: Sprint mode shows it as a slot to fill from word tiles.
+where the answer goes: Review shows it as a slot to fill from word tiles.
 A fill-in-blank has one answer and so one `___`. A sentence with two gaps is a
 multiple-choice question whose options fill both (`"más … que"`).
 
@@ -346,8 +346,8 @@ so the learner can write the answer any reasonable way:
   answer is right when it is two sides multiplied (`(x + 3)(x + 2)`,
   `x(x + 5)`, `(x + 2)^2`) and they multiply out to the tiles; the expanded
   `x^2 + 5x + 6` is refused with a note to write the two sides. The layout
-  itself is not graded. `correct_answer` must be such a product. Sprint mode
-  and the tutor skip these questions; Study and the Guide show the board.
+  itself is not graded. `correct_answer` must be such a product. Review
+  and the tutor skip these questions; Lessons and Study show the board.
 
   ```jsonc
   { "question_id": "q-tiles-01", "type": "algebra-tiles", "prompt": "Make a rectangle from x² + 5x + 6. What are its sides?",
@@ -360,7 +360,7 @@ so the learner can write the answer any reasonable way:
   Keys: arrows move it, Shift with ← or → turns it, Enter goes to the
   answer box. It is graded like `numeric`, so give `tolerance` (a degree or
   two) and `unit` (`°`). An answer of 180 minus the angle, read off the other
-  scale, gets a note saying so. Sprint mode and the AI tutor can't draw it
+  scale, gets a note saying so. Review and the AI tutor can't draw it
   and skip it; it doesn't count towards the answers a run needs.
 
   ```jsonc
@@ -402,7 +402,7 @@ empty) so the language games stay off.
 
 **Music questions.** A question's `abc` is music in ABC notation (see
 [Music notation](#music-notation)), drawn as a staff above its prompt in
-Practice, the reading check, Sprint mode, the Guide and the editor's preview.
+Practice, the reading check, Review, Study and the editor's preview.
 Any question type may carry it. "Name the note" is a multiple-choice question
 with one note on the staff:
 
@@ -422,8 +422,8 @@ flat). The octave is not part of a name, so two options for the same note in
 different octaves are an error. Options that aren't one note (`"minor 3rd"`,
 `"G major"`) are shown as written. A wrong answer shows the `explanation`, so
 say there how to find the note from a line the learner knows. A lesson
-without `abc` loads no notation code. A music course's Sprint `builds` put
-notes or keys in order (see [Sprint mode](#sprint-mode-optional)).
+without `abc` loads no notation code. A music course's Review `builds` put
+notes or keys in order (see [Review](#review-optional)).
 
 A question's `play` is music to listen to, also in ABC: a speaker button
 plays it with the browser's own tones (no recordings, nothing downloaded)
@@ -459,8 +459,8 @@ percussion clef and the metre. "Which bar did you hear?":
   "options": ["B2 BB B2 B2|", "BB B2 B2 B2|", "B2 B2 BB B2|"], "correct_answer": "B2 BB B2 B2|" }
 ```
 
-The speaker follows the site's audio switch (Sprint mode's speaker button).
-"Can't listen now" turns sound off for an hour: Sprint mode then skips
+The speaker follows the site's audio switch (Review's speaker button).
+"Can't listen now" turns sound off for an hour: Review then skips
 questions that need it (`play` without `abc`, sorts of speaker tiles), and
 the other modes show the notes on a staff instead, except when the options
 are the staves to tell apart. A lesson without `play` loads no sound code.
@@ -489,8 +489,8 @@ Lengths are read in `L:` units (`B2`, `B/`, `B3/2`, rests `z`, chords
 and decorations add nothing. A beat is the bottom number of `M:` (6/8 counts
 eighths). The loader refuses a question whose `abc` has no gap or more than
 one, a tile that isn't notes, fewer than 2 tiles, or tiles that can't fill the
-gap. Fill the bar is asked in Practice, the reading check, the Guide and
-Sprint mode; the AI tutor skips it.
+gap. Fill the bar is asked in Practice, the reading check, Study and
+Review; the AI tutor skips it.
 
 "Pick the interval" is the same kind of question with two notes, one after
 the other (`C E`) or stacked (`[CE]`), and interval names as options. Its
@@ -524,7 +524,7 @@ The loader refuses a tile that isn't one note, two tiles that spell the same
 note, an answer that isn't 3 or 4 different notes, an answer note that isn't
 a tile, no tile beyond the chord's notes, and `abc` on the question (it draws
 its own staff). Spell the chord is asked in Practice, the reading check, the
-Guide and Sprint mode; the AI tutor skips it.
+Study and Review; the AI tutor skips it.
 
 "Place the note" is a `staff-note` question. The learner sees an empty staff
 with a `clef`, `treble` or `bass`, and taps it. The note snaps to the nearest
@@ -546,7 +546,7 @@ each: on a treble staff from `G,` to `d'`, on a bass staff from `B,,,` to
 `F`. The loader refuses a missing or unknown `clef`, an answer that isn't
 one note (or has a double sharp or flat), an answer off the staff, and `abc`
 on the question (it draws its own staff). Place the note is asked in
-Practice, the reading check, the Guide and Sprint mode; the AI tutor skips
+Practice, the reading check, Study and Review; the AI tutor skips
 it.
 
 "Name the chord" stacks three or four notes (`[DFA]`) and has chord names as
@@ -578,8 +578,8 @@ an ear question plays a note, a reading question draws one.
   "abc": "X:1\nL:1/2\nK:C\nc", "correct_answer": "c", "octave": true, "octaves": 2 }
 ```
 
-Find it on the keys is asked in Practice, the reading check, the Guide and
-Sprint mode (skipped there while sound is off when it has `play` and no
+Find it on the keys is asked in Practice, the reading check, Study and
+Review (skipped there while sound is off when it has `play` and no
 `abc`); the AI tutor skips it.
 
 "Name the key" shows a key signature and has key names as options. Put one
@@ -618,7 +618,7 @@ item in another set inherit it); it is optional otherwise.
 
 ### Conversations
 
-A scripted two-person exchange. In Sprint mode its lines of three to nine words
+A scripted two-person exchange. In Review its lines of three to nine words
 become sentence builds. `meaning` is the line in the learner's language; it
 may be omitted for courses where that makes no sense (such a line is not
 built).
@@ -641,7 +641,7 @@ built).
 
 Sentences for listening practice: the browser reads one aloud in the
 course's language (its own speech synthesis, in `terms.lang`), the learner
-types what they heard and sees it checked word by word. Sprint mode draws its
+types what they heard and sees it checked word by word. Review draws its
 listening exercises from the same sentences (rebuilt from tiles, with a gap
 to fill, or heard and matched to its meaning). Only language courses
 (`language_features`, or a `terms.lang` that differs from `meanings.lang`)
@@ -665,9 +665,9 @@ words should come from the lesson's own vocabulary, with one new word in two
 or three of them to stretch the learner. Write numbers as words, since the
 learner types what they hear. Texts must be distinct within a lesson.
 
-### Guide (optional)
+### Study (optional)
 
-The Guide plays a lesson as a sequence of small steps: concept cards, quick
+Study plays a lesson as a sequence of small steps: concept cards, quick
 checks, flashcard hands, tips. Without a `guide` array the steps are derived:
 every section becomes a card, vocabulary is dealt in hands of five after the
 first card, and questions are interleaved from the third card on. To order the
@@ -685,9 +685,9 @@ steps by hand, reference the lesson's own content:
 
 A reference to an unknown section or question is a validation error.
 
-### Sprint mode (optional)
+### Review (optional)
 
-Sprint mode is the phone-first, five-minute session: one bite, then rule games,
+Review is the phone-first, five-minute session: one bite, then rule games,
 quiz questions and vocabulary games, interleaved. Everything below is
 optional; a lesson without a `sprint` block still plays (bites come from the
 sections, the rest from the quiz, vocabulary, conjugations and conversations).
@@ -725,7 +725,7 @@ taps it to hear it, then taps its bucket. "Major or minor?":
 may hold a tune in ABC (`abc`, see [Music notation](#music-notation)) instead
 of a `sentence`. One note in it is wrong: `wrong` is its number, counting the
 notes from 1, and `fix` is the right note written as one ABC note (`F`, `^C`,
-`_B`). Sprint mode draws the staff; the learner taps the wrong note, then picks
+`_B`). Review draws the staff; the learner taps the wrong note, then picks
 its fix from three tiles (the fix and two notes near it, in the course's note
 names), or drags the note up or down to the right line. It counts as right
 only when both the note and the fix are right. A `T:` line is drawn as the
@@ -742,7 +742,7 @@ The validator counts the notes the way the staff draws them: each note or
 chord once; rests, bar lines, chord symbols, decorations and grace notes are
 not counted. `wrong` must be a number from 1 to that count, and `fix` must be
 one note that differs from the note it replaces. A spot has a `sentence` or
-`abc`, not both. A staff spot is played in Sprint mode only.
+`abc`, not both. A staff spot is played in Review only.
 
 **Build the scale** (`scales`, #1229) is the ladder with notes, for a music
 course. `notes` is the scale's eight notes in ABC (see
@@ -787,26 +787,26 @@ the canonical names shown above.
 
 | Lesson field | Used by |
 |---|---|
-| `content` (split on `## `) | Lesson viewer, Guide cards, Sprint mode bites (when none are written) |
-| `content` ```` ```abc ```` blocks | Music notation drawn as a staff on the lesson page and Guide cards |
-| `quiz[].abc` (+ `music.note_names` in `course.json`) | A staff above the question in Practice, the reading check, Sprint mode, the Guide and the editor's preview; note options shown in the course's note names |
-| `quiz[].octave`, `quiz[].octaves` (`keyboard`) | Find it on the keys in Practice, the reading check, Sprint mode, the Guide and the editor's preview |
-| `quiz[].play`, `quiz[].option_kind` | A speaker button above the question in Practice, the reading check, Sprint mode and the Guide, the played notes on a staff after the answer; options drawn as staves |
-| `sprint.sorts[].items[].play` | Speaker tiles in Sprint mode's Sort it |
-| `quiz[].tiles`, `quiz[].exact` (`fill-bar`) | Fill the bar in Practice, the reading check, Sprint mode, the Guide and the editor's preview |
-| `sprint.spots[].abc` | Sprint mode's spot the mistake on a staff: tap the wrong note, pick its fix |
-| `quiz[].tiles` (`chord-spell`) | Spell the chord in Practice, the reading check, Sprint mode, the Guide and the editor's preview |
-| `quiz[].clef`, `quiz[].any_octave` (`staff-note`) | Place the note in Practice, the reading check, Sprint mode, the Guide and the editor's preview |
-| `sprint.scales` | Sprint mode's Build the scale ladder; the scale on a staff with a speaker on the lesson page |
-| `quiz` | Practice quizzes, lesson quiz, Guide quick checks, Sprint mode, mastery scores |
+| `content` (split on `## `) | Lesson viewer, Study cards, Review bites (when none are written) |
+| `content` ```` ```abc ```` blocks | Music notation drawn as a staff on the lesson page and Study cards |
+| `quiz[].abc` (+ `music.note_names` in `course.json`) | A staff above the question in Practice, the reading check, Review, Study and the editor's preview; note options shown in the course's note names |
+| `quiz[].octave`, `quiz[].octaves` (`keyboard`) | Find it on the keys in Practice, the reading check, Review, Study and the editor's preview |
+| `quiz[].play`, `quiz[].option_kind` | A speaker button above the question in Practice, the reading check, Review and Study, the played notes on a staff after the answer; options drawn as staves |
+| `sprint.sorts[].items[].play` | Speaker tiles in Review's Sort it |
+| `quiz[].tiles`, `quiz[].exact` (`fill-bar`) | Fill the bar in Practice, the reading check, Review, Study and the editor's preview |
+| `sprint.spots[].abc` | Review's spot the mistake on a staff: tap the wrong note, pick its fix |
+| `quiz[].tiles` (`chord-spell`) | Spell the chord in Practice, the reading check, Review, Study and the editor's preview |
+| `quiz[].clef`, `quiz[].any_octave` (`staff-note`) | Place the note in Practice, the reading check, Review, Study and the editor's preview |
+| `sprint.scales` | Review's Build the scale ladder; the scale on a staff with a speaker on the lesson page |
+| `quiz` | Practice quizzes, lesson quiz, Study quick checks, Review, mastery scores |
 | `quiz[].teaches` + `vocabulary` | Vocabulary collection and flashcards |
-| `vocabulary` | Guide flashcard hands, Vocabulary page, Word Match, Sprint mode pick/match and its listening exercises (what do you hear, select the matching audio, listen and match) |
-| `conjugations` | Lesson table, Conjugation Drill, Sprint mode ladders |
-| `conversations` | Sprint mode sentence builds |
-| `listening` | Listening practice (hear it, type it), Sprint mode listening exercises (tap / fill in what you hear, what does it mean) |
-| `guide` | Hand-ordered Guide steps |
-| `sprint` | Sprint mode bites and sort / spot / build exercises |
-| `prerequisites`, `unit`, `order` | Lesson order, quiz weighting, Map, Guide stage order |
+| `vocabulary` | Study flashcard hands, Vocabulary page, Word Match, Review pick/match and its listening exercises (what do you hear, select the matching audio, listen and match) |
+| `conjugations` | Lesson table, Conjugation Drill, Review ladders |
+| `conversations` | Review sentence builds |
+| `listening` | Listening practice (hear it, type it), Review listening exercises (tap / fill in what you hear, what does it mean) |
+| `guide` | Hand-ordered Study steps |
+| `sprint` | Review bites and sort / spot / build exercises |
+| `prerequisites`, `unit`, `order` | Lesson order, quiz weighting, Map, Study lesson order |
 
 `placement.json` (course-level) is read by the start wizard's placement
 test; its `random_per_unit` draws from the lessons' multiple-choice `quiz`.

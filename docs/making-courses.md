@@ -124,7 +124,7 @@ course. Most need *Allow changes to existing content* on.
 
 - Check: "Check the facts in every lesson and fix what is wrong."
 - Add: "Add a lesson on ...", "Add three multiple-choice questions to lesson
-  4.", "Add a Sprint sort exercise to every lesson that has none." A language
+  4.", "Add a Review sort exercise to every lesson that has none." A language
   course also gets "Add listening sentences to every lesson that has
   vocabulary but no listening." and "Add a conversation to lesson 2."
 - Change: "Use simpler words in the explanations."

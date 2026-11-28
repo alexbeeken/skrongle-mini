@@ -201,7 +201,7 @@ fn the_ai_keys_and_the_hide_ai_switch_are_the_owners_over_http() {
     // Bob uses it: his tutor page offers it.
     let tutor = get("/tutor", &bob).2;
     assert!(!tutor.contains("tutor-no-key") && tutor.contains("ai-disclosure"), "{tutor}");
-    assert!(get("/", &bob).2.contains("home-start-tutor"));
+    assert!(get("/", &bob).2.contains("topnav-tutor"));
 
     // Hidden for everyone: no tutor, no generation, no AI form, for Bob and for Ann.
     let (status, location, _) = post("/manage/ai", &ann, &[("off", "1")]);
@@ -210,7 +210,7 @@ fn the_ai_keys_and_the_hide_ai_switch_are_the_owners_over_http() {
     assert!(get("/manage?did=ai-off", &ann).2.contains("AI features are hidden for every account"));
     for c in [&ann, &bob] {
         let home = get("/", c).2;
-        assert!(!home.contains("home-start-tutor") && !home.contains("/tutor"), "the home page offers the tutor");
+        assert!(!home.contains("topnav-tutor") && !home.contains("/tutor"), "the home page offers the tutor");
         let courses = get("/courses", c).2;
         assert!(!courses.contains("Have AI write it") && courses.contains("courses-create"), "the picker offers generation");
         let lesson = get("/lessons/adjectives-agreement-position", c).2;
@@ -246,7 +246,7 @@ fn the_ai_keys_and_the_hide_ai_switch_are_the_owners_over_http() {
     // Shown again: Bob has them back.
     let (status, location, _) = post("/manage/ai", &ann, &[("off", "0")]);
     assert_eq!((status, location.as_str()), (303, "/manage?did=ai-on#ai"));
-    assert!(get("/", &bob).2.contains("home-start-tutor"));
+    assert!(get("/", &bob).2.contains("topnav-tutor"));
     assert!(get(&format!("/courses/{bob_course}?generate=1"), &bob).2.contains(r#"data-testid="generate""#));
 
     // Removing the key: the forms ask for one again.

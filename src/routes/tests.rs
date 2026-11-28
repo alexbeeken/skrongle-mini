@@ -1632,39 +1632,129 @@ fn every_mode_shares_the_daily_goal_and_where_you_left_off() {
         rest[..rest.find('"').unwrap()].parse::<i64>().unwrap()
     };
 
-    // Nothing yet: the first lesson, in Study mode, and an empty ring.
+    // Nothing yet: Up next is the first lesson's Study, and the goal's bar is empty.
     let home = get("/");
-    assert!(home.contains(&format!(r#"href="/lessons/{}" data-testid="home-continue""#, lessons[0].slug)), "{home}");
+    assert!(home.contains(&format!(r#"data-testid="path-next" data-lesson="{}" data-kind="study""#, lessons[0].id)), "{home}");
+    assert!(home.contains(&format!(r#"href="/study/{}" data-testid="path-start""#, lessons[0].slug)), "{home}");
     assert_eq!(ring(&home, "home-goal-ring"), 0);
 
     // A quiz answer in Study mode fills both rings.
     let q = &lessons[0].quiz[0];
     assert_eq!(post("/api/answer", serde_json::json!({ "question_id": q.question_id, "answer": q.correct_answer })), 200);
     assert_eq!(ring(&get("/"), "home-goal-ring"), 1);
-    assert_eq!(ring(&get("/sprint"), "sprint-goal-ring"), 1, "Sprint mode shows the same ring");
+    assert_eq!(ring(&get("/review"), "sprint-goal-ring"), 1, "Sprint mode shows the same ring");
 
-    // Opening a later lesson's Sprint session: every mode resumes there,
-    // and the home page opens it in Sprint mode.
+    // Opening a later lesson's Review session: Review and Study resume
+    // there. The home's list keeps its own order (`path::list`).
     let later = &lessons[5];
-    get(&format!("/sprint/play?lesson={}", later.slug));
-    let home = get("/");
-    assert!(home.contains(&format!(r#"href="/sprint/play?lesson={}" data-testid="home-continue""#, later.slug)), "{home}");
-    assert!(get("/sprint").contains(&format!(r#"data-lesson-id="{}" data-state="available" data-passed="false" data-current="true""#, later.slug)));
-    let guide = get("/guide");
+    get(&format!("/review/play?lesson={}", later.slug));
+    assert!(get("/review").contains(&format!(r#"data-lesson-id="{}" data-state="available" data-passed="false" data-current="true""#, later.slug)));
+    let guide = get("/study");
     assert!(guide.contains(&format!(r#"data-lesson-id="{}" data-state="available" data-passed="false" data-stars="0" data-current="true""#, later.slug)), "{guide}");
-    // Its Guide stage is open although the lessons before it are not passed.
-    let stage = agent.get(&format!("{base}/guide/{}", later.slug)).header("cookie", &cookie).call().unwrap();
+    // Its Study is open although the lessons before it are not passed.
+    let stage = agent.get(&format!("{base}/study/{}", later.slug)).header("cookie", &cookie).call().unwrap();
     assert_eq!(stage.status().as_u16(), 200);
-    assert!(get("/").contains(&format!(r#"href="/guide/{}" data-testid="home-continue""#, later.slug)), "the Guide is now the mode last used");
+    assert!(get("/").contains(&format!(r#"data-testid="path-next" data-lesson="{}" data-kind="study""#, lessons[0].id)));
+    // The old addresses redirect, keeping the query.
+    let moved = agent.get(&format!("{base}/sprint/play?lesson={}", later.slug)).header("cookie", &cookie).call().unwrap();
+    assert_eq!((moved.status().as_u16(), moved.headers().get("location").unwrap().to_str().unwrap()), (308, format!("/review/play?lesson={}", later.slug).as_str()));
+    let moved = agent.get(&format!("{base}/guide/{}", later.slug)).header("cookie", &cookie).call().unwrap();
+    assert_eq!((moved.status().as_u16(), moved.headers().get("location").unwrap().to_str().unwrap()), (308, format!("/study/{}", later.slug).as_str()));
 
-    // A review mix does not move it.
-    get("/sprint/play?mode=review");
-    get("/practice");
-    assert!(get("/").contains(&format!(r#"data-testid="home-continue" data-lesson-id="{}""#, later.slug)));
     // No XP anywhere.
-    for page in ["/", "/sprint", "/guide"] {
+    for page in ["/", "/review", "/study"] {
         assert!(!get(page).contains(" XP"), "{page} shows XP");
     }
+}
+
+/// #318: a finished Study and a finished Review on one lesson are stored on
+/// the learner path, the course home lists them under Done today and moves
+/// on, and an activity can be hidden and brought back.
+#[test]
+fn the_course_home_follows_the_learner_path() {
+    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+    let state = super::test_state(false);
+    let ann = state
+        .db
+        .with(|c| {
+            let ann = crate::auth::create_user(c, "ann@example.org", "h")?;
+            crate::courses::open_project(c, ann, "spanish")?;
+            crate::courses::set_project_settings(c, ann, "spanish", &crate::courses::SettingsChange::default())?;
+            Ok(ann)
+        })
+        .unwrap();
+    let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
+    let course = state.courses.builtin_store("spanish").unwrap();
+    let (first, second) = (&course.lessons()[0], &course.lessons()[1]);
+    let app = super::router(state.clone());
+    let base = rt.block_on(async {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        tokio::spawn(async move { axum::serve(listener, app).await.unwrap() });
+        format!("http://{addr}")
+    });
+    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
+    let get = |path: &str| agent.get(&format!("{base}{path}")).header("cookie", &cookie).call().unwrap().body_mut().read_to_string().unwrap();
+    let post = |path: &str, body: serde_json::Value| agent.post(&format!("{base}{path}")).header("cookie", &cookie).send_json(body).unwrap().status().as_u16();
+    let form = |path: &str, lesson: &str, kind: &str| {
+        let r = agent.post(&format!("{base}{path}")).header("cookie", &cookie).send_form([("lesson", lesson), ("kind", kind)]).unwrap();
+        (r.status().as_u16(), r.headers().get("location").map(|l| l.to_str().unwrap().to_string()))
+    };
+    let row = |lesson: &str, kind: &str| -> Option<(i64, i64, i64)> {
+        let (lesson, kind) = (lesson.to_string(), kind.to_string());
+        state
+            .db
+            .with(move |c| {
+                rusqlite::OptionalExtension::optional(c.query_row(
+                    "SELECT last_pct, streak, attempts FROM path_activity WHERE user_id = ?1 AND course_id = 'spanish' AND lesson_id = ?2 AND kind = ?3",
+                    rusqlite::params![ann, lesson, kind],
+                    |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?)),
+                ))
+            })
+            .unwrap()
+    };
+    let next = |lesson: &str, kind: &str| format!(r#"data-testid="path-next" data-lesson="{lesson}" data-kind="{kind}""#);
+    let done = |lesson: &str, kind: &str| format!(r#"data-testid="path-done" data-lesson="{lesson}" data-kind="{kind}""#);
+
+    // A new learner: the first lesson's Study, then its Review. A Play waits for the day's goal.
+    let home = get("/");
+    assert!(home.contains(&next(&first.id, "study")), "{home}");
+    assert!(home.contains(&format!(r#"data-testid="path-item" data-lesson="{}" data-kind="review""#, first.id)), "{home}");
+    assert!(!home.contains(r#"data-kind="play""#) && !home.contains("path-done"), "{home}");
+
+    // Walking the Study to its last step stores it; not before.
+    let steps = i64::try_from(first.guide_steps.len()).unwrap();
+    for step in 0..steps {
+        assert_eq!(row(&first.id, "study"), None, "not before its last step");
+        assert_eq!(post("/api/guide/step", serde_json::json!({ "lesson_id": first.id, "step": step, "correct": true })), 200);
+    }
+    assert_eq!(row(&first.id, "study").map(|r| (r.1, r.2)), Some((0, 1)));
+    let home = get("/");
+    assert!(home.contains(&done(&first.id, "study")) && home.contains(&next(&first.id, "review")), "{home}");
+
+    // A Review session with nothing answered stores nothing; an answered one does, and a mix never does.
+    let finish = |answered: i64, correct: i64, mode: &str, lesson: Option<&str>| {
+        post("/api/sprint/finish", serde_json::json!({ "mode": mode, "lesson_id": lesson, "answered": answered, "correct": correct, "duration_ms": 1000 }))
+    };
+    assert_eq!(finish(0, 0, "lesson", Some(&first.id)), 200);
+    assert_eq!(row(&first.id, "review"), None);
+    assert_eq!(finish(10, 10, "lesson", Some(&first.id)), 200);
+    assert_eq!(finish(5, 5, "review", None), 200);
+    assert_eq!(row(&first.id, "review"), Some((100, 0, 1)));
+    let home = get("/");
+    assert!(home.contains(&done(&first.id, "review")) && home.contains("Back in 1 day"), "{home}");
+    assert!(home.contains(&next(&second.id, "study")), "{home}");
+
+    // Hiding the next Study moves on to its Review; bringing it back restores the order.
+    assert_eq!(form("/path/hide", &second.id, "study"), (303, Some("/".to_string())));
+    let home = get("/");
+    assert!(home.contains(&next(&second.id, "review")), "{home}");
+    assert!(home.contains(&format!(r#"data-testid="path-hidden-item" data-lesson="{}" data-kind="study""#, second.id)), "{home}");
+    assert_eq!(form("/path/unhide", &second.id, "study"), (303, Some("/".to_string())));
+    assert!(get("/").contains(&next(&second.id, "study")));
+    // An unknown kind is refused, and so is a lesson the course does not have.
+    assert_eq!(form("/path/hide", &second.id, "nap").0, 400);
+    assert_eq!(form("/path/hide", "no-such-lesson", "study").0, 404);
 }
 
 /// #1063: a POST answered without reading its form (here a 404) keeps its
@@ -1995,7 +2085,7 @@ fn the_two_ai_permissions_refuse_their_own_routes_only() {
         (id, get(&loc, c).1)
     };
     let generate = |id: &str, c: &str| post(&format!("/courses/{id}/generate"), c, &[("provider", "anthropic"), ("wish", "Volcanoes and how they erupt")]);
-    let tutor_card = r#"data-testid="home-mode" data-mode="ai""#;
+    let tutor_card = r#"data-testid="topnav-tutor""#;
     let not_allowed = "ccount is not allowed to do this";
 
     // A Teacher: everything, as far as a server without a key takes it.

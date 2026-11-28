@@ -655,7 +655,7 @@ test.describe("tap a word on a phone (#859)", () => {
 test("finish a Sprint mode session", async ({ page }) => {
   test.setTimeout(180_000);
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/sprint?reduce-motion=1");
+  await page.goto("/review?reduce-motion=1");
   await page.getByTestId("sprint-continue").first().click();
   await playSprintSession(page);
   await expect(page.getByTestId("sprint-play-done")).toBeVisible();
@@ -672,7 +672,7 @@ test("Sprint home fits a phone in every app language (#670)", async ({ page }) =
     for (const lang of langs) {
       const r = await page.request.post("/api/profile", { data: { lang } });
       expect(r.ok(), lang).toBe(true);
-      await page.goto("/sprint");
+      await page.goto("/review");
       await expect(page.locator("html")).toHaveAttribute("lang", lang);
       await expect(page.getByTestId("sprint-review")).toBeVisible();
       expect(await page.evaluate(() => document.documentElement.scrollWidth), lang).toBeLessThanOrEqual(390);
@@ -711,18 +711,17 @@ test("on a phone the Vocabulary term table scrolls in its box, not the page (#93
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
 });
 
-test("on a phone the Study and Play mode bars take two rows and scroll sideways (#423)", async ({ page }) => {
+test("on a phone the Study and Play mode bars keep one row and scroll sideways (#423)", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  for (const [path, nav, current, other] of [
-    ["/mistakes", "nav-study", "nav-study-mistakes", "nav-study-to-sprint"],
-    ["/guide", "nav-play", "nav-play-stages", "nav-play-to-study"],
+  for (const [path, nav, current] of [
+    ["/mistakes", "nav-study", "nav-study-mistakes"],
+    ["/vocabulary/study", "nav-play", "nav-play-flashcards"],
   ]) {
     await page.goto(path);
     const bar = page.getByTestId(nav);
     const rowHeight = (await page.getByTestId(current).boundingBox())!.height;
-    expect((await bar.boundingBox())!.height).toBeLessThan(2.6 * rowHeight);
-    // The Switch links stay, and the current tab (the last one) is scrolled into view.
-    await expect(page.getByTestId(other)).toBeInViewport();
+    expect((await bar.boundingBox())!.height).toBeLessThan(1.6 * rowHeight);
+    // The current tab (the last one) is scrolled into view.
     await expect(page.getByTestId(current)).toBeInViewport({ ratio: 0.9 });
     // The bar fits the screen (the page below may be wider, e.g. /history before #424).
     expect(await bar.evaluate((el) => el.scrollWidth)).toBeLessThanOrEqual(390);
@@ -731,10 +730,12 @@ test("on a phone the Study and Play mode bars take two rows and scroll sideways 
 
 test("the modes' old paths redirect, keeping the query string", async ({ page }) => {
   for (const [from, to] of [
-    ["/d?reduce-motion=1", "/sprint?reduce-motion=1"],
-    ["/d/play?mode=review", "/sprint/play?mode=review"],
+    ["/d?reduce-motion=1", "/review?reduce-motion=1"],
+    ["/d/play?mode=review", "/review/play?mode=review"],
     ["/k", "/lessons"],
-    ["/study?x=1", "/lessons?x=1"],
+    ["/guide?x=1", "/study?x=1"],
+    ["/guide/ser-vs-estar", "/study/ser-vs-estar"],
+    ["/sprint/play?mode=review", "/review/play?mode=review"],
     ["/g", "/play"],
     ["/games", "/play"],
     ["/games/matching", "/play/matching"],
@@ -749,16 +750,6 @@ test("the modes' old paths redirect, keeping the query string", async ({ page })
   expect(res.headers()["location"]).toMatch(/\/api\/sprint\/finish$/);
   await page.goto("/k");
   await expect(page.getByTestId("nav-study")).toBeVisible();
-});
-
-test("the mode bars link to Study's Lessons, not to the /study redirect", async ({ page }) => {
-  for (const path of ["/", "/lessons", "/play", "/guide", "/sprint"]) {
-    await page.goto(path);
-    const hrefs = await page.locator("a[href]").evaluateAll((as) => as.map((a) => new URL((a as HTMLAnchorElement).href).pathname));
-    expect(hrefs.filter((h) => h === "/study" || h === "/k"), path).toEqual([]);
-  }
-  await page.goto("/play");
-  await expect(page.getByTestId("nav-play-to-study")).toHaveAttribute("href", /\/lessons$/);
 });
 
 test("the profile has no Dev section for anyone; the seeded keys answer generate and the tutor", async ({ page, browser }) => {
@@ -1063,7 +1054,7 @@ test("the site installs as an app: every layout links a manifest that opens at t
   // The signed-in layouts link it too: the course home and Sprint mode.
   await page.goto("/");
   await expect(page.locator('link[rel="manifest"]')).toHaveAttribute("href", href);
-  await page.goto("/sprint");
+  await page.goto("/review");
   await expect(page.locator('link[rel="manifest"]')).toHaveAttribute("href", href);
 });
 
@@ -1084,7 +1075,7 @@ test("#1154 a lesson without questions offers no practice", async ({ page }) => 
   // leads back to it.
   await page.goto("/practice?lesson=sort");
   await expect(page.getByTestId("quiz-empty")).toBeVisible();
-  await expect(page.getByTestId("quiz-sprint")).toHaveAttribute("href", /\/sprint\/play\?lesson=sort$/);
+  await expect(page.getByTestId("quiz-sprint")).toHaveAttribute("href", /\/review\/play\?lesson=sort$/);
   await page.getByTestId("quiz-back-to-lesson").click();
   await expect(page.getByTestId("lesson")).toHaveAttribute("data-lesson-id", "sort");
 });
@@ -1122,7 +1113,7 @@ test("the Guide list folds locked stages under one lock per unit (#1213)", async
   const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
   const page = await ctx.newPage();
   await register(page, newAccount("guide-locks"), "spanish");
-  await page.goto("/guide");
+  await page.goto("/study");
   const units = page.getByTestId("guide-unit");
   expect(await units.count()).toBeGreaterThan(1);
   const withLocked = await units.evaluateAll((els) => els.filter((e) => e.querySelector('[data-state="locked"]')).length);

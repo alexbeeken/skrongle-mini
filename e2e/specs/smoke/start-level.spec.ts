@@ -119,11 +119,11 @@ test("start Spanish at A2: the A1 lessons are skipped and never offered", async 
   await expect(skippedRow.locator(".pill.unread")).toHaveCount(0);
 
   // Each mode starts at the first A2 lesson.
-  await page.goto("/sprint?reduce-motion=1");
+  await page.goto("/review?reduce-motion=1");
   await expect(page.getByTestId("sprint-continue").first()).toHaveAttribute("data-lesson-id", firstA2);
   await expect(page.locator(`[data-testid="sprint-lesson"][data-lesson-id="${a1[0].slug}"]`)).toHaveAttribute("data-state", "skipped");
   await expect(page.locator(`[data-testid="sprint-lesson"][data-lesson-id="${firstA2}"]`)).toHaveAttribute("data-state", "available");
-  await page.goto("/guide");
+  await page.goto("/study");
   await expect(page.locator('[data-testid="guide-stage"][data-current="true"]')).toHaveAttribute("data-lesson-id", firstA2);
   await page.goto("/map");
   // One "You are here" on the whole map, at the first A2 lesson: none in A1 (skipped) or in the units after A2.
@@ -140,13 +140,13 @@ test("start Spanish at A2: the A1 lessons are skipped and never offered", async 
   await expect(page.getByTestId("quiz-read-next")).toHaveAttribute("data-lesson-id", firstA2);
   // The review mix and the lightning round never draw a skipped A1 lesson
   // (they may reach past A2 when the course has later levels).
-  for (const path of ["/sprint/play?mode=review", "/sprint/play?mode=lightning"]) {
+  for (const path of ["/review/play?mode=review", "/review/play?mode=lightning"]) {
     const met = await sessionLessons(page, path);
     expect(met.length, path).toBeGreaterThan(0);
     expect(met.filter((t) => a1Titles.has(t)), `${path}: skipped A1 lessons`).toEqual([]);
   }
   // Nothing read: every question in the review mix says it is a taste of what's next.
-  const untagged = (await sessionTags(page, "/sprint/play?mode=review")).filter((t) => !t.startsWith(TASTE));
+  const untagged = (await sessionTags(page, "/review/play?mode=review")).filter((t) => !t.startsWith(TASTE));
   expect(untagged, "review mix questions from lessons not read, untagged").toEqual([]);
 
   // Read an A2 lesson: recommended practice asks about it alone.
@@ -158,7 +158,7 @@ test("start Spanish at A2: the A1 lessons are skipped and never offered", async 
   expect(asked.length).toBeGreaterThan(0);
   expect(new Set(asked)).toEqual(new Set([withQuiz.slug]));
   // The review mix too: the read lesson untagged, anything else tagged as a taste.
-  const tags = await sessionTags(page, "/sprint/play?mode=review");
+  const tags = await sessionTags(page, "/review/play?mode=review");
   expect(tags, "review mix asks about the lesson read").toContain(withQuiz.title);
   expect(tags.filter((t) => t !== withQuiz.title && !t.startsWith(TASTE)), "review mix: lessons not read, untagged").toEqual([]);
 
@@ -170,7 +170,7 @@ test("start Spanish at A2: the A1 lessons are skipped and never offered", async 
   await page.goto("/lessons?unit=all");
   await expect(page.locator(`[data-testid="lessons-item"][data-lesson-id="${a1[0].slug}"]`)).toHaveAttribute("data-status", "untested");
   expect((await progress(page)).lessons.some((l) => l.skipped)).toBe(false);
-  await page.goto("/sprint?reduce-motion=1");
+  await page.goto("/review?reduce-motion=1");
   await expect(page.locator(`[data-testid="sprint-lesson"][data-lesson-id="${a1[0].slug}"]`)).toHaveAttribute("data-state", "available");
   // Changing level moves where every mode resumes: the first lesson of the level (#333).
   await expect(page.getByTestId("sprint-continue").first()).toHaveAttribute("data-lesson-id", a1[0].slug);
@@ -218,10 +218,10 @@ test("change level mid-course (#333): progress stays, every mode moves to the ch
   }
 
   // The position moved to the first A2 lesson in every mode, past the begun A1 lesson.
-  await page.goto("/sprint?reduce-motion=1");
+  await page.goto("/review?reduce-motion=1");
   await expect(page.getByTestId("sprint-continue").first()).toHaveAttribute("data-lesson-id", firstA2);
   await expect(page.locator(`[data-testid="sprint-lesson"][data-lesson-id="${firstA2}"]`)).toHaveAttribute("data-state", "available");
-  await page.goto("/guide");
+  await page.goto("/study");
   await expect(page.locator('[data-testid="guide-stage"][data-current="true"]')).toHaveAttribute("data-lesson-id", firstA2);
   await page.goto("/map");
   await expect(page.locator('[data-testid="map-lesson"][data-here="true"]')).toHaveAttribute("data-lesson-id", firstA2);
@@ -233,7 +233,7 @@ test("change level mid-course (#333): progress stays, every mode moves to the ch
   expect(back.start_unit).toBe("");
   expect(back.lessons.some((l) => l.skipped)).toBe(false);
   expect(back.lessons.find((l) => l.slug === studied.slug)!.seen).toBe(true);
-  await page.goto("/guide");
+  await page.goto("/study");
   await expect(page.locator('[data-testid="guide-stage"][data-current="true"]')).toHaveAttribute("data-lesson-id", a1[0].slug);
 });
 
@@ -251,7 +251,7 @@ test("the test course offers each of its units as a level", async ({ page }) => 
   const { lessons } = await progress(page);
   const firstEdge = lessons.find((l) => l.unit === "Edge cases")!;
   expect(lessons.filter((l) => l.skipped).length).toBe(lessons.findIndex((l) => l.slug === firstEdge.slug));
-  await page.goto("/guide");
+  await page.goto("/study");
   await expect(page.locator('[data-testid="guide-stage"][data-current="true"]')).toHaveAttribute("data-lesson-id", firstEdge.slug);
   await expect(page.getByTestId("guide-stage-skipped").first()).toBeVisible();
 });

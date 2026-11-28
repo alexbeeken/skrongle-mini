@@ -31,7 +31,7 @@ pub const MAX_EVIDENCE_CHARS: usize = 500;
 /// The rules, in the words given to the built-in tutor and to outside
 /// agents (`GET /api/progress`). Keep in step with `docs/progress.md`.
 pub const RULES: &str = "A lesson counts as learned (\"passed\") when both of these are true, in any order, in any mode:\n\
-1. Seen: the learner has been taught the lesson's material: read the lesson page and passed its short reading check, played a Sprint mode lesson session or a Guide stage (both open with the lesson's teaching cards), or been taught it one-to-one by a tutor.\n\
+1. Seen: the learner has been taught the lesson's material: read the lesson page and passed its short reading check, played a Review lesson session or a Study lesson (both open with the lesson's teaching cards), or been taught it one-to-one by a tutor.\n\
 2. Shown: in one sitting, the learner answered at least 3 of the lesson's exercises (or all of them, if the lesson has fewer than 3 quiz questions) and got at least 70% right. Hints are fine; answers given away or skipped count as wrong. Exercises must test the lesson's own focus, not other lessons.\n\
 Passing is a milestone and stays. Mastery is separate: a 0-100 score per lesson that rises with each right answer, falls with wrong ones and decays with time. Report every graded answer so mastery stays honest, and declare a pass only when both conditions hold.";
 
@@ -132,7 +132,7 @@ impl LessonPass {
         self.passed_at.is_some()
     }
 
-    /// One short line for a page: "Passed in Sprint mode", "Read · best run 60%"…
+    /// One short line for a page: "Passed in Review", "Read · best run 60%"…
     pub fn summary(&self) -> String {
         if let Some(v) = &self.passed_via {
             let key = if v == "agent" { "study.pass.passed_with" } else { "study.pass.passed_in" };
@@ -412,7 +412,7 @@ mod tests {
             assert_eq!(p.passed_via.as_deref(), Some(VIA_SPRINT));
             assert_eq!((via_id(VIA_SPRINT), via_id(VIA_STUDY), via_id("agent")), ("sprint", "study", "agent"));
             assert_eq!(p.best_via.as_deref(), Some(VIA_STUDY));
-            assert_eq!(p.summary(), "Passed in Sprint mode");
+            assert_eq!(p.summary(), "Passed in Review");
             // A bad run later never takes the pass away.
             let o = record_run(c, uid, "es", &l, VIA_PLAY, 0, 5)?;
             assert!(o.passed && !o.passed_now);
@@ -432,7 +432,7 @@ mod tests {
             // Study mode's "I've read it" is the only report such a lesson gets there.
             let o = mark_seen(c, uid, "es", &l, VIA_STUDY)?;
             assert!(o.passed && o.passed_now);
-            assert_eq!(load_one(c, uid, "es", "l1")?.unwrap().summary(), "Passed in Study mode");
+            assert_eq!(load_one(c, uid, "es", "l1")?.unwrap().summary(), "Passed in Lessons");
             // A lesson with questions still needs its run.
             let bob = crate::auth::create_user(c, "bob@example.org", "h")?;
             let o = mark_seen(c, bob, "es", &lesson(3), VIA_STUDY)?;

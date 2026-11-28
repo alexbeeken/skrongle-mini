@@ -115,7 +115,7 @@ test("the reading check and the Guide show the board too", async ({ page }) => {
   await expect(check.first().getByTestId("tiles")).toBeVisible();
   await expect(check.first().getByTestId("tile").first()).toBeVisible();
 
-  await page.goto("/guide/algebra-tiles");
+  await page.goto("/study/algebra-tiles");
   let step = page.locator('[data-testid="stage-step"]:visible');
   for (let i = 0; i < 10; i++) {
     await expect(page.locator('[data-testid="stage-step"]:visible')).toHaveCount(1);

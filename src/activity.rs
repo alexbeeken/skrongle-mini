@@ -127,8 +127,8 @@ impl Mode {
     /// on from there.
     pub fn continue_url(self, slug: &str) -> String {
         match self {
-            Mode::Sprint => crate::url(&format!("/sprint/play?lesson={slug}")),
-            Mode::Guide => crate::url(&format!("/guide/{slug}")),
+            Mode::Sprint => crate::url(&format!("/review/play?lesson={slug}")),
+            Mode::Guide => crate::url(&format!("/study/{slug}")),
             Mode::Study | Mode::Play | Mode::Tutor | Mode::Agent => crate::url(&format!("/lessons/{slug}")),
         }
     }
@@ -204,9 +204,31 @@ pub fn points_since(conn: &Connection, user_id: i64, course_id: &str, since: i64
     let mut total = 0.0;
     for row in rows {
         let (key, n) = row?;
-        total += Kind::of_key(&key).map_or(0.0, Kind::points) * n as f64;
+        total = add_points(total, &key, n);
     }
     Ok(total.floor() as i64)
+}
+
+/// [`points_since`] for every course at once (the course list's line about
+/// today): course id -> effort points since `since`, rounded down. One
+/// query; a course with nothing logged since is not in the map.
+pub fn points_since_by_course(conn: &Connection, user_id: i64, since: i64) -> rusqlite::Result<HashMap<String, i64>> {
+    let mut stmt = conn.prepare_cached(
+        "SELECT course_id, kind, SUM(n) FROM activity_log WHERE user_id = ?1 AND at >= ?2 GROUP BY course_id, kind ORDER BY course_id, kind",
+    )?;
+    let rows = stmt.query_map(params![user_id, since], |r| Ok((r.get::<_, String>(0)?, r.get::<_, String>(1)?, r.get::<_, i64>(2)?)))?;
+    let mut totals: HashMap<String, f64> = HashMap::new();
+    for row in rows {
+        let (course, key, n) = row?;
+        let total = totals.entry(course).or_default();
+        *total = add_points(*total, &key, n);
+    }
+    Ok(totals.into_iter().map(|(c, t)| (c, t.floor() as i64)).collect())
+}
+
+/// `total` plus `n` of the kind `key`, at its weight (an unknown kind counts nothing).
+fn add_points(total: f64, key: &str, n: i64) -> f64 {
+    total + Kind::of_key(key).map_or(0.0, Kind::points) * n as f64
 }
 
 /// Today's effort against the goal.
@@ -218,7 +240,12 @@ pub struct Today {
 
 impl Today {
     pub fn load(conn: &Connection, user_id: i64, course_id: &str, day_start: i64) -> rusqlite::Result<Today> {
-        Ok(Today { points: points_since(conn, user_id, course_id, day_start)?, goal: DAILY_GOAL })
+        Ok(Today::of_points(points_since(conn, user_id, course_id, day_start)?))
+    }
+
+    /// The day's effort `points` against the daily goal.
+    pub fn of_points(points: i64) -> Today {
+        Today { points, goal: DAILY_GOAL }
     }
 
     /// How full the ring is, 0–100.
@@ -269,9 +296,6 @@ pub fn last_touched(conn: &Connection, user_id: i64, course_id: &str) -> rusqlit
 #[derive(Debug, Clone)]
 pub struct Resume<'a> {
     pub lesson: &'a Lesson,
-    /// The mode the learner last worked in (Study mode before anything):
-    /// "Continue" opens the lesson there.
-    pub mode: Mode,
 }
 
 /// The lesson every mode resumes at: the one last worked on, in any mode,
@@ -292,14 +316,13 @@ pub fn resume<'a>(
     };
     let last = touched
         .iter()
-        .filter_map(|(id, (at, mode))| Some((lessons.iter().position(|l| &l.id == id)?, *at, *mode)))
-        .max_by_key(|(pos, at, _)| (*at, *pos));
-    let mode = last.map_or(Mode::Study, |(_, _, m)| m);
+        .filter_map(|(id, (at, _))| Some((lessons.iter().position(|l| &l.id == id)?, *at)))
+        .max_by_key(|(pos, at)| (*at, *pos));
     let from = match last {
-        Some((pos, _, _)) => {
+        Some((pos, _)) => {
             let lesson = lessons.get(pos)?;
             if open(lesson) {
-                return Some(Resume { lesson, mode });
+                return Some(Resume { lesson });
             }
             pos + 1
         }
@@ -307,7 +330,7 @@ pub fn resume<'a>(
     };
     let after = lessons.get(from..).unwrap_or_default().iter();
     let before = lessons.get(..from).unwrap_or_default().iter();
-    after.chain(before).find(|l| open(l)).map(|lesson| Resume { lesson, mode })
+    after.chain(before).find(|l| open(l)).map(|lesson| Resume { lesson })
 }
 
 #[cfg(test)]
@@ -378,13 +401,13 @@ mod tests {
         touched.insert(a.id.clone(), (10, Mode::Study));
         touched.insert(c.id.clone(), (20, Mode::Sprint));
         let r = resume(&content, &passes, &touched, 0).unwrap();
-        assert_eq!((r.lesson.id.as_str(), r.mode), (c.id.as_str(), Mode::Sprint));
+        assert_eq!(r.lesson.id.as_str(), c.id.as_str());
 
         // Passed: the next lesson after it that is not, still in Sprint mode.
         let passed = |id: &str| LessonPass { lesson_id: id.into(), seen_at: Some(1), passed_at: Some(2), ..Default::default() };
         passes.insert(c.id.clone(), passed(&c.id));
         let r = resume(&content, &passes, &touched, 0).unwrap();
-        assert_eq!((r.lesson.id.as_str(), r.mode), (lessons[6].id.as_str(), Mode::Sprint));
+        assert_eq!(r.lesson.id.as_str(), lessons[6].id.as_str());
 
         // Every lesson after it passed: back to the first one that is not.
         for l in &lessons[5..] {
@@ -409,7 +432,7 @@ mod tests {
         let first = &content.lessons()[0];
         let touched = HashMap::from([(first.id.clone(), (5, Mode::Guide))]);
         let r = resume(&content, &none, &touched, 1).unwrap();
-        assert_eq!((r.lesson.id.as_str(), r.mode), (first.id.as_str(), Mode::Guide));
+        assert_eq!(r.lesson.id.as_str(), first.id.as_str());
     }
 
     #[test]
@@ -425,7 +448,7 @@ mod tests {
             let t = last_touched(c, uid, "es")?;
             assert_eq!(t.get("l0"), Some(&(far + 1, Mode::Guide)));
             let r = resume(&content, &HashMap::new(), &t, 0).unwrap();
-            assert_eq!((r.lesson.id.as_str(), r.mode), ("l0", Mode::Guide));
+            assert_eq!(r.lesson.id.as_str(), "l0");
             Ok(())
         })
         .unwrap();

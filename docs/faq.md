@@ -17,7 +17,7 @@ courses* for generating a course, *Use AI* in the editor and *Copy and
 translate*. The owner (or a superuser) sets these per account under *Manage
 Users → Permissions*.
 
-**I passed a lesson in Sprint. Why does Study mode still say "in progress" or "needs practice"?**
+**I passed a lesson in Review. Why does Lessons mode still say "in progress" or "needs practice"?**
 Passing and mastery are different. A pass is a milestone that stays. Mastery
 is a score that rises with practice and fades with time. See
 [Getting started](getting-started#when-a-lesson-is-passed).

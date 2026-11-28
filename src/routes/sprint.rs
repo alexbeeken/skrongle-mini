@@ -1,7 +1,7 @@
 //! Sprint mode: the phone-first path and session player.
 //!
-//! `/sprint` is the home screen (streak, the daily goal's ring, the path of lessons);
-//! `/sprint/play` builds a session and hands it to `static/sprint.js` as JSON.
+//! `/review` is the home screen (streak, the daily goal's ring, the path of lessons);
+//! `/review/play` builds a session and hands it to `static/sprint.js` as JSON.
 //! `/api/sprint/check` grades Sprint mode-only exercises and `/api/sprint/finish` records a
 //! finished session (Guide stage completion for lesson sessions, and a
 //! `game_activity` row for every session).
@@ -108,7 +108,7 @@ pub(crate) fn tz_offset_secs(headers: &HeaderMap) -> i64 {
         .unwrap_or(0)
 }
 
-/// GET /sprint
+/// GET /review
 pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: HeaderMap) -> Result<Response, AppError> {
     let at = now();
     let uid = p.user.id;
@@ -210,6 +210,9 @@ pub struct PlayTemplate {
     pub staff_note: bool,
     /// A keyboard question (#1231): load static/keyboard.js.
     pub keyboard: bool,
+    /// A session on one lesson is a Review on the learner path (#318):
+    /// quitting or finishing it goes back to the course home.
+    pub home: bool,
 }
 
 #[derive(Deserialize)]
@@ -235,7 +238,7 @@ fn session_inputs(c: &rusqlite::Connection, uid: i64, cid: &str, mix: bool, tz: 
     Ok(SessionInputs { progress, avoid, learned })
 }
 
-/// GET /sprint/play?lesson=slug | ?mode=review | ?mode=lightning
+/// GET /review/play?lesson=slug | ?mode=review | ?mode=lightning
 pub async fn play(
     State(state): State<Arc<AppState>>,
     p: Project,
@@ -284,7 +287,7 @@ pub async fn play(
         _ => false,
     });
     let staff_note = session.exercises.iter().any(|e| matches!(e, sprint::Exercise::StaffNote { .. }));
-    let tpl = PlayTemplate { title: session.title.clone(), course_title: content.title().to_string(), course: content.view(), session_json, notation, sound, staff_note, keyboard };
+    let tpl = PlayTemplate { title: session.title.clone(), course_title: content.title().to_string(), course: content.view(), session_json, notation, sound, staff_note, keyboard, home: only.is_some() };
     Ok(Html(tpl.render()?).into_response())
 }
 
@@ -457,9 +460,15 @@ pub async fn finish(
                 Some(id) => Some(guide::record_run(c, uid, &cid, id, correct, answered)?),
                 None => None,
             };
-            // A lesson session opens with the lesson's bites (seen) and is one run of it.
+            // A lesson session opens with the lesson's bites (seen) and is one run of
+            // it, and, with something answered, one Review on the learner path.
             let pass = match lesson_id.as_deref().and_then(|id| course.lesson_by_id(id)) {
-                Some(l) => Some(progress::record_taught_run(c, uid, &cid, l, progress::VIA_SPRINT, correct, answered)?),
+                Some(l) => {
+                    if answered > 0 {
+                        crate::path::record(c, uid, &cid, &l.id, crate::path::Kind::Review, progress::pct(correct, answered), at)?;
+                    }
+                    Some(progress::record_taught_run(c, uid, &cid, l, progress::VIA_SPRINT, correct, answered)?)
+                }
                 None => None,
             };
             games::record_activity(c, uid, &cid, sprint::GAME, &board, &label, duration, answered, correct, None)?;

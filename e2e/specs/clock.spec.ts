@@ -102,11 +102,11 @@ test("Practice: drag the minute hand, use the keys, read a clock", async ({ page
 test("the Guide and Sprint mode show the clock too", async ({ page }) => {
   await page.setViewportSize(PHONE);
   await devLogin(page, "open=" + TEST_COURSE);
-  await page.goto("/guide/clock");
+  await page.goto("/study/clock");
   const [right, total] = await playStage(page, key);
   expect([right, total]).toEqual([4, 4]);
 
-  await page.goto("/sprint/play?lesson=clock&reduce-motion=1");
+  await page.goto("/review/play?lesson=clock&reduce-motion=1");
   const run = await playSprintRight(page, key);
   expect(run.wrong).toEqual([]);
   expect(run.kinds.has("set-clock") && run.kinds.has("read-clock"), [...run.kinds].join(", ")).toBe(true);

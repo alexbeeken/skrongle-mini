@@ -66,7 +66,7 @@ test("Vocabulary: collect words in Sprint mode, then the vocabulary page and the
   await page.getByTestId("vocabulary-empty-lessons-toggle").click();
   await expect(page.locator('[data-testid="vocabulary-lesson"]:visible')).not.toHaveCount(0);
   await page.setViewportSize({ width: 390, height: 844 });
-  await bugs.go("/sprint/play?lesson=vocabulary&reduce-motion=1");
+  await bugs.go("/review/play?lesson=vocabulary&reduce-motion=1");
   expect((await playSprintRight(page, key)).wrong).toEqual([]);
   await page.setViewportSize({ width: 1280, height: 900 });
   await bugs.go("/vocabulary");

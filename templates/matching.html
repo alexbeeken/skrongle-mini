@@ -39,7 +39,13 @@
     <p class="stars-big" id="result-time">0.00 s</p>
     <p class="lead" id="result-detail"></p>
     <div class="actions">
+      {% if lesson_slug.is_some() %}
+      {# One lesson's board is a Play on the learner path (#318): its end goes back to the course home. #}
+      <a class="btn big" href="{{ crate::url("/") }}" data-testid="activity-back-home">{{ crate::t1("path.back_home", "course", course.title.as_str()) }}</a>
+      <button type="button" class="btn ghost" id="btn-again" data-testid="matching-again">{{ crate::t("play.matching.play_again") }}</button>
+      {% else %}
       <button type="button" class="btn big" id="btn-again" data-testid="matching-again">{{ crate::t("play.matching.play_again") }}</button>
+      {% endif %}
       <a class="btn ghost" href="{{ crate::base_path() }}/play/matching">{{ crate::t("play.matching.other_boards") }}</a>
     </div>
   </section>

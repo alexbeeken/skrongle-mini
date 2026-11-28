@@ -10,9 +10,8 @@ const LESSON = "/lessons/adjectives-agreement-position";
 
 async function expectAiHidden(page: Page) {
   await page.goto("/");
-  await expect(page.getByTestId("home-mode")).toHaveCount(4);
-  await expect(page.locator('[data-testid="home-mode"][data-mode="ai"]')).toHaveCount(0);
-  await expect(page.getByTestId("home-start-tutor")).toHaveCount(0);
+  await expect(page.getByTestId("nav-main").locator("a")).toHaveCount(4);
+  await expect(page.getByTestId("topnav-tutor")).toHaveCount(0);
   await page.goto(LESSON);
   await expect(page.getByTestId("lesson")).toBeVisible();
   await expect(page.getByTestId("lesson-tutor")).toHaveCount(0);
@@ -39,7 +38,7 @@ async function expectAiHidden(page: Page) {
 
 async function expectAiShown(page: Page) {
   await page.goto("/");
-  await expect(page.locator('[data-testid="home-mode"][data-mode="ai"]')).toBeVisible();
+  await expect(page.getByTestId("topnav-tutor")).toBeVisible();
   await page.goto(LESSON);
   await page.getByTestId("lesson-more-toggle").click();
   await expect(page.getByTestId("lesson-tutor")).toBeVisible();

@@ -1,0 +1,5 @@
+{# The eye of one activity `i` (home::ItemView) on the course home: hides it (POST /path/hide). #}
+<form method="post" action="{{ crate::base_path() }}/path/hide" class="hp-hide-form">
+  <input type="hidden" name="lesson" value="{{ i.lesson_id }}"><input type="hidden" name="kind" value="{{ i.kind }}">
+  <button type="submit" class="hp-hide" data-testid="path-hide" aria-label="{{ crate::t2("path.hide_label", "kind", i.name.as_str(), "title", i.title.as_str()) }}" title="{{ crate::t("path.hide") }}"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M2 10s3-5 8-5 8 5 8 5-3 5-8 5-8-5-8-5z"/><circle cx="10" cy="10" r="2.2"/><path d="M4 16 16 4"/></svg></button>
+</form>

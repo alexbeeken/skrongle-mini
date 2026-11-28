@@ -200,7 +200,7 @@ test("every mode opens on a shared course with the learner's own progress, kept 
   const r = await learner(browser, "share-edge-modes");
   await opens(r.page, await invite(page, id, "Modes"), id);
 
-  for (const path of ["/", "/lessons", `/lessons/${LESSON}`, "/map", "/guide", "/sprint", `/sprint/play?lesson=${LESSON}`, "/play", "/history"]) {
+  for (const path of ["/", "/lessons", `/lessons/${LESSON}`, "/map", "/study", "/review", `/review/play?lesson=${LESSON}`, "/play", "/history"]) {
     const res = await r.page.goto(path);
     expect(res?.status(), path).toBe(200);
     expect(new URL(r.page.url()).pathname, `${path} stays in the course`).not.toMatch(/^\/(courses|login)$/);
@@ -229,7 +229,7 @@ test("the share removed mid-session: the next page goes to the course list, the 
   const id = await newCourse(page);
   const r = await learner(browser, "share-edge-midway");
   await opens(r.page, await invite(page, id, "Midway"), id);
-  await r.page.goto(`/sprint/play?lesson=${LESSON}`);
+  await r.page.goto(`/review/play?lesson=${LESSON}`);
   await expect(r.page.getByTestId("sprint-play-stage")).toBeVisible();
 
   await unshare(page, id, "Midway");

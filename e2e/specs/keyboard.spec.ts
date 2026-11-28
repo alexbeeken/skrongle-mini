@@ -107,7 +107,7 @@ test("the reading check, Sprint mode and the Guide take the key tapped", async (
   await expect(page.getByTestId("lesson-check-result")).toHaveAttribute("data-state", "passed");
 
   // Sprint mode: Check waits for a key; every keyboard question taken right.
-  await page.goto("/sprint/play?lesson=keyboard");
+  await page.goto("/review/play?lesson=keyboard");
   await expect(page.locator('script[src*="keyboard.js"]')).toHaveCount(1);
   const stage = page.getByTestId("sprint-play-stage");
   const check = page.getByTestId("sprint-play-check");
@@ -136,7 +136,7 @@ test("the reading check, Sprint mode and the Guide take the key tapped", async (
   expect(asked.size).toBeGreaterThan(0);
 
   // The Guide (Play): through the cards to the first quick check, answered on the keys.
-  await page.goto("/guide/keyboard");
+  await page.goto("/study/keyboard");
   const step = page.locator('[data-testid="stage-step"][data-kind="question"]').first();
   const index = Number(await step.getAttribute("data-index"));
   for (let i = 0; i < index; i++) {
@@ -152,7 +152,7 @@ test("the reading check, Sprint mode and the Guide take the key tapped", async (
 });
 
 test("a lesson without a keyboard question loads no keyboard script", async ({ page }) => {
-  for (const path of ["/practice?lesson=multiple-choice", "/lessons/multiple-choice", "/guide/multiple-choice", "/sprint/play?lesson=multiple-choice"]) {
+  for (const path of ["/practice?lesson=multiple-choice", "/lessons/multiple-choice", "/study/multiple-choice", "/review/play?lesson=multiple-choice"]) {
     await page.goto(path);
     await expect(page.locator("main, .sprint-play-main").first()).toBeVisible();
     await expect(page.locator('script[src*="keyboard.js"]'), path).toHaveCount(0);

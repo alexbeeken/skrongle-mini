@@ -38,6 +38,7 @@ mod prices;
 mod motivators;
 mod urlenc;
 mod owner;
+mod path;
 mod perms;
 mod placement;
 mod problems;

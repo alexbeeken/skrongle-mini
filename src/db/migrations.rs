@@ -30,6 +30,8 @@ const STEPS: &[M<'static>] = &[
     M::up(include_str!("migrations/v008_refresh_reuse.sql")).down(include_str!("migrations/v008_refresh_reuse.down.sql")),
     // v9: api_grants.refresh_family_hash, any earlier refresh token revokes its grant (#192)
     M::up(include_str!("migrations/v009_refresh_family.sql")).down(include_str!("migrations/v009_refresh_family.down.sql")),
+    // v10: the learner path (path_activity, path_hidden, #318)
+    M::up(include_str!("migrations/v010_learner_path.sql")).down(include_str!("migrations/v010_learner_path.down.sql")),
 ];
 
 /// Schema migrations, applied in order. `PRAGMA user_version` tracks which have run.

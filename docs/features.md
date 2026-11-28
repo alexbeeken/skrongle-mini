@@ -2,77 +2,101 @@
 
 Every feature reads the same course files; nothing needs its own content. A
 lesson does not appear in a feature whose data it lacks. All progress
-is per course: switching course switches the home page, mastery, vocabulary,
+is per course: switching course switches the course home, mastery, vocabulary,
 games and history with it. Progress is also shared across the modes: a
-lesson passed in Sprint mode on the bus is passed in Study mode at home (see
+lesson passed in Review on the bus is passed in Lessons at home (see
 [Progress across modes](#progress-across-modes)).
 
 ## The modes
 
-Once a course is open, the home page leads with today's goal (#558): Sprint
-mode's ring, large, filled by the effort points earned today in any mode
-(see [Progress across modes](progress), "The daily goal"; what earns what is
-behind its (i)), a line about the day, chips for the day streak, lessons
-passed of the total, terms collected and the skipped lessons when there are
-any, and *Continue: <lesson>*, which opens the lesson every mode resumes at
-in the mode last used ("Where you left off"). Under it, in the same card, the
-unit of that lesson ("Unit n of m" and a bar of its lessons passed; the map
-itself is the Study nav's *Map*). Then come four modes plus AI tutoring. Each
-mode card shows its name, a one-line tag, one stat and a big button. It has
-no list of links (#1263); each mode's own page and bar carry those. What the
-mode is lives behind the card's (i), in a modal. The top bar
-only carries the course switcher and the account links.
+Once a course is open, its home (`/`) is a list of what to do next (#318,
+[The learner path](features-learner-path)). **Up next** is one card with
+the page's only filled button, *Start*. **Then** lists the three activities
+after it, and **Done today** what was finished today. An activity is one
+lesson's Study, Review or Play; the eye beside it hides it, and
+*Hidden (n)* at the foot brings it back. The **Progress** panel is drawn by
+the course's motivator (see [Motivators](#motivators)): today's goal, filled
+by the effort points earned today in any mode (see
+[Progress across modes](progress), "The daily goal"; what earns what is
+behind its (i)), the unit being worked on, the day streak, lessons passed
+of the total, terms collected and the skipped lessons when there are any.
+On a day collected words are due, the panel has a line with the count, an
+(i) with the ladder and *Review N words* (`/vocabulary/study?due=1`, #1360). *Whole course* opens
+the Study list.
 
-- **Sprint mode** (`/sprint`): phone-first five-minute sessions with the daily
-  goal's ring and a streak. Its page offers the path, the review mix and the
-  lightning round; its home card names the next stop (the lesson to resume at).
-- **Study mode** (`/study` opens its Lessons tab): read the lessons and test
-  yourself. Lessons, Practice, Listening, Map, Vocabulary, History, Mistakes.
+**The top bar** is the same on every page of a course: the brand, the
+course switcher, the places of the course (Today, Study, Review, Play and,
+for an account that may use the AI tutor, Tutor) and the account menu. The
+place you are in is marked. The places are `data-testid="topnav-today"`,
+`topnav-study`, `topnav-review`, `topnav-play` and `topnav-tutor` inside
+`nav-main`; `nav-study` and `nav-play` are the mode bars. At 720 px and narrower the places are a bar
+fixed to the bottom of the screen, each with an icon. Pages under Study and
+under Play have a second bar with that place's pages (the mode bar).
+
+**Buttons** come in three weights: a filled one (`.btn`) for the main
+action, one per screen where the page has a clear one; an outlined one in
+the text colour (`.btn.ghost`) for the other choices; and plain links.
+Cards have no gradients and no drop shadows, the Review screens sit on the
+same paper ground as the rest, and every page uses the system's fonts.
+
+- **Today** (`/`): the course home above.
+- **Study** (`/study`, `/study/{slug}`): each lesson in small steps, one
+  stage at a time (see the Study row below); a *stage* is one lesson
+  inside it. The list at `/study` has one section per unit: open and
+  passed stages as cards, and the unit's locked stages folded into one "N
+  locked stages" row under a single lock that opens to a plain list
+  (#1213). Its icon is the `mode_guide` slot (📖). The Study bar is on the
+  list and on a stage: *Whole course* (the list), then the pages of
+  **Lessons**, the lessons to read with their quizzes: Lessons, Practice,
+  Listening, Map, Vocabulary, History, Mistakes.
+- **Review** (`/review`, `/review/play`): phone-first five-minute sessions
+  with the daily goal's ring and a streak. Its page offers the path, the
+  review mix and the lightning round. Its icon is the `mode_sprint` slot
+  (🔁). It has its own full-screen shell, without the top bar.
+- **Play** (`/play`): games and one-off exercises. Word Match, the
+  paradigm drill, Numbers by ear, Date Dash and Flashcards, each a tab of
+  the Play bar. "Play" is its one name: the top bar, the page title and the
+  game pages' breadcrumb (`Play › Word Match`).
+- **AI tutoring** (`/tutor`, *Tutor* in the top bar): a one-to-one lesson
+  over chat with a tutor that runs on the server's API key (the owner's, on
+  Manage Users). Same exercises and progress as Practice, but the tutor
+  teaches first and sets them when you are ready. Its prompt carries the
+  lesson, the exercise and the pass rule, and no topic rules.
 
 In a language course, every word that matters can be tapped to hear it (see
 [Tap to hear](#tap-to-hear)).
-- **Play mode** (`/play`): games and one-off exercises. Word Match, the
-  paradigm drill, Numbers by ear, Date Dash and Flashcards (the
-  Play mode bar also links the Guide). "Play" is its one name: the home card,
-  the mode bar, the page title and the game pages' breadcrumb (`Play › Word
-  Match`).
-- **Guide** (`/guide`): guided lessons, one stage at a time (see the Guide row
-  below). Its home card shows stages complete of those not skipped (from
-  the same rule as `/guide`); *Start the Guide* /
-  *Continue the Guide* opens the current stage, *See your stages* the list
-  once every stage is done. Its icon is the `mode_guide` slot (🧭). "Guide"
-  is its one name (home card, page heading, Play mode bar); a *stage* is one
-  lesson inside it. The list at `/guide` has one section per unit:
-  open and passed stages as cards, and the unit's locked stages folded into
-  one "N locked stages" row under a single lock that opens to a plain list
-  (#1213).
-- **AI tutoring** (`/tutor`): a one-to-one lesson over chat with a tutor that
-  runs on the server's API key (the owner's, on Manage Users). Same exercises and progress as Practice,
-  but the tutor teaches first and sets them when you are ready. Its prompt
-  carries the lesson, the exercise and the pass rule, and no topic rules.
 
-The modes' old paths (`/d`, `/d/…`, `/k`, `/g`, `/games`, `/games/…`) redirect
-to the new ones with their query strings, so old bookmarks still work.
+**Names.** Study was called the Guide, Review was called Sprint, and
+Lessons was called Study (#318). In the code the old names stay: the
+modules (`guide.rs`, `sprint.rs`), the template and script files
+(`guide.html`, `sprint.js`), the CSS classes, the `data-testid`s, the API
+paths (`/api/guide/…`, `/api/sprint/…`) and the manifest's icon keys
+(`mode_guide` is Study, `mode_sprint` is Review, `mode_study` is Lessons).
+
+Old addresses redirect permanently (308) to the new ones with their query
+strings, so bookmarks still work: `/guide` and `/guide/…` to `/study…`,
+`/sprint` and `/sprint/…` to `/review…`, and the older `/d`, `/d/…`, `/k`,
+`/g`, `/games` and `/games/…`.
 
 | Feature | Route | What it is | Reads |
 |---|---|---|---|
-| Courses | `/courses`, `/courses/{id}/settings` | "What would you like to learn?": your projects (each shows a thin progress bar under its title, pale gold for lessons passed and full gold for lessons mastered, and under it two small chips with the same two numbers and the unit count; when you last opened it sits beside *Continue*. A chip turns from grey towards gold as more of the course is done, shows its name on hover, and opens a modal with the stat when clicked. The modal fetches what is next as it opens (`GET /courses/{id}/stat/{metric}`): for lessons passed, the next lesson to pass, the last one passed and each unit's count; for lessons mastered, up to three lessons to practise next, fading ones first. Each lesson named opens the course at it, and an (i) says what the stat counts. Each card has a gear for its settings: level and motivator), your own courses (private; greyed out while being generated), ready-made courses (the built-in ones not yet opened, by the manifest's `order`, lowest first, so *How to Use Skrongle* leads; those without one after, in folder order; #207), Create a course | manifests |
+| Courses | `/courses`, `/courses/{id}/settings` | "What would you like to learn?": your projects (each shows a thin progress bar under its title, pale gold for lessons passed and full gold for lessons mastered, and under it two small chips with the same two numbers and the unit count; when you last opened it sits beside *Continue*. A chip turns from grey towards gold as more of the course is done, shows its name on hover, and opens a modal with the stat when clicked. The modal fetches what is next as it opens (`GET /courses/{id}/stat/{metric}`): for lessons passed, the next lesson to pass, the last one passed and each unit's count; for lessons mastered, up to three lessons to practise next, fading ones first. Each lesson named opens the course at it, and an (i) says what the stat counts. A course with activity in the last 30 days has a line about today (#318, `courses-card-today`): "12 of 20 today" or "✓ today" once the goal is met, the day streak when the course's motivator shows it and it is running, and the words due. Only the open course's button is filled; the others are outlined. Each card has a gear for its settings: level and motivator), your own courses (private; greyed out while being generated), ready-made courses (the built-in ones not yet opened, by the manifest's `order`, lowest first, so *How to Use Skrongle* leads; those without one after, in folder order; #207), Create a course | manifests |
 | Generate with AI | the editor's *Generate the course* dialog (`POST /courses/{id}/generate`) and progress modal | Notes or homework in, a whole private course out, written with the server's API key; see [Your own courses](#your-own-courses) | everything (it writes it) |
 | Starting level | The course's settings: the level step at the end of its start wizard, then the gear on `/courses` | A course whose units are `levels` asks a learner who opens it for the first time which level to start at; the lessons below it are skipped; the level can be changed later without losing progress (see [Starting level](#starting-level)) | `levels`, units |
-| Home | `/` | Today's goal as a ring with the streak, lessons passed and terms collected, *Continue* where you left off, the current unit's progress, a "Words due" card on days collected words are due (#1360: the count, three of the words, an (i) with the ladder, and *Review N words*, which opens `/vocabulary/study?due=1`), then the four modes (Sprint, Study, Play, Guide) and AI tutoring, with one stat and one button each and an (i) explaining each | everything |
-| Landing | `/` (no session) | The sales page for visitors: what the app is, a twenty-second sample of each mode to play in place (Sprint, Study, Play and Guide tabs, each in Language, Maths and Music, each subject with its own kinds of question: listening and a typed word with accent near misses; shading a fraction, a number line, plotting a point, a formula graded by equivalence, graphs as options and pairs; a staff to read and to place a note on, a keyboard, intervals and chords played by a small synth. Several preview question types still in issues and PRs (#1218–#1234, #1330–#1359). `static/landing.js` holds the samples, `static/landing-kit.js` the drawing and sound; #1365), a lesson file next to the features it switches on, the three ways to get a course, the built-in courses with their unit and lesson counts (in the same order as on Courses), "What can I do with it?" (use cases), register / log in | manifests |
-| Lessons | `/lessons`, `/lessons/{slug}` | One unit at a time (#837): a tab per unit with its passed count and bar, 12 lessons a page with page links (`?unit=<id>&page=<n>`; without `?page=` the page holding the next lesson to do, without `?unit=` the unit holding it; `?unit=all` lists every unit on one page). A filter box searches every unit (every word typed must appear in a lesson's title, group or summary; a search that finds nothing says so; without script it is `?q=`); under the box, *Look up "…" in the words* opens `/lookup?q=` (#348): the words of the whole course whose term or meaning has a word starting with each word typed (accents and case ignored), and the forms of its paradigm tables (a form names its item, set and slots, and a form two verbs share is listed for both), at most 20, exact terms first; each with its meaning, the lessons that teach it (linked), *Collected* with the flashcard tally when you have it, and a 🔊 in a language course; a quiet header (#999): the breadcrumb with a small mastery ring, the status pills and an (i) on one line, then the title, the summary and one main button (I've read it, quiz me until the lesson is seen, then Practise; a lesson without `quiz` questions has no mastery ring, no Practise and no Test yourself, and its button just says I've read it, #1197) beside a "More ways" menu (Practise before the lesson is seen, Listen and type when the lesson has listening, Tutor when AI is on and the account may use the AI tutor, the Guide, a Sprint session). The (i) opens the mastery details, the focus and question counts and the pass rule; the footer has its button and the same (i); the lesson text (read as a page), vocabulary table (hover a term for its meaning, an example for its translation), paradigm tables, conversations (#989: each one as two characters talking, the role's name over its line, A on the left and B on the right; each line is a button, and tapping it reads the line aloud in the course's language (when the audio switch is on and there is a voice) and shows its meaning under it, which a second tap hides again (#1264); without JavaScript the meanings show from the start), a "My note" box (#336: the learner's own private note on the lesson, plain text up to 500 characters, saved as they type; its (i) says who can see it), and the two-question reading check that marks the lesson as read (once passed, its result offers *Recommended practice*, *Next lesson*, which opens the lesson the pager names as next and is left out on the last lesson, and *Back to the lessons*) | `content`, `vocabulary` (`example_meaning` for the hover hint), `conjugations`, `conversations`, `quiz` |
-| Quizzes | `/practice`, `/practice?lesson=` | Adaptive micro-quizzes: 5–10 questions from the lessons you have read, weighted towards weak topics; or one lesson on request (a lesson with no questions, reached by its URL, says so and links back to the lesson and its Sprint session) | `quiz` |
+| Course home | `/` | What to do next (#318, [The learner path](features-learner-path)): *Up next* with *Start*, *Then* (three more activities), *Done today*, the motivator's Progress panel (today's goal, the current unit, the streak, lessons passed, terms collected) with a line for words due on days collected words are due (#1360: the count, an (i) with the ladder and *Review N words*, which opens `/vocabulary/study?due=1`), *Whole course* and the hidden activities | everything |
+| Landing | `/` (no session) | The sales page for visitors: what the app is, a twenty-second sample of each mode to play in place (Review, Lessons, Play and Study tabs, each in Language, Maths and Music, each subject with its own kinds of question: listening and a typed word with accent near misses; shading a fraction, a number line, plotting a point, a formula graded by equivalence, graphs as options and pairs; a staff to read and to place a note on, a keyboard, intervals and chords played by a small synth. Several preview question types still in issues and PRs (#1218–#1234, #1330–#1359). `static/landing.js` holds the samples, `static/landing-kit.js` the drawing and sound; #1365), a lesson file next to the features it switches on, the three ways to get a course, the built-in courses with their unit and lesson counts (in the same order as on Courses), "What can I do with it?" (use cases), register / log in | manifests |
+| Lessons | `/lessons`, `/lessons/{slug}` | One unit at a time (#837): a tab per unit with its passed count and bar, 12 lessons a page with page links (`?unit=<id>&page=<n>`; without `?page=` the page holding the next lesson to do, without `?unit=` the unit holding it; `?unit=all` lists every unit on one page). A filter box searches every unit (every word typed must appear in a lesson's title, group or summary; a search that finds nothing says so; without script it is `?q=`); under the box, *Look up "…" in the words* opens `/lookup?q=` (#348): the words of the whole course whose term or meaning has a word starting with each word typed (accents and case ignored), and the forms of its paradigm tables (a form names its item, set and slots, and a form two verbs share is listed for both), at most 20, exact terms first; each with its meaning, the lessons that teach it (linked), *Collected* with the flashcard tally when you have it, and a 🔊 in a language course; a quiet header (#999): the breadcrumb with a small mastery ring, the status pills and an (i) on one line, then the title, the summary and one main button (I've read it, quiz me until the lesson is seen, then Practise; a lesson without `quiz` questions has no mastery ring, no Practise and no Test yourself, and its button just says I've read it, #1197) beside a "More ways" menu (Practise before the lesson is seen, Listen and type when the lesson has listening, Tutor when AI is on and the account may use the AI tutor, Study, a Review session). The (i) opens the mastery details, the focus and question counts and the pass rule; the footer has its button and the same (i); the lesson text (read as a page), vocabulary table (hover a term for its meaning, an example for its translation), paradigm tables, conversations (#989: each one as two characters talking, the role's name over its line, A on the left and B on the right; each line is a button, and tapping it reads the line aloud in the course's language (when the audio switch is on and there is a voice) and shows its meaning under it, which a second tap hides again (#1264); without JavaScript the meanings show from the start), a "My note" box (#336: the learner's own private note on the lesson, plain text up to 500 characters, saved as they type; its (i) says who can see it), and the two-question reading check that marks the lesson as read (once passed, its result offers *Recommended practice*, *Next lesson*, which opens the lesson the pager names as next and is left out on the last lesson, and *Back to the lessons*) | `content`, `vocabulary` (`example_meaning` for the hover hint), `conjugations`, `conversations`, `quiz` |
+| Quizzes | `/practice`, `/practice?lesson=` | Adaptive micro-quizzes: 5–10 questions from the lessons you have read, weighted towards weak topics; or one lesson on request (a lesson with no questions, reached by its URL, says so and links back to the lesson and its Review session) | `quiz` |
 | Listening | `/listening`, `/listening/play?lesson=` | Hear a sentence, type it, see it checked word by word; one lesson or a mixed round | `listening` |
-| Guide | `/guide`, `/guide/{slug}` | The short-attention-span version: each lesson as a stage of small steps (cards, quick checks, flashcards, tips); stars | `content`, `quiz`, `vocabulary`, `guide` |
-| Sprint mode | `/sprint`, `/sprint/play` | Phone-first five-minute sessions of short exercises: bites, sort / spot / build / ladder / scale / pick / match exercises (a sort judges each tap at once, a ladder or a scale is graded only at Check), five listening exercises (tap what you hear, fill in what you hear, what do you hear, select the matching audio, listen and match), an audio switch, streaks, daily goal, lightning round | `sprint`, `quiz`, `vocabulary`, `conjugations`, `conversations`, `listening` |
+| Study | `/study`, `/study/{slug}` (`/guide…` redirects) | The short-attention-span version: each lesson in small steps (cards, quick checks, flashcards, tips); stars | `content`, `quiz`, `vocabulary`, `guide` |
+| Review | `/review`, `/review/play` (`/sprint…` redirects) | Phone-first five-minute sessions of short exercises: bites, sort / spot / build / ladder / scale / pick / match exercises (a sort judges each tap at once, a ladder or a scale is graded only at Check), five listening exercises (tap what you hear, fill in what you hear, what do you hear, select the matching audio, listen and match), an audio switch, streaks, daily goal, lightning round | `sprint`, `quiz`, `vocabulary`, `conjugations`, `conversations`, `listening` |
 | AI tutoring | `/tutor`, `/tutor?lesson=` | A one-to-one tutor over chat: teaches the lesson, checks you follow, sets the adaptive quiz's questions when it judges you ready, and reacts to the app's grading; you answer in the chat (typed or a tapped choice) and can ask anything in between; needs an API key on the server (the owner adds it on Manage Users) and, for the account, the permission *Use the AI tutor*; at most two tutor replies run at once on the server, and a third learner gets the busy message and tries again | `content`, `vocabulary`, `quiz` |
-| Play | `/play` (also `/g`) | The Play mode hub: Word Match (timed pairs, shared leaderboard), the paradigm drill (type the form for a picture), Numbers by ear (hear a number, type the digits), Date Dash, plus links to flashcards and the Guide | `vocabulary`, `conjugations`, `terms.lang`, `calendar` |
+| Play | `/play` (also `/g`) | The Play hub: Word Match (timed pairs, shared leaderboard), the paradigm drill (type the form for a picture), Numbers by ear (hear a number, type the digits), Date Dash, plus links to flashcards and Study | `vocabulary`, `conjugations`, `terms.lang`, `calendar` |
 | Map | `/map` | Every lesson of every unit in order with your mastery; how far you are from mastering the unit; one "you are here" on the whole map, at the lesson every mode resumes at ([where you left off](progress)) | units, mastery |
-| Vocabulary | `/vocabulary`, `/vocabulary/study` | Terms collected by answering questions, studied as flashcards with per-term review stats. Each word has a review schedule (#1360, `src/vocab.rs`): a new word is due tomorrow; *Knew it* on a due word moves it up the ladder of 1, 3, 7, 16, 35, 75, then 150 days; *Didn't know* drops it back to 1 day. A review before the word is due counts in the stats but doesn't move it (a miss still drops it). Only flashcards and Sprint's word exercises move it; Sprint's review mix deals due words first. "Due today" is by the end of the learner's day. `?due=1` deals the due words, longest overdue first, at most 20; a missed card comes back once at the end, and the summary says how many come back tomorrow and when the next words are due. Passes don't change; each card gives 0.3 effort points | `vocabulary`, `quiz[].teaches` |
+| Vocabulary | `/vocabulary`, `/vocabulary/study` | Terms collected by answering questions, studied as flashcards with per-term review stats. Each word has a review schedule (#1360, `src/vocab.rs`): a new word is due tomorrow; *Knew it* on a due word moves it up the ladder of 1, 3, 7, 16, 35, 75, then 150 days; *Didn't know* drops it back to 1 day. A review before the word is due counts in the stats but doesn't move it (a miss still drops it). Only flashcards and Review's word exercises move it; Review's review mix deals due words first. "Due today" is by the end of the learner's day. `?due=1` deals the due words, longest overdue first, at most 20; a missed card comes back once at the end, and the summary says how many come back tomorrow and when the next words are due. Passes don't change; each card gives 0.3 effort points | `vocabulary`, `quiz[].teaches` |
 | History | `/history` | Every answer and every finished game | mastery, activity |
-| Mistakes | `/mistakes` (the *Mistakes* tab of the Study mode bar, #1263) | Quiz questions whose latest answer was wrong, newest first. Each row has the question, your last wrong answer and the right one. A question leaves the list once you answer it right. Reads the last 500 answers and shows up to 50 (#338). A lesson without a quiz never appears | `quiz` |
-| Motivators | `POST /courses/{id}/settings` (`motivator`) | How progress is dressed up, per course: draws the top of the course home page and the reward line at the end of every lesson or session (`src/motivators.rs`); Statistics and metrics by default | none (app-level) |
+| Mistakes | `/mistakes` (the *Mistakes* tab of the Study bar, #1263) | Quiz questions whose latest answer was wrong, newest first. Each row has the question, your last wrong answer and the right one. A question leaves the list once you answer it right. Reads the last 500 answers and shows up to 50 (#338). A lesson without a quiz never appears | `quiz` |
+| Motivators | `POST /courses/{id}/settings` (`motivator`) | How progress is dressed up, per course: draws the Progress panel of the course home and the reward line at the end of every lesson or session (`src/motivators.rs`); Statistics and metrics by default | none (app-level) |
 | Progress API | `/api/progress…` | Lesson passes and answers reported by AI agents that teach the learner outside the app (see [Progress across modes](progress)) | everything |
 | Docs | `/docs`, `/llms.txt` | This documentation, served from the binary: "Using Skrongle" (learners, authors, LLMs) and "Working on Skrongle" (developers) in the sidebar, each page also as raw Markdown, the list of pages beside the page and after it on a phone; `/llms.txt` points an LLM at the course format and schema | — |
 
@@ -90,7 +114,7 @@ publish them to.
 A course made in the app gets every feature its files have data for, exactly
 like Spanish: the three modes, the tutor, mastery, passes, streaks, the daily goal,
 history. The language-only games (Listening, Numbers by ear,
-tap to hear, the listening exercises of Sprint mode) appear only when its
+tap to hear, the listening exercises of Review) appear only when its
 manifest says it is a language course.
 
 Without **Create courses** (#143) the course list has no **Create a
@@ -133,7 +157,7 @@ with the table, like any other change (the editor saves as you edit; see
   3. *What kind of course*: let the AI decide, maths or science (number and
      formula answers), a language (listening, conversations, tap to hear),
      or facts and concepts. Each kind has its own rules for the model (which
-     question types, which Sprint games). Left to the AI, the outline names
+     question types, which Review games). Left to the AI, the outline names
      the kind it chose. The kind is saved with the outline, and every later
      request for the course (each lesson, Resume, Revise, *Only add*) gets
      only that kind's rules, so a course on therapy models is not asked for
@@ -147,7 +171,7 @@ with the table, like any other change (the editor saves as you edit; see
      lesson and that lesson's unit) or *Outline* (every unit and lesson, but
      each lesson's `content` is one `## ` section listing the concepts it
      will teach, with one example question in `quiz` and no vocabulary or
-     Sprint games). The choice is saved with the outline (`depth`), so a
+     Review games). The choice is saved with the outline (`depth`), so a
      Resume writes the same kind of lessons. With the server's key a Full or
      Outline course reserves for 6 lessons up front and a Preview for one;
      the meter still checks every request.
@@ -438,7 +462,7 @@ with the table, like any other change (the editor saves as you edit; see
   with items stays; a music course, `music` in `course.json`, keeps
   **+ Build**), a word's and a bite's example meaning, a conversation
   line's meaning (kept when it has text), and the check that an example
-  wants a meaning. The same field turns Listening, the Sprint listening
+  wants a meaning. The same field turns Listening, the Review listening
   exercises and sentence builds, tap to hear and Numbers by ear on or off
   for learners (`Manifest::is_language`). Unset, it follows the `lang`
   codes: on when `terms.lang` differs from `meanings.lang`. An (i) by the
@@ -448,8 +472,8 @@ with the table, like any other change (the editor saves as you edit; see
   remembered in the browser. A lesson's form is the **lesson editor**
   (#841, `static/lesson-editor.js`), three columns in the drawer:
   - an **outline** of the file on the left (Lesson, Text, Vocabulary, Quiz,
-    Listening, Sprint, Conversations, Conjugations when the course has a
-    paradigm, Guide; Listening and Conversations only with the
+    Listening, Review, Conversations, Conjugations when the course has a
+    paradigm, Study; Listening and Conversations only with the
     language features on or items in them), each with its count; a section opens
     to its items, each with a kind badge (`A·B·C`, `___`, `T/F`, `123`,
     `ƒ(x)`; `BITE`, `SORT`, `SPOT`, `BUILD`, `ICON`) and a ⚠ on an item the
@@ -483,7 +507,7 @@ with the table, like any other change (the editor saves as you edit; see
     paradigm's first set, an optional box of only spaces is left out, and
     what names an item follows it: a word renamed or deleted in the
     questions that teach it, a deleted
-    question's steps in the hand-ordered Guide, the deleted option that was
+    question's steps in the hand-ordered Study, the deleted option that was
     the answer (none is picked then). What one lesson's form cannot see, a
     conjugation or id another lesson also uses, is left to the save's
     refusal, which names both lessons. A field's mark lists its checks, worst
@@ -501,24 +525,24 @@ with the table, like any other change (the editor saves as you edit; see
     edit them as JSON; a new item's id is made up, `<lesson>-q1` for a
     question, `<lesson>-conv-1` for a conversation). ↑ ↓ in the footer move
     the item, *Duplicate* copies it (with a new id), *Delete* asks first.
-    The Guide section lists the hand-ordered steps (or offers *Order the
+    Study section lists the hand-ordered steps (or offers *Order the
     steps by hand* from the derived ones, and *Back to derived steps*); a
     section or question step is picked from this lesson's own headings and
     questions. The Lesson section has the title, summary, focus, group and
     *Read first* (other lessons of the course, by title); Text is the
     Markdown with the cards it makes listed under it;
   - a **live preview** on the right (`static/lesson-preview.js`): the item on
-    a phone-sized screen as the learner sees it, in **Study**, **Sprint** or
-    **Guide** (the toggle offers the modes that show the kind; another
+    a phone-sized screen as the learner sees it, in **Lessons**, **Review** or
+    **Study** (the toggle offers the modes that show the kind; another
     section opens in the mode that uses its kind most), drawn again as the
     item is typed and playable: a quiz question's *Check* grades the answer
     with the course's own checker (`POST /api/courses/{id}/preview-answer`,
-    the question as it stands, nothing recorded), a Sprint sort, spot or
+    the question as it stands, nothing recorded), a Review sort, spot or
     build by the session's rules in the browser, a listening sentence read
     aloud by the browser and checked word by word. Fill-in tiles are the
     answer among words of the lesson; a conversation shows its first line of
-    3–9 words as a Sprint build; a conjugation table shows in Study and as
-    the Sprint ladder.
+    3–9 words as a Review build; a conjugation table shows in Lessons and as
+    the Review ladder.
   Below about 720 px of drawer width the columns become **Outline / Edit /
   Preview** tabs (picking an item in the outline goes to its form). The
   course editor's page is wider than the rest of the app (1240 px) to make
@@ -593,7 +617,7 @@ with the table, like any other change (the editor saves as you edit; see
   numeric, expression, algebra tiles, set the clock) and *Lesson features* (lesson text, `##` cards, tables
   in the text, summary, focus, prerequisites, vocabulary, example sentences,
   question hints, answer explanations, `teaches`, paradigm tables,
-  conversations, listening, a hand-ordered Guide, the Sprint icon,
+  conversations, listening, a hand-ordered Study, the Review icon,
   bites, sorts, spots, builds), each with a green check when
   the lesson uses it and a grey dash when not. It is computed on the server
   from the loaded course (`src/report.rs`, `feature_usage`), drawn into the
@@ -616,7 +640,7 @@ with the table, like any other change (the editor saves as you edit; see
     with du, de la or des:") is not the sentence;
   - a fill in the blank answer of several words with no `accepted_answers`
     (a one-word answer is the common case and is left alone);
-  - a lesson whose Sprint session would be bites only (no quiz, vocabulary,
+  - a lesson whose Review session would be bites only (no quiz, vocabulary,
     listening, conversations, paradigm tables, sorts, spots or builds);
   - a language course lesson whose text reads like another language than
     the course explains in (`meanings.lang`), guessed from function words
@@ -754,7 +778,7 @@ see [the course format](course-format#quiz)), so a maths course can ask for a
 number or a formula and grade it by value: `3/4` for `0.75`, `x = 2 or x = -3`
 for the roots `2; -3`, `2(x+1)` for `2x + 2`. Numbers can have a tolerance and
 a unit. Every mode serves them: Practice, the lesson's reading check and the
-Guide show an answer box with the unit and without the accent bar; Sprint mode
+Study show an answer box with the unit and without the accent bar; Review
 offers a number as four tiles (the answer and the usual slips: off by one,
 the wrong sign, a power of ten, doubled or halved) with *Type it instead*, and
 asks for a formula as a typed answer; the tutor counts a typed number or
@@ -764,7 +788,7 @@ equivalence is decided by evaluating both expressions at fixed sample points.
 
 **Algebra tiles** (#1355, `src/algebra_tiles.rs`, `static/algebra-tiles.js`).
 An `algebra-tiles` question shows a board above the answer box in Practice,
-the lesson's reading check and the Guide: a pile of tiles (big squares for
+the lesson's reading check and Study: a pile of tiles (big squares for
 x², strips for x, small squares for 1) read from the question's `tiles`.
 The learner drags them into a rectangle (they snap to a grid when dropped;
 *Turn* turns a strip, *Start again* puts them back), or uses the keyboard:
@@ -773,18 +797,18 @@ checks. Then they type the two sides. The server grades the typed answer
 only: it must be two sides multiplied, each with the variable, and multiply
 out to the tiles (an expanded answer gets the note "Write it as its two
 sides multiplied"). The page never holds the right layout or answer. The
-board's script and styles load only on pages with such a question. Sprint
+board's script and styles load only on pages with such a question. Review
 mode and the tutor skip these questions, and a lesson without them never
 shows a board.
 
 **Measure the angle** (`measure`, #1352, `src/measure.rs`). Practice, the
-reading check and the Guide draw the question's `angle` and a see-through
+reading check and Study draw the question's `angle` and a see-through
 protractor with two scales (`static/measure.js`, drawn with JSXGraph from
 `static/vendor/`, loaded only on a page with such a question). The learner
 drags it, turns it by its handle or with two fingers (arrow keys move it,
 Shift with ← or → turns it), reads the angle and types the number; the server
 grades it like `numeric`, and 180 minus the angle gets "You read the other
-scale". The drawing turns the angle a random way each time. Sprint mode and
+scale". The drawing turns the angle a random way each time. Review and
 the AI tutor ask in text, so they leave these questions out
 (`QuizType::needs_widget`), and a run doesn't need them to count
 (`progress::required_answers`).
@@ -948,8 +972,8 @@ the top bar is the gear, and conversation lines show only the speaker's name.
   Closing the wizard opens nothing: the course stays on the list, and Start
   shows the wizard again.
 - **Opened another way** (a share link, the editor's open icon, no script),
-  the same wizard opens over the course's home page on its first visit.
-  There **Get Started!** saves and draws the home page again, and closing
+  the same wizard opens over the course home on its first visit.
+  There **Get Started!** saves and draws the course home again, and closing
   it keeps the settings the course started with. Either way the course is
   set up (`projects.set_up`, v51) and the wizard never opens again; courses
   opened before #574 count as set up.
@@ -968,24 +992,24 @@ Every course starts with the default motivator (`projects.motivator` '').
 
 ## Progress across modes
 
-A lesson is **passed** once it has been *seen* (read to the end in Study mode,
-or taught by a Sprint mode session, a Guide stage or a tutor) and one sitting of
+A lesson is **passed** once it has been *seen* (read to the end in Lessons mode,
+or taught by a Review session, a Study lesson or a tutor) and one sitting of
 its exercises scored **70 %** or more over at least 3 answers (all of them
 for a lesson with fewer quiz questions). Every mode reports to the same
 record, `src/progress.rs`, so passing anywhere counts everywhere:
 
-- **Study mode**: passing the lesson page's reading check marks it seen (a
+- **Lessons mode**: passing the lesson page's reading check marks it seen (a
   lesson without quiz questions has an *I've read it* button instead). A practice round reports a run for
   each lesson it asked about, and the summary shows which lessons passed. A
   listening round on one lesson is a run too. The lessons list, the
   listening list, the lesson page and the map show a ✓ for passed lessons.
   The lists' mastery pill (its tooltip says *Mastery*) appears only once the
   lesson has answers, so a lesson reads "✓ Passed · ✓ Read" or just
-  "Unread", never "Passed · Not started". The home page counts them.
-- **Sprint mode**: a lesson session is a seen and a run together. A stop on the
+  "Unread", never "Passed · Not started". The course home counts them.
+- **Review**: a lesson session is a seen and a run together. A stop on the
   path is complete once its lesson is passed in any mode, and the next stop
   unlocks then. A session under 70 % leaves the stop open.
-- **Play mode**: a Guide stage works like a Sprint mode session and shares the same
+- **Study and Play**: a Study lesson works like a Review session and shares the same
   complete/locked state. Word Match on one lesson's terms is a run.
 - **AI tutoring**: once a session has set enough of a lesson's exercises,
   their score is a run (skips count as misses). The tutor's prompt carries
@@ -1002,7 +1026,8 @@ pass is a milestone that stays.
 
 A motivator decides how a learner's progress is dressed up: what keeps them
 coming back. A motivator owns two places: the
-top of the course home page (its **hero**) and one short **reward line** at
+**Progress panel** of the course home ([The learner path](features-learner-path),
+"The course home") and one short **reward line** at
 the end of a lesson or session in every mode. The learner picks one per
 course in [the course's settings](#a-courses-settings) (the wizard of its first visit,
 then the gear on its card; the (i) says what each one does), stored in
@@ -1010,10 +1035,10 @@ then the gear on its card; the (i) says what each one does), stored in
 the default. A course that saved the removed Skrongle Cash (`skc`) wears XP (the v2 migration rewrites it, and `motivators::worn` reads it as XP). Motivators are app-level code, not course data: a course
 file cannot switch one on.
 
-| Motivator | id | What the home page leads with | Reward line |
+| Motivator | id | What the Progress panel shows | Reward line |
 |---|---|---|---|
-| Statistics and metrics (default) | `stats` | The daily goal's ring, the streak, lessons passed of the course, terms collected, *Continue: <lesson>* and the current unit's bar | "✓ Passed · 14 / 20 today · 🔥 6" (unit finished or daily goal met in place of the first parts when they happen) |
-| XP (#561) | `xp` | A character level badge ("Lv 7"), the bar to the next level ("340 / 700 XP"), *Continue: <lesson>* and today's daily goal counted in XP ("today: 120 / 200 XP": effort points ×10, the same goal as everyone's); its (i) has the effort table in XP and the bonuses | "+45 XP", plus "Level up! Lv 8" when the run crossed one or more levels |
+| Statistics and metrics (default) | `stats` | Today's goal as a bar ("12 of 20 points", or that it is met; what earns points is behind its (i)), the current unit's bar, then the streak, lessons passed of the course, terms collected and the skipped lessons when there are any | "✓ Passed · 14 / 20 today · 🔥 6" (unit finished or daily goal met in place of the first parts when they happen) |
+| XP (#561) | `xp` | A character level badge ("Lv 7"), the bar to the next level ("340 / 700 XP") and today's daily goal counted in XP ("today: 120 / 200 XP": effort points ×10, the same goal as everyone's); its (i) has the effort table in XP and the bonuses | "+45 XP", plus "Level up! Lv 8" when the run crossed one or more levels |
 
 **The reward line** (#568) is the same element on every end screen:
 `<p class="motivator-reward" data-testid="motivator-reward"
@@ -1024,12 +1049,12 @@ it:
 
 | End screen | Endpoint | How the run's start is known |
 |---|---|---|
-| Sprint mode session | `POST /api/sprint/finish` → `reward` | `duration_ms` |
-| Study practice round | `POST /api/practice/finish` → `{ runs, reward }` | `duration_ms` |
-| Study reading check | `POST /api/lesson-check` → `reward` | the request |
-| Study "I've read it" | `POST /lessons/{slug}/read` redirects to `/lessons/{slug}?read=<time>`; the page shows the line (for 10 minutes) | `read` |
-| Study listening round | `POST /api/listening/finish` → `reward` | the request |
-| Guide stage | `POST /api/guide/step` → `reward` when `finished` | `duration_ms` (time on the stage page) |
+| Review session | `POST /api/sprint/finish` → `reward` | `duration_ms` |
+| Lessons practice round | `POST /api/practice/finish` → `{ runs, reward }` | `duration_ms` |
+| Lessons reading check | `POST /api/lesson-check` → `reward` | the request |
+| Lessons "I've read it" | `POST /lessons/{slug}/read` redirects to `/lessons/{slug}?read=<time>`; the page shows the line (for 10 minutes) | `read` |
+| Lessons listening round | `POST /api/listening/finish` → `reward` | the request |
+| Study lesson | `POST /api/guide/step` → `reward` when `finished` | `duration_ms` (time on the lesson's page in Study) |
 | Play games (Word Match, drill, numbers, dates) | `POST /api/games/*/finish` → `reward` | the request, or `duration_ms` for the drill |
 | AI tutor | the answer entry (`reward`) that passed a lesson or used up the exercises | since the last line, or the session's start |
 
@@ -1092,14 +1117,16 @@ everything earned in the meantime.
 
 **Adding one** (`src/motivators.rs`): a type implementing `Motivator` (id,
 icon, `load(conn, user, course, tz)` for anything it keeps of its own or works out with `earnings`, and `reward` for its line (`RunOutcome::tz` for `earnings` windows),
-both run inside `Db::call`), `Hero` (renders the home page's top from
+both run inside `Db::call`), `Hero` (renders the course home's Progress panel from
 `motivators::Progress`, the shared measures) and `Reward` (renders the
 line's inner HTML from the `RunOutcome` it was given, escaping anything not
 its own markup), both on the request's task so their text is translated;
 counting in units of its own goes through `earnings` with a `Rates` of its
-own; an entry in `motivators::ALL`; its hero template under
-`templates/motivators/` (the section keeps `data-testid="home-today"` and
-sets `data-motivator`); `motivator.<id>.title`, `.about` and its line's
+own; an entry in `motivators::ALL`; its panel template under
+`templates/motivators/` (the home wraps it in the section
+`data-testid="home-today"` and sets `data-motivator`; `shows_streak`
+says whether the panel shows the day streak, which the course list's line
+about today follows); `motivator.<id>.title`, `.about` and its line's
 texts (`motivator.<id>.reward.*`) in every `i18n/<code>.yaml`; a row in the
 table above and an e2e spec that reads its line
 (`e2e/specs/smoke/motivator-reward.spec.ts` shows how). The id is stored,
@@ -1135,9 +1162,9 @@ score is given: the learner starts with zero points. The A1 lessons are
 - recommended practice, the review mix, the lightning round, mixed
   listening rounds and the AI tutor's picks never draw from them, and "read
   next" points at the first A2 lesson;
-- the current unit is counted from A2, so the map and the home page say
+- the current unit is counted from A2, so the map and the course home say
   A2 and the map's "you are here" starts there;
-- the Sprint mode path and the Guide mark them *skipped* (not locked, never
+- the Review path and Study mark them *skipped* (not locked, never
   the current stop) and open the first A2 stop;
 - lists show a "Skipped" status instead of "Not started", and the totals
   ("3 of 18 lessons passed") leave them out, with "21 skipped" beside them;
@@ -1208,7 +1235,7 @@ Changing level moves the learner's position and nothing else:
 - every mode continues from the first open lesson **of the new level**:
   saving a level touches its first lesson (`activity::touch`, in the mode
   last used), so it is the lesson every mode resumes at
-  (`activity::resume`: Sprint mode's Continue, the Guide's current stop, the
+  (`activity::resume`: Review's Continue, Study's current stop, the
   map's "you are here"), and a begun-but-unpassed lesson below it does not
   lock the path (`guide::stages`). When that lesson is passed, the next open
   one after it is; only when everything from the new level on is complete
@@ -1243,8 +1270,8 @@ practice answer, so mastery and history move. Both right marks the lesson as
 questions) and shows a "✓ Read" pill on the lesson and in the lesson list.
 Reading is not mastery: two right answers leave the lesson around 36%, in
 progress, until practice takes it past 80. Lessons practised before
-the check existed count as read. A lesson taught in another mode (a Sprint mode
-session, a Guide stage, the AI tutor, an agent) counts as read too: read
+the check existed count as read. A lesson taught in another mode (a Review
+session, a Study lesson, the AI tutor, an agent) counts as read too: read
 and [seen](#progress-across-modes) are one thing.
 
 Under its footer a lesson page links the
@@ -1255,15 +1282,15 @@ the last no next one.
 
 **Quiz selection:** *recommended* practice (`/practice` with no lesson) only
 draws from read lessons; when none are read it points to the next unread
-lesson of the current unit instead. Practising a single lesson, Sprint mode, the
-Guide, Listening and the AI tutor are not gated. Each candidate lesson gets
+lesson of the current unit instead. Practising a single lesson, Review, the
+Study, Listening and the AI tutor are not gated. Each candidate lesson gets
 weight `(100 - effective) + 8`, `+15` if never tested, ×0.25 if one unit ahead
 of the current unit (×0.05 beyond), ×0.35 if its prerequisites are below 40.
 Questions are drawn by weighted sampling without replacement; anything
 answered correctly in the last 24 h is only reused once fresh questions run
 out.
 
-Sprint mode's rule exercises (sort, spot, build, ladder) count as quiz answers for
+Review's rule exercises (sort, spot, build, ladder) count as quiz answers for
 the lesson; its vocabulary exercises (pick, match) collect and review terms.
 
 ## Music notation
@@ -1271,19 +1298,19 @@ the lesson; its vocabulary exercises (pick, match) collect and review terms.
 A lesson can show music on a staff (#1176). Its Markdown holds a fenced block
 marked `abc` with the music in ABC notation
 ([course format](course-format#music-notation)); the lesson page and the
-Guide's cards draw each block as an SVG staff in its place, in the text
+Study's cards draw each block as an SVG staff in its place, in the text
 colour, scaled to the width of the screen. The drawing is done in the browser
 by abcjs (`static/vendor/abcjs-basic-min.js`, MIT, about 500 KB), which is
 compiled into the binary like every static file, so Skrongle mini draws it
 offline. A page loads it only when its lesson has an `abc` block
 (`Lesson::has_notation`), and `static/notation.js` swaps each block for its
 drawing. If abcjs can't draw a block, warns about it or finds no notes in
-it, its ABC text stays as a code block (#1187). Sprint
-mode, the editor's preview and the other modes show the ABC text.
+it, its ABC text stays as a code block (#1187). Review,
+the editor's preview and the other modes show the ABC text.
 
 A quiz question may carry music too (#1218): its `abc` field is drawn as a
-staff above the prompt in Practice, the lesson's reading check, the Guide's
-quick checks, Sprint mode and the lesson editor's preview. The first music
+staff above the prompt in Practice, the lesson's reading check, Study's
+quick checks, Review and the lesson editor's preview. The first music
 question is "Name the note": one note on the staff and the note names as
 options. "Pick the interval" (#1220) puts two notes on the staff, one after
 the other or stacked, with interval names as options; it needs no code of its
@@ -1301,7 +1328,7 @@ block, or once a question has `abc`.
 
 Music can be heard too (#1219). A question's `play` is ABC text that a
 speaker button above the prompt plays, in Practice, the reading check, the
-Guide's quick checks, Sprint mode and the editor's preview.
+Study's quick checks, Review and the editor's preview.
 `static/music-sound.js` reads the ABC (key signature, note lengths, `Q:`
 tempo, chords, rests, accidentals within a bar) and plays each note as a
 Web Audio oscillator tone: no samples and no network, so it works offline
@@ -1310,8 +1337,8 @@ other and then together. Sound starts only on a tap, and the first tap
 wakes the audio context. If the audio clock has not moved a second after a
 tap (an iPhone on silent, a blocked context), the button shows "No sound?"
 and a line under it says why. The speaker follows the site's audio switch
-(the one Sprint mode's speaker button and its listening exercises use), and
-"Can't listen now" under it turns sound off for an hour: Sprint mode then
+(the one Review's speaker button and its listening exercises use), and
+"Can't listen now" under it turns sound off for an hour: Review then
 skips the exercises that need sound (a question with `play` and no `abc`, a
 sort of speaker tiles), and the other modes draw the tune on a staff to read
 instead, except when the options are the staves. A muted speaker turns sound
@@ -1325,8 +1352,8 @@ staff ("Which one did you hear?"): its notes after the header lines of
 note plays as the same short click, and the staves show the percussion clef
 and the metre. After a wrong answer the
 feedback line shows the right option as a staff too, not its ABC text
-(#1308: `window.answerStaff` in `static/notation.js`; Sprint mode draws
-the option's tune on its result sheet). In Sprint mode's Sort it, a
+(#1308: `window.answerStaff` in `static/notation.js`; Review draws
+the option's tune on its result sheet). In Review's Sort it, a
 sort item with `play` and no `text` is a speaker tile: the card is a speaker,
 and a placed tile is a small replay button (#1223 builds "Major or minor?"
 on it). The editor's question form offers a **Sound** box and an "Options
@@ -1335,7 +1362,7 @@ course or once an item has them. Pages load the sound engine only when
 something on them has `play` (`Lesson::has_sound`).
 
 Builds appear in language courses and in music courses (#1232). A music
-course's Sprint build puts notes or keys in order, like a sentence build.
+course's Review build puts notes or keys in order, like a sentence build.
 The circle of fifths is six shuffled key tiles (C G D A E B), tapped in
 order of sharps and graded exactly. With the language features off, the lesson
 editor still offers **+ Build** in a course with a `music` block.
@@ -1349,13 +1376,13 @@ last tile out. Once the gap is full the learner checks, and the server grades
 the tiles through `/api/answer` by their summed length
 (`notation::fill_bar`), or, with `"exact": true`, against the answer. A wrong
 length says how many beats went in, and a wrong answer shows the right one
-drawn in the bar. It is asked in Practice, the reading check, the Guide and
-Sprint mode (`static/fill-bar.js` builds it in each); the AI tutor leaves it
+drawn in the bar. It is asked in Practice, the reading check, Study and
+Review (`static/fill-bar.js` builds it in each); the AI tutor leaves it
 out, since a chat can't tap tiles. The editor offers the type in a course
 with a `music` block, with boxes for the tiles and a switch for what counts,
 and the feature usage report lists it only in such a course.
 
-A Sprint spot may be a staff too, "Fix the wrong note" (#1227): a spot with
+A Review spot may be a staff too, "Fix the wrong note" (#1227): a spot with
 `abc` instead of a `sentence`, one note wrong (`wrong` counts the notes from 1)
 and its `fix`. The learner taps the note (abcjs's click listener says which),
 then picks the fix from three tiles: the fix and two notes a step or two away,
@@ -1363,7 +1390,7 @@ in the course's note names. Dragging the note up or down on the staff picks
 the tile of the note it lands on. Both parts must be right; with the note
 found and the fix wrong, the sheet says so. The server counts the notes
 (`notation::abc_notes`) and grades it (`src/sprint/spot.rs`); the page code is
-`static/wrong-note.js`. It is in Sprint mode only; the editor's spot form
+`static/wrong-note.js`. It is in Review only; the editor's spot form
 switches to a Music box, a note number and the fix once a spot has `abc`, and
 its preview draws the staff and says the answer.
 
@@ -1378,7 +1405,7 @@ full the learner checks, and the server grades the notes through
 count, spelling does. The same sounds spelled otherwise (`D G♭ A` for D
 major) are a near miss, marked wrong with "right sound, wrong spelling", as a
 missing accent is for a word. It is asked in Practice, the reading check, the
-Guide and Sprint mode (`static/chord-spell.js` builds it in each); the AI
+Study and Review (`static/chord-spell.js` builds it in each); the AI
 tutor leaves it out, since a chat can't tap tiles. The editor offers the type
 in a course with a `music` block, with boxes for the answer and the tiles;
 its preview shows the tiles in ABC. The feature usage report lists it only in
@@ -1397,7 +1424,7 @@ pitch, octave included, unless the question says `any_octave`; the right
 note in the wrong octave is marked wrong with "Right note, wrong octave". A
 wrong answer draws the right note in green beside the learner's, and names
 it in the course's note names. It is asked in Practice, the reading check,
-the Guide and Sprint mode, each loading `static/staff-note.js` only when a
+Study and Review, each loading `static/staff-note.js` only when a
 question on the page is one; the AI tutor leaves it out, since a chat can't
 tap a staff. The editor offers the type in a course with a `music` block,
 with a box for the note, the clef and an "Any octave counts" switch; its
@@ -1420,7 +1447,7 @@ sharp. The loader keeps the answers as ABC notes and shows `correct_answer`
 in the course's note names; the answer's `key` field tells the page which
 key to light up after the answer. A speaker (`play`) and a staff (`abc`)
 above the prompt work as on any question. It is asked in Practice, the
-reading check, the Guide (Play) and Sprint mode, which skips it while sound
+reading check, Study and Review, which skips it while sound
 is off when it has `play` and no `abc`; the AI tutor leaves it out, since a
 chat has no keys. Pages load keyboard.js only when a lesson has such a
 question (`Lesson::has_keyboard`). The editor offers the type in a course
@@ -1429,19 +1456,19 @@ with a `music` block, with the key, a "One octave | Two octaves" switch and a
 lists it only in a music course. `PianoKeys.mount()` is reusable: Read at
 tempo (#1234) will build on it.
 
-**Build the scale** (#1229) is the Sprint ladder with notes, from a lesson's
+**Build the scale** (#1229) is the Review ladder with notes, from a lesson's
 `sprint.scales` (a `title`, eight ABC `notes` and `decoys`). The rungs are
 the degrees 1 to 8 and the first comes filled; the bank holds the other
 seven notes and the decoys, shuffled, in the course's note names. A tap puts
 a note on the glowing rung, the staff above draws the notes on the rungs so
 far, and the note plays (when sound is on). It is graded at Check, like the
 ladder: the sheet says "6 of 8 notes right" and each wrong rung shows its
-note. History reads the run the same way. In Study, the lesson page shows
+note. History reads the run the same way. In Lessons, the lesson page shows
 each scale on a staff with a speaker under a Scales heading; the ladder
-itself is in Sprint mode only, as the conjugation ladder is. The server
+itself is in Review only, as the conjugation ladder is. The server
 builds and grades it (`src/sprint/scale.rs`), `static/sprint.js` runs the
 ladder and `static/scale-ladder.js` draws and plays the notes. The editor's
-Sprint section has **+ Scale** in a music course (title, notes, decoys,
+Review section has **+ Scale** in a music course (title, notes, decoys,
 checked as you type), and its preview draws and plays the scale.
 
 ## Set the clock
@@ -1455,7 +1482,7 @@ Page Down move an hour, and Enter checks. The clock sends the time it shows
 as `H:MM` to `/api/answer`, and the server grades it (`src/clock.rs`); the
 page never holds the answer. Turned around, with `options`, the clock shows
 a time and the learner picks it among the options. Practice, the reading
-check, the Guide and Sprint mode (a `clock` exercise) all show it, with the
+check, Study and Review (a `clock` exercise) all show it, with the
 same widget (`static/clock.js`). Play has no question games, so it has no
 clock. The clock has no words on it, only the numbers 1 to 12, so it suits
 any course; the prompt carries the language ("Son las seis y media").
@@ -1469,7 +1496,7 @@ the games' voice pickers (or the best installed one): the terms and examples
 in a lesson's vocabulary table and in the paradigm table, the **bold** key
 words, *italic* examples and table cells of the lesson text (a cell like
 "rojo — red" says only the part before the dash), the terms on the
-Vocabulary page, the flashcards (a 🔊 button beside the term, in the Guide
+Vocabulary page, the flashcards (a 🔊 button beside the term, in Study
 and in Vocabulary study), the correct answer in quiz feedback, and the
 sentences on the Listening summary. `scripts/core-src/say.js` (bundled into `static/core.js`) does it for any element
 with a `data-say` attribute or matching its list; there is no audio to host.
@@ -1489,7 +1516,7 @@ so an English aside must not be italicised.
 
 ## Listening (hear it, type it)
 
-Dictation, in Study mode. Each lesson carries `listening`
+Dictation, in Lessons mode. Each lesson carries `listening`
 sentences; the browser's own speech synthesis reads one in the course's
 language (`terms.lang`, any installed voice) and the learner types it.
 *Replay* repeats it; *Slower* says it again in two-word pieces with a pause
@@ -1514,9 +1541,9 @@ sentence is not the same as answering the lesson's questions. A round on
 one lesson does count as a run towards passing it. Only language
 courses have it, and only lessons with sentences appear.
 
-## Guide
+## Study
 
-Each lesson is a stage of steps: concept cards (one `## ` section each),
+Study plays each lesson as a run of steps: concept cards (one `## ` section each),
 quick checks (quiz questions, graded through the normal answer API so mastery
 moves too), flashcard hands and tips. Finishing a stage unlocks the next, earns
 stars (3 for ≥ 90 % right, 2 for ≥ 70 %, else 1) and XP (5 per card, 8 per
@@ -1525,7 +1552,13 @@ marks the lesson seen and reports its quick checks as a run, so 70 % or more
 passes the lesson. A stage shows as complete, and the next one unlocks,
 once the lesson is passed in any mode.
 
-## Sprint mode
+A finished stage is also one Study on the learner path
+([The learner path](features-learner-path), "Attempts"). Its end screen has
+one main button, *Back to {course}*, which opens the course home; the next
+stage and *Play again* are outlined beside it. The breadcrumb of a stage
+starts with the course's title, which also opens the course home.
+
+## Review
 
 A session is ~16 exercises: a bite, then rule games, quiz questions,
 vocabulary and listening interleaved. Fill-in-blank questions become word
@@ -1533,7 +1566,7 @@ tiles (the right answer plus tempting wrong ones: the accent-less spelling,
 other forms of the same item, other fill-in-blank answers from the lesson,
 then words from its listening sentences and vocabulary terms), with "type it
 instead" as the alternative. A gap with fewer than three tiles that differ
-by more than accents gets none: the learner types it. The home screen shows a daily ring (20 answers), the
+by more than accents gets none: the learner types it. Review's page (`/review`) shows a daily ring (20 answers), the
 day streak, XP and the path of lessons grouped by unit. *Review mix* draws
 from the adaptive quiz over the lessons the learner has read (weak spots
 first); when those hold fewer than a round (8 questions), the rest come from
@@ -1541,6 +1574,12 @@ the next unread lessons on the path, each tagged "A taste of what's next ·
 <lesson>" (`sprint.session.taste_tag`), and its rule games, words and
 listening come from read lessons only. *Lightning* is 60 seconds of one-tap
 questions.
+
+A session on one lesson (`/review/play?lesson=`) that has something answered
+is one Review on the learner path
+([The learner path](features-learner-path), "Attempts"). It ends with
+*Back to {course}*, which opens the course home, and its ✕ goes there too.
+A review mix or a lightning round ends at `/review`, as its ✕ does.
 
 **Sort it** judges each tap at once (#1148). The right bucket takes the
 word on top of the pile, shown in green; a wrong bucket flashes red, the word
@@ -1563,7 +1602,7 @@ put them first when the end state was all right ("1 wrong tap, then all 3
 forms right"), so the words never contradict the row's ✗. **Build the
 scale** is the same ladder with notes (see [Music notation](#music-notation)).
 
-**Audio.** In a language course only (as for Tap to hear; elsewhere Sprint
+**Audio.** In a language course only (as for Tap to hear; elsewhere Review
 is silent, with no speaker buttons and no audio switch), the browser's
 speech synthesis reads words aloud, as on the full site: every tile, option or word in the course's language is read out when
 tapped (word tiles, multiple-choice options, the forms of a ladder, the words
@@ -1591,7 +1630,7 @@ count as flashcard reviews.
 - **Tap what you hear**: the sentence from word tiles, plus three words from
   the lesson's other sentences as decoys (sentences of 2–10 words). Typing a
   sentence from the audio alone proved too hard for a phone session; that
-  stays in Study mode's Listening practice.
+  stays in Lessons mode's Listening practice.
 - **Fill in what you hear**: the sentence is shown with one word missing (a
   vocabulary term if the sentence has one, else a word of four letters or
   more); pick it from up to four tiles: the word, its accent-less spelling
@@ -1605,7 +1644,7 @@ count as flashcard reviews.
 - **Listen and match**: five speakers on one side, the written terms on the
   other; a matched speaker turns into its word.
 
-Finished listening exercises appear in History like the other Sprint mode
+Finished listening exercises appear in History like the other Review
 exercises (`hbuild:<lesson>:<n>`, `hgap:<lesson>:<n>:<word>`, `hmean:…`).
 
 ## Games
@@ -1613,7 +1652,9 @@ exercises (`hbuild:<lesson>:<n>`, `hgap:<lesson>:<n>:<word>`, `hmean:…`).
 **Word Match** deals a lesson's vocabulary (or 25 random terms from the whole
 course) in rounds of five pairs. The clock runs on the server between start
 and finish; every wrong pair costs a second; top 10 per board is shared by all
-users of the course.
+users of the course. A finished board of one lesson is one Play on the
+learner path ([The learner path](features-learner-path), "Attempts") and
+ends with *Back to {course}*, with *Play again* outlined beside it.
 
 **The drill** (Conjugation Drill for Spanish) shows a picture for the item and
 a picture for the slot; type the form. A slot shows its ASCII `art`. Items unlock when their lesson is
@@ -1974,7 +2015,7 @@ invitation link; its links keep working and it can remove them
   forms (routes), which check the "Hide AI features" switch first
   (`AppError::AiOff`, "turned off on this server") and then the permission
   (`AppError::NoPermission`, "Your account is not allowed to do this").
-  **Use the AI tutor**: the AI tutoring card and its (i) on the home page,
+  **Use the AI tutor**: *Tutor* in the top bar,
   *Tutor me* on a lesson, `/tutor` and `/api/tutor/*`. **Use AI in
   courses**: the Generate dialog and *Use AI* in the editor, *Watch*,
   *Resume* and *Retry* on a course card, the translate control, the
@@ -2244,12 +2285,12 @@ token they give it (#167, the first step of plan #166). The code is
 
 A phone or desktop browser can add Skrongle to the home screen ("Install
 app" in Chrome, "Add to Home Screen" in Safari). It then opens full-screen
-at the home page, with the Skrongle icon. Every page links
+at `/` (the course home for someone signed in), with the Skrongle icon. Every page links
 `/manifest.webmanifest` (`web_manifest` in `src/routes/mod.rs`), which
 carries the base path in `start_url`, `scope` and the icon paths
 (`static/icon-192.png`, `static/icon-512.png`). A browser only offers it on an HTTPS page or localhost.
 
-There is no service worker and nothing is cached for offline use. Sprint
+There is no service worker and nothing is cached for offline use. Review
 grades each answer on the server, so studying offline is a separate piece
 of work (#345).
 

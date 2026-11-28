@@ -5,6 +5,11 @@ meta:
   name: 简体中文
 
 nav:
+  today: "今天"
+  study: "学习"
+  review: "复习"
+  play: "游戏"
+  tutor: "导师"
   skip_to_content: "跳到主要内容"
   courses: 课程
   switch_course: 切换课程
@@ -467,12 +472,12 @@ landing:
   have_account_html: "已有账户？<a href=\"{url}\" data-testid=\"landing-login\">登录</a>。"
   two_files_h2: 一门课程只需两个文件，其余都是可选的。
   two_files_lead_html: "<code>course.json</code> 列出单元，以及每张单词卡的两面。每节课是一个文件。添加一个字段，对应功能就会开启；不写，该功能就不会出现在这节课里。什么都不会出错，也不会有任何提醒。"
-  field_content_html: Markdown。每个 <code>##</code> 小节会变成一张课节卡片、一个指南步骤和一个冲刺模式小节。
+  field_content_html: "Markdown。每个 <code>##</code> 小节会变成一张课节卡片、一个学习步骤和一个复习小节。"
   field_vocabulary: 单词卡、点击听读、单词配对，以及手机上的配对练习。
   field_quiz: 自适应练习，每节课有一个会增长、会衰减的掌握度分数，并决定接下来练什么。
   field_listening: 听一句话，输入它，逐词查看检查结果。由浏览器朗读，因此无需托管音频文件。
   field_conjugations: "任意形状的变位表：动词变位、名词变格、音阶等。附带变位练习和阶梯练习。"
-  field_conversations: 带译文的剧本对话，显示在课节页面上；冲刺模式中还有造句练习。
+  field_conversations: "带译文的剧本对话，显示在课节页面上；复习中还有造句练习。"
   field_sprint_guide: 当自动生成的练习和步骤顺序不够用时，可以手写练习和步骤顺序。
   reference_html: "完整参考，包括每个字段和验证器检查的每条规则，位于 <a href=\"{url}\">/docs/course-format</a>。另外还提供 JSON Schema。"
   three_ways_h2: 获取课程的三种方式
@@ -490,12 +495,12 @@ landing:
     other: "{n} 节课"
   every_way_h2: 一门课程，多种学习方式
   every_way_lead: 每个功能读取的都是同一组文件，你无需重复编写任何内容。
-  feat_sprint_h: 冲刺模式
+  feat_sprint_h: "复习"
   feat_sprint_p: "专为手机设计的五分钟课程：词块、分类、辨认、组句、阶梯、配对、听力练习，以及每日目标和连续天数。"
-  feat_study_h: 学习模式
+  feat_study_h: "课节"
   feat_study_p: 认真阅读课节，然后进行测验，测验更侧重你答错的内容。学习地图显示每个单元的掌握情况。
   feat_play_h: 游戏模式
-  feat_play_p: 带共享排行榜的单词配对、变位练习、听数字、日期竞速、单词卡和指南。
+  feat_play_p: "带共享排行榜的单词配对、变位练习、听数字、日期竞速、单词卡和学习。"
   feat_ai_h: AI 辅导
   feat_ai_p: 通过聊天进行一对一辅导：讲解课节，确认你跟上了，并在你准备好时出测验。使用你自己的密钥运行。
   feat_hear_h: 点击听读
@@ -513,8 +518,8 @@ landing:
   spec_docs_p: 格式、功能和架构都直接由应用提供，既可以是网页，也可以是供 LLM 使用的原始 Markdown。
   final_h2: "注册，然后回答一个问题：你想学什么？"
   browse_docs: 浏览文档
-  feat_guide_h: "引导"
-  feat_guide_p: "把每节课变成由小步骤组成的一关：卡片、快速检查、抽认卡和提示，最后给星星。"
+  feat_guide_h: "学习"
+  feat_guide_p: "每节课分成小步骤：卡片、快速检查、抽认卡和提示，最后给星星。"
   try_lead: "每种模式二十秒。选一个试试。"
   try_noscript: "开启 JavaScript 即可在这里试用每种模式。"
   uses_h2: "我能用它做什么？"
@@ -527,7 +532,7 @@ landing:
   use_fresh_h: "让重要概念保持新鲜"
   use_fresh_p: "离开一段时间掌握度会下降，练习会先找回正在淡忘的内容。"
   use_mood_h: "按心情选择学习方式"
-  use_mood_p: "公交上冲刺，书桌前阅读，累了就玩个游戏。进度是共享的。"
+  use_mood_p: "公交上复习，书桌前阅读，累了就玩个游戏。进度是共享的。"
   use_exam_h: "备考"
   use_exam_p: "测验偏向你答错的内容，让复习时间用在需要的地方。"
   use_trip_h: "为旅行做准备"
@@ -567,7 +572,7 @@ landing:
     answer_false: "错"
     guide_flip: "点卡片翻面"
     got_it: "记住了"
-    guide_done: "本关完成"
+    guide_done: "本课完成"
     sprint_listen: "你听到了什么？"
     listen: "播放"
     tap_to_hear: "点击收听"
@@ -589,75 +594,23 @@ home:
   due:
     title: "待复习的词"
     about: "关于待复习的词"
+    info_ladder: "收集的词第二天会再出现。每次你记得它，间隔就会变长：1、3、7、16、35、75，然后是 150 天。"
+    info_miss: "没记住的话，它明天会再出现。每轮最多复习 20 个词，等得最久的先来。"
     count_html:
       one: "<strong>{n}</strong> 个词待复习"
       other: "<strong>{n}</strong> 个词待复习"
     review_n:
       one: "复习 1 个词"
       other: "复习 {n} 个词"
-    info_ladder: "收集的词第二天会再出现。每次你记得它，间隔就会变长：1、3、7、16、35、75，然后是 150 天。"
-    info_miss: "没记住的话，它明天会再出现。每轮最多复习 20 个词，等得最久的先来。"
-  your_progress: 你的进度
   lessons_passed: 已通过的课节
   terms: "词条"
   day_streak: 天连续学习
   skipped: 已跳过
   unit_of: "第 {n} 单元，共 {total} 个"
   unit_bar_label: "{unit} 中已通过的课节"
-  unit_passed_html: "本单元 {total} 节课中已通过 <strong>{passed}</strong> 节"
-  sprint: 冲刺
-  open_sprint: 打开冲刺模式
-  sprint_tag: 互动式，适合手机。
-  about_sprint: 关于冲刺模式
-  start_session: 开始练习
-  study: 学习
-  open_study: 打开学习模式
-  study_tag: 带测验的简短学习课节。
-  about_study: 关于学习模式
-  need_practice_html:
-    one: "<strong>{n}</strong> 节课需要练习"
-    other: "<strong>{n}</strong> 节课需要练习"
-  answers_week_html: "本周已答 <strong>{n}</strong> 题"
-  start_practice: 开始推荐练习
   play: 游戏
-  open_play: 打开游戏模式
-  play_tag: 小游戏和单次练习
-  about_play: 关于游戏模式
-  games_week_html:
-    one: "本周 <strong>{n}</strong> 局游戏"
-    other: "本周 <strong>{n}</strong> 局游戏"
-  terms_collected_html: "已收集 <strong>{n}</strong> 个词条"
-  browse_games: 浏览游戏
-  guide: 指南
-  open_guide: 打开指南
-  guide_tag: 分阶段的引导式课节。
-  about_guide: 关于指南
-  guide_stat_html: "已完成 <strong>{done}</strong> / {total} 个阶段"
-  next_stage: "下一步：{title}"
-  continue_guide: 继续指南
-  start_guide: 开始指南
-  see_stages: 查看你的阶段
-  ai: AI 辅导
-  open_ai: 打开 AI 辅导
-  ai_tag: 与导师聊天
-  about_ai: 关于 AI 辅导
-  using_key_html: "使用 <strong>{provider}</strong> 密钥"
-  needs_key_html: "需要 API 密钥 · <a href=\"{url}\" data-testid=\"home-ai-add-key\">在“管理用户”中添加</a>"
-  start_conversation: 开始对话
-  no_ai_keys: "未设置 AI 密钥"
-  info_sprint_p: "短促的点击和滑动练习：词块、分类、配对和快速测验。连续天数和每日目标会让你持续回来。"
-  info_study_p: 认真阅读课节，然后进行自适应测验，针对你答错的内容。在学习地图上逐个单元查看掌握度的增长。
-  info_study_listening_p: 认真阅读课节，然后进行自适应测验，针对你答错的内容，并通过输入所听到的内容来训练听力。在学习地图上逐个单元查看掌握度的增长。
-  info_play_intro: "选一样来玩：限时单词配对，"
-  info_play_drill: "{item} 变位练习，"
-  info_play_numbers: "听数字，"
-  info_play_dates: "日期竞速，"
-  info_play_end: 或一副单词卡。
-  info_guide_p: "按顺序一次完成一个小步骤：看一两张卡片，然后做一个快速检查。完成一个阶段即可解锁下一个，每个阶段最多可获得三颗星。"
-  info_ai_p: "通过聊天的一对一课程：导师讲解、确认你跟得上、在你准备好时布置练习，并和你一起讨论你的答案。同样的题目，同样的掌握度，只是换成对话。使用本服务器的 API 密钥。"
+  guide: "学习"
   ok: 好
-  needs_key_ask: "需要 API 密钥，由本服务器的所有者添加"
-
 goal:
   ring_label: "今日目标：{goal} 分中已得 {n} 分"
   smashed: "目标达成 {icon}"
@@ -668,8 +621,6 @@ goal:
   day_away: "第 {n} 天只差一节练习。"
   five_minutes: "有五分钟吗？"
   any_mode: "无论用哪种模式学习，都会填满圆环。"
-  continue: "继续：{title}"
-  all_done: "所有课程都已通过：继续保持熟练"
   info_label: "哪些学习计入每日目标"
   info_title: "今日目标"
   info_p: "你在本课程中的一切学习，无论哪种模式，都会为当天的 {goal} 分积分。用时越长的得分越多："
@@ -678,11 +629,11 @@ goal:
   kind:
     answer: "一道测验题（任意模式）"
     tutor: "AI 导师的一道题"
-    exercise: "一道冲刺练习（词块、分类、组句…）"
+    exercise: "一道复习练习（词块、分类、组句…）"
     game: "游戏中的一项（一对、一个数字、一个日期）"
     listening: "听力练习中的一句"
     flashcard: "一张单词卡"
-    card: "指南阶段中的一张卡片"
+    card: "学习中一节课的一张卡片"
     reading: "把一课读完"
 
 study:
@@ -699,8 +650,8 @@ study:
     needs_practice: 需要练习
     skipped: 已跳过
   via:
-    study: 学习模式
-    sprint: 冲刺模式
+    study: "课节"
+    sprint: "复习"
     play: 游戏模式
     tutor: AI 辅导
     agent: AI 代理
@@ -739,14 +690,13 @@ study:
     numbers: 听数字
     date_dash: 日期竞速
     listening: 听力
-    sprint: 冲刺模式
+    sprint: "复习"
     drill: "{item} 变位练习"
     drill_plain: 变位练习
     result: "答对 {correct} / {total} · {time}"
   nav:
-    study_mode: 学习模式
-    study_mode_desc: "学习模式：带测验的简短学习课节"
-    study: 学习
+    study_mode: "课节"
+    study: "课节"
     practice: 练习
     listening: 听力
     lessons: 课节
@@ -754,15 +704,6 @@ study:
     vocabulary: 词汇
     history: 历史记录
     mistakes: 错题
-    switch: "切换："
-    to_sprint: 切换到冲刺模式
-    sprint_desc: "冲刺模式：互动式，适合手机"
-    sprint: 冲刺
-    to_play: 切换到游戏模式
-    play_desc: "游戏模式：小游戏和单次练习"
-    play: 游戏
-    all_modes: 所有模式（首页）
-    menu: 菜单
   lessons:
     title: 课节
     find: 查找课节
@@ -805,7 +746,7 @@ study:
     language_features_desc: "听写、组句和翻译字段。"
     language_features_info: "关于语言功能"
     language_features_what: "课程中有些部分只有在教语言时才有意义：听写句子、对话、组句，以及例句或对话行旁边的翻译。"
-    language_features_off: "关闭后，编辑器会隐藏这些部分（只要它们还是空的），这样用你自己的语言解释术语的课程就不必填写翻译。已有内容的部分会保留。学习者将不再有对应的练习：听写、听数字、点击朗读，以及 Sprint 中的听写和组句练习。JSON 模式始终显示所有字段。"
+    language_features_off: "关闭后，编辑器会隐藏这些部分（只要它们还是空的），这样用你自己的语言解释术语的课程就不必填写翻译。已有内容的部分会保留。学习者将不再有对应的练习：听写、听数字、点击朗读，以及复习中的听写和组句练习。JSON 模式始终显示所有字段。"
     language_features_saved: "以 language_features 保存在课程设置中，对编辑该课程的每个人都生效。在你设置之前，当术语与释义使用不同语言时，这些功能处于开启状态。"
     levels: "级别"
     levels_info: "什么是级别"
@@ -879,14 +820,14 @@ study:
     focus: "重点：{focus}"
     quiz_questions: "{n} 道测验题"
     listening_sentences: "{n} 个听力句子"
-    play_guide: "在指南中练习"
-    sprint_session: 冲刺模式练习
+    play_guide: "在学习中练习"
+    sprint_session: "复习练习"
     counts_complete: 在每种模式中都计为完成。
     pass_rule: "在一轮中达到 {pct}% 或以上即可通过本课节，在此处或任何模式中均可。"
     pass_rule_min: "在一轮中至少 {n} 题达到 {pct}% 或以上即可通过本课节，在此处或任何模式中均可。"
     read_to_end: 读到结尾才会计为已读。
-    sprint_same_guide: 冲刺模式练习或指南阶段的计算方式相同。
-    sprint_same_ai: 冲刺模式练习、指南阶段或 AI 导师的计算方式相同。
+    sprint_same_guide: "复习练习或学习中的一节课，计算方式相同。"
+    sprint_same_ai: "复习练习、学习中的一节课或 AI 导师，计算方式相同。"
     read_it: 我已读完
     to_pass_check: "要通过本课节：先通过上方的阅读检查，然后在一轮中达到 {pct}% 或以上。"
     to_pass_check_min: "要通过本课节：先通过上方的阅读检查，然后在一轮中至少 {n} 题达到 {pct}% 或以上。"
@@ -1058,7 +999,7 @@ vocab:
     lead: 你通过正确回答测验题收集到的每一个词条。
     lead_count_html: "目前已收集 <strong>{learned}</strong> / {total} 个词条。"
     study_all: 全部学习（随机）
-    empty_html: "还没有词条。请在<a href=\"{practice_url}\">练习</a>或<a href=\"{guide_url}\">指南</a>中回答问题；每个正确答案都会把它用到的词条加入你的收藏。"
+    empty_html: "还没有词条。请在<a href=\"{practice_url}\">练习</a>或<a href=\"{guide_url}\">学习</a>中回答问题；每个正确答案都会把它用到的词条加入你的收藏。"
     show_all_lessons: "显示全部课程（{n}）"
     nothing_yet:
       one: "{n} 节课尚未收集任何词条"
@@ -1212,22 +1153,10 @@ play:
       other: "已玩 {n} 轮"
   nav:
     aria: 游戏模式
-    mode_title: "游戏模式：游戏和单次练习"
-    play: 游戏
     all: 全部
     numbers: 数字
     dates: 日期
     flashcards: 单词卡
-    stages: 阶段
-    switch: "切换："
-    to_sprint: 切换到 Sprint 模式
-    sprint_title: "Sprint 模式：互动，适合手机"
-    sprint: Sprint
-    to_study: 切换到学习模式
-    study_title: "学习模式：带测验的短课"
-    study: 学习
-    menu_aria: 所有模式（首页）
-    menu: 菜单
   hub:
     title: 游戏
     heading: 游戏
@@ -1244,10 +1173,10 @@ play:
     flashcards_desc: "抽一手你已收集的词条，一面是{term}，另一面是{meaning}。标记每张是否已经会了；统计会跟着你。"
     terms_collected: "目前已收集 {n} 个词条"
     study: 学习
-    stages: 阶段
-    stages_desc: "把一课做成由小步骤组成的阶段：一两张卡片、一次快速检查、一手单词卡、一条提示。完成可获得星星；完成阶段还会解锁它的{unlocks}。"
+    stages: "学习"
+    stages_desc: "把一课分成小步骤：一两张卡片、一次快速检查、一手单词卡、一条提示。完成可获得星星；完成一节课还会解锁它的{unlocks}。"
     stages_unlocks_drill: "用于变位练习的{item}"
-    stages_unlocks_next: 下一阶段
+    stages_unlocks_next: "下一节课"
     lessons_passed: "已通过 {done} / {total} 课"
     open: 打开
   matching:
@@ -1286,7 +1215,7 @@ play:
     page_title: "{item}变位练习：{set}"
     lead: "你会看到一张{item}的图和一张空位的图；输入正确的形式。选择一个词组和要练的{item}。"
     no_lessons: "还没有课程教{paradigm}。"
-    locked_html: "完成对应的课后才会解锁：完成它的 <a href=\"{guide_url}\">指南</a> 阶段，或在 <a href=\"{practice_url}\">练习</a> 中达到“已掌握”。目前还没有解锁任何内容。"
+    locked_html: "完成对应的课后才会解锁：在 <a href=\"{guide_url}\">学习</a> 中完成它，或在 <a href=\"{practice_url}\">练习</a> 中达到“已掌握”。目前还没有解锁任何内容。"
     unlocked_count: "已解锁 {n} / {total}"
     choose_set: "选择一组"
     locked_head: "通过课程后解锁"
@@ -1453,7 +1382,7 @@ play:
       seconds: 秒
       prompts: 题
 sprint:
-  mode_name: 冲刺模式
+  mode_name: "复习"
   sound_toggle: 开关音效
   home:
     exit: 返回完整网站
@@ -1480,7 +1409,7 @@ sprint:
     start: 开始 · 5 分钟
     read: 阅读课程
     foot_note: 与完整网站使用相同的课程和进度。
-    guide: 指南
+    guide: "学习"
     map: 地图
     switch_course: 切换课程
   tabs:
@@ -1632,20 +1561,20 @@ sprint:
     nothing_yet: 这里还没有可练习的内容。
 
 guide:
-  title: 指南
-  heading: 学习指南
-  lead: "课程一小步一小步地进行：一两张卡片，然后是一个小测验。完成一个阶段即可解锁下一个。适合注意力较短的学习者。"
+  title: "学习"
+  heading: "学习"
+  lead: "课程一小步一小步地进行：一两张卡片，然后是一个小测验。完成一节课即可解锁下一节。适合注意力较短的学习者。"
   continue: "继续：{title}"
   stats:
-    complete: 已完成阶段
-    three_star: 三星阶段
+    complete: "已完成课节"
+    three_star: "三星课节"
   stars_label: "{n} / 3 星"
   locked_count:
-    one: "{n} 个未解锁关卡"
-    other: "{n} 个未解锁关卡"
+    one: "{n} 节未解锁的课"
+    other: "{n} 节未解锁的课"
   stage:
     steps_checks: "{steps} 个步骤，{checks} 个小测验"
-    locked: 通过前一课（任何模式均可）后，下一关即可解锁。
+    locked: "通过前一课（任何模式均可）后，下一课即可解锁。"
     continue_step: "继续（第 {step} / {steps} 步）"
     try_again: 再试一次
     skipped: "已跳过：低于你的起始级别。"
@@ -1653,9 +1582,9 @@ guide:
     play_again: 再玩一次
     start: 开始
   play:
-    title: "阶段 {n}：{title}"
-    crumb_guide: 指南
-    stage_n: "阶段 {n}"
+    title: "第 {n} 课：{title}"
+    crumb_guide: "学习"
+    stage_n: "第 {n} 课"
     full_lesson: 完整课程
     best_result: 最佳成绩
     concept: 概念
@@ -1674,23 +1603,23 @@ guide:
     type_char: "输入 {ch}"
     hint: 提示
     check: 检查
-    stage_complete: "阶段 {n} 已完成"
+    stage_complete: "第 {n} 课已完成"
     done_line_html: "<span id=\"done-correct\">0</span> / <span id=\"done-answered\">0</span> 个小测验答对"
-    next_stage: "下一阶段：{title}"
-    finished_all: 你已完成整个指南！
+    next_stage: "下一课：{title}"
+    finished_all: "你已完成学习中的全部课节！"
     play_again: 再玩一次
     back_to_map: 返回地图
   js:
     correct: 正确！
     passed_now: 课程已通过！现在它在所有模式中都算作已完成。
     already_passed: 你之前已经通过了此课。
-    not_passed: "尚未通过：小测验答对 70% 或以上，才能通过本课并解锁下一阶段。"
+    not_passed: "尚未通过：小测验答对 70% 或以上，才能通过本课并解锁下一课。"
     not_quite: 不太对。
     correct_answer_html: "正确答案：<strong lang=\"{lang}\">{answer}</strong>"
     new_terms:
       one: "✦ 收集到新词条："
       other: "✦ 收集到新词条："
-    finish_stage: 完成阶段
+    finish_stage: "完成本课"
     next: 下一步
     check_failed: "无法检查你的答案（{error}）。请重试。"
 
@@ -1825,6 +1754,14 @@ courses:
     stat_passed: "已通过的课程"
     stat_mastered: "已掌握的课程"
     stat_of: "{n} / {total}"
+    today_goal: "今天 {n} / {goal}"
+    today_done: "今天 ✓"
+    today_streak:
+      one: "连续 {n} 天"
+      other: "连续 {n} 天"
+    today_due:
+      one: "{n} 个词待复习"
+      other: "{n} 个词待复习"
     stat_label: "{name}：{value}"
     opened: "打开于 {when}"
     continue: 继续
@@ -1947,7 +1884,7 @@ courses:
       other: "它只有 {n} 道题，答错一道这一轮就不通过。四道或更多题才留出出错的余地。"
     answer_in_prompt: "这道题在题目里泄露了答案：{prompt}"
     one_spelling: "填空 “{answer}” 有多个词，却只接受一种写法。在 accepted_answers 里加上其他写法。"
-    sprint_reading_only: 它的 Sprint 练习只有阅读，没有题目、词汇或练习。
+    sprint_reading_only: "它的复习练习只有阅读，没有题目、词汇或练习。"
     repeated_term: "它在 {lessons} 之后又教了 “{term}”。"
     quoted: "“{title}”"
     other_language: "它的正文看起来是{found}，但这门课用{expected}讲解。"
@@ -2000,9 +1937,9 @@ courses:
       conjugations: 变位表
       conversations: 对话
       listening: 听力句子
-      guide: 手动排序的指南步骤
-      sprint_icon: 冲刺模式图标
-      bites: 冲刺小节
+      guide: "手动排序的学习步骤"
+      sprint_icon: "复习图标"
+      bites: "复习小节"
       sorts: 排序练习
       spots: 找出错误
       builds: 句子搭建
@@ -2061,9 +1998,9 @@ courses:
       vocabulary: 词语
       term: 词
       conjugations: 变位表
-      guide: 向导步骤
+      guide: "学习步骤"
       vocab: 单词卡
-      sprint: 冲刺模式
+      sprint: "复习"
       role_a: 说话人 A
       role_b: 说话人 B
       markdown: 文本
@@ -2124,12 +2061,12 @@ courses:
       one: 听力句子
       other: 听力句子
     name_guide:
-      one: 指南步骤
-      other: 指南步骤
+      one: "学习步骤"
+      other: "学习步骤"
     name_unit:
       one: 单元
       other: 单元
-    name_sprint: 冲刺模式的内容
+    name_sprint: "复习的内容"
     name_place: 它在课程中的位置
     count: "{n} {noun}"
     the_list: "{name}"
@@ -2218,7 +2155,7 @@ courses:
     example_check_facts: 检查每节课中的事实，并改正错误。
     example_add_lesson: "添加一节关于……的课"
     example_add_questions: 给第 4 课添加三道选择题。
-    example_add_sort: 给每节还没有 Sprint 分类练习的课添加一个。
+    example_add_sort: "给每节还没有复习分类练习的课添加一个。"
     example_add_listening: 给每节有词汇但没有听力的课添加听力句子。
     example_add_conversation: 给第 2 课添加一段对话。
     example_simpler: 在讲解中使用更简单的词。
@@ -2441,7 +2378,7 @@ courses:
     form_remove_key: "移除 {key}"
     form_key: 键
     delete_item_confirm: 删除此项？撤销可以恢复。
-    guide_derive_confirm: 放弃手动排列的步骤，让指南重新自动生成？在这里写的提示和概念卡片会丢失（撤销可以恢复）。
+    guide_derive_confirm: "放弃手动排列的步骤，让学习重新自动生成？在这里写的提示和概念卡片会丢失（撤销可以恢复）。"
     form_key_to_add: 要添加的键
     form_add_key: 添加键
     form_kind: 类型
@@ -2577,10 +2514,10 @@ editor:
     sec_vocabulary: 词汇
     sec_quiz: 测验
     sec_listening: 听力
-    sec_sprint: 冲刺
+    sec_sprint: "复习"
     sec_conversations: 对话
     sec_conjugations: 变位
-    sec_guide: 指南
+    sec_guide: "学习"
     add_vocab: + 单词
     add_quiz: + 题目
     add_listening: + 句子
@@ -2648,8 +2585,8 @@ editor:
     f_example: 例句
     f_example_meaning: 例句释义
     grp_used: 被谁使用
-    used_by_questions: "题目 {list} 会教这个词（按名称或按答案）；单词卡、单词配对和冲刺会用到每个单词。"
-    used_by_none: 目前没有题目教这个词；单词卡、单词配对和冲刺会用到每个单词。
+    used_by_questions: "题目 {list} 会教这个词（按名称或按答案）；单词卡、单词配对和复习会用到每个单词。"
+    used_by_none: "目前没有题目教这个词；单词卡、单词配对和复习会用到每个单词。"
     question_n_of: "第 {n} 题，共 {total} 题"
     type_multiple-choice: 选择题
     type_fill-in-blank: 填空题
@@ -2676,7 +2613,7 @@ editor:
     f_prompt: 题干
     f_statement: 陈述
     h_statement: 学习者判断它是对还是错。
-    h_prompt_blank: 在答案的位置写 ___。冲刺模式用词块填入；学习模式让学习者自己输入。
+    h_prompt_blank: "在答案的位置写 ___。复习用词块填入；课节让学习者自己输入。"
     h_prompt_math: "数学内容请写成纯文本或 Unicode（x²、√2、π），不要用 LaTeX。"
     f_options: 选项
     f_options_aside: 选出正确的一项
@@ -2763,7 +2700,7 @@ editor:
     grp_art_aside: "可选的 ASCII 图画，最多 8 行，每行 24 个字符"
     f_art: 图画
     icon_head: 路径图标
-    icon_sub: 本课在冲刺路径上的站点
+    icon_sub: "本课在复习路径上的站点"
     grp_icon: 图标
     f_icon: 表情符号
     h_icon: "一个表情符号，不能与其他课节的相同。"
@@ -2811,10 +2748,10 @@ editor:
     f_from_text: 来自文本
     f_distractors: 干扰项
     h_distractors: 混入词库的错误词块。
-    guide_head: 指南
+    guide_head: "学习"
     guide_sub: 本课的进行顺序
     guide_auto: 自动生成
-    guide_derived: "没有手动排序的步骤：指南会根据文本的卡片、每五个单词一组，以及从第三张卡片起的题目自动生成。"
+    guide_derived: "没有手动排序的步骤：学习会根据文本的卡片、每五个单词一组，以及从第三张卡片起的题目自动生成。"
     guide_order_by_hand: 手动排列步骤
     guide_back_to_derived: 恢复为自动生成的步骤
     steps:
@@ -2835,7 +2772,7 @@ editor:
     guide_add_concept: + 概念卡片
     guide_vocab_n: "接下来的 {n} 个单词，以单词卡呈现"
     step_n_kind: "步骤 {n} · {kind}"
-    guide_step_unknown: 指南不认识这个步骤；请以 JSON 形式编辑。
+    guide_step_unknown: "学习不认识这个步骤；请以 JSON 形式编辑。"
     f_section: 章节
     h_section: 文本中的某个标题，按开头匹配。
     f_question: 题目
@@ -2845,7 +2782,7 @@ editor:
     f_markdown: 卡片文本
     check_prompt_empty: 题干为空
     check_blank_ok: 有一个空格
-    check_blank_missing: "题干中没有 ___：学习者需要输入完整答案，冲刺模式也不会显示空位"
+    check_blank_missing: "题干中没有 ___：学习者需要输入完整答案，复习也不会显示空位"
     check_type: 请选择类型
     check_options_two: 至少需要 2 个选项
     check_options_right: 请选出哪个选项是正确的
@@ -2877,7 +2814,7 @@ editor:
     check_conv_two: 至少需要 2 行
     check_conv_both: 两个角色都必须说话
     check_conv_empty: 有一行没有文本
-    check_conv_ok: "两个角色都有台词 · {n} 行 3–9 个词且带释义的台词会成为冲刺组句"
+    check_conv_ok: "两个角色都有台词 · {n} 行 3–9 个词且带释义的台词会成为复习组句"
     check_conj_both: 需要项目和释义
     check_conj_no_paradigm: "课程设置没有定义范式，因此无法显示此表"
     check_conj_set: "请选择范式中的一组：{sets}"
@@ -2904,7 +2841,7 @@ editor:
     check_scale_note: "每一个都必须是一个 ABC 音，例如 F、^C 或 _B：{note}"
     check_scale_decoy: "干扰音 {note} 是音阶中的音"
     check_scale_ok: "8 个音"
-    check_guide_step: 指南不认识的步骤
+    check_guide_step: "学习不认识的步骤"
     check_guide_section: "没有以“{name}”开头的标题。请选择一个标题或删除此步骤"
     check_guide_question: "本课中没有题目“{id}”。请选择一道题目或删除此步骤"
     check_guide_vocab: "单词数须为整数，至少 1 个"
@@ -2913,9 +2850,9 @@ editor:
     check_title: 课节需要标题
     check_content: 课节需要一些文本
     live_preview: 实时预览
-    mode_study: 学习
-    mode_sprint: 冲刺
-    mode_guide: 指南
+    mode_study: "课节"
+    mode_sprint: "复习"
+    mode_guide: "学习"
     no_preview: 这里没有可预览的内容。
     preview_failed: "无法绘制预览：{error}"
     check: 检查
@@ -2951,13 +2888,13 @@ editor:
     course_language: 课程语言
     listen_status: 先听，再输入你听到的内容。
     replay: 再播放一次
-    conv_no_build: "还没有 3 到 9 个词且带释义的台词：冲刺模式不会从这段对话生成任何内容。"
+    conv_no_build: "还没有 3 到 9 个词且带释义的台词：复习不会从这段对话生成任何内容。"
     ladder: 阶梯
     wrong_rungs:
       one: "{n} 级答错"
       other: "{n} 级答错"
     path_stop: 路径
-    path_stop_note: "这是本课在冲刺路径上的站点。"
+    path_stop_note: "这是本课在复习路径上的站点。"
     quick_bite: 小知识
     got_it: 明白了
     sort_it: 来分类
@@ -2969,30 +2906,30 @@ editor:
     spot_mistake: 找出错误
     one_word_wrong: 有一个词是错的。点按它。
     one_note_wrong: "有一个音是错的。点它，再选出正确的音。"
-    spot_note_preview: "在 Sprint 模式中，学习者点第 {n} 个音，再从三个选项中选 {fix}。"
+    spot_note_preview: "在复习中，学习者点第 {n} 个音，再从三个选项中选 {fix}。"
     build_sentence: 组成句子
     tap_tiles_in_order: 按顺序点按词块
     concept: 概念
     tip: 提示
-    guide_derived_preview: "指南会自动生成本课的步骤；手动排列后即可逐个预览。"
+    guide_derived_preview: "学习会自动生成本课的步骤；手动排列后即可逐个预览。"
     hand_empty: 这一组已经没有单词了。
     question_missing: "本课中没有题目“{id}”。"
-    note_quiz: 与学习和练习相同。“检查”使用课程自己的判分器评分；不会记录任何内容。
-    note_quiz_sprint: 与冲刺会话相同。词块是答案，混在本课的其他单词中。
-    note_vocab: 指南里的单词卡；点按可翻面。
-    note_vocab_sprint: 冲刺的选择练习，本课的其他单词作为错误选项。
+    note_quiz: "与课节和练习相同。“检查”使用课程自己的判分器评分；不会记录任何内容。"
+    note_quiz_sprint: "与复习会话相同。词块是答案，混在本课的其他单词中。"
+    note_vocab: "学习里的单词卡；点按可翻面。"
+    note_vocab_sprint: "复习的选择练习，本课的其他单词作为错误选项。"
     note_listening: 浏览器会用课程语言朗读这段文本。
-    note_conversation: "冲刺会用带释义的 3 到 9 个词的台词生成句子；这是第一句。"
+    note_conversation: "复习会用带释义的 3 到 9 个词的台词生成句子；这是第一句。"
     note_conjugation: 课节页面上显示的表格。
-    note_ladder: 冲刺中针对这张表的阶梯练习。
-    note_sort: 冲刺中的分类游戏。
-    note_spot: 冲刺中的找错游戏。
-    note_build: 冲刺中的组句游戏。
-    note_scale: "冲刺中的音阶梯子。"
+    note_ladder: "复习中针对这张表的阶梯练习。"
+    note_sort: "复习中的分类游戏。"
+    note_spot: "复习中的找错游戏。"
+    note_build: "复习中的组句游戏。"
+    note_scale: "复习中的音阶梯子。"
     scale_kicker: "搭音阶"
-    scale_preview: "在 Sprint 模式中，第一格已填好，学习者从 {n} 个选项中点出其余 7 个音。"
+    scale_preview: "在复习中，第一格已填好，学习者从 {n} 个选项中点出其余 7 个音。"
     note_bite: 小知识开启一次练习；无需作答。
-    note_guide: 指南的这一步。
+    note_guide: "学习的这一步。"
     note_content: 课节页面上的文本。
     advice_title: "待检查事项"
     advice_count:
@@ -3095,3 +3032,38 @@ oauth:
   no_permission:
     title: "此账户无法连接应用"
     text: "连接应用需要“创建课程”权限。请向此服务器的所有者申请。"
+# The learner path: the course home's list of what to do next (src/path.rs, #318).
+path:
+  todays_goal: "今日目标"
+  points: "{n} / {goal} 分"
+  all_done: "所有课程都已通过，今天没有到期的内容。"
+  list_label: "接下来做什么"
+  up_next: "下一项"
+  then: "之后"
+  done_today: "今天完成"
+  progress: "进度"
+  start: "开始"
+  whole_course: "整个课程"
+  back_home: "返回{course}"
+  hidden: "已隐藏（{n}）"
+  hide: "隐藏"
+  hide_label: "隐藏{kind}：{title}"
+  bring_back: "恢复"
+  bring_back_label: "恢复{kind}：{title}"
+  empty: "现在没有要做的。明天再来。"
+  kind:
+    study: "学习"
+    review: "复习"
+    play: "游戏"
+  steps:
+    one: "{n} 步"
+    other: "{n} 步"
+  step_of: "第 {n} 步，共 {total} 步"
+  clean_reviews: "全对复习：{n} / {total}"
+  mastered_check:
+    one: "已掌握。{n} 天后检查"
+    other: "已掌握。{n} 天后检查"
+  back_in:
+    one: "{n} 天后回来"
+    other: "{n} 天后回来"
+  unit_passed: "已通过 {passed} / {total} 课"

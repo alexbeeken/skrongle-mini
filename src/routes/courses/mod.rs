@@ -30,6 +30,7 @@ mod picker;
 mod revise;
 mod settings;
 mod stat;
+mod today_line;
 mod write;
 
 pub use create::*;

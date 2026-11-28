@@ -15,7 +15,7 @@ const LESSON = "conjugations";
 
 /** Open `path` with the first exercise whose id matches `id` moved to the front of the session. */
 async function openWithFirst(page: Page, path: string, id: RegExp) {
-  await page.route(/\/sprint\/play\?/, async (route) => {
+  await page.route(/\/review\/play\?/, async (route) => {
     const res = await route.fetch();
     const html = (await res.text()).replace(/(<script id="session" type="application\/json">)([\s\S]*?)(<\/script>)/, (_m, a: string, json: string, c: string) => {
       const s = JSON.parse(json);
@@ -33,7 +33,7 @@ async function openWithFirst(page: Page, path: string, id: RegExp) {
 async function openLadder(page: Page): Promise<string[]> {
   await page.setViewportSize({ width: 390, height: 844 });
   const lesson = key.lesson(LESSON);
-  await openWithFirst(page, `/sprint/play?lesson=${LESSON}&reduce-motion=1`, new RegExp(`^ladder:${lesson.id}:`));
+  await openWithFirst(page, `/review/play?lesson=${LESSON}&reduce-motion=1`, new RegExp(`^ladder:${lesson.id}:`));
   const stage = page.getByTestId("sprint-play-stage");
   await expect(stage).toHaveAttribute("data-kind", "ladder");
   const a = key.sprint("ladder", (await stage.getAttribute("data-exercise-id"))!);
