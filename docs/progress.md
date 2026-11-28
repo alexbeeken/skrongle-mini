@@ -20,7 +20,7 @@ mode:
 2. **Shown.** In one sitting, the learner answered at least **3** of the
    lesson's exercises and got at least **70 %** right. A lesson with fewer
    than 3 quiz questions needs all of them, and one with none needs nothing
-   more than being seen. Sprint mode can't draw a protractor, so there
+   more than being seen. Review can't draw a protractor, so there
    `measure` questions don't count. Hints are fine. Answers given away or skipped count
    as wrong. The exercises must test this lesson's own focus.
 
@@ -63,7 +63,8 @@ they read.
 |---|---|---|
 | Lessons mode | the reading check at the end of the lesson page (*I've read it* on a lesson without questions) | a practice round: each lesson it asked about is one run; a listening round on one lesson |
 | Review | a lesson session (it opens with the lesson's bites) | the same session: every graded exercise |
-| Play mode | a Guide stage (its concept cards) | the same stage: its quick checks; Word Match on one lesson's terms (each pair right, each wrong try a miss) |
+| Study | a stage (its concept cards) | the same stage: its quick checks |
+| Play | nothing | Word Match on one lesson's terms (each pair right, each wrong try a miss) |
 | AI tutoring | the tutor taught the lesson | the session's answers on that lesson, skips as misses, once there are enough of them |
 | AI agents | `POST /api/progress/seen` or `/pass` | `POST /api/progress/pass` |
 
@@ -74,12 +75,17 @@ vocabulary but do not pass lessons.
 Passing a lesson anywhere completes its stop on the Review path and its
 Study lesson, unlocks the next stop of both, unlocks its items in the
 paradigm drill, and shows a ✓ on the Lessons mode lessons list, lesson page and
-map. The home page counts lessons passed.
+map. The course home counts lessons passed.
+
+The course home's list of what to do next keeps its own record of each
+attempt at a lesson's Study, Review and Play, with a rule of its own for
+when a review comes back ([The learner path](features-learner-path)). It
+does not change what "passed" means.
 
 ## The daily goal
 
-Every mode fills one daily goal: the ring on the course's home page and in
-Review. It counts *effort points*, so reading, a game or a hand of
+Every mode fills one daily goal: the bar in the course home's Progress
+panel and the ring in Review. It counts *effort points*, so reading, a game or a hand of
 flashcards moves it as well as a quiz does. Something that takes longer
 earns more. A typed quiz answer (about 15 seconds) is one point:
 
@@ -104,9 +110,9 @@ Review and Study used to give, is gone.
 
 ## Where you left off
 
-Every mode resumes at the same lesson: the home page's *Continue*, the
-current stop of Review's path, Study's current lesson, the map's
-"you are here" and Lessons mode's *Continue*. It is the lesson the learner
+Every mode resumes at the same lesson: the unit the course home's Progress
+panel shows, the current stop of Review's path, Study's current lesson, the map's
+"you are here" and the page the Lessons list opens at. It is the lesson the learner
 last opened or worked on, in any mode, unless it is passed; then the next
 lesson after it that is neither passed nor skipped (from the start of the
 course when none is left after it). A new learner starts at the first
@@ -117,8 +123,11 @@ Only something about one lesson moves it: its page, its Study lesson, a
 Review session on it, a practice, listening or Word Match round on it
 alone, a tutor session on it, or an agent's `seen` or `pass`. A review mix,
 the lightning round or recommended practice draws on many lessons and does
-not. *Continue* on the home page opens the lesson in the mode last used:
-Review, Study, or the lesson page for the rest.
+not.
+
+The course home's *Up next* is not this lesson. It follows the learner
+path's rule ([The learner path](features-learner-path)): what is due,
+lowest score first.
 
 ## For AI agents
 
@@ -227,8 +236,10 @@ quiz questions of the course still count after that.
 `src/activity.rs` holds the daily goal and the resume point: every mode
 calls `activity::record` (a kind and how many, table `activity_log`) and,
 for a lesson-focused page or round, `activity::touch` (table
-`lesson_touches`); `activity::resume` is the one rule the home page, Review
-mode, Lessons mode, Study and the map apply.
+`lesson_touches`); `activity::resume` is the one rule the course home's Progress
+panel, Review, Lessons, Study and the map apply. `src/path.rs` holds the
+learner path's rule and `path::record`, which the three lesson activities
+call when one is finished.
 
 `src/progress.rs` holds the rule (`PASS_PCT`, `MIN_ANSWERS`,
 `required_answers`, the `RULES` text the tutor and agents receive) and the

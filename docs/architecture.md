@@ -38,9 +38,9 @@ under `static/`, `templates/` or `data/` is missing from this list.
 - Lessons: `routes/pages.rs` (the landing page, `/lessons`, `/history`, `/mistakes`), `static/lessons.js`; a learner's note on a lesson: `notes.rs`, `static/lesson-note.js` (#336). Tapping a conversation line to hear it and see its meaning: `static/conversation.js` (#1264). Music notation in lesson text (#1176) and on quiz items (#1218): `notation.rs` (does a lesson have any; `music.note_names` and note options), `static/notation.js` draws ```` ```abc ```` blocks and quiz staves with abcjs from `static/vendor/` (third-party files, unchanged, with their licences); `static/music-sound.js` plays a quiz item's or sort item's `play` with Web Audio tones (#1219). The Fill the bar quiz type (#1230): `notation/fill_bar.rs` (gap and note lengths, validation, grading), `static/fill-bar.js` and `static/fill-bar.css` (the bar and its tiles in every mode). A Sprint spot on a staff (#1227): `sprint/spot.rs` (both kinds of spot: exercise, grading, validation), `notation::abc_notes` counts the notes, `static/wrong-note.js` takes the taps. The Spell the chord quiz type (#1228): `notation/chord_spell.rs` (validation, grading as a set, the tiles in the course's note names), `static/chord-spell.js` and `static/chord-spell.css` (the slots, tiles and chord staff in every mode). The Place the note quiz type (#1226): `notation/staff_note.rs` (validation, grading by pitch and octave, the clef and note names for the page), `static/staff-note.js` and `static/staff-note.css` (the staff it draws itself, in every mode). The keyboard quiz type (#1231): `notation/keyboard.rs` (ABC notes as pitches, validation, grading), `static/keyboard.js` and `static/keyboard.css` (the piano keyboard component, in every mode).
 - Questions: `quiz.rs` (picking, checking), `routes/quiz.rs` (`/api/answer`, the one grading path), `mathcheck.rs` (maths answers), `clock.rs` and `static/clock.js` (Set the clock, #1340; lesson, stage and quiz pages load it and `measure.js` only when `has_clock()` / `has_measure()`), `static/quiz.js`, `static/lesson-check.js`; the algebra tiles question (#1355): `algebra_tiles.rs` (reading the pile, the two-sides check), `static/algebra-tiles.js` and `.css` (the board); Measure the angle (#1352): `measure.rs` (fields, grading, which modes skip it), `templates/measure.html`, `static/measure.js` draws the protractor with JSXGraph from `static/vendor/`.
 - Passes and progress: `progress.rs` (the pass rule), `routes/progress.rs` (agent API), `mastery.rs` (scores), `mastery/cache.rs` (each learner's progress rows for their course, in memory, #38), `activity.rs` (daily goal, resume point), `earnings.rs` (XP, streak totals).
-- Motivators: `motivators.rs`, `motivators/xp.rs`, `templates/motivators/`.
-- Sprint: `sprint.rs` (fill-the-gap tiles in `sprint/gap.rs`), `routes/sprint.rs`, `static/sprint.js`, `static/sprint.css`. Build the scale (#1229), the ladder with notes: `sprint/scale.rs` (exercise, grading, validation); `static/scale-ladder.js` draws and plays each note as it lands, `static/sprint.js` runs the ladder.
-- Study: `guide.rs` + `routes/guide.rs` (Guide), `tutor.rs` + `routes/tutor.rs` (AI tutor), `listening.rs` + `routes/listening.rs`, `vocab.rs` + `routes/vocab.rs`, `routes/map.rs` (`/map`); scripts `static/guide.js` (list styles `static/guide.css`), `static/tutor.js`, `static/listening.js`, `static/vocab.js`.
+- Motivators: `motivators.rs`, `motivators/xp.rs`, `templates/motivators/` (each one's Progress panel on the course home).
+- Review (the module keeps its old name, sprint): `sprint.rs` (fill-the-gap tiles in `sprint/gap.rs`), `routes/sprint.rs`, `static/sprint.js`, `static/sprint.css`. Build the scale (#1229), the ladder with notes: `sprint/scale.rs` (exercise, grading, validation); `static/scale-ladder.js` draws and plays each note as it lands, `static/sprint.js` runs the ladder.
+- Study (the module keeps its old name, guide): `guide.rs` + `routes/guide.rs` (`/study`); the pages under the Study bar and the tutor: `tutor.rs` + `routes/tutor.rs` (AI tutor), `listening.rs` + `routes/listening.rs`, `vocab.rs` + `routes/vocab.rs`, `routes/map.rs` (`/map`); scripts `static/guide.js` (list styles `static/guide.css`), `static/tutor.js`, `static/listening.js`, `static/vocab.js`.
 - Play: `games.rs` + `routes/games.rs` (hub, Word Match, numbers, dates), `conjugation.rs` (drill), `static/matching.js`, `static/conjugation.js`, `static/numbers.js`, `static/dates.js`.
 
 ### Accounts
@@ -106,8 +106,10 @@ src/
   activity.rs    activity from every mode (#558): the daily goal's effort points per kind (tables activity_log), the lesson every mode resumes at (lesson_touches)
   notes.rs       a learner's own note on a lesson (#336): "My note" on the lesson page, POST /api/lessons/{slug}/note (table lesson_notes)
   earnings.rs    what a learner earned in a course: a window's tally from the log (a run, today), the running totals and the day streak as one `earnings` row per course (#589) that activity::record moves; priced by the motivators' rates
-  motivators.rs  motivators (#559): how progress is dressed up (projects.motivator, per course since #574); each draws the course home's top from the shared measures; registry ALL, default "stats"; motivators/xp.rs: XP and the character level (#561)
+  motivators.rs  motivators (#559): how progress is dressed up (projects.motivator, per course since #574); each draws the course home's Progress panel from the shared measures; registry ALL, default "stats"; motivators/xp.rs: XP and the character level (#561)
   placement.rs   the placement test (#1106): placement.json parsed and checked against the manifest, one sitting drawn (written questions, else random_per_unit of a unit's multiple-choice quiz items), the answers marked (each unit's tally, the first unit with a miss as the start)
+  path.rs        the learner path (#318, docs/features-learner-path.md): Settings and SETTINGS, the score that orders a lesson's Study, Review and Play (gap, next_streak, score, sort), Kind, record (one attempt into table path_activity)
+  path/list.rs   a learner's list in one course: kinds_of (which activities a lesson has), list (Path: next, done_today, hidden), hide and unhide (table path_hidden)
   progress.rs    lesson passes shared by every mode: the rule (seen + a run of >= 70 %), the RULES text for tutors and agents, table lesson_passes
   quiz.rs        adaptive question selection, answer normalisation/checking, tiny PRNG
   problems.rs    what the editor and the file page say when a course file is refused: kind, lesson, field, line, message, fix hint (every ContentError and arrange.rs refusal)
@@ -120,12 +122,12 @@ src/
   algebra_tiles.rs  algebra-tiles questions: the pile from `tiles`, an answer must be two sides whose product is the tiles
   clock.rs       clock answers: H:MM on the 12-hour face, the hands' angles, what a clock question may say
   measure.rs     the measure question type (#1352): tool and angle, graded like numeric, the other-scale note
-  guide.rs       stage progress and stars for the Guide (table journey_progress)
+  guide.rs       stage progress and stars for Study, once called the Guide (table journey_progress)
   listening.rs   listening practice: dealing sentences, word-by-word grading, the finished round
   vocab.rs       terms collected from passed questions + flashcard review stats and schedule (words due), word lookup
   games.rs       Word Match dealing/replay, timed sessions, leaderboard + activity persistence
   conjugation.rs paradigm drill: unlocked items, prompt dealing, answer checking
-  sprint.rs       Sprint mode: session building, exercise grading, streaks and XP
+  sprint.rs       Review, once called Sprint: session building, exercise grading, streaks and XP
   i18n.rs        the app's own text: i18n/<code>.yaml compiled in, the request's language, t / t1 / tn
   random.rs      random bytes from the operating system (getrandom), in one place
   translate.rs   copy and translate a course (#630): which texts the AI translates, one file's request and reply, putting the translations back
@@ -163,16 +165,18 @@ src/
     mcp.rs       /mcp (#168, docs/api.md): the MCP server's HTTP gate, every method (all but POST get 405); the protocol is src/mcp.rs, the tools src/mcp/tools.rs
     oauth.rs     OAuth (#169, docs/api.md "OAuth"; 404 with the switch off or no SKRONGLE_PUBLIC_URL): GET /.well-known/oauth-authorization-server and /.well-known/openid-configuration (the same document), GET /.well-known/oauth-protected-resource and …/mcp, GET /oauth/authorize (the consent page; signed out: /login and back), POST /oauth/authorize (Allow or Deny; session cookie and same-origin only), POST /oauth/token, /oauth/register, /oauth/revoke (programs: no cookie, no CSRF check, no proxy sign-in); the rules are src/oauth_server.rs
     manage/apps.rs  the owner's Connected apps card (#167): POST /manage/apps (on=1|0, Let apps connect), POST /manage/apps/revoke (id, any account's grant); owners only, 404 otherwise
-    pages.rs     / (landing for visitors, home: the three modes) /lessons /lessons/{slug} /history /mistakes, POST /api/lessons/{slug}/note (the lesson note, autosave)
+    home.rs      / for a signed-in learner, called by pages::root: the course home (Up next, Then, Done today, the motivator's Progress panel, the hidden activities) from path::list
+    path.rs      POST /path/hide, POST /path/unhide (form fields lesson, kind): hide one activity from the learner's list or bring it back; both redirect to /
+    pages.rs     / (the landing page for visitors; a signed-in learner goes on to home.rs) /lessons /lessons/{slug} /history /mistakes, POST /api/lessons/{slug}/note (the lesson note, autosave)
     map.rs       /map
     quiz.rs      /practice, POST /api/answer (grade_and_record: the one grading path for every mode), POST /api/lesson-check (the reading check)
     progress.rs  POST /lessons/{slug}/read (lessons without questions), POST /api/practice/finish (runs + the reward line), the agent API: GET /api/progress[/lessons/{lesson}], POST /api/progress/seen|answers|pass
     tutor.rs     /tutor, GET /api/tutor/session, POST /api/tutor/start|turn|cancel
-    guide.rs     /guide, /guide/{slug}, POST /api/guide/step|restart
+    guide.rs     /study, /study/{slug} (Study; /guide… redirects here, 308), POST /api/guide/step|restart; a finished stage is a Study on the learner path (path::record)
     listening.rs /listening, /listening/play, POST /api/listening/check|finish
     vocab.rs     /vocabulary, /vocabulary/study, /lookup, POST /api/vocabulary/review
-    games.rs     /play (Play mode hub; /g and /games redirect here), /play/matching…, /play/conjugation…, /play/numbers, /play/dates, their APIs
-    sprint.rs     /sprint, /sprint/play, POST /api/sprint/check|finish
+    games.rs     /play (the Play hub; /g and /games redirect here), /play/matching…, /play/conjugation…, /play/numbers, /play/dates, their APIs
+    sprint.rs     /review, /review/play (Review; /sprint… and /d… redirect here, 308), POST /api/sprint/check|finish; a finished session on one lesson is a Review on the learner path (path::record)
     dev.rs       /dev/login, /dev/reset, /dev/jobs, /dev/authenticator, /dev/boot (the --watch reload poll); all mounted only in dev mode and for local clients, see testing.md; the dev pages need no sign-in
     dev_ai.rs    /dev/ai: the dev AI provider's wire API (Anthropic Messages, OpenAI chat completions, Gemini's OpenAI endpoint; checked by API key; a held request waits for its reply file) and its page among the dev pages (log, limits, failures, Manual replies with the held requests and their reply forms, fixture editor)
 templates/       askama templates (compiled in)
@@ -281,7 +285,7 @@ visible to its owner, and read only to whoever the owner shared it with
 
 **Templates** are server-rendered. The small scripts (`quiz.js`, `guide.js`,
 `sprint.js`, …) post JSON to `/api/*` and render feedback inline. Everything
-that talks (Numbers by ear, Date Dash, Listening, Sprint mode) shares `speech.js`,
+that talks (Numbers by ear, Date Dash, Listening, Review) shares `speech.js`,
 a wrapper over the browser's speech synthesis: voice choice per
 language, remembered in `localStorage`, the site-wide audio switch
 (`speech:audio`), `say(text, lang)` and the cancel-then-settle sequence Chrome
@@ -295,7 +299,7 @@ running AI job's box), or while a field of a form in it differs from what it
 was drawn with (a password half-typed, a wish not sent yet). New modals need
 nothing to get this. Course
 specifics the browser needs (term/meaning labels and languages, helper
-characters, praise strings) arrive as `data-` attributes or inside the Sprint mode
+characters, praise strings) arrive as `data-` attributes or inside Review's
 session JSON, never hard-coded.
 
 ## SQLite schema
@@ -414,11 +418,18 @@ user_progress  (user_id, course_id, lesson_id, mastery_score, times_tested, time
                 -- read_at: when the lesson was first read or taught (reading check, or seen in any mode); NULL = unread
 lesson_passes  (user_id, course_id, lesson_id, seen_at, seen_via, best_pct, best_via, passed_at, passed_via, runs,
                 evidence, updated_at)  PRIMARY KEY (user_id, course_id, lesson_id)
-                -- via is 'k' | 'd' | 'g' (Study, Sprint, Play: the modes' old letters, progress::VIA_*)
+                -- via is 'k' | 'd' | 'g' (Lessons, Review, Play: the modes' old letters, progress::VIA_*)
                 -- | 'tutor' | 'agent' | 'legacy'; best_pct -1 = no counted run yet
 quiz_history   (id, user_id, course_id, lesson_id, question_id, selected_answer, was_correct, answered_at)
 journey_progress (user_id, course_id, lesson_id, step, completed, best_stars, run_correct, run_answered,
-                updated_at)  PRIMARY KEY (user_id, course_id, lesson_id)      -- the Guide
+                updated_at)  PRIMARY KEY (user_id, course_id, lesson_id)      -- Study's stages (once the Guide)
+path_activity  (user_id, course_id, lesson_id, kind, first_at, last_at, last_pct, streak, attempts)
+                PRIMARY KEY (user_id, course_id, lesson_id, kind)
+                -- the learner path (v10, src/path.rs): one row per activity tried; kind is 'study' | 'review' | 'play';
+                -- last_pct the last attempt's score; streak in steps (a clean attempt is 2, a pass 1, a fail
+                -- puts it back to 0); attempts how many were finished. path::record writes it, path::list reads it
+path_hidden    (user_id, course_id, lesson_id, kind, hidden_at)  PRIMARY KEY (user_id, course_id, lesson_id, kind)
+                -- activities the learner hid from the course home's list (path::hide, path::unhide)
 user_vocab     (user_id, course_id, lesson_id, word, learned_at, times_seen, times_known, last_reviewed_at, due_at, gap_days)
                 -- collected words and their review schedule (src/vocab.rs): due_at the start of the day it is due
                 -- (NULL: no schedule yet), gap_days its rung on the ladder
@@ -432,7 +443,7 @@ earnings       (user_id, course_id, points, goals, day, day_points, streak)  PRI
                 -- active, its points and the streak ending on it; XP and the streak read this, not the log
 game_scores    (id, user_id, course_id, game, board, score_ms, wrong, played_at)
 game_activity  (id, user_id, course_id, game, board, label, duration_ms, total, correct, score_ms, played_at)
-                -- every finished game round or Sprint session
+                -- every finished game round or Review session
 game_rounds    (user_id, course_id, game, rounds)  PRIMARY KEY (user_id, course_id, game)
                 -- rounds finished per game, moved by games::record_activity_at: "rounds played" reads this
 ```
@@ -445,7 +456,9 @@ migrations (`v002_no_skc.sql` drops `motivator_purchases` and turns a saved
 `courses.error_kind`; `v006_api_grants.sql` adds connected apps' `api_grants` and `api_tokens`;
 `v007_oauth.sql` adds OAuth's `oauth_clients` and `oauth_codes`; `v008_refresh_reuse.sql` adds
 `api_tokens.used_at`, so a reused refresh token revokes its grant; `v009_refresh_family.sql` drops it again for
-`api_grants.refresh_family_hash`, so any earlier refresh token revokes its grant), which `src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
+`api_grants.refresh_family_hash`, so any earlier refresh token revokes its grant;
+`v010_learner_path.sql` adds the learner path's `path_activity` and `path_hidden` and seeds
+`path_activity` from `lesson_passes` and `journey_progress`, and its `.down.sql` drops both tables), which `src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
 how many have run, and a later change appends its own entry with a
 `.down.sql` beside it that takes it back (`db::migrate_to`, behind `skrongle migrate <schema-version>`;
 `db::tests::every_down_restores_the_schema_before_it` holds each one to the schema before it). A database

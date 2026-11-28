@@ -23,14 +23,11 @@ fn course() -> ContentStore {
         for q in l["quiz"].as_array_mut().unwrap() {
             q["question_id"] = format!("{id}-{}", q["question_id"].as_str().unwrap()).into();
         }
-        match id {
-            "c" => {
-                l["vocabulary"] = serde_json::json!([]);
-                for q in l["quiz"].as_array_mut().unwrap() {
-                    q.as_object_mut().unwrap().remove("teaches");
-                }
+        if id == "c" {
+            l["vocabulary"] = serde_json::json!([]);
+            for q in l["quiz"].as_array_mut().unwrap() {
+                q.as_object_mut().unwrap().remove("teaches");
             }
-            _ => {}
         }
         out.push(CourseFile { path: format!("lessons/{id}.json"), content: l.to_string() });
     }

@@ -21,10 +21,16 @@ of the app practises the same lessons.
    course's card on `/courses`. Choosing a level needs the **Skip levels**
    permission, which the person who runs the server gives: without it the
    wizard does not ask and the course starts at the beginning.
-4. The course's home page leads with today's goal and *Continue*, then the
-   modes. Pick one.
+4. The course's home is a list of what to do next. **Up next** is one
+   activity with a *Start* button: a lesson's Study, its Review or its
+   Play. Do it and you come back to the list, where the next one is
+   waiting. The Progress panel beside it shows today's goal. How the list
+   is ordered is in [The learner path](features-learner-path).
+5. The bar at the top (at the bottom of a phone's screen) goes to Today
+   (this list), Study, Review and Play whenever you want to pick for
+   yourself.
 
-Progress is per course. Switching course switches the home page, mastery,
+Progress is per course. Switching course switches the course home, mastery,
 vocabulary and history with it.
 
 ## The modes

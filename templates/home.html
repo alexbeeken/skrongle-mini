@@ -8,12 +8,20 @@
 <div class="hp-main">
 <h1 class="hp-title home-title">{{ course.icon }} {{ course.title }}</h1>
 
-<section class="hp-day" data-testid="path-progress" data-motivator="{{ motivator }}" aria-labelledby="hp-progress-label">
+<section class="hp-day" data-testid="home-today" data-motivator="{{ motivator }}" aria-labelledby="hp-progress-label">
   <p class="hp-label hp-day-label" id="hp-progress-label">{{ crate::t("path.progress") }}</p>
   <div class="hp-day-card">
     {{ panel|safe }}
     {% if due_count > 0 %}
-    <p class="hp-due" data-testid="home-due" data-due="{{ due_count }}"><span data-testid="home-due-count">{{ crate::tn("home.due.count_html", due_count)|safe }}</span> <a class="btn ghost small" href="{{ crate::base_path() }}/vocabulary/study?due=1" data-testid="home-due-review">{{ crate::tn("home.due.review_n", due_round) }}</a></p>
+    <p class="hp-due" data-testid="home-due" data-due="{{ due_count }}"><span data-testid="home-due-count">{{ crate::tn("home.due.count_html", due_count)|safe }}</span>
+      <button type="button" class="info-btn" commandfor="home-info-due" command="show-modal" data-opens="home-info-due" aria-haspopup="dialog" aria-label="{{ crate::t("home.due.about") }}" data-testid="home-info-due">i</button>
+      <a class="btn ghost small" href="{{ crate::base_path() }}/vocabulary/study?due=1" data-testid="home-due-review">{{ crate::tn("home.due.review_n", due_round) }}</a></p>
+    <dialog class="modal" id="home-info-due" aria-labelledby="home-info-due-title" data-testid="home-info-due-dialog">
+      <h2 id="home-info-due-title">{{ crate::t("home.due.title") }}</h2>
+      <p>{{ crate::t("home.due.info_ladder") }}</p>
+      <p>{{ crate::t("home.due.info_miss") }}</p>
+      <div class="modal-actions"><button type="button" class="btn" commandfor="home-info-due" command="close" data-closes data-testid="home-info-close">{{ crate::t("home.ok") }}</button></div>
+    </dialog>
     {% endif %}
   </div>
 </section>

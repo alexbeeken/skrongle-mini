@@ -18,11 +18,8 @@ async function ring(page: Page): Promise<number> {
   return Number(await page.getByTestId("home-goal-ring").getAttribute("data-points"));
 }
 
-/** Every mode resumes at `slug`, and the home page opens it at `href`. */
-async function expectResumeAt(page: Page, slug: string, href: RegExp) {
-  await page.goto("/");
-  await expect(page.getByTestId("home-continue")).toHaveAttribute("data-lesson-id", slug);
-  await expect(page.getByTestId("home-continue")).toHaveAttribute("href", href);
+/** Review, Study and the map resume at `slug`. The course home keeps the learner path's own order. */
+async function expectResumeAt(page: Page, slug: string) {
   await page.goto("/review?reduce-motion=1");
   await expect(page.getByTestId("sprint-continue").first()).toHaveAttribute("data-lesson-id", slug);
   await page.goto("/study");
@@ -40,14 +37,14 @@ test("every mode fills one daily goal and resumes where the learner left off", a
 
   // A new learner: an empty ring, and the first lesson.
   expect(await ring(page)).toBe(0);
-  await expectResumeAt(page, lessons[0].slug, new RegExp(`/lessons/${lessons[0].slug}$`));
+  await expectResumeAt(page, lessons[0].slug);
 
   // Study mode: reading the later lesson. Its two check answers (1 point each)
   // and the reading (4) make 6, and every mode now resumes there.
   await page.goto(`/lessons/${later.slug}`);
   await passReadingCheck(page, key);
   expect(await ring(page)).toBe(6);
-  await expectResumeAt(page, later.slug, new RegExp(`/lessons/${later.slug}$`));
+  await expectResumeAt(page, later.slug);
 
   // Sprint mode: its session adds to the same ring and passes the lesson;
   // everything moves on to the next lesson, opened in Sprint mode.
@@ -60,18 +57,12 @@ test("every mode fills one daily goal and resumes where the learner left off", a
   expect(shown).toBeGreaterThan(6);
   expect(await ring(page)).toBe(shown);
   expect((await apiProgress(page)).find((l) => l.slug === later.slug)?.passed).toBe(true);
-  await expectResumeAt(page, next.slug, new RegExp(`/review/play\\?lesson=${next.slug}$`));
-
-  // The Guide: opening its stage makes the Guide the mode to continue in.
-  await page.goto(`/study/${next.slug}`);
-  await expect(page.getByTestId("stage")).toBeVisible();
-  await page.goto("/");
-  await expect(page.getByTestId("home-continue")).toHaveAttribute("href", new RegExp(`/study/${next.slug}$`));
+  await expectResumeAt(page, next.slug);
 
   // A review mix draws on many lessons: it does not move the resume point.
   await page.goto("/review/play?mode=review&reduce-motion=1");
+  await expectResumeAt(page, next.slug);
   await page.goto("/");
-  await expect(page.getByTestId("home-continue")).toHaveAttribute("data-lesson-id", next.slug);
 
   // The (i) says what earns how many points.
   await page.getByTestId("home-info-goal").click();

@@ -247,7 +247,7 @@ input[type="file"] { max-width: 100%; }
 .start-level::after { content: "✓"; position: absolute; top: .75rem; right: .8rem; display: grid; place-items: center;
   width: 1.3rem; height: 1.3rem; border-radius: 50%; background: var(--accent); color: #fff; font-size: .75rem; font-weight: 700;
   opacity: 0; transform: scale(.6); transition: opacity .18s ease, transform .18s ease; }
-.start-level:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); box-shadow: 0 2px 8px rgb(0 0 0 / .06); }
+.start-level:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line));  }
 .start-level:has(input:checked) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 6%, var(--surface));
   box-shadow: 0 0 0 1px var(--accent), 0 6px 18px color-mix(in srgb, var(--accent) 22%, transparent); transform: scale(1.025); }
 .start-level:has(input:checked)::after { opacity: 1; transform: scale(1); }
@@ -619,7 +619,11 @@ table.conj td, table.conj th { font-size: .9rem; }
 /* Cards in a row share a height and keep their buttons on the bottom, so the buttons line up. */
 .course-card { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: 1fr auto; grid-template-areas: "icon body" "actions actions"; gap: .4rem .9rem;
   background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem; }
-.course-card.active { border-color: var(--gold); box-shadow: 0 0 0 2px color-mix(in srgb, var(--gold) 30%, transparent); }
+.course-card.active { border-color: var(--line-strong); }
+/* One filled button on the list (#318): the open course's Continue. Every other card's is outlined. */
+.course-card:not(.active) .course-actions .btn:not(.danger) { background: transparent; color: var(--text); border-color: var(--line-strong); }
+.course-card:not(.active) .course-actions .btn:not(.danger):hover { background: var(--bg); border-color: var(--text); }
+.course-today { margin: .3rem 0 0; }
 .course-card.broken { border-color: var(--bad); }
 .course-card .course-icon { grid-area: icon; font-size: 2.2rem; line-height: 1; }
 .course-card .course-body { grid-area: body; min-width: 0; overflow-wrap: anywhere; }
@@ -1034,7 +1038,7 @@ h1 .lt-rename { font: inherit; width: 100%; max-width: 32rem; }
 .dates-setup .check input { width: auto; margin-right: .3rem; }
 .dash-hud { margin: 1rem 0; }
 .dash-timer { height: 8px; background: var(--line); border-radius: 999px; overflow: hidden; margin-bottom: .6rem; }
-.dash-timer-fill { height: 100%; width: 100%; background: linear-gradient(90deg, var(--gold), var(--accent)); border-radius: 999px; transition: width .1s linear; }
+.dash-timer-fill { height: 100%; width: 100%; background: var(--accent); border-radius: 999px; transition: width .1s linear; }
 .dash-timer-fill.low { background: var(--bad); }
 .dash-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: .6rem; }
 .dash-stats .stat.hot { border-color: var(--gold); box-shadow: 0 0 0 2px color-mix(in srgb, var(--gold) 30%, transparent); }
@@ -1798,7 +1802,7 @@ button.le-check.warn { background: #e8a317; color: #2e1f00; } button.le-check.ba
 .lp-strip span.done { background: var(--guide); }
 .lp-speaker { font-size: 2rem; text-align: center; margin: .5rem 0; cursor: pointer; }
 .lp-stop { display: flex; flex-direction: column; align-items: center; gap: .4rem; padding: 1.2rem 0; }
-.lp-stop-icon { width: 4rem; height: 4rem; border-radius: 50%; background: var(--surface); border: 3px solid var(--gold); display: grid; place-items: center; font-size: 2rem; box-shadow: 0 4px 0 var(--line); }
+.lp-stop-icon { width: 4rem; height: 4rem; border-radius: 50%; background: var(--surface); border: 3px solid var(--gold); display: grid; place-items: center; font-size: 2rem; box-shadow: none; }
 .lp-stop-title { font-weight: 600; text-align: center; }
 .le-phone mark { background: var(--warn-bg); color: var(--text); border-radius: 4px; padding: 0 .2rem; }
 /* The Sprint skin, as sprint.css draws the session, scoped to the phone. */
@@ -1813,14 +1817,14 @@ button.le-check.warn { background: #e8a317; color: #2e1f00; } button.le-check.ba
 .le-phone .sprint-slot.right { color: var(--ok-text, var(--ok)); border-color: var(--ok); }
 .le-phone .sprint-slot.wrong { color: var(--bad); border-color: var(--bad); text-decoration: line-through; }
 .le-phone .sprint-options { display: grid; gap: .45rem; }
-.le-phone .sprint-opt { display: flex; align-items: center; gap: .6rem; text-align: left; padding: .6rem .7rem; border-radius: 12px; background: var(--surface); border: 2px solid var(--line); font: inherit; font-size: .95rem; color: var(--text); cursor: pointer; box-shadow: 0 3px 0 var(--line); }
+.le-phone .sprint-opt { display: flex; align-items: center; gap: .6rem; text-align: left; padding: .6rem .7rem; border-radius: 12px; background: var(--surface); border: 2px solid var(--line); font: inherit; font-size: .95rem; color: var(--text); cursor: pointer; box-shadow: none; }
 .le-phone .sprint-opt .key { flex: none; width: 1.3rem; height: 1.3rem; border-radius: 6px; background: var(--bg); border: 1px solid var(--line); font-size: .7rem; display: flex; align-items: center; justify-content: center; color: var(--muted); }
-.le-phone .sprint-opt.sel, .le-phone .sprint-tile.sel { border-color: #3b82f6; background: var(--edit-bg); box-shadow: 0 3px 0 #3b82f6; }
-.le-phone .sprint-opt.right, .le-phone .sprint-tile.right { border-color: var(--ok); background: var(--ok-bg); box-shadow: 0 3px 0 var(--ok); }
-.le-phone .sprint-opt.wrong, .le-phone .sprint-tile.wrong { border-color: var(--bad); background: var(--bad-bg); box-shadow: 0 3px 0 var(--bad); }
+.le-phone .sprint-opt.sel, .le-phone .sprint-tile.sel { border-color: #3b82f6; background: var(--edit-bg); box-shadow: none; }
+.le-phone .sprint-opt.right, .le-phone .sprint-tile.right { border-color: var(--ok); background: var(--ok-bg); box-shadow: none; }
+.le-phone .sprint-opt.wrong, .le-phone .sprint-tile.wrong { border-color: var(--bad); background: var(--bad-bg); box-shadow: none; }
 .le-phone .sprint-opt:disabled, .le-phone .sprint-tile:disabled, .le-phone .sprint-word:disabled, .le-phone .sprint-bucket:disabled { cursor: default; }
 .le-phone .sprint-bank { display: flex; flex-wrap: wrap; gap: .4rem; margin: .7rem 0; min-height: 2.6rem; }
-.le-phone .sprint-tile { padding: .45rem .7rem; border-radius: 10px; background: var(--surface); border: 2px solid var(--line); box-shadow: 0 3px 0 var(--line); font: inherit; font-size: .92rem; color: var(--text); cursor: pointer; }
+.le-phone .sprint-tile { padding: .45rem .7rem; border-radius: 10px; background: var(--surface); border: 2px solid var(--line); box-shadow: none; font: inherit; font-size: .92rem; color: var(--text); cursor: pointer; }
 .le-phone .sprint-input { width: 100%; font: inherit; font-size: 1.05rem; padding: .55rem .7rem; border-radius: 10px; border: 2px solid var(--line); background: var(--surface); color: var(--text); }
 .le-phone .sprint-input.right { border-color: var(--ok); }
 .le-phone .sprint-input.wrong { border-color: var(--bad); }
@@ -1830,7 +1834,7 @@ button.le-check.warn { background: #e8a317; color: #2e1f00; } button.le-check.ba
 .le-phone .sprint-hint summary { cursor: pointer; color: var(--accent); font-weight: 600; }
 .le-phone .sprint-hint p { margin: .3rem 0 0; color: var(--muted); }
 .le-phone .sprint-sort-card { display: flex; justify-content: center; margin: .3rem 0 .8rem; }
-.le-phone .sprint-sort-item { min-width: 60%; text-align: center; font-size: 1.1rem; font-weight: 700; padding: .8rem 1rem; background: var(--surface); border: 2px solid var(--line); border-radius: 14px; box-shadow: 0 4px 0 var(--line); }
+.le-phone .sprint-sort-item { min-width: 60%; text-align: center; font-size: 1.1rem; font-weight: 700; padding: .8rem 1rem; background: var(--surface); border: 2px solid var(--line); border-radius: 14px; box-shadow: none; }
 .le-phone .sprint-sort-item .done { color: var(--ok-text, var(--ok)); }
 .le-phone .sprint-buckets { display: grid; gap: .5rem; grid-template-columns: 1fr 1fr; }
 .le-phone .sprint-buckets.b3 { grid-template-columns: 1fr 1fr 1fr; }
@@ -1863,16 +1867,16 @@ button.le-check.warn { background: #e8a317; color: #2e1f00; } button.le-check.ba
 .le-phone .sprint-rung { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: .5rem; align-items: center; }
 .le-phone .sprint-rung-label { font-weight: 600; font-size: .88rem; text-align: right; }
 .le-phone .sprint-foot { margin-top: .9rem; }
-.le-phone .sprint-btn { display: flex; width: 100%; align-items: center; justify-content: center; padding: .7rem 1rem; border-radius: 12px; border: 0; background: var(--accent); color: #fff; font: inherit; font-weight: 700; box-shadow: 0 4px 0 var(--accent-dark); cursor: pointer; }
-.le-phone .sprint-btn:disabled { background: var(--line); color: var(--muted); box-shadow: 0 4px 0 color-mix(in srgb, var(--line) 70%, #000 10%); cursor: default; }
+.le-phone .sprint-btn { display: flex; width: 100%; align-items: center; justify-content: center; padding: .7rem 1rem; border-radius: 12px; border: 0; background: var(--accent); color: #fff; font: inherit; font-weight: 700; box-shadow: none; cursor: pointer; }
+.le-phone .sprint-btn:disabled { background: var(--line); color: var(--muted); box-shadow: none; cursor: default; }
 .le-phone .sprint-result { margin-top: .9rem; padding: .8rem .8rem .9rem; border-radius: 16px; }
 .le-phone .sprint-result.ok { background: var(--ok-bg); color: var(--ok-text, var(--ok)); }
 .le-phone .sprint-result.bad { background: var(--bad-bg); color: var(--bad); }
 .le-phone .sprint-result p { margin: .2rem 0; font-size: .88rem; color: var(--text); }
 .le-phone .sprint-verdict { font-size: 1.15rem; font-weight: 900; color: inherit !important; margin: 0 0 .3rem !important; }
 .le-phone .sprint-result .sprint-btn { margin-top: .6rem; }
-.le-phone .sprint-result.ok .sprint-btn { background: var(--ok); box-shadow: 0 4px 0 #22663f; }
-.le-phone .sprint-result.bad .sprint-btn { background: var(--bad); box-shadow: 0 4px 0 var(--accent-dark); }
+.le-phone .sprint-result.ok .sprint-btn { background: var(--ok); box-shadow: none; }
+.le-phone .sprint-result.bad .sprint-btn { background: var(--bad); box-shadow: none; }
 .le-phone .sprint-unit { color: var(--muted); font-weight: 500; }
 /* Narrow drawer (a phone, or a narrow window): tabs, one column. Last, so these win. */
 @container (max-width: 720px) {

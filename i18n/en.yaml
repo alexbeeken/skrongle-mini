@@ -597,75 +597,23 @@ home:
   due:
     title: "Words due"
     about: "About words due"
+    info_ladder: "A word you collect comes back the next day. Each time you know it, the wait grows: 1, 3, 7, 16, 35, 75, then 150 days."
+    info_miss: "Miss it and it comes back tomorrow. One round reviews at most 20 words, longest waiting first."
     count_html:
       one: "<strong>{n}</strong> word due"
       other: "<strong>{n}</strong> words due"
     review_n:
       one: "Review 1 word"
       other: "Review {n} words"
-    info_ladder: "A word you collect comes back the next day. Each time you know it, the wait grows: 1, 3, 7, 16, 35, 75, then 150 days."
-    info_miss: "Miss it and it comes back tomorrow. One round reviews at most 20 words, longest waiting first."
-  your_progress: Your progress
   lessons_passed: lessons passed
   terms: "terms"
   day_streak: day streak
   skipped: skipped
   unit_of: "Unit {n} of {total}"
   unit_bar_label: "Lessons of {unit} passed"
-  unit_passed_html: "<strong>{passed}</strong> of {total} lessons passed in this unit"
-  sprint: "Review"
-  open_sprint: "Open Review"
-  sprint_tag: Interactive, mobile friendly.
-  about_sprint: "About Review"
-  start_session: Start a session
-  study: "Lessons"
-  open_study: "Open Lessons"
-  study_tag: Short study lessons with quizzes.
-  about_study: "About Lessons"
-  need_practice_html:
-    one: "<strong>{n}</strong> lesson needs practice"
-    other: "<strong>{n}</strong> lessons need practice"
-  answers_week_html: "<strong>{n}</strong> answers this week"
-  start_practice: Start recommended practice
   play: Play
-  open_play: Open Play mode
-  play_tag: Games and one-off exercises
-  about_play: About Play mode
-  games_week_html:
-    one: "<strong>{n}</strong> game this week"
-    other: "<strong>{n}</strong> games this week"
-  terms_collected_html: "<strong>{n}</strong> terms collected"
-  browse_games: Browse games
   guide: "Study"
-  open_guide: "Open Study"
-  guide_tag: "Guided lessons, one step at a time."
-  about_guide: "About Study"
-  guide_stat_html: "<strong>{done}</strong> / {total} lessons complete"
-  next_stage: "Next: {title}"
-  continue_guide: "Continue Study"
-  start_guide: "Start Study"
-  see_stages: "See your lessons"
-  ai: AI tutoring
-  open_ai: Open AI tutoring
-  ai_tag: Chat with a tutor
-  about_ai: About AI tutoring
-  using_key_html: "Using the <strong>{provider}</strong> key"
-  needs_key_html: "Needs an API key · <a href=\"{url}\" data-testid=\"home-ai-add-key\">add one on Manage Users</a>"
-  start_conversation: Start a conversation
-  no_ai_keys: No AI keys set
-  info_sprint_p: "Short tap-and-swipe sessions: word tiles, sorting, matching and quick quiz rounds. A streak and the daily goal keep you coming back."
-  info_study_p: Read the lessons properly, then take adaptive quizzes that target what you get wrong. Watch mastery grow unit by unit on the learning map.
-  info_study_listening_p: Read the lessons properly, then take adaptive quizzes that target what you get wrong, and train your ear by typing what you hear. Watch mastery grow unit by unit on the learning map.
-  info_play_intro: "Pick one thing and play it: a timed word match, "
-  info_play_drill: "the {item} drill, "
-  info_play_numbers: "numbers by ear, "
-  info_play_dates: "a date dash, "
-  info_play_end: or a hand of flashcards.
-  info_guide_p: "The lessons in order, one small step at a time: a card or two, then a quick check. Finish a lesson to unlock the next, and earn up to three stars on each."
-  info_ai_p: "A one-to-one lesson over chat: the tutor explains, checks you follow, sets an exercise when you are ready and talks you through your answer. Same questions, same mastery, just a conversation. Runs on this server's API key."
   ok: OK
-  needs_key_ask: "Needs an API key, which the owner of this server adds"
-
 goal:
   ring_label: "Today's goal: {n} of {goal} points"
   smashed: "Goal smashed {icon}"
@@ -676,8 +624,6 @@ goal:
   day_away: "Day {n} is one session away."
   five_minutes: "Got five minutes?"
   any_mode: "Whatever you study, in any mode, fills the ring."
-  continue: "Continue: {title}"
-  all_done: "Every lesson passed: keep them sharp"
   info_label: "What counts towards the daily goal"
   info_title: "Today's goal"
   info_p: "Everything you do in this course, in any mode, earns points towards the day's {goal}. What takes longer earns more:"
@@ -753,7 +699,6 @@ study:
     result: "{correct} / {total} right · {time}"
   nav:
     study_mode: "Lessons"
-    study_mode_desc: "Lessons: short lessons with quizzes"
     study: "Lessons"
     practice: Practice
     listening: Listening
@@ -762,15 +707,6 @@ study:
     vocabulary: Vocabulary
     history: History
     mistakes: Mistakes
-    switch: "Switch:"
-    to_sprint: "Switch to Review"
-    sprint_desc: "Review: interactive, mobile friendly"
-    sprint: "Review"
-    to_play: Switch to Play mode
-    play_desc: "Play mode: games and one-off exercises"
-    play: Play
-    all_modes: All modes (home)
-    menu: menu
   lessons:
     title: Lessons
     find: Find a lesson
@@ -1220,22 +1156,10 @@ play:
       other: "{n} rounds played"
   nav:
     aria: Play mode
-    mode_title: "Play mode: games and one-off exercises"
-    play: Play
     all: All
     numbers: Numbers
     dates: Dates
     flashcards: Flashcards
-    stages: "Study"
-    switch: "Switch: "
-    to_sprint: "Switch to Review"
-    sprint_title: "Review: interactive, mobile friendly"
-    sprint: "Review"
-    to_study: "Switch to Lessons"
-    study_title: "Lessons: short lessons with quizzes"
-    study: "Lessons"
-    menu_aria: All modes (home)
-    menu: menu
   hub:
     title: Play
     heading: Play
@@ -1251,7 +1175,7 @@ play:
     flashcards: Flashcards
     flashcards_desc: "A hand of the terms you have collected, {term} on one side and {meaning} on the other. Mark each one known or not; the stats follow you."
     terms_collected: "{n} terms collected so far"
-    study: "Lessons"
+    study: Study
     stages: "Study"
     stages_desc: "One lesson in small steps: a card or two, a quick check, a flashcard hand, a tip. Finish for stars; finishing a lesson also unlocks its {unlocks}."
     stages_unlocks_drill: "{item}s for the drill"
@@ -3145,9 +3069,5 @@ path:
   back_in:
     one: "Back in {n} day"
     other: "Back in {n} days"
-  points_today: "{n} of {goal} points today"
   goal_met: "Today's goal is met"
-  day_streak:
-    one: "{n} day streak"
-    other: "{n} day streak"
   unit_passed: "{passed} of {total} lessons passed"

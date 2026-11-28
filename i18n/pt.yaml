@@ -594,75 +594,23 @@ home:
   due:
     title: "Palavras para revisar"
     about: "Sobre as palavras para revisar"
+    info_ladder: "Uma palavra que você coleta volta no dia seguinte. Cada vez que você a sabe, a espera aumenta: 1, 3, 7, 16, 35, 75 e depois 150 dias."
+    info_miss: "Se não souber, ela volta amanhã. Uma rodada revisa no máximo 20 palavras, as que esperam há mais tempo primeiro."
     count_html:
       one: "<strong>{n}</strong> palavra para revisar"
       other: "<strong>{n}</strong> palavras para revisar"
     review_n:
       one: "Revisar 1 palavra"
       other: "Revisar {n} palavras"
-    info_ladder: "Uma palavra que você coleta volta no dia seguinte. Cada vez que você a sabe, a espera aumenta: 1, 3, 7, 16, 35, 75 e depois 150 dias."
-    info_miss: "Se não souber, ela volta amanhã. Uma rodada revisa no máximo 20 palavras, as que esperam há mais tempo primeiro."
-  your_progress: Seu progresso
   lessons_passed: lições concluídas
   terms: "termos"
   day_streak: dias de sequência
   skipped: puladas
   unit_of: "Unidade {n} de {total}"
   unit_bar_label: "Lições de {unit} concluídas"
-  unit_passed_html: "<strong>{passed}</strong> de {total} lições concluídas nesta unidade"
-  sprint: "Revisão"
-  open_sprint: "Abrir Revisão"
-  sprint_tag: Interativo, feito para celular.
-  about_sprint: "Sobre Revisão"
-  start_session: Começar uma sessão
-  study: "Lições"
-  open_study: "Abrir Lições"
-  study_tag: Lições curtas de estudo com quizzes.
-  about_study: "Sobre Lições"
-  need_practice_html:
-    one: "<strong>{n}</strong> lição precisa de prática"
-    other: "<strong>{n}</strong> lições precisam de prática"
-  answers_week_html: "<strong>{n}</strong> respostas nesta semana"
-  start_practice: Começar a prática recomendada
   play: Jogo
-  open_play: Abrir o modo Jogo
-  play_tag: Jogos e exercícios avulsos
-  about_play: Sobre o modo Jogo
-  games_week_html:
-    one: "<strong>{n}</strong> jogo nesta semana"
-    other: "<strong>{n}</strong> jogos nesta semana"
-  terms_collected_html: "<strong>{n}</strong> termos coletados"
-  browse_games: Ver os jogos
   guide: "Estudo"
-  open_guide: "Abrir Estudo"
-  guide_tag: "Lições guiadas, um passo por vez."
-  about_guide: "Sobre Estudo"
-  guide_stat_html: "<strong>{done}</strong> / {total} lições concluídas"
-  next_stage: "Próxima: {title}"
-  continue_guide: "Continuar Estudo"
-  start_guide: "Começar Estudo"
-  see_stages: "Ver suas lições"
-  ai: Tutoria com IA
-  open_ai: Abrir a tutoria com IA
-  ai_tag: Converse com um tutor
-  about_ai: Sobre a tutoria com IA
-  using_key_html: "Com a chave de <strong>{provider}</strong>"
-  needs_key_html: "Precisa de uma chave de API · <a href=\"{url}\" data-testid=\"home-ai-add-key\">adicione uma em Gerir utilizadores</a>"
-  start_conversation: Iniciar uma conversa
-  no_ai_keys: Nenhuma chave de IA definida
-  info_sprint_p: "Sessões curtas de toque e deslize: blocos de palavras, ordenação, pares e rodadas rápidas de quiz. Uma sequência e a meta diária mantêm você voltando."
-  info_study_p: Leia as lições com calma, depois faça quizzes adaptativos que atacam o que você erra. Acompanhe o domínio crescer unidade por unidade no mapa de aprendizado.
-  info_study_listening_p: Leia as lições com calma, depois faça quizzes adaptativos que atacam o que você erra, e treine o ouvido digitando o que escuta. Acompanhe o domínio crescer unidade por unidade no mapa de aprendizado.
-  info_play_intro: "Escolha uma coisa e jogue: um Pares de palavras cronometrado, "
-  info_play_drill: "o exercício de paradigmas de {item}, "
-  info_play_numbers: "números de ouvido, "
-  info_play_dates: "uma Corrida de datas, "
-  info_play_end: ou uma mão de cartões.
-  info_guide_p: "As lições em ordem, um pequeno passo por vez: um ou dois cartões e depois uma verificação rápida. Conclua uma lição para desbloquear a próxima e ganhe até três estrelas em cada uma."
-  info_ai_p: "Uma aula individual por chat: o tutor explica, verifica se está a acompanhar, propõe um exercício quando estiver pronto e comenta a sua resposta consigo. As mesmas perguntas, o mesmo domínio, só que em conversa. Funciona com a chave de API deste servidor."
   ok: OK
-  needs_key_ask: "Precisa de uma chave de API, que o proprietário deste servidor adiciona"
-
 goal:
   ring_label: "Meta de hoje: {n} de {goal} pontos"
   smashed: "Meta batida {icon}"
@@ -673,8 +621,6 @@ goal:
   day_away: "O dia {n} está a uma sessão de distância."
   five_minutes: "Tem cinco minutos?"
   any_mode: "Tudo o que você estuda, em qualquer modo, enche o anel."
-  continue: "Continuar: {title}"
-  all_done: "Todas as lições aprovadas: mantenha-as afiadas"
   info_label: "O que conta para a meta diária"
   info_title: "A meta de hoje"
   info_p: "Tudo o que você faz neste curso, em qualquer modo, rende pontos para os {goal} do dia. O que leva mais tempo rende mais:"
@@ -750,7 +696,6 @@ study:
     result: "{correct} / {total} certas · {time}"
   nav:
     study_mode: "Lições"
-    study_mode_desc: "Lições: lições curtas com quizzes"
     study: "Lições"
     practice: Prática
     listening: Escuta
@@ -759,15 +704,6 @@ study:
     vocabulary: Vocabulário
     history: Histórico
     mistakes: Erros
-    switch: "Trocar:"
-    to_sprint: "Trocar para Revisão"
-    sprint_desc: "Revisão: interativo, feito para celular"
-    sprint: "Revisão"
-    to_play: Trocar para o modo Jogo
-    play_desc: "Modo Jogo: jogos e exercícios avulsos"
-    play: Jogo
-    all_modes: Todos os modos (início)
-    menu: menu
   lessons:
     title: Lições
     find: Buscar uma lição
@@ -1217,22 +1153,10 @@ play:
       other: "{n} rodadas jogadas"
   nav:
     aria: Modo Jogo
-    mode_title: "Modo Jogo: jogos e exercícios avulsos"
-    play: Jogo
     all: Todos
     numbers: Números
     dates: Datas
     flashcards: Cartões
-    stages: "Estudo"
-    switch: "Trocar: "
-    to_sprint: "Trocar para Revisão"
-    sprint_title: "Revisão: interativo, bom no celular"
-    sprint: "Revisão"
-    to_study: "Trocar para Lições"
-    study_title: "Lições: lições curtas com quizzes"
-    study: "Lições"
-    menu_aria: Todos os modos (início)
-    menu: menu
   hub:
     title: Jogos
     heading: Jogo
@@ -1248,7 +1172,7 @@ play:
     flashcards: Cartões
     flashcards_desc: "Um lote dos termos que você já reuniu, {term} de um lado e {meaning} do outro. Marque cada um como sabido ou não; as estatísticas acompanham você."
     terms_collected: "{n} termos reunidos até agora"
-    study: "Lições"
+    study: Estudo
     stages: "Estudo"
     stages_desc: "Uma lição em pequenos passos: um cartão ou dois, uma verificação rápida, um lote de cartões, uma dica. Termine para ganhar estrelas; terminar uma lição também libera {unlocks}."
     stages_unlocks_drill: "{item}s para o exercício"
@@ -3142,9 +3066,5 @@ path:
   back_in:
     one: "Volta em {n} dia"
     other: "Volta em {n} dias"
-  points_today: "{n} de {goal} pontos hoje"
   goal_met: "Meta de hoje cumprida"
-  day_streak:
-    one: "{n} dia seguido"
-    other: "{n} dias seguidos"
   unit_passed: "{passed} de {total} lições aprovadas"

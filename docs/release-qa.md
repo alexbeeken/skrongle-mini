@@ -28,13 +28,14 @@ before it.
 ## First day as a learner
 
 - [ ] On the phone, open `http://<hostname>.local:7576` (or `http://<ip>:7576`). The sign-in page opens.
-- [ ] Sign in with an existing learner account. You land on the home page with the mode cards.
+- [ ] Sign in with an existing learner account. You land on the course home: *Up next* with a **Start** button, and the Progress panel.
 - [ ] Open `/lessons`, then a lesson. The lesson text shows and a **Practise this lesson** link is at the bottom.
 - [ ] Click **Practise this lesson** and answer the questions. At the end you see your score.
-- [ ] Back on the home page, click **Start recommended practice** and finish one set. It ends with a summary and no error page.
-- [ ] On the home page, click **Start a session** under Sprint and play one session to its end. The session summary shows.
+- [ ] Click **Today** in the bar (at the bottom of the phone's screen), then **Start** on *Up next*, and finish the activity. It ends with **Back to** and the course's name.
+- [ ] Click that button. You are on the course home again, the activity is under *Done today* and *Up next* names another one.
+- [ ] Click **Review** in the bar and play one session to its end. The session summary shows.
 - [ ] Open `/lessons` again. The lesson you worked on shows its new progress.
-- [ ] Open the home page again. The numbers on the Practice card (answers this week) went up.
+- [ ] Click **Today** again. Today's goal in the Progress panel went up.
 - [ ] Nothing took more than a few seconds to open. This is a feel, not a measurement: note it if a page felt stuck.
 
 ## Owner tasks

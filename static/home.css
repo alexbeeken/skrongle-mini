@@ -29,7 +29,8 @@
 .hp-nums li > span, .hp-nums a > span { font-size: .85rem; color: var(--muted); }
 .hp-nums a:hover { text-decoration: none; }
 .hp-nums a:hover > span { text-decoration: underline; }
-.hp-due { display: flex; align-items: center; justify-content: space-between; gap: .5rem 1rem; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 1rem !important; font-size: .95rem; }
+.hp-due .btn { margin-left: auto; }
+.hp-due { display: flex; align-items: center; gap: .5rem .6rem; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 1rem !important; font-size: .95rem; }
 /* The XP motivator's panel: its level badge where Statistics has the goal's line. */
 .hp-goal { display: flex; align-items: center; gap: .75rem; }
 .hp-goal .info-btn { margin-left: auto; flex: none; }

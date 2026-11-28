@@ -16,12 +16,12 @@ const key = new AnswerKey(COURSE);
 /** Pick a motivator in the course's settings (#574). */
 const wear = (page: Page, id: string) => pickMotivator(page, COURSE, id);
 
-/** The XP hero's total XP, after checking it is the one drawn. */
+/** The XP panel's total XP, after checking it is the one drawn. */
 async function heroXp(page: Page): Promise<number> {
   await page.goto("/");
   const hero = page.getByTestId("home-today");
   await expect(hero).toHaveAttribute("data-motivator", "xp");
-  return Number(await hero.getAttribute("data-xp"));
+  return Number(await page.getByTestId("xp-panel").getAttribute("data-xp"));
 }
 
 test("XP counts what was earned under any motivator and levels the learner up", async ({ page }) => {
@@ -53,7 +53,7 @@ test("XP counts what was earned under any motivator and levels the learner up", 
   expect(50 * lv * (lv - 1) + into).toBe(before);
   expect(need).toBe(100 * lv);
   await expect(next).toContainText(`${into} / ${need} XP`);
-  await expect(page.getByTestId("home-continue")).toBeVisible();
+  await expect(page.getByTestId("path-start")).toBeVisible();
   await expect(page.getByTestId("home-goal-ring")).toHaveCount(0);
 
   // How XP is earned is behind the (i).

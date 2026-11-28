@@ -6,7 +6,7 @@ meta:
 
 nav:
   today: "Heute"
-  study: "Lektionen"
+  study: "Lernen"
   review: "Wiederholen"
   play: "Spielen"
   tutor: "Tutor"
@@ -594,75 +594,23 @@ home:
   due:
     title: "Fällige Wörter"
     about: "Über fällige Wörter"
+    info_ladder: "Ein gesammeltes Wort kommt am nächsten Tag wieder. Jedes Mal, wenn du es weißt, wird die Pause länger: 1, 3, 7, 16, 35, 75, dann 150 Tage."
+    info_miss: "Weißt du es nicht, kommt es morgen wieder. Eine Runde wiederholt höchstens 20 Wörter, die am längsten wartenden zuerst."
     count_html:
       one: "<strong>{n}</strong> Wort fällig"
       other: "<strong>{n}</strong> Wörter fällig"
     review_n:
       one: "1 Wort wiederholen"
       other: "{n} Wörter wiederholen"
-    info_ladder: "Ein gesammeltes Wort kommt am nächsten Tag wieder. Jedes Mal, wenn du es weißt, wird die Pause länger: 1, 3, 7, 16, 35, 75, dann 150 Tage."
-    info_miss: "Weißt du es nicht, kommt es morgen wieder. Eine Runde wiederholt höchstens 20 Wörter, die am längsten wartenden zuerst."
-  your_progress: "Dein Fortschritt"
   lessons_passed: "Lektionen bestanden"
   terms: "Begriffe"
   day_streak: "Tage in Folge"
   skipped: "übersprungen"
   unit_of: "Einheit {n} von {total}"
   unit_bar_label: "Lektionen von {unit} bestanden"
-  unit_passed_html: "<strong>{passed}</strong> von {total} Lektionen in dieser Einheit bestanden"
-  sprint: "Wiederholen"
-  open_sprint: "Wiederholen öffnen"
-  sprint_tag: "Interaktiv, für das Handy geeignet."
-  about_sprint: "Über Wiederholen"
-  start_session: "Sitzung starten"
-  study: "Lektionen"
-  open_study: "Lektionen öffnen"
-  study_tag: "Kurze Lektionen mit Quizzen."
-  about_study: "Über Lektionen"
-  need_practice_html:
-    one: "<strong>{n}</strong> Lektion braucht Übung"
-    other: "<strong>{n}</strong> Lektionen brauchen Übung"
-  answers_week_html: "<strong>{n}</strong> Antworten diese Woche"
-  start_practice: "Empfohlene Übung starten"
   play: "Spielen"
-  open_play: "Spielmodus öffnen"
-  play_tag: "Spiele und einmalige Übungen"
-  about_play: "Über den Spielmodus"
-  games_week_html:
-    one: "<strong>{n}</strong> Spiel diese Woche"
-    other: "<strong>{n}</strong> Spiele diese Woche"
-  terms_collected_html: "<strong>{n}</strong> Begriffe gesammelt"
-  browse_games: "Spiele durchstöbern"
   guide: "Lernen"
-  open_guide: "Lernen öffnen"
-  guide_tag: "Geführte Lektionen, ein Schritt nach dem anderen."
-  about_guide: "Über Lernen"
-  guide_stat_html: "<strong>{done}</strong> / {total} Lektionen abgeschlossen"
-  next_stage: "Als Nächstes: {title}"
-  continue_guide: "Lernen fortsetzen"
-  start_guide: "Lernen starten"
-  see_stages: "Deine Lektionen ansehen"
-  ai: "KI-Nachhilfe"
-  open_ai: "KI-Nachhilfe öffnen"
-  ai_tag: "Im Chat mit einem Tutor"
-  about_ai: "Über die KI-Nachhilfe"
-  using_key_html: "Mit dem Schlüssel von <strong>{provider}</strong>"
-  needs_key_html: "Braucht einen API-Schlüssel · <a href=\"{url}\" data-testid=\"home-ai-add-key\">unter „Benutzer verwalten“ hinzufügen</a>"
-  start_conversation: "Ein Gespräch beginnen"
-  no_ai_keys: Keine KI-Schlüssel hinterlegt
-  info_sprint_p: "Kurze Sitzungen zum Antippen und Wischen: Wortkacheln, Sortieren, Zuordnen und schnelle Quizrunden. Eine Serie und das Tagesziel bringen dich zurück."
-  info_study_p: "Lies die Lektionen richtig durch und mach dann adaptive Quizze, die auf das zielen, was du falsch machst. Beobachte, wie die Beherrschung Einheit für Einheit auf der Lernkarte wächst."
-  info_study_listening_p: "Lies die Lektionen richtig durch und mach dann adaptive Quizze, die auf das zielen, was du falsch machst, und schule dein Ohr, indem du tippst, was du hörst. Beobachte, wie die Beherrschung Einheit für Einheit auf der Lernkarte wächst."
-  info_play_intro: "Wähl etwas aus und spiel es: ein zeitgesteuertes Wortpaar-Spiel, "
-  info_play_drill: "die {item}-Übung, "
-  info_play_numbers: "Zahlen nach Gehör, "
-  info_play_dates: "ein Datums-Rennen, "
-  info_play_end: "oder ein Stapel Karteikarten."
-  info_guide_p: "Die Lektionen der Reihe nach, ein kleiner Schritt nach dem anderen: eine Karte oder zwei, dann eine kurze Prüfung. Schließ eine Lektion ab, um die nächste freizuschalten, und verdiene auf jeder bis zu drei Sterne."
-  info_ai_p: "Eine Einzelstunde im Chat: Der Tutor erklärt, prüft, ob du folgen kannst, stellt eine Übung, wenn du so weit bist, und bespricht deine Antwort mit dir. Dieselben Fragen, derselbe Lernstand, nur als Gespräch. Läuft mit dem API-Schlüssel dieses Servers."
   ok: "OK"
-  needs_key_ask: "Braucht einen API-Schlüssel, den der Eigentümer dieses Servers hinzufügt"
-
 goal:
   ring_label: "Tagesziel: {n} von {goal} Punkten"
   smashed: "Ziel geschafft {icon}"
@@ -673,8 +621,6 @@ goal:
   day_away: "Tag {n} ist nur eine Sitzung entfernt."
   five_minutes: "Hast du fünf Minuten?"
   any_mode: "Was du auch lernst, in jedem Modus füllt es den Ring."
-  continue: "Weiter: {title}"
-  all_done: "Alle Lektionen bestanden: halte sie frisch"
   info_label: "Was für das Tagesziel zählt"
   info_title: "Das Tagesziel"
   info_p: "Alles, was du in diesem Kurs tust, in jedem Modus, bringt Punkte für die {goal} des Tages. Was länger dauert, bringt mehr:"
@@ -750,7 +696,6 @@ study:
     result: "{correct} / {total} richtig · {time}"
   nav:
     study_mode: "Lektionen"
-    study_mode_desc: "Lektionen: kurze Lektionen mit Quizzen"
     study: "Lektionen"
     practice: "Üben"
     listening: "Hören"
@@ -759,15 +704,6 @@ study:
     vocabulary: "Wortschatz"
     history: "Verlauf"
     mistakes: Fehler
-    switch: "Wechseln:"
-    to_sprint: "Zu Wiederholen wechseln"
-    sprint_desc: "Wiederholen: interaktiv, für das Handy geeignet"
-    sprint: "Wiederholen"
-    to_play: "Zum Spielmodus wechseln"
-    play_desc: "Spielmodus: Spiele und einmalige Übungen"
-    play: "Spielen"
-    all_modes: "Alle Modi (Startseite)"
-    menu: "Menü"
   lessons:
     title: "Lektionen"
     find: "Eine Lektion finden"
@@ -1217,22 +1153,10 @@ play:
       other: "{n} Runden gespielt"
   nav:
     aria: Spielmodus
-    mode_title: "Spielmodus: Spiele und einzelne Übungen"
-    play: Spielen
     all: Alle
     numbers: Zahlen
     dates: Daten
     flashcards: Karteikarten
-    stages: "Lernen"
-    switch: "Wechseln: "
-    to_sprint: "Zu Wiederholen wechseln"
-    sprint_title: "Wiederholen: interaktiv, handyfreundlich"
-    sprint: "Wiederholen"
-    to_study: "Zu den Lektionen wechseln"
-    study_title: "Lektionen: kurze Lektionen mit Quizzen"
-    study: "Lektionen"
-    menu_aria: Alle Modi (Startseite)
-    menu: Menü
   hub:
     title: Spiele
     heading: Spielen
@@ -1248,7 +1172,7 @@ play:
     flashcards: Karteikarten
     flashcards_desc: "Ein Stapel der Begriffe, die du gesammelt hast, {term} auf der einen und {meaning} auf der anderen Seite. Markiere jede als gewusst oder nicht; die Statistik begleitet dich."
     terms_collected: "{n} Begriffe bisher gesammelt"
-    study: "Lektionen"
+    study: Lernen
     stages: "Lernen"
     stages_desc: "Eine Lektion in kleinen Schritten: eine oder zwei Karten, eine kurze Prüfung, ein Karteikartenstapel, ein Tipp. Beende sie für Sterne; wer eine Lektion beendet, schaltet außerdem ihre {unlocks} frei."
     stages_unlocks_drill: "{item}s für die Übung"
@@ -3128,7 +3052,7 @@ path:
   bring_back_label: "{kind} zurückholen: {title}"
   empty: "Gerade ist nichts fällig. Komm morgen wieder."
   kind:
-    study: "Lektionen"
+    study: "Lernen"
     review: "Wiederholen"
     play: "Spielen"
   steps:
@@ -3142,9 +3066,5 @@ path:
   back_in:
     one: "Wieder in {n} Tag"
     other: "Wieder in {n} Tagen"
-  points_today: "{n} von {goal} Punkten heute"
   goal_met: "Tagesziel erreicht"
-  day_streak:
-    one: "{n} Tag in Folge"
-    other: "{n} Tage in Folge"
   unit_passed: "{passed} von {total} Lektionen bestanden"

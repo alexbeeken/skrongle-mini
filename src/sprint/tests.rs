@@ -551,6 +551,7 @@ fn only_a_language_course_talks() {
             sound: false,
             staff_note: false,
             keyboard: false,
+            home: false,
         }
         .render()
         .unwrap()

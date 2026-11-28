@@ -489,7 +489,7 @@ mod tests {
             let tutor = get("/tutor");
             assert!(tutor.contains(r#"data-testid="tutor-no-key""#), "{tutor}");
             // The top bar's Tutor link goes to that page.
-            assert!(get("/").contains(r#"href="/tutor" data-testid="nav-tutor""#));
+            assert!(get("/").contains(r#"href="/tutor" data-testid="topnav-tutor""#));
             let start = agent.post(&url("/api/tutor/start")).header("cookie", &cookie).send_json(json!({ "provider": "anthropic" })).unwrap();
             assert_eq!(start.status().as_u16(), 400);
             let made = agent.post(&url("/courses/new")).header("cookie", &cookie).send_form([("title", "")]).unwrap();

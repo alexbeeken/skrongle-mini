@@ -711,18 +711,17 @@ test("on a phone the Vocabulary term table scrolls in its box, not the page (#93
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
 });
 
-test("on a phone the Study and Play mode bars take two rows and scroll sideways (#423)", async ({ page }) => {
+test("on a phone the Study and Play mode bars keep one row and scroll sideways (#423)", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  for (const [path, nav, current, other] of [
-    ["/mistakes", "nav-study", "nav-study-mistakes", "nav-study-to-sprint"],
-    ["/study", "nav-play", "nav-play-stages", "nav-play-to-study"],
+  for (const [path, nav, current] of [
+    ["/mistakes", "nav-study", "nav-study-mistakes"],
+    ["/vocabulary/study", "nav-play", "nav-play-flashcards"],
   ]) {
     await page.goto(path);
     const bar = page.getByTestId(nav);
     const rowHeight = (await page.getByTestId(current).boundingBox())!.height;
-    expect((await bar.boundingBox())!.height).toBeLessThan(2.6 * rowHeight);
-    // The Switch links stay, and the current tab (the last one) is scrolled into view.
-    await expect(page.getByTestId(other)).toBeInViewport();
+    expect((await bar.boundingBox())!.height).toBeLessThan(1.6 * rowHeight);
+    // The current tab (the last one) is scrolled into view.
     await expect(page.getByTestId(current)).toBeInViewport({ ratio: 0.9 });
     // The bar fits the screen (the page below may be wider, e.g. /history before #424).
     expect(await bar.evaluate((el) => el.scrollWidth)).toBeLessThanOrEqual(390);
@@ -734,7 +733,9 @@ test("the modes' old paths redirect, keeping the query string", async ({ page })
     ["/d?reduce-motion=1", "/review?reduce-motion=1"],
     ["/d/play?mode=review", "/review/play?mode=review"],
     ["/k", "/lessons"],
-    ["/study?x=1", "/lessons?x=1"],
+    ["/guide?x=1", "/study?x=1"],
+    ["/guide/ser-vs-estar", "/study/ser-vs-estar"],
+    ["/sprint/play?mode=review", "/review/play?mode=review"],
     ["/g", "/play"],
     ["/games", "/play"],
     ["/games/matching", "/play/matching"],
@@ -749,16 +750,6 @@ test("the modes' old paths redirect, keeping the query string", async ({ page })
   expect(res.headers()["location"]).toMatch(/\/api\/sprint\/finish$/);
   await page.goto("/k");
   await expect(page.getByTestId("nav-study")).toBeVisible();
-});
-
-test("the mode bars link to Study's Lessons, not to the /study redirect", async ({ page }) => {
-  for (const path of ["/", "/lessons", "/play", "/guide", "/sprint"]) {
-    await page.goto(path);
-    const hrefs = await page.locator("a[href]").evaluateAll((as) => as.map((a) => new URL((a as HTMLAnchorElement).href).pathname));
-    expect(hrefs.filter(old), path).toEqual([]);
-  }
-  await page.goto("/play");
-  await expect(page.getByTestId("nav-play-to-study")).toHaveAttribute("href", /\/lessons$/);
 });
 
 test("the profile has no Dev section for anyone; the seeded keys answer generate and the tutor", async ({ page, browser }) => {

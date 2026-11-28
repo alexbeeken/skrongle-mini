@@ -594,75 +594,23 @@ home:
   due:
     title: "待复习的词"
     about: "关于待复习的词"
+    info_ladder: "收集的词第二天会再出现。每次你记得它，间隔就会变长：1、3、7、16、35、75，然后是 150 天。"
+    info_miss: "没记住的话，它明天会再出现。每轮最多复习 20 个词，等得最久的先来。"
     count_html:
       one: "<strong>{n}</strong> 个词待复习"
       other: "<strong>{n}</strong> 个词待复习"
     review_n:
       one: "复习 1 个词"
       other: "复习 {n} 个词"
-    info_ladder: "收集的词第二天会再出现。每次你记得它，间隔就会变长：1、3、7、16、35、75，然后是 150 天。"
-    info_miss: "没记住的话，它明天会再出现。每轮最多复习 20 个词，等得最久的先来。"
-  your_progress: 你的进度
   lessons_passed: 已通过的课节
   terms: "词条"
   day_streak: 天连续学习
   skipped: 已跳过
   unit_of: "第 {n} 单元，共 {total} 个"
   unit_bar_label: "{unit} 中已通过的课节"
-  unit_passed_html: "本单元 {total} 节课中已通过 <strong>{passed}</strong> 节"
-  sprint: "复习"
-  open_sprint: "打开复习"
-  sprint_tag: 互动式，适合手机。
-  about_sprint: "关于复习"
-  start_session: 开始练习
-  study: "课节"
-  open_study: "打开课节"
-  study_tag: 带测验的简短学习课节。
-  about_study: "关于课节"
-  need_practice_html:
-    one: "<strong>{n}</strong> 节课需要练习"
-    other: "<strong>{n}</strong> 节课需要练习"
-  answers_week_html: "本周已答 <strong>{n}</strong> 题"
-  start_practice: 开始推荐练习
   play: 游戏
-  open_play: 打开游戏模式
-  play_tag: 小游戏和单次练习
-  about_play: 关于游戏模式
-  games_week_html:
-    one: "本周 <strong>{n}</strong> 局游戏"
-    other: "本周 <strong>{n}</strong> 局游戏"
-  terms_collected_html: "已收集 <strong>{n}</strong> 个词条"
-  browse_games: 浏览游戏
   guide: "学习"
-  open_guide: "打开学习"
-  guide_tag: "一步一步的引导式课节。"
-  about_guide: "关于学习"
-  guide_stat_html: "已完成 <strong>{done}</strong> / {total} 节课"
-  next_stage: "下一步：{title}"
-  continue_guide: "继续学习"
-  start_guide: "开始学习"
-  see_stages: "查看你的课节"
-  ai: AI 辅导
-  open_ai: 打开 AI 辅导
-  ai_tag: 与导师聊天
-  about_ai: 关于 AI 辅导
-  using_key_html: "使用 <strong>{provider}</strong> 密钥"
-  needs_key_html: "需要 API 密钥 · <a href=\"{url}\" data-testid=\"home-ai-add-key\">在“管理用户”中添加</a>"
-  start_conversation: 开始对话
-  no_ai_keys: "未设置 AI 密钥"
-  info_sprint_p: "短促的点击和滑动练习：词块、分类、配对和快速测验。连续天数和每日目标会让你持续回来。"
-  info_study_p: 认真阅读课节，然后进行自适应测验，针对你答错的内容。在学习地图上逐个单元查看掌握度的增长。
-  info_study_listening_p: 认真阅读课节，然后进行自适应测验，针对你答错的内容，并通过输入所听到的内容来训练听力。在学习地图上逐个单元查看掌握度的增长。
-  info_play_intro: "选一样来玩：限时单词配对，"
-  info_play_drill: "{item} 变位练习，"
-  info_play_numbers: "听数字，"
-  info_play_dates: "日期竞速，"
-  info_play_end: 或一副单词卡。
-  info_guide_p: "按顺序一次完成一个小步骤：看一两张卡片，然后做一个快速检查。完成一节课即可解锁下一节，每节课最多可获得三颗星。"
-  info_ai_p: "通过聊天的一对一课程：导师讲解、确认你跟得上、在你准备好时布置练习，并和你一起讨论你的答案。同样的题目，同样的掌握度，只是换成对话。使用本服务器的 API 密钥。"
   ok: 好
-  needs_key_ask: "需要 API 密钥，由本服务器的所有者添加"
-
 goal:
   ring_label: "今日目标：{goal} 分中已得 {n} 分"
   smashed: "目标达成 {icon}"
@@ -673,8 +621,6 @@ goal:
   day_away: "第 {n} 天只差一节练习。"
   five_minutes: "有五分钟吗？"
   any_mode: "无论用哪种模式学习，都会填满圆环。"
-  continue: "继续：{title}"
-  all_done: "所有课程都已通过：继续保持熟练"
   info_label: "哪些学习计入每日目标"
   info_title: "今日目标"
   info_p: "你在本课程中的一切学习，无论哪种模式，都会为当天的 {goal} 分积分。用时越长的得分越多："
@@ -750,7 +696,6 @@ study:
     result: "答对 {correct} / {total} · {time}"
   nav:
     study_mode: "课节"
-    study_mode_desc: "课节：带测验的简短课节"
     study: "课节"
     practice: 练习
     listening: 听力
@@ -759,15 +704,6 @@ study:
     vocabulary: 词汇
     history: 历史记录
     mistakes: 错题
-    switch: "切换："
-    to_sprint: "切换到复习"
-    sprint_desc: "复习：互动式，适合手机"
-    sprint: "复习"
-    to_play: 切换到游戏模式
-    play_desc: "游戏模式：小游戏和单次练习"
-    play: 游戏
-    all_modes: 所有模式（首页）
-    menu: 菜单
   lessons:
     title: 课节
     find: 查找课节
@@ -1217,22 +1153,10 @@ play:
       other: "已玩 {n} 轮"
   nav:
     aria: 游戏模式
-    mode_title: "游戏模式：游戏和单次练习"
-    play: 游戏
     all: 全部
     numbers: 数字
     dates: 日期
     flashcards: 单词卡
-    stages: "学习"
-    switch: "切换："
-    to_sprint: "切换到复习"
-    sprint_title: "复习：互动，适合手机"
-    sprint: "复习"
-    to_study: "切换到课节"
-    study_title: "课节：带测验的短课"
-    study: "课节"
-    menu_aria: 所有模式（首页）
-    menu: 菜单
   hub:
     title: 游戏
     heading: 游戏
@@ -1248,7 +1172,7 @@ play:
     flashcards: 单词卡
     flashcards_desc: "抽一手你已收集的词条，一面是{term}，另一面是{meaning}。标记每张是否已经会了；统计会跟着你。"
     terms_collected: "目前已收集 {n} 个词条"
-    study: "课节"
+    study: 学习
     stages: "学习"
     stages_desc: "把一课分成小步骤：一两张卡片、一次快速检查、一手单词卡、一条提示。完成可获得星星；完成一节课还会解锁它的{unlocks}。"
     stages_unlocks_drill: "用于变位练习的{item}"
@@ -3142,9 +3066,5 @@ path:
   back_in:
     one: "{n} 天后回来"
     other: "{n} 天后回来"
-  points_today: "今天 {n} / {goal} 分"
   goal_met: "今天的目标已达成"
-  day_streak:
-    one: "连续 {n} 天"
-    other: "连续 {n} 天"
   unit_passed: "已通过 {passed} / {total} 课"

@@ -233,7 +233,7 @@ test("a wrong melody: the answer line shows the right one as a staff, not as ABC
   await page.getByTestId("lesson-check-submit").click();
   await expect(check.getByTestId("lesson-check-feedback")).toHaveAttribute("data-state", "wrong");
   await staffNotABC(check.getByTestId("lesson-check-feedback"));
-  await page.goto("/sprint/play?lesson=ear&reduce-motion=1");
+  await page.goto("/review/play?lesson=ear&reduce-motion=1");
   const stage = page.getByTestId("sprint-play-stage");
   const result = page.getByTestId("sprint-play-result");
   for (let i = 0; i < 30 && !(await page.getByTestId("sprint-play-done").isVisible()); i++) {

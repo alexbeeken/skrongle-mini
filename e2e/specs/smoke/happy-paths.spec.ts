@@ -186,7 +186,7 @@ test("a learner registers, signs in again and passes a lesson", async ({ page })
   await logout(page);
   await login(page, account);
   const [first] = await apiProgress(page);
-  await page.goto(`/guide/${first.slug}`);
+  await page.goto(`/study/${first.slug}`);
   const [right, total] = await playStage(page, key);
   expect(right, "every quick check right").toBe(total);
   expect((await apiProgress(page)).find((l) => l.slug === first.slug)?.passed, `${first.slug} passed`).toBe(true);

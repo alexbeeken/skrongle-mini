@@ -73,20 +73,14 @@ test("K: every question type, answered wrong, is marked wrong and doesn't pass",
   }
 });
 
-test("K: one lesson answered wrong reads as \"1 lesson needs practice\" on the course home and map", async ({ page }) => {
+test("K: one lesson answered wrong reads as \"1 lesson needs practice\" on the course map", async ({ page }) => {
   await register(page, newAccount("wrong-home"), TEST_COURSE);
   const slug = "multiple-choice";
   await read(page, slug);
   await page.goto(`/practice?lesson=${slug}`);
   const [right] = await playPractice(page, key, { wrong: () => true });
   expect(right).toBe(0);
-  await page.goto("/");
-  const stat = page.getByTestId("home-study-stat");
-  await expect(stat).toHaveAttribute("data-weak", "1");
-  // The singular form (#957): "1 lesson needs practice", not "1 lesson need practice".
-  await expect(stat).toContainText("1 lesson needs practice");
-
-  // The course map's count line under the unit heading, the same slip (#990).
+  // The singular form (#957, #990) on the course map's count line under the unit heading.
   await page.goto("/map");
   const counts = page.getByTestId("map-unit")
     .filter({ has: page.locator(`[data-testid="map-lesson"][data-lesson-id="${slug}"]`) })

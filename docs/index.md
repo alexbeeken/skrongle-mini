@@ -25,6 +25,8 @@ all driven by JSON course files.
 - [Features](features): what each part of the app does and which lesson
   fields it reads: Lessons, Quizzes, Study, Review, Games, Map, Vocabulary,
   History.
+- [The learner path](features-learner-path): the course home's list of what
+  to do next, and the rule that orders it.
 - [Progress across modes](progress): the pass rule, and the API (and brief)
   for AI agents that teach the learner.
 - [Languages (i18n)](i18n): the app's own text in the learner's language:

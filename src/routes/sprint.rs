@@ -210,6 +210,9 @@ pub struct PlayTemplate {
     pub staff_note: bool,
     /// A keyboard question (#1231): load static/keyboard.js.
     pub keyboard: bool,
+    /// A session on one lesson is a Review on the learner path (#318):
+    /// quitting or finishing it goes back to the course home.
+    pub home: bool,
 }
 
 #[derive(Deserialize)]
@@ -284,7 +287,7 @@ pub async fn play(
         _ => false,
     });
     let staff_note = session.exercises.iter().any(|e| matches!(e, sprint::Exercise::StaffNote { .. }));
-    let tpl = PlayTemplate { title: session.title.clone(), course_title: content.title().to_string(), course: content.view(), session_json, notation, sound, staff_note, keyboard };
+    let tpl = PlayTemplate { title: session.title.clone(), course_title: content.title().to_string(), course: content.view(), session_json, notation, sound, staff_note, keyboard, home: only.is_some() };
     Ok(Html(tpl.render()?).into_response())
 }
 

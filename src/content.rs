@@ -136,7 +136,7 @@ pub const ICON_KEYS: &[(&str, &str)] = &[
     ("start", "🏁"),    // the first lesson, when it has no icon
     ("bite", "💡"),     // a bite without an emoji of its own
     ("hint", "💡"),     // the hint toggle
-    ("mode_sprint", "📱"),   // the modes on the home page and in the mode bars
+    ("mode_sprint", "🔁"),   // the modes in the top bar's places and on the home's tiles: Review
     ("mode_study", "📚"),  // Lessons
     ("mode_play", "🎲"),
     ("mode_guide", "📖"), // Study

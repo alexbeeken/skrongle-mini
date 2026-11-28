@@ -14,7 +14,7 @@
 <body class="sprint play" data-base="{{ crate::base_path() }}">
 <div class="phone">
   <header class="sprint-top play-top">
-    <a class="sprint-exit" data-testid="sprint-play-exit" href="{{ crate::base_path() }}/review" aria-label="{{ crate::t("sprint.play.quit") }}">✕</a>
+    <a class="sprint-exit" data-testid="sprint-play-exit" href="{% if home %}{{ crate::url("/") }}{% else %}{{ crate::base_path() }}/review{% endif %}" aria-label="{{ crate::t("sprint.play.quit") }}">✕</a>
     <div class="sprint-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="p-bar" data-testid="sprint-play-progress"><div class="fill" id="p-fill"></div></div>
     <span class="sprint-combo" id="combo" hidden>🔥<b>0</b></span>
     <span class="sprint-timer" id="timer" hidden>60</span>
@@ -46,7 +46,11 @@
       <p class="sprint-done-goal" id="done-goal"></p>
       <p class="sprint-done-note" id="done-note"></p>
       <div class="sprint-done-actions">
+        {% if home %}
+        <a class="sprint-btn big" href="{{ crate::url("/") }}" id="done-home" data-testid="activity-back-home">{{ crate::t1("path.back_home", "course", course_title.as_str()) }}</a>
+        {% else %}
         <a class="sprint-btn big" href="{{ crate::base_path() }}/review" id="done-home" data-testid="sprint-play-done-home">{{ crate::t("sprint.play.continue") }}</a>
+        {% endif %}
         <button type="button" class="sprint-btn ghost" id="done-again" data-testid="sprint-play-again">{{ crate::t("sprint.play.play_again") }}</button>
       </div>
     </section>

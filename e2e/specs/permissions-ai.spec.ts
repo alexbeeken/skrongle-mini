@@ -27,7 +27,7 @@ async function setPermissions(page: Page, email: string, set: Record<string, boo
   await expect(row.getByTestId("manage-account-preset")).toHaveText("Custom");
 }
 
-const tutorCard = (page: Page) => page.locator('[data-testid="home-mode"][data-mode="ai"]');
+const tutorCard = (page: Page) => page.getByTestId("topnav-tutor");
 
 test("the tutor and AI in courses are allowed per account, each apart from the other", async ({ page, browser }) => {
   const them = await (await browser.newContext()).newPage();
@@ -39,9 +39,8 @@ test("the tutor and AI in courses are allowed per account, each apart from the o
   // "Use the AI tutor" off: no tutor anywhere, and the route refuses.
   await setPermissions(page, email, { ai_tutor: false });
   await them.goto("/");
-  await expect(them.getByTestId("home-mode")).toHaveCount(4);
+  await expect(them.getByTestId("nav-main").locator("a")).toHaveCount(4);
   await expect(tutorCard(them)).toHaveCount(0);
-  await expect(them.getByTestId("home-start-tutor")).toHaveCount(0);
   await them.goto(LESSON);
   await expect(them.getByTestId("lesson")).toBeVisible();
   await expect(them.getByTestId("lesson-tutor")).toHaveCount(0);
@@ -63,7 +62,7 @@ test("the tutor and AI in courses are allowed per account, each apart from the o
   // The tutor back and "Use AI in courses" off: the reverse.
   await setPermissions(page, email, { ai_tutor: true, ai_courses: false });
   await them.goto("/");
-  await expect(them.getByTestId("home-mode")).toHaveCount(5);
+  await expect(them.getByTestId("nav-main").locator("a")).toHaveCount(5);
   await expect(tutorCard(them)).toBeVisible();
   await them.goto(LESSON);
   await them.getByTestId("lesson-more-toggle").click();

@@ -1,7 +1,7 @@
 {# The XP motivator's hero on the course home page (motivators/xp.rs, #561):
    the character level, the XP to the next level, today's daily goal
    counted in XP and the level bar, in the Progress panel. How XP is earned is behind the (i). #}
-<div class="hp-goal" data-testid="home-today" data-xp="{{ xp }}">
+<div class="hp-goal" data-testid="xp-panel" data-xp="{{ xp }}">
   <div class="hp-badge" role="img" aria-label="{{ crate::t1("motivator.xp.level_label", "n", level.level) }}" data-testid="xp-level" data-level="{{ level.level }}">{{ crate::t("motivator.xp.lv") }} {{ level.level }}</div>
   <p class="hp-goal-text">
     <b data-testid="xp-next" data-into="{{ level.into }}" data-need="{{ level.need }}">{{ crate::t2("motivator.xp.to_next", "n", level.into, "need", level.need) }}</b>

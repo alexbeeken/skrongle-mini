@@ -6,7 +6,7 @@
          data-start="{{ start_step }}" data-total="{{ steps.len() }}" data-praise="{{ course.praise_line() }}" data-lang="{{ course.term_lang }}">
   <header class="quiz-head">
     <div>
-      <p class="crumbs"><a href="{{ crate::base_path() }}/study">{{ crate::t("guide.play.crumb_guide") }}</a> › {{ crate::t1("guide.play.stage_n", "n", number) }} · {{ unit }} ·
+      <p class="crumbs"><a href="{{ crate::url("/") }}" data-testid="stage-leave-home">{{ course.title }}</a> › <a href="{{ crate::base_path() }}/study">{{ crate::t("guide.play.crumb_guide") }}</a> › {{ crate::t1("guide.play.stage_n", "n", number) }} · {{ unit }} ·
         <a href="{{ crate::base_path() }}/lessons/{{ lesson.slug }}">{{ crate::t("guide.play.full_lesson") }}</a></p>
       <h1>{{ lesson.title }}</h1>
     </div>
@@ -98,14 +98,15 @@
     <p class="stars-big" id="done-stars">☆☆☆</p>
     <p class="lead">{{ crate::t("guide.play.done_line_html")|safe }}</p>
     <p id="done-pass"></p>
+    {# A lesson's Study is one activity of the learner path (#318): home first, the next lesson as the quiet second choice. #}
     <div class="actions">
+      <a class="btn big" href="{{ crate::url("/") }}" data-testid="activity-back-home">{{ crate::t1("path.back_home", "course", course.title.as_str()) }}</a>
       {% if let Some(ns) = next_slug %}
-        <a class="btn big" id="btn-next-stage" data-testid="stage-next" href="{{ crate::base_path() }}/study/{{ ns }}">{% if let Some(nt) = next_title %}{{ crate::t1("guide.play.next_stage", "title", nt) }}{% else %}{{ crate::t1("guide.play.next_stage", "title", "") }}{% endif %}</a>
+        <a class="btn ghost" id="btn-next-stage" data-testid="stage-next" href="{{ crate::base_path() }}/study/{{ ns }}">{% if let Some(nt) = next_title %}{{ crate::t1("guide.play.next_stage", "title", nt) }}{% else %}{{ crate::t1("guide.play.next_stage", "title", "") }}{% endif %}</a>
       {% else %}
-        <a class="btn big" href="{{ crate::base_path() }}/study" data-testid="stage-next">{{ crate::t("guide.play.finished_all") }}</a>
+        <a class="btn ghost" href="{{ crate::base_path() }}/study" data-testid="stage-next">{{ crate::t("guide.play.finished_all") }}</a>
       {% endif %}
       <button type="button" class="btn ghost" id="btn-replay" data-testid="stage-replay">{{ crate::t("guide.play.play_again") }}</button>
-      <a class="btn ghost" href="{{ crate::base_path() }}/study">{{ crate::t("guide.play.back_to_map") }}</a>
     </div>
   </section>
 </section>

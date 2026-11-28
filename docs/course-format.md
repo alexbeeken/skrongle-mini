@@ -289,8 +289,8 @@ Six question types, chosen to fit the subject:
 |---|---|---|---|
 | `multiple-choice` | taps one of `options` | one of the options | exactly |
 | `true-false` | taps True or False | `"true"` or `"false"` | exactly (served as a two-option choice; no `options` needed) |
-| `fill-in-blank` | types a word or phrase (Sprint mode offers word tiles) | the text | ignoring case, surrounding punctuation and extra spaces; a missing accent is a near miss |
-| `numeric` | types a number (Sprint mode offers number tiles) | a number | by value, see below |
+| `fill-in-blank` | types a word or phrase (Review offers word tiles) | the text | ignoring case, surrounding punctuation and extra spaces; a missing accent is a near miss |
+| `numeric` | types a number (Review offers number tiles) | a number | by value, see below |
 | `expression` | types a formula | an algebraic expression | by equivalence, see below |
 | `fill-bar` | taps note-value `tiles` into the gap of a bar of music | optional: tiles that fill the gap | by length, see "Music questions" below |
 | `chord-spell` | taps note `tiles` into slots to spell a chord | the chord's notes in ABC, separated by spaces | as a set, spelling counts; see "Music questions" below |
@@ -298,7 +298,7 @@ Six question types, chosen to fit the subject:
 | `keyboard` | taps a key of a piano keyboard | one ABC note | by pitch, see "Music notation" below |
 | `algebra-tiles` | lays out `tiles` as a rectangle, then types its two sides | the sides multiplied, `(x + 2)(x + 3)` | by equivalence, and it must be two sides, see below |
 | `clock` | drags the minute hand of a clock face; with `options`, reads a clock and taps its time | a time, `H:MM` | as the same time on the clock face, see below |
-| `measure` | measures a drawn angle with a protractor and types the number (Study and the Guide only) | a number | like `numeric`, see below |
+| `measure` | measures a drawn angle with a protractor and types the number (Lessons and Study only) | a number | like `numeric`, see below |
 
 Fill-in-blank answers are checked case-insensitively, ignoring surrounding
 punctuation and extra spaces. A vocabulary term equal to an accepted answer is
@@ -402,7 +402,7 @@ empty) so the language games stay off.
 
 **Music questions.** A question's `abc` is music in ABC notation (see
 [Music notation](#music-notation)), drawn as a staff above its prompt in
-Practice, the reading check, Sprint mode, the Guide and the editor's preview.
+Practice, the reading check, Review, Study and the editor's preview.
 Any question type may carry it. "Name the note" is a multiple-choice question
 with one note on the staff:
 
@@ -546,7 +546,7 @@ each: on a treble staff from `G,` to `d'`, on a bass staff from `B,,,` to
 `F`. The loader refuses a missing or unknown `clef`, an answer that isn't
 one note (or has a double sharp or flat), an answer off the staff, and `abc`
 on the question (it draws its own staff). Place the note is asked in
-Practice, the reading check, the Guide and Sprint mode; the AI tutor skips
+Practice, the reading check, Study and Review; the AI tutor skips
 it.
 
 "Name the chord" stacks three or four notes (`[DFA]`) and has chord names as
@@ -667,7 +667,7 @@ learner types what they hear. Texts must be distinct within a lesson.
 
 ### Study (optional)
 
-The Guide plays a lesson as a sequence of small steps: concept cards, quick
+Study plays a lesson as a sequence of small steps: concept cards, quick
 checks, flashcard hands, tips. Without a `guide` array the steps are derived:
 every section becomes a card, vocabulary is dealt in hands of five after the
 first card, and questions are interleaved from the third card on. To order the
@@ -789,14 +789,14 @@ the canonical names shown above.
 |---|---|
 | `content` (split on `## `) | Lesson viewer, Study cards, Review bites (when none are written) |
 | `content` ```` ```abc ```` blocks | Music notation drawn as a staff on the lesson page and Study cards |
-| `quiz[].abc` (+ `music.note_names` in `course.json`) | A staff above the question in Practice, the reading check, Sprint mode, the Guide and the editor's preview; note options shown in the course's note names |
-| `quiz[].octave`, `quiz[].octaves` (`keyboard`) | Find it on the keys in Practice, the reading check, Sprint mode, the Guide and the editor's preview |
-| `quiz[].play`, `quiz[].option_kind` | A speaker button above the question in Practice, the reading check, Sprint mode and the Guide, the played notes on a staff after the answer; options drawn as staves |
+| `quiz[].abc` (+ `music.note_names` in `course.json`) | A staff above the question in Practice, the reading check, Review, Study and the editor's preview; note options shown in the course's note names |
+| `quiz[].octave`, `quiz[].octaves` (`keyboard`) | Find it on the keys in Practice, the reading check, Review, Study and the editor's preview |
+| `quiz[].play`, `quiz[].option_kind` | A speaker button above the question in Practice, the reading check, Review and Study, the played notes on a staff after the answer; options drawn as staves |
 | `sprint.sorts[].items[].play` | Speaker tiles in Review's Sort it |
-| `quiz[].tiles`, `quiz[].exact` (`fill-bar`) | Fill the bar in Practice, the reading check, Sprint mode, the Guide and the editor's preview |
+| `quiz[].tiles`, `quiz[].exact` (`fill-bar`) | Fill the bar in Practice, the reading check, Review, Study and the editor's preview |
 | `sprint.spots[].abc` | Review's spot the mistake on a staff: tap the wrong note, pick its fix |
-| `quiz[].tiles` (`chord-spell`) | Spell the chord in Practice, the reading check, Sprint mode, the Guide and the editor's preview |
-| `quiz[].clef`, `quiz[].any_octave` (`staff-note`) | Place the note in Practice, the reading check, Sprint mode, the Guide and the editor's preview |
+| `quiz[].tiles` (`chord-spell`) | Spell the chord in Practice, the reading check, Review, Study and the editor's preview |
+| `quiz[].clef`, `quiz[].any_octave` (`staff-note`) | Place the note in Practice, the reading check, Review, Study and the editor's preview |
 | `sprint.scales` | Review's Build the scale ladder; the scale on a staff with a speaker on the lesson page |
 | `quiz` | Practice quizzes, lesson quiz, Study quick checks, Review, mastery scores |
 | `quiz[].teaches` + `vocabulary` | Vocabulary collection and flashcards |
