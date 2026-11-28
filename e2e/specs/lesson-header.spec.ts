@@ -24,8 +24,8 @@ test("on a phone the lesson text starts under 420 px down a 390x844 screen: one 
   const menu = page.getByTestId("lesson-more");
   await expect(menu.getByTestId("lesson-listen")).toHaveAttribute("href", `/listening/play?lesson=${slug}`);
   await expect(menu.getByTestId("lesson-tutor")).toHaveAttribute("href", `/tutor?lesson=${slug}`);
-  await expect(menu.getByTestId("lesson-guide")).toHaveAttribute("href", `/guide/${slug}`);
-  await expect(menu.getByTestId("lesson-sprint")).toHaveAttribute("href", `/sprint/play?lesson=${slug}`);
+  await expect(menu.getByTestId("lesson-guide")).toHaveAttribute("href", `/study/${slug}`);
+  await expect(menu.getByTestId("lesson-sprint")).toHaveAttribute("href", `/review/play?lesson=${slug}`);
   // The open menu stays on the screen: no sideways scroll on a phone.
   const box = await menu.locator(".menu").boundingBox();
   expect(box!.x + box!.width).toBeLessThanOrEqual(390);
@@ -41,6 +41,6 @@ test("on a phone the lesson text starts under 420 px down a 390x844 screen: one 
   await page.getByTestId("lesson-info-close").click();
   await expect(info).toBeHidden();
   // The footer's line of links is gone; the footer keeps its button and the same (i).
-  await expect(page.locator('.lesson-footer a[href*="/guide/"], .lesson-footer a[href*="/sprint/"]')).toHaveCount(0);
+  await expect(page.locator('.lesson-footer a[href*="/study/"], .lesson-footer a[href*="/review/"]')).toHaveCount(0);
   await expect(page.getByTestId("lesson-pass-info")).toBeVisible();
 });

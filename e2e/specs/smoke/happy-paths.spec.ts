@@ -27,14 +27,14 @@ async function passedIn(page: import("@playwright/test").Page, slug: string) {
 async function expectPassedEverywhere(page: import("@playwright/test").Page, slug: string, after: string) {
   expect((await passedIn(page, slug)).passed, `${slug} passed in /api/progress`).toBe(true);
   await expectProgressAgrees(page);
-  for (const [path, testid] of [["/lessons?unit=all", "lessons-item"], ["/map", "map-lesson"], ["/sprint?reduce-motion=1", "sprint-lesson"], ["/guide", "guide-stage"]]) {
+  for (const [path, testid] of [["/lessons?unit=all", "lessons-item"], ["/map", "map-lesson"], ["/review?reduce-motion=1", "sprint-lesson"], ["/study", "guide-stage"]]) {
     await page.goto(path);
     await expect(page.locator(`[data-testid="${testid}"][data-lesson-id="${slug}"]`), `${slug} on ${path}`).toHaveAttribute("data-passed", "true");
   }
   // Passed never sits beside "Not started" (#399): the mastery pill only shows once there are answers.
   await page.goto("/lessons?unit=all");
   await expect(page.locator(`[data-testid="lessons-item"][data-lesson-id="${slug}"] .pill.untested`)).toHaveCount(0);
-  for (const [path, testid] of [["/sprint?reduce-motion=1", "sprint-lesson"], ["/guide", "guide-stage"]]) {
+  for (const [path, testid] of [["/review?reduce-motion=1", "sprint-lesson"], ["/study", "guide-stage"]]) {
     await page.goto(path);
     await expect(page.locator(`[data-testid="${testid}"][data-lesson-id="${after}"]`), `${after} on ${path}`).not.toHaveAttribute("data-state", "locked");
   }
@@ -57,13 +57,13 @@ test.beforeEach(async ({ page }) => {
 
 test("1. a new learner sees lesson 1 as next", async ({ page }) => {
   const [first] = await firstTwo(page);
-  await page.goto("/sprint?reduce-motion=1");
+  await page.goto("/review?reduce-motion=1");
   await expect(page.getByTestId("sprint-continue").first()).toHaveAttribute("data-lesson-id", first);
   await page.goto("/map");
   // One "You are here" on the whole map: the course's next lesson.
   await expect(page.locator('[data-testid="map-lesson"][data-here="true"]')).toHaveCount(1);
   await expect(page.locator('[data-testid="map-lesson"][data-here="true"]')).toHaveAttribute("data-lesson-id", first);
-  await page.goto("/guide");
+  await page.goto("/study");
   await expect(page.locator('[data-testid="guide-stage"][data-current="true"]')).toHaveAttribute("data-lesson-id", first);
   expect((await apiProgress(page)).filter((l) => l.passed)).toEqual([]);
   // An untouched lesson says one thing, "Unread", not "Not started · Unread" (#399).
@@ -77,7 +77,7 @@ test("1b. a stage read in Study but never played says Start in the Guide, not Tr
   const [first] = await firstTwo(page);
   const r = await page.request.post("/api/progress/seen", { data: { lesson: first } });
   expect(r.ok(), await r.text()).toBe(true);
-  await page.goto("/guide");
+  await page.goto("/study");
   const stage = page.locator(`[data-testid="guide-stage"][data-lesson-id="${first}"]`);
   await expect(stage).toHaveAttribute("data-state", "progress");
   await expect(stage.getByTestId("guide-stage-play")).toHaveText("Start");
@@ -85,11 +85,11 @@ test("1b. a stage read in Study but never played says Start in the Guide, not Tr
 
 test("1c. a Guide stage played to the end under 70 % says Try again, not Continue past its last step (#417)", async ({ page }) => {
   const [first] = await firstTwo(page);
-  await page.goto(`/guide/${first}`);
+  await page.goto(`/study/${first}`);
   const steps = await page.locator('[data-testid="stage-step"]').count();
   const [right, total] = await playStage(page, key, { wrong: () => true });
   expect(right, `0 of ${total} checks right`).toBe(0);
-  await page.goto("/guide");
+  await page.goto("/study");
   const stage = page.locator(`[data-testid="guide-stage"][data-lesson-id="${first}"]`);
   await expect(stage).toHaveAttribute("data-state", "progress");
   await expect(stage.getByTestId("guide-stage-play"), `a finished run of ${steps} steps is not "Continue (step ${steps + 1} of ${steps})"`).toHaveText("Try again");
@@ -111,7 +111,7 @@ test("3. Sprint: play lesson 1's session right: passed everywhere", async ({ pag
   test.setTimeout(120_000);
   await page.setViewportSize({ width: 390, height: 844 });
   const [first, second] = await firstTwo(page);
-  await page.goto(`/sprint/play?lesson=${first}&reduce-motion=1`);
+  await page.goto(`/review/play?lesson=${first}&reduce-motion=1`);
   const run = await playSprintRight(page, key);
   expect(run.wrong, "answers the app marked wrong").toEqual([]);
   await expect(page.getByTestId("sprint-play-done")).toHaveAttribute("data-saved", "true");
@@ -120,7 +120,7 @@ test("3. Sprint: play lesson 1's session right: passed everywhere", async ({ pag
 
 test("4. Play: play stage 1: passed everywhere", async ({ page }) => {
   const [first, second] = await firstTwo(page);
-  await page.goto(`/guide/${first}`);
+  await page.goto(`/study/${first}`);
   const [right, total] = await playStage(page, key);
   expect(right, "every quick check right").toBe(total);
   await expectPassedEverywhere(page, first, second);
@@ -128,12 +128,12 @@ test("4. Play: play stage 1: passed everywhere", async ({ page }) => {
 
 test("5. a lesson passed in one mode is passed in the other two", async ({ page }) => {
   const [first] = await firstTwo(page);
-  await page.goto(`/guide/${first}`);
+  await page.goto(`/study/${first}`);
   await playStage(page, key);
   // Passed in Play: Study's lesson page and Sprint's path say so too, and Sprint offers it to play again.
   await page.goto(`/lessons/${first}`);
   await expect(page.getByTestId("lesson")).toHaveAttribute("data-passed", "true");
-  await page.goto("/sprint?reduce-motion=1");
+  await page.goto("/review?reduce-motion=1");
   await expect(page.locator(`[data-testid="sprint-lesson"][data-lesson-id="${first}"]`)).toHaveAttribute("data-state", "complete");
   await page.goto("/lessons?unit=all");
   await expect(page.locator(`[data-testid="lessons-item"][data-lesson-id="${first}"]`)).toHaveAttribute("data-passed", "true");
@@ -141,7 +141,7 @@ test("5. a lesson passed in one mode is passed in the other two", async ({ page 
 
 test("6. progress survives logging out and back in", async ({ page }) => {
   const [first] = await firstTwo(page);
-  await page.goto(`/guide/${first}`);
+  await page.goto(`/study/${first}`);
   await playStage(page, key);
   const before = await apiProgress(page);
   await logout(page);
@@ -165,7 +165,7 @@ test("7. a lesson whose every answer was right is not listed as needing practice
 
 test("8. a Guide stage's quick checks mix their options, so the right one is not always first (#962)", async ({ page }) => {
   const [first] = await firstTwo(page);
-  await page.goto(`/guide/${first}`);
+  await page.goto(`/study/${first}`);
   // Every step is in the page (hidden until reached): read each multiple-choice quick check's options in order.
   const checks = page.locator('[data-testid="stage-step"][data-qkind="multiple-choice"]');
   const n = await checks.count();

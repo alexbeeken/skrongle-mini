@@ -12,7 +12,7 @@ test.afterAll(async ({ browser }) => {
 test("a Sprint mode stop's sheet closes on a tap outside it and on Escape (#233)", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await devLogin(page);
-  await page.goto("/sprint");
+  await page.goto("/review");
   const stop = page.getByTestId("sprint-lesson").first();
   const sheet = stop.getByTestId("sprint-sheet");
   const toggle = stop.getByTestId("sprint-lesson-toggle");

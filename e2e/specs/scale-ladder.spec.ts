@@ -17,7 +17,7 @@ const SORT = new Map([["[CEG]2", 0], ["[A,CE]2", 1], ["[GBd]2", 0], ["[DFA]2", 1
 // Through the ear lesson's session to its scale: bites and questions move on
 // (any option), the sort of speaker tiles is sorted right.
 async function toScale(page: Page): Promise<Locator> {
-  await page.goto("/sprint/play?lesson=ear&reduce-motion=1");
+  await page.goto("/review/play?lesson=ear&reduce-motion=1");
   const stage = page.getByTestId("sprint-play-stage");
   const check = page.getByTestId("sprint-play-check");
   for (let i = 0; i < 30; i++) {

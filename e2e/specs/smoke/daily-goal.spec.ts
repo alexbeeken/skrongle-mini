@@ -23,9 +23,9 @@ async function expectResumeAt(page: Page, slug: string, href: RegExp) {
   await page.goto("/");
   await expect(page.getByTestId("home-continue")).toHaveAttribute("data-lesson-id", slug);
   await expect(page.getByTestId("home-continue")).toHaveAttribute("href", href);
-  await page.goto("/sprint?reduce-motion=1");
+  await page.goto("/review?reduce-motion=1");
   await expect(page.getByTestId("sprint-continue").first()).toHaveAttribute("data-lesson-id", slug);
-  await page.goto("/guide");
+  await page.goto("/study");
   await expect(page.locator('[data-testid="guide-stage"][data-current="true"]')).toHaveAttribute("data-lesson-id", slug);
   await page.goto("/map");
   await expect(page.locator('[data-testid="map-lesson"][data-here="true"]')).toHaveAttribute("data-lesson-id", slug);
@@ -51,7 +51,7 @@ test("every mode fills one daily goal and resumes where the learner left off", a
 
   // Sprint mode: its session adds to the same ring and passes the lesson;
   // everything moves on to the next lesson, opened in Sprint mode.
-  await page.goto(`/sprint/play?lesson=${later.slug}&reduce-motion=1`);
+  await page.goto(`/review/play?lesson=${later.slug}&reduce-motion=1`);
   await playSprintRight(page, key);
   const done = page.getByTestId("sprint-play-done");
   await expect(done).toHaveAttribute("data-saved", "true");
@@ -60,16 +60,16 @@ test("every mode fills one daily goal and resumes where the learner left off", a
   expect(shown).toBeGreaterThan(6);
   expect(await ring(page)).toBe(shown);
   expect((await apiProgress(page)).find((l) => l.slug === later.slug)?.passed).toBe(true);
-  await expectResumeAt(page, next.slug, new RegExp(`/sprint/play\\?lesson=${next.slug}$`));
+  await expectResumeAt(page, next.slug, new RegExp(`/review/play\\?lesson=${next.slug}$`));
 
   // The Guide: opening its stage makes the Guide the mode to continue in.
-  await page.goto(`/guide/${next.slug}`);
+  await page.goto(`/study/${next.slug}`);
   await expect(page.getByTestId("stage")).toBeVisible();
   await page.goto("/");
-  await expect(page.getByTestId("home-continue")).toHaveAttribute("href", new RegExp(`/guide/${next.slug}$`));
+  await expect(page.getByTestId("home-continue")).toHaveAttribute("href", new RegExp(`/study/${next.slug}$`));
 
   // A review mix draws on many lessons: it does not move the resume point.
-  await page.goto("/sprint/play?mode=review&reduce-motion=1");
+  await page.goto("/review/play?mode=review&reduce-motion=1");
   await page.goto("/");
   await expect(page.getByTestId("home-continue")).toHaveAttribute("data-lesson-id", next.slug);
 
@@ -78,7 +78,7 @@ test("every mode fills one daily goal and resumes where the learner left off", a
   await expect(page.getByTestId("home-goal-points").locator("tbody tr")).toHaveCount(8);
 
   // No XP left anywhere.
-  for (const path of ["/", "/sprint?reduce-motion=1", "/guide", `/guide/${next.slug}`]) {
+  for (const path of ["/", "/review?reduce-motion=1", "/study", `/study/${next.slug}`]) {
     await page.goto(path);
     await expect(page.locator("body"), path).not.toContainText(/\bXP\b/);
   }

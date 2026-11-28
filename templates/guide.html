@@ -9,7 +9,7 @@
     <p class="lead">{{ crate::t("guide.lead") }}</p>
   </div>
   {% if let Some(slug) = current_slug %}
-    <a class="btn big" href="{{ crate::base_path() }}/guide/{{ slug }}" data-testid="guide-continue">{% if let Some(t) = current_title %}{{ crate::t1("guide.continue", "title", t) }}{% else %}{{ crate::t1("guide.continue", "title", "") }}{% endif %}</a>
+    <a class="btn big" href="{{ crate::base_path() }}/study/{{ slug }}" data-testid="guide-continue">{% if let Some(t) = current_title %}{{ crate::t1("guide.continue", "title", t) }}{% else %}{{ crate::t1("guide.continue", "title", "") }}{% endif %}</a>
   {% endif %}
 </section>
 
@@ -29,7 +29,7 @@
       <div class="node"><span>{{ s.number }}</span></div>
       <div class="stage-body">
         <div class="stage-head">
-          <strong><a href="{{ crate::base_path() }}/guide/{{ s.slug }}">{{ s.title }}</a></strong>
+          <strong><a href="{{ crate::base_path() }}/study/{{ s.slug }}">{{ s.title }}</a></strong>
           <span class="stars" aria-label="{{ crate::t1("guide.stars_label", "n", s.stars) }}">{% if s.stars >= 1 %}★{% else %}☆{% endif %}{% if s.stars >= 2 %}★{% else %}☆{% endif %}{% if s.stars >= 3 %}★{% else %}☆{% endif %}</span>
         </div>
         <p class="small muted">
@@ -39,14 +39,14 @@
         </p>
         {% if s.state == "progress" %}
           <div class="bar slim"><div class="fill" style="width:{{ s.percent }}%"></div></div>
-          <a class="btn small" href="{{ crate::base_path() }}/guide/{{ s.slug }}" data-testid="guide-stage-play">{% if s.step > 0 && s.step < s.steps as i64 %}{{ crate::t2("guide.stage.continue_step", "step", s.step + 1, "steps", s.steps) }}{% else if s.tried %}{{ crate::t("guide.stage.try_again") }}{% else %}{{ crate::t("guide.stage.start") }}{% endif %}</a>
+          <a class="btn small" href="{{ crate::base_path() }}/study/{{ s.slug }}" data-testid="guide-stage-play">{% if s.step > 0 && s.step < s.steps as i64 %}{{ crate::t2("guide.stage.continue_step", "step", s.step + 1, "steps", s.steps) }}{% else if s.tried %}{{ crate::t("guide.stage.try_again") }}{% else %}{{ crate::t("guide.stage.start") }}{% endif %}</a>
         {% else if s.state == "skipped" %}
           <span class="muted small" data-testid="guide-stage-skipped">{{ crate::t("guide.stage.skipped") }}</span>
-          <a class="btn small ghost" href="{{ crate::base_path() }}/guide/{{ s.slug }}" data-testid="guide-stage-play">{{ crate::t("guide.stage.play_anyway") }}</a>
+          <a class="btn small ghost" href="{{ crate::base_path() }}/study/{{ s.slug }}" data-testid="guide-stage-play">{{ crate::t("guide.stage.play_anyway") }}</a>
         {% else if s.state == "complete" %}
-          <a class="btn small ghost" href="{{ crate::base_path() }}/guide/{{ s.slug }}" data-testid="guide-stage-play">{{ crate::t("guide.stage.play_again") }}</a>
+          <a class="btn small ghost" href="{{ crate::base_path() }}/study/{{ s.slug }}" data-testid="guide-stage-play">{{ crate::t("guide.stage.play_again") }}</a>
         {% else %}
-          <a class="btn small" href="{{ crate::base_path() }}/guide/{{ s.slug }}" data-testid="guide-stage-play">{{ crate::t("guide.stage.start") }}</a>
+          <a class="btn small" href="{{ crate::base_path() }}/study/{{ s.slug }}" data-testid="guide-stage-play">{{ crate::t("guide.stage.start") }}</a>
         {% endif %}
       </div>
     </li>

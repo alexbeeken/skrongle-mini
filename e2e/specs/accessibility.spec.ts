@@ -1,5 +1,5 @@
 // Accessibility fixes from the axe-core pass on #342: large text on a phone,
-// the system's reduce-motion setting, the skip link, /sprint's heading and
+// the system's reduce-motion setting, the skip link, /review's heading and
 // the status pills' contrast.
 import { expect, test, type Page } from "@playwright/test";
 import { devLogin } from "../lib/app";
@@ -12,8 +12,8 @@ async function sidewaysScroll(page: Page): Promise<number> {
 test("pages fit a phone at 200 % text size (#342)", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await devLogin(page);
-  // /guide and /tutor since #1058.
-  for (const path of ["/sprint", "/profile", "/", "/courses", "/lessons", "/listening", "/guide", "/tutor"]) {
+  // /study and /tutor since #1058.
+  for (const path of ["/review", "/profile", "/", "/courses", "/lessons", "/listening", "/study", "/tutor"]) {
     await page.goto(path);
     // What the browser's text size setting does: the root font size doubles.
     await page.addStyleTag({ content: "html { font-size: 200% !important; }" });
@@ -23,7 +23,7 @@ test("pages fit a phone at 200 % text size (#342)", async ({ page }) => {
 
 test("the root font size follows the browser's text size (#342)", async ({ page }) => {
   await devLogin(page);
-  for (const path of ["/", "/sprint"]) {
+  for (const path of ["/", "/review"]) {
     await page.goto(path);
     // A percentage, not a fixed 16px, so the browser's own setting still applies.
     const ratio = await page.evaluate(() => {
@@ -69,9 +69,9 @@ test("the first Tab reaches a skip link that jumps to the content (#342)", async
   await expect(page.locator("main#main")).toBeFocused();
 });
 
-test("/sprint has one page heading (#342)", async ({ page }) => {
+test("/review has one page heading (#342)", async ({ page }) => {
   await devLogin(page);
-  await page.goto("/sprint");
+  await page.goto("/review");
   await expect(page.locator("h1")).toHaveCount(1);
   await expect(page.getByTestId("sprint-title")).toHaveText(/\S/);
 });

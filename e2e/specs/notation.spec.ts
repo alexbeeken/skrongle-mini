@@ -30,7 +30,7 @@ test("an abc block in the lesson text is drawn as a staff", async ({ page }) => 
   const width = await page.evaluate(() => document.documentElement.scrollWidth);
   expect(width).toBeLessThanOrEqual(PHONE.width);
   // The Guide's card for that section draws it too.
-  await page.goto("/guide/notation");
+  await page.goto("/study/notation");
   const card = page.locator('[data-testid="stage-step"]:visible');
   await expect(card.getByTestId("notation").locator("svg .abcjs-note")).toHaveCount(8);
 });
@@ -56,7 +56,7 @@ test("on a wide page a staff is as tall as its drawing, and the lesson's staff s
 
 test("a lesson without notation loads no notation script", async ({ page }) => {
   await devLogin(page, "open=" + TEST_COURSE);
-  for (const path of ["/lessons/read-only", "/practice?lesson=multiple-choice", "/sprint/play?lesson=multiple-choice", "/guide/multiple-choice"]) {
+  for (const path of ["/lessons/read-only", "/practice?lesson=multiple-choice", "/review/play?lesson=multiple-choice", "/study/multiple-choice"]) {
     await page.goto(path);
     await expect(page.locator("main, .sprint-play-main").first()).toBeVisible();
     await expect(page.locator('script[src*="abcjs"], script[src*="notation.js"]'), path).toHaveCount(0);
@@ -122,7 +122,7 @@ async function playFifths(page: Page) {
 test("a music course's Sprint session has the circle-of-fifths build, graded exactly (#1232)", async ({ page }) => {
   await page.setViewportSize(PHONE);
   await devLogin(page, "open=" + TEST_COURSE);
-  await page.goto("/sprint/play?lesson=notation");
+  await page.goto("/review/play?lesson=notation");
   const stage = await sprintTo(page, "build");
   await expect(stage.locator(".sprint-prompt")).toHaveText("Each key adds one sharp.");
   // Six shuffled key tiles and an empty row.
@@ -172,7 +172,7 @@ test("a question's abc is drawn as a staff above its prompt in Practice, the rea
   await expectStaffAbove(check, check.locator(".prompt"), 0);
 
   // Sprint mode: past the bites, the circle-of-fifths build (#1232) and the staff spot to the question.
-  await page.goto("/sprint/play?lesson=notation");
+  await page.goto("/review/play?lesson=notation");
   const stage = await sprintTo(page, "choice");
   await expectStaffAbove(stage, stage.locator(".sprint-prompt"), 0);
   await expect(stage.locator(".sprint-opt")).toHaveCount(4);
@@ -182,7 +182,7 @@ test("a question's abc is drawn as a staff above its prompt in Practice, the rea
   await fitsPhone(page);
 
   // The Guide's quick check.
-  await page.goto("/guide/notation");
+  await page.goto("/study/notation");
   const step = page.locator('[data-testid="stage-step"][data-qid="tc-notation-q1"]');
   await expect(step.getByTestId("quiz-abc")).toHaveCount(1);
   // Through the cards before it, one at a time (each slides out before the next shows).
@@ -309,7 +309,7 @@ test.describe("Fix the wrong note: a Sprint spot on a staff (#1227)", () => {
     const result = page.getByTestId("sprint-play-result");
 
     // The staff: the C major scale with a G where the F should be, and its caption.
-    await page.goto("/sprint/play?lesson=notation");
+    await page.goto("/review/play?lesson=notation");
     let stage = await sprintTo(page, "spot");
     await expect(stage.locator(".sprint-sub")).toHaveText("One note is wrong. Tap it, then pick its fix.");
     const staff = stage.getByTestId("notation");
@@ -338,7 +338,7 @@ test.describe("Fix the wrong note: a Sprint spot on a staff (#1227)", () => {
     await fitsPhone(page);
 
     // Another note with the right fix: wrong too.
-    await page.goto("/sprint/play?lesson=notation");
+    await page.goto("/review/play?lesson=notation");
     stage = await sprintTo(page, "spot");
     await stage.getByTestId("wrong-note-note").nth(2).click({ force: true });
     await stage.getByTestId("wrong-note-tile").filter({ hasText: /^F$/ }).click();
@@ -348,7 +348,7 @@ test.describe("Fix the wrong note: a Sprint spot on a staff (#1227)", () => {
     await expect(stage.locator(".wrong-note-staff")).toHaveAttribute("data-state", "wrong");
 
     // The fourth note, fixed to F: right.
-    await page.goto("/sprint/play?lesson=notation");
+    await page.goto("/review/play?lesson=notation");
     stage = await sprintTo(page, "spot");
     await stage.getByTestId("wrong-note-note").nth(3).click({ force: true });
     await stage.getByTestId("wrong-note-tile").filter({ hasText: /^F$/ }).click();
@@ -360,7 +360,7 @@ test.describe("Fix the wrong note: a Sprint spot on a staff (#1227)", () => {
   test("dragging the wrong note down a step (or the down arrow) picks the tile of the note it lands on", async ({ page }) => {
     await page.setViewportSize(PHONE);
     await devLogin(page, "open=" + TEST_COURSE);
-    await page.goto("/sprint/play?lesson=notation");
+    await page.goto("/review/play?lesson=notation");
     const stage = await sprintTo(page, "spot");
     // The stage slides in: measure the note once it has stopped.
     await stage.evaluate((el) => Promise.all(el.getAnimations({ subtree: true }).map((a) => a.finished)));
@@ -376,7 +376,7 @@ test.describe("Fix the wrong note: a Sprint spot on a staff (#1227)", () => {
     await expect(page.getByTestId("sprint-play-result")).toHaveAttribute("data-state", "right");
 
     // The same from the keyboard: the note takes focus, the down arrow moves it a step, Enter drops it.
-    await page.goto("/sprint/play?lesson=notation");
+    await page.goto("/review/play?lesson=notation");
     const again = await sprintTo(page, "spot");
     await again.getByTestId("wrong-note-note").nth(3).focus();
     await page.keyboard.press("ArrowDown");

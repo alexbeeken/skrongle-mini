@@ -472,12 +472,12 @@ landing:
   have_account_html: "Já tem uma conta? <a href=\"{url}\" data-testid=\"landing-login\">Entrar</a>."
   two_files_h2: Um curso são dois arquivos. Todo o resto é opcional.
   two_files_lead_html: Um <code>course.json</code> nomeia as unidades e os dois lados de cada cartão. Cada lição é um arquivo. Adicione um campo e um recurso é ativado; deixe-o de fora e esse recurso simplesmente não aparece nessa lição. Nada quebra, nada incomoda.
-  field_content_html: Markdown. Cada seção <code>##</code> vira um cartão de lição, um passo do Guia e um bocado do modo Sprint.
+  field_content_html: "Markdown. Cada seção <code>##</code> vira um cartão de lição, um passo do Estudo e um bocado da Revisão."
   field_vocabulary: Cartões, toque para ouvir, Pares de palavras e os exercícios de correspondência no celular.
   field_quiz: Prática adaptativa com um domínio por lição que cresce, decai e define o que vem em seguida.
   field_listening: Ouça uma frase, digite-a e veja cada palavra conferida. Falada pelo navegador, então não há áudio para hospedar.
   field_conjugations: "Tabelas de paradigmas de qualquer formato: formas verbais, declinações, escalas. Vêm com um exercício de paradigmas e um exercício de escada."
-  field_conversations: Um diálogo roteirizado com sua tradução na página da lição, e um exercício de montar frases no modo Sprint.
+  field_conversations: "Um diálogo roteirizado com sua tradução na página da lição, e um exercício de montar frases na Revisão."
   field_sprint_guide: Exercícios escritos à mão e ordens de passos quando os gerados automaticamente não bastam.
   reference_html: "A referência completa, com cada campo e cada regra que o validador confere, está em <a href=\"{url}\">/docs/course-format</a>. Há também um JSON Schema."
   three_ways_h2: Três formas de conseguir um curso
@@ -495,12 +495,12 @@ landing:
     other: "{n} lições"
   every_way_h2: Um curso, todas as formas de estudá-lo
   every_way_lead: Cada recurso lê os mesmos arquivos. Você não escreve nada duas vezes.
-  feat_sprint_h: Sprint
+  feat_sprint_h: "Revisão"
   feat_sprint_p: "Sessões de cinco minutos pensadas para o celular: blocos de palavras, ordenação, identificação, montagem, escada, pares, exercícios de escuta, uma meta diária e uma sequência."
-  feat_study_h: Estudo
+  feat_study_h: "Lições"
   feat_study_p: Leia as lições com calma, depois faça quizzes com peso maior no que você erra. Um mapa de cada unidade mostra seu domínio.
   feat_play_h: Jogo
-  feat_play_p: Pares de palavras com um placar compartilhado, um exercício de paradigmas, Números de ouvido, Corrida de datas, cartões e o Guia.
+  feat_play_p: "Pares de palavras com um placar compartilhado, um exercício de paradigmas, Números de ouvido, Corrida de datas, cartões e Estudo."
   feat_ai_h: Tutoria com IA
   feat_ai_p: Um tutor individual pelo chat que ensina a lição, confere se você acompanha e define o quiz quando você está pronto. Funciona com a sua própria chave.
   feat_hear_h: Toque para ouvir
@@ -518,8 +518,8 @@ landing:
   spec_docs_p: O formato, os recursos e a arquitetura são servidos pelo próprio aplicativo, como páginas ou como Markdown puro para um LLM.
   final_h2: "Cadastre-se e responda uma pergunta: o que você gostaria de aprender?"
   browse_docs: Explore a documentação
-  feat_guide_h: "Guia"
-  feat_guide_p: "Cada lição como uma etapa de passos pequenos: cartões, verificações rápidas, flashcards e dicas, com estrelas no fim."
+  feat_guide_h: "Estudo"
+  feat_guide_p: "Cada lição em passos pequenos: cartões, verificações rápidas, flashcards e dicas, com estrelas no fim."
   try_lead: "Vinte segundos de cada modo. Escolha um e experimente."
   try_noscript: "Ative o JavaScript para experimentar cada modo aqui."
   uses_h2: "O que posso fazer com isto?"
@@ -532,7 +532,7 @@ landing:
   use_fresh_h: "Manter conceitos importantes frescos"
   use_fresh_p: "O domínio desvanece quando você se afasta, e a prática traz de volta primeiro o que está a desvanecer."
   use_mood_h: "Estudar conforme o seu humor"
-  use_mood_p: "Sprint no ônibus, leitura na mesa, um jogo quando estiver cansado. O progresso é o mesmo."
+  use_mood_p: "Revisão no ônibus, leitura na mesa, um jogo quando estiver cansado. O progresso é o mesmo."
   use_exam_h: "Preparar-se para uma prova"
   use_exam_p: "Os questionários insistem no que você erra, então a revisão vai para onde é preciso."
   use_trip_h: "Preparar-se para uma viagem"
@@ -572,7 +572,7 @@ landing:
     answer_false: "Falso"
     guide_flip: "Toque no cartão para virá-lo"
     got_it: "Entendi"
-    guide_done: "Etapa concluída"
+    guide_done: "Lição concluída"
     sprint_listen: "O que você ouve?"
     listen: "Ouvir"
     tap_to_hear: "Toque para ouvir"
@@ -610,15 +610,15 @@ home:
   unit_of: "Unidade {n} de {total}"
   unit_bar_label: "Lições de {unit} concluídas"
   unit_passed_html: "<strong>{passed}</strong> de {total} lições concluídas nesta unidade"
-  sprint: Sprint
-  open_sprint: Abrir o modo Sprint
+  sprint: "Revisão"
+  open_sprint: "Abrir Revisão"
   sprint_tag: Interativo, feito para celular.
-  about_sprint: Sobre o modo Sprint
+  about_sprint: "Sobre Revisão"
   start_session: Começar uma sessão
-  study: Estudo
-  open_study: Abrir o modo Estudo
+  study: "Lições"
+  open_study: "Abrir Lições"
   study_tag: Lições curtas de estudo com quizzes.
-  about_study: Sobre o modo Estudo
+  about_study: "Sobre Lições"
   need_practice_html:
     one: "<strong>{n}</strong> lição precisa de prática"
     other: "<strong>{n}</strong> lições precisam de prática"
@@ -633,15 +633,15 @@ home:
     other: "<strong>{n}</strong> jogos nesta semana"
   terms_collected_html: "<strong>{n}</strong> termos coletados"
   browse_games: Ver os jogos
-  guide: Guia
-  open_guide: Abrir o Guia
-  guide_tag: Lições guiadas, uma etapa por vez.
-  about_guide: Sobre o Guia
-  guide_stat_html: "<strong>{done}</strong> / {total} etapas concluídas"
+  guide: "Estudo"
+  open_guide: "Abrir Estudo"
+  guide_tag: "Lições guiadas, um passo por vez."
+  about_guide: "Sobre Estudo"
+  guide_stat_html: "<strong>{done}</strong> / {total} lições concluídas"
   next_stage: "Próxima: {title}"
-  continue_guide: Continuar o guia
-  start_guide: Começar o guia
-  see_stages: Ver suas etapas
+  continue_guide: "Continuar Estudo"
+  start_guide: "Começar Estudo"
+  see_stages: "Ver suas lições"
   ai: Tutoria com IA
   open_ai: Abrir a tutoria com IA
   ai_tag: Converse com um tutor
@@ -658,7 +658,7 @@ home:
   info_play_numbers: "números de ouvido, "
   info_play_dates: "uma Corrida de datas, "
   info_play_end: ou uma mão de cartões.
-  info_guide_p: "As lições em ordem, um pequeno passo por vez: um ou dois cartões e depois uma verificação rápida. Conclua uma etapa para desbloquear a próxima e ganhe até três estrelas em cada uma."
+  info_guide_p: "As lições em ordem, um pequeno passo por vez: um ou dois cartões e depois uma verificação rápida. Conclua uma lição para desbloquear a próxima e ganhe até três estrelas em cada uma."
   info_ai_p: "Uma aula individual por chat: o tutor explica, verifica se está a acompanhar, propõe um exercício quando estiver pronto e comenta a sua resposta consigo. As mesmas perguntas, o mesmo domínio, só que em conversa. Funciona com a chave de API deste servidor."
   ok: OK
   needs_key_ask: "Precisa de uma chave de API, que o proprietário deste servidor adiciona"
@@ -683,11 +683,11 @@ goal:
   kind:
     answer: "Uma pergunta de quiz, em qualquer modo"
     tutor: "Uma pergunta do tutor de IA"
-    exercise: "Um exercício do Sprint (blocos, ordenar, montar…)"
+    exercise: "Um exercício da Revisão (blocos, ordenar, montar…)"
     game: "Um item de um jogo (um par, um número, uma data)"
     listening: "Uma frase de uma rodada de escuta"
     flashcard: "Um cartão de revisão"
-    card: "Um cartão de uma etapa do guia"
+    card: "Um cartão de uma lição do Estudo"
     reading: "Ler uma lição até o fim"
 
 study:
@@ -704,8 +704,8 @@ study:
     needs_practice: Precisa de prática
     skipped: Pulada
   via:
-    study: modo Estudo
-    sprint: modo Sprint
+    study: "Lições"
+    sprint: "Revisão"
     play: modo Jogo
     tutor: tutoria com IA
     agent: um agente de IA
@@ -744,14 +744,14 @@ study:
     numbers: Números de ouvido
     date_dash: Corrida de datas
     listening: Escuta
-    sprint: modo Sprint
+    sprint: "Revisão"
     drill: "Exercício de paradigmas: {item}"
     drill_plain: Exercício de paradigmas
     result: "{correct} / {total} certas · {time}"
   nav:
-    study_mode: modo Estudo
-    study_mode_desc: "Modo Estudo: lições curtas de estudo com quizzes"
-    study: Estudo
+    study_mode: "Lições"
+    study_mode_desc: "Lições: lições curtas com quizzes"
+    study: "Lições"
     practice: Prática
     listening: Escuta
     lessons: Lições
@@ -760,9 +760,9 @@ study:
     history: Histórico
     mistakes: Erros
     switch: "Trocar:"
-    to_sprint: Trocar para o modo Sprint
-    sprint_desc: "Modo Sprint: interativo, feito para celular"
-    sprint: Sprint
+    to_sprint: "Trocar para Revisão"
+    sprint_desc: "Revisão: interativo, feito para celular"
+    sprint: "Revisão"
     to_play: Trocar para o modo Jogo
     play_desc: "Modo Jogo: jogos e exercícios avulsos"
     play: Jogo
@@ -810,7 +810,7 @@ study:
     language_features_desc: "Escuta, montagem de frases e campos de tradução."
     language_features_info: "Sobre os recursos de idioma"
     language_features_what: "Algumas partes de uma lição só fazem sentido quando o curso ensina um idioma: as frases de Escuta, as conversas, a montagem de frases e a tradução ao lado de um exemplo ou de uma fala do diálogo."
-    language_features_off: "Desligados, o editor esconde essas partes enquanto estiverem vazias, para que um curso que explica termos no seu próprio idioma não peça traduções. Uma parte que já tem conteúdo permanece. Quem aprende perde os exercícios correspondentes: Escuta, Números de ouvido, tocar para ouvir e os exercícios de escuta e montagem do Sprint. O JSON mostra todos os campos de qualquer forma."
+    language_features_off: "Desligados, o editor esconde essas partes enquanto estiverem vazias, para que um curso que explica termos no seu próprio idioma não peça traduções. Uma parte que já tem conteúdo permanece. Quem aprende perde os exercícios correspondentes: Escuta, Números de ouvido, tocar para ouvir e os exercícios de escuta e montagem da Revisão. O JSON mostra todos os campos de qualquer forma."
     language_features_saved: "Salvo nas configurações do curso como language_features, para todas as pessoas que editam o curso. Até você definir, os recursos ficam ligados quando os termos estão em um idioma diferente dos significados."
     levels: "Níveis"
     levels_info: "O que são níveis"
@@ -884,14 +884,14 @@ study:
     focus: "Foco: {focus}"
     quiz_questions: "{n} perguntas de quiz"
     listening_sentences: "{n} frases de escuta"
-    play_guide: "Jogue no Guia"
-    sprint_session: Sessão do modo Sprint
+    play_guide: "Jogue no Estudo"
+    sprint_session: "Sessão de Revisão"
     counts_complete: Conta como concluída em todos os modos.
     pass_rule: "Acerte {pct}% ou mais em uma tentativa para concluir a lição, aqui ou em qualquer modo."
     pass_rule_min: "Acerte {pct}% ou mais em pelo menos {n} perguntas em uma tentativa para concluir a lição, aqui ou em qualquer modo."
     read_to_end: Leia até o fim para contar como lida.
-    sprint_same_guide: Uma sessão do modo Sprint ou uma etapa do Guia conta do mesmo jeito.
-    sprint_same_ai: Uma sessão do modo Sprint, uma etapa do Guia ou o tutor com IA contam do mesmo jeito.
+    sprint_same_guide: "Uma sessão de Revisão ou uma lição do Estudo conta do mesmo jeito."
+    sprint_same_ai: "Uma sessão de Revisão, uma lição do Estudo ou o tutor com IA contam do mesmo jeito."
     read_it: Já li
     to_pass_check: "Para concluir a lição: passe na verificação de leitura acima e depois acerte {pct}% ou mais em uma tentativa."
     to_pass_check_min: "Para concluir a lição: passe na verificação de leitura acima e depois acerte {pct}% ou mais em pelo menos {n} perguntas em uma tentativa."
@@ -1063,7 +1063,7 @@ vocab:
     lead: Cada termo que você coletou ao responder corretamente às perguntas do quiz.
     lead_count_html: "<strong>{learned}</strong> de {total} termos até agora."
     study_all: "Estudar todos (aleatório)"
-    empty_html: "Nenhum termo ainda. Responda perguntas em <a href=\"{practice_url}\">Prática</a> ou no <a href=\"{guide_url}\">Guia</a>; cada resposta correta adiciona os termos usados à sua coleção."
+    empty_html: "Nenhum termo ainda. Responda perguntas em <a href=\"{practice_url}\">Prática</a> ou no <a href=\"{guide_url}\">Estudo</a>; cada resposta correta adiciona os termos usados à sua coleção."
     show_all_lessons: "Mostrar todas as lições ({n})"
     nothing_yet:
       one: "{n} lição sem nada coletado ainda"
@@ -1223,14 +1223,14 @@ play:
     numbers: Números
     dates: Datas
     flashcards: Cartões
-    stages: Etapas
+    stages: "Estudo"
     switch: "Trocar: "
-    to_sprint: Trocar para o modo Sprint
-    sprint_title: "Modo Sprint: interativo, bom no celular"
-    sprint: Sprint
-    to_study: Trocar para o modo Estudo
-    study_title: "Modo Estudo: lições curtas de estudo com quizzes"
-    study: Estudo
+    to_sprint: "Trocar para Revisão"
+    sprint_title: "Revisão: interativo, bom no celular"
+    sprint: "Revisão"
+    to_study: "Trocar para Lições"
+    study_title: "Lições: lições curtas com quizzes"
+    study: "Lições"
     menu_aria: Todos os modos (início)
     menu: menu
   hub:
@@ -1248,11 +1248,11 @@ play:
     flashcards: Cartões
     flashcards_desc: "Um lote dos termos que você já reuniu, {term} de um lado e {meaning} do outro. Marque cada um como sabido ou não; as estatísticas acompanham você."
     terms_collected: "{n} termos reunidos até agora"
-    study: Estudo
-    stages: Etapas
-    stages_desc: "Uma lição como uma etapa de pequenos passos: um cartão ou dois, uma verificação rápida, um lote de cartões, uma dica. Termine para ganhar estrelas; terminar uma etapa também libera {unlocks}."
+    study: "Lições"
+    stages: "Estudo"
+    stages_desc: "Uma lição em pequenos passos: um cartão ou dois, uma verificação rápida, um lote de cartões, uma dica. Termine para ganhar estrelas; terminar uma lição também libera {unlocks}."
     stages_unlocks_drill: "{item}s para o exercício"
-    stages_unlocks_next: próxima etapa
+    stages_unlocks_next: "próxima lição"
     lessons_passed: "{done} de {total} lições concluídas"
     open: Abrir
   matching:
@@ -1291,7 +1291,7 @@ play:
     page_title: "Exercício de {item}: {set}"
     lead: "Você vê uma imagem do {item} e uma imagem do espaço; digite a forma certa. Escolha um conjunto e os {item}s para praticar."
     no_lessons: "Nenhuma lição ensina {paradigm} ainda."
-    locked_html: "Os itens são liberados ao concluir a lição: termine a etapa <a href=\"{guide_url}\">Guia</a> ou alcance \"dominado\" em <a href=\"{practice_url}\">Prática</a>. Nada está liberado ainda."
+    locked_html: "Os itens são liberados ao concluir a lição: termine-a no <a href=\"{guide_url}\">Estudo</a> ou alcance \"dominado\" em <a href=\"{practice_url}\">Prática</a>. Nada está liberado ainda."
     unlocked_count: "{n} de {total} liberados"
     choose_set: "Escolha um grupo"
     locked_head: "Bloqueados até você passar na lição"
@@ -1458,7 +1458,7 @@ play:
       seconds: segundos
       prompts: perguntas
 sprint:
-  mode_name: Modo Sprint
+  mode_name: "Revisão"
   sound_toggle: Ativar ou desativar efeitos sonoros
   home:
     exit: Voltar ao site completo
@@ -1485,7 +1485,7 @@ sprint:
     start: Começar · 5 min
     read: Ler a lição
     foot_note: As mesmas lições, o mesmo progresso do site completo.
-    guide: Guia
+    guide: "Estudo"
     map: Mapa
     switch_course: Trocar de curso
   tabs:
@@ -1637,20 +1637,20 @@ sprint:
     nothing_yet: Nada para praticar aqui ainda.
 
 guide:
-  title: Guia
-  heading: O guia
-  lead: "As lições, um pequeno passo de cada vez: um cartão ou dois, depois uma verificação rápida. Conclua uma etapa para desbloquear a próxima. Pensado para quem tem pouco tempo de atenção."
+  title: "Estudo"
+  heading: "Estudo"
+  lead: "As lições, um pequeno passo de cada vez: um cartão ou dois, depois uma verificação rápida. Conclua uma lição para desbloquear a próxima. Pensado para quem tem pouco tempo de atenção."
   continue: "Continuar: {title}"
   stats:
-    complete: etapas concluídas
-    three_star: etapas com 3 estrelas
+    complete: "lições concluídas"
+    three_star: "lições com 3 estrelas"
   stars_label: "{n} de 3 estrelas"
   locked_count:
-    one: "{n} etapa bloqueada"
-    other: "{n} etapas bloqueadas"
+    one: "{n} lição bloqueada"
+    other: "{n} lições bloqueadas"
   stage:
     steps_checks: "{steps} passos, {checks} verificações rápidas"
-    locked: Cada etapa é desbloqueada quando você conclui a lição anterior, em qualquer modo.
+    locked: "Cada lição é desbloqueada quando você conclui a lição anterior, em qualquer modo."
     continue_step: "Continuar (passo {step} de {steps})"
     try_again: Tentar de novo
     skipped: "Pulada: abaixo do seu nível inicial."
@@ -1658,9 +1658,9 @@ guide:
     play_again: Jogar de novo
     start: Começar
   play:
-    title: "Etapa {n}: {title}"
-    crumb_guide: Guia
-    stage_n: "Etapa {n}"
+    title: "Lição {n}: {title}"
+    crumb_guide: "Estudo"
+    stage_n: "Lição {n}"
     full_lesson: lição completa
     best_result: melhor resultado
     concept: Conceito
@@ -1679,23 +1679,23 @@ guide:
     type_char: "Digite {ch}"
     hint: Dica
     check: Verificar
-    stage_complete: "Etapa {n} concluída"
+    stage_complete: "Lição {n} concluída"
     done_line_html: "<span id=\"done-correct\">0</span> / <span id=\"done-answered\">0</span> verificações rápidas certas"
-    next_stage: "Próxima etapa: {title}"
-    finished_all: Você terminou o guia inteiro!
+    next_stage: "Próxima lição: {title}"
+    finished_all: "Você terminou todas as lições do Estudo!"
     play_again: Jogar de novo
     back_to_map: Voltar ao mapa
   js:
     correct: Correto!
     passed_now: Lição concluída! Agora ela conta como completa em todos os modos.
     already_passed: Você já tinha concluído esta lição.
-    not_passed: "Ainda não concluída: acerte 70% ou mais das verificações rápidas para concluir a lição e desbloquear a próxima etapa."
+    not_passed: "Ainda não concluída: acerte 70% ou mais das verificações rápidas para concluir a lição e desbloquear a próxima."
     not_quite: Não exatamente.
     correct_answer_html: "Resposta certa: <strong lang=\"{lang}\">{answer}</strong>"
     new_terms:
       one: "✦ Novo termo coletado:"
       other: "✦ Novos termos coletados:"
-    finish_stage: Concluir etapa
+    finish_stage: "Concluir lição"
     next: Próximo
     check_failed: "Não foi possível verificar sua resposta ({error}). Tente de novo."
 
@@ -1830,6 +1830,14 @@ courses:
     stat_passed: "Lições aprovadas"
     stat_mastered: "Lições dominadas"
     stat_of: "{n} de {total}"
+    today_goal: "{n} de {goal} hoje"
+    today_done: "✓ hoje"
+    today_streak:
+      one: "{n} dia de sequência"
+      other: "{n} dias de sequência"
+    today_due:
+      one: "{n} palavra para revisar"
+      other: "{n} palavras para revisar"
     stat_label: "{name}: {value}"
     opened: "aberto {when}"
     continue: Continuar
@@ -1952,7 +1960,7 @@ courses:
       other: "Tem {n} perguntas, então uma resposta errada reprova a rodada. Com quatro ou mais há espaço para um erro."
     answer_in_prompt: "Esta pergunta entrega a resposta no enunciado: {prompt}"
     one_spelling: "A lacuna “{answer}” tem várias palavras e aceita só uma forma de escrevê-las. Acrescente outras formas em accepted_answers."
-    sprint_reading_only: A sessão de Sprint dela é só leitura. Não tem perguntas, palavras nem exercícios.
+    sprint_reading_only: "A sessão de Revisão dela é só leitura. Não tem perguntas, palavras nem exercícios."
     repeated_term: "Ensina “{term}” de novo, depois de {lessons}."
     quoted: "“{title}”"
     other_language: "O texto dela parece estar em {found}, mas o curso explica em {expected}."
@@ -2005,9 +2013,9 @@ courses:
       conjugations: Tabelas de paradigmas
       conversations: Conversas
       listening: Frases de escuta
-      guide: Passos do Guia em ordem definida
-      sprint_icon: Ícone do Sprint
-      bites: Bocados do Sprint
+      guide: "Passos do Estudo em ordem definida"
+      sprint_icon: "Ícone da Revisão"
+      bites: "Bocados da Revisão"
       sorts: Exercícios de ordenar
       spots: Encontre o erro
       builds: Montagem de frases
@@ -2066,9 +2074,9 @@ courses:
       vocabulary: Palavras
       term: Palavra
       conjugations: Tabelas de conjugação
-      guide: Passos do Guia
+      guide: "Passos do Estudo"
       vocab: Cartões
-      sprint: Modo Sprint
+      sprint: "Revisão"
       role_a: Falante A
       role_b: Falante B
       markdown: Texto
@@ -2129,12 +2137,12 @@ courses:
       one: frase de escuta
       other: frases de escuta
     name_guide:
-      one: passo do Guia
-      other: passos do Guia
+      one: "passo do Estudo"
+      other: "passos do Estudo"
     name_unit:
       one: unidade
       other: unidades
-    name_sprint: o material do modo Sprint
+    name_sprint: "o material da Revisão"
     name_place: seu lugar no curso
     count: "{n} {noun}"
     the_list: "{name}"
@@ -2223,7 +2231,7 @@ courses:
     example_check_facts: Verifique os factos em cada lição e corrija o que estiver errado.
     example_add_lesson: "Acrescente uma lição sobre ..."
     example_add_questions: Acrescente três perguntas de escolha múltipla à lição 4.
-    example_add_sort: Acrescente um exercício de ordenar do Sprint a cada lição que não tenha nenhum.
+    example_add_sort: "Acrescente um exercício de ordenar da Revisão a cada lição que não tenha nenhum."
     example_add_listening: Acrescente frases de escuta a cada lição que tenha vocabulário mas não tenha escuta.
     example_add_conversation: Acrescente uma conversa à lição 2.
     example_simpler: Use palavras mais simples nas explicações.
@@ -2446,7 +2454,7 @@ courses:
     form_remove_key: "Remover {key}"
     form_key: Chave
     delete_item_confirm: Excluir este item? Desfazer o traz de volta.
-    guide_derive_confirm: Descartar os passos ordenados à mão e deixar o Guia derivá-los de novo? Dicas e cartões de conceito escritos aqui serão perdidos (Desfazer os traz de volta).
+    guide_derive_confirm: "Descartar os passos ordenados à mão e deixar o Estudo derivá-los de novo? Dicas e cartões de conceito escritos aqui serão perdidos (Desfazer os traz de volta)."
     form_key_to_add: Chave a adicionar
     form_add_key: Adicionar uma chave
     form_kind: Tipo
@@ -2582,10 +2590,10 @@ editor:
     sec_vocabulary: Vocabulário
     sec_quiz: Quiz
     sec_listening: Escuta
-    sec_sprint: Sprint
+    sec_sprint: "Revisão"
     sec_conversations: Conversas
     sec_conjugations: Conjugações
-    sec_guide: Guia
+    sec_guide: "Estudo"
     add_vocab: + Palavra
     add_quiz: + Pergunta
     add_listening: + Frase
@@ -2653,8 +2661,8 @@ editor:
     f_example: Exemplo
     f_example_meaning: Significado do exemplo
     grp_used: Usada por
-    used_by_questions: "As perguntas {list} a ensinam (pelo nome ou pela resposta); cartões, Pares de palavras e Sprint usam todas as palavras."
-    used_by_none: Nenhuma pergunta a ensina ainda; cartões, Pares de palavras e Sprint usam todas as palavras.
+    used_by_questions: "As perguntas {list} a ensinam (pelo nome ou pela resposta); cartões, Pares de palavras e Revisão usam todas as palavras."
+    used_by_none: "Nenhuma pergunta a ensina ainda; cartões, Pares de palavras e Revisão usam todas as palavras."
     question_n_of: "Pergunta {n} de {total}"
     type_multiple-choice: Múltipla escolha
     type_fill-in-blank: Preencher a lacuna
@@ -2681,7 +2689,7 @@ editor:
     f_prompt: Enunciado
     f_statement: Afirmação
     h_statement: O aluno diz se é verdadeira ou falsa.
-    h_prompt_blank: Escreva ___ onde a resposta entra. O Sprint a preenche com blocos de palavras; o Estudo pede ao aluno que digite.
+    h_prompt_blank: "Escreva ___ onde a resposta entra. A Revisão a preenche com blocos de palavras; Lições pede ao aluno que digite."
     h_prompt_math: "Escreva a matemática como texto simples ou Unicode (x², √2, π), não em LaTeX."
     f_options: Opções
     f_options_aside: escolha a certa
@@ -2768,7 +2776,7 @@ editor:
     grp_art_aside: "imagem ASCII opcional, no máximo 8 linhas de 24 caracteres"
     f_art: Arte
     icon_head: Ícone do caminho
-    icon_sub: a parada da lição no caminho do Sprint
+    icon_sub: "a parada da lição no caminho da Revisão"
     grp_icon: Ícone
     f_icon: Emoji
     h_icon: "Um emoji, diferente do de todas as outras lições."
@@ -2816,10 +2824,10 @@ editor:
     f_from_text: Do texto
     f_distractors: Distratores
     h_distractors: Blocos errados misturados ao banco.
-    guide_head: Guia
+    guide_head: "Estudo"
     guide_sub: a ordem em que a lição é jogada
     guide_auto: derivado
-    guide_derived: "Sem passos ordenados à mão: o Guia os cria a partir dos cartões do texto, de grupos de cinco palavras e das perguntas a partir do terceiro cartão."
+    guide_derived: "Sem passos ordenados à mão: o Estudo os cria a partir dos cartões do texto, de grupos de cinco palavras e das perguntas a partir do terceiro cartão."
     guide_order_by_hand: Ordenar os passos à mão
     guide_back_to_derived: Voltar aos passos derivados
     steps:
@@ -2840,7 +2848,7 @@ editor:
     guide_add_concept: + Cartão de conceito
     guide_vocab_n: "Próximas {n} palavras como cartões"
     step_n_kind: "Passo {n} · {kind}"
-    guide_step_unknown: Este passo não é um que o Guia conheça; edite-o como JSON.
+    guide_step_unknown: "Este passo não é um que o Estudo conheça; edite-o como JSON."
     f_section: Seção
     h_section: Um título do texto, encontrado pelo início.
     f_question: Pergunta
@@ -2850,7 +2858,7 @@ editor:
     f_markdown: Texto do cartão
     check_prompt_empty: O enunciado está vazio
     check_blank_ok: Tem uma lacuna
-    check_blank_missing: "Sem ___ no enunciado: o aluno digita a resposta inteira e o Sprint não mostra espaço para preencher"
+    check_blank_missing: "Sem ___ no enunciado: o aluno digita a resposta inteira e a Revisão não mostra espaço para preencher"
     check_type: Escolha um tipo
     check_options_two: Precisa de pelo menos 2 opções
     check_options_right: Escolha qual opção é a certa
@@ -2882,7 +2890,7 @@ editor:
     check_conv_two: Precisa de pelo menos 2 falas
     check_conv_both: Os dois papéis devem dizer algo
     check_conv_empty: Uma fala está sem texto
-    check_conv_ok: "os dois papéis falam · {n} falas de 3 a 9 palavras com significado viram montagens do Sprint"
+    check_conv_ok: "os dois papéis falam · {n} falas de 3 a 9 palavras com significado viram montagens da Revisão"
     check_conj_both: Precisa de um item e um significado
     check_conj_no_paradigm: "As configurações do curso não definem paradigma, então esta tabela não pode ser exibida"
     check_conj_set: "Escolha um conjunto do paradigma: {sets}"
@@ -2909,7 +2917,7 @@ editor:
     check_scale_note: "Cada uma deve ser uma nota em ABC, como F, ^C ou _B: {note}"
     check_scale_decoy: "A isca {note} é uma nota da escala"
     check_scale_ok: "8 notas"
-    check_guide_step: Um passo que o Guia não conhece
+    check_guide_step: "Um passo que o Estudo não conhece"
     check_guide_section: "Nenhum título começa com “{name}”. Escolha um título ou remova o passo"
     check_guide_question: "Não há pergunta “{id}” nesta lição. Escolha uma pergunta ou remova o passo"
     check_guide_vocab: "Um número inteiro de palavras, 1 ou mais"
@@ -2918,9 +2926,9 @@ editor:
     check_title: A lição precisa de um título
     check_content: A lição precisa de algum texto
     live_preview: Prévia ao vivo
-    mode_study: Estudo
-    mode_sprint: Sprint
-    mode_guide: Guia
+    mode_study: "Lições"
+    mode_sprint: "Revisão"
+    mode_guide: "Estudo"
     no_preview: Nada para pré-visualizar aqui.
     preview_failed: "Não foi possível desenhar a prévia: {error}"
     check: Verificar
@@ -2956,13 +2964,13 @@ editor:
     course_language: o idioma do curso
     listen_status: Ouça e digite o que você ouviu.
     replay: Ouvir de novo
-    conv_no_build: "Ainda não há fala de 3 a 9 palavras com significado: o Sprint não cria nada a partir desta conversa."
+    conv_no_build: "Ainda não há fala de 3 a 9 palavras com significado: a Revisão não cria nada a partir desta conversa."
     ladder: Escada
     wrong_rungs:
       one: "{n} degrau errado"
       other: "{n} degraus errados"
     path_stop: O caminho
-    path_stop_note: "Esta é a parada da lição no caminho do Sprint."
+    path_stop_note: "Esta é a parada da lição no caminho da Revisão."
     quick_bite: Bocado rápido
     got_it: Entendi
     sort_it: Ordene
@@ -2974,30 +2982,30 @@ editor:
     spot_mistake: Ache o erro
     one_word_wrong: Uma palavra está errada. Toque nela.
     one_note_wrong: "Uma nota está errada. Toque nela e escolha a correção."
-    spot_note_preview: "No modo Sprint, o aluno toca a nota {n} e escolhe {fix} entre três peças."
+    spot_note_preview: "Na Revisão, o aluno toca a nota {n} e escolhe {fix} entre três peças."
     build_sentence: Monte a frase
     tap_tiles_in_order: Toque nos blocos na ordem
     concept: Conceito
     tip: Dica
-    guide_derived_preview: "O Guia deriva os passos desta lição; ordene-os à mão para pré-visualizar cada um."
+    guide_derived_preview: "O Estudo deriva os passos desta lição; ordene-os à mão para pré-visualizar cada um."
     hand_empty: Não restam palavras para este grupo de cinco.
     question_missing: "Não há pergunta “{id}” nesta lição."
-    note_quiz: Como no Estudo e na Prática. Verificar corrige com o corretor do próprio curso; nada é registrado.
-    note_quiz_sprint: Como em uma sessão do Sprint. Os blocos são a resposta entre palavras da lição.
-    note_vocab: O cartão do Guia; toque para virá-lo.
-    note_vocab_sprint: Um exercício de escolha do Sprint, com outras palavras da lição como opções erradas.
+    note_quiz: "Como em Lições e na Prática. Verificar corrige com o corretor do próprio curso; nada é registrado."
+    note_quiz_sprint: "Como em uma sessão de Revisão. Os blocos são a resposta entre palavras da lição."
+    note_vocab: "O cartão do Estudo; toque para virá-lo."
+    note_vocab_sprint: "Um exercício de escolha da Revisão, com outras palavras da lição como opções erradas."
     note_listening: O navegador lê o texto em voz alta no idioma do curso.
-    note_conversation: "O Sprint monta frases a partir de falas de 3 a 9 palavras que têm significado; esta é a primeira."
+    note_conversation: "A Revisão monta frases a partir de falas de 3 a 9 palavras que têm significado; esta é a primeira."
     note_conjugation: A tabela como a página da lição a mostra.
-    note_ladder: O exercício de escada do Sprint para esta tabela.
-    note_sort: O jogo de ordenação, como o Sprint o joga.
-    note_spot: O jogo de identificação, como o Sprint o joga.
-    note_build: O jogo de montagem, como o Sprint o joga.
-    note_scale: "A escada da escala, como o Sprint a joga."
+    note_ladder: "O exercício de escada da Revisão para esta tabela."
+    note_sort: "O jogo de ordenação, como a Revisão o joga."
+    note_spot: "O jogo de identificação, como a Revisão o joga."
+    note_build: "O jogo de montagem, como a Revisão o joga."
+    note_scale: "A escada da escala, como a Revisão a joga."
     scale_kicker: "Monte a escala"
-    scale_preview: "No modo Sprint o primeiro degrau já vem preenchido e o aluno toca as outras 7 notas entre {n} peças."
+    scale_preview: "Na Revisão o primeiro degrau já vem preenchido e o aluno toca as outras 7 notas entre {n} peças."
     note_bite: Um bocado abre a sessão; nada a responder.
-    note_guide: O Guia neste passo.
+    note_guide: "O Estudo neste passo."
     note_content: O texto da página da lição.
     advice_title: "Coisas a verificar"
     advice_count:

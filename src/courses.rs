@@ -1518,7 +1518,7 @@ pub fn starter_files(id: &str, title: &str) -> Vec<CourseFile> {
         "order": 1,
         "summary": "A one-line summary shown in lists.",
         "focus": "The single idea this lesson teaches",
-        "content": "## The idea\n\nExplain the idea in a short paragraph. Each `## ` heading becomes one card in the Guide and Sprint mode.\n\n## An example\n\n- **term** — what it means\n- Use lists, **bold**, tables and code blocks freely.",
+        "content": "## The idea\n\nExplain the idea in a short paragraph. Each `## ` heading becomes one card in Study and Review.\n\n## An example\n\n- **term** — what it means\n- Use lists, **bold**, tables and code blocks freely.",
         "vocabulary": [
             { "term": "term", "meaning": "a word or phrase worth remembering", "example": "An example sentence using the term." },
             { "term": "meaning", "meaning": "what the term stands for" },

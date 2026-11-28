@@ -80,7 +80,7 @@ test.describe("7. complete the test course", () => {
     const wrong: string[] = [];
     let first = true;
     for (const slug of await lessons(page)) {
-      await page.goto(`/sprint/play?lesson=${slug}&reduce-motion=1`);
+      await page.goto(`/review/play?lesson=${slug}&reduce-motion=1`);
       const run = await playSprintRight(page, key, { typeOnce: first });
       first = false;
       run.kinds.forEach((k) => met.add(k));
@@ -102,7 +102,7 @@ test.describe("7. complete the test course", () => {
     // kind is missing, up to three.
     for (const [n, mode] of [[0, "lightning"], [0, "review"], [1, "review"], [2, "review"]] as const) {
       if (n > 0 && ALL_KINDS.every((k) => met.has(k))) break;
-      await page.goto(`/sprint/play?mode=${mode}&reduce-motion=1`);
+      await page.goto(`/review/play?mode=${mode}&reduce-motion=1`);
       if (mode === "lightning") await page.clock.runFor(3_000); // the 3-2-1
       const run = await playSprintRight(page, key);
       expect(run.wrong, `${mode} answers marked wrong`).toEqual([]);
@@ -112,14 +112,14 @@ test.describe("7. complete the test course", () => {
     // A listening kind the draws left out (the seed's draws shift whenever a lesson is added): the
     // listening lesson's session again, up to three times.
     for (let n = 0; n < 3 && ALL_KINDS.some((k) => k.startsWith("hear-") && !met.has(k)); n++) {
-      await page.goto("/sprint/play?lesson=listening&reduce-motion=1");
+      await page.goto("/review/play?lesson=listening&reduce-motion=1");
       const run = await playSprintRight(page, key);
       expect(run.wrong, "listening answers marked wrong").toEqual([]);
       run.kinds.forEach((k) => met.add(k));
       await expect(page.getByTestId("sprint-play-done")).toHaveAttribute("data-saved", "true");
     }
     // A lightning round also ends when its minute is up.
-    await page.goto("/sprint/play?mode=lightning&reduce-motion=1");
+    await page.goto("/review/play?mode=lightning&reduce-motion=1");
     await page.clock.runFor(3_000);
     await playSprintRight(page, key, { answers: 2 });
     await page.clock.runFor(61_000); // every tick of the countdown (fastForward would fire it once)
@@ -135,12 +135,12 @@ test.describe("7. complete the test course", () => {
     const w = watch(page);
     await register(page, newAccount("smoke-play"), COURSE);
     for (let n = 0; n < 50; n++) {
-      await page.goto("/guide");
+      await page.goto("/study");
       const next = page.locator('[data-testid="guide-stage"]:not([data-passed="true"])').first();
       if (!(await next.count())) break;
       await expect(next, "the next stage is open").not.toHaveAttribute("data-state", "locked");
       const slug = (await next.getAttribute("data-lesson-id"))!;
-      await page.goto(`/guide/${slug}`);
+      await page.goto(`/study/${slug}`);
       const [right, total] = await playStage(page, key);
       expect(right, `${slug}: every quick check right`).toBe(total);
     }

@@ -9,7 +9,7 @@
 {% if !any_items %}
   <p class="alert" role="status" data-testid="drill-setup-empty">{{ crate::t1("play.drill.no_lessons", "paradigm", course.paradigm_label.to_lowercase()) }}</p>
 {% else if !any_unlocked %}
-  <p class="alert" role="status" data-testid="drill-setup-locked">{{ crate::t2("play.drill.locked_html", "guide_url", crate::url("/guide"), "practice_url", crate::url("/practice"))|safe }}</p>
+  <p class="alert" role="status" data-testid="drill-setup-locked">{{ crate::t2("play.drill.locked_html", "guide_url", crate::url("/study"), "practice_url", crate::url("/practice"))|safe }}</p>
 {% endif %}
 {% if pick_one %}
   <p class="alert" role="status" data-testid="drill-setup-pick-one">{{ crate::t1("play.drill.pick_one", "item", course.item_label.to_lowercase()) }}</p>

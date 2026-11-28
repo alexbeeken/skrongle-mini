@@ -23,11 +23,11 @@ const read = (page: Page, slug: string) => readLesson(page, key, slug);
 
 test("Guide: a stage of wrong quick checks isn't passed and the next stays locked; a replay passes it", async ({ page }) => {
   await register(page, newAccount("wrong-play"), TEST_COURSE);
-  await page.goto("/guide");
+  await page.goto("/study");
   const first = (await page.locator('[data-testid="guide-stage"]').first().getAttribute("data-lesson-id"))!;
   const second = (await page.locator('[data-testid="guide-stage"]').nth(1).getAttribute("data-lesson-id"))!;
 
-  await page.goto(`/guide/${first}`);
+  await page.goto(`/study/${first}`);
   const [right, total] = await playStage(page, key, { wrong: () => true });
   expect(total, "quick checks asked").toBeGreaterThan(0);
   expect(right, "answers taken as right").toBe(0);
@@ -42,20 +42,20 @@ test("Guide: a stage of wrong quick checks isn't passed and the next stays locke
   await page.getByTestId("stage-replay").click();
   await reloaded;
   expect((await progressOf(page, first)).passed).toBe(false);
-  await page.goto("/guide");
+  await page.goto("/study");
   await expect(page.locator(`[data-testid="guide-stage"][data-lesson-id="${second}"]`)).toHaveAttribute("data-state", "locked");
 
   // Play it again, right this time: passed, and the next stage opens.
-  await page.goto(`/guide/${first}`);
+  await page.goto(`/study/${first}`);
   const [r2, t2] = await playStage(page, key);
   expect(r2).toBe(t2);
   await expect(page.getByTestId("stage-done")).toHaveAttribute("data-passed", "true");
-  await page.goto("/guide");
+  await page.goto("/study");
   await expect(page.locator(`[data-testid="guide-stage"][data-lesson-id="${second}"]`)).not.toHaveAttribute("data-state", "locked");
 
   // Reopened without "Play again" (#490): it starts at step 1, the first tap
   // goes on to step 2, and the whole run plays and counts again.
-  await page.goto(`/guide/${first}`);
+  await page.goto(`/study/${first}`);
   await expect(page.locator('[data-testid="stage-step"]:visible')).toHaveAttribute("data-index", "0");
   const [r3, t3] = await playStage(page, key);
   expect([r3, t3]).toEqual([t2, t2]);
@@ -114,7 +114,7 @@ test("flashcards: a card marked not known comes back in the missed deck", async 
   await page.setViewportSize({ width: 390, height: 844 });
   await register(page, newAccount("wrong-cards"), TEST_COURSE);
   // Words to study: collect them in a Sprint session.
-  await page.goto("/sprint/play?lesson=vocabulary&reduce-motion=1");
+  await page.goto("/review/play?lesson=vocabulary&reduce-motion=1");
   await playSprint(page, key);
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/vocabulary/study");

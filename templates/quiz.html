@@ -30,7 +30,7 @@
       <p class="alert" role="status" data-testid="quiz-empty">{{ crate::t("quiz.empty.lesson_has_none") }}</p>
       <p class="actions">
         <a class="btn big" href="{{ crate::base_path() }}/lessons/{{ slug }}" data-testid="quiz-back-to-lesson">{{ crate::t("quiz.empty.back_to_lesson") }}</a>
-        <a class="btn ghost" href="{{ crate::base_path() }}/sprint/play?lesson={{ slug }}" data-testid="quiz-sprint">{{ crate::t("study.lesson.sprint_session") }}</a>
+        <a class="btn ghost" href="{{ crate::base_path() }}/review/play?lesson={{ slug }}" data-testid="quiz-sprint">{{ crate::t("study.lesson.sprint_session") }}</a>
       </p>
     </section>
     {% else %}

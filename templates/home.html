@@ -66,7 +66,7 @@
   {% endif %}
 
   <div class="hp-foot">
-    <a class="hp-link" href="{{ crate::base_path() }}/guide" data-testid="path-whole">{{ crate::t("path.whole_course") }}</a>
+    <a class="hp-link" href="{{ crate::base_path() }}/study" data-testid="path-whole">{{ crate::t("path.whole_course") }}</a>
     {% if !hidden.is_empty() %}
     <details class="hp-hidden">
       <summary class="hp-link" data-testid="path-hidden-toggle" data-count="{{ hidden.len() }}">{{ crate::t1("path.hidden", "n", hidden.len()) }}</summary>

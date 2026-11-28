@@ -1511,11 +1511,11 @@ fn the_revise_plan_numbers_the_lessons_and_counts_what_each_has() {
     assert_eq!(entries[0]["number"], 1);
     // A lesson with no sort says so, rather than leaving sorts out.
     let sorted = store.lessons().iter().find(|l| !l.sprint.sorts.is_empty()).expect("a lesson with a sort");
-    assert!(!prompt::plan_entry(1, sorted, serde_json::json!({}))["has"].as_str().unwrap().contains(" 0 Sprint sorts"));
+    assert!(!prompt::plan_entry(1, sorted, serde_json::json!({}))["has"].as_str().unwrap().contains(" 0 Review sorts"));
     let mut unsorted = sorted.clone();
     unsorted.sprint.sorts.clear();
     let has = prompt::plan_entry(1, &unsorted, serde_json::json!({}))["has"].as_str().unwrap().to_string();
-    assert!(has.contains(", 0 Sprint sorts, "), "{has}");
+    assert!(has.contains(", 0 Review sorts, "), "{has}");
 }
 
 /// Both plan prompts that change existing lessons, revise and edit, number the
@@ -1562,7 +1562,7 @@ fn the_revise_and_edit_plan_prompts_number_the_lessons() {
         let numbers: Vec<u64> = entries.iter().map(|e| e["number"].as_u64().unwrap()).collect();
         assert_eq!(numbers, [1, 2, 3]);
         assert_eq!(entries[1]["id"], "l2");
-        assert_eq!(entries[1]["has"], "1 quiz questions, 1 vocabulary items, 0 listening sentences, 0 conversations, 0 Sprint sorts, 0 spots, 0 builds");
+        assert_eq!(entries[1]["has"], "1 quiz questions, 1 vocabulary items, 0 listening sentences, 0 conversations, 0 Review sorts, 0 spots, 0 builds");
     }
 }
 

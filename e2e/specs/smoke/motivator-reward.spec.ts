@@ -33,7 +33,7 @@ test("every mode's end screen shows the worn motivator's reward line", async ({ 
   await rewardIn(page.getByTestId("lesson-check-result"));
 
   // Sprint mode: a lesson session all right passes the lesson.
-  await page.goto(`/sprint/play?lesson=${a.slug}&reduce-motion=1`);
+  await page.goto(`/review/play?lesson=${a.slug}&reduce-motion=1`);
   await playSprintRight(page, key);
   const done = page.getByTestId("sprint-play-done");
   await expect(done).toHaveAttribute("data-saved", "true");
@@ -46,7 +46,7 @@ test("every mode's end screen shows the worn motivator's reward line", async ({ 
   await rewardIn(page.getByTestId("quiz-summary"));
 
   // The Guide: replaying the passed lesson's stage (a stage further on is locked).
-  await page.goto(`/guide/${a.slug}`);
+  await page.goto(`/study/${a.slug}`);
   await playStage(page, key);
   await rewardIn(page.getByTestId("stage-done"));
 });

@@ -127,8 +127,8 @@ impl Mode {
     /// on from there.
     pub fn continue_url(self, slug: &str) -> String {
         match self {
-            Mode::Sprint => crate::url(&format!("/sprint/play?lesson={slug}")),
-            Mode::Guide => crate::url(&format!("/guide/{slug}")),
+            Mode::Sprint => crate::url(&format!("/review/play?lesson={slug}")),
+            Mode::Guide => crate::url(&format!("/study/{slug}")),
             Mode::Study | Mode::Play | Mode::Tutor | Mode::Agent => crate::url(&format!("/lessons/{slug}")),
         }
     }
@@ -204,9 +204,31 @@ pub fn points_since(conn: &Connection, user_id: i64, course_id: &str, since: i64
     let mut total = 0.0;
     for row in rows {
         let (key, n) = row?;
-        total += Kind::of_key(&key).map_or(0.0, Kind::points) * n as f64;
+        total = add_points(total, &key, n);
     }
     Ok(total.floor() as i64)
+}
+
+/// [`points_since`] for every course at once (the course list's line about
+/// today): course id -> effort points since `since`, rounded down. One
+/// query; a course with nothing logged since is not in the map.
+pub fn points_since_by_course(conn: &Connection, user_id: i64, since: i64) -> rusqlite::Result<HashMap<String, i64>> {
+    let mut stmt = conn.prepare_cached(
+        "SELECT course_id, kind, SUM(n) FROM activity_log WHERE user_id = ?1 AND at >= ?2 GROUP BY course_id, kind ORDER BY course_id, kind",
+    )?;
+    let rows = stmt.query_map(params![user_id, since], |r| Ok((r.get::<_, String>(0)?, r.get::<_, String>(1)?, r.get::<_, i64>(2)?)))?;
+    let mut totals: HashMap<String, f64> = HashMap::new();
+    for row in rows {
+        let (course, key, n) = row?;
+        let total = totals.entry(course).or_default();
+        *total = add_points(*total, &key, n);
+    }
+    Ok(totals.into_iter().map(|(c, t)| (c, t.floor() as i64)).collect())
+}
+
+/// `total` plus `n` of the kind `key`, at its weight (an unknown kind counts nothing).
+fn add_points(total: f64, key: &str, n: i64) -> f64 {
+    total + Kind::of_key(key).map_or(0.0, Kind::points) * n as f64
 }
 
 /// Today's effort against the goal.
@@ -218,7 +240,12 @@ pub struct Today {
 
 impl Today {
     pub fn load(conn: &Connection, user_id: i64, course_id: &str, day_start: i64) -> rusqlite::Result<Today> {
-        Ok(Today { points: points_since(conn, user_id, course_id, day_start)?, goal: DAILY_GOAL })
+        Ok(Today::of_points(points_since(conn, user_id, course_id, day_start)?))
+    }
+
+    /// The day's effort `points` against the daily goal.
+    pub fn of_points(points: i64) -> Today {
+        Today { points, goal: DAILY_GOAL }
     }
 
     /// How full the ring is, 0–100.

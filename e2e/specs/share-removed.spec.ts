@@ -29,7 +29,7 @@ test("the share removed mid-Sprint: the page goes to the course list instead of 
   await expect(guest).not.toHaveURL(/\/courses(\?|$)/);
 
   // The learner starts a Sprint; the owner removes the share.
-  await guest.goto(`/sprint/play?lesson=${LESSON}`);
+  await guest.goto(`/review/play?lesson=${LESSON}`);
   const stage = guest.getByTestId("sprint-play-stage");
   await expect(stage).toBeVisible();
   await row.getByTestId("course-share-remove").click();
@@ -48,7 +48,7 @@ test("the share removed mid-Sprint: the page goes to the course list instead of 
     // tap the buckets in turn, so each word finds its own, until the page leaves.
     const buckets = stage.getByTestId("sprint-sort-bucket");
     const n = await buckets.count();
-    for (let i = 0; i < 60 && /\/sprint\//.test(guest.url()); i++) await buckets.nth(i % n).click({ timeout: 1000 }).catch(() => {});
+    for (let i = 0; i < 60 && /\/review\//.test(guest.url()); i++) await buckets.nth(i % n).click({ timeout: 1000 }).catch(() => {});
   } else {
     // Tap the first button until Check is enabled.
     for (let i = 0; i < 10 && !(await check.isEnabled()); i++) await stage.locator("button:visible").first().click();

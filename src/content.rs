@@ -137,9 +137,9 @@ pub const ICON_KEYS: &[(&str, &str)] = &[
     ("bite", "💡"),     // a bite without an emoji of its own
     ("hint", "💡"),     // the hint toggle
     ("mode_sprint", "📱"),   // the modes on the home page and in the mode bars
-    ("mode_study", "📖"),
+    ("mode_study", "📚"),  // Lessons
     ("mode_play", "🎲"),
-    ("mode_guide", "🧭"),
+    ("mode_guide", "📖"), // Study
     ("mode_ai", "🤖"),
 ];
 

@@ -1,7 +1,7 @@
 //! Sprint mode: the phone-first path and session player.
 //!
-//! `/sprint` is the home screen (streak, the daily goal's ring, the path of lessons);
-//! `/sprint/play` builds a session and hands it to `static/sprint.js` as JSON.
+//! `/review` is the home screen (streak, the daily goal's ring, the path of lessons);
+//! `/review/play` builds a session and hands it to `static/sprint.js` as JSON.
 //! `/api/sprint/check` grades Sprint mode-only exercises and `/api/sprint/finish` records a
 //! finished session (Guide stage completion for lesson sessions, and a
 //! `game_activity` row for every session).
@@ -108,7 +108,7 @@ pub(crate) fn tz_offset_secs(headers: &HeaderMap) -> i64 {
         .unwrap_or(0)
 }
 
-/// GET /sprint
+/// GET /review
 pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: HeaderMap) -> Result<Response, AppError> {
     let at = now();
     let uid = p.user.id;
@@ -235,7 +235,7 @@ fn session_inputs(c: &rusqlite::Connection, uid: i64, cid: &str, mix: bool, tz: 
     Ok(SessionInputs { progress, avoid, learned })
 }
 
-/// GET /sprint/play?lesson=slug | ?mode=review | ?mode=lightning
+/// GET /review/play?lesson=slug | ?mode=review | ?mode=lightning
 pub async fn play(
     State(state): State<Arc<AppState>>,
     p: Project,

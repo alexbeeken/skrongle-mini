@@ -44,10 +44,10 @@
     <a class="btn small" data-testid="games-play" href="{{ crate::base_path() }}/vocabulary/study">{{ crate::t("play.hub.study") }}</a>
   </li>
   <li data-testid="games-item" data-game="guide">
-    <a href="{{ crate::base_path() }}/guide">{{ crate::t("play.hub.stages") }}</a>
+    <a href="{{ crate::base_path() }}/study">{{ crate::t("play.hub.stages") }}</a>
     <span class="meta">{% if course.has_paradigm %}{{ crate::t1("play.hub.stages_desc", "unlocks", crate::t1("play.hub.stages_unlocks_drill", "item", course.item_label.to_lowercase())) }}{% else %}{{ crate::t1("play.hub.stages_desc", "unlocks", crate::t("play.hub.stages_unlocks_next")) }}{% endif %}<br>
       {{ crate::t2("play.hub.lessons_passed", "done", stages_done, "total", stages_total) }}</span>
-    <a class="btn small" data-testid="games-play" href="{{ crate::base_path() }}/guide">{{ crate::t("play.hub.open") }}</a>
+    <a class="btn small" data-testid="games-play" href="{{ crate::base_path() }}/study">{{ crate::t("play.hub.open") }}</a>
   </li>
 </ul>
 {% endblock %}

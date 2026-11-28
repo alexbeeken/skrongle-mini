@@ -14,7 +14,7 @@ const LESSON = "nouns-gender-articles-plurals";
 
 /** Open `path` with the first exercise whose id matches `id` moved to the front of the session. */
 async function openWithFirst(page: Page, path: string, id: RegExp) {
-  await page.route(/\/sprint\/play\?/, async (route) => {
+  await page.route(/\/review\/play\?/, async (route) => {
     const res = await route.fetch();
     const html = (await res.text()).replace(/(<script id="session" type="application\/json">)([\s\S]*?)(<\/script>)/, (_m, a: string, json: string, c: string) => {
       const s = JSON.parse(json);
@@ -36,7 +36,7 @@ test("a wrong bucket shakes the word and keeps it; the sort checks itself, wrong
   await page.setViewportSize({ width: 390, height: 844 });
   // Whichever of the lesson's sorts the session drew.
   const lesson = key.lesson(LESSON);
-  await openWithFirst(page, `/sprint/play?lesson=${LESSON}&reduce-motion=1`, new RegExp(`^sort:${lesson.id}:\\d+$`));
+  await openWithFirst(page, `/review/play?lesson=${LESSON}&reduce-motion=1`, new RegExp(`^sort:${lesson.id}:\\d+$`));
   const stage = page.getByTestId("sprint-play-stage");
   await expect(stage).toHaveAttribute("data-kind", "sort");
   const sid = (await stage.getAttribute("data-exercise-id"))!;
@@ -81,7 +81,7 @@ test("a wrong bucket shakes the word and keeps it; the sort checks itself, wrong
 
 test("a clean sort, by the keyboard: Enter on the right bucket drops the word, and the sort checks itself right", async ({ page }) => {
   const lesson = key.lesson(LESSON);
-  await openWithFirst(page, `/sprint/play?lesson=${LESSON}&reduce-motion=1`, new RegExp(`^sort:${lesson.id}:\\d+$`));
+  await openWithFirst(page, `/review/play?lesson=${LESSON}&reduce-motion=1`, new RegExp(`^sort:${lesson.id}:\\d+$`));
   const stage = page.getByTestId("sprint-play-stage");
   await expect(stage).toHaveAttribute("data-kind", "sort");
   const sort = lesson.sorts[Number((await stage.getAttribute("data-exercise-id"))!.split(":")[2])];

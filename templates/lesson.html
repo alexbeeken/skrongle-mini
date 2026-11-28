@@ -33,8 +33,8 @@
           {% if !seen && quizzed %}<a href="{{ crate::base_path() }}/practice?lesson={{ lesson.slug }}" data-testid="lesson-practise">{{ crate::t("study.lesson.practise_this") }}</a>{% endif %}
           {% if course.has_listening && !lesson.listening.is_empty() %}<a href="{{ crate::base_path() }}/listening/play?lesson={{ lesson.slug }}" data-testid="lesson-listen">{{ crate::t("study.lesson.listen_type") }}</a>{% endif %}
           {% if let Some(u) = user %}{% if u.ai_tutor() %}<a href="{{ crate::base_path() }}/tutor?lesson={{ lesson.slug }}" data-testid="lesson-tutor">{{ crate::t("study.lesson.tutor_me") }}</a>{% endif %}{% endif %}
-          <a href="{{ crate::base_path() }}/guide/{{ lesson.slug }}" data-testid="lesson-guide">{{ crate::t("study.lesson.play_guide") }}</a>
-          <a href="{{ crate::base_path() }}/sprint/play?lesson={{ lesson.slug }}" data-testid="lesson-sprint">{{ crate::t("study.lesson.sprint_session") }}</a>
+          <a href="{{ crate::base_path() }}/study/{{ lesson.slug }}" data-testid="lesson-guide">{{ crate::t("study.lesson.play_guide") }}</a>
+          <a href="{{ crate::base_path() }}/review/play?lesson={{ lesson.slug }}" data-testid="lesson-sprint">{{ crate::t("study.lesson.sprint_session") }}</a>
         </div>
       </details>
     </div>

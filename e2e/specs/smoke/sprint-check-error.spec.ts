@@ -15,7 +15,7 @@ const LESSON = "nouns-gender-articles-plurals";
  *  A session is a random draw from the lesson, so one without such an exercise is drawn again. */
 async function openWithFirst(page: Page, path: string, want: (e: { id?: string; kind?: string }) => boolean) {
   let found = false;
-  await page.route(/\/sprint\/play\?/, async (route) => {
+  await page.route(/\/review\/play\?/, async (route) => {
     const res = await route.fetch();
     const html = (await res.text()).replace(/(<script id="session" type="application\/json">)([\s\S]*?)(<\/script>)/, (_m, a: string, json: string, c: string) => {
       const s = JSON.parse(json);
@@ -34,7 +34,7 @@ async function openWithFirst(page: Page, path: string, want: (e: { id?: string; 
 test("a failing check shows one error line, replaced on retry, cleared on success", async ({ page }) => {
   await register(page, newAccount("checkerr"), COURSE);
   await page.setViewportSize({ width: 390, height: 844 });
-  await openWithFirst(page, `/sprint/play?lesson=${LESSON}&reduce-motion=1`, (e) => e.kind === "pick" || e.kind === "choice");
+  await openWithFirst(page, `/review/play?lesson=${LESSON}&reduce-motion=1`, (e) => e.kind === "pick" || e.kind === "choice");
   const stage = page.getByTestId("sprint-play-stage");
   await expect(stage).toHaveAttribute("data-kind", /^(pick|choice)$/);
   const kind = (await stage.getAttribute("data-kind"))!;
@@ -66,7 +66,7 @@ test("a typed answer stays editable after a failed check (issue #672)", async ({
   await page.setViewportSize({ width: 390, height: 844 });
   // A word gap with tiles, so "Type it instead" is offered.
   type Gap = { kind?: string; tiles?: unknown[]; math?: boolean };
-  await openWithFirst(page, `/sprint/play?lesson=${LESSON}&reduce-motion=1`, (e) => {
+  await openWithFirst(page, `/review/play?lesson=${LESSON}&reduce-motion=1`, (e) => {
     const g = e as Gap;
     return g.kind === "tiles" && !!g.tiles?.length && !g.math;
   });

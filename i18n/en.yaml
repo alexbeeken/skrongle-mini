@@ -474,12 +474,12 @@ landing:
   have_account_html: "Already have an account? <a href=\"{url}\" data-testid=\"landing-login\">Log in</a>."
   two_files_h2: A course is two files. Everything else is optional.
   two_files_lead_html: A <code>course.json</code> names the units and the two sides of every flashcard. Each lesson is one file. Add a field and a feature switches on; leave it out and that feature simply does not show for that lesson. Nothing breaks, nothing nags.
-  field_content_html: Markdown. Each <code>##</code> section becomes a lesson card, a Guide step and a Sprint mode bite.
+  field_content_html: "Markdown. Each <code>##</code> section becomes a lesson card, a Study step and a Review bite."
   field_vocabulary: Flashcards, tap-to-hear, Word Match and the matching exercises on a phone.
   field_quiz: Adaptive practice with a per-lesson mastery score that grows, decays and steers what comes next.
   field_listening: Hear a sentence, type it, see it checked word by word. Spoken by the browser, so no audio to host.
   field_conjugations: "Paradigm tables of any shape: verb forms, declensions, scales. A drill and a ladder exercise come with them."
-  field_conversations: A scripted dialogue with its translation on the lesson page, and a sentence-building exercise in Sprint mode.
+  field_conversations: "A scripted dialogue with its translation on the lesson page, and a sentence-building exercise in Review."
   field_sprint_guide: Hand-written exercises and step orders when the derived ones are not enough.
   reference_html: "The full reference, with every field and every rule the validator checks, is at <a href=\"{url}\">/docs/course-format</a>. There is a JSON Schema too."
   three_ways_h2: Three ways to get a course
@@ -497,12 +497,12 @@ landing:
     other: "{n} lessons"
   every_way_h2: One course, every way to study it
   every_way_lead: Each feature reads the same files. You do not write anything twice.
-  feat_sprint_h: Sprint
+  feat_sprint_h: "Review"
   feat_sprint_p: "Phone-first five-minute sessions: word tiles, sort, spot, build, ladder, match, listening exercises, a daily goal and a streak."
-  feat_study_h: Study
+  feat_study_h: "Lessons"
   feat_study_p: Read the lessons properly, then take quizzes weighted towards what you get wrong. A map of every unit shows your mastery.
   feat_play_h: Play
-  feat_play_p: Word Match with a shared leaderboard, a paradigm drill, Numbers by ear, Date Dash, flashcards and the Guide.
+  feat_play_p: "Word Match with a shared leaderboard, a paradigm drill, Numbers by ear, Date Dash, flashcards and Study."
   feat_ai_h: AI tutoring
   feat_ai_p: A one-to-one tutor over chat that teaches the lesson, checks you follow and sets the quiz when you are ready. Runs on your own key.
   feat_hear_h: Tap to hear
@@ -521,8 +521,8 @@ landing:
   spec_docs_p: The format, the features and the architecture are served from the app itself, as pages or as raw Markdown for an LLM.
   final_h2: "Register, then answer one question: what would you like to learn?"
   browse_docs: Browse the documentation
-  feat_guide_h: "Guide"
-  feat_guide_p: "Each lesson as a stage of small steps: cards, quick checks, flashcards and tips, with stars at the end."
+  feat_guide_h: "Study"
+  feat_guide_p: "Each lesson in small steps: cards, quick checks, flashcards and tips, with stars at the end."
   try_lead: "Twenty seconds of each mode. Pick one and try it."
   try_noscript: "Turn on JavaScript to try each mode here."
   uses_h2: "What can I do with it?"
@@ -535,7 +535,7 @@ landing:
   use_fresh_h: "Keep important concepts fresh"
   use_fresh_p: "Mastery fades while you are away, and practice brings back what is fading first."
   use_mood_h: "Study to suit your mood"
-  use_mood_p: "Sprint on the bus, read at your desk, play a game when you are tired. Progress is shared."
+  use_mood_p: "Review on the bus, read at your desk, play a game when you are tired. Progress is shared."
   use_exam_h: "Prepare for an exam"
   use_exam_p: "Quizzes lean towards what you get wrong, so revision time goes where it is needed."
   use_trip_h: "Get ready for a trip"
@@ -575,7 +575,7 @@ landing:
     answer_false: "False"
     guide_flip: "Tap the card to flip it"
     got_it: "Got it"
-    guide_done: "Stage complete"
+    guide_done: "Lesson complete"
     sprint_listen: "What do you hear?"
     listen: "Listen"
     tap_to_hear: "Tap to hear it"
@@ -613,15 +613,15 @@ home:
   unit_of: "Unit {n} of {total}"
   unit_bar_label: "Lessons of {unit} passed"
   unit_passed_html: "<strong>{passed}</strong> of {total} lessons passed in this unit"
-  sprint: Sprint
-  open_sprint: Open Sprint mode
+  sprint: "Review"
+  open_sprint: "Open Review"
   sprint_tag: Interactive, mobile friendly.
-  about_sprint: About Sprint mode
+  about_sprint: "About Review"
   start_session: Start a session
-  study: Study
-  open_study: Open Study mode
+  study: "Lessons"
+  open_study: "Open Lessons"
   study_tag: Short study lessons with quizzes.
-  about_study: About Study mode
+  about_study: "About Lessons"
   need_practice_html:
     one: "<strong>{n}</strong> lesson needs practice"
     other: "<strong>{n}</strong> lessons need practice"
@@ -636,15 +636,15 @@ home:
     other: "<strong>{n}</strong> games this week"
   terms_collected_html: "<strong>{n}</strong> terms collected"
   browse_games: Browse games
-  guide: Guide
-  open_guide: Open the Guide
-  guide_tag: Guided lessons, one stage at a time.
-  about_guide: About the Guide
-  guide_stat_html: "<strong>{done}</strong> / {total} stages complete"
+  guide: "Study"
+  open_guide: "Open Study"
+  guide_tag: "Guided lessons, one step at a time."
+  about_guide: "About Study"
+  guide_stat_html: "<strong>{done}</strong> / {total} lessons complete"
   next_stage: "Next: {title}"
-  continue_guide: Continue the Guide
-  start_guide: Start the Guide
-  see_stages: See your stages
+  continue_guide: "Continue Study"
+  start_guide: "Start Study"
+  see_stages: "See your lessons"
   ai: AI tutoring
   open_ai: Open AI tutoring
   ai_tag: Chat with a tutor
@@ -661,7 +661,7 @@ home:
   info_play_numbers: "numbers by ear, "
   info_play_dates: "a date dash, "
   info_play_end: or a hand of flashcards.
-  info_guide_p: "The lessons in order, one small step at a time: a card or two, then a quick check. Finish a stage to unlock the next, and earn up to three stars on each."
+  info_guide_p: "The lessons in order, one small step at a time: a card or two, then a quick check. Finish a lesson to unlock the next, and earn up to three stars on each."
   info_ai_p: "A one-to-one lesson over chat: the tutor explains, checks you follow, sets an exercise when you are ready and talks you through your answer. Same questions, same mastery, just a conversation. Runs on this server's API key."
   ok: OK
   needs_key_ask: "Needs an API key, which the owner of this server adds"
@@ -686,11 +686,11 @@ goal:
   kind:
     answer: "A quiz question, in any mode"
     tutor: "A question from the AI tutor"
-    exercise: "A Sprint exercise (tiles, sort, build…)"
+    exercise: "A Review exercise (tiles, sort, build…)"
     game: "One item of a game (a pair, a number, a date)"
     listening: "One sentence of a listening round"
     flashcard: "One flashcard"
-    card: "One card of a Guide stage"
+    card: "One card of a Study lesson"
     reading: "Reading a lesson to the end"
 
 study:
@@ -707,8 +707,8 @@ study:
     needs_practice: Needs practice
     skipped: Skipped
   via:
-    study: Study mode
-    sprint: Sprint mode
+    study: "Lessons"
+    sprint: "Review"
     play: Play mode
     tutor: AI tutoring
     agent: an AI agent
@@ -747,14 +747,14 @@ study:
     numbers: Numbers by ear
     date_dash: Date Dash
     listening: Listening
-    sprint: Sprint mode
+    sprint: "Review"
     drill: "{item} Drill"
     drill_plain: Drill
     result: "{correct} / {total} right · {time}"
   nav:
-    study_mode: Study mode
-    study_mode_desc: "Study mode: short study lessons with quizzes"
-    study: Study
+    study_mode: "Lessons"
+    study_mode_desc: "Lessons: short lessons with quizzes"
+    study: "Lessons"
     practice: Practice
     listening: Listening
     lessons: Lessons
@@ -763,9 +763,9 @@ study:
     history: History
     mistakes: Mistakes
     switch: "Switch:"
-    to_sprint: Switch to Sprint mode
-    sprint_desc: "Sprint mode: interactive, mobile friendly"
-    sprint: Sprint
+    to_sprint: "Switch to Review"
+    sprint_desc: "Review: interactive, mobile friendly"
+    sprint: "Review"
     to_play: Switch to Play mode
     play_desc: "Play mode: games and one-off exercises"
     play: Play
@@ -813,7 +813,7 @@ study:
     language_features_desc: "Listening, sentence builds and translation fields."
     language_features_info: "About language features"
     language_features_what: "Some parts of a lesson only make sense when the course teaches a language: Listening sentences, conversations, sentence builds, and the translation beside an example or a line of dialogue."
-    language_features_off: "Off, the editor hides those parts while they are empty, so a course that explains terms in your own language is not asked for translations. A part that already has content stays. Learners lose the matching exercises: Listening, Numbers by ear, tap to hear, and the Sprint listening and build exercises. JSON shows every field either way."
+    language_features_off: "Off, the editor hides those parts while they are empty, so a course that explains terms in your own language is not asked for translations. A part that already has content stays. Learners lose the matching exercises: Listening, Numbers by ear, tap to hear, and the Review listening and build exercises. JSON shows every field either way."
     language_features_saved: "Saved in the course settings as language_features, for everyone who edits the course. Until you set it, the features are on when the terms are in a different language from the meanings."
     levels: "Levels"
     levels_info: "What levels are"
@@ -887,14 +887,14 @@ study:
     focus: "Focus: {focus}"
     quiz_questions: "{n} quiz questions"
     listening_sentences: "{n} listening sentences"
-    play_guide: Play it in the Guide
-    sprint_session: Sprint mode session
+    play_guide: "Play it in Study"
+    sprint_session: "Review session"
     counts_complete: It counts as complete in every mode.
     pass_rule: "Get {pct}% or more in one round to pass the lesson, here or in any mode."
     pass_rule_min: "Get {pct}% or more on at least {n} questions in one round to pass the lesson, here or in any mode."
     read_to_end: Read it to the end to count it as read.
-    sprint_same_guide: A Sprint mode session or a Guide stage counts the same.
-    sprint_same_ai: A Sprint mode session, a Guide stage or the AI tutor count the same.
+    sprint_same_guide: "A Review session or a Study lesson counts the same."
+    sprint_same_ai: "A Review session, a Study lesson or the AI tutor count the same."
     read_it: I've read it
     to_pass_check: "To pass the lesson: pass the reading check above, then get {pct}% or more in one round."
     to_pass_check_min: "To pass the lesson: pass the reading check above, then get {pct}% or more on at least {n} questions in one round."
@@ -1066,7 +1066,7 @@ vocab:
     lead: Every term you have collected by answering quiz questions correctly.
     lead_count_html: "<strong>{learned}</strong> of {total} terms so far."
     study_all: Study all (random)
-    empty_html: "No terms collected yet. Terms you meet in lessons appear here as you answer questions in <a href=\"{practice_url}\">Practice</a> or the <a href=\"{guide_url}\">Guide</a>."
+    empty_html: "No terms collected yet. Terms you meet in lessons appear here as you answer questions in <a href=\"{practice_url}\">Practice</a> or <a href=\"{guide_url}\">Study</a>."
     show_all_lessons: "Show all lessons ({n})"
     nothing_yet:
       one: "{n} lesson with nothing collected yet"
@@ -1226,14 +1226,14 @@ play:
     numbers: Numbers
     dates: Dates
     flashcards: Flashcards
-    stages: Guide
+    stages: "Study"
     switch: "Switch: "
-    to_sprint: Switch to Sprint mode
-    sprint_title: "Sprint mode: interactive, mobile friendly"
-    sprint: Sprint
-    to_study: Switch to Study mode
-    study_title: "Study mode: short study lessons with quizzes"
-    study: Study
+    to_sprint: "Switch to Review"
+    sprint_title: "Review: interactive, mobile friendly"
+    sprint: "Review"
+    to_study: "Switch to Lessons"
+    study_title: "Lessons: short lessons with quizzes"
+    study: "Lessons"
     menu_aria: All modes (home)
     menu: menu
   hub:
@@ -1251,11 +1251,11 @@ play:
     flashcards: Flashcards
     flashcards_desc: "A hand of the terms you have collected, {term} on one side and {meaning} on the other. Mark each one known or not; the stats follow you."
     terms_collected: "{n} terms collected so far"
-    study: Study
-    stages: Guide
-    stages_desc: "One lesson as a stage of small steps: a card or two, a quick check, a flashcard hand, a tip. Finish for stars; finishing a stage also unlocks its {unlocks}."
+    study: "Lessons"
+    stages: "Study"
+    stages_desc: "One lesson in small steps: a card or two, a quick check, a flashcard hand, a tip. Finish for stars; finishing a lesson also unlocks its {unlocks}."
     stages_unlocks_drill: "{item}s for the drill"
-    stages_unlocks_next: next stage
+    stages_unlocks_next: "next lesson"
     lessons_passed: "{done} of {total} lessons passed"
     open: Open
   matching:
@@ -1294,7 +1294,7 @@ play:
     page_title: "{item} Drill: {set}"
     lead: "You see a picture for the {item} and a picture for the slot; type the right form. Choose a set and the {item}s to drill."
     no_lessons: "No lesson teaches {paradigm} yet."
-    locked_html: "Items unlock when you complete their lesson: finish its <a href=\"{guide_url}\">Guide</a> stage or reach \"mastered\" in <a href=\"{practice_url}\">Practice</a>. Nothing is unlocked yet."
+    locked_html: "Items unlock when you complete their lesson: finish it in <a href=\"{guide_url}\">Study</a> or reach \"mastered\" in <a href=\"{practice_url}\">Practice</a>. Nothing is unlocked yet."
     unlocked_count: "{n} of {total} unlocked"
     choose_set: "Choose a set"
     locked_head: "Locked until you pass the lesson"
@@ -1461,7 +1461,7 @@ play:
       seconds: seconds
       prompts: prompts
 sprint:
-  mode_name: Sprint mode
+  mode_name: "Review"
   sound_toggle: Toggle sound effects
   home:
     exit: Back to the full site
@@ -1488,7 +1488,7 @@ sprint:
     start: Start · 5 min
     read: Read the lesson
     foot_note: Same lessons, same progress as the full site.
-    guide: Guide
+    guide: "Study"
     map: Map
     switch_course: Switch course
   tabs:
@@ -1640,20 +1640,20 @@ sprint:
     nothing_yet: Nothing to practise here yet.
 
 guide:
-  title: Guide
-  heading: Guide
-  lead: "The lessons, one small step at a time: a card or two, then a quick check. Finish a stage to unlock the next. For short attention spans."
+  title: "Study"
+  heading: "Study"
+  lead: "The lessons, one small step at a time: a card or two, then a quick check. Finish a lesson to unlock the next. For short attention spans."
   continue: "Continue: {title}"
   stats:
-    complete: stages complete
-    three_star: 3-star stages
+    complete: "lessons complete"
+    three_star: "3-star lessons"
   stars_label: "{n} of 3 stars"
   locked_count:
-    one: "{n} locked stage"
-    other: "{n} locked stages"
+    one: "{n} locked lesson"
+    other: "{n} locked lessons"
   stage:
     steps_checks: "{steps} steps, {checks} quick checks"
-    locked: Each stage unlocks when you pass the lesson before it, in any mode.
+    locked: "Each lesson unlocks when you pass the lesson before it, in any mode."
     continue_step: "Continue (step {step} of {steps})"
     try_again: Try again
     skipped: "Skipped: below your starting level."
@@ -1661,9 +1661,9 @@ guide:
     play_again: Play again
     start: Start
   play:
-    title: "Stage {n}: {title}"
-    crumb_guide: Guide
-    stage_n: "Stage {n}"
+    title: "Lesson {n}: {title}"
+    crumb_guide: "Study"
+    stage_n: "Lesson {n}"
     full_lesson: full lesson
     best_result: best result
     concept: Concept
@@ -1682,23 +1682,23 @@ guide:
     type_char: "Type {ch}"
     hint: Hint
     check: Check
-    stage_complete: "Stage {n} complete"
+    stage_complete: "Lesson {n} complete"
     done_line_html: "<span id=\"done-correct\">0</span> / <span id=\"done-answered\">0</span> quick checks right"
-    next_stage: "Next stage: {title}"
-    finished_all: You finished the whole guide!
+    next_stage: "Next lesson: {title}"
+    finished_all: "You finished every lesson in Study!"
     play_again: Play again
     back_to_map: Back to the map
   js:
     correct: Correct!
     passed_now: Lesson passed! It now counts as complete in every mode.
     already_passed: You had already passed this lesson.
-    not_passed: "Not passed yet: get 70% or more of the quick checks right to pass the lesson and unlock the next stage."
+    not_passed: "Not passed yet: get 70% or more of the quick checks right to pass the lesson and unlock the next one."
     not_quite: Not quite.
     correct_answer_html: "Correct answer: <strong lang=\"{lang}\">{answer}</strong>"
     new_terms:
       one: "✦ New term collected:"
       other: "✦ New terms collected:"
-    finish_stage: Finish stage
+    finish_stage: "Finish lesson"
     next: Next
     check_failed: "Could not check your answer ({error}). Please try again."
 
@@ -1833,6 +1833,14 @@ courses:
     stat_passed: "Lessons passed"
     stat_mastered: "Lessons mastered"
     stat_of: "{n} of {total}"
+    today_goal: "{n} of {goal} today"
+    today_done: "✓ today"
+    today_streak:
+      one: "{n}-day streak"
+      other: "{n}-day streak"
+    today_due:
+      one: "{n} word due"
+      other: "{n} words due"
     stat_label: "{name}: {value}"
     opened: "opened {when}"
     continue: Continue
@@ -1955,7 +1963,7 @@ courses:
       other: "It has {n} questions, so one wrong answer fails the run. Four or more leave room for a mistake."
     answer_in_prompt: "This question gives its answer away in the prompt: {prompt}"
     one_spelling: "The blank “{answer}” has several words and accepts one way of writing them. Add other ways in accepted_answers."
-    sprint_reading_only: Its Sprint session is reading only. It has no questions, words or exercises.
+    sprint_reading_only: "Its Review session is reading only. It has no questions, words or exercises."
     repeated_term: "It teaches “{term}” again, after {lessons}."
     quoted: "“{title}”"
     other_language: "Its text reads like {found}, but the course explains in {expected}."
@@ -2008,9 +2016,9 @@ courses:
       conjugations: Paradigm tables
       conversations: Conversations
       listening: Listening sentences
-      guide: Hand-ordered Guide steps
-      sprint_icon: Sprint icon
-      bites: Sprint bites
+      guide: "Hand-ordered Study steps"
+      sprint_icon: "Review icon"
+      bites: "Review bites"
       sorts: Sort exercises
       spots: Spot the mistake
       builds: Sentence builds
@@ -2069,9 +2077,9 @@ courses:
       vocabulary: Words
       term: Word
       conjugations: Conjugation tables
-      guide: Guide steps
+      guide: "Study steps"
       vocab: Flashcards
-      sprint: Sprint mode
+      sprint: "Review"
       role_a: Speaker A
       role_b: Speaker B
       markdown: Text
@@ -2132,12 +2140,12 @@ courses:
       one: listening sentence
       other: listening sentences
     name_guide:
-      one: Guide step
-      other: Guide steps
+      one: "Study step"
+      other: "Study steps"
     name_unit:
       one: unit
       other: units
-    name_sprint: the Sprint mode material
+    name_sprint: "the Review material"
     name_place: its place in the course
     count: "{n} {noun}"
     the_list: "the {name}"
@@ -2226,7 +2234,7 @@ courses:
     example_check_facts: Check the facts in every lesson and fix what is wrong.
     example_add_lesson: "Add a lesson on ..."
     example_add_questions: Add three multiple-choice questions to lesson 4.
-    example_add_sort: Add a Sprint sort exercise to every lesson that has none.
+    example_add_sort: "Add a Review sort exercise to every lesson that has none."
     example_add_listening: Add listening sentences to every lesson that has vocabulary but no listening.
     example_add_conversation: Add a conversation to lesson 2.
     example_simpler: Use simpler words in the explanations.
@@ -2449,7 +2457,7 @@ courses:
     form_remove_key: "Remove {key}"
     form_key: Key
     delete_item_confirm: Delete this item? Undo brings it back.
-    guide_derive_confirm: Drop the hand-ordered steps and let the Guide derive them again? Tips and concept cards written here are lost (Undo brings them back).
+    guide_derive_confirm: "Drop the hand-ordered steps and let Study derive them again? Tips and concept cards written here are lost (Undo brings them back)."
     form_key_to_add: Key to add
     form_add_key: Add a key
     form_kind: Kind
@@ -2585,10 +2593,10 @@ editor:
     sec_vocabulary: Vocabulary
     sec_quiz: Quiz
     sec_listening: Listening
-    sec_sprint: Sprint
+    sec_sprint: "Review"
     sec_conversations: Conversations
     sec_conjugations: Conjugations
-    sec_guide: Guide
+    sec_guide: "Study"
     add_vocab: + Word
     add_quiz: + Question
     add_listening: + Sentence
@@ -2656,8 +2664,8 @@ editor:
     f_example: Example
     f_example_meaning: Example meaning
     grp_used: Used by
-    used_by_questions: "Questions {list} teach it (by name or by answer); flashcards, Word Match and Sprint use every word."
-    used_by_none: No question teaches it yet; flashcards, Word Match and Sprint use every word.
+    used_by_questions: "Questions {list} teach it (by name or by answer); flashcards, Word Match and Review use every word."
+    used_by_none: "No question teaches it yet; flashcards, Word Match and Review use every word."
     question_n_of: "Question {n} of {total}"
     type_multiple-choice: Multiple choice
     type_fill-in-blank: Fill in the blank
@@ -2684,7 +2692,7 @@ editor:
     f_prompt: Prompt
     f_statement: Statement
     h_statement: The learner says whether it is true or false.
-    h_prompt_blank: Write ___ where the answer goes. Sprint fills it from word tiles; Study asks the learner to type.
+    h_prompt_blank: "Write ___ where the answer goes. Review fills it from word tiles; Lessons asks the learner to type."
     h_prompt_math: "Write maths as plain text or Unicode (x², √2, π), not LaTeX."
     f_options: Options
     f_options_aside: pick the right one
@@ -2771,7 +2779,7 @@ editor:
     grp_art_aside: "optional ASCII picture, at most 8 lines of 24 characters"
     f_art: Art
     icon_head: Path icon
-    icon_sub: the lesson's stop on the Sprint path
+    icon_sub: "the lesson's stop on the Review path"
     grp_icon: Icon
     f_icon: Emoji
     h_icon: "One emoji, different from every other lesson's."
@@ -2819,10 +2827,10 @@ editor:
     f_from_text: From the text
     f_distractors: Distractors
     h_distractors: Wrong tiles mixed into the bank.
-    guide_head: Guide
+    guide_head: "Study"
     guide_sub: the order the lesson plays in
     guide_auto: derived
-    guide_derived: "No hand-ordered steps: the Guide makes them from the text's cards, hands of five words and the questions from the third card on."
+    guide_derived: "No hand-ordered steps: Study makes them from the text's cards, hands of five words and the questions from the third card on."
     guide_order_by_hand: Order the steps by hand
     guide_back_to_derived: Back to derived steps
     steps:
@@ -2843,7 +2851,7 @@ editor:
     guide_add_concept: + Concept card
     guide_vocab_n: "Next {n} words as flashcards"
     step_n_kind: "Step {n} · {kind}"
-    guide_step_unknown: This step is not one the Guide knows; edit it as JSON.
+    guide_step_unknown: "This step is not one Study knows; edit it as JSON."
     f_section: Section
     h_section: A heading of the text, matched by its start.
     f_question: Question
@@ -2853,7 +2861,7 @@ editor:
     f_markdown: Card text
     check_prompt_empty: The prompt is empty
     check_blank_ok: Has a blank
-    check_blank_missing: "No ___ in the prompt: the learner types the whole answer, and Sprint shows no slot"
+    check_blank_missing: "No ___ in the prompt: the learner types the whole answer, and Review shows no slot"
     check_type: Pick a type
     check_options_two: Needs at least 2 options
     check_options_right: Pick which option is right
@@ -2885,7 +2893,7 @@ editor:
     check_conv_two: Needs at least 2 lines
     check_conv_both: Both roles must say something
     check_conv_empty: A line has no text
-    check_conv_ok: "both roles speak · {n} lines of 3–9 words with a meaning become Sprint builds"
+    check_conv_ok: "both roles speak · {n} lines of 3–9 words with a meaning become Review builds"
     check_conj_both: Needs an item and a meaning
     check_conj_no_paradigm: "The course settings define no paradigm, so this table cannot be shown"
     check_conj_set: "Pick a set of the paradigm: {sets}"
@@ -2912,7 +2920,7 @@ editor:
     check_scale_note: "Each one must be one note in ABC, like F, ^C or _B: {note}"
     check_scale_decoy: "The decoy {note} is a note of the scale"
     check_scale_ok: "8 notes"
-    check_guide_step: A step the Guide does not know
+    check_guide_step: "A step Study does not know"
     check_guide_section: "No heading starts with “{name}”. Pick a heading or remove the step"
     check_guide_question: "No question “{id}” in this lesson. Pick a question or remove the step"
     check_guide_vocab: "A whole number of words, 1 or more"
@@ -2921,9 +2929,9 @@ editor:
     check_title: The lesson needs a title
     check_content: The lesson needs some text
     live_preview: Live preview
-    mode_study: Study
-    mode_sprint: Sprint
-    mode_guide: Guide
+    mode_study: "Lessons"
+    mode_sprint: "Review"
+    mode_guide: "Study"
     no_preview: Nothing to preview here.
     preview_failed: "The preview could not be drawn: {error}"
     check: Check
@@ -2959,13 +2967,13 @@ editor:
     course_language: the course's language
     listen_status: Listen, then type what you heard.
     replay: Play again
-    conv_no_build: "No line of 3 to 9 words with a meaning yet: Sprint builds nothing from this conversation."
+    conv_no_build: "No line of 3 to 9 words with a meaning yet: Review builds nothing from this conversation."
     ladder: Ladder
     wrong_rungs:
       one: "{n} rung wrong"
       other: "{n} rungs wrong"
     path_stop: The path
-    path_stop_note: "This is the lesson's stop on the Sprint path."
+    path_stop_note: "This is the lesson's stop on the Review path."
     quick_bite: Quick bite
     got_it: Got it
     sort_it: Sort it
@@ -2977,30 +2985,30 @@ editor:
     spot_mistake: Spot the mistake
     one_word_wrong: One word is wrong. Tap it.
     one_note_wrong: "One note is wrong. Tap it, then pick its fix."
-    spot_note_preview: "In Sprint mode the learner taps note {n} and picks {fix} from three tiles."
+    spot_note_preview: "In Review the learner taps note {n} and picks {fix} from three tiles."
     build_sentence: Build the sentence
     tap_tiles_in_order: Tap the tiles in order
     concept: Concept
     tip: Tip
-    guide_derived_preview: "The Guide derives this lesson's steps; order them by hand to preview each one."
+    guide_derived_preview: "Study derives this lesson's steps; order them by hand to preview each one."
     hand_empty: No words left for this hand.
     question_missing: "No question “{id}” in this lesson."
-    note_quiz: As in Study and Practice. Check grades it with the course's own checker; nothing is recorded.
-    note_quiz_sprint: As in a Sprint session. The tiles are the answer among words of the lesson.
-    note_vocab: The Guide's flashcard; tap to turn it.
-    note_vocab_sprint: A Sprint pick exercise, with other words of the lesson as the wrong options.
+    note_quiz: "As in Lessons and Practice. Check grades it with the course's own checker; nothing is recorded."
+    note_quiz_sprint: "As in a Review session. The tiles are the answer among words of the lesson."
+    note_vocab: "The flashcard in Study; tap to turn it."
+    note_vocab_sprint: "A Review pick exercise, with other words of the lesson as the wrong options."
     note_listening: The browser reads the text aloud in the course's language.
-    note_conversation: "Sprint builds sentences from lines of 3 to 9 words that have a meaning; this is the first."
+    note_conversation: "Review builds sentences from lines of 3 to 9 words that have a meaning; this is the first."
     note_conjugation: The table as the lesson page shows it.
-    note_ladder: The Sprint ladder drill for this table.
-    note_sort: The sort game, as Sprint plays it.
-    note_spot: The spot game, as Sprint plays it.
-    note_build: The build game, as Sprint plays it.
-    note_scale: "The scale ladder, as Sprint plays it."
+    note_ladder: "The Review ladder drill for this table."
+    note_sort: "The sort game, as Review plays it."
+    note_spot: "The spot game, as Review plays it."
+    note_build: "The build game, as Review plays it."
+    note_scale: "The scale ladder, as Review plays it."
     scale_kicker: "Build the scale"
-    scale_preview: "In Sprint mode the first rung is filled, and the learner taps the other 7 notes from {n} tiles."
+    scale_preview: "In Review the first rung is filled, and the learner taps the other 7 notes from {n} tiles."
     note_bite: A bite opens the session; nothing to answer.
-    note_guide: The Guide at this step.
+    note_guide: "Study at this step."
     note_content: The lesson page's text.
     advice_title: "Things to check"
     advice_count:

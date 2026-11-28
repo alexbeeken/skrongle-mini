@@ -161,6 +161,14 @@ pub fn due_count(conn: &Connection, user_id: i64, course_id: &str, tz: i64, at: 
         .query_row(params![user_id, course_id, tomorrow(tz, at)], |r| r.get(0))
 }
 
+/// [`due_count`] for every course at once (the course list's line about
+/// today): course id -> words due. One query.
+pub fn due_by_course(conn: &Connection, user_id: i64, tz: i64, at: i64) -> rusqlite::Result<std::collections::HashMap<String, i64>> {
+    let mut stmt = conn.prepare_cached("SELECT course_id, COUNT(*) FROM user_vocab WHERE user_id = ?1 AND due_at < ?2 GROUP BY course_id")?;
+    let rows = stmt.query_map(params![user_id, tomorrow(tz, at)], |r| Ok((r.get(0)?, r.get(1)?)))?;
+    rows.collect()
+}
+
 /// The (lesson_id, word) keys due by the end of today, longest overdue
 /// first, at most `limit`.
 pub fn due(conn: &Connection, user_id: i64, course_id: &str, tz: i64, at: i64, limit: usize) -> rusqlite::Result<Vec<(String, String)>> {

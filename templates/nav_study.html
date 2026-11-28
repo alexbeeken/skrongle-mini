@@ -1,7 +1,7 @@
 <nav data-testid="nav-study" class="modebar study" aria-label="{{ crate::t("study.nav.study_mode") }}" data-say-lang="{{ course.say_lang }}">
   <div class="container">
     <ul>
-      <li><a href="{{ crate::base_path() }}/guide" data-testid="nav-study-course"{% if active == "stages" %} aria-current="page"{% endif %}>{{ crate::t("path.whole_course") }}</a></li>
+      <li><a href="{{ crate::base_path() }}/study" data-testid="nav-study-course"{% if active == "stages" %} aria-current="page"{% endif %}>{{ crate::t("path.whole_course") }}</a></li>
       <li><a href="{{ crate::base_path() }}/lessons" data-testid="nav-study-lessons"{% if active == "lessons" %} aria-current="page"{% endif %}>{{ crate::t("study.nav.lessons") }}</a></li>
       <li><a href="{{ crate::base_path() }}/practice" data-testid="nav-study-practice"{% if active == "practice" %} aria-current="page"{% endif %}>{{ crate::t("study.nav.practice") }}</a></li>
       {% if course.has_listening %}<li><a href="{{ crate::base_path() }}/listening" data-testid="nav-study-listening"{% if active == "listening" %} aria-current="page"{% endif %}>{{ crate::t("study.nav.listening") }}</a></li>{% endif %}

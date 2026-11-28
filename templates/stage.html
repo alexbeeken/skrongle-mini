@@ -6,7 +6,7 @@
          data-start="{{ start_step }}" data-total="{{ steps.len() }}" data-praise="{{ course.praise_line() }}" data-lang="{{ course.term_lang }}">
   <header class="quiz-head">
     <div>
-      <p class="crumbs"><a href="{{ crate::base_path() }}/guide">{{ crate::t("guide.play.crumb_guide") }}</a> › {{ crate::t1("guide.play.stage_n", "n", number) }} · {{ unit }} ·
+      <p class="crumbs"><a href="{{ crate::base_path() }}/study">{{ crate::t("guide.play.crumb_guide") }}</a> › {{ crate::t1("guide.play.stage_n", "n", number) }} · {{ unit }} ·
         <a href="{{ crate::base_path() }}/lessons/{{ lesson.slug }}">{{ crate::t("guide.play.full_lesson") }}</a></p>
       <h1>{{ lesson.title }}</h1>
     </div>
@@ -100,12 +100,12 @@
     <p id="done-pass"></p>
     <div class="actions">
       {% if let Some(ns) = next_slug %}
-        <a class="btn big" id="btn-next-stage" data-testid="stage-next" href="{{ crate::base_path() }}/guide/{{ ns }}">{% if let Some(nt) = next_title %}{{ crate::t1("guide.play.next_stage", "title", nt) }}{% else %}{{ crate::t1("guide.play.next_stage", "title", "") }}{% endif %}</a>
+        <a class="btn big" id="btn-next-stage" data-testid="stage-next" href="{{ crate::base_path() }}/study/{{ ns }}">{% if let Some(nt) = next_title %}{{ crate::t1("guide.play.next_stage", "title", nt) }}{% else %}{{ crate::t1("guide.play.next_stage", "title", "") }}{% endif %}</a>
       {% else %}
-        <a class="btn big" href="{{ crate::base_path() }}/guide" data-testid="stage-next">{{ crate::t("guide.play.finished_all") }}</a>
+        <a class="btn big" href="{{ crate::base_path() }}/study" data-testid="stage-next">{{ crate::t("guide.play.finished_all") }}</a>
       {% endif %}
       <button type="button" class="btn ghost" id="btn-replay" data-testid="stage-replay">{{ crate::t("guide.play.play_again") }}</button>
-      <a class="btn ghost" href="{{ crate::base_path() }}/guide">{{ crate::t("guide.play.back_to_map") }}</a>
+      <a class="btn ghost" href="{{ crate::base_path() }}/study">{{ crate::t("guide.play.back_to_map") }}</a>
     </div>
   </section>
 </section>

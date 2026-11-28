@@ -277,7 +277,7 @@ vocab:
     lead: Todos los términos que has recogido respondiendo correctamente a preguntas de práctica.
     lead_count_html: "<strong>{learned}</strong> de {total} términos hasta ahora."
     study_all: Estudiar todo (al azar)
-    empty_html: "Todavía no has recogido términos. Los términos que encuentres en las lecciones aparecen aquí cuando respondes preguntas en <a href=\"{practice_url}\">Práctica</a> o en la <a href=\"{guide_url}\">Guía</a>."
+    empty_html: "Todavía no has recogido términos. Los términos que encuentres en las lecciones aparecen aquí cuando respondes preguntas en <a href=\"{practice_url}\">Práctica</a> o en <a href=\"{guide_url}\">Estudio</a>."
     show_all_lessons: "Mostrar todas las lecciones ({n})"
     nothing_yet:
       one: "{n} lección sin nada recogido todavía"
@@ -430,12 +430,12 @@ landing:
   have_account_html: "¿Ya tienes cuenta? <a href=\"{url}\" data-testid=\"landing-login\">Inicia sesión</a>."
   two_files_h2: Un curso son dos archivos. Todo lo demás es opcional.
   two_files_lead_html: Un <code>course.json</code> nombra las unidades y las dos caras de cada tarjeta. Cada lección es un archivo. Agrega un campo y se activa una función; omítelo y esa función simplemente no aparece para esa lección. Nada se rompe, nada molesta.
-  field_content_html: Markdown. Cada sección <code>##</code> se convierte en una tarjeta de lección, un paso de la Guía y un bocado del modo Sprint.
+  field_content_html: "Markdown. Cada sección <code>##</code> se convierte en una tarjeta de lección, un paso de Estudio y un bocado de Repaso."
   field_vocabulary: Tarjetas, toca para escuchar, Parejas de palabras y los ejercicios de emparejar en el teléfono.
   field_quiz: Práctica adaptativa con una puntuación de dominio por lección que crece, decae y dirige lo que viene después.
   field_listening: Escucha una frase, escríbela y vela corregida palabra por palabra. La lee el navegador, así que no hay audio que alojar.
   field_conjugations: "Tablas de paradigmas de cualquier forma: formas verbales, declinaciones, escalas. Vienen con un ejercicio de repetición y uno de escalera."
-  field_conversations: Un diálogo con guion y su traducción en la página de la lección, y un ejercicio de construir frases en el modo Sprint.
+  field_conversations: "Un diálogo con guion y su traducción en la página de la lección, y un ejercicio de construir frases en Repaso."
   field_sprint_guide: Ejercicios y órdenes de pasos escritos a mano cuando los derivados no bastan.
   reference_html: "La referencia completa, con cada campo y cada regla que comprueba el validador, está en <a href=\"{url}\">/docs/course-format</a>. También hay un JSON Schema."
   three_ways_h2: Tres formas de conseguir un curso
@@ -453,12 +453,12 @@ landing:
     other: "{n} lecciones"
   every_way_h2: Un curso, todas las formas de estudiarlo
   every_way_lead: Cada función lee los mismos archivos. No escribes nada dos veces.
-  feat_sprint_h: Sprint
+  feat_sprint_h: "Repaso"
   feat_sprint_p: "Sesiones de cinco minutos pensadas para el teléfono: fichas de palabras, ordenar, detectar, construir, escalera, emparejar, ejercicios de escucha, una meta diaria y una racha."
-  feat_study_h: Estudio
+  feat_study_h: "Lecciones"
   feat_study_p: Lee las lecciones como es debido y luego haz prácticas con más peso en lo que fallas. Un mapa de cada unidad muestra tu dominio.
   feat_play_h: Juego
-  feat_play_p: Parejas de palabras con una tabla de posiciones compartida, un ejercicio de paradigmas, Números de oído, Carrera de fechas, tarjetas y la Guía.
+  feat_play_p: "Parejas de palabras con una tabla de posiciones compartida, un ejercicio de paradigmas, Números de oído, Carrera de fechas, tarjetas y Estudio."
   feat_ai_h: Tutoría con IA
   feat_ai_p: Un tutor individual por chat que enseña la lección, comprueba que la sigues y te pone la práctica cuando estás listo. Funciona con tu propia clave.
   feat_hear_h: Toca para escuchar
@@ -476,8 +476,8 @@ landing:
   spec_docs_p: El formato, las funciones y la arquitectura se sirven desde la propia aplicación, como páginas o como Markdown sin formato para un LLM.
   final_h2: "Regístrate y responde una sola pregunta: ¿qué te gustaría aprender?"
   browse_docs: Explorar la documentación
-  feat_guide_h: "Guía"
-  feat_guide_p: "Cada lección como una etapa de pasos pequeños: tarjetas, comprobaciones rápidas, fichas y consejos, con estrellas al final."
+  feat_guide_h: "Estudio"
+  feat_guide_p: "Cada lección en pasos pequeños: tarjetas, comprobaciones rápidas, fichas y consejos, con estrellas al final."
   try_lead: "Veinte segundos de cada modo. Elige uno y pruébalo."
   try_noscript: "Activa JavaScript para probar cada modo aquí."
   uses_h2: "¿Qué puedo hacer con esto?"
@@ -490,7 +490,7 @@ landing:
   use_fresh_h: "Mantener frescos los conceptos importantes"
   use_fresh_p: "El dominio se desvanece cuando no practicas, y la práctica recupera primero lo que se está olvidando."
   use_mood_h: "Estudiar según tu ánimo"
-  use_mood_p: "Sprint en el autobús, lectura en tu mesa, un juego cuando estás cansado. El progreso es el mismo."
+  use_mood_p: "Repaso en el autobús, lectura en tu mesa, un juego cuando estás cansado. El progreso es el mismo."
   use_exam_h: "Preparar un examen"
   use_exam_p: "Los cuestionarios insisten en lo que fallas, así el repaso va donde hace falta."
   use_trip_h: "Prepararte para un viaje"
@@ -530,7 +530,7 @@ landing:
     answer_false: "Falso"
     guide_flip: "Toca la tarjeta para darle la vuelta"
     got_it: "Entendido"
-    guide_done: "Etapa completada"
+    guide_done: "Lección completada"
     sprint_listen: "¿Qué oyes?"
     listen: "Escuchar"
     tap_to_hear: "Tócalo para oírlo"
@@ -834,15 +834,15 @@ home:
   unit_of: "Unidad {n} de {total}"
   unit_bar_label: "Lecciones de {unit} aprobadas"
   unit_passed_html: "<strong>{passed}</strong> de {total} lecciones aprobadas en esta unidad"
-  sprint: Sprint
-  open_sprint: Abrir el modo Sprint
+  sprint: "Repaso"
+  open_sprint: "Abrir Repaso"
   sprint_tag: Interactivo y pensado para el móvil.
-  about_sprint: Sobre el modo Sprint
+  about_sprint: "Sobre Repaso"
   start_session: Empezar una sesión
-  study: Estudio
-  open_study: Abrir el modo Estudio
+  study: "Lecciones"
+  open_study: "Abrir Lecciones"
   study_tag: Lecciones cortas con cuestionarios.
-  about_study: Sobre el modo Estudio
+  about_study: "Sobre Lecciones"
   need_practice_html:
     one: "<strong>{n}</strong> lección necesita práctica"
     other: "<strong>{n}</strong> lecciones necesitan práctica"
@@ -857,15 +857,15 @@ home:
     other: "<strong>{n}</strong> juegos esta semana"
   terms_collected_html: "<strong>{n}</strong> términos recogidos"
   browse_games: Ver los juegos
-  guide: Guía
-  open_guide: Abrir la Guía
-  guide_tag: Lecciones guiadas, una etapa a la vez.
-  about_guide: Sobre la Guía
-  guide_stat_html: "<strong>{done}</strong> / {total} etapas completadas"
+  guide: "Estudio"
+  open_guide: "Abrir Estudio"
+  guide_tag: "Lecciones guiadas, un paso a la vez."
+  about_guide: "Sobre Estudio"
+  guide_stat_html: "<strong>{done}</strong> / {total} lecciones completadas"
   next_stage: "Siguiente: {title}"
-  continue_guide: Continuar la Guía
-  start_guide: Empezar la Guía
-  see_stages: Ver tus etapas
+  continue_guide: "Continuar Estudio"
+  start_guide: "Empezar Estudio"
+  see_stages: "Ver tus lecciones"
   ai: Tutoría con IA
   open_ai: Abrir la tutoría con IA
   ai_tag: Chatea con un tutor
@@ -882,7 +882,7 @@ home:
   info_play_numbers: "números de oído, "
   info_play_dates: "una carrera de fechas, "
   info_play_end: o una mano de tarjetas.
-  info_guide_p: "Las lecciones en orden, un pequeño paso a la vez: una o dos tarjetas y luego una comprobación rápida. Termina una etapa para desbloquear la siguiente y gana hasta tres estrellas en cada una."
+  info_guide_p: "Las lecciones en orden, un pequeño paso a la vez: una o dos tarjetas y luego una comprobación rápida. Termina una lección para desbloquear la siguiente y gana hasta tres estrellas en cada una."
   info_ai_p: "Una clase individual por chat: el tutor explica, comprueba que lo sigues, te pone un ejercicio cuando estás listo y comenta tu respuesta contigo. Las mismas preguntas, el mismo dominio, solo que en conversación. Funciona con la clave de API de este servidor."
   ok: Aceptar
   needs_key_ask: "Necesita una clave de API, que añade el propietario de este servidor"
@@ -907,11 +907,11 @@ goal:
   kind:
     answer: "Una pregunta del cuestionario, en cualquier modo"
     tutor: "Una pregunta del tutor de IA"
-    exercise: "Un ejercicio de Sprint (fichas, ordenar, construir…)"
+    exercise: "Un ejercicio de Repaso (fichas, ordenar, construir…)"
     game: "Un elemento de un juego (una pareja, un número, una fecha)"
     listening: "Una frase de una ronda de escucha"
     flashcard: "Una tarjeta de repaso"
-    card: "Una tarjeta de una etapa de la guía"
+    card: "Una tarjeta de una lección de Estudio"
     reading: "Leer una lección hasta el final"
 
 study:
@@ -928,8 +928,8 @@ study:
     needs_practice: Necesita práctica
     skipped: Omitida
   via:
-    study: modo Estudio
-    sprint: modo Sprint
+    study: "Lecciones"
+    sprint: "Repaso"
     play: modo Juego
     tutor: tutoría con IA
     agent: un agente de IA
@@ -968,14 +968,14 @@ study:
     numbers: Números de oído
     date_dash: Carrera de fechas
     listening: Escucha
-    sprint: Modo Sprint
+    sprint: "Repaso"
     drill: "Ejercicio de {item}"
     drill_plain: Ejercicio
     result: "{correct} / {total} aciertos · {time}"
   nav:
-    study_mode: Modo Estudio
-    study_mode_desc: "Modo Estudio: lecciones cortas con cuestionarios"
-    study: Estudio
+    study_mode: "Lecciones"
+    study_mode_desc: "Lecciones: lecciones cortas con cuestionarios"
+    study: "Lecciones"
     practice: Práctica
     listening: Escucha
     lessons: Lecciones
@@ -984,9 +984,9 @@ study:
     history: Historial
     mistakes: Errores
     switch: "Cambiar:"
-    to_sprint: Cambiar al modo Sprint
-    sprint_desc: "Modo Sprint: interactivo y pensado para el móvil"
-    sprint: Sprint
+    to_sprint: "Cambiar a Repaso"
+    sprint_desc: "Repaso: interactivo y pensado para el móvil"
+    sprint: "Repaso"
     to_play: Cambiar al modo Juego
     play_desc: "Modo Juego: juegos y ejercicios sueltos"
     play: Juego
@@ -1034,7 +1034,7 @@ study:
     language_features_desc: "Escucha, construcción de frases y campos de traducción."
     language_features_info: "Acerca de las funciones de idioma"
     language_features_what: "Algunas partes de una lección solo tienen sentido cuando el curso enseña un idioma: las frases de Escucha, las conversaciones, la construcción de frases y la traducción junto a un ejemplo o a una línea de diálogo."
-    language_features_off: "Desactivadas, el editor oculta esas partes mientras estén vacías, así un curso que explica términos en tu propio idioma no pide traducciones. Una parte que ya tiene contenido se queda. Quienes aprenden pierden los ejercicios correspondientes: Escucha, Números de oído, tocar para oír y los ejercicios de escucha y construcción de Sprint. El JSON muestra todos los campos de todos modos."
+    language_features_off: "Desactivadas, el editor oculta esas partes mientras estén vacías, así un curso que explica términos en tu propio idioma no pide traducciones. Una parte que ya tiene contenido se queda. Quienes aprenden pierden los ejercicios correspondientes: Escucha, Números de oído, tocar para oír y los ejercicios de escucha y construcción de Repaso. El JSON muestra todos los campos de todos modos."
     language_features_saved: "Se guarda en la configuración del curso como language_features, para todas las personas que editan el curso. Hasta que lo fijes, las funciones están activadas cuando los términos están en un idioma distinto del de los significados."
     levels: "Niveles"
     levels_info: "Qué son los niveles"
@@ -1108,14 +1108,14 @@ study:
     focus: "Enfoque: {focus}"
     quiz_questions: "{n} preguntas de cuestionario"
     listening_sentences: "{n} frases de escucha"
-    play_guide: "Juégala en la Guía"
-    sprint_session: Sesión del modo Sprint
+    play_guide: "Juégala en Estudio"
+    sprint_session: "Sesión de Repaso"
     counts_complete: Cuenta como completada en todos los modos.
     pass_rule: "Consigue un {pct}% o más en una ronda para aprobar la lección, aquí o en cualquier modo."
     pass_rule_min: "Consigue un {pct}% o más en al menos {n} preguntas en una ronda para aprobar la lección, aquí o en cualquier modo."
     read_to_end: Léela hasta el final para que cuente como leída.
-    sprint_same_guide: Una sesión del modo Sprint o una etapa de la Guía cuentan igual.
-    sprint_same_ai: Una sesión del modo Sprint, una etapa de la Guía o el tutor de IA cuentan igual.
+    sprint_same_guide: "Una sesión de Repaso o una lección de Estudio cuentan igual."
+    sprint_same_ai: "Una sesión de Repaso, una lección de Estudio o el tutor de IA cuentan igual."
     read_it: Ya la leí
     to_pass_check: "Para aprobar la lección: aprueba la comprobación de lectura de arriba y luego consigue un {pct}% o más en una ronda."
     to_pass_check_min: "Para aprobar la lección: aprueba la comprobación de lectura de arriba y luego consigue un {pct}% o más en al menos {n} preguntas en una ronda."
@@ -1224,14 +1224,14 @@ play:
     numbers: Números
     dates: Fechas
     flashcards: Tarjetas
-    stages: Guía
+    stages: "Estudio"
     switch: "Cambiar: "
-    to_sprint: Cambiar al modo Sprint
-    sprint_title: "Modo Sprint: interactivo, pensado para el móvil"
-    sprint: Sprint
-    to_study: Cambiar al modo Estudio
-    study_title: "Modo Estudio: lecciones breves con cuestionarios"
-    study: Estudio
+    to_sprint: "Cambiar a Repaso"
+    sprint_title: "Repaso: interactivo, pensado para el móvil"
+    sprint: "Repaso"
+    to_study: "Cambiar a Lecciones"
+    study_title: "Lecciones: lecciones breves con cuestionarios"
+    study: "Lecciones"
     menu_aria: Todos los modos (inicio)
     menu: menú
   hub:
@@ -1249,11 +1249,11 @@ play:
     flashcards: Tarjetas
     flashcards_desc: "Una mano con los términos que has reunido, {term} por un lado y {meaning} por el otro. Marca cada uno como sabido o no; las estadísticas te siguen."
     terms_collected: "{n} términos reunidos hasta ahora"
-    study: Estudio
-    stages: Guía
-    stages_desc: "Una lección como una etapa de pasos pequeños: una tarjeta o dos, una comprobación rápida, una mano de tarjetas, un consejo. Termínala para ganar estrellas; terminar una etapa también desbloquea {unlocks}."
+    study: "Lecciones"
+    stages: "Estudio"
+    stages_desc: "Una lección en pasos pequeños: una tarjeta o dos, una comprobación rápida, una mano de tarjetas, un consejo. Termínala para ganar estrellas; terminar una lección también desbloquea {unlocks}."
     stages_unlocks_drill: "sus {item}s para el ejercicio"
-    stages_unlocks_next: la siguiente etapa
+    stages_unlocks_next: "la siguiente lección"
     lessons_passed: "{done} de {total} lecciones aprobadas"
     open: Abrir
   matching:
@@ -1292,7 +1292,7 @@ play:
     page_title: "Ejercicio de {item}s: {set}"
     lead: "Ves una imagen para el {item} y otra para la casilla; escribe la forma correcta. Elige un conjunto y los {item}s que quieres practicar."
     no_lessons: "Ninguna lección enseña {paradigm} todavía."
-    locked_html: "Los elementos se desbloquean al completar su lección: termina su etapa de la <a href=\"{guide_url}\">Guía</a> o alcanza «dominado» en <a href=\"{practice_url}\">Práctica</a>. Todavía no hay nada desbloqueado."
+    locked_html: "Los elementos se desbloquean al completar su lección: termínala en <a href=\"{guide_url}\">Estudio</a> o alcanza «dominado» en <a href=\"{practice_url}\">Práctica</a>. Todavía no hay nada desbloqueado."
     unlocked_count: "{n} de {total} desbloqueados"
     choose_set: "Elige un grupo"
     locked_head: "Bloqueados hasta que apruebes la lección"
@@ -1459,7 +1459,7 @@ play:
       seconds: segundos
       prompts: preguntas
 sprint:
-  mode_name: Modo Sprint
+  mode_name: "Repaso"
   sound_toggle: Activar o desactivar los efectos de sonido
   home:
     exit: Volver al sitio completo
@@ -1486,7 +1486,7 @@ sprint:
     start: Empezar · 5 min
     read: Leer la lección
     foot_note: Las mismas lecciones y el mismo progreso que el sitio completo.
-    guide: Guía
+    guide: "Estudio"
     map: Mapa
     switch_course: Cambiar de curso
   tabs:
@@ -1638,20 +1638,20 @@ sprint:
     nothing_yet: Aquí todavía no hay nada que practicar.
 
 guide:
-  title: Guía
-  heading: Guía
-  lead: "Las lecciones, en pasos pequeños: una tarjeta o dos y luego una comprobación rápida. Termina una etapa para desbloquear la siguiente. Para quienes se distraen fácil."
+  title: "Estudio"
+  heading: "Estudio"
+  lead: "Las lecciones, en pasos pequeños: una tarjeta o dos y luego una comprobación rápida. Termina una lección para desbloquear la siguiente. Para quienes se distraen fácil."
   continue: "Continuar: {title}"
   stats:
-    complete: etapas completadas
-    three_star: etapas con 3 estrellas
+    complete: "lecciones completadas"
+    three_star: "lecciones con 3 estrellas"
   stars_label: "{n} de 3 estrellas"
   locked_count:
-    one: "{n} etapa bloqueada"
-    other: "{n} etapas bloqueadas"
+    one: "{n} lección bloqueada"
+    other: "{n} lecciones bloqueadas"
   stage:
     steps_checks: "{steps} pasos, {checks} comprobaciones rápidas"
-    locked: Cada etapa se desbloquea al aprobar la lección anterior, en cualquier modo.
+    locked: "Cada lección se desbloquea al aprobar la lección anterior, en cualquier modo."
     continue_step: "Continuar (paso {step} de {steps})"
     try_again: Intentar otra vez
     skipped: "Omitida: está por debajo de tu nivel inicial."
@@ -1659,9 +1659,9 @@ guide:
     play_again: Jugar otra vez
     start: Empezar
   play:
-    title: "Etapa {n}: {title}"
-    crumb_guide: Guía
-    stage_n: "Etapa {n}"
+    title: "Lección {n}: {title}"
+    crumb_guide: "Estudio"
+    stage_n: "Lección {n}"
     full_lesson: lección completa
     best_result: mejor resultado
     concept: Concepto
@@ -1680,23 +1680,23 @@ guide:
     type_char: "Escribe {ch}"
     hint: Pista
     check: Comprobar
-    stage_complete: "Etapa {n} completada"
+    stage_complete: "Lección {n} completada"
     done_line_html: "<span id=\"done-correct\">0</span> / <span id=\"done-answered\">0</span> comprobaciones rápidas correctas"
-    next_stage: "Siguiente etapa: {title}"
-    finished_all: ¡Terminaste toda la guía!
+    next_stage: "Siguiente lección: {title}"
+    finished_all: "¡Terminaste todas las lecciones de Estudio!"
     play_again: Jugar otra vez
     back_to_map: Volver al mapa
   js:
     correct: ¡Correcto!
     passed_now: ¡Lección aprobada! Ahora cuenta como completada en todos los modos.
     already_passed: Ya habías aprobado esta lección.
-    not_passed: "Aún no aprobada: acierta el 70% o más de las comprobaciones rápidas para aprobar la lección y desbloquear la siguiente etapa."
+    not_passed: "Aún no aprobada: acierta el 70% o más de las comprobaciones rápidas para aprobar la lección y desbloquear la siguiente."
     not_quite: No del todo.
     correct_answer_html: "Respuesta correcta: <strong lang=\"{lang}\">{answer}</strong>"
     new_terms:
       one: "✦ Nuevo término coleccionado:"
       other: "✦ Nuevos términos coleccionados:"
-    finish_stage: Terminar etapa
+    finish_stage: "Terminar lección"
     next: Siguiente
     check_failed: "No se pudo comprobar tu respuesta ({error}). Inténtalo de nuevo."
 
@@ -1831,6 +1831,14 @@ courses:
     stat_passed: "Lecciones aprobadas"
     stat_mastered: "Lecciones dominadas"
     stat_of: "{n} de {total}"
+    today_goal: "{n} de {goal} hoy"
+    today_done: "✓ hoy"
+    today_streak:
+      one: "{n} día de racha"
+      other: "{n} días de racha"
+    today_due:
+      one: "{n} palabra pendiente"
+      other: "{n} palabras pendientes"
     stat_label: "{name}: {value}"
     opened: "abierto {when}"
     continue: Continuar
@@ -1953,7 +1961,7 @@ courses:
       other: "Tiene {n} preguntas, así que una respuesta mal hace fallar la ronda. Con cuatro o más hay margen para un error."
     answer_in_prompt: "Esta pregunta revela su respuesta en el enunciado: {prompt}"
     one_spelling: "El hueco “{answer}” tiene varias palabras y acepta una sola forma de escribirlas. Añade otras formas en accepted_answers."
-    sprint_reading_only: Su sesión de Sprint es solo de lectura. No tiene preguntas, palabras ni ejercicios.
+    sprint_reading_only: "Su sesión de Repaso es solo de lectura. No tiene preguntas, palabras ni ejercicios."
     repeated_term: "Vuelve a enseñar “{term}”, después de {lessons}."
     quoted: "“{title}”"
     other_language: "Su texto parece estar en {found}, pero el curso explica en {expected}."
@@ -2006,9 +2014,9 @@ courses:
       conjugations: Tablas de paradigmas
       conversations: Conversaciones
       listening: Frases de escucha
-      guide: Pasos de la Guía ordenados a mano
-      sprint_icon: Icono de Sprint
-      bites: Bocados de Sprint
+      guide: "Pasos de Estudio ordenados a mano"
+      sprint_icon: "Icono de Repaso"
+      bites: "Bocados de Repaso"
       sorts: Ejercicios de ordenar
       spots: Encuentra el error
       builds: Construcción de oraciones
@@ -2067,9 +2075,9 @@ courses:
       vocabulary: Palabras
       term: Palabra
       conjugations: Tablas de conjugación
-      guide: Pasos de la guía
+      guide: "Pasos de Estudio"
       vocab: Tarjetas
-      sprint: Modo Sprint
+      sprint: "Repaso"
       role_a: Hablante A
       role_b: Hablante B
       markdown: Texto
@@ -2130,12 +2138,12 @@ courses:
       one: frase de escucha
       other: frases de escucha
     name_guide:
-      one: paso de la Guía
-      other: pasos de la Guía
+      one: "paso de Estudio"
+      other: "pasos de Estudio"
     name_unit:
       one: unidad
       other: unidades
-    name_sprint: el material del modo Sprint
+    name_sprint: "el material de Repaso"
     name_place: su lugar en el curso
     count: "{n} {noun}"
     the_list: "la lista de {name}"
@@ -2224,7 +2232,7 @@ courses:
     example_check_facts: Revisa los datos de cada lección y corrige lo que esté mal.
     example_add_lesson: "Añade una lección sobre ..."
     example_add_questions: Añade tres preguntas de opción múltiple a la lección 4.
-    example_add_sort: Añade un ejercicio de clasificar de Sprint a cada lección que no tenga ninguno.
+    example_add_sort: "Añade un ejercicio de clasificar de Repaso a cada lección que no tenga ninguno."
     example_add_listening: Añade frases de escucha a cada lección que tenga vocabulario pero no escucha.
     example_add_conversation: Añade una conversación a la lección 2.
     example_simpler: Usa palabras más sencillas en las explicaciones.
@@ -2447,7 +2455,7 @@ courses:
     form_remove_key: "Quitar {key}"
     form_key: Clave
     delete_item_confirm: ¿Eliminar este elemento? Deshacer lo recupera.
-    guide_derive_confirm: ¿Quitar los pasos ordenados a mano y dejar que la Guía los derive de nuevo? Se pierden los consejos y las tarjetas de concepto escritos aquí (Deshacer los recupera).
+    guide_derive_confirm: "¿Quitar los pasos ordenados a mano y dejar que Estudio los derive de nuevo? Se pierden los consejos y las tarjetas de concepto escritos aquí (Deshacer los recupera)."
     form_key_to_add: Clave que añadir
     form_add_key: Añadir una clave
     form_kind: Tipo
@@ -2583,10 +2591,10 @@ editor:
     sec_vocabulary: Vocabulario
     sec_quiz: Cuestionario
     sec_listening: Escucha
-    sec_sprint: Sprint
+    sec_sprint: "Repaso"
     sec_conversations: Conversaciones
     sec_conjugations: Conjugaciones
-    sec_guide: Guía
+    sec_guide: "Estudio"
     add_vocab: + Palabra
     add_quiz: + Pregunta
     add_listening: + Frase
@@ -2654,8 +2662,8 @@ editor:
     f_example: Ejemplo
     f_example_meaning: Significado del ejemplo
     grp_used: Usada por
-    used_by_questions: "Las preguntas {list} la enseñan (por nombre o por respuesta); las tarjetas, Parejas de palabras y Sprint usan todas las palabras."
-    used_by_none: Ninguna pregunta la enseña todavía; las tarjetas, Parejas de palabras y Sprint usan todas las palabras.
+    used_by_questions: "Las preguntas {list} la enseñan (por nombre o por respuesta); las tarjetas, Parejas de palabras y Repaso usan todas las palabras."
+    used_by_none: "Ninguna pregunta la enseña todavía; las tarjetas, Parejas de palabras y Repaso usan todas las palabras."
     question_n_of: "Pregunta {n} de {total}"
     type_multiple-choice: Opción múltiple
     type_fill-in-blank: Completar el hueco
@@ -2682,7 +2690,7 @@ editor:
     f_prompt: Enunciado
     f_statement: Afirmación
     h_statement: El estudiante dice si es verdadera o falsa.
-    h_prompt_blank: Escribe ___ donde va la respuesta. Sprint la rellena con fichas de palabras; Estudio pide al estudiante que la escriba.
+    h_prompt_blank: "Escribe ___ donde va la respuesta. Repaso la rellena con fichas de palabras; Lecciones pide al estudiante que la escriba."
     h_prompt_math: "Escribe las matemáticas como texto plano o Unicode (x², √2, π), no como LaTeX."
     f_options: Opciones
     f_options_aside: elige la correcta
@@ -2769,7 +2777,7 @@ editor:
     grp_art_aside: "dibujo ASCII opcional, de 8 líneas como máximo y 24 caracteres por línea"
     f_art: Dibujo
     icon_head: Icono del camino
-    icon_sub: la parada de la lección en el camino de Sprint
+    icon_sub: "la parada de la lección en el camino de Repaso"
     grp_icon: Icono
     f_icon: Emoji
     h_icon: "Un solo emoji, distinto del de cualquier otra lección."
@@ -2817,10 +2825,10 @@ editor:
     f_from_text: Del texto
     f_distractors: Distractores
     h_distractors: Fichas incorrectas mezcladas con las demás.
-    guide_head: Guía
+    guide_head: "Estudio"
     guide_sub: el orden en que se juega la lección
     guide_auto: derivado
-    guide_derived: "Sin pasos ordenados a mano: la Guía los crea a partir de las tarjetas del texto, grupos de cinco palabras y las preguntas desde la tercera tarjeta."
+    guide_derived: "Sin pasos ordenados a mano: Estudio los crea a partir de las tarjetas del texto, grupos de cinco palabras y las preguntas desde la tercera tarjeta."
     guide_order_by_hand: Ordenar los pasos a mano
     guide_back_to_derived: Volver a los pasos derivados
     steps:
@@ -2841,7 +2849,7 @@ editor:
     guide_add_concept: + Tarjeta de concepto
     guide_vocab_n: "Las siguientes {n} palabras como tarjetas"
     step_n_kind: "Paso {n} · {kind}"
-    guide_step_unknown: La Guía no conoce este paso; edítalo como JSON.
+    guide_step_unknown: "Estudio no conoce este paso; edítalo como JSON."
     f_section: Sección
     h_section: Un encabezado del texto, identificado por su comienzo.
     f_question: Pregunta
@@ -2851,7 +2859,7 @@ editor:
     f_markdown: Texto de la tarjeta
     check_prompt_empty: El enunciado está vacío
     check_blank_ok: Tiene un hueco
-    check_blank_missing: "No hay ___ en el enunciado: el estudiante escribe toda la respuesta y Sprint no muestra hueco"
+    check_blank_missing: "No hay ___ en el enunciado: el estudiante escribe toda la respuesta y Repaso no muestra hueco"
     check_type: Elige un tipo
     check_options_two: Necesita al menos 2 opciones
     check_options_right: Elige cuál opción es la correcta
@@ -2883,7 +2891,7 @@ editor:
     check_conv_two: Necesita al menos 2 líneas
     check_conv_both: Los dos papeles deben decir algo
     check_conv_empty: Una línea no tiene texto
-    check_conv_ok: "hablan los dos papeles · {n} líneas de 3 a 9 palabras con significado se convierten en construcciones de Sprint"
+    check_conv_ok: "hablan los dos papeles · {n} líneas de 3 a 9 palabras con significado se convierten en construcciones de Repaso"
     check_conj_both: Necesita un elemento y un significado
     check_conj_no_paradigm: "Los ajustes del curso no definen ningún paradigma, así que esta tabla no se puede mostrar"
     check_conj_set: "Elige un conjunto del paradigma: {sets}"
@@ -2910,7 +2918,7 @@ editor:
     check_scale_note: "Cada una debe ser una nota en ABC, como F, ^C o _B: {note}"
     check_scale_decoy: "El señuelo {note} es una nota de la escala"
     check_scale_ok: "8 notas"
-    check_guide_step: Un paso que la Guía no conoce
+    check_guide_step: "Un paso que Estudio no conoce"
     check_guide_section: "Ningún encabezado empieza por «{name}». Elige un encabezado o quita el paso"
     check_guide_question: "No hay ninguna pregunta «{id}» en esta lección. Elige una pregunta o quita el paso"
     check_guide_vocab: "Un número entero de palabras, 1 o más"
@@ -2919,9 +2927,9 @@ editor:
     check_title: La lección necesita un título
     check_content: La lección necesita algo de texto
     live_preview: Vista previa en vivo
-    mode_study: Estudio
-    mode_sprint: Sprint
-    mode_guide: Guía
+    mode_study: "Lecciones"
+    mode_sprint: "Repaso"
+    mode_guide: "Estudio"
     no_preview: No hay nada que previsualizar aquí.
     preview_failed: "No se pudo dibujar la vista previa: {error}"
     check: Comprobar
@@ -2957,13 +2965,13 @@ editor:
     course_language: el idioma del curso
     listen_status: Escucha y escribe lo que oigas.
     replay: Reproducir de nuevo
-    conv_no_build: "Todavía no hay ninguna línea de 3 a 9 palabras con significado: Sprint no construye nada con esta conversación."
+    conv_no_build: "Todavía no hay ninguna línea de 3 a 9 palabras con significado: Repaso no construye nada con esta conversación."
     ladder: Escalera
     wrong_rungs:
       one: "{n} peldaño incorrecto"
       other: "{n} peldaños incorrectos"
     path_stop: El camino
-    path_stop_note: "Esta es la parada de la lección en el camino de Sprint."
+    path_stop_note: "Esta es la parada de la lección en el camino de Repaso."
     quick_bite: Bocado rápido
     got_it: Entendido
     sort_it: Clasifícalo
@@ -2975,30 +2983,30 @@ editor:
     spot_mistake: Encuentra el error
     one_word_wrong: Hay una palabra incorrecta. Tócala.
     one_note_wrong: "Una nota está mal. Tócala y elige su corrección."
-    spot_note_preview: "En el modo Sprint, el alumno toca la nota {n} y elige {fix} entre tres fichas."
+    spot_note_preview: "En Repaso, el alumno toca la nota {n} y elige {fix} entre tres fichas."
     build_sentence: Construye la frase
     tap_tiles_in_order: Toca las fichas en orden
     concept: Concepto
     tip: Consejo
-    guide_derived_preview: "La Guía deriva los pasos de esta lección; ordénalos a mano para previsualizar cada uno."
+    guide_derived_preview: "Estudio deriva los pasos de esta lección; ordénalos a mano para previsualizar cada uno."
     hand_empty: No quedan palabras para este grupo.
     question_missing: "No hay ninguna pregunta «{id}» en esta lección."
-    note_quiz: Como en Estudio y Práctica. Comprobar la califica con el corrector propio del curso; no se registra nada.
-    note_quiz_sprint: Como en una sesión de Sprint. Las fichas son la respuesta entre palabras de la lección.
-    note_vocab: La tarjeta de la Guía; tócala para darle la vuelta.
-    note_vocab_sprint: Un ejercicio de elegir de Sprint, con otras palabras de la lección como opciones incorrectas.
+    note_quiz: "Como en Lecciones y Práctica. Comprobar la califica con el corrector propio del curso; no se registra nada."
+    note_quiz_sprint: "Como en una sesión de Repaso. Las fichas son la respuesta entre palabras de la lección."
+    note_vocab: "La tarjeta de Estudio; tócala para darle la vuelta."
+    note_vocab_sprint: "Un ejercicio de elegir de Repaso, con otras palabras de la lección como opciones incorrectas."
     note_listening: El navegador lee el texto en voz alta en el idioma del curso.
-    note_conversation: "Sprint construye frases con líneas de 3 a 9 palabras que tengan significado; esta es la primera."
+    note_conversation: "Repaso construye frases con líneas de 3 a 9 palabras que tengan significado; esta es la primera."
     note_conjugation: La tabla tal como la muestra la página de la lección.
-    note_ladder: El ejercicio de escalera de Sprint para esta tabla.
-    note_sort: El juego de clasificar, tal como lo juega Sprint.
-    note_spot: El juego de detectar, tal como lo juega Sprint.
-    note_build: El juego de construir, tal como lo juega Sprint.
-    note_scale: "La escalera de la escala, tal como la juega Sprint."
+    note_ladder: "El ejercicio de escalera de Repaso para esta tabla."
+    note_sort: "El juego de clasificar, tal como lo juega Repaso."
+    note_spot: "El juego de detectar, tal como lo juega Repaso."
+    note_build: "El juego de construir, tal como lo juega Repaso."
+    note_scale: "La escalera de la escala, tal como la juega Repaso."
     scale_kicker: "Construye la escala"
-    scale_preview: "En el modo Sprint el primer peldaño ya está lleno y el alumno toca las otras 7 notas entre {n} fichas."
+    scale_preview: "En Repaso el primer peldaño ya está lleno y el alumno toca las otras 7 notas entre {n} fichas."
     note_bite: Un bocado abre la sesión; no hay nada que responder.
-    note_guide: La Guía en este paso.
+    note_guide: "Estudio en este paso."
     note_content: El texto de la página de la lección.
     advice_title: "Cosas por revisar"
     advice_count:

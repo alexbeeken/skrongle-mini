@@ -6,7 +6,7 @@ all driven by JSON course files.
 ## Guides
 
 - [Getting started](getting-started): what the app is, the five ways to
-  study (Sprint, Study, Play, Guide, AI tutoring) and when a lesson counts as passed.
+  study (Study, Review, Play, Lessons, AI tutoring) and when a lesson counts as passed.
 - [How a course is built](course-structure): a course folder, `course.json`,
   lesson files and which field switches on which feature, with examples
   from the Spanish course.
@@ -23,7 +23,7 @@ all driven by JSON course files.
   lesson files. Give it to an LLM and it can write a course. Also as
   [raw Markdown](course-format.md) and a [JSON Schema](course.schema.json).
 - [Features](features): what each part of the app does and which lesson
-  fields it reads: Lessons, Quizzes, Guide, Sprint mode, Games, Map, Vocabulary,
+  fields it reads: Lessons, Quizzes, Study, Review, Games, Map, Vocabulary,
   History.
 - [Progress across modes](progress): the pass rule, and the API (and brief)
   for AI agents that teach the learner.

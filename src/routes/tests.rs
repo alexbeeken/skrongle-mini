@@ -1632,37 +1632,37 @@ fn every_mode_shares_the_daily_goal_and_where_you_left_off() {
         rest[..rest.find('"').unwrap()].parse::<i64>().unwrap()
     };
 
-    // Nothing yet: the first lesson, in Study mode, and an empty ring.
+    // Nothing yet: Up next is the first lesson's Study, and the goal's bar is empty.
     let home = get("/");
-    assert!(home.contains(&format!(r#"href="/lessons/{}" data-testid="home-continue""#, lessons[0].slug)), "{home}");
+    assert!(home.contains(&format!(r#"data-testid="path-next" data-lesson="{}" data-kind="study""#, lessons[0].id)), "{home}");
+    assert!(home.contains(&format!(r#"href="/study/{}" data-testid="path-start""#, lessons[0].slug)), "{home}");
     assert_eq!(ring(&home, "home-goal-ring"), 0);
 
     // A quiz answer in Study mode fills both rings.
     let q = &lessons[0].quiz[0];
     assert_eq!(post("/api/answer", serde_json::json!({ "question_id": q.question_id, "answer": q.correct_answer })), 200);
     assert_eq!(ring(&get("/"), "home-goal-ring"), 1);
-    assert_eq!(ring(&get("/sprint"), "sprint-goal-ring"), 1, "Sprint mode shows the same ring");
+    assert_eq!(ring(&get("/review"), "sprint-goal-ring"), 1, "Sprint mode shows the same ring");
 
-    // Opening a later lesson's Sprint session: every mode resumes there,
-    // and the home page opens it in Sprint mode.
+    // Opening a later lesson's Review session: Review and Study resume
+    // there. The home's list keeps its own order (`path::list`).
     let later = &lessons[5];
-    get(&format!("/sprint/play?lesson={}", later.slug));
-    let home = get("/");
-    assert!(home.contains(&format!(r#"href="/sprint/play?lesson={}" data-testid="home-continue""#, later.slug)), "{home}");
-    assert!(get("/sprint").contains(&format!(r#"data-lesson-id="{}" data-state="available" data-passed="false" data-current="true""#, later.slug)));
-    let guide = get("/guide");
+    get(&format!("/review/play?lesson={}", later.slug));
+    assert!(get("/review").contains(&format!(r#"data-lesson-id="{}" data-state="available" data-passed="false" data-current="true""#, later.slug)));
+    let guide = get("/study");
     assert!(guide.contains(&format!(r#"data-lesson-id="{}" data-state="available" data-passed="false" data-stars="0" data-current="true""#, later.slug)), "{guide}");
-    // Its Guide stage is open although the lessons before it are not passed.
-    let stage = agent.get(&format!("{base}/guide/{}", later.slug)).header("cookie", &cookie).call().unwrap();
+    // Its Study is open although the lessons before it are not passed.
+    let stage = agent.get(&format!("{base}/study/{}", later.slug)).header("cookie", &cookie).call().unwrap();
     assert_eq!(stage.status().as_u16(), 200);
-    assert!(get("/").contains(&format!(r#"href="/guide/{}" data-testid="home-continue""#, later.slug)), "the Guide is now the mode last used");
+    assert!(get("/").contains(&format!(r#"data-testid="path-next" data-lesson="{}" data-kind="study""#, lessons[0].id)));
+    // The old addresses redirect, keeping the query.
+    let moved = agent.get(&format!("{base}/sprint/play?lesson={}", later.slug)).header("cookie", &cookie).call().unwrap();
+    assert_eq!((moved.status().as_u16(), moved.headers().get("location").unwrap().to_str().unwrap()), (308, format!("/review/play?lesson={}", later.slug).as_str()));
+    let moved = agent.get(&format!("{base}/guide/{}", later.slug)).header("cookie", &cookie).call().unwrap();
+    assert_eq!((moved.status().as_u16(), moved.headers().get("location").unwrap().to_str().unwrap()), (308, format!("/study/{}", later.slug).as_str()));
 
-    // A review mix does not move it.
-    get("/sprint/play?mode=review");
-    get("/practice");
-    assert!(get("/").contains(&format!(r#"data-testid="home-continue" data-lesson-id="{}""#, later.slug)));
     // No XP anywhere.
-    for page in ["/", "/sprint", "/guide"] {
+    for page in ["/", "/review", "/study"] {
         assert!(!get(page).contains(" XP"), "{page} shows XP");
     }
 }
@@ -1995,7 +1995,7 @@ fn the_two_ai_permissions_refuse_their_own_routes_only() {
         (id, get(&loc, c).1)
     };
     let generate = |id: &str, c: &str| post(&format!("/courses/{id}/generate"), c, &[("provider", "anthropic"), ("wish", "Volcanoes and how they erupt")]);
-    let tutor_card = r#"data-testid="home-mode" data-mode="ai""#;
+    let tutor_card = r#"data-testid="nav-tutor""#;
     let not_allowed = "ccount is not allowed to do this";
 
     // A Teacher: everything, as far as a server without a key takes it.

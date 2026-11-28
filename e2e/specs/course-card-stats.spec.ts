@@ -135,3 +135,31 @@ test("with the app in French, when a course was last opened fits its card at 128
     }
   }
 });
+
+test("a started course's card has one line about today with the numbers its home shows; a course not started has none (#2282)", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await devReset(page);
+  await devLogin(page, `${NOT_TEACHER}&open=spanish`);
+  const { lessons } = await (await page.request.get("/api/progress")).json();
+  for (let i = 0; i < 3; i++) {
+    const r = await page.request.post("/api/progress/answers", { data: { lesson: lessons[0].id, prompt: "course-card-stats spec", answer: "x", correct: true } });
+    expect(r.ok()).toBe(true);
+  }
+
+  await page.goto("/");
+  const ring = page.getByTestId("home-goal-ring");
+  const points = (await ring.getAttribute("data-points"))!;
+  const goal = (await ring.getAttribute("data-goal"))!;
+  const streak = (await page.getByTestId("home-stat-streak").locator("strong").textContent())!.trim();
+  expect(Number(points)).toBeGreaterThanOrEqual(3);
+
+  await page.goto("/courses");
+  const line = page.locator('[data-testid="courses-card"][data-course-id="spanish"]').getByTestId("courses-card-today");
+  await expect(line).toHaveAttribute("data-points", points);
+  await expect(line).toHaveAttribute("data-goal", goal);
+  await expect(line).toHaveAttribute("data-streak", streak);
+  await expect(line).toHaveText(`${points} of ${goal} today · ${streak}-day streak`);
+  await expect(page.locator('[data-course-id="french"] [data-testid="courses-card-today"]')).toHaveCount(0);
+  const fits = await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth);
+  expect(fits, "the line fits a 390 px phone").toBe(true);
+});

@@ -1,7 +1,7 @@
 # Progress across modes
 
-The same material can be studied many ways: properly at a desk in Study mode, in
-five-minute bursts on the bus in Sprint mode, as games in Play mode, one-to-one with
+The same material can be studied many ways: properly at a desk in Lessons mode, in
+five-minute bursts on the bus in Review, as games in Play mode, one-to-one with
 the AI tutor, or with any AI agent you talk to outside the app. All of them
 move the same progress. This page holds the rule they share and the API an
 outside agent uses to report what the learner showed it. Give this page to
@@ -15,7 +15,7 @@ mode:
 
 1. **Seen.** The learner has been taught the lesson's material. That means
    reading the lesson page and passing its short reading check, playing a
-   Sprint mode lesson session or a Guide stage (both open with the lesson's
+   Review lesson session or a Study lesson (both open with the lesson's
    teaching cards), or being taught it one-to-one by a tutor.
 2. **Shown.** In one sitting, the learner answered at least **3** of the
    lesson's exercises and got at least **70 %** right. A lesson with fewer
@@ -34,7 +34,7 @@ the course, or later on the lessons page. The lessons of the levels below
 are **skipped**, not passed: nothing is recorded for them and nothing is
 scored. Recommended practice, the review mix, the lightning round, a mixed
 listening round, the AI tutor and the "read next" hint never pick a skipped
-lesson, and the Sprint mode path and the Guide start at the first lesson of
+lesson, and the Review path and Study start at the first lesson of
 the chosen level. The lists show it as *Skipped*, and the "passed" totals
 leave it out. A skipped lesson the
 learner studies anyway (seen, read or answered) counts like any other from
@@ -61,8 +61,8 @@ they read.
 
 | Mode | Seen | A run |
 |---|---|---|
-| Study mode | the reading check at the end of the lesson page (*I've read it* on a lesson without questions) | a practice round: each lesson it asked about is one run; a listening round on one lesson |
-| Sprint mode | a lesson session (it opens with the lesson's bites) | the same session: every graded exercise |
+| Lessons mode | the reading check at the end of the lesson page (*I've read it* on a lesson without questions) | a practice round: each lesson it asked about is one run; a listening round on one lesson |
+| Review | a lesson session (it opens with the lesson's bites) | the same session: every graded exercise |
 | Play mode | a Guide stage (its concept cards) | the same stage: its quick checks; Word Match on one lesson's terms (each pair right, each wrong try a miss) |
 | AI tutoring | the tutor taught the lesson | the session's answers on that lesson, skips as misses, once there are enough of them |
 | AI agents | `POST /api/progress/seen` or `/pass` | `POST /api/progress/pass` |
@@ -71,27 +71,27 @@ Review mixes, the lightning round, the paradigm drill, Numbers by ear and
 Date Dash are not about one lesson. They move mastery and
 vocabulary but do not pass lessons.
 
-Passing a lesson anywhere completes its stop on the Sprint mode path and its
-Guide stage, unlocks the next stop of both, unlocks its items in the
-paradigm drill, and shows a ✓ on the Study mode lessons list, lesson page and
+Passing a lesson anywhere completes its stop on the Review path and its
+Study lesson, unlocks the next stop of both, unlocks its items in the
+paradigm drill, and shows a ✓ on the Lessons mode lessons list, lesson page and
 map. The home page counts lessons passed.
 
 ## The daily goal
 
 Every mode fills one daily goal: the ring on the course's home page and in
-Sprint mode. It counts *effort points*, so reading, a game or a hand of
+Review. It counts *effort points*, so reading, a game or a hand of
 flashcards moves it as well as a quiz does. Something that takes longer
 earns more. A typed quiz answer (about 15 seconds) is one point:
 
 | What | Points |
 |---|---|
-| A quiz question, in any mode (Study, a Guide check, Sprint mode, an agent's answer) | 1 |
+| A quiz question, in any mode (Lessons, a Study check, Review, an agent's answer) | 1 |
 | A question from the AI tutor | 1.5 |
-| A Sprint mode exercise that is not a quiz question | 0.6 |
+| A Review exercise that is not a quiz question | 0.6 |
 | One item of a game (a pair, a number, a date, a picture, a drill form) | 0.4 |
 | One sentence of a listening round | 1 |
 | One flashcard | 0.3 |
-| One card of a Guide stage | 0.3 |
+| One card of a Study lesson | 0.3 |
 | Reading a lesson to the end (its check passed, or *I've read it*) | 4 |
 
 The goal is 20 points a day, in the learner's time zone, per course. Any of
@@ -100,25 +100,25 @@ these keeps the day streak going too. One running row per course (`earnings`,
 points ever logged. Each activity updates it, and the app never adds it up
 from the whole log (#589). The table is `activity::Kind::points`
 and `activity::DAILY_GOAL` in `src/activity.rs`. XP, which only
-Sprint mode and the Guide used to give, is gone.
+Review and Study used to give, is gone.
 
 ## Where you left off
 
 Every mode resumes at the same lesson: the home page's *Continue*, the
-current stop of Sprint mode's path, the Guide's current stage, the map's
-"you are here" and Study mode's *Continue*. It is the lesson the learner
+current stop of Review's path, Study's current lesson, the map's
+"you are here" and Lessons mode's *Continue*. It is the lesson the learner
 last opened or worked on, in any mode, unless it is passed; then the next
 lesson after it that is neither passed nor skipped (from the start of the
 course when none is left after it). A new learner starts at the first
-lesson that is not skipped. It is open in Sprint mode and the Guide even
+lesson that is not skipped. It is open in Review and Study even
 when the lesson before it is not passed.
 
-Only something about one lesson moves it: its page, its Guide stage, a
-Sprint mode session on it, a practice, listening or Word Match round on it
+Only something about one lesson moves it: its page, its Study lesson, a
+Review session on it, a practice, listening or Word Match round on it
 alone, a tutor session on it, or an agent's `seen` or `pass`. A review mix,
 the lightning round or recommended practice draws on many lessons and does
 not. *Continue* on the home page opens the lesson in the mode last used:
-Sprint mode, the Guide, or the lesson page for the rest.
+Review, Study, or the lesson page for the rest.
 
 ## For AI agents
 
@@ -227,8 +227,8 @@ quiz questions of the course still count after that.
 `src/activity.rs` holds the daily goal and the resume point: every mode
 calls `activity::record` (a kind and how many, table `activity_log`) and,
 for a lesson-focused page or round, `activity::touch` (table
-`lesson_touches`); `activity::resume` is the one rule the home page, Sprint
-mode, Study mode, the Guide and the map apply.
+`lesson_touches`); `activity::resume` is the one rule the home page, Review
+mode, Lessons mode, Study and the map apply.
 
 `src/progress.rs` holds the rule (`PASS_PCT`, `MIN_ANSWERS`,
 `required_answers`, the `RULES` text the tutor and agents receive) and the
@@ -239,9 +239,9 @@ starting level is `projects.start_unit`; `Project::start` carries it as a
 unit index, and `progress::is_skipped` (with `quiz::is_skipped` and
 `mastery::Status::of_lesson` on top) is the one rule every picker and list
 applies. Every mode calls `mark_seen`, `record_run` or `record_taught_run`;
-none writes the table itself. Seen and Study mode's *read*
+none writes the table itself. Seen and Lessons mode's *read*
 (`user_progress.read_at`, which lets a lesson into recommended practice) are
-one thing: `mark_seen` sets both, so a lesson taught in Sprint mode or by a
-tutor joins recommended practice too. Guide and Sprint mode completions from
+one thing: `mark_seen` sets both, so a lesson taught in Review or by a
+tutor joins recommended practice too. Study and Review completions from
 before the table existed carried over as seen, and as passed where they had
 earned two stars or more (70 %). Lessons already read count as seen.

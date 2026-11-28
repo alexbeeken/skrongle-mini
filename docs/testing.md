@@ -787,7 +787,7 @@ rely on:
 - **State in attributes.** A picked tile or option has `aria-pressed`, a
   graded or used-up one `data-state` (`right`, `wrong`, `correct`, `used`,
   `done`), as well as any class the CSS uses. A state shown only as an icon
-  (🔒, ✓) also goes in the accessible name: the Sprint mode path buttons read
+  (🔒, ✓) also goes in the accessible name: the Review path buttons read
   "Ser vs. Estar — locked".
 - **A short `aria-label` that names the destination** when the visible text
   runs together or is a symbol: "Open Study mode", 

@@ -16,6 +16,9 @@ pub struct CourseCard {
     /// Lessons passed / mastered, when the user has a project here.
     pub progress: Option<(usize, usize)>,
     pub last_opened: Option<String>,
+    /// A started course with activity in the last 30 days: its line about
+    /// today (`today_line.rs`).
+    pub today: Option<super::today_line::TodayLine>,
     pub is_active: bool,
     pub editable: bool,
     pub error: Option<String>,
@@ -192,6 +195,7 @@ fn card_of(m: &crate::content::Manifest, (lessons, questions, terms): (usize, us
         units: m.units.len(),
         progress: None,
         last_opened: None,
+        today: None,
         is_active: false,
         editable,
         error: None,
@@ -286,6 +290,7 @@ fn broken_card(state: &AppState, row: &CourseRow) -> CourseCard {
         units: 0,
         progress: None,
         last_opened: None,
+        today: None,
         is_active: false,
         editable: true,
         error: row.error.clone(),
@@ -410,6 +415,10 @@ pub(in crate::routes) fn to_editor(id: &str, key: &str) -> Response {
 pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Option<String>, generate: Option<GenerateView>) -> Result<Response, AppError> {
     let at = now();
     let uid = user.id;
+    // Each started course's line about today: three queries for all of them,
+    // in the learner's time zone.
+    let tz = user.tz;
+    let days = state.db.call(move |c| super::today_line::Days::load(c, uid, tz, at)).await?;
     let (projects, mine, shared, summary, fresh, passed) = state
         .db
         .call(move |c| {
@@ -469,6 +478,9 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
         let mastered = summary.get(&pr.course_id).map_or(0, |s| s.1);
         c.progress = Some((passed.get(&pr.course_id).copied().unwrap_or(0), mastered));
         c.last_opened = Some(time_ago(pr.last_opened_at, at));
+        if !matches!(c.state, "generating" | "failed") {
+            c.today = days.line(&pr.course_id, &pr.motivator);
+        }
         c.is_active = user.course_id.as_deref() == Some(pr.course_id.as_str());
         settings.copyable = c.copyable && can_create;
         settings.editable = c.editable;

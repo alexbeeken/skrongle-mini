@@ -94,11 +94,11 @@ test("the reading check and the Guide draw it; Sprint mode leaves it out", async
   await page.goto("/lessons/measure");
   await expect(page.getByTestId("lesson-check").getByTestId("measure")).toHaveCount(2);
 
-  await page.goto("/guide/measure");
+  await page.goto("/study/measure");
   await expect(page.getByTestId("stage-step").getByTestId("measure")).toHaveCount(3);
 
   // Sprint mode asks in text: none of the lesson's questions are in its session.
-  await page.goto("/sprint/play?lesson=measure&reduce-motion=1");
+  await page.goto("/review/play?lesson=measure&reduce-motion=1");
   const session = await page.locator("script#session").textContent();
   expect(JSON.parse(session ?? "").exercises.length).toBeGreaterThan(0);
   expect(session).not.toContain("tc-measure-0");

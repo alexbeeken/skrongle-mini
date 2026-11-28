@@ -31,10 +31,10 @@ vocabulary and history with it.
 
 | Mode | Where | What you do |
 |---|---|---|
-| **Sprint** | `/sprint` | Five-minute phone sessions of short exercises along a path of lessons. The daily goal ring, day streak, a review mix and a 60-second lightning round. |
-| **Study** | `/lessons` | Read each lesson, pass its two-question reading check, then practise. Lessons, Practice, Listening, Map, Vocabulary, History, Mistakes. |
+| **Study** | `/study` | Each lesson in small steps: cards, quick checks, flashcards, tips. Stars. |
+| **Review** | `/review` | Five-minute phone sessions of short exercises along a path of lessons. The daily goal ring, day streak, a review mix and a 60-second lightning round. |
 | **Play** | `/play` | Games: Word Match, the conjugation drill, Numbers by ear, Date Dash, Flashcards. |
-| **Guide** | `/guide` | Each lesson as a stage of small steps: cards, quick checks, flashcards, tips. Stars. |
+| **Lessons** | `/lessons` | Read each lesson, pass its two-question reading check, then practise. Lessons, Practice, Listening, Map, Vocabulary, History, Mistakes. |
 | **AI tutoring** | `/tutor` | A one-to-one lesson over chat. Needs an API key (Claude, OpenAI or Gemini) on the server, which the owner saves on *Manage Users*. |
 
 A game or exercise only appears when the course has the material for it. A
@@ -49,15 +49,15 @@ game or a quiz answer all move it. See
 
 A lesson is **passed** once both are true, in any order and any mode:
 
-1. **Seen**: you read it to the end in Study mode (and passed its reading
-   check), or played it as a Sprint session or a Guide stage, or a tutor
+1. **Seen**: you read it to the end in Lessons mode (and passed its reading
+   check), or played it as a Review session or a Study lesson, or a tutor
    taught it.
 2. **Shown**: in one sitting you answered at least 3 of its exercises (all of
    them if it has fewer) and got 70 % or more right.
 
 A pass in one mode counts in every mode: it completes the lesson's stop on the
-Sprint path and its Guide stage, unlocks the next, and puts a ✓ on the lesson
-in Study mode. A pass stays even after a bad round later.
+Review path and its Study lesson, unlocks the next, and puts a ✓ on the lesson
+in Lessons mode. A pass stays even after a bad round later.
 
 **Mastery** is separate: a 0–100 score per lesson that rises with right
 answers, falls with wrong ones and fades after a few days without practice.

@@ -33,10 +33,10 @@ test("the home page has a map row and the Guide as a mode of its own", async ({ 
   await page.goto("/");
   const guide = page.locator('[data-testid="home-mode"][data-mode="guide"]');
   const stat = guide.getByTestId("home-guide-stat");
-  await expect(stat).toContainText("stages complete");
+  await expect(stat).toContainText("lessons complete");
   await guide.getByTestId("home-start-guide").click();
-  await expect(page).toHaveURL(/\/guide\/[^/]+$/);
-  await page.goto("/guide");
+  await expect(page).toHaveURL(/\/study\/[^/]+$/);
+  await page.goto("/study");
   // The home page counts the same stages as the Guide.
   const completeOnGuide = await page.locator('[data-testid="guide-stage"][data-state="complete"]').count();
   await page.goto("/");

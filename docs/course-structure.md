@@ -96,8 +96,8 @@ The Spanish manifest, shortened:
 ```
 
 Only `id`, `slug`, `title`, `unit` and `content` are required. `content` is
-Markdown; each `## ` heading starts a section, and sections become the Guide's
-cards and Sprint's bites. Three to five short sections make a good lesson.
+Markdown; each `## ` heading starts a section, and sections become Study's
+cards and Review's bites. Three to five short sections make a good lesson.
 
 ## Which field switches on what
 
@@ -105,16 +105,16 @@ Add a field and the lesson appears in the features that read it; leave it out
 and the lesson simply is not there. The complete table is
 [Which feature reads what](course-format#which-feature-reads-what).
 
-- **Lesson page, Guide cards, Sprint bites**: `content`.
-- **Practice, reading check, Guide checks, Sprint questions, mastery**:
+- **Lesson page, Study cards, Review bites**: `content`.
+- **Practice, reading check, Study checks, Review questions, mastery**:
   `quiz`. Five types: multiple-choice, true-false, fill-in-blank, numeric
   and expression (maths answers checked by value).
-- **Flashcards, Word Match, Sprint word games**: `vocabulary`.
-- **Listening and Sprint's listening exercises** (language courses): `listening`.
-- **Sprint sentence builds**: `conversations`, or `sprint.builds`.
-- **Sprint sort / spot-the-mistake / bites by hand**: `sprint`.
-- **Conjugation drill, Sprint ladders**: `conjugations` (needs `paradigm`).
-- **A Guide stage in your own order**: `guide`.
+- **Flashcards, Word Match, Review word games**: `vocabulary`.
+- **Listening and Review's listening exercises** (language courses): `listening`.
+- **Review sentence builds**: `conversations`, or `sprint.builds`.
+- **Review sort / spot-the-mistake / bites by hand**: `sprint`.
+- **Conjugation drill, Review ladders**: `conjugations` (needs `paradigm`).
+- **A Study lesson in your own order**: `guide`.
 
 ## Smallest valid course
 

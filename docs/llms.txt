@@ -1,6 +1,6 @@
 # Skrongle
 
-> A learning app driven by JSON courses: a `course.json` manifest plus one JSON file per lesson. Every mode (Sprint, Study, Play, Guide, AI tutoring) reads the same files.
+> A learning app driven by JSON courses: a `course.json` manifest plus one JSON file per lesson. Every mode (Study, Review, Play, Lessons, AI tutoring) reads the same files.
 
 To write a course: read the course format (it is complete and self-contained), write `course.json` first, then one lesson file at a time, and reply with JSON only. Check files against the JSON Schema. In the app, add them on the course page (`/courses/<id>`); every save validates the whole course and the error names the file and field.
 

@@ -37,11 +37,11 @@ async function pass(page: Page, slug: string) {
 async function expectPassedEverywhere(page: Page, slug: string, after: string) {
   const truth = await expectProgressAgrees(page);
   expect(truth.find((l) => l.slug === slug)?.passed, `${slug} passed in /api/progress`).toBe(true);
-  for (const [path, testid] of [["/lessons?unit=all", "lessons-item"], ["/map", "map-lesson"], ["/sprint?reduce-motion=1", "sprint-lesson"], ["/guide", "guide-stage"]]) {
+  for (const [path, testid] of [["/lessons?unit=all", "lessons-item"], ["/map", "map-lesson"], ["/review?reduce-motion=1", "sprint-lesson"], ["/study", "guide-stage"]]) {
     await page.goto(path);
     await expect(page.locator(`[data-testid="${testid}"][data-lesson-id="${slug}"]`), `${slug} on ${path}`).toHaveAttribute("data-passed", "true");
   }
-  for (const [path, testid] of [["/sprint?reduce-motion=1", "sprint-lesson"], ["/guide", "guide-stage"]]) {
+  for (const [path, testid] of [["/review?reduce-motion=1", "sprint-lesson"], ["/study", "guide-stage"]]) {
     await page.goto(path);
     await expect(page.locator(`[data-testid="${testid}"][data-lesson-id="${after}"]`), `${after} on ${path}`).not.toHaveAttribute("data-state", "locked");
   }
@@ -64,7 +64,7 @@ test("the course is on /courses, offers its four levels, and starts at greetings
   expect(lessons[0].slug).toBe(FIRST);
   expect(lessons.filter((l) => l.skipped)).toEqual([]);
   expect(new Set(lessons.map((l) => l.unit)).size, "every unit has lessons").toBe(course.units.length);
-  await bugs.go("/sprint?reduce-motion=1");
+  await bugs.go("/review?reduce-motion=1");
   await expect(page.getByTestId("sprint-continue").first()).toHaveAttribute("data-lesson-id", FIRST);
   await bugs.go("/courses");
   await expect(page.locator(`[data-testid="courses-card"][data-course-id="${COURSE}"]`).first()).toBeVisible();
@@ -96,7 +96,7 @@ test("Sprint: play greetings' session right at phone width", async ({ page }, in
   const bugs = await newLearner(page, info);
   const [first, second] = (await apiProgress(page)).map((l) => l.slug);
   await page.setViewportSize({ width: 390, height: 844 });
-  await bugs.go(`/sprint/play?lesson=${first}&reduce-motion=1`);
+  await bugs.go(`/review/play?lesson=${first}&reduce-motion=1`);
   const run = await playSprintRight(page, key);
   expect(run.wrong, "answers the app marked wrong").toEqual([]);
   await expect(page.getByTestId("sprint-play-done")).toHaveAttribute("data-saved", "true");
@@ -108,7 +108,7 @@ test("Sprint: play greetings' session right at phone width", async ({ page }, in
 test("Play: play the first stage", async ({ page }, info) => {
   const bugs = await newLearner(page, info);
   const [first, second] = (await apiProgress(page)).map((l) => l.slug);
-  await bugs.go(`/guide/${first}`);
+  await bugs.go(`/study/${first}`);
   const [right, total] = await playStage(page, key);
   expect(right, "every quick check right").toBe(total);
   await expectPassedEverywhere(page, first, second);

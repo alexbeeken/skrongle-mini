@@ -63,7 +63,11 @@ pub trait Motivator: Sync {
     /// What it says about a run that earned something (inside `Db::call`;
     /// [`reward`] never asks about a run that earned nothing). The line is
     /// drawn on the request's own task, like the hero. `None` says nothing.
-    fn reward(&self, conn: &Connection, user_id: i64, course: &ContentStore, run: &RunOutcome) -> rusqlite::Result<Option<Box<dyn Reward>>>;
+    fn reward(&self, conn: &Connection, user_id: i64, course: &ContentStore, run: &RunOutcome) -> rusqlite::Result<Option<Box<dyn Reward>>>;    /// Its Progress panel shows the learner's day streak. The course list's
+    /// line about today names the streak only where the home does.
+    fn shows_streak(&self) -> bool {
+        false
+    }
 }
 
 /// The motivator's line at the end of a lesson or session.
@@ -236,6 +240,9 @@ impl Motivator for Stats {
     fn reward(&self, _: &Connection, _: i64, _: &ContentStore, run: &RunOutcome) -> rusqlite::Result<Option<Box<dyn Reward>>> {
         let icons = crate::content::Icons::default();
         Ok(Some(Box::new(StatsReward { run: run.clone(), streak_icon: icons.streak, goal_icon: icons.goal })))
+    }
+    fn shows_streak(&self) -> bool {
+        true
     }
 }
 

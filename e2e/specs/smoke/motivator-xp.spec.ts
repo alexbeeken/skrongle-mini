@@ -68,7 +68,7 @@ test("XP counts what was earned under any motivator and levels the learner up", 
   // and the hero grows by exactly that much. A run's window is whole seconds
   // (and a second of slack), so let the reading check fall out of it first.
   await page.waitForTimeout(2500);
-  await page.goto(`/sprint/play?lesson=${a.slug}&reduce-motion=1`);
+  await page.goto(`/review/play?lesson=${a.slug}&reduce-motion=1`);
   await playSprintRight(page, key);
   const done = page.getByTestId("sprint-play-done");
   await expect(done).toHaveAttribute("data-saved", "true");

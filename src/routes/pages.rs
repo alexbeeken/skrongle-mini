@@ -152,11 +152,11 @@ pub fn game_row(a: &crate::games::Activity, content: &ContentStore, at: i64) -> 
         (crate::t("study.games.listening"), timed_result(a), crate::listening::href(content, &a.board))
     } else if a.game == crate::sprint::GAME {
         let href = match a.board.as_str() {
-            crate::sprint::BOARD_REVIEW => crate::url("/sprint/play?mode=review"),
-            crate::sprint::BOARD_LIGHTNING => crate::url("/sprint/play?mode=lightning"),
+            crate::sprint::BOARD_REVIEW => crate::url("/review/play?mode=review"),
+            crate::sprint::BOARD_LIGHTNING => crate::url("/review/play?mode=lightning"),
             id => match content.lesson_by_id(id) {
-                Some(l) => crate::url(&format!("/sprint/play?lesson={}", l.slug)),
-                None => crate::url("/sprint"),
+                Some(l) => crate::url(&format!("/review/play?lesson={}", l.slug)),
+                None => crate::url("/review"),
             },
         };
         (crate::t("study.games.sprint"), timed_result(a), href)

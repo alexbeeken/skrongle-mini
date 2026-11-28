@@ -214,9 +214,7 @@ impl Ledger {
     pub fn load(conn: &Connection, user_id: i64, course_id: &str, tz: i64) -> rusqlite::Result<Ledger> {
         let row = conn
             .prepare_cached("SELECT points, goals, day, day_points, streak FROM earnings WHERE user_id = ?1 AND course_id = ?2")?
-            .query_row(params![user_id, course_id], |r| {
-                Ok(Ledger { points: r.get(0)?, goals: r.get(1)?, day: r.get(2)?, day_points: r.get(3)?, streak: r.get(4)? })
-            })
+            .query_row(params![user_id, course_id], Ledger::of_row)
             .optional()?;
         match row {
             Some(l) => Ok(l),
@@ -226,6 +224,21 @@ impl Ledger {
                 Ok(l)
             }
         }
+    }
+
+    /// The learner's rows in every course, as they are stored (the course
+    /// list's line about today): course id -> ledger. One query. A
+    /// course without a row has no activity since the ledger began (#589);
+    /// [`Ledger::load`] would add up its history, this leaves it out.
+    pub fn of_user(conn: &Connection, user_id: i64) -> rusqlite::Result<HashMap<String, Ledger>> {
+        let mut stmt = conn.prepare_cached("SELECT points, goals, day, day_points, streak, course_id FROM earnings WHERE user_id = ?1")?;
+        let rows = stmt.query_map(params![user_id], |r| Ok((r.get::<_, String>(5)?, Ledger::of_row(r)?)))?;
+        rows.collect()
+    }
+
+    /// A row of `points, goals, day, day_points, streak`.
+    fn of_row(r: &rusqlite::Row<'_>) -> rusqlite::Result<Ledger> {
+        Ok(Ledger { points: r.get(0)?, goals: r.get(1)?, day: r.get(2)?, day_points: r.get(3)?, streak: r.get(4)? })
     }
 
     fn save(&self, conn: &Connection, user_id: i64, course_id: &str) -> rusqlite::Result<()> {

@@ -14,7 +14,7 @@
 </section>
 
 {% if total_learned == 0 %}
-  <p class="alert" role="status" data-testid="vocabulary-empty">{{ crate::t2("vocab.index.empty_html", "practice_url", crate::url("/practice"), "guide_url", crate::url("/guide"))|safe }}</p>
+  <p class="alert" role="status" data-testid="vocabulary-empty">{{ crate::t2("vocab.index.empty_html", "practice_url", crate::url("/practice"), "guide_url", crate::url("/study"))|safe }}</p>
 {% endif %}
 
 {% for l in lessons %}{% if l.learned > 0 %}
