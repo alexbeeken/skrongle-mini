@@ -3066,5 +3066,4 @@ path:
   back_in:
     one: "De retour dans {n} jour"
     other: "De retour dans {n} jours"
-  goal_met: "Objectif du jour atteint"
   unit_passed: "{passed} sur {total} leçons réussies"

@@ -3066,5 +3066,4 @@ path:
   back_in:
     one: "{n} 天后回来"
     other: "{n} 天后回来"
-  goal_met: "今天的目标已达成"
   unit_passed: "已通过 {passed} / {total} 课"

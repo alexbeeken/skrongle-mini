@@ -2,8 +2,9 @@
    (motivators.rs, #559): today's goal and the current unit as bars, then the
    streak, lessons passed and terms. What earns points is behind the (i). #}
 <div class="hp-stat">
-  <p class="hp-stat-line"><b>{{ crate::t("path.todays_goal") }}</b><span data-testid="home-goal-text">{% if today.done() %}{{ crate::t("path.goal_met") }}{% else %}{{ crate::t2("path.points", "n", today.points, "goal", today.goal) }}{% endif %}</span>
-    <button type="button" class="info-btn" commandfor="home-info-goal" command="show-modal" data-opens="home-info-goal" aria-haspopup="dialog" aria-label="{{ crate::t("goal.info_label") }}" data-testid="home-info-goal">i</button></p>
+  <p class="hp-stat-line"><b>{{ crate::t("path.todays_goal") }}</b>
+    <button type="button" class="info-btn" commandfor="home-info-goal" command="show-modal" data-opens="home-info-goal" aria-haspopup="dialog" aria-label="{{ crate::t("goal.info_label") }}" data-testid="home-info-goal">i</button>
+    <span data-testid="home-goal-text">{{ crate::t2("path.points", "n", today.points, "goal", today.goal) }}</span></p>
   <div class="hp-bar goal{% if today.done() %} done{% endif %}" role="progressbar" aria-label="{{ crate::t2("goal.ring_label", "n", today.points, "goal", today.goal) }}" aria-valuenow="{{ today.points }}" aria-valuemin="0" aria-valuemax="{{ today.goal }}" data-testid="home-goal-ring" data-points="{{ today.points }}" data-goal="{{ today.goal }}"><i style="width:{{ today.pct() }}%"></i></div>
 </div>
 <div class="hp-stat" data-testid="home-map">
